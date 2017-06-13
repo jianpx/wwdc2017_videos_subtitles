@@ -1,0 +1,2824 @@
+1
+00:00:18,046 --> 00:00:19,576
+>> Hello. My name is Stewart
+
+
+2
+00:00:19,576 --> 00:00:21,036
+Montgomery and in this session
+
+
+3
+00:00:21,036 --> 00:00:22,486
+we'll discuss how your app can
+
+
+4
+00:00:22,486 --> 00:00:24,806
+use new APIs and iOS 11 to
+
+
+5
+00:00:24,806 --> 00:00:27,126
+filter out unwanted SMS and MMS
+
+
+6
+00:00:27,126 --> 00:00:29,056
+messages and help users avoid an
+
+
+7
+00:00:29,056 --> 00:00:30,026
+increasing nuisance.
+
+
+8
+00:00:31,776 --> 00:00:33,316
+Before we dive in, let's take a
+
+
+9
+00:00:33,316 --> 00:00:34,496
+look at what happens when we
+
+
+10
+00:00:34,496 --> 00:00:36,476
+receive an unwanted SMS message
+
+
+11
+00:00:36,476 --> 00:00:37,906
+in iOS 10.3.
+
+
+12
+00:00:41,046 --> 00:00:42,066
+Here we see what is pretty
+
+
+13
+00:00:42,066 --> 00:00:44,066
+obviously an unwanted, spam SMS.
+
+
+14
+00:00:45,296 --> 00:00:46,666
+Messages like this are annoying
+
+
+15
+00:00:46,666 --> 00:00:48,346
+for users since they play a tone
+
+
+16
+00:00:48,346 --> 00:00:49,856
+or vibrate just like a normal
+
+
+17
+00:00:49,856 --> 00:00:50,536
+message and distract from
+
+
+18
+00:00:50,536 --> 00:00:50,976
+whatever you're doing.
+
+
+19
+00:00:55,576 --> 00:00:57,116
+And if I launch messages it's
+
+
+20
+00:00:57,116 --> 00:00:58,656
+right there at the top, mixed in
+
+
+21
+00:00:58,656 --> 00:00:59,946
+with my real messages and
+
+
+22
+00:00:59,946 --> 00:01:00,936
+cluttering up the list.
+
+
+23
+00:01:01,966 --> 00:01:03,616
+Unfortunately some iPhone users
+
+
+24
+00:01:03,616 --> 00:01:05,025
+get a lot of these messages and
+
+
+25
+00:01:05,025 --> 00:01:06,086
+they would love to have a way to
+
+
+26
+00:01:06,086 --> 00:01:06,726
+filter them out.
+
+
+27
+00:01:07,786 --> 00:01:09,926
+With iOS 11 we are introducing
+
+
+28
+00:01:09,926 --> 00:01:11,356
+APIs to allow your app to
+
+
+29
+00:01:11,356 --> 00:01:13,196
+analyze the sender and content
+
+
+30
+00:01:13,196 --> 00:01:15,336
+of any SMS or MMS message from
+
+
+31
+00:01:15,336 --> 00:01:17,046
+an unknown sender and attempt to
+
+
+32
+00:01:17,046 --> 00:01:18,156
+filter out those which are
+
+
+33
+00:01:18,156 --> 00:01:18,776
+unsolicited.
+
+
+34
+00:01:18,866 --> 00:01:19,936
+Let me show you how it works.
+
+
+35
+00:01:23,046 --> 00:01:24,756
+Here on my iPhone running iOS 11
+
+
+36
+00:01:25,356 --> 00:01:26,546
+I'll launch the New Messages
+
+
+37
+00:01:26,546 --> 00:01:26,756
+app.
+
+
+38
+00:01:27,806 --> 00:01:29,036
+And since I've already installed
+
+
+39
+00:01:29,036 --> 00:01:30,556
+a Message Filter app extension
+
+
+40
+00:01:30,746 --> 00:01:32,736
+and enabled it in settings I now
+
+
+41
+00:01:32,736 --> 00:01:34,696
+see a second tab called SMS
+
+
+42
+00:01:34,696 --> 00:01:34,976
+Junk.
+
+
+43
+00:01:35,376 --> 00:01:36,966
+And if I get a message which the
+
+
+44
+00:01:36,966 --> 00:01:38,726
+app believes is junk it'll only
+
+
+45
+00:01:38,726 --> 00:01:39,716
+appear under that tab.
+
+
+46
+00:01:41,476 --> 00:01:42,726
+Ah, there's a new message now.
+
+
+47
+00:01:43,016 --> 00:01:43,806
+Let's see what it is.
+
+
+48
+00:01:46,146 --> 00:01:47,316
+This is the same message as
+
+
+49
+00:01:47,316 --> 00:01:49,156
+before, but now it no longer
+
+
+50
+00:01:49,156 --> 00:01:50,466
+appears in the regular list with
+
+
+51
+00:01:50,466 --> 00:01:52,056
+my known contacts and doesn't
+
+
+52
+00:01:52,056 --> 00:01:53,406
+distract me with a sound or
+
+
+53
+00:01:53,406 --> 00:01:54,056
+notification.
+
+
+54
+00:01:56,046 --> 00:01:57,986
+And if I tap to read it I can
+
+
+55
+00:01:57,986 --> 00:01:59,266
+see from the label at the bottom
+
+
+56
+00:01:59,496 --> 00:02:00,576
+that it was marked as junk by an
+
+
+57
+00:02:00,576 --> 00:02:00,966
+app called Filter It.
+
+
+58
+00:02:05,226 --> 00:02:06,516
+Now there are a few reasons why
+
+
+59
+00:02:06,516 --> 00:02:07,536
+we decided to add this
+
+
+60
+00:02:07,536 --> 00:02:08,166
+functionality.
+
+
+61
+00:02:09,726 --> 00:02:11,246
+Unwanted messages, which include
+
+
+62
+00:02:11,246 --> 00:02:13,306
+any unsolicited or spam messages
+
+
+63
+00:02:13,306 --> 00:02:15,036
+a user receives, have been an
+
+
+64
+00:02:15,036 --> 00:02:16,536
+increasing nuisance for users in
+
+
+65
+00:02:16,536 --> 00:02:17,226
+the recent years.
+
+
+66
+00:02:18,396 --> 00:02:19,856
+But beyond the annoyance, what's
+
+
+67
+00:02:19,856 --> 00:02:21,286
+more concerning is that often
+
+
+68
+00:02:21,286 --> 00:02:22,506
+these messages are phishing
+
+
+69
+00:02:22,506 --> 00:02:24,186
+attempts and include links which
+
+
+70
+00:02:24,186 --> 00:02:25,076
+may harm users.
+
+
+71
+00:02:25,756 --> 00:02:27,016
+So of course we want to prevent
+
+
+72
+00:02:27,016 --> 00:02:28,036
+these messages from being
+
+
+73
+00:02:28,036 --> 00:02:29,316
+delivered whenever possible.
+
+
+74
+00:02:30,106 --> 00:02:31,506
+Now there's an important
+
+
+75
+00:02:31,506 --> 00:02:32,866
+difference worth noting between
+
+
+76
+00:02:32,976 --> 00:02:34,626
+iMessage and SMS and MMS
+
+
+77
+00:02:34,626 --> 00:02:35,166
+messages.
+
+
+78
+00:02:36,096 --> 00:02:38,016
+For iMessage we offer the report
+
+
+79
+00:02:38,016 --> 00:02:39,976
+as Junk Service on-device since
+
+
+80
+00:02:39,976 --> 00:02:41,586
+those messages are encrypted end
+
+
+81
+00:02:41,586 --> 00:02:43,156
+to end and delivered over the
+
+
+82
+00:02:43,156 --> 00:02:43,896
+iMessage network.
+
+
+83
+00:02:43,896 --> 00:02:45,786
+But we don't have the ability to
+
+
+84
+00:02:45,786 --> 00:02:47,696
+do this for SMS or MMSs since
+
+
+85
+00:02:47,996 --> 00:02:49,476
+they are delivered directly from
+
+
+86
+00:02:49,476 --> 00:02:50,936
+a wireless carrier to a user's
+
+
+87
+00:02:50,936 --> 00:02:51,446
+device.
+
+
+88
+00:02:52,076 --> 00:02:53,116
+So the filtering of these
+
+
+89
+00:02:53,116 --> 00:02:54,586
+messages must happen locally
+
+
+90
+00:02:54,586 --> 00:02:55,686
+rather than on a centralized
+
+
+91
+00:02:55,686 --> 00:02:57,196
+server, and that's where these
+
+
+92
+00:02:57,196 --> 00:02:58,096
+new APIs come in.
+
+
+93
+00:02:59,486 --> 00:03:00,906
+Finally, we've heard that many
+
+
+94
+00:03:00,906 --> 00:03:02,436
+of you have developed expertise
+
+
+95
+00:03:02,436 --> 00:03:03,946
+in analyzing messages and
+
+
+96
+00:03:03,946 --> 00:03:04,896
+detecting which ones are
+
+
+97
+00:03:04,896 --> 00:03:06,566
+unwanted and we're excited to
+
+
+98
+00:03:06,566 --> 00:03:07,816
+invite apps to help with this
+
+
+99
+00:03:07,816 --> 00:03:07,976
+task.
+
+
+100
+00:03:11,046 --> 00:03:11,926
+So for the remainder of this
+
+
+101
+00:03:11,926 --> 00:03:13,516
+session I'll cover a few areas
+
+
+102
+00:03:13,516 --> 00:03:13,936
+in detail.
+
+
+103
+00:03:15,376 --> 00:03:16,636
+First I'll walk through the
+
+
+104
+00:03:16,636 --> 00:03:18,176
+details of what we call Message
+
+
+105
+00:03:18,176 --> 00:03:19,476
+Filter Extensions and show how
+
+
+106
+00:03:19,476 --> 00:03:19,816
+they work.
+
+
+107
+00:03:21,806 --> 00:03:23,086
+Next I'll talk about some
+
+
+108
+00:03:23,086 --> 00:03:24,356
+important considerations around
+
+
+109
+00:03:24,356 --> 00:03:26,106
+privacy since these extensions
+
+
+110
+00:03:26,106 --> 00:03:27,416
+come with some special rules.
+
+
+111
+00:03:28,806 --> 00:03:29,996
+Then I'll talk about how an
+
+
+112
+00:03:29,996 --> 00:03:31,046
+extension can check with a
+
+
+113
+00:03:31,046 --> 00:03:32,536
+network-backed service, which
+
+
+114
+00:03:32,536 --> 00:03:35,356
+some apps might find useful and
+
+
+115
+00:03:35,356 --> 00:03:36,486
+I'll show a couple of demos
+
+
+116
+00:03:36,486 --> 00:03:38,076
+along the way through creating
+
+
+117
+00:03:38,076 --> 00:03:39,006
+one of these extensions in
+
+
+118
+00:03:39,006 --> 00:03:39,156
+Xcode.
+
+
+119
+00:03:39,156 --> 00:03:39,976
+So let's get started.
+
+
+120
+00:03:43,556 --> 00:03:44,606
+The way this works is using
+
+
+121
+00:03:44,606 --> 00:03:46,196
+something we call Message Filter
+
+
+122
+00:03:46,196 --> 00:03:46,806
+Extensions.
+
+
+123
+00:03:47,196 --> 00:03:48,146
+So let's talk about those
+
+
+124
+00:03:48,146 --> 00:03:48,596
+in-depth.
+
+
+125
+00:03:50,266 --> 00:03:51,756
+As the name implies, this is a
+
+
+126
+00:03:51,756 --> 00:03:53,276
+new app extension type, which
+
+
+127
+00:03:53,276 --> 00:03:54,096
+your app can include.
+
+
+128
+00:03:54,096 --> 00:03:57,206
+The APIs for it are in a new
+
+
+129
+00:03:57,206 --> 00:03:58,976
+framework in iOS-11 called
+
+
+130
+00:03:58,976 --> 00:03:59,816
+Identity Look Up.
+
+
+131
+00:04:00,916 --> 00:04:02,436
+Now once a user has installed an
+
+
+132
+00:04:02,436 --> 00:04:03,136
+app with one of these
+
+
+133
+00:04:03,136 --> 00:04:05,086
+extensions, to begin using it
+
+
+134
+00:04:05,126 --> 00:04:06,206
+they must first enable the
+
+
+135
+00:04:06,206 --> 00:04:07,776
+extension in Messages Settings.
+
+
+136
+00:04:09,226 --> 00:04:10,426
+Only one extension can be
+
+
+137
+00:04:10,426 --> 00:04:12,226
+enabled at a time, or if the
+
+
+138
+00:04:12,226 --> 00:04:13,336
+user wants to disable the
+
+
+139
+00:04:13,336 --> 00:04:14,736
+feature they can choose None.
+
+
+140
+00:04:15,636 --> 00:04:17,396
+And once it's enabled that
+
+
+141
+00:04:17,396 --> 00:04:19,076
+extension is invoked every time
+
+
+142
+00:04:19,076 --> 00:04:20,736
+an SMS or MMS message is
+
+
+143
+00:04:20,736 --> 00:04:22,156
+received from an unknown sender.
+
+
+144
+00:04:23,196 --> 00:04:24,436
+And there is some other criteria
+
+
+145
+00:04:24,436 --> 00:04:25,836
+used when deciding when to send
+
+
+146
+00:04:25,836 --> 00:04:26,936
+a message to the extension,
+
+
+147
+00:04:27,116 --> 00:04:28,026
+which I'll discuss in a few
+
+
+148
+00:04:28,026 --> 00:04:28,396
+minutes.
+
+
+149
+00:04:28,616 --> 00:04:29,686
+Let's walk through a diagram
+
+
+150
+00:04:29,686 --> 00:04:30,736
+showing the overall flow.
+
+
+151
+00:04:31,976 --> 00:04:33,116
+When a message is received by
+
+
+152
+00:04:33,116 --> 00:04:34,616
+the phone it starts in the
+
+
+153
+00:04:34,616 --> 00:04:37,386
+Messages app and if it is an SMS
+
+
+154
+00:04:37,386 --> 00:04:39,296
+or MMS and it's from a sender
+
+
+155
+00:04:39,296 --> 00:04:40,436
+which isn't in the recipient's
+
+
+156
+00:04:40,436 --> 00:04:42,546
+contacts, then the extension,
+
+
+157
+00:04:42,546 --> 00:04:43,626
+which the user selected in
+
+
+158
+00:04:43,626 --> 00:04:45,076
+Settings will be launched and
+
+
+159
+00:04:45,076 --> 00:04:46,216
+will be passed the messages
+
+
+160
+00:04:46,216 --> 00:04:48,146
+sender and body via an object
+
+
+161
+00:04:48,146 --> 00:04:50,296
+called IL Message Filter Query
+
+
+162
+00:04:50,296 --> 00:04:51,826
+Request, which is part of the
+
+
+163
+00:04:51,826 --> 00:04:52,996
+identity look-up framework.
+
+
+164
+00:04:54,546 --> 00:04:55,886
+When the extension receives this
+
+
+165
+00:04:56,046 --> 00:04:57,506
+it begins examining the message,
+
+
+166
+00:04:57,726 --> 00:04:58,876
+looking at the sender or the
+
+
+167
+00:04:58,876 --> 00:05:00,346
+body of the message, or both,
+
+
+168
+00:05:00,866 --> 00:05:02,036
+and it might check against a
+
+
+169
+00:05:02,036 --> 00:05:03,986
+known list of bad phone numbers
+
+
+170
+00:05:04,436 --> 00:05:05,446
+or it could look for a
+
+
+171
+00:05:05,446 --> 00:05:06,826
+suspicious looking web link in
+
+
+172
+00:05:06,826 --> 00:05:08,086
+the body, whatever is
+
+
+173
+00:05:08,086 --> 00:05:08,536
+appropriate.
+
+
+174
+00:05:09,256 --> 00:05:10,666
+Ultimately the extension has to
+
+
+175
+00:05:10,666 --> 00:05:12,736
+form a response using an object
+
+
+176
+00:05:12,736 --> 00:05:14,786
+called IL Message Filter Query
+
+
+177
+00:05:14,786 --> 00:05:16,786
+Response, describing whether to
+
+
+178
+00:05:16,786 --> 00:05:19,026
+allow or filter the message, and
+
+
+179
+00:05:19,026 --> 00:05:19,966
+it sends this back to the
+
+
+180
+00:05:19,966 --> 00:05:20,586
+Messages app.
+
+
+181
+00:05:21,686 --> 00:05:23,166
+And once it receives a response,
+
+
+182
+00:05:23,476 --> 00:05:24,656
+Messages will either alert the
+
+
+183
+00:05:24,656 --> 00:05:26,346
+user normally or suppress the
+
+
+184
+00:05:26,346 --> 00:05:27,586
+notification and move the
+
+
+185
+00:05:27,586 --> 00:05:28,966
+message thread to the Junk tab.
+
+
+186
+00:05:33,226 --> 00:05:34,346
+So that's a basic overview of
+
+
+187
+00:05:34,346 --> 00:05:36,226
+how it works and before we go on
+
+
+188
+00:05:36,256 --> 00:05:37,346
+I'd like to touch on a very
+
+
+189
+00:05:37,346 --> 00:05:38,946
+important topic, and that's user
+
+
+190
+00:05:38,946 --> 00:05:39,386
+privacy.
+
+
+191
+00:05:40,886 --> 00:05:41,956
+We thought a lot about how to
+
+
+192
+00:05:41,956 --> 00:05:43,236
+maintain the strong level of
+
+
+193
+00:05:43,296 --> 00:05:45,026
+privacy Apple customers expect,
+
+
+194
+00:05:45,546 --> 00:05:46,946
+but also allow them to enable
+
+
+195
+00:05:46,946 --> 00:05:48,136
+this if they want to confront
+
+
+196
+00:05:48,136 --> 00:05:49,446
+this persistent problem of
+
+
+197
+00:05:49,446 --> 00:05:50,466
+unwanted messages.
+
+
+198
+00:05:51,036 --> 00:05:52,476
+So there are a few special rules
+
+
+199
+00:05:52,476 --> 00:05:53,906
+that extensions must comply with
+
+
+200
+00:05:53,996 --> 00:05:54,876
+when using this API.
+
+
+201
+00:05:57,046 --> 00:05:58,446
+The first rule is that a message
+
+
+202
+00:05:58,446 --> 00:05:59,706
+recipient's phone number is
+
+
+203
+00:05:59,706 --> 00:06:02,166
+never sent to an extension, only
+
+
+204
+00:06:02,166 --> 00:06:03,406
+the sender's phone number or
+
+
+205
+00:06:03,406 --> 00:06:04,996
+email address is included, since
+
+
+206
+00:06:04,996 --> 00:06:05,706
+that's all that should be
+
+
+207
+00:06:05,706 --> 00:06:07,006
+required to make a decision
+
+
+208
+00:06:07,006 --> 00:06:07,986
+about whether to filter a
+
+
+209
+00:06:07,986 --> 00:06:08,466
+message.
+
+
+210
+00:06:09,506 --> 00:06:10,736
+Another key rule is that a
+
+
+211
+00:06:10,736 --> 00:06:12,176
+message filter extension can
+
+
+212
+00:06:12,176 --> 00:06:13,536
+never export the contents of
+
+
+213
+00:06:13,536 --> 00:06:14,866
+messages outside its container,
+
+
+214
+00:06:14,866 --> 00:06:16,836
+and these extensions have some
+
+
+215
+00:06:16,836 --> 00:06:18,166
+additional restrictions because
+
+
+216
+00:06:18,166 --> 00:06:18,546
+of this.
+
+
+217
+00:06:19,666 --> 00:06:20,706
+They cannot write to files
+
+
+218
+00:06:20,706 --> 00:06:21,926
+shared with their containing app
+
+
+219
+00:06:22,706 --> 00:06:23,976
+and they cannot perform network
+
+
+220
+00:06:23,976 --> 00:06:24,606
+operations.
+
+
+221
+00:06:25,576 --> 00:06:26,706
+The reason for this is that,
+
+
+222
+00:06:26,706 --> 00:06:27,956
+although some messages may be
+
+
+223
+00:06:27,956 --> 00:06:29,926
+unwanted junk, others may be
+
+
+224
+00:06:29,926 --> 00:06:31,046
+legitimate and be sent from
+
+
+225
+00:06:31,046 --> 00:06:32,316
+someone who's just not on the
+
+
+226
+00:06:32,316 --> 00:06:33,636
+recipient's contacts yet.
+
+
+227
+00:06:34,156 --> 00:06:35,476
+So then it's imperative that all
+
+
+228
+00:06:35,476 --> 00:06:36,926
+the messages be kept private and
+
+
+229
+00:06:36,926 --> 00:06:38,756
+never exported in any way that
+
+
+230
+00:06:38,756 --> 00:06:40,316
+reveals more about the recipient
+
+
+231
+00:06:40,356 --> 00:06:41,266
+than what is contained in the
+
+
+232
+00:06:41,266 --> 00:06:42,036
+message itself.
+
+
+233
+00:06:43,976 --> 00:06:44,956
+Although they can't perform
+
+
+234
+00:06:44,956 --> 00:06:46,696
+networking themselves, it is
+
+
+235
+00:06:46,696 --> 00:06:48,096
+possible for these extensions to
+
+
+236
+00:06:48,096 --> 00:06:49,666
+defer a request to their server
+
+
+237
+00:06:49,666 --> 00:06:51,246
+indirectly, and when an
+
+
+238
+00:06:51,246 --> 00:06:53,666
+extension requests to defer iOS
+
+
+239
+00:06:53,666 --> 00:06:54,936
+will make a web request on the
+
+
+240
+00:06:54,936 --> 00:06:56,546
+extension's behalf in a secure
+
+
+241
+00:06:56,546 --> 00:06:56,836
+way.
+
+
+242
+00:06:57,496 --> 00:06:58,476
+We'll see an example of that
+
+
+243
+00:06:58,476 --> 00:06:58,776
+later.
+
+
+244
+00:06:59,726 --> 00:07:01,146
+The main thing to keep in mind
+
+
+245
+00:07:01,326 --> 00:07:02,576
+is that your extension should
+
+
+246
+00:07:02,576 --> 00:07:04,396
+never export messages outside of
+
+
+247
+00:07:04,396 --> 00:07:05,736
+its container to maintain user
+
+
+248
+00:07:05,736 --> 00:07:05,976
+privacy.
+
+
+249
+00:07:10,046 --> 00:07:11,046
+Now there is some specific
+
+
+250
+00:07:11,046 --> 00:07:12,506
+criteria that the Messages app
+
+
+251
+00:07:12,506 --> 00:07:14,136
+uses to decide whether or not to
+
+
+252
+00:07:14,136 --> 00:07:15,526
+send a given message to an
+
+
+253
+00:07:15,526 --> 00:07:16,066
+extension.
+
+
+254
+00:07:17,086 --> 00:07:18,776
+First, this feature is only used
+
+
+255
+00:07:18,776 --> 00:07:21,026
+with SMS and MMS messages and
+
+
+256
+00:07:21,026 --> 00:07:22,056
+never with iMessage.
+
+
+257
+00:07:22,856 --> 00:07:24,526
+As I mentioned earlier, unwanted
+
+
+258
+00:07:24,626 --> 00:07:25,996
+iMessages are handled using a
+
+
+259
+00:07:25,996 --> 00:07:27,386
+different mechanism, so this
+
+
+260
+00:07:27,386 --> 00:07:28,916
+only applies to SMS and MMS.
+
+
+261
+00:07:31,046 --> 00:07:32,206
+As I've mentioned a few times,
+
+
+262
+00:07:32,396 --> 00:07:34,176
+only unknown senders, or those
+
+
+263
+00:07:34,176 --> 00:07:35,246
+which are not in the recipient's
+
+
+264
+00:07:35,246 --> 00:07:36,886
+contacts are actually sent to
+
+
+265
+00:07:36,886 --> 00:07:38,216
+the extension for analysis.
+
+
+266
+00:07:39,156 --> 00:07:41,496
+If a sender is in Contacts we
+
+
+267
+00:07:41,496 --> 00:07:42,786
+assume that that recipient knows
+
+
+268
+00:07:42,786 --> 00:07:44,866
+the sender and wants to receive
+
+
+269
+00:07:44,866 --> 00:07:45,676
+messages from them.
+
+
+270
+00:07:46,296 --> 00:07:47,356
+That also means that if a
+
+
+271
+00:07:47,356 --> 00:07:48,956
+message is ever miscategorized
+
+
+272
+00:07:48,956 --> 00:07:50,706
+as junk then the user can add
+
+
+273
+00:07:50,706 --> 00:07:52,146
+that sender to their contacts to
+
+
+274
+00:07:52,146 --> 00:07:53,406
+ensure they aren't filtered out
+
+
+275
+00:07:53,406 --> 00:07:53,926
+in the future.
+
+
+276
+00:07:55,446 --> 00:07:57,136
+Also, if a user is exchanging
+
+
+277
+00:07:57,136 --> 00:07:58,436
+messages with someone who is not
+
+
+278
+00:07:58,436 --> 00:08:00,346
+in their Contacts and they reply
+
+
+279
+00:08:00,346 --> 00:08:01,906
+to that thread multiple times,
+
+
+280
+00:08:02,446 --> 00:08:03,786
+then we will stop sending any
+
+
+281
+00:08:03,786 --> 00:08:05,046
+subsequent messages in that
+
+
+282
+00:08:05,046 --> 00:08:06,156
+thread to the extension.
+
+
+283
+00:08:07,006 --> 00:08:09,036
+Or, if the user replies multiple
+
+
+284
+00:08:09,036 --> 00:08:10,196
+times to a thread, which is
+
+
+285
+00:08:10,196 --> 00:08:12,086
+already marked as junk, that
+
+
+286
+00:08:12,086 --> 00:08:13,196
+thread will be restored to the
+
+
+287
+00:08:13,196 --> 00:08:14,026
+non-junk tab.
+
+
+288
+00:08:15,136 --> 00:08:16,496
+Responding multiple times is
+
+
+289
+00:08:16,496 --> 00:08:17,886
+interpreted as a signal from the
+
+
+290
+00:08:17,886 --> 00:08:19,276
+recipient that they really do
+
+
+291
+00:08:19,276 --> 00:08:20,386
+want to be communicating with
+
+
+292
+00:08:20,386 --> 00:08:20,806
+the sender.
+
+
+293
+00:08:22,256 --> 00:08:23,716
+So all of this criteria doesn't
+
+
+294
+00:08:23,716 --> 00:08:25,746
+directly affect the API, but it
+
+
+295
+00:08:25,746 --> 00:08:27,336
+is something you, as a developer
+
+
+296
+00:08:27,336 --> 00:08:28,386
+of one of these extensions,
+
+
+297
+00:08:28,386 --> 00:08:29,876
+should be aware of when testing
+
+
+298
+00:08:29,876 --> 00:08:30,916
+or troubleshooting your app.
+
+
+299
+00:08:35,046 --> 00:08:36,176
+So now I'd like to show a demo
+
+
+300
+00:08:36,176 --> 00:08:37,726
+in Xcode of how you can create a
+
+
+301
+00:08:37,726 --> 00:08:38,926
+message filter extension.
+
+
+302
+00:08:40,736 --> 00:08:42,006
+Here we have an app I've made
+
+
+303
+00:08:42,035 --> 00:08:43,765
+called Filter It and I'd like to
+
+
+304
+00:08:43,765 --> 00:08:45,206
+add a message filter extension.
+
+
+305
+00:08:47,126 --> 00:08:48,496
+The first thing I need to do is
+
+
+306
+00:08:48,496 --> 00:08:48,976
+add a new target.
+
+
+307
+00:08:53,046 --> 00:08:53,776
+And I'll choose the new message
+
+
+308
+00:08:53,776 --> 00:08:56,526
+filter template for iOS and I'll
+
+
+309
+00:08:56,526 --> 00:08:56,976
+give it a name.
+
+
+310
+00:09:03,046 --> 00:09:04,336
+I've got a new file added to my
+
+
+311
+00:09:04,376 --> 00:09:05,576
+project now called
+
+
+312
+00:09:05,876 --> 00:09:07,276
+messagefiltereextension.swift.
+
+
+313
+00:09:07,276 --> 00:09:08,976
+Now let's take a look at that.
+
+
+314
+00:09:20,106 --> 00:09:21,176
+The first thing we see is a
+
+
+315
+00:09:21,176 --> 00:09:22,826
+method called Handle Query
+
+
+316
+00:09:22,826 --> 00:09:24,916
+Request with Context and this is
+
+
+317
+00:09:24,916 --> 00:09:26,376
+called on our extension so that
+
+
+318
+00:09:26,376 --> 00:09:27,516
+it can examine the incoming
+
+
+319
+00:09:27,516 --> 00:09:29,126
+message and return a response
+
+
+320
+00:09:29,196 --> 00:09:30,356
+using the completion handler.
+
+
+321
+00:09:33,286 --> 00:09:34,416
+Now the template is structured
+
+
+322
+00:09:34,416 --> 00:09:36,056
+to first attempt an offline
+
+
+323
+00:09:36,056 --> 00:09:37,926
+check using this method, called
+
+
+324
+00:09:38,206 --> 00:09:40,106
+Offline Action for Query Request
+
+
+325
+00:09:41,936 --> 00:09:43,326
+and it returns an action which
+
+
+326
+00:09:43,326 --> 00:09:45,356
+is either allow, filter, or
+
+
+327
+00:09:45,356 --> 00:09:45,686
+none.
+
+
+328
+00:09:48,366 --> 00:09:49,756
+So for this demo what we need to
+
+
+329
+00:09:49,756 --> 00:09:51,366
+do is customize this offline
+
+
+330
+00:09:51,366 --> 00:09:52,366
+action helper method.
+
+
+331
+00:09:52,966 --> 00:09:53,736
+Let's look at what it does
+
+
+332
+00:09:53,736 --> 00:09:53,966
+currently.
+
+
+333
+00:09:58,046 --> 00:09:59,236
+Right now it always returns
+
+
+334
+00:09:59,236 --> 00:10:01,196
+none, but I'll replace that with
+
+
+335
+00:10:01,196 --> 00:10:02,736
+some simple logic to always
+
+
+336
+00:10:02,736 --> 00:10:04,176
+filter if the message contains
+
+
+337
+00:10:04,216 --> 00:10:04,976
+the word junk.
+
+
+338
+00:10:09,656 --> 00:10:10,896
+In a real extension this could
+
+
+339
+00:10:10,896 --> 00:10:12,326
+do something more sophisticated,
+
+
+340
+00:10:12,506 --> 00:10:14,716
+but this works for now and
+
+
+341
+00:10:14,716 --> 00:10:15,746
+that's all it takes to create a
+
+
+342
+00:10:15,746 --> 00:10:17,476
+simple, offline only, message
+
+
+343
+00:10:17,476 --> 00:10:17,976
+filter extension.
+
+
+344
+00:10:22,196 --> 00:10:23,366
+Now although some apps may be
+
+
+345
+00:10:23,366 --> 00:10:24,826
+able to do most or all of their
+
+
+346
+00:10:24,826 --> 00:10:27,046
+checking offline, other apps may
+
+
+347
+00:10:27,046 --> 00:10:28,256
+find it useful to check with a
+
+
+348
+00:10:28,256 --> 00:10:29,686
+network server whether to filter
+
+
+349
+00:10:29,686 --> 00:10:30,466
+messages or not.
+
+
+350
+00:10:30,866 --> 00:10:32,116
+So next I'd like to talk about
+
+
+351
+00:10:32,116 --> 00:10:32,916
+network deferral.
+
+
+352
+00:10:34,626 --> 00:10:36,286
+The best way to show how network
+
+
+353
+00:10:36,286 --> 00:10:37,706
+deferral works is with another
+
+
+354
+00:10:37,706 --> 00:10:38,196
+diagram.
+
+
+355
+00:10:39,616 --> 00:10:41,236
+As before, when a message is
+
+
+356
+00:10:41,236 --> 00:10:42,536
+received it starts in the
+
+
+357
+00:10:42,536 --> 00:10:44,076
+Messages app and is sent to the
+
+
+358
+00:10:44,076 --> 00:10:46,736
+chosen extension, but this time
+
+
+359
+00:10:46,856 --> 00:10:48,226
+the extension chooses to defer
+
+
+360
+00:10:48,226 --> 00:10:49,366
+this request to its network
+
+
+361
+00:10:49,366 --> 00:10:51,356
+server, whose URL is specified
+
+
+362
+00:10:51,356 --> 00:10:52,606
+in its info.plist.
+
+
+363
+00:10:53,406 --> 00:10:54,976
+So it tells Messages to defer
+
+
+364
+00:10:55,376 --> 00:10:57,136
+and Messages then makes a JSON
+
+
+365
+00:10:57,136 --> 00:10:58,896
+request to that server URL.
+
+
+366
+00:11:00,166 --> 00:11:01,436
+The server then examines the
+
+
+367
+00:11:01,436 --> 00:11:02,866
+Messages contents inside the
+
+
+368
+00:11:02,866 --> 00:11:04,876
+JSON request and can respond in
+
+
+369
+00:11:04,876 --> 00:11:06,886
+any format it wants and that
+
+
+370
+00:11:06,886 --> 00:11:08,446
+response is handed right back to
+
+
+371
+00:11:08,446 --> 00:11:09,066
+the extension.
+
+
+372
+00:11:10,026 --> 00:11:11,476
+And from here, the extension
+
+
+373
+00:11:11,476 --> 00:11:12,476
+reads the response from the
+
+
+374
+00:11:12,476 --> 00:11:14,836
+server and finally returns an IL
+
+
+375
+00:11:14,836 --> 00:11:16,566
+message filter query response
+
+
+376
+00:11:16,566 --> 00:11:16,976
+back to Messages.
+
+
+377
+00:11:22,326 --> 00:11:23,466
+There are a few restrictions to
+
+
+378
+00:11:23,466 --> 00:11:24,846
+be aware of when using network
+
+
+379
+00:11:24,846 --> 00:11:25,266
+deferral.
+
+
+380
+00:11:26,366 --> 00:11:27,976
+First, the deferred network
+
+
+381
+00:11:27,976 --> 00:11:29,876
+requests contain no personally
+
+
+382
+00:11:29,876 --> 00:11:31,556
+identifiable information about
+
+
+383
+00:11:31,556 --> 00:11:32,926
+the recipient of the message.
+
+
+384
+00:11:35,296 --> 00:11:36,926
+The network URL is hardcoded
+
+
+385
+00:11:36,926 --> 00:11:38,426
+statically into the extension's
+
+
+386
+00:11:38,456 --> 00:11:40,836
+info.plist file under a key
+
+
+387
+00:11:40,836 --> 00:11:42,616
+called IL Message Filter
+
+
+388
+00:11:42,616 --> 00:11:44,166
+Extension Network URL.
+
+
+389
+00:11:44,766 --> 00:11:46,046
+So it cannot vary between
+
+
+390
+00:11:46,046 --> 00:11:47,706
+requests or for individual
+
+
+391
+00:11:47,706 --> 00:11:47,976
+users.
+
+
+392
+00:11:53,066 --> 00:11:55,176
+All URLs must be secure https
+
+
+393
+00:11:55,176 --> 00:11:56,726
+and the server must be
+
+
+394
+00:11:56,726 --> 00:11:58,106
+configured such that it doesn't
+
+
+395
+00:11:58,106 --> 00:11:59,666
+require any app transport
+
+
+396
+00:11:59,666 --> 00:12:01,786
+security, or ATS, overrides
+
+
+397
+00:12:02,116 --> 00:12:02,896
+since there's no way to
+
+
+398
+00:12:02,896 --> 00:12:04,586
+configure them.
+
+
+399
+00:12:05,686 --> 00:12:07,426
+Also, this feature requires that
+
+
+400
+00:12:07,426 --> 00:12:09,276
+both your app and server use the
+
+
+401
+00:12:09,276 --> 00:12:11,786
+associated domains, or Apple App
+
+
+402
+00:12:11,786 --> 00:12:13,866
+Site Association Feature, which
+
+
+403
+00:12:13,866 --> 00:12:14,986
+is something you may be familiar
+
+
+404
+00:12:14,986 --> 00:12:16,796
+with if you've adopted other iOS
+
+
+405
+00:12:16,796 --> 00:12:18,186
+features like App Links or
+
+
+406
+00:12:18,186 --> 00:12:19,326
+Shared Web Credentials.
+
+
+407
+00:12:20,906 --> 00:12:22,226
+And for more information, see
+
+
+408
+00:12:22,226 --> 00:12:23,906
+the session; Seamless Linking to
+
+
+409
+00:12:23,906 --> 00:12:26,496
+Your App from WWDC2015.
+
+
+410
+00:12:26,986 --> 00:12:29,516
+And the last restriction to be
+
+
+411
+00:12:29,516 --> 00:12:31,106
+aware of is that any cookies
+
+
+412
+00:12:31,106 --> 00:12:32,346
+that the webserver attempt to
+
+
+413
+00:12:32,346 --> 00:12:33,666
+set will be ignored to maintain
+
+
+414
+00:12:33,666 --> 00:12:33,976
+privacy.
+
+
+415
+00:12:38,216 --> 00:12:39,566
+The request made to the network
+
+
+416
+00:12:39,566 --> 00:12:41,526
+server is formatted using JSON
+
+
+417
+00:12:41,896 --> 00:12:43,166
+and includes the same things
+
+
+418
+00:12:43,166 --> 00:12:44,606
+which are in the IL Message
+
+
+419
+00:12:44,606 --> 00:12:46,176
+Filter Query Request Object
+
+
+420
+00:12:46,456 --> 00:12:48,226
+including the message sender,
+
+
+421
+00:12:48,496 --> 00:12:49,846
+which is a phone number or email
+
+
+422
+00:12:49,846 --> 00:12:51,856
+address, and the message body.
+
+
+423
+00:12:53,196 --> 00:12:54,856
+The request also includes the
+
+
+424
+00:12:54,856 --> 00:12:56,296
+version of your app, which is
+
+
+425
+00:12:56,296 --> 00:12:57,956
+the CF Bundle Version Key from
+
+
+426
+00:12:57,956 --> 00:12:59,406
+the app's info.plist.
+
+
+427
+00:13:00,356 --> 00:13:01,966
+This may be useful in cases you
+
+
+428
+00:13:01,966 --> 00:13:02,926
+have -- in case you have
+
+
+429
+00:13:02,926 --> 00:13:04,406
+released several versions of
+
+
+430
+00:13:04,406 --> 00:13:05,186
+your app with different
+
+
+431
+00:13:05,186 --> 00:13:06,746
+capabilities and need to format
+
+
+432
+00:13:06,746 --> 00:13:08,176
+the response to insure that
+
+
+433
+00:13:08,176 --> 00:13:09,436
+particular version of the app
+
+
+434
+00:13:09,436 --> 00:13:11,066
+can understand it.
+
+
+435
+00:13:11,706 --> 00:13:12,896
+And we include the version of
+
+
+436
+00:13:12,896 --> 00:13:14,706
+the JSON request format itself,
+
+
+437
+00:13:14,806 --> 00:13:15,726
+which is currently one.
+
+
+438
+00:13:17,386 --> 00:13:18,826
+Now, unlike the request format,
+
+
+439
+00:13:19,286 --> 00:13:20,916
+the response format is entirely
+
+
+440
+00:13:20,916 --> 00:13:22,576
+up to your app to define and
+
+
+441
+00:13:22,576 --> 00:13:23,876
+doesn't necessarily have to be
+
+
+442
+00:13:23,876 --> 00:13:24,326
+JSON.
+
+
+443
+00:13:25,156 --> 00:13:26,766
+The response body is passed back
+
+
+444
+00:13:26,766 --> 00:13:28,196
+to your extension to parse, so
+
+
+445
+00:13:28,196 --> 00:13:29,406
+there are not requirements about
+
+
+446
+00:13:29,406 --> 00:13:29,856
+its format.
+
+
+447
+00:13:33,046 --> 00:13:34,086
+And here's a quick look at the
+
+
+448
+00:13:34,086 --> 00:13:35,726
+JSON request format, and you can
+
+
+449
+00:13:35,726 --> 00:13:36,696
+see it includes all of the info
+
+
+450
+00:13:36,696 --> 00:13:36,976
+I mentioned.
+
+
+451
+00:13:44,066 --> 00:13:45,246
+Now, let's go back to my Filter
+
+
+452
+00:13:45,246 --> 00:13:46,776
+It app and add network deferral
+
+
+453
+00:13:46,776 --> 00:13:47,956
+capability to the extension.
+
+
+454
+00:13:52,316 --> 00:13:53,536
+If we take another look at the
+
+
+455
+00:13:53,536 --> 00:13:55,166
+Handle Query Request method from
+
+
+456
+00:13:55,166 --> 00:13:57,266
+earlier we can now see that,
+
+
+457
+00:13:57,306 --> 00:13:58,526
+after the offline check is
+
+
+458
+00:13:58,526 --> 00:14:00,336
+performed, if the action it
+
+
+459
+00:14:00,336 --> 00:14:02,376
+returned was none and it falls
+
+
+460
+00:14:02,376 --> 00:14:03,656
+into this case of the switch
+
+
+461
+00:14:03,656 --> 00:14:05,376
+statement, we assume that this
+
+
+462
+00:14:05,376 --> 00:14:06,746
+query request could not be
+
+
+463
+00:14:06,746 --> 00:14:08,446
+handled using only an offline
+
+
+464
+00:14:08,446 --> 00:14:09,996
+check and actually needs to
+
+
+465
+00:14:09,996 --> 00:14:11,436
+consult our network server to
+
+
+466
+00:14:11,436 --> 00:14:11,976
+get an answer.
+
+
+467
+00:14:19,046 --> 00:14:20,506
+To do this our code calls the
+
+
+468
+00:14:20,506 --> 00:14:22,726
+defer query requests to network
+
+
+469
+00:14:22,726 --> 00:14:24,706
+method on our extension context
+
+
+470
+00:14:25,506 --> 00:14:26,766
+and this causes a network
+
+
+471
+00:14:26,766 --> 00:14:27,906
+request to be made on our
+
+
+472
+00:14:27,906 --> 00:14:29,606
+extension's behalf, which will
+
+
+473
+00:14:29,606 --> 00:14:31,096
+call this completion block
+
+
+474
+00:14:31,096 --> 00:14:32,006
+asynchronously when it
+
+
+475
+00:14:32,006 --> 00:14:32,516
+completes.
+
+
+476
+00:14:33,736 --> 00:14:35,456
+Inside the completion block, if
+
+
+477
+00:14:35,456 --> 00:14:36,466
+there was a response from the
+
+
+478
+00:14:36,466 --> 00:14:37,776
+network and there wasn't an
+
+
+479
+00:14:37,776 --> 00:14:39,686
+error, we use another helper
+
+
+480
+00:14:39,686 --> 00:14:41,686
+method called Action for Network
+
+
+481
+00:14:41,686 --> 00:14:43,566
+Response to translate it into an
+
+
+482
+00:14:43,566 --> 00:14:43,966
+action.
+
+
+483
+00:14:44,566 --> 00:14:45,506
+Let's jump to that method and
+
+
+484
+00:14:45,506 --> 00:14:45,976
+see what it does.
+
+
+485
+00:14:51,046 --> 00:14:52,236
+Just like with the offline check
+
+
+486
+00:14:52,236 --> 00:14:53,816
+helper method this method
+
+
+487
+00:14:53,816 --> 00:14:55,726
+defaults to returning none, but
+
+
+488
+00:14:55,726 --> 00:14:57,136
+let's customize that to parse
+
+
+489
+00:14:57,136 --> 00:14:58,366
+the response from our server.
+
+
+490
+00:14:59,766 --> 00:15:01,116
+I'll assume the server returns
+
+
+491
+00:15:01,116 --> 00:15:02,586
+JSON, although it doesn't have
+
+
+492
+00:15:02,646 --> 00:15:04,326
+to, and I'll use the new
+
+
+493
+00:15:04,326 --> 00:15:06,066
+Foundation Decoding APIs in
+
+
+494
+00:15:06,066 --> 00:15:07,976
+Swift 4 to decode the response.
+
+
+495
+00:15:09,426 --> 00:15:10,526
+I'll paste some code I've
+
+
+496
+00:15:10,586 --> 00:15:12,246
+already written to do this, but
+
+
+497
+00:15:12,246 --> 00:15:12,976
+let's briefly walk through it.
+
+
+498
+00:15:19,546 --> 00:15:21,406
+I first define a struct, which
+
+
+499
+00:15:21,406 --> 00:15:22,966
+describes the JSON format that
+
+
+500
+00:15:22,966 --> 00:15:26,446
+my server returns, then I create
+
+
+501
+00:15:26,446 --> 00:15:29,556
+a JSON decoder instance and I
+
+
+502
+00:15:29,556 --> 00:15:31,236
+use it to decode the data from
+
+
+503
+00:15:31,236 --> 00:15:32,856
+the network as an instance of
+
+
+504
+00:15:32,856 --> 00:15:33,346
+the struct.
+
+
+505
+00:15:34,946 --> 00:15:37,006
+Finally I return the action,
+
+
+506
+00:15:37,006 --> 00:15:38,456
+which was decoded, and store it
+
+
+507
+00:15:38,456 --> 00:15:38,976
+in the struct.
+
+
+508
+00:15:43,046 --> 00:15:44,076
+And if there were any errors I
+
+
+509
+00:15:44,076 --> 00:15:44,876
+handle them below.
+
+
+510
+00:15:48,046 --> 00:15:49,736
+And return the default response
+
+
+511
+00:15:49,736 --> 00:15:49,966
+of none.
+
+
+512
+00:15:54,096 --> 00:15:55,526
+And just like that we've added
+
+
+513
+00:15:55,526 --> 00:15:57,066
+network deferral support to our
+
+
+514
+00:15:57,066 --> 00:15:58,616
+message filter app extension.
+
+
+515
+00:15:59,196 --> 00:16:00,986
+So it now supports both offline
+
+
+516
+00:16:01,186 --> 00:16:02,726
+and network checking of incoming
+
+
+517
+00:16:02,726 --> 00:16:02,966
+messages.
+
+
+518
+00:16:07,266 --> 00:16:08,956
+So that's how your app can help
+
+
+519
+00:16:08,956 --> 00:16:10,626
+filter unwanted messages using
+
+
+520
+00:16:10,626 --> 00:16:11,656
+the new message filter
+
+
+521
+00:16:11,656 --> 00:16:13,296
+extensions and identity look up
+
+
+522
+00:16:13,296 --> 00:16:14,586
+framework in iOS 11.
+
+
+523
+00:16:15,816 --> 00:16:17,166
+We've tried to strike a balance
+
+
+524
+00:16:17,166 --> 00:16:19,136
+between user privacy and solving
+
+
+525
+00:16:19,136 --> 00:16:20,636
+a very pressing need our users
+
+
+526
+00:16:20,636 --> 00:16:20,916
+have.
+
+
+527
+00:16:21,386 --> 00:16:22,926
+And the result is a powerful new
+
+
+528
+00:16:22,926 --> 00:16:25,196
+API your app can use, but it is
+
+
+529
+00:16:25,196 --> 00:16:26,616
+subject to some special rules
+
+
+530
+00:16:26,616 --> 00:16:27,466
+you need to be aware of.
+
+
+531
+00:16:28,666 --> 00:16:30,596
+So please, download the new STK,
+
+
+532
+00:16:31,076 --> 00:16:32,366
+check out the new identity look
+
+
+533
+00:16:32,366 --> 00:16:33,906
+up framework, and try making a
+
+
+534
+00:16:33,906 --> 00:16:35,456
+message filter extension filter
+
+
+535
+00:16:37,446 --> 00:16:37,566
+today.
+
+
+536
+00:16:38,576 --> 00:16:40,086
+For more information see this
+
+
+537
+00:16:40,086 --> 00:16:41,436
+link for the Sessions page on
+
+
+538
+00:16:41,436 --> 00:16:43,066
+the official WWDC site.
+
+
+539
+00:16:45,906 --> 00:16:46,906
+We do have a few related
+
+
+540
+00:16:46,906 --> 00:16:47,806
+sessions and this year's
+
+
+541
+00:16:47,806 --> 00:16:48,846
+conference to mention.
+
+
+542
+00:16:49,196 --> 00:16:50,846
+For more information about
+
+
+543
+00:16:50,846 --> 00:16:51,976
+privacy practices on our
+
+
+544
+00:16:51,976 --> 00:16:54,166
+platforms see the Privacy and
+
+
+545
+00:16:54,166 --> 00:16:55,706
+Your Apps session happening in
+
+
+546
+00:16:55,706 --> 00:16:57,026
+the Executive Ballroom on
+
+
+547
+00:16:57,026 --> 00:16:58,306
+Tuesday at 11:20.
+
+
+548
+00:16:59,706 --> 00:17:01,026
+And for more info about the new
+
+
+549
+00:17:01,026 --> 00:17:02,686
+foundation and coding APIs I
+
+
+550
+00:17:02,686 --> 00:17:04,746
+showed in my demo, see the new
+
+
+551
+00:17:04,886 --> 00:17:06,106
+-- see the What's New in
+
+
+552
+00:17:06,106 --> 00:17:08,006
+Foundation session in Hall Two
+
+
+553
+00:17:08,006 --> 00:17:09,086
+on Wednesday at 11.
+
+
+554
+00:17:10,435 --> 00:17:13,486
+Also, WWDC2015 had an excellent
+
+
+555
+00:17:13,486 --> 00:17:15,366
+session called Seamless Linking
+
+
+556
+00:17:15,366 --> 00:17:16,816
+to Your App, which walked
+
+
+557
+00:17:16,816 --> 00:17:18,185
+through the associated domains
+
+
+558
+00:17:18,185 --> 00:17:19,415
+feature which message filter
+
+
+559
+00:17:19,415 --> 00:17:20,846
+extensions require when using
+
+
+560
+00:17:20,846 --> 00:17:21,586
+network deferral.
+
+
+561
+00:17:22,195 --> 00:17:23,396
+So check out that session in the
+
+
+562
+00:17:23,396 --> 00:17:24,906
+archive for details about how to
+
+
+563
+00:17:24,906 --> 00:17:26,425
+implement it in your app and on
+
+
+564
+00:17:26,425 --> 00:17:26,876
+the server.
+
+
+565
+00:17:27,286 --> 00:17:27,976
+Thanks so much for watching.
+

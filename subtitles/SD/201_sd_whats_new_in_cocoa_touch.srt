@@ -1,0 +1,7409 @@
+1
+00:00:29,056 --> 00:00:30,276
+>> Good morning, and welcome to
+
+
+2
+00:00:30,276 --> 00:00:31,546
+What's New in Cocoa Touch.
+
+
+3
+00:00:31,936 --> 00:00:33,476
+I'm Eliza, and I'll be joined
+
+
+4
+00:00:33,476 --> 00:00:34,826
+shortly on stage by Josh
+
+
+5
+00:00:35,136 --> 00:00:35,376
+Shaffer.
+
+
+6
+00:00:35,806 --> 00:00:38,046
+And today, we have a ton of
+
+
+7
+00:00:38,046 --> 00:00:39,446
+great new APIs to tell you
+
+
+8
+00:00:39,446 --> 00:00:39,996
+about.
+
+
+9
+00:00:41,046 --> 00:00:42,346
+We're going to start with some
+
+
+10
+00:00:42,346 --> 00:00:44,456
+of the brand new productivity
+
+
+11
+00:00:44,456 --> 00:00:46,306
+APIs for iPad and iPhone.
+
+
+12
+00:00:48,096 --> 00:00:50,726
+After that, we'll show you some
+
+
+13
+00:00:50,726 --> 00:00:52,346
+of the refinements to the User
+
+
+14
+00:00:52,346 --> 00:00:53,646
+Interfaces on these devices, and
+
+
+15
+00:00:53,646 --> 00:00:55,066
+we'll talk about how you can get
+
+
+16
+00:00:55,066 --> 00:00:56,156
+these effects in your own
+
+
+17
+00:00:56,156 --> 00:00:56,786
+applications.
+
+
+18
+00:00:57,776 --> 00:00:59,156
+And finally, we'll go through an
+
+
+19
+00:00:59,156 --> 00:01:00,986
+assortment of additions and
+
+
+20
+00:01:00,986 --> 00:01:03,176
+improvements to existing APIs
+
+
+21
+00:01:03,306 --> 00:01:04,646
+across Cocoa Touch.
+
+
+22
+00:01:05,325 --> 00:01:09,306
+So, the most important
+
+
+23
+00:01:09,366 --> 00:01:12,976
+productivity API in iOS 11, as
+
+
+24
+00:01:12,976 --> 00:01:14,466
+you heard in the keynote, is
+
+
+25
+00:01:14,466 --> 00:01:15,176
+Drag and Drop.
+
+
+26
+00:01:15,766 --> 00:01:17,506
+This is an incredibly powerful
+
+
+27
+00:01:17,506 --> 00:01:17,736
+API.
+
+
+28
+00:01:17,736 --> 00:01:19,746
+Here's a video showing a couple
+
+
+29
+00:01:19,746 --> 00:01:24,566
+of the things that it can do.
+
+
+30
+00:01:24,836 --> 00:01:26,756
+So, I can pick up an item, drag
+
+
+31
+00:01:26,756 --> 00:01:27,286
+it around.
+
+
+32
+00:01:27,286 --> 00:01:28,756
+I can tap to add additional
+
+
+33
+00:01:28,756 --> 00:01:29,706
+items to the drag.
+
+
+34
+00:01:30,056 --> 00:01:31,466
+The system remains fully
+
+
+35
+00:01:31,466 --> 00:01:32,986
+interactive while my drags are
+
+
+36
+00:01:32,986 --> 00:01:34,826
+in progress, and I can even drag
+
+
+37
+00:01:34,826 --> 00:01:35,986
+data between different
+
+
+38
+00:01:35,986 --> 00:01:36,626
+applications.
+
+
+39
+00:01:37,216 --> 00:01:39,076
+So, we're really excited for you
+
+
+40
+00:01:39,076 --> 00:01:41,256
+guys to be adopting this API in
+
+
+41
+00:01:41,256 --> 00:01:41,976
+your apps.
+
+
+42
+00:01:42,236 --> 00:01:44,546
+And there are no fewer than four
+
+
+43
+00:01:44,656 --> 00:01:46,536
+sessions this week, telling you
+
+
+44
+00:01:46,836 --> 00:01:48,126
+all about how to do that.
+
+
+45
+00:01:48,966 --> 00:01:50,226
+So, right now, I'm going to give
+
+
+46
+00:01:50,226 --> 00:01:51,946
+you just a very brief overview
+
+
+47
+00:01:51,946 --> 00:01:54,136
+of some of the key components of
+
+
+48
+00:01:54,136 --> 00:01:56,196
+this API, beginning with
+
+
+49
+00:01:56,196 --> 00:01:57,676
+enabling drags in your
+
+
+50
+00:01:57,676 --> 00:01:58,176
+application.
+
+
+51
+00:01:58,726 --> 00:02:00,396
+So, suppose you have a custom
+
+
+52
+00:02:00,396 --> 00:02:03,356
+view with some sub-views, maybe
+
+
+53
+00:02:03,356 --> 00:02:04,926
+little icon like views, here,
+
+
+54
+00:02:04,926 --> 00:02:06,706
+that you want to make draggable.
+
+
+55
+00:02:07,766 --> 00:02:09,976
+What you'll do, is create a UI
+
+
+56
+00:02:09,976 --> 00:02:11,696
+drag interaction, which is a new
+
+
+57
+00:02:11,746 --> 00:02:13,386
+subclass of UI interaction.
+
+
+58
+00:02:13,776 --> 00:02:16,076
+And you'll attach it to the view
+
+
+59
+00:02:16,076 --> 00:02:17,596
+that you want to allow the user
+
+
+60
+00:02:17,596 --> 00:02:18,036
+to drag.
+
+
+61
+00:02:19,606 --> 00:02:22,456
+Now, a UI interaction is kind of
+
+
+62
+00:02:22,456 --> 00:02:23,906
+like a gesture recognizer.
+
+
+63
+00:02:24,596 --> 00:02:26,326
+You make one, you set a delegate
+
+
+64
+00:02:26,326 --> 00:02:28,156
+on it, you attach it to a view,
+
+
+65
+00:02:28,156 --> 00:02:29,736
+and then, the system takes care
+
+
+66
+00:02:29,736 --> 00:02:30,156
+of the rest.
+
+
+67
+00:02:30,726 --> 00:02:31,936
+Your delegate will be called
+
+
+68
+00:02:32,156 --> 00:02:33,566
+back to provide information.
+
+
+69
+00:02:34,616 --> 00:02:36,836
+It's really quite easy to use.
+
+
+70
+00:02:37,076 --> 00:02:40,596
+So, here we would create a drag
+
+
+71
+00:02:40,596 --> 00:02:43,056
+interaction object, assign
+
+
+72
+00:02:43,056 --> 00:02:44,696
+ourself as a delegate, attach it
+
+
+73
+00:02:44,696 --> 00:02:45,196
+to this view.
+
+
+74
+00:02:45,196 --> 00:02:46,596
+And we would also, do the same
+
+
+75
+00:02:46,886 --> 00:02:48,106
+for the other views that we want
+
+
+76
+00:02:48,106 --> 00:02:48,796
+to make draggable.
+
+
+77
+00:02:49,906 --> 00:02:50,806
+Now, the
+
+
+78
+00:02:50,806 --> 00:02:52,886
+UIDragInteractionDelegate
+
+
+79
+00:02:53,056 --> 00:02:55,216
+protocol gives you a ton of
+
+
+80
+00:02:55,216 --> 00:02:57,196
+opportunity to customize what's
+
+
+81
+00:02:57,236 --> 00:02:58,306
+going on with this drag.
+
+
+82
+00:02:58,716 --> 00:03:00,146
+The one thing you absolutely
+
+
+83
+00:03:00,236 --> 00:03:02,256
+have to do, is provide the data
+
+
+84
+00:03:02,716 --> 00:03:03,776
+for the item that's being
+
+
+85
+00:03:03,776 --> 00:03:04,156
+dragged.
+
+
+86
+00:03:04,536 --> 00:03:05,386
+But apart from that, it's
+
+
+87
+00:03:05,386 --> 00:03:06,316
+entirely up to you.
+
+
+88
+00:03:06,316 --> 00:03:08,016
+You can go with the system
+
+
+89
+00:03:08,016 --> 00:03:09,966
+defaults, or you can customize
+
+
+90
+00:03:09,966 --> 00:03:11,296
+all kinds of aspects of the
+
+
+91
+00:03:11,296 --> 00:03:11,586
+drag.
+
+
+92
+00:03:11,586 --> 00:03:13,066
+Like, the lift animation, the
+
+
+93
+00:03:13,066 --> 00:03:16,036
+previews, you can get callbacks
+
+
+94
+00:03:16,036 --> 00:03:17,806
+as the touch moves around on the
+
+
+95
+00:03:17,806 --> 00:03:19,586
+screen and do things in
+
+
+96
+00:03:19,586 --> 00:03:20,056
+response.
+
+
+97
+00:03:20,586 --> 00:03:23,096
+It's entirely open to your
+
+
+98
+00:03:23,096 --> 00:03:24,066
+application's needs.
+
+
+99
+00:03:25,476 --> 00:03:27,036
+So, the other major component of
+
+
+100
+00:03:27,036 --> 00:03:28,586
+Drag and Drop, obviously, is the
+
+
+101
+00:03:28,586 --> 00:03:29,386
+drop component.
+
+
+102
+00:03:29,776 --> 00:03:32,016
+And to enable that, you also use
+
+
+103
+00:03:32,016 --> 00:03:33,786
+a new type of UI interaction
+
+
+104
+00:03:33,786 --> 00:03:35,666
+called the UIDropInteraction.
+
+
+105
+00:03:36,206 --> 00:03:39,346
+And you attach that not to the
+
+
+106
+00:03:39,346 --> 00:03:40,716
+individual draggable views, but
+
+
+107
+00:03:40,716 --> 00:03:42,246
+to the super view, the container
+
+
+108
+00:03:42,486 --> 00:03:43,986
+that's going to receive items
+
+
+109
+00:03:43,986 --> 00:03:44,466
+dropped.
+
+
+110
+00:03:46,936 --> 00:03:48,586
+Once again, you set a delegate.
+
+
+111
+00:03:48,586 --> 00:03:50,626
+And once again, this delegate
+
+
+112
+00:03:50,666 --> 00:03:53,516
+has the opportunity to do all
+
+
+113
+00:03:53,516 --> 00:03:54,896
+kinds of customization.
+
+
+114
+00:03:55,976 --> 00:03:57,596
+You can update your UI to make
+
+
+115
+00:03:57,596 --> 00:03:58,886
+the other items get out of the
+
+
+116
+00:03:58,886 --> 00:04:00,636
+way as the drag moves around,
+
+
+117
+00:04:00,946 --> 00:04:02,226
+show a visual indication of
+
+
+118
+00:04:02,226 --> 00:04:03,966
+where a drop would go, what
+
+
+119
+00:04:03,966 --> 00:04:05,246
+would happen if the user were to
+
+
+120
+00:04:05,246 --> 00:04:06,276
+drop.
+
+
+121
+00:04:06,506 --> 00:04:08,056
+You receive the data when the
+
+
+122
+00:04:08,056 --> 00:04:10,006
+drop is actually performed and
+
+
+123
+00:04:10,006 --> 00:04:11,436
+you can update your model in
+
+
+124
+00:04:11,436 --> 00:04:11,936
+response.
+
+
+125
+00:04:12,746 --> 00:04:13,956
+And then, you can also customize
+
+
+126
+00:04:13,956 --> 00:04:15,046
+all kinds of aspects of this
+
+
+127
+00:04:15,046 --> 00:04:15,536
+animation.
+
+
+128
+00:04:15,536 --> 00:04:16,826
+You can customize the preview,
+
+
+129
+00:04:16,826 --> 00:04:18,315
+during the drop, the drop
+
+
+130
+00:04:18,315 --> 00:04:19,685
+animation itself, it's really
+
+
+131
+00:04:19,685 --> 00:04:20,516
+very powerful.
+
+
+132
+00:04:21,786 --> 00:04:23,446
+So, we're excited to see what
+
+
+133
+00:04:23,446 --> 00:04:25,406
+you will create with all of the
+
+
+134
+00:04:25,406 --> 00:04:26,456
+power of this feature.
+
+
+135
+00:04:26,656 --> 00:04:27,716
+But to make it really easy to
+
+
+136
+00:04:27,716 --> 00:04:29,376
+get started, the system has
+
+
+137
+00:04:29,376 --> 00:04:32,416
+built-in support in a number of
+
+
+138
+00:04:32,416 --> 00:04:33,766
+the existing classes that you're
+
+
+139
+00:04:33,766 --> 00:04:34,996
+probably already using.
+
+
+140
+00:04:35,346 --> 00:04:36,556
+So, to get this going with
+
+
+141
+00:04:36,586 --> 00:04:38,186
+TableView, CollectionView, and
+
+
+142
+00:04:38,186 --> 00:04:39,666
+the various Text and Web views,
+
+
+143
+00:04:40,166 --> 00:04:41,606
+there's very little work for you
+
+
+144
+00:04:41,796 --> 00:04:42,736
+to do, in addition.
+
+
+145
+00:04:44,176 --> 00:04:45,486
+One other useful piece of
+
+
+146
+00:04:45,486 --> 00:04:46,736
+integration on this system, is
+
+
+147
+00:04:46,736 --> 00:04:48,156
+with UIPasteConfiguration.
+
+
+148
+00:04:48,736 --> 00:04:50,976
+So, if your application already
+
+
+149
+00:04:51,266 --> 00:04:52,946
+knows how to handle the paste
+
+
+150
+00:04:52,946 --> 00:04:54,266
+part of a copy and paste
+
+
+151
+00:04:54,546 --> 00:04:56,346
+operation, there's very little
+
+
+152
+00:04:56,756 --> 00:04:58,506
+extra work that you need to do
+
+
+153
+00:04:58,506 --> 00:05:00,526
+to make that same view a drop
+
+
+154
+00:05:00,526 --> 00:05:00,786
+target.
+
+
+155
+00:05:01,706 --> 00:05:05,456
+So, here are the sessions on
+
+
+156
+00:05:05,456 --> 00:05:06,016
+Drag and Drop.
+
+
+157
+00:05:06,236 --> 00:05:07,276
+And the first one is
+
+
+158
+00:05:07,276 --> 00:05:08,286
+introduction to Drag and Drop,
+
+
+159
+00:05:08,476 --> 00:05:09,776
+right here, right after this
+
+
+160
+00:05:09,816 --> 00:05:10,136
+session.
+
+
+161
+00:05:10,136 --> 00:05:11,256
+And so, we really encourage you
+
+
+162
+00:05:11,256 --> 00:05:11,786
+to stay for that.
+
+
+163
+00:05:12,986 --> 00:05:14,486
+Tomorrow, we have Mastering Drag
+
+
+164
+00:05:14,486 --> 00:05:14,876
+and Drop.
+
+
+165
+00:05:15,206 --> 00:05:16,256
+And then, there's an entire
+
+
+166
+00:05:16,306 --> 00:05:18,096
+session devoted to getting Drag
+
+
+167
+00:05:18,096 --> 00:05:19,216
+and Drop working with your table
+
+
+168
+00:05:19,216 --> 00:05:20,156
+and collection views.
+
+
+169
+00:05:20,386 --> 00:05:22,076
+And a really important session
+
+
+170
+00:05:22,146 --> 00:05:24,756
+on the various ways that you can
+
+
+171
+00:05:24,756 --> 00:05:26,846
+manipulate data with your drags
+
+
+172
+00:05:26,846 --> 00:05:27,336
+and drops.
+
+
+173
+00:05:27,576 --> 00:05:28,806
+There's actually a lot that you
+
+
+174
+00:05:28,806 --> 00:05:29,706
+can do there, that's very
+
+
+175
+00:05:29,706 --> 00:05:30,196
+powerful.
+
+
+176
+00:05:30,196 --> 00:05:31,026
+So, we encourage you to check
+
+
+177
+00:05:31,066 --> 00:05:31,646
+that out, as well.
+
+
+178
+00:05:31,646 --> 00:05:33,386
+All right.
+
+
+179
+00:05:33,546 --> 00:05:35,306
+So, the other piece of our
+
+
+180
+00:05:35,346 --> 00:05:36,986
+productivity enhancements on
+
+
+181
+00:05:36,986 --> 00:05:38,876
+iPad and iPhone is File
+
+
+182
+00:05:38,876 --> 00:05:39,366
+Management.
+
+
+183
+00:05:40,566 --> 00:05:42,096
+We're introducing this wonderful
+
+
+184
+00:05:42,096 --> 00:05:44,086
+view controller that allows your
+
+
+185
+00:05:44,086 --> 00:05:46,006
+users to browse their documents,
+
+
+186
+00:05:46,356 --> 00:05:47,726
+right in your app.
+
+
+187
+00:05:47,726 --> 00:05:49,196
+And this gives them access not
+
+
+188
+00:05:49,196 --> 00:05:51,206
+only to the local documents in
+
+
+189
+00:05:51,206 --> 00:05:52,786
+your app's documents folder, but
+
+
+190
+00:05:52,786 --> 00:05:54,346
+also, to documents stored on the
+
+
+191
+00:05:54,346 --> 00:05:56,736
+cloud in iCloud Drive, and also
+
+
+192
+00:05:56,736 --> 00:05:58,256
+in participating third party
+
+
+193
+00:05:58,256 --> 00:05:59,446
+cloud storage services.
+
+
+194
+00:06:00,156 --> 00:06:03,926
+To make one of these.
+
+
+195
+00:06:03,926 --> 00:06:06,136
+So, the class is called
+
+
+196
+00:06:06,136 --> 00:06:08,196
+UIDocumentBrowserViewController.
+
+
+197
+00:06:08,826 --> 00:06:11,206
+And to make one, you pass it in
+
+
+198
+00:06:11,206 --> 00:06:13,226
+array of the file types that
+
+
+199
+00:06:13,226 --> 00:06:14,556
+your app knows how to handle.
+
+
+200
+00:06:14,916 --> 00:06:16,246
+That way, the user can't open a
+
+
+201
+00:06:16,246 --> 00:06:18,236
+file using this API that your
+
+
+202
+00:06:18,396 --> 00:06:19,186
+app doesn't know what to do
+
+
+203
+00:06:19,186 --> 00:06:19,366
+with.
+
+
+204
+00:06:20,006 --> 00:06:22,776
+And this class is actually quite
+
+
+205
+00:06:22,776 --> 00:06:23,506
+customizable.
+
+
+206
+00:06:24,266 --> 00:06:25,696
+The appearance can be changed in
+
+
+207
+00:06:25,696 --> 00:06:26,566
+a variety of ways.
+
+
+208
+00:06:26,756 --> 00:06:27,936
+And you can also set different
+
+
+209
+00:06:27,936 --> 00:06:30,076
+behaviors to occur as the user
+
+
+210
+00:06:30,076 --> 00:06:31,276
+navigates their files and
+
+
+211
+00:06:31,276 --> 00:06:31,896
+selects one.
+
+
+212
+00:06:32,436 --> 00:06:35,546
+As I mentioned, this gives you
+
+
+213
+00:06:35,546 --> 00:06:37,296
+access both to local storage,
+
+
+214
+00:06:37,426 --> 00:06:38,776
+and documents stored on the
+
+
+215
+00:06:38,776 --> 00:06:38,926
+cloud.
+
+
+216
+00:06:38,986 --> 00:06:40,756
+And that comes with one
+
+
+217
+00:06:40,806 --> 00:06:42,526
+important caveat that's really
+
+
+218
+00:06:42,526 --> 00:06:43,686
+important to keep in mind.
+
+
+219
+00:06:43,996 --> 00:06:45,696
+Which is that you can no longer
+
+
+220
+00:06:45,836 --> 00:06:48,736
+depend on your application being
+
+
+221
+00:06:48,736 --> 00:06:50,166
+the only one touching a
+
+
+222
+00:06:50,166 --> 00:06:51,866
+particular file at a given time.
+
+
+223
+00:06:52,256 --> 00:06:53,766
+So, it's really crucial to
+
+
+224
+00:06:53,766 --> 00:06:55,686
+coordinate file access with
+
+
+225
+00:06:55,686 --> 00:06:57,066
+documents that you're accessing
+
+
+226
+00:06:57,066 --> 00:06:57,646
+using this class.
+
+
+227
+00:06:58,106 --> 00:07:00,146
+And you can do that by using
+
+
+228
+00:07:00,146 --> 00:07:02,716
+NSFileCoordinator, directly, or
+
+
+229
+00:07:02,916 --> 00:07:04,526
+by sub-classing UIDocument,
+
+
+230
+00:07:05,316 --> 00:07:06,586
+which builds in a lot of file
+
+
+231
+00:07:06,586 --> 00:07:07,876
+coordination behavior for you.
+
+
+232
+00:07:09,246 --> 00:07:11,236
+To hear more about this class
+
+
+233
+00:07:11,406 --> 00:07:13,136
+and other document based topics,
+
+
+234
+00:07:13,476 --> 00:07:15,576
+please check out this session on
+
+
+235
+00:07:15,846 --> 00:07:16,286
+Thursday.
+
+
+236
+00:07:17,196 --> 00:07:18,946
+And now, I'm going to invite
+
+
+237
+00:07:18,946 --> 00:07:21,156
+Josh onstage, to talk us through
+
+
+238
+00:07:21,156 --> 00:07:22,536
+some of the UI refinements in
+
+
+239
+00:07:22,836 --> 00:07:23,976
+iOS 11.
+
+
+240
+00:07:24,516 --> 00:07:29,086
+[ Applause ]
+
+
+241
+00:07:29,586 --> 00:07:29,936
+>> All right.
+
+
+242
+00:07:29,936 --> 00:07:30,576
+Thanks, Eliza.
+
+
+243
+00:07:31,266 --> 00:07:33,016
+So, there's a lot of really
+
+
+244
+00:07:33,016 --> 00:07:34,016
+great enhancements to
+
+
+245
+00:07:34,016 --> 00:07:35,766
+productivity APIs in iOS 11.
+
+
+246
+00:07:35,846 --> 00:07:37,376
+But we've also got some really
+
+
+247
+00:07:37,376 --> 00:07:39,056
+great UI refinements, as well.
+
+
+248
+00:07:39,056 --> 00:07:40,246
+And I want to talk through a
+
+
+249
+00:07:40,246 --> 00:07:41,806
+bunch of them, starting with one
+
+
+250
+00:07:41,806 --> 00:07:43,076
+of the most visible, which is
+
+
+251
+00:07:43,076 --> 00:07:45,166
+the new large title at the top
+
+
+252
+00:07:45,166 --> 00:07:46,116
+of the navigation bar.
+
+
+253
+00:07:46,986 --> 00:07:48,146
+And this is the most visible
+
+
+254
+00:07:48,146 --> 00:07:49,256
+change that you'll probably
+
+
+255
+00:07:49,256 --> 00:07:50,446
+immediately notice, when you
+
+
+256
+00:07:50,446 --> 00:07:51,866
+start using iOS 11.
+
+
+257
+00:07:52,816 --> 00:07:53,886
+It includes this new large
+
+
+258
+00:07:53,886 --> 00:07:55,176
+prominent title displayed at the
+
+
+259
+00:07:55,176 --> 00:07:55,756
+top.
+
+
+260
+00:07:55,916 --> 00:07:57,696
+Along, with a new unified search
+
+
+261
+00:07:57,696 --> 00:07:59,356
+field design that integrates it
+
+
+262
+00:07:59,356 --> 00:08:00,026
+right in the bar.
+
+
+263
+00:08:00,936 --> 00:08:02,056
+So, while your content is
+
+
+264
+00:08:02,056 --> 00:08:03,506
+scrolled to the top, you're
+
+
+265
+00:08:03,506 --> 00:08:04,576
+going to be able to have easy
+
+
+266
+00:08:04,576 --> 00:08:05,946
+visibility of the large title
+
+
+267
+00:08:05,946 --> 00:08:07,216
+that tell exactly where you are,
+
+
+268
+00:08:07,216 --> 00:08:08,926
+and easier access to the search
+
+
+269
+00:08:08,926 --> 00:08:09,206
+field.
+
+
+270
+00:08:09,206 --> 00:08:10,376
+Because it's now pulled down a
+
+
+271
+00:08:10,376 --> 00:08:11,726
+little bit farther than where it
+
+
+272
+00:08:11,726 --> 00:08:13,956
+usually would have been, in the
+
+
+273
+00:08:14,696 --> 00:08:14,836
+past.
+
+
+274
+00:08:15,006 --> 00:08:16,736
+However, to maximize the area
+
+
+275
+00:08:16,736 --> 00:08:18,016
+available for displaying your
+
+
+276
+00:08:18,016 --> 00:08:20,006
+actual content, as you start
+
+
+277
+00:08:20,046 --> 00:08:21,666
+scrolling, both of these will
+
+
+278
+00:08:21,666 --> 00:08:23,626
+collapse in order to maximize
+
+
+279
+00:08:23,666 --> 00:08:25,276
+the space below the bar, so you
+
+
+280
+00:08:25,276 --> 00:08:26,536
+can see as much content as
+
+
+281
+00:08:26,536 --> 00:08:27,046
+possible.
+
+
+282
+00:08:27,736 --> 00:08:29,206
+First, the search bar will
+
+
+283
+00:08:29,206 --> 00:08:30,186
+collapse itself.
+
+
+284
+00:08:30,186 --> 00:08:31,826
+And then, the large title will
+
+
+285
+00:08:31,866 --> 00:08:33,326
+scroll up under the bar, and
+
+
+286
+00:08:33,326 --> 00:08:34,416
+you'll end up with a view that
+
+
+287
+00:08:34,416 --> 00:08:35,416
+looks very much like what you
+
+
+288
+00:08:35,416 --> 00:08:37,216
+were used to, prior to iOS 11.
+
+
+289
+00:08:38,376 --> 00:08:40,285
+Now, UINavigationController will
+
+
+290
+00:08:40,285 --> 00:08:42,176
+automatically find the main
+
+
+291
+00:08:42,176 --> 00:08:43,736
+primary content scroll view
+
+
+292
+00:08:44,006 --> 00:08:45,336
+inside of your currently visible
+
+
+293
+00:08:45,336 --> 00:08:46,046
+view controller.
+
+
+294
+00:08:46,396 --> 00:08:48,146
+And track its content offset to
+
+
+295
+00:08:48,146 --> 00:08:49,236
+make sure that it can do this on
+
+
+296
+00:08:49,236 --> 00:08:49,506
+your behalf.
+
+
+297
+00:08:50,316 --> 00:08:51,316
+So, in most cases, there's
+
+
+298
+00:08:51,316 --> 00:08:52,676
+actually not a lot of work that
+
+
+299
+00:08:52,676 --> 00:08:53,946
+you need to do, in order to
+
+
+300
+00:08:54,976 --> 00:08:56,786
+adopt that.
+
+
+301
+00:08:56,996 --> 00:08:58,366
+Enabling all this behavior is
+
+
+302
+00:08:58,366 --> 00:08:59,666
+actually really straightforward.
+
+
+303
+00:09:00,126 --> 00:09:01,396
+There's one new property on
+
+
+304
+00:09:01,396 --> 00:09:02,956
+UINavigationBar called
+
+
+305
+00:09:02,956 --> 00:09:04,026
+prefersLargeTitle.
+
+
+306
+00:09:04,026 --> 00:09:05,556
+And if you just set that to yes,
+
+
+307
+00:09:06,186 --> 00:09:07,016
+you're going to get the large
+
+
+308
+00:09:07,016 --> 00:09:08,246
+title appearance and
+
+
+309
+00:09:08,246 --> 00:09:09,466
+NavigationController will
+
+
+310
+00:09:09,466 --> 00:09:10,786
+automatically do that tracking
+
+
+311
+00:09:10,786 --> 00:09:11,666
+that we just talked about.
+
+
+312
+00:09:11,666 --> 00:09:13,116
+Finding your scroll view,
+
+
+313
+00:09:13,326 --> 00:09:14,616
+tracking its offset, and
+
+
+314
+00:09:14,616 --> 00:09:15,426
+handling the shrinking.
+
+
+315
+00:09:16,036 --> 00:09:18,606
+Now, the second thing is a new
+
+
+316
+00:09:18,606 --> 00:09:20,256
+property on UINavigationItem.
+
+
+317
+00:09:20,776 --> 00:09:22,016
+And this lets you control the
+
+
+318
+00:09:22,016 --> 00:09:23,256
+appearance of the large title
+
+
+319
+00:09:23,256 --> 00:09:24,516
+for every level of your
+
+
+320
+00:09:24,516 --> 00:09:25,636
+navigation hierarchy.
+
+
+321
+00:09:26,216 --> 00:09:27,736
+So, not every level, as you're
+
+
+322
+00:09:27,786 --> 00:09:28,976
+pushing view controllers onto
+
+
+323
+00:09:28,976 --> 00:09:30,396
+the Navstack, needs to display
+
+
+324
+00:09:30,396 --> 00:09:31,106
+the large title.
+
+
+325
+00:09:31,536 --> 00:09:32,966
+And in fact, many often do not.
+
+
+326
+00:09:32,966 --> 00:09:34,526
+So, you can control at each
+
+
+327
+00:09:34,526 --> 00:09:36,176
+level using this navigation item
+
+
+328
+00:09:36,176 --> 00:09:37,726
+property, whether the large
+
+
+329
+00:09:37,776 --> 00:09:39,796
+title, or the older more small
+
+
+330
+00:09:39,986 --> 00:09:41,246
+traditional style is what you'll
+
+
+331
+00:09:41,306 --> 00:09:43,526
+see at any given point.
+
+
+332
+00:09:43,716 --> 00:09:44,956
+Adopting the searchController
+
+
+333
+00:09:44,956 --> 00:09:46,316
+appearance is also, really easy.
+
+
+334
+00:09:46,646 --> 00:09:47,556
+You can just use this new
+
+
+335
+00:09:47,556 --> 00:09:49,056
+searchController property, in
+
+
+336
+00:09:49,326 --> 00:09:51,166
+order to get that new appearance
+
+
+337
+00:09:51,166 --> 00:09:52,326
+and all the new behaviors.
+
+
+338
+00:09:52,736 --> 00:09:53,976
+Now, traditionally in the past,
+
+
+339
+00:09:53,976 --> 00:09:54,786
+you would have taken your
+
+
+340
+00:09:54,786 --> 00:09:56,716
+navigation bar and probably
+
+
+341
+00:09:56,716 --> 00:09:57,796
+included it as part of your
+
+
+342
+00:09:57,796 --> 00:09:59,496
+content, maybe made it the table
+
+
+343
+00:09:59,496 --> 00:10:00,236
+header view for your
+
+
+344
+00:10:00,236 --> 00:10:00,976
+UITableView.
+
+
+345
+00:10:01,576 --> 00:10:02,596
+Now, instead of doing that,
+
+
+346
+00:10:02,736 --> 00:10:03,786
+because the new appearance looks
+
+
+347
+00:10:03,786 --> 00:10:05,476
+more like it's part of the bar,
+
+
+348
+00:10:05,476 --> 00:10:06,616
+you can just use this property
+
+
+349
+00:10:06,756 --> 00:10:07,426
+and you'll get all those
+
+
+350
+00:10:07,426 --> 00:10:08,056
+behaviors.
+
+
+351
+00:10:09,376 --> 00:10:12,356
+Now generally, the first view on
+
+
+352
+00:10:12,356 --> 00:10:13,856
+your navigation stack is the
+
+
+353
+00:10:13,856 --> 00:10:15,136
+only one that you would use the
+
+
+354
+00:10:15,136 --> 00:10:16,196
+large title for.
+
+
+355
+00:10:16,646 --> 00:10:18,156
+This is a general bit of
+
+
+356
+00:10:18,156 --> 00:10:20,386
+guidance for designing your apps
+
+
+357
+00:10:20,426 --> 00:10:21,426
+to use these large titles.
+
+
+358
+00:10:22,196 --> 00:10:23,866
+Then, as you push in to a second
+
+
+359
+00:10:23,866 --> 00:10:25,806
+level view and keep navigating
+
+
+360
+00:10:25,806 --> 00:10:27,546
+deeper, you'd usually use the
+
+
+361
+00:10:27,546 --> 00:10:28,826
+more smaller traditional size.
+
+
+362
+00:10:29,636 --> 00:10:30,736
+This is a great starting point
+
+
+363
+00:10:30,736 --> 00:10:32,216
+for your designs, but as we just
+
+
+364
+00:10:32,216 --> 00:10:33,726
+mentioned, it is fully under
+
+
+365
+00:10:33,726 --> 00:10:35,626
+your control via the API, so you
+
+
+366
+00:10:35,626 --> 00:10:36,756
+can do the right thing for your
+
+
+367
+00:10:36,886 --> 00:10:36,966
+app.
+
+
+368
+00:10:36,966 --> 00:10:38,396
+And in fact, if you look through
+
+
+369
+00:10:38,396 --> 00:10:39,596
+some of ours, you'll find that
+
+
+370
+00:10:39,596 --> 00:10:41,006
+Mail, for instance, uses the
+
+
+371
+00:10:41,006 --> 00:10:42,366
+large title at the first two
+
+
+372
+00:10:42,366 --> 00:10:42,746
+levels.
+
+
+373
+00:10:43,306 --> 00:10:45,896
+You'll also notice that the
+
+
+374
+00:10:45,896 --> 00:10:47,086
+refresh control is now
+
+
+375
+00:10:47,116 --> 00:10:48,896
+integrated in this new, single,
+
+
+376
+00:10:48,896 --> 00:10:49,566
+large title.
+
+
+377
+00:10:50,166 --> 00:10:51,546
+Now, if you use a UI refresh
+
+
+378
+00:10:51,546 --> 00:10:52,996
+control in your app to get your
+
+
+379
+00:10:52,996 --> 00:10:54,506
+Pull to Refresh behavior, this
+
+
+380
+00:10:54,506 --> 00:10:55,226
+will actually happen
+
+
+381
+00:10:55,226 --> 00:10:55,946
+automatically.
+
+
+382
+00:10:56,016 --> 00:10:57,066
+So, there's no additional work
+
+
+383
+00:10:57,066 --> 00:10:58,226
+you have to do to get that
+
+
+384
+00:10:58,286 --> 00:11:02,066
+visual integration with the bar.
+
+
+385
+00:11:02,686 --> 00:11:03,816
+One important thing to note
+
+
+386
+00:11:03,816 --> 00:11:05,246
+about these large titles and the
+
+
+387
+00:11:05,246 --> 00:11:06,766
+bar is that they're actually
+
+
+388
+00:11:06,846 --> 00:11:08,526
+part of the navigation bar, not
+
+
+389
+00:11:08,526 --> 00:11:09,766
+part of your content view.
+
+
+390
+00:11:11,056 --> 00:11:12,536
+As a result, the navigation bar
+
+
+391
+00:11:12,536 --> 00:11:13,886
+itself, is actually quite a bit
+
+
+392
+00:11:13,946 --> 00:11:15,126
+taller than you might normally
+
+
+393
+00:11:15,126 --> 00:11:16,586
+be used to from previous
+
+
+394
+00:11:16,586 --> 00:11:17,536
+releases of iOS.
+
+
+395
+00:11:18,006 --> 00:11:19,276
+And in fact, it can now change
+
+
+396
+00:11:19,356 --> 00:11:20,926
+height as the content scrolls.
+
+
+397
+00:11:22,666 --> 00:11:23,906
+As you can see, it's larger
+
+
+398
+00:11:23,906 --> 00:11:24,646
+while the large title is
+
+
+399
+00:11:24,646 --> 00:11:25,046
+visible.
+
+
+400
+00:11:25,136 --> 00:11:27,406
+And then, as the user scrolls
+
+
+401
+00:11:27,576 --> 00:11:28,756
+and the large title disappears,
+
+
+402
+00:11:28,786 --> 00:11:30,036
+the navigation bar takes on a
+
+
+403
+00:11:30,036 --> 00:11:32,126
+more traditional height as you
+
+
+404
+00:11:32,126 --> 00:11:33,096
+would normally be used to.
+
+
+405
+00:11:33,986 --> 00:11:34,866
+Now, you might initially be
+
+
+406
+00:11:34,866 --> 00:11:35,916
+concerned that this could be
+
+
+407
+00:11:35,916 --> 00:11:36,926
+complicated to deal with.
+
+
+408
+00:11:37,426 --> 00:11:38,486
+But the teams have been working
+
+
+409
+00:11:38,486 --> 00:11:39,726
+really hard to make sure that
+
+
+410
+00:11:39,726 --> 00:11:41,356
+this is as easy as possible to
+
+
+411
+00:11:41,356 --> 00:11:42,376
+deal with, in your apps.
+
+
+412
+00:11:42,536 --> 00:11:43,616
+And in most cases, it can
+
+
+413
+00:11:43,656 --> 00:11:44,406
+actually be handled
+
+
+414
+00:11:44,406 --> 00:11:45,826
+automatically on your behalf,
+
+
+415
+00:11:45,956 --> 00:11:46,866
+with no additional work.
+
+
+416
+00:11:47,346 --> 00:11:48,716
+UINavigationController does a
+
+
+417
+00:11:48,716 --> 00:11:49,586
+lot of this for you.
+
+
+418
+00:11:50,496 --> 00:11:51,896
+Now, to make it easier, though,
+
+
+419
+00:11:51,896 --> 00:11:54,786
+to find out as these bars change
+
+
+420
+00:11:54,896 --> 00:11:56,556
+height, there's a new property
+
+
+421
+00:11:56,596 --> 00:11:58,166
+on UIView, that's actually
+
+
+422
+00:11:58,166 --> 00:11:59,736
+really generally useful and can
+
+
+423
+00:11:59,736 --> 00:12:00,976
+apply across your entire
+
+
+424
+00:12:00,976 --> 00:12:01,496
+application.
+
+
+425
+00:12:01,496 --> 00:12:03,566
+And that's the new safeAreaInset
+
+
+426
+00:12:03,606 --> 00:12:03,986
+property.
+
+
+427
+00:12:05,256 --> 00:12:07,236
+So, safeAreaInset lets you know
+
+
+428
+00:12:07,236 --> 00:12:09,176
+the area of your content that is
+
+
+429
+00:12:09,256 --> 00:12:10,506
+visible underneath anything that
+
+
+430
+00:12:10,506 --> 00:12:11,776
+might be obscured by bars.
+
+
+431
+00:12:11,866 --> 00:12:14,286
+So, you can reliably and easily
+
+
+432
+00:12:14,326 --> 00:12:15,766
+place your content in the area
+
+
+433
+00:12:15,766 --> 00:12:17,246
+that will be visible and not
+
+
+434
+00:12:17,246 --> 00:12:19,216
+obstructed by any of these other
+
+
+435
+00:12:19,216 --> 00:12:21,146
+system UIs, like the bar at the
+
+
+436
+00:12:21,146 --> 00:12:21,986
+top and bottom.
+
+
+437
+00:12:22,816 --> 00:12:23,746
+Now, with this information, you
+
+
+438
+00:12:23,746 --> 00:12:25,016
+can easily do that layout.
+
+
+439
+00:12:25,316 --> 00:12:26,766
+And as the bar changes height
+
+
+440
+00:12:26,766 --> 00:12:28,236
+while the user scrolls, the
+
+
+441
+00:12:28,236 --> 00:12:30,136
+safeAreaInset will grow so that
+
+
+442
+00:12:30,136 --> 00:12:31,586
+you can easily stay below the
+
+
+443
+00:12:31,586 --> 00:12:31,876
+bar.
+
+
+444
+00:12:34,456 --> 00:12:35,996
+Now, if your view is overlapped
+
+
+445
+00:12:35,996 --> 00:12:37,566
+by a toolbar or a tab bar on the
+
+
+446
+00:12:37,606 --> 00:12:38,986
+bottom, you're going to find
+
+
+447
+00:12:38,986 --> 00:12:40,206
+that the safeAreaInset has a
+
+
+448
+00:12:40,206 --> 00:12:41,666
+value for its bottom, as well.
+
+
+449
+00:12:41,856 --> 00:12:42,946
+So that you can be sure that you
+
+
+450
+00:12:42,946 --> 00:12:44,496
+know the exact area, top and
+
+
+451
+00:12:44,496 --> 00:12:45,516
+bottom, that you can safely
+
+
+452
+00:12:45,516 --> 00:12:47,046
+display content in.
+
+
+453
+00:12:48,696 --> 00:12:50,206
+The safeAreaInsets are really
+
+
+454
+00:12:50,206 --> 00:12:51,276
+easy to access, too.
+
+
+455
+00:12:51,656 --> 00:12:53,116
+So, there's three new properties
+
+
+456
+00:12:53,116 --> 00:12:54,506
+on UIView that make it easy to
+
+
+457
+00:12:54,506 --> 00:12:54,946
+use this.
+
+
+458
+00:12:55,496 --> 00:12:56,026
+The first is the
+
+
+459
+00:12:56,026 --> 00:12:57,096
+safeAreaLayoutGuide.
+
+
+460
+00:12:57,476 --> 00:12:58,826
+Now, with safeAreaLayoutGuide,
+
+
+461
+00:12:58,826 --> 00:13:00,136
+you can easily integrate safe
+
+
+462
+00:13:00,136 --> 00:13:01,356
+areas with all of your auto
+
+
+463
+00:13:01,356 --> 00:13:01,966
+layout code.
+
+
+464
+00:13:01,966 --> 00:13:03,366
+So, you can set up constraints
+
+
+465
+00:13:03,416 --> 00:13:04,826
+against this layout guide to
+
+
+466
+00:13:04,866 --> 00:13:06,216
+position all of your content
+
+
+467
+00:13:06,216 --> 00:13:07,176
+within the safe area.
+
+
+468
+00:13:08,646 --> 00:13:09,606
+Now, if you're performing layout
+
+
+469
+00:13:09,646 --> 00:13:11,066
+manually, you may actually just
+
+
+470
+00:13:11,066 --> 00:13:12,136
+want to read the current safe
+
+
+471
+00:13:12,136 --> 00:13:13,386
+area values for a particular
+
+
+472
+00:13:13,386 --> 00:13:13,996
+point in time.
+
+
+473
+00:13:14,546 --> 00:13:15,386
+And you can do that with the
+
+
+474
+00:13:15,386 --> 00:13:16,676
+safeAreaInsets property.
+
+
+475
+00:13:17,266 --> 00:13:18,156
+Now, this is in the coordinate
+
+
+476
+00:13:18,156 --> 00:13:19,666
+space of your view, so it's
+
+
+477
+00:13:19,666 --> 00:13:21,006
+really easy to use to position
+
+
+478
+00:13:21,006 --> 00:13:22,146
+your content exactly where you
+
+
+479
+00:13:22,146 --> 00:13:22,346
+want.
+
+
+480
+00:13:22,346 --> 00:13:23,796
+Now, of course, if you're doing
+
+
+481
+00:13:23,796 --> 00:13:25,216
+manual layout, you'll also need
+
+
+482
+00:13:25,216 --> 00:13:26,306
+to know when that changes.
+
+
+483
+00:13:26,306 --> 00:13:27,586
+And so, you can override the
+
+
+484
+00:13:27,586 --> 00:13:29,596
+safeAreaInsetsDidChange property
+
+
+485
+00:13:29,876 --> 00:13:31,266
+to find out when it changes and
+
+
+486
+00:13:31,266 --> 00:13:32,686
+adjust your layout.
+
+
+487
+00:13:33,976 --> 00:13:35,836
+Now, there's a lot of things,
+
+
+488
+00:13:35,836 --> 00:13:36,966
+because this is integrated
+
+
+489
+00:13:36,966 --> 00:13:38,266
+throughout UIKit, that could be
+
+
+490
+00:13:38,266 --> 00:13:39,496
+handled automatically for you,
+
+
+491
+00:13:39,496 --> 00:13:40,396
+that previously would have been
+
+
+492
+00:13:40,396 --> 00:13:40,966
+more difficult.
+
+
+493
+00:13:41,616 --> 00:13:43,206
+For instance, UIScrollView can
+
+
+494
+00:13:43,206 --> 00:13:44,386
+automatically include the
+
+
+495
+00:13:44,386 --> 00:13:46,196
+safeAreaInsets as additional
+
+
+496
+00:13:46,196 --> 00:13:47,916
+scrollable padding at the top
+
+
+497
+00:13:47,916 --> 00:13:48,866
+and bottom of your views.
+
+
+498
+00:13:49,266 --> 00:13:50,236
+So, that even if they're
+
+
+499
+00:13:50,236 --> 00:13:51,886
+underlapping the bars, you can
+
+
+500
+00:13:51,886 --> 00:13:53,086
+be sure that your content can
+
+
+501
+00:13:53,086 --> 00:13:54,356
+always be scrolled into view.
+
+
+502
+00:13:55,096 --> 00:13:56,336
+Now, in previous releases,
+
+
+503
+00:13:56,336 --> 00:13:57,856
+UINavigationController tried to
+
+
+504
+00:13:57,856 --> 00:13:58,716
+handle some of this on your
+
+
+505
+00:13:58,716 --> 00:14:00,126
+behalf by calculating the
+
+
+506
+00:14:00,126 --> 00:14:01,106
+overlap of the bars.
+
+
+507
+00:14:01,106 --> 00:14:02,666
+And then, setting a value on the
+
+
+508
+00:14:02,786 --> 00:14:04,266
+contentInset property for your
+
+
+509
+00:14:04,266 --> 00:14:05,026
+UIScrollView.
+
+
+510
+00:14:05,686 --> 00:14:07,146
+Now, you may have noticed that
+
+
+511
+00:14:07,146 --> 00:14:08,116
+if you ever tried to set your
+
+
+512
+00:14:08,116 --> 00:14:09,336
+own contentInset for the
+
+
+513
+00:14:09,336 --> 00:14:10,846
+UIScrollView, because you'd end
+
+
+514
+00:14:10,846 --> 00:14:11,446
+up fighting with
+
+
+515
+00:14:11,446 --> 00:14:12,906
+NavigationController over who
+
+
+516
+00:14:12,906 --> 00:14:14,206
+owned that current value at a
+
+
+517
+00:14:14,206 --> 00:14:14,786
+given time.
+
+
+518
+00:14:15,616 --> 00:14:17,236
+In iOS 11, that conflict is
+
+
+519
+00:14:17,236 --> 00:14:18,436
+gone, because
+
+
+520
+00:14:18,436 --> 00:14:19,976
+UINavigationController no longer
+
+
+521
+00:14:20,076 --> 00:14:21,286
+has to set the contentInset
+
+
+522
+00:14:21,286 --> 00:14:21,686
+property.
+
+
+523
+00:14:22,306 --> 00:14:23,716
+ScrollView can set it on its own
+
+
+524
+00:14:23,716 --> 00:14:24,706
+behalf, by just looking at the
+
+
+525
+00:14:24,706 --> 00:14:26,396
+safeAreaInsets, leaving the
+
+
+526
+00:14:26,396 --> 00:14:28,226
+actual value of contentInset to
+
+
+527
+00:14:28,226 --> 00:14:29,516
+be owned by you, for your
+
+
+528
+00:14:29,516 --> 00:14:30,346
+application needs.
+
+
+529
+00:14:31,516 --> 00:14:37,836
+[ Applause ]
+
+
+530
+00:14:38,336 --> 00:14:40,006
+So, UIScrollView tries to do the
+
+
+531
+00:14:40,006 --> 00:14:41,426
+right thing, automatically, as
+
+
+532
+00:14:41,426 --> 00:14:42,626
+much as possible for this case.
+
+
+533
+00:14:43,026 --> 00:14:44,456
+But it's not always possible, of
+
+
+534
+00:14:44,456 --> 00:14:46,016
+course, to get it right 100% of
+
+
+535
+00:14:46,016 --> 00:14:46,476
+the time.
+
+
+536
+00:14:46,476 --> 00:14:47,616
+And we know some of your apps
+
+
+537
+00:14:47,616 --> 00:14:48,366
+have different needs.
+
+
+538
+00:14:49,096 --> 00:14:50,306
+So, to help make sure that you
+
+
+539
+00:14:50,306 --> 00:14:51,316
+can always have the right
+
+
+540
+00:14:51,316 --> 00:14:52,976
+behavior, we have a new property
+
+
+541
+00:14:52,976 --> 00:14:54,066
+on UIScrollView that gives you
+
+
+542
+00:14:54,126 --> 00:14:56,316
+full control over how ScrollView
+
+
+543
+00:14:56,316 --> 00:14:57,856
+interprets these safeAreaInsets.
+
+
+544
+00:14:59,426 --> 00:15:00,446
+So, with this, you can tell it
+
+
+545
+00:15:00,446 --> 00:15:01,606
+whether it should automatically
+
+
+546
+00:15:01,606 --> 00:15:03,536
+apply the insets, or just ignore
+
+
+547
+00:15:03,536 --> 00:15:04,206
+them, entirely.
+
+
+548
+00:15:04,496 --> 00:15:05,296
+So, that you can do the right
+
+
+549
+00:15:05,296 --> 00:15:06,326
+thing for your app, if it
+
+
+550
+00:15:06,326 --> 00:15:07,426
+happens to be the case that the
+
+
+551
+00:15:07,426 --> 00:15:08,986
+automatic behavior isn't exactly
+
+
+552
+00:15:08,986 --> 00:15:09,496
+what you want.
+
+
+553
+00:15:10,276 --> 00:15:11,296
+And if you want to find out
+
+
+554
+00:15:11,296 --> 00:15:13,316
+exactly what has happened, as
+
+
+555
+00:15:13,316 --> 00:15:14,096
+far as the ScrollView is
+
+
+556
+00:15:14,096 --> 00:15:16,656
+concerned, you can look at one
+
+
+557
+00:15:16,656 --> 00:15:18,156
+new property that can give you
+
+
+558
+00:15:18,156 --> 00:15:20,086
+the current value of what it has
+
+
+559
+00:15:20,086 --> 00:15:21,686
+computed from safeAreaInsets,
+
+
+560
+00:15:22,006 --> 00:15:23,726
+plus the sum of an contentInsets
+
+
+561
+00:15:23,726 --> 00:15:25,976
+that you have set, yourself with
+
+
+562
+00:15:25,976 --> 00:15:27,046
+the adjustedContentInset
+
+
+563
+00:15:27,046 --> 00:15:27,476
+property.
+
+
+564
+00:15:27,476 --> 00:15:29,146
+So, you can find out exactly how
+
+
+565
+00:15:29,146 --> 00:15:30,446
+much space the ScrollView thinks
+
+
+566
+00:15:30,446 --> 00:15:32,066
+it needs to have for scrollable
+
+
+567
+00:15:34,676 --> 00:15:34,846
+padding.
+
+
+568
+00:15:35,006 --> 00:15:36,136
+So, so far, we've focused a lot
+
+
+569
+00:15:36,136 --> 00:15:36,666
+on bars.
+
+
+570
+00:15:36,666 --> 00:15:37,886
+But there's also some other
+
+
+571
+00:15:37,886 --> 00:15:39,036
+refinements to other parts of
+
+
+572
+00:15:39,036 --> 00:15:39,826
+the UI, as well.
+
+
+573
+00:15:41,186 --> 00:15:42,396
+You'll find that UITableViews
+
+
+574
+00:15:42,396 --> 00:15:43,976
+across the system, how have a
+
+
+575
+00:15:43,976 --> 00:15:45,676
+new unified swipe delete
+
+
+576
+00:15:45,676 --> 00:15:47,566
+implementation that feels just
+
+
+577
+00:15:47,566 --> 00:15:48,476
+like what you're used to from
+
+
+578
+00:15:48,476 --> 00:15:49,416
+the Mail app.
+
+
+579
+00:15:50,666 --> 00:15:53,086
+It includes support for multiple
+
+
+580
+00:15:53,166 --> 00:15:55,236
+actions on both the left and
+
+
+581
+00:15:55,236 --> 00:15:57,366
+right swipes, as well as single
+
+
+582
+00:15:57,366 --> 00:15:58,796
+gesture activation of the
+
+
+583
+00:15:58,796 --> 00:16:00,486
+default one, with a full gesture
+
+
+584
+00:16:00,486 --> 00:16:01,676
+across the entire TableView.
+
+
+585
+00:16:02,386 --> 00:16:03,896
+It's also really easy to use in
+
+
+586
+00:16:03,896 --> 00:16:04,606
+your apps, as well.
+
+
+587
+00:16:05,356 --> 00:16:06,406
+So, with the new
+
+
+588
+00:16:06,406 --> 00:16:08,616
+UIContextualAction class, you
+
+
+589
+00:16:08,616 --> 00:16:09,856
+can specify the actions that you
+
+
+590
+00:16:09,856 --> 00:16:11,786
+want to be able to display in
+
+
+591
+00:16:11,826 --> 00:16:13,126
+the TableView's rows.
+
+
+592
+00:16:13,806 --> 00:16:14,946
+Just providing the style that
+
+
+593
+00:16:14,946 --> 00:16:15,896
+you'd like them to appear with,
+
+
+594
+00:16:16,266 --> 00:16:17,636
+and the title of the action, and
+
+
+595
+00:16:17,636 --> 00:16:19,176
+a block to invoke when they
+
+
+596
+00:16:19,176 --> 00:16:19,686
+should be run.
+
+
+597
+00:16:19,686 --> 00:16:21,436
+And then, with the new
+
+
+598
+00:16:21,436 --> 00:16:22,936
+UISwipeActionConfiguration
+
+
+599
+00:16:22,936 --> 00:16:24,406
+class, you can group together
+
+
+600
+00:16:24,696 --> 00:16:26,086
+multiple of these contextual
+
+
+601
+00:16:26,086 --> 00:16:28,466
+actions to display on the left
+
+
+602
+00:16:28,466 --> 00:16:29,826
+and right side of individual
+
+
+603
+00:16:29,826 --> 00:16:30,226
+rows.
+
+
+604
+00:16:30,516 --> 00:16:31,766
+And you can also specify whether
+
+
+605
+00:16:31,766 --> 00:16:32,646
+the first one should
+
+
+606
+00:16:32,646 --> 00:16:34,016
+automatically be invoked when a
+
+
+607
+00:16:34,016 --> 00:16:35,726
+full gesture occurs across the
+
+
+608
+00:16:35,726 --> 00:16:36,316
+entire row.
+
+
+609
+00:16:36,876 --> 00:16:38,786
+Yeah, it's very cool.
+
+
+610
+00:16:39,116 --> 00:16:41,116
+[ Applause ]
+
+
+611
+00:16:41,216 --> 00:16:42,496
+We do actually use this, now,
+
+
+612
+00:16:42,496 --> 00:16:43,146
+across the system.
+
+
+613
+00:16:43,146 --> 00:16:44,506
+You'll find more actions in many
+
+
+614
+00:16:44,506 --> 00:16:45,496
+more places than before.
+
+
+615
+00:16:45,866 --> 00:16:47,006
+But do keep in mind, though,
+
+
+616
+00:16:47,006 --> 00:16:48,296
+when you're using it, that any
+
+
+617
+00:16:48,386 --> 00:16:49,926
+actions that you put in the rows
+
+
+618
+00:16:49,926 --> 00:16:51,526
+behind the swipe actions will be
+
+
+619
+00:16:51,526 --> 00:16:52,906
+hard to discover than
+
+
+620
+00:16:52,906 --> 00:16:53,776
+something's that's visually
+
+
+621
+00:16:53,826 --> 00:16:55,406
+prominent in your application.
+
+
+622
+00:16:55,796 --> 00:16:56,836
+So, definitely use it as an
+
+
+623
+00:16:56,836 --> 00:16:58,506
+accelerator, but probably don't
+
+
+624
+00:16:58,506 --> 00:17:00,066
+make it the only way to perform
+
+
+625
+00:17:00,066 --> 00:17:00,906
+a particular action.
+
+
+626
+00:17:02,156 --> 00:17:03,686
+So, outside of that, we've also
+
+
+627
+00:17:03,686 --> 00:17:05,006
+given you more control over the
+
+
+628
+00:17:05,076 --> 00:17:06,846
+placement of separators in your
+
+
+629
+00:17:06,846 --> 00:17:07,516
+UITableView.
+
+
+630
+00:17:07,996 --> 00:17:09,665
+So, there's a new property on
+
+
+631
+00:17:09,665 --> 00:17:10,606
+UITableView that lets you
+
+
+632
+00:17:10,606 --> 00:17:12,316
+control how separatorInsets that
+
+
+633
+00:17:12,316 --> 00:17:13,596
+you set on the TableView are
+
+
+634
+00:17:13,596 --> 00:17:14,106
+interpreted.
+
+
+635
+00:17:14,546 --> 00:17:15,646
+You can indicate that they are
+
+
+636
+00:17:15,806 --> 00:17:17,576
+absolute values so they're
+
+
+637
+00:17:17,576 --> 00:17:18,906
+relative from the edge of the
+
+
+638
+00:17:18,906 --> 00:17:19,326
+cell.
+
+
+639
+00:17:19,705 --> 00:17:21,016
+Or you can indicate that they're
+
+
+640
+00:17:21,016 --> 00:17:22,965
+meant to be deltas, offset from
+
+
+641
+00:17:22,965 --> 00:17:24,046
+where the TableView would have
+
+
+642
+00:17:24,046 --> 00:17:24,986
+otherwise placed the
+
+
+643
+00:17:24,986 --> 00:17:26,316
+separatorInsets had you not
+
+
+644
+00:17:26,316 --> 00:17:27,226
+specified anything.
+
+
+645
+00:17:27,726 --> 00:17:29,026
+This makes it a lot easier to
+
+
+646
+00:17:29,026 --> 00:17:30,186
+make sure that your separators
+
+
+647
+00:17:30,186 --> 00:17:31,486
+end at exactly where you want
+
+
+648
+00:17:31,486 --> 00:17:31,746
+them.
+
+
+649
+00:17:31,746 --> 00:17:32,946
+Regardless of the device that
+
+
+650
+00:17:32,946 --> 00:17:34,916
+you're running on or the size
+
+
+651
+00:17:34,916 --> 00:17:35,686
+class that you're currently
+
+
+652
+00:17:35,686 --> 00:17:35,976
+running in.
+
+
+653
+00:17:36,516 --> 00:17:41,136
+[ Applause ]
+
+
+654
+00:17:41,636 --> 00:17:43,276
+So, there's a ton of new UI
+
+
+655
+00:17:43,276 --> 00:17:44,046
+refinements.
+
+
+656
+00:17:44,416 --> 00:17:45,756
+And there's a whole session that
+
+
+657
+00:17:45,756 --> 00:17:47,096
+can tell you about this and many
+
+
+658
+00:17:47,096 --> 00:17:47,396
+more.
+
+
+659
+00:17:48,786 --> 00:17:50,266
+It's the Updating Your App for
+
+
+660
+00:17:50,396 --> 00:17:51,416
+iOS 11 session.
+
+
+661
+00:17:51,606 --> 00:17:52,386
+So, you should definitely check
+
+
+662
+00:17:52,386 --> 00:17:52,726
+that out.
+
+
+663
+00:17:52,726 --> 00:17:54,696
+And to give you some ideas on
+
+
+664
+00:17:54,696 --> 00:17:56,096
+the thinking behind the design
+
+
+665
+00:17:56,096 --> 00:17:57,716
+of some of these new updates and
+
+
+666
+00:17:57,716 --> 00:17:58,906
+how you can best integrate them
+
+
+667
+00:17:58,906 --> 00:18:00,766
+into your apps, definitely also,
+
+
+668
+00:18:00,806 --> 00:18:02,116
+check out the design session,
+
+
+669
+00:18:02,406 --> 00:18:04,906
+Design Studio Shorts 2, later
+
+
+670
+00:18:04,906 --> 00:18:05,666
+this week, as well.
+
+
+671
+00:18:06,776 --> 00:18:08,186
+So, with that, I'll hand things
+
+
+672
+00:18:08,186 --> 00:18:09,336
+back to Eliza to tell you about
+
+
+673
+00:18:09,336 --> 00:18:10,646
+some more API enhancements
+
+
+674
+00:18:10,646 --> 00:18:11,556
+around Cocoa Touch.
+
+
+675
+00:18:11,786 --> 00:18:11,976
+Thanks.
+
+
+676
+00:18:12,516 --> 00:18:16,646
+[ Applause ]
+
+
+677
+00:18:17,146 --> 00:18:17,516
+All right.
+
+
+678
+00:18:17,516 --> 00:18:18,856
+I'd like to start with some of
+
+
+679
+00:18:18,856 --> 00:18:21,216
+the new APIs in Swift 4 and
+
+
+680
+00:18:21,216 --> 00:18:21,776
+Foundation.
+
+
+681
+00:18:22,466 --> 00:18:23,696
+So, there's actually a lot of
+
+
+682
+00:18:23,696 --> 00:18:25,316
+really exciting additions to
+
+
+683
+00:18:25,316 --> 00:18:25,846
+Swift 4.
+
+
+684
+00:18:26,146 --> 00:18:27,336
+And I'm only going to cover two
+
+
+685
+00:18:27,336 --> 00:18:28,046
+things, now.
+
+
+686
+00:18:28,456 --> 00:18:32,416
+The first is archiving Swift
+
+
+687
+00:18:32,416 --> 00:18:32,926
+native types.
+
+
+688
+00:18:33,456 --> 00:18:35,626
+So, if you've attempted to use
+
+
+689
+00:18:35,766 --> 00:18:36,926
+Swift 4 native types like
+
+
+690
+00:18:36,926 --> 00:18:38,886
+enumerations and structs with
+
+
+691
+00:18:38,886 --> 00:18:40,736
+code that needs to participate
+
+
+692
+00:18:40,736 --> 00:18:42,336
+in, for example, NSCoding,
+
+
+693
+00:18:42,656 --> 00:18:43,506
+you'll have found that this has
+
+
+694
+00:18:43,506 --> 00:18:44,556
+been historically quite
+
+
+695
+00:18:44,556 --> 00:18:47,186
+difficult to do.
+
+
+696
+00:18:47,526 --> 00:18:50,396
+Swift 4 solves that problem with
+
+
+697
+00:18:50,396 --> 00:18:51,586
+the introduction of a new
+
+
+698
+00:18:51,646 --> 00:18:53,056
+Codable protocol.
+
+
+699
+00:18:53,956 --> 00:18:56,176
+And as long as the underlying
+
+
+700
+00:18:56,176 --> 00:18:57,646
+types in your enumerations and
+
+
+701
+00:18:57,646 --> 00:18:59,276
+structs, are themselves codable,
+
+
+702
+00:18:59,736 --> 00:19:01,286
+all you have to do to adopt this
+
+
+703
+00:19:01,286 --> 00:19:02,896
+is declare conformance to the
+
+
+704
+00:19:02,896 --> 00:19:03,396
+protocol.
+
+
+705
+00:19:03,686 --> 00:19:05,066
+And then, Swift handles the
+
+
+706
+00:19:05,066 --> 00:19:05,236
+rest.
+
+
+707
+00:19:05,476 --> 00:19:07,746
+So, that allows these native
+
+
+708
+00:19:07,746 --> 00:19:09,866
+types to participate easily in
+
+
+709
+00:19:10,166 --> 00:19:10,636
+NSCoding.
+
+
+710
+00:19:10,966 --> 00:19:12,376
+And Foundation has also added
+
+
+711
+00:19:12,436 --> 00:19:14,636
+support for archiving to JSON
+
+
+712
+00:19:14,706 --> 00:19:16,506
+and property lists.
+
+
+713
+00:19:18,756 --> 00:19:20,586
+Another really exciting edition
+
+
+714
+00:19:20,636 --> 00:19:23,686
+to Swift 4 is the new KeyPath
+
+
+715
+00:19:23,826 --> 00:19:25,426
+type, and a literal syntax, and
+
+
+716
+00:19:25,426 --> 00:19:26,536
+getters and setters that
+
+
+717
+00:19:26,536 --> 00:19:27,266
+correspond to it.
+
+
+718
+00:19:27,936 --> 00:19:29,696
+So, in the past, you specified
+
+
+719
+00:19:29,786 --> 00:19:31,966
+KeyPaths by hardcoding a String
+
+
+720
+00:19:32,036 --> 00:19:33,876
+in your code, which as a result,
+
+
+721
+00:19:33,876 --> 00:19:35,596
+couldn't be, if you had a typo
+
+
+722
+00:19:35,596 --> 00:19:36,646
+in it, it wouldn't be found at
+
+
+723
+00:19:36,646 --> 00:19:37,476
+compile time.
+
+
+724
+00:19:38,516 --> 00:19:39,776
+Now, there's a new literal
+
+
+725
+00:19:39,776 --> 00:19:42,516
+syntax, this /, that allows you
+
+
+726
+00:19:42,516 --> 00:19:44,146
+to construct a KeyPath, and this
+
+
+727
+00:19:44,146 --> 00:19:45,286
+is a strongly typed object.
+
+
+728
+00:19:45,716 --> 00:19:47,436
+So, if I have a presenter
+
+
+729
+00:19:47,436 --> 00:19:49,636
+object, for example, that has a
+
+
+730
+00:19:49,636 --> 00:19:50,746
+couple properties, a
+
+
+731
+00:19:50,746 --> 00:19:51,966
+copresenter, which is another
+
+
+732
+00:19:51,966 --> 00:19:53,506
+presenter, and a name.
+
+
+733
+00:19:53,586 --> 00:19:56,166
+I can construct a KeyPath object
+
+
+734
+00:19:56,586 --> 00:19:58,186
+representing my copresenter's
+
+
+735
+00:19:58,186 --> 00:19:58,626
+name.
+
+
+736
+00:19:59,246 --> 00:20:00,806
+And then, I can use this new
+
+
+737
+00:20:00,806 --> 00:20:02,506
+square bracket getter notation
+
+
+738
+00:20:02,786 --> 00:20:04,356
+to access that property on one
+
+
+739
+00:20:04,356 --> 00:20:04,976
+of my presenter objects.
+
+
+740
+00:20:05,046 --> 00:20:07,306
+So, in this case, accessing it
+
+
+741
+00:20:07,306 --> 00:20:09,066
+on an object representing me
+
+
+742
+00:20:09,236 --> 00:20:10,886
+would return the String Josh.
+
+
+743
+00:20:12,156 --> 00:20:14,326
+You can also forego making the
+
+
+744
+00:20:14,326 --> 00:20:15,536
+KeyPath object as a separate
+
+
+745
+00:20:15,666 --> 00:20:17,206
+step and just use the literal
+
+
+746
+00:20:17,206 --> 00:20:18,266
+syntax in the getter.
+
+
+747
+00:20:18,266 --> 00:20:20,456
+And take advantage of Swift's
+
+
+748
+00:20:20,456 --> 00:20:22,346
+type inference, to leave off the
+
+
+749
+00:20:22,346 --> 00:20:23,636
+type, if you do it that way.
+
+
+750
+00:20:25,196 --> 00:20:26,166
+So, this is very cool.
+
+
+751
+00:20:26,566 --> 00:20:28,796
+And Foundation has taken it one
+
+
+752
+00:20:28,796 --> 00:20:32,086
+step further by introducing an
+
+
+753
+00:20:32,156 --> 00:20:35,166
+updated way of using KVO with
+
+
+754
+00:20:35,216 --> 00:20:37,066
+these KeyPaths.
+
+
+755
+00:20:37,106 --> 00:20:38,226
+So, this is a picture of what
+
+
+756
+00:20:38,226 --> 00:20:39,736
+you used to have to do to
+
+
+757
+00:20:39,736 --> 00:20:41,606
+observe changes to a property on
+
+
+758
+00:20:41,606 --> 00:20:42,386
+one of your objects.
+
+
+759
+00:20:42,676 --> 00:20:43,796
+It was a little bit involved.
+
+
+760
+00:20:44,156 --> 00:20:45,606
+You had to override a method.
+
+
+761
+00:20:45,756 --> 00:20:47,476
+And because your Superclass
+
+
+762
+00:20:47,476 --> 00:20:48,866
+might also override that method,
+
+
+763
+00:20:48,866 --> 00:20:50,706
+you had to use a context pointer
+
+
+764
+00:20:50,706 --> 00:20:52,406
+to disambiguate which one of you
+
+
+765
+00:20:52,406 --> 00:20:53,556
+is getting it at any given time.
+
+
+766
+00:20:53,746 --> 00:20:54,836
+And it was quite difficult to
+
+
+767
+00:20:54,836 --> 00:20:55,246
+get right.
+
+
+768
+00:20:55,986 --> 00:20:58,896
+So, new in iOS 11, we have
+
+
+769
+00:20:58,896 --> 00:20:59,996
+block-based KVO.
+
+
+770
+00:21:00,226 --> 00:21:01,196
+We're really excited about it.
+
+
+771
+00:21:02,516 --> 00:21:07,216
+[ Applause ]
+
+
+772
+00:21:07,716 --> 00:21:09,576
+If I want to observe the changes
+
+
+773
+00:21:09,576 --> 00:21:11,286
+to my copresenter, I'm not sure
+
+
+774
+00:21:11,286 --> 00:21:12,226
+why I would, since it never
+
+
+775
+00:21:12,226 --> 00:21:14,436
+seems to change, I can do so by
+
+
+776
+00:21:14,436 --> 00:21:15,756
+simply setting a block and
+
+
+777
+00:21:15,756 --> 00:21:17,156
+observing one of these KeyPaths
+
+
+778
+00:21:17,396 --> 00:21:18,306
+using a literal syntax.
+
+
+779
+00:21:18,706 --> 00:21:19,386
+So, that's very cool.
+
+
+780
+00:21:20,236 --> 00:21:21,746
+There's a lot of new topics in
+
+
+781
+00:21:21,746 --> 00:21:22,286
+Foundation.
+
+
+782
+00:21:22,286 --> 00:21:23,646
+And please check out their
+
+
+783
+00:21:23,646 --> 00:21:25,676
+related session, on Wednesday.
+
+
+784
+00:21:27,126 --> 00:21:28,946
+Okay, deferring system gestures.
+
+
+785
+00:21:28,946 --> 00:21:29,946
+And this is a funny case.
+
+
+786
+00:21:30,536 --> 00:21:33,696
+So, if you have an app that
+
+
+787
+00:21:33,696 --> 00:21:36,876
+maybe, shows some content, and
+
+
+788
+00:21:36,876 --> 00:21:38,776
+shows its status bar, the user
+
+
+789
+00:21:38,776 --> 00:21:41,246
+can swipe down from the top to
+
+
+790
+00:21:41,246 --> 00:21:42,456
+bring in the notification
+
+
+791
+00:21:42,456 --> 00:21:42,676
+center.
+
+
+792
+00:21:44,066 --> 00:21:45,756
+However, if you hid your status
+
+
+793
+00:21:45,756 --> 00:21:47,146
+bar and the user swipes down
+
+
+794
+00:21:47,146 --> 00:21:48,596
+from the top, they'll instead
+
+
+795
+00:21:48,596 --> 00:21:49,836
+see this tab UI.
+
+
+796
+00:21:51,416 --> 00:21:53,486
+And in that case, your app will
+
+
+797
+00:21:53,536 --> 00:21:54,876
+actually receive the touches
+
+
+798
+00:21:54,876 --> 00:21:55,976
+that are originating near the
+
+
+799
+00:21:55,976 --> 00:21:56,746
+top of the screen.
+
+
+800
+00:21:57,116 --> 00:21:59,616
+Now, we did this in iOS 5, when
+
+
+801
+00:21:59,616 --> 00:22:00,846
+we introduced the Notification
+
+
+802
+00:22:00,846 --> 00:22:01,056
+Center.
+
+
+803
+00:22:01,056 --> 00:22:02,326
+Because we wanted to make sure
+
+
+804
+00:22:02,626 --> 00:22:04,846
+that apps that might need to see
+
+
+805
+00:22:04,846 --> 00:22:06,306
+touches near the edges of the
+
+
+806
+00:22:06,346 --> 00:22:07,706
+screen, could do so.
+
+
+807
+00:22:08,066 --> 00:22:09,296
+And we took the presence or
+
+
+808
+00:22:09,406 --> 00:22:10,906
+absence of the status bar as an
+
+
+809
+00:22:10,906 --> 00:22:13,176
+indication of whether your app
+
+
+810
+00:22:13,176 --> 00:22:14,066
+fell in that category.
+
+
+811
+00:22:14,996 --> 00:22:18,356
+So, then in iOS 7, we introduced
+
+
+812
+00:22:19,036 --> 00:22:21,286
+the Control Center with a swipe
+
+
+813
+00:22:21,286 --> 00:22:21,926
+up from the bottom.
+
+
+814
+00:22:21,926 --> 00:22:25,746
+If your app hid its status bar,
+
+
+815
+00:22:26,096 --> 00:22:27,846
+we used the same rule and we
+
+
+816
+00:22:27,846 --> 00:22:29,266
+would show the tab instead of
+
+
+817
+00:22:29,266 --> 00:22:29,886
+the control center.
+
+
+818
+00:22:29,886 --> 00:22:32,336
+Now, that made a little bit less
+
+
+819
+00:22:32,336 --> 00:22:33,576
+sense, because the status bar is
+
+
+820
+00:22:33,576 --> 00:22:34,686
+at the top of the screen, not
+
+
+821
+00:22:34,686 --> 00:22:35,166
+the bottom.
+
+
+822
+00:22:35,216 --> 00:22:36,676
+And so, the presence or absence
+
+
+823
+00:22:36,676 --> 00:22:37,546
+of the status bar shouldn't
+
+
+824
+00:22:37,546 --> 00:22:38,956
+really tell us very much about
+
+
+825
+00:22:38,956 --> 00:22:41,226
+what your app needs to see, in
+
+
+826
+00:22:41,226 --> 00:22:42,066
+terms of touches near the
+
+
+827
+00:22:42,066 --> 00:22:42,496
+bottom.
+
+
+828
+00:22:43,206 --> 00:22:46,026
+So, the other problem with the
+
+
+829
+00:22:46,286 --> 00:22:49,036
+status quo, here, is that your
+
+
+830
+00:22:49,036 --> 00:22:50,976
+users really want, when they
+
+
+831
+00:22:50,976 --> 00:22:52,056
+swipe near the edge of the
+
+
+832
+00:22:52,056 --> 00:22:54,476
+screen, to see the system UIs
+
+
+833
+00:22:54,996 --> 00:22:55,886
+components appear.
+
+
+834
+00:22:56,416 --> 00:22:57,626
+That's what they expect to have
+
+
+835
+00:22:57,626 --> 00:22:58,056
+happen.
+
+
+836
+00:22:58,056 --> 00:22:59,236
+So, unless your app actually
+
+
+837
+00:22:59,236 --> 00:23:01,396
+needs to get access to the
+
+
+838
+00:23:01,396 --> 00:23:02,706
+touches near the edge, it's a
+
+
+839
+00:23:02,706 --> 00:23:05,026
+better user experience to allow
+
+
+840
+00:23:05,026 --> 00:23:06,896
+those notifications that are in
+
+
+841
+00:23:06,896 --> 00:23:08,156
+Control Center to simply appear
+
+
+842
+00:23:08,156 --> 00:23:08,576
+right away.
+
+
+843
+00:23:09,376 --> 00:23:11,186
+So, in iOS 11, we're allowing
+
+
+844
+00:23:11,186 --> 00:23:12,906
+you to make this explicit by
+
+
+845
+00:23:13,136 --> 00:23:13,816
+adding this new
+
+
+846
+00:23:13,816 --> 00:23:16,396
+preferredScreenEdgesForDeferring
+
+
+847
+00:23:16,396 --> 00:23:17,656
+System Gestures method.
+
+
+848
+00:23:17,776 --> 00:23:19,086
+If you override it in your
+
+
+849
+00:23:19,086 --> 00:23:20,806
+viewControllers, you can return
+
+
+850
+00:23:20,936 --> 00:23:22,396
+a UIRectEdge, which is a
+
+
+851
+00:23:22,396 --> 00:23:23,886
+collection of different edges.
+
+
+852
+00:23:23,886 --> 00:23:25,476
+And we strongly encourage you to
+
+
+853
+00:23:25,476 --> 00:23:27,336
+only return edges that you want
+
+
+854
+00:23:27,336 --> 00:23:29,566
+to protect from system gestures.
+
+
+855
+00:23:29,566 --> 00:23:30,896
+If you really need to see
+
+
+856
+00:23:30,896 --> 00:23:32,786
+touches that are right on that
+
+
+857
+00:23:32,786 --> 00:23:33,256
+edge of the screen.
+
+
+858
+00:23:33,256 --> 00:23:34,126
+Because it will be a better
+
+
+859
+00:23:34,126 --> 00:23:36,566
+experience for you users to just
+
+
+860
+00:23:36,566 --> 00:23:38,586
+allow the system gestures to
+
+
+861
+00:23:38,626 --> 00:23:39,946
+happen as they normally would.
+
+
+862
+00:23:40,056 --> 00:23:41,376
+All right.
+
+
+863
+00:23:42,106 --> 00:23:43,816
+So, another topic where we've
+
+
+864
+00:23:43,816 --> 00:23:45,116
+made some improvements, is Auto
+
+
+865
+00:23:45,116 --> 00:23:45,416
+Layout.
+
+
+866
+00:23:45,416 --> 00:23:46,656
+And in particular, the
+
+
+867
+00:23:46,876 --> 00:23:49,066
+interaction of Auto Layout and
+
+
+868
+00:23:49,396 --> 00:23:51,956
+Scroll Views.
+
+
+869
+00:23:52,066 --> 00:23:58,016
+So, Scroll Views pose kind of a
+
+
+870
+00:23:58,016 --> 00:23:59,176
+challenge for Auto Layout,
+
+
+871
+00:23:59,176 --> 00:24:01,676
+because they represent two
+
+
+872
+00:24:01,676 --> 00:24:03,086
+different coordinate systems
+
+
+873
+00:24:03,086 --> 00:24:04,006
+mushed into one.
+
+
+874
+00:24:04,306 --> 00:24:05,546
+You have the frame of the Scroll
+
+
+875
+00:24:05,546 --> 00:24:06,946
+View, and then, you have the
+
+
+876
+00:24:06,946 --> 00:24:07,826
+coordinate system of its
+
+
+877
+00:24:07,856 --> 00:24:08,416
+content.
+
+
+878
+00:24:08,666 --> 00:24:10,076
+Which is often larger than the
+
+
+879
+00:24:10,076 --> 00:24:11,506
+Scroll View, and is almost
+
+
+880
+00:24:11,506 --> 00:24:12,956
+always offset relative to the
+
+
+881
+00:24:12,956 --> 00:24:13,856
+Scroll View's origin.
+
+
+882
+00:24:15,336 --> 00:24:16,566
+So, when you're composing your
+
+
+883
+00:24:16,566 --> 00:24:18,196
+constraints for Scroll Views,
+
+
+884
+00:24:18,816 --> 00:24:21,116
+Scroll View has a lot of
+
+
+885
+00:24:21,116 --> 00:24:22,456
+know-how kind of built in, where
+
+
+886
+00:24:22,456 --> 00:24:23,626
+it guesses what you probably
+
+
+887
+00:24:23,626 --> 00:24:23,986
+meant.
+
+
+888
+00:24:23,986 --> 00:24:24,976
+And it tries to do the right
+
+
+889
+00:24:25,146 --> 00:24:26,706
+thing based on the constraints
+
+
+890
+00:24:26,706 --> 00:24:27,456
+that you're composing.
+
+
+891
+00:24:27,936 --> 00:24:30,076
+But in iOS 11, we're allowing
+
+
+892
+00:24:30,076 --> 00:24:31,576
+you to make it really clear what
+
+
+893
+00:24:31,576 --> 00:24:33,286
+you mean and be completely
+
+
+894
+00:24:33,286 --> 00:24:34,646
+explicit about it, by
+
+
+895
+00:24:34,646 --> 00:24:36,016
+introducing two new Layout
+
+
+896
+00:24:36,046 --> 00:24:37,156
+guides on Scroll View.
+
+
+897
+00:24:37,416 --> 00:24:38,836
+A contentLayoutGuide and a
+
+
+898
+00:24:38,916 --> 00:24:39,636
+frameLayoutGuide.
+
+
+899
+00:24:39,636 --> 00:24:40,616
+So, now you can construct
+
+
+900
+00:24:40,616 --> 00:24:42,546
+constraints that specifically
+
+
+901
+00:24:42,546 --> 00:24:43,616
+represent one of these
+
+
+902
+00:24:43,616 --> 00:24:44,836
+coordinate systems or the other.
+
+
+903
+00:24:45,516 --> 00:24:47,536
+[ Applause ]
+
+
+904
+00:24:48,036 --> 00:24:48,956
+So, this allows you to do
+
+
+905
+00:24:48,956 --> 00:24:51,176
+something really easily, that
+
+
+906
+00:24:51,176 --> 00:24:51,946
+used to be hard.
+
+
+907
+00:24:52,366 --> 00:24:54,356
+So, sometimes when you have a
+
+
+908
+00:24:54,356 --> 00:24:55,606
+Scroll View and you have content
+
+
+909
+00:24:55,606 --> 00:24:56,556
+that can zoom in and out.
+
+
+910
+00:24:56,906 --> 00:24:58,426
+You want the content to come to
+
+
+911
+00:24:58,426 --> 00:25:00,476
+rest in the center of the Scroll
+
+
+912
+00:25:00,476 --> 00:25:02,136
+View as you're zooming out on
+
+
+913
+00:25:02,536 --> 00:25:02,736
+it.
+
+
+914
+00:25:02,736 --> 00:25:03,686
+Now, Josh and I, a couple of
+
+
+915
+00:25:03,686 --> 00:25:05,516
+years ago, spent one-third of
+
+
+916
+00:25:05,516 --> 00:25:07,556
+the WWDC presentation explaining
+
+
+917
+00:25:07,556 --> 00:25:08,776
+how you could get this effect in
+
+
+918
+00:25:08,776 --> 00:25:09,496
+your Scroll Views.
+
+
+919
+00:25:09,856 --> 00:25:11,646
+And up until recently, it was
+
+
+920
+00:25:11,646 --> 00:25:13,056
+actually really hard to do it
+
+
+921
+00:25:13,056 --> 00:25:13,726
+with Auto Layout.
+
+
+922
+00:25:14,416 --> 00:25:16,136
+But now, you can do it in two
+
+
+923
+00:25:16,136 --> 00:25:16,816
+lines of code.
+
+
+924
+00:25:17,246 --> 00:25:18,606
+All you need to do is set the
+
+
+925
+00:25:18,696 --> 00:25:21,046
+centerXAnchor of the imageView,
+
+
+926
+00:25:21,046 --> 00:25:22,496
+or whatever the content of your
+
+
+927
+00:25:22,496 --> 00:25:24,586
+Scroll View is, equal to the
+
+
+928
+00:25:24,586 --> 00:25:26,116
+contentLayoutGuide's
+
+
+929
+00:25:26,466 --> 00:25:27,276
+centerXAnchor.
+
+
+930
+00:25:27,276 --> 00:25:28,396
+And then, you would do the same
+
+
+931
+00:25:28,396 --> 00:25:29,936
+thing in the Y coordinate.
+
+
+932
+00:25:30,566 --> 00:25:33,616
+And then, this will just happen.
+
+
+933
+00:25:34,508 --> 00:25:36,508
+[ Applause ]
+
+
+934
+00:25:39,316 --> 00:25:39,916
+All right.
+
+
+935
+00:25:40,176 --> 00:25:41,456
+So, Dynamic Type.
+
+
+936
+00:25:41,796 --> 00:25:44,246
+Now, dynamic type is a really
+
+
+937
+00:25:44,246 --> 00:25:46,646
+important feature on iOS.
+
+
+938
+00:25:46,866 --> 00:25:48,056
+And here's a picture of a whole
+
+
+939
+00:25:48,056 --> 00:25:49,276
+bunch of different dynamic type
+
+
+940
+00:25:49,276 --> 00:25:50,916
+sizes that the user may
+
+
+941
+00:25:50,916 --> 00:25:52,226
+configure, and how we're
+
+
+942
+00:25:52,226 --> 00:25:53,836
+handling it in our own Calendar
+
+
+943
+00:25:53,836 --> 00:25:53,906
+app.
+
+
+944
+00:25:54,166 --> 00:25:55,576
+So, here's a small setting for
+
+
+945
+00:25:55,576 --> 00:25:56,276
+dynamic type.
+
+
+946
+00:25:56,936 --> 00:25:58,786
+Larger. Larger.
+
+
+947
+00:25:58,786 --> 00:25:59,416
+Very large.
+
+
+948
+00:25:59,416 --> 00:26:01,056
+And there even are larger
+
+
+949
+00:26:01,056 --> 00:26:02,706
+accessibility dynamic type sizes
+
+
+950
+00:26:02,706 --> 00:26:04,476
+that can be selected.
+
+
+951
+00:26:04,886 --> 00:26:07,206
+So, this can pose a challenge in
+
+
+952
+00:26:07,206 --> 00:26:08,916
+a number of ways to support in
+
+
+953
+00:26:08,916 --> 00:26:09,656
+your applications.
+
+
+954
+00:26:09,866 --> 00:26:11,486
+But for users who have chosen a
+
+
+955
+00:26:11,486 --> 00:26:13,036
+nonstandard dynamic type size,
+
+
+956
+00:26:13,286 --> 00:26:14,596
+it's a really bad user
+
+
+957
+00:26:14,596 --> 00:26:16,056
+experience if your app doesn't
+
+
+958
+00:26:16,056 --> 00:26:17,476
+participate or honor their
+
+
+959
+00:26:17,536 --> 00:26:17,916
+selection.
+
+
+960
+00:26:18,476 --> 00:26:20,756
+So, we've made a few
+
+
+961
+00:26:20,756 --> 00:26:22,366
+improvements to make it easier
+
+
+962
+00:26:22,916 --> 00:26:24,106
+to do this correctly in your
+
+
+963
+00:26:24,106 --> 00:26:24,706
+applications.
+
+
+964
+00:26:25,016 --> 00:26:26,696
+And the first one has to do with
+
+
+965
+00:26:26,816 --> 00:26:27,446
+sizing your text.
+
+
+966
+00:26:28,396 --> 00:26:31,956
+So, suppose you have a 16-point
+
+
+967
+00:26:32,146 --> 00:26:33,516
+font that you're using for the
+
+
+968
+00:26:33,566 --> 00:26:34,366
+standard type size.
+
+
+969
+00:26:34,686 --> 00:26:36,986
+How do you decide what font to
+
+
+970
+00:26:36,986 --> 00:26:38,016
+use if the user has a
+
+
+971
+00:26:38,016 --> 00:26:39,166
+nonstandard dynamic type
+
+
+972
+00:26:39,586 --> 00:26:40,086
+selection?
+
+
+973
+00:26:41,086 --> 00:26:42,806
+The old way of doing this was
+
+
+974
+00:26:42,876 --> 00:26:44,286
+you could ask UIFont for the
+
+
+975
+00:26:44,336 --> 00:26:46,446
+preferred font for a given text
+
+
+976
+00:26:46,446 --> 00:26:47,036
+style, which.
+
+
+977
+00:26:47,036 --> 00:26:48,046
+And there's a number of text
+
+
+978
+00:26:48,046 --> 00:26:50,226
+styles, Body, Title, a variety
+
+
+979
+00:26:50,226 --> 00:26:51,056
+of them you can look up.
+
+
+980
+00:26:51,056 --> 00:26:52,266
+And this was pretty good,
+
+
+981
+00:26:52,746 --> 00:26:53,746
+because it would get you a good
+
+
+982
+00:26:53,746 --> 00:26:56,186
+font for the appropriate place
+
+
+983
+00:26:56,186 --> 00:26:56,936
+in your application.
+
+
+984
+00:26:57,186 --> 00:26:58,546
+But it was a little inflexible,
+
+
+985
+00:26:58,746 --> 00:26:59,806
+because what if you needed a
+
+
+986
+00:26:59,806 --> 00:27:00,426
+custom font?
+
+
+987
+00:27:00,646 --> 00:27:01,426
+This is just going to give you
+
+
+988
+00:27:01,426 --> 00:27:03,286
+the system font, every time.
+
+
+989
+00:27:03,286 --> 00:27:04,086
+What if you wanted to use a
+
+
+990
+00:27:04,086 --> 00:27:06,006
+Monospace Number font in some
+
+
+991
+00:27:06,006 --> 00:27:06,706
+particular case?
+
+
+992
+00:27:06,986 --> 00:27:09,026
+Or just some font that, you
+
+
+993
+00:27:09,026 --> 00:27:10,616
+know, matched your branding a
+
+
+994
+00:27:10,616 --> 00:27:11,176
+little bit better.
+
+
+995
+00:27:11,706 --> 00:27:13,776
+In iOS 11, we're introducing a
+
+
+996
+00:27:13,946 --> 00:27:15,126
+new class that solves this
+
+
+997
+00:27:15,126 --> 00:27:16,716
+problem, called UIFontMetrics.
+
+
+998
+00:27:17,216 --> 00:27:18,796
+And the way you use it, is you
+
+
+999
+00:27:18,796 --> 00:27:21,096
+create a FontMetrics object for
+
+
+1000
+00:27:21,096 --> 00:27:23,066
+the text style that you're
+
+
+1001
+00:27:23,066 --> 00:27:23,776
+interested in.
+
+
+1002
+00:27:24,936 --> 00:27:26,476
+You then, choose any font you
+
+
+1003
+00:27:26,476 --> 00:27:28,506
+want, sized for the standard
+
+
+1004
+00:27:28,506 --> 00:27:29,436
+dynamic type size.
+
+
+1005
+00:27:29,516 --> 00:27:31,816
+And then, you can ask the
+
+
+1006
+00:27:31,886 --> 00:27:33,556
+FontMetrics object to scale that
+
+
+1007
+00:27:33,776 --> 00:27:35,426
+font given the user's current
+
+
+1008
+00:27:35,426 --> 00:27:35,686
+settings.
+
+
+1009
+00:27:35,686 --> 00:27:37,316
+And that gets you back a font,
+
+
+1010
+00:27:37,686 --> 00:27:39,046
+any font you want, at the
+
+
+1011
+00:27:39,046 --> 00:27:40,406
+appropriate size to display.
+
+
+1012
+00:27:41,366 --> 00:27:42,166
+Yeah, this is really cool.
+
+
+1013
+00:27:42,166 --> 00:27:47,236
+So, just that, alone, doesn't
+
+
+1014
+00:27:47,236 --> 00:27:48,606
+completely solve the problem,
+
+
+1015
+00:27:48,606 --> 00:27:50,426
+because imagine you have like a
+
+
+1016
+00:27:50,546 --> 00:27:52,176
+custom button, or maybe a custom
+
+
+1017
+00:27:52,176 --> 00:27:52,636
+bar.
+
+
+1018
+00:27:52,756 --> 00:27:53,956
+And you're putting some text
+
+
+1019
+00:27:53,956 --> 00:27:54,486
+inside it.
+
+
+1020
+00:27:54,806 --> 00:27:56,106
+How tall do you want to make
+
+
+1021
+00:27:56,106 --> 00:27:56,646
+that button?
+
+
+1022
+00:27:57,446 --> 00:27:58,746
+If the user has a nonstandard
+
+
+1023
+00:27:58,746 --> 00:28:00,656
+dynamic type setting, it might
+
+
+1024
+00:28:00,656 --> 00:28:02,106
+overrun the height that you've
+
+
+1025
+00:28:02,106 --> 00:28:02,696
+made available.
+
+
+1026
+00:28:03,026 --> 00:28:05,016
+So, UIFontMetrics has solved
+
+
+1027
+00:28:05,016 --> 00:28:06,006
+this problem, as well, by
+
+
+1028
+00:28:06,006 --> 00:28:07,406
+allowing you to scale arbitrary
+
+
+1029
+00:28:07,406 --> 00:28:08,056
+layout values.
+
+
+1030
+00:28:08,096 --> 00:28:10,456
+So, you create, once again, a
+
+
+1031
+00:28:10,936 --> 00:28:11,926
+FontMetrics object.
+
+
+1032
+00:28:12,306 --> 00:28:13,356
+You choose a height that would
+
+
+1033
+00:28:13,356 --> 00:28:14,356
+look good at the standard
+
+
+1034
+00:28:14,356 --> 00:28:15,836
+dynamic type size, and then you
+
+
+1035
+00:28:15,836 --> 00:28:17,346
+can scale it based on the user's
+
+
+1036
+00:28:17,346 --> 00:28:17,936
+current settings.
+
+
+1037
+00:28:17,936 --> 00:28:20,136
+So, this is super useful for
+
+
+1038
+00:28:20,136 --> 00:28:21,726
+your font sizing and layout.
+
+
+1039
+00:28:22,556 --> 00:28:26,886
+Now, we also have an addition to
+
+
+1040
+00:28:26,886 --> 00:28:28,446
+Auto Layout to support dynamic
+
+
+1041
+00:28:28,486 --> 00:28:29,946
+type, which we're pretty excited
+
+
+1042
+00:28:30,666 --> 00:28:30,806
+about.
+
+
+1043
+00:28:31,496 --> 00:28:34,296
+Suppose that I have two labels
+
+
+1044
+00:28:34,436 --> 00:28:36,016
+with different fonts, maybe,
+
+
+1045
+00:28:36,276 --> 00:28:37,256
+laid out vertically.
+
+
+1046
+00:28:37,496 --> 00:28:39,756
+And I've chosen a baseline to
+
+
+1047
+00:28:39,756 --> 00:28:41,776
+baseline spacing that looks good
+
+
+1048
+00:28:42,216 --> 00:28:43,836
+at this font size.
+
+
+1049
+00:28:44,316 --> 00:28:48,146
+Now, my user might have chosen a
+
+
+1050
+00:28:48,146 --> 00:28:50,546
+larger or a smaller dynamic type
+
+
+1051
+00:28:50,606 --> 00:28:50,956
+size.
+
+
+1052
+00:28:51,266 --> 00:28:53,586
+And as a result, the spacing
+
+
+1053
+00:28:53,586 --> 00:28:56,146
+might actually look quite a bit
+
+
+1054
+00:28:56,146 --> 00:28:58,516
+too tight or too loose.
+
+
+1055
+00:28:58,516 --> 00:29:00,226
+So, with Auto Layout, there's
+
+
+1056
+00:29:00,226 --> 00:29:01,816
+now a solution for this problem,
+
+
+1057
+00:29:02,106 --> 00:29:03,356
+which is that we're exposing a
+
+
+1058
+00:29:03,356 --> 00:29:04,956
+way to access the system
+
+
+1059
+00:29:04,956 --> 00:29:05,896
+recommended spacing.
+
+
+1060
+00:29:06,806 --> 00:29:08,736
+And you do this by, first of
+
+
+1061
+00:29:08,736 --> 00:29:09,806
+all, there's two ingredients.
+
+
+1062
+00:29:09,806 --> 00:29:11,036
+You need to be doing baseline to
+
+
+1063
+00:29:11,036 --> 00:29:12,296
+baseline spacing, in order to
+
+
+1064
+00:29:12,296 --> 00:29:13,476
+inform Auto Layout that it
+
+
+1065
+00:29:13,476 --> 00:29:14,746
+should take font sizes into
+
+
+1066
+00:29:14,746 --> 00:29:15,566
+consideration.
+
+
+1067
+00:29:15,566 --> 00:29:18,286
+So, I would make a topAnchor
+
+
+1068
+00:29:18,286 --> 00:29:19,726
+using the lastBaselineAnchor of
+
+
+1069
+00:29:19,726 --> 00:29:21,446
+my topLabel, and a bottomAnchor
+
+
+1070
+00:29:21,446 --> 00:29:22,796
+using the firstBaselineAnchor of
+
+
+1071
+00:29:22,796 --> 00:29:23,686
+my bottomLabel.
+
+
+1072
+00:29:24,226 --> 00:29:25,716
+And then, I would use the new
+
+
+1073
+00:29:25,716 --> 00:29:27,556
+constraintEqualToSystemSpacing
+
+
+1074
+00:29:27,556 --> 00:29:30,326
+below method to ask Auto Layout
+
+
+1075
+00:29:30,386 --> 00:29:32,156
+to choose a value that will look
+
+
+1076
+00:29:32,156 --> 00:29:33,456
+good, given the font sizes that
+
+
+1077
+00:29:33,456 --> 00:29:34,116
+are being displayed.
+
+
+1078
+00:29:34,116 --> 00:29:35,596
+And that will cause the text to
+
+
+1079
+00:29:35,596 --> 00:29:37,146
+adjust, so that's it's visually
+
+
+1080
+00:29:37,256 --> 00:29:38,476
+pleasing at all of the different
+
+
+1081
+00:29:38,476 --> 00:29:39,356
+dynamic type sizes.
+
+
+1082
+00:29:39,536 --> 00:29:41,886
+And this works with the Visual
+
+
+1083
+00:29:41,936 --> 00:29:42,896
+Format Language, as well.
+
+
+1084
+00:29:43,136 --> 00:29:44,076
+Again, we have the same two
+
+
+1085
+00:29:44,076 --> 00:29:44,676
+ingredients.
+
+
+1086
+00:29:44,676 --> 00:29:46,276
+We have the system spacing,
+
+
+1087
+00:29:46,276 --> 00:29:47,506
+which is provided by the dashes
+
+
+1088
+00:29:47,506 --> 00:29:49,706
+in my Visual Format String, and
+
+
+1089
+00:29:49,706 --> 00:29:51,146
+then, a new baseline to baseline
+
+
+1090
+00:29:51,216 --> 00:29:52,326
+option to pass.
+
+
+1091
+00:29:52,526 --> 00:29:54,816
+So, that the Auto Layout system
+
+
+1092
+00:29:54,816 --> 00:29:56,406
+will know to do this work for
+
+
+1093
+00:29:56,406 --> 00:29:56,616
+you.
+
+
+1094
+00:29:56,836 --> 00:29:57,936
+And it also works with
+
+
+1095
+00:29:57,936 --> 00:29:59,306
+UIStackView, again, passing
+
+
+1096
+00:29:59,336 --> 00:29:59,976
+those same two options.
+
+
+1097
+00:30:00,066 --> 00:30:03,316
+So, to find out more about
+
+
+1098
+00:30:03,316 --> 00:30:05,486
+building your apps with dynamic
+
+
+1099
+00:30:05,756 --> 00:30:07,366
+type, please check out this
+
+
+1100
+00:30:07,366 --> 00:30:08,696
+associated session, on Friday.
+
+
+1101
+00:30:09,206 --> 00:30:11,126
+A lot of good content, here.
+
+
+1102
+00:30:12,896 --> 00:30:13,456
+All right.
+
+
+1103
+00:30:14,006 --> 00:30:14,916
+Password Autofill.
+
+
+1104
+00:30:14,916 --> 00:30:16,696
+This is my very favorite new
+
+
+1105
+00:30:16,696 --> 00:30:17,966
+API, that we're introducing,
+
+
+1106
+00:30:17,966 --> 00:30:18,346
+this year.
+
+
+1107
+00:30:18,346 --> 00:30:19,606
+I'm really excited about it.
+
+
+1108
+00:30:20,446 --> 00:30:21,706
+Some of you may have experienced
+
+
+1109
+00:30:21,706 --> 00:30:23,016
+a workflow similar to this.
+
+
+1110
+00:30:23,156 --> 00:30:24,466
+This is my standard workflow
+
+
+1111
+00:30:24,466 --> 00:30:25,446
+when I sign up for a web
+
+
+1112
+00:30:25,446 --> 00:30:25,716
+service.
+
+
+1113
+00:30:25,716 --> 00:30:27,626
+I sign up for the web service of
+
+
+1114
+00:30:27,876 --> 00:30:28,446
+some kind.
+
+
+1115
+00:30:29,966 --> 00:30:32,706
+I allow Safari to suggest a
+
+
+1116
+00:30:32,706 --> 00:30:34,006
+password, which I dutifully
+
+
+1117
+00:30:34,006 --> 00:30:34,376
+accept.
+
+
+1118
+00:30:34,376 --> 00:30:35,646
+It's a nice strong password that
+
+
+1119
+00:30:35,646 --> 00:30:36,726
+I would never want type in a
+
+
+1120
+00:30:36,726 --> 00:30:37,296
+million years.
+
+
+1121
+00:30:38,146 --> 00:30:40,706
+Then, the service says, ''Hey,
+
+
+1122
+00:30:40,706 --> 00:30:42,146
+download our app.'' And so, I
+
+
+1123
+00:30:42,146 --> 00:30:42,716
+do.
+
+
+1124
+00:30:43,026 --> 00:30:44,716
+I launch the app, and I'm
+
+
+1125
+00:30:44,716 --> 00:30:46,836
+immediately presented with this
+
+
+1126
+00:30:47,046 --> 00:30:48,896
+password entry field.
+
+
+1127
+00:30:49,246 --> 00:30:50,556
+And of course, I've saved this
+
+
+1128
+00:30:50,556 --> 00:30:52,276
+strong password in my iCloud
+
+
+1129
+00:30:52,356 --> 00:30:52,896
+Keychain.
+
+
+1130
+00:30:53,256 --> 00:30:54,046
+So, I don't know it.
+
+
+1131
+00:30:54,656 --> 00:30:55,566
+So, I'm completely stuck.
+
+
+1132
+00:30:55,966 --> 00:30:57,216
+So, I go back to the web
+
+
+1133
+00:30:57,666 --> 00:30:59,036
+interface, and I say I forgot my
+
+
+1134
+00:30:59,036 --> 00:30:59,536
+password.
+
+
+1135
+00:30:59,536 --> 00:31:00,556
+And I reset the password to
+
+
+1136
+00:31:00,556 --> 00:31:01,566
+something really easy like
+
+
+1137
+00:31:01,696 --> 00:31:02,236
+Password.
+
+
+1138
+00:31:02,556 --> 00:31:04,756
+And now, I go in and I log in
+
+
+1139
+00:31:04,756 --> 00:31:06,226
+and I've got no security.
+
+
+1140
+00:31:06,226 --> 00:31:07,296
+And I probably get hacked.
+
+
+1141
+00:31:07,296 --> 00:31:08,826
+It's a disaster.
+
+
+1142
+00:31:08,826 --> 00:31:10,316
+So, starting with iOS 11, this
+
+
+1143
+00:31:10,316 --> 00:31:11,836
+nightmare is going to end.
+
+
+1144
+00:31:12,506 --> 00:31:14,176
+We are introducing a really
+
+
+1145
+00:31:14,176 --> 00:31:15,526
+great new feature, where when we
+
+
+1146
+00:31:15,526 --> 00:31:16,696
+detect that you're showing a
+
+
+1147
+00:31:16,696 --> 00:31:18,256
+username and password field,
+
+
+1148
+00:31:18,756 --> 00:31:20,956
+this key UI will appear in the
+
+
+1149
+00:31:20,956 --> 00:31:21,606
+candidate bar.
+
+
+1150
+00:31:22,526 --> 00:31:26,306
+And if you click on it you get a
+
+
+1151
+00:31:26,306 --> 00:31:28,086
+list of all of your saved
+
+
+1152
+00:31:28,086 --> 00:31:29,806
+passwords in the iCloud
+
+
+1153
+00:31:29,806 --> 00:31:30,326
+Keychain.
+
+
+1154
+00:31:30,846 --> 00:31:31,946
+And you can go through and
+
+
+1155
+00:31:31,946 --> 00:31:32,746
+select the right one.
+
+
+1156
+00:31:33,006 --> 00:31:35,646
+Now, that already is a better
+
+
+1157
+00:31:35,646 --> 00:31:36,976
+experience than the one where
+
+
+1158
+00:31:36,976 --> 00:31:37,896
+you're completely stuck.
+
+
+1159
+00:31:38,176 --> 00:31:39,376
+But it's not ideal.
+
+
+1160
+00:31:39,376 --> 00:31:40,456
+For a lot of users, they're not
+
+
+1161
+00:31:40,456 --> 00:31:41,506
+really going to know what to do
+
+
+1162
+00:31:41,506 --> 00:31:41,926
+with this list.
+
+
+1163
+00:31:41,926 --> 00:31:42,806
+If you're like me, you have a
+
+
+1164
+00:31:42,806 --> 00:31:44,246
+lot of passwords on this list.
+
+
+1165
+00:31:44,246 --> 00:31:45,386
+And scrolling through it to find
+
+
+1166
+00:31:45,386 --> 00:31:46,306
+the right one might be a little
+
+
+1167
+00:31:46,306 --> 00:31:47,076
+bit challenging.
+
+
+1168
+00:31:48,216 --> 00:31:50,906
+So, there's a way that you can
+
+
+1169
+00:31:51,176 --> 00:31:52,596
+make an even better experience
+
+
+1170
+00:31:52,596 --> 00:31:53,446
+for your users, here.
+
+
+1171
+00:31:53,806 --> 00:31:55,456
+Which is just a couple steps.
+
+
+1172
+00:31:55,936 --> 00:31:58,596
+So, we what we want is for the
+
+
+1173
+00:31:58,596 --> 00:32:01,076
+correct suggestion to appear in
+
+
+1174
+00:32:01,076 --> 00:32:02,206
+the candidate bar, by default.
+
+
+1175
+00:32:02,386 --> 00:32:03,456
+And then, you don't even need to
+
+
+1176
+00:32:03,456 --> 00:32:04,886
+mess around with finding the
+
+
+1177
+00:32:04,886 --> 00:32:06,536
+right value in that list.
+
+
+1178
+00:32:06,536 --> 00:32:08,176
+And to do that, it's just two
+
+
+1179
+00:32:08,176 --> 00:32:08,556
+things.
+
+
+1180
+00:32:09,116 --> 00:32:10,986
+You have to add one entitlement
+
+
+1181
+00:32:10,986 --> 00:32:11,866
+to your application, and a
+
+
+1182
+00:32:11,996 --> 00:32:14,076
+couple of lines of JSON to your
+
+
+1183
+00:32:14,076 --> 00:32:14,546
+web service.
+
+
+1184
+00:32:14,546 --> 00:32:15,896
+And you might have already done
+
+
+1185
+00:32:15,896 --> 00:32:17,376
+these steps to support universal
+
+
+1186
+00:32:17,376 --> 00:32:17,646
+links.
+
+
+1187
+00:32:18,316 --> 00:32:19,916
+So, if you have done that, then
+
+
+1188
+00:32:19,916 --> 00:32:21,456
+this really good UI will appear.
+
+
+1189
+00:32:21,456 --> 00:32:23,806
+And when I tap on it, I simply
+
+
+1190
+00:32:23,806 --> 00:32:25,666
+get my password filled in.
+
+
+1191
+00:32:25,926 --> 00:32:27,856
+So, please for my sake, adopt
+
+
+1192
+00:32:27,856 --> 00:32:28,586
+this in your apps.
+
+
+1193
+00:32:28,586 --> 00:32:29,656
+We're really excited about it.
+
+
+1194
+00:32:29,866 --> 00:32:31,356
+And go to the associated
+
+
+1195
+00:32:31,356 --> 00:32:32,086
+session, tomorrow.
+
+
+1196
+00:32:33,516 --> 00:32:38,500
+[ Applause ]
+
+
+1197
+00:32:41,046 --> 00:32:41,346
+All right.
+
+
+1198
+00:32:41,346 --> 00:32:42,676
+There's a couple of improvements
+
+
+1199
+00:32:42,676 --> 00:32:44,446
+to Asset Catalogs that we're
+
+
+1200
+00:32:44,446 --> 00:32:45,476
+excited to tell you about.
+
+
+1201
+00:32:46,726 --> 00:32:48,266
+Colors can now be added to Asset
+
+
+1202
+00:32:48,446 --> 00:32:50,596
+Catalogs, as well as icons.
+
+
+1203
+00:32:50,866 --> 00:32:52,146
+So, you can now make named
+
+
+1204
+00:32:52,306 --> 00:32:52,676
+colors.
+
+
+1205
+00:32:53,516 --> 00:32:56,966
+[ Applause ]
+
+
+1206
+00:32:57,466 --> 00:32:59,776
+And this allows you to easily
+
+
+1207
+00:32:59,776 --> 00:33:02,056
+support wide gamut colors on the
+
+
+1208
+00:33:02,056 --> 00:33:03,306
+appropriate devices.
+
+
+1209
+00:33:03,716 --> 00:33:06,006
+So, you can create a wide gamut
+
+
+1210
+00:33:06,086 --> 00:33:07,336
+color and add it to your Asset
+
+
+1211
+00:33:07,336 --> 00:33:07,726
+Catalog.
+
+
+1212
+00:33:07,726 --> 00:33:08,806
+You can access it by name.
+
+
+1213
+00:33:08,806 --> 00:33:09,646
+And you can also, make a
+
+
+1214
+00:33:09,646 --> 00:33:12,086
+fallback color to be used in the
+
+
+1215
+00:33:12,086 --> 00:33:13,546
+sRGB Color Space for devices
+
+
+1216
+00:33:13,546 --> 00:33:14,696
+that don't support wide gamut.
+
+
+1217
+00:33:14,696 --> 00:33:15,926
+And you can now, do the same
+
+
+1218
+00:33:15,926 --> 00:33:16,986
+thing with your app icons.
+
+
+1219
+00:33:17,326 --> 00:33:18,936
+So, app icons can now include
+
+
+1220
+00:33:18,936 --> 00:33:20,396
+wide gamut colors, which will be
+
+
+1221
+00:33:20,396 --> 00:33:21,806
+displayed on devices that
+
+
+1222
+00:33:21,806 --> 00:33:24,606
+support the P3 Color Space.
+
+
+1223
+00:33:24,816 --> 00:33:27,166
+In addition, you may find that,
+
+
+1224
+00:33:27,596 --> 00:33:28,516
+well, at least it's true for
+
+
+1225
+00:33:28,516 --> 00:33:30,586
+certain apps, that the icons are
+
+
+1226
+00:33:30,586 --> 00:33:32,396
+actually the largest aspect of
+
+
+1227
+00:33:32,396 --> 00:33:33,286
+your app's footprint.
+
+
+1228
+00:33:33,726 --> 00:33:35,696
+And so, by incorporating them in
+
+
+1229
+00:33:35,876 --> 00:33:37,406
+Asset Catalogs, we're now able
+
+
+1230
+00:33:37,406 --> 00:33:40,156
+to have them participate in the
+
+
+1231
+00:33:40,326 --> 00:33:42,016
+app thinning, which will
+
+
+1232
+00:33:42,096 --> 00:33:43,846
+significantly lower your app's
+
+
+1233
+00:33:43,846 --> 00:33:44,186
+footprint.
+
+
+1234
+00:33:44,346 --> 00:33:45,686
+So, this is a really exciting
+
+
+1235
+00:33:45,686 --> 00:33:46,506
+thing to adopt, and it will be
+
+
+1236
+00:33:46,506 --> 00:33:47,746
+adopted by default in new
+
+
+1237
+00:33:47,746 --> 00:33:49,066
+projects in iOS 11.
+
+
+1238
+00:33:49,066 --> 00:33:52,006
+You can opt into it in existing
+
+
+1239
+00:33:52,006 --> 00:33:53,486
+projects by adding a key to your
+
+
+1240
+00:33:53,486 --> 00:33:54,026
+Info.plist.
+
+
+1241
+00:33:54,686 --> 00:33:58,406
+So, PDF-backed images.
+
+
+1242
+00:33:58,486 --> 00:33:59,356
+These are something that have
+
+
+1243
+00:33:59,356 --> 00:34:00,846
+been possible for a little
+
+
+1244
+00:34:00,846 --> 00:34:01,366
+while, now.
+
+
+1245
+00:34:01,466 --> 00:34:02,746
+But there's a new option when
+
+
+1246
+00:34:02,746 --> 00:34:04,236
+you add an image to your Asset
+
+
+1247
+00:34:04,236 --> 00:34:05,726
+Catalog, that's PDF-backed.
+
+
+1248
+00:34:06,306 --> 00:34:07,906
+You're given the option to
+
+
+1249
+00:34:07,906 --> 00:34:08,946
+preserve the vector data.
+
+
+1250
+00:34:09,196 --> 00:34:10,985
+So, this is new in iOS 11.
+
+
+1251
+00:34:10,985 --> 00:34:12,016
+And it's a really powerful
+
+
+1252
+00:34:12,016 --> 00:34:12,386
+feature.
+
+
+1253
+00:34:12,866 --> 00:34:14,686
+If you click that box, the
+
+
+1254
+00:34:14,686 --> 00:34:16,826
+vector data will be shipped with
+
+
+1255
+00:34:16,826 --> 00:34:17,556
+your application.
+
+
+1256
+00:34:17,946 --> 00:34:19,735
+Which, on the one hand, makes
+
+
+1257
+00:34:19,815 --> 00:34:20,656
+your application a little bit
+
+
+1258
+00:34:20,656 --> 00:34:22,226
+larger, because the vector data
+
+
+1259
+00:34:22,266 --> 00:34:23,326
+takes up some space.
+
+
+1260
+00:34:23,846 --> 00:34:25,275
+But on the other hand, will give
+
+
+1261
+00:34:25,275 --> 00:34:26,956
+you the opportunity to scale
+
+
+1262
+00:34:26,956 --> 00:34:27,956
+these images, which might be
+
+
+1263
+00:34:27,956 --> 00:34:29,315
+useful in a number of different
+
+
+1264
+00:34:29,315 --> 00:34:29,866
+situations.
+
+
+1265
+00:34:29,866 --> 00:34:31,376
+So, one is, if you know that
+
+
+1266
+00:34:31,376 --> 00:34:32,616
+this particular image is going
+
+
+1267
+00:34:32,616 --> 00:34:34,146
+to be used at multiple sizes.
+
+
+1268
+00:34:34,146 --> 00:34:37,496
+But that might be less obvious.
+
+
+1269
+00:34:37,636 --> 00:34:39,886
+So, one case is a symbolic glyph
+
+
+1270
+00:34:39,926 --> 00:34:41,446
+that should resize with dynamic
+
+
+1271
+00:34:41,476 --> 00:34:41,696
+type.
+
+
+1272
+00:34:41,946 --> 00:34:42,826
+Since we're thinking about
+
+
+1273
+00:34:42,826 --> 00:34:44,295
+dynamic type, you should also be
+
+
+1274
+00:34:44,295 --> 00:34:45,666
+thinking about having glyphs
+
+
+1275
+00:34:45,706 --> 00:34:47,906
+that are appearing next to type
+
+
+1276
+00:34:48,216 --> 00:34:49,235
+resize appropriately.
+
+
+1277
+00:34:49,235 --> 00:34:52,996
+Another case that's really not
+
+
+1278
+00:34:52,996 --> 00:34:54,596
+obvious, is tab bar images.
+
+
+1279
+00:34:54,786 --> 00:34:56,386
+So, you're probably used to your
+
+
+1280
+00:34:56,386 --> 00:34:58,476
+tab bar images appearing at just
+
+
+1281
+00:34:58,476 --> 00:34:59,256
+a single size.
+
+
+1282
+00:34:59,746 --> 00:35:01,476
+But there's a really great
+
+
+1283
+00:35:01,476 --> 00:35:03,986
+accessibility feature that we
+
+
+1284
+00:35:03,986 --> 00:35:05,936
+strongly recommend supporting,
+
+
+1285
+00:35:06,446 --> 00:35:08,716
+that allows for user that have
+
+
+1286
+00:35:08,716 --> 00:35:11,626
+turned their dynamic type size
+
+
+1287
+00:35:12,446 --> 00:35:12,526
+up.
+
+
+1288
+00:35:12,786 --> 00:35:14,706
+When they tap and hold on a tab
+
+
+1289
+00:35:14,706 --> 00:35:17,006
+bar image, a larger version
+
+
+1290
+00:35:17,006 --> 00:35:18,166
+appears in the center of the
+
+
+1291
+00:35:18,216 --> 00:35:19,056
+screen in a Hud.
+
+
+1292
+00:35:19,806 --> 00:35:21,236
+And as you swipe your finger you
+
+
+1293
+00:35:21,236 --> 00:35:22,556
+can see different ones.
+
+
+1294
+00:35:23,006 --> 00:35:24,696
+So, you can support this in your
+
+
+1295
+00:35:25,036 --> 00:35:26,916
+apps by returning a different
+
+
+1296
+00:35:26,916 --> 00:35:28,296
+image to use for this purpose.
+
+
+1297
+00:35:28,606 --> 00:35:31,226
+But if you use PDF-backed images
+
+
+1298
+00:35:31,226 --> 00:35:33,236
+and preserve the vector data for
+
+
+1299
+00:35:33,236 --> 00:35:34,376
+your tab bar images, it will
+
+
+1300
+00:35:34,376 --> 00:35:35,586
+just happen by default.
+
+
+1301
+00:35:35,856 --> 00:35:37,116
+So, we really recommend doing
+
+
+1302
+00:35:37,346 --> 00:35:38,936
+that to increase the usability
+
+
+1303
+00:35:38,936 --> 00:35:40,356
+of your app across all users.
+
+
+1304
+00:35:40,396 --> 00:35:40,546
+All right.
+
+
+1305
+00:35:40,996 --> 00:35:45,076
+And the final topic that I want
+
+
+1306
+00:35:45,076 --> 00:35:46,496
+to discuss, is ProMotion.
+
+
+1307
+00:35:46,996 --> 00:35:49,456
+So, as you heard, on certain new
+
+
+1308
+00:35:49,686 --> 00:35:51,306
+iPads we're increasing the
+
+
+1309
+00:35:51,306 --> 00:35:52,536
+refresh rate of the screen.
+
+
+1310
+00:35:52,866 --> 00:35:55,356
+And you can find out what the
+
+
+1311
+00:35:55,356 --> 00:35:56,586
+screen's refresh rate is on a
+
+
+1312
+00:35:56,586 --> 00:35:58,176
+particular device, by querying
+
+
+1313
+00:35:58,376 --> 00:35:59,796
+this property on UIScreen.
+
+
+1314
+00:36:03,456 --> 00:36:05,806
+So, once you've queried it, what
+
+
+1315
+00:36:05,806 --> 00:36:06,496
+should you do with that
+
+
+1316
+00:36:06,496 --> 00:36:07,126
+information?
+
+
+1317
+00:36:08,106 --> 00:36:09,736
+Well, it depends on what kind of
+
+
+1318
+00:36:09,736 --> 00:36:10,306
+app you're building.
+
+
+1319
+00:36:10,676 --> 00:36:11,846
+So, if you have a UIKit
+
+
+1320
+00:36:11,846 --> 00:36:13,246
+application, the answer is
+
+
+1321
+00:36:13,246 --> 00:36:14,526
+actually you really shouldn't do
+
+
+1322
+00:36:14,526 --> 00:36:15,746
+much with this.
+
+
+1323
+00:36:15,796 --> 00:36:17,146
+The crucial thing for a UIKit
+
+
+1324
+00:36:17,146 --> 00:36:18,566
+application, is you just want to
+
+
+1325
+00:36:18,716 --> 00:36:20,276
+optimize your drawing code.
+
+
+1326
+00:36:20,526 --> 00:36:21,756
+You just want to make sure that
+
+
+1327
+00:36:21,756 --> 00:36:23,246
+you're getting your frame rate
+
+
+1328
+00:36:23,246 --> 00:36:24,706
+as high as you can on all
+
+
+1329
+00:36:24,706 --> 00:36:25,176
+devices.
+
+
+1330
+00:36:25,176 --> 00:36:26,516
+And to do that, we strongly
+
+
+1331
+00:36:26,516 --> 00:36:27,746
+recommend using Instruments.
+
+
+1332
+00:36:28,016 --> 00:36:29,226
+You can check out the frame rate
+
+
+1333
+00:36:29,226 --> 00:36:30,436
+that you're achieving during
+
+
+1334
+00:36:30,436 --> 00:36:31,646
+scrolling and animations.
+
+
+1335
+00:36:31,646 --> 00:36:32,766
+And find out what might be
+
+
+1336
+00:36:32,766 --> 00:36:33,536
+bogging you down.
+
+
+1337
+00:36:33,786 --> 00:36:35,006
+And if you do that, then it will
+
+
+1338
+00:36:35,006 --> 00:36:36,486
+really improve the user
+
+
+1339
+00:36:36,486 --> 00:36:37,776
+experience on your app across
+
+
+1340
+00:36:37,776 --> 00:36:39,806
+all devices, including ones with
+
+
+1341
+00:36:39,806 --> 00:36:41,946
+a higher screen refresh rate.
+
+
+1342
+00:36:42,516 --> 00:36:44,136
+The situation is more
+
+
+1343
+00:36:44,136 --> 00:36:46,996
+complicated for Metal apps.
+
+
+1344
+00:36:46,996 --> 00:36:50,316
+So, for apps that are using
+
+
+1345
+00:36:50,316 --> 00:36:52,036
+Metal, you're going to want to
+
+
+1346
+00:36:52,086 --> 00:36:54,116
+think more about what refresh
+
+
+1347
+00:36:54,116 --> 00:36:55,506
+rates to try to hit in different
+
+
+1348
+00:36:55,506 --> 00:36:56,116
+situations.
+
+
+1349
+00:36:56,646 --> 00:36:59,596
+So, your goal here, is to ensure
+
+
+1350
+00:36:59,596 --> 00:37:00,666
+smooth playback.
+
+
+1351
+00:37:00,666 --> 00:37:02,306
+And in the past, you might have
+
+
+1352
+00:37:02,306 --> 00:37:04,706
+been actually pessimistically
+
+
+1353
+00:37:04,706 --> 00:37:06,486
+clamping your refresh rate to 30
+
+
+1354
+00:37:06,486 --> 00:37:07,976
+frames per second to make sure
+
+
+1355
+00:37:07,976 --> 00:37:09,156
+that the frame rate is smooth.
+
+
+1356
+00:37:09,386 --> 00:37:10,926
+But now, on devices that support
+
+
+1357
+00:37:10,926 --> 00:37:12,296
+higher screen refresh rates, you
+
+
+1358
+00:37:12,296 --> 00:37:13,886
+could, for example, clamp to 40
+
+
+1359
+00:37:13,886 --> 00:37:14,846
+frames per second to get a
+
+
+1360
+00:37:14,846 --> 00:37:16,146
+better smooth playback
+
+
+1361
+00:37:16,146 --> 00:37:17,786
+experience, since 40 divides
+
+
+1362
+00:37:17,786 --> 00:37:19,696
+evenly into 120 frames per
+
+
+1363
+00:37:20,136 --> 00:37:20,416
+second.
+
+
+1364
+00:37:20,416 --> 00:37:21,506
+If you're showing cinematic
+
+
+1365
+00:37:21,626 --> 00:37:23,686
+content, you might want to
+
+
+1366
+00:37:23,686 --> 00:37:25,206
+choose a refresh rate of 24
+
+
+1367
+00:37:25,206 --> 00:37:26,346
+frames per second, which now
+
+
+1368
+00:37:26,346 --> 00:37:28,846
+also, will look really smooth on
+
+
+1369
+00:37:28,846 --> 00:37:29,436
+these devices.
+
+
+1370
+00:37:29,806 --> 00:37:31,176
+So, a lot of options, here.
+
+
+1371
+00:37:31,406 --> 00:37:33,636
+You probably want to think about
+
+
+1372
+00:37:33,636 --> 00:37:34,516
+the content that you're
+
+
+1373
+00:37:34,516 --> 00:37:36,146
+displaying to conserve power.
+
+
+1374
+00:37:36,146 --> 00:37:37,526
+You don't want to be hitting 120
+
+
+1375
+00:37:37,526 --> 00:37:40,456
+fps all the time.
+
+
+1376
+00:37:40,566 --> 00:37:42,366
+And finally, you can use XCode's
+
+
+1377
+00:37:42,366 --> 00:37:44,696
+GPU Report feature to look at
+
+
+1378
+00:37:44,776 --> 00:37:46,056
+the performance characteristics
+
+
+1379
+00:37:46,056 --> 00:37:47,076
+of your Metal applications.
+
+
+1380
+00:37:47,136 --> 00:37:50,286
+There is a session on
+
+
+1381
+00:37:50,496 --> 00:37:53,556
+Introducing Metal 2, that we
+
+
+1382
+00:37:53,556 --> 00:37:54,706
+strongly recommend going to.
+
+
+1383
+00:37:55,136 --> 00:37:57,776
+And that's what's new.
+
+
+1384
+00:37:57,776 --> 00:37:59,376
+So, I'm going to hand it back
+
+
+1385
+00:37:59,376 --> 00:37:59,896
+over to Josh.
+
+
+1386
+00:38:00,086 --> 00:38:00,756
+Thanks, very much.
+
+
+1387
+00:38:01,516 --> 00:38:06,386
+[ Applause ]
+
+
+1388
+00:38:06,886 --> 00:38:08,146
+>> Thanks, Eliza.
+
+
+1389
+00:38:08,216 --> 00:38:09,226
+We got a late start, this
+
+
+1390
+00:38:09,226 --> 00:38:09,576
+morning.
+
+
+1391
+00:38:09,576 --> 00:38:10,396
+So, we're going to have a really
+
+
+1392
+00:38:10,396 --> 00:38:11,376
+quick end, right now.
+
+
+1393
+00:38:11,736 --> 00:38:13,446
+I have one last topic I wanted
+
+
+1394
+00:38:13,446 --> 00:38:14,436
+to talk about, really quickly,
+
+
+1395
+00:38:14,726 --> 00:38:15,786
+and I promise this is really
+
+
+1396
+00:38:15,786 --> 00:38:16,016
+quick.
+
+
+1397
+00:38:16,166 --> 00:38:18,546
+So, Localization is a really key
+
+
+1398
+00:38:18,546 --> 00:38:20,126
+way to broaden the reach of your
+
+
+1399
+00:38:20,126 --> 00:38:20,226
+apps.
+
+
+1400
+00:38:21,196 --> 00:38:21,906
+And for many people,
+
+
+1401
+00:38:21,906 --> 00:38:23,976
+Localization can seem synonymous
+
+
+1402
+00:38:23,976 --> 00:38:26,046
+with translation.
+
+
+1403
+00:38:26,166 --> 00:38:27,146
+But it's actually more than
+
+
+1404
+00:38:27,146 --> 00:38:27,446
+that.
+
+
+1405
+00:38:27,736 --> 00:38:29,496
+And one quick thing I just want
+
+
+1406
+00:38:29,496 --> 00:38:32,186
+to mention is considering
+
+
+1407
+00:38:32,186 --> 00:38:33,396
+layouts that are important for
+
+
+1408
+00:38:33,396 --> 00:38:34,916
+localized applications.
+
+
+1409
+00:38:35,366 --> 00:38:36,336
+So, take a look at this, really
+
+
+1410
+00:38:36,336 --> 00:38:36,726
+quickly.
+
+
+1411
+00:38:37,756 --> 00:38:38,896
+For many of you, this probably
+
+
+1412
+00:38:38,896 --> 00:38:40,056
+feels really comfortable.
+
+
+1413
+00:38:40,516 --> 00:38:42,816
+But if you now, keep watching.
+
+
+1414
+00:38:42,816 --> 00:38:43,816
+I'm going to change it, and
+
+
+1415
+00:38:43,976 --> 00:38:45,116
+hopefully, make you feel kind of
+
+
+1416
+00:38:45,116 --> 00:38:45,716
+uncomfortable.
+
+
+1417
+00:38:46,366 --> 00:38:48,716
+Now, this probably seems really
+
+
+1418
+00:38:48,716 --> 00:38:49,126
+backwards.
+
+
+1419
+00:38:49,836 --> 00:38:51,506
+Labels are aligned weird, arrows
+
+
+1420
+00:38:51,506 --> 00:38:52,476
+are in the wrong direction,
+
+
+1421
+00:38:52,716 --> 00:38:54,326
+animations happen the wrong way.
+
+
+1422
+00:38:54,976 --> 00:38:56,436
+But believe it or not, this is
+
+
+1423
+00:38:56,436 --> 00:38:57,596
+actually a real layout.
+
+
+1424
+00:38:57,976 --> 00:38:58,906
+You just don't usually see it
+
+
+1425
+00:38:58,906 --> 00:38:59,626
+with English.
+
+
+1426
+00:38:59,886 --> 00:39:01,106
+You usually see it with a
+
+
+1427
+00:39:01,106 --> 00:39:02,016
+language that reads right to
+
+
+1428
+00:39:02,016 --> 00:39:03,536
+left, like Arabic or Hebrew.
+
+
+1429
+00:39:04,216 --> 00:39:05,526
+Now, for a user that expects to
+
+
+1430
+00:39:05,526 --> 00:39:07,266
+see this, this feels really
+
+
+1431
+00:39:07,266 --> 00:39:07,736
+natural.
+
+
+1432
+00:39:08,266 --> 00:39:09,396
+So, if you felt comfortable with
+
+
+1433
+00:39:09,396 --> 00:39:11,286
+this and uncomfortable with
+
+
+1434
+00:39:11,286 --> 00:39:11,786
+this.
+
+
+1435
+00:39:12,096 --> 00:39:13,266
+Then, now you know what someone
+
+
+1436
+00:39:13,266 --> 00:39:14,676
+whose native language reads
+
+
+1437
+00:39:14,676 --> 00:39:16,426
+right to left feels like if
+
+
+1438
+00:39:16,426 --> 00:39:17,486
+they're not presented with this.
+
+
+1439
+00:39:18,266 --> 00:39:19,206
+Now, you want to make sure if
+
+
+1440
+00:39:19,206 --> 00:39:21,046
+you're localizing, that you also
+
+
+1441
+00:39:21,156 --> 00:39:23,576
+support RTL in your layouts, if
+
+
+1442
+00:39:23,576 --> 00:39:24,406
+you're going to support RTL
+
+
+1443
+00:39:24,406 --> 00:39:25,016
+languages.
+
+
+1444
+00:39:25,186 --> 00:39:26,416
+Because the system is doing this
+
+
+1445
+00:39:26,466 --> 00:39:27,206
+all over the place.
+
+
+1446
+00:39:27,406 --> 00:39:28,746
+Many teams have been spending a
+
+
+1447
+00:39:28,746 --> 00:39:30,106
+lot of time to make sure that
+
+
+1448
+00:39:30,136 --> 00:39:30,646
+this is right.
+
+
+1449
+00:39:30,646 --> 00:39:32,416
+And in fact, UIKit does a lot of
+
+
+1450
+00:39:32,416 --> 00:39:32,906
+it for you.
+
+
+1451
+00:39:33,236 --> 00:39:34,526
+So, navigation controllers and
+
+
+1452
+00:39:34,526 --> 00:39:35,566
+switches will switch
+
+
+1453
+00:39:35,566 --> 00:39:36,286
+automatically.
+
+
+1454
+00:39:36,616 --> 00:39:37,646
+But if you're building your own
+
+
+1455
+00:39:37,646 --> 00:39:39,676
+custom views, you definitely
+
+
+1456
+00:39:39,676 --> 00:39:41,506
+want to take a look at your
+
+
+1457
+00:39:41,606 --> 00:39:43,166
+layouts in RTL languages, as
+
+
+1458
+00:39:43,166 --> 00:39:44,516
+well, if you localize in those
+
+
+1459
+00:39:44,516 --> 00:39:44,996
+languages.
+
+
+1460
+00:39:44,996 --> 00:39:47,486
+So, that was my really quick
+
+
+1461
+00:39:47,486 --> 00:39:48,416
+wrap-up on that.
+
+
+1462
+00:39:48,416 --> 00:39:49,356
+Lots more information about
+
+
+1463
+00:39:49,356 --> 00:39:50,916
+localization in the Localization
+
+
+1464
+00:39:50,916 --> 00:39:52,466
+Guide on developer.apple.com.
+
+
+1465
+00:39:53,096 --> 00:39:54,496
+And of course, there's plenty
+
+
+1466
+00:39:54,496 --> 00:39:57,306
+more info available from this
+
+
+1467
+00:39:57,306 --> 00:39:59,286
+session, and a ton of related
+
+
+1468
+00:39:59,286 --> 00:39:59,976
+sessions, all week.
+
+
+1469
+00:40:00,326 --> 00:40:01,496
+The four Drag and Drop sessions
+
+
+1470
+00:40:01,496 --> 00:40:02,136
+are going to be great.
+
+
+1471
+00:40:02,176 --> 00:40:03,086
+You definitely should check them
+
+
+1472
+00:40:03,776 --> 00:40:04,126
+out.
+
+
+1473
+00:40:04,126 --> 00:40:05,776
+Updating Your App for iOS 11 is
+
+
+1474
+00:40:05,776 --> 00:40:06,736
+really going to be a great
+
+
+1475
+00:40:06,736 --> 00:40:07,446
+session, as well.
+
+
+1476
+00:40:07,836 --> 00:40:09,226
+And make Eliza happy and go
+
+
+1477
+00:40:09,226 --> 00:40:10,356
+check out the Introducing
+
+
+1478
+00:40:10,356 --> 00:40:12,026
+Password Autofill for Your Apps.
+
+
+1479
+00:40:12,026 --> 00:40:12,856
+And implement that.
+
+
+1480
+00:40:13,156 --> 00:40:13,876
+Thanks, very much.
+
+
+1481
+00:40:13,876 --> 00:40:14,526
+And enjoy the week.
+
+
+1482
+00:40:15,516 --> 00:40:21,500
+[ Applause ]
+

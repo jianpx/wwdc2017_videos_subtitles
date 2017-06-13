@@ -1,0 +1,4339 @@
+1
+00:00:18,366 --> 00:00:19,506
+>> Hello and welcome to the
+
+
+2
+00:00:19,506 --> 00:00:20,796
+Enabling Your App for CarPlay
+
+
+3
+00:00:20,796 --> 00:00:21,176
+session.
+
+
+4
+00:00:21,706 --> 00:00:22,916
+My name is Albert and I'm an
+
+
+5
+00:00:22,916 --> 00:00:24,196
+engineer on the CarPlay team.
+
+
+6
+00:00:25,196 --> 00:00:26,356
+Today we'll be going through an
+
+
+7
+00:00:26,356 --> 00:00:27,976
+overview of how apps behave in
+
+
+8
+00:00:27,976 --> 00:00:29,576
+CarPlay, how to get your app
+
+
+9
+00:00:29,576 --> 00:00:30,596
+integrated on the CarPlay
+
+
+10
+00:00:30,596 --> 00:00:32,546
+platform and best practices and
+
+
+11
+00:00:32,546 --> 00:00:33,516
+pitfalls to avoid.
+
+
+12
+00:00:34,866 --> 00:00:36,276
+Let's look at how apps run in
+
+
+13
+00:00:36,276 --> 00:00:36,706
+CarPlay.
+
+
+14
+00:00:37,246 --> 00:00:39,736
+When CarPlay is active some
+
+
+15
+00:00:39,736 --> 00:00:41,276
+information will be available
+
+
+16
+00:00:41,276 --> 00:00:42,446
+and accessible from the CarPlay
+
+
+17
+00:00:42,446 --> 00:00:42,806
+screen.
+
+
+18
+00:00:43,476 --> 00:00:44,916
+If an app has posted now playing
+
+
+19
+00:00:44,916 --> 00:00:46,486
+metadata and playback controls
+
+
+20
+00:00:46,486 --> 00:00:48,146
+for audio content this
+
+
+21
+00:00:48,146 --> 00:00:49,306
+information will also be
+
+
+22
+00:00:49,306 --> 00:00:50,696
+accessible from the Now Playing
+
+
+23
+00:00:50,696 --> 00:00:52,536
+app on the CarPlay Home screen.
+
+
+24
+00:00:53,366 --> 00:00:54,906
+Audio will be played through a
+
+
+25
+00:00:54,906 --> 00:00:56,856
+car speaker system and some
+
+
+26
+00:00:56,856 --> 00:00:58,216
+SiriKit intents will be
+
+
+27
+00:00:58,216 --> 00:00:59,266
+supported in CarPlay.
+
+
+28
+00:01:00,276 --> 00:01:01,826
+If we user triggers of SiriKit
+
+
+29
+00:01:01,826 --> 00:01:03,116
+intent that is not supported
+
+
+30
+00:01:03,116 --> 00:01:04,936
+while in CarPlay Siri will
+
+
+31
+00:01:04,936 --> 00:01:06,456
+notify the user that it is not
+
+
+32
+00:01:06,456 --> 00:01:09,876
+available in the car.
+
+
+33
+00:01:09,876 --> 00:01:11,206
+Even though your app may not
+
+
+34
+00:01:11,206 --> 00:01:13,226
+support CarPlay users may use
+
+
+35
+00:01:13,226 --> 00:01:14,946
+your app while in CarPlay before
+
+
+36
+00:01:14,946 --> 00:01:15,826
+they begin driving.
+
+
+37
+00:01:16,746 --> 00:01:17,876
+To ensure a great user
+
+
+38
+00:01:17,876 --> 00:01:19,336
+experience for all apps in
+
+
+39
+00:01:19,336 --> 00:01:21,506
+CarPlay make sure that your app
+
+
+40
+00:01:21,606 --> 00:01:22,876
+doesn't play audio unless
+
+
+41
+00:01:22,876 --> 00:01:24,706
+requested since your app could
+
+
+42
+00:01:24,706 --> 00:01:26,526
+override currently playing audio
+
+
+43
+00:01:26,526 --> 00:01:29,256
+the user intended to play.
+
+
+44
+00:01:29,466 --> 00:01:31,146
+In some instances, your app will
+
+
+45
+00:01:31,146 --> 00:01:32,646
+want to interact with other
+
+
+46
+00:01:32,646 --> 00:01:33,986
+audio streams appropriately.
+
+
+47
+00:01:34,726 --> 00:01:36,056
+For spoken audio apps such as
+
+
+48
+00:01:36,056 --> 00:01:38,526
+Audiobooks use this protocol so
+
+
+49
+00:01:38,526 --> 00:01:40,186
+your audio will pause when other
+
+
+50
+00:01:40,186 --> 00:01:41,266
+audio streams are active.
+
+
+51
+00:01:42,226 --> 00:01:43,526
+For navigation apps where
+
+
+52
+00:01:43,526 --> 00:01:44,866
+guidance instructions are given
+
+
+53
+00:01:44,866 --> 00:01:47,146
+intermittently use these two
+
+
+54
+00:01:47,146 --> 00:01:48,796
+protocols, the latter of which
+
+
+55
+00:01:48,796 --> 00:01:50,536
+will pause audio streams marked
+
+
+56
+00:01:50,536 --> 00:01:51,956
+as spoken audio before
+
+
+57
+00:01:51,956 --> 00:01:53,246
+initiating your audio session.
+
+
+58
+00:01:53,796 --> 00:01:56,336
+Because guidance voices will mix
+
+
+59
+00:01:56,336 --> 00:01:58,176
+with other audio streams set
+
+
+60
+00:01:58,176 --> 00:01:59,976
+your audio session to mixable so
+
+
+61
+00:01:59,976 --> 00:02:01,436
+that it can interact with other
+
+
+62
+00:02:01,436 --> 00:02:02,146
+audio streams.
+
+
+63
+00:02:02,686 --> 00:02:05,816
+For apps that have deeper
+
+
+64
+00:02:05,816 --> 00:02:07,646
+CarPlay integration the app icon
+
+
+65
+00:02:07,646 --> 00:02:09,026
+will appear on the CarPlay Home
+
+
+66
+00:02:09,026 --> 00:02:09,386
+screen.
+
+
+67
+00:02:10,066 --> 00:02:11,096
+Apps that are launched in
+
+
+68
+00:02:11,096 --> 00:02:12,506
+CarPlay will launch in the
+
+
+69
+00:02:12,506 --> 00:02:14,236
+foreground on both the CarPlay
+
+
+70
+00:02:14,236 --> 00:02:15,246
+and iPhone screen.
+
+
+71
+00:02:16,216 --> 00:02:17,466
+For apps that are not integrated
+
+
+72
+00:02:17,466 --> 00:02:19,326
+with CarPlay only the iPhone
+
+
+73
+00:02:19,326 --> 00:02:20,596
+screen will have the app in the
+
+
+74
+00:02:20,596 --> 00:02:22,586
+foreground and CarPlay will only
+
+
+75
+00:02:22,586 --> 00:02:23,606
+display the Home screen.
+
+
+76
+00:02:24,146 --> 00:02:27,306
+There are certain categories of
+
+
+77
+00:02:27,306 --> 00:02:28,676
+apps that can support deeper
+
+
+78
+00:02:28,676 --> 00:02:29,646
+CarPlay integration.
+
+
+79
+00:02:30,576 --> 00:02:32,406
+These are audio apps, messaging
+
+
+80
+00:02:32,406 --> 00:02:34,056
+and VoIP apps and automaker
+
+
+81
+00:02:34,056 --> 00:02:34,376
+apps.
+
+
+82
+00:02:35,096 --> 00:02:37,266
+Audio apps deliver music, news,
+
+
+83
+00:02:37,596 --> 00:02:39,856
+podcasts and other audio content
+
+
+84
+00:02:39,856 --> 00:02:41,636
+using a consistent design that's
+
+
+85
+00:02:41,636 --> 00:02:43,016
+optimized for use in the car.
+
+
+86
+00:02:44,116 --> 00:02:45,636
+Messaging and VoIP apps work
+
+
+87
+00:02:45,636 --> 00:02:47,976
+using Siri and can be updated to
+
+
+88
+00:02:47,976 --> 00:02:48,816
+appear in CarPlay.
+
+
+89
+00:02:49,836 --> 00:02:51,366
+Automaker apps provide vehicle
+
+
+90
+00:02:51,366 --> 00:02:53,156
+specific controls and displays
+
+
+91
+00:02:53,496 --> 00:02:54,646
+to keep drivers connected
+
+
+92
+00:02:54,646 --> 00:02:55,786
+without leaving CarPlay.
+
+
+93
+00:02:57,176 --> 00:02:58,396
+If you think your audio,
+
+
+94
+00:02:58,456 --> 00:03:00,436
+automaker, messaging or VoIP
+
+
+95
+00:03:00,436 --> 00:03:01,976
+calling app has the potential to
+
+
+96
+00:03:01,976 --> 00:03:04,116
+be supported by CarPlay tell us
+
+
+97
+00:03:04,116 --> 00:03:05,196
+about it at the CarPlay
+
+
+98
+00:03:05,196 --> 00:03:05,936
+developer portal.
+
+
+99
+00:03:06,656 --> 00:03:08,186
+There you'll be able to request
+
+
+100
+00:03:08,186 --> 00:03:09,506
+an entitlement to get your app
+
+
+101
+00:03:09,506 --> 00:03:10,256
+running in CarPlay.
+
+
+102
+00:03:10,786 --> 00:03:14,436
+Keep in mind that certain assets
+
+
+103
+00:03:14,436 --> 00:03:15,766
+and images will need to have
+
+
+104
+00:03:15,826 --> 00:03:17,686
+CarPlay specific assets and to
+
+
+105
+00:03:17,686 --> 00:03:20,116
+provide 2X and 3X sized images
+
+
+106
+00:03:20,236 --> 00:03:21,546
+since the CarPlay screen has
+
+
+107
+00:03:21,546 --> 00:03:23,226
+varying resolutions and sizes
+
+
+108
+00:03:23,606 --> 00:03:24,576
+depending on a vehicle's
+
+
+109
+00:03:24,576 --> 00:03:25,036
+display.
+
+
+110
+00:03:26,096 --> 00:03:27,706
+For more guidance on icons and
+
+
+111
+00:03:27,706 --> 00:03:28,966
+designing your app for CarPlay
+
+
+112
+00:03:29,486 --> 00:03:30,826
+check out the iOS Human
+
+
+113
+00:03:30,826 --> 00:03:32,036
+Interface Guidelines and the
+
+
+114
+00:03:32,036 --> 00:03:33,086
+CarPlay Human Interface
+
+
+115
+00:03:33,086 --> 00:03:33,626
+Guidelines.
+
+
+116
+00:03:36,056 --> 00:03:37,326
+While you can test the CarPlay
+
+
+117
+00:03:37,326 --> 00:03:39,956
+app on iOS simulator in Xcode it
+
+
+118
+00:03:40,006 --> 00:03:41,696
+is best to test on an actual
+
+
+119
+00:03:41,696 --> 00:03:42,946
+device connected to a real
+
+
+120
+00:03:42,946 --> 00:03:44,726
+vehicle head unit for realistic
+
+
+121
+00:03:44,766 --> 00:03:45,216
+results.
+
+
+122
+00:03:46,236 --> 00:03:47,586
+For apps that will play audio
+
+
+123
+00:03:47,746 --> 00:03:48,906
+the simulator has some
+
+
+124
+00:03:48,906 --> 00:03:50,336
+limitations on playback state
+
+
+125
+00:03:50,756 --> 00:03:52,106
+which does not reflect on what a
+
+
+126
+00:03:52,106 --> 00:03:53,566
+user will actually experience.
+
+
+127
+00:03:54,696 --> 00:03:55,976
+To fully debug your app with
+
+
+128
+00:03:55,976 --> 00:03:58,586
+LLDB support Xcode now supports
+
+
+129
+00:03:58,586 --> 00:04:00,036
+wireless debugging so that an
+
+
+130
+00:04:00,186 --> 00:04:01,676
+iPhone can be connected to a
+
+
+131
+00:04:01,676 --> 00:04:03,336
+vehicle or aftermarket head unit
+
+
+132
+00:04:03,456 --> 00:04:04,416
+while debugging your app.
+
+
+133
+00:04:05,156 --> 00:04:06,786
+For more information, please see
+
+
+134
+00:04:06,786 --> 00:04:08,016
+the debugging with Xcode 9
+
+
+135
+00:04:08,016 --> 00:04:09,786
+session which will be available
+
+
+136
+00:04:09,786 --> 00:04:11,076
+this week in WWDC.
+
+
+137
+00:04:11,656 --> 00:04:14,976
+If your app uses data protection
+
+
+138
+00:04:14,976 --> 00:04:17,096
+for user data or content keep in
+
+
+139
+00:04:17,096 --> 00:04:18,685
+mind that apps in CarPlay will
+
+
+140
+00:04:18,685 --> 00:04:20,096
+likely run while the iPhone is
+
+
+141
+00:04:20,096 --> 00:04:20,796
+pass code locked.
+
+
+142
+00:04:21,736 --> 00:04:22,866
+If your app has pass code
+
+
+143
+00:04:22,866 --> 00:04:24,156
+protected data using the
+
+
+144
+00:04:24,156 --> 00:04:25,696
+following types for files,
+
+
+145
+00:04:26,726 --> 00:04:29,696
+keychains or SQL like databases
+
+
+146
+00:04:29,696 --> 00:04:31,476
+shown here your data may be
+
+
+147
+00:04:31,476 --> 00:04:33,316
+unavailable while in CarPlay and
+
+
+148
+00:04:33,316 --> 00:04:34,116
+your app may behave
+
+
+149
+00:04:34,116 --> 00:04:34,856
+unexpectedly.
+
+
+150
+00:04:35,546 --> 00:04:38,626
+Let's take a closer look at
+
+
+151
+00:04:38,626 --> 00:04:39,856
+getting your app integrated with
+
+
+152
+00:04:39,856 --> 00:04:40,286
+CarPlay.
+
+
+153
+00:04:40,846 --> 00:04:42,946
+We will highlight the three
+
+
+154
+00:04:42,946 --> 00:04:44,356
+categories of apps that support
+
+
+155
+00:04:44,356 --> 00:04:46,496
+CarPlay integration, audio apps,
+
+
+156
+00:04:46,896 --> 00:04:48,366
+messaging and VoIP apps, and
+
+
+157
+00:04:48,366 --> 00:04:49,196
+automaker apps.
+
+
+158
+00:04:49,726 --> 00:04:52,186
+Let's get started with audio
+
+
+159
+00:04:52,936 --> 00:04:53,036
+apps.
+
+
+160
+00:04:54,446 --> 00:04:55,966
+Audio apps in CarPlay present
+
+
+161
+00:04:55,966 --> 00:04:57,436
+content in an interface that's
+
+
+162
+00:04:57,486 --> 00:04:58,756
+optimized for the platform
+
+
+163
+00:04:59,276 --> 00:05:00,696
+providing the user an easily
+
+
+164
+00:05:00,696 --> 00:05:02,146
+navigable way to access their
+
+
+165
+00:05:02,146 --> 00:05:02,626
+content.
+
+
+166
+00:05:03,426 --> 00:05:04,876
+Audio app developers provide a
+
+
+167
+00:05:04,876 --> 00:05:06,186
+data source, as well as a
+
+
+168
+00:05:06,186 --> 00:05:07,826
+navigation hierarchy for the
+
+
+169
+00:05:07,826 --> 00:05:09,266
+CarPlay platform to render
+
+
+170
+00:05:09,266 --> 00:05:09,756
+onscreen.
+
+
+171
+00:05:10,276 --> 00:05:13,056
+In addition, now playing
+
+
+172
+00:05:13,056 --> 00:05:14,466
+information will be presented
+
+
+173
+00:05:14,466 --> 00:05:16,006
+providing the user with relevant
+
+
+174
+00:05:16,006 --> 00:05:17,916
+metadata, as well as adjustable
+
+
+175
+00:05:17,916 --> 00:05:19,526
+commands for the user to handle
+
+
+176
+00:05:19,526 --> 00:05:21,416
+playback speeds, tracks and
+
+
+177
+00:05:21,416 --> 00:05:22,746
+other actions audio apps may
+
+
+178
+00:05:22,746 --> 00:05:23,216
+support.
+
+
+179
+00:05:25,156 --> 00:05:26,176
+After receiving the app
+
+
+180
+00:05:26,176 --> 00:05:27,506
+entitlement audio apps in
+
+
+181
+00:05:27,506 --> 00:05:29,076
+CarPlay must at a minimum
+
+
+182
+00:05:29,226 --> 00:05:30,496
+implement the MP playable
+
+
+183
+00:05:30,496 --> 00:05:32,736
+content APIs, which include the
+
+
+184
+00:05:32,736 --> 00:05:34,226
+data source and delegate in
+
+
+185
+00:05:34,226 --> 00:05:35,406
+order for CarPlay to fetch
+
+
+186
+00:05:35,406 --> 00:05:36,916
+content items and initialize
+
+
+187
+00:05:36,946 --> 00:05:37,376
+playback.
+
+
+188
+00:05:38,596 --> 00:05:40,386
+Audio apps must also respond to
+
+
+189
+00:05:40,496 --> 00:05:42,016
+MPRemoteCommandCenter events
+
+
+190
+00:05:42,566 --> 00:05:43,716
+which let the user perform
+
+
+191
+00:05:43,716 --> 00:05:45,136
+commands on your content, such
+
+
+192
+00:05:45,136 --> 00:05:47,766
+as play, pause or skip tracks.
+
+
+193
+00:05:48,536 --> 00:05:50,626
+Finally, audio apps must set and
+
+
+194
+00:05:50,626 --> 00:05:51,256
+update the
+
+
+195
+00:05:51,256 --> 00:05:52,456
+MPNowPlayingInfoCenter
+
+
+196
+00:05:52,456 --> 00:05:54,066
+dictionary which contain
+
+
+197
+00:05:54,066 --> 00:05:55,876
+metadata on the item that is
+
+
+198
+00:05:55,876 --> 00:05:57,416
+currently playing, such as item
+
+
+199
+00:05:57,416 --> 00:05:59,366
+title, artist name or duration
+
+
+200
+00:05:59,366 --> 00:05:59,646
+time.
+
+
+201
+00:06:00,166 --> 00:06:02,786
+Let's take a closer look at how
+
+
+202
+00:06:02,786 --> 00:06:04,046
+data is structured for audio
+
+
+203
+00:06:04,046 --> 00:06:04,326
+apps.
+
+
+204
+00:06:05,186 --> 00:06:06,506
+CarPlay will ask for content
+
+
+205
+00:06:06,506 --> 00:06:08,856
+items at a specific index path
+
+
+206
+00:06:08,856 --> 00:06:09,976
+using an NSIndexPath.
+
+
+207
+00:06:10,396 --> 00:06:11,606
+And this is different than how
+
+
+208
+00:06:11,606 --> 00:06:13,316
+NSIndexPath objects are used in
+
+
+209
+00:06:13,316 --> 00:06:14,016
+UITableView.
+
+
+210
+00:06:15,006 --> 00:06:16,006
+Let's go through an example
+
+
+211
+00:06:16,006 --> 00:06:17,926
+shown here where the left most
+
+
+212
+00:06:17,926 --> 00:06:19,616
+content items are the root items
+
+
+213
+00:06:19,806 --> 00:06:20,936
+and can be represented in the
+
+
+214
+00:06:20,936 --> 00:06:22,696
+user interface as individual
+
+
+215
+00:06:22,696 --> 00:06:24,246
+tabs or a root table view.
+
+
+216
+00:06:24,736 --> 00:06:27,686
+Here's the index paths for each
+
+
+217
+00:06:27,686 --> 00:06:29,156
+content item represented in the
+
+
+218
+00:06:29,156 --> 00:06:29,806
+hierarchy.
+
+
+219
+00:06:30,586 --> 00:06:32,216
+When CarPlay asks for a content
+
+
+220
+00:06:32,216 --> 00:06:33,776
+item for a particular index path
+
+
+221
+00:06:34,076 --> 00:06:35,526
+we, the audio app, would
+
+
+222
+00:06:35,526 --> 00:06:36,846
+traverse the hierarchy for the
+
+
+223
+00:06:36,846 --> 00:06:38,046
+requested content item.
+
+
+224
+00:06:38,836 --> 00:06:40,656
+In this example, we are asking
+
+
+225
+00:06:40,656 --> 00:06:42,576
+for the first child of the first
+
+
+226
+00:06:42,576 --> 00:06:44,366
+content which is the running
+
+
+227
+00:06:44,366 --> 00:06:47,636
+playlist content item.
+
+
+228
+00:06:47,846 --> 00:06:49,196
+CarPlay will also ask for the
+
+
+229
+00:06:49,196 --> 00:06:50,656
+number of child items of a
+
+
+230
+00:06:50,656 --> 00:06:51,636
+particular index.
+
+
+231
+00:06:52,196 --> 00:06:53,776
+In this example, we are asking
+
+
+232
+00:06:53,776 --> 00:06:55,056
+for the number of child items
+
+
+233
+00:06:55,206 --> 00:06:56,826
+for the third child item of the
+
+
+234
+00:06:56,826 --> 00:06:58,136
+second route content item.
+
+
+235
+00:06:59,116 --> 00:07:01,336
+In this example, we will return
+
+
+236
+00:07:01,926 --> 00:07:01,996
+two.
+
+
+237
+00:07:04,046 --> 00:07:05,356
+Some vehicles may enforce
+
+
+238
+00:07:05,356 --> 00:07:07,176
+limited content to show onscreen
+
+
+239
+00:07:07,246 --> 00:07:08,656
+depending on whether the vehicle
+
+
+240
+00:07:08,656 --> 00:07:09,206
+is in motion.
+
+
+241
+00:07:09,926 --> 00:07:11,116
+This can limit the number of
+
+
+242
+00:07:11,116 --> 00:07:13,146
+rows shown onscreen, as well as
+
+
+243
+00:07:13,146 --> 00:07:14,566
+container depth when drilling
+
+
+244
+00:07:14,566 --> 00:07:15,216
+into content.
+
+
+245
+00:07:16,016 --> 00:07:17,266
+Your app can take these changes
+
+
+246
+00:07:17,266 --> 00:07:19,026
+into account using MP Playable
+
+
+247
+00:07:19,026 --> 00:07:19,826
+Content Manager.
+
+
+248
+00:07:20,386 --> 00:07:23,086
+To check if content limits are
+
+
+249
+00:07:23,086 --> 00:07:24,806
+enforced implement the Delegate
+
+
+250
+00:07:24,806 --> 00:07:26,176
+Callback Content Manager Did
+
+
+251
+00:07:26,176 --> 00:07:28,576
+Update and check if the content
+
+
+252
+00:07:28,576 --> 00:07:29,736
+limits are enforced.
+
+
+253
+00:07:30,446 --> 00:07:31,836
+From there your app can check
+
+
+254
+00:07:31,836 --> 00:07:33,196
+the context properties to
+
+
+255
+00:07:33,196 --> 00:07:34,596
+determine how many items are
+
+
+256
+00:07:34,596 --> 00:07:36,476
+permitted in the table view and
+
+
+257
+00:07:36,476 --> 00:07:37,806
+the maximum depth in the
+
+
+258
+00:07:37,806 --> 00:07:39,416
+hierarchy your app is permitted
+
+
+259
+00:07:39,416 --> 00:07:39,776
+to show.
+
+
+260
+00:07:40,336 --> 00:07:42,816
+If your app benefits from
+
+
+261
+00:07:42,816 --> 00:07:44,446
+displaying data using tabs
+
+
+262
+00:07:44,506 --> 00:07:45,866
+rather than exclusively table
+
+
+263
+00:07:45,866 --> 00:07:48,026
+views you can add tabs by adding
+
+
+264
+00:07:48,026 --> 00:07:49,596
+UI browsable content support
+
+
+265
+00:07:49,596 --> 00:07:51,596
+section browsing in your app's
+
+
+266
+00:07:51,636 --> 00:07:52,856
+info.plist file.
+
+
+267
+00:07:53,746 --> 00:07:55,286
+We recommend having at most four
+
+
+268
+00:07:55,286 --> 00:07:57,616
+tabs with short titles due to
+
+
+269
+00:07:57,616 --> 00:07:58,766
+space constraints and for
+
+
+270
+00:07:58,766 --> 00:07:59,886
+vehicles that have a narrow
+
+
+271
+00:07:59,886 --> 00:08:01,526
+screen size, as well as
+
+
+272
+00:08:01,526 --> 00:08:02,646
+accounting for the Now Playing
+
+
+273
+00:08:02,646 --> 00:08:04,076
+button shown while content is
+
+
+274
+00:08:04,076 --> 00:08:04,376
+playing.
+
+
+275
+00:08:05,456 --> 00:08:06,666
+Tab image assets will be
+
+
+276
+00:08:06,666 --> 00:08:08,216
+rendered as template images on
+
+
+277
+00:08:08,216 --> 00:08:09,016
+the CarPlay screen.
+
+
+278
+00:08:09,016 --> 00:08:12,096
+Now let's talk about the Now
+
+
+279
+00:08:12,096 --> 00:08:13,196
+Playing screen in CarPlay.
+
+
+280
+00:08:13,866 --> 00:08:15,566
+Some controls and metadata here
+
+
+281
+00:08:15,616 --> 00:08:16,906
+are identical to what is shown
+
+
+282
+00:08:16,906 --> 00:08:17,656
+in Control Center.
+
+
+283
+00:08:18,466 --> 00:08:20,046
+In general, what controls and
+
+
+284
+00:08:20,046 --> 00:08:21,696
+data you see in Control Center
+
+
+285
+00:08:21,696 --> 00:08:23,186
+should also be presented here in
+
+
+286
+00:08:23,186 --> 00:08:24,806
+the CarPlay Now Playing screen.
+
+
+287
+00:08:25,876 --> 00:08:27,266
+This Now Playing screen can be
+
+
+288
+00:08:27,266 --> 00:08:28,766
+accessed either by the user
+
+
+289
+00:08:28,766 --> 00:08:30,356
+tapping Now Playing on the top
+
+
+290
+00:08:30,356 --> 00:08:31,596
+right of your app's navigation
+
+
+291
+00:08:31,596 --> 00:08:33,486
+interface or through the Now
+
+
+292
+00:08:33,486 --> 00:08:34,796
+Playing app on the CarPlay Home
+
+
+293
+00:08:34,796 --> 00:08:35,145
+screen.
+
+
+294
+00:08:36,236 --> 00:08:37,726
+Your app's name will appear on
+
+
+295
+00:08:37,726 --> 00:08:38,986
+the top right of the Now Playing
+
+
+296
+00:08:38,986 --> 00:08:42,116
+screen when it is active.
+
+
+297
+00:08:42,316 --> 00:08:44,116
+Setting metadata for CarPlay's
+
+
+298
+00:08:44,116 --> 00:08:45,666
+Now Playing screen is the same
+
+
+299
+00:08:45,666 --> 00:08:46,776
+as Control Center and other
+
+
+300
+00:08:46,776 --> 00:08:47,336
+sources.
+
+
+301
+00:08:47,956 --> 00:08:49,446
+Set a dictionary of information
+
+
+302
+00:08:49,446 --> 00:08:51,496
+to MPNowPlayingInfoCenter and
+
+
+303
+00:08:51,496 --> 00:08:52,806
+fill out as much of the entries
+
+
+304
+00:08:52,806 --> 00:08:53,436
+as appropriate.
+
+
+305
+00:08:53,966 --> 00:08:57,556
+In addition, respond to playback
+
+
+306
+00:08:57,556 --> 00:08:58,866
+commands so that the user can
+
+
+307
+00:08:58,866 --> 00:09:00,906
+choose to adjust content such as
+
+
+308
+00:09:00,956 --> 00:09:03,986
+play, pause, skip tracks or
+
+
+309
+00:09:03,986 --> 00:09:05,416
+shuffle and repeat of playback
+
+
+310
+00:09:05,416 --> 00:09:05,666
+queue.
+
+
+311
+00:09:06,726 --> 00:09:08,326
+These commands here are the ones
+
+
+312
+00:09:08,326 --> 00:09:09,266
+that are supported on the
+
+
+313
+00:09:09,266 --> 00:09:10,456
+CarPlay Now Playing screen.
+
+
+314
+00:09:10,996 --> 00:09:14,466
+New in iOS 11 is the ability to
+
+
+315
+00:09:14,466 --> 00:09:15,936
+adjust and display the playback
+
+
+316
+00:09:15,936 --> 00:09:17,256
+rate in the Now Playing screen.
+
+
+317
+00:09:17,916 --> 00:09:19,366
+To display playback rate in your
+
+
+318
+00:09:19,366 --> 00:09:20,456
+app's Now Playing screen in
+
+
+319
+00:09:20,456 --> 00:09:23,016
+CarPlay add MPNowPlayingInfo
+
+
+320
+00:09:23,016 --> 00:09:24,926
+PropertyDefaultPlaybackRate to
+
+
+321
+00:09:24,966 --> 00:09:26,796
+MP Now Playing Info Center and
+
+
+322
+00:09:26,796 --> 00:09:28,186
+respond to the change playback
+
+
+323
+00:09:28,186 --> 00:09:29,576
+rate command with an array of
+
+
+324
+00:09:29,576 --> 00:09:30,596
+supported rates in
+
+
+325
+00:09:30,596 --> 00:09:31,676
+MPRemoteCommandCenter.
+
+
+326
+00:09:32,166 --> 00:09:34,696
+Here is an example of how you
+
+
+327
+00:09:34,696 --> 00:09:36,006
+would implement playback rate
+
+
+328
+00:09:36,006 --> 00:09:36,876
+adjustments and code.
+
+
+329
+00:09:37,406 --> 00:09:38,806
+In this sample, the default
+
+
+330
+00:09:38,806 --> 00:09:40,146
+playback rate of the currently
+
+
+331
+00:09:40,146 --> 00:09:42,246
+playing item is 1.0 and the
+
+
+332
+00:09:42,246 --> 00:09:43,656
+supported playback rates here
+
+
+333
+00:09:43,656 --> 00:09:47,616
+are 0.5, 1.0, 1.5, and 2.0.
+
+
+334
+00:09:48,316 --> 00:09:49,566
+When the user wants to adjust
+
+
+335
+00:09:49,566 --> 00:09:51,036
+the playback speed increment the
+
+
+336
+00:09:51,036 --> 00:09:52,796
+playback rate forward cycling
+
+
+337
+00:09:52,796 --> 00:09:54,156
+back to the beginning if the
+
+
+338
+00:09:54,156 --> 00:09:55,486
+audio is playing at the fastest
+
+
+339
+00:09:55,486 --> 00:09:56,146
+supported rate.
+
+
+340
+00:09:57,046 --> 00:09:58,646
+In this code sample, playback
+
+
+341
+00:09:58,646 --> 00:10:01,056
+rate will increment to 1.5 then
+
+
+342
+00:10:01,056 --> 00:10:02,976
+2.0 and then back to 0.5.
+
+
+343
+00:10:03,976 --> 00:10:07,176
+Some audio apps may respond to
+
+
+344
+00:10:07,176 --> 00:10:08,756
+multiple commands in MP Remote
+
+
+345
+00:10:08,756 --> 00:10:09,396
+Command Center.
+
+
+346
+00:10:10,106 --> 00:10:11,326
+Depending on what commands are
+
+
+347
+00:10:11,326 --> 00:10:12,906
+enabled CarPlay's Now Playing
+
+
+348
+00:10:12,906 --> 00:10:14,526
+screen will combine certain
+
+
+349
+00:10:14,526 --> 00:10:15,966
+relevant commands into a single
+
+
+350
+00:10:15,966 --> 00:10:18,186
+button such as an ellipsis or a
+
+
+351
+00:10:18,186 --> 00:10:19,576
+menu button replacing the
+
+
+352
+00:10:19,576 --> 00:10:20,516
+previous track button.
+
+
+353
+00:10:20,626 --> 00:10:25,176
+For best practices, make sure
+
+
+354
+00:10:25,176 --> 00:10:26,536
+that content is actually ready
+
+
+355
+00:10:26,536 --> 00:10:28,096
+to be played or be displayed
+
+
+356
+00:10:28,166 --> 00:10:29,386
+before calling the completion
+
+
+357
+00:10:29,386 --> 00:10:31,286
+handlers in MP playable content
+
+
+358
+00:10:31,286 --> 00:10:32,726
+data source and MP playable
+
+
+359
+00:10:32,726 --> 00:10:33,466
+content delegate.
+
+
+360
+00:10:34,266 --> 00:10:35,576
+For apps that do not opt into
+
+
+361
+00:10:35,576 --> 00:10:37,226
+tabs and only use table views
+
+
+362
+00:10:37,756 --> 00:10:39,326
+the root table view must return
+
+
+363
+00:10:39,326 --> 00:10:40,166
+at least one item.
+
+
+364
+00:10:40,886 --> 00:10:42,306
+CarPlay would show a loading
+
+
+365
+00:10:42,306 --> 00:10:44,036
+activity indicator and will time
+
+
+366
+00:10:44,036 --> 00:10:45,816
+out after period of time if an
+
+
+367
+00:10:45,816 --> 00:10:46,916
+app has not responded with
+
+
+368
+00:10:46,916 --> 00:10:47,376
+content.
+
+
+369
+00:10:47,856 --> 00:10:49,996
+If your app has some initial
+
+
+370
+00:10:49,996 --> 00:10:51,626
+setup such as login credentials
+
+
+371
+00:10:52,066 --> 00:10:53,416
+populate the first row with an
+
+
+372
+00:10:53,416 --> 00:10:54,936
+item informing the user of the
+
+
+373
+00:10:54,936 --> 00:10:56,386
+app's current state onscreen.
+
+
+374
+00:10:57,596 --> 00:10:58,786
+That's it for enabling audio
+
+
+375
+00:10:58,786 --> 00:10:59,936
+apps and I'll hand it off to
+
+
+376
+00:10:59,936 --> 00:11:01,196
+Chris Whitney to discuss
+
+
+377
+00:11:01,226 --> 00:11:02,326
+messaging and VoIP apps in
+
+
+378
+00:11:02,326 --> 00:11:02,636
+CarPlay.
+
+
+379
+00:11:05,566 --> 00:11:06,856
+>> Hi, I'm Chris Whitney from
+
+
+380
+00:11:06,856 --> 00:11:08,016
+the CarPlay engineering team.
+
+
+381
+00:11:08,726 --> 00:11:10,246
+Albert talked about audio apps
+
+
+382
+00:11:10,366 --> 00:11:11,666
+now I will discuss a few more
+
+
+383
+00:11:11,666 --> 00:11:13,026
+categories of apps that can
+
+
+384
+00:11:13,026 --> 00:11:13,906
+integrate with CarPlay.
+
+
+385
+00:11:14,776 --> 00:11:16,516
+The first category I will cover
+
+
+386
+00:11:16,746 --> 00:11:18,456
+is messaging and voice over
+
+
+387
+00:11:18,456 --> 00:11:20,986
+Internet protocol calling apps.
+
+
+388
+00:11:22,086 --> 00:11:23,706
+In CarPlay Siri provides the
+
+
+389
+00:11:23,706 --> 00:11:26,036
+interface for messaging and VoIP
+
+
+390
+00:11:26,036 --> 00:11:26,806
+calling apps.
+
+
+391
+00:11:27,696 --> 00:11:29,296
+After the app icon is selected
+
+
+392
+00:11:29,296 --> 00:11:31,176
+on the Home screen, Siri offers
+
+
+393
+00:11:31,176 --> 00:11:32,556
+interactions for reading
+
+
+394
+00:11:32,556 --> 00:11:34,666
+messages, starting a new message
+
+
+395
+00:11:34,976 --> 00:11:36,196
+or starting an audio call.
+
+
+396
+00:11:37,226 --> 00:11:39,506
+Apps using SiriKit can already
+
+
+397
+00:11:39,506 --> 00:11:41,136
+handle these actions, but the
+
+
+398
+00:11:41,136 --> 00:11:43,216
+Siri request must contain the
+
+
+399
+00:11:43,216 --> 00:11:43,806
+app's name.
+
+
+400
+00:11:45,226 --> 00:11:46,566
+With a few additional changes
+
+
+401
+00:11:47,006 --> 00:11:49,626
+messaging and VoIP apps can have
+
+
+402
+00:11:49,626 --> 00:11:50,866
+a CarPlay experience that
+
+
+403
+00:11:50,866 --> 00:11:52,326
+includes a Home screen icon,
+
+
+404
+00:11:52,786 --> 00:11:54,956
+notifications, and a dedicated
+
+
+405
+00:11:54,956 --> 00:11:55,936
+Siri interface.
+
+
+406
+00:11:56,476 --> 00:12:00,606
+Here are the requirements for an
+
+
+407
+00:12:00,606 --> 00:12:02,606
+app to support messaging or VoIP
+
+
+408
+00:12:02,606 --> 00:12:03,746
+calling in CarPlay.
+
+
+409
+00:12:05,386 --> 00:12:07,326
+Messaging apps must implement
+
+
+410
+00:12:07,326 --> 00:12:09,706
+SirKit messaging intents and
+
+
+411
+00:12:09,706 --> 00:12:10,626
+sign their app with an
+
+
+412
+00:12:10,626 --> 00:12:11,976
+entitlement that is specific to
+
+
+413
+00:12:11,976 --> 00:12:12,796
+CarPlay messaging.
+
+
+414
+00:12:14,336 --> 00:12:16,906
+Similarly, VoIP calling apps
+
+
+415
+00:12:17,136 --> 00:12:18,816
+must implement the SiriKit
+
+
+416
+00:12:18,816 --> 00:12:20,776
+calling intents and sign their
+
+
+417
+00:12:20,776 --> 00:12:22,116
+app with an entitlement that is
+
+
+418
+00:12:22,116 --> 00:12:23,656
+specific to CarPlay VoIP
+
+
+419
+00:12:23,656 --> 00:12:24,016
+calling.
+
+
+420
+00:12:25,336 --> 00:12:27,046
+VoIP calling apps must also
+
+
+421
+00:12:27,046 --> 00:12:28,966
+implement CallKit to inform
+
+
+422
+00:12:28,966 --> 00:12:30,436
+CarPlay about the status of
+
+
+423
+00:12:30,436 --> 00:12:30,756
+calls.
+
+
+424
+00:12:31,426 --> 00:12:34,346
+A single app can support both
+
+
+425
+00:12:34,346 --> 00:12:36,286
+messaging and VoIP calling in
+
+
+426
+00:12:36,286 --> 00:12:36,686
+CarPlay.
+
+
+427
+00:12:38,106 --> 00:12:39,366
+Let's look into the SiriKit
+
+
+428
+00:12:39,366 --> 00:12:43,396
+requirements in more detail.
+
+
+429
+00:12:43,546 --> 00:12:46,466
+For messaging apps, Siri sends
+
+
+430
+00:12:46,466 --> 00:12:47,636
+messages using
+
+
+431
+00:12:47,826 --> 00:12:49,056
+INSendMessageIntent.
+
+
+432
+00:12:50,626 --> 00:12:53,146
+Siri reads new incoming messages
+
+
+433
+00:12:53,526 --> 00:12:55,296
+and searches for unread messages
+
+
+434
+00:12:55,546 --> 00:12:57,576
+using INSearchforMessagesIntent.
+
+
+435
+00:12:58,506 --> 00:13:00,756
+And once done reading Siri marks
+
+
+436
+00:13:00,756 --> 00:13:02,656
+messages as read by calling
+
+
+437
+00:13:02,846 --> 00:13:04,626
+INSendMessageAttributeIntent.
+
+
+438
+00:13:05,666 --> 00:13:07,646
+All three intents are required
+
+
+439
+00:13:07,646 --> 00:13:09,296
+to support a complete messaging
+
+
+440
+00:13:09,296 --> 00:13:10,576
+workflow in CarPlay.
+
+
+441
+00:13:11,166 --> 00:13:15,626
+For VoIP calling apps, Siri
+
+
+442
+00:13:15,626 --> 00:13:17,946
+starts audio calls using
+
+
+443
+00:13:18,156 --> 00:13:20,916
+INStartAudiCallIntent and
+
+
+444
+00:13:21,526 --> 00:13:23,466
+performs searches, such as for
+
+
+445
+00:13:23,466 --> 00:13:25,336
+missed calls using
+
+
+446
+00:13:25,486 --> 00:13:27,146
+INSearchCallHistoryIntent.
+
+
+447
+00:13:28,386 --> 00:13:30,046
+Both intents are required to
+
+
+448
+00:13:30,046 --> 00:13:31,526
+support a complete calling
+
+
+449
+00:13:31,526 --> 00:13:33,546
+workflow in CarPlay.
+
+
+450
+00:13:34,526 --> 00:13:36,986
+For details on SirKit see the
+
+
+451
+00:13:36,986 --> 00:13:39,176
+session's What's New in SiriKit
+
+
+452
+00:13:39,716 --> 00:13:41,736
+and Making Great SiriKit
+
+
+453
+00:13:41,736 --> 00:13:42,386
+Experiences.
+
+
+454
+00:13:42,476 --> 00:13:46,956
+Any app that has already
+
+
+455
+00:13:46,956 --> 00:13:49,176
+implemented CallKit gets a
+
+
+456
+00:13:49,176 --> 00:13:50,886
+CarPlay interface for incoming
+
+
+457
+00:13:50,986 --> 00:13:51,816
+and active calls.
+
+
+458
+00:13:52,836 --> 00:13:54,096
+But if your VoIP calling app
+
+
+459
+00:13:54,476 --> 00:13:56,186
+hasn't implemented CallKit yet
+
+
+460
+00:13:56,806 --> 00:13:58,136
+that will be a requirement for
+
+
+461
+00:13:58,136 --> 00:13:59,046
+CarPlay integration.
+
+
+462
+00:14:00,016 --> 00:14:02,226
+As a general overview, the app
+
+
+463
+00:14:02,226 --> 00:14:04,396
+must report incoming calls to
+
+
+464
+00:14:04,396 --> 00:14:07,166
+CallKit and handle the start,
+
+
+465
+00:14:07,416 --> 00:14:09,266
+answer and end call actions.
+
+
+466
+00:14:10,446 --> 00:14:11,666
+Additional actions, such as
+
+
+467
+00:14:11,666 --> 00:14:14,256
+mute, grouping, holding and
+
+
+468
+00:14:14,256 --> 00:14:16,616
+keypad tones should be handled
+
+
+469
+00:14:16,616 --> 00:14:18,366
+if supported by the app's VoIP
+
+
+470
+00:14:18,496 --> 00:14:18,976
+platform.
+
+
+471
+00:14:20,746 --> 00:14:22,236
+For more details on CallKit
+
+
+472
+00:14:22,936 --> 00:14:24,576
+watch the enhancing VoIP apps
+
+
+473
+00:14:24,576 --> 00:14:26,256
+with CallKit video from WWDC
+
+
+474
+00:14:26,256 --> 00:14:28,216
+2016.
+
+
+475
+00:14:30,686 --> 00:14:32,426
+Apps can show notifications in
+
+
+476
+00:14:32,426 --> 00:14:34,486
+CarPlay for incoming messages
+
+
+477
+00:14:34,836 --> 00:14:35,726
+and missed calls.
+
+
+478
+00:14:36,546 --> 00:14:37,706
+There's some additional setup
+
+
+479
+00:14:37,706 --> 00:14:39,306
+required to show notifications
+
+
+480
+00:14:39,306 --> 00:14:39,746
+in CarPlay.
+
+
+481
+00:14:40,376 --> 00:14:42,886
+The CarPlay option must be
+
+
+482
+00:14:42,886 --> 00:14:44,136
+included when requesting
+
+
+483
+00:14:44,136 --> 00:14:45,936
+authorization for notifications
+
+
+484
+00:14:46,336 --> 00:14:48,826
+and the messages must be
+
+
+485
+00:14:48,826 --> 00:14:50,976
+separated into a notification
+
+
+486
+00:14:50,976 --> 00:14:53,416
+category created with the Allow
+
+
+487
+00:14:53,416 --> 00:14:54,666
+in CarPlay option.
+
+
+488
+00:14:55,916 --> 00:14:58,206
+This notifications category must
+
+
+489
+00:14:58,206 --> 00:15:00,256
+be used exclusively for messages
+
+
+490
+00:15:00,456 --> 00:15:01,876
+and it should not include
+
+
+491
+00:15:01,956 --> 00:15:03,226
+notifications for other app
+
+
+492
+00:15:03,226 --> 00:15:03,746
+features.
+
+
+493
+00:15:04,296 --> 00:15:08,486
+The notification category must
+
+
+494
+00:15:08,486 --> 00:15:11,036
+specify a SiriKit intent to
+
+
+495
+00:15:11,036 --> 00:15:11,956
+handle selection of the
+
+
+496
+00:15:11,956 --> 00:15:15,296
+notification in CarPlay.
+
+
+497
+00:15:15,406 --> 00:15:17,286
+Only messaging or VoIP calling
+
+
+498
+00:15:17,286 --> 00:15:18,566
+apps that meet the CarPlay
+
+
+499
+00:15:18,566 --> 00:15:20,036
+requirements will be allowed to
+
+
+500
+00:15:20,036 --> 00:15:21,486
+request authorization for
+
+
+501
+00:15:21,486 --> 00:15:22,696
+showing notifications.
+
+
+502
+00:15:24,386 --> 00:15:26,356
+Also, users can use the Settings
+
+
+503
+00:15:26,356 --> 00:15:28,466
+op to disable showing your app's
+
+
+504
+00:15:28,466 --> 00:15:29,846
+notifications in CarPlay.
+
+
+505
+00:15:31,666 --> 00:15:32,536
+Let's look at the code for
+
+
+506
+00:15:32,536 --> 00:15:33,726
+setting up notifications in
+
+
+507
+00:15:33,726 --> 00:15:33,976
+CarPlay.
+
+
+508
+00:15:36,816 --> 00:15:38,706
+First, include the CarPlay
+
+
+509
+00:15:38,706 --> 00:15:39,976
+option when requesting
+
+
+510
+00:15:40,046 --> 00:15:41,586
+authorization for notifications.
+
+
+511
+00:15:42,966 --> 00:15:45,226
+Gracefully disable notifications
+
+
+512
+00:15:45,226 --> 00:15:47,176
+related features if the user
+
+
+513
+00:15:47,176 --> 00:15:48,566
+declines notification
+
+
+514
+00:15:48,616 --> 00:15:49,336
+authorization.
+
+
+515
+00:15:50,446 --> 00:15:52,546
+Next, create a new message
+
+
+516
+00:15:52,546 --> 00:15:54,566
+category that contains only
+
+
+517
+00:15:54,566 --> 00:15:56,186
+notifications for messages.
+
+
+518
+00:15:56,656 --> 00:15:57,976
+Notifications for other app
+
+
+519
+00:15:57,976 --> 00:16:00,596
+features, such as news or games
+
+
+520
+00:16:00,816 --> 00:16:02,126
+should not be included in this
+
+
+521
+00:16:02,126 --> 00:16:03,276
+notification category.
+
+
+522
+00:16:03,756 --> 00:16:06,066
+Assign an identifier to this
+
+
+523
+00:16:06,066 --> 00:16:08,136
+category and make sure that any
+
+
+524
+00:16:08,136 --> 00:16:10,286
+local or remote notifications
+
+
+525
+00:16:10,626 --> 00:16:12,686
+for messages have the same
+
+
+526
+00:16:12,686 --> 00:16:13,826
+category identifier.
+
+
+527
+00:16:14,366 --> 00:16:17,906
+Set up an intent identifier to
+
+
+528
+00:16:17,906 --> 00:16:19,706
+configure the Siri interaction
+
+
+529
+00:16:20,456 --> 00:16:21,446
+when the notification is
+
+
+530
+00:16:21,446 --> 00:16:22,316
+selected in CarPlay.
+
+
+531
+00:16:23,536 --> 00:16:24,646
+Usually that will be
+
+
+532
+00:16:24,896 --> 00:16:25,966
+INSearchForMessages
+
+
+533
+00:16:25,966 --> 00:16:27,596
+IntentIdentifier which
+
+
+534
+00:16:27,596 --> 00:16:29,386
+configures Siri to search for
+
+
+535
+00:16:29,566 --> 00:16:31,386
+and then read the message that
+
+
+536
+00:16:31,386 --> 00:16:32,756
+matches this notification.
+
+
+537
+00:16:33,276 --> 00:16:36,346
+There are a few best practices
+
+
+538
+00:16:36,346 --> 00:16:37,536
+to follow when building
+
+
+539
+00:16:37,536 --> 00:16:40,136
+messaging and VoIP calling apps.
+
+
+540
+00:16:41,006 --> 00:16:42,466
+Notifications should only
+
+
+541
+00:16:42,466 --> 00:16:43,776
+include information like the
+
+
+542
+00:16:43,776 --> 00:16:46,066
+sender and group name in the
+
+
+543
+00:16:46,066 --> 00:16:47,016
+title and subtitle.
+
+
+544
+00:16:47,546 --> 00:16:49,526
+The contents of a message should
+
+
+545
+00:16:49,526 --> 00:16:50,716
+not appear in CarPlay.
+
+
+546
+00:16:51,286 --> 00:16:54,476
+After reading a message, Siri
+
+
+547
+00:16:54,476 --> 00:16:55,036
+will use
+
+
+548
+00:16:55,186 --> 00:16:57,286
+INSentMessageAttributeIntent to
+
+
+549
+00:16:57,286 --> 00:16:58,376
+mark content as read.
+
+
+550
+00:16:59,466 --> 00:17:00,346
+The read status should be
+
+
+551
+00:17:00,346 --> 00:17:02,056
+reflected in the app and
+
+
+552
+00:17:02,056 --> 00:17:03,646
+subsequent search for messages
+
+
+553
+00:17:03,846 --> 00:17:04,266
+requests.
+
+
+554
+00:17:05,126 --> 00:17:08,465
+Since users may drive in and out
+
+
+555
+00:17:08,465 --> 00:17:10,866
+of cellular coverage areas apps
+
+
+556
+00:17:10,866 --> 00:17:12,066
+should use notifications to
+
+
+557
+00:17:12,066 --> 00:17:14,636
+communicate any missed calls or
+
+
+558
+00:17:14,636 --> 00:17:15,996
+message delivery failures.
+
+
+559
+00:17:17,336 --> 00:17:18,516
+This may require setting up
+
+
+560
+00:17:18,516 --> 00:17:19,776
+additional notification
+
+
+561
+00:17:19,776 --> 00:17:21,376
+categories as we have described
+
+
+562
+00:17:21,376 --> 00:17:21,695
+earlier.
+
+
+563
+00:17:22,256 --> 00:17:26,906
+The final category of apps that
+
+
+564
+00:17:26,906 --> 00:17:28,496
+can integrate into CarPlay are
+
+
+565
+00:17:28,496 --> 00:17:30,066
+automaker apps.
+
+
+566
+00:17:32,026 --> 00:17:33,686
+Automaker apps are the only
+
+
+567
+00:17:33,686 --> 00:17:35,006
+category of apps that can
+
+
+568
+00:17:35,006 --> 00:17:36,746
+display a custom user interface
+
+
+569
+00:17:36,746 --> 00:17:37,266
+in CarPlay.
+
+
+570
+00:17:38,176 --> 00:17:39,966
+In this example, the automaker
+
+
+571
+00:17:39,966 --> 00:17:41,246
+app provides controls for
+
+
+572
+00:17:41,246 --> 00:17:42,436
+adjusting the climate settings,
+
+
+573
+00:17:43,016 --> 00:17:45,256
+selecting radio stations, and
+
+
+574
+00:17:45,256 --> 00:17:46,626
+summoning roadside assistance.
+
+
+575
+00:17:47,856 --> 00:17:49,426
+Providing these controls in an
+
+
+576
+00:17:49,426 --> 00:17:51,866
+automaker app allows the user to
+
+
+577
+00:17:51,866 --> 00:17:53,136
+adjust the vehicle's climate and
+
+
+578
+00:17:53,136 --> 00:17:55,036
+radio without leaving CarPlay.
+
+
+579
+00:17:55,556 --> 00:17:58,306
+Automaker apps can take
+
+
+580
+00:17:58,306 --> 00:17:59,366
+advantage of the iPhone's
+
+
+581
+00:17:59,366 --> 00:18:00,866
+Internet connectivity and
+
+
+582
+00:18:00,866 --> 00:18:02,896
+powerful development platform to
+
+
+583
+00:18:02,896 --> 00:18:04,036
+create additional vehicle
+
+
+584
+00:18:04,036 --> 00:18:04,606
+features.
+
+
+585
+00:18:05,176 --> 00:18:07,406
+For example, this automaker app
+
+
+586
+00:18:07,676 --> 00:18:09,316
+could enable Siri driven voice
+
+
+587
+00:18:09,316 --> 00:18:11,406
+control of the climate and radio
+
+
+588
+00:18:11,406 --> 00:18:11,846
+settings.
+
+
+589
+00:18:15,606 --> 00:18:17,176
+Automaker apps must be created
+
+
+590
+00:18:17,176 --> 00:18:18,816
+by the car's manufacturer to
+
+
+591
+00:18:18,816 --> 00:18:20,496
+provide information and control
+
+
+592
+00:18:20,496 --> 00:18:22,046
+features on a connected vehicle.
+
+
+593
+00:18:22,546 --> 00:18:25,366
+These apps must be signed with a
+
+
+594
+00:18:25,366 --> 00:18:27,106
+specific CarPlay protocols
+
+
+595
+00:18:27,106 --> 00:18:27,756
+entitlement.
+
+
+596
+00:18:28,996 --> 00:18:30,826
+They must display a user
+
+
+597
+00:18:30,826 --> 00:18:31,906
+interface in CarPlay.
+
+
+598
+00:18:32,896 --> 00:18:35,516
+And they must only appear on
+
+
+599
+00:18:35,516 --> 00:18:37,186
+supported vehicles.
+
+
+600
+00:18:39,626 --> 00:18:40,686
+CarPlay determines if an
+
+
+601
+00:18:40,736 --> 00:18:42,486
+automaker app is supported on a
+
+
+602
+00:18:42,486 --> 00:18:44,576
+given vehicle by matching the
+
+
+603
+00:18:44,576 --> 00:18:46,206
+external accessory protocols
+
+
+604
+00:18:46,456 --> 00:18:48,356
+declared by the vehicle with the
+
+
+605
+00:18:48,356 --> 00:18:50,096
+CarPlay protocols entitlement
+
+
+606
+00:18:50,516 --> 00:18:53,036
+sign in to the app.
+
+
+607
+00:18:53,036 --> 00:18:53,996
+Thus, it is important to
+
+
+608
+00:18:53,996 --> 00:18:55,726
+consider potential automaker
+
+
+609
+00:18:55,726 --> 00:18:58,316
+apps during vehicle development
+
+
+610
+00:18:58,616 --> 00:18:59,946
+in order to have the appropriate
+
+
+611
+00:18:59,946 --> 00:19:01,636
+set of protocols declared by the
+
+
+612
+00:19:01,636 --> 00:19:02,046
+vehicle.
+
+
+613
+00:19:02,536 --> 00:19:05,576
+Here's an example of how CarPlay
+
+
+614
+00:19:05,576 --> 00:19:07,226
+matches automaker apps to
+
+
+615
+00:19:07,226 --> 00:19:07,646
+vehicles.
+
+
+616
+00:19:08,346 --> 00:19:10,786
+This vehicle declares two
+
+
+617
+00:19:10,786 --> 00:19:12,606
+protocols, a performance
+
+
+618
+00:19:12,646 --> 00:19:14,186
+protocol for collecting vehicle
+
+
+619
+00:19:14,186 --> 00:19:16,806
+statistics and a protocol for
+
+
+620
+00:19:16,806 --> 00:19:17,486
+climate control.
+
+
+621
+00:19:18,686 --> 00:19:20,506
+As shown here, protocol names
+
+
+622
+00:19:20,506 --> 00:19:21,676
+should be declared in reverse
+
+
+623
+00:19:21,926 --> 00:19:22,766
+DNS format.
+
+
+624
+00:19:23,416 --> 00:19:27,326
+The automaker wants to take
+
+
+625
+00:19:27,326 --> 00:19:28,446
+advantage of the vehicle's
+
+
+626
+00:19:28,446 --> 00:19:30,306
+performance statistics in a new
+
+
+627
+00:19:30,306 --> 00:19:33,156
+app called Track Laps that's
+
+
+628
+00:19:33,156 --> 00:19:34,426
+designed for use on racetracks.
+
+
+629
+00:19:35,556 --> 00:19:36,796
+The app includes the performance
+
+
+630
+00:19:36,826 --> 00:19:38,076
+protocol and its entitlements
+
+
+631
+00:19:38,866 --> 00:19:41,706
+and since both the app and the
+
+
+632
+00:19:41,706 --> 00:19:43,166
+vehicle support the performance
+
+
+633
+00:19:43,166 --> 00:19:47,126
+protocol the Track Laps app will
+
+
+634
+00:19:47,126 --> 00:19:49,886
+appear in CarPlay.
+
+
+635
+00:19:51,666 --> 00:19:53,796
+Automaker apps can also support
+
+
+636
+00:19:53,796 --> 00:19:54,826
+multiple protocols.
+
+
+637
+00:19:56,116 --> 00:19:57,896
+This automaker decides to follow
+
+
+638
+00:19:57,896 --> 00:19:59,516
+up on the success of Track Laps
+
+
+639
+00:19:59,986 --> 00:20:02,016
+with a new app called Comfort
+
+
+640
+00:20:02,016 --> 00:20:03,956
+Cruise that conveniently
+
+
+641
+00:20:03,956 --> 00:20:05,836
+configures the radio and climate
+
+
+642
+00:20:05,836 --> 00:20:07,016
+control with the driver's
+
+
+643
+00:20:07,056 --> 00:20:08,356
+favorite settings for commuting.
+
+
+644
+00:20:09,686 --> 00:20:10,856
+The app's entitlements include
+
+
+645
+00:20:10,856 --> 00:20:13,406
+both the climate protocol and a
+
+
+646
+00:20:13,406 --> 00:20:14,376
+new radio protocol.
+
+
+647
+00:20:14,986 --> 00:20:17,366
+This vehicle doesn't support the
+
+
+648
+00:20:17,366 --> 00:20:19,206
+radio protocol, but since both
+
+
+649
+00:20:19,206 --> 00:20:21,366
+the app and the vehicle support
+
+
+650
+00:20:21,366 --> 00:20:24,266
+the climate protocol the Comfort
+
+
+651
+00:20:24,266 --> 00:20:25,456
+Cruise app will appear in
+
+
+652
+00:20:25,456 --> 00:20:25,816
+CarPlay.
+
+
+653
+00:20:27,226 --> 00:20:28,986
+After launching automaker apps
+
+
+654
+00:20:29,266 --> 00:20:30,646
+should query the supported
+
+
+655
+00:20:30,646 --> 00:20:32,906
+external accessory protocols and
+
+
+656
+00:20:32,906 --> 00:20:34,466
+only display a user interface
+
+
+657
+00:20:35,226 --> 00:20:36,486
+for the supported features.
+
+
+658
+00:20:37,416 --> 00:20:39,156
+In this example, the Comfort
+
+
+659
+00:20:39,156 --> 00:20:40,736
+Cruise app should only show
+
+
+660
+00:20:40,736 --> 00:20:42,796
+climate controls since the radio
+
+
+661
+00:20:42,796 --> 00:20:44,576
+protocol is not supported on
+
+
+662
+00:20:44,576 --> 00:20:44,976
+this vehicle.
+
+
+663
+00:20:49,086 --> 00:20:50,586
+The automaker wants to create
+
+
+664
+00:20:50,586 --> 00:20:52,926
+another app called Charge Up
+
+
+665
+00:20:53,446 --> 00:20:54,456
+that shows their electric
+
+
+666
+00:20:54,456 --> 00:20:55,666
+vehicle charging stations.
+
+
+667
+00:20:56,406 --> 00:20:58,086
+To limit this app to only their
+
+
+668
+00:20:58,086 --> 00:20:59,926
+electric vehicles the automaker
+
+
+669
+00:20:59,926 --> 00:21:02,476
+declares a new electric protocol
+
+
+670
+00:21:02,766 --> 00:21:03,836
+in the app's entitlements.
+
+
+671
+00:21:04,446 --> 00:21:07,266
+Since this vehicle does not
+
+
+672
+00:21:07,266 --> 00:21:08,666
+support the electric protocol
+
+
+673
+00:21:09,296 --> 00:21:10,976
+the Charge Up app will not
+
+
+674
+00:21:10,976 --> 00:21:12,516
+appear in CarPlay on this
+
+
+675
+00:21:13,146 --> 00:21:13,366
+vehicle.
+
+
+676
+00:21:16,386 --> 00:21:17,446
+Building an automaker app
+
+
+677
+00:21:17,686 --> 00:21:18,986
+requires communicating with the
+
+
+678
+00:21:18,986 --> 00:21:19,366
+vehicle.
+
+
+679
+00:21:20,636 --> 00:21:22,486
+Automaker apps must communicate
+
+
+680
+00:21:22,486 --> 00:21:24,216
+directly from the iPhone to the
+
+
+681
+00:21:24,216 --> 00:21:25,956
+vehicle using the External
+
+
+682
+00:21:25,956 --> 00:21:26,816
+Accessory framework.
+
+
+683
+00:21:27,876 --> 00:21:29,526
+Directly communicating using
+
+
+684
+00:21:29,526 --> 00:21:31,516
+External Accessory improves the
+
+
+685
+00:21:31,516 --> 00:21:33,676
+responsiveness of the app and
+
+
+686
+00:21:33,676 --> 00:21:35,396
+avoids relying on connectivity
+
+
+687
+00:21:35,396 --> 00:21:36,356
+to Internet services.
+
+
+688
+00:21:37,646 --> 00:21:38,906
+To use the External Accessory
+
+
+689
+00:21:38,906 --> 00:21:41,326
+framework the app should define
+
+
+690
+00:21:41,326 --> 00:21:43,086
+a custom protocol name as shown
+
+
+691
+00:21:43,086 --> 00:21:45,706
+previously, implement the named
+
+
+692
+00:21:45,706 --> 00:21:46,996
+protocol in the vehicle
+
+
+693
+00:21:46,996 --> 00:21:50,646
+software, in the app observe
+
+
+694
+00:21:50,646 --> 00:21:53,146
+accessory connection events, and
+
+
+695
+00:21:53,146 --> 00:21:55,296
+upon connection initialize an EA
+
+
+696
+00:21:55,296 --> 00:21:56,656
+session to create networking
+
+
+697
+00:21:56,656 --> 00:21:57,686
+streams of the vehicle.
+
+
+698
+00:21:58,996 --> 00:22:01,036
+For more information see
+
+
+699
+00:22:01,036 --> 00:22:02,816
+External Accessory programming
+
+
+700
+00:22:03,486 --> 00:22:03,696
+topics.
+
+
+701
+00:22:05,716 --> 00:22:08,046
+Automaker apps can use UIKit to
+
+
+702
+00:22:08,046 --> 00:22:09,576
+display a user interface on the
+
+
+703
+00:22:09,576 --> 00:22:10,296
+CarPlay screen.
+
+
+704
+00:22:11,396 --> 00:22:12,456
+To create an interface in
+
+
+705
+00:22:12,456 --> 00:22:15,196
+CarPlay the app should observe
+
+
+706
+00:22:15,196 --> 00:22:16,716
+the UIScreen connection events
+
+
+707
+00:22:18,066 --> 00:22:19,146
+and when the screen connects
+
+
+708
+00:22:19,266 --> 00:22:20,316
+verify that the connected
+
+
+709
+00:22:20,316 --> 00:22:22,096
+screen's traits contain the
+
+
+710
+00:22:22,096 --> 00:22:22,866
+CarPlay idiom.
+
+
+711
+00:22:24,256 --> 00:22:26,106
+Besides CarPlay, iOS also
+
+
+712
+00:22:26,106 --> 00:22:27,396
+supports other external
+
+
+713
+00:22:27,396 --> 00:22:29,166
+displays, such as an airplane
+
+
+714
+00:22:29,166 --> 00:22:29,516
+display.
+
+
+715
+00:22:30,746 --> 00:22:32,906
+Only show CarPlay content on
+
+
+716
+00:22:32,906 --> 00:22:34,286
+screens with the CarPlay idiom.
+
+
+717
+00:22:34,836 --> 00:22:39,636
+The app creates a UIWindow for
+
+
+718
+00:22:39,636 --> 00:22:41,656
+the CarPlay screen and sets the
+
+
+719
+00:22:41,656 --> 00:22:43,676
+root view controller to a custom
+
+
+720
+00:22:43,676 --> 00:22:44,956
+UI view controller subclass.
+
+
+721
+00:22:46,436 --> 00:22:47,566
+Let's see how this looks when
+
+
+722
+00:22:47,566 --> 00:22:47,956
+all put together.
+
+
+723
+00:22:51,856 --> 00:22:53,076
+Here's the code for displaying a
+
+
+724
+00:22:53,076 --> 00:22:54,356
+view controller on the CarPlay
+
+
+725
+00:22:54,356 --> 00:22:54,776
+screen.
+
+
+726
+00:22:55,766 --> 00:22:56,856
+Usually this code would be
+
+
+727
+00:22:56,856 --> 00:22:58,256
+placed either in your UI
+
+
+728
+00:22:58,256 --> 00:23:01,066
+application delegate or in a new
+
+
+729
+00:23:01,066 --> 00:23:02,316
+class you've made for this code.
+
+
+730
+00:23:03,476 --> 00:23:05,366
+First, we'll add a new class
+
+
+731
+00:23:05,396 --> 00:23:07,166
+property to store the UIWindow
+
+
+732
+00:23:07,916 --> 00:23:08,756
+that we will create for the
+
+
+733
+00:23:08,756 --> 00:23:09,506
+CarPlay screen.
+
+
+734
+00:23:10,386 --> 00:23:12,026
+Next, we'll define an instance
+
+
+735
+00:23:12,026 --> 00:23:13,856
+method called updateCarWindow.
+
+
+736
+00:23:15,026 --> 00:23:16,266
+To check if a CarPlay screen is
+
+
+737
+00:23:16,266 --> 00:23:18,506
+connected we look for a UIScreen
+
+
+738
+00:23:18,786 --> 00:23:19,896
+that has the CarPlay idiom.
+
+
+739
+00:23:21,086 --> 00:23:22,666
+If no CarPlay idiom screens are
+
+
+740
+00:23:22,666 --> 00:23:24,476
+available then release any
+
+
+741
+00:23:24,476 --> 00:23:26,016
+previously created UIWindow
+
+
+742
+00:23:26,856 --> 00:23:27,816
+since CarPlay may have
+
+
+743
+00:23:28,016 --> 00:23:28,646
+disconnected.
+
+
+744
+00:23:29,196 --> 00:23:32,566
+If a CarPlay screen is connected
+
+
+745
+00:23:33,306 --> 00:23:35,276
+initialize a new UIWindow for
+
+
+746
+00:23:35,276 --> 00:23:37,586
+that screen and set up a custom
+
+
+747
+00:23:37,586 --> 00:23:39,616
+rootViewController that contains
+
+
+748
+00:23:39,616 --> 00:23:40,656
+the content that should appear
+
+
+749
+00:23:40,656 --> 00:23:41,106
+in CarPlay.
+
+
+750
+00:23:42,146 --> 00:23:43,716
+Here we are using a UI view
+
+
+751
+00:23:43,716 --> 00:23:45,536
+controller subclass called
+
+
+752
+00:23:45,736 --> 00:23:46,626
+carViewController.
+
+
+753
+00:23:47,676 --> 00:23:48,606
+That class will need to be
+
+
+754
+00:23:48,606 --> 00:23:49,086
+implemented.
+
+
+755
+00:23:49,586 --> 00:23:53,796
+Your app may launch after
+
+
+756
+00:23:53,796 --> 00:23:54,576
+CarPlay connected.
+
+
+757
+00:23:55,446 --> 00:23:57,096
+To handle that scenario call
+
+
+758
+00:23:57,096 --> 00:23:58,986
+updateCarWindow early in your
+
+
+759
+00:23:58,986 --> 00:24:00,856
+application's lifecycle, such as
+
+
+760
+00:24:00,856 --> 00:24:02,186
+an application did finish
+
+
+761
+00:24:02,186 --> 00:24:03,016
+launching with options.
+
+
+762
+00:24:04,376 --> 00:24:05,806
+Since CarPlay can also connect
+
+
+763
+00:24:05,806 --> 00:24:07,326
+after your app is launched
+
+
+764
+00:24:07,746 --> 00:24:08,236
+listen for the
+
+
+765
+00:24:08,236 --> 00:24:10,086
+UIScreenDidConnect and
+
+
+766
+00:24:10,086 --> 00:24:11,676
+UIScreenDidDisconnect
+
+
+767
+00:24:12,116 --> 00:24:14,056
+notifications and call
+
+
+768
+00:24:14,056 --> 00:24:15,846
+UpdateCarWindow in response to
+
+
+769
+00:24:15,846 --> 00:24:17,086
+those events.
+
+
+770
+00:24:18,676 --> 00:24:19,996
+There are a few differences in
+
+
+771
+00:24:19,996 --> 00:24:21,736
+UIKit behavior on the CarPlay
+
+
+772
+00:24:21,736 --> 00:24:23,776
+screen compared to the iPhone's
+
+
+773
+00:24:24,346 --> 00:24:25,486
+main screen.
+
+
+774
+00:24:25,686 --> 00:24:27,556
+UIButtonTypeSystem displays with
+
+
+775
+00:24:27,556 --> 00:24:29,476
+the default CarPlay style and is
+
+
+776
+00:24:29,476 --> 00:24:30,976
+the recommended way to create
+
+
+777
+00:24:30,976 --> 00:24:32,946
+buttons since it provides a
+
+
+778
+00:24:32,946 --> 00:24:34,856
+style and behavior consistent
+
+
+779
+00:24:34,856 --> 00:24:36,866
+with other CarPlay apps.
+
+
+780
+00:24:38,096 --> 00:24:38,726
+In CarPlay,
+
+
+781
+00:24:38,986 --> 00:24:41,116
+UITableViewController may limit
+
+
+782
+00:24:41,116 --> 00:24:44,006
+the length of tables and for
+
+
+783
+00:24:44,006 --> 00:24:45,106
+vehicles with a hardware
+
+
+784
+00:24:45,106 --> 00:24:47,186
+navigation device, such as the
+
+
+785
+00:24:48,096 --> 00:24:48,856
+[inaudible], the corresponding
+
+
+786
+00:24:48,856 --> 00:24:50,476
+focus movements are handled
+
+
+787
+00:24:50,476 --> 00:24:52,546
+through UIFocusEnvironment and
+
+
+788
+00:24:52,546 --> 00:24:53,796
+the related focus classes.
+
+
+789
+00:24:54,416 --> 00:24:57,976
+Note that not all system user
+
+
+790
+00:24:57,976 --> 00:24:59,676
+interface elements provided by
+
+
+791
+00:24:59,676 --> 00:25:01,546
+UIKit are available to automaker
+
+
+792
+00:25:02,536 --> 00:25:02,626
+apps.
+
+
+793
+00:25:05,086 --> 00:25:06,176
+There's a selection of SiriKit
+
+
+794
+00:25:06,176 --> 00:25:07,776
+intents relevant to automaker
+
+
+795
+00:25:07,776 --> 00:25:08,076
+apps.
+
+
+796
+00:25:09,396 --> 00:25:10,806
+The commands intents are
+
+
+797
+00:25:10,806 --> 00:25:11,856
+available to all apps.
+
+
+798
+00:25:12,346 --> 00:25:13,526
+They don't require a CarPlay
+
+
+799
+00:25:13,526 --> 00:25:15,336
+connection nor participating in
+
+
+800
+00:25:15,336 --> 00:25:16,436
+the CarPlay app program.
+
+
+801
+00:25:17,316 --> 00:25:18,956
+But an automaker app is a great
+
+
+802
+00:25:18,956 --> 00:25:19,916
+place to implement these
+
+
+803
+00:25:19,916 --> 00:25:22,016
+intents, which include locking
+
+
+804
+00:25:22,016 --> 00:25:23,496
+the vehicle, checking the fuel
+
+
+805
+00:25:23,496 --> 00:25:26,436
+level and sounding the horn.
+
+
+806
+00:25:26,596 --> 00:25:27,826
+There's also a set of intents
+
+
+807
+00:25:28,086 --> 00:25:29,216
+that require a CarPlay
+
+
+808
+00:25:29,216 --> 00:25:30,766
+connection and can only be
+
+
+809
+00:25:30,766 --> 00:25:32,246
+implemented by automaker apps.
+
+
+810
+00:25:33,516 --> 00:25:35,176
+The CarPlay intents include
+
+
+811
+00:25:35,176 --> 00:25:37,176
+climate control, defroster and
+
+
+812
+00:25:37,176 --> 00:25:38,156
+seat heater settings.
+
+
+813
+00:25:39,136 --> 00:25:40,976
+Also included are intents for
+
+
+814
+00:25:41,036 --> 00:25:42,756
+tuning the radio and selecting
+
+
+815
+00:25:42,786 --> 00:25:43,396
+an audio source.
+
+
+816
+00:25:44,026 --> 00:25:47,286
+There are a few best practices
+
+
+817
+00:25:47,286 --> 00:25:48,176
+for automaker apps.
+
+
+818
+00:25:49,176 --> 00:25:50,906
+The first is to make your app
+
+
+819
+00:25:50,906 --> 00:25:52,456
+useful even when CarPlay is not
+
+
+820
+00:25:52,456 --> 00:25:52,916
+available.
+
+
+821
+00:25:53,646 --> 00:25:55,256
+For example, when disconnected
+
+
+822
+00:25:55,256 --> 00:25:57,046
+from CarPlay an automaker app
+
+
+823
+00:25:57,046 --> 00:25:58,646
+can use Internet services to
+
+
+824
+00:25:58,646 --> 00:26:00,926
+remotely communicate with the
+
+
+825
+00:26:02,206 --> 00:26:02,436
+vehicle.
+
+
+826
+00:26:02,516 --> 00:26:04,026
+Consider backwards and forwards
+
+
+827
+00:26:04,176 --> 00:26:06,456
+compatibility in your automaker
+
+
+828
+00:26:07,776 --> 00:26:07,876
+app.
+
+
+829
+00:26:07,876 --> 00:26:09,306
+App updates should continue to
+
+
+830
+00:26:09,306 --> 00:26:11,396
+support older vehicles and new
+
+
+831
+00:26:11,396 --> 00:26:12,946
+features should not break
+
+
+832
+00:26:12,946 --> 00:26:16,916
+existing versions of the app.
+
+
+833
+00:26:17,006 --> 00:26:18,426
+Simplify the user interface,
+
+
+834
+00:26:19,246 --> 00:26:21,146
+most CarPlay apps should only
+
+
+835
+00:26:21,146 --> 00:26:22,876
+contain fundamental interface
+
+
+836
+00:26:22,876 --> 00:26:25,396
+elements, such as buttons,
+
+
+837
+00:26:25,896 --> 00:26:28,746
+labels, tables, navigation bars
+
+
+838
+00:26:29,356 --> 00:26:30,676
+and tabs.
+
+
+839
+00:26:32,106 --> 00:26:33,696
+Finally, if your automaker app
+
+
+840
+00:26:33,696 --> 00:26:34,786
+supports vehicles with a
+
+
+841
+00:26:34,786 --> 00:26:37,116
+hardware navigation device such
+
+
+842
+00:26:37,116 --> 00:26:38,866
+as a [inaudible] determine how
+
+
+843
+00:26:38,866 --> 00:26:40,686
+focus should move between the UI
+
+
+844
+00:26:40,686 --> 00:26:40,976
+elements.
+
+
+845
+00:26:44,506 --> 00:26:45,506
+We hope that you've learned how
+
+
+846
+00:26:45,506 --> 00:26:47,036
+to integrate an audio,
+
+
+847
+00:26:47,036 --> 00:26:49,006
+messaging, VoIP calling or
+
+
+848
+00:26:49,006 --> 00:26:50,366
+automaker app into CarPlay.
+
+
+849
+00:26:51,006 --> 00:26:52,056
+For more information about
+
+
+850
+00:26:52,056 --> 00:26:53,126
+CarPlay, see
+
+
+851
+00:26:53,126 --> 00:26:56,226
+developer.apple.com.
+
+
+852
+00:26:56,436 --> 00:26:57,716
+You can also learn more in
+
+
+853
+00:26:57,716 --> 00:26:58,776
+related sessions.
+
+
+854
+00:26:59,456 --> 00:27:00,926
+See the Debugging with Xcode 9
+
+
+855
+00:27:00,926 --> 00:27:02,306
+session for more information
+
+
+856
+00:27:02,306 --> 00:27:04,236
+about debugging apps during a
+
+
+857
+00:27:04,236 --> 00:27:05,376
+wired CarPlay connection.
+
+
+858
+00:27:06,266 --> 00:27:07,246
+For more information about
+
+
+859
+00:27:07,286 --> 00:27:09,946
+SiriKit, see the sessions What's
+
+
+860
+00:27:09,946 --> 00:27:11,986
+New in SiriKit and Making Great
+
+
+861
+00:27:11,986 --> 00:27:13,016
+SiriKit Experiences.
+
+
+862
+00:27:14,266 --> 00:27:15,356
+To learn how wireless CarPlay
+
+
+863
+00:27:15,356 --> 00:27:16,906
+works watch the Developing
+
+
+864
+00:27:16,906 --> 00:27:18,476
+Wireless CarPlay Systems video.
+
+
+865
+00:27:19,596 --> 00:27:22,096
+Videos from WWDC 2016 are
+
+
+866
+00:27:22,096 --> 00:27:24,026
+available for both CallKit and
+
+
+867
+00:27:24,026 --> 00:27:25,546
+CarPlay systems development
+
+
+868
+00:27:26,296 --> 00:27:26,476
+topics.
+

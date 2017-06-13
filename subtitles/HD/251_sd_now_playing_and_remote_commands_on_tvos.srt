@@ -1,0 +1,2844 @@
+1
+00:00:18,046 --> 00:00:18,696
+>> Welcome to Now Playing and
+
+
+2
+00:00:18,696 --> 00:00:20,166
+Remote Commands on tvOS.
+
+
+3
+00:00:20,656 --> 00:00:21,966
+I'm Justin Voss, an engineer on
+
+
+4
+00:00:21,966 --> 00:00:23,726
+tvOS and in this talk we'll
+
+
+5
+00:00:23,726 --> 00:00:25,046
+cover how you can provide great
+
+
+6
+00:00:25,046 --> 00:00:26,046
+metadata and playback
+
+
+7
+00:00:26,046 --> 00:00:27,176
+experiences for your viewers.
+
+
+8
+00:00:27,676 --> 00:00:29,786
+First, let's talk about
+
+
+9
+00:00:29,786 --> 00:00:30,816
+providing Now Playing
+
+
+10
+00:00:30,816 --> 00:00:31,266
+information.
+
+
+11
+00:00:31,946 --> 00:00:33,156
+Having accurate and complete
+
+
+12
+00:00:33,156 --> 00:00:34,496
+metadata about your content will
+
+
+13
+00:00:34,496 --> 00:00:35,746
+help viewers to understand what
+
+
+14
+00:00:35,746 --> 00:00:36,766
+they're watching across a
+
+
+15
+00:00:36,766 --> 00:00:38,626
+variety of interfaces across
+
+
+16
+00:00:38,626 --> 00:00:40,256
+tvOS and iOS.
+
+
+17
+00:00:40,816 --> 00:00:43,296
+The metadata you provide is
+
+
+18
+00:00:43,296 --> 00:00:44,436
+displayed in several places.
+
+
+19
+00:00:45,126 --> 00:00:46,926
+For video content, the built-in
+
+
+20
+00:00:46,926 --> 00:00:48,336
+AVPlayerViewController displays
+
+
+21
+00:00:48,336 --> 00:00:49,526
+metadata along the top of the
+
+
+22
+00:00:49,526 --> 00:00:50,126
+video screen.
+
+
+23
+00:00:51,176 --> 00:00:52,706
+For both video and audio content
+
+
+24
+00:00:52,706 --> 00:00:54,586
+the TV Remote app for iOS would
+
+
+25
+00:00:54,586 --> 00:00:56,056
+both display metadata and
+
+
+26
+00:00:56,056 --> 00:00:56,846
+playback controls.
+
+
+27
+00:00:57,316 --> 00:00:58,806
+And for audio content, your
+
+
+28
+00:00:58,806 --> 00:01:00,116
+metadata will be displayed in a
+
+
+29
+00:01:00,116 --> 00:01:01,026
+badge in the corner of the
+
+
+30
+00:01:01,026 --> 00:01:02,646
+screen and as a full-screen
+
+
+31
+00:01:02,646 --> 00:01:03,756
+display when the user is idle.
+
+
+32
+00:01:04,706 --> 00:01:06,036
+Let's look at some screenshots
+
+
+33
+00:01:06,036 --> 00:01:06,996
+of these to better understand
+
+
+34
+00:01:07,346 --> 00:01:07,436
+them.
+
+
+35
+00:01:07,436 --> 00:01:08,266
+In this screenshot, you can
+
+
+36
+00:01:08,266 --> 00:01:09,546
+already tell that we're watching
+
+
+37
+00:01:09,586 --> 00:01:11,706
+a WWDC talk from last year
+
+
+38
+00:01:12,166 --> 00:01:13,476
+because the metadata onscreen
+
+
+39
+00:01:13,476 --> 00:01:14,356
+makes that super clear.
+
+
+40
+00:01:14,996 --> 00:01:16,216
+This is an example of using the
+
+
+41
+00:01:16,216 --> 00:01:18,016
+built-in AVPlayerViewController
+
+
+42
+00:01:18,016 --> 00:01:18,766
+for video content.
+
+
+43
+00:01:19,246 --> 00:01:21,466
+Here you can see the same talk,
+
+
+44
+00:01:21,606 --> 00:01:23,006
+but displayed in the TV Remote
+
+
+45
+00:01:23,006 --> 00:01:23,846
+app for iOS.
+
+
+46
+00:01:24,146 --> 00:01:25,306
+You can also see the playback
+
+
+47
+00:01:25,306 --> 00:01:26,896
+controls which we'll cover later
+
+
+48
+00:01:26,896 --> 00:01:27,326
+in the talk.
+
+
+49
+00:01:27,796 --> 00:01:29,096
+For audio content, when the Now
+
+
+50
+00:01:29,096 --> 00:01:30,366
+Playing information changes the
+
+
+51
+00:01:30,366 --> 00:01:31,696
+listener will see a notification
+
+
+52
+00:01:31,696 --> 00:01:32,826
+on their screen with the updated
+
+
+53
+00:01:32,826 --> 00:01:33,286
+metadata.
+
+
+54
+00:01:34,006 --> 00:01:35,266
+In this screenshot here, you can
+
+
+55
+00:01:35,266 --> 00:01:36,516
+see what this would look like if
+
+
+56
+00:01:36,516 --> 00:01:37,656
+we were listening to an audio
+
+
+57
+00:01:37,656 --> 00:01:39,436
+only version of that WWDC talk.
+
+
+58
+00:01:40,356 --> 00:01:41,436
+Finally, if the user puts down
+
+
+59
+00:01:41,436 --> 00:01:43,136
+the remote for a while tvOS will
+
+
+60
+00:01:43,136 --> 00:01:44,306
+automatically display the Now
+
+
+61
+00:01:44,306 --> 00:01:45,246
+Playing metadata in a
+
+
+62
+00:01:45,246 --> 00:01:46,366
+full-screen view like you see
+
+
+63
+00:01:46,366 --> 00:01:47,526
+here which really shows off the
+
+
+64
+00:01:47,526 --> 00:01:47,896
+artwork.
+
+
+65
+00:01:49,176 --> 00:01:50,496
+So, hopefully I've convinced you
+
+
+66
+00:01:50,496 --> 00:01:51,626
+that providing the complete set
+
+
+67
+00:01:51,626 --> 00:01:52,736
+of Now Playing information is
+
+
+68
+00:01:52,736 --> 00:01:53,216
+worth your time.
+
+
+69
+00:01:54,186 --> 00:01:55,016
+Let's talk about some of the
+
+
+70
+00:01:55,016 --> 00:01:55,936
+different ways you can do that.
+
+
+71
+00:01:56,576 --> 00:01:57,806
+You have a few choices so it
+
+
+72
+00:01:57,806 --> 00:01:58,486
+depends on what kind of
+
+
+73
+00:01:58,486 --> 00:01:59,646
+technology you're using in your
+
+
+74
+00:02:00,296 --> 00:02:00,366
+app.
+
+
+75
+00:02:01,496 --> 00:02:03,576
+Those of you using TVML can add
+
+
+76
+00:02:03,576 --> 00:02:05,296
+metadata using the MediaItem
+
+
+77
+00:02:05,296 --> 00:02:06,086
+JavaScript object.
+
+
+78
+00:02:06,946 --> 00:02:07,806
+This object has several
+
+
+79
+00:02:07,806 --> 00:02:08,985
+properties on it for Now Playing
+
+
+80
+00:02:08,985 --> 00:02:10,626
+info, including a title,
+
+
+81
+00:02:10,735 --> 00:02:12,836
+subtitle and description, you
+
+
+82
+00:02:12,836 --> 00:02:14,246
+can provide a URL to an artwork
+
+
+83
+00:02:14,246 --> 00:02:16,126
+image and you can even provide
+
+
+84
+00:02:16,126 --> 00:02:17,226
+information about the content
+
+
+85
+00:02:17,226 --> 00:02:20,056
+rating such as PG-13 or R and
+
+
+86
+00:02:20,056 --> 00:02:21,316
+whether the content is explicit.
+
+
+87
+00:02:21,586 --> 00:02:24,196
+In the code sample, here you can
+
+
+88
+00:02:24,196 --> 00:02:25,056
+see that I'm creating a
+
+
+89
+00:02:25,056 --> 00:02:27,026
+MediaItem object with a URL to a
+
+
+90
+00:02:27,026 --> 00:02:28,936
+video and then configuring a
+
+
+91
+00:02:28,936 --> 00:02:30,726
+title and description on it and
+
+
+92
+00:02:30,726 --> 00:02:31,976
+providing a URL to an artwork
+
+
+93
+00:02:31,976 --> 00:02:32,246
+image.
+
+
+94
+00:02:32,766 --> 00:02:34,056
+If you're using AVKit to play
+
+
+95
+00:02:34,056 --> 00:02:36,146
+your content you'll want to use
+
+
+96
+00:02:36,146 --> 00:02:37,696
+the AV metadata item class to
+
+
+97
+00:02:37,696 --> 00:02:38,686
+provide Now Playing info.
+
+
+98
+00:02:40,076 --> 00:02:41,376
+For each piece of metadata you
+
+
+99
+00:02:41,376 --> 00:02:42,876
+want to provide, such as a title
+
+
+100
+00:02:42,876 --> 00:02:44,706
+or artwork, etcetera you'll
+
+
+101
+00:02:44,706 --> 00:02:46,656
+create an AV mutable metadata
+
+
+102
+00:02:46,656 --> 00:02:47,926
+item and configure several
+
+
+103
+00:02:47,926 --> 00:02:48,676
+properties on it.
+
+
+104
+00:02:48,976 --> 00:02:50,366
+You provide an identifier which
+
+
+105
+00:02:50,366 --> 00:02:51,586
+tells AVKit what kind of
+
+
+106
+00:02:51,586 --> 00:02:52,646
+metadata this represents.
+
+
+107
+00:02:53,036 --> 00:02:54,116
+This is how we know to tell the
+
+
+108
+00:02:54,116 --> 00:02:55,416
+difference between the object
+
+
+109
+00:02:55,416 --> 00:02:56,556
+that represents a title versus
+
+
+110
+00:02:56,556 --> 00:02:57,556
+the description and so on.
+
+
+111
+00:02:58,106 --> 00:02:59,126
+You provide the value of the
+
+
+112
+00:02:59,126 --> 00:03:00,806
+metadata itself, which may be a
+
+
+113
+00:03:00,806 --> 00:03:02,306
+string or raw data bytes.
+
+
+114
+00:03:02,886 --> 00:03:03,406
+You should set the
+
+
+115
+00:03:03,406 --> 00:03:04,986
+extendedLanguageTag to specify
+
+
+116
+00:03:04,986 --> 00:03:06,176
+what language the metadata is
+
+
+117
+00:03:06,176 --> 00:03:06,756
+intended for.
+
+
+118
+00:03:07,456 --> 00:03:08,506
+Unless you have a good reason to
+
+
+119
+00:03:08,506 --> 00:03:09,766
+do otherwise we strongly
+
+
+120
+00:03:09,766 --> 00:03:12,126
+recommend that you use the value
+
+
+121
+00:03:12,376 --> 00:03:13,416
+und which means undefined.
+
+
+122
+00:03:14,356 --> 00:03:15,676
+The way this property works is
+
+
+123
+00:03:15,676 --> 00:03:17,286
+that it will only be visible to
+
+
+124
+00:03:17,286 --> 00:03:18,856
+the user if the user's locale
+
+
+125
+00:03:18,936 --> 00:03:20,406
+matches the metadata's locale.
+
+
+126
+00:03:20,906 --> 00:03:22,286
+So, for example, if you had a
+
+
+127
+00:03:22,286 --> 00:03:23,246
+movie that was produced in the
+
+
+128
+00:03:23,246 --> 00:03:25,246
+USA you may be tempted to
+
+
+129
+00:03:25,246 --> 00:03:26,856
+provide the title of that movie
+
+
+130
+00:03:26,886 --> 00:03:28,356
+with the language tag of English
+
+
+131
+00:03:28,356 --> 00:03:29,576
+since the title is in English.
+
+
+132
+00:03:30,256 --> 00:03:31,246
+But if you did that then a
+
+
+133
+00:03:31,246 --> 00:03:32,706
+viewer in Germany wouldn't see
+
+
+134
+00:03:32,706 --> 00:03:34,186
+any title at all because the
+
+
+135
+00:03:34,186 --> 00:03:35,586
+metadata language doesn't match
+
+
+136
+00:03:35,586 --> 00:03:36,326
+their language.
+
+
+137
+00:03:36,826 --> 00:03:38,686
+But if you had used the tag und
+
+
+138
+00:03:38,886 --> 00:03:39,676
+then everyone will see the
+
+
+139
+00:03:39,676 --> 00:03:40,836
+metadata regardless of their
+
+
+140
+00:03:40,836 --> 00:03:41,536
+language settings.
+
+
+141
+00:03:42,966 --> 00:03:44,646
+Finally, in some cases you need
+
+
+142
+00:03:44,646 --> 00:03:46,086
+to give us a hint about how to
+
+
+143
+00:03:46,086 --> 00:03:47,036
+interpret the value you've
+
+
+144
+00:03:47,036 --> 00:03:47,486
+provided.
+
+
+145
+00:03:48,166 --> 00:03:49,486
+In the case of providing artwork
+
+
+146
+00:03:49,486 --> 00:03:50,796
+image you'll give us the raw
+
+
+147
+00:03:50,796 --> 00:03:52,176
+bytes of the image as the value
+
+
+148
+00:03:52,436 --> 00:03:53,466
+and then use the dataType to
+
+
+149
+00:03:53,466 --> 00:03:55,176
+tell us if the image is a JPEG
+
+
+150
+00:03:55,176 --> 00:03:55,686
+or a PNG.
+
+
+151
+00:03:56,506 --> 00:03:58,216
+Let's look at some code samples
+
+
+152
+00:03:58,216 --> 00:03:59,216
+to get a feel for how this
+
+
+153
+00:03:59,216 --> 00:03:59,576
+works.
+
+
+154
+00:04:00,106 --> 00:04:03,406
+Here you can see the code where
+
+
+155
+00:04:03,406 --> 00:04:05,076
+I'm creating an AV playerItem
+
+
+156
+00:04:05,076 --> 00:04:06,306
+and giving it a title and
+
+
+157
+00:04:06,306 --> 00:04:06,706
+description.
+
+
+158
+00:04:07,616 --> 00:04:08,776
+In the first large code block
+
+
+159
+00:04:08,976 --> 00:04:10,096
+I'm creating an
+
+
+160
+00:04:10,096 --> 00:04:11,366
+AVMutableMetadataItem to
+
+
+161
+00:04:11,366 --> 00:04:13,556
+represent the title.
+
+
+162
+00:04:13,716 --> 00:04:15,146
+The first thing that I do is I
+
+
+163
+00:04:15,146 --> 00:04:16,435
+set the identifier to
+
+
+164
+00:04:16,435 --> 00:04:17,846
+AVMetadataCommon
+
+
+165
+00:04:17,846 --> 00:04:19,786
+IdentifierTitle so that AVKit
+
+
+166
+00:04:19,786 --> 00:04:21,305
+knows that this metadata item is
+
+
+167
+00:04:21,305 --> 00:04:21,625
+the title.
+
+
+168
+00:04:21,676 --> 00:04:25,526
+Then I set the actual value as a
+
+
+169
+00:04:25,526 --> 00:04:25,826
+string.
+
+
+170
+00:04:26,666 --> 00:04:28,176
+The AV metadata item API
+
+
+171
+00:04:28,466 --> 00:04:29,716
+requires these values to be NS
+
+
+172
+00:04:29,716 --> 00:04:31,216
+object types so casting the
+
+
+173
+00:04:31,216 --> 00:04:31,716
+[inaudible] string to an
+
+
+174
+00:04:31,716 --> 00:04:31,926
+NSString.
+
+
+175
+00:04:36,056 --> 00:04:36,906
+Finally, I'm setting the
+
+
+176
+00:04:36,906 --> 00:04:38,686
+extendedLanguageTag to und
+
+
+177
+00:04:38,686 --> 00:04:39,756
+because the title of this talk
+
+
+178
+00:04:39,756 --> 00:04:40,696
+should appear the same
+
+
+179
+00:04:40,696 --> 00:04:41,176
+worldwide.
+
+
+180
+00:04:41,676 --> 00:04:44,066
+In the second large code block,
+
+
+181
+00:04:44,066 --> 00:04:44,956
+I'm doing most of the same
+
+
+182
+00:04:44,956 --> 00:04:45,826
+things to assign the
+
+
+183
+00:04:45,826 --> 00:04:46,336
+description.
+
+
+184
+00:04:47,006 --> 00:04:48,096
+Other than providing a different
+
+
+185
+00:04:48,096 --> 00:04:50,136
+value you can see that on this
+
+
+186
+00:04:50,136 --> 00:04:51,936
+line I'm setting the identifier
+
+
+187
+00:04:51,936 --> 00:04:53,696
+to AVMetadataCommon
+
+
+188
+00:04:53,696 --> 00:04:55,716
+IdentifierDescription so that
+
+
+189
+00:04:55,716 --> 00:04:56,896
+AVKit knows how to interpret
+
+
+190
+00:04:56,896 --> 00:04:57,256
+this item.
+
+
+191
+00:04:58,666 --> 00:05:00,076
+Finally, on the last line I
+
+
+192
+00:05:00,076 --> 00:05:01,206
+assign an array of these
+
+
+193
+00:05:01,206 --> 00:05:02,866
+metadata items to the AV
+
+
+194
+00:05:02,866 --> 00:05:04,666
+playerItem's external metadata
+
+
+195
+00:05:04,666 --> 00:05:05,026
+property.
+
+
+196
+00:05:05,616 --> 00:05:08,706
+If you wanted to provide the
+
+
+197
+00:05:08,706 --> 00:05:09,896
+release date of your content as
+
+
+198
+00:05:09,896 --> 00:05:11,486
+a metadata item you can do that
+
+
+199
+00:05:11,486 --> 00:05:12,776
+if you format your release date
+
+
+200
+00:05:12,776 --> 00:05:14,036
+as a string in a specific
+
+
+201
+00:05:14,036 --> 00:05:14,396
+format.
+
+
+202
+00:05:15,066 --> 00:05:16,236
+This code sample shows you how
+
+
+203
+00:05:16,236 --> 00:05:16,746
+you can do that.
+
+
+204
+00:05:17,306 --> 00:05:19,036
+Here you see that I'm creating
+
+
+205
+00:05:19,036 --> 00:05:21,036
+the date object for an arbitrary
+
+
+206
+00:05:21,036 --> 00:05:21,126
+date.
+
+
+207
+00:05:21,886 --> 00:05:23,336
+Then I create a date formatter
+
+
+208
+00:05:23,456 --> 00:05:24,886
+and provide a specific date
+
+
+209
+00:05:24,886 --> 00:05:26,666
+format string here on this line.
+
+
+210
+00:05:27,266 --> 00:05:29,906
+To create the metadata item, I
+
+
+211
+00:05:29,906 --> 00:05:31,006
+use the identifier
+
+
+212
+00:05:31,236 --> 00:05:32,546
+AVMetadataCommon
+
+
+213
+00:05:32,546 --> 00:05:35,016
+IdentifierCreationDate and
+
+
+214
+00:05:35,016 --> 00:05:36,046
+finally, I use the date
+
+
+215
+00:05:36,046 --> 00:05:37,436
+formatter to convert the date
+
+
+216
+00:05:37,436 --> 00:05:38,966
+object into a formatted string
+
+
+217
+00:05:39,116 --> 00:05:40,366
+and cast that string as an
+
+
+218
+00:05:40,366 --> 00:05:40,656
+NSString.
+
+
+219
+00:05:41,876 --> 00:05:43,336
+Now in AVPlayerViewController
+
+
+220
+00:05:43,636 --> 00:05:44,706
+viewers will be able to see the
+
+
+221
+00:05:44,706 --> 00:05:45,786
+release year of the video
+
+
+222
+00:05:45,786 --> 00:05:47,426
+alongside the other Now Playing
+
+
+223
+00:05:47,966 --> 00:05:48,116
+info.
+
+
+224
+00:05:49,796 --> 00:05:51,336
+Finally, here's an example of
+
+
+225
+00:05:51,336 --> 00:05:52,666
+how to provide image metadata
+
+
+226
+00:05:52,666 --> 00:05:53,316
+for your content.
+
+
+227
+00:05:54,256 --> 00:05:55,416
+Here you can see that the first
+
+
+228
+00:05:55,416 --> 00:05:56,946
+thing I need to do is to get my
+
+
+229
+00:05:56,946 --> 00:05:58,256
+image as a data object.
+
+
+230
+00:05:58,806 --> 00:05:59,866
+I'm doing that by loading the
+
+
+231
+00:05:59,866 --> 00:06:01,226
+image from a JPEG that's in my
+
+
+232
+00:06:01,226 --> 00:06:02,306
+app bundle, but you could get
+
+
+233
+00:06:02,306 --> 00:06:03,526
+your artwork from any source.
+
+
+234
+00:06:03,976 --> 00:06:06,496
+Then to create the metadata item
+
+
+235
+00:06:06,676 --> 00:06:07,386
+the first thing I need to
+
+
+236
+00:06:07,386 --> 00:06:09,416
+specify is my identifier, which
+
+
+237
+00:06:09,416 --> 00:06:10,406
+in this case should be
+
+
+238
+00:06:10,656 --> 00:06:12,056
+AVMetadataCommon
+
+
+239
+00:06:12,056 --> 00:06:13,236
+IdentifierArtwork.
+
+
+240
+00:06:14,346 --> 00:06:15,696
+Next, I provide the artwork data
+
+
+241
+00:06:15,696 --> 00:06:17,786
+itself and cast the Swift data
+
+
+242
+00:06:17,786 --> 00:06:19,816
+object to an NSData.
+
+
+243
+00:06:20,876 --> 00:06:22,156
+Finally, to indicate what kind
+
+
+244
+00:06:22,156 --> 00:06:23,786
+of image this is I need to set
+
+
+245
+00:06:23,786 --> 00:06:24,636
+the dataType property.
+
+
+246
+00:06:25,186 --> 00:06:26,116
+Since I know this image is a
+
+
+247
+00:06:26,116 --> 00:06:27,736
+JPEG I'm going to provide this
+
+
+248
+00:06:27,736 --> 00:06:29,006
+constant value here to indicate
+
+
+249
+00:06:29,006 --> 00:06:29,216
+that.
+
+
+250
+00:06:29,716 --> 00:06:32,876
+Okay to give you a visual
+
+
+251
+00:06:32,876 --> 00:06:33,986
+reference of where some of these
+
+
+252
+00:06:33,986 --> 00:06:35,626
+items appear onscreen here's a
+
+
+253
+00:06:35,626 --> 00:06:36,416
+screenshot of the
+
+
+254
+00:06:36,416 --> 00:06:37,906
+AVPlayerViewController with some
+
+
+255
+00:06:37,906 --> 00:06:38,856
+annotations on it.
+
+
+256
+00:06:39,556 --> 00:06:40,706
+The color coding will show where
+
+
+257
+00:06:40,706 --> 00:06:42,016
+each metadata identifier is
+
+
+258
+00:06:42,016 --> 00:06:42,416
+displayed.
+
+
+259
+00:06:43,196 --> 00:06:44,556
+So, this is where the artwork
+
+
+260
+00:06:44,556 --> 00:06:47,326
+will be displayed, the title,
+
+
+261
+00:06:47,896 --> 00:06:51,946
+the creation date, and the
+
+
+262
+00:06:52,196 --> 00:06:52,746
+description.
+
+
+263
+00:06:53,286 --> 00:06:56,296
+And here's a similar screenshot
+
+
+264
+00:06:56,296 --> 00:06:57,226
+of the TV Remote app.
+
+
+265
+00:06:57,946 --> 00:06:59,016
+You can see here the Remote app
+
+
+266
+00:06:59,016 --> 00:07:00,516
+doesn't display exactly the same
+
+
+267
+00:07:00,516 --> 00:07:01,786
+set of metadata as
+
+
+268
+00:07:01,786 --> 00:07:02,666
+AVPlayerViewController.
+
+
+269
+00:07:02,956 --> 00:07:05,376
+It displays the same artwork and
+
+
+270
+00:07:05,866 --> 00:07:08,346
+title, but instead of displaying
+
+
+271
+00:07:08,346 --> 00:07:09,596
+the description it instead
+
+
+272
+00:07:09,596 --> 00:07:12,336
+displays the artist and the
+
+
+273
+00:07:12,336 --> 00:07:12,836
+album name.
+
+
+274
+00:07:14,196 --> 00:07:15,006
+You can see the AV foundation
+
+
+275
+00:07:15,006 --> 00:07:15,966
+identifiers to use here.
+
+
+276
+00:07:20,046 --> 00:07:20,966
+Okay that's all for AVKit.
+
+
+277
+00:07:21,296 --> 00:07:22,266
+If you're just playing your
+
+
+278
+00:07:22,266 --> 00:07:23,396
+video using some other
+
+
+279
+00:07:23,396 --> 00:07:25,446
+technology like Video Toolbox or
+
+
+280
+00:07:25,446 --> 00:07:26,426
+if you're playing audio only
+
+
+281
+00:07:26,426 --> 00:07:28,066
+content then you'll need another
+
+
+282
+00:07:28,066 --> 00:07:29,446
+way to provide Now Playing info.
+
+
+283
+00:07:30,236 --> 00:07:32,276
+In those cases, you can use the
+
+
+284
+00:07:32,276 --> 00:07:33,996
+MPNowPlayingInfoCenter.
+
+
+285
+00:07:35,006 --> 00:07:36,286
+This is a singleton object that
+
+
+286
+00:07:36,286 --> 00:07:37,466
+has a dictionary property that
+
+
+287
+00:07:37,466 --> 00:07:38,476
+you can write your metadata
+
+
+288
+00:07:38,476 --> 00:07:38,796
+into.
+
+
+289
+00:07:39,536 --> 00:07:40,766
+So, there's a key for title, for
+
+
+290
+00:07:40,766 --> 00:07:42,146
+album name, for artwork and so
+
+
+291
+00:07:42,146 --> 00:07:42,276
+on.
+
+
+292
+00:07:42,716 --> 00:07:44,876
+In addition to the metadata that
+
+
+293
+00:07:44,876 --> 00:07:46,506
+you are probably expecting you
+
+
+294
+00:07:46,506 --> 00:07:48,216
+can also specify explicitly if
+
+
+295
+00:07:48,216 --> 00:07:49,586
+the content is audio or video.
+
+
+296
+00:07:50,406 --> 00:07:51,396
+You can also provide some
+
+
+297
+00:07:51,396 --> 00:07:52,616
+information about the content
+
+
+298
+00:07:52,616 --> 00:07:54,186
+duration and the user's current
+
+
+299
+00:07:54,186 --> 00:07:54,856
+playback position.
+
+
+300
+00:07:55,426 --> 00:07:57,986
+Your artwork is not provided as
+
+
+301
+00:07:57,986 --> 00:07:59,406
+raw bytes, but as an
+
+
+302
+00:07:59,476 --> 00:08:01,306
+MPMediaItemArtwork object which
+
+
+303
+00:08:01,306 --> 00:08:02,626
+we'll talk about more in just a
+
+
+304
+00:08:03,066 --> 00:08:03,246
+minute.
+
+
+305
+00:08:04,566 --> 00:08:05,236
+Finally, it's your
+
+
+306
+00:08:05,236 --> 00:08:06,606
+responsibility to update this
+
+
+307
+00:08:06,606 --> 00:08:07,776
+metadata dictionary as the
+
+
+308
+00:08:07,776 --> 00:08:08,936
+playback state changes.
+
+
+309
+00:08:09,686 --> 00:08:10,706
+You do not need to update it
+
+
+310
+00:08:10,706 --> 00:08:11,976
+every second or even every
+
+
+311
+00:08:11,976 --> 00:08:13,266
+minute, but you should update it
+
+
+312
+00:08:13,266 --> 00:08:14,256
+when certain events occur.
+
+
+313
+00:08:14,956 --> 00:08:16,016
+We recommend that you update it
+
+
+314
+00:08:16,016 --> 00:08:17,566
+when the currently playing item
+
+
+315
+00:08:17,566 --> 00:08:19,996
+changes, if any metadata about
+
+
+316
+00:08:19,996 --> 00:08:20,936
+the currently playing item
+
+
+317
+00:08:20,936 --> 00:08:22,226
+changes, such as the title or
+
+
+318
+00:08:22,226 --> 00:08:24,796
+artist name, if the user seeks
+
+
+319
+00:08:24,796 --> 00:08:26,016
+to a new position of the content
+
+
+320
+00:08:26,016 --> 00:08:27,276
+or if the playback rate changes
+
+
+321
+00:08:27,906 --> 00:08:29,326
+and finally, if playback begins
+
+
+322
+00:08:29,326 --> 00:08:29,876
+or stops.
+
+
+323
+00:08:30,386 --> 00:08:32,385
+Let's take a look at some code.
+
+
+324
+00:08:33,696 --> 00:08:34,785
+Here in the first code block,
+
+
+325
+00:08:35,296 --> 00:08:36,265
+I'm creating the object that's
+
+
+326
+00:08:36,265 --> 00:08:37,556
+going to represent my artwork.
+
+
+327
+00:08:38,525 --> 00:08:40,546
+The way this MPMediaItemArtwork
+
+
+328
+00:08:40,546 --> 00:08:42,096
+class works is that you provide
+
+
+329
+00:08:42,096 --> 00:08:43,176
+us with the native size of the
+
+
+330
+00:08:43,176 --> 00:08:45,266
+image in a block that we'll call
+
+
+331
+00:08:45,266 --> 00:08:46,766
+later with specific image sizes.
+
+
+332
+00:08:47,106 --> 00:08:49,676
+The way this MPMediaItemArtwork
+
+
+333
+00:08:49,676 --> 00:08:51,316
+class works is that you provide
+
+
+334
+00:08:51,316 --> 00:08:52,626
+us with a native size of the
+
+
+335
+00:08:52,626 --> 00:08:54,366
+image in a block that we'll call
+
+
+336
+00:08:54,366 --> 00:08:55,956
+later with specific image sizes.
+
+
+337
+00:08:56,786 --> 00:08:57,816
+This block should return a
+
+
+338
+00:08:57,816 --> 00:08:59,806
+UIImage object that closely fits
+
+
+339
+00:08:59,806 --> 00:09:01,096
+inside the size that's passed to
+
+
+340
+00:09:01,096 --> 00:09:01,476
+the block.
+
+
+341
+00:09:02,116 --> 00:09:03,436
+So, for example, your app may
+
+
+342
+00:09:03,436 --> 00:09:04,356
+have downloaded several
+
+
+343
+00:09:04,356 --> 00:09:05,486
+different sizes of the same
+
+
+344
+00:09:05,486 --> 00:09:07,816
+artwork say in small, medium and
+
+
+345
+00:09:07,816 --> 00:09:08,706
+large sizes.
+
+
+346
+00:09:09,286 --> 00:09:10,406
+When we call this block, you
+
+
+347
+00:09:10,406 --> 00:09:11,646
+should take the size we provide
+
+
+348
+00:09:11,946 --> 00:09:13,206
+and return the image that most
+
+
+349
+00:09:13,206 --> 00:09:14,646
+closely fits the requested size.
+
+
+350
+00:09:15,996 --> 00:09:17,016
+We would discourage you from
+
+
+351
+00:09:17,016 --> 00:09:18,276
+trying to perform expensive
+
+
+352
+00:09:18,276 --> 00:09:19,796
+image resizing operations here,
+
+
+353
+00:09:19,886 --> 00:09:20,976
+just return the image that you
+
+
+354
+00:09:20,976 --> 00:09:22,246
+already have.
+
+
+355
+00:09:23,556 --> 00:09:24,686
+In the second block of code,
+
+
+356
+00:09:24,686 --> 00:09:25,646
+this is where I'm actually
+
+
+357
+00:09:25,646 --> 00:09:26,966
+providing all of my metadata to
+
+
+358
+00:09:26,966 --> 00:09:28,486
+MPNowPlayingInfoCenter.
+
+
+359
+00:09:29,236 --> 00:09:30,366
+You can see that this is just a
+
+
+360
+00:09:30,366 --> 00:09:31,676
+plain Swift dictionary with some
+
+
+361
+00:09:31,676 --> 00:09:32,706
+keys that are provided by the
+
+
+362
+00:09:32,706 --> 00:09:33,806
+framework and I'm simply
+
+
+363
+00:09:33,806 --> 00:09:35,136
+providing my values as regular
+
+
+364
+00:09:35,136 --> 00:09:35,816
+Swift types.
+
+
+365
+00:09:36,776 --> 00:09:37,746
+There are two properties that I
+
+
+366
+00:09:37,746 --> 00:09:38,976
+want to call out in particular
+
+
+367
+00:09:38,976 --> 00:09:39,156
+though.
+
+
+368
+00:09:39,856 --> 00:09:41,176
+The ElapsedPlaybackTime and the
+
+
+369
+00:09:41,176 --> 00:09:41,986
+PlaybackDuration.
+
+
+370
+00:09:42,806 --> 00:09:43,866
+Like I mentioned earlier, you
+
+
+371
+00:09:43,866 --> 00:09:44,866
+should provide these keys so
+
+
+372
+00:09:44,866 --> 00:09:46,216
+that tvOS knows how long your
+
+
+373
+00:09:46,216 --> 00:09:47,926
+content is and where the user is
+
+
+374
+00:09:47,926 --> 00:09:49,276
+currently at within the content.
+
+
+375
+00:09:49,996 --> 00:09:51,366
+As various playback events occur
+
+
+376
+00:09:51,366 --> 00:09:52,066
+you should update the
+
+
+377
+00:09:52,066 --> 00:09:53,496
+ElapsedPlaybackTime to match
+
+
+378
+00:09:53,496 --> 00:09:54,736
+where the user currently is.
+
+
+379
+00:09:55,606 --> 00:09:55,996
+There's no
+
+
+380
+00:09:55,996 --> 00:09:57,536
+AVPlayerViewController for this
+
+
+381
+00:09:57,536 --> 00:09:59,486
+API on tvOS, but I can show you
+
+
+382
+00:09:59,486 --> 00:10:01,066
+what this metadata looks like in
+
+
+383
+00:10:01,066 --> 00:10:01,976
+the TV Remote app.
+
+
+384
+00:10:02,726 --> 00:10:03,816
+You can see where each property
+
+
+385
+00:10:03,816 --> 00:10:04,706
+is displayed onscreen.
+
+
+386
+00:10:05,206 --> 00:10:05,866
+These should look pretty
+
+
+387
+00:10:05,866 --> 00:10:07,226
+familiar compared to the AVKit
+
+
+388
+00:10:07,226 --> 00:10:07,506
+version.
+
+
+389
+00:10:08,776 --> 00:10:10,066
+Take note that in this version
+
+
+390
+00:10:10,066 --> 00:10:11,226
+though the scrubber bar is under
+
+
+391
+00:10:11,226 --> 00:10:11,746
+your control.
+
+
+392
+00:10:12,546 --> 00:10:14,406
+The ElapsedPlaybackTime and the
+
+
+393
+00:10:14,406 --> 00:10:16,566
+duration need to be provided by
+
+
+394
+00:10:16,566 --> 00:10:17,466
+your app to be displayed
+
+
+395
+00:10:17,466 --> 00:10:17,976
+correctly here.
+
+
+396
+00:10:22,046 --> 00:10:22,826
+All right, let's change gears a
+
+
+397
+00:10:22,826 --> 00:10:24,296
+bit now and talk about how your
+
+
+398
+00:10:24,296 --> 00:10:25,866
+app can handle external playback
+
+
+399
+00:10:25,866 --> 00:10:26,366
+commands.
+
+
+400
+00:10:26,876 --> 00:10:27,836
+Of course, your app will have
+
+
+401
+00:10:27,836 --> 00:10:28,996
+its own controls that the user
+
+
+402
+00:10:28,996 --> 00:10:30,216
+can interact with when your app
+
+
+403
+00:10:30,216 --> 00:10:31,786
+is displayed, but the user may
+
+
+404
+00:10:31,786 --> 00:10:33,106
+also want to control your app
+
+
+405
+00:10:33,106 --> 00:10:35,696
+from the TV Remote app on iOS or
+
+
+406
+00:10:35,696 --> 00:10:36,326
+if they're listening to
+
+
+407
+00:10:36,326 --> 00:10:37,686
+background audio from your app
+
+
+408
+00:10:37,686 --> 00:10:39,726
+on tvOS pressing the play pause
+
+
+409
+00:10:39,726 --> 00:10:41,286
+button on the Siri remote can
+
+
+410
+00:10:41,286 --> 00:10:42,616
+pause your app even while it's
+
+
+411
+00:10:42,616 --> 00:10:43,176
+in the background.
+
+
+412
+00:10:43,866 --> 00:10:44,746
+To support these kinds of
+
+
+413
+00:10:44,746 --> 00:10:46,186
+interactions you will need to
+
+
+414
+00:10:46,186 --> 00:10:47,356
+make sure your app can handle
+
+
+415
+00:10:47,356 --> 00:10:47,936
+these Remote Commands.
+
+
+416
+00:10:50,046 --> 00:10:50,776
+The way to do that is with an
+
+
+417
+00:10:50,776 --> 00:10:51,566
+API called
+
+
+418
+00:10:51,566 --> 00:10:52,706
+MPRemoteCommandCenter.
+
+
+419
+00:10:53,576 --> 00:10:54,566
+The way to do that is with an
+
+
+420
+00:10:54,566 --> 00:10:55,546
+API called
+
+
+421
+00:10:55,606 --> 00:10:56,646
+MPRemoteCommandCenter.
+
+
+422
+00:10:57,286 --> 00:10:58,616
+This is another singleton object
+
+
+423
+00:10:58,616 --> 00:11:00,006
+that has a property for each
+
+
+424
+00:11:00,006 --> 00:11:01,076
+different kind of command that
+
+
+425
+00:11:01,076 --> 00:11:02,316
+your app can choose to support.
+
+
+426
+00:11:02,806 --> 00:11:04,866
+For each command that you want
+
+
+427
+00:11:04,866 --> 00:11:06,776
+support you can register either
+
+
+428
+00:11:06,776 --> 00:11:07,976
+a target-action pair or a
+
+
+429
+00:11:07,976 --> 00:11:09,396
+callback block which will be
+
+
+430
+00:11:09,396 --> 00:11:10,376
+invoked when the command is
+
+
+431
+00:11:10,376 --> 00:11:10,736
+performed.
+
+
+432
+00:11:11,296 --> 00:11:13,246
+If you provide a target-action
+
+
+433
+00:11:13,246 --> 00:11:14,386
+or a block the command is
+
+
+434
+00:11:14,386 --> 00:11:15,396
+assumed to be supported.
+
+
+435
+00:11:16,146 --> 00:11:17,236
+If you want to provide a handler
+
+
+436
+00:11:17,236 --> 00:11:18,176
+for the command, but need to
+
+
+437
+00:11:18,176 --> 00:11:19,476
+temporarily indicate that it's
+
+
+438
+00:11:19,476 --> 00:11:21,236
+not available you can mark it as
+
+
+439
+00:11:21,236 --> 00:11:21,656
+disabled.
+
+
+440
+00:11:21,946 --> 00:11:24,066
+The method or block that you
+
+
+441
+00:11:24,066 --> 00:11:25,496
+provide must return an enum
+
+
+442
+00:11:25,496 --> 00:11:27,006
+value to indicate if your app
+
+
+443
+00:11:27,006 --> 00:11:28,426
+was able to successfully perform
+
+
+444
+00:11:28,426 --> 00:11:28,876
+the command.
+
+
+445
+00:11:29,676 --> 00:11:30,986
+The definition of success here
+
+
+446
+00:11:30,986 --> 00:11:31,586
+is pretty broad.
+
+
+447
+00:11:32,066 --> 00:11:33,196
+For example, if the user is
+
+
+448
+00:11:33,196 --> 00:11:34,176
+playing the last song in a
+
+
+449
+00:11:34,176 --> 00:11:35,716
+playlist and requests to skip to
+
+
+450
+00:11:35,716 --> 00:11:37,336
+the next track your app may
+
+
+451
+00:11:37,336 --> 00:11:38,796
+choose to simply end playback.
+
+
+452
+00:11:39,266 --> 00:11:40,426
+That would still be considered
+
+
+453
+00:11:40,426 --> 00:11:41,586
+successfully handling the
+
+
+454
+00:11:41,586 --> 00:11:42,946
+command so you should return the
+
+
+455
+00:11:42,946 --> 00:11:45,006
+success value in that case.
+
+
+456
+00:11:47,056 --> 00:11:48,086
+Some commands like play and
+
+
+457
+00:11:48,086 --> 00:11:49,046
+pause are pretty simple.
+
+
+458
+00:11:49,316 --> 00:11:50,616
+If the handler for the pause
+
+
+459
+00:11:50,616 --> 00:11:51,776
+command is invoked it's pretty
+
+
+460
+00:11:51,776 --> 00:11:52,906
+clear what your app needs to do.
+
+
+461
+00:11:53,646 --> 00:11:54,466
+But other commands are more
+
+
+462
+00:11:54,466 --> 00:11:56,176
+flexible and both accept
+
+
+463
+00:11:56,176 --> 00:11:57,826
+parameters from your app and can
+
+
+464
+00:11:57,826 --> 00:11:59,236
+provide more parameters back to
+
+
+465
+00:11:59,236 --> 00:11:59,806
+your handler.
+
+
+466
+00:12:00,906 --> 00:12:01,706
+For example, the
+
+
+467
+00:12:01,706 --> 00:12:03,696
+MPSkipIntervalCommand is used to
+
+
+468
+00:12:03,696 --> 00:12:05,236
+allow the user to skip forward
+
+
+469
+00:12:05,236 --> 00:12:06,506
+or backward by several seconds.
+
+
+470
+00:12:07,366 --> 00:12:08,206
+Your app can express a
+
+
+471
+00:12:08,206 --> 00:12:09,516
+preference for how many seconds
+
+
+472
+00:12:09,516 --> 00:12:10,306
+the user should be allowed to
+
+
+473
+00:12:10,306 --> 00:12:10,646
+skip.
+
+
+474
+00:12:11,356 --> 00:12:12,626
+The skip command object allows
+
+
+475
+00:12:12,626 --> 00:12:13,336
+you to configure that
+
+
+476
+00:12:13,336 --> 00:12:13,756
+preference.
+
+
+477
+00:12:14,076 --> 00:12:16,326
+When the user actually performs
+
+
+478
+00:12:16,326 --> 00:12:17,776
+the skip command your handler
+
+
+479
+00:12:17,776 --> 00:12:18,936
+will be invoked with an object
+
+
+480
+00:12:18,936 --> 00:12:19,416
+parameter.
+
+
+481
+00:12:19,916 --> 00:12:21,356
+That object is of the type
+
+
+482
+00:12:21,356 --> 00:12:23,396
+MPSkipIntervalCommandEvent and
+
+
+483
+00:12:23,396 --> 00:12:25,046
+it has an interval property that
+
+
+484
+00:12:25,046 --> 00:12:26,226
+tells your app how many seconds
+
+
+485
+00:12:26,226 --> 00:12:26,696
+you should skip.
+
+
+486
+00:12:27,276 --> 00:12:28,676
+And be careful this may not be
+
+
+487
+00:12:28,676 --> 00:12:30,126
+the same as the skip preference
+
+
+488
+00:12:30,126 --> 00:12:30,986
+you provided earlier.
+
+
+489
+00:12:32,126 --> 00:12:33,376
+Let's look at an example.
+
+
+490
+00:12:33,986 --> 00:12:34,816
+Here's how an app might
+
+
+491
+00:12:34,816 --> 00:12:35,956
+implement the skip backward
+
+
+492
+00:12:35,956 --> 00:12:36,316
+command.
+
+
+493
+00:12:37,816 --> 00:12:38,836
+You can see here that on the
+
+
+494
+00:12:38,836 --> 00:12:40,266
+first line I would prefer that
+
+
+495
+00:12:40,266 --> 00:12:41,616
+the user skips backward by 10
+
+
+496
+00:12:41,616 --> 00:12:43,326
+second intervals so I'm going to
+
+
+497
+00:12:43,326 --> 00:12:44,816
+assign the preferred intervals
+
+
+498
+00:12:44,816 --> 00:12:46,136
+property on the
+
+
+499
+00:12:46,136 --> 00:12:47,636
+SkipBackwardCommand object.
+
+
+500
+00:12:48,006 --> 00:12:50,736
+Then I'm going to provide my
+
+
+501
+00:12:50,736 --> 00:12:51,366
+handler block.
+
+
+502
+00:12:51,906 --> 00:12:53,166
+Now technically every command
+
+
+503
+00:12:53,166 --> 00:12:54,426
+handler receives the generic
+
+
+504
+00:12:54,426 --> 00:12:56,746
+type MPRemoteCommandEvent as the
+
+
+505
+00:12:56,746 --> 00:12:58,776
+parameter, but I need to cast it
+
+
+506
+00:12:58,776 --> 00:13:00,696
+to an MPSkipIntervalCommandEvent
+
+
+507
+00:13:00,696 --> 00:13:01,346
+so that I can get to its
+
+
+508
+00:13:01,346 --> 00:13:01,966
+interval property.
+
+
+509
+00:13:05,276 --> 00:13:06,196
+Then I'm going to actually
+
+
+510
+00:13:06,196 --> 00:13:06,776
+perform the command.
+
+
+511
+00:13:07,316 --> 00:13:08,416
+In this sample, I'm playing my
+
+
+512
+00:13:08,416 --> 00:13:09,626
+content with an AVPlayer.
+
+
+513
+00:13:10,286 --> 00:13:11,756
+Since AVPlayer expresses its
+
+
+514
+00:13:11,756 --> 00:13:13,736
+time using CMTime structs that's
+
+
+515
+00:13:13,736 --> 00:13:14,426
+how I'm going to need to
+
+
+516
+00:13:14,426 --> 00:13:15,576
+calculate my new playback
+
+
+517
+00:13:15,576 --> 00:13:15,926
+position.
+
+
+518
+00:13:17,226 --> 00:13:18,136
+You can see here that I'm
+
+
+519
+00:13:18,136 --> 00:13:18,976
+getting the player's current
+
+
+520
+00:13:18,976 --> 00:13:20,986
+composition then creating a new
+
+
+521
+00:13:20,986 --> 00:13:22,516
+CMTime struct with the skip
+
+
+522
+00:13:22,516 --> 00:13:22,916
+interval.
+
+
+523
+00:13:23,946 --> 00:13:25,136
+Finally, I'm subtracting that
+
+
+524
+00:13:25,136 --> 00:13:26,336
+interval from the current time.
+
+
+525
+00:13:27,486 --> 00:13:29,326
+I ask the player to seek to that
+
+
+526
+00:13:29,326 --> 00:13:30,776
+time and then return successful
+
+
+527
+00:13:30,776 --> 00:13:31,566
+from the command handler.
+
+
+528
+00:13:32,066 --> 00:13:34,376
+When the player finishes seeking
+
+
+529
+00:13:34,376 --> 00:13:36,056
+to the new time my completion
+
+
+530
+00:13:36,056 --> 00:13:37,296
+handler will be invoked and
+
+
+531
+00:13:37,296 --> 00:13:38,226
+that's where I'm going to update
+
+
+532
+00:13:38,226 --> 00:13:39,016
+my Now Playing info.
+
+
+533
+00:13:39,736 --> 00:13:41,146
+Remember, if we modify playback
+
+
+534
+00:13:41,146 --> 00:13:42,576
+state like seeking to a new time
+
+
+535
+00:13:42,906 --> 00:13:44,036
+we need to publish new Now
+
+
+536
+00:13:44,036 --> 00:13:45,446
+Playing info so we can update
+
+
+537
+00:13:45,446 --> 00:13:46,406
+the elapsed playback time.
+
+
+538
+00:13:47,306 --> 00:13:48,336
+Here I'm calling a function
+
+
+539
+00:13:48,336 --> 00:13:49,826
+called updateNowPlaying which
+
+
+540
+00:13:49,826 --> 00:13:51,476
+I'll show you on this next
+
+
+541
+00:13:51,976 --> 00:13:52,106
+slide.
+
+
+542
+00:13:53,276 --> 00:13:54,246
+Here you can see how I'm going
+
+
+543
+00:13:54,246 --> 00:13:55,416
+to update my Now Playing info.
+
+
+544
+00:13:55,806 --> 00:13:56,846
+This is basically the same as
+
+
+545
+00:13:56,846 --> 00:13:57,906
+the example I showed you at the
+
+
+546
+00:13:57,906 --> 00:13:59,356
+beginning of this section, but
+
+
+547
+00:13:59,356 --> 00:14:00,706
+want to call out one specific
+
+
+548
+00:14:00,706 --> 00:14:01,046
+detail.
+
+
+549
+00:14:01,966 --> 00:14:03,286
+Here you can see that I'm using
+
+
+550
+00:14:03,286 --> 00:14:04,826
+the AVPlayer's current time
+
+
+551
+00:14:04,826 --> 00:14:06,666
+property in order to provide an
+
+
+552
+00:14:06,736 --> 00:14:08,246
+accurate value for the elapsed
+
+
+553
+00:14:08,246 --> 00:14:09,166
+playback time property.
+
+
+554
+00:14:10,076 --> 00:14:11,626
+In this case, since AVPlayer is
+
+
+555
+00:14:11,626 --> 00:14:13,796
+going to return a CMTime, but
+
+
+556
+00:14:13,796 --> 00:14:15,406
+MPNowPlayingInfoCenter requires
+
+
+557
+00:14:15,406 --> 00:14:16,586
+a floating-point value, that's
+
+
+558
+00:14:16,646 --> 00:14:18,326
+the number of elapsed seconds, I
+
+
+559
+00:14:18,326 --> 00:14:20,506
+need to use the CMTimeGetSeconds
+
+
+560
+00:14:20,506 --> 00:14:21,766
+function to convert the value.
+
+
+561
+00:14:22,816 --> 00:14:23,806
+And that's all there is to
+
+
+562
+00:14:23,806 --> 00:14:25,056
+providing a great playback
+
+
+563
+00:14:25,056 --> 00:14:26,336
+experience with Remote Commands
+
+
+564
+00:14:26,336 --> 00:14:27,356
+and Now Playing information.
+
+
+565
+00:14:28,446 --> 00:14:29,456
+For more information, you can
+
+
+566
+00:14:29,456 --> 00:14:31,036
+visit the URL shown here to find
+
+
+567
+00:14:31,036 --> 00:14:32,196
+links to documentation and
+
+
+568
+00:14:32,196 --> 00:14:33,006
+related sessions.
+
+
+569
+00:14:33,416 --> 00:14:33,976
+Thanks for watching.
+

@@ -1,0 +1,6854 @@
+1
+00:00:26,516 --> 00:00:31,266
+[ Applause ]
+
+
+2
+00:00:31,766 --> 00:00:32,305
+>> Jeff Tu: Good afternoon,
+
+
+3
+00:00:32,305 --> 00:00:32,746
+everyone.
+
+
+4
+00:00:32,876 --> 00:00:34,116
+I'd like to welcome to you part
+
+
+5
+00:00:34,116 --> 00:00:35,996
+two to Advances in Networking, a
+
+
+6
+00:00:35,996 --> 00:00:37,356
+continuation of the session from
+
+
+7
+00:00:37,356 --> 00:00:38,166
+the past hour.
+
+
+8
+00:00:38,956 --> 00:00:40,466
+My name is Jeff Tu, and I'll be
+
+
+9
+00:00:40,466 --> 00:00:41,326
+taking you through the first
+
+
+10
+00:00:41,326 --> 00:00:41,500
+topic.
+
+
+11
+00:00:44,516 --> 00:00:45,936
+In this session we'll discuss
+
+
+12
+00:00:45,936 --> 00:00:47,856
+new URLSession developer API and
+
+
+13
+00:00:47,856 --> 00:00:49,736
+enhancements, networking best
+
+
+14
+00:00:49,736 --> 00:00:51,386
+practices, and other important
+
+
+15
+00:00:51,386 --> 00:00:53,000
+technology areas in networking.
+
+
+16
+00:00:56,066 --> 00:00:57,516
+Our first topic is new
+
+
+17
+00:00:57,516 --> 00:00:58,446
+URLSession API.
+
+
+18
+00:00:59,386 --> 00:01:02,556
+But before that, I'd like to
+
+
+19
+00:01:02,556 --> 00:01:04,086
+review the underlying API we'll
+
+
+20
+00:01:04,086 --> 00:01:05,396
+be talking about, which is
+
+
+21
+00:01:05,396 --> 00:01:06,226
+URLSession.
+
+
+22
+00:01:07,106 --> 00:01:09,086
+URLSession is an easy-to-use API
+
+
+23
+00:01:09,206 --> 00:01:11,176
+for networking introduced in iOS
+
+
+24
+00:01:11,176 --> 00:01:12,676
+7 and OS X Mavericks.
+
+
+25
+00:01:13,736 --> 00:01:15,236
+URLSession supports networking
+
+
+26
+00:01:15,266 --> 00:01:18,816
+protocols like HTTP/2; HTTP/1.1;
+
+
+27
+00:01:19,156 --> 00:01:21,646
+FTP; and custom streams with an
+
+
+28
+00:01:21,646 --> 00:01:23,756
+overall emphasis on URL loading.
+
+
+29
+00:01:24,126 --> 00:01:26,976
+If you provide it an HTTPS URL,
+
+
+30
+00:01:27,276 --> 00:01:29,096
+it also automatically provides
+
+
+31
+00:01:29,096 --> 00:01:30,906
+the encryption and decryption of
+
+
+32
+00:01:30,906 --> 00:01:32,636
+data between you and the web
+
+
+33
+00:01:32,636 --> 00:01:32,956
+server.
+
+
+34
+00:01:34,286 --> 00:01:35,726
+Last year we deprecated
+
+
+35
+00:01:35,866 --> 00:01:36,846
+NSURLConnection API.
+
+
+36
+00:01:36,846 --> 00:01:39,476
+So we encourage any new app
+
+
+37
+00:01:39,476 --> 00:01:40,596
+development to occur with
+
+
+38
+00:01:40,596 --> 00:01:41,416
+URLSession.
+
+
+39
+00:01:42,136 --> 00:01:43,486
+For more information on
+
+
+40
+00:01:43,486 --> 00:01:44,946
+URLSession, I encourage you to
+
+
+41
+00:01:44,946 --> 00:01:47,356
+review past WWDC sessions and
+
+
+42
+00:01:47,356 --> 00:01:48,726
+other online documentation.
+
+
+43
+00:01:51,936 --> 00:01:53,336
+Recall that there are different
+
+
+44
+00:01:53,336 --> 00:01:54,916
+kinds of URLSession objects that
+
+
+45
+00:01:54,916 --> 00:01:55,576
+you can create.
+
+
+46
+00:01:56,446 --> 00:01:57,896
+The basic object you can create
+
+
+47
+00:01:57,966 --> 00:01:59,556
+is a default configuration
+
+
+48
+00:01:59,676 --> 00:02:01,126
+URLSession object.
+
+
+49
+00:02:02,096 --> 00:02:03,786
+Default sessions have a behavior
+
+
+50
+00:02:03,906 --> 00:02:05,616
+where a task either fetches a
+
+
+51
+00:02:05,616 --> 00:02:07,896
+URL immediately; or if the
+
+
+52
+00:02:07,896 --> 00:02:09,036
+device can't connect to the web
+
+
+53
+00:02:09,106 --> 00:02:10,616
+server, fails immediately.
+
+
+54
+00:02:11,646 --> 00:02:13,106
+URL loads can fail because the
+
+
+55
+00:02:13,106 --> 00:02:14,316
+device isn't connected to the
+
+
+56
+00:02:14,316 --> 00:02:15,686
+Internet or if the server you're
+
+
+57
+00:02:15,686 --> 00:02:16,826
+trying to reach happens to be
+
+
+58
+00:02:16,826 --> 00:02:17,296
+down.
+
+
+59
+00:02:18,236 --> 00:02:19,386
+Those are just a couple of
+
+
+60
+00:02:19,386 --> 00:02:19,946
+examples.
+
+
+61
+00:02:21,146 --> 00:02:22,836
+Background URLSession objects,
+
+
+62
+00:02:22,836 --> 00:02:24,506
+on the other hand, don't have
+
+
+63
+00:02:24,506 --> 00:02:25,656
+this immediate fetch or fail
+
+
+64
+00:02:25,656 --> 00:02:27,256
+behavior but are scheduled out
+
+
+65
+00:02:27,256 --> 00:02:28,976
+of process and continually
+
+
+66
+00:02:28,976 --> 00:02:30,096
+monitored for network
+
+
+67
+00:02:30,346 --> 00:02:31,626
+connectivity to the server.
+
+
+68
+00:02:34,436 --> 00:02:36,386
+There are more examples of a
+
+
+69
+00:02:36,386 --> 00:02:37,926
+URLSession task failing because
+
+
+70
+00:02:37,926 --> 00:02:38,876
+of bad connectivity.
+
+
+71
+00:02:39,816 --> 00:02:40,736
+You might have no Internet
+
+
+72
+00:02:40,736 --> 00:02:42,556
+connection, you might be in a
+
+
+73
+00:02:42,606 --> 00:02:43,666
+theatre with your device in
+
+
+74
+00:02:43,666 --> 00:02:45,056
+Airplane Mode or it should be in
+
+
+75
+00:02:45,056 --> 00:02:45,626
+Airplane Mode.
+
+
+76
+00:02:46,756 --> 00:02:47,776
+Perhaps you have a session
+
+
+77
+00:02:47,776 --> 00:02:49,196
+object where you've disallowed
+
+
+78
+00:02:49,196 --> 00:02:51,246
+cell usage but the user only has
+
+
+79
+00:02:51,246 --> 00:02:52,036
+cell connectivity.
+
+
+80
+00:02:52,986 --> 00:02:54,236
+Or the server might only be
+
+
+81
+00:02:54,236 --> 00:02:55,726
+accessible behind a VPN and the
+
+
+82
+00:02:55,726 --> 00:02:57,406
+admin recently changed VPN
+
+
+83
+00:02:57,406 --> 00:02:58,000
+access.
+
+
+84
+00:03:01,206 --> 00:03:02,686
+How do you as an app developer
+
+
+85
+00:03:02,686 --> 00:03:03,896
+deal with a network load that
+
+
+86
+00:03:03,976 --> 00:03:04,476
+fails?
+
+
+87
+00:03:05,696 --> 00:03:08,366
+In the past, we've advised you
+
+
+88
+00:03:08,366 --> 00:03:10,096
+to use the SCNetworkReachability
+
+
+89
+00:03:10,096 --> 00:03:11,576
+API to monitor when you might
+
+
+90
+00:03:11,576 --> 00:03:13,116
+have connectivity again to the
+
+
+91
+00:03:13,176 --> 00:03:13,566
+server.
+
+
+92
+00:03:14,406 --> 00:03:16,006
+Other approaches are polling
+
+
+93
+00:03:16,006 --> 00:03:17,856
+every set period of time or
+
+
+94
+00:03:17,856 --> 00:03:19,636
+depending on the user to tap or
+
+
+95
+00:03:19,636 --> 00:03:21,186
+drag to refresh the UI.
+
+
+96
+00:03:22,246 --> 00:03:23,786
+The problem is that these
+
+
+97
+00:03:23,786 --> 00:03:25,196
+approaches add complexity to
+
+
+98
+00:03:25,196 --> 00:03:26,646
+your apps and aren't always
+
+
+99
+00:03:26,646 --> 00:03:27,146
+effective.
+
+
+100
+00:03:28,226 --> 00:03:30,256
+SCNetworkReachability only tells
+
+
+101
+00:03:30,256 --> 00:03:31,606
+you that you might be able to
+
+
+102
+00:03:31,606 --> 00:03:32,936
+reach the server, not that you
+
+
+103
+00:03:32,936 --> 00:03:33,276
+will.
+
+
+104
+00:03:34,256 --> 00:03:35,616
+You, our developers, have been
+
+
+105
+00:03:35,616 --> 00:03:37,000
+asking for an easier solution.
+
+
+106
+00:03:39,536 --> 00:03:41,066
+Wouldn't it be easier to say,
+
+
+107
+00:03:41,066 --> 00:03:42,956
+then, "Please fetch me this
+
+
+108
+00:03:42,956 --> 00:03:44,746
+resource when the network is
+
+
+109
+00:03:44,746 --> 00:03:45,366
+available"?
+
+
+110
+00:03:48,756 --> 00:03:50,016
+We're happy to tell you about a
+
+
+111
+00:03:50,016 --> 00:03:51,126
+new feature that lets you do
+
+
+112
+00:03:51,126 --> 00:03:51,436
+this.
+
+
+113
+00:03:51,886 --> 00:03:53,396
+We call this the URLSession
+
+
+114
+00:03:53,466 --> 00:03:55,036
+Adaptable Connectivity API.
+
+
+115
+00:03:56,246 --> 00:03:56,486
+This --
+
+
+116
+00:03:57,516 --> 00:04:01,936
+[ Applause ]
+
+
+117
+00:04:02,436 --> 00:04:04,706
+This API is available now on all
+
+
+118
+00:04:04,706 --> 00:04:05,256
+platforms.
+
+
+119
+00:04:07,476 --> 00:04:09,626
+By opting into this API, you
+
+
+120
+00:04:09,626 --> 00:04:11,316
+tell URLSession that in the
+
+
+121
+00:04:11,316 --> 00:04:13,156
+event that the task would fail
+
+
+122
+00:04:13,156 --> 00:04:13,936
+because of a lack of
+
+
+123
+00:04:13,936 --> 00:04:15,746
+connectivity that it should wait
+
+
+124
+00:04:15,746 --> 00:04:17,176
+for a connection to the server
+
+
+125
+00:04:17,176 --> 00:04:18,416
+instead of failing.
+
+
+126
+00:04:21,546 --> 00:04:22,436
+How do you opt in?
+
+
+127
+00:04:22,766 --> 00:04:24,286
+There's a new boolean property
+
+
+128
+00:04:24,286 --> 00:04:26,056
+called waitsForConnectivity.
+
+
+129
+00:04:26,826 --> 00:04:28,296
+Set this to true, and then you
+
+
+130
+00:04:28,296 --> 00:04:29,246
+get the new behavior.
+
+
+131
+00:04:30,226 --> 00:04:31,746
+I'd like to repeat what this
+
+
+132
+00:04:31,746 --> 00:04:32,496
+property does.
+
+
+133
+00:04:33,056 --> 00:04:34,566
+You go from the default behavior
+
+
+134
+00:04:34,566 --> 00:04:36,466
+of load it now or fail now if I
+
+
+135
+00:04:36,466 --> 00:04:38,976
+can't connect to load it now,
+
+
+136
+00:04:39,306 --> 00:04:40,366
+but if I can't and would have
+
+
+137
+00:04:40,366 --> 00:04:42,206
+failed because of a lack of
+
+
+138
+00:04:42,206 --> 00:04:44,146
+connectivity, try again when I
+
+
+139
+00:04:44,146 --> 00:04:45,426
+get a real chance to talk to the
+
+
+140
+00:04:45,426 --> 00:04:45,816
+server.
+
+
+141
+00:04:46,526 --> 00:04:48,896
+The API also waits when it
+
+
+142
+00:04:48,896 --> 00:04:50,556
+encounters DNS failures as well
+
+
+143
+00:04:50,686 --> 00:04:52,426
+since one network's DNS service
+
+
+144
+00:04:52,426 --> 00:04:53,986
+might fail to resolve but
+
+
+145
+00:04:53,986 --> 00:04:55,946
+another one may not.
+
+
+146
+00:04:56,576 --> 00:04:59,046
+Please note that this boolean is
+
+
+147
+00:04:59,046 --> 00:05:00,776
+a no op for background sessions,
+
+
+148
+00:05:00,776 --> 00:05:02,916
+as background URLSession objects
+
+
+149
+00:05:02,916 --> 00:05:04,366
+get this behavior automatically.
+
+
+150
+00:05:04,986 --> 00:05:05,966
+We'll tell you later in this
+
+
+151
+00:05:05,966 --> 00:05:09,000
+hour more about the differences.
+
+
+152
+00:05:11,016 --> 00:05:12,526
+You may be wondering, "Can my
+
+
+153
+00:05:12,646 --> 00:05:14,146
+code get a notification if it's
+
+
+154
+00:05:14,146 --> 00:05:15,276
+in this waiting state?"
+
+
+155
+00:05:15,376 --> 00:05:18,556
+You might want to have the app
+
+
+156
+00:05:18,556 --> 00:05:19,836
+present other behavior while
+
+
+157
+00:05:19,836 --> 00:05:20,686
+it's waiting to connect.
+
+
+158
+00:05:20,936 --> 00:05:22,826
+For example, having an offline
+
+
+159
+00:05:22,826 --> 00:05:24,376
+browsing mode or a mode that
+
+
+160
+00:05:24,376 --> 00:05:25,946
+operates when the user is only
+
+
+161
+00:05:25,946 --> 00:05:26,660
+on cell.
+
+
+162
+00:05:29,436 --> 00:05:30,786
+If you would like to know when
+
+
+163
+00:05:30,786 --> 00:05:32,076
+your app is in this waiting
+
+
+164
+00:05:32,076 --> 00:05:33,766
+state, you can optionally
+
+
+165
+00:05:33,766 --> 00:05:35,246
+implement the URLSession
+
+
+166
+00:05:35,286 --> 00:05:37,176
+taskIsWaitingForConnectivity
+
+
+167
+00:05:37,176 --> 00:05:38,086
+delegate method.
+
+
+168
+00:05:39,106 --> 00:05:40,446
+Note that this delegate method
+
+
+169
+00:05:40,446 --> 00:05:42,776
+is only called if you've opted
+
+
+170
+00:05:42,776 --> 00:05:43,866
+into the waitsForConnectivity
+
+
+171
+00:05:43,866 --> 00:05:45,096
+property with a true value.
+
+
+172
+00:05:45,806 --> 00:05:47,446
+If you've done this, the
+
+
+173
+00:05:47,446 --> 00:05:48,636
+delegate method itself will be
+
+
+174
+00:05:48,636 --> 00:05:50,386
+called only one time or not at
+
+
+175
+00:05:50,386 --> 00:05:52,256
+all if the task never had to
+
+
+176
+00:05:53,016 --> 00:05:53,126
+wait.
+
+
+177
+00:05:56,896 --> 00:05:58,566
+We recommend that your apps
+
+
+178
+00:05:58,706 --> 00:05:59,726
+always opt into the
+
+
+179
+00:05:59,726 --> 00:06:01,046
+waitsForConnectivity property.
+
+
+180
+00:06:01,816 --> 00:06:03,306
+This is because even when you
+
+
+181
+00:06:03,306 --> 00:06:05,386
+opt in, the task will still try
+
+
+182
+00:06:05,386 --> 00:06:06,156
+to run immediately.
+
+
+183
+00:06:06,696 --> 00:06:08,106
+The task will only wait if it
+
+
+184
+00:06:08,106 --> 00:06:09,146
+can't connect to the server.
+
+
+185
+00:06:09,986 --> 00:06:11,146
+There are rare exceptions to
+
+
+186
+00:06:11,146 --> 00:06:12,126
+opting into the property,
+
+
+187
+00:06:12,126 --> 00:06:12,396
+though.
+
+
+188
+00:06:13,126 --> 00:06:14,366
+For example, if you had a
+
+
+189
+00:06:14,366 --> 00:06:15,796
+URLSession task whose purpose
+
+
+190
+00:06:15,796 --> 00:06:16,916
+was to buy stock at market
+
+
+191
+00:06:16,916 --> 00:06:18,516
+price, you'd want that to run
+
+
+192
+00:06:18,516 --> 00:06:20,476
+now or fail now and not wait
+
+
+193
+00:06:20,476 --> 00:06:22,746
+until you had an Internet
+
+
+194
+00:06:23,066 --> 00:06:23,576
+connection.
+
+
+195
+00:06:24,556 --> 00:06:26,656
+I'd also like to mention that
+
+
+196
+00:06:26,656 --> 00:06:27,376
+when you opt into
+
+
+197
+00:06:27,376 --> 00:06:29,236
+waitsForConnectivity, the
+
+
+198
+00:06:29,236 --> 00:06:30,796
+timeout interval for request
+
+
+199
+00:06:31,086 --> 00:06:33,186
+timer starts only after you've
+
+
+200
+00:06:33,226 --> 00:06:34,256
+connected to the server.
+
+
+201
+00:06:35,066 --> 00:06:36,756
+Timeout interval for resource,
+
+
+202
+00:06:36,756 --> 00:06:38,456
+however, is always respected.
+
+
+203
+00:06:39,026 --> 00:06:43,746
+Let's summarize how we would use
+
+
+204
+00:06:43,746 --> 00:06:45,326
+the API and then go through a
+
+
+205
+00:06:45,326 --> 00:06:45,976
+code example.
+
+
+206
+00:06:47,326 --> 00:06:48,956
+The main thing is to opt into
+
+
+207
+00:06:48,956 --> 00:06:49,856
+the waitsForConnectivity
+
+
+208
+00:06:49,856 --> 00:06:50,336
+property.
+
+
+209
+00:06:50,956 --> 00:06:52,286
+You would create and resume the
+
+
+210
+00:06:52,286 --> 00:06:53,646
+URLSessionTask as before.
+
+
+211
+00:06:54,666 --> 00:06:56,216
+If the device can't connect to
+
+
+212
+00:06:56,216 --> 00:06:57,946
+the server, we'd call a delegate
+
+
+213
+00:06:57,946 --> 00:06:59,656
+callback if you implemented it
+
+
+214
+00:06:59,796 --> 00:07:00,636
+and only once.
+
+
+215
+00:07:02,116 --> 00:07:03,756
+All other URLSession methods are
+
+
+216
+00:07:03,756 --> 00:07:05,436
+still called same as before.
+
+
+217
+00:07:06,496 --> 00:07:08,016
+Remember, though, that this API
+
+
+218
+00:07:08,016 --> 00:07:09,316
+only has an effect for
+
+
+219
+00:07:09,316 --> 00:07:10,660
+non-background sessions.
+
+
+220
+00:07:14,636 --> 00:07:15,826
+Let's go through a sample code.
+
+
+221
+00:07:17,186 --> 00:07:18,846
+First create a session
+
+
+222
+00:07:18,846 --> 00:07:20,756
+configuration object and make
+
+
+223
+00:07:20,756 --> 00:07:24,886
+one for default session type.
+
+
+224
+00:07:25,086 --> 00:07:25,756
+Opt into the
+
+
+225
+00:07:25,756 --> 00:07:27,056
+waitsForConnectivity property.
+
+
+226
+00:07:29,536 --> 00:07:31,286
+Create the session object and
+
+
+227
+00:07:31,286 --> 00:07:32,736
+set the URL you want to load.
+
+
+228
+00:07:33,366 --> 00:07:37,276
+Use the session object to create
+
+
+229
+00:07:37,276 --> 00:07:38,046
+a task object.
+
+
+230
+00:07:41,976 --> 00:07:43,606
+And finally, resume the task to
+
+
+231
+00:07:43,606 --> 00:07:44,000
+get it started.
+
+
+232
+00:07:50,156 --> 00:07:51,346
+Even with adaptable
+
+
+233
+00:07:51,346 --> 00:07:52,936
+connectivity, your request may
+
+
+234
+00:07:52,936 --> 00:07:54,396
+still fail for other reasons.
+
+
+235
+00:07:55,126 --> 00:07:56,736
+For example, you could connect
+
+
+236
+00:07:56,736 --> 00:07:58,846
+to the server, but a new data
+
+
+237
+00:07:58,846 --> 00:08:00,856
+center employee might unplug a
+
+
+238
+00:08:00,856 --> 00:08:02,016
+server, cause the network
+
+
+239
+00:08:02,016 --> 00:08:03,086
+connection to drop, and all your
+
+
+240
+00:08:03,086 --> 00:08:03,946
+apps on your phone might
+
+
+241
+00:08:04,086 --> 00:08:04,660
+disappear.
+
+
+242
+00:08:06,666 --> 00:08:08,416
+Or your device connects to the
+
+
+243
+00:08:08,466 --> 00:08:10,826
+server and sends an HTTP
+
+
+244
+00:08:10,826 --> 00:08:12,226
+request, but there's so much
+
+
+245
+00:08:12,226 --> 00:08:13,476
+traffic that the request times
+
+
+246
+00:08:13,476 --> 00:08:13,706
+out.
+
+
+247
+00:08:14,926 --> 00:08:16,446
+For situations like these, we'd
+
+
+248
+00:08:16,446 --> 00:08:17,536
+like you to consult online
+
+
+249
+00:08:17,536 --> 00:08:19,696
+resources that go into more
+
+
+250
+00:08:19,696 --> 00:08:20,776
+detail on what you can do.
+
+
+251
+00:08:22,136 --> 00:08:23,336
+Retrying network loads in a
+
+
+252
+00:08:23,336 --> 00:08:24,786
+tight loop, though, is almost
+
+
+253
+00:08:24,786 --> 00:08:25,746
+always a bad idea.
+
+
+254
+00:08:25,876 --> 00:08:30,876
+You asked for a better way to
+
+
+255
+00:08:30,876 --> 00:08:32,116
+load network resources.
+
+
+256
+00:08:32,525 --> 00:08:33,846
+Better than polling for network
+
+
+257
+00:08:33,846 --> 00:08:35,556
+connectivity to the server and
+
+
+258
+00:08:35,556 --> 00:08:36,775
+better than reachability API
+
+
+259
+00:08:36,905 --> 00:08:37,876
+that won't guarantee a
+
+
+260
+00:08:37,876 --> 00:08:38,905
+connection to the server.
+
+
+261
+00:08:40,265 --> 00:08:42,596
+Let URLSession do the work for
+
+
+262
+00:08:42,596 --> 00:08:42,836
+you.
+
+
+263
+00:08:43,626 --> 00:08:44,476
+Opt into the
+
+
+264
+00:08:44,476 --> 00:08:46,116
+waitsForConnectivity Adaptable
+
+
+265
+00:08:46,116 --> 00:08:47,056
+Connectivity API.
+
+
+266
+00:08:47,686 --> 00:08:49,746
+If you opt in, the request will
+
+
+267
+00:08:49,746 --> 00:08:51,516
+still run immediately with no
+
+
+268
+00:08:51,516 --> 00:08:53,786
+performance penalty and only
+
+
+269
+00:08:53,786 --> 00:08:55,056
+wait if you can't connect to the
+
+
+270
+00:08:55,056 --> 00:08:55,476
+server.
+
+
+271
+00:08:56,366 --> 00:08:57,756
+Once it can connect, your
+
+
+272
+00:08:57,756 --> 00:08:59,396
+URLSession task behaves just
+
+
+273
+00:08:59,396 --> 00:09:00,106
+like it did before.
+
+
+274
+00:09:02,326 --> 00:09:03,566
+Continuing our theme of what's
+
+
+275
+00:09:03,566 --> 00:09:05,126
+new, I'd like to pass the mic to
+
+
+276
+00:09:05,126 --> 00:09:06,336
+my colleague, Jeff Jenkins.
+
+
+277
+00:09:07,516 --> 00:09:13,016
+[ Applause ]
+
+
+278
+00:09:13,516 --> 00:09:14,166
+>> Jeff Jenkins: Thanks, Jeff.
+
+
+279
+00:09:15,586 --> 00:09:16,646
+Well, good afternoon.
+
+
+280
+00:09:16,686 --> 00:09:17,836
+Hope you guys are having a great
+
+
+281
+00:09:17,836 --> 00:09:18,736
+WWDC.
+
+
+282
+00:09:18,736 --> 00:09:20,556
+And I'm exciting to be here and
+
+
+283
+00:09:20,556 --> 00:09:21,966
+thrilled to talk to you a little
+
+
+284
+00:09:21,966 --> 00:09:24,296
+bit more about some enhancements
+
+
+285
+00:09:24,296 --> 00:09:27,946
+we've made to the URLSessionTask
+
+
+286
+00:09:28,196 --> 00:09:29,000
+API.
+
+
+287
+00:09:32,106 --> 00:09:33,606
+Now, first I want to spend a
+
+
+288
+00:09:33,606 --> 00:09:34,956
+little bit of time talking about
+
+
+289
+00:09:34,956 --> 00:09:37,056
+background URLSession.
+
+
+290
+00:09:37,056 --> 00:09:38,036
+We haven't talked a whole lot
+
+
+291
+00:09:38,036 --> 00:09:39,156
+about it, so let me give you a
+
+
+292
+00:09:39,156 --> 00:09:40,616
+little bit of background on
+
+
+293
+00:09:40,616 --> 00:09:40,846
+that.
+
+
+294
+00:09:41,246 --> 00:09:42,516
+The background session
+
+
+295
+00:09:42,876 --> 00:09:45,716
+URLSession API allows your
+
+
+296
+00:09:45,716 --> 00:09:47,086
+application to perform
+
+
+297
+00:09:47,086 --> 00:09:49,266
+networking even if your process,
+
+
+298
+00:09:49,266 --> 00:09:50,796
+your application isn't running.
+
+
+299
+00:09:51,926 --> 00:09:53,696
+We monitor the system
+
+
+300
+00:09:53,936 --> 00:09:57,286
+conditions, CPU, battery, all
+
+
+301
+00:09:57,286 --> 00:09:59,136
+sorts of things to really find
+
+
+302
+00:09:59,136 --> 00:10:01,146
+of right time to do your
+
+
+303
+00:10:01,146 --> 00:10:02,496
+networking tasks.
+
+
+304
+00:10:03,186 --> 00:10:05,866
+Now, of course, if you implement
+
+
+305
+00:10:05,866 --> 00:10:07,786
+various delegate methods, we're
+
+
+306
+00:10:07,786 --> 00:10:09,456
+going to wake up your app and
+
+
+307
+00:10:09,456 --> 00:10:10,946
+call those delegate callbacks so
+
+
+308
+00:10:10,946 --> 00:10:11,976
+that you can handle that
+
+
+309
+00:10:11,976 --> 00:10:12,816
+information.
+
+
+310
+00:10:13,286 --> 00:10:14,326
+And, of course, we're going to
+
+
+311
+00:10:14,326 --> 00:10:15,936
+make sure your app is running
+
+
+312
+00:10:16,376 --> 00:10:17,706
+when your task completes so that
+
+
+313
+00:10:17,706 --> 00:10:19,316
+you can then process that data.
+
+
+314
+00:10:19,316 --> 00:10:24,546
+Now, one of the great use cases
+
+
+315
+00:10:24,696 --> 00:10:26,556
+for background URLSession is
+
+
+316
+00:10:26,556 --> 00:10:28,106
+taking advantage of another
+
+
+317
+00:10:28,516 --> 00:10:30,186
+feature on the system, which is
+
+
+318
+00:10:30,496 --> 00:10:32,376
+background app refresh.
+
+
+319
+00:10:33,176 --> 00:10:34,716
+Now, what this really does is
+
+
+320
+00:10:34,716 --> 00:10:36,876
+allows your application to have
+
+
+321
+00:10:36,876 --> 00:10:38,766
+the most current, the freshest
+
+
+322
+00:10:38,766 --> 00:10:39,206
+data, right?
+
+
+323
+00:10:39,546 --> 00:10:41,166
+There's nothing more frustrating
+
+
+324
+00:10:41,576 --> 00:10:42,936
+than pulling your device out,
+
+
+325
+00:10:43,136 --> 00:10:44,456
+launching an app, and the first
+
+
+326
+00:10:44,456 --> 00:10:45,426
+thing you're greeted with is
+
+
+327
+00:10:45,426 --> 00:10:47,476
+some sort of spinner, right?
+
+
+328
+00:10:47,476 --> 00:10:48,326
+You're waiting for this
+
+
+329
+00:10:48,326 --> 00:10:50,036
+application to start pulling
+
+
+330
+00:10:50,036 --> 00:10:50,586
+down data.
+
+
+331
+00:10:50,996 --> 00:10:52,416
+You want that data right away.
+
+
+332
+00:10:52,416 --> 00:10:53,456
+You want to be able to get that
+
+
+333
+00:10:53,456 --> 00:10:55,116
+data to your user so your user
+
+
+334
+00:10:55,466 --> 00:10:57,296
+is excited and happy to use your
+
+
+335
+00:10:57,296 --> 00:10:57,566
+app.
+
+
+336
+00:10:58,106 --> 00:10:59,486
+Background app refresh is a way
+
+
+337
+00:10:59,486 --> 00:10:59,806
+to do this.
+
+
+338
+00:10:59,806 --> 00:11:01,316
+It's a way to tell the system
+
+
+339
+00:11:01,756 --> 00:11:03,286
+that, "Hey, in the future I want
+
+
+340
+00:11:03,286 --> 00:11:04,296
+to be able to be launched so
+
+
+341
+00:11:04,296 --> 00:11:05,886
+that I can refresh my data so I
+
+
+342
+00:11:05,886 --> 00:11:06,766
+have the most important
+
+
+343
+00:11:06,766 --> 00:11:08,046
+information," maybe stock
+
+
+344
+00:11:08,046 --> 00:11:09,756
+information, or weather
+
+
+345
+00:11:09,836 --> 00:11:11,396
+forecast, other important things
+
+
+346
+00:11:11,396 --> 00:11:12,356
+that your app does.
+
+
+347
+00:11:13,166 --> 00:11:13,996
+Now, this applies to
+
+
+348
+00:11:13,996 --> 00:11:16,566
+applications, as well as watchOS
+
+
+349
+00:11:16,666 --> 00:11:18,096
+complications.
+
+
+350
+00:11:18,426 --> 00:11:19,166
+And if you want to learn a
+
+
+351
+00:11:19,166 --> 00:11:20,256
+little bit more in depth about
+
+
+352
+00:11:20,256 --> 00:11:22,706
+background app refresh, you can
+
+
+353
+00:11:22,706 --> 00:11:26,256
+go back to 2013 WWDC, as well as
+
+
+354
+00:11:26,256 --> 00:11:28,996
+last year's 2016 WWDC and look
+
+
+355
+00:11:28,996 --> 00:11:30,136
+at these sessions for more
+
+
+356
+00:11:30,136 --> 00:11:30,816
+details.
+
+
+357
+00:11:31,296 --> 00:11:35,786
+So let's look at background app
+
+
+358
+00:11:35,786 --> 00:11:37,986
+refresh in action; what is it
+
+
+359
+00:11:37,986 --> 00:11:38,766
+really doing?
+
+
+360
+00:11:39,496 --> 00:11:41,246
+And to do that, we kind of need
+
+
+361
+00:11:41,246 --> 00:11:42,896
+to look at the state of your
+
+
+362
+00:11:43,176 --> 00:11:44,026
+application.
+
+
+363
+00:11:44,366 --> 00:11:45,876
+We're interested in three states
+
+
+364
+00:11:45,876 --> 00:11:47,476
+here: A running state, suspended
+
+
+365
+00:11:47,476 --> 00:11:49,626
+state, or a background state.
+
+
+366
+00:11:50,666 --> 00:11:52,786
+Now, with your app running,
+
+
+367
+00:11:52,786 --> 00:11:53,616
+you're going to opt into
+
+
+368
+00:11:53,616 --> 00:11:54,936
+background app refresh.
+
+
+369
+00:11:54,936 --> 00:11:55,756
+You're going to say, "In the
+
+
+370
+00:11:55,756 --> 00:11:57,816
+future, run my app, make sure my
+
+
+371
+00:11:57,816 --> 00:11:58,936
+app runs so that I can get the
+
+
+372
+00:11:58,936 --> 00:12:00,056
+latest information."
+
+
+373
+00:12:00,556 --> 00:12:02,216
+And then your process could be
+
+
+374
+00:12:02,216 --> 00:12:02,846
+suspended.
+
+
+375
+00:12:02,846 --> 00:12:04,846
+And in the future your process
+
+
+376
+00:12:04,846 --> 00:12:07,036
+is now running, your app is now
+
+
+377
+00:12:07,606 --> 00:12:09,486
+going to be able to ask for new
+
+
+378
+00:12:09,486 --> 00:12:09,796
+data.
+
+
+379
+00:12:09,796 --> 00:12:12,396
+And like good developers, this
+
+
+380
+00:12:12,396 --> 00:12:14,076
+app is using URLSession API.
+
+
+381
+00:12:14,246 --> 00:12:15,866
+In fact, it uses a background
+
+
+382
+00:12:15,866 --> 00:12:16,596
+URLSession.
+
+
+383
+00:12:16,596 --> 00:12:19,046
+It creates a URLSession task and
+
+
+384
+00:12:19,046 --> 00:12:21,446
+schedules this task to run and
+
+
+385
+00:12:21,446 --> 00:12:22,456
+grab the data that your
+
+
+386
+00:12:22,456 --> 00:12:23,576
+application needs.
+
+
+387
+00:12:25,396 --> 00:12:28,626
+Now, your process could go away
+
+
+388
+00:12:28,626 --> 00:12:30,226
+at this point, but then at some
+
+
+389
+00:12:30,226 --> 00:12:32,126
+point URLSession is going to run
+
+
+390
+00:12:32,126 --> 00:12:33,216
+your task and it's going to run
+
+
+391
+00:12:33,216 --> 00:12:34,636
+it to completion hopefully if
+
+
+392
+00:12:34,636 --> 00:12:35,566
+everything goes well.
+
+
+393
+00:12:36,046 --> 00:12:36,726
+And you're going to get the
+
+
+394
+00:12:36,726 --> 00:12:37,136
+data.
+
+
+395
+00:12:37,136 --> 00:12:38,556
+So we're going to background
+
+
+396
+00:12:38,556 --> 00:12:40,406
+launch your application and
+
+
+397
+00:12:40,406 --> 00:12:41,696
+allow you to process that
+
+
+398
+00:12:41,696 --> 00:12:43,936
+completed task and process that
+
+
+399
+00:12:43,936 --> 00:12:45,456
+data that we've fetched for you.
+
+
+400
+00:12:45,826 --> 00:12:48,856
+And then at some point the user
+
+
+401
+00:12:48,856 --> 00:12:49,886
+is going to launch your app,
+
+
+402
+00:12:49,886 --> 00:12:50,826
+it's going to come foreground,
+
+
+403
+00:12:50,826 --> 00:12:51,746
+and boom, they've got the
+
+
+404
+00:12:51,746 --> 00:12:53,016
+freshest data there.
+
+
+405
+00:12:53,436 --> 00:12:54,226
+So this is great.
+
+
+406
+00:12:54,606 --> 00:12:56,756
+But we looked at this flow and
+
+
+407
+00:12:56,756 --> 00:12:57,936
+said, "Hmm, maybe there's
+
+
+408
+00:12:57,936 --> 00:13:00,236
+something we can do to help our
+
+
+409
+00:13:00,236 --> 00:13:02,116
+developers improve their
+
+
+410
+00:13:02,116 --> 00:13:04,386
+applications on our platforms."
+
+
+411
+00:13:05,026 --> 00:13:06,756
+And we think we can do something
+
+
+412
+00:13:06,756 --> 00:13:07,236
+for you.
+
+
+413
+00:13:08,596 --> 00:13:10,746
+The first problem that we want
+
+
+414
+00:13:10,746 --> 00:13:13,006
+to solve is we noticed there's
+
+
+415
+00:13:13,006 --> 00:13:14,836
+an extra background launch that
+
+
+416
+00:13:14,836 --> 00:13:16,186
+had to happen just for you to
+
+
+417
+00:13:16,186 --> 00:13:18,166
+create the URLSession task.
+
+
+418
+00:13:19,026 --> 00:13:20,466
+And as we all know, anytime your
+
+
+419
+00:13:20,466 --> 00:13:21,666
+process is launched, what does
+
+
+420
+00:13:21,666 --> 00:13:21,976
+that do?
+
+
+421
+00:13:21,976 --> 00:13:23,696
+It impacts battery life,
+
+
+422
+00:13:24,116 --> 00:13:25,456
+requires CPU burden.
+
+
+423
+00:13:25,456 --> 00:13:27,306
+So that's not necessarily great
+
+
+424
+00:13:27,306 --> 00:13:28,316
+for the device if we're doing
+
+
+425
+00:13:28,366 --> 00:13:30,226
+extraneous work, and we really
+
+
+426
+00:13:30,226 --> 00:13:31,846
+don't need to be doing that.
+
+
+427
+00:13:32,936 --> 00:13:34,366
+The other problem we'd like to
+
+
+428
+00:13:34,366 --> 00:13:36,146
+solve are stale network
+
+
+429
+00:13:36,146 --> 00:13:37,066
+requests, right?
+
+
+430
+00:13:37,066 --> 00:13:38,996
+You're asking URLSession to do
+
+
+431
+00:13:38,996 --> 00:13:39,446
+work.
+
+
+432
+00:13:39,446 --> 00:13:40,906
+And at some point in the future,
+
+
+433
+00:13:41,396 --> 00:13:42,686
+that work is going to complete.
+
+
+434
+00:13:43,126 --> 00:13:44,766
+Well, what happens between when
+
+
+435
+00:13:44,766 --> 00:13:46,036
+you ask for the work to be done
+
+
+436
+00:13:46,036 --> 00:13:47,356
+and when it actually got done?
+
+
+437
+00:13:47,356 --> 00:13:48,796
+Maybe there was some change in
+
+
+438
+00:13:48,796 --> 00:13:50,796
+context and that original
+
+
+439
+00:13:50,796 --> 00:13:52,046
+request doesn't make sense
+
+
+440
+00:13:52,046 --> 00:13:52,576
+anymore.
+
+
+441
+00:13:53,216 --> 00:13:53,956
+So we need to give you an
+
+
+442
+00:13:53,956 --> 00:13:55,976
+opportunity to really, if
+
+
+443
+00:13:56,026 --> 00:13:57,436
+there's a context change, let us
+
+
+444
+00:13:57,436 --> 00:13:59,426
+know about that and get rid of
+
+
+445
+00:13:59,426 --> 00:14:01,226
+these stale network requests.
+
+
+446
+00:14:01,226 --> 00:14:02,146
+Because there's nothing worse
+
+
+447
+00:14:02,146 --> 00:14:03,406
+than getting data and going, "I
+
+
+448
+00:14:03,406 --> 00:14:04,376
+can't do anything with it," and
+
+
+449
+00:14:04,376 --> 00:14:04,936
+throw it away.
+
+
+450
+00:14:05,626 --> 00:14:08,356
+And the last problem we think we
+
+
+451
+00:14:08,356 --> 00:14:10,886
+could help you with is helping
+
+
+452
+00:14:10,886 --> 00:14:13,556
+us know how to best schedule
+
+
+453
+00:14:13,836 --> 00:14:15,596
+your URLSession tasks.
+
+
+454
+00:14:16,126 --> 00:14:17,906
+When is the most optimal, best
+
+
+455
+00:14:17,906 --> 00:14:19,236
+time in the system to be able to
+
+
+456
+00:14:19,236 --> 00:14:20,606
+run your task so that we can get
+
+
+457
+00:14:20,606 --> 00:14:21,686
+your data in the most efficient
+
+
+458
+00:14:21,686 --> 00:14:23,986
+way for you to display that so
+
+
+459
+00:14:23,986 --> 00:14:25,376
+that your users are excited and
+
+
+460
+00:14:25,376 --> 00:14:26,346
+delighted by that data?
+
+
+461
+00:14:26,346 --> 00:14:29,036
+Let's look at what we did.
+
+
+462
+00:14:30,536 --> 00:14:32,206
+We're introducing the
+
+
+463
+00:14:32,206 --> 00:14:34,336
+URLSessionTask scheduling API.
+
+
+464
+00:14:35,406 --> 00:14:37,216
+Now, this is available across
+
+
+465
+00:14:37,216 --> 00:14:38,156
+all of our platforms.
+
+
+466
+00:14:38,156 --> 00:14:39,956
+It's available in the beta
+
+
+467
+00:14:39,956 --> 00:14:41,296
+builds that you have received
+
+
+468
+00:14:41,296 --> 00:14:41,916
+here at WWDC.
+
+
+469
+00:14:41,916 --> 00:14:44,566
+And we encourage you to take a
+
+
+470
+00:14:44,566 --> 00:14:45,656
+deep look at this.
+
+
+471
+00:14:46,516 --> 00:14:49,716
+Now, what we've done first is we
+
+
+472
+00:14:49,716 --> 00:14:51,346
+provided a new property.
+
+
+473
+00:14:51,556 --> 00:14:52,876
+This is a property on
+
+
+474
+00:14:52,876 --> 00:14:54,506
+URLSessionTask object.
+
+
+475
+00:14:55,066 --> 00:14:57,456
+It is called earliestBeginDate.
+
+
+476
+00:14:58,366 --> 00:14:59,406
+And what you're going to do here
+
+
+477
+00:14:59,406 --> 00:15:01,116
+is provide a date to us in the
+
+
+478
+00:15:01,116 --> 00:15:03,336
+future when you want your task
+
+
+479
+00:15:03,406 --> 00:15:05,586
+to be eligible for running.
+
+
+480
+00:15:05,896 --> 00:15:08,266
+I use that word eligible because
+
+
+481
+00:15:08,266 --> 00:15:09,016
+it's important.
+
+
+482
+00:15:09,016 --> 00:15:10,176
+It doesn't mean that this is the
+
+
+483
+00:15:10,176 --> 00:15:11,576
+point in time when your task
+
+
+484
+00:15:11,686 --> 00:15:13,486
+will run, it will do networking;
+
+
+485
+00:15:13,856 --> 00:15:15,586
+it's just telling the system, "I
+
+
+486
+00:15:15,586 --> 00:15:16,706
+would like my task to be
+
+
+487
+00:15:16,766 --> 00:15:18,486
+eligible so that it can run."
+
+
+488
+00:15:18,796 --> 00:15:20,646
+And we're still bound by system
+
+
+489
+00:15:20,646 --> 00:15:23,046
+policies as to when we can make
+
+
+490
+00:15:23,046 --> 00:15:25,256
+the networking happen for this
+
+
+491
+00:15:25,256 --> 00:15:25,816
+task.
+
+
+492
+00:15:26,896 --> 00:15:28,546
+It's only applicable to
+
+
+493
+00:15:28,686 --> 00:15:31,326
+background URLSessions and tasks
+
+
+494
+00:15:31,326 --> 00:15:33,166
+built off of background
+
+
+495
+00:15:33,166 --> 00:15:33,876
+URLSession.
+
+
+496
+00:15:34,406 --> 00:15:37,896
+Let's take a look at how this
+
+
+497
+00:15:37,946 --> 00:15:39,626
+property in conjunction with
+
+
+498
+00:15:39,666 --> 00:15:41,586
+other existing properties really
+
+
+499
+00:15:41,586 --> 00:15:43,446
+allows you to do some fine-grain
+
+
+500
+00:15:43,446 --> 00:15:44,046
+scheduling.
+
+
+501
+00:15:44,606 --> 00:15:46,356
+So you'll create a
+
+
+502
+00:15:46,356 --> 00:15:47,776
+URLSessionTask and, of course,
+
+
+503
+00:15:47,776 --> 00:15:49,336
+you'll call resume on it so that
+
+
+504
+00:15:49,336 --> 00:15:50,796
+we know that this task can now
+
+
+505
+00:15:50,796 --> 00:15:53,456
+be put into the queue so that
+
+
+506
+00:15:53,456 --> 00:15:54,566
+work can happen.
+
+
+507
+00:15:55,206 --> 00:15:57,396
+You'll -- and at this point the
+
+
+508
+00:15:57,806 --> 00:16:00,756
+task will be in a waiting state.
+
+
+509
+00:16:00,756 --> 00:16:01,486
+We're waiting for the
+
+
+510
+00:16:01,566 --> 00:16:03,526
+earliestBeginDate to happen.
+
+
+511
+00:16:04,136 --> 00:16:06,506
+And as soon as that is hit, that
+
+
+512
+00:16:06,506 --> 00:16:07,836
+task becomes eligible for
+
+
+513
+00:16:07,836 --> 00:16:08,116
+running.
+
+
+514
+00:16:09,156 --> 00:16:10,516
+Now, you can use the existing
+
+
+515
+00:16:10,706 --> 00:16:13,386
+timeoutIntervalForResource to
+
+
+516
+00:16:13,386 --> 00:16:15,546
+really control how long your app
+
+
+517
+00:16:15,546 --> 00:16:17,326
+is willing to wait for at that
+
+
+518
+00:16:17,326 --> 00:16:19,506
+resource to get loaded, right?
+
+
+519
+00:16:19,506 --> 00:16:21,596
+You might set some amount of
+
+
+520
+00:16:21,596 --> 00:16:23,366
+time to say, "After this point
+
+
+521
+00:16:23,526 --> 00:16:25,466
+in time, this resource isn't
+
+
+522
+00:16:25,466 --> 00:16:26,706
+interesting to me anymore."
+
+
+523
+00:16:27,136 --> 00:16:28,926
+And that interval of time covers
+
+
+524
+00:16:29,156 --> 00:16:32,426
+from resume to when that timeout
+
+
+525
+00:16:32,426 --> 00:16:34,246
+happens based on the value you
+
+
+526
+00:16:34,246 --> 00:16:34,856
+place in
+
+
+527
+00:16:34,856 --> 00:16:36,396
+timeoutIntervalForResource.
+
+
+528
+00:16:36,716 --> 00:16:41,526
+Now, I want to go back to the
+
+
+529
+00:16:41,526 --> 00:16:43,736
+original background app refresh
+
+
+530
+00:16:43,736 --> 00:16:45,276
+workflow that we looked at
+
+
+531
+00:16:45,276 --> 00:16:45,746
+earlier.
+
+
+532
+00:16:46,546 --> 00:16:47,316
+Right? We noticed there was a
+
+
+533
+00:16:47,316 --> 00:16:49,676
+couple of background launches
+
+
+534
+00:16:49,676 --> 00:16:50,366
+that occurred.
+
+
+535
+00:16:50,736 --> 00:16:54,066
+But with this new API we're able
+
+
+536
+00:16:54,066 --> 00:16:55,426
+to get rid of one of those.
+
+
+537
+00:16:55,426 --> 00:16:56,336
+So the way that your app will
+
+
+538
+00:16:56,336 --> 00:16:58,396
+work is while your running,
+
+
+539
+00:16:58,466 --> 00:16:59,146
+you're going to create a
+
+
+540
+00:16:59,146 --> 00:17:01,616
+URLSessionTask; you'll opt into
+
+
+541
+00:17:01,906 --> 00:17:03,606
+our new scheduling API by
+
+
+542
+00:17:03,606 --> 00:17:05,376
+setting an earliestBeginDate;
+
+
+543
+00:17:05,935 --> 00:17:07,016
+then your process can go to
+
+
+544
+00:17:07,016 --> 00:17:07,415
+sleep.
+
+
+545
+00:17:07,715 --> 00:17:08,776
+We're going to complete the work
+
+
+546
+00:17:08,776 --> 00:17:09,366
+for you.
+
+
+547
+00:17:09,955 --> 00:17:11,406
+And when that work is available,
+
+
+548
+00:17:11,406 --> 00:17:12,726
+we're going to background launch
+
+
+549
+00:17:12,726 --> 00:17:14,195
+you that one time and allow you
+
+
+550
+00:17:14,195 --> 00:17:16,136
+to process the resulting data.
+
+
+551
+00:17:16,136 --> 00:17:18,486
+And then when the user brings
+
+
+552
+00:17:18,486 --> 00:17:19,556
+your app to the foreground,
+
+
+553
+00:17:19,556 --> 00:17:21,215
+boom, it's got the freshest,
+
+
+554
+00:17:21,415 --> 00:17:22,415
+most current data.
+
+
+555
+00:17:23,096 --> 00:17:24,626
+And we've been able to solve
+
+
+556
+00:17:24,626 --> 00:17:26,106
+that one problem of that
+
+
+557
+00:17:26,106 --> 00:17:27,796
+additional background app
+
+
+558
+00:17:27,796 --> 00:17:28,256
+launch.
+
+
+559
+00:17:28,256 --> 00:17:29,716
+And so it's better performing on
+
+
+560
+00:17:29,716 --> 00:17:30,916
+the system, and we think that's
+
+
+561
+00:17:30,916 --> 00:17:31,346
+great.
+
+
+562
+00:17:31,846 --> 00:17:35,016
+So that's problem number one
+
+
+563
+00:17:35,306 --> 00:17:35,766
+solved.
+
+
+564
+00:17:35,766 --> 00:17:36,736
+Let's look at problem number
+
+
+565
+00:17:36,736 --> 00:17:40,660
+two, the stale network fetches.
+
+
+566
+00:17:42,296 --> 00:17:43,296
+We want to give you an
+
+
+567
+00:17:43,296 --> 00:17:45,316
+opportunity to alter future
+
+
+568
+00:17:45,316 --> 00:17:45,936
+requests.
+
+
+569
+00:17:45,936 --> 00:17:47,046
+So you might have given us a
+
+
+570
+00:17:47,046 --> 00:17:49,316
+request, but the context might
+
+
+571
+00:17:49,316 --> 00:17:49,916
+change.
+
+
+572
+00:17:50,956 --> 00:17:53,856
+We've introduced a new delegate
+
+
+573
+00:17:53,856 --> 00:17:55,326
+callback on a
+
+
+574
+00:17:55,326 --> 00:17:57,356
+URLSessionTaskDelegate titled
+
+
+575
+00:17:57,796 --> 00:18:00,136
+willBeginDelayedRequest.
+
+
+576
+00:18:01,406 --> 00:18:03,596
+With this delegate, you'll be
+
+
+577
+00:18:03,596 --> 00:18:05,506
+able to be called at the moment
+
+
+578
+00:18:05,506 --> 00:18:07,136
+when your task is about to start
+
+
+579
+00:18:07,136 --> 00:18:07,736
+networking.
+
+
+580
+00:18:08,226 --> 00:18:10,416
+So it is you've told this that
+
+
+581
+00:18:10,416 --> 00:18:12,346
+the task is eligible and the
+
+
+582
+00:18:12,346 --> 00:18:14,066
+system now has decided yes, this
+
+
+583
+00:18:14,066 --> 00:18:15,026
+is the right time to do the
+
+
+584
+00:18:15,026 --> 00:18:15,686
+networking.
+
+
+585
+00:18:16,116 --> 00:18:17,096
+We're going to call this
+
+
+586
+00:18:17,096 --> 00:18:18,216
+delegate method, if you
+
+
+587
+00:18:18,216 --> 00:18:20,076
+implement it, and allow you to
+
+
+588
+00:18:20,076 --> 00:18:22,436
+make some decisions about this
+
+
+589
+00:18:22,436 --> 00:18:23,036
+task.
+
+
+590
+00:18:24,986 --> 00:18:26,256
+Now, this will only be called
+
+
+591
+00:18:26,256 --> 00:18:27,966
+one, if you implement it; also,
+
+
+592
+00:18:27,966 --> 00:18:29,546
+if you opt into the scheduling
+
+
+593
+00:18:29,546 --> 00:18:30,736
+API by setting an
+
+
+594
+00:18:30,736 --> 00:18:32,046
+earliestBeginDate.
+
+
+595
+00:18:32,366 --> 00:18:33,706
+And, again, this is only
+
+
+596
+00:18:33,706 --> 00:18:35,116
+available on background
+
+
+597
+00:18:35,116 --> 00:18:36,026
+URLSessions.
+
+
+598
+00:18:36,566 --> 00:18:39,526
+And as I mentioned, this is an
+
+
+599
+00:18:39,526 --> 00:18:40,556
+optional delegate.
+
+
+600
+00:18:40,996 --> 00:18:42,806
+And I want to take a second here
+
+
+601
+00:18:42,806 --> 00:18:44,016
+to have you really think about
+
+
+602
+00:18:44,046 --> 00:18:45,336
+this because it's important,
+
+
+603
+00:18:46,036 --> 00:18:47,136
+this delegate method.
+
+
+604
+00:18:47,136 --> 00:18:48,656
+As with all delegate methods,
+
+
+605
+00:18:48,656 --> 00:18:49,786
+they're all opt into.
+
+
+606
+00:18:50,246 --> 00:18:52,776
+But this one will cause some
+
+
+607
+00:18:52,846 --> 00:18:53,926
+interesting side effect that
+
+
+608
+00:18:53,926 --> 00:18:54,986
+I'll show you in a minute.
+
+
+609
+00:18:55,606 --> 00:18:56,586
+You really need to think about,
+
+
+610
+00:18:56,676 --> 00:18:58,356
+"Can my application determine
+
+
+611
+00:18:58,356 --> 00:19:00,456
+context, the viability of a
+
+
+612
+00:19:00,456 --> 00:19:02,396
+request in the future?"
+
+
+613
+00:19:02,906 --> 00:19:06,986
+Now, there's a completion
+
+
+614
+00:19:06,986 --> 00:19:08,726
+handler that's passed to this
+
+
+615
+00:19:08,726 --> 00:19:09,546
+delegate method.
+
+
+616
+00:19:10,256 --> 00:19:10,986
+And you need to give a
+
+
+617
+00:19:10,986 --> 00:19:12,516
+disposition to URLSession.
+
+
+618
+00:19:12,516 --> 00:19:14,456
+You need to tell us does the
+
+
+619
+00:19:14,456 --> 00:19:16,276
+original request, does it still
+
+
+620
+00:19:16,276 --> 00:19:17,566
+make sense?
+
+
+621
+00:19:17,826 --> 00:19:18,756
+Go ahead and proceed.
+
+
+622
+00:19:19,226 --> 00:19:21,336
+Or maybe the context has changed
+
+
+623
+00:19:21,336 --> 00:19:22,826
+enough and you need to make some
+
+
+624
+00:19:22,826 --> 00:19:24,396
+modifications, maybe a different
+
+
+625
+00:19:24,396 --> 00:19:26,596
+URL or maybe a header value's
+
+
+626
+00:19:26,596 --> 00:19:27,906
+different and you want to go
+
+
+627
+00:19:27,906 --> 00:19:29,326
+ahead and modify that request at
+
+
+628
+00:19:29,326 --> 00:19:30,736
+this point in time right before
+
+
+629
+00:19:30,736 --> 00:19:31,796
+the networking happens.
+
+
+630
+00:19:32,226 --> 00:19:33,566
+Or you might make the decision
+
+
+631
+00:19:34,086 --> 00:19:35,756
+this request is just useless at
+
+
+632
+00:19:35,786 --> 00:19:37,076
+this point, cancel.
+
+
+633
+00:19:37,396 --> 00:19:42,596
+We don't want to do stale
+
+
+634
+00:19:42,596 --> 00:19:42,836
+requests.
+
+
+635
+00:19:42,956 --> 00:19:44,736
+So now if we go back to this
+
+
+636
+00:19:44,736 --> 00:19:46,926
+workflow and we go back to my
+
+
+637
+00:19:46,926 --> 00:19:48,266
+comment about really thinking
+
+
+638
+00:19:48,266 --> 00:19:50,026
+about this delegate method, you
+
+
+639
+00:19:50,026 --> 00:19:51,926
+will see that we're kind of back
+
+
+640
+00:19:51,926 --> 00:19:53,596
+to that original workflow where
+
+
+641
+00:19:54,046 --> 00:19:55,776
+there's two background launches
+
+
+642
+00:19:55,776 --> 00:19:59,396
+in order to satisfy this URL
+
+
+643
+00:19:59,396 --> 00:19:59,976
+task.
+
+
+644
+00:20:00,856 --> 00:20:02,356
+Right? But we have to stop and
+
+
+645
+00:20:02,356 --> 00:20:03,196
+think about that.
+
+
+646
+00:20:03,476 --> 00:20:04,696
+What is more expensive,
+
+
+647
+00:20:05,056 --> 00:20:07,046
+performing a stale network load
+
+
+648
+00:20:07,046 --> 00:20:09,756
+or a mere application background
+
+
+649
+00:20:09,756 --> 00:20:10,186
+launch?
+
+
+650
+00:20:10,606 --> 00:20:12,896
+It is way more expensive to the
+
+
+651
+00:20:12,896 --> 00:20:14,516
+system to do stale loads, get
+
+
+652
+00:20:14,516 --> 00:20:16,016
+all this data, and then decide I
+
+
+653
+00:20:16,016 --> 00:20:17,526
+don't need it and pitch it.
+
+
+654
+00:20:18,286 --> 00:20:19,966
+Okay? So we want you to really
+
+
+655
+00:20:20,016 --> 00:20:21,536
+think about this new delegate
+
+
+656
+00:20:21,536 --> 00:20:22,626
+method and whether your
+
+
+657
+00:20:22,626 --> 00:20:24,996
+application has the ability to
+
+
+658
+00:20:24,996 --> 00:20:27,066
+really understand the viability
+
+
+659
+00:20:27,066 --> 00:20:28,836
+of your requests in the future.
+
+
+660
+00:20:29,316 --> 00:20:30,436
+Hopefully that make sense to
+
+
+661
+00:20:30,436 --> 00:20:30,586
+you.
+
+
+662
+00:20:31,146 --> 00:20:35,986
+Now, the third problem we want
+
+
+663
+00:20:35,986 --> 00:20:38,696
+to solve is how do we schedule
+
+
+664
+00:20:39,146 --> 00:20:41,806
+your request in a most optimal,
+
+
+665
+00:20:41,806 --> 00:20:43,116
+most intelligent way in our
+
+
+666
+00:20:43,116 --> 00:20:43,616
+system?
+
+
+667
+00:20:43,956 --> 00:20:45,226
+There's some information that in
+
+
+668
+00:20:45,226 --> 00:20:46,426
+URLSession we just don't know
+
+
+669
+00:20:46,426 --> 00:20:46,776
+about.
+
+
+670
+00:20:47,256 --> 00:20:48,496
+So we're providing a little bit
+
+
+671
+00:20:48,496 --> 00:20:50,266
+of change to our API to allow
+
+
+672
+00:20:50,266 --> 00:20:51,666
+you to explain to us some
+
+
+673
+00:20:51,666 --> 00:20:53,676
+information about your requests
+
+
+674
+00:20:54,056 --> 00:20:56,076
+and also about your responses.
+
+
+675
+00:20:56,596 --> 00:20:58,016
+We're giving you two properties,
+
+
+676
+00:20:58,116 --> 00:20:59,946
+the first one is countOfBytes
+
+
+677
+00:21:00,016 --> 00:21:02,606
+ClientExpectsToSend, and the
+
+
+678
+00:21:02,606 --> 00:21:03,846
+second one is countOfBytes
+
+
+679
+00:21:03,846 --> 00:21:05,496
+ClientExpectsToReceive.
+
+
+680
+00:21:06,176 --> 00:21:07,686
+We think you know more about
+
+
+681
+00:21:07,686 --> 00:21:08,556
+your requests.
+
+
+682
+00:21:08,556 --> 00:21:10,696
+Maybe you have a stream body
+
+
+683
+00:21:10,696 --> 00:21:11,696
+that you want to attach to a
+
+
+684
+00:21:11,696 --> 00:21:12,946
+request, we don't know about
+
+
+685
+00:21:12,946 --> 00:21:13,206
+that.
+
+
+686
+00:21:13,206 --> 00:21:14,456
+You probably know the size of
+
+
+687
+00:21:14,456 --> 00:21:14,746
+that.
+
+
+688
+00:21:15,386 --> 00:21:16,926
+We don't know about your servers
+
+
+689
+00:21:17,176 --> 00:21:18,456
+and the size of data your
+
+
+690
+00:21:18,456 --> 00:21:19,546
+servers' shipping back.
+
+
+691
+00:21:19,926 --> 00:21:21,486
+We believe you have some insight
+
+
+692
+00:21:21,486 --> 00:21:21,876
+to that.
+
+
+693
+00:21:21,876 --> 00:21:23,756
+And that will give us hints as
+
+
+694
+00:21:23,756 --> 00:21:25,876
+how we can in a most optimal,
+
+
+695
+00:21:25,876 --> 00:21:27,626
+intelligent way schedule your
+
+
+696
+00:21:27,656 --> 00:21:28,346
+tasks.
+
+
+697
+00:21:28,826 --> 00:21:30,626
+If you don't know, well, then
+
+
+698
+00:21:30,626 --> 00:21:31,746
+you can always specify
+
+
+699
+00:21:31,746 --> 00:21:34,066
+NSURLSessionTransferSizeUnknown.
+
+
+700
+00:21:36,286 --> 00:21:37,396
+So that solves the third
+
+
+701
+00:21:37,396 --> 00:21:37,696
+problem.
+
+
+702
+00:21:37,696 --> 00:21:38,836
+Let's take a look at how this
+
+
+703
+00:21:38,836 --> 00:21:40,006
+new API works in code.
+
+
+704
+00:21:40,006 --> 00:21:41,506
+It's very easy to use.
+
+
+705
+00:21:42,216 --> 00:21:43,446
+First thing we're going to do is
+
+
+706
+00:21:43,446 --> 00:21:46,086
+create a URLSession background
+
+
+707
+00:21:46,086 --> 00:21:46,936
+configuration.
+
+
+708
+00:21:46,936 --> 00:21:48,626
+We're then going to create a
+
+
+709
+00:21:48,626 --> 00:21:50,366
+session based on that
+
+
+710
+00:21:50,826 --> 00:21:51,766
+configuration.
+
+
+711
+00:21:52,226 --> 00:21:54,926
+Once we have that, we're going
+
+
+712
+00:21:54,926 --> 00:21:57,256
+to now generate a URLRequest,
+
+
+713
+00:21:57,636 --> 00:21:59,496
+specify the URL we want to go
+
+
+714
+00:21:59,496 --> 00:22:02,296
+to, maybe set a header value,
+
+
+715
+00:22:02,606 --> 00:22:03,746
+something that makes sense for
+
+
+716
+00:22:03,746 --> 00:22:04,346
+your task.
+
+
+717
+00:22:04,346 --> 00:22:05,996
+Again, this is just an example.
+
+
+718
+00:22:07,586 --> 00:22:08,476
+And now we're going to create a
+
+
+719
+00:22:08,476 --> 00:22:09,866
+task that encapsulates that
+
+
+720
+00:22:09,866 --> 00:22:11,916
+request on that session.
+
+
+721
+00:22:12,566 --> 00:22:13,986
+And we're going to opt into the
+
+
+722
+00:22:13,986 --> 00:22:16,316
+new scheduling API by setting
+
+
+723
+00:22:16,316 --> 00:22:17,986
+the earliestBeginDate property
+
+
+724
+00:22:18,266 --> 00:22:19,116
+and give us a date.
+
+
+725
+00:22:19,116 --> 00:22:20,976
+In this example we say two hours
+
+
+726
+00:22:20,976 --> 00:22:22,886
+from now I want this task to be
+
+
+727
+00:22:22,936 --> 00:22:24,336
+eligible to be run.
+
+
+728
+00:22:25,936 --> 00:22:26,916
+And I'm also going to give some
+
+
+729
+00:22:26,916 --> 00:22:28,286
+hints to URLSession and say,
+
+
+730
+00:22:28,586 --> 00:22:30,126
+"This is a small request,
+
+
+731
+00:22:30,126 --> 00:22:31,646
+there's no body, I've just set
+
+
+732
+00:22:31,646 --> 00:22:33,896
+one header, maybe 80 bytes."
+
+
+733
+00:22:34,216 --> 00:22:36,216
+And then my server probably is
+
+
+734
+00:22:36,216 --> 00:22:38,016
+going to send about a 2K
+
+
+735
+00:22:38,016 --> 00:22:39,206
+response to this.
+
+
+736
+00:22:40,406 --> 00:22:42,026
+And with all URLSession tasks,
+
+
+737
+00:22:42,216 --> 00:22:43,376
+make sure you call resume.
+
+
+738
+00:22:43,996 --> 00:22:46,406
+Now, how does the new delegate
+
+
+739
+00:22:46,406 --> 00:22:46,836
+work?
+
+
+740
+00:22:47,146 --> 00:22:50,096
+Well, we decided I know context.
+
+
+741
+00:22:50,186 --> 00:22:51,636
+I can make some intelligent
+
+
+742
+00:22:51,636 --> 00:22:53,846
+decisions about my networking
+
+
+743
+00:22:53,846 --> 00:22:56,006
+tasks in the future.
+
+
+744
+00:22:56,546 --> 00:22:57,456
+So I've implemented
+
+
+745
+00:22:57,456 --> 00:22:58,896
+willBeginDelayedRequest.
+
+
+746
+00:22:59,046 --> 00:23:01,946
+So in our example here what I've
+
+
+747
+00:23:01,946 --> 00:23:03,916
+decided to do is to modify the
+
+
+748
+00:23:03,916 --> 00:23:04,506
+request.
+
+
+749
+00:23:04,506 --> 00:23:05,676
+I'm going to take the original
+
+
+750
+00:23:05,676 --> 00:23:06,926
+request, create a new
+
+
+751
+00:23:06,926 --> 00:23:08,026
+updatedRequest.
+
+
+752
+00:23:08,026 --> 00:23:09,526
+I'm going to maybe change a
+
+
+753
+00:23:09,526 --> 00:23:10,896
+value in the header that makes
+
+
+754
+00:23:10,896 --> 00:23:13,436
+more sense now that this task is
+
+
+755
+00:23:13,436 --> 00:23:14,566
+actually going to do some
+
+
+756
+00:23:14,566 --> 00:23:15,266
+networking.
+
+
+757
+00:23:15,556 --> 00:23:17,506
+Time has passed, I have new
+
+
+758
+00:23:17,506 --> 00:23:18,206
+information.
+
+
+759
+00:23:18,526 --> 00:23:20,036
+I put that information on that
+
+
+760
+00:23:20,036 --> 00:23:20,426
+task.
+
+
+761
+00:23:20,826 --> 00:23:21,956
+And then I'm going to call the
+
+
+762
+00:23:21,956 --> 00:23:24,626
+completionHandler and use a
+
+
+763
+00:23:24,626 --> 00:23:26,896
+disposition of useNewRequest and
+
+
+764
+00:23:26,896 --> 00:23:28,246
+passed it that new request.
+
+
+765
+00:23:28,246 --> 00:23:29,076
+If you take a look at our header
+
+
+766
+00:23:29,076 --> 00:23:30,266
+file, you can see other
+
+
+767
+00:23:30,266 --> 00:23:33,166
+dispositions available to you in
+
+
+768
+00:23:33,166 --> 00:23:36,666
+this completionHandler call.
+
+
+769
+00:23:36,816 --> 00:23:39,136
+So let me recap the scheduling
+
+
+770
+00:23:39,256 --> 00:23:40,756
+API that we're introducing here.
+
+
+771
+00:23:41,206 --> 00:23:42,696
+Background URLSession is an
+
+
+772
+00:23:42,816 --> 00:23:45,146
+awesome API for doing networking
+
+
+773
+00:23:45,146 --> 00:23:46,276
+that allows your application to
+
+
+774
+00:23:46,276 --> 00:23:47,496
+not even be running and have
+
+
+775
+00:23:47,496 --> 00:23:49,026
+this networking happen for you.
+
+
+776
+00:23:50,086 --> 00:23:51,666
+Our new scheduling API will
+
+
+777
+00:23:51,716 --> 00:23:54,156
+allow you to delay your requests
+
+
+778
+00:23:54,406 --> 00:23:57,226
+so that they can, you know,
+
+
+779
+00:23:57,226 --> 00:23:59,356
+obtain and pull down the
+
+
+780
+00:23:59,356 --> 00:24:00,786
+freshest information for your
+
+
+781
+00:24:00,786 --> 00:24:01,566
+application.
+
+
+782
+00:24:02,186 --> 00:24:03,426
+And it's really we give you an
+
+
+783
+00:24:03,426 --> 00:24:04,766
+opportunity to alter those
+
+
+784
+00:24:04,766 --> 00:24:06,456
+things based on the context and
+
+
+785
+00:24:06,456 --> 00:24:07,996
+the time at when the networking
+
+
+786
+00:24:07,996 --> 00:24:10,376
+is actually going to happen.
+
+
+787
+00:24:10,376 --> 00:24:11,856
+The other part of this API
+
+
+788
+00:24:12,036 --> 00:24:13,616
+change is to allow you to give
+
+
+789
+00:24:13,616 --> 00:24:14,916
+hints to us so that we can be
+
+
+790
+00:24:14,916 --> 00:24:16,836
+super intelligent and make these
+
+
+791
+00:24:16,836 --> 00:24:18,446
+tasks run at the most optimal
+
+
+792
+00:24:18,446 --> 00:24:20,706
+time on these devices.
+
+
+793
+00:24:21,286 --> 00:24:24,936
+Now, I'd like to turn the time
+
+
+794
+00:24:24,936 --> 00:24:26,556
+over to Stuart Cheshire, an
+
+
+795
+00:24:26,556 --> 00:24:28,086
+Apple distinguished engineer.
+
+
+796
+00:24:28,086 --> 00:24:29,466
+And thank you for your time.
+
+
+797
+00:24:30,516 --> 00:24:33,826
+[ Applause ]
+
+
+798
+00:24:34,326 --> 00:24:36,716
+>> Stuart Cheshire: Thank you,
+
+
+799
+00:24:38,576 --> 00:24:38,696
+Jeff.
+
+
+800
+00:24:38,896 --> 00:24:40,636
+Now we're going to talk about
+
+
+801
+00:24:41,066 --> 00:24:43,006
+enhancements in URLSession.
+
+
+802
+00:24:43,456 --> 00:24:45,156
+We have four things to cover,
+
+
+803
+00:24:45,466 --> 00:24:46,276
+let's move through them.
+
+
+804
+00:24:48,866 --> 00:24:49,876
+Often you want to show a
+
+
+805
+00:24:49,876 --> 00:24:51,756
+progress bar to indicate to the
+
+
+806
+00:24:51,756 --> 00:24:53,766
+users how progress is being
+
+
+807
+00:24:53,766 --> 00:24:54,026
+made.
+
+
+808
+00:24:54,676 --> 00:24:56,676
+And right now this is a little
+
+
+809
+00:24:56,676 --> 00:24:57,456
+bit cumbersome.
+
+
+810
+00:24:57,936 --> 00:24:59,746
+There are four variables that
+
+
+811
+00:24:59,746 --> 00:25:00,996
+you need to monitor with
+
+
+812
+00:25:00,996 --> 00:25:02,236
+Key-value Observing.
+
+
+813
+00:25:02,776 --> 00:25:04,576
+And sometimes the
+
+
+814
+00:25:04,576 --> 00:25:07,426
+countOfBytesExpectedToReceive or
+
+
+815
+00:25:07,426 --> 00:25:09,000
+Send is not always available.
+
+
+816
+00:25:12,266 --> 00:25:15,936
+The good news now in iOS 11 is
+
+
+817
+00:25:16,196 --> 00:25:18,386
+URLSessionTask has adopted the
+
+
+818
+00:25:18,456 --> 00:25:20,116
+ProgressReporting protocol.
+
+
+819
+00:25:21,226 --> 00:25:23,466
+You can get a progress object
+
+
+820
+00:25:23,896 --> 00:25:28,066
+from the URLSessionTask, and
+
+
+821
+00:25:28,606 --> 00:25:30,876
+that gives you a variable
+
+
+822
+00:25:30,876 --> 00:25:32,966
+fractionCompleted, which is a
+
+
+823
+00:25:32,966 --> 00:25:35,206
+number in the range zero to one.
+
+
+824
+00:25:35,656 --> 00:25:37,676
+You can also provide strings to
+
+
+825
+00:25:37,676 --> 00:25:40,056
+give more detail about what the
+
+
+826
+00:25:40,056 --> 00:25:40,776
+operation is.
+
+
+827
+00:25:41,396 --> 00:25:42,816
+You can attach that progress
+
+
+828
+00:25:42,816 --> 00:25:46,186
+object to a UIProgressView or an
+
+
+829
+00:25:46,216 --> 00:25:48,536
+NSProgressIndicator to get an
+
+
+830
+00:25:48,536 --> 00:25:49,996
+automatic progress bar.
+
+
+831
+00:25:50,416 --> 00:25:52,886
+You can also combine multiple
+
+
+832
+00:25:52,886 --> 00:25:55,016
+progress objects into a parent
+
+
+833
+00:25:55,016 --> 00:25:56,826
+progress object when you're
+
+
+834
+00:25:56,826 --> 00:25:58,726
+performing multiple tasks, such
+
+
+835
+00:25:58,726 --> 00:26:00,306
+as downloading a file,
+
+
+836
+00:26:00,596 --> 00:26:02,536
+decompressing a file, and then
+
+
+837
+00:26:02,536 --> 00:26:03,486
+handling the data.
+
+
+838
+00:26:04,556 --> 00:26:07,246
+So that makes your progress
+
+
+839
+00:26:07,246 --> 00:26:09,126
+reporting much simpler.
+
+
+840
+00:26:10,676 --> 00:26:13,166
+The binding between a
+
+
+841
+00:26:13,166 --> 00:26:15,616
+URLSessionTask and the progress
+
+
+842
+00:26:15,616 --> 00:26:17,036
+object is bidirectional.
+
+
+843
+00:26:17,656 --> 00:26:19,866
+So if you suspend a
+
+
+844
+00:26:19,866 --> 00:26:21,666
+URLSessionTask, that is the same
+
+
+845
+00:26:21,666 --> 00:26:23,936
+as pausing the progress object.
+
+
+846
+00:26:23,936 --> 00:26:25,096
+If you pause the progress
+
+
+847
+00:26:25,096 --> 00:26:26,616
+object, that is the same as
+
+
+848
+00:26:26,616 --> 00:26:28,726
+suspending the URLSessionTask.
+
+
+849
+00:26:29,336 --> 00:26:34,656
+We now have support for the
+
+
+850
+00:26:34,656 --> 00:26:36,756
+Brotli compression algorithm.
+
+
+851
+00:26:37,696 --> 00:26:40,576
+In tests this compresses about
+
+
+852
+00:26:40,576 --> 00:26:42,996
+15% better than gzip, which
+
+
+853
+00:26:42,996 --> 00:26:45,696
+results in faster network
+
+
+854
+00:26:45,696 --> 00:26:46,306
+access.
+
+
+855
+00:26:48,006 --> 00:26:49,376
+Like other new compression
+
+
+856
+00:26:49,376 --> 00:26:51,706
+schemes, this is only used over
+
+
+857
+00:26:51,706 --> 00:26:53,616
+encrypted connections to avoid
+
+
+858
+00:26:53,616 --> 00:26:55,496
+confusing middle boxes that
+
+
+859
+00:26:55,496 --> 00:26:56,616
+might not recognize this
+
+
+860
+00:26:56,616 --> 00:26:57,166
+compression.
+
+
+861
+00:26:59,896 --> 00:27:03,466
+Because Safari uses URLSession,
+
+
+862
+00:27:03,466 --> 00:27:05,096
+that's also means Safari gets
+
+
+863
+00:27:05,096 --> 00:27:07,026
+the benefit of this new Brotli
+
+
+864
+00:27:07,026 --> 00:27:08,106
+compression algorithm.
+
+
+865
+00:27:08,526 --> 00:27:10,896
+And many major websites have
+
+
+866
+00:27:10,896 --> 00:27:12,566
+already announced support for
+
+
+867
+00:27:12,566 --> 00:27:14,006
+Brotli in their web service.
+
+
+868
+00:27:14,006 --> 00:27:17,776
+Our next topic is the Public
+
+
+869
+00:27:17,776 --> 00:27:18,586
+Suffix List.
+
+
+870
+00:27:19,216 --> 00:27:20,616
+The Public Suffix List is
+
+
+871
+00:27:20,616 --> 00:27:22,846
+sometimes called the effective
+
+
+872
+00:27:22,846 --> 00:27:24,076
+top-level domain list.
+
+
+873
+00:27:24,836 --> 00:27:27,946
+And this is important for
+
+
+874
+00:27:27,946 --> 00:27:29,776
+determining where administrative
+
+
+875
+00:27:29,776 --> 00:27:31,566
+boundaries occur in the
+
+
+876
+00:27:31,566 --> 00:27:32,756
+namespace of the Internet.
+
+
+877
+00:27:34,036 --> 00:27:35,566
+One thing we don't want to allow
+
+
+878
+00:27:36,026 --> 00:27:40,126
+is for a website to set a cookie
+
+
+879
+00:27:40,126 --> 00:27:42,096
+on the com domain, which is then
+
+
+880
+00:27:42,096 --> 00:27:44,006
+accessible to any other dot com
+
+
+881
+00:27:44,006 --> 00:27:44,486
+company.
+
+
+882
+00:27:45,066 --> 00:27:47,916
+So you might be tempted to make
+
+
+883
+00:27:47,916 --> 00:27:50,486
+a rule that you can't set
+
+
+884
+00:27:50,656 --> 00:27:52,576
+cookies on top level domains,
+
+
+885
+00:27:52,636 --> 00:27:54,546
+only on second level and lower.
+
+
+886
+00:27:55,146 --> 00:27:56,926
+But domains are named
+
+
+887
+00:27:56,926 --> 00:27:58,416
+differently in different parts
+
+
+888
+00:27:58,416 --> 00:27:59,006
+of the world.
+
+
+889
+00:28:00,086 --> 00:28:03,276
+In America, Apple.com and
+
+
+890
+00:28:03,276 --> 00:28:04,886
+FileMaker.com are different
+
+
+891
+00:28:04,886 --> 00:28:05,396
+companies.
+
+
+892
+00:28:06,136 --> 00:28:08,236
+But in Australia many, many
+
+
+893
+00:28:08,236 --> 00:28:10,526
+companies are under com.au, and
+
+
+894
+00:28:10,746 --> 00:28:11,806
+that doesn't make them all the
+
+
+895
+00:28:11,806 --> 00:28:12,486
+same company.
+
+
+896
+00:28:12,786 --> 00:28:15,196
+So the Public Suffix List is a
+
+
+897
+00:28:15,196 --> 00:28:17,706
+file of rules and patterns that
+
+
+898
+00:28:17,706 --> 00:28:20,726
+tells software how to judge
+
+
+899
+00:28:20,816 --> 00:28:22,396
+where administrative boundaries
+
+
+900
+00:28:22,436 --> 00:28:23,226
+occur.
+
+
+901
+00:28:24,076 --> 00:28:28,396
+This is used for partitioning
+
+
+902
+00:28:28,396 --> 00:28:32,876
+cookies, and it's used by the
+
+
+903
+00:28:32,876 --> 00:28:34,296
+URLSession APIs.
+
+
+904
+00:28:34,376 --> 00:28:36,046
+And if you use the
+
+
+905
+00:28:36,046 --> 00:28:37,876
+HTTPCookieStorage APIs directly,
+
+
+906
+00:28:38,036 --> 00:28:39,206
+it's supported there, too.
+
+
+907
+00:28:40,346 --> 00:28:41,506
+We used to update this in
+
+
+908
+00:28:41,506 --> 00:28:43,576
+software updates, but now with
+
+
+909
+00:28:43,616 --> 00:28:46,106
+the more rapid progress in
+
+
+910
+00:28:46,106 --> 00:28:47,626
+creating top level domains,
+
+
+911
+00:28:48,066 --> 00:28:49,796
+we've changed to doing this over
+
+
+912
+00:28:49,796 --> 00:28:50,346
+the air.
+
+
+913
+00:28:50,606 --> 00:28:52,046
+We could push a new list every
+
+
+914
+00:28:52,046 --> 00:28:56,476
+two weeks if we wanted to.
+
+
+915
+00:28:57,416 --> 00:29:01,636
+URLSessionStreamTask is the API
+
+
+916
+00:29:01,726 --> 00:29:03,506
+you would use if you just want a
+
+
+917
+00:29:03,506 --> 00:29:04,146
+byte stream.
+
+
+918
+00:29:04,436 --> 00:29:06,896
+If you're not doing HTTP Style
+
+
+919
+00:29:06,896 --> 00:29:08,536
+Gets but say you want to write a
+
+
+920
+00:29:08,536 --> 00:29:09,196
+mail client,
+
+
+921
+00:29:09,596 --> 00:29:12,676
+URLSessionStreamTask gives you a
+
+
+922
+00:29:12,676 --> 00:29:13,626
+simple byte stream.
+
+
+923
+00:29:14,766 --> 00:29:16,646
+It supports upgrading to TLS
+
+
+924
+00:29:16,646 --> 00:29:18,026
+with the STARTTLS option.
+
+
+925
+00:29:18,276 --> 00:29:21,286
+If you have existing code that
+
+
+926
+00:29:21,416 --> 00:29:22,866
+is written using the old
+
+
+927
+00:29:22,866 --> 00:29:25,526
+NSInputStream and NSOutputStream
+
+
+928
+00:29:25,526 --> 00:29:27,796
+APIs, you can extract those
+
+
+929
+00:29:27,796 --> 00:29:29,156
+objects from a
+
+
+930
+00:29:29,236 --> 00:29:32,016
+URLSessionStreamTask to use your
+
+
+931
+00:29:32,016 --> 00:29:32,566
+old code.
+
+
+932
+00:29:32,886 --> 00:29:34,016
+But for any new code you're
+
+
+933
+00:29:34,016 --> 00:29:36,006
+writing, we strongly recommend
+
+
+934
+00:29:36,066 --> 00:29:38,246
+that you use the new native
+
+
+935
+00:29:38,526 --> 00:29:40,676
+URLSessionStreamTask APIs.
+
+
+936
+00:29:41,486 --> 00:29:42,836
+We announced this a couple of
+
+
+937
+00:29:42,836 --> 00:29:46,116
+years ago at WWDC 2015.
+
+
+938
+00:29:46,596 --> 00:29:49,336
+What we have new for you now is
+
+
+939
+00:29:49,396 --> 00:29:50,836
+automatic navigation of
+
+
+940
+00:29:50,836 --> 00:29:52,446
+authenticating proxies.
+
+
+941
+00:29:52,666 --> 00:29:53,776
+If the proxy requires
+
+
+942
+00:29:53,776 --> 00:29:56,336
+credentials, then we will
+
+
+943
+00:29:56,336 --> 00:29:57,886
+automatically extract those from
+
+
+944
+00:29:57,886 --> 00:29:59,106
+the key chain or promptly the
+
+
+945
+00:29:59,106 --> 00:30:01,326
+user on your behalf.
+
+
+946
+00:30:03,136 --> 00:30:05,276
+So we've covered the
+
+
+947
+00:30:05,276 --> 00:30:07,346
+enhancements for URLSession,
+
+
+948
+00:30:07,816 --> 00:30:08,496
+let's move on.
+
+
+949
+00:30:09,516 --> 00:30:15,636
+[ Applause ]
+
+
+950
+00:30:16,136 --> 00:30:16,476
+Thank you.
+
+
+951
+00:30:18,346 --> 00:30:21,076
+Tips and hints that we've
+
+
+952
+00:30:21,076 --> 00:30:23,846
+learned from our years helping
+
+
+953
+00:30:23,846 --> 00:30:24,476
+developers.
+
+
+954
+00:30:26,816 --> 00:30:29,116
+Number one rule: Don't use BSD
+
+
+955
+00:30:29,116 --> 00:30:29,726
+Sockets.
+
+
+956
+00:30:33,246 --> 00:30:34,536
+And by the same token, we
+
+
+957
+00:30:34,536 --> 00:30:36,436
+encourage you not to embed
+
+
+958
+00:30:36,746 --> 00:30:39,156
+libraries that are based on BSD
+
+
+959
+00:30:39,156 --> 00:30:39,796
+Sockets.
+
+
+960
+00:30:41,356 --> 00:30:44,386
+Because we do lots of work, as
+
+
+961
+00:30:44,386 --> 00:30:46,116
+you've been hearing today, to
+
+
+962
+00:30:46,116 --> 00:30:48,286
+provide benefits to your
+
+
+963
+00:30:48,286 --> 00:30:49,146
+applications.
+
+
+964
+00:30:49,556 --> 00:30:51,676
+We provide Wi-Fi Assist so that
+
+
+965
+00:30:51,676 --> 00:30:53,246
+your application succeeds
+
+
+966
+00:30:53,356 --> 00:30:54,856
+instead of failing when Wi-Fi
+
+
+967
+00:30:54,856 --> 00:30:55,596
+isn't working.
+
+
+968
+00:30:56,146 --> 00:30:58,386
+We provide techniques to
+
+
+969
+00:30:58,796 --> 00:31:01,156
+minimize CPU use and minimize
+
+
+970
+00:31:01,196 --> 00:31:02,946
+battery use to give users longer
+
+
+971
+00:31:02,946 --> 00:31:03,676
+battery life.
+
+
+972
+00:31:04,376 --> 00:31:06,456
+We have the ability to do tasks
+
+
+973
+00:31:06,456 --> 00:31:08,116
+in the background when your
+
+
+974
+00:31:08,116 --> 00:31:09,536
+application isn't even running.
+
+
+975
+00:31:09,796 --> 00:31:11,096
+And the third-party libraries
+
+
+976
+00:31:11,096 --> 00:31:12,196
+just can't do anything when
+
+
+977
+00:31:12,196 --> 00:31:13,206
+they're not in memory running.
+
+
+978
+00:31:14,556 --> 00:31:18,116
+And final bit of advice: Always
+
+
+979
+00:31:18,116 --> 00:31:20,396
+try to use connect-by-name APIs
+
+
+980
+00:31:20,736 --> 00:31:22,746
+as opposed to APIs where you
+
+
+981
+00:31:22,746 --> 00:31:24,916
+resolve a name to an IP address
+
+
+982
+00:31:24,976 --> 00:31:26,256
+and then connect to the address.
+
+
+983
+00:31:27,036 --> 00:31:28,546
+We talked earlier about the
+
+
+984
+00:31:28,546 --> 00:31:30,466
+requirement for IPv6 support.
+
+
+985
+00:31:30,996 --> 00:31:33,016
+And the reason that almost all
+
+
+986
+00:31:33,276 --> 00:31:36,366
+of your apps worked perfectly is
+
+
+987
+00:31:36,416 --> 00:31:37,826
+because when you use
+
+
+988
+00:31:37,826 --> 00:31:40,366
+connect-by-name APIs, you don't
+
+
+989
+00:31:40,366 --> 00:31:41,506
+get involved with the IP
+
+
+990
+00:31:41,506 --> 00:31:41,956
+addresses.
+
+
+991
+00:31:42,046 --> 00:31:43,136
+And if you're not involved with
+
+
+992
+00:31:43,136 --> 00:31:45,496
+the IP address, you don't need
+
+
+993
+00:31:45,496 --> 00:31:47,726
+to care whether it's v4 or v6,
+
+
+994
+00:31:48,196 --> 00:31:50,846
+it just works.
+
+
+995
+00:31:50,886 --> 00:31:53,366
+Another question we often get is
+
+
+996
+00:31:53,366 --> 00:31:54,706
+about the timeout values.
+
+
+997
+00:31:55,096 --> 00:31:56,316
+So I want to recap that.
+
+
+998
+00:31:57,466 --> 00:31:59,476
+The timeoutIntervalForResource
+
+
+999
+00:32:00,456 --> 00:32:02,496
+is the time limit for fetching
+
+
+1000
+00:32:02,496 --> 00:32:03,566
+the entire resource.
+
+
+1001
+00:32:03,646 --> 00:32:06,436
+By default, this is seven days.
+
+
+1002
+00:32:07,346 --> 00:32:08,996
+If the entire resource has not
+
+
+1003
+00:32:08,996 --> 00:32:10,206
+been fetched by that time, it
+
+
+1004
+00:32:10,206 --> 00:32:10,666
+will fail.
+
+
+1005
+00:32:11,716 --> 00:32:14,726
+timeoutIntervalForRequest is a
+
+
+1006
+00:32:14,726 --> 00:32:17,036
+timer that only starts once the
+
+
+1007
+00:32:17,036 --> 00:32:18,166
+transfer starts.
+
+
+1008
+00:32:18,646 --> 00:32:21,386
+Once it starts, if your transfer
+
+
+1009
+00:32:21,386 --> 00:32:23,796
+stalls and ceases making
+
+
+1010
+00:32:23,796 --> 00:32:24,986
+progress for that time-out
+
+
+1011
+00:32:24,986 --> 00:32:26,806
+value, that when that timer will
+
+
+1012
+00:32:26,806 --> 00:32:27,826
+fire.
+
+
+1013
+00:32:29,876 --> 00:32:33,356
+We have seen developers that
+
+
+1014
+00:32:33,356 --> 00:32:35,766
+take their old NSURLConnection
+
+
+1015
+00:32:35,766 --> 00:32:38,716
+code and convert it to the new
+
+
+1016
+00:32:38,716 --> 00:32:41,066
+URLSession code by mechanically
+
+
+1017
+00:32:41,256 --> 00:32:43,946
+making a URLSession for every
+
+
+1018
+00:32:43,946 --> 00:32:46,186
+old NSURLConnection they used to
+
+
+1019
+00:32:46,186 --> 00:32:46,406
+have.
+
+
+1020
+00:32:47,076 --> 00:32:48,566
+This is very inefficient and
+
+
+1021
+00:32:48,566 --> 00:32:49,006
+wasteful.
+
+
+1022
+00:32:49,186 --> 00:32:51,486
+For almost all of your apps what
+
+
+1023
+00:32:51,486 --> 00:32:53,436
+you want to have is just one
+
+
+1024
+00:32:53,436 --> 00:32:55,446
+URLSession, which can then have
+
+
+1025
+00:32:55,446 --> 00:32:56,786
+as many tasks as you want.
+
+
+1026
+00:32:57,696 --> 00:32:59,236
+The only time you would want
+
+
+1027
+00:32:59,236 --> 00:33:01,446
+more than one URLSession is when
+
+
+1028
+00:33:01,446 --> 00:33:02,946
+you have groups of different
+
+
+1029
+00:33:02,946 --> 00:33:04,936
+operations that have radically
+
+
+1030
+00:33:04,936 --> 00:33:05,926
+different requirements.
+
+
+1031
+00:33:06,086 --> 00:33:07,786
+And in that case you might
+
+
+1032
+00:33:07,816 --> 00:33:08,836
+create two different
+
+
+1033
+00:33:08,836 --> 00:33:11,066
+configuration objects and create
+
+
+1034
+00:33:11,066 --> 00:33:13,436
+two different URLSessions using
+
+
+1035
+00:33:13,436 --> 00:33:15,096
+those two configuration objects.
+
+
+1036
+00:33:15,546 --> 00:33:17,666
+One example is private browsing
+
+
+1037
+00:33:17,666 --> 00:33:19,686
+in Safari where each private
+
+
+1038
+00:33:19,686 --> 00:33:21,116
+browsing window is its own
+
+
+1039
+00:33:21,116 --> 00:33:23,316
+separate URLSession so that it
+
+
+1040
+00:33:23,316 --> 00:33:24,636
+doesn't share cookies and other
+
+
+1041
+00:33:24,636 --> 00:33:25,936
+states with the other sessions.
+
+
+1042
+00:33:27,896 --> 00:33:30,496
+Most apps can just have one
+
+
+1043
+00:33:30,496 --> 00:33:32,326
+statically-allocated URLSession,
+
+
+1044
+00:33:32,326 --> 00:33:33,016
+and that's fine.
+
+
+1045
+00:33:33,376 --> 00:33:34,776
+But if you do allocate
+
+
+1046
+00:33:34,776 --> 00:33:36,266
+URLSessions dynamically,
+
+
+1047
+00:33:36,606 --> 00:33:38,266
+remember to clean up afterwards.
+
+
+1048
+00:33:38,696 --> 00:33:40,096
+Either finish tasks and
+
+
+1049
+00:33:40,096 --> 00:33:42,526
+invalidate or invalidate and
+
+
+1050
+00:33:42,526 --> 00:33:42,936
+cancel.
+
+
+1051
+00:33:43,346 --> 00:33:44,286
+But if you don't clean up,
+
+
+1052
+00:33:44,496 --> 00:33:45,296
+you'll leak memory.
+
+
+1053
+00:33:45,856 --> 00:33:50,956
+We get developers asking us
+
+
+1054
+00:33:51,016 --> 00:33:52,776
+about convenience methods and
+
+
+1055
+00:33:52,776 --> 00:33:53,836
+delegate callbacks.
+
+
+1056
+00:33:55,336 --> 00:33:57,426
+Delegate callbacks give you
+
+
+1057
+00:33:57,426 --> 00:33:59,376
+detailed step-by-step progress
+
+
+1058
+00:33:59,376 --> 00:34:01,546
+information on the state of your
+
+
+1059
+00:34:01,546 --> 00:34:01,926
+task.
+
+
+1060
+00:34:02,506 --> 00:34:04,236
+The convenience methods, like
+
+
+1061
+00:34:04,236 --> 00:34:06,516
+the name suggests, are a quick
+
+
+1062
+00:34:06,516 --> 00:34:09,246
+and easy way of using the API.
+
+
+1063
+00:34:10,795 --> 00:34:13,106
+With convenience methods you
+
+
+1064
+00:34:13,106 --> 00:34:14,565
+don't get all the intermediate
+
+
+1065
+00:34:14,565 --> 00:34:16,466
+delegate callbacks, you just get
+
+
+1066
+00:34:16,466 --> 00:34:18,346
+the final result reported to the
+
+
+1067
+00:34:18,346 --> 00:34:19,246
+completionHandler.
+
+
+1068
+00:34:21,005 --> 00:34:22,626
+Don't mix and match both on the
+
+
+1069
+00:34:22,626 --> 00:34:24,636
+same URLSession, pick one style
+
+
+1070
+00:34:24,636 --> 00:34:25,456
+and be consistent.
+
+
+1071
+00:34:26,536 --> 00:34:27,356
+If you're using the
+
+
+1072
+00:34:27,396 --> 00:34:28,985
+completionHandler, you will not
+
+
+1073
+00:34:28,985 --> 00:34:30,876
+get the delegate callbacks with
+
+
+1074
+00:34:30,916 --> 00:34:31,846
+two exceptions.
+
+
+1075
+00:34:33,295 --> 00:34:35,706
+If networking is not currently
+
+
+1076
+00:34:35,706 --> 00:34:37,795
+available and the task is
+
+
+1077
+00:34:37,795 --> 00:34:39,815
+waiting for connectivity, you'll
+
+
+1078
+00:34:39,815 --> 00:34:41,565
+be notified of that in case you
+
+
+1079
+00:34:41,565 --> 00:34:42,936
+want to show some indication in
+
+
+1080
+00:34:42,976 --> 00:34:44,396
+your UI.
+
+
+1081
+00:34:44,396 --> 00:34:45,786
+The other delegate method you
+
+
+1082
+00:34:45,786 --> 00:34:47,636
+may get notified is the
+
+
+1083
+00:34:47,636 --> 00:34:48,376
+didReceive
+
+
+1084
+00:34:48,376 --> 00:34:49,565
+AuthenticationChallenge.
+
+
+1085
+00:34:50,266 --> 00:34:54,656
+So here's a summary of the
+
+
+1086
+00:34:54,706 --> 00:34:58,636
+options available to you.
+
+
+1087
+00:34:58,636 --> 00:35:00,416
+Doing URLSessionTasks in your
+
+
+1088
+00:35:00,416 --> 00:35:03,516
+process with waits for
+
+
+1089
+00:35:03,516 --> 00:35:05,206
+connectivity as we recommend,
+
+
+1090
+00:35:06,206 --> 00:35:07,486
+the task will start immediately
+
+
+1091
+00:35:07,486 --> 00:35:10,266
+if it can; or if it can't, it
+
+
+1092
+00:35:10,266 --> 00:35:11,776
+will start at the first possible
+
+
+1093
+00:35:11,776 --> 00:35:12,346
+opportunity.
+
+
+1094
+00:35:13,226 --> 00:35:14,666
+You also have the option of
+
+
+1095
+00:35:14,666 --> 00:35:16,176
+doing tasks in the background.
+
+
+1096
+00:35:17,346 --> 00:35:18,516
+And you can do background
+
+
+1097
+00:35:18,516 --> 00:35:20,346
+discretionary tasks, which will
+
+
+1098
+00:35:20,346 --> 00:35:22,406
+wait until the best time in
+
+
+1099
+00:35:22,406 --> 00:35:25,776
+terms of battery power and Wi-Fi
+
+
+1100
+00:35:25,776 --> 00:35:26,330
+networking.
+
+
+1101
+00:35:30,356 --> 00:35:31,816
+Now I have a couple of ongoing
+
+
+1102
+00:35:31,816 --> 00:35:33,606
+developments to talk about.
+
+
+1103
+00:35:35,386 --> 00:35:36,616
+I'm sure many people in this
+
+
+1104
+00:35:36,616 --> 00:35:38,686
+room have heard about TLS 1.3.
+
+
+1105
+00:35:39,596 --> 00:35:41,716
+TLS, Transport Layer Security is
+
+
+1106
+00:35:41,716 --> 00:35:43,566
+the protocol that encrypts your
+
+
+1107
+00:35:43,566 --> 00:35:45,516
+data on the network to prevent
+
+
+1108
+00:35:45,516 --> 00:35:47,966
+eavesdroppers from seeing it and
+
+
+1109
+00:35:48,276 --> 00:35:50,636
+perhaps as importantly to make
+
+
+1110
+00:35:50,636 --> 00:35:51,816
+sure that you have connected to
+
+
+1111
+00:35:51,886 --> 00:35:53,066
+the server you intended to
+
+
+1112
+00:35:53,066 --> 00:35:53,596
+connect to.
+
+
+1113
+00:35:54,506 --> 00:35:57,646
+TLS 1.2 is very old at this
+
+
+1114
+00:35:57,646 --> 00:35:58,116
+stage.
+
+
+1115
+00:35:58,116 --> 00:35:59,516
+It has a number of problems that
+
+
+1116
+00:35:59,516 --> 00:36:00,426
+have been discovered.
+
+
+1117
+00:36:00,996 --> 00:36:04,696
+And TLS 1.3 is almost finished.
+
+
+1118
+00:36:05,426 --> 00:36:06,706
+That standard is not quite
+
+
+1119
+00:36:06,706 --> 00:36:07,406
+finalized.
+
+
+1120
+00:36:07,966 --> 00:36:09,996
+Apple is participating in that
+
+
+1121
+00:36:09,996 --> 00:36:13,686
+IETF working group, and we
+
+
+1122
+00:36:13,686 --> 00:36:14,756
+expect that to be finished by
+
+
+1123
+00:36:14,756 --> 00:36:15,526
+the end of this year.
+
+
+1124
+00:36:16,256 --> 00:36:17,456
+In the meantime, we do have a
+
+
+1125
+00:36:17,456 --> 00:36:19,666
+draft implementation if you want
+
+
+1126
+00:36:19,666 --> 00:36:21,136
+to experiment with it right now.
+
+
+1127
+00:36:21,816 --> 00:36:23,726
+And if you check out the
+
+
+1128
+00:36:23,726 --> 00:36:26,146
+security session from this Apple
+
+
+1129
+00:36:26,146 --> 00:36:27,326
+Developer Conference, you can
+
+
+1130
+00:36:27,326 --> 00:36:29,566
+learn how to experiment with
+
+
+1131
+00:36:30,116 --> 00:36:30,226
+that.
+
+
+1132
+00:36:30,446 --> 00:36:32,036
+Another thing you may have heard
+
+
+1133
+00:36:32,036 --> 00:36:32,736
+of is QUIC.
+
+
+1134
+00:36:33,706 --> 00:36:35,786
+QUIC is a new transport protocol
+
+
+1135
+00:36:36,236 --> 00:36:39,236
+designed to experiment with new
+
+
+1136
+00:36:39,236 --> 00:36:41,666
+ideas that are hard to do with
+
+
+1137
+00:36:42,216 --> 00:36:42,500
+TCP.
+
+
+1138
+00:36:42,716 --> 00:36:43,886
+QUIC started out as an
+
+
+1139
+00:36:43,886 --> 00:36:45,156
+experiment by some Google
+
+
+1140
+00:36:45,156 --> 00:36:47,546
+engineers, and it was a very
+
+
+1141
+00:36:47,896 --> 00:36:49,186
+successful experiment.
+
+
+1142
+00:36:49,236 --> 00:36:50,096
+They learned a lot.
+
+
+1143
+00:36:50,256 --> 00:36:52,056
+Some ideas were good, some
+
+
+1144
+00:36:52,056 --> 00:36:53,446
+turned out not to work as well
+
+
+1145
+00:36:53,446 --> 00:36:55,116
+as they hoped.
+
+
+1146
+00:36:55,766 --> 00:36:58,346
+Those engineers have taken those
+
+
+1147
+00:36:58,346 --> 00:36:59,916
+lessons they learned to the
+
+
+1148
+00:36:59,916 --> 00:37:00,646
+IETF.
+
+
+1149
+00:37:00,646 --> 00:37:02,306
+We have formed a new working
+
+
+1150
+00:37:02,306 --> 00:37:03,916
+group to develop the IETF
+
+
+1151
+00:37:03,916 --> 00:37:05,346
+standard QUIC protocol.
+
+
+1152
+00:37:06,316 --> 00:37:07,856
+Apple is also participating in
+
+
+1153
+00:37:07,856 --> 00:37:08,796
+that working group.
+
+
+1154
+00:37:08,946 --> 00:37:10,626
+That is not nearly as far long
+
+
+1155
+00:37:10,796 --> 00:37:12,666
+as TLS is, but that is also
+
+
+1156
+00:37:12,666 --> 00:37:13,746
+making good progress.
+
+
+1157
+00:37:17,416 --> 00:37:19,516
+Before we finish, one other
+
+
+1158
+00:37:19,516 --> 00:37:20,676
+thing we should talk about,
+
+
+1159
+00:37:21,496 --> 00:37:22,206
+Bonjour.
+
+
+1160
+00:37:25,036 --> 00:37:27,866
+Fifteen year ago at this very
+
+
+1161
+00:37:27,866 --> 00:37:29,946
+convention center in San Jose,
+
+
+1162
+00:37:30,616 --> 00:37:32,506
+Steve Jobs announced Bonjour to
+
+
+1163
+00:37:32,506 --> 00:37:32,906
+the world.
+
+
+1164
+00:37:33,246 --> 00:37:35,326
+And I got the opportunity to
+
+
+1165
+00:37:35,326 --> 00:37:37,056
+tell you all how it worked.
+
+
+1166
+00:37:37,456 --> 00:37:39,196
+A lot has happened since then.
+
+
+1167
+00:37:40,356 --> 00:37:44,686
+Since we launched it in 2004, we
+
+
+1168
+00:37:44,686 --> 00:37:46,786
+brought out Bonjour for Windows,
+
+
+1169
+00:37:46,786 --> 00:37:47,526
+for Linux.
+
+
+1170
+00:37:47,606 --> 00:37:49,046
+We had Java APIs.
+
+
+1171
+00:37:50,356 --> 00:37:52,476
+The next year Mac OS X 10.4
+
+
+1172
+00:37:52,476 --> 00:37:54,306
+introduced wide-area Bonjour to
+
+
+1173
+00:37:54,456 --> 00:37:55,596
+complement the local
+
+
+1174
+00:37:55,596 --> 00:37:57,396
+multicast-based Bonjour that was
+
+
+1175
+00:37:57,396 --> 00:37:59,886
+in the original Mac OS 10.2
+
+
+1176
+00:38:00,396 --> 00:38:00,716
+launch.
+
+
+1177
+00:38:01,726 --> 00:38:03,526
+The same year the Linux
+
+
+1178
+00:38:03,526 --> 00:38:04,986
+community came out with a
+
+
+1179
+00:38:04,986 --> 00:38:06,556
+completely independent
+
+
+1180
+00:38:06,556 --> 00:38:08,456
+GPL-licensed implementation of
+
+
+1181
+00:38:08,456 --> 00:38:09,776
+Bonjour called Avahi.
+
+
+1182
+00:38:11,126 --> 00:38:12,566
+A couple of years after that,
+
+
+1183
+00:38:13,256 --> 00:38:15,226
+Apple shipped Back to My Mac,
+
+
+1184
+00:38:15,736 --> 00:38:17,956
+which is built on the wide-area
+
+
+1185
+00:38:17,956 --> 00:38:19,666
+Bonjour capabilities introduced
+
+
+1186
+00:38:19,666 --> 00:38:20,656
+in 10.4.
+
+
+1187
+00:38:21,476 --> 00:38:23,796
+And in 2009 we brought out the
+
+
+1188
+00:38:23,796 --> 00:38:26,026
+Bonjour Sleep Proxy, which let
+
+
+1189
+00:38:26,026 --> 00:38:27,196
+you get Back to Your Mac at
+
+
+1190
+00:38:27,196 --> 00:38:28,686
+Home, even when it was asleep to
+
+
+1191
+00:38:28,686 --> 00:38:29,666
+save power.
+
+
+1192
+00:38:30,306 --> 00:38:33,216
+In the years since then, Android
+
+
+1193
+00:38:33,266 --> 00:38:35,566
+adopted with Bonjour with their
+
+
+1194
+00:38:35,566 --> 00:38:38,386
+own native APIs in 2012.
+
+
+1195
+00:38:38,386 --> 00:38:40,556
+That was in API Level 16 for
+
+
+1196
+00:38:40,556 --> 00:38:41,606
+those of you paying attention.
+
+
+1197
+00:38:42,406 --> 00:38:43,936
+And a couple of years ago,
+
+
+1198
+00:38:44,076 --> 00:38:45,626
+Windows 10 added their own
+
+
+1199
+00:38:45,706 --> 00:38:47,206
+native Bonjour support.
+
+
+1200
+00:38:47,756 --> 00:38:48,936
+Now, I know a lot of people in
+
+
+1201
+00:38:48,936 --> 00:38:50,376
+this room are well aware of the
+
+
+1202
+00:38:50,476 --> 00:38:50,926
+history.
+
+
+1203
+00:38:51,236 --> 00:38:52,846
+We know about the major OS
+
+
+1204
+00:38:52,846 --> 00:38:54,596
+vendors adopting Bonjour.
+
+
+1205
+00:38:55,726 --> 00:38:57,116
+But something else happened that
+
+
+1206
+00:38:57,116 --> 00:38:59,366
+surprised even me: Bonjour
+
+
+1207
+00:38:59,366 --> 00:39:01,616
+started showing up in a lot of
+
+
+1208
+00:39:01,616 --> 00:39:02,416
+other places.
+
+
+1209
+00:39:02,666 --> 00:39:04,066
+And I want to illustrate this
+
+
+1210
+00:39:04,326 --> 00:39:05,456
+with just a little personal
+
+
+1211
+00:39:05,456 --> 00:39:06,016
+anecdote.
+
+
+1212
+00:39:06,066 --> 00:39:07,586
+I recently bought a new house.
+
+
+1213
+00:39:08,316 --> 00:39:09,716
+And as part of the process of
+
+
+1214
+00:39:09,716 --> 00:39:11,126
+buying a new house, you often
+
+
+1215
+00:39:11,126 --> 00:39:12,116
+end up buying a bunch of new
+
+
+1216
+00:39:12,116 --> 00:39:12,556
+stuff.
+
+
+1217
+00:39:13,136 --> 00:39:14,816
+And I started adding things to
+
+
+1218
+00:39:14,816 --> 00:39:16,706
+my home and connecting things to
+
+
+1219
+00:39:16,706 --> 00:39:17,346
+the network.
+
+
+1220
+00:39:17,966 --> 00:39:19,426
+And I started finding a bunch of
+
+
+1221
+00:39:19,426 --> 00:39:20,896
+stuff showing up in Bonjour.
+
+
+1222
+00:39:20,896 --> 00:39:22,246
+Now, I bought a new printer; it
+
+
+1223
+00:39:22,246 --> 00:39:23,026
+had Bonjour.
+
+
+1224
+00:39:23,236 --> 00:39:25,266
+I bought some Access Network
+
+
+1225
+00:39:25,266 --> 00:39:26,786
+security cameras, they had
+
+
+1226
+00:39:26,826 --> 00:39:27,316
+Bonjour.
+
+
+1227
+00:39:27,316 --> 00:39:28,916
+That didn't surprise me because
+
+
+1228
+00:39:28,916 --> 00:39:30,686
+we know printers and network
+
+
+1229
+00:39:30,686 --> 00:39:31,956
+cameras were among the first
+
+
+1230
+00:39:31,956 --> 00:39:33,386
+devices to adopt Bonjour.
+
+
+1231
+00:39:35,056 --> 00:39:37,326
+But then I got a surround sound
+
+
+1232
+00:39:37,326 --> 00:39:41,216
+amplifier and it had Wi-Fi, and
+
+
+1233
+00:39:41,216 --> 00:39:43,276
+it had an embedded web server
+
+
+1234
+00:39:43,546 --> 00:39:44,536
+with Bonjour.
+
+
+1235
+00:39:45,066 --> 00:39:46,346
+Now, you can set up the
+
+
+1236
+00:39:46,346 --> 00:39:47,946
+amplifier with the TV and the
+
+
+1237
+00:39:47,946 --> 00:39:50,136
+remote control, but naming the
+
+
+1238
+00:39:50,136 --> 00:39:51,956
+inputs with up, down, left,
+
+
+1239
+00:39:51,956 --> 00:39:53,286
+right on the remote control one
+
+
+1240
+00:39:53,286 --> 00:39:54,586
+character at a time is really
+
+
+1241
+00:39:54,586 --> 00:39:55,056
+tedious.
+
+
+1242
+00:39:55,396 --> 00:39:56,536
+Being able to do this on my
+
+
+1243
+00:39:56,536 --> 00:39:58,966
+laptop or on my 27-inch iMac
+
+
+1244
+00:39:59,126 --> 00:40:00,956
+with a keyboard and a mouse is
+
+
+1245
+00:40:00,956 --> 00:40:03,206
+such a nicer way to set up a new
+
+
+1246
+00:40:03,206 --> 00:40:04,046
+piece of equipment.
+
+
+1247
+00:40:04,166 --> 00:40:06,216
+I bought another amplifier from
+
+
+1248
+00:40:06,216 --> 00:40:07,536
+different company, it also had
+
+
+1249
+00:40:07,536 --> 00:40:08,116
+Bonjour.
+
+
+1250
+00:40:08,826 --> 00:40:10,276
+I got solar panels on the roof
+
+
+1251
+00:40:10,276 --> 00:40:11,556
+of the house to save on the
+
+
+1252
+00:40:11,556 --> 00:40:13,516
+electricity bill, the inverter
+
+
+1253
+00:40:13,836 --> 00:40:16,356
+has Wi-Fi with an embedded web
+
+
+1254
+00:40:16,356 --> 00:40:18,696
+server advertised with Bonjour.
+
+
+1255
+00:40:19,016 --> 00:40:21,166
+So now with one click, I can see
+
+
+1256
+00:40:21,166 --> 00:40:22,966
+a graph of how much power I've
+
+
+1257
+00:40:23,006 --> 00:40:25,056
+produced in the day.
+
+
+1258
+00:40:25,056 --> 00:40:27,306
+My most recent purchase was an
+
+
+1259
+00:40:27,306 --> 00:40:29,846
+irrigation controller to control
+
+
+1260
+00:40:29,846 --> 00:40:30,996
+the sprinklers that water my
+
+
+1261
+00:40:30,996 --> 00:40:31,606
+lawn.
+
+
+1262
+00:40:32,256 --> 00:40:34,136
+It has Wi-Fi with an embedded
+
+
+1263
+00:40:34,136 --> 00:40:35,896
+web server advertised with
+
+
+1264
+00:40:35,896 --> 00:40:36,586
+Bonjour.
+
+
+1265
+00:40:37,166 --> 00:40:38,656
+Compared to trying to program
+
+
+1266
+00:40:38,656 --> 00:40:40,326
+your garden sprinkles with a
+
+
+1267
+00:40:40,326 --> 00:40:42,196
+two-digital LCD display and the
+
+
+1268
+00:40:42,246 --> 00:40:44,186
+plus minus buttons, this is such
+
+
+1269
+00:40:44,186 --> 00:40:45,916
+a glorious experience to see it
+
+
+1270
+00:40:45,916 --> 00:40:47,576
+all on my big iMac screen at the
+
+
+1271
+00:40:47,576 --> 00:40:47,976
+same time.
+
+
+1272
+00:40:48,516 --> 00:40:54,546
+[ Applause ]
+
+
+1273
+00:40:55,046 --> 00:40:56,626
+So thank you to all you device
+
+
+1274
+00:40:56,626 --> 00:40:57,696
+makers who are making these
+
+
+1275
+00:40:57,696 --> 00:40:58,576
+wonderful products.
+
+
+1276
+00:40:58,896 --> 00:41:00,646
+For the app developers in the
+
+
+1277
+00:41:00,646 --> 00:41:03,446
+room, how does this affect you?
+
+
+1278
+00:41:04,046 --> 00:41:05,906
+The IETF DNS Service Discovery
+
+
+1279
+00:41:05,906 --> 00:41:07,696
+Working Group continues to make
+
+
+1280
+00:41:07,726 --> 00:41:08,306
+progress.
+
+
+1281
+00:41:09,686 --> 00:41:11,566
+We have new enhancements to do
+
+
+1282
+00:41:11,566 --> 00:41:13,466
+serve discovery on enterprise
+
+
+1283
+00:41:13,466 --> 00:41:15,266
+networks where multicast is not
+
+
+1284
+00:41:15,266 --> 00:41:16,926
+efficient and on new mesh
+
+
+1285
+00:41:16,926 --> 00:41:18,166
+network technologies that like
+
+
+1286
+00:41:18,266 --> 00:41:19,686
+Thread that don't support
+
+
+1287
+00:41:19,686 --> 00:41:20,516
+multicast well.
+
+
+1288
+00:41:21,176 --> 00:41:22,756
+The good news for app developers
+
+
+1289
+00:41:22,816 --> 00:41:23,826
+is this is all completely
+
+
+1290
+00:41:23,826 --> 00:41:25,146
+transparent to your apps.
+
+
+1291
+00:41:25,146 --> 00:41:26,796
+The APIs haven't changed because
+
+
+1292
+00:41:26,796 --> 00:41:28,716
+we anticipated these things even
+
+
+1293
+00:41:28,716 --> 00:41:29,666
+15 years ago.
+
+
+1294
+00:41:30,276 --> 00:41:32,146
+The only thing to remember is
+
+
+1295
+00:41:32,146 --> 00:41:33,876
+when you do a browse call and
+
+
+1296
+00:41:33,876 --> 00:41:35,286
+you get back a name, type, and
+
+
+1297
+00:41:35,286 --> 00:41:37,226
+domain, pay attention to all
+
+
+1298
+00:41:37,226 --> 00:41:37,636
+three.
+
+
+1299
+00:41:38,016 --> 00:41:41,256
+You may be used to see the
+
+
+1300
+00:41:41,256 --> 00:41:43,136
+domain always being local, but
+
+
+1301
+00:41:43,136 --> 00:41:44,266
+now it may not be local.
+
+
+1302
+00:41:44,606 --> 00:41:46,816
+So when you call resolve, make
+
+
+1303
+00:41:46,816 --> 00:41:48,476
+sure to pass the name, type, and
+
+
+1304
+00:41:48,476 --> 00:41:49,616
+domain you got from the browse
+
+
+1305
+00:41:49,616 --> 00:41:49,866
+call.
+
+
+1306
+00:41:50,066 --> 00:41:51,796
+And for the device makers out
+
+
+1307
+00:41:51,796 --> 00:41:54,006
+there, don't forget to support
+
+
+1308
+00:41:54,176 --> 00:41:55,226
+link-local addressing.
+
+
+1309
+00:41:55,326 --> 00:41:56,506
+Link-local addressing is the
+
+
+1310
+00:41:56,506 --> 00:41:58,156
+most reliable way to get to a
+
+
+1311
+00:41:58,156 --> 00:41:59,486
+device on the local network
+
+
+1312
+00:42:00,316 --> 00:42:02,186
+because if you can't configure
+
+
+1313
+00:42:02,186 --> 00:42:03,726
+it, you can't misconfigure it.
+
+
+1314
+00:42:04,516 --> 00:42:07,086
+[ Laughter ]
+
+
+1315
+00:42:07,586 --> 00:42:10,066
+So to wrap up, in part one we
+
+
+1316
+00:42:10,096 --> 00:42:12,386
+talked about ongoing progress in
+
+
+1317
+00:42:12,486 --> 00:42:12,826
+ECN.
+
+
+1318
+00:42:13,196 --> 00:42:14,636
+It's now supported in clients
+
+
+1319
+00:42:14,636 --> 00:42:16,386
+and servers, the stage is set.
+
+
+1320
+00:42:16,786 --> 00:42:18,636
+Any ISP can now see an immediate
+
+
+1321
+00:42:18,636 --> 00:42:20,276
+benefit for their customers by
+
+
+1322
+00:42:20,276 --> 00:42:21,996
+turning on ECN at the key
+
+
+1323
+00:42:21,996 --> 00:42:22,896
+bottleneck links.
+
+
+1324
+00:42:23,776 --> 00:42:25,196
+Continue testing your apps on
+
+
+1325
+00:42:25,196 --> 00:42:25,626
+NAT64.
+
+
+1326
+00:42:25,676 --> 00:42:29,026
+Mostly known use there, we're
+
+
+1327
+00:42:29,026 --> 00:42:30,266
+very happy everything is going
+
+
+1328
+00:42:30,266 --> 00:42:30,736
+smoothly.
+
+
+1329
+00:42:32,766 --> 00:42:34,236
+We have a move to user space
+
+
+1330
+00:42:34,236 --> 00:42:36,216
+networking, which also doesn't
+
+
+1331
+00:42:36,216 --> 00:42:36,976
+change the APIs.
+
+
+1332
+00:42:37,036 --> 00:42:39,126
+But you may notice when you're
+
+
+1333
+00:42:39,166 --> 00:42:40,586
+debugging and looking at stack
+
+
+1334
+00:42:40,586 --> 00:42:42,196
+traces, you may see symbols in
+
+
+1335
+00:42:42,196 --> 00:42:43,366
+the stack trace you're not used
+
+
+1336
+00:42:43,366 --> 00:42:43,496
+to.
+
+
+1337
+00:42:43,496 --> 00:42:44,886
+You may see differences in CPU
+
+
+1338
+00:42:44,886 --> 00:42:45,626
+usage.
+
+
+1339
+00:42:45,986 --> 00:42:46,966
+We wanted to you to be aware of
+
+
+1340
+00:42:46,966 --> 00:42:48,246
+that so it didn't surprise you.
+
+
+1341
+00:42:49,196 --> 00:42:51,426
+We have new capabilities in the
+
+
+1342
+00:42:51,426 --> 00:42:52,836
+network extension framework.
+
+
+1343
+00:42:53,436 --> 00:42:55,116
+And the big news, we have
+
+
+1344
+00:42:55,196 --> 00:42:58,346
+multipath TCP as used by Siri
+
+
+1345
+00:42:58,496 --> 00:42:59,836
+now available for your apps to
+
+
+1346
+00:42:59,836 --> 00:43:00,736
+use as well.
+
+
+1347
+00:43:01,996 --> 00:43:02,706
+Thank you.
+
+
+1348
+00:43:03,516 --> 00:43:07,956
+[ Applause ]
+
+
+1349
+00:43:08,456 --> 00:43:10,526
+In part two, we covered some
+
+
+1350
+00:43:10,526 --> 00:43:12,076
+enhancements in URLSession,
+
+
+1351
+00:43:12,076 --> 00:43:12,736
+especially the
+
+
+1352
+00:43:12,736 --> 00:43:14,656
+waitsForConnectivity, which is
+
+
+1353
+00:43:14,656 --> 00:43:16,706
+really networking APIs done the
+
+
+1354
+00:43:16,706 --> 00:43:18,326
+way they always should have
+
+
+1355
+00:43:18,326 --> 00:43:18,576
+done.
+
+
+1356
+00:43:18,856 --> 00:43:20,736
+When you ask us to do something,
+
+
+1357
+00:43:21,106 --> 00:43:22,476
+we should just do it, not bother
+
+
+1358
+00:43:22,476 --> 00:43:24,406
+you with silly error messages
+
+
+1359
+00:43:24,406 --> 00:43:25,636
+that it can't be done right now.
+
+
+1360
+00:43:25,776 --> 00:43:27,196
+You ask us, we will do it when
+
+
+1361
+00:43:27,196 --> 00:43:27,566
+we can.
+
+
+1362
+00:43:28,506 --> 00:43:29,736
+I gave some tips about best
+
+
+1363
+00:43:29,786 --> 00:43:33,296
+practices and news about ongoing
+
+
+1364
+00:43:33,296 --> 00:43:33,986
+developments.
+
+
+1365
+00:43:34,826 --> 00:43:35,946
+You can get more information
+
+
+1366
+00:43:36,476 --> 00:43:37,706
+about this session on the web.
+
+
+1367
+00:43:39,186 --> 00:43:41,196
+We have some other sessions we
+
+
+1368
+00:43:41,196 --> 00:43:42,586
+recommend you hear that you'll
+
+
+1369
+00:43:42,586 --> 00:43:44,216
+probably find interesting.
+
+
+1370
+00:43:44,866 --> 00:43:45,216
+Thank you.
+
+
+1371
+00:43:46,516 --> 00:43:51,500
+[ Applause ]
+

@@ -1,0 +1,8264 @@
+1
+00:00:22,786 --> 00:00:23,436
+>> Hey there!
+
+
+2
+00:00:23,576 --> 00:00:24,486
+Hi, everyone.
+
+
+3
+00:00:24,486 --> 00:00:27,096
+Good afternoon and welcome to
+
+
+4
+00:00:27,376 --> 00:00:30,296
+this year's edition of what the
+
+
+5
+00:00:30,296 --> 00:00:31,816
+heck have those HLS folks been
+
+
+6
+00:00:31,816 --> 00:00:32,555
+up to lately.
+
+
+7
+00:00:33,536 --> 00:00:34,926
+It wouldn't fit on the slide
+
+
+8
+00:00:34,926 --> 00:00:37,456
+though so you kind of get what
+
+
+9
+00:00:37,456 --> 00:00:37,976
+you get.
+
+
+10
+00:00:37,976 --> 00:00:39,156
+My name is Roger Pantos.
+
+
+11
+00:00:39,156 --> 00:00:40,806
+I'm going to be your host here
+
+
+12
+00:00:40,806 --> 00:00:43,306
+tonight and we have a bunch of
+
+
+13
+00:00:43,306 --> 00:00:44,296
+stuff to talk about.
+
+
+14
+00:00:44,616 --> 00:00:46,916
+We have some new CODECS that are
+
+
+15
+00:00:46,916 --> 00:00:48,456
+interesting, we have some new
+
+
+16
+00:00:48,456 --> 00:00:50,926
+streaming features, and we have
+
+
+17
+00:00:50,926 --> 00:00:53,246
+some enhancements to our APIs.
+
+
+18
+00:00:53,986 --> 00:00:57,296
+But first, we have our own
+
+
+19
+00:00:57,296 --> 00:00:58,276
+announcement to make.
+
+
+20
+00:00:58,806 --> 00:01:01,436
+I am happy to announce that the
+
+
+21
+00:01:01,436 --> 00:01:05,366
+IETF has approved the
+
+
+22
+00:01:05,366 --> 00:01:08,036
+publication of the HLS spec as
+
+
+23
+00:01:08,036 --> 00:01:08,926
+an Internet draft.
+
+
+24
+00:01:09,516 --> 00:01:14,256
+[ Applause ]
+
+
+25
+00:01:14,756 --> 00:01:16,826
+So what this means is that the
+
+
+26
+00:01:16,826 --> 00:01:19,326
+current draft that's published
+
+
+27
+00:01:19,326 --> 00:01:22,086
+on the site now, which is -23,
+
+
+28
+00:01:22,356 --> 00:01:23,786
+will move through the IETF
+
+
+29
+00:01:23,786 --> 00:01:25,556
+publication process and once it
+
+
+30
+00:01:25,556 --> 00:01:27,556
+does then it will be assigned an
+
+
+31
+00:01:27,556 --> 00:01:28,276
+RFC number.
+
+
+32
+00:01:29,066 --> 00:01:31,796
+Now we've been sort of
+
+
+33
+00:01:31,796 --> 00:01:33,366
+refreshing the draft for like 8
+
+
+34
+00:01:33,366 --> 00:01:36,096
+or 9 years now and there's a bit
+
+
+35
+00:01:36,096 --> 00:01:37,486
+of question, okay, well why now?
+
+
+36
+00:01:37,486 --> 00:01:38,326
+Why publish an RFC?
+
+
+37
+00:01:38,326 --> 00:01:40,976
+One of the reasons is that we
+
+
+38
+00:01:40,976 --> 00:01:42,496
+have heard feedback from some
+
+
+39
+00:01:42,496 --> 00:01:44,726
+people that it's a little scary
+
+
+40
+00:01:44,726 --> 00:01:46,276
+to be writing to a spec that's
+
+
+41
+00:01:46,276 --> 00:01:47,926
+sort of continuously in draft
+
+
+42
+00:01:47,926 --> 00:01:48,216
+mode.
+
+
+43
+00:01:48,686 --> 00:01:49,606
+And we get that.
+
+
+44
+00:01:49,766 --> 00:01:51,016
+We understand it.
+
+
+45
+00:01:51,016 --> 00:01:54,016
+And so publishing the spec as an
+
+
+46
+00:01:54,016 --> 00:01:56,666
+RFC will allow it to serve as a
+
+
+47
+00:01:56,666 --> 00:01:59,636
+stable reference going forward,
+
+
+48
+00:01:59,976 --> 00:02:01,846
+which means that you'll be able
+
+
+49
+00:02:01,846 --> 00:02:03,736
+to build on it with confidence,
+
+
+50
+00:02:03,736 --> 00:02:05,206
+you'll be able to cite it in
+
+
+51
+00:02:05,206 --> 00:02:08,295
+other specifications, and we
+
+
+52
+00:02:08,295 --> 00:02:10,196
+hope it will help improve things
+
+
+53
+00:02:10,196 --> 00:02:12,026
+a little bit in some areas of
+
+
+54
+00:02:12,026 --> 00:02:12,506
+the industry.
+
+
+55
+00:02:13,496 --> 00:02:15,846
+Now, are we going to stop
+
+
+56
+00:02:16,146 --> 00:02:17,456
+improving HLS?
+
+
+57
+00:02:17,586 --> 00:02:18,506
+No, of course not.
+
+
+58
+00:02:18,506 --> 00:02:20,606
+We're going to continue to
+
+
+59
+00:02:21,326 --> 00:02:22,496
+evolve it.
+
+
+60
+00:02:22,916 --> 00:02:24,236
+And we're going to make it
+
+
+61
+00:02:24,876 --> 00:02:28,126
+better and better for the user's
+
+
+62
+00:02:28,126 --> 00:02:30,026
+streaming experience, starting
+
+
+63
+00:02:30,026 --> 00:02:30,766
+with the things we're going to
+
+
+64
+00:02:30,766 --> 00:02:31,596
+be talking about today.
+
+
+65
+00:02:32,186 --> 00:02:33,646
+And so the way we're going to do
+
+
+66
+00:02:33,646 --> 00:02:35,936
+that is we're going to introduce
+
+
+67
+00:02:35,936 --> 00:02:38,166
+a new internet draft that will
+
+
+68
+00:02:38,306 --> 00:02:40,076
+build upon the coming RFC as a
+
+
+69
+00:02:40,076 --> 00:02:42,426
+baseline and so keep an eye out
+
+
+70
+00:02:43,336 --> 00:02:44,206
+for that.
+
+
+71
+00:02:44,206 --> 00:02:45,536
+Okay. Now, let's move to the
+
+
+72
+00:02:45,536 --> 00:02:46,986
+other big news of the conference
+
+
+73
+00:02:47,106 --> 00:02:48,906
+which is HEVC.
+
+
+74
+00:02:49,446 --> 00:02:50,946
+As you heard at the keynotes and
+
+
+75
+00:02:50,946 --> 00:02:53,696
+elsewhere, Apple has chosen HEVC
+
+
+76
+00:02:53,696 --> 00:02:55,166
+as our next generation video
+
+
+77
+00:02:55,166 --> 00:02:55,656
+CODEC.
+
+
+78
+00:02:56,326 --> 00:02:58,046
+Now, why did we do it?
+
+
+79
+00:02:58,386 --> 00:02:59,766
+In one word, efficiency.
+
+
+80
+00:03:00,306 --> 00:03:02,656
+And primarily, encoding
+
+
+81
+00:03:04,206 --> 00:03:05,566
+efficiency.
+
+
+82
+00:03:05,566 --> 00:03:09,286
+HEVC is around abouts 40% more
+
+
+83
+00:03:09,286 --> 00:03:10,386
+efficient than AVC.
+
+
+84
+00:03:10,386 --> 00:03:11,806
+I mean, it depends on your
+
+
+85
+00:03:11,806 --> 00:03:13,086
+content and it depends how good
+
+
+86
+00:03:13,086 --> 00:03:14,806
+your encoder is, but 40% is a
+
+
+87
+00:03:14,806 --> 00:03:16,186
+nice ballpark figure.
+
+
+88
+00:03:16,966 --> 00:03:18,686
+And for those of us who spend
+
+
+89
+00:03:18,686 --> 00:03:20,036
+our time schlepping media over
+
+
+90
+00:03:20,036 --> 00:03:22,326
+network that's exciting because
+
+
+91
+00:03:22,326 --> 00:03:23,996
+first of all it means that your
+
+
+92
+00:03:23,996 --> 00:03:26,826
+user is going to see startup at
+
+
+93
+00:03:26,826 --> 00:03:29,276
+a decent quality 40% faster, and
+
+
+94
+00:03:29,276 --> 00:03:30,636
+when the player adapts its way
+
+
+95
+00:03:30,636 --> 00:03:32,036
+all the way up they'll see
+
+
+96
+00:03:32,036 --> 00:03:34,136
+content that looks 40% better.
+
+
+97
+00:03:34,986 --> 00:03:37,786
+And so that's an important thing
+
+
+98
+00:03:37,786 --> 00:03:38,276
+for us.
+
+
+99
+00:03:38,506 --> 00:03:40,016
+So HEVC is good.
+
+
+100
+00:03:40,136 --> 00:03:42,136
+Where can you get it?
+
+
+101
+00:03:42,136 --> 00:03:44,326
+Well as we've said, we are
+
+
+102
+00:03:44,326 --> 00:03:46,176
+making HEVC widely available.
+
+
+103
+00:03:46,376 --> 00:03:47,896
+And in fact, on our newest
+
+
+104
+00:03:47,896 --> 00:03:49,836
+devices, our newest iOS devices
+
+
+105
+00:03:49,836 --> 00:03:52,586
+with A9 and later and our latest
+
+
+106
+00:03:52,586 --> 00:03:54,676
+generation of Macintoshes, we
+
+
+107
+00:03:54,676 --> 00:03:56,436
+have support for HEVC built into
+
+
+108
+00:03:56,436 --> 00:03:57,866
+the hardware and so that
+
+
+109
+00:03:57,866 --> 00:03:59,486
+includes support for FairPlay
+
+
+110
+00:03:59,486 --> 00:03:59,966
+Streaming.
+
+
+111
+00:04:00,466 --> 00:04:02,906
+Even on devices, on older
+
+
+112
+00:04:02,906 --> 00:04:05,266
+devices that don't have that
+
+
+113
+00:04:05,266 --> 00:04:07,306
+hardware support, we are still
+
+
+114
+00:04:07,306 --> 00:04:09,796
+going to deploy a software HEVC
+
+
+115
+00:04:09,796 --> 00:04:10,366
+CODEC.
+
+
+116
+00:04:10,746 --> 00:04:12,276
+And so that will be on all the
+
+
+117
+00:04:12,276 --> 00:04:14,356
+iOS devices receiving, iOS 11.
+
+
+118
+00:04:14,626 --> 00:04:16,156
+That will include the Apple TV
+
+
+119
+00:04:16,156 --> 00:04:19,245
+with tvOS 11 and Macintoshes
+
+
+120
+00:04:19,466 --> 00:04:21,976
+that are upgraded to High
+
+
+121
+00:04:21,976 --> 00:04:22,486
+Sierra.
+
+
+122
+00:04:23,216 --> 00:04:26,136
+So, HEVC is going to be a lot of
+
+
+123
+00:04:26,136 --> 00:04:26,926
+different places.
+
+
+124
+00:04:27,216 --> 00:04:29,476
+We'd like you to use it.
+
+
+125
+00:04:29,476 --> 00:04:32,226
+And to use it with HLS there are
+
+
+126
+00:04:32,226 --> 00:04:33,376
+a few things you need to keep in
+
+
+127
+00:04:33,376 --> 00:04:33,736
+mind.
+
+
+128
+00:04:34,356 --> 00:04:36,806
+The first is that HEVC
+
+
+129
+00:04:36,806 --> 00:04:39,736
+represents an entirely brand new
+
+
+130
+00:04:39,736 --> 00:04:42,176
+encode of your content for a lot
+
+
+131
+00:04:42,176 --> 00:04:44,636
+of people, and that means on the
+
+
+132
+00:04:44,636 --> 00:04:45,546
+bright side there's no
+
+
+133
+00:04:45,546 --> 00:04:47,216
+compatibility version -- burden,
+
+
+134
+00:04:47,216 --> 00:04:47,526
+rather.
+
+
+135
+00:04:47,976 --> 00:04:50,946
+And so we decided that it was a
+
+
+136
+00:04:50,946 --> 00:04:53,556
+good time to refocus our
+
+
+137
+00:04:53,556 --> 00:04:55,286
+attention on a single container
+
+
+138
+00:04:55,286 --> 00:04:56,816
+format and we looked at the
+
+
+139
+00:04:56,816 --> 00:04:59,136
+alternatives and we decided that
+
+
+140
+00:04:59,136 --> 00:05:01,296
+fragmented MPEG-4 had the most
+
+
+141
+00:05:01,296 --> 00:05:02,546
+legs going forward.
+
+
+142
+00:05:02,786 --> 00:05:04,596
+So that means if you're going to
+
+
+143
+00:05:04,596 --> 00:05:07,726
+deploy your HEVC content to HLS,
+
+
+144
+00:05:08,036 --> 00:05:10,746
+it has to be packaged as MP4
+
+
+145
+00:05:10,746 --> 00:05:11,516
+fragments.
+
+
+146
+00:05:13,516 --> 00:05:16,156
+[ Applause ]
+
+
+147
+00:05:16,656 --> 00:05:19,016
+Now, another nice thing there is
+
+
+148
+00:05:19,016 --> 00:05:21,836
+that it makes the encoding story
+
+
+149
+00:05:21,946 --> 00:05:23,856
+or rather the encryption story a
+
+
+150
+00:05:23,856 --> 00:05:27,196
+little bit simpler because our
+
+
+151
+00:05:27,196 --> 00:05:29,856
+old buddy common encryption in
+
+
+152
+00:05:29,856 --> 00:05:32,116
+cbcs mode works the same way
+
+
+153
+00:05:32,116 --> 00:05:34,956
+with HEVC as it does with H.264.
+
+
+154
+00:05:35,246 --> 00:05:36,306
+And so there are no new rules
+
+
+155
+00:05:36,306 --> 00:05:37,326
+there, you just have to do the
+
+
+156
+00:05:37,326 --> 00:05:39,366
+same sort of thing you do to
+
+
+157
+00:05:40,946 --> 00:05:43,386
+your HEVC bit streams.
+
+
+158
+00:05:43,506 --> 00:05:46,266
+As with any new CODEC, you're
+
+
+159
+00:05:46,266 --> 00:05:47,756
+going to be deploying it to an
+
+
+160
+00:05:47,756 --> 00:05:49,436
+ecosystem where some devices
+
+
+161
+00:05:49,436 --> 00:05:51,656
+can't speak HEVC and so it is
+
+
+162
+00:05:51,656 --> 00:05:53,746
+critically important that you
+
+
+163
+00:05:53,746 --> 00:05:55,916
+mark your bit streams as HEVC so
+
+
+164
+00:05:55,916 --> 00:05:56,776
+the devices that don't
+
+
+165
+00:05:56,776 --> 00:05:58,476
+understand it can steer around
+
+
+166
+00:05:59,456 --> 00:05:59,546
+it.
+
+
+167
+00:05:59,546 --> 00:06:01,326
+And the way to do that, of
+
+
+168
+00:06:01,326 --> 00:06:02,516
+course in HLS, is with the
+
+
+169
+00:06:02,516 --> 00:06:03,956
+CODECS attribute in your master
+
+
+170
+00:06:03,956 --> 00:06:04,576
+playlist.
+
+
+171
+00:06:04,636 --> 00:06:07,586
+I've got an example here of a
+
+
+172
+00:06:07,816 --> 00:06:09,296
+CODECS attribute for HEVC.
+
+
+173
+00:06:09,296 --> 00:06:10,566
+It's a little bit more
+
+
+174
+00:06:10,566 --> 00:06:12,296
+complicated than H.264 but it's
+
+
+175
+00:06:12,296 --> 00:06:13,386
+not -- it's got a few more
+
+
+176
+00:06:13,386 --> 00:06:15,486
+things in it but it's not too
+
+
+177
+00:06:15,486 --> 00:06:15,576
+bad.
+
+
+178
+00:06:15,576 --> 00:06:17,656
+And the entire format is
+
+
+179
+00:06:17,756 --> 00:06:21,456
+documented in the HEVC spec. So
+
+
+180
+00:06:21,456 --> 00:06:22,786
+speaking of older clients in
+
+
+181
+00:06:22,786 --> 00:06:25,216
+H.264, there is naturally kind
+
+
+182
+00:06:25,216 --> 00:06:26,586
+of a compatibility question
+
+
+183
+00:06:26,586 --> 00:06:29,546
+around here of, first of all,
+
+
+184
+00:06:29,546 --> 00:06:33,436
+can you deploy a single asset to
+
+
+185
+00:06:33,436 --> 00:06:35,466
+both older and new clients?
+
+
+186
+00:06:35,606 --> 00:06:36,836
+And the answer is yes.
+
+
+187
+00:06:39,996 --> 00:06:42,446
+Here we go.
+
+
+188
+00:06:42,636 --> 00:06:45,896
+You can mix HEVC and H.264
+
+
+189
+00:06:45,896 --> 00:06:47,556
+variants in the same master
+
+
+190
+00:06:47,556 --> 00:06:49,606
+playlist, and that goes for both
+
+
+191
+00:06:49,606 --> 00:06:51,586
+the regular video variance and
+
+
+192
+00:06:51,586 --> 00:06:52,756
+also the I-frame variance.
+
+
+193
+00:06:52,756 --> 00:06:54,606
+You can have HEVC and H.264
+
+
+194
+00:06:54,606 --> 00:06:55,906
+versions of those as well.
+
+
+195
+00:06:56,646 --> 00:06:59,086
+As I said, you do need to
+
+
+196
+00:06:59,086 --> 00:07:01,176
+package your HEVC in MPEG-4
+
+
+197
+00:07:01,176 --> 00:07:02,776
+fragments, but for backward
+
+
+198
+00:07:02,776 --> 00:07:04,766
+compatibility H.264 can either
+
+
+199
+00:07:04,766 --> 00:07:07,326
+be in transforce frames or in
+
+
+200
+00:07:07,326 --> 00:07:09,266
+fragmented MPEG-4, your choice.
+
+
+201
+00:07:09,766 --> 00:07:11,566
+Again, it becomes even more
+
+
+202
+00:07:11,566 --> 00:07:12,606
+critically important that you
+
+
+203
+00:07:12,606 --> 00:07:14,886
+label your media playlist so
+
+
+204
+00:07:14,886 --> 00:07:17,306
+that we know what is what.
+
+
+205
+00:07:18,736 --> 00:07:20,706
+And finally, we have actually
+
+
+206
+00:07:20,706 --> 00:07:22,226
+updated -- we have -- if
+
+
+207
+00:07:22,226 --> 00:07:23,756
+you-guys don't know, we have a
+
+
+208
+00:07:23,756 --> 00:07:24,966
+document called the HLS
+
+
+209
+00:07:24,966 --> 00:07:27,206
+Authoring guidelines, Best
+
+
+210
+00:07:27,266 --> 00:07:29,076
+practices for Apple TV and
+
+
+211
+00:07:29,076 --> 00:07:30,016
+stuff.
+
+
+212
+00:07:30,016 --> 00:07:31,406
+I think we changed the name.
+
+
+213
+00:07:31,796 --> 00:07:33,146
+But anyway, it doesn't matter
+
+
+214
+00:07:33,146 --> 00:07:35,286
+because there's actually a video
+
+
+215
+00:07:35,286 --> 00:07:36,676
+on demand talk that's available
+
+
+216
+00:07:36,676 --> 00:07:38,986
+today called the HLS Authoring
+
+
+217
+00:07:38,986 --> 00:07:40,476
+Update, and we've updated that
+
+
+218
+00:07:40,476 --> 00:07:42,096
+for HEVC.
+
+
+219
+00:07:42,316 --> 00:07:44,656
+And so the Authoring guide now
+
+
+220
+00:07:44,656 --> 00:07:46,036
+has some additional
+
+
+221
+00:07:46,036 --> 00:07:48,216
+considerations for HEVC as well
+
+
+222
+00:07:48,216 --> 00:07:50,886
+as sort of a initial set of
+
+
+223
+00:07:50,886 --> 00:07:52,346
+recommended bit-rate tiers to
+
+
+224
+00:07:52,346 --> 00:07:53,436
+get you-guys going on that.
+
+
+225
+00:07:53,436 --> 00:07:54,996
+So check out that talk.
+
+
+226
+00:07:55,336 --> 00:07:57,226
+I hear the guy giving it is
+
+
+227
+00:07:57,746 --> 00:07:58,366
+awesome.
+
+
+228
+00:07:59,606 --> 00:08:03,616
+Next, we've got a new subtitle
+
+
+229
+00:08:03,616 --> 00:08:07,706
+format, and this is called IMSC.
+
+
+230
+00:08:08,096 --> 00:08:10,186
+Now many of you will not have
+
+
+231
+00:08:10,186 --> 00:08:11,126
+heard of IMSC.
+
+
+232
+00:08:11,126 --> 00:08:14,486
+In the consumer space it's not
+
+
+233
+00:08:14,486 --> 00:08:17,466
+quite as big as VTT is yet, but
+
+
+234
+00:08:18,206 --> 00:08:22,536
+it is sort of a grandchild of a
+
+
+235
+00:08:22,536 --> 00:08:23,996
+more well-known format called
+
+
+236
+00:08:23,996 --> 00:08:25,266
+the Timed Text Markup Language
+
+
+237
+00:08:25,266 --> 00:08:26,116
+or TTML.
+
+
+238
+00:08:26,486 --> 00:08:29,446
+TTML is kind of a extremely
+
+
+239
+00:08:29,446 --> 00:08:31,386
+expressive, not particularly
+
+
+240
+00:08:31,386 --> 00:08:33,716
+lightweight authoring language,
+
+
+241
+00:08:33,716 --> 00:08:35,056
+primarily, for subtitles and
+
+
+242
+00:08:35,056 --> 00:08:37,405
+captions and it's used for
+
+
+243
+00:08:37,405 --> 00:08:39,506
+mezzanines and interchange and
+
+
+244
+00:08:39,506 --> 00:08:40,905
+that kind of thing.
+
+
+245
+00:08:40,905 --> 00:08:41,905
+And so what the Timed Text
+
+
+246
+00:08:41,905 --> 00:08:44,436
+working group did was they took
+
+
+247
+00:08:44,436 --> 00:08:47,206
+TTML and they kind of slimed it
+
+
+248
+00:08:47,206 --> 00:08:48,346
+down, streamlined it a little
+
+
+249
+00:08:48,346 --> 00:08:50,276
+bit for delivery of regular
+
+
+250
+00:08:50,276 --> 00:08:51,756
+captions to consumers over the
+
+
+251
+00:08:51,756 --> 00:08:52,166
+Internet.
+
+
+252
+00:08:52,536 --> 00:08:54,696
+And so that is called IMSC.
+
+
+253
+00:08:55,756 --> 00:08:58,696
+Now, we already do VTT and so it
+
+
+254
+00:08:58,696 --> 00:08:59,806
+brings the obvious question of
+
+
+255
+00:08:59,806 --> 00:09:01,446
+well why is IMSC different?
+
+
+256
+00:09:01,856 --> 00:09:04,696
+And the primary difference is
+
+
+257
+00:09:04,696 --> 00:09:07,436
+that IMSC has much better
+
+
+258
+00:09:07,436 --> 00:09:09,216
+support, much more extensive
+
+
+259
+00:09:09,216 --> 00:09:11,706
+styling controls than VTT does.
+
+
+260
+00:09:11,706 --> 00:09:13,636
+VTT kind of has a few basic
+
+
+261
+00:09:13,636 --> 00:09:15,616
+styling controls and then for
+
+
+262
+00:09:15,706 --> 00:09:18,346
+the rest of it leans on CSS.
+
+
+263
+00:09:18,346 --> 00:09:19,446
+IMSC has a much more
+
+
+264
+00:09:19,446 --> 00:09:21,786
+self-contained set of styling
+
+
+265
+00:09:21,786 --> 00:09:24,576
+features that are focused on the
+
+
+266
+00:09:24,576 --> 00:09:26,346
+kind of stylings you need to do
+
+
+267
+00:09:26,346 --> 00:09:28,116
+for subtitles and captions.
+
+
+268
+00:09:28,786 --> 00:09:32,016
+And so it's gotten a certain
+
+
+269
+00:09:32,016 --> 00:09:33,496
+amount of traction, particularly
+
+
+270
+00:09:33,496 --> 00:09:34,896
+in the broadcasting industry,
+
+
+271
+00:09:35,516 --> 00:09:38,386
+and so much so that it was
+
+
+272
+00:09:38,386 --> 00:09:40,946
+chosen last year as the baseline
+
+
+273
+00:09:40,946 --> 00:09:42,896
+format for MPEG's common media
+
+
+274
+00:09:42,896 --> 00:09:45,236
+application format that we told
+
+
+275
+00:09:45,236 --> 00:09:46,016
+you about last year.
+
+
+276
+00:09:47,016 --> 00:09:49,456
+And so what we're doing in iOS
+
+
+277
+00:09:49,456 --> 00:09:50,906
+11 and the other various
+
+
+278
+00:09:50,906 --> 00:09:54,036
+releases is we are rolling out a
+
+
+279
+00:09:54,036 --> 00:09:56,526
+first generation ground-up
+
+
+280
+00:09:56,686 --> 00:10:01,186
+implementation of IMSC and so
+
+
+281
+00:10:01,186 --> 00:10:02,406
+that's in your seat today, and
+
+
+282
+00:10:02,406 --> 00:10:04,846
+we expect to refine it going
+
+
+283
+00:10:04,846 --> 00:10:05,256
+forward.
+
+
+284
+00:10:06,006 --> 00:10:10,156
+So just as with HEVC, there are
+
+
+285
+00:10:10,156 --> 00:10:11,186
+a few things you need to know
+
+
+286
+00:10:11,186 --> 00:10:12,476
+about IMSC in order to use it
+
+
+287
+00:10:12,476 --> 00:10:13,216
+with HLS.
+
+
+288
+00:10:13,516 --> 00:10:14,516
+The first thing is how it's
+
+
+289
+00:10:14,516 --> 00:10:15,136
+packaged.
+
+
+290
+00:10:15,496 --> 00:10:17,596
+Unlike VTT, which the segments
+
+
+291
+00:10:17,596 --> 00:10:18,836
+-- where the segments are just
+
+
+292
+00:10:18,836 --> 00:10:21,216
+little text files, the carriage
+
+
+293
+00:10:21,266 --> 00:10:23,296
+of IMSC is defined by MPEG-4,
+
+
+294
+00:10:23,296 --> 00:10:25,986
+part 30 and it basically what it
+
+
+295
+00:10:25,986 --> 00:10:28,106
+comes down to is XML text inside
+
+
+296
+00:10:28,106 --> 00:10:30,036
+of MPEG-4 fragments, and so it
+
+
+297
+00:10:30,036 --> 00:10:31,486
+takes advantage of all the
+
+
+298
+00:10:31,936 --> 00:10:33,426
+MPEG-4 timing facilities.
+
+
+299
+00:10:34,006 --> 00:10:35,866
+And I say text because IMSC
+
+
+300
+00:10:35,866 --> 00:10:38,546
+actually defines 2 profiles, an
+
+
+301
+00:10:38,546 --> 00:10:39,786
+image profile and a text
+
+
+302
+00:10:39,786 --> 00:10:40,286
+profile.
+
+
+303
+00:10:40,596 --> 00:10:43,306
+Our client only supports the
+
+
+304
+00:10:43,306 --> 00:10:46,846
+text profile of IMSC, and so
+
+
+305
+00:10:47,366 --> 00:10:49,586
+when you label your playlist,
+
+
+306
+00:10:49,586 --> 00:10:51,096
+which you should do because you
+
+
+307
+00:10:51,096 --> 00:10:52,726
+face the same issue with old
+
+
+308
+00:10:52,816 --> 00:10:54,266
+clients not understanding IMSC,
+
+
+309
+00:10:54,266 --> 00:10:57,116
+you'll want to add the CODECS
+
+
+310
+00:10:57,116 --> 00:10:59,676
+tag for IMSC, and I've included
+
+
+311
+00:10:59,676 --> 00:11:01,476
+a sample here which is
+
+
+312
+00:11:01,516 --> 00:11:04,586
+stpp.TTML.im1t, and that
+
+
+313
+00:11:04,586 --> 00:11:06,146
+essentially says I have
+
+
+314
+00:11:06,146 --> 00:11:07,576
+subtitles in my playlist that
+
+
+315
+00:11:07,576 --> 00:11:10,646
+conform to the text profile of
+
+
+316
+00:11:10,646 --> 00:11:11,166
+IMSC1.
+
+
+317
+00:11:13,486 --> 00:11:15,596
+Now, I've been talking about
+
+
+318
+00:11:15,696 --> 00:11:17,326
+IMSC and HEVC sort of in the
+
+
+319
+00:11:17,326 --> 00:11:17,796
+same breath.
+
+
+320
+00:11:17,796 --> 00:11:20,126
+I just want to sort of emphasize
+
+
+321
+00:11:20,126 --> 00:11:21,496
+that they're not linked.
+
+
+322
+00:11:21,816 --> 00:11:22,856
+You can use them independently.
+
+
+323
+00:11:22,856 --> 00:11:23,656
+You can use HEVC with VTT.
+
+
+324
+00:11:23,656 --> 00:11:27,366
+You can use IMSC with H.264.
+
+
+325
+00:11:27,366 --> 00:11:28,356
+You can use them all together,
+
+
+326
+00:11:28,806 --> 00:11:30,826
+and you can actually even have a
+
+
+327
+00:11:30,826 --> 00:11:34,016
+single playlist that has VTT and
+
+
+328
+00:11:34,016 --> 00:11:36,056
+IMSC so that newer clients can
+
+
+329
+00:11:36,056 --> 00:11:37,906
+get the benefits of IMSC styling
+
+
+330
+00:11:38,076 --> 00:11:40,256
+and older clients can continue
+
+
+331
+00:11:40,256 --> 00:11:41,106
+to use VTT.
+
+
+332
+00:11:41,106 --> 00:11:41,996
+And so let's take a look at a
+
+
+333
+00:11:41,996 --> 00:11:43,026
+playlist and show you what that
+
+
+334
+00:11:43,026 --> 00:11:43,486
+looks like.
+
+
+335
+00:11:44,286 --> 00:11:45,516
+I've got a fragment of a master
+
+
+336
+00:11:45,516 --> 00:11:47,976
+playlist here and that first set
+
+
+337
+00:11:47,976 --> 00:11:49,586
+of lines up there should be
+
+
+338
+00:11:49,586 --> 00:11:50,636
+pretty familiar to you.
+
+
+339
+00:11:50,636 --> 00:11:51,796
+That's what your master playlist
+
+
+340
+00:11:51,796 --> 00:11:53,246
+would look like if you had a
+
+
+341
+00:11:53,246 --> 00:11:55,436
+video variant called bipbop
+
+
+342
+00:11:55,436 --> 00:11:57,946
+gear1 and it had VTT based
+
+
+343
+00:11:57,946 --> 00:11:59,076
+subtitles in it.
+
+
+344
+00:11:59,526 --> 00:12:02,676
+That next set of tags has the
+
+
+345
+00:12:02,676 --> 00:12:05,316
+same video tier but in its
+
+
+346
+00:12:05,316 --> 00:12:07,376
+CODECS attribute you see it's
+
+
+347
+00:12:07,376 --> 00:12:08,786
+labeled as IMSC.
+
+
+348
+00:12:09,116 --> 00:12:11,766
+And so the first one will pull
+
+
+349
+00:12:11,766 --> 00:12:15,086
+down the VTT.m3u8 playlist, the
+
+
+350
+00:12:15,086 --> 00:12:16,606
+second will pull down the IMSC
+
+
+351
+00:12:16,606 --> 00:12:17,896
+if the client can understand
+
+
+352
+00:12:17,896 --> 00:12:18,086
+that.
+
+
+353
+00:12:18,156 --> 00:12:20,886
+If we sort of dive into those
+
+
+354
+00:12:20,886 --> 00:12:22,126
+two media playlists they're
+
+
+355
+00:12:22,126 --> 00:12:23,166
+actually pretty similar.
+
+
+356
+00:12:23,166 --> 00:12:26,576
+You can see that the VTT is, you
+
+
+357
+00:12:26,816 --> 00:12:28,006
+know, as you'd expect, just a
+
+
+358
+00:12:28,006 --> 00:12:31,346
+list of .VTT segments and the
+
+
+359
+00:12:31,346 --> 00:12:33,426
+IMSC is also sort of, in this
+
+
+360
+00:12:33,426 --> 00:12:34,966
+case MP4 segments because there
+
+
+361
+00:12:34,966 --> 00:12:36,816
+are MPEG-4 fragments and it does
+
+
+362
+00:12:36,816 --> 00:12:38,626
+have them tagged because that's
+
+
+363
+00:12:38,626 --> 00:12:41,116
+what fragmented MPEG-4 requires
+
+
+364
+00:12:41,116 --> 00:12:42,466
+is we need to be able to point
+
+
+365
+00:12:42,466 --> 00:12:43,826
+at the movie box.
+
+
+366
+00:12:44,006 --> 00:12:45,376
+So, but other than that they're
+
+
+367
+00:12:45,376 --> 00:12:45,916
+very similar.
+
+
+368
+00:12:46,496 --> 00:12:48,946
+So IMSC, VTT they're very
+
+
+369
+00:12:48,946 --> 00:12:49,746
+similar.
+
+
+370
+00:12:49,816 --> 00:12:53,466
+They do the same thing.
+
+
+371
+00:12:53,676 --> 00:12:55,196
+Why would I switch my HLS
+
+
+372
+00:12:55,196 --> 00:12:56,176
+streams for IMSC?
+
+
+373
+00:12:56,466 --> 00:12:58,666
+Well, you might switch your
+
+
+374
+00:12:58,666 --> 00:13:02,066
+streams if, first of all, if you
+
+
+375
+00:13:02,066 --> 00:13:04,446
+want more stylist to control and
+
+
+376
+00:13:04,446 --> 00:13:06,666
+you don't have an entire CSS
+
+
+377
+00:13:06,816 --> 00:13:08,956
+parser to lean on in your
+
+
+378
+00:13:08,956 --> 00:13:11,396
+playback devices then IMSC can
+
+
+379
+00:13:11,396 --> 00:13:12,036
+be attractive.
+
+
+380
+00:13:13,336 --> 00:13:16,076
+A second good reason is that you
+
+
+381
+00:13:16,076 --> 00:13:17,826
+may be authoring your captions
+
+
+382
+00:13:17,826 --> 00:13:20,316
+already in TTML, or perhaps
+
+
+383
+00:13:20,316 --> 00:13:21,056
+you're getting them from a
+
+
+384
+00:13:21,056 --> 00:13:23,146
+service provider in one of those
+
+
+385
+00:13:23,146 --> 00:13:24,186
+formats.
+
+
+386
+00:13:24,186 --> 00:13:25,606
+And you may find that
+
+
+387
+00:13:25,606 --> 00:13:28,946
+translating TTML's IMSC is both
+
+
+388
+00:13:28,946 --> 00:13:30,456
+simpler and perhaps higher
+
+
+389
+00:13:30,456 --> 00:13:32,356
+fidelity than doing the same
+
+
+390
+00:13:32,356 --> 00:13:34,196
+translation to VTT because
+
+
+391
+00:13:34,196 --> 00:13:34,956
+they're much more similar
+
+
+392
+00:13:34,956 --> 00:13:35,666
+formats.
+
+
+393
+00:13:36,156 --> 00:13:37,516
+So another good reason.
+
+
+394
+00:13:37,516 --> 00:13:40,416
+And a final reason is that you
+
+
+395
+00:13:40,416 --> 00:13:41,776
+may find yourself producing
+
+
+396
+00:13:41,866 --> 00:13:43,536
+IMSC1 streams anyway.
+
+
+397
+00:13:44,056 --> 00:13:47,026
+We mentioned that CMAF is
+
+
+398
+00:13:47,026 --> 00:13:50,746
+requiring IMSC for captions in
+
+
+399
+00:13:50,746 --> 00:13:54,116
+CMAF presentations, and if you
+
+
+400
+00:13:54,116 --> 00:13:55,886
+find yourself wanting to take
+
+
+401
+00:13:55,886 --> 00:13:57,536
+advantage of the pool of
+
+
+402
+00:13:57,536 --> 00:13:58,956
+compatible devices that we hope
+
+
+403
+00:13:58,956 --> 00:14:00,656
+CMAF will produce then you're
+
+
+404
+00:14:00,656 --> 00:14:01,996
+going to end up with IMSC1
+
+
+405
+00:14:01,996 --> 00:14:06,876
+streams and you may be able to
+
+
+406
+00:14:07,296 --> 00:14:11,686
+just drop the VTT streams and
+
+
+407
+00:14:11,686 --> 00:14:12,936
+that would simplify your tool
+
+
+408
+00:14:12,936 --> 00:14:13,926
+chain and your production
+
+
+409
+00:14:13,926 --> 00:14:14,296
+workflow.
+
+
+410
+00:14:14,706 --> 00:14:20,446
+So now having said all of that,
+
+
+411
+00:14:20,746 --> 00:14:21,846
+maybe none of that applies to
+
+
+412
+00:14:21,846 --> 00:14:24,766
+you in which case sticking with
+
+
+413
+00:14:24,766 --> 00:14:26,096
+VTT is a fine choice.
+
+
+414
+00:14:26,096 --> 00:14:27,206
+It's going to continue being
+
+
+415
+00:14:27,206 --> 00:14:27,416
+around.
+
+
+416
+00:14:27,416 --> 00:14:29,716
+In fact, maybe you're mainly
+
+
+417
+00:14:29,716 --> 00:14:31,106
+focused on North American market
+
+
+418
+00:14:31,106 --> 00:14:33,246
+in which case 608 is fine too.
+
+
+419
+00:14:33,306 --> 00:14:34,226
+It's not going anywhere.
+
+
+420
+00:14:34,716 --> 00:14:35,966
+So, we've just got different
+
+
+421
+00:14:35,966 --> 00:14:36,446
+choices.
+
+
+422
+00:14:37,596 --> 00:14:39,466
+Now, I've been talking a lot
+
+
+423
+00:14:39,466 --> 00:14:40,666
+about IMSC1.
+
+
+424
+00:14:40,666 --> 00:14:41,776
+There might be a question
+
+
+425
+00:14:41,776 --> 00:14:43,156
+lingering as to well is there an
+
+
+426
+00:14:43,466 --> 00:14:44,406
+IMSC2?
+
+
+427
+00:14:44,436 --> 00:14:47,526
+And the answer is kind of.
+
+
+428
+00:14:47,526 --> 00:14:49,136
+It hasn't been finalized yet, in
+
+
+429
+00:14:49,136 --> 00:14:50,166
+fact it's still working through
+
+
+430
+00:14:50,166 --> 00:14:53,036
+its process but the Time Text
+
+
+431
+00:14:53,066 --> 00:14:55,086
+working group is planning on
+
+
+432
+00:14:55,086 --> 00:14:56,726
+defining an IMSC2, and one of
+
+
+433
+00:14:56,726 --> 00:14:58,806
+the features in it that we're
+
+
+434
+00:14:58,806 --> 00:15:01,786
+keeping an eye on is some more
+
+
+435
+00:15:01,786 --> 00:15:03,366
+silent controls that are
+
+
+436
+00:15:03,366 --> 00:15:05,316
+particularly aimed at some
+
+
+437
+00:15:05,316 --> 00:15:07,206
+advanced Japanese topography
+
+
+438
+00:15:07,206 --> 00:15:09,836
+features such as shatti and
+
+
+439
+00:15:09,836 --> 00:15:10,626
+ticochiyoko [phonetically
+
+
+440
+00:15:10,626 --> 00:15:11,096
+spelled].
+
+
+441
+00:15:11,096 --> 00:15:16,136
+And so the short story is that
+
+
+442
+00:15:16,136 --> 00:15:18,716
+IMSC2, we expect the story to
+
+
+443
+00:15:18,716 --> 00:15:19,936
+evolve over the next couple of
+
+
+444
+00:15:19,936 --> 00:15:22,256
+years and so keep an eye out for
+
+
+445
+00:15:23,316 --> 00:15:23,526
+it.
+
+
+446
+00:15:23,526 --> 00:15:24,936
+Okay. So that's our CODECS
+
+
+447
+00:15:24,936 --> 00:15:26,746
+story, now let's talk about some
+
+
+448
+00:15:26,746 --> 00:15:27,496
+streaming features.
+
+
+449
+00:15:27,816 --> 00:15:30,606
+And first I'd like to talk about
+
+
+450
+00:15:30,816 --> 00:15:32,786
+something that we have that we
+
+
+451
+00:15:32,786 --> 00:15:34,586
+hope will make the lives of
+
+
+452
+00:15:34,586 --> 00:15:36,136
+those longsuffering produces of
+
+
+453
+00:15:36,136 --> 00:15:37,826
+live streams a little bit easier
+
+
+454
+00:15:38,236 --> 00:15:40,296
+in terms of helping them
+
+
+455
+00:15:40,296 --> 00:15:41,986
+maintain a robust experience
+
+
+456
+00:15:42,526 --> 00:15:44,996
+because HLS players are usually
+
+
+457
+00:15:44,996 --> 00:15:46,876
+pretty good when everything
+
+
+458
+00:15:46,876 --> 00:15:48,106
+going on in the back end is kind
+
+
+459
+00:15:48,106 --> 00:15:50,496
+of running tickety-boo, but when
+
+
+460
+00:15:50,496 --> 00:15:51,896
+things start to fall over on the
+
+
+461
+00:15:51,896 --> 00:15:52,916
+back end the clients could
+
+
+462
+00:15:52,916 --> 00:15:54,256
+actually do a little bit better
+
+
+463
+00:15:54,636 --> 00:15:55,576
+to help things move along.
+
+
+464
+00:15:55,576 --> 00:15:56,466
+Let me show you what I mean.
+
+
+465
+00:15:57,296 --> 00:16:00,066
+So here we have -- I guess here
+
+
+466
+00:16:00,536 --> 00:16:03,986
+we have a -- your typical live
+
+
+467
+00:16:03,986 --> 00:16:04,846
+HLS playlist.
+
+
+468
+00:16:04,846 --> 00:16:05,736
+Got a ten-second target
+
+
+469
+00:16:05,736 --> 00:16:07,196
+duration, segments are you now
+
+
+470
+00:16:07,196 --> 00:16:09,006
+10 seconds or thereabouts, after
+
+
+471
+00:16:09,006 --> 00:16:10,136
+10 seconds you might want to
+
+
+472
+00:16:10,136 --> 00:16:10,616
+reload it.
+
+
+473
+00:16:11,026 --> 00:16:12,606
+File sequence 12 is at the
+
+
+474
+00:16:12,606 --> 00:16:14,356
+bottom there, but oh now file
+
+
+475
+00:16:14,356 --> 00:16:15,426
+sequence 13 appears.
+
+
+476
+00:16:15,806 --> 00:16:17,056
+10 seconds later you reload
+
+
+477
+00:16:17,056 --> 00:16:18,936
+again, file sequence 14 appears.
+
+
+478
+00:16:19,266 --> 00:16:20,756
+Those things aren't appearing by
+
+
+479
+00:16:20,756 --> 00:16:21,696
+magic, of course.
+
+
+480
+00:16:21,926 --> 00:16:23,256
+You've got some encoder worker
+
+
+481
+00:16:23,256 --> 00:16:24,286
+somewhere that's chewing on a
+
+
+482
+00:16:24,286 --> 00:16:25,826
+media source, and every 10
+
+
+483
+00:16:25,826 --> 00:16:26,836
+seconds it's writing on a new
+
+
+484
+00:16:26,836 --> 00:16:30,296
+segment file into the CEN.
+
+
+485
+00:16:30,916 --> 00:16:33,876
+What would happen if for
+
+
+486
+00:16:33,876 --> 00:16:35,096
+whatever reason the encoder
+
+
+487
+00:16:35,096 --> 00:16:35,926
+suddenly rebooted?
+
+
+488
+00:16:36,186 --> 00:16:37,836
+Or maybe you knock your
+
+
+489
+00:16:37,836 --> 00:16:38,906
+microwave dish with your elbow
+
+
+490
+00:16:38,906 --> 00:16:39,786
+or something, you lose your
+
+
+491
+00:16:39,786 --> 00:16:41,246
+media feed.
+
+
+492
+00:16:41,246 --> 00:16:45,116
+Well, prior to this HLS clients
+
+
+493
+00:16:45,116 --> 00:16:46,976
+had no way of knowing that that
+
+
+494
+00:16:46,976 --> 00:16:48,136
+had happened and so they had no
+
+
+495
+00:16:48,136 --> 00:16:48,906
+way to help out.
+
+
+496
+00:16:49,436 --> 00:16:51,686
+But now we defined a new tag
+
+
+497
+00:16:51,916 --> 00:16:54,486
+which is called the GAP tag, and
+
+
+498
+00:16:54,486 --> 00:16:55,946
+so now what you can do instead
+
+
+499
+00:16:55,946 --> 00:16:57,766
+on your back end is when you
+
+
+500
+00:16:57,766 --> 00:17:00,296
+lose your encoder or you lose
+
+
+501
+00:17:00,296 --> 00:17:02,106
+your media source your packager
+
+
+502
+00:17:02,406 --> 00:17:04,165
+can continue writing segments
+
+
+503
+00:17:04,576 --> 00:17:07,746
+but instead of writing the media
+
+
+504
+00:17:07,746 --> 00:17:09,226
+data it can simply write a dummy
+
+
+505
+00:17:09,226 --> 00:17:11,876
+URL and affix that with a GAP
+
+
+506
+00:17:11,876 --> 00:17:12,296
+tag.
+
+
+507
+00:17:12,896 --> 00:17:14,506
+And it can continue doing this
+
+
+508
+00:17:14,786 --> 00:17:17,215
+as long as the encoding for that
+
+
+509
+00:17:17,215 --> 00:17:18,126
+stream is disabled.
+
+
+510
+00:17:18,126 --> 00:17:20,576
+And so 10 seconds later you
+
+
+511
+00:17:20,576 --> 00:17:22,236
+might get another segment that
+
+
+512
+00:17:22,425 --> 00:17:23,526
+is indicated as a gap.
+
+
+513
+00:17:24,175 --> 00:17:25,866
+So this tells the player that
+
+
+514
+00:17:26,476 --> 00:17:27,776
+the stream is still alive, it's
+
+
+515
+00:17:27,776 --> 00:17:29,566
+still chugging along, it's still
+
+
+516
+00:17:29,566 --> 00:17:32,466
+updating but things aren't so
+
+
+517
+00:17:32,466 --> 00:17:33,706
+good in actually media data
+
+
+518
+00:17:33,706 --> 00:17:34,146
+land.
+
+
+519
+00:17:34,826 --> 00:17:36,926
+Once things are restored, once
+
+
+520
+00:17:36,926 --> 00:17:38,936
+your encoder comes back or your
+
+
+521
+00:17:39,446 --> 00:17:40,196
+-- you've straightened out your
+
+
+522
+00:17:40,196 --> 00:17:42,616
+microwave dish or what have you,
+
+
+523
+00:17:42,616 --> 00:17:44,356
+then the packager can continue
+
+
+524
+00:17:44,496 --> 00:17:46,366
+producing segments as it did
+
+
+525
+00:17:46,366 --> 00:17:46,756
+before.
+
+
+526
+00:17:47,086 --> 00:17:48,976
+So, what does the GAP tag mean
+
+
+527
+00:17:49,316 --> 00:17:50,236
+to you as a client?
+
+
+528
+00:17:51,276 --> 00:17:54,126
+Primarily it means that there's
+
+
+529
+00:17:54,126 --> 00:17:57,516
+no media data here and so of
+
+
+530
+00:17:57,516 --> 00:18:00,656
+course as a first approximation
+
+
+531
+00:18:01,126 --> 00:18:02,086
+the player shouldn't attempt to
+
+
+532
+00:18:02,086 --> 00:18:03,536
+download it because it's not
+
+
+533
+00:18:03,536 --> 00:18:07,026
+there, but more interestingly as
+
+
+534
+00:18:07,026 --> 00:18:08,706
+soon as the player sees a GAP
+
+
+535
+00:18:08,706 --> 00:18:10,766
+tag appear in a media playlist
+
+
+536
+00:18:11,056 --> 00:18:12,326
+it can go off and attempt to
+
+
+537
+00:18:12,326 --> 00:18:13,886
+find another variant that
+
+
+538
+00:18:13,886 --> 00:18:15,116
+doesn't have the same gaps
+
+
+539
+00:18:15,156 --> 00:18:16,716
+because you may have multiple
+
+
+540
+00:18:16,716 --> 00:18:18,506
+redundant encoders producing
+
+
+541
+00:18:18,506 --> 00:18:19,716
+different variants or redundant
+
+
+542
+00:18:19,716 --> 00:18:21,426
+variants, and so maybe we're
+
+
+543
+00:18:21,426 --> 00:18:23,436
+playing the 2-megabit stream and
+
+
+544
+00:18:23,436 --> 00:18:24,746
+we might find that when we find
+
+
+545
+00:18:24,776 --> 00:18:26,356
+the 1-megabit stream that oh,
+
+
+546
+00:18:26,496 --> 00:18:27,686
+actually he doesn't have a gap
+
+
+547
+00:18:27,936 --> 00:18:29,096
+and so we can just cleanly
+
+
+548
+00:18:29,096 --> 00:18:30,636
+switch down to it, we can play
+
+
+549
+00:18:30,636 --> 00:18:31,866
+through the 1-megabit stream.
+
+
+550
+00:18:32,206 --> 00:18:33,896
+Once we're done with the gap we
+
+
+551
+00:18:33,896 --> 00:18:35,086
+can switch back up to the
+
+
+552
+00:18:35,086 --> 00:18:36,326
+3-megabit stream, the 2-megabit
+
+
+553
+00:18:36,326 --> 00:18:38,416
+stream, and it's all good.
+
+
+554
+00:18:38,556 --> 00:18:39,686
+The user won't even notice.
+
+
+555
+00:18:40,276 --> 00:18:47,336
+So, we have a fallback case
+
+
+556
+00:18:47,336 --> 00:18:49,466
+which is that you might just
+
+
+557
+00:18:49,466 --> 00:18:51,066
+have one encoder, or like I said
+
+
+558
+00:18:51,066 --> 00:18:51,926
+you might have knocked out your
+
+
+559
+00:18:51,926 --> 00:18:53,406
+media source, you may have no
+
+
+560
+00:18:53,406 --> 00:18:55,226
+media for the entire gap, and
+
+
+561
+00:18:55,316 --> 00:18:56,576
+the behavior of our player in
+
+
+562
+00:18:56,576 --> 00:18:58,466
+that case is we'll just in a
+
+
+563
+00:18:58,466 --> 00:18:59,956
+live stream scenario continue to
+
+
+564
+00:18:59,956 --> 00:19:01,716
+play through silence until media
+
+
+565
+00:19:01,716 --> 00:19:02,866
+comes back and we can resume the
+
+
+566
+00:19:02,866 --> 00:19:03,486
+presentation.
+
+
+567
+00:19:04,526 --> 00:19:06,446
+Now, the new GAP tag amongst
+
+
+568
+00:19:06,446 --> 00:19:09,276
+other things is described in a
+
+
+569
+00:19:09,276 --> 00:19:10,966
+version of the HLS beta spec
+
+
+570
+00:19:10,966 --> 00:19:12,056
+that I was up last night
+
+
+571
+00:19:12,056 --> 00:19:13,946
+writing, and so I think we're
+
+
+572
+00:19:13,946 --> 00:19:15,176
+posting it today, which is
+
+
+573
+00:19:15,176 --> 00:19:15,596
+awesome.
+
+
+574
+00:19:16,006 --> 00:19:18,976
+I can't wait to see it.
+
+
+575
+00:19:23,056 --> 00:19:23,976
+Yeah. Okay.
+
+
+576
+00:19:24,316 --> 00:19:26,786
+Feedback of course is welcome.
+
+
+577
+00:19:26,846 --> 00:19:30,126
+So that's the GAP tag.
+
+
+578
+00:19:30,126 --> 00:19:31,026
+Let's talk about another new
+
+
+579
+00:19:31,026 --> 00:19:32,136
+feature, and this is also kind
+
+
+580
+00:19:32,136 --> 00:19:33,866
+of aimed at your back-end folks.
+
+
+581
+00:19:34,286 --> 00:19:37,076
+And what we're doing is we are
+
+
+582
+00:19:37,236 --> 00:19:38,976
+supporting simple variable
+
+
+583
+00:19:38,976 --> 00:19:41,726
+substitution in m3u8 playlists,
+
+
+584
+00:19:41,726 --> 00:19:42,926
+and do to that we kind of
+
+
+585
+00:19:42,926 --> 00:19:44,976
+barrowed a little bit of syntax
+
+
+586
+00:19:44,976 --> 00:19:46,186
+from PHP.
+
+
+587
+00:19:46,186 --> 00:19:47,606
+And so what that means is if you
+
+
+588
+00:19:47,606 --> 00:19:48,566
+see something like that
+
+
+589
+00:19:48,566 --> 00:19:50,906
+highlighted bit in a playlist
+
+
+590
+00:19:50,906 --> 00:19:52,766
+what it is saying is take that
+
+
+591
+00:19:52,766 --> 00:19:53,766
+thing that's surrounded by the
+
+
+592
+00:19:53,766 --> 00:19:55,306
+braces and replace it with the
+
+
+593
+00:19:55,306 --> 00:19:57,706
+value of the variable whose name
+
+
+594
+00:19:57,706 --> 00:19:58,406
+is file name.
+
+
+595
+00:19:58,696 --> 00:20:01,096
+And so if the variable value
+
+
+596
+00:20:01,096 --> 00:20:02,476
+happens to be foo then you would
+
+
+597
+00:20:02,476 --> 00:20:03,416
+end up with a string that is
+
+
+598
+00:20:03,416 --> 00:20:04,426
+foo.ts.
+
+
+599
+00:20:05,896 --> 00:20:10,016
+Now, to define these things we
+
+
+600
+00:20:10,016 --> 00:20:12,266
+defined a new tag and it's
+
+
+601
+00:20:12,266 --> 00:20:13,306
+pretty simple, I'll show it to
+
+
+602
+00:20:13,306 --> 00:20:14,756
+you in a second, and it either
+
+
+603
+00:20:14,756 --> 00:20:16,956
+defines a variable inline the
+
+
+604
+00:20:16,956 --> 00:20:19,596
+playlist or it can import it.
+
+
+605
+00:20:19,916 --> 00:20:22,596
+Now, this is what makes things
+
+
+606
+00:20:22,596 --> 00:20:23,926
+interesting because remember I
+
+
+607
+00:20:23,926 --> 00:20:25,246
+said makes life a little bit
+
+
+608
+00:20:25,246 --> 00:20:26,326
+better for people producing
+
+
+609
+00:20:26,326 --> 00:20:26,646
+streams?
+
+
+610
+00:20:26,646 --> 00:20:27,566
+Well how does it do that?
+
+
+611
+00:20:27,826 --> 00:20:29,516
+I mean, yeah, you could -- if
+
+
+612
+00:20:29,516 --> 00:20:31,676
+you've got big honking URL's you
+
+
+613
+00:20:31,676 --> 00:20:33,326
+could use variables to make your
+
+
+614
+00:20:33,326 --> 00:20:36,126
+playlist shorter but, I mean,
+
+
+615
+00:20:36,126 --> 00:20:36,986
+gsip [phonetic] already does a
+
+
+616
+00:20:36,986 --> 00:20:38,696
+better job of that so that's not
+
+
+617
+00:20:38,696 --> 00:20:40,846
+-- that's kind of -- but what's
+
+
+618
+00:20:40,956 --> 00:20:42,746
+interesting is when you have the
+
+
+619
+00:20:42,746 --> 00:20:44,666
+ability to define a variable in
+
+
+620
+00:20:44,666 --> 00:20:46,936
+a master playlist and make use
+
+
+621
+00:20:46,936 --> 00:20:48,876
+of it in a media playlist that
+
+
+622
+00:20:48,876 --> 00:20:50,436
+allows you to construct your
+
+
+623
+00:20:50,436 --> 00:20:52,386
+media playlists ahead of time
+
+
+624
+00:20:52,596 --> 00:20:54,776
+with little placeholders that
+
+
+625
+00:20:54,776 --> 00:20:56,466
+are filled in sort of in a late
+
+
+626
+00:20:56,466 --> 00:20:58,316
+binding way when your master
+
+
+627
+00:20:58,316 --> 00:20:59,396
+playlist is defined.
+
+
+628
+00:20:59,396 --> 00:21:01,176
+So for instance, you could have
+
+
+629
+00:21:01,176 --> 00:21:03,066
+a bunch of variables references
+
+
+630
+00:21:03,066 --> 00:21:04,536
+in your media playlist on your
+
+
+631
+00:21:04,586 --> 00:21:05,846
+CDN and you could produce your
+
+
+632
+00:21:05,846 --> 00:21:07,456
+master playlist dynamically from
+
+
+633
+00:21:07,456 --> 00:21:09,246
+your application and at that
+
+
+634
+00:21:09,316 --> 00:21:11,246
+point you can say I want my
+
+
+635
+00:21:11,246 --> 00:21:12,756
+variable to be this, and
+
+
+636
+00:21:12,756 --> 00:21:13,946
+suddenly all your media
+
+
+637
+00:21:13,946 --> 00:21:15,116
+playlists on the CDN will take
+
+
+638
+00:21:15,116 --> 00:21:16,266
+advantage of it.
+
+
+639
+00:21:16,266 --> 00:21:17,906
+So let's see what that looks
+
+
+640
+00:21:18,606 --> 00:21:18,706
+like.
+
+
+641
+00:21:18,876 --> 00:21:20,466
+Here's a master playlist.
+
+
+642
+00:21:20,466 --> 00:21:21,776
+It's pretty simple example.
+
+
+643
+00:21:21,776 --> 00:21:23,896
+So I've got a define tag here.
+
+
+644
+00:21:24,156 --> 00:21:25,546
+It has two attributes, the name
+
+
+645
+00:21:25,546 --> 00:21:26,916
+attribute says the variable name
+
+
+646
+00:21:26,916 --> 00:21:29,376
+is auth and it has a value which
+
+
+647
+00:21:29,376 --> 00:21:31,026
+is this definition of an auth
+
+
+648
+00:21:31,026 --> 00:21:31,366
+token.
+
+
+649
+00:21:32,266 --> 00:21:34,776
+And you can use this various
+
+
+650
+00:21:34,776 --> 00:21:36,176
+places in the master playlist.
+
+
+651
+00:21:36,176 --> 00:21:38,526
+For instance, in my gear1 thing
+
+
+652
+00:21:38,526 --> 00:21:41,076
+here I've decided to tack on the
+
+
+653
+00:21:41,076 --> 00:21:43,116
+auth token to the URL for the
+
+
+654
+00:21:43,406 --> 00:21:46,216
+first variant, but now let's
+
+
+655
+00:21:46,216 --> 00:21:47,506
+imagine that we load that media
+
+
+656
+00:21:47,506 --> 00:21:48,176
+playlist.
+
+
+657
+00:21:49,236 --> 00:21:51,316
+Again, media playlists can have
+
+
+658
+00:21:51,316 --> 00:21:52,406
+variables just like master
+
+
+659
+00:21:52,406 --> 00:21:52,966
+playlists do.
+
+
+660
+00:21:52,966 --> 00:21:54,256
+In this case, I've got a path
+
+
+661
+00:21:54,536 --> 00:21:55,746
+that has this big long path.
+
+
+662
+00:21:55,746 --> 00:21:56,516
+I don't want to type a whole
+
+
+663
+00:21:56,516 --> 00:21:57,486
+bunch of different times.
+
+
+664
+00:21:58,046 --> 00:21:59,106
+But the second define is a
+
+
+665
+00:21:59,106 --> 00:21:59,966
+little more interesting.
+
+
+666
+00:22:00,266 --> 00:22:02,176
+In this case, we're importing
+
+
+667
+00:22:02,336 --> 00:22:03,616
+that auth variable that we
+
+
+668
+00:22:03,616 --> 00:22:05,086
+defined in the master playlist
+
+
+669
+00:22:05,246 --> 00:22:06,936
+and we're applying it to
+
+
+670
+00:22:07,086 --> 00:22:08,406
+different places such as this
+
+
+671
+00:22:08,406 --> 00:22:10,836
+URL in the media playlist, and
+
+
+672
+00:22:10,836 --> 00:22:14,636
+so this allows you to sort of
+
+
+673
+00:22:14,736 --> 00:22:16,426
+have a loose coupling effect
+
+
+674
+00:22:16,426 --> 00:22:17,496
+between your master playlist and
+
+
+675
+00:22:17,496 --> 00:22:18,156
+your media playlist.
+
+
+676
+00:22:18,156 --> 00:22:20,006
+I think that people are going to
+
+
+677
+00:22:20,006 --> 00:22:21,336
+find a lot of interesting uses
+
+
+678
+00:22:21,336 --> 00:22:22,436
+for it.
+
+
+679
+00:22:22,866 --> 00:22:24,016
+Next, okay.
+
+
+680
+00:22:24,416 --> 00:22:25,586
+So we talked about some back-end
+
+
+681
+00:22:25,586 --> 00:22:26,006
+features.
+
+
+682
+00:22:26,186 --> 00:22:27,716
+Let's talk about something that
+
+
+683
+00:22:27,716 --> 00:22:30,156
+you can actually use to provide
+
+
+684
+00:22:30,156 --> 00:22:31,906
+a compelling user experience.
+
+
+685
+00:22:32,326 --> 00:22:33,516
+Now what do I mean?
+
+
+686
+00:22:33,516 --> 00:22:35,536
+Well for instance, what if you
+
+
+687
+00:22:36,226 --> 00:22:38,156
+wanted your users to be able to,
+
+
+688
+00:22:38,156 --> 00:22:39,336
+when they're watching a match,
+
+
+689
+00:22:39,686 --> 00:22:42,496
+to be watching one camera of
+
+
+690
+00:22:42,496 --> 00:22:43,386
+someone sort of crossing the
+
+
+691
+00:22:43,386 --> 00:22:44,746
+ball but at the same time
+
+
+692
+00:22:44,966 --> 00:22:46,866
+watching the goal keeper cameras
+
+
+693
+00:22:46,866 --> 00:22:47,856
+so they could see his point of
+
+
+694
+00:22:47,856 --> 00:22:48,486
+view as well.
+
+
+695
+00:22:49,116 --> 00:22:51,266
+Or what if you're watching a
+
+
+696
+00:22:51,266 --> 00:22:55,116
+race and you want to see the car
+
+
+697
+00:22:55,116 --> 00:22:56,886
+camera in Hamilton's car but you
+
+
+698
+00:22:56,886 --> 00:22:58,266
+also want to keep an eye on
+
+
+699
+00:22:58,266 --> 00:23:00,206
+Vettel behind him.
+
+
+700
+00:23:00,206 --> 00:23:04,596
+And so in that case what unites
+
+
+701
+00:23:04,596 --> 00:23:06,786
+these kind of features is the
+
+
+702
+00:23:06,786 --> 00:23:08,916
+ability to play multiple live
+
+
+703
+00:23:08,916 --> 00:23:10,686
+streams that are synchronized
+
+
+704
+00:23:10,686 --> 00:23:12,306
+with each other so that one
+
+
+705
+00:23:12,306 --> 00:23:14,846
+doesn't get ahead of another.
+
+
+706
+00:23:14,986 --> 00:23:16,326
+[laughs] This is your future.
+
+
+707
+00:23:17,996 --> 00:23:22,536
+So in order to do that, all we
+
+
+708
+00:23:22,536 --> 00:23:24,676
+require is that you have two or
+
+
+709
+00:23:24,676 --> 00:23:26,776
+more live streams that are
+
+
+710
+00:23:26,876 --> 00:23:30,126
+synchronized by the use of a
+
+
+711
+00:23:30,126 --> 00:23:30,706
+date-time tag.
+
+
+712
+00:23:30,706 --> 00:23:31,836
+That basically means you put
+
+
+713
+00:23:31,866 --> 00:23:33,406
+dates in your playlist and the
+
+
+714
+00:23:33,406 --> 00:23:35,596
+dates are both derived or are
+
+
+715
+00:23:35,596 --> 00:23:36,696
+derived in all the playlists
+
+
+716
+00:23:36,696 --> 00:23:37,576
+from a common clock.
+
+
+717
+00:23:38,066 --> 00:23:39,526
+And once you've done that then
+
+
+718
+00:23:39,526 --> 00:23:41,256
+you can create multiple
+
+
+719
+00:23:41,256 --> 00:23:44,156
+independent AVPlayers and you
+
+
+720
+00:23:44,156 --> 00:23:45,486
+can start the first one playing
+
+
+721
+00:23:45,696 --> 00:23:46,826
+and then start the second one
+
+
+722
+00:23:46,826 --> 00:23:49,166
+playing in sync by using the
+
+
+723
+00:23:49,166 --> 00:23:52,406
+AVPlayer setRatetime atHostTime
+
+
+724
+00:23:52,406 --> 00:23:52,766
+method.
+
+
+725
+00:23:53,246 --> 00:23:55,206
+Now, I should be up front here
+
+
+726
+00:23:55,206 --> 00:23:58,446
+and say that using this method
+
+
+727
+00:23:58,446 --> 00:24:00,226
+in AVPlayer gets you some
+
+
+728
+00:24:00,226 --> 00:24:02,196
+serious AVFoundation street cred
+
+
+729
+00:24:02,546 --> 00:24:04,106
+because it's not the simplest
+
+
+730
+00:24:04,106 --> 00:24:04,966
+API in the world.
+
+
+731
+00:24:06,716 --> 00:24:08,886
+But to help you out with that,
+
+
+732
+00:24:08,886 --> 00:24:10,876
+we've actually got some sample
+
+
+733
+00:24:10,876 --> 00:24:11,726
+code for you this year.
+
+
+734
+00:24:12,316 --> 00:24:13,716
+It's an Apple TV app.
+
+
+735
+00:24:13,716 --> 00:24:17,376
+It's called SyncStartTV and I
+
+
+736
+00:24:17,376 --> 00:24:19,026
+thought rather than just talk
+
+
+737
+00:24:19,026 --> 00:24:20,036
+about it maybe I should show it.
+
+
+738
+00:24:20,036 --> 00:24:20,726
+You-guys want to see it?
+
+
+739
+00:24:21,136 --> 00:24:21,646
+>> Yeah.
+
+
+740
+00:24:22,206 --> 00:24:22,766
+>> All right.
+
+
+741
+00:24:23,236 --> 00:24:23,696
+Let's do it.
+
+
+742
+00:24:24,926 --> 00:24:26,136
+So I'm going to switch us over
+
+
+743
+00:24:26,136 --> 00:24:28,256
+to the Apple TV here, if I
+
+
+744
+00:24:28,256 --> 00:24:29,796
+remember which device it is.
+
+
+745
+00:24:29,796 --> 00:24:30,366
+I think it's this one.
+
+
+746
+00:24:31,046 --> 00:24:33,406
+We've got -- I have my little --
+
+
+747
+00:24:33,846 --> 00:24:36,026
+in order to demonstrate a live
+
+
+748
+00:24:36,026 --> 00:24:37,706
+synchronized stream, I first had
+
+
+749
+00:24:37,706 --> 00:24:41,156
+to produce a live streaming
+
+
+750
+00:24:41,156 --> 00:24:43,636
+setup and so I'll just talk a
+
+
+751
+00:24:43,636 --> 00:24:44,946
+little about what's going on up
+
+
+752
+00:24:44,946 --> 00:24:45,286
+here.
+
+
+753
+00:24:45,636 --> 00:24:48,546
+I wrote a little app that takes
+
+
+754
+00:24:48,546 --> 00:24:50,056
+the feed from the back camera
+
+
+755
+00:24:50,356 --> 00:24:52,206
+and chops it up and actually
+
+
+756
+00:24:52,206 --> 00:24:54,836
+serves it from the phone as an
+
+
+757
+00:24:54,876 --> 00:24:55,706
+HLS stream.
+
+
+758
+00:24:56,056 --> 00:24:57,236
+And I've got two of these guys
+
+
+759
+00:24:57,236 --> 00:24:59,596
+here, two phones, both sort of
+
+
+760
+00:24:59,596 --> 00:25:00,626
+focused on the same thing.
+
+
+761
+00:25:00,626 --> 00:25:01,726
+I've got my left and my right
+
+
+762
+00:25:02,266 --> 00:25:04,346
+and they're actually connected
+
+
+763
+00:25:04,586 --> 00:25:06,376
+over the network and they're
+
+
+764
+00:25:06,376 --> 00:25:09,106
+using a clock that is a pretty
+
+
+765
+00:25:09,106 --> 00:25:10,856
+precise clock that's being
+
+
+766
+00:25:10,856 --> 00:25:13,796
+shared between them, and so they
+
+
+767
+00:25:13,796 --> 00:25:15,926
+are off there doing their thing.
+
+
+768
+00:25:16,296 --> 00:25:18,466
+So let me start my -- I don't
+
+
+769
+00:25:19,036 --> 00:25:22,896
+have a -- I couldn't get the
+
+
+770
+00:25:22,896 --> 00:25:24,226
+rights to anything really
+
+
+771
+00:25:24,226 --> 00:25:25,996
+exciting so we're going to do
+
+
+772
+00:25:25,996 --> 00:25:27,986
+this instead.
+
+
+773
+00:25:28,516 --> 00:25:29,926
+So let's see.
+
+
+774
+00:25:29,926 --> 00:25:33,106
+I'll start up my -- something
+
+
+775
+00:25:33,106 --> 00:25:34,086
+going on here.
+
+
+776
+00:25:34,696 --> 00:25:37,206
+And let's start one of the
+
+
+777
+00:25:37,206 --> 00:25:37,716
+cameras.
+
+
+778
+00:25:37,716 --> 00:25:39,096
+In fact, let's get them both
+
+
+779
+00:25:39,096 --> 00:25:39,666
+going here.
+
+
+780
+00:25:39,666 --> 00:25:42,136
+So you've got you.
+
+
+781
+00:25:43,066 --> 00:25:44,386
+Right is online.
+
+
+782
+00:25:45,476 --> 00:25:47,426
+And left is online.
+
+
+783
+00:25:47,426 --> 00:25:50,746
+Okay. So here we go.
+
+
+784
+00:25:53,626 --> 00:25:54,966
+Get my remote oriented
+
+
+785
+00:25:54,966 --> 00:25:55,316
+correctly.
+
+
+786
+00:25:55,316 --> 00:25:56,276
+Okay. So SyncStartTV.
+
+
+787
+00:25:56,276 --> 00:25:57,496
+When you launch SyncStartTV it
+
+
+788
+00:25:57,496 --> 00:25:59,956
+gives you the opportunity to
+
+
+789
+00:25:59,956 --> 00:26:03,066
+select either left or right
+
+
+790
+00:26:03,066 --> 00:26:03,476
+videos.
+
+
+791
+00:26:03,476 --> 00:26:04,396
+So let's select this guy.
+
+
+792
+00:26:04,876 --> 00:26:06,636
+Pops up a Bonjour picker and you
+
+
+793
+00:26:06,636 --> 00:26:07,986
+can see that both of my streams
+
+
+794
+00:26:07,986 --> 00:26:08,926
+show up here in Bonjour.
+
+
+795
+00:26:08,926 --> 00:26:10,466
+So let's start with stage right
+
+
+796
+00:26:10,706 --> 00:26:11,496
+and see what's going on over
+
+
+797
+00:26:11,496 --> 00:26:11,736
+there.
+
+
+798
+00:26:12,126 --> 00:26:13,156
+Nothing much going on over
+
+
+799
+00:26:13,156 --> 00:26:13,496
+there.
+
+
+800
+00:26:13,496 --> 00:26:16,456
+Let's start this guy going in
+
+
+801
+00:26:16,456 --> 00:26:18,306
+sort of -- all right.
+
+
+802
+00:26:18,636 --> 00:26:19,886
+Now select left video.
+
+
+803
+00:26:21,066 --> 00:26:24,546
+And look at that.
+
+
+804
+00:26:26,136 --> 00:26:27,236
+They're in sync!
+
+
+805
+00:26:28,516 --> 00:26:32,556
+[ Applause ]
+
+
+806
+00:26:33,056 --> 00:26:33,516
+Oh my goodness.
+
+
+807
+00:26:33,976 --> 00:26:34,696
+Hold on a second.
+
+
+808
+00:26:56,116 --> 00:26:56,526
+All right.
+
+
+809
+00:26:58,376 --> 00:27:00,376
+[ Applause ]
+
+
+810
+00:27:00,736 --> 00:27:01,156
+Thank you.
+
+
+811
+00:27:01,156 --> 00:27:03,926
+How do I get my slides back?
+
+
+812
+00:27:04,256 --> 00:27:04,896
+All right.
+
+
+813
+00:27:04,896 --> 00:27:05,276
+Here we go.
+
+
+814
+00:27:06,466 --> 00:27:08,436
+Well, this is fun for all ages.
+
+
+815
+00:27:09,126 --> 00:27:11,596
+Okay. So I guess I skipped right
+
+
+816
+00:27:11,596 --> 00:27:12,586
+past my slide.
+
+
+817
+00:27:13,066 --> 00:27:14,366
+Oh well. One of the things I
+
+
+818
+00:27:14,366 --> 00:27:15,296
+wanted to mention about this
+
+
+819
+00:27:15,296 --> 00:27:16,156
+kind of presentation where
+
+
+820
+00:27:16,156 --> 00:27:17,076
+you're showing multiple streams
+
+
+821
+00:27:17,076 --> 00:27:19,736
+at once is that you do have to
+
+
+822
+00:27:19,736 --> 00:27:20,906
+be careful to make sure one of
+
+
+823
+00:27:20,906 --> 00:27:22,076
+your streams doesn't sort of
+
+
+824
+00:27:22,076 --> 00:27:23,106
+suck down all your network
+
+
+825
+00:27:23,106 --> 00:27:24,396
+bandwidth and leave the other
+
+
+826
+00:27:24,396 --> 00:27:25,076
+ones starved.
+
+
+827
+00:27:25,076 --> 00:27:26,266
+So normally you would do this by
+
+
+828
+00:27:26,266 --> 00:27:27,346
+throttling each stream.
+
+
+829
+00:27:27,786 --> 00:27:29,316
+We're giving you another tool
+
+
+830
+00:27:29,316 --> 00:27:31,796
+for that this year and that is a
+
+
+831
+00:27:31,796 --> 00:27:32,726
+resolution cap.
+
+
+832
+00:27:33,236 --> 00:27:36,536
+And so essentially it's as the
+
+
+833
+00:27:36,536 --> 00:27:37,766
+name applies, it allows you to
+
+
+834
+00:27:37,766 --> 00:27:39,376
+programmatically say you know
+
+
+835
+00:27:39,376 --> 00:27:40,636
+what, I'm displaying this in a
+
+
+836
+00:27:40,636 --> 00:27:42,456
+little 480p window, there's no
+
+
+837
+00:27:42,456 --> 00:27:44,426
+point in switching up the way to
+
+
+838
+00:27:45,126 --> 00:27:45,856
+1080p.
+
+
+839
+00:27:45,856 --> 00:27:48,976
+And so when you have an app
+
+
+840
+00:27:48,976 --> 00:27:50,236
+that's got video thumbnails or
+
+
+841
+00:27:50,236 --> 00:27:51,786
+multi-stream or stuff like this
+
+
+842
+00:27:51,786 --> 00:27:52,586
+and you don't want to have to
+
+
+843
+00:27:52,586 --> 00:27:53,726
+dive into the gory details of
+
+
+844
+00:27:53,726 --> 00:27:55,026
+your playlist and set a
+
+
+845
+00:27:55,026 --> 00:27:57,486
+bandwidth cap, this is kind of a
+
+
+846
+00:27:57,486 --> 00:28:00,156
+handy thing to have.
+
+
+847
+00:28:00,156 --> 00:28:01,456
+There is a case where you may
+
+
+848
+00:28:01,456 --> 00:28:03,756
+set a max resolution is actually
+
+
+849
+00:28:03,756 --> 00:28:05,516
+smaller than anything -- any of
+
+
+850
+00:28:05,516 --> 00:28:06,756
+the tiers that are available.
+
+
+851
+00:28:06,756 --> 00:28:07,576
+In that case we'll just pick the
+
+
+852
+00:28:07,576 --> 00:28:10,066
+lowest one and we'll play that.
+
+
+853
+00:28:10,956 --> 00:28:12,186
+It's really easy to use.
+
+
+854
+00:28:12,496 --> 00:28:13,746
+If you've got a player item you
+
+
+855
+00:28:13,746 --> 00:28:15,136
+just set its preferred maximum
+
+
+856
+00:28:15,136 --> 00:28:17,376
+resolution to the CG size and in
+
+
+857
+00:28:17,376 --> 00:28:18,586
+a few seconds it should take
+
+
+858
+00:28:18,586 --> 00:28:18,906
+effect.
+
+
+859
+00:28:19,996 --> 00:28:21,726
+Both sort of up and down.
+
+
+860
+00:28:23,096 --> 00:28:25,026
+Okay. So let's talk about a few
+
+
+861
+00:28:25,026 --> 00:28:25,796
+other things.
+
+
+862
+00:28:26,036 --> 00:28:29,236
+Last year we introduced HLS
+
+
+863
+00:28:29,236 --> 00:28:30,626
+offline support which is the
+
+
+864
+00:28:30,626 --> 00:28:31,996
+ability to download your HLS
+
+
+865
+00:28:31,996 --> 00:28:33,636
+streams and play them somewhere
+
+
+866
+00:28:33,636 --> 00:28:34,606
+like an airplane where you don't
+
+
+867
+00:28:34,606 --> 00:28:35,146
+have a network.
+
+
+868
+00:28:35,486 --> 00:28:37,276
+And when we talked about that we
+
+
+869
+00:28:37,276 --> 00:28:39,556
+mentioned that we would be at
+
+
+870
+00:28:39,556 --> 00:28:41,086
+some point in the future taking
+
+
+871
+00:28:41,086 --> 00:28:43,096
+a more active role in managing
+
+
+872
+00:28:43,096 --> 00:28:43,926
+that disk space.
+
+
+873
+00:28:44,216 --> 00:28:46,426
+Well, the future is now and so
+
+
+874
+00:28:46,426 --> 00:28:48,216
+I'd like to introduce you to a
+
+
+875
+00:28:48,216 --> 00:28:49,936
+new part of our settings app in
+
+
+876
+00:28:49,936 --> 00:28:50,676
+iOS 11.
+
+
+877
+00:28:51,126 --> 00:28:53,416
+This has a section where a user
+
+
+878
+00:28:53,416 --> 00:28:55,656
+can go and see all the apps that
+
+
+879
+00:28:55,656 --> 00:28:58,046
+have offline assets and how much
+
+
+880
+00:28:58,046 --> 00:29:00,096
+disk space their using, and the
+
+
+881
+00:29:00,096 --> 00:29:01,496
+user can choose to delete them
+
+
+882
+00:29:01,496 --> 00:29:02,836
+if they want to free up disk
+
+
+883
+00:29:02,836 --> 00:29:03,276
+space.
+
+
+884
+00:29:03,976 --> 00:29:06,516
+So what this means for you folks
+
+
+885
+00:29:06,836 --> 00:29:10,996
+is primarily that the OS is now
+
+
+886
+00:29:11,346 --> 00:29:15,106
+sort of capable of going off and
+
+
+887
+00:29:15,106 --> 00:29:17,326
+deleting your assets while your
+
+
+888
+00:29:17,326 --> 00:29:18,196
+app is not running.
+
+
+889
+00:29:18,386 --> 00:29:19,666
+And there can be a couple
+
+
+890
+00:29:19,666 --> 00:29:20,506
+different ways that could
+
+
+891
+00:29:20,506 --> 00:29:20,836
+happen.
+
+
+892
+00:29:20,836 --> 00:29:22,196
+The user could decide to do it
+
+
+893
+00:29:22,526 --> 00:29:24,966
+themselves or we may ask the
+
+
+894
+00:29:24,966 --> 00:29:26,356
+user if it's okay to delete some
+
+
+895
+00:29:26,356 --> 00:29:27,576
+of their content if we need
+
+
+896
+00:29:27,576 --> 00:29:29,706
+space for like an OS update or
+
+
+897
+00:29:29,706 --> 00:29:30,516
+something like that.
+
+
+898
+00:29:30,516 --> 00:29:32,616
+And so in iOS 11 we're
+
+
+899
+00:29:32,616 --> 00:29:34,626
+introducing a new API that
+
+
+900
+00:29:34,806 --> 00:29:36,766
+allows you to influence the
+
+
+901
+00:29:36,766 --> 00:29:38,926
+choice of what assets get
+
+
+902
+00:29:39,056 --> 00:29:40,876
+deleted when, and it's called
+
+
+903
+00:29:41,186 --> 00:29:41,266
+the
+
+
+904
+00:29:41,266 --> 00:29:43,266
+AVAssetDownloadStorageManager.
+
+
+905
+00:29:43,886 --> 00:29:46,166
+And the way it works is you
+
+
+906
+00:29:46,406 --> 00:29:49,016
+create a policy on each offline
+
+
+907
+00:29:49,016 --> 00:29:50,406
+asset that you have on your disk
+
+
+908
+00:29:50,726 --> 00:29:52,006
+and you set it with manger.
+
+
+909
+00:29:52,626 --> 00:29:55,356
+Right now the download storage
+
+
+910
+00:29:55,356 --> 00:29:56,586
+management policy has two
+
+
+911
+00:29:56,586 --> 00:29:59,556
+properties, expiration date and
+
+
+912
+00:29:59,556 --> 00:30:00,136
+priority.
+
+
+913
+00:30:00,136 --> 00:30:01,206
+And today we define just two
+
+
+914
+00:30:01,206 --> 00:30:03,076
+priorities that are important to
+
+
+915
+00:30:03,076 --> 00:30:03,446
+default.
+
+
+916
+00:30:03,446 --> 00:30:07,046
+So for most people what you're
+
+
+917
+00:30:07,046 --> 00:30:09,616
+going to do is mark assets the
+
+
+918
+00:30:09,616 --> 00:30:10,726
+user hasn't watched yet as
+
+
+919
+00:30:10,726 --> 00:30:12,376
+important, and once I've watched
+
+
+920
+00:30:12,376 --> 00:30:13,356
+them switch them back down to
+
+
+921
+00:30:13,356 --> 00:30:13,826
+default.
+
+
+922
+00:30:14,496 --> 00:30:16,066
+The expiration date property is
+
+
+923
+00:30:16,066 --> 00:30:18,996
+there in case your asset at some
+
+
+924
+00:30:18,996 --> 00:30:22,036
+point becomes no longer eligible
+
+
+925
+00:30:22,036 --> 00:30:22,636
+to be played.
+
+
+926
+00:30:22,636 --> 00:30:24,156
+For instance, you may find that
+
+
+927
+00:30:24,156 --> 00:30:25,646
+you may be in a situation where
+
+
+928
+00:30:25,936 --> 00:30:27,386
+a particular show may be leaving
+
+
+929
+00:30:27,386 --> 00:30:28,606
+your catalog, you no longer have
+
+
+930
+00:30:28,606 --> 00:30:29,276
+rights to stream it.
+
+
+931
+00:30:29,306 --> 00:30:30,856
+If that's the case you can set
+
+
+932
+00:30:30,856 --> 00:30:32,446
+the expiration date and it will
+
+
+933
+00:30:32,446 --> 00:30:35,096
+be sort of bumped up in the
+
+
+934
+00:30:35,096 --> 00:30:35,726
+deletion queue.
+
+
+935
+00:30:36,576 --> 00:30:38,816
+So, using it is fairly straight
+
+
+936
+00:30:38,816 --> 00:30:39,246
+forward.
+
+
+937
+00:30:39,346 --> 00:30:41,376
+The DownloadStorageManger is the
+
+
+938
+00:30:41,376 --> 00:30:43,176
+singleton so you go grab that.
+
+
+939
+00:30:43,856 --> 00:30:45,646
+You create a new mutable policy,
+
+
+940
+00:30:45,646 --> 00:30:47,356
+you set the attributes, and then
+
+
+941
+00:30:47,356 --> 00:30:48,606
+you tell the storage manager to
+
+
+942
+00:30:48,606 --> 00:30:51,666
+use that policy for an AVAsset
+
+
+943
+00:30:51,666 --> 00:30:54,506
+at a particular file URL.
+
+
+944
+00:30:54,506 --> 00:30:56,076
+You can also go back and look up
+
+
+945
+00:30:56,076 --> 00:30:58,226
+the current policy later on.
+
+
+946
+00:30:58,226 --> 00:31:01,036
+So that's coming your way.
+
+
+947
+00:31:02,216 --> 00:31:04,756
+The other thing about offline is
+
+
+948
+00:31:04,756 --> 00:31:06,886
+that we got some feedback from
+
+
+949
+00:31:06,886 --> 00:31:07,666
+some of the folks who have
+
+
+950
+00:31:07,666 --> 00:31:11,516
+adopted it that downloading more
+
+
+951
+00:31:11,516 --> 00:31:12,786
+than one rendition, like if you
+
+
+952
+00:31:12,786 --> 00:31:14,086
+want your English audio but also
+
+
+953
+00:31:14,086 --> 00:31:16,096
+your Spanish audio, is maybe a
+
+
+954
+00:31:16,096 --> 00:31:17,356
+little bit harder than it could
+
+
+955
+00:31:17,356 --> 00:31:19,726
+be primarily if your application
+
+
+956
+00:31:19,726 --> 00:31:21,136
+is subject to going to the
+
+
+957
+00:31:21,136 --> 00:31:23,236
+background and being quit half
+
+
+958
+00:31:23,236 --> 00:31:25,076
+way through, and so I'm pleased
+
+
+959
+00:31:25,076 --> 00:31:26,466
+to say that in iOS 11 we're
+
+
+960
+00:31:26,466 --> 00:31:29,206
+introducing a new way to batch
+
+
+961
+00:31:29,206 --> 00:31:30,506
+up your offline downloads.
+
+
+962
+00:31:30,506 --> 00:31:30,996
+It's called an
+
+
+963
+00:31:31,066 --> 00:31:33,456
+AggregateAssetDownloadTask and
+
+
+964
+00:31:33,456 --> 00:31:35,246
+it allows you to, for a given
+
+
+965
+00:31:35,246 --> 00:31:38,736
+asset, indicate an array of
+
+
+966
+00:31:38,736 --> 00:31:41,506
+media selections like this and
+
+
+967
+00:31:41,506 --> 00:31:43,536
+then when you kick off the
+
+
+968
+00:31:43,536 --> 00:31:45,396
+download task we'll go off,
+
+
+969
+00:31:45,396 --> 00:31:46,396
+we'll download each one, we'll
+
+
+970
+00:31:46,396 --> 00:31:47,696
+give you progress as we do, and
+
+
+971
+00:31:47,966 --> 00:31:49,026
+then we'll let you know when the
+
+
+972
+00:31:49,026 --> 00:31:50,366
+whole thing is done so hopefully
+
+
+973
+00:31:50,366 --> 00:31:51,206
+it will make things a little bit
+
+
+974
+00:31:51,206 --> 00:31:51,536
+easier.
+
+
+975
+00:31:52,516 --> 00:31:55,556
+[ Applause ]
+
+
+976
+00:31:56,056 --> 00:31:58,246
+Okay. The next set of things
+
+
+977
+00:31:58,246 --> 00:31:59,096
+we're going to talk about here
+
+
+978
+00:31:59,096 --> 00:32:01,546
+today all revolve around
+
+
+979
+00:32:02,116 --> 00:32:03,976
+managing content keys on your
+
+
+980
+00:32:03,976 --> 00:32:05,736
+device, and it's a fairly
+
+
+981
+00:32:05,736 --> 00:32:08,196
+complicated topic and so what
+
+
+982
+00:32:08,196 --> 00:32:10,936
+I'm going to do is hand you-guys
+
+
+983
+00:32:10,936 --> 00:32:13,396
+over to our very own HLS key
+
+
+984
+00:32:13,396 --> 00:32:15,246
+master, Anil Katti, and he's
+
+
+985
+00:32:15,246 --> 00:32:16,006
+going to walk you through it.
+
+
+986
+00:32:16,006 --> 00:32:16,976
+Thank you very much.
+
+
+987
+00:32:17,516 --> 00:32:21,500
+[ Applause ]
+
+
+988
+00:32:26,196 --> 00:32:26,906
+Thank you, Roger.
+
+
+989
+00:32:27,976 --> 00:32:28,966
+Good evening everyone.
+
+
+990
+00:32:29,086 --> 00:32:29,806
+Welcome to WWDC.
+
+
+991
+00:32:29,806 --> 00:32:34,406
+So two years ago we introduced
+
+
+992
+00:32:34,406 --> 00:32:36,056
+FairPlay Streaming, a content
+
+
+993
+00:32:36,056 --> 00:32:37,676
+protection technology that helps
+
+
+994
+00:32:37,676 --> 00:32:40,286
+protect your HLS assets.
+
+
+995
+00:32:41,606 --> 00:32:43,276
+Since this introduction we have
+
+
+996
+00:32:43,276 --> 00:32:44,496
+seen phenomenal growth.
+
+
+997
+00:32:45,596 --> 00:32:46,936
+FairPlay Streaming is used
+
+
+998
+00:32:46,936 --> 00:32:48,846
+protect premium content that is
+
+
+999
+00:32:48,846 --> 00:32:51,296
+delivered on our platforms, and
+
+
+1000
+00:32:51,336 --> 00:32:54,026
+today we are excited to announce
+
+
+1001
+00:32:54,026 --> 00:32:55,526
+a few enhancements to the
+
+
+1002
+00:32:55,526 --> 00:32:56,986
+FairPlay Streaming key delivery
+
+
+1003
+00:32:56,986 --> 00:32:59,576
+process that will allow you to
+
+
+1004
+00:32:59,576 --> 00:33:02,526
+simplify your workflow, scale
+
+
+1005
+00:33:02,526 --> 00:33:03,376
+your FairPlay Streaming
+
+
+1006
+00:33:03,376 --> 00:33:06,586
+adoption, and support new
+
+
+1007
+00:33:06,586 --> 00:33:07,736
+content production features.
+
+
+1008
+00:33:08,386 --> 00:33:10,876
+But before we talk about the
+
+
+1009
+00:33:10,876 --> 00:33:12,626
+enhancements I would like to
+
+
+1010
+00:33:12,626 --> 00:33:13,906
+start with a quick overview of
+
+
+1011
+00:33:13,906 --> 00:33:14,646
+FairPlay Streaming.
+
+
+1012
+00:33:16,876 --> 00:33:19,616
+FairPlay Streaming specifies how
+
+
+1013
+00:33:19,616 --> 00:33:21,606
+to deliver -- how to securely
+
+
+1014
+00:33:21,606 --> 00:33:23,006
+deliver content decryption keys.
+
+
+1015
+00:33:24,026 --> 00:33:25,866
+There are three main elements in
+
+
+1016
+00:33:25,866 --> 00:33:27,286
+the FairPlay Streaming system,
+
+
+1017
+00:33:28,006 --> 00:33:29,546
+your media-centric application,
+
+
+1018
+00:33:30,666 --> 00:33:32,096
+the one that holds the playback
+
+
+1019
+00:33:32,096 --> 00:33:33,196
+session is at the center.
+
+
+1020
+00:33:34,236 --> 00:33:36,216
+You have your key server on one
+
+
+1021
+00:33:36,216 --> 00:33:38,006
+side that provides the
+
+
+1022
+00:33:38,006 --> 00:33:40,156
+decryption keys, and
+
+
+1023
+00:33:40,156 --> 00:33:41,436
+AVFoundation is on the other
+
+
+1024
+00:33:41,436 --> 00:33:43,796
+side that gives you support for
+
+
+1025
+00:33:43,796 --> 00:33:45,206
+decryption and playback of the
+
+
+1026
+00:33:45,206 --> 00:33:45,726
+content.
+
+
+1027
+00:33:47,516 --> 00:33:49,936
+There are five steps involved in
+
+
+1028
+00:33:49,936 --> 00:33:51,066
+delivering content decryption
+
+
+1029
+00:33:51,066 --> 00:33:52,766
+keys and it all starts when the
+
+
+1030
+00:33:52,766 --> 00:33:54,676
+user is browsing through your
+
+
+1031
+00:33:54,676 --> 00:33:56,676
+app trying to pick something to
+
+
+1032
+00:33:56,676 --> 00:33:59,266
+play, and when it does that your
+
+
+1033
+00:33:59,266 --> 00:34:01,346
+app creates an asset and as
+
+
+1034
+00:34:01,346 --> 00:34:03,476
+AVFoundation decide to playback.
+
+
+1035
+00:34:04,996 --> 00:34:06,326
+When AVFoundation receives the
+
+
+1036
+00:34:06,326 --> 00:34:08,146
+playback request it starts
+
+
+1037
+00:34:08,146 --> 00:34:10,106
+passing the playlist and when it
+
+
+1038
+00:34:10,106 --> 00:34:11,016
+sees that the content is
+
+
+1039
+00:34:11,016 --> 00:34:12,505
+encrypted and uses FairPlay
+
+
+1040
+00:34:12,505 --> 00:34:14,786
+Streaming for key delivery asks
+
+
+1041
+00:34:14,786 --> 00:34:17,206
+your app for the key by sending
+
+
+1042
+00:34:17,206 --> 00:34:18,916
+you a key request through the
+
+
+1043
+00:34:18,916 --> 00:34:19,746
+delegate call back.
+
+
+1044
+00:34:21,096 --> 00:34:23,156
+At that point, you could use the
+
+
+1045
+00:34:23,156 --> 00:34:24,956
+key request object to create
+
+
+1046
+00:34:24,956 --> 00:34:27,166
+what we call server playback
+
+
+1047
+00:34:27,166 --> 00:34:30,916
+context or SPC in short, which
+
+
+1048
+00:34:30,916 --> 00:34:32,706
+is an encrypted data blob that
+
+
+1049
+00:34:32,706 --> 00:34:34,456
+contains the information your
+
+
+1050
+00:34:34,496 --> 00:34:36,806
+key server requires to create
+
+
+1051
+00:34:37,085 --> 00:34:38,936
+content decryption keys.
+
+
+1052
+00:34:39,246 --> 00:34:40,585
+Your app then sends the content
+
+
+1053
+00:34:40,585 --> 00:34:41,686
+decryption key to your key
+
+
+1054
+00:34:41,686 --> 00:34:44,766
+server and obtains content key
+
+
+1055
+00:34:44,766 --> 00:34:48,206
+context in return, or CKC, which
+
+
+1056
+00:34:48,206 --> 00:34:49,556
+is another encrypted data blob
+
+
+1057
+00:34:49,996 --> 00:34:51,136
+that contains the actual
+
+
+1058
+00:34:51,136 --> 00:34:51,956
+decryption keys.
+
+
+1059
+00:34:52,576 --> 00:34:57,166
+As a last step, your application
+
+
+1060
+00:34:57,166 --> 00:35:00,706
+provides the CKC as a response
+
+
+1061
+00:35:01,136 --> 00:35:02,356
+to the key request object that
+
+
+1062
+00:35:02,356 --> 00:35:03,436
+it initially received.
+
+
+1063
+00:35:04,836 --> 00:35:07,336
+So assuming AVFoundation has
+
+
+1064
+00:35:07,336 --> 00:35:08,846
+already loaded playlist and
+
+
+1065
+00:35:08,846 --> 00:35:11,456
+media data by now it now has the
+
+
+1066
+00:35:11,456 --> 00:35:13,016
+FairPlay Streaming keys that it
+
+
+1067
+00:35:13,016 --> 00:35:15,306
+requires to decrypt the content
+
+
+1068
+00:35:15,386 --> 00:35:18,026
+and start the playback.
+
+
+1069
+00:35:18,136 --> 00:35:20,196
+Well in a sense, FairPlay
+
+
+1070
+00:35:20,196 --> 00:35:21,676
+Streaming keys are similar to
+
+
+1071
+00:35:21,676 --> 00:35:24,256
+these other resources, and in
+
+
+1072
+00:35:24,256 --> 00:35:26,086
+fact if you recall, if you're
+
+
+1073
+00:35:26,086 --> 00:35:27,326
+using FairPlay Streaming for key
+
+
+1074
+00:35:27,326 --> 00:35:29,376
+delivery today FairPlay
+
+
+1075
+00:35:29,376 --> 00:35:30,806
+Streaming keys are delivered
+
+
+1076
+00:35:30,806 --> 00:35:32,726
+with AVAsset accessory APIs,
+
+
+1077
+00:35:32,726 --> 00:35:33,706
+similar to other custom
+
+
+1078
+00:35:33,706 --> 00:35:36,376
+resources, but that's pretty
+
+
+1079
+00:35:36,376 --> 00:35:38,036
+much where the similarity ends,
+
+
+1080
+00:35:38,876 --> 00:35:39,176
+right?
+
+
+1081
+00:35:39,176 --> 00:35:40,456
+FairPlay Streaming keys are
+
+
+1082
+00:35:40,456 --> 00:35:42,026
+specialized resources that have
+
+
+1083
+00:35:42,386 --> 00:35:44,626
+very specific operations defined
+
+
+1084
+00:35:44,626 --> 00:35:45,146
+on them.
+
+
+1085
+00:35:45,626 --> 00:35:46,446
+I'll give you a couple of
+
+
+1086
+00:35:46,446 --> 00:35:48,826
+examples now.
+
+
+1087
+00:35:49,056 --> 00:35:51,826
+So AVFoundation allows you to
+
+
+1088
+00:35:51,926 --> 00:35:53,806
+free FairPlay Streaming keys so
+
+
+1089
+00:35:53,806 --> 00:35:55,136
+that you could save them in your
+
+
+1090
+00:35:55,136 --> 00:35:56,816
+app storage and use them later
+
+
+1091
+00:35:56,816 --> 00:35:58,866
+on like when the user is trying
+
+
+1092
+00:35:58,866 --> 00:36:00,516
+to play content offline.
+
+
+1093
+00:36:01,086 --> 00:36:04,146
+And you could also define
+
+
+1094
+00:36:04,146 --> 00:36:05,686
+FairPlay Streaming keys to
+
+
+1095
+00:36:05,686 --> 00:36:07,386
+expire after a certain duration
+
+
+1096
+00:36:08,346 --> 00:36:09,766
+and the keys have to be renewed
+
+
+1097
+00:36:09,766 --> 00:36:11,216
+before they expired in order to
+
+
+1098
+00:36:11,216 --> 00:36:12,156
+continue decryption.
+
+
+1099
+00:36:12,656 --> 00:36:15,346
+As content production features
+
+
+1100
+00:36:15,376 --> 00:36:17,406
+continue to evolve, FairPlay
+
+
+1101
+00:36:17,406 --> 00:36:18,836
+Streaming keys will continue to
+
+
+1102
+00:36:18,836 --> 00:36:20,686
+get more specialized and so does
+
+
+1103
+00:36:20,686 --> 00:36:21,996
+the key delivery process.
+
+
+1104
+00:36:22,476 --> 00:36:26,416
+Further, FairPlay Streaming keys
+
+
+1105
+00:36:26,546 --> 00:36:28,256
+do not have to be associated
+
+
+1106
+00:36:28,256 --> 00:36:29,676
+with assets at the time of
+
+
+1107
+00:36:29,796 --> 00:36:30,146
+loading.
+
+
+1108
+00:36:30,806 --> 00:36:32,726
+So we think by decoupling the
+
+
+1109
+00:36:32,726 --> 00:36:35,166
+key loading from media loading
+
+
+1110
+00:36:35,166 --> 00:36:37,176
+or even the playback, we'll be
+
+
+1111
+00:36:37,176 --> 00:36:38,336
+able to provide you more
+
+
+1112
+00:36:38,336 --> 00:36:40,146
+flexibility that can be
+
+
+1113
+00:36:40,146 --> 00:36:41,486
+exploited to address some of the
+
+
+1114
+00:36:41,486 --> 00:36:43,846
+existence pain points and also
+
+
+1115
+00:36:43,986 --> 00:36:45,656
+provide better user experience.
+
+
+1116
+00:36:46,806 --> 00:36:48,296
+So with all these things in mind
+
+
+1117
+00:36:48,766 --> 00:36:50,186
+we are so glad to introduce a
+
+
+1118
+00:36:50,186 --> 00:36:52,976
+new API that will allow you to
+
+
+1119
+00:36:53,116 --> 00:36:54,946
+better manage and deliver
+
+
+1120
+00:36:54,946 --> 00:36:55,936
+content decryption keys.
+
+
+1121
+00:36:56,866 --> 00:36:58,846
+Introducing AVContentKeySession.
+
+
+1122
+00:37:00,136 --> 00:37:02,396
+AVContentKeySession is an
+
+
+1123
+00:37:02,396 --> 00:37:03,656
+AVFoundation class that was
+
+
+1124
+00:37:03,656 --> 00:37:04,706
+designed around content
+
+
+1125
+00:37:04,706 --> 00:37:05,376
+decryption keys.
+
+
+1126
+00:37:06,016 --> 00:37:07,856
+It allows you to decouple key
+
+
+1127
+00:37:07,856 --> 00:37:10,816
+loading from media loading or
+
+
+1128
+00:37:10,816 --> 00:37:12,276
+even playback, for that matter.
+
+
+1129
+00:37:13,406 --> 00:37:15,036
+And it also gives you a better
+
+
+1130
+00:37:15,036 --> 00:37:17,166
+control over the lifecycle of
+
+
+1131
+00:37:17,206 --> 00:37:18,126
+content decryption keys.
+
+
+1132
+00:37:19,596 --> 00:37:21,656
+So if you recall, your
+
+
+1133
+00:37:21,656 --> 00:37:24,026
+application loads keys only when
+
+
+1134
+00:37:24,026 --> 00:37:26,796
+it receives a key request from
+
+
+1135
+00:37:26,796 --> 00:37:31,506
+AVFoundation and but that -- you
+
+
+1136
+00:37:31,506 --> 00:37:32,386
+can change that with
+
+
+1137
+00:37:32,386 --> 00:37:33,246
+AVContentKeySession.
+
+
+1138
+00:37:34,086 --> 00:37:35,746
+With AVContentKeySession you get
+
+
+1139
+00:37:35,746 --> 00:37:36,916
+to decide when you would like to
+
+
+1140
+00:37:36,916 --> 00:37:37,346
+load keys.
+
+
+1141
+00:37:38,396 --> 00:37:39,946
+However, if you choose not to
+
+
+1142
+00:37:39,946 --> 00:37:41,186
+load keys before requesting
+
+
+1143
+00:37:41,186 --> 00:37:43,366
+playback, AVFoundation still
+
+
+1144
+00:37:43,366 --> 00:37:45,036
+sends you a key request on
+
+
+1145
+00:37:45,036 --> 00:37:47,756
+demand like it does today.
+
+
+1146
+00:37:47,926 --> 00:37:50,126
+So now we provide you two ways
+
+
+1147
+00:37:50,626 --> 00:37:52,026
+to trigger the key loading
+
+
+1148
+00:37:52,026 --> 00:37:52,386
+process.
+
+
+1149
+00:37:53,056 --> 00:37:55,656
+You could use -- your
+
+
+1150
+00:37:55,656 --> 00:37:56,786
+application could use
+
+
+1151
+00:37:56,786 --> 00:37:58,276
+AVContentKeySession to
+
+
+1152
+00:37:58,276 --> 00:37:59,546
+explicitly initiate the key
+
+
+1153
+00:37:59,546 --> 00:38:02,706
+loading process, or AVFoundation
+
+
+1154
+00:38:02,706 --> 00:38:03,656
+initiates the key loading
+
+
+1155
+00:38:03,656 --> 00:38:05,166
+process on demand when it sees
+
+
+1156
+00:38:05,166 --> 00:38:06,276
+the content is encrypted.
+
+
+1157
+00:38:07,666 --> 00:38:09,696
+So let's see how using
+
+
+1158
+00:38:09,696 --> 00:38:11,136
+AVContentKeySession to initiate
+
+
+1159
+00:38:11,136 --> 00:38:12,786
+the key loading process could be
+
+
+1160
+00:38:12,786 --> 00:38:13,256
+helpful.
+
+
+1161
+00:38:13,966 --> 00:38:15,616
+And the first, use keys that I
+
+
+1162
+00:38:15,616 --> 00:38:16,866
+have for you today is around
+
+
+1163
+00:38:17,206 --> 00:38:17,916
+playback startup.
+
+
+1164
+00:38:20,156 --> 00:38:21,966
+Key loading time could be a
+
+
+1165
+00:38:21,966 --> 00:38:23,516
+significant portion of your
+
+
+1166
+00:38:23,516 --> 00:38:25,386
+playback startup time because
+
+
+1167
+00:38:25,726 --> 00:38:27,516
+applications normally load keys
+
+
+1168
+00:38:28,336 --> 00:38:29,586
+when they receive an on-demand
+
+
+1169
+00:38:29,586 --> 00:38:30,256
+key request.
+
+
+1170
+00:38:30,716 --> 00:38:33,226
+You could improve the playback
+
+
+1171
+00:38:33,226 --> 00:38:34,646
+startup experience your user
+
+
+1172
+00:38:34,646 --> 00:38:37,046
+receives if you could load keys
+
+
+1173
+00:38:37,046 --> 00:38:39,376
+even before the user has picked
+
+
+1174
+00:38:39,376 --> 00:38:40,006
+something to play.
+
+
+1175
+00:38:41,476 --> 00:38:42,956
+Well, AVContentKeySession allows
+
+
+1176
+00:38:42,956 --> 00:38:43,466
+you to do that.
+
+
+1177
+00:38:43,936 --> 00:38:44,936
+So you could use
+
+
+1178
+00:38:44,936 --> 00:38:47,046
+AVContentKeySession to initiate
+
+
+1179
+00:38:47,046 --> 00:38:49,016
+a key loading process and then
+
+
+1180
+00:38:49,016 --> 00:38:50,646
+use the key request that you get
+
+
+1181
+00:38:51,356 --> 00:38:53,846
+to load the keys independent of
+
+
+1182
+00:38:53,846 --> 00:38:54,616
+the playback session.
+
+
+1183
+00:38:55,976 --> 00:38:57,616
+Now we call this key preloading
+
+
+1184
+00:38:59,136 --> 00:39:00,626
+and after loading the keys you
+
+
+1185
+00:39:00,626 --> 00:39:02,516
+could request a playback so
+
+
+1186
+00:39:03,046 --> 00:39:04,286
+during playback you don't have
+
+
+1187
+00:39:04,286 --> 00:39:05,296
+to load any keys, and the
+
+
+1188
+00:39:05,296 --> 00:39:06,706
+playback -- the decryption could
+
+
+1189
+00:39:06,706 --> 00:39:07,726
+start immediately.
+
+
+1190
+00:39:08,896 --> 00:39:10,616
+The second use case I have for
+
+
+1191
+00:39:10,616 --> 00:39:11,896
+you today is gaining a lot of
+
+
+1192
+00:39:11,896 --> 00:39:14,466
+prominence day by day and it is
+
+
+1193
+00:39:14,466 --> 00:39:15,756
+around live playback.
+
+
+1194
+00:39:16,276 --> 00:39:19,306
+We have seen an explosion in the
+
+
+1195
+00:39:19,396 --> 00:39:20,756
+amount of live content that
+
+
+1196
+00:39:20,756 --> 00:39:21,966
+delivered on our platforms,
+
+
+1197
+00:39:22,546 --> 00:39:24,096
+thanks to a more immersive and
+
+
+1198
+00:39:24,096 --> 00:39:25,716
+integrated experience users
+
+
+1199
+00:39:25,716 --> 00:39:26,706
+receive on our devices.
+
+
+1200
+00:39:28,116 --> 00:39:29,596
+With more users looking to
+
+
+1201
+00:39:29,596 --> 00:39:31,366
+consume sports and other live
+
+
+1202
+00:39:31,366 --> 00:39:33,766
+events on our devices,
+
+
+1203
+00:39:34,716 --> 00:39:35,996
+developers are using more
+
+
+1204
+00:39:35,996 --> 00:39:37,266
+advanced content production
+
+
+1205
+00:39:37,266 --> 00:39:39,466
+features like key rotation and
+
+
+1206
+00:39:39,466 --> 00:39:41,466
+key renewal to add an extra
+
+
+1207
+00:39:41,466 --> 00:39:42,386
+layer of protection while
+
+
+1208
+00:39:42,386 --> 00:39:43,846
+delivering premium live content.
+
+
+1209
+00:39:44,426 --> 00:39:47,726
+Due to the nature of live
+
+
+1210
+00:39:47,726 --> 00:39:50,496
+streaming, your keys servers get
+
+
+1211
+00:39:50,496 --> 00:39:51,926
+bombarded with millions of key
+
+
+1212
+00:39:51,926 --> 00:39:53,406
+requests all at once when the
+
+
+1213
+00:39:53,406 --> 00:39:54,666
+keys are being rotated or
+
+
+1214
+00:39:54,666 --> 00:39:55,076
+renewed.
+
+
+1215
+00:39:56,296 --> 00:39:57,266
+Well, you could use
+
+
+1216
+00:39:57,266 --> 00:40:00,266
+AVContentKeySession to alleviate
+
+
+1217
+00:40:00,266 --> 00:40:02,686
+the situation by load balancing
+
+
+1218
+00:40:02,686 --> 00:40:04,136
+key requests at the point of
+
+
+1219
+00:40:04,136 --> 00:40:04,526
+origin.
+
+
+1220
+00:40:05,526 --> 00:40:08,566
+Let me explain how you could do
+
+
+1221
+00:40:08,566 --> 00:40:09,906
+this with a simple illustration
+
+
+1222
+00:40:09,906 --> 00:40:10,156
+here.
+
+
+1223
+00:40:13,046 --> 00:40:14,046
+Consider the scenario in which
+
+
+1224
+00:40:14,046 --> 00:40:16,036
+millions of users are watching a
+
+
+1225
+00:40:16,036 --> 00:40:17,596
+popular live stream like Apple's
+
+
+1226
+00:40:17,666 --> 00:40:18,086
+Keynote.
+
+
+1227
+00:40:19,106 --> 00:40:20,436
+It's possible that they all
+
+
+1228
+00:40:20,436 --> 00:40:21,606
+started at different points in
+
+
+1229
+00:40:21,606 --> 00:40:23,886
+time but when it's time to renew
+
+
+1230
+00:40:23,886 --> 00:40:25,846
+or update the key they all send
+
+
+1231
+00:40:25,916 --> 00:40:27,266
+requests to your key server at
+
+
+1232
+00:40:27,266 --> 00:40:28,196
+the exact same time.
+
+
+1233
+00:40:28,546 --> 00:40:31,146
+That presents a huge load on the
+
+
+1234
+00:40:31,146 --> 00:40:33,176
+key server for a short duration
+
+
+1235
+00:40:33,176 --> 00:40:35,246
+of time and then things get back
+
+
+1236
+00:40:35,246 --> 00:40:37,416
+to normal, until it's time to
+
+
+1237
+00:40:37,416 --> 00:40:38,626
+renew or update the key again,
+
+
+1238
+00:40:39,826 --> 00:40:40,146
+right?
+
+
+1239
+00:40:40,476 --> 00:40:41,876
+So this pattern continues
+
+
+1240
+00:40:42,626 --> 00:40:44,006
+leading to input load on your
+
+
+1241
+00:40:44,006 --> 00:40:44,596
+key serer.
+
+
+1242
+00:40:45,646 --> 00:40:46,186
+You could use
+
+
+1243
+00:40:46,186 --> 00:40:48,856
+AVContentKeySession to spread
+
+
+1244
+00:40:48,856 --> 00:40:51,606
+out key requests by picking like
+
+
+1245
+00:40:51,606 --> 00:40:53,346
+a random point within a small
+
+
+1246
+00:40:53,346 --> 00:40:55,406
+time window before the key
+
+
+1247
+00:40:55,406 --> 00:40:57,756
+actually expires and initiating
+
+
+1248
+00:40:57,756 --> 00:40:58,926
+the key loading yourself.
+
+
+1249
+00:41:00,096 --> 00:41:02,186
+So what this allows you to do is
+
+
+1250
+00:41:02,316 --> 00:41:04,616
+scale your live offering without
+
+
+1251
+00:41:04,676 --> 00:41:05,766
+having to throw mode or
+
+
+1252
+00:41:05,766 --> 00:41:06,796
+[inaudible] of your key server.
+
+
+1253
+00:41:08,836 --> 00:41:10,746
+So now that we have seen some
+
+
+1254
+00:41:10,746 --> 00:41:13,086
+use cases where initiating key
+
+
+1255
+00:41:13,086 --> 00:41:14,226
+loading process with
+
+
+1256
+00:41:14,226 --> 00:41:15,946
+AVContentKeySession was helpful,
+
+
+1257
+00:41:16,656 --> 00:41:17,966
+let's see how to do it in terms
+
+
+1258
+00:41:17,966 --> 00:41:18,386
+of code.
+
+
+1259
+00:41:18,916 --> 00:41:21,856
+You could initiate a key loading
+
+
+1260
+00:41:21,856 --> 00:41:23,406
+process which is three lines of
+
+
+1261
+00:41:23,466 --> 00:41:25,906
+code, it's that simple, and here
+
+
+1262
+00:41:25,906 --> 00:41:26,276
+it is.
+
+
+1263
+00:41:27,336 --> 00:41:29,756
+So the first thing you do is
+
+
+1264
+00:41:30,176 --> 00:41:31,086
+create an instance of
+
+
+1265
+00:41:31,086 --> 00:41:33,086
+AVContentKeySession for FairPlay
+
+
+1266
+00:41:33,086 --> 00:41:33,526
+Streaming.
+
+
+1267
+00:41:34,046 --> 00:41:36,796
+You then set up your app as a
+
+
+1268
+00:41:36,796 --> 00:41:37,876
+contentKeySession Delegate.
+
+
+1269
+00:41:39,126 --> 00:41:40,696
+You should expect to receive all
+
+
+1270
+00:41:40,696 --> 00:41:41,886
+delegate callbacks on the
+
+
+1271
+00:41:41,886 --> 00:41:43,136
+delegate queue that you specify
+
+
+1272
+00:41:43,136 --> 00:41:43,396
+here.
+
+
+1273
+00:41:44,056 --> 00:41:48,076
+The third step is to invoke
+
+
+1274
+00:41:48,076 --> 00:41:49,706
+processContentKeyRequest method
+
+
+1275
+00:41:50,256 --> 00:41:51,586
+and that will initiate the key
+
+
+1276
+00:41:51,586 --> 00:41:52,356
+loading process.
+
+
+1277
+00:41:54,266 --> 00:41:55,286
+So have to note a couple of
+
+
+1278
+00:41:55,316 --> 00:41:55,906
+things here.
+
+
+1279
+00:41:57,556 --> 00:41:59,366
+There are no changes required in
+
+
+1280
+00:41:59,366 --> 00:42:01,196
+your keys or your key server
+
+
+1281
+00:42:01,196 --> 00:42:02,586
+module implementation in order
+
+
+1282
+00:42:02,586 --> 00:42:03,376
+to use this feature.
+
+
+1283
+00:42:04,606 --> 00:42:06,106
+This is -- all implementation
+
+
+1284
+00:42:06,106 --> 00:42:07,346
+here is on the client side which
+
+
+1285
+00:42:07,346 --> 00:42:07,766
+is great.
+
+
+1286
+00:42:08,706 --> 00:42:12,596
+Second, the identifier that you
+
+
+1287
+00:42:12,596 --> 00:42:15,616
+specify here should match with
+
+
+1288
+00:42:15,616 --> 00:42:17,146
+the identifier that you specify
+
+
+1289
+00:42:17,146 --> 00:42:19,346
+in your EXT-X-KEY tag in your
+
+
+1290
+00:42:19,346 --> 00:42:21,706
+media playlist.
+
+
+1291
+00:42:21,706 --> 00:42:23,486
+What that allows us to do is
+
+
+1292
+00:42:23,486 --> 00:42:25,756
+match the keys that you loaded
+
+
+1293
+00:42:25,756 --> 00:42:27,396
+here with the keys that you
+
+
+1294
+00:42:27,396 --> 00:42:28,566
+would request during playback.
+
+
+1295
+00:42:29,096 --> 00:42:33,456
+And third, you should have an
+
+
+1296
+00:42:33,456 --> 00:42:35,596
+out-of-band process to obtain
+
+
+1297
+00:42:35,596 --> 00:42:38,306
+the keys for a particular asset
+
+
+1298
+00:42:38,686 --> 00:42:40,566
+from your key server so that you
+
+
+1299
+00:42:40,566 --> 00:42:42,836
+could load all these keys at
+
+
+1300
+00:42:43,616 --> 00:42:45,406
+this point.
+
+
+1301
+00:42:45,526 --> 00:42:46,436
+When you invoke
+
+
+1302
+00:42:46,436 --> 00:42:47,786
+processContentKeyRequest method
+
+
+1303
+00:42:47,786 --> 00:42:50,186
+on AVContentKeySession, we send
+
+
+1304
+00:42:50,186 --> 00:42:52,026
+you an AVContentKey request
+
+
+1305
+00:42:52,026 --> 00:42:54,226
+object through a delegate call
+
+
+1306
+00:42:54,226 --> 00:42:56,486
+back, and this is exact same
+
+
+1307
+00:42:56,486 --> 00:42:57,946
+delegate method that gets called
+
+
+1308
+00:42:58,156 --> 00:42:59,906
+even when AVFoundation initiates
+
+
+1309
+00:42:59,906 --> 00:43:00,906
+the key loading process.
+
+
+1310
+00:43:02,236 --> 00:43:03,466
+So now you could use the key
+
+
+1311
+00:43:03,466 --> 00:43:05,166
+request object to do all the
+
+
+1312
+00:43:05,166 --> 00:43:06,306
+FairPlay Streamings plus
+
+
+1313
+00:43:06,366 --> 00:43:08,136
+[inaudible] operations like you
+
+
+1314
+00:43:08,176 --> 00:43:10,426
+could request an SPC, this is
+
+
+1315
+00:43:10,426 --> 00:43:12,176
+very similar to the way you do
+
+
+1316
+00:43:12,416 --> 00:43:13,856
+your request SPC with AVAsset
+
+
+1317
+00:43:13,856 --> 00:43:15,466
+key sorting request.
+
+
+1318
+00:43:16,746 --> 00:43:18,166
+You then send SPC to your key
+
+
+1319
+00:43:18,216 --> 00:43:21,676
+server, obtain the CKC and as
+
+
+1320
+00:43:21,676 --> 00:43:23,656
+the last step you would create a
+
+
+1321
+00:43:23,656 --> 00:43:26,106
+response object with the CKC and
+
+
+1322
+00:43:26,106 --> 00:43:27,956
+set that as a response the
+
+
+1323
+00:43:27,956 --> 00:43:29,046
+ContentKeyRequest object.
+
+
+1324
+00:43:29,106 --> 00:43:33,056
+So you have to keep a couple of
+
+
+1325
+00:43:33,056 --> 00:43:34,526
+things in mind while responding
+
+
+1326
+00:43:34,526 --> 00:43:35,396
+to a key request.
+
+
+1327
+00:43:36,356 --> 00:43:38,226
+As soon as you set the CKC as a
+
+
+1328
+00:43:38,226 --> 00:43:41,186
+response to the key request, you
+
+
+1329
+00:43:41,406 --> 00:43:42,986
+would consume a secure decrypt
+
+
+1330
+00:43:42,986 --> 00:43:44,776
+slot on the device and there are
+
+
+1331
+00:43:44,776 --> 00:43:46,066
+a limited number of those.
+
+
+1332
+00:43:47,166 --> 00:43:48,836
+So it's okay to initiate key
+
+
+1333
+00:43:48,836 --> 00:43:50,326
+loading process for any number
+
+
+1334
+00:43:50,326 --> 00:43:52,356
+of keys and you can obtain the
+
+
+1335
+00:43:52,356 --> 00:43:53,626
+CKC's as well for all those
+
+
+1336
+00:43:53,626 --> 00:43:56,066
+different key requests, but be
+
+
+1337
+00:43:56,066 --> 00:43:57,086
+careful with the last step.
+
+
+1338
+00:43:58,206 --> 00:44:00,056
+You should set CKCs on only
+
+
+1339
+00:44:00,056 --> 00:44:01,596
+those keys that you predict
+
+
+1340
+00:44:01,596 --> 00:44:02,886
+might be used during playback,
+
+
+1341
+00:44:03,676 --> 00:44:04,976
+and do it just before you
+
+
+1342
+00:44:04,976 --> 00:44:06,406
+request a playback.
+
+
+1343
+00:44:10,046 --> 00:44:12,996
+So with that background, let's
+
+
+1344
+00:44:13,086 --> 00:44:15,366
+shift gears and see how we could
+
+
+1345
+00:44:15,366 --> 00:44:17,866
+use AVContentKeySession in the
+
+
+1346
+00:44:17,866 --> 00:44:19,766
+context of offline HLS playback.
+
+
+1347
+00:44:21,676 --> 00:44:24,546
+We introduced persistent keys
+
+
+1348
+00:44:24,546 --> 00:44:26,156
+last year when we modified
+
+
+1349
+00:44:26,156 --> 00:44:28,446
+FairPlay Streaming to protect
+
+
+1350
+00:44:28,446 --> 00:44:30,656
+your offline HLS assets.
+
+
+1351
+00:44:31,196 --> 00:44:32,626
+AVContentKeySession could be
+
+
+1352
+00:44:32,626 --> 00:44:35,056
+used to create persistent keys
+
+
+1353
+00:44:35,736 --> 00:44:36,686
+as well.
+
+
+1354
+00:44:36,986 --> 00:44:39,586
+Before requesting the download
+
+
+1355
+00:44:40,006 --> 00:44:43,946
+of HLS assets, you could use
+
+
+1356
+00:44:43,946 --> 00:44:45,936
+AVContentKeySession to initiate
+
+
+1357
+00:44:45,936 --> 00:44:47,716
+key loading process and use the
+
+
+1358
+00:44:47,716 --> 00:44:49,646
+key request object to create
+
+
+1359
+00:44:49,646 --> 00:44:50,366
+persistent keys.
+
+
+1360
+00:44:51,516 --> 00:44:52,596
+Then you could store the
+
+
+1361
+00:44:52,596 --> 00:44:53,706
+persistent keys in your app
+
+
+1362
+00:44:53,706 --> 00:44:54,866
+storage for future use.
+
+
+1363
+00:44:55,576 --> 00:44:58,036
+With that, this will make your
+
+
+1364
+00:44:58,036 --> 00:44:59,396
+workflow a little bit simpler
+
+
+1365
+00:44:59,396 --> 00:45:00,566
+because now you don't have to
+
+
+1366
+00:45:00,566 --> 00:45:02,766
+define the EXT-X Session keys in
+
+
+1367
+00:45:02,766 --> 00:45:04,356
+your master playlist and so on,
+
+
+1368
+00:45:05,136 --> 00:45:05,726
+you could just use
+
+
+1369
+00:45:05,726 --> 00:45:06,556
+AVContentKeySession.
+
+
+1370
+00:45:08,976 --> 00:45:11,776
+Further, while creating and
+
+
+1371
+00:45:11,776 --> 00:45:14,386
+using persistent keys, you
+
+
+1372
+00:45:14,386 --> 00:45:16,246
+should work with the sub class
+
+
+1373
+00:45:16,246 --> 00:45:18,046
+of AVContentKeyRequest, which is
+
+
+1374
+00:45:18,046 --> 00:45:18,316
+an
+
+
+1375
+00:45:18,316 --> 00:45:19,706
+AVPersistableContentKeyRequest.
+
+
+1376
+00:45:20,536 --> 00:45:21,936
+I'll explain in terms of code
+
+
+1377
+00:45:21,936 --> 00:45:24,386
+how to request and
+
+
+1378
+00:45:24,386 --> 00:45:25,846
+AVPersistableContentKeyRequest
+
+
+1379
+00:45:25,846 --> 00:45:28,016
+and also to work -- also how to
+
+
+1380
+00:45:28,016 --> 00:45:28,686
+work with an
+
+
+1381
+00:45:28,686 --> 00:45:30,026
+AVPersistableContentKeyRequest.
+
+
+1382
+00:45:30,586 --> 00:45:33,076
+So if you recall, this is the
+
+
+1383
+00:45:33,076 --> 00:45:34,546
+delegate method that gets called
+
+
+1384
+00:45:34,716 --> 00:45:36,516
+when you initiate a key loading
+
+
+1385
+00:45:36,516 --> 00:45:37,006
+process.
+
+
+1386
+00:45:37,446 --> 00:45:40,636
+At this point, if you're trying
+
+
+1387
+00:45:40,636 --> 00:45:42,846
+to create a persistent key you
+
+
+1388
+00:45:42,846 --> 00:45:44,216
+should just respond to the key
+
+
+1389
+00:45:44,216 --> 00:45:45,776
+request and request for
+
+
+1390
+00:45:45,996 --> 00:45:47,306
+PersistableContentKeyRequest,
+
+
+1391
+00:45:48,206 --> 00:45:49,956
+and we would send you an
+
+
+1392
+00:45:49,956 --> 00:45:51,286
+AVPersistableContentKeyRequest
+
+
+1393
+00:45:51,286 --> 00:45:53,696
+object through a new delegate
+
+
+1394
+00:45:53,696 --> 00:45:54,136
+callback.
+
+
+1395
+00:45:54,656 --> 00:45:57,036
+You could use
+
+
+1396
+00:45:57,036 --> 00:45:58,376
+AVPersistableContentKeyRequest
+
+
+1397
+00:45:58,536 --> 00:45:59,716
+to do all your FairPlay
+
+
+1398
+00:45:59,716 --> 00:46:01,166
+Streaming specific operations,
+
+
+1399
+00:46:01,956 --> 00:46:04,666
+like create SPC, send SPC to
+
+
+1400
+00:46:04,716 --> 00:46:06,876
+your key server, get a CKC and
+
+
+1401
+00:46:06,876 --> 00:46:09,406
+use the CKC to now create a
+
+
+1402
+00:46:09,406 --> 00:46:11,336
+persistent key which you can
+
+
+1403
+00:46:11,336 --> 00:46:13,146
+store in your app storage so
+
+
+1404
+00:46:13,146 --> 00:46:14,566
+that you could use it later when
+
+
+1405
+00:46:14,566 --> 00:46:15,506
+the user is offline.
+
+
+1406
+00:46:16,696 --> 00:46:17,726
+When it's time to use the
+
+
+1407
+00:46:17,726 --> 00:46:20,036
+persistent key, all you have to
+
+
+1408
+00:46:20,036 --> 00:46:22,106
+do is create a response object
+
+
+1409
+00:46:22,106 --> 00:46:23,196
+with the persistent key data
+
+
+1410
+00:46:23,196 --> 00:46:26,256
+blob and set that as a response
+
+
+1411
+00:46:26,356 --> 00:46:27,766
+on the ContentKeyRequest object.
+
+
+1412
+00:46:28,956 --> 00:46:29,326
+That's it.
+
+
+1413
+00:46:31,456 --> 00:46:33,146
+So if you're using FairPlay
+
+
+1414
+00:46:33,146 --> 00:46:35,556
+Streaming for key delivery today
+
+
+1415
+00:46:35,646 --> 00:46:36,656
+you would have observed that
+
+
+1416
+00:46:37,096 --> 00:46:38,976
+AVContentKeySession is designed
+
+
+1417
+00:46:38,976 --> 00:46:40,616
+to work similarly to what you're
+
+
+1418
+00:46:40,616 --> 00:46:41,626
+already used today,
+
+
+1419
+00:46:41,626 --> 00:46:42,836
+AVAssetRsourceLoader API.
+
+
+1420
+00:46:43,496 --> 00:46:45,246
+In place of
+
+
+1421
+00:46:45,246 --> 00:46:46,876
+AVAssetResourceLoading request,
+
+
+1422
+00:46:47,546 --> 00:46:49,186
+we have AVContentKeyRequest.
+
+
+1423
+00:46:50,626 --> 00:46:51,766
+AVAsset is just where the
+
+
+1424
+00:46:51,766 --> 00:46:53,196
+delegates call apart, it's
+
+
+1425
+00:46:53,196 --> 00:46:54,296
+called AVContentKeySession
+
+
+1426
+00:46:54,296 --> 00:46:54,616
+delegate.
+
+
+1427
+00:46:56,456 --> 00:46:57,686
+However, that is a key
+
+
+1428
+00:46:57,686 --> 00:46:58,346
+difference.
+
+
+1429
+00:46:58,796 --> 00:47:00,556
+Unlike AVAssetResourceLoader,
+
+
+1430
+00:47:00,906 --> 00:47:02,826
+AVContentKeySession is not tied
+
+
+1431
+00:47:03,256 --> 00:47:04,856
+to an asset at the time of
+
+
+1432
+00:47:04,926 --> 00:47:08,936
+creation, so you could create an
+
+
+1433
+00:47:08,936 --> 00:47:11,716
+AVContentKeySession at any point
+
+
+1434
+00:47:12,586 --> 00:47:13,836
+and use that to load all the
+
+
+1435
+00:47:13,836 --> 00:47:16,516
+keys, and just before you
+
+
+1436
+00:47:16,516 --> 00:47:18,546
+request playback you should add
+
+
+1437
+00:47:18,886 --> 00:47:21,256
+your AVasset as a content key
+
+
+1438
+00:47:21,256 --> 00:47:21,816
+recipient.
+
+
+1439
+00:47:23,056 --> 00:47:25,106
+That will allow your AVAsset to
+
+
+1440
+00:47:25,106 --> 00:47:26,476
+access all the keys that you
+
+
+1441
+00:47:26,476 --> 00:47:27,316
+preloaded with the
+
+
+1442
+00:47:27,316 --> 00:47:28,286
+ContentKeySession object.
+
+
+1443
+00:47:30,856 --> 00:47:33,826
+So now we have 2 API's,
+
+
+1444
+00:47:34,176 --> 00:47:35,326
+AVContentKeySession and
+
+
+1445
+00:47:35,326 --> 00:47:36,516
+AVAssetResourceLoader, and you
+
+
+1446
+00:47:36,516 --> 00:47:38,126
+might be wondering which API to
+
+
+1447
+00:47:38,166 --> 00:47:39,856
+use for loading different types
+
+
+1448
+00:47:39,856 --> 00:47:41,886
+of resources, and here's what we
+
+
+1449
+00:47:41,886 --> 00:47:42,346
+recommend.
+
+
+1450
+00:47:43,486 --> 00:47:45,736
+Use AVContentKeySession for
+
+
+1451
+00:47:45,736 --> 00:47:47,036
+loading content decryption keys,
+
+
+1452
+00:47:47,546 --> 00:47:49,276
+and use AVAssetResourceLoader
+
+
+1453
+00:47:49,756 --> 00:47:51,126
+for loading everything else.
+
+
+1454
+00:47:52,116 --> 00:47:53,506
+I have to point out that we are
+
+
+1455
+00:47:53,506 --> 00:47:55,476
+not duplicating key handling
+
+
+1456
+00:47:55,476 --> 00:47:57,036
+aspects of AVAssetResourceLoader
+
+
+1457
+00:47:57,036 --> 00:47:58,946
+at this point so you could
+
+
+1458
+00:47:58,946 --> 00:47:59,986
+continue using
+
+
+1459
+00:47:59,986 --> 00:48:02,056
+AVAssetResourceLoader like you
+
+
+1460
+00:48:02,056 --> 00:48:03,326
+do today for loading FairPlay
+
+
+1461
+00:48:03,326 --> 00:48:04,936
+Streaming keys, but we highly
+
+
+1462
+00:48:04,936 --> 00:48:07,016
+recommend that you switch over
+
+
+1463
+00:48:07,016 --> 00:48:09,446
+to AVContentKeySession for that
+
+
+1464
+00:48:10,336 --> 00:48:10,526
+purpose.
+
+
+1465
+00:48:10,656 --> 00:48:12,536
+So, who is responsible for
+
+
+1466
+00:48:12,536 --> 00:48:14,036
+loading decryption keys if an
+
+
+1467
+00:48:14,036 --> 00:48:15,266
+asset has both
+
+
+1468
+00:48:15,266 --> 00:48:16,856
+AVAssetResourceLoader delegate
+
+
+1469
+00:48:16,856 --> 00:48:18,546
+and AVContentKeySession delegate
+
+
+1470
+00:48:18,546 --> 00:48:19,356
+associated with it?
+
+
+1471
+00:48:20,686 --> 00:48:22,836
+Well, to be consistent we
+
+
+1472
+00:48:22,836 --> 00:48:24,376
+enforce that all content
+
+
+1473
+00:48:24,376 --> 00:48:26,116
+decryption keys are loaded
+
+
+1474
+00:48:26,116 --> 00:48:27,626
+exclusively with
+
+
+1475
+00:48:27,626 --> 00:48:29,116
+AVContentKeySession delegate.
+
+
+1476
+00:48:30,796 --> 00:48:32,886
+So your AVAssetResourceLoader
+
+
+1477
+00:48:32,886 --> 00:48:34,376
+delegate receives all resource
+
+
+1478
+00:48:34,376 --> 00:48:37,056
+loading requests including those
+
+
+1479
+00:48:37,056 --> 00:48:38,546
+four content decryption keys.
+
+
+1480
+00:48:39,796 --> 00:48:41,906
+The app is expected to just
+
+
+1481
+00:48:41,906 --> 00:48:43,176
+defer all the content decryption
+
+
+1482
+00:48:43,176 --> 00:48:46,696
+key loading by calling finish
+
+
+1483
+00:48:46,696 --> 00:48:48,386
+loading on the loading request
+
+
+1484
+00:48:48,736 --> 00:48:50,506
+so AVFoundation could re allow
+
+
+1485
+00:48:50,506 --> 00:48:51,546
+the request to the
+
+
+1486
+00:48:51,546 --> 00:48:52,796
+AVContentKeySession delegate.
+
+
+1487
+00:48:53,226 --> 00:48:54,356
+Let me show you how to do that
+
+
+1488
+00:48:54,356 --> 00:48:54,806
+in code.
+
+
+1489
+00:48:55,156 --> 00:48:56,136
+It's really simple.
+
+
+1490
+00:48:56,896 --> 00:48:58,286
+So here's a delegate method that
+
+
+1491
+00:48:58,286 --> 00:49:00,266
+gets called when AVFoundation is
+
+
+1492
+00:49:00,266 --> 00:49:02,796
+trying to load a resource, and
+
+
+1493
+00:49:02,796 --> 00:49:03,866
+when you see that the resource
+
+
+1494
+00:49:03,866 --> 00:49:05,296
+is for a content decryption key
+
+
+1495
+00:49:05,996 --> 00:49:07,046
+you should just set the content
+
+
+1496
+00:49:07,046 --> 00:49:08,696
+pipe to say that it's a content
+
+
+1497
+00:49:08,696 --> 00:49:11,456
+key and call finish loading.
+
+
+1498
+00:49:11,946 --> 00:49:13,796
+So at that point we will send a
+
+
+1499
+00:49:13,796 --> 00:49:16,706
+new content key loading request
+
+
+1500
+00:49:16,916 --> 00:49:18,246
+to AVContentKeySession delegate.
+
+
+1501
+00:49:18,706 --> 00:49:21,366
+If it's any other resource you
+
+
+1502
+00:49:21,366 --> 00:49:22,376
+could just continue loading the
+
+
+1503
+00:49:22,376 --> 00:49:22,926
+resource here.
+
+
+1504
+00:49:23,606 --> 00:49:26,916
+So I hope this whirlwind tour of
+
+
+1505
+00:49:26,966 --> 00:49:28,506
+the new API provided you some
+
+
+1506
+00:49:28,506 --> 00:49:29,776
+context around what you can
+
+
+1507
+00:49:29,776 --> 00:49:30,646
+accomplish with
+
+
+1508
+00:49:30,926 --> 00:49:31,946
+AVContentKeySession.
+
+
+1509
+00:49:33,156 --> 00:49:34,636
+Before I wrap up the talk I have
+
+
+1510
+00:49:34,636 --> 00:49:37,076
+one more exciting feature to
+
+
+1511
+00:49:37,206 --> 00:49:38,856
+share with you, and this is
+
+
+1512
+00:49:38,856 --> 00:49:40,106
+available through
+
+
+1513
+00:49:40,106 --> 00:49:40,916
+AVContentKeySession.
+
+
+1514
+00:49:43,336 --> 00:49:46,376
+We are providing double expiry
+
+
+1515
+00:49:46,376 --> 00:49:49,596
+windows support for FairPlay
+
+
+1516
+00:49:49,596 --> 00:49:50,986
+Streaming persistent keys.
+
+
+1517
+00:49:51,606 --> 00:49:52,936
+Now, what does this double
+
+
+1518
+00:49:52,936 --> 00:49:54,186
+expiry window thing?
+
+
+1519
+00:49:55,236 --> 00:49:56,956
+If you've ever rented a movie on
+
+
+1520
+00:49:56,956 --> 00:49:59,246
+iTunes you would see that you
+
+
+1521
+00:49:59,246 --> 00:50:00,966
+have -- once you rent a movie
+
+
+1522
+00:50:00,966 --> 00:50:03,406
+you have 30 days to watch it.
+
+
+1523
+00:50:03,666 --> 00:50:05,286
+And once you start watching the
+
+
+1524
+00:50:05,286 --> 00:50:06,836
+moving you have 24 hours to
+
+
+1525
+00:50:06,836 --> 00:50:07,336
+finish it.
+
+
+1526
+00:50:08,046 --> 00:50:10,076
+We call this dual expiry window
+
+
+1527
+00:50:10,076 --> 00:50:10,916
+model for rentals.
+
+
+1528
+00:50:13,116 --> 00:50:14,936
+So what this feature allows you
+
+
+1529
+00:50:14,936 --> 00:50:18,286
+to do is define and customize
+
+
+1530
+00:50:18,776 --> 00:50:20,966
+two expiry windows for FairPlay
+
+
+1531
+00:50:20,966 --> 00:50:22,076
+Streaming persistent keys.
+
+
+1532
+00:50:23,016 --> 00:50:25,736
+That will allow you to support
+
+
+1533
+00:50:26,296 --> 00:50:27,876
+items like rental feature
+
+
+1534
+00:50:28,976 --> 00:50:32,366
+without much engineering effort
+
+
+1535
+00:50:32,366 --> 00:50:34,816
+on the silver side and the best
+
+
+1536
+00:50:34,816 --> 00:50:36,116
+thing is it works on both
+
+
+1537
+00:50:36,296 --> 00:50:37,936
+offline and online playback.
+
+
+1538
+00:50:39,276 --> 00:50:41,066
+So in order to use this feature,
+
+
+1539
+00:50:41,676 --> 00:50:42,756
+you have to first opt in by
+
+
+1540
+00:50:42,756 --> 00:50:44,166
+sending suitable descriptor in
+
+
+1541
+00:50:44,376 --> 00:50:46,696
+CKC and that will allow you to
+
+
+1542
+00:50:46,696 --> 00:50:48,256
+specify two expiry windows.
+
+
+1543
+00:50:49,056 --> 00:50:49,916
+The first one is called a
+
+
+1544
+00:50:49,916 --> 00:50:51,716
+storage expiry window which
+
+
+1545
+00:50:51,716 --> 00:50:54,096
+starts as soon as the persistent
+
+
+1546
+00:50:54,096 --> 00:50:56,266
+key is created, and then we have
+
+
+1547
+00:50:56,266 --> 00:50:57,926
+a playback expiry window which
+
+
+1548
+00:50:57,926 --> 00:51:00,106
+starts when the persistent key
+
+
+1549
+00:51:00,106 --> 00:51:01,936
+is used to start the playback.
+
+
+1550
+00:51:02,996 --> 00:51:04,726
+To explain this feature better
+
+
+1551
+00:51:04,726 --> 00:51:07,316
+let me just give you -- let me
+
+
+1552
+00:51:07,316 --> 00:51:08,596
+just take you over a timeline of
+
+
+1553
+00:51:08,596 --> 00:51:09,766
+events and the context of
+
+
+1554
+00:51:09,766 --> 00:51:10,956
+offline playback.
+
+
+1555
+00:51:11,766 --> 00:51:15,706
+When the user rents a movie to
+
+
+1556
+00:51:15,706 --> 00:51:18,566
+play offline you would create a
+
+
+1557
+00:51:18,566 --> 00:51:20,896
+persistent key with a CKC that
+
+
+1558
+00:51:20,946 --> 00:51:22,146
+opts in to use this feature.
+
+
+1559
+00:51:23,586 --> 00:51:25,226
+This persistent key is said to
+
+
+1560
+00:51:25,226 --> 00:51:27,126
+expire at the end of storage
+
+
+1561
+00:51:27,126 --> 00:51:30,246
+expiry window which was 30 days
+
+
+1562
+00:51:30,246 --> 00:51:31,016
+from our example.
+
+
+1563
+00:51:31,566 --> 00:51:35,736
+You would typically store this
+
+
+1564
+00:51:35,936 --> 00:51:37,126
+persistent key in your apps
+
+
+1565
+00:51:37,126 --> 00:51:39,626
+storage and use it to answer a
+
+
+1566
+00:51:39,626 --> 00:51:40,626
+key request later on.
+
+
+1567
+00:51:41,396 --> 00:51:42,676
+Now when the user comes back
+
+
+1568
+00:51:42,676 --> 00:51:44,796
+within these 30 days and asks
+
+
+1569
+00:51:44,796 --> 00:51:47,076
+you to start play -- ask you to
+
+
+1570
+00:51:47,076 --> 00:51:49,266
+play the content, you will get a
+
+
+1571
+00:51:49,266 --> 00:51:50,826
+key request and you would use
+
+
+1572
+00:51:50,826 --> 00:51:52,236
+this persistent key to answer
+
+
+1573
+00:51:52,236 --> 00:51:53,066
+the key request.
+
+
+1574
+00:51:53,786 --> 00:51:56,286
+At that point, we will send you
+
+
+1575
+00:51:56,286 --> 00:51:58,766
+an updated persistent key which
+
+
+1576
+00:51:58,766 --> 00:52:00,596
+is set to expire at the end of
+
+
+1577
+00:52:01,136 --> 00:52:02,966
+playback experiment which was 24
+
+
+1578
+00:52:02,966 --> 00:52:03,916
+hours from our example.
+
+
+1579
+00:52:05,156 --> 00:52:06,376
+Along with that we'll also
+
+
+1580
+00:52:06,376 --> 00:52:08,256
+explicitly expire the original
+
+
+1581
+00:52:08,256 --> 00:52:09,246
+persistent key that you've
+
+
+1582
+00:52:09,246 --> 00:52:11,366
+created, so you're expected to
+
+
+1583
+00:52:11,366 --> 00:52:13,756
+save the updated persistent key
+
+
+1584
+00:52:13,756 --> 00:52:15,546
+in your app storage and use that
+
+
+1585
+00:52:15,946 --> 00:52:17,636
+to answer future key loading
+
+
+1586
+00:52:17,636 --> 00:52:18,096
+requests.
+
+
+1587
+00:52:18,766 --> 00:52:20,156
+That is when the user stops and
+
+
+1588
+00:52:20,156 --> 00:52:22,176
+resumes playback within the next
+
+
+1589
+00:52:22,176 --> 00:52:22,786
+24 hours.
+
+
+1590
+00:52:24,256 --> 00:52:25,716
+In terms of code this is very
+
+
+1591
+00:52:25,716 --> 00:52:27,286
+similar to the persistent key
+
+
+1592
+00:52:27,786 --> 00:52:29,046
+workflow that we just saw a few
+
+
+1593
+00:52:29,046 --> 00:52:31,536
+slides ago, however, we'll send
+
+
+1594
+00:52:31,536 --> 00:52:33,186
+you this new updated persistent
+
+
+1595
+00:52:33,186 --> 00:52:34,946
+key through a new
+
+
+1596
+00:52:34,996 --> 00:52:36,296
+AVContentKeySession delegate
+
+
+1597
+00:52:36,356 --> 00:52:36,816
+callback.
+
+
+1598
+00:52:37,276 --> 00:52:40,066
+So those were all the
+
+
+1599
+00:52:40,066 --> 00:52:41,716
+enhancements that we had for
+
+
+1600
+00:52:41,716 --> 00:52:43,176
+FairPlay Streaming key delivery
+
+
+1601
+00:52:43,176 --> 00:52:44,006
+process this year.
+
+
+1602
+00:52:45,536 --> 00:52:48,686
+In conclusion, we introduced two
+
+
+1603
+00:52:48,686 --> 00:52:49,316
+new CODECS.
+
+
+1604
+00:52:49,636 --> 00:52:52,986
+We introduced a [inaudible] this
+
+
+1605
+00:52:52,986 --> 00:52:56,116
+year, HEVC and IMSC1.
+
+
+1606
+00:52:56,266 --> 00:52:59,166
+We added the EXT-X-GAP tag that
+
+
+1607
+00:52:59,166 --> 00:53:00,806
+allows you to indicate gaps in
+
+
+1608
+00:53:00,806 --> 00:53:01,836
+your livestreams.
+
+
+1609
+00:53:02,776 --> 00:53:05,546
+And now you can define and use
+
+
+1610
+00:53:06,006 --> 00:53:09,116
+PHP style variables in your HLS
+
+
+1611
+00:53:09,116 --> 00:53:09,596
+streams.
+
+
+1612
+00:53:10,206 --> 00:53:13,036
+You can now synchronize two or
+
+
+1613
+00:53:13,036 --> 00:53:16,796
+more HLS streams, and we
+
+
+1614
+00:53:17,016 --> 00:53:19,896
+provided new APIs that will
+
+
+1615
+00:53:19,896 --> 00:53:22,516
+allow you to have better control
+
+
+1616
+00:53:22,516 --> 00:53:24,566
+over offline HLS assets.
+
+
+1617
+00:53:25,106 --> 00:53:27,596
+Now there is a new API
+
+
+1618
+00:53:27,596 --> 00:53:29,336
+AVContentKeySession that allows
+
+
+1619
+00:53:29,336 --> 00:53:31,786
+you to get better manage and
+
+
+1620
+00:53:31,786 --> 00:53:33,146
+deliver content decryption keys.
+
+
+1621
+00:53:34,666 --> 00:53:37,866
+And finally, we added dual
+
+
+1622
+00:53:37,866 --> 00:53:39,406
+expiry window support for all
+
+
+1623
+00:53:39,536 --> 00:53:40,916
+FairPlay Streaming persistent
+
+
+1624
+00:53:40,916 --> 00:53:43,216
+keys so that will allow you to
+
+
+1625
+00:53:44,186 --> 00:53:45,686
+support rental model with your
+
+
+1626
+00:53:45,686 --> 00:53:46,866
+offline HLS assets.
+
+
+1627
+00:53:48,276 --> 00:53:49,656
+It was really exciting for all
+
+
+1628
+00:53:49,656 --> 00:53:51,316
+of us to work on these new
+
+
+1629
+00:53:51,316 --> 00:53:53,506
+features and we look forward to
+
+
+1630
+00:53:53,506 --> 00:53:54,056
+the adoption.
+
+
+1631
+00:53:55,516 --> 00:53:56,956
+Thanks a lot for attending this
+
+
+1632
+00:53:56,956 --> 00:53:57,366
+session.
+
+
+1633
+00:53:58,046 --> 00:54:00,046
+You can get more information by
+
+
+1634
+00:54:00,046 --> 00:54:01,666
+visiting our session page on the
+
+
+1635
+00:54:01,666 --> 00:54:02,426
+developer site.
+
+
+1636
+00:54:03,146 --> 00:54:04,996
+You can also download all the
+
+
+1637
+00:54:04,996 --> 00:54:07,366
+sample code for different things
+
+
+1638
+00:54:07,416 --> 00:54:08,886
+that we covered during this
+
+
+1639
+00:54:08,886 --> 00:54:09,146
+talk.
+
+
+1640
+00:54:09,876 --> 00:54:12,766
+We have a bunch of related
+
+
+1641
+00:54:12,766 --> 00:54:13,496
+sessions for you.
+
+
+1642
+00:54:14,096 --> 00:54:16,426
+I strongly recommend watching
+
+
+1643
+00:54:16,426 --> 00:54:18,246
+Error Handling Best Practices,
+
+
+1644
+00:54:18,356 --> 00:54:19,826
+and Authoring Update for HLS.
+
+
+1645
+00:54:20,736 --> 00:54:22,426
+These are available as on-demand
+
+
+1646
+00:54:22,426 --> 00:54:25,106
+videos and your WWDC app, and if
+
+
+1647
+00:54:25,106 --> 00:54:26,676
+you miss any of the other live
+
+
+1648
+00:54:26,676 --> 00:54:28,266
+sessions you could always go to
+
+
+1649
+00:54:28,266 --> 00:54:31,436
+your WWDC app to watch them
+
+
+1650
+00:54:32,256 --> 00:54:34,936
+offline or watch them on demand.
+
+
+1651
+00:54:35,646 --> 00:54:36,626
+Thank you so much.
+
+
+1652
+00:54:36,766 --> 00:54:38,026
+Have a great rest of the week.
+
+
+1653
+00:54:38,266 --> 00:54:38,586
+Good night.
+

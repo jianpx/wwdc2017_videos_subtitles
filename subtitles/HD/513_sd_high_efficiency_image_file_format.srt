@@ -1,0 +1,3974 @@
+1
+00:00:18,136 --> 00:00:19,666
+>> Hi and welcome to session
+
+
+2
+00:00:19,666 --> 00:00:20,316
+513.
+
+
+3
+00:00:20,916 --> 00:00:22,116
+In this talk you will learn
+
+
+4
+00:00:22,116 --> 00:00:24,176
+about the lower level details of
+
+
+5
+00:00:24,176 --> 00:00:25,846
+the new High Efficiency Image
+
+
+6
+00:00:25,846 --> 00:00:28,626
+File format or HEIF and the many
+
+
+7
+00:00:28,626 --> 00:00:30,066
+advantages that this new file
+
+
+8
+00:00:30,066 --> 00:00:31,776
+format standard affords.
+
+
+9
+00:00:32,606 --> 00:00:34,166
+My name is Davide Concion and I
+
+
+10
+00:00:34,166 --> 00:00:35,416
+manage the Image Compression
+
+
+11
+00:00:35,416 --> 00:00:37,446
+Team at Apple.
+
+
+12
+00:00:38,286 --> 00:00:39,916
+During the talk, we will briefly
+
+
+13
+00:00:39,916 --> 00:00:41,786
+touch upon the current de facto
+
+
+14
+00:00:41,786 --> 00:00:43,386
+standard for image compression,
+
+
+15
+00:00:43,866 --> 00:00:45,096
+a standard that everybody's
+
+
+16
+00:00:45,096 --> 00:00:46,396
+familiar with JPEG.
+
+
+17
+00:00:46,856 --> 00:00:48,356
+We will go through the
+
+
+18
+00:00:48,356 --> 00:00:49,606
+requirements that Apple
+
+
+19
+00:00:49,606 --> 00:00:51,486
+identified as mandatory for a
+
+
+20
+00:00:51,486 --> 00:00:52,526
+new image format.
+
+
+21
+00:00:53,886 --> 00:00:55,786
+We will explain why we think
+
+
+22
+00:00:55,786 --> 00:00:57,346
+HEIF is the answer to those
+
+
+23
+00:00:57,346 --> 00:00:59,236
+requirements and we will get to
+
+
+24
+00:00:59,236 --> 00:01:00,876
+know some of the flexible tools
+
+
+25
+00:01:01,306 --> 00:01:02,346
+that HEIF implements.
+
+
+26
+00:01:02,716 --> 00:01:05,606
+We will then present the reasons
+
+
+27
+00:01:05,606 --> 00:01:08,156
+why Apple thinks HEVC is the
+
+
+28
+00:01:08,156 --> 00:01:09,926
+right codec to be used within
+
+
+29
+00:01:09,926 --> 00:01:11,066
+the HEIF file format.
+
+
+30
+00:01:11,996 --> 00:01:13,826
+Let's start with JPEG.
+
+
+31
+00:01:15,036 --> 00:01:17,306
+JPEG is still the most popular
+
+
+32
+00:01:17,306 --> 00:01:18,976
+compression technology for
+
+
+33
+00:01:18,976 --> 00:01:21,276
+images only present on the web
+
+
+34
+00:01:21,826 --> 00:01:23,206
+and on consumer electronics
+
+
+35
+00:01:23,206 --> 00:01:25,416
+devices, such as the DSLR
+
+
+36
+00:01:25,416 --> 00:01:27,246
+cameras, point-and-shoot cameras
+
+
+37
+00:01:27,246 --> 00:01:27,906
+and cell phones.
+
+
+38
+00:01:28,706 --> 00:01:30,536
+Cloud services also use JPEG
+
+
+39
+00:01:30,536 --> 00:01:31,606
+because of its universal
+
+
+40
+00:01:31,606 --> 00:01:32,146
+support.
+
+
+41
+00:01:33,686 --> 00:01:34,876
+JPEG though has several
+
+
+42
+00:01:34,876 --> 00:01:37,556
+limitations, among those are the
+
+
+43
+00:01:37,556 --> 00:01:38,596
+compression efficiency.
+
+
+44
+00:01:39,156 --> 00:01:40,346
+Several new compression
+
+
+45
+00:01:40,346 --> 00:01:42,246
+algorithms have been developed
+
+
+46
+00:01:42,246 --> 00:01:44,266
+in recent years that can shrink
+
+
+47
+00:01:44,266 --> 00:01:45,706
+the file size much more than
+
+
+48
+00:01:45,706 --> 00:01:47,786
+JPEG and still maintaining the
+
+
+49
+00:01:47,786 --> 00:01:49,356
+same objective and subjective
+
+
+50
+00:01:49,356 --> 00:01:49,876
+quality.
+
+
+51
+00:01:51,046 --> 00:01:53,376
+Auxiliary images like alpha or
+
+
+52
+00:01:53,376 --> 00:01:55,596
+depth are not easily supported.
+
+
+53
+00:01:56,666 --> 00:01:59,406
+Also, in recent years new ways
+
+
+54
+00:01:59,406 --> 00:02:01,346
+to present and display animated
+
+
+55
+00:02:01,346 --> 00:02:02,876
+images have been developed.
+
+
+56
+00:02:03,386 --> 00:02:05,516
+Apple Live Photo is one of them.
+
+
+57
+00:02:06,106 --> 00:02:07,786
+JPEG unfortunately does not
+
+
+58
+00:02:07,786 --> 00:02:08,786
+support animation.
+
+
+59
+00:02:09,306 --> 00:02:13,156
+Let's look at history map of
+
+
+60
+00:02:13,156 --> 00:02:14,706
+compression standards developed
+
+
+61
+00:02:14,756 --> 00:02:17,846
+by JPEG and ITU/MPEG.
+
+
+62
+00:02:19,206 --> 00:02:20,886
+JPEG is really starting to show
+
+
+63
+00:02:20,886 --> 00:02:22,666
+in its years, especially in
+
+
+64
+00:02:22,666 --> 00:02:24,116
+terms of compression efficiency
+
+
+65
+00:02:24,116 --> 00:02:25,636
+when compared to recent
+
+
+66
+00:02:25,636 --> 00:02:26,546
+advancements.
+
+
+67
+00:02:27,316 --> 00:02:28,526
+As you can see in the slide,
+
+
+68
+00:02:29,046 --> 00:02:30,636
+JPEG has been finalized as a
+
+
+69
+00:02:30,636 --> 00:02:33,636
+standard in 1992, a quarter of a
+
+
+70
+00:02:33,636 --> 00:02:34,376
+century ago.
+
+
+71
+00:02:36,136 --> 00:02:37,526
+Since then, several new
+
+
+72
+00:02:37,526 --> 00:02:38,886
+compression standards have been
+
+
+73
+00:02:38,886 --> 00:02:39,296
+developed.
+
+
+74
+00:02:40,136 --> 00:02:42,396
+The latest one in the least is
+
+
+75
+00:02:43,126 --> 00:02:43,256
+HEVC.
+
+
+76
+00:02:43,896 --> 00:02:45,816
+And here is HEIF for comparison
+
+
+77
+00:02:45,816 --> 00:02:47,216
+in the timeline, which has been
+
+
+78
+00:02:47,216 --> 00:02:51,646
+finalized in 2015.
+
+
+79
+00:02:51,916 --> 00:02:54,256
+Apple invested a lot of time to
+
+
+80
+00:02:54,256 --> 00:02:56,376
+find a successor for JPEG and
+
+
+81
+00:02:56,376 --> 00:02:57,926
+many options were evaluated.
+
+
+82
+00:02:58,446 --> 00:03:00,106
+The requirements were extensive.
+
+
+83
+00:03:00,546 --> 00:03:02,486
+The new format needs to support
+
+
+84
+00:03:02,486 --> 00:03:03,956
+all the features available in
+
+
+85
+00:03:03,956 --> 00:03:06,176
+JPEG, but at the same time
+
+
+86
+00:03:06,176 --> 00:03:07,546
+provide better performance.
+
+
+87
+00:03:08,026 --> 00:03:09,656
+It needs to be friendly to
+
+
+88
+00:03:09,656 --> 00:03:11,406
+professional photography tools,
+
+
+89
+00:03:11,406 --> 00:03:13,176
+the web and the cloud.
+
+
+90
+00:03:13,596 --> 00:03:16,196
+The new format also needs to be
+
+
+91
+00:03:16,196 --> 00:03:18,796
+flexible and extensible to cope
+
+
+92
+00:03:18,796 --> 00:03:19,796
+with the ever-changing
+
+
+93
+00:03:19,796 --> 00:03:21,136
+photography ecosystem.
+
+
+94
+00:03:21,136 --> 00:03:24,836
+Here is a list of features Apple
+
+
+95
+00:03:24,836 --> 00:03:26,846
+considered paramount.
+
+
+96
+00:03:27,476 --> 00:03:29,866
+The compression needs to be
+
+
+97
+00:03:29,866 --> 00:03:32,176
+state-of-the-art both on the
+
+
+98
+00:03:32,176 --> 00:03:32,926
+[inaudible] front.
+
+
+99
+00:03:33,136 --> 00:03:35,816
+It needs to be competitive with
+
+
+100
+00:03:35,816 --> 00:03:38,486
+natural images, but also when
+
+
+101
+00:03:38,486 --> 00:03:41,456
+compressing text or graphics.
+
+
+102
+00:03:42,006 --> 00:03:45,286
+The format needs to be friendly
+
+
+103
+00:03:45,286 --> 00:03:46,876
+to hardware accelerated and code
+
+
+104
+00:03:46,876 --> 00:03:49,386
+and decode operations on modern
+
+
+105
+00:03:49,476 --> 00:03:51,896
+CPUs, GPUs and ESPs.
+
+
+106
+00:03:52,696 --> 00:03:54,356
+Performance and power is very
+
+
+107
+00:03:54,356 --> 00:03:55,356
+high in the list of
+
+
+108
+00:03:55,426 --> 00:03:56,166
+requirements.
+
+
+109
+00:03:56,776 --> 00:04:00,696
+It needs to support high depth
+
+
+110
+00:04:01,006 --> 00:04:03,176
+and wide color gamut which is
+
+
+111
+00:04:03,176 --> 00:04:05,376
+the new frontier for images
+
+
+112
+00:04:05,376 --> 00:04:07,206
+captured on consumer devices.
+
+
+113
+00:04:08,466 --> 00:04:09,746
+It needs to be able to compress
+
+
+114
+00:04:09,746 --> 00:04:13,266
+4:4:4 color sampling and also
+
+
+115
+00:04:13,266 --> 00:04:16,656
+describe HDR content, including
+
+
+116
+00:04:16,656 --> 00:04:19,226
+HDR metadata, transfer function
+
+
+117
+00:04:19,435 --> 00:04:20,976
+and color space definitions.
+
+
+118
+00:04:22,886 --> 00:04:25,186
+Auxiliary images for example
+
+
+119
+00:04:25,186 --> 00:04:28,006
+alpha or depth need to have a
+
+
+120
+00:04:28,066 --> 00:04:30,206
+commonly defined place in image
+
+
+121
+00:04:30,206 --> 00:04:30,756
+files.
+
+
+122
+00:04:31,556 --> 00:04:33,436
+New editing tools will be able
+
+
+123
+00:04:33,436 --> 00:04:35,266
+to utilize auxiliary data for
+
+
+124
+00:04:35,266 --> 00:04:36,956
+new presentation and editing
+
+
+125
+00:04:36,956 --> 00:04:37,796
+experiences.
+
+
+126
+00:04:38,396 --> 00:04:41,416
+In recent years, the new ways to
+
+
+127
+00:04:41,416 --> 00:04:42,816
+present and display animated
+
+
+128
+00:04:42,816 --> 00:04:44,006
+images have been developed.
+
+
+129
+00:04:44,406 --> 00:04:46,046
+Apple iPhoto is one example.
+
+
+130
+00:04:46,706 --> 00:04:48,556
+Apple iPhoto includes animated
+
+
+131
+00:04:48,556 --> 00:04:50,426
+content together with static
+
+
+132
+00:04:50,426 --> 00:04:50,926
+images.
+
+
+133
+00:04:52,006 --> 00:04:54,046
+The new common format needs to
+
+
+134
+00:04:54,046 --> 00:04:55,416
+store animated information
+
+
+135
+00:04:55,416 --> 00:04:57,416
+efficiently, ideally using
+
+
+136
+00:04:57,416 --> 00:04:58,826
+Tempra compression techniques
+
+
+137
+00:04:59,216 --> 00:05:01,246
+and be able to instruct players
+
+
+138
+00:05:01,246 --> 00:05:02,946
+about the presentation intention
+
+
+139
+00:05:03,136 --> 00:05:05,046
+for example, a looping sequence.
+
+
+140
+00:05:06,116 --> 00:05:08,536
+The new format needs also to
+
+
+141
+00:05:08,536 --> 00:05:10,126
+support multiple images in the
+
+
+142
+00:05:10,126 --> 00:05:10,716
+same file.
+
+
+143
+00:05:11,006 --> 00:05:14,046
+For example, multi-exposure
+
+
+144
+00:05:14,046 --> 00:05:15,756
+stacks or stereo images.
+
+
+145
+00:05:16,556 --> 00:05:18,416
+This is to aid the development
+
+
+146
+00:05:18,416 --> 00:05:19,676
+and implementation of new
+
+
+147
+00:05:19,676 --> 00:05:20,926
+computational photography
+
+
+148
+00:05:20,926 --> 00:05:21,656
+algorithms.
+
+
+149
+00:05:23,596 --> 00:05:26,216
+Multiple representations of the
+
+
+150
+00:05:26,216 --> 00:05:27,326
+same image matching the same
+
+
+151
+00:05:27,326 --> 00:05:29,036
+file are of great importance.
+
+
+152
+00:05:29,676 --> 00:05:31,526
+For example, multi-resolution,
+
+
+153
+00:05:31,526 --> 00:05:32,876
+including progressively
+
+
+154
+00:05:32,876 --> 00:05:35,366
+increasing level of details or
+
+
+155
+00:05:35,366 --> 00:05:36,526
+the ability to represent the
+
+
+156
+00:05:36,526 --> 00:05:37,936
+same image encoded with
+
+
+157
+00:05:37,936 --> 00:05:38,846
+different codecs.
+
+
+158
+00:05:40,216 --> 00:05:43,006
+Tiles are an important tool the
+
+
+159
+00:05:43,006 --> 00:05:44,636
+new format must implement.
+
+
+160
+00:05:45,606 --> 00:05:47,596
+It allows for scalable operation
+
+
+161
+00:05:47,596 --> 00:05:49,106
+on image of any size.
+
+
+162
+00:05:49,446 --> 00:05:50,916
+We'll be looking into tiles
+
+
+163
+00:05:50,916 --> 00:05:52,266
+later in the talk.
+
+
+164
+00:05:53,366 --> 00:05:56,836
+The new format needs support for
+
+
+165
+00:05:56,836 --> 00:05:59,206
+rich metadata associated to each
+
+
+166
+00:05:59,206 --> 00:06:00,086
+image in the file.
+
+
+167
+00:06:00,306 --> 00:06:02,896
+And also support for time meta
+
+
+168
+00:06:03,186 --> 00:06:04,836
+for example, a sequence of
+
+
+169
+00:06:04,886 --> 00:06:05,456
+images.
+
+
+170
+00:06:06,596 --> 00:06:08,726
+There is also desire for a new
+
+
+171
+00:06:08,726 --> 00:06:09,996
+format to be able to include
+
+
+172
+00:06:09,996 --> 00:06:12,026
+other metadata types for
+
+
+173
+00:06:12,026 --> 00:06:13,646
+example, audio or text.
+
+
+174
+00:06:13,916 --> 00:06:17,336
+Last but not least, the new
+
+
+175
+00:06:17,336 --> 00:06:19,016
+format should be flexible and
+
+
+176
+00:06:19,016 --> 00:06:20,876
+extensible enough to provide a
+
+
+177
+00:06:20,876 --> 00:06:22,686
+solid foundation for the future.
+
+
+178
+00:06:23,276 --> 00:06:28,396
+We believe that HEIF is the
+
+
+179
+00:06:28,396 --> 00:06:29,856
+answer to all these
+
+
+180
+00:06:29,856 --> 00:06:30,586
+requirements.
+
+
+181
+00:06:32,406 --> 00:06:33,076
+What is HEIF?
+
+
+182
+00:06:33,966 --> 00:06:36,176
+HEIF stands for High Efficiency
+
+
+183
+00:06:36,176 --> 00:06:37,446
+Image File Format.
+
+
+184
+00:06:39,016 --> 00:06:41,176
+Version one of the spec became
+
+
+185
+00:06:41,176 --> 00:06:44,846
+an ISO standard in June of 2015.
+
+
+186
+00:06:46,426 --> 00:06:48,286
+Version two should be released
+
+
+187
+00:06:48,286 --> 00:06:49,236
+imminently.
+
+
+188
+00:06:49,826 --> 00:06:53,366
+A C reference model for HEIF is
+
+
+189
+00:06:53,366 --> 00:06:55,236
+available upon request at this
+
+
+190
+00:06:55,236 --> 00:06:55,556
+link.
+
+
+191
+00:06:56,366 --> 00:06:57,696
+The reference model is meant to
+
+
+192
+00:06:57,696 --> 00:06:59,256
+provide guidance for HEIF
+
+
+193
+00:06:59,256 --> 00:07:01,546
+implementation and to understand
+
+
+194
+00:07:01,546 --> 00:07:02,666
+the specifications.
+
+
+195
+00:07:03,196 --> 00:07:05,976
+As a side note, the open source
+
+
+196
+00:07:05,976 --> 00:07:10,036
+project GPAC MP4Box has recently
+
+
+197
+00:07:10,036 --> 00:07:11,586
+added basic functionality to
+
+
+198
+00:07:11,586 --> 00:07:12,676
+part C files.
+
+
+199
+00:07:13,256 --> 00:07:17,756
+The vodaworld long time ago
+
+
+200
+00:07:17,756 --> 00:07:19,486
+learned that containers and
+
+
+201
+00:07:19,486 --> 00:07:22,036
+codes are different entities and
+
+
+202
+00:07:22,036 --> 00:07:23,586
+there are several advantages in
+
+
+203
+00:07:23,586 --> 00:07:24,826
+keeping them separated.
+
+
+204
+00:07:25,436 --> 00:07:27,196
+But historically in the image
+
+
+205
+00:07:27,196 --> 00:07:29,426
+world containers and codecs are
+
+
+206
+00:07:29,476 --> 00:07:31,246
+tied together and JPEG is no
+
+
+207
+00:07:31,246 --> 00:07:31,776
+exception.
+
+
+208
+00:07:32,546 --> 00:07:33,686
+It makes sense to make the
+
+
+209
+00:07:33,686 --> 00:07:35,686
+distinction in the image world
+
+
+210
+00:07:36,266 --> 00:07:37,996
+to get the flexibility to
+
+
+211
+00:07:37,996 --> 00:07:38,806
+[inaudible].
+
+
+212
+00:07:38,806 --> 00:07:40,996
+HEIF does exactly that, it
+
+
+213
+00:07:40,996 --> 00:07:42,836
+specifies a structural format, a
+
+
+214
+00:07:42,996 --> 00:07:45,546
+container for individual images,
+
+
+215
+00:07:45,546 --> 00:07:47,316
+as well as image sequences.
+
+
+216
+00:07:48,706 --> 00:07:50,596
+It is built on top of the widely
+
+
+217
+00:07:50,596 --> 00:07:53,996
+used ISO based media file format
+
+
+218
+00:07:54,396 --> 00:07:55,676
+which is based on Apple
+
+
+219
+00:07:55,676 --> 00:07:56,906
+QuickTime technologies.
+
+
+220
+00:07:58,016 --> 00:07:59,736
+It also uses and enhances
+
+
+221
+00:07:59,736 --> 00:08:01,616
+structures defined in the MP4
+
+
+222
+00:08:01,616 --> 00:08:04,576
+specification and MPEG-21
+
+
+223
+00:08:04,576 --> 00:08:05,556
+specifications.
+
+
+224
+00:08:06,316 --> 00:08:08,676
+Sequences for example, bursts or
+
+
+225
+00:08:08,676 --> 00:08:10,996
+animations are stored as tracks
+
+
+226
+00:08:11,176 --> 00:08:13,646
+or time media MP4 style.
+
+
+227
+00:08:14,616 --> 00:08:17,446
+Images coded or derived are
+
+
+228
+00:08:17,446 --> 00:08:20,026
+stored as items MPEG-21 style.
+
+
+229
+00:08:20,556 --> 00:08:23,826
+Any compression codec can be
+
+
+230
+00:08:23,826 --> 00:08:25,166
+included in a HEIF container.
+
+
+231
+00:08:25,956 --> 00:08:27,116
+The HEIF specification
+
+
+232
+00:08:27,146 --> 00:08:31,176
+explicitly mentions HEVC, H264
+
+
+233
+00:08:31,366 --> 00:08:32,686
+and JPEG in terms of file
+
+
+234
+00:08:32,686 --> 00:08:34,746
+extensions, [inaudible] types
+
+
+235
+00:08:35,076 --> 00:08:36,586
+and decoder configuration.
+
+
+236
+00:08:38,096 --> 00:08:39,746
+The basic building block of a
+
+
+237
+00:08:39,746 --> 00:08:42,126
+HEIF file like the ISO based
+
+
+238
+00:08:42,126 --> 00:08:43,785
+media file format is a data
+
+
+239
+00:08:43,785 --> 00:08:45,166
+structure called box.
+
+
+240
+00:08:45,646 --> 00:08:47,736
+A box is comprised of a
+
+
+241
+00:08:47,736 --> 00:08:49,586
+four-character type, for
+
+
+242
+00:08:49,586 --> 00:08:51,316
+instance in the example on the
+
+
+243
+00:08:51,316 --> 00:08:54,856
+right the ftyp box or the
+
+
+244
+00:08:54,856 --> 00:08:57,126
+metabox or the mdat box.
+
+
+245
+00:08:58,216 --> 00:08:59,736
+The size of the box in terms of
+
+
+246
+00:08:59,736 --> 00:09:01,826
+bytes and the payload of the
+
+
+247
+00:09:01,826 --> 00:09:02,206
+box.
+
+
+248
+00:09:02,786 --> 00:09:06,246
+The metabox gives a full
+
+
+249
+00:09:06,246 --> 00:09:08,306
+description of what is included
+
+
+250
+00:09:08,306 --> 00:09:08,806
+in the file.
+
+
+251
+00:09:09,036 --> 00:09:11,446
+The handler type of the metabox
+
+
+252
+00:09:11,596 --> 00:09:15,036
+for whomever is familiar with
+
+
+253
+00:09:15,766 --> 00:09:19,296
+ISOBMFF specification is of type
+
+
+254
+00:09:19,806 --> 00:09:22,856
+PICT indicating to a reader that
+
+
+255
+00:09:22,856 --> 00:09:25,126
+this metabox handles images.
+
+
+256
+00:09:25,736 --> 00:09:29,656
+Before going into the anatomy of
+
+
+257
+00:09:29,686 --> 00:09:32,136
+a HEIF file a note on file
+
+
+258
+00:09:32,136 --> 00:09:32,826
+extensions.
+
+
+259
+00:09:34,156 --> 00:09:36,666
+The standard defines explicitly
+
+
+260
+00:09:36,666 --> 00:09:38,376
+the file extension of a HEIF
+
+
+261
+00:09:38,376 --> 00:09:40,156
+file depending on the particular
+
+
+262
+00:09:40,186 --> 00:09:41,996
+codec being used to compress
+
+
+263
+00:09:42,056 --> 00:09:43,666
+single images or sequences.
+
+
+264
+00:09:44,326 --> 00:09:45,766
+The list of extensions can be
+
+
+265
+00:09:45,766 --> 00:09:47,506
+found in the table above.
+
+
+266
+00:09:48,126 --> 00:09:51,716
+iOS 11 can capture and store
+
+
+267
+00:09:51,716 --> 00:09:54,136
+HEIF images using the HEVC
+
+
+268
+00:09:54,336 --> 00:09:54,746
+codec.
+
+
+269
+00:09:55,556 --> 00:09:57,346
+Therefore, the extension you
+
+
+270
+00:09:57,346 --> 00:09:59,546
+will be encountering is .HEIC.
+
+
+271
+00:10:00,936 --> 00:10:04,926
+In iOS 11 and macOS 10.13 we
+
+
+272
+00:10:04,926 --> 00:10:07,296
+support all three single image
+
+
+273
+00:10:07,296 --> 00:10:09,596
+HEIF flavors for decoding and
+
+
+274
+00:10:09,596 --> 00:10:10,096
+displaying.
+
+
+275
+00:10:11,066 --> 00:10:13,976
+Note also that a HEIF file that
+
+
+276
+00:10:13,976 --> 00:10:16,506
+includes sequences will have a
+
+
+277
+00:10:16,506 --> 00:10:18,496
+different extension than a HEIF
+
+
+278
+00:10:18,896 --> 00:10:20,806
+that contains only single
+
+
+279
+00:10:20,806 --> 00:10:21,346
+images.
+
+
+280
+00:10:21,916 --> 00:10:26,946
+We will now dive into the HEIF
+
+
+281
+00:10:26,946 --> 00:10:28,556
+format and its anatomy.
+
+
+282
+00:10:29,126 --> 00:10:33,266
+Let's start with the concept of
+
+
+283
+00:10:33,436 --> 00:10:33,866
+item.
+
+
+284
+00:10:36,056 --> 00:10:38,446
+Every element in a HEIF file is
+
+
+285
+00:10:38,446 --> 00:10:39,006
+an item.
+
+
+286
+00:10:40,186 --> 00:10:42,616
+There can be coded items for
+
+
+287
+00:10:42,616 --> 00:10:45,036
+instance, HEVC encoded frame or
+
+
+288
+00:10:45,036 --> 00:10:45,656
+tiles.
+
+
+289
+00:10:46,996 --> 00:10:49,286
+There can be derived items for
+
+
+290
+00:10:49,286 --> 00:10:51,206
+instance, an image overlay or an
+
+
+291
+00:10:51,206 --> 00:10:51,866
+image grid.
+
+
+292
+00:10:53,426 --> 00:10:55,556
+There can be metadata items for
+
+
+293
+00:10:55,556 --> 00:10:59,016
+instance, EXIF, XMP or MPEG-7
+
+
+294
+00:10:59,016 --> 00:10:59,576
+metadata.
+
+
+295
+00:11:00,226 --> 00:11:03,056
+Each item can also come with
+
+
+296
+00:11:03,056 --> 00:11:06,216
+several properties associated to
+
+
+297
+00:11:06,766 --> 00:11:06,846
+it.
+
+
+298
+00:11:07,166 --> 00:11:09,266
+Everything is then connected via
+
+
+299
+00:11:09,266 --> 00:11:11,806
+structures that link certain
+
+
+300
+00:11:11,806 --> 00:11:13,506
+items to other items or
+
+
+301
+00:11:13,506 --> 00:11:14,176
+properties.
+
+
+302
+00:11:16,816 --> 00:11:19,076
+Images are items and because
+
+
+303
+00:11:19,076 --> 00:11:20,846
+multiple images can be stored in
+
+
+304
+00:11:20,846 --> 00:11:22,896
+the same file the HEIF standard
+
+
+305
+00:11:22,896 --> 00:11:24,786
+differentiates between them by
+
+
+306
+00:11:24,786 --> 00:11:26,596
+assigning certain roles.
+
+
+307
+00:11:26,596 --> 00:11:30,036
+Some of the roles specified in
+
+
+308
+00:11:30,036 --> 00:11:32,816
+HEIF are listed in the table
+
+
+309
+00:11:32,816 --> 00:11:33,186
+above.
+
+
+310
+00:11:33,986 --> 00:11:36,456
+The primary recovery image is
+
+
+311
+00:11:36,486 --> 00:11:38,216
+the representative image of a
+
+
+312
+00:11:38,216 --> 00:11:38,576
+file.
+
+
+313
+00:11:39,596 --> 00:11:40,986
+The primary image should be
+
+
+314
+00:11:40,986 --> 00:11:42,526
+displayed when no other
+
+
+315
+00:11:42,526 --> 00:11:44,466
+information is possible or
+
+
+316
+00:11:44,466 --> 00:11:45,646
+decodable by a player.
+
+
+317
+00:11:46,456 --> 00:11:48,966
+Only one primary image can be
+
+
+318
+00:11:48,966 --> 00:11:51,746
+present in a HEIF file.
+
+
+319
+00:11:51,956 --> 00:11:53,656
+Other full-resolution images in
+
+
+320
+00:11:53,656 --> 00:11:55,866
+HEIF files are called master
+
+
+321
+00:11:56,146 --> 00:11:56,686
+images.
+
+
+322
+00:11:57,996 --> 00:11:59,636
+The thumbnail is a small
+
+
+323
+00:11:59,636 --> 00:12:01,166
+resolution representation of a
+
+
+324
+00:12:01,166 --> 00:12:01,856
+master image.
+
+
+325
+00:12:02,456 --> 00:12:04,336
+Multiple thumbnails can be
+
+
+326
+00:12:04,336 --> 00:12:06,296
+stored in a HEIF for example,
+
+
+327
+00:12:06,296 --> 00:12:07,346
+with different sizes.
+
+
+328
+00:12:08,276 --> 00:12:10,306
+It's a very useful feature for
+
+
+329
+00:12:10,306 --> 00:12:11,976
+progressive decoding and
+
+
+330
+00:12:11,976 --> 00:12:13,796
+displaying very high-resolution
+
+
+331
+00:12:13,796 --> 00:12:14,296
+images.
+
+
+332
+00:12:14,856 --> 00:12:18,106
+The auxiliary image is an image
+
+
+333
+00:12:18,106 --> 00:12:20,046
+that complements a master image.
+
+
+334
+00:12:20,576 --> 00:12:22,426
+For example, an alpha plane or a
+
+
+335
+00:12:22,426 --> 00:12:23,046
+depth map.
+
+
+336
+00:12:23,826 --> 00:12:25,906
+Auxiliary images can assist in
+
+
+337
+00:12:25,906 --> 00:12:28,086
+displaying master images, but
+
+
+338
+00:12:28,086 --> 00:12:29,886
+are not typically displayed.
+
+
+339
+00:12:30,396 --> 00:12:32,536
+A hidden image is an image that
+
+
+340
+00:12:32,536 --> 00:12:33,676
+should never be displayed.
+
+
+341
+00:12:33,866 --> 00:12:36,326
+It can be present in the file
+
+
+342
+00:12:36,486 --> 00:12:38,786
+for example, as an input image
+
+
+343
+00:12:38,786 --> 00:12:39,976
+of a derived image.
+
+
+344
+00:12:40,676 --> 00:12:43,506
+iOS 11 HEIF implementation uses
+
+
+345
+00:12:43,506 --> 00:12:45,386
+extensively hidden images which
+
+
+346
+00:12:45,386 --> 00:12:46,336
+are called tiles.
+
+
+347
+00:12:47,056 --> 00:12:49,316
+Each tile is used to compose the
+
+
+348
+00:12:49,316 --> 00:12:51,876
+final master or canvas image.
+
+
+349
+00:12:52,486 --> 00:12:55,746
+Now derived manager is an image
+
+
+350
+00:12:55,746 --> 00:12:58,456
+that is rendered by an indicated
+
+
+351
+00:12:58,456 --> 00:13:01,016
+operation being performed on
+
+
+352
+00:13:01,016 --> 00:13:02,166
+other input images.
+
+
+353
+00:13:02,416 --> 00:13:04,026
+For instance, the canvas image
+
+
+354
+00:13:04,026 --> 00:13:06,056
+described before is rendered
+
+
+355
+00:13:06,056 --> 00:13:07,476
+after stitching together
+
+
+356
+00:13:07,476 --> 00:13:08,436
+multiple tiles.
+
+
+357
+00:13:09,816 --> 00:13:11,496
+Equivalent images are
+
+
+358
+00:13:11,646 --> 00:13:13,526
+alternative images for instance,
+
+
+359
+00:13:13,526 --> 00:13:15,186
+encoded with a different codec.
+
+
+360
+00:13:15,896 --> 00:13:17,456
+A server could distribute the
+
+
+361
+00:13:17,456 --> 00:13:19,416
+same input content to players
+
+
+362
+00:13:19,416 --> 00:13:20,936
+that may have different decoding
+
+
+363
+00:13:20,936 --> 00:13:21,666
+capabilities.
+
+
+364
+00:13:22,156 --> 00:13:26,326
+Once the role has been defined
+
+
+365
+00:13:26,326 --> 00:13:28,886
+for each image properties can be
+
+
+366
+00:13:28,886 --> 00:13:29,946
+associated to them.
+
+
+367
+00:13:30,956 --> 00:13:32,016
+Properties are either
+
+
+368
+00:13:32,016 --> 00:13:34,016
+descriptive or transformative.
+
+
+369
+00:13:34,726 --> 00:13:36,416
+They can also be essential for
+
+
+370
+00:13:36,416 --> 00:13:37,836
+example, the codec
+
+
+371
+00:13:37,836 --> 00:13:39,536
+initialization info or
+
+
+372
+00:13:39,536 --> 00:13:40,316
+nonessential.
+
+
+373
+00:13:40,876 --> 00:13:43,246
+The table above provides a
+
+
+374
+00:13:43,246 --> 00:13:44,386
+non-exhaustive list of
+
+
+375
+00:13:44,386 --> 00:13:46,456
+descriptive properties for
+
+
+376
+00:13:46,456 --> 00:13:47,946
+images inside a HEIF file.
+
+
+377
+00:13:48,786 --> 00:13:50,026
+All the usual suspect
+
+
+378
+00:13:50,026 --> 00:13:51,276
+information can be found in
+
+
+379
+00:13:51,276 --> 00:13:53,366
+there like the image size, the
+
+
+380
+00:13:53,366 --> 00:13:55,636
+color information, the type of
+
+
+381
+00:13:55,636 --> 00:13:57,636
+auxiliary image which can be
+
+
+382
+00:13:57,636 --> 00:14:00,046
+alpha or depth and also the
+
+
+383
+00:14:00,046 --> 00:14:01,556
+configuration parameters to
+
+
+384
+00:14:01,556 --> 00:14:02,726
+initialize the decoder.
+
+
+385
+00:14:03,296 --> 00:14:05,926
+The table above provides a
+
+
+386
+00:14:05,926 --> 00:14:06,866
+non-exhaustive list of
+
+
+387
+00:14:06,866 --> 00:14:08,346
+transformative properties.
+
+
+388
+00:14:09,036 --> 00:14:10,546
+The presence of these properties
+
+
+389
+00:14:10,816 --> 00:14:11,926
+instructs a HEIF [inaudible]
+
+
+390
+00:14:12,176 --> 00:14:15,936
+that the image needs to go
+
+
+391
+00:14:15,936 --> 00:14:17,836
+through extra steps before being
+
+
+392
+00:14:17,836 --> 00:14:18,346
+displayed.
+
+
+393
+00:14:18,956 --> 00:14:20,856
+For example, the clean aperture
+
+
+394
+00:14:20,856 --> 00:14:23,116
+property instructs a HEIF reader
+
+
+395
+00:14:23,596 --> 00:14:26,916
+that the crop operation must be
+
+
+396
+00:14:26,916 --> 00:14:28,936
+performed before rending the
+
+
+397
+00:14:28,936 --> 00:14:29,686
+final image.
+
+
+398
+00:14:30,256 --> 00:14:34,126
+All the properties for each
+
+
+399
+00:14:34,126 --> 00:14:36,436
+image are grouped together in
+
+
+400
+00:14:36,436 --> 00:14:38,256
+the same item property box.
+
+
+401
+00:14:39,366 --> 00:14:41,686
+Each image can then be
+
+
+402
+00:14:41,686 --> 00:14:43,746
+associated to which property via
+
+
+403
+00:14:43,746 --> 00:14:45,106
+the association box.
+
+
+404
+00:14:45,846 --> 00:14:47,916
+We will use an example to
+
+
+405
+00:14:47,916 --> 00:14:49,726
+describe how the association
+
+
+406
+00:14:49,726 --> 00:14:50,096
+works.
+
+
+407
+00:14:51,526 --> 00:14:53,726
+The above HEIF container on the
+
+
+408
+00:14:53,726 --> 00:14:56,266
+left describes the file with one
+
+
+409
+00:14:56,326 --> 00:14:58,076
+main image and one thumbnail.
+
+
+410
+00:14:58,826 --> 00:15:00,896
+The main image is comprised of
+
+
+411
+00:15:00,896 --> 00:15:01,766
+four tiles.
+
+
+412
+00:15:02,676 --> 00:15:05,796
+The item property box or ipco
+
+
+413
+00:15:05,796 --> 00:15:08,596
+box contains all the decoder
+
+
+414
+00:15:08,596 --> 00:15:10,356
+configuration and the sizes of
+
+
+415
+00:15:10,356 --> 00:15:12,386
+the main image, the tiles and
+
+
+416
+00:15:13,506 --> 00:15:15,276
+the thumbnails.
+
+
+417
+00:15:15,276 --> 00:15:18,246
+Note that the order matters for
+
+
+418
+00:15:18,246 --> 00:15:18,896
+this box.
+
+
+419
+00:15:19,426 --> 00:15:24,166
+The association box or ipma box
+
+
+420
+00:15:24,566 --> 00:15:27,286
+on the right groups properties
+
+
+421
+00:15:27,386 --> 00:15:29,656
+nicely based on their position
+
+
+422
+00:15:29,846 --> 00:15:31,436
+with the item ID in the file.
+
+
+423
+00:15:31,996 --> 00:15:33,936
+As explained before, there is a
+
+
+424
+00:15:33,936 --> 00:15:35,846
+total of six items in the file,
+
+
+425
+00:15:36,026 --> 00:15:38,776
+one image, four tiles and one
+
+
+426
+00:15:38,776 --> 00:15:39,216
+thumbnail.
+
+
+427
+00:15:41,386 --> 00:15:43,786
+Items 1 through 4 are the tiles,
+
+
+428
+00:15:44,256 --> 00:15:46,316
+these are hidden images with
+
+
+429
+00:15:46,386 --> 00:15:48,926
+properties in position one, the
+
+
+430
+00:15:48,926 --> 00:15:50,536
+decoder configuration and
+
+
+431
+00:15:50,536 --> 00:15:53,166
+position two, the size which is
+
+
+432
+00:15:53,166 --> 00:15:55,756
+500 by 500 pixel.
+
+
+433
+00:15:56,666 --> 00:15:58,436
+Item five is the main image,
+
+
+434
+00:15:59,576 --> 00:16:01,256
+only the size property is
+
+
+435
+00:16:01,256 --> 00:16:03,656
+defined since this is this is a
+
+
+436
+00:16:03,656 --> 00:16:04,636
+derived image.
+
+
+437
+00:16:05,396 --> 00:16:07,656
+The size is 1,000 by 1,000
+
+
+438
+00:16:07,656 --> 00:16:08,196
+pixels.
+
+
+439
+00:16:09,746 --> 00:16:11,616
+Next, we will briefly talk about
+
+
+440
+00:16:11,616 --> 00:16:13,276
+image sequences in HEIF.
+
+
+441
+00:16:13,886 --> 00:16:17,146
+When sequences are embedded in a
+
+
+442
+00:16:17,146 --> 00:16:20,496
+HEIF file the move box and it's
+
+
+443
+00:16:20,496 --> 00:16:22,676
+sub boxes are also present in
+
+
+444
+00:16:22,676 --> 00:16:23,096
+the file.
+
+
+445
+00:16:24,436 --> 00:16:26,366
+The move boxes fully described
+
+
+446
+00:16:26,366 --> 00:16:28,976
+in the ISO MP4 file format
+
+
+447
+00:16:28,976 --> 00:16:30,996
+specification from which HEIF
+
+
+448
+00:16:30,996 --> 00:16:31,566
+derives.
+
+
+449
+00:16:32,696 --> 00:16:34,436
+Each sequence of images or
+
+
+450
+00:16:34,436 --> 00:16:37,326
+samples is described via the
+
+
+451
+00:16:37,326 --> 00:16:39,856
+trak box where all the timing
+
+
+452
+00:16:39,856 --> 00:16:41,186
+information to play back the
+
+
+453
+00:16:41,186 --> 00:16:42,536
+track is included.
+
+
+454
+00:16:43,836 --> 00:16:45,626
+HEIF specifies a new track
+
+
+455
+00:16:45,626 --> 00:16:49,336
+handler for picture called pict.
+
+
+456
+00:16:50,276 --> 00:16:51,796
+The key difference is that while
+
+
+457
+00:16:51,796 --> 00:16:53,366
+the timing information given for
+
+
+458
+00:16:53,366 --> 00:16:54,976
+a video or an audio track is
+
+
+459
+00:16:54,976 --> 00:16:56,556
+used to synchronize the playback
+
+
+460
+00:16:57,446 --> 00:16:59,026
+the timing information an image
+
+
+461
+00:16:59,026 --> 00:17:01,116
+sequence track can represent
+
+
+462
+00:17:01,116 --> 00:17:02,886
+either the capture time for
+
+
+463
+00:17:02,886 --> 00:17:04,786
+example, a burst or the
+
+
+464
+00:17:04,786 --> 00:17:06,726
+suggested display time for
+
+
+465
+00:17:06,726 --> 00:17:08,665
+example, to derive a slideshow.
+
+
+466
+00:17:12,316 --> 00:17:14,376
+Roles can be used for image
+
+
+467
+00:17:14,376 --> 00:17:15,336
+sequences to.
+
+
+468
+00:17:15,675 --> 00:17:17,455
+For example, a HEIF file could
+
+
+469
+00:17:17,455 --> 00:17:19,715
+embed a track of thumbnails or a
+
+
+470
+00:17:19,715 --> 00:17:21,215
+track of auxiliary images
+
+
+471
+00:17:21,215 --> 00:17:22,665
+associated with the master
+
+
+472
+00:17:23,415 --> 00:17:23,546
+track.
+
+
+473
+00:17:24,935 --> 00:17:26,316
+One of the most important HEIF
+
+
+474
+00:17:26,316 --> 00:17:27,836
+features is the ability to
+
+
+475
+00:17:27,836 --> 00:17:29,696
+control the playback by
+
+
+476
+00:17:29,696 --> 00:17:31,546
+signaling in the file the intent
+
+
+477
+00:17:31,546 --> 00:17:32,286
+of the creator.
+
+
+478
+00:17:32,866 --> 00:17:34,266
+For example, an edit list
+
+
+479
+00:17:34,266 --> 00:17:36,106
+enables modifying the playback
+
+
+480
+00:17:36,106 --> 00:17:39,006
+order and pace of each sample.
+
+
+481
+00:17:40,076 --> 00:17:42,616
+HEIF also allows indicating edit
+
+
+482
+00:17:42,616 --> 00:17:44,406
+list repetitions for example,
+
+
+483
+00:17:44,406 --> 00:17:46,306
+for looping animations.
+
+
+484
+00:17:47,346 --> 00:17:49,616
+The repetition can be indicated
+
+
+485
+00:17:49,616 --> 00:17:51,296
+to last for a certain duration
+
+
+486
+00:17:51,436 --> 00:17:52,496
+or be infinite.
+
+
+487
+00:17:53,016 --> 00:17:56,636
+Given that the ISO tracks can be
+
+
+488
+00:17:56,636 --> 00:17:59,216
+used in HEIF files interframe
+
+
+489
+00:17:59,216 --> 00:18:00,946
+prediction is also available.
+
+
+490
+00:18:01,276 --> 00:18:03,476
+Inter prediction is the ability
+
+
+491
+00:18:03,476 --> 00:18:06,136
+to remove coded information by
+
+
+492
+00:18:06,136 --> 00:18:07,736
+predicting the content of the
+
+
+493
+00:18:07,736 --> 00:18:09,596
+current frame from similar
+
+
+494
+00:18:09,596 --> 00:18:11,036
+frames in the past or in the
+
+
+495
+00:18:11,036 --> 00:18:11,446
+future.
+
+
+496
+00:18:12,216 --> 00:18:13,616
+This gives a tremendous
+
+
+497
+00:18:13,616 --> 00:18:14,706
+advantage in terms of
+
+
+498
+00:18:14,706 --> 00:18:15,286
+compression.
+
+
+499
+00:18:16,446 --> 00:18:17,936
+Inter prediction can also
+
+
+500
+00:18:18,106 --> 00:18:20,616
+introduce a delay decode time
+
+
+501
+00:18:21,146 --> 00:18:22,956
+because the previous frames must
+
+
+502
+00:18:22,956 --> 00:18:24,616
+be decoded first before being
+
+
+503
+00:18:24,616 --> 00:18:25,616
+able to decode the current
+
+
+504
+00:18:25,616 --> 00:18:25,876
+frame.
+
+
+505
+00:18:26,996 --> 00:18:28,846
+HEIF allows inter prediction,
+
+
+506
+00:18:29,186 --> 00:18:31,586
+but also includes constraints in
+
+
+507
+00:18:31,586 --> 00:18:33,146
+the file to limit frame
+
+
+508
+00:18:33,146 --> 00:18:34,186
+interdependencies.
+
+
+509
+00:18:34,706 --> 00:18:36,156
+For instance, each predicted
+
+
+510
+00:18:36,156 --> 00:18:38,326
+image can be restricted to point
+
+
+511
+00:18:38,326 --> 00:18:40,206
+only to unknown predicted image
+
+
+512
+00:18:40,296 --> 00:18:40,896
+or inter.
+
+
+513
+00:18:41,516 --> 00:18:42,946
+In this case, the time to decode
+
+
+514
+00:18:42,946 --> 00:18:44,626
+each frame in a sequence becomes
+
+
+515
+00:18:44,686 --> 00:18:45,546
+deterministic.
+
+
+516
+00:18:45,916 --> 00:18:51,116
+Last but not least, a HEIF image
+
+
+517
+00:18:51,116 --> 00:18:55,756
+can be subdivided into tiles.
+
+
+518
+00:18:55,936 --> 00:18:57,916
+Tiles are rectangular regions
+
+
+519
+00:18:57,916 --> 00:18:58,836
+within an image.
+
+
+520
+00:18:59,176 --> 00:19:00,776
+They are completely independent
+
+
+521
+00:19:00,776 --> 00:19:03,116
+items in a HEIF file and they
+
+
+522
+00:19:03,116 --> 00:19:04,986
+can be of different or same
+
+
+523
+00:19:04,986 --> 00:19:05,436
+size.
+
+
+524
+00:19:06,066 --> 00:19:07,916
+If their size is different a
+
+
+525
+00:19:07,916 --> 00:19:09,496
+relative location property
+
+
+526
+00:19:09,496 --> 00:19:10,936
+describes their position in the
+
+
+527
+00:19:10,936 --> 00:19:11,626
+final image.
+
+
+528
+00:19:12,276 --> 00:19:14,046
+If their size is the same the
+
+
+529
+00:19:14,046 --> 00:19:14,956
+final image is described as a
+
+
+530
+00:19:15,226 --> 00:19:20,546
+grid. Several reasons why tiles
+
+
+531
+00:19:20,546 --> 00:19:22,356
+make HEIF extremely flexible.
+
+
+532
+00:19:23,216 --> 00:19:25,796
+A player can exploit parallelism
+
+
+533
+00:19:25,796 --> 00:19:26,556
+and decode time.
+
+
+534
+00:19:26,776 --> 00:19:28,466
+For example, each tile can be
+
+
+535
+00:19:28,466 --> 00:19:30,136
+separately and independently
+
+
+536
+00:19:30,136 --> 00:19:30,646
+decoded.
+
+
+537
+00:19:31,836 --> 00:19:33,476
+Tiles can be used to reduce
+
+
+538
+00:19:33,476 --> 00:19:35,586
+memory consumption when resizing
+
+
+539
+00:19:35,586 --> 00:19:37,816
+an image rather than decoding
+
+
+540
+00:19:37,816 --> 00:19:39,226
+the whole much and then apply a
+
+
+541
+00:19:39,226 --> 00:19:41,416
+rescale operation each tile can
+
+
+542
+00:19:41,416 --> 00:19:42,886
+be independently decoded and
+
+
+543
+00:19:42,886 --> 00:19:44,926
+rescaled and then placed in a
+
+
+544
+00:19:44,926 --> 00:19:46,566
+smaller buffer for rendering.
+
+
+545
+00:19:47,476 --> 00:19:49,196
+Cropping becomes very fast
+
+
+546
+00:19:49,846 --> 00:19:51,096
+because a player does not need
+
+
+547
+00:19:51,096 --> 00:19:52,256
+to decode the whole image to
+
+
+548
+00:19:52,256 --> 00:19:53,776
+extract a certain region.
+
+
+549
+00:19:54,506 --> 00:19:56,046
+This property is extremely
+
+
+550
+00:19:56,046 --> 00:19:57,666
+useful for zooming operation.
+
+
+551
+00:19:58,506 --> 00:20:00,746
+For instance, a gigapixel image
+
+
+552
+00:20:00,746 --> 00:20:02,776
+could be decoded and displayed
+
+
+553
+00:20:02,966 --> 00:20:05,056
+and zoomed in with ease without
+
+
+554
+00:20:05,056 --> 00:20:06,306
+the need to decode the whole
+
+
+555
+00:20:06,306 --> 00:20:08,146
+image into a multi gigabit
+
+
+556
+00:20:08,206 --> 00:20:08,636
+buffer.
+
+
+557
+00:20:08,636 --> 00:20:13,386
+Of note, the tiles can be used
+
+
+558
+00:20:13,386 --> 00:20:16,666
+also as an encoding tool.
+
+
+559
+00:20:17,126 --> 00:20:18,966
+A smart encoder can make
+
+
+560
+00:20:18,966 --> 00:20:20,676
+different decision based on the
+
+
+561
+00:20:20,676 --> 00:20:24,136
+content of each tile.
+
+
+562
+00:20:24,706 --> 00:20:26,616
+Apple HEIF implementation uses
+
+
+563
+00:20:26,646 --> 00:20:27,836
+tiles extensively.
+
+
+564
+00:20:28,466 --> 00:20:30,606
+Note though that the HEVC
+
+
+565
+00:20:30,606 --> 00:20:32,476
+specification also supports
+
+
+566
+00:20:32,666 --> 00:20:34,786
+subdividing a frame into tiles
+
+
+567
+00:20:34,786 --> 00:20:36,186
+as a parallelization tool.
+
+
+568
+00:20:36,526 --> 00:20:39,376
+Apple does not use tiles in HEVC
+
+
+569
+00:20:39,376 --> 00:20:41,786
+parlance, but rather each tile
+
+
+570
+00:20:41,786 --> 00:20:44,636
+is a whole HEVC frame, we call
+
+
+571
+00:20:44,636 --> 00:20:45,926
+them system tiles.
+
+
+572
+00:20:48,526 --> 00:20:51,236
+Next, we will talk about HEVC,
+
+
+573
+00:20:51,296 --> 00:20:53,386
+the codec Apple has chosen to
+
+
+574
+00:20:53,386 --> 00:20:54,756
+compress HEIF photos.
+
+
+575
+00:20:55,386 --> 00:20:59,306
+Two of the major reasons for
+
+
+576
+00:20:59,306 --> 00:21:00,196
+selecting HEVC.
+
+
+577
+00:21:00,196 --> 00:21:03,546
+First, HEVC is the latest
+
+
+578
+00:21:03,546 --> 00:21:05,796
+technology in the compression
+
+
+579
+00:21:05,796 --> 00:21:06,576
+standard world.
+
+
+580
+00:21:07,246 --> 00:21:09,526
+With HEVC we see an average of
+
+
+581
+00:21:09,616 --> 00:21:11,646
+2X compression compared to JPEG
+
+
+582
+00:21:12,166 --> 00:21:13,476
+containing the same visual
+
+
+583
+00:21:13,476 --> 00:21:13,956
+quality.
+
+
+584
+00:21:14,396 --> 00:21:17,866
+Second, HEVC hardware support is
+
+
+585
+00:21:17,866 --> 00:21:19,726
+becoming available in most CPUs
+
+
+586
+00:21:19,726 --> 00:21:20,386
+and GPUs.
+
+
+587
+00:21:20,966 --> 00:21:22,536
+For instance, HEVC hardware
+
+
+588
+00:21:22,536 --> 00:21:24,296
+support is available from the
+
+
+589
+00:21:24,296 --> 00:21:26,096
+sixth generation Intel core
+
+
+590
+00:21:26,096 --> 00:21:26,806
+processors.
+
+
+591
+00:21:27,176 --> 00:21:29,056
+This means except means
+
+
+592
+00:21:29,056 --> 00:21:30,886
+exceptional performance without
+
+
+593
+00:21:30,886 --> 00:21:33,126
+sacrificing battery life.
+
+
+594
+00:21:35,576 --> 00:21:37,606
+Several inter coding tools have
+
+
+595
+00:21:37,606 --> 00:21:39,596
+been added to the standard that
+
+
+596
+00:21:39,596 --> 00:21:42,276
+allow HEVC to outperform JPEG.
+
+
+597
+00:21:42,276 --> 00:21:44,446
+In the next few slides we will
+
+
+598
+00:21:44,446 --> 00:21:45,216
+mention some.
+
+
+599
+00:21:45,736 --> 00:21:47,426
+You will notice that the common
+
+
+600
+00:21:47,546 --> 00:21:49,636
+theme here is flexibility.
+
+
+601
+00:21:50,116 --> 00:21:53,316
+First, the block size.
+
+
+602
+00:21:54,296 --> 00:21:57,276
+JPEG divides each image into a
+
+
+603
+00:21:57,276 --> 00:21:59,816
+grid of blocks of 8 by 8 pixels.
+
+
+604
+00:22:00,246 --> 00:22:02,986
+These blocks are then described
+
+
+605
+00:22:03,406 --> 00:22:05,846
+transformed and quantized.
+
+
+606
+00:22:06,416 --> 00:22:09,476
+HEVC has the flexibility of
+
+
+607
+00:22:09,476 --> 00:22:11,356
+being able to divide an image in
+
+
+608
+00:22:11,356 --> 00:22:14,526
+blocks that are 64 by 64 pixels
+
+
+609
+00:22:14,986 --> 00:22:16,596
+down to 4 by 4 pixels.
+
+
+610
+00:22:17,296 --> 00:22:19,116
+The transform size is also
+
+
+611
+00:22:19,116 --> 00:22:20,536
+flexible within the block.
+
+
+612
+00:22:21,446 --> 00:22:22,996
+A new optional discrete
+
+
+613
+00:22:23,076 --> 00:22:24,616
+[inaudible] transform has been
+
+
+614
+00:22:24,616 --> 00:22:26,596
+added to the standard and three
+
+
+615
+00:22:26,596 --> 00:22:28,196
+possible scanning orders are
+
+
+616
+00:22:28,196 --> 00:22:29,706
+available to group coded
+
+
+617
+00:22:29,706 --> 00:22:30,406
+coefficients.
+
+
+618
+00:22:30,806 --> 00:22:33,646
+Next, the block prediction.
+
+
+619
+00:22:34,846 --> 00:22:36,656
+JPEG allows the top left corner
+
+
+620
+00:22:36,656 --> 00:22:38,816
+coefficient also called the DC
+
+
+621
+00:22:38,816 --> 00:22:40,826
+component or the constant
+
+
+622
+00:22:40,826 --> 00:22:43,266
+component of an 8 by 8 block to
+
+
+623
+00:22:43,266 --> 00:22:44,736
+be predicted from the block on
+
+
+624
+00:22:44,736 --> 00:22:45,126
+the left.
+
+
+625
+00:22:45,996 --> 00:22:48,996
+HEVC adds the flexibility to
+
+
+626
+00:22:48,996 --> 00:22:51,216
+predict every pixel value within
+
+
+627
+00:22:51,216 --> 00:22:51,646
+a block.
+
+
+628
+00:22:51,906 --> 00:22:54,556
+Up to 35 angular predictions are
+
+
+629
+00:22:54,556 --> 00:22:55,016
+available.
+
+
+630
+00:22:55,686 --> 00:22:57,286
+Being able to remove redundant
+
+
+631
+00:22:57,286 --> 00:22:59,106
+information in a block by
+
+
+632
+00:22:59,106 --> 00:23:01,016
+exploiting similar information
+
+
+633
+00:23:01,016 --> 00:23:02,486
+available in neighboring blocks
+
+
+634
+00:23:02,886 --> 00:23:04,146
+is one of the most efficient
+
+
+635
+00:23:04,146 --> 00:23:05,946
+tools inside HEVC.
+
+
+636
+00:23:07,506 --> 00:23:08,296
+Entropy coding.
+
+
+637
+00:23:09,416 --> 00:23:11,646
+JPEG uses Huffman coding as the
+
+
+638
+00:23:11,646 --> 00:23:13,456
+engine for statistical encoding.
+
+
+639
+00:23:13,516 --> 00:23:15,816
+The idea is to assign variable
+
+
+640
+00:23:15,816 --> 00:23:17,736
+length codes to input
+
+
+641
+00:23:17,736 --> 00:23:18,416
+coefficient.
+
+
+642
+00:23:19,596 --> 00:23:21,256
+With shorter length codes
+
+
+643
+00:23:21,256 --> 00:23:23,156
+assigned to coefficients with
+
+
+644
+00:23:23,156 --> 00:23:24,016
+higher frequency.
+
+
+645
+00:23:25,136 --> 00:23:28,006
+HEVC on the other hand, employs
+
+
+646
+00:23:28,006 --> 00:23:30,266
+an arithmetic coder called CABAC
+
+
+647
+00:23:30,776 --> 00:23:32,506
+which stands for Context
+
+
+648
+00:23:32,506 --> 00:23:34,226
+Adaptive Binary Arithmetic
+
+
+649
+00:23:34,296 --> 00:23:34,666
+Coding.
+
+
+650
+00:23:34,776 --> 00:23:37,766
+CABAC is notable for providing
+
+
+651
+00:23:37,766 --> 00:23:39,856
+much better compression than
+
+
+652
+00:23:39,856 --> 00:23:41,576
+most other entropy encoding
+
+
+653
+00:23:41,576 --> 00:23:42,306
+algorithms.
+
+
+654
+00:23:44,656 --> 00:23:45,656
+Quantization.
+
+
+655
+00:23:46,566 --> 00:23:48,906
+Quantization is a [inaudible] C
+
+
+656
+00:23:48,906 --> 00:23:50,836
+compression technique achieved
+
+
+657
+00:23:50,836 --> 00:23:52,656
+by compressing a range of values
+
+
+658
+00:23:53,146 --> 00:23:54,696
+to a single quantum value.
+
+
+659
+00:23:55,586 --> 00:23:57,856
+JPEG utilizes global
+
+
+660
+00:23:57,856 --> 00:24:00,336
+quantization matrixes for each 8
+
+
+661
+00:24:00,376 --> 00:24:01,236
+by 8 block.
+
+
+662
+00:24:02,376 --> 00:24:04,716
+HEVC on top of the quantization
+
+
+663
+00:24:04,716 --> 00:24:07,456
+matrix adds the flexibility of
+
+
+664
+00:24:07,456 --> 00:24:08,546
+assigning a different
+
+
+665
+00:24:08,546 --> 00:24:10,136
+quantization parameter for each
+
+
+666
+00:24:10,136 --> 00:24:10,446
+block.
+
+
+667
+00:24:11,186 --> 00:24:12,896
+This allows smart encoding
+
+
+668
+00:24:12,896 --> 00:24:15,276
+algorithms to compress more
+
+
+669
+00:24:15,356 --> 00:24:17,176
+areas of an image while the
+
+
+670
+00:24:17,176 --> 00:24:18,816
+human visual system is less
+
+
+671
+00:24:18,816 --> 00:24:22,056
+susceptible to detect artifacts.
+
+
+672
+00:24:22,546 --> 00:24:23,796
+For instance, high-frequency
+
+
+673
+00:24:23,796 --> 00:24:24,376
+content.
+
+
+674
+00:24:24,926 --> 00:24:28,276
+Next is the blocking, a tool
+
+
+675
+00:24:28,276 --> 00:24:30,256
+that is available only in HEVC.
+
+
+676
+00:24:31,396 --> 00:24:33,806
+Blocking artifacts are visible
+
+
+677
+00:24:33,806 --> 00:24:35,996
+discontinuities occurring at
+
+
+678
+00:24:35,996 --> 00:24:36,816
+block boundaries.
+
+
+679
+00:24:36,816 --> 00:24:39,856
+The HEVC deblocking filter is a
+
+
+680
+00:24:39,856 --> 00:24:42,396
+filter applied to the pixels
+
+
+681
+00:24:42,626 --> 00:24:44,446
+around the block edges to
+
+
+682
+00:24:44,446 --> 00:24:46,296
+smoothen the transition and get
+
+
+683
+00:24:46,296 --> 00:24:49,886
+more pleasing visual results.
+
+
+684
+00:24:49,886 --> 00:24:51,636
+SAO which stands for Sample
+
+
+685
+00:24:51,636 --> 00:24:53,946
+Adaptive Offset is an extra
+
+
+686
+00:24:54,106 --> 00:24:56,956
+filtering step available in HEVC
+
+
+687
+00:24:57,386 --> 00:24:59,526
+that is applied to the output of
+
+
+688
+00:24:59,526 --> 00:25:01,776
+the deblocking filter to further
+
+
+689
+00:25:01,776 --> 00:25:02,856
+improve the quality.
+
+
+690
+00:25:03,456 --> 00:25:05,166
+It's a local filter that can
+
+
+691
+00:25:05,166 --> 00:25:07,996
+attenuate bringing artifacts or
+
+
+692
+00:25:08,046 --> 00:25:09,826
+changes in sample intensity of
+
+
+693
+00:25:09,826 --> 00:25:11,906
+some areas of a picture for a
+
+
+694
+00:25:11,906 --> 00:25:13,086
+better visual quality.
+
+
+695
+00:25:14,376 --> 00:25:17,306
+Both these techniques allow for
+
+
+696
+00:25:17,486 --> 00:25:19,716
+more pleasing images, especially
+
+
+697
+00:25:19,716 --> 00:25:20,836
+when the compression is very
+
+
+698
+00:25:20,836 --> 00:25:21,096
+high.
+
+
+699
+00:25:22,346 --> 00:25:23,586
+We have gone through several
+
+
+700
+00:25:23,586 --> 00:25:25,096
+HEIF and HEVC features and
+
+
+701
+00:25:25,096 --> 00:25:27,146
+tools, I wanted to take a second
+
+
+702
+00:25:27,146 --> 00:25:29,076
+to mention a few characteristics
+
+
+703
+00:25:29,076 --> 00:25:32,436
+of HEIF files captured on iOS
+
+
+704
+00:25:32,436 --> 00:25:32,866
+11.
+
+
+705
+00:25:33,846 --> 00:25:36,746
+First, the extension for HEIF
+
+
+706
+00:25:36,746 --> 00:25:39,446
+images captured with iOS 11 will
+
+
+707
+00:25:39,446 --> 00:25:42,316
+be .HEIC because of the HEVC
+
+
+708
+00:25:42,316 --> 00:25:43,196
+codec.
+
+
+709
+00:25:44,726 --> 00:25:46,936
+The HEVC profile utilized to
+
+
+710
+00:25:46,936 --> 00:25:48,766
+compress images is the main
+
+
+711
+00:25:48,766 --> 00:25:49,626
+still profile.
+
+
+712
+00:25:50,396 --> 00:25:53,206
+Also, we use HEVC monochrome
+
+
+713
+00:25:53,206 --> 00:25:54,906
+profile for depth data.
+
+
+714
+00:25:57,016 --> 00:25:59,556
+Images are encoded using tiles
+
+
+715
+00:25:59,556 --> 00:26:03,686
+that are 512 by 512 pixels.
+
+
+716
+00:26:03,756 --> 00:26:05,606
+They are positioned in a grid
+
+
+717
+00:26:05,606 --> 00:26:07,026
+fashion to cover the whole
+
+
+718
+00:26:07,026 --> 00:26:07,416
+image.
+
+
+719
+00:26:08,356 --> 00:26:11,986
+The thumbnail is a 320 by 240
+
+
+720
+00:26:11,986 --> 00:26:14,196
+image HEVC encoded.
+
+
+721
+00:26:15,326 --> 00:26:17,106
+It is four times the size of a
+
+
+722
+00:26:17,106 --> 00:26:20,016
+common 160 by 120 JPEG thumbnail
+
+
+723
+00:26:20,096 --> 00:26:22,116
+and this is to help showing
+
+
+724
+00:26:22,116 --> 00:26:24,106
+better thumbnail quality when
+
+
+725
+00:26:24,106 --> 00:26:26,276
+images are displayed on modern
+
+
+726
+00:26:26,276 --> 00:26:28,306
+screens with high pixel density.
+
+
+727
+00:26:29,526 --> 00:26:31,726
+EXIF metadata is part of the
+
+
+728
+00:26:31,726 --> 00:26:34,156
+HEIF file like JPEG for backward
+
+
+729
+00:26:34,156 --> 00:26:34,896
+compatibility.
+
+
+730
+00:26:36,586 --> 00:26:39,076
+Depth data is stored as an
+
+
+731
+00:26:39,076 --> 00:26:42,636
+auxiliary image and the metadata
+
+
+732
+00:26:42,786 --> 00:26:44,676
+pertinent to depth is stored as
+
+
+733
+00:26:44,676 --> 00:26:47,686
+XMP payload associated with the
+
+
+734
+00:26:47,686 --> 00:26:48,376
+depth image.
+
+
+735
+00:26:48,936 --> 00:26:52,886
+Last, a note about file
+
+
+736
+00:26:52,886 --> 00:26:53,516
+creation.
+
+
+737
+00:26:54,586 --> 00:26:56,626
+The HEIF standard does not
+
+
+738
+00:26:56,626 --> 00:26:59,166
+mandate any order for the boxes
+
+
+739
+00:26:59,166 --> 00:27:00,776
+a reader could find at the top
+
+
+740
+00:27:00,776 --> 00:27:02,776
+level of a HEIF file, but we
+
+
+741
+00:27:02,776 --> 00:27:04,496
+found that ordering them in a
+
+
+742
+00:27:04,496 --> 00:27:06,556
+certain way greatly helps
+
+
+743
+00:27:06,556 --> 00:27:08,056
+parsers and decoders.
+
+
+744
+00:27:08,856 --> 00:27:10,206
+For example, having the
+
+
+745
+00:27:10,206 --> 00:27:11,846
+thumbnail early in the file
+
+
+746
+00:27:11,946 --> 00:27:13,806
+would allow parsing and display
+
+
+747
+00:27:14,206 --> 00:27:15,876
+huge amount of HEIF images
+
+
+748
+00:27:15,906 --> 00:27:17,726
+without the need to parse the
+
+
+749
+00:27:17,816 --> 00:27:18,526
+whole file.
+
+
+750
+00:27:19,566 --> 00:27:21,286
+For [inaudible] transmission or
+
+
+751
+00:27:21,286 --> 00:27:23,876
+web application once the metabox
+
+
+752
+00:27:23,876 --> 00:27:26,096
+is received all the information
+
+
+753
+00:27:26,096 --> 00:27:27,626
+for the file is available and
+
+
+754
+00:27:27,836 --> 00:27:29,556
+therefore readers can start
+
+
+755
+00:27:29,556 --> 00:27:31,716
+configuring the decoding and
+
+
+756
+00:27:31,716 --> 00:27:34,676
+display pipelines before having
+
+
+757
+00:27:34,676 --> 00:27:35,976
+received the whole coded data.
+
+
+758
+00:27:42,046 --> 00:27:43,916
+Let's summarize what we have
+
+
+759
+00:27:44,176 --> 00:27:45,626
+learned today.
+
+
+760
+00:27:45,806 --> 00:27:47,496
+The photography world needs a
+
+
+761
+00:27:47,496 --> 00:27:49,316
+better image file format to
+
+
+762
+00:27:49,316 --> 00:27:51,186
+replace the rather old JPEG.
+
+
+763
+00:27:51,186 --> 00:27:55,056
+We looked at the extensive list
+
+
+764
+00:27:55,056 --> 00:27:58,006
+of requirements that Apple
+
+
+765
+00:27:58,006 --> 00:27:59,996
+considered paramount when
+
+
+766
+00:27:59,996 --> 00:28:01,126
+searching for a JPEG
+
+
+767
+00:28:01,126 --> 00:28:01,856
+replacement.
+
+
+768
+00:28:02,456 --> 00:28:06,126
+We believe HEIF is the answer
+
+
+769
+00:28:06,126 --> 00:28:07,506
+for all the requirements.
+
+
+770
+00:28:08,136 --> 00:28:10,516
+Its flexibility allows to handle
+
+
+771
+00:28:10,796 --> 00:28:12,156
+with ease and elegance the
+
+
+772
+00:28:12,156 --> 00:28:15,426
+advancements available in iOS 11
+
+
+773
+00:28:15,876 --> 00:28:17,786
+and its extensibility also
+
+
+774
+00:28:17,786 --> 00:28:19,086
+allows HEIF to be a solid
+
+
+775
+00:28:19,086 --> 00:28:20,426
+foundation for the future.
+
+
+776
+00:28:21,036 --> 00:28:23,906
+We then analyzed the various
+
+
+777
+00:28:23,906 --> 00:28:25,796
+features available in the HEIF
+
+
+778
+00:28:25,796 --> 00:28:26,426
+standard.
+
+
+779
+00:28:27,446 --> 00:28:29,256
+And finally, we looked at the
+
+
+780
+00:28:29,256 --> 00:28:31,576
+HEVC tools that make it the best
+
+
+781
+00:28:31,576 --> 00:28:33,536
+choice, both in terms of
+
+
+782
+00:28:33,536 --> 00:28:35,346
+compression efficiency and
+
+
+783
+00:28:35,346 --> 00:28:37,206
+friendliness toward hardware
+
+
+784
+00:28:37,206 --> 00:28:39,506
+architecture for performance and
+
+
+785
+00:28:39,506 --> 00:28:39,826
+power.
+
+
+786
+00:28:40,236 --> 00:28:43,816
+For more information, please
+
+
+787
+00:28:43,816 --> 00:28:46,216
+visit the URL for the High
+
+
+788
+00:28:46,216 --> 00:28:48,276
+Efficiency Image File format
+
+
+789
+00:28:48,576 --> 00:28:49,906
+session 513.
+
+
+790
+00:28:51,326 --> 00:28:52,716
+And if you're still at the show
+
+
+791
+00:28:53,166 --> 00:28:55,216
+we invite you to visit the two
+
+
+792
+00:28:55,216 --> 00:28:58,256
+related sessions about HEIF and
+
+
+793
+00:28:58,876 --> 00:28:59,286
+HEVC.
+
+
+794
+00:28:59,936 --> 00:29:01,736
+Thank you for watching the talk
+
+
+795
+00:29:01,736 --> 00:29:04,496
+and enjoy the rest of WWDC 2017.
+

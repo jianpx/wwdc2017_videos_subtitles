@@ -1,0 +1,2344 @@
+1
+00:00:27,966 --> 00:00:29,216
+>> Hello, and welcome to
+
+
+2
+00:00:29,216 --> 00:00:31,046
+Localization Best Practices on
+
+
+3
+00:00:31,046 --> 00:00:31,696
+tvOS.
+
+
+4
+00:00:32,466 --> 00:00:33,776
+My name is Joaquim Lobo Silva,
+
+
+5
+00:00:34,036 --> 00:00:35,116
+and over the next few minutes,
+
+
+6
+00:00:35,176 --> 00:00:35,996
+I'm going to walk you through
+
+
+7
+00:00:35,996 --> 00:00:37,276
+some of the steps you'll want to
+
+
+8
+00:00:37,276 --> 00:00:38,806
+take to build a great localized
+
+
+9
+00:00:38,806 --> 00:00:40,926
+application experience on tvOS.
+
+
+10
+00:00:42,896 --> 00:00:44,116
+Apple TV is available in
+
+
+11
+00:00:44,116 --> 00:00:45,536
+multiple languages and regions.
+
+
+12
+00:00:45,776 --> 00:00:47,566
+And new in tvOS 11, is the
+
+
+13
+00:00:47,566 --> 00:00:49,096
+addition of Arabic and Hebrew
+
+
+14
+00:00:49,166 --> 00:00:50,676
+and selectable system languages.
+
+
+15
+00:00:51,696 --> 00:00:52,996
+Adding international support to
+
+
+16
+00:00:52,996 --> 00:00:54,136
+your app, is an incredible
+
+
+17
+00:00:54,136 --> 00:00:55,836
+opportunity to reach new markets
+
+
+18
+00:00:55,926 --> 00:00:58,016
+and enable more users to use and
+
+
+19
+00:00:58,016 --> 00:00:58,866
+enjoy your content.
+
+
+20
+00:00:59,346 --> 00:01:00,956
+And we have a wide variety of
+
+
+21
+00:01:00,956 --> 00:01:02,456
+APIs and tools to help you do
+
+
+22
+00:01:02,456 --> 00:01:02,966
+just that.
+
+
+23
+00:01:03,526 --> 00:01:04,135
+Let's dive right in.
+
+
+24
+00:01:06,986 --> 00:01:08,246
+I'm going to divide this topic
+
+
+25
+00:01:08,246 --> 00:01:09,546
+into three different sections.
+
+
+26
+00:01:09,916 --> 00:01:11,286
+First, I'll talk about best
+
+
+27
+00:01:11,286 --> 00:01:13,076
+practices on how to handle text
+
+
+28
+00:01:13,116 --> 00:01:14,386
+that is displayed to your user.
+
+
+29
+00:01:15,216 --> 00:01:16,116
+Then, I'll cover some
+
+
+30
+00:01:16,116 --> 00:01:17,646
+considerations regarding layout
+
+
+31
+00:01:17,696 --> 00:01:18,386
+and images.
+
+
+32
+00:01:18,996 --> 00:01:20,586
+And finally, the steps needed to
+
+
+33
+00:01:20,586 --> 00:01:22,136
+export your localizable content,
+
+
+34
+00:01:22,366 --> 00:01:23,646
+as well as test your app, to
+
+
+35
+00:01:23,646 --> 00:01:24,586
+make sure it all works.
+
+
+36
+00:01:25,426 --> 00:01:27,066
+So, let's get started with text.
+
+
+37
+00:01:27,896 --> 00:01:30,366
+Any text that will be presented
+
+
+38
+00:01:30,366 --> 00:01:31,286
+to your user, should be
+
+
+39
+00:01:31,286 --> 00:01:32,516
+displayed in their preferred
+
+
+40
+00:01:32,516 --> 00:01:33,026
+language.
+
+
+41
+00:01:34,196 --> 00:01:35,556
+If you have text in Storyboard
+
+
+42
+00:01:35,556 --> 00:01:36,946
+elements, there's nothing else
+
+
+43
+00:01:36,946 --> 00:01:37,426
+you need to do.
+
+
+44
+00:01:37,906 --> 00:01:39,136
+These are marked "localizable"
+
+
+45
+00:01:39,136 --> 00:01:39,706
+by default.
+
+
+46
+00:01:41,646 --> 00:01:42,856
+If you have strings and code
+
+
+47
+00:01:42,906 --> 00:01:43,636
+that you're planning on
+
+
+48
+00:01:43,636 --> 00:01:45,036
+presenting, these should be
+
+
+49
+00:01:45,036 --> 00:01:46,086
+wrapped with a call to
+
+
+50
+00:01:46,086 --> 00:01:47,166
+"NSLocalizedString."
+
+
+51
+00:01:47,646 --> 00:01:48,776
+This will essentially mark your
+
+
+52
+00:01:48,776 --> 00:01:50,516
+string as "localizable," so that
+
+
+53
+00:01:50,516 --> 00:01:51,776
+it is included in the file that
+
+
+54
+00:01:51,776 --> 00:01:52,566
+you will send out for
+
+
+55
+00:01:52,566 --> 00:01:53,166
+translation.
+
+
+56
+00:01:54,616 --> 00:01:56,486
+In both of these cases, comments
+
+
+57
+00:01:56,486 --> 00:01:57,816
+on the strings themselves, are
+
+
+58
+00:01:57,816 --> 00:01:59,576
+extremely useful, and should be
+
+
+59
+00:01:59,576 --> 00:02:00,736
+included as part of every
+
+
+60
+00:02:00,736 --> 00:02:02,256
+localizable string in your app.
+
+
+61
+00:02:02,936 --> 00:02:04,166
+Comments can be the defining
+
+
+62
+00:02:04,166 --> 00:02:05,806
+factor between great translated
+
+
+63
+00:02:05,806 --> 00:02:07,536
+content and text that feels
+
+
+64
+00:02:07,536 --> 00:02:09,066
+unnatural or unclear.
+
+
+65
+00:02:11,416 --> 00:02:12,806
+Here's an example of a localized
+
+
+66
+00:02:12,806 --> 00:02:13,466
+string in code.
+
+
+67
+00:02:14,036 --> 00:02:15,246
+As you can see, this is simply
+
+
+68
+00:02:15,246 --> 00:02:16,576
+the English word "subscribe"
+
+
+69
+00:02:16,976 --> 00:02:18,196
+with a comment describing where
+
+
+70
+00:02:18,196 --> 00:02:20,036
+it will appear in my UI, as well
+
+
+71
+00:02:20,036 --> 00:02:21,066
+as what it does within the
+
+
+72
+00:02:21,066 --> 00:02:22,066
+context of my app.
+
+
+73
+00:02:25,206 --> 00:02:26,856
+Comments are just as easy to add
+
+
+74
+00:02:26,856 --> 00:02:28,186
+to Storyboard elements as well.
+
+
+75
+00:02:28,776 --> 00:02:29,876
+For every element, you can
+
+
+76
+00:02:29,876 --> 00:02:31,326
+simply add a comment in the
+
+
+77
+00:02:31,326 --> 00:02:32,846
+Comment for Localizer text
+
+
+78
+00:02:32,846 --> 00:02:34,016
+field, in the Identity
+
+
+79
+00:02:34,016 --> 00:02:34,526
+Inspector.
+
+
+80
+00:02:37,946 --> 00:02:39,016
+Do note that when it comes to
+
+
+81
+00:02:39,016 --> 00:02:40,456
+displaying text in your app,
+
+
+82
+00:02:40,686 --> 00:02:41,776
+localized strings are not the
+
+
+83
+00:02:41,776 --> 00:02:43,166
+only way to accomplish this.
+
+
+84
+00:02:43,716 --> 00:02:45,166
+In fact, it's very likely that
+
+
+85
+00:02:45,166 --> 00:02:46,546
+you have a number of use cases
+
+
+86
+00:02:46,616 --> 00:02:47,416
+that are covered by our
+
+
+87
+00:02:47,416 --> 00:02:48,446
+formatted classes.
+
+
+88
+00:02:49,296 --> 00:02:50,516
+These help you format and
+
+
+89
+00:02:50,516 --> 00:02:51,936
+display things like numbers,
+
+
+90
+00:02:52,006 --> 00:02:54,436
+currencies, dates, units such as
+
+
+91
+00:02:54,436 --> 00:02:56,146
+length and mass, and much more,
+
+
+92
+00:02:56,516 --> 00:02:57,676
+without having to write out
+
+
+93
+00:02:57,676 --> 00:02:58,936
+localized strings for these.
+
+
+94
+00:03:01,646 --> 00:03:02,766
+Here's an example of date
+
+
+95
+00:03:02,766 --> 00:03:03,706
+formatted usage.
+
+
+96
+00:03:04,276 --> 00:03:06,126
+I simply create the object, and
+
+
+97
+00:03:06,126 --> 00:03:07,366
+in this case, I only care about
+
+
+98
+00:03:07,366 --> 00:03:09,426
+showing time, so I set the Time
+
+
+99
+00:03:09,426 --> 00:03:10,806
+Style to a length value of my
+
+
+100
+00:03:10,806 --> 00:03:12,806
+preference, and finally get a
+
+
+101
+00:03:12,806 --> 00:03:14,266
+formatted string out of the
+
+
+102
+00:03:14,266 --> 00:03:14,706
+object.
+
+
+103
+00:03:15,676 --> 00:03:17,076
+This string is guaranteed to not
+
+
+104
+00:03:17,076 --> 00:03:18,406
+only be in the user's preferred
+
+
+105
+00:03:18,406 --> 00:03:20,216
+language, but it also takes care
+
+
+106
+00:03:20,216 --> 00:03:21,536
+of a number of other formatting
+
+
+107
+00:03:21,536 --> 00:03:22,986
+contexts, such as whether the
+
+
+108
+00:03:22,986 --> 00:03:25,606
+user prefers 12 or 24-hour time.
+
+
+109
+00:03:26,586 --> 00:03:29,376
+For much more information on how
+
+
+110
+00:03:29,376 --> 00:03:30,256
+to make the most out of
+
+
+111
+00:03:30,256 --> 00:03:31,616
+formatters, as well as some
+
+
+112
+00:03:31,616 --> 00:03:32,916
+guidance on their international
+
+
+113
+00:03:32,916 --> 00:03:34,786
+prowess, I highly recommend you
+
+
+114
+00:03:34,786 --> 00:03:36,116
+check out these two talks from
+
+
+115
+00:03:36,116 --> 00:03:36,906
+2016.
+
+
+116
+00:03:40,796 --> 00:03:42,126
+Let's talk about remote content.
+
+
+117
+00:03:43,346 --> 00:03:44,566
+Any text that you're fetching
+
+
+118
+00:03:44,566 --> 00:03:46,256
+from a server, should also match
+
+
+119
+00:03:46,256 --> 00:03:47,596
+your app's running language.
+
+
+120
+00:03:48,536 --> 00:03:49,996
+I'm referring to, for example,
+
+
+121
+00:03:49,996 --> 00:03:51,646
+media content and descriptions
+
+
+122
+00:03:51,686 --> 00:03:52,736
+that are shown in your app.
+
+
+123
+00:03:53,056 --> 00:03:56,436
+For this to happen, you'll need
+
+
+124
+00:03:56,436 --> 00:03:57,736
+to inform your server what
+
+
+125
+00:03:57,736 --> 00:03:58,786
+language the content should
+
+
+126
+00:03:58,786 --> 00:04:00,326
+actually be in.
+
+
+127
+00:04:02,226 --> 00:04:03,616
+We have APIs that let you know
+
+
+128
+00:04:03,616 --> 00:04:04,636
+what language you're app is
+
+
+129
+00:04:04,636 --> 00:04:06,056
+currently running in, and these
+
+
+130
+00:04:06,056 --> 00:04:07,356
+do a lot of the heavy lifting in
+
+
+131
+00:04:07,356 --> 00:04:08,476
+terms of choosing the best
+
+
+132
+00:04:08,476 --> 00:04:09,686
+language out of the ones that
+
+
+133
+00:04:09,686 --> 00:04:11,496
+you support, while respecting
+
+
+134
+00:04:11,496 --> 00:04:12,496
+the user's preferences.
+
+
+135
+00:04:14,416 --> 00:04:15,696
+Things like regional variance
+
+
+136
+00:04:15,696 --> 00:04:16,875
+and any appropriate regional
+
+
+137
+00:04:16,875 --> 00:04:18,446
+fallbacks, are also considered.
+
+
+138
+00:04:19,166 --> 00:04:22,906
+Just to give a few small
+
+
+139
+00:04:22,906 --> 00:04:24,636
+examples, I have here a table
+
+
+140
+00:04:24,636 --> 00:04:25,836
+where the first column shows a
+
+
+141
+00:04:25,836 --> 00:04:27,126
+language that the user might
+
+
+142
+00:04:27,126 --> 00:04:27,966
+have picked for their system
+
+
+143
+00:04:27,966 --> 00:04:28,486
+language.
+
+
+144
+00:04:28,666 --> 00:04:29,916
+The second column shows
+
+
+145
+00:04:29,916 --> 00:04:31,146
+potential languages that your
+
+
+146
+00:04:31,146 --> 00:04:33,166
+application supports, and the
+
+
+147
+00:04:33,166 --> 00:04:34,336
+third column would be the end
+
+
+148
+00:04:34,336 --> 00:04:35,976
+result, given the circumstances.
+
+
+149
+00:04:35,976 --> 00:04:38,226
+For the first example, the user
+
+
+150
+00:04:38,226 --> 00:04:39,486
+has picked Spanish as their
+
+
+151
+00:04:39,486 --> 00:04:41,086
+language, with their region set
+
+
+152
+00:04:41,086 --> 00:04:43,846
+to Mexico, hence the "es-MX"
+
+
+153
+00:04:43,846 --> 00:04:44,426
+identifier.
+
+
+154
+00:04:46,826 --> 00:04:48,236
+The app supports both Spanish
+
+
+155
+00:04:48,236 --> 00:04:49,426
+for Spain, as well as Latin
+
+
+156
+00:04:49,426 --> 00:04:50,836
+American Spanish and the list of
+
+
+157
+00:04:50,836 --> 00:04:53,536
+localizations, that's "es-EX"
+
+
+158
+00:04:53,606 --> 00:04:55,936
+and "es-419" respectively.
+
+
+159
+00:04:56,946 --> 00:04:58,116
+And the runtime will go ahead
+
+
+160
+00:04:58,116 --> 00:04:59,276
+and pick the Latin American
+
+
+161
+00:04:59,276 --> 00:05:00,796
+Spanish variant for your app.
+
+
+162
+00:05:02,896 --> 00:05:04,036
+Similarly, for the second
+
+
+163
+00:05:04,036 --> 00:05:05,516
+example, the user has picked
+
+
+164
+00:05:05,516 --> 00:05:06,956
+Chinese with the region set to
+
+
+165
+00:05:06,956 --> 00:05:08,826
+China, and Bundle will go ahead
+
+
+166
+00:05:08,826 --> 00:05:10,356
+and pick "Simplified Chinese"
+
+
+167
+00:05:10,466 --> 00:05:11,586
+out of the languages that your
+
+
+168
+00:05:11,586 --> 00:05:12,256
+app supports.
+
+
+169
+00:05:16,706 --> 00:05:17,656
+To get the language that your
+
+
+170
+00:05:17,656 --> 00:05:19,166
+app is running in, all you have
+
+
+171
+00:05:19,166 --> 00:05:20,756
+to do is get the first object of
+
+
+172
+00:05:20,756 --> 00:05:22,316
+preferred localizations from
+
+
+173
+00:05:22,316 --> 00:05:22,986
+your app's bundle.
+
+
+174
+00:05:24,176 --> 00:05:25,236
+This will return a language
+
+
+175
+00:05:25,236 --> 00:05:26,426
+identifier that you can send to
+
+
+176
+00:05:26,426 --> 00:05:26,906
+your server.
+
+
+177
+00:05:28,516 --> 00:05:30,236
+Alternatively, if your server
+
+
+178
+00:05:30,236 --> 00:05:31,336
+supports a different set of
+
+
+179
+00:05:31,336 --> 00:05:32,756
+languages relative to your app,
+
+
+180
+00:05:33,266 --> 00:05:34,426
+you can also get the best
+
+
+181
+00:05:34,426 --> 00:05:35,776
+possible language match out of
+
+
+182
+00:05:35,776 --> 00:05:37,876
+those, using Bundle's Preferred
+
+
+183
+00:05:37,876 --> 00:05:39,576
+Localizations from Available.
+
+
+184
+00:05:40,666 --> 00:05:42,806
+So, that's an overview of how to
+
+
+185
+00:05:42,806 --> 00:05:43,906
+handle text in your app.
+
+
+186
+00:05:44,516 --> 00:05:45,456
+Text can be marked as
+
+
+187
+00:05:45,456 --> 00:05:46,566
+localizable through using
+
+
+188
+00:05:46,566 --> 00:05:48,256
+Storyboards, as well as calling
+
+
+189
+00:05:48,306 --> 00:05:49,626
+NSLocalizedString and code.
+
+
+190
+00:05:50,426 --> 00:05:51,696
+We have a number of formatters
+
+
+191
+00:05:51,696 --> 00:05:52,736
+that help display and
+
+
+192
+00:05:52,736 --> 00:05:54,416
+contextualize information, like
+
+
+193
+00:05:54,456 --> 00:05:55,276
+dates and numbers.
+
+
+194
+00:05:55,806 --> 00:05:57,366
+For remote content, you can rely
+
+
+195
+00:05:57,366 --> 00:05:59,016
+on the Bundle API to help inform
+
+
+196
+00:05:59,016 --> 00:06:00,186
+your server what language your
+
+
+197
+00:06:00,186 --> 00:06:03,746
+content should be displayed in.
+
+
+198
+00:06:03,746 --> 00:06:05,186
+With that, let's talk a little
+
+
+199
+00:06:05,186 --> 00:06:06,426
+about layout and images.
+
+
+200
+00:06:09,776 --> 00:06:11,046
+When it comes to layout, there
+
+
+201
+00:06:11,046 --> 00:06:12,106
+are typically two different
+
+
+202
+00:06:12,106 --> 00:06:13,486
+aspects to adapt for.
+
+
+203
+00:06:14,846 --> 00:06:16,066
+The first one is potential
+
+
+204
+00:06:16,066 --> 00:06:17,436
+differences in word length.
+
+
+205
+00:06:18,366 --> 00:06:19,506
+For example, here's the word
+
+
+206
+00:06:19,506 --> 00:06:21,756
+"backup" in English, and here's
+
+
+207
+00:06:21,756 --> 00:06:23,276
+that same word in Finnish.
+
+
+208
+00:06:24,226 --> 00:06:25,836
+Translations being significantly
+
+
+209
+00:06:25,836 --> 00:06:27,676
+longer or shorter, can impact
+
+
+210
+00:06:27,676 --> 00:06:28,906
+the way your layout behaves at
+
+
+211
+00:06:28,906 --> 00:06:30,396
+runtime, and you should design
+
+
+212
+00:06:30,396 --> 00:06:31,246
+for this accordingly.
+
+
+213
+00:06:32,906 --> 00:06:34,296
+The other aspect is script
+
+
+214
+00:06:34,296 --> 00:06:35,016
+directionality.
+
+
+215
+00:06:36,116 --> 00:06:37,586
+English uses the Latin alphabet,
+
+
+216
+00:06:37,866 --> 00:06:39,246
+which is read and parsed from
+
+
+217
+00:06:39,246 --> 00:06:39,976
+left to right.
+
+
+218
+00:06:41,726 --> 00:06:43,356
+Some languages like Arabic, have
+
+
+219
+00:06:43,356 --> 00:06:44,646
+their scripts read from right to
+
+
+220
+00:06:44,646 --> 00:06:44,946
+left.
+
+
+221
+00:06:45,616 --> 00:06:47,266
+As a result, there are a number
+
+
+222
+00:06:47,266 --> 00:06:48,566
+of design considerations
+
+
+223
+00:06:48,566 --> 00:06:50,126
+regarding flow and ordering of
+
+
+224
+00:06:50,126 --> 00:06:50,746
+information.
+
+
+225
+00:06:51,526 --> 00:06:52,836
+For example, in a right to left
+
+
+226
+00:06:52,836 --> 00:06:54,366
+language, the first item in a
+
+
+227
+00:06:54,366 --> 00:06:55,626
+list is expected to be in the
+
+
+228
+00:06:55,626 --> 00:06:57,136
+far right, as opposed to the far
+
+
+229
+00:06:57,136 --> 00:06:57,526
+left.
+
+
+230
+00:06:59,676 --> 00:07:01,066
+If your app uses UIKit to
+
+
+231
+00:07:01,066 --> 00:07:02,536
+display user interface elements,
+
+
+232
+00:07:02,836 --> 00:07:03,906
+there are a few technologies
+
+
+233
+00:07:03,906 --> 00:07:05,496
+that you can use to easily adapt
+
+
+234
+00:07:05,496 --> 00:07:06,916
+for these two different aspects.
+
+
+235
+00:07:07,506 --> 00:07:08,746
+It's highly recommended that you
+
+
+236
+00:07:08,746 --> 00:07:09,886
+start off with exploring
+
+
+237
+00:07:09,886 --> 00:07:10,686
+UIStackView.
+
+
+238
+00:07:11,526 --> 00:07:12,966
+UIStackView is a streamlined
+
+
+239
+00:07:12,966 --> 00:07:14,126
+interface for laying out a
+
+
+240
+00:07:14,126 --> 00:07:15,596
+series of views, either
+
+
+241
+00:07:15,596 --> 00:07:16,846
+horizontally or vertically.
+
+
+242
+00:07:17,196 --> 00:07:18,336
+And these can be nested to
+
+
+243
+00:07:18,336 --> 00:07:20,156
+create complex layouts as shown
+
+
+244
+00:07:20,156 --> 00:07:20,456
+here.
+
+
+245
+00:07:20,456 --> 00:07:23,386
+In this example, you can see
+
+
+246
+00:07:23,386 --> 00:07:24,636
+that I have some numbered views,
+
+
+247
+00:07:25,406 --> 00:07:26,416
+and the general flow of
+
+
+248
+00:07:26,416 --> 00:07:27,766
+information here is left to
+
+
+249
+00:07:27,766 --> 00:07:28,986
+right, as expected for a
+
+
+250
+00:07:28,986 --> 00:07:29,966
+language like English.
+
+
+251
+00:07:32,096 --> 00:07:33,596
+The thing about UIStackView is
+
+
+252
+00:07:33,596 --> 00:07:35,156
+that under the hood, it relies
+
+
+253
+00:07:35,156 --> 00:07:36,616
+on something called Auto Layout.
+
+
+254
+00:07:37,886 --> 00:07:39,476
+Auto Layout is a set of APIs
+
+
+255
+00:07:39,476 --> 00:07:40,576
+that help determine layout
+
+
+256
+00:07:40,576 --> 00:07:42,196
+relationships between views,
+
+
+257
+00:07:42,546 --> 00:07:44,086
+such that if the size of a view
+
+
+258
+00:07:44,086 --> 00:07:45,996
+changes, other views can adapt
+
+
+259
+00:07:45,996 --> 00:07:47,546
+accordingly to prevent overlap
+
+
+260
+00:07:47,546 --> 00:07:48,176
+or truncation.
+
+
+261
+00:07:49,316 --> 00:07:51,496
+In addition to this, Auto Layout
+
+
+262
+00:07:51,496 --> 00:07:52,826
+also relies on the concept of
+
+
+263
+00:07:52,886 --> 00:07:53,816
+leading and trailing
+
+
+264
+00:07:53,816 --> 00:07:54,406
+constraints.
+
+
+265
+00:07:55,056 --> 00:07:56,526
+These are essentially left and
+
+
+266
+00:07:56,526 --> 00:07:58,306
+right position constraints, but
+
+
+267
+00:07:58,306 --> 00:07:59,846
+that evaluate to right and left
+
+
+268
+00:08:00,026 --> 00:08:01,126
+when running in a right to left
+
+
+269
+00:08:01,126 --> 00:08:01,586
+language.
+
+
+270
+00:08:02,066 --> 00:08:03,716
+So, for the stack views above,
+
+
+271
+00:08:04,846 --> 00:08:06,316
+the layout would automatically
+
+
+272
+00:08:06,316 --> 00:08:07,776
+change to right to left, when
+
+
+273
+00:08:07,776 --> 00:08:09,456
+running in, for example, Arabic
+
+
+274
+00:08:09,456 --> 00:08:09,986
+or Hebrew.
+
+
+275
+00:08:09,986 --> 00:08:12,976
+And this can be accomplished
+
+
+276
+00:08:12,976 --> 00:08:14,246
+without having to write a single
+
+
+277
+00:08:14,246 --> 00:08:15,636
+line of extra code for different
+
+
+278
+00:08:15,636 --> 00:08:16,506
+layout environments.
+
+
+279
+00:08:19,256 --> 00:08:21,066
+For apps using TVMLKit, the
+
+
+280
+00:08:21,066 --> 00:08:22,456
+standard templates provided do
+
+
+281
+00:08:22,456 --> 00:08:23,636
+all the heavy lifting for the
+
+
+282
+00:08:23,636 --> 00:08:24,706
+two aspects I mentioned.
+
+
+283
+00:08:26,086 --> 00:08:27,526
+In particular for right to left
+
+
+284
+00:08:27,526 --> 00:08:29,216
+languages, once again, with the
+
+
+285
+00:08:29,216 --> 00:08:30,736
+addition of Arabic and Hebrew
+
+
+286
+00:08:30,736 --> 00:08:32,316
+and selectable system languages,
+
+
+287
+00:08:33,035 --> 00:08:34,196
+we have some new APIs that
+
+
+288
+00:08:34,196 --> 00:08:35,655
+leverage the same concept of
+
+
+289
+00:08:35,655 --> 00:08:37,606
+leading and trailing for TVMLKit
+
+
+290
+00:08:37,606 --> 00:08:38,846
+elements that have a specific
+
+
+291
+00:08:38,846 --> 00:08:40,285
+position or alignment.
+
+
+292
+00:08:42,346 --> 00:08:43,676
+Similarly, for margins and
+
+
+293
+00:08:43,676 --> 00:08:45,176
+padding, we have new media
+
+
+294
+00:08:45,176 --> 00:08:46,776
+queries to help specify custom
+
+
+295
+00:08:46,776 --> 00:08:48,406
+values for a specific layout
+
+
+296
+00:08:48,406 --> 00:08:48,866
+direction.
+
+
+297
+00:08:51,716 --> 00:08:53,186
+To explore these new features in
+
+
+298
+00:08:53,186 --> 00:08:54,686
+depth, please be sure to check
+
+
+299
+00:08:54,686 --> 00:08:56,406
+out Advances in TVMLKit.
+
+
+300
+00:08:59,236 --> 00:09:00,296
+Let's move on to images.
+
+
+301
+00:09:00,566 --> 00:09:01,726
+And for this, I'm going to
+
+
+302
+00:09:01,726 --> 00:09:02,916
+briefly cover an approach to
+
+
+303
+00:09:02,916 --> 00:09:04,096
+keep in mind for different
+
+
+304
+00:09:04,096 --> 00:09:04,866
+layout directions.
+
+
+305
+00:09:05,756 --> 00:09:07,146
+Typically, images in your app
+
+
+306
+00:09:07,146 --> 00:09:08,356
+will fall into one of three
+
+
+307
+00:09:08,356 --> 00:09:09,216
+separate buckets.
+
+
+308
+00:09:10,516 --> 00:09:12,046
+The first one, likely to be most
+
+
+309
+00:09:12,046 --> 00:09:13,526
+of your images, is universal.
+
+
+310
+00:09:13,996 --> 00:09:15,166
+These are images that do not
+
+
+311
+00:09:15,166 --> 00:09:16,826
+need specific adaptation for a
+
+
+312
+00:09:16,826 --> 00:09:17,566
+layout direction.
+
+
+313
+00:09:19,726 --> 00:09:21,446
+The second category, is images
+
+
+314
+00:09:21,446 --> 00:09:22,866
+that do have some direction
+
+
+315
+00:09:22,866 --> 00:09:23,826
+associated to them.
+
+
+316
+00:09:24,486 --> 00:09:25,786
+This can be a number of things
+
+
+317
+00:09:25,786 --> 00:09:27,186
+such as navigation arrows,
+
+
+318
+00:09:27,346 --> 00:09:29,106
+disclosure indicators, or in
+
+
+319
+00:09:29,106 --> 00:09:30,546
+this case, a simplified
+
+
+320
+00:09:30,546 --> 00:09:31,796
+representation of text.
+
+
+321
+00:09:32,906 --> 00:09:34,306
+The only step required for these
+
+
+322
+00:09:34,306 --> 00:09:36,056
+images to adapt for the opposite
+
+
+323
+00:09:36,056 --> 00:09:37,556
+layout direction, is to
+
+
+324
+00:09:37,556 --> 00:09:38,586
+graphically mirror them.
+
+
+325
+00:09:38,876 --> 00:09:40,056
+And now, we have the correct
+
+
+326
+00:09:40,056 --> 00:09:40,366
+result.
+
+
+327
+00:09:42,776 --> 00:09:44,576
+Lastly, the third category is
+
+
+328
+00:09:44,576 --> 00:09:46,126
+similar to the second, but these
+
+
+329
+00:09:46,126 --> 00:09:47,786
+are relatively complex such that
+
+
+330
+00:09:47,786 --> 00:09:49,036
+simply flipping them would
+
+
+331
+00:09:49,036 --> 00:09:50,496
+actually produce an incorrect
+
+
+332
+00:09:50,496 --> 00:09:50,866
+result.
+
+
+333
+00:09:52,036 --> 00:09:53,646
+In this example, I've a bulleted
+
+
+334
+00:09:53,646 --> 00:09:55,256
+list with checkmarks, but
+
+
+335
+00:09:55,256 --> 00:09:56,516
+checkmarks as a symbol should
+
+
+336
+00:09:56,516 --> 00:09:57,276
+not be mirrored.
+
+
+337
+00:09:59,006 --> 00:10:00,576
+So, in this case, what I really
+
+
+338
+00:10:00,576 --> 00:10:02,526
+need is two separate images, one
+
+
+339
+00:10:02,526 --> 00:10:03,576
+for each layout direction.
+
+
+340
+00:10:06,216 --> 00:10:07,626
+Xcode makes it very easy to
+
+
+341
+00:10:07,626 --> 00:10:09,306
+handle all of these cases, right
+
+
+342
+00:10:09,306 --> 00:10:10,686
+from within your Asset Catalog.
+
+
+343
+00:10:11,276 --> 00:10:12,936
+For each asset, you can specify
+
+
+344
+00:10:12,936 --> 00:10:14,166
+whether or not an image has a
+
+
+345
+00:10:14,166 --> 00:10:15,736
+fixed direction or if it should
+
+
+346
+00:10:15,736 --> 00:10:17,496
+adapt either through mirroring
+
+
+347
+00:10:17,526 --> 00:10:18,826
+or through specifying different
+
+
+348
+00:10:18,826 --> 00:10:19,286
+images.
+
+
+349
+00:10:19,736 --> 00:10:21,086
+Then, it's simply a matter of
+
+
+350
+00:10:21,086 --> 00:10:22,816
+using images regularly either in
+
+
+351
+00:10:22,816 --> 00:10:24,956
+code or in Interface Builder, as
+
+
+352
+00:10:24,956 --> 00:10:25,236
+usual.
+
+
+353
+00:10:27,976 --> 00:10:29,416
+For much more information on how
+
+
+354
+00:10:29,416 --> 00:10:30,626
+to use asset catalogs for
+
+
+355
+00:10:30,626 --> 00:10:31,746
+different layout directions,
+
+
+356
+00:10:32,096 --> 00:10:33,286
+please check out this talk from
+
+
+357
+00:10:33,286 --> 00:10:34,206
+2016.
+
+
+358
+00:10:37,376 --> 00:10:38,696
+So, that's layout and images.
+
+
+359
+00:10:39,146 --> 00:10:40,716
+We've seen how both UIKit and
+
+
+360
+00:10:40,716 --> 00:10:42,336
+TVMLKit have very high-level
+
+
+361
+00:10:42,336 --> 00:10:43,836
+approaches for adaptive layouts,
+
+
+362
+00:10:43,956 --> 00:10:46,076
+as well as some of the new APIs
+
+
+363
+00:10:46,076 --> 00:10:48,086
+introduced in tvOS 11 for right
+
+
+364
+00:10:48,086 --> 00:10:48,716
+to left support.
+
+
+365
+00:10:49,596 --> 00:10:50,956
+And also, the concept of image
+
+
+366
+00:10:50,956 --> 00:10:52,436
+directionality and how this is
+
+
+367
+00:10:52,436 --> 00:10:53,576
+part of image assets.
+
+
+368
+00:10:55,906 --> 00:10:57,526
+Last but not least, let's cover
+
+
+369
+00:10:57,526 --> 00:10:58,556
+how you can actually add a
+
+
+370
+00:10:58,556 --> 00:11:00,006
+language to your app, from start
+
+
+371
+00:11:00,006 --> 00:11:00,486
+to finish.
+
+
+372
+00:11:03,346 --> 00:11:04,286
+Adding a language to your
+
+
+373
+00:11:04,286 --> 00:11:05,916
+project is done in the Project
+
+
+374
+00:11:05,916 --> 00:11:06,256
+Editor.
+
+
+375
+00:11:06,786 --> 00:11:08,086
+Select your project file from
+
+
+376
+00:11:08,086 --> 00:11:09,866
+within Xcode, and in the Project
+
+
+377
+00:11:09,866 --> 00:11:11,836
+Settings, you can add supported
+
+
+378
+00:11:11,836 --> 00:11:13,406
+languages in the Localization
+
+
+379
+00:11:13,406 --> 00:11:14,046
+section.
+
+
+380
+00:11:15,556 --> 00:11:17,246
+Xcode will manage and keep track
+
+
+381
+00:11:17,246 --> 00:11:18,386
+of any applicable file
+
+
+382
+00:11:18,386 --> 00:11:19,956
+management, such as extracting
+
+
+383
+00:11:19,956 --> 00:11:21,726
+text from Storyboards, as well
+
+
+384
+00:11:21,726 --> 00:11:22,806
+as strings you've marked as
+
+
+385
+00:11:22,806 --> 00:11:23,966
+localizable in code.
+
+
+386
+00:11:27,876 --> 00:11:28,906
+When you're ready to send your
+
+
+387
+00:11:28,906 --> 00:11:29,956
+app's content out for
+
+
+388
+00:11:29,956 --> 00:11:31,736
+translation, this is as simple
+
+
+389
+00:11:31,736 --> 00:11:33,116
+as selecting your project file
+
+
+390
+00:11:33,146 --> 00:11:34,956
+in Xcode, and choosing Export
+
+
+391
+00:11:34,956 --> 00:11:36,586
+for Localization in the Editor
+
+
+392
+00:11:36,586 --> 00:11:36,926
+menu.
+
+
+393
+00:11:37,746 --> 00:11:38,786
+Xcode will generate a
+
+
+394
+00:11:38,786 --> 00:11:40,556
+translation interchange file, or
+
+
+395
+00:11:40,556 --> 00:11:42,256
+XLIFF, for you to send out for
+
+
+396
+00:11:42,256 --> 00:11:42,746
+translation.
+
+
+397
+00:11:45,606 --> 00:11:46,966
+Once you have this file back,
+
+
+398
+00:11:47,356 --> 00:11:48,866
+reimporting this content into
+
+
+399
+00:11:48,866 --> 00:11:50,386
+your Xcode project is just a
+
+
+400
+00:11:50,386 --> 00:11:51,716
+matter of selecting Import
+
+
+401
+00:11:51,716 --> 00:11:53,236
+Localizations from that same
+
+
+402
+00:11:53,236 --> 00:11:53,596
+menu.
+
+
+403
+00:11:55,386 --> 00:11:56,726
+Xcode will update all of the
+
+
+404
+00:11:56,726 --> 00:11:58,426
+relevant files and resources to
+
+
+405
+00:11:58,426 --> 00:11:59,506
+make sure that when your app is
+
+
+406
+00:11:59,506 --> 00:12:01,326
+built, all up to date supported
+
+
+407
+00:12:01,326 --> 00:12:02,626
+translations are included.
+
+
+408
+00:12:07,086 --> 00:12:08,516
+Once this is done, it's a good
+
+
+409
+00:12:08,516 --> 00:12:09,916
+idea to test your app in the
+
+
+410
+00:12:09,916 --> 00:12:10,916
+different environments that
+
+
+411
+00:12:10,916 --> 00:12:11,966
+you're planning on supporting.
+
+
+412
+00:12:13,016 --> 00:12:14,276
+Xcode provides a number of
+
+
+413
+00:12:14,276 --> 00:12:15,336
+different features to help you
+
+
+414
+00:12:15,336 --> 00:12:16,996
+do this, and you can get a good
+
+
+415
+00:12:16,996 --> 00:12:18,576
+idea of how your app behaves in
+
+
+416
+00:12:18,576 --> 00:12:20,026
+these circumstances, even if you
+
+
+417
+00:12:20,026 --> 00:12:21,146
+don't speak the languages you
+
+
+418
+00:12:21,146 --> 00:12:21,596
+support.
+
+
+419
+00:12:21,936 --> 00:12:26,806
+For Objective-C code, the Static
+
+
+420
+00:12:26,806 --> 00:12:28,226
+Analyzer supports making sure
+
+
+421
+00:12:28,226 --> 00:12:29,726
+that any string you provide to a
+
+
+422
+00:12:29,726 --> 00:12:31,256
+UI element is appropriately
+
+
+423
+00:12:31,256 --> 00:12:32,296
+marked as "localizable."
+
+
+424
+00:12:32,386 --> 00:12:34,406
+Not only that, you can also
+
+
+425
+00:12:34,406 --> 00:12:35,556
+check if any of your localized
+
+
+426
+00:12:35,556 --> 00:12:37,156
+strings are missing comments.
+
+
+427
+00:12:39,166 --> 00:12:40,056
+For running your app in
+
+
+428
+00:12:40,056 --> 00:12:41,316
+different languages, there's a
+
+
+429
+00:12:41,316 --> 00:12:42,686
+convenient set of options for
+
+
+430
+00:12:42,686 --> 00:12:44,386
+simulating a specific language
+
+
+431
+00:12:44,486 --> 00:12:45,286
+or region setting.
+
+
+432
+00:12:46,626 --> 00:12:48,706
+In addition to this, Xcode also
+
+
+433
+00:12:48,706 --> 00:12:49,846
+lets you run your app in a
+
+
+434
+00:12:49,846 --> 00:12:51,756
+simulated environment, or pseudo
+
+
+435
+00:12:51,756 --> 00:12:53,376
+language, such as right to left,
+
+
+436
+00:12:53,736 --> 00:12:55,146
+so that you can continue testing
+
+
+437
+00:12:55,146 --> 00:12:56,566
+your app in your base language,
+
+
+438
+00:12:56,926 --> 00:12:58,256
+but also see how it would look
+
+
+439
+00:12:58,256 --> 00:12:59,306
+like in a right to left
+
+
+440
+00:12:59,306 --> 00:12:59,736
+language.
+
+
+441
+00:13:00,336 --> 00:13:01,616
+This can be done in the Options
+
+
+442
+00:13:01,616 --> 00:13:03,206
+tab of the Scheme Editor for
+
+
+443
+00:13:03,206 --> 00:13:04,406
+your app.
+
+
+444
+00:13:06,176 --> 00:13:09,976
+The Localizing with Xcode 9
+
+
+445
+00:13:09,976 --> 00:13:11,296
+session, covers all of these
+
+
+446
+00:13:11,296 --> 00:13:12,706
+features and much more for
+
+
+447
+00:13:12,706 --> 00:13:13,916
+getting the most out of the tool
+
+
+448
+00:13:13,916 --> 00:13:15,536
+set when preparing your app for
+
+
+449
+00:13:15,536 --> 00:13:16,146
+localization.
+
+
+450
+00:13:17,876 --> 00:13:18,856
+And that's an overview of
+
+
+451
+00:13:18,856 --> 00:13:20,146
+localizing and testing your
+
+
+452
+00:13:20,146 --> 00:13:21,756
+application, from within Xcode.
+
+
+453
+00:13:22,376 --> 00:13:23,496
+We've seen how you can add
+
+
+454
+00:13:23,496 --> 00:13:24,646
+supported languages to your
+
+
+455
+00:13:24,646 --> 00:13:26,716
+project, integrate translations,
+
+
+456
+00:13:26,806 --> 00:13:28,236
+as well as checking your project
+
+
+457
+00:13:28,236 --> 00:13:29,496
+and app out in different
+
+
+458
+00:13:29,496 --> 00:13:30,106
+environments.
+
+
+459
+00:13:32,026 --> 00:13:33,036
+For more information and
+
+
+460
+00:13:33,036 --> 00:13:34,366
+resources on localization,
+
+
+461
+00:13:34,626 --> 00:13:35,716
+please check out the link for
+
+
+462
+00:13:35,716 --> 00:13:36,176
+the session.
+
+
+463
+00:13:39,646 --> 00:13:41,056
+In addition to these resources,
+
+
+464
+00:13:41,246 --> 00:13:42,526
+if you're interested in a deeper
+
+
+465
+00:13:42,526 --> 00:13:44,256
+exploration of localization and
+
+
+466
+00:13:44,256 --> 00:13:45,946
+internationalization topics, the
+
+
+467
+00:13:45,946 --> 00:13:47,276
+sessions listed are a great
+
+
+468
+00:13:47,276 --> 00:13:47,896
+place to start.
+
+
+469
+00:13:49,916 --> 00:13:50,516
+Thank you for watching.
+

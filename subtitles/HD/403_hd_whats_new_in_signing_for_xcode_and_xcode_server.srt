@@ -1,0 +1,6079 @@
+1
+00:00:00,506 --> 00:00:22,686
+[ Applause ]
+
+
+2
+00:00:23,186 --> 00:00:26,406
+>> Good afternoon.
+
+
+3
+00:00:26,406 --> 00:00:29,126
+Thank you, it's good to be here.
+
+
+4
+00:00:29,816 --> 00:00:31,566
+We have some very great stuff
+
+
+5
+00:00:32,746 --> 00:00:35,466
+for you today.
+
+
+6
+00:00:35,676 --> 00:00:39,136
+Last year we unveiled automatic
+
+
+7
+00:00:39,136 --> 00:00:40,836
+signing and it's great.
+
+
+8
+00:00:42,776 --> 00:00:44,086
+Automatic signing was a major
+
+
+9
+00:00:44,086 --> 00:00:45,696
+leap forward in the ease-of-use
+
+
+10
+00:00:45,826 --> 00:00:48,016
+for how you sign your app.
+
+
+11
+00:00:48,626 --> 00:00:50,866
+Today we're taking the next
+
+
+12
+00:00:51,666 --> 00:00:53,046
+step, we're making it possible
+
+
+13
+00:00:53,046 --> 00:00:54,856
+to use automatic signing for
+
+
+14
+00:00:54,856 --> 00:00:58,446
+distribution, Xcode Build, and
+
+
+15
+00:00:58,446 --> 00:00:59,146
+Xcode Server.
+
+
+16
+00:01:01,356 --> 00:01:03,126
+So, what exactly are we going to
+
+
+17
+00:01:03,126 --> 00:01:04,656
+talk about today?
+
+
+18
+00:01:05,196 --> 00:01:06,776
+The first thing is I'm going to
+
+
+19
+00:01:06,776 --> 00:01:08,006
+very briefly review the
+
+
+20
+00:01:08,006 --> 00:01:09,526
+fundamentals of signing and how
+
+
+21
+00:01:09,526 --> 00:01:10,746
+it works on our platforms.
+
+
+22
+00:01:11,926 --> 00:01:14,336
+Next, I'm going to show you how
+
+
+23
+00:01:14,336 --> 00:01:16,346
+to set up Xcode Server to
+
+
+24
+00:01:16,346 --> 00:01:17,776
+perform development signing so
+
+
+25
+00:01:17,776 --> 00:01:19,546
+that you can regularly run tests
+
+
+26
+00:01:19,546 --> 00:01:20,296
+on the device.
+
+
+27
+00:01:21,736 --> 00:01:23,186
+Then I'm going to show you some
+
+
+28
+00:01:23,186 --> 00:01:24,226
+of the great changes that we've
+
+
+29
+00:01:24,226 --> 00:01:25,756
+been making to manual signing.
+
+
+30
+00:01:27,276 --> 00:01:28,716
+Itai is going to come up and
+
+
+31
+00:01:28,716 --> 00:01:30,136
+show you all of the great
+
+
+32
+00:01:30,136 --> 00:01:31,206
+changes we've been making to
+
+
+33
+00:01:31,206 --> 00:01:32,576
+distribution and distribution
+
+
+34
+00:01:32,576 --> 00:01:32,946
+signing.
+
+
+35
+00:01:34,246 --> 00:01:35,666
+And Brent will come up to show
+
+
+36
+00:01:35,666 --> 00:01:37,296
+you how to set up Xcode Server
+
+
+37
+00:01:37,296 --> 00:01:38,606
+and for the first time perform
+
+
+38
+00:01:38,606 --> 00:01:39,546
+distribution signing.
+
+
+39
+00:01:41,806 --> 00:01:43,836
+So, before we get in too deep I
+
+
+40
+00:01:43,836 --> 00:01:44,886
+would like to take a moment to
+
+
+41
+00:01:44,886 --> 00:01:46,646
+remind us why we do this, why do
+
+
+42
+00:01:46,646 --> 00:01:47,336
+we code sign.
+
+
+43
+00:01:48,496 --> 00:01:50,576
+Well the simple answer is that
+
+
+44
+00:01:50,576 --> 00:01:52,756
+code signing protects us, it
+
+
+45
+00:01:52,756 --> 00:01:54,516
+protects us as users, it
+
+
+46
+00:01:54,516 --> 00:01:56,446
+protects us as developers, and
+
+
+47
+00:01:56,446 --> 00:01:58,046
+all of us are users, all of us
+
+
+48
+00:01:58,046 --> 00:01:59,696
+download apps from the store and
+
+
+49
+00:01:59,696 --> 00:02:01,156
+we're sure that that app came
+
+
+50
+00:02:01,156 --> 00:02:02,386
+from the developer that wrote it
+
+
+51
+00:02:02,566 --> 00:02:04,856
+because of code signing.
+
+
+52
+00:02:05,016 --> 00:02:06,836
+And every app that we download
+
+
+53
+00:02:06,836 --> 00:02:09,186
+from the Store we're sure that
+
+
+54
+00:02:09,186 --> 00:02:11,706
+Apple has approved that that app
+
+
+55
+00:02:11,706 --> 00:02:12,966
+is allowed to use special system
+
+
+56
+00:02:12,966 --> 00:02:13,636
+services.
+
+
+57
+00:02:14,836 --> 00:02:16,356
+We can trust the security and
+
+
+58
+00:02:16,356 --> 00:02:18,356
+the privacy of our devices
+
+
+59
+00:02:18,416 --> 00:02:19,396
+because of code signing.
+
+
+60
+00:02:19,966 --> 00:02:22,036
+So how does this actually work?
+
+
+61
+00:02:22,776 --> 00:02:23,896
+Well every app has a code
+
+
+62
+00:02:23,896 --> 00:02:25,926
+signature and when the app is
+
+
+63
+00:02:25,926 --> 00:02:27,136
+run the system checks for a
+
+
+64
+00:02:27,136 --> 00:02:28,736
+couple things, it first checks
+
+
+65
+00:02:28,856 --> 00:02:30,176
+that that signature is valid,
+
+
+66
+00:02:30,836 --> 00:02:31,896
+that it hasn't been tampered
+
+
+67
+00:02:31,896 --> 00:02:32,926
+with since it came from the
+
+
+68
+00:02:32,926 --> 00:02:33,786
+original developer.
+
+
+69
+00:02:35,106 --> 00:02:37,226
+And that that app is allowed to
+
+
+70
+00:02:37,226 --> 00:02:38,986
+use special system services like
+
+
+71
+00:02:38,986 --> 00:02:39,606
+app groups.
+
+
+72
+00:02:40,496 --> 00:02:42,806
+And the signature also tells us
+
+
+73
+00:02:42,926 --> 00:02:44,126
+if it's been provisioned for
+
+
+74
+00:02:44,126 --> 00:02:45,186
+this device, if it's for
+
+
+75
+00:02:45,186 --> 00:02:46,436
+development it's been
+
+
+76
+00:02:46,436 --> 00:02:47,906
+provisioned for a couple
+
+
+77
+00:02:47,906 --> 00:02:49,476
+devices, and if it's for the App
+
+
+78
+00:02:49,476 --> 00:02:51,596
+Store that code signature says
+
+
+79
+00:02:51,596 --> 00:02:52,786
+it can run on any device.
+
+
+80
+00:02:54,166 --> 00:02:56,136
+Now composing this signature
+
+
+81
+00:02:56,136 --> 00:02:58,406
+Xcode uses three essential
+
+
+82
+00:02:58,406 --> 00:03:00,436
+ingredients, our good friends
+
+
+83
+00:03:01,006 --> 00:03:03,096
+the signing certificate, a
+
+
+84
+00:03:03,096 --> 00:03:05,336
+provisioning profile, and
+
+
+85
+00:03:05,336 --> 00:03:05,996
+entitlements.
+
+
+86
+00:03:07,156 --> 00:03:08,426
+Now I'm going to spare you a
+
+
+87
+00:03:08,426 --> 00:03:09,946
+very detailed explanation of how
+
+
+88
+00:03:09,946 --> 00:03:12,576
+all of this works, but I would
+
+
+89
+00:03:12,576 --> 00:03:14,276
+like to refer you to last year's
+
+
+90
+00:03:14,276 --> 00:03:16,056
+talk, what's new in Xcode app
+
+
+91
+00:03:16,056 --> 00:03:17,566
+signing where we go into great
+
+
+92
+00:03:17,566 --> 00:03:19,186
+detail about how this works with
+
+
+93
+00:03:19,186 --> 00:03:20,546
+our platforms and how it works
+
+
+94
+00:03:20,546 --> 00:03:21,366
+with Xcode 8.
+
+
+95
+00:03:21,866 --> 00:03:25,366
+What I will say is that
+
+
+96
+00:03:25,956 --> 00:03:27,726
+collecting all of these assets
+
+
+97
+00:03:28,246 --> 00:03:30,616
+it's not that much fun, it's
+
+
+98
+00:03:30,616 --> 00:03:33,766
+complex which is why in Xcode 8
+
+
+99
+00:03:33,926 --> 00:03:35,126
+we introduced a solution to
+
+
+100
+00:03:35,126 --> 00:03:36,606
+manage all of this complexity,
+
+
+101
+00:03:37,916 --> 00:03:38,696
+automatic signing.
+
+
+102
+00:03:40,256 --> 00:03:41,566
+When you enable automatically
+
+
+103
+00:03:41,566 --> 00:03:43,226
+managed signing Xcode will
+
+
+104
+00:03:43,226 --> 00:03:45,346
+automatically create app IDs, it
+
+
+105
+00:03:45,346 --> 00:03:46,606
+will create certificates, it
+
+
+106
+00:03:46,606 --> 00:03:47,796
+will update provisioning
+
+
+107
+00:03:47,796 --> 00:03:49,406
+profiles, it will update
+
+
+108
+00:03:49,406 --> 00:03:50,946
+entitlements, it will do all of
+
+
+109
+00:03:50,946 --> 00:03:52,016
+that stuff you don't want to
+
+
+110
+00:03:52,016 --> 00:03:53,596
+deal with so that you can get on
+
+
+111
+00:03:53,596 --> 00:03:54,346
+with your development.
+
+
+112
+00:03:55,836 --> 00:03:57,316
+Enabling automatic signing is
+
+
+113
+00:03:57,316 --> 00:03:58,096
+really the way to go.
+
+
+114
+00:03:59,506 --> 00:04:01,376
+And I'm pleased to announce that
+
+
+115
+00:04:01,376 --> 00:04:04,226
+in Xcode 9 all of this great
+
+
+116
+00:04:04,226 --> 00:04:06,326
+functionality is available in
+
+
+117
+00:04:06,326 --> 00:04:07,126
+Xcode Server.
+
+
+118
+00:04:07,656 --> 00:04:10,606
+And we know that there are
+
+
+119
+00:04:10,606 --> 00:04:11,906
+certain situations in which
+
+
+120
+00:04:11,906 --> 00:04:12,836
+you'd like to directly
+
+
+121
+00:04:12,836 --> 00:04:13,926
+manipulate your signing
+
+
+122
+00:04:13,926 --> 00:04:15,936
+configuration so we also have
+
+
+123
+00:04:16,435 --> 00:04:18,396
+manual signing support in Xcode
+
+
+124
+00:04:18,396 --> 00:04:18,706
+Server.
+
+
+125
+00:04:20,935 --> 00:04:22,556
+So, for those of you who don't
+
+
+126
+00:04:22,556 --> 00:04:23,866
+know I hope you know that Xcode
+
+
+127
+00:04:23,866 --> 00:04:25,096
+Server is the continuous
+
+
+128
+00:04:25,096 --> 00:04:27,006
+integration service powered by
+
+
+129
+00:04:27,006 --> 00:04:30,396
+Xcode and now it is built right
+
+
+130
+00:04:30,396 --> 00:04:31,176
+into Xcode.
+
+
+131
+00:04:31,176 --> 00:04:32,286
+You no longer need to have
+
+
+132
+00:04:32,286 --> 00:04:33,366
+Server App installed.
+
+
+133
+00:04:33,366 --> 00:04:34,756
+If you've used this before this
+
+
+134
+00:04:34,756 --> 00:04:36,566
+is a huge convenience, it has
+
+
+135
+00:04:36,566 --> 00:04:37,916
+never been easier to get going
+
+
+136
+00:04:37,916 --> 00:04:39,176
+with continuous integration.
+
+
+137
+00:04:39,706 --> 00:04:43,486
+And Xcode Server allows you to
+
+
+138
+00:04:43,486 --> 00:04:45,666
+very easily set up testing on
+
+
+139
+00:04:45,666 --> 00:04:49,276
+the simulator and on the device.
+
+
+140
+00:04:49,446 --> 00:04:51,336
+Now testing on the device
+
+
+141
+00:04:51,336 --> 00:04:54,236
+requires code signing, so I'd
+
+
+142
+00:04:54,236 --> 00:04:56,596
+like to explain how code signing
+
+
+143
+00:04:56,596 --> 00:04:57,846
+fits into the greater picture of
+
+
+144
+00:04:57,846 --> 00:04:58,436
+Xcode Server.
+
+
+145
+00:05:00,126 --> 00:05:01,686
+When you're working on your app
+
+
+146
+00:05:02,466 --> 00:05:05,406
+in Xcode you work on a project
+
+
+147
+00:05:05,806 --> 00:05:07,336
+and you upload updates to that
+
+
+148
+00:05:07,336 --> 00:05:09,156
+project to a remote repository.
+
+
+149
+00:05:10,246 --> 00:05:11,596
+You then set up Xcode Server
+
+
+150
+00:05:11,596 --> 00:05:12,946
+with a bot to pull from that
+
+
+151
+00:05:12,946 --> 00:05:15,476
+repository, build your app and
+
+
+152
+00:05:15,476 --> 00:05:16,916
+run tests on the device.
+
+
+153
+00:05:17,976 --> 00:05:19,716
+And running on a device requires
+
+
+154
+00:05:19,716 --> 00:05:22,776
+a code signature and Xcode
+
+
+155
+00:05:22,776 --> 00:05:24,246
+composes that code signature
+
+
+156
+00:05:24,246 --> 00:05:25,156
+using those essential
+
+
+157
+00:05:25,156 --> 00:05:26,306
+ingredients, the provisioning
+
+
+158
+00:05:26,306 --> 00:05:27,776
+profile and a signing
+
+
+159
+00:05:27,776 --> 00:05:28,386
+certificate.
+
+
+160
+00:05:28,446 --> 00:05:29,776
+So, how are we going to get
+
+
+161
+00:05:29,776 --> 00:05:31,316
+those onto Xcode Server?
+
+
+162
+00:05:32,666 --> 00:05:35,386
+Well the good news is if you
+
+
+163
+00:05:35,386 --> 00:05:36,666
+have targets enabled with
+
+
+164
+00:05:36,666 --> 00:05:38,566
+automatic signing this can just
+
+
+165
+00:05:38,566 --> 00:05:39,306
+happen for you.
+
+
+166
+00:05:39,416 --> 00:05:42,086
+Xcode Server will automatically
+
+
+167
+00:05:42,196 --> 00:05:43,506
+create certificates, it will
+
+
+168
+00:05:43,506 --> 00:05:45,076
+update provisioning profiles, it
+
+
+169
+00:05:45,076 --> 00:05:47,366
+will register devices all so
+
+
+170
+00:05:47,366 --> 00:05:48,666
+that signing can be performed.
+
+
+171
+00:05:48,666 --> 00:05:49,876
+This is really fantastic.
+
+
+172
+00:05:51,436 --> 00:05:53,186
+And if you have manual setup for
+
+
+173
+00:05:53,186 --> 00:05:55,896
+your targets Xcode Server now
+
+
+174
+00:05:55,896 --> 00:05:57,346
+has UI for you to send any
+
+
+175
+00:05:57,346 --> 00:05:58,866
+certificates from your
+
+
+176
+00:05:58,866 --> 00:06:02,216
+administrative Mac over to the
+
+
+177
+00:06:02,216 --> 00:06:03,376
+server that will be performing
+
+
+178
+00:06:03,376 --> 00:06:04,686
+integrations in code signing.
+
+
+179
+00:06:05,376 --> 00:06:08,356
+So, Xcode Server now has support
+
+
+180
+00:06:08,776 --> 00:06:10,056
+for automatic and manual
+
+
+181
+00:06:10,056 --> 00:06:10,406
+signing.
+
+
+182
+00:06:13,576 --> 00:06:15,206
+Now Xcode Server is able to make
+
+
+183
+00:06:15,206 --> 00:06:16,976
+use of automatic signing because
+
+
+184
+00:06:16,976 --> 00:06:18,956
+you join Xcode Server to your
+
+
+185
+00:06:18,956 --> 00:06:20,546
+team as another member, you do
+
+
+186
+00:06:20,546 --> 00:06:22,066
+this during Xcode Server setup
+
+
+187
+00:06:22,546 --> 00:06:23,906
+if you're a team agent or admin.
+
+
+188
+00:06:25,026 --> 00:06:27,196
+And Xcode Server now supports
+
+
+189
+00:06:27,196 --> 00:06:29,466
+logins from Apple IDs with two
+
+
+190
+00:06:29,466 --> 00:06:30,476
+factor authentication.
+
+
+191
+00:06:31,656 --> 00:06:33,826
+Now all of this great signing
+
+
+192
+00:06:33,826 --> 00:06:35,356
+functionality is available to
+
+
+193
+00:06:35,356 --> 00:06:37,656
+Xcode Server because Xcode
+
+
+194
+00:06:37,656 --> 00:06:39,196
+Server under the hood calls out
+
+
+195
+00:06:39,196 --> 00:06:40,366
+to the command line tool
+
+
+196
+00:06:40,796 --> 00:06:43,696
+Xcodebuild, which means that
+
+
+197
+00:06:43,696 --> 00:06:46,106
+Xcode Build now offers command
+
+
+198
+00:06:46,106 --> 00:06:47,356
+line support for automatic
+
+
+199
+00:06:47,356 --> 00:06:48,906
+signing repairs and this is
+
+
+200
+00:06:48,906 --> 00:06:49,366
+huge.
+
+
+201
+00:06:50,576 --> 00:06:52,576
+Now if you have a third-party
+
+
+202
+00:06:52,576 --> 00:06:54,116
+continuous integration service
+
+
+203
+00:06:54,116 --> 00:06:55,456
+you should listen up because
+
+
+204
+00:06:55,456 --> 00:06:56,576
+what this means is that
+
+
+205
+00:06:57,366 --> 00:06:58,936
+Xcodebuild can now update
+
+
+206
+00:06:58,936 --> 00:07:00,446
+provisioning profiles, it can
+
+
+207
+00:07:00,776 --> 00:07:02,066
+download them, it can create
+
+
+208
+00:07:02,066 --> 00:07:03,466
+certificates, all that magic
+
+
+209
+00:07:03,466 --> 00:07:04,956
+that happens in the UI can now
+
+
+210
+00:07:04,996 --> 00:07:05,976
+happen on the command line.
+
+
+211
+00:07:06,516 --> 00:07:13,546
+[ Applause ]
+
+
+212
+00:07:14,046 --> 00:07:14,586
+And you enable this in
+
+
+213
+00:07:14,626 --> 00:07:16,666
+Xcodebuild by passing the flag
+
+
+214
+00:07:16,716 --> 00:07:18,276
+allowProvisioningUpdates.
+
+
+215
+00:07:19,476 --> 00:07:20,566
+And we've added some extra
+
+
+216
+00:07:20,566 --> 00:07:22,246
+automation, if you have a device
+
+
+217
+00:07:22,246 --> 00:07:24,486
+connected to your Mac you can
+
+
+218
+00:07:24,486 --> 00:07:25,926
+have it automatically registered
+
+
+219
+00:07:25,926 --> 00:07:26,886
+with your team without
+
+
+220
+00:07:26,886 --> 00:07:28,446
+interaction if you also pass the
+
+
+221
+00:07:28,446 --> 00:07:30,136
+flag allowProvisioning
+
+
+222
+00:07:30,136 --> 00:07:32,956
+DeviceRegistration so very cool.
+
+
+223
+00:07:33,966 --> 00:07:36,866
+So, as I've said, setting up
+
+
+224
+00:07:36,996 --> 00:07:38,896
+Xcode Server is super easy now
+
+
+225
+00:07:38,896 --> 00:07:40,716
+that it's built right into Xcode
+
+
+226
+00:07:40,716 --> 00:07:41,086
+9.
+
+
+227
+00:07:41,476 --> 00:07:42,986
+I'd like to show you how you set
+
+
+228
+00:07:42,986 --> 00:07:45,256
+up Xcode Server briefly so that
+
+
+229
+00:07:45,256 --> 00:07:46,276
+I can show you how to set up
+
+
+230
+00:07:46,276 --> 00:07:47,286
+signing for that server.
+
+
+231
+00:07:48,556 --> 00:07:51,156
+So, the first step is opening up
+
+
+232
+00:07:51,236 --> 00:07:53,606
+the preferences of Xcode and all
+
+
+233
+00:07:53,606 --> 00:07:54,466
+the way to the right we have a
+
+
+234
+00:07:54,466 --> 00:07:56,466
+new tab Server and Bots, that's
+
+
+235
+00:07:56,466 --> 00:07:57,906
+where you turn on Xcode Server.
+
+
+236
+00:07:58,796 --> 00:08:01,286
+The next step is opening up the
+
+
+237
+00:08:01,286 --> 00:08:04,216
+accounts pane where you can add
+
+
+238
+00:08:04,366 --> 00:08:06,336
+a client account that way you
+
+
+239
+00:08:06,336 --> 00:08:08,076
+can view your server working.
+
+
+240
+00:08:09,916 --> 00:08:11,346
+The next step is opening up your
+
+
+241
+00:08:11,346 --> 00:08:13,016
+project and using the product
+
+
+242
+00:08:13,016 --> 00:08:14,356
+menu to create a bot.
+
+
+243
+00:08:15,556 --> 00:08:16,616
+And then in the reports
+
+
+244
+00:08:16,616 --> 00:08:18,306
+navigator you can view all the
+
+
+245
+00:08:18,306 --> 00:08:19,606
+integrations that your bot has
+
+
+246
+00:08:19,606 --> 00:08:21,276
+been running, you can see all
+
+
+247
+00:08:21,276 --> 00:08:23,286
+the servers and bots and on each
+
+
+248
+00:08:23,286 --> 00:08:24,486
+integration you can see whether
+
+
+249
+00:08:24,486 --> 00:08:26,946
+your project has built, whether
+
+
+250
+00:08:26,986 --> 00:08:29,076
+tests you have have run and
+
+
+251
+00:08:29,076 --> 00:08:30,066
+whether they've succeeded or
+
+
+252
+00:08:30,066 --> 00:08:33,525
+failed that's what you can see
+
+
+253
+00:08:33,706 --> 00:08:33,816
+here.
+
+
+254
+00:08:34,265 --> 00:08:35,846
+And now when you set up Xcode
+
+
+255
+00:08:35,846 --> 00:08:37,546
+Server there's a new tab, the
+
+
+256
+00:08:37,546 --> 00:08:38,895
+signing tab, this is what it
+
+
+257
+00:08:38,895 --> 00:08:39,336
+looks like.
+
+
+258
+00:08:40,296 --> 00:08:42,376
+This gives a number of options
+
+
+259
+00:08:42,376 --> 00:08:43,716
+so that you can set up Xcode
+
+
+260
+00:08:43,716 --> 00:08:45,636
+Server to be powered to use
+
+
+261
+00:08:45,676 --> 00:08:46,476
+automatic signing.
+
+
+262
+00:08:47,026 --> 00:08:48,796
+This first checkbox, allow Xcode
+
+
+263
+00:08:48,796 --> 00:08:50,266
+Server to manage my certificates
+
+
+264
+00:08:50,266 --> 00:08:51,806
+and profile, will give Xcode
+
+
+265
+00:08:51,806 --> 00:08:53,126
+Server the power to use
+
+
+266
+00:08:53,166 --> 00:08:54,676
+automatic signing for any of
+
+
+267
+00:08:54,676 --> 00:08:55,726
+those targets in which it's
+
+
+268
+00:08:55,726 --> 00:08:56,096
+enabled.
+
+
+269
+00:08:56,966 --> 00:08:58,646
+And you authorize that again by
+
+
+270
+00:08:58,646 --> 00:09:00,536
+adding Xcode Server to your team
+
+
+271
+00:09:00,536 --> 00:09:01,366
+and to do that here.
+
+
+272
+00:09:01,946 --> 00:09:03,856
+And then there's this other
+
+
+273
+00:09:03,856 --> 00:09:05,436
+checkbox, automatically add
+
+
+274
+00:09:05,436 --> 00:09:06,946
+missing devices to my developer
+
+
+275
+00:09:06,946 --> 00:09:08,266
+team, this will automatically
+
+
+276
+00:09:08,266 --> 00:09:10,046
+register any devices connected
+
+
+277
+00:09:10,046 --> 00:09:12,346
+to your Mac without interaction.
+
+
+278
+00:09:12,496 --> 00:09:14,266
+And those two checkboxes in the
+
+
+279
+00:09:14,266 --> 00:09:15,796
+UI mirror those flags,
+
+
+280
+00:09:16,076 --> 00:09:17,436
+allowProvisioningUpdates and
+
+
+281
+00:09:17,476 --> 00:09:18,266
+allowProvisioning
+
+
+282
+00:09:18,266 --> 00:09:19,476
+DeviceRegistration for up
+
+
+283
+00:09:19,586 --> 00:09:20,286
+Xcodebuild.
+
+
+284
+00:09:21,476 --> 00:09:23,206
+So, I've said enough why don't I
+
+
+285
+00:09:23,206 --> 00:09:23,976
+actually show you this working.
+
+
+286
+00:09:30,046 --> 00:09:34,036
+Okay, so I have opened up Xcode
+
+
+287
+00:09:34,036 --> 00:09:36,606
+to my project chocolate chip and
+
+
+288
+00:09:37,126 --> 00:09:39,046
+I have already set up server
+
+
+289
+00:09:39,636 --> 00:09:41,356
+with a bot to perform
+
+
+290
+00:09:41,356 --> 00:09:43,286
+integrations on the simulator.
+
+
+291
+00:09:43,936 --> 00:09:45,296
+So, I've just purchased this
+
+
+292
+00:09:45,296 --> 00:09:46,836
+shiny new device and I'd like to
+
+
+293
+00:09:46,836 --> 00:09:48,786
+run tests on the device.
+
+
+294
+00:09:48,886 --> 00:09:50,556
+In order to do that I need to
+
+
+295
+00:09:50,556 --> 00:09:52,326
+enable Xcode Server to make use
+
+
+296
+00:09:52,326 --> 00:09:53,226
+of automatic signing.
+
+
+297
+00:09:53,976 --> 00:09:56,616
+So, first step is clicking on
+
+
+298
+00:09:56,616 --> 00:09:57,836
+the reports navigator and you
+
+
+299
+00:09:57,836 --> 00:09:59,136
+can see here the server that
+
+
+300
+00:09:59,136 --> 00:10:00,816
+I've created, the bot, and the
+
+
+301
+00:10:00,816 --> 00:10:01,976
+one integration that's run.
+
+
+302
+00:10:03,136 --> 00:10:04,956
+And I'm going to control
+
+
+303
+00:10:04,956 --> 00:10:06,346
+Control-click and bring up the
+
+
+304
+00:10:06,346 --> 00:10:07,016
+bot editor.
+
+
+305
+00:10:07,876 --> 00:10:09,186
+So, my first step will be
+
+
+306
+00:10:09,186 --> 00:10:10,526
+clicking on the devices tab
+
+
+307
+00:10:10,526 --> 00:10:11,726
+where you can see that I've set
+
+
+308
+00:10:11,726 --> 00:10:14,566
+up Xcode Server to run tests on
+
+
+309
+00:10:14,626 --> 00:10:16,366
+the iPhone SE simulator, I'm
+
+
+310
+00:10:16,366 --> 00:10:17,866
+going to change that instead to
+
+
+311
+00:10:17,866 --> 00:10:19,026
+run on any device that's
+
+
+312
+00:10:19,026 --> 00:10:20,096
+connected to this Mac.
+
+
+313
+00:10:20,906 --> 00:10:23,686
+Next, in the signing tab you can
+
+
+314
+00:10:23,686 --> 00:10:24,706
+see what we've been talking
+
+
+315
+00:10:24,706 --> 00:10:24,986
+about.
+
+
+316
+00:10:25,706 --> 00:10:28,006
+I'm going to allow Xcode Server
+
+
+317
+00:10:28,006 --> 00:10:29,256
+to create certificates and
+
+
+318
+00:10:29,256 --> 00:10:32,016
+profiles, I'm going to add Xcode
+
+
+319
+00:10:32,016 --> 00:10:34,936
+Server to my team, and I'm going
+
+
+320
+00:10:34,936 --> 00:10:35,976
+to allow Xcode Server to
+
+
+321
+00:10:35,976 --> 00:10:37,386
+automatically register any
+
+
+322
+00:10:37,386 --> 00:10:38,476
+device that's connected,
+
+
+323
+00:10:38,476 --> 00:10:39,266
+including this one.
+
+
+324
+00:10:40,586 --> 00:10:42,106
+All right, so we're all ready to
+
+
+325
+00:10:42,356 --> 00:10:43,486
+get started testing on the
+
+
+326
+00:10:43,486 --> 00:10:44,026
+device.
+
+
+327
+00:10:44,166 --> 00:10:45,846
+I'm going to manually initiate
+
+
+328
+00:10:45,846 --> 00:10:46,566
+an integration.
+
+
+329
+00:10:47,496 --> 00:10:49,436
+So, what's happening now is
+
+
+330
+00:10:49,436 --> 00:10:52,186
+Xcode Server is downloading the
+
+
+331
+00:10:52,186 --> 00:10:53,686
+project from the repository,
+
+
+332
+00:10:53,736 --> 00:10:56,036
+it's building the app, it's
+
+
+333
+00:10:56,106 --> 00:10:57,236
+creating a certificate,
+
+
+334
+00:10:57,236 --> 00:10:59,336
+registering my device, adding
+
+
+335
+00:10:59,336 --> 00:11:00,626
+that device to the profile,
+
+
+336
+00:11:00,626 --> 00:11:01,736
+downloading the profile, and
+
+
+337
+00:11:01,736 --> 00:11:03,896
+signing it also so that we can
+
+
+338
+00:11:03,896 --> 00:11:05,286
+run tests on the device.
+
+
+339
+00:11:05,906 --> 00:11:07,936
+And normally I would say don't
+
+
+340
+00:11:07,936 --> 00:11:09,026
+watch your bot it's not that
+
+
+341
+00:11:09,026 --> 00:11:10,386
+much fun, you can let this
+
+
+342
+00:11:10,386 --> 00:11:12,456
+automate itself in another room,
+
+
+343
+00:11:12,896 --> 00:11:15,216
+but after a certain amount of
+
+
+344
+00:11:15,216 --> 00:11:16,616
+bake time our cookies will be
+
+
+345
+00:11:16,616 --> 00:11:16,986
+done.
+
+
+346
+00:11:17,606 --> 00:11:22,396
+And there we go, all two of my
+
+
+347
+00:11:22,396 --> 00:11:24,176
+tests have passed, I'm in very
+
+
+348
+00:11:24,176 --> 00:11:24,636
+good shape.
+
+
+349
+00:11:31,136 --> 00:11:32,956
+So, you've just seen how you can
+
+
+350
+00:11:32,956 --> 00:11:35,426
+set up Xcode Server to
+
+
+351
+00:11:35,426 --> 00:11:36,566
+automatically perform
+
+
+352
+00:11:36,566 --> 00:11:37,856
+development signing so that you
+
+
+353
+00:11:37,856 --> 00:11:42,196
+can run tests on the device.
+
+
+354
+00:11:42,356 --> 00:11:45,286
+Now we really like automatic
+
+
+355
+00:11:45,286 --> 00:11:47,716
+signing, we don't want you to be
+
+
+356
+00:11:47,716 --> 00:11:49,386
+consumed with managing all of
+
+
+357
+00:11:49,386 --> 00:11:50,976
+these assets, we want to be
+
+
+358
+00:11:50,976 --> 00:11:52,286
+coding, we want you to be coding
+
+
+359
+00:11:52,286 --> 00:11:52,716
+as well.
+
+
+360
+00:11:53,766 --> 00:11:55,356
+Setting automatic signing I do
+
+
+361
+00:11:55,356 --> 00:11:56,996
+it, we suggest everyone do it.
+
+
+362
+00:11:58,246 --> 00:11:59,676
+However, we know that there are
+
+
+363
+00:11:59,676 --> 00:12:01,206
+certain situations in which you
+
+
+364
+00:12:01,206 --> 00:12:03,266
+may want to directly manipulate
+
+
+365
+00:12:03,266 --> 00:12:04,926
+your signing configuration and
+
+
+366
+00:12:04,926 --> 00:12:07,116
+for that we have manual signing
+
+
+367
+00:12:07,356 --> 00:12:08,846
+and now we've improved it.
+
+
+368
+00:12:10,276 --> 00:12:12,906
+We've added some improvements to
+
+
+369
+00:12:12,906 --> 00:12:14,936
+the certificate sheet in the
+
+
+370
+00:12:14,936 --> 00:12:16,056
+accounts preferences.
+
+
+371
+00:12:16,746 --> 00:12:18,886
+Now this sheet will tell you
+
+
+372
+00:12:19,026 --> 00:12:20,766
+what certificates you've created
+
+
+373
+00:12:21,566 --> 00:12:23,286
+on your Mac and other Macs that
+
+
+374
+00:12:23,286 --> 00:12:23,676
+you own.
+
+
+375
+00:12:24,196 --> 00:12:26,106
+That's the developer
+
+
+376
+00:12:26,106 --> 00:12:27,576
+certificates above and in the
+
+
+377
+00:12:27,576 --> 00:12:29,686
+section below you can see all of
+
+
+378
+00:12:29,686 --> 00:12:31,116
+the distribution certificates
+
+
+379
+00:12:31,116 --> 00:12:32,716
+that have been created by anyone
+
+
+380
+00:12:32,716 --> 00:12:34,606
+on your team, whether they're on
+
+
+381
+00:12:34,606 --> 00:12:35,476
+your machine or not.
+
+
+382
+00:12:35,846 --> 00:12:36,606
+And we've improved the
+
+
+383
+00:12:36,606 --> 00:12:38,356
+visibility here, now you can see
+
+
+384
+00:12:38,356 --> 00:12:40,946
+when a certificate is missing a
+
+
+385
+00:12:40,946 --> 00:12:42,546
+private key or it's been revoked
+
+
+386
+00:12:42,836 --> 00:12:44,306
+and we even include the creator
+
+
+387
+00:12:44,306 --> 00:12:45,936
+of the certificate and you can
+
+
+388
+00:12:45,936 --> 00:12:47,256
+email the creator of that
+
+
+389
+00:12:47,256 --> 00:12:48,726
+certificate right from the sheet
+
+
+390
+00:12:48,966 --> 00:12:50,016
+and asked them to share it with
+
+
+391
+00:12:50,056 --> 00:12:50,186
+you.
+
+
+392
+00:12:51,516 --> 00:12:56,576
+[ Applause ]
+
+
+393
+00:12:57,076 --> 00:12:57,866
+In the project editor when
+
+
+394
+00:12:57,866 --> 00:12:59,476
+you're using manual you select
+
+
+395
+00:12:59,476 --> 00:13:01,376
+the profile yourself and we've
+
+
+396
+00:13:01,376 --> 00:13:03,286
+added a new menu item download
+
+
+397
+00:13:03,286 --> 00:13:04,796
+profile it'll bring up a sheet
+
+
+398
+00:13:04,796 --> 00:13:05,636
+that looks like this.
+
+
+399
+00:13:06,196 --> 00:13:07,476
+And you can see on the left a
+
+
+400
+00:13:07,526 --> 00:13:09,906
+list of eligible profiles from
+
+
+401
+00:13:09,906 --> 00:13:11,456
+profiles that I've created on
+
+
+402
+00:13:11,456 --> 00:13:13,066
+the portal and these are
+
+
+403
+00:13:13,176 --> 00:13:14,596
+profiles that are eligible for
+
+
+404
+00:13:14,596 --> 00:13:15,266
+my target.
+
+
+405
+00:13:15,876 --> 00:13:17,026
+When I've selected one you can
+
+
+406
+00:13:17,026 --> 00:13:18,946
+see a detailed view of that
+
+
+407
+00:13:18,946 --> 00:13:20,706
+profile and see how it compares
+
+
+408
+00:13:20,706 --> 00:13:22,556
+with your target, whether the
+
+
+409
+00:13:22,556 --> 00:13:24,436
+capabilities match, even if the
+
+
+410
+00:13:24,436 --> 00:13:25,776
+device is connected you can see
+
+
+411
+00:13:25,776 --> 00:13:26,616
+if that device is in the
+
+
+412
+00:13:26,616 --> 00:13:27,216
+profile.
+
+
+413
+00:13:27,526 --> 00:13:28,906
+This is a major improvement for
+
+
+414
+00:13:28,906 --> 00:13:30,956
+finding the right profile before
+
+
+415
+00:13:30,956 --> 00:13:32,176
+you select it and try to sign
+
+
+416
+00:13:32,226 --> 00:13:32,726
+with it.
+
+
+417
+00:13:32,896 --> 00:13:34,736
+And if you have a profile
+
+
+418
+00:13:34,736 --> 00:13:37,376
+selected already, but it's not
+
+
+419
+00:13:37,376 --> 00:13:38,346
+installed locally on your
+
+
+420
+00:13:38,346 --> 00:13:40,056
+machine Xcode will offer to
+
+
+421
+00:13:40,056 --> 00:13:42,466
+download that profile for you if
+
+
+422
+00:13:42,616 --> 00:13:43,756
+we know it will work.
+
+
+423
+00:13:44,286 --> 00:13:45,446
+Now we know that you're still in
+
+
+424
+00:13:45,446 --> 00:13:46,706
+manual, we're not interested in
+
+
+425
+00:13:46,706 --> 00:13:47,876
+touching your project state or
+
+
+426
+00:13:47,876 --> 00:13:48,886
+your portal state, we're very
+
+
+427
+00:13:48,886 --> 00:13:50,156
+clear about this distinction,
+
+
+428
+00:13:50,156 --> 00:13:51,506
+this is really just a
+
+
+429
+00:13:51,506 --> 00:13:52,096
+convenience.
+
+
+430
+00:13:52,846 --> 00:13:55,836
+And of course, in Xcode Server
+
+
+431
+00:13:55,836 --> 00:13:57,256
+we also have manual support.
+
+
+432
+00:13:58,206 --> 00:13:59,486
+Under the signing tab you'll see
+
+
+433
+00:13:59,486 --> 00:14:00,866
+a tab that's like this, the
+
+
+434
+00:14:00,866 --> 00:14:02,426
+certificates and profiles tab,
+
+
+435
+00:14:02,426 --> 00:14:03,666
+where you can see a list of the
+
+
+436
+00:14:03,666 --> 00:14:05,756
+certificates and profiles
+
+
+437
+00:14:05,756 --> 00:14:07,726
+installed on your local machine
+
+
+438
+00:14:07,876 --> 00:14:09,256
+that you can send over to your
+
+
+439
+00:14:09,256 --> 00:14:10,526
+server to perform manual
+
+
+440
+00:14:10,526 --> 00:14:10,886
+signing.
+
+
+441
+00:14:11,246 --> 00:14:14,716
+So, when you are using manual
+
+
+442
+00:14:14,716 --> 00:14:16,226
+signing we recommend using the
+
+
+443
+00:14:16,226 --> 00:14:18,326
+general tab to make any changes
+
+
+444
+00:14:18,326 --> 00:14:19,356
+to your signing setup.
+
+
+445
+00:14:20,166 --> 00:14:23,276
+However, if you have automation
+
+
+446
+00:14:23,436 --> 00:14:25,816
+or at you just don't want to use
+
+
+447
+00:14:25,816 --> 00:14:28,786
+the UI, we have build settings
+
+
+448
+00:14:28,866 --> 00:14:30,066
+for extra flexibility.
+
+
+449
+00:14:30,396 --> 00:14:32,136
+In Xcode 8 we introduced
+
+
+450
+00:14:32,486 --> 00:14:34,296
+Development Team that's to set
+
+
+451
+00:14:34,296 --> 00:14:35,296
+the team identifier.
+
+
+452
+00:14:36,606 --> 00:14:38,496
+Provisioning Profile Specifier
+
+
+453
+00:14:38,846 --> 00:14:40,366
+to set the profile by name.
+
+
+454
+00:14:41,366 --> 00:14:43,836
+And Code Sign Identity to set
+
+
+455
+00:14:44,036 --> 00:14:44,766
+the certificate.
+
+
+456
+00:14:46,346 --> 00:14:48,666
+And in Xcode 9 we're introducing
+
+
+457
+00:14:48,666 --> 00:14:51,736
+a new build setting Code Sign
+
+
+458
+00:14:51,736 --> 00:14:52,146
+Style.
+
+
+459
+00:14:53,286 --> 00:14:55,256
+You can use Code Sign Style to
+
+
+460
+00:14:55,256 --> 00:14:58,186
+set the style to automatic or
+
+
+461
+00:14:58,186 --> 00:15:00,566
+manual at the target or build
+
+
+462
+00:15:00,566 --> 00:15:01,606
+configuration level.
+
+
+463
+00:15:02,916 --> 00:15:04,126
+We think that this is exciting,
+
+
+464
+00:15:04,126 --> 00:15:06,096
+but it's for advanced use cases.
+
+
+465
+00:15:06,146 --> 00:15:08,046
+For most cases, you should be
+
+
+466
+00:15:08,046 --> 00:15:09,776
+able to set your entire target,
+
+
+467
+00:15:09,776 --> 00:15:11,326
+keep it set to automatic.
+
+
+468
+00:15:13,206 --> 00:15:15,406
+Well you've seen just about all
+
+
+469
+00:15:15,406 --> 00:15:16,396
+there is for development
+
+
+470
+00:15:16,396 --> 00:15:16,836
+signing.
+
+
+471
+00:15:17,456 --> 00:15:18,426
+We've made a lot of great
+
+
+472
+00:15:18,426 --> 00:15:20,116
+improvements to distribution and
+
+
+473
+00:15:20,116 --> 00:15:21,146
+distribution signing.
+
+
+474
+00:15:21,696 --> 00:15:23,036
+For more on that please give a
+
+
+475
+00:15:23,036 --> 00:15:25,066
+warm welcome to my friend, Itai
+
+
+476
+00:15:25,656 --> 00:15:25,976
+Rom.
+
+
+477
+00:15:26,516 --> 00:15:33,566
+[ Applause ]
+
+
+478
+00:15:34,066 --> 00:15:35,166
+>> Thank you Chris, good
+
+
+479
+00:15:35,166 --> 00:15:36,016
+afternoon everyone.
+
+
+480
+00:15:36,866 --> 00:15:38,046
+So, Chris just showed you all
+
+
+481
+00:15:38,046 --> 00:15:39,616
+the improvements we've made when
+
+
+482
+00:15:39,616 --> 00:15:40,726
+your development signing your
+
+
+483
+00:15:40,726 --> 00:15:40,956
+app.
+
+
+484
+00:15:41,376 --> 00:15:42,676
+I'd like to change gears a bit
+
+
+485
+00:15:42,676 --> 00:15:44,546
+and talk about distribution.
+
+
+486
+00:15:45,466 --> 00:15:46,746
+Now when you're ready to share
+
+
+487
+00:15:46,746 --> 00:15:48,196
+your app with others the first
+
+
+488
+00:15:48,196 --> 00:15:49,636
+thing you need to do is build an
+
+
+489
+00:15:49,636 --> 00:15:50,156
+archive.
+
+
+490
+00:15:51,496 --> 00:15:53,296
+An archive is a special release
+
+
+491
+00:15:53,346 --> 00:15:55,316
+build of your application and we
+
+
+492
+00:15:55,316 --> 00:15:56,576
+recommend development signing
+
+
+493
+00:15:56,576 --> 00:15:56,756
+it.
+
+
+494
+00:15:57,066 --> 00:15:58,236
+In fact, that's the default
+
+
+495
+00:15:58,236 --> 00:15:58,576
+setting.
+
+
+496
+00:15:58,576 --> 00:16:00,926
+Now the reason that we recommend
+
+
+497
+00:16:00,926 --> 00:16:02,026
+that this is so that any
+
+
+498
+00:16:02,026 --> 00:16:03,606
+developer on your team can
+
+
+499
+00:16:03,606 --> 00:16:04,826
+easily build an archive and
+
+
+500
+00:16:04,826 --> 00:16:06,256
+share it with others without
+
+
+501
+00:16:06,256 --> 00:16:07,946
+needing access to any special
+
+
+502
+00:16:08,176 --> 00:16:09,026
+distribution signing
+
+
+503
+00:16:09,026 --> 00:16:09,696
+certificates.
+
+
+504
+00:16:10,656 --> 00:16:13,276
+The archive contains both the
+
+
+505
+00:16:13,276 --> 00:16:14,836
+machine code and bitcode of your
+
+
+506
+00:16:14,836 --> 00:16:16,266
+app, as well as your debugging
+
+
+507
+00:16:16,266 --> 00:16:18,776
+symbols all bundled up together.
+
+
+508
+00:16:18,846 --> 00:16:20,166
+And once you've built one of
+
+
+509
+00:16:20,166 --> 00:16:22,026
+these you can use Xcode's
+
+
+510
+00:16:22,026 --> 00:16:23,766
+organizer window to generate an
+
+
+511
+00:16:23,856 --> 00:16:25,306
+IPA and upload it to the App
+
+
+512
+00:16:25,306 --> 00:16:25,616
+Store.
+
+
+513
+00:16:27,006 --> 00:16:29,226
+When you generate that IPA Xcode
+
+
+514
+00:16:29,226 --> 00:16:30,846
+will distribution sign your app
+
+
+515
+00:16:31,356 --> 00:16:32,396
+according to App Store
+
+
+516
+00:16:32,396 --> 00:16:33,056
+requirements.
+
+
+517
+00:16:33,426 --> 00:16:35,036
+So, this is the other part of
+
+
+518
+00:16:35,036 --> 00:16:36,166
+why you can develop sign your
+
+
+519
+00:16:36,166 --> 00:16:37,526
+archives because Xcode will
+
+
+520
+00:16:37,526 --> 00:16:38,916
+resign your app when you
+
+
+521
+00:16:38,916 --> 00:16:39,786
+distribute it.
+
+
+522
+00:16:40,526 --> 00:16:42,016
+In fact, you can distribute your
+
+
+523
+00:16:42,016 --> 00:16:43,386
+archive in a variety of ways.
+
+
+524
+00:16:44,056 --> 00:16:45,976
+You can ad hoc distribution sign
+
+
+525
+00:16:45,976 --> 00:16:47,676
+it if you want to share the app
+
+
+526
+00:16:47,676 --> 00:16:48,996
+with other people on your team
+
+
+527
+00:16:48,996 --> 00:16:51,026
+or your QA engineers or if
+
+
+528
+00:16:51,026 --> 00:16:51,646
+you're a member of the
+
+
+529
+00:16:51,646 --> 00:16:53,676
+Enterprise Developer Program you
+
+
+530
+00:16:53,676 --> 00:16:55,796
+can enterprise sign it and share
+
+
+531
+00:16:55,796 --> 00:16:57,596
+the app with other employees in
+
+
+532
+00:16:58,246 --> 00:16:59,446
+your company.
+
+
+533
+00:16:59,486 --> 00:17:00,506
+Now, in addition to the
+
+
+534
+00:17:00,506 --> 00:17:02,066
+distribution method there are a
+
+
+535
+00:17:02,066 --> 00:17:03,276
+lot of other choices you need to
+
+
+536
+00:17:03,276 --> 00:17:04,336
+make when you distribute your
+
+
+537
+00:17:05,306 --> 00:17:05,396
+app.
+
+
+538
+00:17:05,476 --> 00:17:06,455
+You need to choose how you want
+
+
+539
+00:17:06,455 --> 00:17:07,796
+to sign it, which profiles to
+
+
+540
+00:17:07,796 --> 00:17:08,935
+use, which entitlements it
+
+
+541
+00:17:08,935 --> 00:17:09,226
+needs.
+
+
+542
+00:17:09,856 --> 00:17:11,656
+If you're using bitcode, app
+
+
+543
+00:17:11,656 --> 00:17:13,776
+thinning or on demand resources
+
+
+544
+00:17:14,086 --> 00:17:15,236
+then you also need to decide how
+
+
+545
+00:17:15,236 --> 00:17:16,086
+you want to handle those
+
+
+546
+00:17:16,086 --> 00:17:16,556
+features.
+
+
+547
+00:17:16,796 --> 00:17:17,746
+And if you're uploading to the
+
+
+548
+00:17:17,746 --> 00:17:18,846
+App Store then you need to
+
+
+549
+00:17:18,846 --> 00:17:19,756
+decide whether you want to
+
+
+550
+00:17:19,756 --> 00:17:20,786
+include symbols or not.
+
+
+551
+00:17:21,955 --> 00:17:23,445
+So, this can get quite complex.
+
+
+552
+00:17:24,756 --> 00:17:26,086
+I'm pleased to announce that in
+
+
+553
+00:17:26,086 --> 00:17:27,366
+Xcode 9 we've made some major
+
+
+554
+00:17:27,366 --> 00:17:28,756
+improvements to the distribution
+
+
+555
+00:17:28,756 --> 00:17:29,916
+workflow that will make it
+
+
+556
+00:17:29,916 --> 00:17:31,456
+easier than ever before to share
+
+
+557
+00:17:31,456 --> 00:17:33,536
+your apps with others while also
+
+
+558
+00:17:33,536 --> 00:17:34,716
+giving you more power and
+
+
+559
+00:17:34,716 --> 00:17:35,916
+control over the process.
+
+
+560
+00:17:36,686 --> 00:17:38,126
+Now the first thing we've added
+
+
+561
+00:17:38,456 --> 00:17:39,556
+is automatic signing.
+
+
+562
+00:17:40,166 --> 00:17:43,066
+This works just like during
+
+
+563
+00:17:43,066 --> 00:17:44,606
+development, so Xcode will take
+
+
+564
+00:17:44,606 --> 00:17:45,826
+care of all the distribution
+
+
+565
+00:17:45,826 --> 00:17:47,876
+signing details for you and you
+
+
+566
+00:17:47,876 --> 00:17:49,206
+can focus on other tasks.
+
+
+567
+00:17:49,866 --> 00:17:51,616
+In addition to automatic signing
+
+
+568
+00:17:52,576 --> 00:17:53,636
+for those of you who want full
+
+
+569
+00:17:53,636 --> 00:17:55,266
+control we've added manual
+
+
+570
+00:17:55,266 --> 00:17:56,466
+signing to the distribution
+
+
+571
+00:17:56,466 --> 00:17:56,876
+workflow.
+
+
+572
+00:17:57,666 --> 00:17:59,226
+So now you can create your own
+
+
+573
+00:17:59,226 --> 00:18:00,626
+distribution profiles and tell
+
+
+574
+00:18:00,626 --> 00:18:02,316
+Xcode which ones to use, but
+
+
+575
+00:18:02,316 --> 00:18:03,506
+Xcode will never create or
+
+
+576
+00:18:03,506 --> 00:18:05,246
+modify any of those profiles.
+
+
+577
+00:18:06,416 --> 00:18:09,596
+In addition to automatic and
+
+
+578
+00:18:09,596 --> 00:18:10,606
+manual resigning we've made a
+
+
+579
+00:18:10,606 --> 00:18:11,776
+lot of other improvements.
+
+
+580
+00:18:12,136 --> 00:18:12,996
+We've streamlined the
+
+
+581
+00:18:12,996 --> 00:18:14,016
+distribution workflow.
+
+
+582
+00:18:14,336 --> 00:18:16,246
+So, for example Xcode won't ask
+
+
+583
+00:18:16,246 --> 00:18:17,276
+you which Development Team you
+
+
+584
+00:18:17,276 --> 00:18:18,766
+want to use anymore because it
+
+
+585
+00:18:18,766 --> 00:18:19,766
+already knows the answer.
+
+
+586
+00:18:21,516 --> 00:18:25,936
+[ Applause ]
+
+
+587
+00:18:26,436 --> 00:18:27,286
+We've also improved the
+
+
+588
+00:18:27,286 --> 00:18:29,466
+visibility of errors, so now
+
+
+589
+00:18:29,466 --> 00:18:30,756
+it's easier to tell what went
+
+
+590
+00:18:30,756 --> 00:18:31,716
+wrong when you run into a
+
+
+591
+00:18:31,716 --> 00:18:32,946
+problem and what you need to do
+
+
+592
+00:18:32,946 --> 00:18:34,206
+to resolve it.
+
+
+593
+00:18:35,556 --> 00:18:36,646
+We've enhanced export
+
+
+594
+00:18:36,646 --> 00:18:39,536
+functionality, so now in Xcode 9
+
+
+595
+00:18:39,536 --> 00:18:41,086
+once you've uploaded your app to
+
+
+596
+00:18:41,086 --> 00:18:42,786
+the App Store you can save a
+
+
+597
+00:18:42,786 --> 00:18:44,226
+copy of your IPA in case you
+
+
+598
+00:18:44,226 --> 00:18:45,496
+need to refer back to it later
+
+
+599
+00:18:45,496 --> 00:18:45,706
+on.
+
+
+600
+00:18:46,846 --> 00:18:48,966
+And finally, we've enhanced the
+
+
+601
+00:18:48,966 --> 00:18:49,966
+command line support in
+
+
+602
+00:18:49,966 --> 00:18:51,446
+Xcodebuild so that you can take
+
+
+603
+00:18:51,446 --> 00:18:52,566
+advantage of all these new
+
+
+604
+00:18:52,566 --> 00:18:54,326
+features in your automation.
+
+
+605
+00:18:54,906 --> 00:18:57,276
+Let's dive into automatic
+
+
+606
+00:18:57,276 --> 00:18:58,206
+signing a little bit more.
+
+
+607
+00:18:58,946 --> 00:19:00,696
+This works just like development
+
+
+608
+00:19:00,696 --> 00:19:02,736
+signing, Xcode will create
+
+
+609
+00:19:02,736 --> 00:19:04,446
+Xcode-managed distribution
+
+
+610
+00:19:04,446 --> 00:19:04,976
+profiles.
+
+
+611
+00:19:05,296 --> 00:19:06,256
+These are profiles that are
+
+
+612
+00:19:06,256 --> 00:19:08,076
+completely under Xcode's control
+
+
+613
+00:19:08,116 --> 00:19:10,596
+and they're the only profiles
+
+
+614
+00:19:10,596 --> 00:19:11,666
+that Xcode will use for
+
+
+615
+00:19:11,666 --> 00:19:13,056
+automatic distribution signing.
+
+
+616
+00:19:13,436 --> 00:19:14,916
+It will never touch or use any
+
+
+617
+00:19:14,916 --> 00:19:16,416
+of your manually made profiles.
+
+
+618
+00:19:17,846 --> 00:19:19,076
+In addition, Xcode will make it
+
+
+619
+00:19:19,076 --> 00:19:20,236
+easy to create and share your
+
+
+620
+00:19:20,236 --> 00:19:21,286
+distribution certificates.
+
+
+621
+00:19:21,736 --> 00:19:22,616
+These are different from
+
+
+622
+00:19:22,616 --> 00:19:23,946
+development certificates because
+
+
+623
+00:19:23,946 --> 00:19:25,776
+their team owned signing assets.
+
+
+624
+00:19:26,116 --> 00:19:27,146
+So, it's really important that
+
+
+625
+00:19:27,146 --> 00:19:28,386
+you know when you've created one
+
+
+626
+00:19:28,666 --> 00:19:30,356
+and you save it so that you can
+
+
+627
+00:19:30,356 --> 00:19:31,646
+reinstall it later or share it
+
+
+628
+00:19:31,646 --> 00:19:32,226
+with others.
+
+
+629
+00:19:32,926 --> 00:19:34,776
+And finally, last but not least,
+
+
+630
+00:19:35,246 --> 00:19:36,626
+for those of you with carefully
+
+
+631
+00:19:36,626 --> 00:19:38,776
+crafted signing setups in Xcode
+
+
+632
+00:19:38,776 --> 00:19:40,406
+9 Xcode will never offer to
+
+
+633
+00:19:40,406 --> 00:19:41,356
+revoke a distribution
+
+
+634
+00:19:41,356 --> 00:19:41,896
+certificate.
+
+
+635
+00:19:42,516 --> 00:19:45,546
+[ Applause ]
+
+
+636
+00:19:46,046 --> 00:19:47,086
+Yes, we're all very happy about
+
+
+637
+00:19:47,086 --> 00:19:47,446
+that one.
+
+
+638
+00:19:47,896 --> 00:19:48,656
+So, you don't have to worry
+
+
+639
+00:19:48,656 --> 00:19:50,126
+about any enterprising member of
+
+
+640
+00:19:50,126 --> 00:19:51,816
+your team ruining your carefully
+
+
+641
+00:19:51,816 --> 00:19:53,176
+crafted setup through Xcode
+
+
+642
+00:19:53,176 --> 00:19:53,506
+anymore.
+
+
+643
+00:19:54,616 --> 00:19:56,786
+So, here's an example of
+
+
+644
+00:19:56,786 --> 00:19:57,976
+improved error presentation.
+
+
+645
+00:19:58,046 --> 00:19:59,946
+This is a common and potentially
+
+
+646
+00:19:59,946 --> 00:20:01,826
+confusing situation, someone on
+
+
+647
+00:20:01,826 --> 00:20:03,126
+your team has already created
+
+
+648
+00:20:03,126 --> 00:20:04,366
+the distribution certificate,
+
+
+649
+00:20:04,676 --> 00:20:05,536
+but you don't have that
+
+
+650
+00:20:05,536 --> 00:20:07,876
+certificate or more likely you
+
+
+651
+00:20:07,876 --> 00:20:08,976
+don't have its private key.
+
+
+652
+00:20:09,676 --> 00:20:11,106
+Well now Xcode 9 tells you
+
+
+653
+00:20:11,106 --> 00:20:12,266
+exactly who created those
+
+
+654
+00:20:12,266 --> 00:20:13,866
+certificates, makes it really
+
+
+655
+00:20:13,866 --> 00:20:15,626
+easy to contact them so you can
+
+
+656
+00:20:15,626 --> 00:20:16,816
+get the information you need to
+
+
+657
+00:20:16,816 --> 00:20:17,716
+finish the workflow.
+
+
+658
+00:20:18,796 --> 00:20:19,906
+Now that's just one example,
+
+
+659
+00:20:19,906 --> 00:20:21,006
+there are many others throughout
+
+
+660
+00:20:21,006 --> 00:20:22,396
+the distribution workflow of
+
+
+661
+00:20:22,396 --> 00:20:23,356
+improved errors.
+
+
+662
+00:20:25,356 --> 00:20:26,446
+The enhanced export
+
+
+663
+00:20:26,446 --> 00:20:27,066
+functionality.
+
+
+664
+00:20:27,806 --> 00:20:29,686
+So, as I mentioned earlier, now
+
+
+665
+00:20:29,686 --> 00:20:31,216
+it's easy to save aside a copy
+
+
+666
+00:20:31,216 --> 00:20:32,276
+of your IPA after you've
+
+
+667
+00:20:32,276 --> 00:20:33,886
+uploaded it to the App Store,
+
+
+668
+00:20:34,166 --> 00:20:35,096
+but you get more than that.
+
+
+669
+00:20:35,726 --> 00:20:36,396
+We also give you a
+
+
+670
+00:20:36,396 --> 00:20:37,816
+DistributionSummary.plist so
+
+
+671
+00:20:37,816 --> 00:20:39,436
+just like a receipt, it shows
+
+
+672
+00:20:39,436 --> 00:20:41,096
+you all the content in your IPA,
+
+
+673
+00:20:41,266 --> 00:20:42,806
+how Xcode resigned it, which
+
+
+674
+00:20:42,806 --> 00:20:44,806
+entitlements it has and so on.
+
+
+675
+00:20:45,706 --> 00:20:47,006
+You also get a Packaging.log
+
+
+676
+00:20:47,006 --> 00:20:48,586
+which is like a Build.log, it
+
+
+677
+00:20:48,586 --> 00:20:50,396
+shows you step-by-step all the
+
+
+678
+00:20:50,396 --> 00:20:52,296
+commands that Xcode issued when
+
+
+679
+00:20:52,296 --> 00:20:54,356
+it transformed your archive into
+
+
+680
+00:20:54,356 --> 00:20:57,836
+an IPA and you get an
+
+
+681
+00:20:57,836 --> 00:20:59,156
+ExportOptions.plist.
+
+
+682
+00:20:59,956 --> 00:21:02,106
+So, this last one is kind of
+
+
+683
+00:21:02,106 --> 00:21:02,606
+interesting.
+
+
+684
+00:21:03,186 --> 00:21:04,976
+An ExportOptions.plist is like a
+
+
+685
+00:21:04,976 --> 00:21:06,706
+recipe, it describes how you
+
+
+686
+00:21:06,706 --> 00:21:08,236
+want to transform your archive
+
+
+687
+00:21:08,556 --> 00:21:09,786
+into an IPA.
+
+
+688
+00:21:10,106 --> 00:21:12,176
+And when you want to automate
+
+
+689
+00:21:12,176 --> 00:21:13,736
+the process of generating IPAs
+
+
+690
+00:21:13,736 --> 00:21:15,136
+what you do is you invoke
+
+
+691
+00:21:15,136 --> 00:21:16,496
+Xcodebuild and give it one of
+
+
+692
+00:21:16,496 --> 00:21:17,996
+these ExportOptions.plists.
+
+
+693
+00:21:18,506 --> 00:21:20,096
+Now in Xcode 9 it's really easy
+
+
+694
+00:21:20,096 --> 00:21:21,436
+to create these because the
+
+
+695
+00:21:21,436 --> 00:21:22,766
+distribution workflow will
+
+
+696
+00:21:22,766 --> 00:21:24,236
+generate one for you so you
+
+
+697
+00:21:24,236 --> 00:21:25,436
+don't need to manually edit
+
+
+698
+00:21:25,436 --> 00:21:26,426
+these plists anymore.
+
+
+699
+00:21:27,706 --> 00:21:28,686
+Here's an example of what one
+
+
+700
+00:21:28,686 --> 00:21:29,166
+looks like.
+
+
+701
+00:21:29,856 --> 00:21:30,946
+This is a really simple
+
+
+702
+00:21:30,946 --> 00:21:32,326
+ExportOptions.plist, as you can
+
+
+703
+00:21:32,326 --> 00:21:34,386
+see I've set up automatic
+
+
+704
+00:21:34,386 --> 00:21:36,096
+signing and I'm exporting for
+
+
+705
+00:21:36,096 --> 00:21:36,736
+the App Store.
+
+
+706
+00:21:37,696 --> 00:21:38,906
+And this last key in their
+
+
+707
+00:21:38,906 --> 00:21:40,086
+upload symbols I actually don't
+
+
+708
+00:21:40,086 --> 00:21:41,016
+even need to include that
+
+
+709
+00:21:41,016 --> 00:21:42,296
+because it defaults to yes.
+
+
+710
+00:21:42,846 --> 00:21:44,186
+Now there are a lot of options
+
+
+711
+00:21:44,296 --> 00:21:45,546
+that you can specify in these
+
+
+712
+00:21:45,546 --> 00:21:47,106
+files, you can invoke
+
+
+713
+00:21:47,106 --> 00:21:49,636
+Xcodebuild-help in terminal to
+
+
+714
+00:21:49,636 --> 00:21:50,626
+see everything that you can
+
+
+715
+00:21:50,626 --> 00:21:51,186
+include in an
+
+
+716
+00:21:51,186 --> 00:21:52,166
+ExportOptions.plist.
+
+
+717
+00:21:52,486 --> 00:21:53,526
+But most of the options have
+
+
+718
+00:21:53,526 --> 00:21:54,496
+sensible defaults.
+
+
+719
+00:21:55,716 --> 00:21:57,056
+When you're ready to use this,
+
+
+720
+00:21:57,056 --> 00:21:57,996
+all you do is invoke
+
+
+721
+00:21:57,996 --> 00:22:00,516
+Xcodebuild-exportArchive, pass
+
+
+722
+00:22:00,556 --> 00:22:01,646
+the path to your archive and the
+
+
+723
+00:22:01,676 --> 00:22:03,396
+path to your ExportOptions.plist
+
+
+724
+00:22:03,956 --> 00:22:05,426
+and Xcodebuild will generate an
+
+
+725
+00:22:05,596 --> 00:22:06,246
+IPA for you.
+
+
+726
+00:22:06,886 --> 00:22:09,096
+Now there's one other thing, as
+
+
+727
+00:22:09,096 --> 00:22:10,056
+you'll recall from Chris'
+
+
+728
+00:22:10,056 --> 00:22:12,106
+section, we've added a new flag
+
+
+729
+00:22:12,106 --> 00:22:13,146
+to Xcodebuild called
+
+
+730
+00:22:13,146 --> 00:22:14,996
+allowProvisioningUpdates and you
+
+
+731
+00:22:14,996 --> 00:22:16,586
+can use that here as well, so
+
+
+732
+00:22:16,586 --> 00:22:17,576
+that Xcodebuild will
+
+
+733
+00:22:17,576 --> 00:22:18,776
+automatically generate
+
+
+734
+00:22:19,046 --> 00:22:20,156
+distribution provisioning
+
+
+735
+00:22:20,156 --> 00:22:20,986
+profiles for you.
+
+
+736
+00:22:21,376 --> 00:22:22,586
+Anything that's necessary in
+
+
+737
+00:22:22,586 --> 00:22:24,636
+order to generate your IPA.
+
+
+738
+00:22:25,276 --> 00:22:26,786
+So, let's take a look at the new
+
+
+739
+00:22:26,786 --> 00:22:27,946
+distribution workflow in action.
+
+
+740
+00:22:36,056 --> 00:22:37,186
+Okay, so here's our chocolate
+
+
+741
+00:22:37,186 --> 00:22:38,056
+chip app which we've been
+
+
+742
+00:22:38,056 --> 00:22:40,166
+working on for a while and as
+
+
+743
+00:22:40,166 --> 00:22:41,386
+you can see, our extensive
+
+
+744
+00:22:41,386 --> 00:22:43,016
+two-test suite is passing so now
+
+
+745
+00:22:43,016 --> 00:22:44,036
+we're ready to upload it to the
+
+
+746
+00:22:44,036 --> 00:22:44,506
+App Store.
+
+
+747
+00:22:45,286 --> 00:22:46,576
+I'm going to start that off by
+
+
+748
+00:22:46,576 --> 00:22:48,896
+clicking product and creating an
+
+
+749
+00:22:48,896 --> 00:22:49,406
+archive.
+
+
+750
+00:22:50,076 --> 00:22:51,766
+And Xcode is going to do that
+
+
+751
+00:22:51,766 --> 00:22:53,566
+release build on my app, bundle
+
+
+752
+00:22:53,566 --> 00:22:55,386
+it all up and then show me the
+
+
+753
+00:22:55,386 --> 00:22:57,046
+archive once it's completed in
+
+
+754
+00:22:57,046 --> 00:22:57,946
+the organizer window.
+
+
+755
+00:22:59,026 --> 00:23:01,126
+From here I can easily upload it
+
+
+756
+00:23:01,126 --> 00:23:02,286
+to the App Store by clicking
+
+
+757
+00:23:02,286 --> 00:23:05,046
+this very shiny enticing blue
+
+
+758
+00:23:05,046 --> 00:23:05,406
+button.
+
+
+759
+00:23:06,426 --> 00:23:07,446
+And when I click that the
+
+
+760
+00:23:07,446 --> 00:23:08,716
+distribution workflow will drop
+
+
+761
+00:23:08,716 --> 00:23:09,046
+down.
+
+
+762
+00:23:09,966 --> 00:23:11,686
+Now Xcode is going to start by
+
+
+763
+00:23:11,686 --> 00:23:13,046
+analyzing some of the content in
+
+
+764
+00:23:13,046 --> 00:23:14,826
+my archive and that includes how
+
+
+765
+00:23:14,826 --> 00:23:16,426
+my app was signed, so that's how
+
+
+766
+00:23:16,516 --> 00:23:17,906
+Xcode knows which Development
+
+
+767
+00:23:17,906 --> 00:23:19,846
+Team I'm using it just reads the
+
+
+768
+00:23:19,846 --> 00:23:21,256
+signature of my archived app.
+
+
+769
+00:23:22,356 --> 00:23:23,866
+It also determines which options
+
+
+770
+00:23:23,906 --> 00:23:25,336
+to show me on the next screen.
+
+
+771
+00:23:26,066 --> 00:23:27,416
+This content is going to vary
+
+
+772
+00:23:27,416 --> 00:23:28,906
+depending on what's in your
+
+
+773
+00:23:28,906 --> 00:23:30,266
+archive, as well as the
+
+
+774
+00:23:30,266 --> 00:23:31,656
+distribution method you choose.
+
+
+775
+00:23:32,056 --> 00:23:33,356
+So, if I had chosen ad hoc
+
+
+776
+00:23:33,396 --> 00:23:35,466
+distribution then I'd see some
+
+
+777
+00:23:35,466 --> 00:23:36,356
+different options in here.
+
+
+778
+00:23:37,476 --> 00:23:38,506
+So, in this case I have a
+
+
+779
+00:23:38,506 --> 00:23:40,106
+bitcode option because my app
+
+
+780
+00:23:40,106 --> 00:23:42,456
+contains bitcode, I also have a
+
+
+781
+00:23:42,456 --> 00:23:45,776
+new Strip Swift Symbols option.
+
+
+782
+00:23:46,876 --> 00:23:48,446
+What this is going to do is it
+
+
+783
+00:23:48,446 --> 00:23:50,326
+allows the App Store to strip
+
+
+784
+00:23:50,666 --> 00:23:52,126
+Swift symbols from the Swift
+
+
+785
+00:23:52,126 --> 00:23:54,316
+standard libraries in my app and
+
+
+786
+00:23:54,316 --> 00:23:55,466
+that's going to greatly reduce
+
+
+787
+00:23:55,466 --> 00:23:56,966
+the download size of my app for
+
+
+788
+00:23:56,966 --> 00:23:58,206
+my customers, so I'm going to
+
+
+789
+00:23:58,206 --> 00:23:58,886
+leave that on.
+
+
+790
+00:24:00,006 --> 00:24:01,376
+I also have the option to upload
+
+
+791
+00:24:01,376 --> 00:24:03,266
+symbols which will allow me to
+
+
+792
+00:24:03,266 --> 00:24:04,566
+receive symbolicated crash
+
+
+793
+00:24:04,566 --> 00:24:05,686
+reports from Apple, so I'll
+
+
+794
+00:24:05,686 --> 00:24:07,326
+leave that on as well and click
+
+
+795
+00:24:07,326 --> 00:24:07,676
+Next.
+
+
+796
+00:24:08,776 --> 00:24:09,996
+The next step is where I can
+
+
+797
+00:24:09,996 --> 00:24:11,246
+choose how I want to resign my
+
+
+798
+00:24:11,246 --> 00:24:11,396
+app.
+
+
+799
+00:24:11,396 --> 00:24:13,036
+I'll talk a little bit more
+
+
+800
+00:24:13,036 --> 00:24:15,196
+about manual signing later for
+
+
+801
+00:24:15,196 --> 00:24:16,356
+now, we'll stick to automatic.
+
+
+802
+00:24:17,476 --> 00:24:18,656
+And Xcode is going to start
+
+
+803
+00:24:18,656 --> 00:24:20,056
+talking to the developer website
+
+
+804
+00:24:20,306 --> 00:24:22,576
+and figuring out how to resign
+
+
+805
+00:24:22,576 --> 00:24:22,956
+my app.
+
+
+806
+00:24:23,556 --> 00:24:24,916
+The first thing it looks for is
+
+
+807
+00:24:24,916 --> 00:24:25,896
+a distribution signing
+
+
+808
+00:24:25,896 --> 00:24:26,466
+certificate.
+
+
+809
+00:24:27,096 --> 00:24:28,396
+Now in this case, my team hasn't
+
+
+810
+00:24:28,396 --> 00:24:30,406
+actually created one yet, so
+
+
+811
+00:24:30,406 --> 00:24:32,316
+Xcode tells me about that and
+
+
+812
+00:24:32,316 --> 00:24:33,726
+asks me if I want to create one.
+
+
+813
+00:24:34,446 --> 00:24:35,816
+So now Xcode won't just create
+
+
+814
+00:24:35,816 --> 00:24:37,066
+one behind my back I'm fully
+
+
+815
+00:24:37,066 --> 00:24:38,226
+aware that I'll have a
+
+
+816
+00:24:38,226 --> 00:24:40,136
+distribution certificate and all
+
+
+817
+00:24:40,136 --> 00:24:41,256
+I need to do is give Xcode
+
+
+818
+00:24:41,256 --> 00:24:42,956
+permission and click Next and
+
+
+819
+00:24:42,956 --> 00:24:44,786
+Xcode will generate it.
+
+
+820
+00:24:44,786 --> 00:24:46,956
+After that Xcode will ask me if
+
+
+821
+00:24:46,956 --> 00:24:48,456
+I want to export my certificate.
+
+
+822
+00:24:48,836 --> 00:24:49,916
+Like I said earlier, this is
+
+
+823
+00:24:49,916 --> 00:24:51,016
+really important because these
+
+
+824
+00:24:51,016 --> 00:24:53,316
+are team owned assets and there
+
+
+825
+00:24:53,316 --> 00:24:54,626
+might be other people on my team
+
+
+826
+00:24:54,626 --> 00:24:55,846
+who need to also distribution
+
+
+827
+00:24:55,846 --> 00:24:57,396
+sign or I might need to
+
+
+828
+00:24:57,396 --> 00:24:58,786
+reinstall the certificate later,
+
+
+829
+00:24:59,106 --> 00:25:00,606
+so we really recommend exporting
+
+
+830
+00:25:00,606 --> 00:25:01,786
+a copy of your certificate.
+
+
+831
+00:25:02,426 --> 00:25:03,956
+For now, since this is a demo
+
+
+832
+00:25:03,956 --> 00:25:04,716
+I'll click Next.
+
+
+833
+00:25:05,966 --> 00:25:07,206
+And now Xcode is going to
+
+
+834
+00:25:07,206 --> 00:25:08,716
+continue talking to the portal
+
+
+835
+00:25:08,956 --> 00:25:10,436
+generating my distribution
+
+
+836
+00:25:10,436 --> 00:25:11,516
+provisioning profiles, I'll
+
+
+837
+00:25:11,906 --> 00:25:13,806
+allow code sign to use my newly
+
+
+838
+00:25:13,806 --> 00:25:14,936
+created signing certificate
+
+
+839
+00:25:14,936 --> 00:25:15,936
+that's how you can tell this is
+
+
+840
+00:25:15,936 --> 00:25:16,266
+live.
+
+
+841
+00:25:16,626 --> 00:25:20,086
+And once Xcode is done it'll
+
+
+842
+00:25:20,086 --> 00:25:21,846
+show me details about the IPA
+
+
+843
+00:25:21,846 --> 00:25:22,506
+that it's created.
+
+
+844
+00:25:23,096 --> 00:25:24,826
+I can see all the content in my
+
+
+845
+00:25:24,826 --> 00:25:26,946
+IPA including my framework, my
+
+
+846
+00:25:26,946 --> 00:25:28,426
+app extension, and my launch app
+
+
+847
+00:25:28,866 --> 00:25:29,566
+right in here.
+
+
+848
+00:25:29,566 --> 00:25:31,296
+I can see how they're signed and
+
+
+849
+00:25:31,296 --> 00:25:32,136
+I can double-check that the
+
+
+850
+00:25:32,136 --> 00:25:33,226
+entitlements are correct.
+
+
+851
+00:25:33,826 --> 00:25:34,976
+So, this gives me a chance to
+
+
+852
+00:25:34,976 --> 00:25:37,016
+make sure my app is all correct
+
+
+853
+00:25:37,016 --> 00:25:38,966
+before I upload it to the App
+
+
+854
+00:25:38,966 --> 00:25:39,216
+Store.
+
+
+855
+00:25:40,376 --> 00:25:41,976
+Once I'm sure it looks fine I'll
+
+
+856
+00:25:41,976 --> 00:25:43,546
+click Upload and Xcode will
+
+
+857
+00:25:43,546 --> 00:25:44,786
+upload my app to the Store.
+
+
+858
+00:25:45,566 --> 00:25:47,536
+Now in the past once this
+
+
+859
+00:25:47,536 --> 00:25:49,136
+completes this is where the
+
+
+860
+00:25:49,136 --> 00:25:51,526
+workflow would end in Xcode, but
+
+
+861
+00:25:51,526 --> 00:25:52,556
+now there's one additional thing
+
+
+862
+00:25:52,556 --> 00:25:54,286
+I can do here, I can export.
+
+
+863
+00:25:54,286 --> 00:25:58,686
+So, when I select Export and
+
+
+864
+00:25:58,686 --> 00:26:02,046
+save to the desktop Xcode will
+
+
+865
+00:26:02,046 --> 00:26:03,276
+generate a new directory
+
+
+866
+00:26:03,776 --> 00:26:07,406
+containing my IPA, as well as
+
+
+867
+00:26:07,406 --> 00:26:08,506
+all of those other files,
+
+
+868
+00:26:08,506 --> 00:26:10,086
+including an ExportOptions.plist
+
+
+869
+00:26:10,086 --> 00:26:11,046
+that I mentioned earlier.
+
+
+870
+00:26:11,206 --> 00:26:14,876
+So that's the new distribution
+
+
+871
+00:26:14,926 --> 00:26:16,836
+workflow using automatic signing
+
+
+872
+00:26:16,836 --> 00:26:17,576
+in Xcode 9.
+
+
+873
+00:26:18,736 --> 00:26:20,566
+Now let's talk a little bit
+
+
+874
+00:26:21,106 --> 00:26:23,596
+about manual signing.
+
+
+875
+00:26:23,696 --> 00:26:25,416
+Manual signing also works just
+
+
+876
+00:26:25,416 --> 00:26:26,436
+like during development.
+
+
+877
+00:26:27,266 --> 00:26:28,636
+You or someone on your team will
+
+
+878
+00:26:28,636 --> 00:26:30,386
+create provisioning profiles and
+
+
+879
+00:26:30,696 --> 00:26:32,466
+then you can select them in the
+
+
+880
+00:26:32,466 --> 00:26:33,896
+Xcode distribution workflow.
+
+
+881
+00:26:35,076 --> 00:26:36,506
+Xcode won't ever create or
+
+
+882
+00:26:36,506 --> 00:26:38,366
+modify any of these manual
+
+
+883
+00:26:38,366 --> 00:26:39,596
+profiles so you're in full
+
+
+884
+00:26:39,596 --> 00:26:40,056
+control.
+
+
+885
+00:26:41,816 --> 00:26:43,346
+This is fully compatible with
+
+
+886
+00:26:43,346 --> 00:26:44,966
+Xcodebuild so you can still
+
+
+887
+00:26:44,966 --> 00:26:46,726
+automate the creation of your
+
+
+888
+00:26:46,726 --> 00:26:48,066
+IPAs if you want use manual
+
+
+889
+00:26:48,066 --> 00:26:48,436
+signing.
+
+
+890
+00:26:48,756 --> 00:26:50,246
+But there's one note, if your
+
+
+891
+00:26:50,246 --> 00:26:51,706
+archive was manually signed when
+
+
+892
+00:26:51,706 --> 00:26:53,186
+you built it then you also need
+
+
+893
+00:26:53,186 --> 00:26:54,206
+to manually sign when you
+
+
+894
+00:26:54,206 --> 00:26:54,766
+distribute.
+
+
+895
+00:26:55,656 --> 00:26:56,956
+So, how do you use manual
+
+
+896
+00:26:56,956 --> 00:26:57,376
+signing?
+
+
+897
+00:26:58,896 --> 00:27:00,416
+You'll recall this screen for my
+
+
+898
+00:27:00,416 --> 00:27:02,126
+demo moment ago, if you choose
+
+
+899
+00:27:02,126 --> 00:27:04,816
+manual signing click Next, then
+
+
+900
+00:27:04,816 --> 00:27:05,716
+you'll be greeted with this
+
+
+901
+00:27:05,716 --> 00:27:06,226
+interface.
+
+
+902
+00:27:06,706 --> 00:27:08,066
+This is really similar to the
+
+
+903
+00:27:08,066 --> 00:27:09,866
+signing UI that you see in the
+
+
+904
+00:27:09,866 --> 00:27:11,406
+general tab in Xcode's project
+
+
+905
+00:27:11,406 --> 00:27:11,776
+editor.
+
+
+906
+00:27:12,446 --> 00:27:13,606
+You can select the distribution
+
+
+907
+00:27:13,606 --> 00:27:15,246
+certificate you want to use and
+
+
+908
+00:27:15,246 --> 00:27:17,006
+then profiles for each of the
+
+
+909
+00:27:17,006 --> 00:27:19,036
+items in your app.
+
+
+910
+00:27:19,296 --> 00:27:20,526
+When you pop open those pop-up
+
+
+911
+00:27:20,526 --> 00:27:22,546
+menus you see the profiles that
+
+
+912
+00:27:22,546 --> 00:27:24,156
+are eligible, ineligible, you
+
+
+913
+00:27:24,156 --> 00:27:25,876
+can import profiles or download
+
+
+914
+00:27:25,876 --> 00:27:27,446
+profiles from the portal
+
+
+915
+00:27:27,776 --> 00:27:29,056
+directly within the distribution
+
+
+916
+00:27:29,056 --> 00:27:29,506
+workflow.
+
+
+917
+00:27:30,336 --> 00:27:31,956
+And if you select an ineligible
+
+
+918
+00:27:31,956 --> 00:27:33,526
+profile you'll see issues
+
+
+919
+00:27:33,526 --> 00:27:35,016
+associated with that selection
+
+
+920
+00:27:35,296 --> 00:27:36,596
+right underneath your selection.
+
+
+921
+00:27:37,636 --> 00:27:38,866
+Once you've selected valid
+
+
+922
+00:27:38,866 --> 00:27:40,146
+profiles for everything in your
+
+
+923
+00:27:40,146 --> 00:27:41,296
+app you can click Next and
+
+
+924
+00:27:41,296 --> 00:27:42,366
+continue with the workflow.
+
+
+925
+00:27:42,936 --> 00:27:46,006
+And as I said, this is all fully
+
+
+926
+00:27:46,006 --> 00:27:48,216
+compatible with Xcodebuild all
+
+
+927
+00:27:48,216 --> 00:27:49,396
+you need to do is specify a
+
+
+928
+00:27:49,436 --> 00:27:50,946
+couple of additional keys in
+
+
+929
+00:27:50,946 --> 00:27:52,176
+your ExportOptions.plist.
+
+
+930
+00:27:52,746 --> 00:27:54,166
+So, you can see here I set
+
+
+931
+00:27:54,166 --> 00:27:56,856
+signing style to manual and I've
+
+
+932
+00:27:56,856 --> 00:27:58,576
+also provided a provisioning
+
+
+933
+00:27:58,576 --> 00:28:00,406
+profiles entry that lists all
+
+
+934
+00:28:00,406 --> 00:28:02,106
+the items in my app by bundle
+
+
+935
+00:28:02,106 --> 00:28:03,766
+identifier and all the profiles
+
+
+936
+00:28:03,766 --> 00:28:04,326
+I want to use.
+
+
+937
+00:28:04,756 --> 00:28:06,456
+And that's it now I'm set up for
+
+
+938
+00:28:06,456 --> 00:28:07,066
+automation.
+
+
+939
+00:28:07,616 --> 00:28:10,286
+So that's the new distribution
+
+
+940
+00:28:10,286 --> 00:28:11,936
+workflow in Xcode 9, we think
+
+
+941
+00:28:11,936 --> 00:28:13,346
+you're all really going to love
+
+
+942
+00:28:13,346 --> 00:28:13,416
+it.
+
+
+943
+00:28:13,416 --> 00:28:14,776
+And now I'd like to invite Brent
+
+
+944
+00:28:14,776 --> 00:28:15,926
+on stage to talk about
+
+
+945
+00:28:15,926 --> 00:28:17,416
+distribution signing in Xcode
+
+
+946
+00:28:17,416 --> 00:28:17,786
+Server.
+
+
+947
+00:28:18,516 --> 00:28:23,556
+[ Applause ]
+
+
+948
+00:28:24,056 --> 00:28:24,766
+>> Thank you everyone, I'm
+
+
+949
+00:28:24,766 --> 00:28:26,216
+really excited to be here today
+
+
+950
+00:28:26,306 --> 00:28:28,016
+because for the first time in
+
+
+951
+00:28:28,016 --> 00:28:29,466
+public we're going to show you
+
+
+952
+00:28:29,466 --> 00:28:31,056
+how you can use in Xcode Server
+
+
+953
+00:28:31,656 --> 00:28:33,156
+to automatically create
+
+
+954
+00:28:33,276 --> 00:28:35,196
+distribution signed IPAs for
+
+
+955
+00:28:35,196 --> 00:28:35,356
+you.
+
+
+956
+00:28:35,356 --> 00:28:36,746
+This is really exciting, it's a
+
+
+957
+00:28:36,746 --> 00:28:38,146
+missing piece of the puzzle, and
+
+
+958
+00:28:38,146 --> 00:28:39,916
+we finally delivered it and it's
+
+
+959
+00:28:39,916 --> 00:28:40,376
+really great.
+
+
+960
+00:28:40,936 --> 00:28:43,186
+But first, how did we do this?
+
+
+961
+00:28:43,926 --> 00:28:45,766
+Well in Xcode 8 and Xcode 9 we
+
+
+962
+00:28:45,766 --> 00:28:47,396
+introduced great automatic
+
+
+963
+00:28:47,446 --> 00:28:49,186
+signing workflows in Xcode and
+
+
+964
+00:28:49,186 --> 00:28:50,606
+Xcode Server gets all of that
+
+
+965
+00:28:50,656 --> 00:28:51,226
+for free.
+
+
+966
+00:28:51,896 --> 00:28:53,246
+Likewise, all of the
+
+
+967
+00:28:53,246 --> 00:28:55,016
+distribution workflows and the
+
+
+968
+00:28:55,116 --> 00:28:56,956
+underlying technology Xcode
+
+
+969
+00:28:56,956 --> 00:28:58,386
+Server also gets that from
+
+
+970
+00:28:58,386 --> 00:28:58,766
+Xcode.
+
+
+971
+00:28:59,136 --> 00:29:00,616
+So, we have automatic signing,
+
+
+972
+00:29:00,826 --> 00:29:02,236
+we have distribution, we have
+
+
+973
+00:29:02,236 --> 00:29:03,746
+Xcode Server, we have great
+
+
+974
+00:29:03,746 --> 00:29:05,406
+workflows for development and
+
+
+975
+00:29:05,406 --> 00:29:06,276
+distribution signing.
+
+
+976
+00:29:06,276 --> 00:29:10,036
+How does this all work?
+
+
+977
+00:29:10,226 --> 00:29:11,966
+So, Chris showed a slide that
+
+
+978
+00:29:11,966 --> 00:29:13,276
+looked a little bit like this
+
+
+979
+00:29:13,616 --> 00:29:14,836
+and it's important to understand
+
+
+980
+00:29:14,946 --> 00:29:16,686
+how Xcode Server does this job.
+
+
+981
+00:29:16,686 --> 00:29:19,056
+In order to create -- in order
+
+
+982
+00:29:19,056 --> 00:29:21,706
+to sign an archive to create an
+
+
+983
+00:29:21,766 --> 00:29:23,166
+IPA from it for distribution
+
+
+984
+00:29:23,586 --> 00:29:24,966
+Xcode Server needs some special
+
+
+985
+00:29:24,966 --> 00:29:26,306
+assets just like for
+
+
+986
+00:29:26,306 --> 00:29:27,816
+development, it needs signing
+
+
+987
+00:29:27,816 --> 00:29:29,126
+certificates and it needs
+
+
+988
+00:29:29,216 --> 00:29:30,196
+provisioning profiles.
+
+
+989
+00:29:30,766 --> 00:29:32,496
+Now fortunately, we've made this
+
+
+990
+00:29:32,496 --> 00:29:33,056
+very easy.
+
+
+991
+00:29:33,616 --> 00:29:34,976
+If you allow Xcode Server to
+
+
+992
+00:29:34,976 --> 00:29:36,306
+communicate with the developer
+
+
+993
+00:29:36,306 --> 00:29:39,086
+portal on your behalf it can get
+
+
+994
+00:29:39,086 --> 00:29:40,226
+most of these things for you.
+
+
+995
+00:29:40,226 --> 00:29:40,986
+It can get the provisioning
+
+
+996
+00:29:40,986 --> 00:29:42,426
+profiles automatically.
+
+
+997
+00:29:43,276 --> 00:29:44,276
+But there's one thing it can't
+
+
+998
+00:29:44,276 --> 00:29:45,786
+get and that's the distribution
+
+
+999
+00:29:45,986 --> 00:29:46,766
+signing certificate.
+
+
+1000
+00:29:47,496 --> 00:29:48,246
+That's really no big deal
+
+
+1001
+00:29:48,246 --> 00:29:49,346
+because we've provided a great
+
+
+1002
+00:29:49,346 --> 00:29:50,636
+experience for you to share this
+
+
+1003
+00:29:50,636 --> 00:29:51,266
+with your server.
+
+
+1004
+00:29:51,866 --> 00:29:54,066
+So, once your Xcode server has
+
+
+1005
+00:29:54,066 --> 00:29:55,836
+all of these assets it can build
+
+
+1006
+00:29:55,836 --> 00:29:56,786
+an archive and then it can
+
+
+1007
+00:29:56,786 --> 00:29:59,046
+transform that archive into an
+
+
+1008
+00:29:59,116 --> 00:30:02,096
+IPA for distribution to the App
+
+
+1009
+00:30:02,096 --> 00:30:02,366
+Store.
+
+
+1010
+00:30:05,496 --> 00:30:07,756
+So, what do you need to do?
+
+
+1011
+00:30:08,356 --> 00:30:09,486
+You need to copy distribution
+
+
+1012
+00:30:09,486 --> 00:30:11,376
+certificates to the server, you
+
+
+1013
+00:30:11,376 --> 00:30:13,166
+need to make sure that automatic
+
+
+1014
+00:30:13,226 --> 00:30:14,846
+signing is turned on so this
+
+
+1015
+00:30:14,846 --> 00:30:15,886
+will also work for manual and
+
+
+1016
+00:30:15,886 --> 00:30:16,456
+I'll show you that.
+
+
+1017
+00:30:17,046 --> 00:30:18,096
+And then thirdly, there's this
+
+
+1018
+00:30:18,096 --> 00:30:19,866
+ExportOptions.plist that Itai
+
+
+1019
+00:30:19,866 --> 00:30:21,476
+talked to you about, so what's
+
+
+1020
+00:30:21,476 --> 00:30:22,926
+that all about.
+
+
+1021
+00:30:22,926 --> 00:30:24,376
+Well the ExportOptions.plist is
+
+
+1022
+00:30:24,376 --> 00:30:26,136
+just a simple recipe for how you
+
+
+1023
+00:30:26,136 --> 00:30:27,916
+want Xcode Server to transform
+
+
+1024
+00:30:27,916 --> 00:30:29,616
+your archive into an IPA.
+
+
+1025
+00:30:29,946 --> 00:30:31,096
+That can be very simple and it
+
+
+1026
+00:30:31,096 --> 00:30:32,816
+can also scale up to some more
+
+
+1027
+00:30:32,996 --> 00:30:35,476
+complex manual signing scenarios
+
+
+1028
+00:30:35,476 --> 00:30:35,646
+too.
+
+
+1029
+00:30:37,176 --> 00:30:38,166
+So, I've been saying App Store a
+
+
+1030
+00:30:38,166 --> 00:30:39,606
+lot, but I want to emphasize
+
+
+1031
+00:30:40,026 --> 00:30:41,686
+that what we've built here lets
+
+
+1032
+00:30:41,686 --> 00:30:43,956
+you distribute for all the
+
+
+1033
+00:30:43,956 --> 00:30:44,886
+distribution methods, so if
+
+
+1034
+00:30:44,886 --> 00:30:46,336
+you're doing enterprise or ad
+
+
+1035
+00:30:46,336 --> 00:30:47,626
+hoc or App Store or whatever
+
+
+1036
+00:30:47,626 --> 00:30:49,066
+this will just work, so we think
+
+
+1037
+00:30:49,066 --> 00:30:49,656
+that's really great.
+
+
+1038
+00:30:50,966 --> 00:30:51,896
+So, let's see this in action.
+
+
+1039
+00:30:59,046 --> 00:31:00,346
+So, here's our chocolate chip
+
+
+1040
+00:31:00,346 --> 00:31:01,576
+bot that's been dutifully
+
+
+1041
+00:31:01,576 --> 00:31:03,786
+building our app and running
+
+
+1042
+00:31:03,846 --> 00:31:05,286
+tests on devices for a few
+
+
+1043
+00:31:05,286 --> 00:31:05,766
+months now.
+
+
+1044
+00:31:06,386 --> 00:31:07,476
+So, what I want to do is I want
+
+
+1045
+00:31:07,476 --> 00:31:09,866
+to repurpose this bot to build
+
+
+1046
+00:31:10,466 --> 00:31:11,466
+IPAs for me.
+
+
+1047
+00:31:11,916 --> 00:31:13,486
+Now we recommend as a best
+
+
+1048
+00:31:13,486 --> 00:31:14,366
+practice that you create a
+
+
+1049
+00:31:14,366 --> 00:31:16,086
+dedicated bot for this purpose
+
+
+1050
+00:31:16,146 --> 00:31:17,876
+for creating IPAs, but I'm just
+
+
+1051
+00:31:17,876 --> 00:31:19,286
+going to repurpose this one for
+
+
+1052
+00:31:19,286 --> 00:31:20,446
+demo purposes today.
+
+
+1053
+00:31:20,926 --> 00:31:22,446
+So, we'll go and edit the bot.
+
+
+1054
+00:31:22,446 --> 00:31:23,736
+There are a lot of options in
+
+
+1055
+00:31:23,736 --> 00:31:25,006
+the bot editor, but what we need
+
+
+1056
+00:31:25,006 --> 00:31:26,196
+to do today is pretty simple.
+
+
+1057
+00:31:26,716 --> 00:31:27,926
+First, we're going to visit the
+
+
+1058
+00:31:27,926 --> 00:31:29,996
+configuration tab and in here
+
+
+1059
+00:31:30,076 --> 00:31:30,916
+we're going to turn on
+
+
+1060
+00:31:31,056 --> 00:31:31,536
+archiving.
+
+
+1061
+00:31:32,296 --> 00:31:33,816
+Remember since Xcode 5 when we
+
+
+1062
+00:31:33,816 --> 00:31:35,396
+introduced Xcode Server it's
+
+
+1063
+00:31:35,396 --> 00:31:36,956
+been able to create archives for
+
+
+1064
+00:31:36,956 --> 00:31:38,036
+you and there have been a lot of
+
+
+1065
+00:31:38,036 --> 00:31:39,136
+great workflows there.
+
+
+1066
+00:31:39,496 --> 00:31:40,536
+For example, you can create
+
+
+1067
+00:31:40,536 --> 00:31:42,096
+archives and then do over the
+
+
+1068
+00:31:42,096 --> 00:31:43,666
+air installs with Xcode Server
+
+
+1069
+00:31:43,666 --> 00:31:44,586
+and that's been great.
+
+
+1070
+00:31:44,586 --> 00:31:45,666
+You can still do that.
+
+
+1071
+00:31:45,876 --> 00:31:47,726
+But there's one new option that
+
+
+1072
+00:31:47,726 --> 00:31:49,506
+we've added here and that's what
+
+
+1073
+00:31:49,506 --> 00:31:51,536
+enables Xcode Server to create
+
+
+1074
+00:31:51,536 --> 00:31:53,756
+this distribution signed IPA for
+
+
+1075
+00:31:53,756 --> 00:31:53,966
+you.
+
+
+1076
+00:31:54,466 --> 00:31:55,416
+So, that's the final option
+
+
+1077
+00:31:55,416 --> 00:31:56,596
+here, use custom
+
+
+1078
+00:31:56,596 --> 00:31:58,606
+ExportOptions.plist, well where
+
+
+1079
+00:31:58,606 --> 00:31:59,516
+do I get one of those?
+
+
+1080
+00:32:00,496 --> 00:32:01,896
+Itai being the great guy that he
+
+
+1081
+00:32:01,896 --> 00:32:04,386
+is you may remember he exported
+
+
+1082
+00:32:04,386 --> 00:32:06,446
+that for me after he upload his
+
+
+1083
+00:32:06,446 --> 00:32:07,676
+app to the App Store.
+
+
+1084
+00:32:08,146 --> 00:32:09,736
+So, I'll go and I'll select that
+
+
+1085
+00:32:09,736 --> 00:32:09,916
+now.
+
+
+1086
+00:32:10,416 --> 00:32:12,346
+So, it's a good idea at this
+
+
+1087
+00:32:12,346 --> 00:32:13,876
+point that you verify that this
+
+
+1088
+00:32:13,876 --> 00:32:15,276
+is the right ExportOptions.plist
+
+
+1089
+00:32:15,276 --> 00:32:17,076
+so conveniently you can just
+
+
+1090
+00:32:17,076 --> 00:32:17,436
+click it.
+
+
+1091
+00:32:18,146 --> 00:32:19,716
+This is a pretty simple example
+
+
+1092
+00:32:19,916 --> 00:32:21,996
+of an ExportOptions.plist, but
+
+
+1093
+00:32:21,996 --> 00:32:23,016
+you may remember from one of
+
+
+1094
+00:32:23,016 --> 00:32:24,666
+Itai's slides if you're doing --
+
+
+1095
+00:32:25,066 --> 00:32:26,416
+if you some more complex manual
+
+
+1096
+00:32:26,416 --> 00:32:28,646
+workflows you would end up
+
+
+1097
+00:32:28,956 --> 00:32:30,446
+perhaps having specific
+
+
+1098
+00:32:30,446 --> 00:32:32,366
+provisioning profiles here and
+
+
+1099
+00:32:32,456 --> 00:32:33,366
+other things you can do so
+
+
+1100
+00:32:33,366 --> 00:32:34,666
+that's a good idea, just verify
+
+
+1101
+00:32:34,666 --> 00:32:35,316
+that this is the right
+
+
+1102
+00:32:35,386 --> 00:32:36,426
+ExportOptions.plist.
+
+
+1103
+00:32:36,966 --> 00:32:39,066
+So, we've done that and that's
+
+
+1104
+00:32:39,066 --> 00:32:40,186
+it for the configuration tab.
+
+
+1105
+00:32:40,826 --> 00:32:42,096
+Let's visit the signing tab.
+
+
+1106
+00:32:43,406 --> 00:32:44,956
+So, this is brand new in Xcode 9
+
+
+1107
+00:32:44,956 --> 00:32:45,946
+and we're pretty excited because
+
+
+1108
+00:32:45,946 --> 00:32:47,966
+this is how you configure Xcode
+
+
+1109
+00:32:47,966 --> 00:32:49,366
+Server to do both development
+
+
+1110
+00:32:49,366 --> 00:32:50,346
+signing and distribution
+
+
+1111
+00:32:50,346 --> 00:32:50,676
+signing.
+
+
+1112
+00:32:51,236 --> 00:32:53,656
+So, these two checkboxes at the
+
+
+1113
+00:32:53,656 --> 00:32:55,136
+top Chris already checked for us
+
+
+1114
+00:32:55,386 --> 00:32:56,696
+and remember the top one lets
+
+
+1115
+00:32:56,696 --> 00:32:57,966
+Xcode Server communicate with
+
+
+1116
+00:32:57,966 --> 00:32:59,466
+the developer website on my
+
+
+1117
+00:32:59,466 --> 00:32:59,976
+behalf.
+
+
+1118
+00:33:00,376 --> 00:33:01,556
+My team is already added to the
+
+
+1119
+00:33:01,556 --> 00:33:03,476
+server and even if you have a
+
+
+1120
+00:33:03,476 --> 00:33:04,906
+manual distribution workflow
+
+
+1121
+00:33:05,226 --> 00:33:06,576
+it's a really good idea that you
+
+
+1122
+00:33:06,576 --> 00:33:07,586
+still have this checkbox
+
+
+1123
+00:33:07,746 --> 00:33:07,926
+checked.
+
+
+1124
+00:33:08,356 --> 00:33:10,166
+So, now let's visit the
+
+
+1125
+00:33:10,166 --> 00:33:11,666
+certificates and profiles tab,
+
+
+1126
+00:33:12,306 --> 00:33:12,886
+so what's in here.
+
+
+1127
+00:33:13,386 --> 00:33:15,046
+There are two tables at the top,
+
+
+1128
+00:33:15,586 --> 00:33:16,776
+it shows me all the certificates
+
+
+1129
+00:33:16,776 --> 00:33:17,586
+that are installed on this
+
+
+1130
+00:33:17,586 --> 00:33:19,066
+machine, at the bottom are the
+
+
+1131
+00:33:19,066 --> 00:33:19,996
+provisioning profiles.
+
+
+1132
+00:33:20,526 --> 00:33:21,596
+And what I need to do is I need
+
+
+1133
+00:33:21,596 --> 00:33:23,186
+to share the distribution
+
+
+1134
+00:33:23,186 --> 00:33:24,376
+certificate with my server and
+
+
+1135
+00:33:24,816 --> 00:33:26,186
+that's really easy just click
+
+
+1136
+00:33:26,186 --> 00:33:27,686
+Add to Server and it's done.
+
+
+1137
+00:33:27,896 --> 00:33:29,106
+That's all I need to do and now
+
+
+1138
+00:33:29,106 --> 00:33:30,846
+Xcode Server has access to that
+
+
+1139
+00:33:30,846 --> 00:33:32,416
+distribution certificate and
+
+
+1140
+00:33:32,416 --> 00:33:33,596
+because I've allowed it to talk
+
+
+1141
+00:33:33,636 --> 00:33:34,846
+to the developer website on my
+
+
+1142
+00:33:34,846 --> 00:33:36,946
+behalf it can get all the assets
+
+
+1143
+00:33:36,946 --> 00:33:38,626
+it needs to create that IPA.
+
+
+1144
+00:33:38,946 --> 00:33:41,396
+You may be wondering what I need
+
+
+1145
+00:33:41,396 --> 00:33:42,516
+to do with the provisioning
+
+
+1146
+00:33:42,606 --> 00:33:43,236
+profiles table.
+
+
+1147
+00:33:43,236 --> 00:33:44,596
+Well for most of you if you're
+
+
+1148
+00:33:44,596 --> 00:33:46,396
+doing automatic code signing and
+
+
+1149
+00:33:46,396 --> 00:33:47,046
+you're doing App Store
+
+
+1150
+00:33:47,046 --> 00:33:48,336
+distribution you don't need to
+
+
+1151
+00:33:48,336 --> 00:33:48,866
+do anything.
+
+
+1152
+00:33:49,326 --> 00:33:50,766
+But if you're targeting one of
+
+
+1153
+00:33:50,766 --> 00:33:52,256
+those other distribution methods
+
+
+1154
+00:33:52,846 --> 00:33:54,456
+or you've specified particular
+
+
+1155
+00:33:54,456 --> 00:33:55,396
+profiles in that
+
+
+1156
+00:33:55,396 --> 00:33:56,726
+ExportOptions.plist that we
+
+
+1157
+00:33:56,726 --> 00:33:58,266
+looked at, you're on the hook
+
+
+1158
+00:33:58,396 --> 00:33:59,686
+for making sure your server has
+
+
+1159
+00:33:59,686 --> 00:34:00,876
+those provisioning profiles.
+
+
+1160
+00:34:01,306 --> 00:34:02,826
+Again, that's really easy, any
+
+
+1161
+00:34:02,826 --> 00:34:04,116
+profile you want to share you
+
+
+1162
+00:34:04,116 --> 00:34:05,196
+just click Add to Server and
+
+
+1163
+00:34:05,196 --> 00:34:06,366
+that will share it with your
+
+
+1164
+00:34:06,366 --> 00:34:06,916
+Xcode Server.
+
+
+1165
+00:34:07,666 --> 00:34:09,266
+So that's it, I visited the
+
+
+1166
+00:34:09,266 --> 00:34:10,315
+signing tab and the
+
+
+1167
+00:34:10,315 --> 00:34:11,216
+configuration tab.
+
+
+1168
+00:34:11,216 --> 00:34:12,806
+And now this is the moment
+
+
+1169
+00:34:12,806 --> 00:34:13,536
+you've been waiting for.
+
+
+1170
+00:34:13,906 --> 00:34:15,326
+Let's integrate this bot and
+
+
+1171
+00:34:15,356 --> 00:34:17,206
+watch it create two things, it's
+
+
+1172
+00:34:17,206 --> 00:34:18,255
+going to create an archive and
+
+
+1173
+00:34:18,505 --> 00:34:19,436
+then it's going to transform
+
+
+1174
+00:34:19,436 --> 00:34:22,255
+that archive into a distribution
+
+
+1175
+00:34:22,356 --> 00:34:23,786
+signed IPA that I can then
+
+
+1176
+00:34:23,786 --> 00:34:24,916
+upload to the App Store.
+
+
+1177
+00:34:31,045 --> 00:34:31,446
+And there it is.
+
+
+1178
+00:34:31,446 --> 00:34:32,706
+So, for the first time we think
+
+
+1179
+00:34:32,746 --> 00:34:34,096
+this is a really exciting
+
+
+1180
+00:34:34,096 --> 00:34:35,766
+development in Xcode Server and
+
+
+1181
+00:34:35,886 --> 00:34:37,186
+it's going to save you a lot of
+
+
+1182
+00:34:37,846 --> 00:34:37,966
+time.
+
+
+1183
+00:34:38,516 --> 00:34:45,156
+[ Applause ]
+
+
+1184
+00:34:45,656 --> 00:34:47,085
+So, code signing, code signing
+
+
+1185
+00:34:47,085 --> 00:34:48,866
+is really important and we
+
+
+1186
+00:34:48,866 --> 00:34:49,786
+should feel fortunate as
+
+
+1187
+00:34:49,786 --> 00:34:51,485
+developers and users that we're
+
+
+1188
+00:34:51,485 --> 00:34:52,676
+using platforms where code
+
+
+1189
+00:34:52,676 --> 00:34:54,585
+signing is an integral part of
+
+
+1190
+00:34:54,585 --> 00:34:55,206
+the experience.
+
+
+1191
+00:34:56,016 --> 00:34:57,866
+It keeps us safe, it keeps us
+
+
+1192
+00:34:57,866 --> 00:34:59,546
+secure, we know it's hard to get
+
+
+1193
+00:34:59,546 --> 00:34:59,806
+right.
+
+
+1194
+00:35:00,166 --> 00:35:02,336
+But in Xcode 8 and Xcode 9 we've
+
+
+1195
+00:35:02,336 --> 00:35:04,176
+put a ton of work into providing
+
+
+1196
+00:35:04,176 --> 00:35:05,466
+really great solutions for you
+
+
+1197
+00:35:05,466 --> 00:35:06,696
+and we think it's easier than
+
+
+1198
+00:35:06,696 --> 00:35:06,946
+ever.
+
+
+1199
+00:35:07,646 --> 00:35:09,026
+So, we have development signing
+
+
+1200
+00:35:09,026 --> 00:35:10,316
+with Xcode Server for your
+
+
+1201
+00:35:10,316 --> 00:35:11,656
+day-to-day development and
+
+
+1202
+00:35:11,656 --> 00:35:12,566
+testing on devices.
+
+
+1203
+00:35:14,126 --> 00:35:15,296
+We've also done a lot of work
+
+
+1204
+00:35:15,296 --> 00:35:16,426
+for manual signing because we
+
+
+1205
+00:35:16,426 --> 00:35:17,366
+know that's important to a lot
+
+
+1206
+00:35:17,366 --> 00:35:17,616
+of you.
+
+
+1207
+00:35:17,776 --> 00:35:20,946
+We made big improvements to the
+
+
+1208
+00:35:20,946 --> 00:35:22,446
+distribution workflow in Xcode
+
+
+1209
+00:35:22,786 --> 00:35:24,036
+and of course, we've brought
+
+
+1210
+00:35:24,036 --> 00:35:25,576
+that distribution workflow to
+
+
+1211
+00:35:25,576 --> 00:35:26,256
+Xcode Server.
+
+
+1212
+00:35:27,366 --> 00:35:29,466
+So that's it, there are a lot
+
+
+1213
+00:35:29,466 --> 00:35:30,976
+more related sessions this week
+
+
+1214
+00:35:30,976 --> 00:35:31,906
+on this topic.
+
+
+1215
+00:35:32,256 --> 00:35:33,546
+Thanks for attending and have a
+
+
+1216
+00:35:33,546 --> 00:35:33,946
+great week.
+

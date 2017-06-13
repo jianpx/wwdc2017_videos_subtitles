@@ -1,0 +1,5569 @@
+1
+00:00:07,516 --> 00:00:22,516
+[ Crowd Sounds ]
+
+
+2
+00:00:23,516 --> 00:00:25,696
+[ Applause ]
+
+
+3
+00:00:26,196 --> 00:00:27,106
+>> Hello, everyone.
+
+
+4
+00:00:27,946 --> 00:00:30,316
+My name is Georgios Kontaxis,
+
+
+5
+00:00:30,736 --> 00:00:32,206
+and together with Katie Skinner,
+
+
+6
+00:00:32,586 --> 00:00:34,606
+we are both very excited to be
+
+
+7
+00:00:34,606 --> 00:00:36,196
+here, today, to tell you about
+
+
+8
+00:00:36,276 --> 00:00:37,636
+Privacy and your Apps.
+
+
+9
+00:00:38,296 --> 00:00:39,726
+We are members of Privacy
+
+
+10
+00:00:39,726 --> 00:00:41,686
+Engineering, Apple, and we work
+
+
+11
+00:00:41,686 --> 00:00:43,566
+with teams across the company to
+
+
+12
+00:00:43,566 --> 00:00:44,936
+deliver privacy into our
+
+
+13
+00:00:44,936 --> 00:00:45,556
+products.
+
+
+14
+00:00:45,966 --> 00:00:47,046
+Here, at Apple, we care about
+
+
+15
+00:00:47,046 --> 00:00:47,466
+privacy.
+
+
+16
+00:00:48,126 --> 00:00:49,936
+And this quote from Tim Cook
+
+
+17
+00:00:50,196 --> 00:00:51,216
+reflects our philosophy.
+
+
+18
+00:00:52,536 --> 00:00:55,446
+We believe that privacy is a
+
+
+19
+00:00:56,266 --> 00:00:59,406
+very basic foundation for a
+
+
+20
+00:00:59,406 --> 00:01:00,566
+great app ecosystem.
+
+
+21
+00:01:01,816 --> 00:01:03,436
+We think that great apps should
+
+
+22
+00:01:03,436 --> 00:01:05,266
+offer the best user experience,
+
+
+23
+00:01:05,886 --> 00:01:07,486
+while respecting user privacy.
+
+
+24
+00:01:08,286 --> 00:01:10,276
+So, today, you will hear some
+
+
+25
+00:01:10,276 --> 00:01:12,586
+best practices to design your
+
+
+26
+00:01:12,586 --> 00:01:14,156
+apps with privacy in mind.
+
+
+27
+00:01:15,126 --> 00:01:16,896
+If you have existing apps, you
+
+
+28
+00:01:16,896 --> 00:01:18,446
+will be very interested in
+
+
+29
+00:01:18,446 --> 00:01:20,376
+updates to our platforms which
+
+
+30
+00:01:20,376 --> 00:01:21,106
+might affect you.
+
+
+31
+00:01:21,406 --> 00:01:23,006
+And you will learn about some
+
+
+32
+00:01:23,006 --> 00:01:25,136
+exciting new privacy features
+
+
+33
+00:01:25,246 --> 00:01:27,366
+that Apple is launching, this
+
+
+34
+00:01:28,316 --> 00:01:28,436
+year.
+
+
+35
+00:01:28,626 --> 00:01:31,286
+We know that your apps may rely
+
+
+36
+00:01:31,286 --> 00:01:33,016
+on user data to deliver great
+
+
+37
+00:01:33,046 --> 00:01:33,526
+features.
+
+
+38
+00:01:34,256 --> 00:01:36,216
+So, it is important that you
+
+
+39
+00:01:36,216 --> 00:01:38,676
+explain to your users how you're
+
+
+40
+00:01:38,676 --> 00:01:40,446
+using their data, so they
+
+
+41
+00:01:40,446 --> 00:01:42,626
+understand what is going on and
+
+
+42
+00:01:42,626 --> 00:01:44,496
+they feel comfortable engaging
+
+
+43
+00:01:44,496 --> 00:01:45,266
+with your app.
+
+
+44
+00:01:46,406 --> 00:01:47,836
+Also, you need to get their
+
+
+45
+00:01:47,836 --> 00:01:49,856
+consent in the right context.
+
+
+46
+00:01:50,286 --> 00:01:52,296
+For example, as they're about to
+
+
+47
+00:01:52,296 --> 00:01:54,156
+use a feature that relies on
+
+
+48
+00:01:54,156 --> 00:01:56,096
+their data.
+
+
+49
+00:01:56,096 --> 00:01:59,216
+iOS has built-in mediation
+
+
+50
+00:01:59,216 --> 00:02:01,806
+mechanisms for transparency and
+
+
+51
+00:02:01,806 --> 00:02:04,846
+consent, and you should consider
+
+
+52
+00:02:04,846 --> 00:02:08,076
+how you can best take advantage
+
+
+53
+00:02:08,106 --> 00:02:09,626
+of them.
+
+
+54
+00:02:09,675 --> 00:02:12,216
+iOS also offers users control
+
+
+55
+00:02:12,216 --> 00:02:12,856
+over their privacy.
+
+
+56
+00:02:13,546 --> 00:02:16,176
+So, your apps need to handle
+
+
+57
+00:02:16,226 --> 00:02:18,146
+cases based on the different
+
+
+58
+00:02:18,576 --> 00:02:20,396
+privacy decisions the user might
+
+
+59
+00:02:20,426 --> 00:02:22,906
+make, including changing their
+
+
+60
+00:02:22,906 --> 00:02:26,536
+mind at a later time.
+
+
+61
+00:02:26,716 --> 00:02:28,806
+Here's an example of how Maps is
+
+
+62
+00:02:28,946 --> 00:02:30,796
+using the iOS built-in
+
+
+63
+00:02:30,796 --> 00:02:33,226
+mechanisms to prompt for the
+
+
+64
+00:02:33,226 --> 00:02:34,036
+user's location.
+
+
+65
+00:02:34,806 --> 00:02:36,256
+As you can see, when prompting
+
+
+66
+00:02:36,566 --> 00:02:38,516
+Maps will clearly explain the
+
+
+67
+00:02:38,516 --> 00:02:41,516
+use cases, navigation, nearby
+
+
+68
+00:02:41,516 --> 00:02:43,736
+search results, and estimated
+
+
+69
+00:02:43,736 --> 00:02:44,426
+travel times.
+
+
+70
+00:02:45,396 --> 00:02:48,306
+And if the user chooses not to
+
+
+71
+00:02:48,306 --> 00:02:49,856
+grant access to their location,
+
+
+72
+00:02:50,146 --> 00:02:51,796
+Maps is able to handle that
+
+
+73
+00:02:51,866 --> 00:02:53,986
+gracefully and provide a subset
+
+
+74
+00:02:54,036 --> 00:02:54,876
+of its features.
+
+
+75
+00:02:55,376 --> 00:02:58,636
+If a user allows Maps the user
+
+
+76
+00:02:58,636 --> 00:03:01,146
+location, they will be aware
+
+
+77
+00:03:01,366 --> 00:03:03,506
+each time that happens, because
+
+
+78
+00:03:03,506 --> 00:03:05,506
+there is an indicator in the iOS
+
+
+79
+00:03:05,626 --> 00:03:07,266
+status bar to let them know.
+
+
+80
+00:03:08,076 --> 00:03:09,186
+And they can always go to
+
+
+81
+00:03:09,246 --> 00:03:11,296
+Settings, Privacy, Location
+
+
+82
+00:03:11,406 --> 00:03:13,976
+Services, see that Maps is using
+
+
+83
+00:03:13,976 --> 00:03:16,016
+their location and perhaps,
+
+
+84
+00:03:16,316 --> 00:03:17,446
+revise their decision.
+
+
+85
+00:03:19,236 --> 00:03:21,966
+We also, know that your apps may
+
+
+86
+00:03:21,966 --> 00:03:23,766
+rely on identifiers, for
+
+
+87
+00:03:23,766 --> 00:03:25,386
+example, to personalize the user
+
+
+88
+00:03:25,386 --> 00:03:27,646
+experience or to keep track of
+
+
+89
+00:03:27,646 --> 00:03:28,096
+feedback.
+
+
+90
+00:03:29,606 --> 00:03:31,626
+At the same time, your users
+
+
+91
+00:03:31,626 --> 00:03:32,786
+might wonder whether their
+
+
+92
+00:03:32,866 --> 00:03:35,426
+actions in your app are tied to
+
+
+93
+00:03:35,426 --> 00:03:36,976
+their device or to their person.
+
+
+94
+00:03:38,096 --> 00:03:40,576
+Luckily, there are great ways to
+
+
+95
+00:03:40,576 --> 00:03:42,946
+offer privacy friendly choices,
+
+
+96
+00:03:43,306 --> 00:03:44,676
+so that users are comfortable
+
+
+97
+00:03:44,676 --> 00:03:46,136
+engaging with your apps.
+
+
+98
+00:03:47,006 --> 00:03:49,736
+Specifically, identifiers can be
+
+
+99
+00:03:49,736 --> 00:03:51,686
+random, they can be anonymous,
+
+
+100
+00:03:52,186 --> 00:03:53,276
+they can be short-lived, and
+
+
+101
+00:03:53,376 --> 00:03:55,386
+they can be easy to reset.
+
+
+102
+00:03:56,206 --> 00:04:00,396
+And iOS offers built-in API for
+
+
+103
+00:04:00,396 --> 00:04:02,326
+you to be able to generate such
+
+
+104
+00:04:02,326 --> 00:04:03,216
+identifiers.
+
+
+105
+00:04:03,646 --> 00:04:05,126
+So, you should adopt those
+
+
+106
+00:04:05,356 --> 00:04:07,126
+instead of building your own.
+
+
+107
+00:04:07,686 --> 00:04:10,216
+As an example, consider the
+
+
+108
+00:04:10,216 --> 00:04:12,356
+Universally Unique Identifier.
+
+
+109
+00:04:13,026 --> 00:04:16,206
+It is a random 128-bit value,
+
+
+110
+00:04:16,616 --> 00:04:18,346
+which you can generate using the
+
+
+111
+00:04:18,346 --> 00:04:19,685
+Swift code, shown here.
+
+
+112
+00:04:20,546 --> 00:04:22,576
+And as you can see, three
+
+
+113
+00:04:22,826 --> 00:04:24,906
+consecutive calls using this API
+
+
+114
+00:04:25,546 --> 00:04:27,686
+will return three random
+
+
+115
+00:04:28,186 --> 00:04:29,136
+unrelated values.
+
+
+116
+00:04:29,926 --> 00:04:31,376
+And for example, you could
+
+
+117
+00:04:31,376 --> 00:04:33,556
+leverage the UIDs to generate
+
+
+118
+00:04:33,906 --> 00:04:35,406
+short-lived identifiers.
+
+
+119
+00:04:35,906 --> 00:04:38,396
+For example, you can associate a
+
+
+120
+00:04:38,396 --> 00:04:41,176
+new UUID with each session in
+
+
+121
+00:04:41,176 --> 00:04:43,056
+your app.
+
+
+122
+00:04:43,056 --> 00:04:45,606
+Another example is the vendor
+
+
+123
+00:04:45,606 --> 00:04:46,206
+identifier.
+
+
+124
+00:04:46,206 --> 00:04:48,736
+It is a more stable identifier,
+
+
+125
+00:04:49,196 --> 00:04:51,456
+because it is consistent across
+
+
+126
+00:04:51,456 --> 00:04:53,556
+all apps associated with the
+
+
+127
+00:04:53,726 --> 00:04:54,366
+same team.
+
+
+128
+00:04:54,936 --> 00:04:57,416
+As you can see, here, in the
+
+
+129
+00:04:57,416 --> 00:05:00,516
+example table, two apps that
+
+
+130
+00:05:00,516 --> 00:05:02,216
+belong to the same team all
+
+
+131
+00:05:02,216 --> 00:05:04,316
+generate the same vendor
+
+
+132
+00:05:04,316 --> 00:05:07,016
+identifier, while a third app
+
+
+133
+00:05:07,726 --> 00:05:08,956
+belonging to a different team
+
+
+134
+00:05:09,256 --> 00:05:10,056
+will have its own.
+
+
+135
+00:05:11,166 --> 00:05:14,336
+Also, keep in mind that if all
+
+
+136
+00:05:14,476 --> 00:05:16,236
+apps belonging to a particular
+
+
+137
+00:05:16,236 --> 00:05:18,186
+team are uninstalled from the
+
+
+138
+00:05:18,186 --> 00:05:19,896
+user's device and later
+
+
+139
+00:05:19,896 --> 00:05:22,466
+reinstalled, they will get a new
+
+
+140
+00:05:22,466 --> 00:05:22,996
+identifier.
+
+
+141
+00:05:22,996 --> 00:05:26,636
+Now, let's talk about collecting
+
+
+142
+00:05:26,986 --> 00:05:28,926
+data to enable your features.
+
+
+143
+00:05:29,766 --> 00:05:31,666
+Collecting data can be a
+
+
+144
+00:05:31,666 --> 00:05:33,496
+benefit, but also, carries
+
+
+145
+00:05:33,496 --> 00:05:34,056
+risks.
+
+
+146
+00:05:35,176 --> 00:05:38,976
+So, users might be uncomfortable
+
+
+147
+00:05:39,856 --> 00:05:41,306
+giving too much of their data,
+
+
+148
+00:05:41,856 --> 00:05:42,946
+if you do not sufficiently
+
+
+149
+00:05:42,946 --> 00:05:44,296
+justify the purpose.
+
+
+150
+00:05:44,996 --> 00:05:47,146
+And also, consider the burden on
+
+
+151
+00:05:47,146 --> 00:05:49,846
+your end to manage all that data
+
+
+152
+00:05:50,036 --> 00:05:51,656
+and keep it safe.
+
+
+153
+00:05:51,906 --> 00:05:53,266
+So, you should consider
+
+
+154
+00:05:53,736 --> 00:05:55,866
+aggregating data, summarizing
+
+
+155
+00:05:55,866 --> 00:05:57,426
+it, and extracting only the
+
+
+156
+00:05:57,426 --> 00:05:59,126
+information you need.
+
+
+157
+00:05:59,686 --> 00:06:02,216
+As an alternative, think whether
+
+
+158
+00:06:02,216 --> 00:06:03,916
+a sample of the data would
+
+
+159
+00:06:03,916 --> 00:06:06,926
+suffice, or whether you can
+
+
+160
+00:06:08,166 --> 00:06:09,576
+process the data on device
+
+
+161
+00:06:10,526 --> 00:06:11,966
+instead of sending their all
+
+
+162
+00:06:11,966 --> 00:06:13,546
+values to your server.
+
+
+163
+00:06:14,406 --> 00:06:16,056
+And later in this talk, you will
+
+
+164
+00:06:16,056 --> 00:06:17,656
+hear about some great new ways
+
+
+165
+00:06:18,026 --> 00:06:20,426
+to process data on device, using
+
+
+166
+00:06:20,476 --> 00:06:23,966
+iOS hardware and software.
+
+
+167
+00:06:24,046 --> 00:06:25,966
+Collecting raw data might reveal
+
+
+168
+00:06:26,386 --> 00:06:27,756
+additional information about the
+
+
+169
+00:06:27,756 --> 00:06:28,356
+users.
+
+
+170
+00:06:28,766 --> 00:06:30,526
+And as mentioned, this is
+
+
+171
+00:06:30,526 --> 00:06:32,526
+information that neither your
+
+
+172
+00:06:32,526 --> 00:06:34,266
+users nor you might want to
+
+
+173
+00:06:34,266 --> 00:06:34,546
+have.
+
+
+174
+00:06:34,676 --> 00:06:36,786
+As an example, consider you have
+
+
+175
+00:06:37,246 --> 00:06:39,036
+a new feature in your app, and
+
+
+176
+00:06:39,036 --> 00:06:40,126
+you're going to collect feedback
+
+
+177
+00:06:40,166 --> 00:06:41,706
+to see how successful it is.
+
+
+178
+00:06:42,356 --> 00:06:44,766
+So, you could instrument your
+
+
+179
+00:06:44,766 --> 00:06:47,576
+app to send back a timestamp to
+
+
+180
+00:06:47,576 --> 00:06:49,636
+your server each time the users
+
+
+181
+00:06:49,636 --> 00:06:50,656
+engage with your feature.
+
+
+182
+00:06:51,626 --> 00:06:53,726
+And that would give you the
+
+
+183
+00:06:53,726 --> 00:06:54,726
+information you're after.
+
+
+184
+00:06:55,206 --> 00:06:56,966
+But if you were to plot that
+
+
+185
+00:06:57,046 --> 00:06:59,146
+data over a timeline, you could
+
+
+186
+00:06:59,146 --> 00:07:01,316
+also learn that user one is a
+
+
+187
+00:07:01,316 --> 00:07:03,376
+morning person, because all of
+
+
+188
+00:07:03,376 --> 00:07:04,776
+their timestamps are in the
+
+
+189
+00:07:04,776 --> 00:07:05,206
+morning.
+
+
+190
+00:07:05,586 --> 00:07:07,656
+And user three opens your app at
+
+
+191
+00:07:07,696 --> 00:07:07,936
+night.
+
+
+192
+00:07:09,276 --> 00:07:11,656
+So, another way to collect this
+
+
+193
+00:07:11,656 --> 00:07:12,976
+information would be to say,
+
+
+194
+00:07:12,976 --> 00:07:15,996
+''Well, I will have my app count
+
+
+195
+00:07:16,666 --> 00:07:19,536
+the total number of times that a
+
+
+196
+00:07:19,536 --> 00:07:21,236
+particular user engages with my
+
+
+197
+00:07:21,326 --> 00:07:23,186
+feature, and send that count
+
+
+198
+00:07:23,226 --> 00:07:25,626
+back to my server, once a day.''
+
+
+199
+00:07:26,026 --> 00:07:28,136
+And that is a more privacy
+
+
+200
+00:07:28,196 --> 00:07:30,366
+friendly way to learn the same
+
+
+201
+00:07:30,366 --> 00:07:31,586
+information about the feature,
+
+
+202
+00:07:32,246 --> 00:07:34,046
+whether it's a customer or not.
+
+
+203
+00:07:34,896 --> 00:07:36,426
+But if you pay attention, you
+
+
+204
+00:07:36,426 --> 00:07:37,996
+might realize that now you know
+
+
+205
+00:07:37,996 --> 00:07:40,956
+that user one likes your feature
+
+
+206
+00:07:40,956 --> 00:07:44,386
+the most, among your users.
+
+
+207
+00:07:44,816 --> 00:07:46,416
+And that's not the question you
+
+
+208
+00:07:46,416 --> 00:07:47,296
+were trying to answer.
+
+
+209
+00:07:48,236 --> 00:07:49,866
+So, if you were to rephrase the
+
+
+210
+00:07:49,936 --> 00:07:52,666
+question as, ''How many users
+
+
+211
+00:07:52,666 --> 00:07:54,916
+engage with my feature more than
+
+
+212
+00:07:54,916 --> 00:07:56,736
+ten times a day?'' you could
+
+
+213
+00:07:56,736 --> 00:07:58,486
+have your app send back to your
+
+
+214
+00:07:58,486 --> 00:08:00,996
+server, a Boolean flag, yes or
+
+
+215
+00:08:00,996 --> 00:08:02,676
+no, whether the user has
+
+
+216
+00:08:02,676 --> 00:08:04,406
+exceeded that threshold within
+
+
+217
+00:08:04,406 --> 00:08:04,746
+the day.
+
+
+218
+00:08:06,056 --> 00:08:08,056
+And on your end, on the server,
+
+
+219
+00:08:08,456 --> 00:08:10,116
+you could calculate the
+
+
+220
+00:08:10,166 --> 00:08:11,866
+percentage of users that have
+
+
+221
+00:08:11,866 --> 00:08:12,756
+exceeded the threshold.
+
+
+222
+00:08:12,756 --> 00:08:15,866
+In this particular case, 66%.
+
+
+223
+00:08:16,706 --> 00:08:18,396
+Keep that percentage on your
+
+
+224
+00:08:18,396 --> 00:08:20,056
+server, keep track of it over
+
+
+225
+00:08:20,056 --> 00:08:21,596
+time as it changes, to
+
+
+226
+00:08:21,596 --> 00:08:22,796
+understand how your feature
+
+
+227
+00:08:23,396 --> 00:08:26,926
+behaves, and discard any user
+
+
+228
+00:08:26,926 --> 00:08:29,576
+specific data.
+
+
+229
+00:08:29,756 --> 00:08:31,516
+So, now let's go over some
+
+
+230
+00:08:31,516 --> 00:08:33,746
+updates which might affect your
+
+
+231
+00:08:33,926 --> 00:08:34,176
+apps.
+
+
+232
+00:08:35,186 --> 00:08:37,385
+I mentioned, earlier, that when
+
+
+233
+00:08:37,515 --> 00:08:40,726
+apps ask for access to user data
+
+
+234
+00:08:40,726 --> 00:08:43,246
+iOS will prompt users for their
+
+
+235
+00:08:43,246 --> 00:08:43,616
+consent.
+
+
+236
+00:08:44,656 --> 00:08:46,216
+And there are cases where we
+
+
+237
+00:08:46,216 --> 00:08:48,946
+think that users need as much
+
+
+238
+00:08:48,946 --> 00:08:50,956
+information as possible to make
+
+
+239
+00:08:51,036 --> 00:08:51,656
+this decision.
+
+
+240
+00:08:52,466 --> 00:08:55,056
+And your app is responsible for
+
+
+241
+00:08:55,056 --> 00:08:56,146
+providing this additional
+
+
+242
+00:08:56,176 --> 00:08:56,706
+context.
+
+
+243
+00:08:57,646 --> 00:08:59,316
+This additional context is in
+
+
+244
+00:08:59,316 --> 00:09:00,646
+the form of Purpose Strings.
+
+
+245
+00:09:00,926 --> 00:09:02,496
+And Purpose Strings are included
+
+
+246
+00:09:02,556 --> 00:09:04,356
+in the prompt shown to the user
+
+
+247
+00:09:04,356 --> 00:09:05,216
+by iOS.
+
+
+248
+00:09:06,116 --> 00:09:07,456
+Purpose Strings are defined as
+
+
+249
+00:09:07,616 --> 00:09:10,046
+keys in the Info.plist file of
+
+
+250
+00:09:10,046 --> 00:09:10,456
+your app.
+
+
+251
+00:09:12,016 --> 00:09:15,116
+And you can define those keys in
+
+
+252
+00:09:15,116 --> 00:09:15,976
+Xcode, like so.
+
+
+253
+00:09:16,526 --> 00:09:20,066
+Keep in mind that those keys are
+
+
+254
+00:09:20,396 --> 00:09:21,106
+mandatory.
+
+
+255
+00:09:21,766 --> 00:09:24,466
+So, if your app is missing a
+
+
+256
+00:09:24,526 --> 00:09:26,186
+Purpose String and tries to
+
+
+257
+00:09:26,186 --> 00:09:29,586
+access related data, it will
+
+
+258
+00:09:29,586 --> 00:09:31,686
+terminate with an error message
+
+
+259
+00:09:31,686 --> 00:09:33,816
+indicating which key is missing.
+
+
+260
+00:09:34,396 --> 00:09:38,076
+In iOS 10, these are the cases
+
+
+261
+00:09:38,076 --> 00:09:39,026
+where Purpose Strings are
+
+
+262
+00:09:39,026 --> 00:09:39,456
+required.
+
+
+263
+00:09:40,426 --> 00:09:42,956
+And in iOS 11, we are making
+
+
+264
+00:09:42,956 --> 00:09:46,196
+changes to Location, Photos, and
+
+
+265
+00:09:46,196 --> 00:09:47,406
+we're adding a Purpose String
+
+
+266
+00:09:47,496 --> 00:09:49,166
+for Core NFC.
+
+
+267
+00:09:50,456 --> 00:09:54,026
+Core location has enabled great
+
+
+268
+00:09:54,126 --> 00:09:55,296
+features in your apps.
+
+
+269
+00:09:55,876 --> 00:09:59,706
+Users appreciate being able to
+
+
+270
+00:09:59,706 --> 00:10:03,706
+navigate the world and find
+
+
+271
+00:10:03,706 --> 00:10:05,516
+interesting places through their
+
+
+272
+00:10:05,516 --> 00:10:05,916
+iOS device.
+
+
+273
+00:10:07,076 --> 00:10:10,296
+At the same time, we want users
+
+
+274
+00:10:10,296 --> 00:10:12,076
+to always be in control of their
+
+
+275
+00:10:12,076 --> 00:10:12,556
+privacy.
+
+
+276
+00:10:13,636 --> 00:10:18,346
+So, in iOS 10 apps can ask for
+
+
+277
+00:10:18,546 --> 00:10:20,456
+access to the user's location at
+
+
+278
+00:10:20,456 --> 00:10:22,986
+all times, or while the app is
+
+
+279
+00:10:22,986 --> 00:10:24,146
+in use.
+
+
+280
+00:10:24,836 --> 00:10:29,526
+In iOS 11 users will be able to
+
+
+281
+00:10:29,576 --> 00:10:32,486
+choose the When In Use option at
+
+
+282
+00:10:32,486 --> 00:10:33,156
+all times.
+
+
+283
+00:10:34,516 --> 00:10:41,236
+[ Applause ]
+
+
+284
+00:10:41,736 --> 00:10:43,246
+What this means for you, is that
+
+
+285
+00:10:44,276 --> 00:10:47,006
+your app will have to account
+
+
+286
+00:10:47,126 --> 00:10:49,076
+for cases where the user's
+
+
+287
+00:10:49,076 --> 00:10:51,116
+location is not available to
+
+
+288
+00:10:51,116 --> 00:10:51,276
+you.
+
+
+289
+00:10:51,716 --> 00:10:52,926
+And you need to define
+
+
+290
+00:10:52,976 --> 00:10:54,556
+additional Purpose Strings for
+
+
+291
+00:10:54,556 --> 00:10:55,466
+the When In Use option.
+
+
+292
+00:10:56,696 --> 00:10:59,306
+As a reminder, when asking for
+
+
+293
+00:10:59,306 --> 00:11:01,226
+the user location make sure you
+
+
+294
+00:11:01,226 --> 00:11:02,446
+do it in a meaningful way.
+
+
+295
+00:11:03,306 --> 00:11:06,106
+Make sure you prompt after the
+
+
+296
+00:11:06,106 --> 00:11:07,876
+user has engaged the feature
+
+
+297
+00:11:07,876 --> 00:11:09,796
+that requires their location, so
+
+
+298
+00:11:09,796 --> 00:11:10,926
+they understand why they're
+
+
+299
+00:11:10,926 --> 00:11:12,126
+being asked for their location.
+
+
+300
+00:11:13,106 --> 00:11:14,406
+When you prompt, make sure your
+
+
+301
+00:11:14,406 --> 00:11:16,546
+Purpose String provides the
+
+
+302
+00:11:16,546 --> 00:11:18,406
+necessary information for the
+
+
+303
+00:11:18,406 --> 00:11:20,436
+user to make a good decision.
+
+
+304
+00:11:21,406 --> 00:11:24,336
+And if possible, try asking for
+
+
+305
+00:11:24,576 --> 00:11:26,776
+When In Use, and escalate to
+
+
+306
+00:11:26,776 --> 00:11:29,126
+Always after the user has some
+
+
+307
+00:11:29,126 --> 00:11:31,586
+time to experience your feature.
+
+
+308
+00:11:32,126 --> 00:11:36,996
+If you have an app on iOS 10
+
+
+309
+00:11:37,076 --> 00:11:39,416
+that does not support the When
+
+
+310
+00:11:39,416 --> 00:11:41,546
+In Use option, this is the
+
+
+311
+00:11:41,546 --> 00:11:43,836
+prompt the user will see when
+
+
+312
+00:11:43,836 --> 00:11:45,566
+they upgrade to iOS 11.
+
+
+313
+00:11:46,366 --> 00:11:48,526
+As you can see, they can choose
+
+
+314
+00:11:48,526 --> 00:11:50,656
+the When In Use option, but
+
+
+315
+00:11:50,656 --> 00:11:51,966
+there is a warning that the app
+
+
+316
+00:11:51,966 --> 00:11:54,526
+does not natively support it.
+
+
+317
+00:11:57,376 --> 00:11:59,556
+If you have an app on iOS 10
+
+
+318
+00:11:59,866 --> 00:12:01,996
+that does support both the When
+
+
+319
+00:12:01,996 --> 00:12:03,876
+In Use and the Always option,
+
+
+320
+00:12:04,486 --> 00:12:05,946
+this is the prompt you will see.
+
+
+321
+00:12:06,636 --> 00:12:08,236
+Both Purpose Strings will be
+
+
+322
+00:12:08,236 --> 00:12:09,886
+included in the prompt shown to
+
+
+323
+00:12:09,886 --> 00:12:10,346
+the user.
+
+
+324
+00:12:11,196 --> 00:12:12,886
+You should update your apps to
+
+
+325
+00:12:12,956 --> 00:12:14,336
+feature a single Purpose String.
+
+
+326
+00:12:14,746 --> 00:12:17,696
+And you can do that by defining
+
+
+327
+00:12:17,696 --> 00:12:20,106
+a single key in your Info.plist
+
+
+328
+00:12:20,156 --> 00:12:22,136
+file, and use the Always and
+
+
+329
+00:12:22,136 --> 00:12:24,936
+When In Use key.
+
+
+330
+00:12:25,176 --> 00:12:27,106
+So now, let's talk about Photos.
+
+
+331
+00:12:28,176 --> 00:12:29,366
+The user's Photos library
+
+
+332
+00:12:29,656 --> 00:12:30,986
+contains a lot of information.
+
+
+333
+00:12:31,586 --> 00:12:33,976
+And we want you to be able to
+
+
+334
+00:12:33,976 --> 00:12:35,506
+leverage that information to
+
+
+335
+00:12:35,506 --> 00:12:36,516
+deliver great features.
+
+
+336
+00:12:37,456 --> 00:12:38,716
+At the same time, we want to
+
+
+337
+00:12:38,716 --> 00:12:40,266
+maintain a high level of user
+
+
+338
+00:12:40,306 --> 00:12:40,796
+privacy.
+
+
+339
+00:12:41,386 --> 00:12:43,816
+So, this year, we're adding two
+
+
+340
+00:12:43,816 --> 00:12:46,076
+new ways for your apps to
+
+
+341
+00:12:46,076 --> 00:12:47,526
+interact with the Photos
+
+
+342
+00:12:47,526 --> 00:12:47,976
+library.
+
+
+343
+00:12:49,066 --> 00:12:51,356
+Specifically, users will be able
+
+
+344
+00:12:51,356 --> 00:12:53,986
+to open a photo in your app
+
+
+345
+00:12:54,256 --> 00:12:55,516
+without the need for you to
+
+
+346
+00:12:55,516 --> 00:12:57,296
+prompt for access to their
+
+
+347
+00:12:57,296 --> 00:12:59,116
+entire Photos library.
+
+
+348
+00:12:59,506 --> 00:13:02,956
+So, this will make them more
+
+
+349
+00:13:02,956 --> 00:13:04,706
+comfortable using your app,
+
+
+350
+00:13:05,326 --> 00:13:06,886
+because they will have better
+
+
+351
+00:13:06,886 --> 00:13:08,406
+control over their data.
+
+
+352
+00:13:09,526 --> 00:13:12,456
+We're also, adding a Write only
+
+
+353
+00:13:12,606 --> 00:13:14,476
+access to the Photos library.
+
+
+354
+00:13:15,286 --> 00:13:16,916
+So, for example, if there's a
+
+
+355
+00:13:16,916 --> 00:13:18,376
+game that wants to save a
+
+
+356
+00:13:18,376 --> 00:13:20,016
+screenshot of the user
+
+
+357
+00:13:20,016 --> 00:13:22,236
+achievements, it can prompt for
+
+
+358
+00:13:22,236 --> 00:13:24,906
+Write, but not Read access to
+
+
+359
+00:13:24,906 --> 00:13:25,736
+the Photos library.
+
+
+360
+00:13:26,496 --> 00:13:28,456
+And users might be more willing
+
+
+361
+00:13:28,456 --> 00:13:29,566
+to grant that request.
+
+
+362
+00:13:30,986 --> 00:13:32,176
+And because of these changes,
+
+
+363
+00:13:32,926 --> 00:13:37,136
+when users upgrade their devices
+
+
+364
+00:13:37,406 --> 00:13:39,916
+to iOS 11, existing apps will
+
+
+365
+00:13:39,916 --> 00:13:41,966
+re-prompt for access to the
+
+
+366
+00:13:41,966 --> 00:13:42,646
+Photos library.
+
+
+367
+00:13:43,386 --> 00:13:44,676
+If you want users to be able to
+
+
+368
+00:13:44,676 --> 00:13:47,006
+take advantage of this ability
+
+
+369
+00:13:47,006 --> 00:13:49,086
+to open Photos in your app
+
+
+370
+00:13:49,516 --> 00:13:52,476
+without being prompted, you can
+
+
+371
+00:13:52,476 --> 00:13:54,666
+adopt the Out Of Process Image
+
+
+372
+00:13:54,666 --> 00:13:56,706
+Picker, and to find out more,
+
+
+373
+00:13:57,206 --> 00:13:58,906
+please visit the Photos session.
+
+
+374
+00:13:59,326 --> 00:14:03,576
+This is a great way to add a
+
+
+375
+00:14:03,666 --> 00:14:06,996
+photo in a user's profile or use
+
+
+376
+00:14:06,996 --> 00:14:08,016
+a photo in some other rare
+
+
+377
+00:14:08,016 --> 00:14:08,776
+action in your app.
+
+
+378
+00:14:08,776 --> 00:14:11,786
+Now let's look at the Write 0nly
+
+
+379
+00:14:11,786 --> 00:14:12,366
+case.
+
+
+380
+00:14:13,846 --> 00:14:15,556
+There is a prompt and a Purpose
+
+
+381
+00:14:15,556 --> 00:14:17,566
+String, so if you want to adopt
+
+
+382
+00:14:17,566 --> 00:14:18,626
+this, you need to decode the
+
+
+383
+00:14:18,626 --> 00:14:19,176
+Purpose String.
+
+
+384
+00:14:19,886 --> 00:14:23,386
+And make sure you provide enough
+
+
+385
+00:14:23,386 --> 00:14:24,936
+information for the users to
+
+
+386
+00:14:24,936 --> 00:14:27,696
+decide whether they want to use
+
+
+387
+00:14:27,696 --> 00:14:28,186
+this feature.
+
+
+388
+00:14:28,186 --> 00:14:31,516
+Now, let's talk about Core NFC.
+
+
+389
+00:14:32,186 --> 00:14:34,196
+CoreNFC is a new and exciting
+
+
+390
+00:14:34,436 --> 00:14:36,876
+iOS 11 framework, which allows
+
+
+391
+00:14:36,876 --> 00:14:39,676
+your app to use NFC reader modes
+
+
+392
+00:14:40,136 --> 00:14:42,536
+to interact with nearby NFC
+
+
+393
+00:14:42,636 --> 00:14:42,886
+tags.
+
+
+394
+00:14:43,576 --> 00:14:45,576
+So now, you can use NFC tags in
+
+
+395
+00:14:45,576 --> 00:14:47,366
+your app in novel and
+
+
+396
+00:14:47,366 --> 00:14:48,306
+interesting ways.
+
+
+397
+00:14:48,836 --> 00:14:52,306
+To adopt CoreNFC, you need to
+
+
+398
+00:14:52,306 --> 00:14:54,116
+declare the corresponding
+
+
+399
+00:14:54,116 --> 00:14:55,926
+Purpose String and provide the
+
+
+400
+00:14:55,926 --> 00:14:56,916
+necessary context.
+
+
+401
+00:14:57,716 --> 00:14:59,776
+And this Purpose String will be
+
+
+402
+00:14:59,776 --> 00:15:01,386
+included in the prompt shown to
+
+
+403
+00:15:01,386 --> 00:15:03,826
+the user every time your app
+
+
+404
+00:15:04,186 --> 00:15:05,276
+invokes CoreNFC.
+
+
+405
+00:15:05,276 --> 00:15:08,536
+Now, let's talk about the watch.
+
+
+406
+00:15:09,636 --> 00:15:10,876
+We want your apps to be able to
+
+
+407
+00:15:10,876 --> 00:15:12,136
+do more with the watch.
+
+
+408
+00:15:12,546 --> 00:15:15,126
+So, this year, we're expanding
+
+
+409
+00:15:15,426 --> 00:15:16,496
+the use of the microphone.
+
+
+410
+00:15:17,636 --> 00:15:21,466
+Today, in iOS 10, your app can
+
+
+411
+00:15:21,466 --> 00:15:24,036
+ask for microphone access, and
+
+
+412
+00:15:24,156 --> 00:15:26,136
+following the user's consent, it
+
+
+413
+00:15:26,136 --> 00:15:28,756
+can start recording audio while
+
+
+414
+00:15:28,756 --> 00:15:29,536
+in the foreground.
+
+
+415
+00:15:30,376 --> 00:15:31,656
+In the new version of watchOS,
+
+
+416
+00:15:32,576 --> 00:15:34,316
+you will be able to keep
+
+
+417
+00:15:34,316 --> 00:15:35,866
+recording while in the
+
+
+418
+00:15:35,866 --> 00:15:36,296
+background.
+
+
+419
+00:15:37,046 --> 00:15:37,986
+And if you stay in the
+
+
+420
+00:15:38,026 --> 00:15:40,536
+foreground you will be able to
+
+
+421
+00:15:40,806 --> 00:15:43,116
+use the new API to record audio
+
+
+422
+00:15:43,406 --> 00:15:47,706
+without showing the built-in UI.
+
+
+423
+00:15:47,886 --> 00:15:49,436
+Because we want users to always
+
+
+424
+00:15:49,436 --> 00:15:51,056
+be aware that their microphone
+
+
+425
+00:15:51,056 --> 00:15:53,646
+is active, if your app is in the
+
+
+426
+00:15:53,646 --> 00:15:55,356
+background, there will be an
+
+
+427
+00:15:55,356 --> 00:15:56,856
+indicator on the watch face.
+
+
+428
+00:15:57,046 --> 00:15:58,826
+And if the user taps on the
+
+
+429
+00:15:58,826 --> 00:16:00,776
+indicator your app will enter
+
+
+430
+00:16:00,776 --> 00:16:01,286
+the foreground.
+
+
+431
+00:16:01,866 --> 00:16:04,886
+Let's talk about Music.
+
+
+432
+00:16:06,496 --> 00:16:09,576
+We want your apps to be able to
+
+
+433
+00:16:09,576 --> 00:16:11,396
+take advantage of Music and
+
+
+434
+00:16:11,396 --> 00:16:12,956
+create great features.
+
+
+435
+00:16:14,026 --> 00:16:16,936
+So, part of this experience is
+
+
+436
+00:16:17,456 --> 00:16:19,816
+having a frictionless way to
+
+
+437
+00:16:19,816 --> 00:16:21,746
+authenticate the user while
+
+
+438
+00:16:21,746 --> 00:16:22,806
+respecting their privacy.
+
+
+439
+00:16:23,436 --> 00:16:24,786
+So, for example, if an app were
+
+
+440
+00:16:24,786 --> 00:16:26,536
+to ask for the user's password
+
+
+441
+00:16:26,686 --> 00:16:28,486
+to Music, that would be a
+
+
+442
+00:16:28,486 --> 00:16:29,376
+privacy concern.
+
+
+443
+00:16:30,756 --> 00:16:33,676
+Instead, apps should leverage
+
+
+444
+00:16:33,676 --> 00:16:35,106
+the fact that the users are
+
+
+445
+00:16:35,106 --> 00:16:37,326
+already signed into Music on
+
+
+446
+00:16:37,326 --> 00:16:37,776
+iOS.
+
+
+447
+00:16:38,326 --> 00:16:43,906
+And iOS has a built-in mediation
+
+
+448
+00:16:43,906 --> 00:16:46,336
+mechanism for giving your apps
+
+
+449
+00:16:46,376 --> 00:16:48,376
+access to a Music token.
+
+
+450
+00:16:49,386 --> 00:16:50,686
+Following the user's consent,
+
+
+451
+00:16:51,446 --> 00:16:53,456
+you can get that token and use
+
+
+452
+00:16:53,456 --> 00:16:58,756
+it to access output APIs to
+
+
+453
+00:16:59,656 --> 00:17:02,636
+retrieve personalized and
+
+
+454
+00:17:02,636 --> 00:17:04,116
+non-personalized information.
+
+
+455
+00:17:04,486 --> 00:17:07,215
+For example, search the iTunes
+
+
+456
+00:17:07,215 --> 00:17:09,935
+catalog or get information about
+
+
+457
+00:17:09,935 --> 00:17:10,846
+the user's library.
+
+
+458
+00:17:11,336 --> 00:17:14,536
+And remember, because the user
+
+
+459
+00:17:14,536 --> 00:17:16,036
+will have control over which
+
+
+460
+00:17:16,036 --> 00:17:18,866
+apps get this token, make sure
+
+
+461
+00:17:19,326 --> 00:17:21,486
+you provide the necessary
+
+
+462
+00:17:21,486 --> 00:17:22,876
+context in the Purpose String
+
+
+463
+00:17:23,266 --> 00:17:25,356
+for users to understand what you
+
+
+464
+00:17:25,356 --> 00:17:25,976
+want to do with it.
+
+
+465
+00:17:25,976 --> 00:17:29,616
+Now, let's talk about Safari
+
+
+466
+00:17:29,616 --> 00:17:30,136
+View Controller.
+
+
+467
+00:17:30,816 --> 00:17:31,946
+Safari View Controller is a
+
+
+468
+00:17:31,946 --> 00:17:33,676
+great way for users to browse
+
+
+469
+00:17:33,676 --> 00:17:34,976
+the web in your apps.
+
+
+470
+00:17:36,116 --> 00:17:40,466
+And in iOS 10 Safari cookies and
+
+
+471
+00:17:40,466 --> 00:17:42,886
+website data were available in
+
+
+472
+00:17:43,046 --> 00:17:44,976
+SVC instances, in Safari View
+
+
+473
+00:17:44,976 --> 00:17:46,836
+Controller instances, in your
+
+
+474
+00:17:46,836 --> 00:17:47,236
+apps.
+
+
+475
+00:17:48,286 --> 00:17:49,446
+This will change.
+
+
+476
+00:17:50,386 --> 00:17:52,996
+Now, in iOS 11 users will be
+
+
+477
+00:17:52,996 --> 00:17:56,566
+able to use an account to log in
+
+
+478
+00:17:56,566 --> 00:17:58,756
+a website in your app and
+
+
+479
+00:17:58,756 --> 00:18:00,346
+perhaps, use a different account
+
+
+480
+00:18:00,346 --> 00:18:02,086
+if they want to, to log into the
+
+
+481
+00:18:02,156 --> 00:18:04,066
+same website in Safari, or some
+
+
+482
+00:18:04,066 --> 00:18:04,626
+other app.
+
+
+483
+00:18:05,936 --> 00:18:07,456
+And we think that gives users
+
+
+484
+00:18:07,456 --> 00:18:08,196
+more control.
+
+
+485
+00:18:08,966 --> 00:18:10,486
+Specifically, what this means is
+
+
+486
+00:18:10,486 --> 00:18:12,806
+that Safari and Safari View
+
+
+487
+00:18:12,806 --> 00:18:14,846
+Controller instances will have
+
+
+488
+00:18:14,846 --> 00:18:17,486
+separate data stores for cookies
+
+
+489
+00:18:17,716 --> 00:18:18,736
+and other website's data.
+
+
+490
+00:18:19,816 --> 00:18:21,186
+And what this means for you and
+
+
+491
+00:18:21,186 --> 00:18:22,876
+your users, is that they will
+
+
+492
+00:18:22,876 --> 00:18:24,936
+still be able to browse the web
+
+
+493
+00:18:24,986 --> 00:18:26,496
+in your app the same way as
+
+
+494
+00:18:26,496 --> 00:18:26,916
+before.
+
+
+495
+00:18:27,456 --> 00:18:29,596
+But they may have to login,
+
+
+496
+00:18:29,596 --> 00:18:31,706
+again, to some of the sites they
+
+
+497
+00:18:32,246 --> 00:18:32,446
+visit.
+
+
+498
+00:18:34,596 --> 00:18:36,486
+This is what it looks like.
+
+
+499
+00:18:37,016 --> 00:18:39,276
+So, for example, I have
+
+
+500
+00:18:39,346 --> 00:18:41,566
+Apple.com cookies in Safari, and
+
+
+501
+00:18:41,566 --> 00:18:44,006
+I have different cookies in your
+
+
+502
+00:18:44,276 --> 00:18:44,416
+app.
+
+
+503
+00:18:45,436 --> 00:18:48,226
+So, this concludes the updates.
+
+
+504
+00:18:48,586 --> 00:18:50,246
+At this point, I would like to
+
+
+505
+00:18:50,246 --> 00:18:52,236
+invite Katie onstage to tell you
+
+
+506
+00:18:52,236 --> 00:18:53,716
+all about some exciting new
+
+
+507
+00:18:53,716 --> 00:18:55,546
+privacy features that Apple is
+
+
+508
+00:18:55,546 --> 00:18:56,266
+launching, this year.
+
+
+509
+00:18:56,936 --> 00:18:57,206
+Katie.
+
+
+510
+00:18:58,516 --> 00:19:02,626
+[ Applause ]
+
+
+511
+00:19:03,126 --> 00:19:04,186
+>> Thank you, Georgios.
+
+
+512
+00:19:05,486 --> 00:19:06,656
+Now, I'm going to focus on some
+
+
+513
+00:19:06,656 --> 00:19:08,756
+new privacy features, as well as
+
+
+514
+00:19:08,756 --> 00:19:09,906
+provide an update on
+
+
+515
+00:19:09,906 --> 00:19:11,736
+differential privacy, that we
+
+
+516
+00:19:11,736 --> 00:19:12,836
+introduced last year.
+
+
+517
+00:19:12,836 --> 00:19:15,026
+I'm going to start with on
+
+
+518
+00:19:15,026 --> 00:19:16,126
+device processing.
+
+
+519
+00:19:16,886 --> 00:19:18,516
+Now, On-Device processing has a
+
+
+520
+00:19:18,516 --> 00:19:19,916
+lot of benefits.
+
+
+521
+00:19:20,056 --> 00:19:21,456
+One of the first ones, is it
+
+
+522
+00:19:21,456 --> 00:19:23,686
+enables your functionality to
+
+
+523
+00:19:23,686 --> 00:19:25,586
+run anywhere your users are.
+
+
+524
+00:19:26,056 --> 00:19:27,136
+Whether they're at the beach,
+
+
+525
+00:19:27,206 --> 00:19:29,316
+like this, or on an airplane
+
+
+526
+00:19:29,316 --> 00:19:31,706
+flight, or even in areas of poor
+
+
+527
+00:19:31,706 --> 00:19:33,226
+cellular connectivity.
+
+
+528
+00:19:34,496 --> 00:19:36,636
+It also, avoids network latency,
+
+
+529
+00:19:36,636 --> 00:19:38,986
+as depending on where your users
+
+
+530
+00:19:38,986 --> 00:19:41,186
+are, this may take longer than
+
+
+531
+00:19:41,186 --> 00:19:42,786
+the actual processing that you
+
+
+532
+00:19:42,786 --> 00:19:43,826
+want to accomplish.
+
+
+533
+00:19:44,376 --> 00:19:47,116
+The speed of our devices, your
+
+
+534
+00:19:47,306 --> 00:19:49,506
+iPhones, our iPads, it keeps
+
+
+535
+00:19:49,506 --> 00:19:51,256
+increasing and increasing.
+
+
+536
+00:19:52,526 --> 00:19:56,916
+The iPhone 7 is 120 times the
+
+
+537
+00:19:56,916 --> 00:19:58,916
+processing power of the original
+
+
+538
+00:19:58,916 --> 00:19:59,336
+iPhone.
+
+
+539
+00:20:00,746 --> 00:20:02,996
+So, think through the different
+
+
+540
+00:20:02,996 --> 00:20:04,566
+tasks that you once thought were
+
+
+541
+00:20:04,566 --> 00:20:06,986
+not feasible on device, and you
+
+
+542
+00:20:06,986 --> 00:20:07,876
+should reconsider.
+
+
+543
+00:20:08,416 --> 00:20:11,136
+Now, as you all are at the
+
+
+544
+00:20:11,136 --> 00:20:12,776
+privacy session, I'm going to
+
+
+545
+00:20:12,776 --> 00:20:13,856
+talk a little bit more about the
+
+
+546
+00:20:13,966 --> 00:20:15,946
+privacy related benefits of
+
+
+547
+00:20:15,946 --> 00:20:17,116
+On-Device processing.
+
+
+548
+00:20:17,116 --> 00:20:20,646
+One of the first ones is access
+
+
+549
+00:20:20,646 --> 00:20:21,256
+to user data.
+
+
+550
+00:20:21,846 --> 00:20:23,546
+So, there are many different
+
+
+551
+00:20:23,546 --> 00:20:24,896
+types of sensitive data on
+
+
+552
+00:20:24,896 --> 00:20:25,356
+device.
+
+
+553
+00:20:26,016 --> 00:20:27,226
+And when you're clear to your
+
+
+554
+00:20:27,226 --> 00:20:29,556
+users about how you plan to use
+
+
+555
+00:20:29,556 --> 00:20:29,996
+that data.
+
+
+556
+00:20:30,636 --> 00:20:32,946
+Like for instance, if you tell
+
+
+557
+00:20:32,946 --> 00:20:34,996
+your users that the photo that
+
+
+558
+00:20:34,996 --> 00:20:37,596
+you take, if you apply a nice
+
+
+559
+00:20:37,596 --> 00:20:40,026
+halo on it, maybe a filter, that
+
+
+560
+00:20:40,026 --> 00:20:41,416
+stays on their device.
+
+
+561
+00:20:41,576 --> 00:20:43,856
+Until they choose to share it
+
+
+562
+00:20:43,856 --> 00:20:45,886
+with another user, or maybe back
+
+
+563
+00:20:45,886 --> 00:20:46,566
+it up with you.
+
+
+564
+00:20:47,616 --> 00:20:49,046
+Then, users are going to be more
+
+
+565
+00:20:49,046 --> 00:20:51,396
+likely to want to grant you
+
+
+566
+00:20:51,396 --> 00:20:53,086
+access to their data, and feel
+
+
+567
+00:20:53,086 --> 00:20:55,606
+more comfortable about it.
+
+
+568
+00:20:55,976 --> 00:20:57,536
+On-Device, you can also take
+
+
+569
+00:20:57,536 --> 00:20:59,316
+advantage of all the different
+
+
+570
+00:20:59,356 --> 00:21:01,426
+security features that are built
+
+
+571
+00:21:01,426 --> 00:21:02,596
+into our platforms.
+
+
+572
+00:21:03,756 --> 00:21:05,566
+These are things like data
+
+
+573
+00:21:05,566 --> 00:21:08,196
+protection, the Keychain, that
+
+
+574
+00:21:08,196 --> 00:21:10,826
+allow you to more securely take
+
+
+575
+00:21:10,826 --> 00:21:12,926
+care of user's data, without you
+
+
+576
+00:21:12,926 --> 00:21:14,126
+having to implement it,
+
+
+577
+00:21:14,126 --> 00:21:14,456
+yourself.
+
+
+578
+00:21:14,456 --> 00:21:17,796
+Now, in past developer sessions,
+
+
+579
+00:21:18,196 --> 00:21:19,726
+they're a great resource for you
+
+
+580
+00:21:19,726 --> 00:21:22,026
+to go and learn more about these
+
+
+581
+00:21:22,026 --> 00:21:23,026
+security features.
+
+
+582
+00:21:23,586 --> 00:21:25,106
+I would encourage you to go
+
+
+583
+00:21:25,106 --> 00:21:27,076
+check out ''Protecting Secrets
+
+
+584
+00:21:27,076 --> 00:21:27,786
+With the Keychain''.
+
+
+585
+00:21:27,866 --> 00:21:29,206
+It's a great place to start.
+
+
+586
+00:21:30,866 --> 00:21:33,036
+Now, when you're using and
+
+
+587
+00:21:33,036 --> 00:21:34,976
+keeping the data on device, that
+
+
+588
+00:21:34,976 --> 00:21:36,516
+means you don't have to write
+
+
+589
+00:21:36,676 --> 00:21:39,786
+code to send that data to your
+
+
+590
+00:21:39,786 --> 00:21:40,326
+server.
+
+
+591
+00:21:41,406 --> 00:21:43,306
+You don't have to write code to
+
+
+592
+00:21:43,306 --> 00:21:45,916
+securely manage and make sure
+
+
+593
+00:21:45,916 --> 00:21:47,356
+that, that data on your server
+
+
+594
+00:21:47,726 --> 00:21:48,456
+is secure.
+
+
+595
+00:21:49,286 --> 00:21:51,786
+Now, you all know the less code
+
+
+596
+00:21:51,786 --> 00:21:54,086
+you have to write, that means
+
+
+597
+00:21:54,196 --> 00:21:54,846
+the less bugs.
+
+
+598
+00:21:55,366 --> 00:21:58,116
+And the less bugs are less bugs
+
+
+599
+00:21:58,116 --> 00:21:59,336
+that an attacker can take
+
+
+600
+00:21:59,336 --> 00:22:00,086
+advantage of.
+
+
+601
+00:22:00,826 --> 00:22:02,776
+Because a data breach is very
+
+
+602
+00:22:02,846 --> 00:22:04,056
+serious, and there are a lot of
+
+
+603
+00:22:04,056 --> 00:22:05,096
+consequences.
+
+
+604
+00:22:05,496 --> 00:22:07,356
+But one of the consequences is
+
+
+605
+00:22:07,356 --> 00:22:09,346
+the loss of user trust.
+
+
+606
+00:22:10,916 --> 00:22:13,416
+Now, technologies like this can
+
+
+607
+00:22:13,596 --> 00:22:15,566
+help you avoid that, as well.
+
+
+608
+00:22:15,566 --> 00:22:18,876
+Now, I'm going to talk about
+
+
+609
+00:22:19,016 --> 00:22:21,736
+four new frameworks that allow
+
+
+610
+00:22:21,736 --> 00:22:24,376
+you to do these common tasks on
+
+
+611
+00:22:24,376 --> 00:22:24,826
+device.
+
+
+612
+00:22:25,546 --> 00:22:27,436
+Now, any type of processing that
+
+
+613
+00:22:27,436 --> 00:22:29,926
+you do within your app, you can
+
+
+614
+00:22:29,926 --> 00:22:30,956
+move to on device.
+
+
+615
+00:22:31,516 --> 00:22:32,666
+But here are four frameworks
+
+
+616
+00:22:32,716 --> 00:22:33,656
+that make it easier.
+
+
+617
+00:22:34,316 --> 00:22:36,536
+The first one is CoreML, Core
+
+
+618
+00:22:36,536 --> 00:22:37,336
+Machine Learning.
+
+
+619
+00:22:38,136 --> 00:22:40,306
+Now, this allows you to have a
+
+
+620
+00:22:40,376 --> 00:22:42,216
+simple interface to load and run
+
+
+621
+00:22:42,366 --> 00:22:43,306
+pretrained models.
+
+
+622
+00:22:44,096 --> 00:22:45,296
+There a lot of different models
+
+
+623
+00:22:45,296 --> 00:22:46,136
+that it supports.
+
+
+624
+00:22:46,806 --> 00:22:47,996
+But one of them is neural
+
+
+625
+00:22:47,996 --> 00:22:48,396
+networks.
+
+
+626
+00:22:48,696 --> 00:22:50,836
+The second framework I'm going
+
+
+627
+00:22:50,836 --> 00:22:52,106
+to talk about is VisionKit.
+
+
+628
+00:22:53,346 --> 00:22:54,756
+Now, VisionKit allows you to
+
+
+629
+00:22:54,756 --> 00:22:57,276
+identify faces within a photo,
+
+
+630
+00:22:58,096 --> 00:22:59,266
+as well as do scene
+
+
+631
+00:22:59,266 --> 00:23:02,626
+classification, and group photos
+
+
+632
+00:23:02,956 --> 00:23:04,816
+by the contents of the scene and
+
+
+633
+00:23:04,816 --> 00:23:05,276
+time.
+
+
+634
+00:23:05,546 --> 00:23:08,316
+One of the ones that I'm most
+
+
+635
+00:23:08,316 --> 00:23:09,986
+excited about is ARKit.
+
+
+636
+00:23:10,196 --> 00:23:12,246
+I think augmented reality is a
+
+
+637
+00:23:12,246 --> 00:23:13,326
+place where there's lots of
+
+
+638
+00:23:13,326 --> 00:23:14,496
+exciting things to come.
+
+
+639
+00:23:14,496 --> 00:23:16,046
+And I can't wait to get it in
+
+
+640
+00:23:16,126 --> 00:23:17,916
+all of your hands, to see what
+
+
+641
+00:23:17,916 --> 00:23:19,396
+kind of experiences you guys
+
+
+642
+00:23:19,716 --> 00:23:20,726
+create for our users.
+
+
+643
+00:23:21,896 --> 00:23:24,276
+Now, ARKit can allow you to
+
+
+644
+00:23:24,276 --> 00:23:26,666
+locate the device, as well as
+
+
+645
+00:23:26,666 --> 00:23:27,966
+items in the real world.
+
+
+646
+00:23:28,556 --> 00:23:29,926
+And then, it allows you to
+
+
+647
+00:23:29,976 --> 00:23:31,976
+augment on top of a camera
+
+
+648
+00:23:32,026 --> 00:23:32,556
+stream.
+
+
+649
+00:23:33,846 --> 00:23:36,376
+Now, lastly, we have NLP,
+
+
+650
+00:23:36,376 --> 00:23:37,766
+Natural Language Processing.
+
+
+651
+00:23:38,286 --> 00:23:39,856
+This allows you to identify what
+
+
+652
+00:23:39,856 --> 00:23:42,316
+language a customer may have be
+
+
+653
+00:23:42,316 --> 00:23:43,556
+entering text with, then.
+
+
+654
+00:23:44,066 --> 00:23:45,486
+And it also allows you to do
+
+
+655
+00:23:45,486 --> 00:23:47,586
+tokenization, as well as named
+
+
+656
+00:23:47,586 --> 00:23:49,096
+entity recognition.
+
+
+657
+00:23:49,866 --> 00:23:51,666
+Now, I'd encourage you to go
+
+
+658
+00:23:51,666 --> 00:23:53,616
+check out the talk introducing
+
+
+659
+00:23:53,616 --> 00:23:56,566
+CoreML, later this afternoon.
+
+
+660
+00:23:57,326 --> 00:23:59,416
+This will provide an overview of
+
+
+661
+00:23:59,416 --> 00:24:02,126
+the different features available
+
+
+662
+00:24:02,126 --> 00:24:03,466
+that you can take advantage of
+
+
+663
+00:24:03,556 --> 00:24:04,106
+on device.
+
+
+664
+00:24:04,726 --> 00:24:07,976
+Next, I'm going to talk about a
+
+
+665
+00:24:07,976 --> 00:24:11,516
+new framework available in iOS
+
+
+666
+00:24:11,576 --> 00:24:11,816
+and tvOS.
+
+
+667
+00:24:12,996 --> 00:24:13,916
+It's called Device Check.
+
+
+668
+00:24:15,016 --> 00:24:16,846
+Now, there are many developers
+
+
+669
+00:24:17,116 --> 00:24:18,546
+who are currently using a
+
+
+670
+00:24:18,546 --> 00:24:20,666
+variety of techniques to try to
+
+
+671
+00:24:20,666 --> 00:24:21,876
+identify devices.
+
+
+672
+00:24:22,996 --> 00:24:24,386
+Now, they may be trying to
+
+
+673
+00:24:24,386 --> 00:24:26,226
+identify and answer questions
+
+
+674
+00:24:26,226 --> 00:24:28,676
+like, ''Has this device received
+
+
+675
+00:24:28,676 --> 00:24:29,376
+a free trial?
+
+
+676
+00:24:30,236 --> 00:24:32,466
+Has this device participated in
+
+
+677
+00:24:32,466 --> 00:24:35,116
+fraudulent activity?'' Or, ''Has
+
+
+678
+00:24:35,156 --> 00:24:37,416
+this device done something that
+
+
+679
+00:24:37,416 --> 00:24:39,716
+is against your app's developer
+
+
+680
+00:24:39,716 --> 00:24:43,406
+guidelines?'' Now, in order to
+
+
+681
+00:24:43,406 --> 00:24:44,926
+achieve that goal, many
+
+
+682
+00:24:44,926 --> 00:24:46,386
+developers, though, I'm sure
+
+
+683
+00:24:46,386 --> 00:24:48,726
+none of you in this room, may be
+
+
+684
+00:24:48,956 --> 00:24:50,756
+collecting lots of information
+
+
+685
+00:24:50,816 --> 00:24:52,856
+in order to associate some state
+
+
+686
+00:24:53,646 --> 00:24:54,976
+with that device.
+
+
+687
+00:24:54,976 --> 00:24:58,256
+Now, to do that, they may be
+
+
+688
+00:24:58,256 --> 00:24:59,696
+collecting lots of information
+
+
+689
+00:24:59,696 --> 00:25:01,596
+like, how's the device set up?
+
+
+690
+00:25:02,856 --> 00:25:04,266
+What information is stored on
+
+
+691
+00:25:05,916 --> 00:25:05,986
+it?
+
+
+692
+00:25:05,986 --> 00:25:07,496
+And these developers may not
+
+
+693
+00:25:07,496 --> 00:25:08,756
+want to have this level of
+
+
+694
+00:25:08,756 --> 00:25:09,536
+information.
+
+
+695
+00:25:10,696 --> 00:25:12,266
+All they want to do is associate
+
+
+696
+00:25:12,266 --> 00:25:13,926
+some state with that device, in
+
+
+697
+00:25:13,926 --> 00:25:14,526
+particular.
+
+
+698
+00:25:16,626 --> 00:25:18,806
+Now, DeviceCheck allows you to
+
+
+699
+00:25:18,806 --> 00:25:20,626
+associate state with the device.
+
+
+700
+00:25:21,266 --> 00:25:22,866
+And this is done in a privacy
+
+
+701
+00:25:22,926 --> 00:25:24,766
+friendly way that you can
+
+
+702
+00:25:24,766 --> 00:25:26,186
+achieve without collecting
+
+
+703
+00:25:26,286 --> 00:25:27,996
+unnecessary information.
+
+
+704
+00:25:29,326 --> 00:25:30,676
+Now, DeviceCheck allows you to
+
+
+705
+00:25:30,676 --> 00:25:32,586
+store two bits of information,
+
+
+706
+00:25:32,806 --> 00:25:34,156
+as well as a timestamp
+
+
+707
+00:25:34,436 --> 00:25:35,996
+associated with one device.
+
+
+708
+00:25:35,996 --> 00:25:38,356
+And this is per team ID.
+
+
+709
+00:25:39,286 --> 00:25:45,396
+So, you can store 00, 01, 10, or
+
+
+710
+00:25:45,396 --> 00:25:45,816
+11.
+
+
+711
+00:25:46,656 --> 00:25:49,076
+And it's up to you to think
+
+
+712
+00:25:49,076 --> 00:25:52,966
+about what this means to your
+
+
+713
+00:25:53,056 --> 00:25:56,896
+application and your app logic.
+
+
+714
+00:25:57,046 --> 00:25:59,856
+Now, this information will be
+
+
+715
+00:25:59,856 --> 00:26:02,886
+maintained by Apple through
+
+
+716
+00:26:03,246 --> 00:26:05,646
+until you reset it, or you
+
+
+717
+00:26:05,646 --> 00:26:06,786
+update the state.
+
+
+718
+00:26:07,236 --> 00:26:08,766
+So, this means it will be stored
+
+
+719
+00:26:08,766 --> 00:26:10,796
+by Apple through deletion of
+
+
+720
+00:26:11,406 --> 00:26:13,506
+your app, reinstallation of your
+
+
+721
+00:26:13,506 --> 00:26:15,846
+app, through erase all contents
+
+
+722
+00:26:15,846 --> 00:26:18,356
+and settings, as well as
+
+
+723
+00:26:18,686 --> 00:26:20,536
+transfer of that device between
+
+
+724
+00:26:20,536 --> 00:26:20,966
+users.
+
+
+725
+00:26:21,596 --> 00:26:23,436
+Now, we know users sell devices
+
+
+726
+00:26:23,436 --> 00:26:23,906
+to others.
+
+
+727
+00:26:24,256 --> 00:26:25,946
+We know they transfer them to
+
+
+728
+00:26:25,946 --> 00:26:27,496
+other siblings or other people
+
+
+729
+00:26:27,496 --> 00:26:27,956
+they know.
+
+
+730
+00:26:28,366 --> 00:26:29,756
+So, this information will be
+
+
+731
+00:26:29,756 --> 00:26:30,756
+maintained through that.
+
+
+732
+00:26:32,466 --> 00:26:34,046
+Now, as I mentioned before, it's
+
+
+733
+00:26:34,046 --> 00:26:36,056
+up to you to figure out what
+
+
+734
+00:26:36,056 --> 00:26:37,246
+these states mean to you.
+
+
+735
+00:26:37,246 --> 00:26:40,686
+So, an example would be for app
+
+
+736
+00:26:40,686 --> 00:26:42,526
+A, if a user has completed a
+
+
+737
+00:26:42,526 --> 00:26:45,076
+free trial they will be assigned
+
+
+738
+00:26:45,246 --> 00:26:46,126
+state 01.
+
+
+739
+00:26:47,186 --> 00:26:48,486
+Now, you could have a different
+
+
+740
+00:26:48,816 --> 00:26:49,386
+app, app B.
+
+
+741
+00:26:49,426 --> 00:26:51,526
+And that same information, that
+
+
+742
+00:26:51,596 --> 00:26:53,256
+same state that a free trial has
+
+
+743
+00:26:53,256 --> 00:26:55,346
+been assigned or completed could
+
+
+744
+00:26:55,346 --> 00:26:56,596
+be assigned 11.
+
+
+745
+00:26:57,556 --> 00:26:58,646
+It's up to you to make that
+
+
+746
+00:26:58,646 --> 00:26:59,126
+decision.
+
+
+747
+00:26:59,126 --> 00:27:01,786
+Now, I want to go through the
+
+
+748
+00:27:01,786 --> 00:27:02,946
+flow and make sure you guys
+
+
+749
+00:27:02,946 --> 00:27:05,466
+understand how this works in
+
+
+750
+00:27:05,466 --> 00:27:06,096
+practice.
+
+
+751
+00:27:07,026 --> 00:27:07,956
+So, let's say there's an app
+
+
+752
+00:27:08,356 --> 00:27:09,486
+that's a news app.
+
+
+753
+00:27:09,486 --> 00:27:11,026
+And like I said before, it
+
+
+754
+00:27:11,026 --> 00:27:12,766
+grants a seven day free trial.
+
+
+755
+00:27:13,506 --> 00:27:15,856
+So, when my free trial is
+
+
+756
+00:27:15,896 --> 00:27:18,116
+completed the app wants to set
+
+
+757
+00:27:18,296 --> 00:27:19,896
+my state to 01.
+
+
+758
+00:27:20,516 --> 00:27:21,756
+So, first thing it's going to do
+
+
+759
+00:27:21,756 --> 00:27:23,286
+is query for a device check
+
+
+760
+00:27:23,386 --> 00:27:25,776
+token on device, send it to
+
+
+761
+00:27:25,776 --> 00:27:28,046
+their app server, and then via
+
+
+762
+00:27:28,326 --> 00:27:30,046
+server communication set the
+
+
+763
+00:27:30,046 --> 00:27:31,406
+state and send it to Apple.
+
+
+764
+00:27:32,026 --> 00:27:33,556
+So, send over the token and the
+
+
+765
+00:27:33,556 --> 00:27:36,916
+state that wants to be set.
+
+
+766
+00:27:36,916 --> 00:27:39,966
+So, then I decide that maybe I'm
+
+
+767
+00:27:39,966 --> 00:27:41,506
+not a huge fan of that news app,
+
+
+768
+00:27:41,506 --> 00:27:41,846
+anymore.
+
+
+769
+00:27:42,426 --> 00:27:44,106
+I want to delete it.
+
+
+770
+00:27:44,386 --> 00:27:46,236
+But then, I miss it couple of
+
+
+771
+00:27:46,236 --> 00:27:47,946
+weeks later, so I decide I'm
+
+
+772
+00:27:48,056 --> 00:27:49,946
+going to reinstall the app.
+
+
+773
+00:27:50,046 --> 00:27:52,026
+On launch, that app wants to
+
+
+774
+00:27:52,026 --> 00:27:55,586
+decide, ''should that user or
+
+
+775
+00:27:55,586 --> 00:27:56,936
+that device be given another
+
+
+776
+00:27:56,936 --> 00:27:57,586
+free trial''?
+
+
+777
+00:27:58,686 --> 00:28:01,216
+So, query for the token, send it
+
+
+778
+00:28:01,216 --> 00:28:02,446
+to the app server the same way,
+
+
+779
+00:28:02,676 --> 00:28:04,226
+and this time query for the
+
+
+780
+00:28:04,226 --> 00:28:05,346
+state of the device.
+
+
+781
+00:28:06,326 --> 00:28:10,446
+So, then because that device was
+
+
+782
+00:28:10,446 --> 00:28:12,856
+last set as 01, it will be sent
+
+
+783
+00:28:12,856 --> 00:28:13,816
+back to the app server.
+
+
+784
+00:28:13,906 --> 00:28:15,946
+And at that point it's the app's
+
+
+785
+00:28:15,946 --> 00:28:17,106
+job to figure out what to do,
+
+
+786
+00:28:17,106 --> 00:28:17,266
+next.
+
+
+787
+00:28:18,326 --> 00:28:19,986
+Should that device be granted
+
+
+788
+00:28:19,986 --> 00:28:20,906
+another free trial?
+
+
+789
+00:28:21,756 --> 00:28:23,826
+Should that device be granted,
+
+
+790
+00:28:23,826 --> 00:28:24,926
+maybe, a shorter trial?
+
+
+791
+00:28:25,666 --> 00:28:26,696
+Or no trial at all?
+
+
+792
+00:28:27,016 --> 00:28:29,386
+It's up to you to make that
+
+
+793
+00:28:31,316 --> 00:28:31,556
+decision.
+
+
+794
+00:28:31,646 --> 00:28:34,126
+So, as I said before, devices
+
+
+795
+00:28:34,126 --> 00:28:35,576
+can transfer between users.
+
+
+796
+00:28:36,316 --> 00:28:37,776
+So, let's say I sell my device
+
+
+797
+00:28:37,776 --> 00:28:38,866
+to Georgios, because I want a
+
+
+798
+00:28:38,866 --> 00:28:39,316
+different phone.
+
+
+799
+00:28:39,856 --> 00:28:41,556
+I want a new gold one, this
+
+
+800
+00:28:42,276 --> 00:28:42,396
+time.
+
+
+801
+00:28:42,496 --> 00:28:45,126
+So, then Georgios wants to
+
+
+802
+00:28:45,126 --> 00:28:46,036
+install the same app.
+
+
+803
+00:28:46,036 --> 00:28:47,306
+He likes the same news app.
+
+
+804
+00:28:47,796 --> 00:28:49,086
+So, it's going to query for the
+
+
+805
+00:28:49,086 --> 00:28:51,036
+token the same way, send it to
+
+
+806
+00:28:51,036 --> 00:28:53,316
+its app server, and then, query
+
+
+807
+00:28:53,316 --> 00:28:54,146
+for the state.
+
+
+808
+00:28:55,076 --> 00:28:57,426
+Again, 01 will be returned.
+
+
+809
+00:28:58,416 --> 00:29:00,816
+And this case, Georgios has not
+
+
+810
+00:29:00,926 --> 00:29:01,896
+gotten a free trial.
+
+
+811
+00:29:02,176 --> 00:29:03,366
+So, you need to think about how
+
+
+812
+00:29:03,366 --> 00:29:04,836
+to handle these type of cases.
+
+
+813
+00:29:06,006 --> 00:29:08,486
+Now, make sure that you have a
+
+
+814
+00:29:08,486 --> 00:29:10,246
+way that customers can reach out
+
+
+815
+00:29:10,556 --> 00:29:12,676
+or escalate if they are
+
+
+816
+00:29:12,676 --> 00:29:14,236
+experiencing issues with this.
+
+
+817
+00:29:14,236 --> 00:29:16,026
+And they need to come and reach
+
+
+818
+00:29:16,026 --> 00:29:18,406
+out to you, because at Apple, we
+
+
+819
+00:29:18,406 --> 00:29:20,576
+don't have any idea what these
+
+
+820
+00:29:20,576 --> 00:29:21,756
+states correspond to.
+
+
+821
+00:29:21,956 --> 00:29:25,346
+So now, I'm going to quickly go
+
+
+822
+00:29:25,346 --> 00:29:26,466
+through what a sample query
+
+
+823
+00:29:26,466 --> 00:29:26,956
+could look like.
+
+
+824
+00:29:28,086 --> 00:29:29,026
+As you can see, here's the
+
+
+825
+00:29:29,026 --> 00:29:31,236
+device token, the transaction
+
+
+826
+00:29:31,236 --> 00:29:33,336
+ID, which you generate, as well
+
+
+827
+00:29:33,336 --> 00:29:33,996
+as a timestamp.
+
+
+828
+00:29:35,086 --> 00:29:36,736
+Then, here's the response from
+
+
+829
+00:29:36,736 --> 00:29:37,906
+Apple with the state.
+
+
+830
+00:29:38,606 --> 00:29:41,416
+And then, if you want to update
+
+
+831
+00:29:41,416 --> 00:29:43,356
+the state, again have the device
+
+
+832
+00:29:43,356 --> 00:29:46,726
+token, your transaction ID that
+
+
+833
+00:29:46,726 --> 00:29:48,286
+you generate, as well as the
+
+
+834
+00:29:48,286 --> 00:29:49,686
+timestamp and the state you want
+
+
+835
+00:29:50,426 --> 00:29:51,756
+to set.
+
+
+836
+00:29:51,986 --> 00:29:53,346
+When you're using DeviceCheck
+
+
+837
+00:29:53,626 --> 00:29:55,096
+make sure to think through these
+
+
+838
+00:29:55,096 --> 00:29:55,926
+best practices.
+
+
+839
+00:29:57,136 --> 00:29:58,646
+Make sure you handle the case
+
+
+840
+00:29:58,856 --> 00:30:00,306
+where devices are transferred
+
+
+841
+00:30:00,406 --> 00:30:00,976
+between users.
+
+
+842
+00:30:01,826 --> 00:30:04,696
+A device's behavior can change
+
+
+843
+00:30:04,696 --> 00:30:05,376
+over time.
+
+
+844
+00:30:06,846 --> 00:30:08,046
+Additionally, think about the
+
+
+845
+00:30:08,046 --> 00:30:09,056
+recency of the data.
+
+
+846
+00:30:10,166 --> 00:30:11,516
+If the state was set a year,
+
+
+847
+00:30:11,516 --> 00:30:13,516
+ago, maybe that means something
+
+
+848
+00:30:13,516 --> 00:30:15,196
+different to you than if it was
+
+
+849
+00:30:15,196 --> 00:30:15,816
+this month.
+
+
+850
+00:30:17,026 --> 00:30:18,606
+This should be part of your
+
+
+851
+00:30:18,716 --> 00:30:20,616
+app's logic, but not the sole
+
+
+852
+00:30:20,616 --> 00:30:21,106
+source.
+
+
+853
+00:30:21,826 --> 00:30:22,856
+And think through how you
+
+
+854
+00:30:22,856 --> 00:30:24,396
+represent this state in the UI.
+
+
+855
+00:30:25,436 --> 00:30:26,796
+When Georgios goes to launch the
+
+
+856
+00:30:26,796 --> 00:30:28,296
+app for the first time, you want
+
+
+857
+00:30:28,296 --> 00:30:29,686
+to have a fresh experience for
+
+
+858
+00:30:29,686 --> 00:30:29,976
+him.
+
+
+859
+00:30:30,796 --> 00:30:31,786
+So, make sure you think through
+
+
+860
+00:30:32,436 --> 00:30:32,526
+that.
+
+
+861
+00:30:33,306 --> 00:30:35,576
+Now, you should be using
+
+
+862
+00:30:35,656 --> 00:30:37,856
+platform supported identifiers.
+
+
+863
+00:30:38,746 --> 00:30:39,876
+These are the application
+
+
+864
+00:30:39,876 --> 00:30:41,576
+identifier, the vendor
+
+
+865
+00:30:41,576 --> 00:30:43,116
+identifier, as well as the
+
+
+866
+00:30:43,116 --> 00:30:44,456
+advertising identifier.
+
+
+867
+00:30:45,676 --> 00:30:47,296
+We will continue to remove and
+
+
+868
+00:30:47,296 --> 00:30:48,286
+to remove entropy on our
+
+
+869
+00:30:49,296 --> 00:30:50,546
+out-of-the-app sandbox.
+
+
+870
+00:30:50,906 --> 00:30:53,026
+And as we have before, we will
+
+
+871
+00:30:53,026 --> 00:30:54,566
+continue to identify areas of
+
+
+872
+00:30:54,566 --> 00:30:57,486
+entropy and put them either
+
+
+873
+00:30:57,556 --> 00:30:59,146
+behind user control or remove
+
+
+874
+00:30:59,146 --> 00:30:59,436
+them.
+
+
+875
+00:30:59,946 --> 00:31:03,896
+Next, I'm going to talk about
+
+
+876
+00:31:04,456 --> 00:31:06,076
+Intelligent Tracking Protection.
+
+
+877
+00:31:07,006 --> 00:31:08,096
+This year, we're working to
+
+
+878
+00:31:08,096 --> 00:31:10,466
+reduce cross-web tracking.
+
+
+879
+00:31:10,966 --> 00:31:14,156
+Now, since the beginning, WebKit
+
+
+880
+00:31:14,156 --> 00:31:15,626
+and Safari have been leaders in
+
+
+881
+00:31:15,626 --> 00:31:16,516
+user privacy.
+
+
+882
+00:31:17,746 --> 00:31:19,246
+One example of this is blocking
+
+
+883
+00:31:19,246 --> 00:31:20,936
+third party cookies by default.
+
+
+884
+00:31:22,326 --> 00:31:23,756
+Now, I want to get this out
+
+
+885
+00:31:23,756 --> 00:31:25,236
+there, that Intelligent Tracking
+
+
+886
+00:31:25,236 --> 00:31:26,796
+Protection is not about blocking
+
+
+887
+00:31:26,796 --> 00:31:27,226
+content.
+
+
+888
+00:31:27,506 --> 00:31:28,796
+That's not what this technology
+
+
+889
+00:31:30,426 --> 00:31:30,536
+is.
+
+
+890
+00:31:31,376 --> 00:31:33,016
+It dynamically detects online
+
+
+891
+00:31:33,016 --> 00:31:34,916
+tracking across the sites that a
+
+
+892
+00:31:34,916 --> 00:31:35,786
+user visits.
+
+
+893
+00:31:36,346 --> 00:31:37,786
+And using an on-device
+
+
+894
+00:31:37,876 --> 00:31:39,756
+classifier, it will identify
+
+
+895
+00:31:39,756 --> 00:31:40,756
+tracking domains.
+
+
+896
+00:31:41,386 --> 00:31:42,606
+Once a tracking domain is
+
+
+897
+00:31:42,606 --> 00:31:45,116
+identified, then it will isolate
+
+
+898
+00:31:45,346 --> 00:31:47,246
+the third party cookies, as well
+
+
+899
+00:31:47,246 --> 00:31:49,656
+as website data for that
+
+
+900
+00:31:49,656 --> 00:31:49,966
+website.
+
+
+901
+00:31:49,966 --> 00:31:52,166
+And then, periodically, that
+
+
+902
+00:31:52,166 --> 00:31:53,376
+data will be purged.
+
+
+903
+00:31:53,666 --> 00:31:56,306
+Now, if the user interacts with
+
+
+904
+00:31:56,306 --> 00:31:58,306
+that domain, that is taken as a
+
+
+905
+00:31:58,346 --> 00:31:59,726
+signal that the user is
+
+
+906
+00:31:59,726 --> 00:32:00,986
+interested in that website.
+
+
+907
+00:32:00,986 --> 00:32:03,016
+And then, that website will be
+
+
+908
+00:32:03,016 --> 00:32:03,686
+whitelisted.
+
+
+909
+00:32:04,656 --> 00:32:05,856
+So, let's go through an example.
+
+
+910
+00:32:06,856 --> 00:32:10,116
+So, if example.com is identified
+
+
+911
+00:32:10,116 --> 00:32:11,746
+as a tracker, and the user
+
+
+912
+00:32:11,746 --> 00:32:13,666
+visits site 1, that embeds
+
+
+913
+00:32:13,666 --> 00:32:16,046
+example.com, example.com will
+
+
+914
+00:32:16,046 --> 00:32:16,986
+set the cookie foo.
+
+
+915
+00:32:18,036 --> 00:32:20,256
+Now, a user goes to site 2,
+
+
+916
+00:32:20,606 --> 00:32:22,386
+which also embeds example.com,
+
+
+917
+00:32:22,846 --> 00:32:25,066
+but here, example.com does not
+
+
+918
+00:32:25,066 --> 00:32:26,176
+have access to the cookie foo.
+
+
+919
+00:32:26,176 --> 00:32:28,666
+So, then it will set cookie bar.
+
+
+920
+00:32:29,576 --> 00:32:31,596
+And then, over time these
+
+
+921
+00:32:31,596 --> 00:32:34,186
+cookies will be purged.
+
+
+922
+00:32:35,366 --> 00:32:37,986
+Now, no cookies will be deleted
+
+
+923
+00:32:37,986 --> 00:32:39,526
+from first party websites.
+
+
+924
+00:32:40,366 --> 00:32:41,496
+Additionally, if the user
+
+
+925
+00:32:41,496 --> 00:32:43,016
+interacts with your website via
+
+
+926
+00:32:43,016 --> 00:32:46,066
+click, a tap, entering a form,
+
+
+927
+00:32:46,656 --> 00:32:48,686
+then note it will be
+
+
+928
+00:32:48,686 --> 00:32:49,356
+whitelisted.
+
+
+929
+00:32:50,646 --> 00:32:53,066
+You should not rely on storage
+
+
+930
+00:32:53,696 --> 00:32:55,316
+if the user does not interact
+
+
+931
+00:32:55,386 --> 00:32:56,306
+with your website.
+
+
+932
+00:32:56,306 --> 00:32:59,456
+And this is an important one to
+
+
+933
+00:32:59,456 --> 00:33:01,976
+understand; if your analytics
+
+
+934
+00:33:01,976 --> 00:33:03,856
+package relies on third party
+
+
+935
+00:33:03,856 --> 00:33:08,806
+cookies, they may be affected.
+
+
+936
+00:33:08,806 --> 00:33:09,916
+So, what we're trying to
+
+
+937
+00:33:09,916 --> 00:33:11,796
+achieve, here, is that users
+
+
+938
+00:33:11,796 --> 00:33:14,056
+only have long-term persistent
+
+
+939
+00:33:14,056 --> 00:33:16,396
+tracking and cookies from sites
+
+
+940
+00:33:16,396 --> 00:33:18,056
+that they actually intersect
+
+
+941
+00:33:18,056 --> 00:33:18,276
+with.
+
+
+942
+00:33:18,546 --> 00:33:21,126
+They actually interact with.
+
+
+943
+00:33:21,126 --> 00:33:22,926
+And then, all the other tracking
+
+
+944
+00:33:23,096 --> 00:33:24,826
+as the user navigates and visits
+
+
+945
+00:33:24,826 --> 00:33:27,116
+websites will be proactively
+
+
+946
+00:33:27,666 --> 00:33:27,846
+removed.
+
+
+947
+00:33:29,576 --> 00:33:31,846
+Lastly, we have an update on
+
+
+948
+00:33:31,846 --> 00:33:33,036
+Differential Privacy.
+
+
+949
+00:33:33,646 --> 00:33:36,026
+So, Differential Privacy was
+
+
+950
+00:33:36,026 --> 00:33:38,996
+launched on iOS and macOS, last
+
+
+951
+00:33:38,996 --> 00:33:39,116
+year.
+
+
+952
+00:33:39,856 --> 00:33:42,176
+Since then, we've collected
+
+
+953
+00:33:42,176 --> 00:33:44,456
+millions of privately donated
+
+
+954
+00:33:44,456 --> 00:33:47,536
+data per day, and it allowed us
+
+
+955
+00:33:47,576 --> 00:33:49,336
+to build user features with
+
+
+956
+00:33:49,366 --> 00:33:49,886
+privacy.
+
+
+957
+00:33:49,886 --> 00:33:53,576
+Now, I want to talk about two
+
+
+958
+00:33:53,576 --> 00:33:54,806
+new use cases, this year.
+
+
+959
+00:33:55,606 --> 00:33:58,876
+The first one is collecting what
+
+
+960
+00:33:58,956 --> 00:34:00,856
+data is commonly stored in
+
+
+961
+00:34:00,856 --> 00:34:01,376
+HealthKit.
+
+
+962
+00:34:02,096 --> 00:34:03,676
+Now, one of the challenges of
+
+
+963
+00:34:03,676 --> 00:34:05,606
+working on sensitive features,
+
+
+964
+00:34:05,816 --> 00:34:07,376
+or features that have sensitive
+
+
+965
+00:34:07,376 --> 00:34:09,565
+data, is you want to understand
+
+
+966
+00:34:09,626 --> 00:34:10,936
+how those features are being
+
+
+967
+00:34:10,936 --> 00:34:11,396
+used.
+
+
+968
+00:34:12,266 --> 00:34:13,536
+You want to understand what's
+
+
+969
+00:34:13,536 --> 00:34:15,136
+resonating, where users are
+
+
+970
+00:34:15,136 --> 00:34:16,866
+falling into issues or errors
+
+
+971
+00:34:16,866 --> 00:34:17,505
+are occurring.
+
+
+972
+00:34:17,936 --> 00:34:19,466
+But you know that collecting
+
+
+973
+00:34:19,466 --> 00:34:21,956
+data about what they're actually
+
+
+974
+00:34:21,956 --> 00:34:23,626
+interacting with may have more
+
+
+975
+00:34:23,626 --> 00:34:24,676
+information than you really
+
+
+976
+00:34:24,676 --> 00:34:24,996
+need.
+
+
+977
+00:34:25,835 --> 00:34:28,076
+So, one example here is, if you
+
+
+978
+00:34:28,076 --> 00:34:30,295
+collect what type of data, what
+
+
+979
+00:34:30,295 --> 00:34:32,666
+data types the user has stored
+
+
+980
+00:34:32,666 --> 00:34:34,716
+on their device, things like
+
+
+981
+00:34:34,716 --> 00:34:35,835
+blood glucose.
+
+
+982
+00:34:35,896 --> 00:34:37,786
+Things like Workout, that could
+
+
+983
+00:34:37,786 --> 00:34:39,136
+convey other additional
+
+
+984
+00:34:39,136 --> 00:34:41,516
+information about their health
+
+
+985
+00:34:41,666 --> 00:34:43,906
+or about any conditions they
+
+
+986
+00:34:43,906 --> 00:34:45,366
+have, or how active they are.
+
+
+987
+00:34:45,366 --> 00:34:47,056
+And we don't really need that
+
+
+988
+00:34:47,056 --> 00:34:48,116
+level of information.
+
+
+989
+00:34:48,466 --> 00:34:50,056
+So, that's why it's so exciting
+
+
+990
+00:34:50,056 --> 00:34:51,386
+to have Differential Privacy at
+
+
+991
+00:34:51,386 --> 00:34:53,735
+Apple, because we can still get
+
+
+992
+00:34:53,735 --> 00:34:55,246
+information to continue to
+
+
+993
+00:34:55,246 --> 00:34:57,246
+iterate and build our features,
+
+
+994
+00:34:57,526 --> 00:34:59,306
+while respecting user privacy.
+
+
+995
+00:34:59,826 --> 00:35:02,806
+So, last year in the Privacy
+
+
+996
+00:35:02,806 --> 00:35:04,056
+session at the Developer
+
+
+997
+00:35:04,056 --> 00:35:05,346
+Conference, Julian [assumed
+
+
+998
+00:35:05,346 --> 00:35:06,186
+spelling] did a great job
+
+
+999
+00:35:06,186 --> 00:35:07,476
+deep-diving into how
+
+
+1000
+00:35:07,476 --> 00:35:08,956
+Differential Privacy works at
+
+
+1001
+00:35:08,956 --> 00:35:09,236
+Apple.
+
+
+1002
+00:35:10,756 --> 00:35:13,406
+Basically, we collect privatized
+
+
+1003
+00:35:13,406 --> 00:35:16,426
+donations like emoji, and as
+
+
+1004
+00:35:16,426 --> 00:35:18,116
+more and more users contribute
+
+
+1005
+00:35:18,116 --> 00:35:19,896
+these privatized emojis, we
+
+
+1006
+00:35:19,896 --> 00:35:21,546
+learn what are the most popular
+
+
+1007
+00:35:22,006 --> 00:35:22,666
+emojis.
+
+
+1008
+00:35:23,656 --> 00:35:25,766
+But the key part here, is we
+
+
+1009
+00:35:25,766 --> 00:35:27,056
+learned nothing that's
+
+
+1010
+00:35:27,056 --> 00:35:28,536
+associated by an individual
+
+
+1011
+00:35:28,536 --> 00:35:28,956
+user.
+
+
+1012
+00:35:29,966 --> 00:35:31,416
+For more information about how
+
+
+1013
+00:35:31,416 --> 00:35:32,726
+Differential Privacy works at
+
+
+1014
+00:35:32,726 --> 00:35:34,146
+Apple, I would encourage you all
+
+
+1015
+00:35:34,146 --> 00:35:36,346
+to look at our session from last
+
+
+1016
+00:35:36,346 --> 00:35:37,486
+year's Developer's Conference.
+
+
+1017
+00:35:39,066 --> 00:35:42,256
+So, this year we're applying the
+
+
+1018
+00:35:42,256 --> 00:35:44,096
+same process to health data
+
+
+1019
+00:35:44,096 --> 00:35:44,446
+types.
+
+
+1020
+00:35:45,096 --> 00:35:46,416
+So, we will learn the most
+
+
+1021
+00:35:46,416 --> 00:35:48,376
+popular health data types, but
+
+
+1022
+00:35:48,376 --> 00:35:49,606
+with learning nothing about the
+
+
+1023
+00:35:49,606 --> 00:35:50,696
+individual user.
+
+
+1024
+00:35:51,296 --> 00:35:56,976
+The second case is trying to
+
+
+1025
+00:35:57,026 --> 00:35:59,826
+learn websites that either are
+
+
+1026
+00:35:59,826 --> 00:36:02,356
+very slow or take up a lot of
+
+
+1027
+00:36:02,356 --> 00:36:03,216
+battery life.
+
+
+1028
+00:36:03,966 --> 00:36:05,976
+We all want a fast, speedy web.
+
+
+1029
+00:36:06,586 --> 00:36:08,646
+But we don't necessarily want to
+
+
+1030
+00:36:08,646 --> 00:36:11,456
+learn everything that a user is
+
+
+1031
+00:36:11,456 --> 00:36:11,986
+visiting.
+
+
+1032
+00:36:12,406 --> 00:36:13,886
+That's a lot of information
+
+
+1033
+00:36:13,926 --> 00:36:15,596
+about that user, depending on
+
+
+1034
+00:36:15,696 --> 00:36:16,516
+their web searches.
+
+
+1035
+00:36:17,276 --> 00:36:18,476
+So, this is another example
+
+
+1036
+00:36:18,476 --> 00:36:19,786
+where we get to use Differential
+
+
+1037
+00:36:19,786 --> 00:36:21,796
+Privacy to then, reach out to
+
+
+1038
+00:36:21,796 --> 00:36:23,746
+these developers who maybe, have
+
+
+1039
+00:36:23,746 --> 00:36:25,086
+issues or are writing slow
+
+
+1040
+00:36:25,086 --> 00:36:25,506
+sites.
+
+
+1041
+00:36:25,836 --> 00:36:27,096
+So, then we can improve the web
+
+
+1042
+00:36:27,096 --> 00:36:27,726
+for everyone.
+
+
+1043
+00:36:29,956 --> 00:36:33,666
+Now, in summary, we are all here
+
+
+1044
+00:36:33,666 --> 00:36:36,256
+today, and listening online and
+
+
+1045
+00:36:36,256 --> 00:36:37,726
+here this week in an effort to
+
+
+1046
+00:36:37,726 --> 00:36:39,056
+build great features for our
+
+
+1047
+00:36:39,056 --> 00:36:39,506
+users.
+
+
+1048
+00:36:40,596 --> 00:36:41,736
+Make something that our users
+
+
+1049
+00:36:41,736 --> 00:36:42,256
+will love.
+
+
+1050
+00:36:42,786 --> 00:36:43,896
+Make something that our users
+
+
+1051
+00:36:43,896 --> 00:36:45,846
+think is fun, or maybe makes
+
+
+1052
+00:36:45,846 --> 00:36:47,636
+their lives easier, their jobs
+
+
+1053
+00:36:47,636 --> 00:36:47,986
+easier.
+
+
+1054
+00:36:47,986 --> 00:36:50,826
+And what I want you to take away
+
+
+1055
+00:36:50,826 --> 00:36:52,666
+from the past 40 minutes, is
+
+
+1056
+00:36:52,666 --> 00:36:54,636
+several techniques and concepts
+
+
+1057
+00:36:54,756 --> 00:36:56,016
+that you can apply within your
+
+
+1058
+00:36:56,056 --> 00:36:56,436
+own app.
+
+
+1059
+00:36:57,646 --> 00:36:59,526
+The first one is consent and
+
+
+1060
+00:36:59,526 --> 00:37:00,366
+transparency.
+
+
+1061
+00:37:01,156 --> 00:37:02,816
+Make sure to think about what
+
+
+1062
+00:37:02,816 --> 00:37:04,256
+you're saying in your Purpose
+
+
+1063
+00:37:04,256 --> 00:37:05,456
+Strings and be clear to your
+
+
+1064
+00:37:05,456 --> 00:37:05,856
+users.
+
+
+1065
+00:37:06,606 --> 00:37:08,816
+Also, adopt While In Use
+
+
+1066
+00:37:08,816 --> 00:37:09,486
+location.
+
+
+1067
+00:37:10,696 --> 00:37:12,496
+Together, we can build a healthy
+
+
+1068
+00:37:12,686 --> 00:37:14,676
+app ecosystem, and DeviceCheck
+
+
+1069
+00:37:14,676 --> 00:37:15,146
+is part of that.
+
+
+1070
+00:37:15,936 --> 00:37:18,676
+We want to build a healthy web
+
+
+1071
+00:37:19,786 --> 00:37:21,686
+for everyone, and Intelligent
+
+
+1072
+00:37:21,686 --> 00:37:23,206
+Tracking Protection is a key
+
+
+1073
+00:37:23,206 --> 00:37:25,276
+part of that.
+
+
+1074
+00:37:25,516 --> 00:37:27,326
+With Differential Privacy, we're
+
+
+1075
+00:37:27,326 --> 00:37:29,016
+building features and learning
+
+
+1076
+00:37:29,016 --> 00:37:30,326
+how to build better features,
+
+
+1077
+00:37:30,326 --> 00:37:31,876
+while protecting user privacy.
+
+
+1078
+00:37:33,046 --> 00:37:34,356
+Now, one of the great things
+
+
+1079
+00:37:34,356 --> 00:37:36,826
+about my job at Apple is I get
+
+
+1080
+00:37:36,826 --> 00:37:37,856
+to work with a bunch of
+
+
+1081
+00:37:37,856 --> 00:37:38,756
+different teams.
+
+
+1082
+00:37:39,206 --> 00:37:40,916
+And everyone's working so hard
+
+
+1083
+00:37:40,916 --> 00:37:42,976
+to build fantastic features and
+
+
+1084
+00:37:42,976 --> 00:37:44,326
+APIs for you guys to take
+
+
+1085
+00:37:44,326 --> 00:37:46,376
+advantage of, that will make our
+
+
+1086
+00:37:46,376 --> 00:37:48,026
+users be delighted.
+
+
+1087
+00:37:48,926 --> 00:37:52,706
+And that same passion, I get to
+
+
+1088
+00:37:52,706 --> 00:37:54,936
+apply and work with great people
+
+
+1089
+00:37:55,146 --> 00:37:56,956
+to apply to building privacy in,
+
+
+1090
+00:37:56,956 --> 00:37:57,646
+from the start.
+
+
+1091
+00:37:58,186 --> 00:37:59,756
+And making sure that we all are
+
+
+1092
+00:37:59,756 --> 00:38:01,926
+building great features and
+
+
+1093
+00:38:02,006 --> 00:38:03,386
+respecting users' privacy.
+
+
+1094
+00:38:04,256 --> 00:38:05,796
+And what I want you to take away
+
+
+1095
+00:38:05,796 --> 00:38:06,596
+from this is a bit of
+
+
+1096
+00:38:06,596 --> 00:38:07,416
+inspiration.
+
+
+1097
+00:38:07,816 --> 00:38:09,416
+Go home, work with the teams
+
+
+1098
+00:38:09,416 --> 00:38:11,566
+that you have, and go build
+
+
+1099
+00:38:11,566 --> 00:38:12,566
+great features that will
+
+
+1100
+00:38:12,566 --> 00:38:15,176
+surprise and delight, but with
+
+
+1101
+00:38:15,176 --> 00:38:16,036
+user privacy.
+
+
+1102
+00:38:18,516 --> 00:38:25,546
+[ Applause ]
+
+
+1103
+00:38:26,046 --> 00:38:27,316
+Now, for more information,
+
+
+1104
+00:38:27,396 --> 00:38:28,566
+please go to this link.
+
+
+1105
+00:38:29,406 --> 00:38:31,026
+And we mentioned a lot of topics
+
+
+1106
+00:38:31,026 --> 00:38:31,836
+during this talk.
+
+
+1107
+00:38:32,176 --> 00:38:33,246
+And so, I'd encourage you to go
+
+
+1108
+00:38:33,246 --> 00:38:34,546
+check out some of these related
+
+
+1109
+00:38:34,546 --> 00:38:36,606
+sessions, including the CoreML
+
+
+1110
+00:38:36,606 --> 00:38:38,056
+one that's later this afternoon.
+
+
+1111
+00:38:39,236 --> 00:38:40,046
+Thank you, very much.
+
+
+1112
+00:38:40,046 --> 00:38:41,326
+And have a great Developer
+
+
+1113
+00:38:41,326 --> 00:38:41,966
+Conference.
+
+
+1114
+00:38:42,438 --> 00:38:44,438
+[ Applause ]
+

@@ -1,0 +1,1434 @@
+1
+00:00:17,526 --> 00:00:19,326
+>> Welcome, my name is Eryk
+
+
+2
+00:00:19,326 --> 00:00:21,236
+Vershen, I'm am AVFoundation
+
+
+3
+00:00:21,236 --> 00:00:22,166
+engineer at Apple.
+
+
+4
+00:00:22,936 --> 00:00:25,006
+This is session 515 which is
+
+
+5
+00:00:25,006 --> 00:00:27,286
+about HLS authoring and the HLS
+
+
+6
+00:00:27,286 --> 00:00:27,686
+tools.
+
+
+7
+00:00:28,966 --> 00:00:31,686
+HLS is an abbreviation for HTTP
+
+
+8
+00:00:31,686 --> 00:00:32,466
+Live Streaming.
+
+
+9
+00:00:32,896 --> 00:00:34,696
+HLS is the way you stream
+
+
+10
+00:00:34,696 --> 00:00:36,916
+content to all Apple devices.
+
+
+11
+00:00:37,816 --> 00:00:38,936
+I'm going to be talking about
+
+
+12
+00:00:38,936 --> 00:00:40,456
+the document HLS Authoring
+
+
+13
+00:00:40,456 --> 00:00:42,596
+Specification for Apple Devices
+
+
+14
+00:00:42,996 --> 00:00:44,366
+and the tools we distribute for
+
+
+15
+00:00:44,366 --> 00:00:45,996
+creating and validating HLS
+
+
+16
+00:00:45,996 --> 00:00:46,526
+content.
+
+
+17
+00:00:48,636 --> 00:00:50,356
+The Authoring Specification and
+
+
+18
+00:00:50,406 --> 00:00:52,316
+other important documents about
+
+
+19
+00:00:52,316 --> 00:00:53,906
+HLS can be found at this URL
+
+
+20
+00:00:54,346 --> 00:00:56,776
+developer.apple.com/streaming.
+
+
+21
+00:00:57,486 --> 00:00:59,326
+The Authoring Specification is
+
+
+22
+00:00:59,326 --> 00:01:01,336
+Apple's advice for authoring HLS
+
+
+23
+00:01:01,336 --> 00:01:01,866
+content.
+
+
+24
+00:01:03,026 --> 00:01:04,756
+We wanted the HLS specification,
+
+
+25
+00:01:04,876 --> 00:01:06,126
+the Internet draft, to include
+
+
+26
+00:01:06,126 --> 00:01:07,676
+only absolutely necessary
+
+
+27
+00:01:07,676 --> 00:01:08,486
+requirements.
+
+
+28
+00:01:09,246 --> 00:01:10,626
+The Authoring Specification, on
+
+
+29
+00:01:10,626 --> 00:01:11,756
+the other hand, includes
+
+
+30
+00:01:11,756 --> 00:01:12,996
+requirements that are specific
+
+
+31
+00:01:12,996 --> 00:01:15,016
+to Apple's players, as well as
+
+
+32
+00:01:15,016 --> 00:01:16,066
+things that, while not
+
+
+33
+00:01:16,066 --> 00:01:17,906
+absolutely required, are part of
+
+
+34
+00:01:17,906 --> 00:01:18,726
+best practice.
+
+
+35
+00:01:19,316 --> 00:01:23,016
+The big news this year is we've
+
+
+36
+00:01:23,016 --> 00:01:24,726
+added support for HEVC.
+
+
+37
+00:01:26,136 --> 00:01:27,406
+Here are the limits on what is
+
+
+38
+00:01:27,406 --> 00:01:27,896
+playable.
+
+
+39
+00:01:28,306 --> 00:01:31,776
+Main 10 Profile, Level 5.0, High
+
+
+40
+00:01:31,776 --> 00:01:32,116
+Tier.
+
+
+41
+00:01:32,726 --> 00:01:36,036
+Now that we support HEVC content
+
+
+42
+00:01:36,356 --> 00:01:37,746
+we've added bit rate guidelines
+
+
+43
+00:01:37,746 --> 00:01:38,516
+for that as well.
+
+
+44
+00:01:39,526 --> 00:01:40,136
+You should treat those
+
+
+45
+00:01:40,136 --> 00:01:41,326
+recommendations as very
+
+
+46
+00:01:41,326 --> 00:01:41,966
+preliminary.
+
+
+47
+00:01:42,556 --> 00:01:44,336
+HEVC encoders are still
+
+
+48
+00:01:44,336 --> 00:01:46,196
+evolving, we expect to see
+
+
+49
+00:01:46,196 --> 00:01:47,856
+improvements over time so we may
+
+
+50
+00:01:47,856 --> 00:01:49,116
+revise our guidelines in the
+
+
+51
+00:01:49,116 --> 00:01:49,606
+future.
+
+
+52
+00:01:50,996 --> 00:01:52,076
+You should also remember that
+
+
+53
+00:01:52,076 --> 00:01:53,446
+the bit rate recommendations in
+
+
+54
+00:01:53,446 --> 00:01:54,526
+the Authoring Specification are
+
+
+55
+00:01:54,526 --> 00:01:56,226
+guidelines, they are not cast in
+
+
+56
+00:01:56,226 --> 00:01:56,636
+stone.
+
+
+57
+00:01:57,506 --> 00:01:59,106
+We are aware that all content is
+
+
+58
+00:01:59,106 --> 00:02:00,816
+different, a bit rate that works
+
+
+59
+00:02:00,816 --> 00:02:01,806
+for a video of two people
+
+
+60
+00:02:01,806 --> 00:02:03,726
+talking is not likely to work
+
+
+61
+00:02:03,726 --> 00:02:04,656
+for a sporting event.
+
+
+62
+00:02:05,266 --> 00:02:06,366
+And you may have different
+
+
+63
+00:02:06,366 --> 00:02:07,446
+constraints on the number of bit
+
+
+64
+00:02:07,446 --> 00:02:08,346
+rate variants that you can
+
+
+65
+00:02:08,346 --> 00:02:08,806
+provide.
+
+
+66
+00:02:09,246 --> 00:02:10,686
+So, use the bit rate guidelines
+
+
+67
+00:02:10,686 --> 00:02:11,606
+as a starting point.
+
+
+68
+00:02:12,676 --> 00:02:14,486
+Having HEVC means that you can
+
+
+69
+00:02:14,486 --> 00:02:17,356
+have both H.264 and HEVC content
+
+
+70
+00:02:17,356 --> 00:02:18,676
+in the same master playlist.
+
+
+71
+00:02:19,166 --> 00:02:20,516
+So, we've come up with some best
+
+
+72
+00:02:20,516 --> 00:02:21,196
+practices.
+
+
+73
+00:02:22,506 --> 00:02:24,696
+First and most important, always
+
+
+74
+00:02:24,696 --> 00:02:26,086
+use the CODECS attribute.
+
+
+75
+00:02:26,626 --> 00:02:28,006
+You need this so that older
+
+
+76
+00:02:28,006 --> 00:02:29,356
+players don't try to play the
+
+
+77
+00:02:29,356 --> 00:02:30,376
+HEVC content.
+
+
+78
+00:02:32,156 --> 00:02:34,226
+Second and almost as important,
+
+
+79
+00:02:34,226 --> 00:02:36,096
+always include some H.264
+
+
+80
+00:02:36,096 --> 00:02:36,556
+content.
+
+
+81
+00:02:37,156 --> 00:02:38,516
+You need this so older players
+
+
+82
+00:02:38,516 --> 00:02:39,376
+will have something that they
+
+
+83
+00:02:39,376 --> 00:02:39,796
+can play.
+
+
+84
+00:02:41,716 --> 00:02:43,576
+Now the player will switch
+
+
+85
+00:02:43,606 --> 00:02:46,496
+between H.264 and HEVC.
+
+
+86
+00:02:46,496 --> 00:02:48,136
+However, for two variants with
+
+
+87
+00:02:48,136 --> 00:02:49,486
+similar bit rates the player
+
+
+88
+00:02:49,486 --> 00:02:50,926
+will typically favor the HEVC
+
+
+89
+00:02:50,926 --> 00:02:51,446
+content.
+
+
+90
+00:02:51,446 --> 00:02:54,526
+While H.264 content could be in
+
+
+91
+00:02:54,526 --> 00:02:56,656
+FMP4 files for maximum
+
+
+92
+00:02:56,656 --> 00:02:59,906
+compatibility keep your H.264 in
+
+
+93
+00:02:59,906 --> 00:03:00,916
+transport streams.
+
+
+94
+00:03:01,136 --> 00:03:02,816
+The last point I want to make is
+
+
+95
+00:03:02,816 --> 00:03:04,606
+that these same rules apply to
+
+
+96
+00:03:04,606 --> 00:03:05,906
+so-called trick play content,
+
+
+97
+00:03:06,016 --> 00:03:07,736
+that is I-frame-only content.
+
+
+98
+00:03:08,726 --> 00:03:10,826
+Along with adding HEVC support
+
+
+99
+00:03:10,826 --> 00:03:12,426
+we also added support for a
+
+
+100
+00:03:12,426 --> 00:03:14,796
+second subtitle format, IMSC.
+
+
+101
+00:03:15,766 --> 00:03:17,326
+If you want more detail on our
+
+
+102
+00:03:17,326 --> 00:03:19,066
+support for IMSC1 you should
+
+
+103
+00:03:19,066 --> 00:03:20,766
+look at this year's Advances in
+
+
+104
+00:03:20,766 --> 00:03:22,286
+HTTP Live Streaming talk.
+
+
+105
+00:03:23,406 --> 00:03:25,586
+IMSC1 is based on TTML, the
+
+
+106
+00:03:25,586 --> 00:03:27,616
+timed text markup language and
+
+
+107
+00:03:27,616 --> 00:03:29,026
+it's compatible with standards
+
+
+108
+00:03:29,096 --> 00:03:32,096
+from the EBU and SMPTE.
+
+
+109
+00:03:32,606 --> 00:03:35,596
+Let's talk about best practices
+
+
+110
+00:03:35,596 --> 00:03:37,086
+for subtitle content.
+
+
+111
+00:03:37,976 --> 00:03:39,666
+We support the text profile of
+
+
+112
+00:03:39,666 --> 00:03:42,186
+IMSC and note that IMSC content
+
+
+113
+00:03:42,186 --> 00:03:44,356
+must be in fragmented MP4 files,
+
+
+114
+00:03:44,426 --> 00:03:46,046
+you can't use plaintext files.
+
+
+115
+00:03:47,346 --> 00:03:49,176
+WebVTT is the same as it has
+
+
+116
+00:03:49,206 --> 00:03:50,996
+been, text files typically
+
+
+117
+00:03:50,996 --> 00:03:53,456
+having an extension of .VTT or
+
+
+118
+00:03:53,456 --> 00:03:54,326
+.webVTT.
+
+
+119
+00:03:55,126 --> 00:03:56,516
+Remember that you can mix up
+
+
+120
+00:03:56,516 --> 00:04:00,556
+IMSC and webVTT with H.264 HEVC
+
+
+121
+00:04:00,556 --> 00:04:02,006
+content however you want,
+
+
+122
+00:04:02,206 --> 00:04:03,366
+they're completely independent.
+
+
+123
+00:04:04,016 --> 00:04:06,336
+You should always use the IMSC1
+
+
+124
+00:04:06,466 --> 00:04:07,426
+CODECS value.
+
+
+125
+00:04:08,016 --> 00:04:09,576
+Including that value ensures
+
+
+126
+00:04:09,576 --> 00:04:11,036
+that older clients will ignore
+
+
+127
+00:04:11,036 --> 00:04:11,656
+the variant.
+
+
+128
+00:04:11,896 --> 00:04:13,246
+However, for maximum backward
+
+
+129
+00:04:13,246 --> 00:04:15,046
+compatibilities don't put in the
+
+
+130
+00:04:15,046 --> 00:04:16,875
+value for the webVTT content.
+
+
+131
+00:04:17,406 --> 00:04:19,896
+I want to change gears and talk
+
+
+132
+00:04:19,896 --> 00:04:21,266
+about the HLS tools and the
+
+
+133
+00:04:21,266 --> 00:04:22,266
+changes we've made there.
+
+
+134
+00:04:23,226 --> 00:04:24,416
+The tools are available on the
+
+
+135
+00:04:24,416 --> 00:04:25,916
+developer site and you can find
+
+
+136
+00:04:25,916 --> 00:04:27,666
+them through the same URL I
+
+
+137
+00:04:27,666 --> 00:04:28,546
+mentioned earlier,
+
+
+138
+00:04:28,726 --> 00:04:30,716
+developer.apple.com/streaming.
+
+
+139
+00:04:32,246 --> 00:04:33,666
+The tools fall into three rough
+
+
+140
+00:04:33,666 --> 00:04:35,726
+categories, tools for segmenting
+
+
+141
+00:04:35,726 --> 00:04:37,746
+video and audio, tools for
+
+
+142
+00:04:37,746 --> 00:04:39,176
+validating content and making
+
+
+143
+00:04:39,176 --> 00:04:41,526
+validation reports and finally,
+
+
+144
+00:04:41,526 --> 00:04:43,296
+tools for creating subtitles,
+
+
+145
+00:04:43,296 --> 00:04:44,446
+iv3 metadata and master
+
+
+146
+00:04:44,446 --> 00:04:45,026
+playlists.
+
+
+147
+00:04:45,756 --> 00:04:47,386
+Now the validator does not do
+
+
+148
+00:04:47,386 --> 00:04:49,066
+low-level bitstream checks, you
+
+
+149
+00:04:49,066 --> 00:04:50,236
+should be using third-party
+
+
+150
+00:04:50,236 --> 00:04:51,536
+tools if you think you may have
+
+
+151
+00:04:51,536 --> 00:04:53,006
+issues with your encoders.
+
+
+152
+00:04:53,806 --> 00:04:54,576
+Let's look at some of the
+
+
+153
+00:04:54,576 --> 00:04:57,186
+specific changes we made in the
+
+
+154
+00:04:58,076 --> 00:04:58,216
+tools.
+
+
+155
+00:04:58,396 --> 00:05:00,036
+Well firstly, we've added the
+
+
+156
+00:05:00,036 --> 00:05:02,056
+ability for MediaStreamValidator
+
+
+157
+00:05:02,056 --> 00:05:03,316
+to check local files.
+
+
+158
+00:05:03,766 --> 00:05:04,846
+You no longer have to put an
+
+
+159
+00:05:04,846 --> 00:05:06,536
+HTTP server to validate your
+
+
+160
+00:05:06,536 --> 00:05:07,176
+streams.
+
+
+161
+00:05:08,206 --> 00:05:10,356
+If you have direct file access
+
+
+162
+00:05:10,356 --> 00:05:11,776
+you can check them that way and
+
+
+163
+00:05:11,776 --> 00:05:13,296
+you can use relative paths,
+
+
+164
+00:05:13,296 --> 00:05:15,256
+absolute paths or file URLs.
+
+
+165
+00:05:16,046 --> 00:05:17,476
+However, I should note that you
+
+
+166
+00:05:17,476 --> 00:05:20,506
+can't mix file URLs and HTTP,
+
+
+167
+00:05:20,586 --> 00:05:21,896
+that is if the master playlist
+
+
+168
+00:05:21,896 --> 00:05:23,666
+is a file path then the media
+
+
+169
+00:05:23,666 --> 00:05:26,016
+playlist it references can't be
+
+
+170
+00:05:26,016 --> 00:05:27,166
+HTTP URLs.
+
+
+171
+00:05:28,016 --> 00:05:29,646
+Of course, we added support for
+
+
+172
+00:05:29,646 --> 00:05:31,256
+HEVC into the tools.
+
+
+173
+00:05:32,296 --> 00:05:33,856
+We've also made a lot of general
+
+
+174
+00:05:33,856 --> 00:05:35,046
+improvements to the tools,
+
+
+175
+00:05:35,286 --> 00:05:35,776
+principally the
+
+
+176
+00:05:35,776 --> 00:05:37,516
+MediaStreamValidator and HLS
+
+
+177
+00:05:37,516 --> 00:05:37,936
+report.
+
+
+178
+00:05:38,716 --> 00:05:39,886
+We check more things about the
+
+
+179
+00:05:39,886 --> 00:05:40,446
+stream.
+
+
+180
+00:05:40,796 --> 00:05:42,066
+There are too many to list, but
+
+
+181
+00:05:42,066 --> 00:05:42,986
+for example, we're now
+
+
+182
+00:05:42,986 --> 00:05:44,426
+validating the CODEC usage.
+
+
+183
+00:05:45,506 --> 00:05:46,646
+We have better handling for
+
+
+184
+00:05:46,646 --> 00:05:47,876
+errors on the stream during
+
+
+185
+00:05:47,876 --> 00:05:48,616
+validation.
+
+
+186
+00:05:49,166 --> 00:05:50,286
+And we made the ordering of
+
+
+187
+00:05:50,286 --> 00:05:51,496
+variants renditions in the
+
+
+188
+00:05:51,496 --> 00:05:53,486
+reports be more consistent.
+
+
+189
+00:05:54,336 --> 00:05:57,046
+We've added several new options,
+
+
+190
+00:05:57,046 --> 00:05:58,326
+I want to call out just three of
+
+
+191
+00:05:58,326 --> 00:05:58,606
+them.
+
+
+192
+00:05:59,786 --> 00:06:01,386
+First, the description option on
+
+
+193
+00:06:01,386 --> 00:06:02,476
+MediaStreamValidator.
+
+
+194
+00:06:03,516 --> 00:06:04,816
+The URLs for a stream don't
+
+
+195
+00:06:04,816 --> 00:06:06,166
+necessarily make clear what the
+
+
+196
+00:06:06,166 --> 00:06:06,936
+content is.
+
+
+197
+00:06:07,496 --> 00:06:08,696
+This option allows you to add
+
+
+198
+00:06:08,696 --> 00:06:10,226
+some text describing the stream.
+
+
+199
+00:06:10,576 --> 00:06:12,126
+For example, such and such show,
+
+
+200
+00:06:12,126 --> 00:06:13,636
+season two, episode five.
+
+
+201
+00:06:14,116 --> 00:06:15,386
+The text will appear at the top
+
+
+202
+00:06:15,386 --> 00:06:16,656
+of the report near the URL.
+
+
+203
+00:06:18,196 --> 00:06:20,786
+For HLS report, we've added some
+
+
+204
+00:06:20,786 --> 00:06:22,076
+new optional columns.
+
+
+205
+00:06:23,206 --> 00:06:24,376
+Rather than continue the way we
+
+
+206
+00:06:24,376 --> 00:06:25,686
+had previously with separate
+
+
+207
+00:06:25,686 --> 00:06:27,716
+options for each column, instead
+
+
+208
+00:06:27,716 --> 00:06:29,216
+we've added a columns option
+
+
+209
+00:06:29,386 --> 00:06:30,516
+that takes a list of column and
+
+
+210
+00:06:30,516 --> 00:06:31,366
+identifiers.
+
+
+211
+00:06:32,046 --> 00:06:33,386
+The set of available column
+
+
+212
+00:06:33,386 --> 00:06:34,796
+identifiers can be found using
+
+
+213
+00:06:34,796 --> 00:06:36,336
+the Help option or in the
+
+
+214
+00:06:36,336 --> 00:06:36,796
+[inaudible] page.
+
+
+215
+00:06:37,746 --> 00:06:39,916
+The old id and pl options that
+
+
+216
+00:06:39,916 --> 00:06:41,736
+gave you data id values and
+
+
+217
+00:06:41,736 --> 00:06:42,896
+playlist bit rates are still
+
+
+218
+00:06:42,896 --> 00:06:44,546
+supported, but are deprecated in
+
+
+219
+00:06:44,546 --> 00:06:46,156
+favor of column identifiers.
+
+
+220
+00:06:46,726 --> 00:06:47,986
+And the column identifiers for
+
+
+221
+00:06:47,986 --> 00:06:49,966
+those are just id and pl.
+
+
+222
+00:06:51,376 --> 00:06:53,956
+Last year we added hdcp-level
+
+
+223
+00:06:53,956 --> 00:06:55,466
+support, but we forgot to tell
+
+
+224
+00:06:55,466 --> 00:06:57,846
+you about the hdcp-level option
+
+
+225
+00:06:57,846 --> 00:06:59,036
+on MediaFileSegmenter.
+
+
+226
+00:06:59,816 --> 00:07:01,536
+This allows you to set the
+
+
+227
+00:07:01,536 --> 00:07:02,186
+hdcp-level.
+
+
+228
+00:07:03,136 --> 00:07:05,066
+The hdcp-level is included in
+
+
+229
+00:07:05,066 --> 00:07:06,656
+the Plist that gets generated by
+
+
+230
+00:07:06,656 --> 00:07:07,746
+MediaFileSegmenter.
+
+
+231
+00:07:08,486 --> 00:07:10,006
+And you can pass that Plist to
+
+
+232
+00:07:10,006 --> 00:07:11,546
+the variant playlist creator to
+
+
+233
+00:07:11,546 --> 00:07:13,846
+get the hdcp-level attribute in
+
+
+234
+00:07:13,846 --> 00:07:15,396
+the generated master playlist.
+
+
+235
+00:07:15,876 --> 00:07:19,356
+Here's a quick look of a sample
+
+
+236
+00:07:19,356 --> 00:07:19,816
+report.
+
+
+237
+00:07:20,626 --> 00:07:23,556
+Notice the second line, that's
+
+
+238
+00:07:23,556 --> 00:07:24,696
+from the description option that
+
+
+239
+00:07:24,696 --> 00:07:25,226
+we passed in
+
+
+240
+00:07:25,226 --> 00:07:26,306
+MediaStreamValidator.
+
+
+241
+00:07:27,756 --> 00:07:28,956
+And notice that we've now added
+
+
+242
+00:07:28,956 --> 00:07:31,206
+a CODECS column so you can see
+
+
+243
+00:07:31,206 --> 00:07:34,766
+which variants are H.264 and
+
+
+244
+00:07:35,576 --> 00:07:36,016
+HEVC.
+
+
+245
+00:07:36,216 --> 00:07:37,226
+Now we use the AVC, the
+
+
+246
+00:07:37,226 --> 00:07:40,426
+alternate name of H.264 so that
+
+
+247
+00:07:40,426 --> 00:07:41,396
+we'll have more visible
+
+
+248
+00:07:41,396 --> 00:07:42,886
+separation between the two CODEC
+
+
+249
+00:07:42,886 --> 00:07:43,356
+types.
+
+
+250
+00:07:45,516 --> 00:07:47,096
+As part of the changes in the
+
+
+251
+00:07:47,096 --> 00:07:48,006
+ordering of variants and
+
+
+252
+00:07:48,006 --> 00:07:50,506
+renditions, we now keep audio,
+
+
+253
+00:07:50,916 --> 00:07:52,126
+closed caption and subtitle
+
+
+254
+00:07:52,126 --> 00:07:53,176
+renditions separate.
+
+
+255
+00:07:54,366 --> 00:07:57,836
+To summarize, remember that URL,
+
+
+256
+00:07:58,036 --> 00:08:00,266
+developer.apple.com/streaming,
+
+
+257
+00:08:01,006 --> 00:08:02,246
+everything you need to know is
+
+
+258
+00:08:02,246 --> 00:08:03,506
+pointed to from that page.
+
+
+259
+00:08:04,106 --> 00:08:05,456
+Besides the various documents it
+
+
+260
+00:08:05,456 --> 00:08:06,666
+also has links to sample
+
+
+261
+00:08:06,666 --> 00:08:08,506
+streams, to the tools download,
+
+
+262
+00:08:09,136 --> 00:08:11,246
+to past videos about HLS, the
+
+
+263
+00:08:11,246 --> 00:08:12,306
+information about FairPlay
+
+
+264
+00:08:12,306 --> 00:08:14,126
+Streaming and so on.
+
+
+265
+00:08:14,426 --> 00:08:16,556
+I encourage you all to read the
+
+
+266
+00:08:16,556 --> 00:08:17,946
+HLS Authoring Specification for
+
+
+267
+00:08:17,946 --> 00:08:20,306
+Apple Devices and the HLS spec.
+
+
+268
+00:08:21,726 --> 00:08:23,496
+For more information go to the
+
+
+269
+00:08:23,496 --> 00:08:24,746
+webpage for this talk,
+
+
+270
+00:08:25,086 --> 00:08:30,226
+developer.apple.com/WWDC17/515.
+
+
+271
+00:08:30,226 --> 00:08:34,596
+We have some related video
+
+
+272
+00:08:34,596 --> 00:08:37,416
+sessions, Advances in HTTP Live
+
+
+273
+00:08:37,416 --> 00:08:37,946
+Streaming.
+
+
+274
+00:08:39,775 --> 00:08:41,186
+This has more discussion of HEVC
+
+
+275
+00:08:41,186 --> 00:08:43,645
+and IMSC1, as well as some other
+
+
+276
+00:08:43,645 --> 00:08:44,636
+interesting topics.
+
+
+277
+00:08:45,206 --> 00:08:46,706
+And Error Handling Best
+
+
+278
+00:08:46,706 --> 00:08:48,356
+Practices for HTTP Live
+
+
+279
+00:08:48,356 --> 00:08:48,806
+Streaming.
+
+
+280
+00:08:48,806 --> 00:08:50,466
+That will help you understand
+
+
+281
+00:08:50,466 --> 00:08:52,306
+what your server needs to do to
+
+
+282
+00:08:52,306 --> 00:08:53,776
+be a good HLS server.
+
+
+283
+00:08:54,586 --> 00:08:55,976
+You can watch either of these
+
+
+284
+00:08:55,976 --> 00:08:57,836
+videos via the web or in the
+
+
+285
+00:08:57,836 --> 00:08:59,066
+WWDC app.
+
+
+286
+00:08:59,786 --> 00:09:01,136
+I hope you found the talk
+
+
+287
+00:09:01,136 --> 00:09:02,436
+useful, thanks for watching.
+

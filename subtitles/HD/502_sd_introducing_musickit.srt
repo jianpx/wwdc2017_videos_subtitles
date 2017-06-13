@@ -1,0 +1,5984 @@
+1
+00:00:27,096 --> 00:00:27,806
+>> Hi.
+
+
+2
+00:00:28,516 --> 00:00:30,636
+[ Applause ]
+
+
+3
+00:00:31,136 --> 00:00:32,546
+>> We love music at Apple.
+
+
+4
+00:00:33,376 --> 00:00:34,726
+As Tim said yesterday in the
+
+
+5
+00:00:34,726 --> 00:00:37,016
+keynote, it's a fundamental part
+
+
+6
+00:00:37,016 --> 00:00:37,736
+of our DNA.
+
+
+7
+00:00:38,706 --> 00:00:40,646
+My name is Tim, and I'm here
+
+
+8
+00:00:40,646 --> 00:00:42,506
+today to introduce you to
+
+
+9
+00:00:42,506 --> 00:00:45,766
+MusicKit, a way for you to
+
+
+10
+00:00:45,766 --> 00:00:47,876
+integrate streaming music with
+
+
+11
+00:00:47,876 --> 00:00:49,166
+Apple Music content.
+
+
+12
+00:00:50,546 --> 00:00:51,966
+With MusicKit, you're going to
+
+
+13
+00:00:51,966 --> 00:00:57,466
+get access to artists, albums
+
+
+14
+00:00:57,466 --> 00:01:03,036
+and songs, playlists, activities
+
+
+15
+00:01:03,036 --> 00:01:03,756
+and curators.
+
+
+16
+00:01:04,686 --> 00:01:06,656
+We also provide operations for
+
+
+17
+00:01:06,656 --> 00:01:12,206
+discovery, like search, and
+
+
+18
+00:01:12,206 --> 00:01:15,726
+charts, and if the user
+
+
+19
+00:01:15,726 --> 00:01:16,726
+authorizes your app,
+
+
+20
+00:01:17,586 --> 00:01:19,196
+personalized recommendations
+
+
+21
+00:01:19,196 --> 00:01:20,416
+that are tailored to the user's
+
+
+22
+00:01:20,416 --> 00:01:20,976
+taste or their activity.
+
+
+23
+00:01:26,496 --> 00:01:32,946
+MusicKit is two things; it's a
+
+
+24
+00:01:33,186 --> 00:01:36,466
+collection of client APIs in the
+
+
+25
+00:01:36,466 --> 00:01:41,426
+iOS SDK and a set of web
+
+
+26
+00:01:41,426 --> 00:01:42,586
+services that provide
+
+
+27
+00:01:42,586 --> 00:01:43,716
+personalized and cataloged
+
+
+28
+00:01:43,716 --> 00:01:43,956
+content.
+
+
+29
+00:01:49,356 --> 00:01:51,436
+I'll be talking about the web
+
+
+30
+00:01:51,436 --> 00:01:53,696
+services part, which we call
+
+
+31
+00:01:54,156 --> 00:01:55,416
+Apple Music API.
+
+
+32
+00:01:55,416 --> 00:01:59,596
+These are some of the topics
+
+
+33
+00:01:59,596 --> 00:02:00,376
+I'll be discussing.
+
+
+34
+00:02:01,006 --> 00:02:02,356
+I'll go a little into how to
+
+
+35
+00:02:02,356 --> 00:02:04,656
+format a request, how we
+
+
+36
+00:02:04,656 --> 00:02:05,966
+represent the content with
+
+
+37
+00:02:05,966 --> 00:02:07,686
+resources and relationships,
+
+
+38
+00:02:08,936 --> 00:02:10,376
+some detail about limits and
+
+
+39
+00:02:10,376 --> 00:02:11,206
+pagination.
+
+
+40
+00:02:12,416 --> 00:02:13,716
+My colleague Joel will give a
+
+
+41
+00:02:13,716 --> 00:02:14,286
+brief demo.
+
+
+42
+00:02:15,756 --> 00:02:16,846
+I'll touch on personalized
+
+
+43
+00:02:16,846 --> 00:02:19,896
+services; and finally, talk
+
+
+44
+00:02:19,896 --> 00:02:21,326
+about how to get access to the
+
+
+45
+00:02:21,326 --> 00:02:25,036
+Apple Music API.
+
+
+46
+00:02:25,266 --> 00:02:27,056
+No talk about a Web services API
+
+
+47
+00:02:27,236 --> 00:02:28,956
+would be complete without
+
+
+48
+00:02:28,956 --> 00:02:31,326
+talking about the URL structure.
+
+
+49
+00:02:32,256 --> 00:02:34,666
+Apple Music API only supports
+
+
+50
+00:02:34,666 --> 00:02:37,356
+the secure HTTPS scheme, and
+
+
+51
+00:02:37,356 --> 00:02:38,496
+it's hosted at
+
+
+52
+00:02:38,496 --> 00:02:41,476
+api.music.apple.com.
+
+
+53
+00:02:42,626 --> 00:02:44,586
+The first element in the URL
+
+
+54
+00:02:44,586 --> 00:02:46,506
+path is the version.
+
+
+55
+00:02:47,586 --> 00:02:48,876
+Current version is V1, and if we
+
+
+56
+00:02:49,596 --> 00:02:52,216
+make significant improvements or
+
+
+57
+00:02:52,216 --> 00:02:53,486
+backwards incompatible changes,
+
+
+58
+00:02:53,486 --> 00:02:53,976
+we'll bump the version.
+
+
+59
+00:02:58,286 --> 00:02:59,726
+The next part of the path is
+
+
+60
+00:02:59,726 --> 00:03:01,326
+cataloged, and this just
+
+
+61
+00:03:01,326 --> 00:03:02,836
+indicates that this is the Apple
+
+
+62
+00:03:02,836 --> 00:03:04,396
+Music streaming content catalog.
+
+
+63
+00:03:05,736 --> 00:03:10,746
+A note that not all content is
+
+
+64
+00:03:10,746 --> 00:03:12,656
+available in every area or
+
+
+65
+00:03:12,656 --> 00:03:14,856
+region of the world, and so we
+
+
+66
+00:03:14,856 --> 00:03:15,886
+introduced the concept of
+
+
+67
+00:03:15,886 --> 00:03:18,936
+Storefront in the path.
+
+
+68
+00:03:18,936 --> 00:03:21,946
+Storefront scopes the catalog to
+
+
+69
+00:03:21,946 --> 00:03:23,606
+the area region where content is
+
+
+70
+00:03:23,606 --> 00:03:25,106
+available so that you can
+
+
+71
+00:03:25,106 --> 00:03:27,376
+provide relevant and playable
+
+
+72
+00:03:27,376 --> 00:03:27,976
+music to your users.
+
+
+73
+00:03:33,136 --> 00:03:35,616
+The next part is the API.
+
+
+74
+00:03:35,886 --> 00:03:37,266
+This just indicates the resource
+
+
+75
+00:03:37,266 --> 00:03:38,526
+you'd like to request or the
+
+
+76
+00:03:38,526 --> 00:03:39,546
+operations you'd like to
+
+
+77
+00:03:39,546 --> 00:03:40,086
+perform.
+
+
+78
+00:03:41,406 --> 00:03:43,716
+And finally, we have a set of
+
+
+79
+00:03:43,716 --> 00:03:45,736
+parameters that you can use to
+
+
+80
+00:03:45,736 --> 00:03:46,976
+filter or expand the request.
+
+
+81
+00:03:52,156 --> 00:03:53,746
+Our API is localized.
+
+
+82
+00:03:54,906 --> 00:03:56,706
+We support many localizations,
+
+
+83
+00:03:57,506 --> 00:03:59,236
+but not all localizations are
+
+
+84
+00:03:59,236 --> 00:04:00,626
+supported in every Storefront.
+
+
+85
+00:04:01,626 --> 00:04:03,066
+We provide a mechanism for you
+
+
+86
+00:04:03,066 --> 00:04:05,626
+to get which Storefront supports
+
+
+87
+00:04:05,626 --> 00:04:06,926
+which localizations.
+
+
+88
+00:04:08,696 --> 00:04:10,806
+The API supports limits in
+
+
+89
+00:04:10,806 --> 00:04:12,206
+pagination, and I'll go into
+
+
+90
+00:04:12,206 --> 00:04:13,246
+some detail later in my
+
+
+91
+00:04:13,246 --> 00:04:14,856
+presentation about exactly how
+
+
+92
+00:04:14,856 --> 00:04:15,416
+that works.
+
+
+93
+00:04:16,616 --> 00:04:18,966
+And finally, every request to
+
+
+94
+00:04:18,966 --> 00:04:20,286
+Apple Music API requires a
+
+
+95
+00:04:20,286 --> 00:04:20,976
+developer token.
+
+
+96
+00:04:28,396 --> 00:04:29,746
+Representing data is an
+
+
+97
+00:04:29,746 --> 00:04:31,546
+important consideration for any
+
+
+98
+00:04:31,546 --> 00:04:31,856
+API.
+
+
+99
+00:04:33,266 --> 00:04:34,656
+We've taken our experience
+
+
+100
+00:04:34,656 --> 00:04:38,376
+building the Apple Music app to
+
+
+101
+00:04:38,376 --> 00:04:40,406
+give you an API that takes into
+
+
+102
+00:04:40,406 --> 00:04:42,126
+consideration ease of use,
+
+
+103
+00:04:42,586 --> 00:04:44,836
+flexibility, and performance.
+
+
+104
+00:04:46,676 --> 00:04:49,346
+Here, I have the first
+
+
+105
+00:04:49,346 --> 00:04:50,986
+representation of a resource,
+
+
+106
+00:04:50,986 --> 00:04:52,516
+which we call the identity form.
+
+
+107
+00:04:53,416 --> 00:04:56,126
+It includes an ID, a type of
+
+
+108
+00:04:56,126 --> 00:04:59,796
+thing that this is, and an href,
+
+
+109
+00:04:59,796 --> 00:05:01,146
+which indicates the location in
+
+
+110
+00:05:01,146 --> 00:05:02,376
+the catalog where you can find
+
+
+111
+00:05:02,376 --> 00:05:03,016
+this content.
+
+
+112
+00:05:04,176 --> 00:05:05,616
+This isn't very useful for
+
+
+113
+00:05:05,616 --> 00:05:06,026
+display.
+
+
+114
+00:05:07,276 --> 00:05:08,366
+That's why we have this type,
+
+
+115
+00:05:09,216 --> 00:05:10,436
+which is the attributes form.
+
+
+116
+00:05:10,956 --> 00:05:13,596
+This includes the identity and a
+
+
+117
+00:05:13,596 --> 00:05:15,246
+list of attributes that you can
+
+
+118
+00:05:15,246 --> 00:05:16,586
+use to display relevant
+
+
+119
+00:05:16,586 --> 00:05:17,916
+information about the content.
+
+
+120
+00:05:18,526 --> 00:05:19,586
+This includes things like
+
+
+121
+00:05:19,586 --> 00:05:21,746
+artwork and name and
+
+
+122
+00:05:21,746 --> 00:05:23,616
+description, and if the content
+
+
+123
+00:05:23,616 --> 00:05:25,376
+is playable, it will have an
+
+
+124
+00:05:25,376 --> 00:05:26,506
+attribute called play
+
+
+125
+00:05:26,506 --> 00:05:27,176
+parameters.
+
+
+126
+00:05:29,416 --> 00:05:31,366
+Finally, we have the default
+
+
+127
+00:05:31,366 --> 00:05:31,706
+form.
+
+
+128
+00:05:31,876 --> 00:05:34,156
+If you ask the Apple Music API
+
+
+129
+00:05:34,156 --> 00:05:35,776
+for a collection of things, this
+
+
+130
+00:05:35,776 --> 00:05:37,076
+is the default form that you'll
+
+
+131
+00:05:37,076 --> 00:05:37,346
+get.
+
+
+132
+00:05:37,856 --> 00:05:38,876
+It's the attributes and
+
+
+133
+00:05:38,876 --> 00:05:39,866
+relationship form.
+
+
+134
+00:05:40,576 --> 00:05:41,866
+This is all of the attributes
+
+
+135
+00:05:41,866 --> 00:05:44,086
+required for display plus
+
+
+136
+00:05:44,086 --> 00:05:45,836
+collections of content that are
+
+
+137
+00:05:45,836 --> 00:05:47,196
+related to this particular
+
+
+138
+00:05:47,196 --> 00:05:47,796
+resource.
+
+
+139
+00:05:48,336 --> 00:05:51,426
+It's a little bit about
+
+
+140
+00:05:51,426 --> 00:05:52,306
+relationships.
+
+
+141
+00:05:54,106 --> 00:05:55,716
+Here I have an album resource.
+
+
+142
+00:05:56,886 --> 00:05:58,456
+It has three relationships.
+
+
+143
+00:05:59,926 --> 00:06:01,466
+The first is a relationship to
+
+
+144
+00:06:01,466 --> 00:06:02,056
+tracks.
+
+
+145
+00:06:02,516 --> 00:06:03,796
+This is the songs or music
+
+
+146
+00:06:03,796 --> 00:06:05,026
+videos that are attached to this
+
+
+147
+00:06:05,026 --> 00:06:05,366
+album.
+
+
+148
+00:06:06,726 --> 00:06:09,066
+The second is artists, which, of
+
+
+149
+00:06:09,066 --> 00:06:10,496
+course, is the artist that
+
+
+150
+00:06:10,866 --> 00:06:12,636
+created the song or the album;
+
+
+151
+00:06:13,916 --> 00:06:14,626
+and genres.
+
+
+152
+00:06:15,356 --> 00:06:17,046
+Genres are just the category of
+
+
+153
+00:06:17,446 --> 00:06:18,936
+music that this album belongs
+
+
+154
+00:06:18,936 --> 00:06:19,106
+in.
+
+
+155
+00:06:19,786 --> 00:06:21,206
+Now, each of these relationships
+
+
+156
+00:06:21,206 --> 00:06:22,066
+is of a different type.
+
+
+157
+00:06:23,286 --> 00:06:26,036
+The first app for tracks is an
+
+
+158
+00:06:26,076 --> 00:06:27,506
+attributes included relation.
+
+
+159
+00:06:28,546 --> 00:06:29,956
+It means if you ask for this
+
+
+160
+00:06:29,956 --> 00:06:31,966
+album, it's going to return all
+
+
+161
+00:06:31,966 --> 00:06:33,856
+of its tracks with their
+
+
+162
+00:06:33,856 --> 00:06:34,886
+attributes included.
+
+
+163
+00:06:35,176 --> 00:06:37,006
+This means that if you ask for
+
+
+164
+00:06:37,006 --> 00:06:38,366
+an album, you could get all of
+
+
+165
+00:06:38,366 --> 00:06:39,796
+the data about the songs and its
+
+
+166
+00:06:39,796 --> 00:06:40,406
+attributes.
+
+
+167
+00:06:41,826 --> 00:06:44,096
+The second type, artist, is
+
+
+168
+00:06:44,096 --> 00:06:45,016
+identifiers only.
+
+
+169
+00:06:45,216 --> 00:06:46,726
+It means we only return the
+
+
+170
+00:06:46,726 --> 00:06:49,056
+identifier form, the location,
+
+
+171
+00:06:49,056 --> 00:06:50,426
+and the kind of thing, and where
+
+
+172
+00:06:50,426 --> 00:06:51,726
+you can find it in the catalog.
+
+
+173
+00:06:52,706 --> 00:06:55,186
+And finally, we have the omitted
+
+
+174
+00:06:55,186 --> 00:06:55,836
+by default.
+
+
+175
+00:06:56,536 --> 00:06:58,316
+This is not returned in the
+
+
+176
+00:06:58,316 --> 00:07:00,446
+default representation, although
+
+
+177
+00:07:00,446 --> 00:07:01,916
+the relationship still exists.
+
+
+178
+00:07:02,836 --> 00:07:03,626
+So, let's look at this in
+
+
+179
+00:07:03,626 --> 00:07:04,116
+practice.
+
+
+180
+00:07:05,536 --> 00:07:07,886
+Here, I have a URL to an album,
+
+
+181
+00:07:08,986 --> 00:07:10,386
+and you can see that in the
+
+
+182
+00:07:10,386 --> 00:07:12,426
+adjacent response tracks have
+
+
+183
+00:07:12,426 --> 00:07:16,286
+attributes omitted, and artists
+
+
+184
+00:07:16,286 --> 00:07:17,626
+are the identifier form.
+
+
+185
+00:07:18,516 --> 00:07:19,726
+So, what if I wanted to make a
+
+
+186
+00:07:19,726 --> 00:07:21,306
+single call and get the
+
+
+187
+00:07:21,346 --> 00:07:24,316
+attributes for an artist.
+
+
+188
+00:07:24,316 --> 00:07:25,526
+I'd simply add the career
+
+
+189
+00:07:25,526 --> 00:07:28,486
+parameter, include and specify
+
+
+190
+00:07:28,486 --> 00:07:29,676
+the name of the relationship,
+
+
+191
+00:07:29,986 --> 00:07:31,246
+which I would like to omit the
+
+
+192
+00:07:31,246 --> 00:07:32,136
+attributes for.
+
+
+193
+00:07:33,786 --> 00:07:35,906
+And you can see that here we
+
+
+194
+00:07:35,906 --> 00:07:37,116
+have omitted the attributes for
+
+
+195
+00:07:37,116 --> 00:07:38,526
+the artist, along with the
+
+
+196
+00:07:38,526 --> 00:07:40,166
+attribute form for the tracks.
+
+
+197
+00:07:41,366 --> 00:07:42,456
+You'll notice in this response
+
+
+198
+00:07:42,456 --> 00:07:43,716
+that we don't include genres.
+
+
+199
+00:07:44,346 --> 00:07:45,326
+So, how would you include the
+
+
+200
+00:07:45,326 --> 00:07:46,686
+attribute form of genres?
+
+
+201
+00:07:48,036 --> 00:07:49,666
+You'd simply add genres to the
+
+
+202
+00:07:49,666 --> 00:07:53,256
+include career parameter, and
+
+
+203
+00:07:53,256 --> 00:07:54,836
+you can see that genres will be
+
+
+204
+00:07:54,836 --> 00:07:56,876
+omitted in the attribute form.
+
+
+205
+00:07:57,406 --> 00:07:59,776
+So, that's a little bit about
+
+
+206
+00:07:59,776 --> 00:08:00,966
+resources and relationships.
+
+
+207
+00:08:00,966 --> 00:08:02,436
+I'm now going to talk about some
+
+
+208
+00:08:02,436 --> 00:08:03,536
+limits and pagination.
+
+
+209
+00:08:04,876 --> 00:08:06,366
+So, here are the requests for
+
+
+210
+00:08:06,366 --> 00:08:07,586
+the tracks resource for an
+
+
+211
+00:08:07,586 --> 00:08:07,876
+album.
+
+
+212
+00:08:08,156 --> 00:08:10,086
+This will give me the collection
+
+
+213
+00:08:11,256 --> 00:08:13,726
+of songs for this album.
+
+
+214
+00:08:14,386 --> 00:08:15,876
+This album happens to have 9.
+
+
+215
+00:08:16,876 --> 00:08:18,306
+If I wanted to limit the number
+
+
+216
+00:08:18,306 --> 00:08:19,646
+of tracks that I would get back,
+
+
+217
+00:08:20,126 --> 00:08:22,066
+I would simply add the limit
+
+
+218
+00:08:22,066 --> 00:08:25,186
+career parameter, and let's say
+
+
+219
+00:08:25,186 --> 00:08:26,586
+I wanted a page size of 2.
+
+
+220
+00:08:27,976 --> 00:08:29,336
+This would give me the first two
+
+
+221
+00:08:29,336 --> 00:08:32,546
+songs in this album, and then it
+
+
+222
+00:08:32,546 --> 00:08:37,126
+would give me a Next key that
+
+
+223
+00:08:37,326 --> 00:08:39,155
+indicates where the rest of
+
+
+224
+00:08:39,155 --> 00:08:39,996
+these tracks live.
+
+
+225
+00:08:41,556 --> 00:08:46,326
+If I follow this next link, I
+
+
+226
+00:08:46,546 --> 00:08:48,726
+will get the rest of the tracks
+
+
+227
+00:08:48,726 --> 00:08:50,306
+for this album, songs 3 through
+
+
+228
+00:08:50,306 --> 00:08:50,626
+9.
+
+
+229
+00:08:52,056 --> 00:08:53,786
+If I wanted to implement a page
+
+
+230
+00:08:53,786 --> 00:08:57,836
+size of 2, I would simply add,
+
+
+231
+00:08:57,836 --> 00:08:59,356
+again, limit equals 2.
+
+
+232
+00:09:00,006 --> 00:09:02,016
+It would give me songs 3 and 4.
+
+
+233
+00:09:03,366 --> 00:09:06,286
+Again, a Next reference, with a
+
+
+234
+00:09:06,286 --> 00:09:07,026
+URL to where the rest of the
+
+
+235
+00:09:07,026 --> 00:09:07,976
+data for this album lives.
+
+
+236
+00:09:11,276 --> 00:09:12,846
+So, what does this look like in
+
+
+237
+00:09:12,846 --> 00:09:13,256
+practice?
+
+
+238
+00:09:14,006 --> 00:09:14,556
+Here it is.
+
+
+239
+00:09:14,816 --> 00:09:16,726
+You can see that the Next
+
+
+240
+00:09:16,726 --> 00:09:18,906
+reference is a sibling of the
+
+
+241
+00:09:18,906 --> 00:09:20,046
+collection of data that comes
+
+
+242
+00:09:20,086 --> 00:09:22,076
+back for these tracks.
+
+
+243
+00:09:23,396 --> 00:09:24,496
+So, I've talked a little bit
+
+
+244
+00:09:24,926 --> 00:09:27,416
+about resources, the
+
+
+245
+00:09:27,416 --> 00:09:30,196
+relationships, and pagination.
+
+
+246
+00:09:30,576 --> 00:09:34,256
+Let's talk about an operation.
+
+
+247
+00:09:35,756 --> 00:09:38,026
+Most of our operations come back
+
+
+248
+00:09:38,026 --> 00:09:40,686
+as collections of resources
+
+
+249
+00:09:40,686 --> 00:09:41,996
+grouped by the type of thing
+
+
+250
+00:09:41,996 --> 00:09:42,536
+that they are.
+
+
+251
+00:09:43,036 --> 00:09:45,586
+For example, a search for Khalid
+
+
+252
+00:09:45,796 --> 00:09:47,426
+would bring back albums,
+
+
+253
+00:09:47,946 --> 00:09:50,286
+artists, songs, and playlists.
+
+
+254
+00:09:50,796 --> 00:09:52,426
+If I wanted to limit the type of
+
+
+255
+00:09:52,426 --> 00:09:53,926
+things that came back from a
+
+
+256
+00:09:53,926 --> 00:09:55,796
+search, I would simply add the
+
+
+257
+00:09:55,796 --> 00:09:57,436
+"types" career parameter and
+
+
+258
+00:09:57,436 --> 00:10:00,186
+specify the kind of thing that I
+
+
+259
+00:10:00,186 --> 00:10:00,926
+would like to come back.
+
+
+260
+00:10:01,766 --> 00:10:04,366
+Here, I'm asking for albums, and
+
+
+261
+00:10:04,366 --> 00:10:05,846
+when I call it, I'll just get a
+
+
+262
+00:10:05,846 --> 00:10:06,946
+collection of albums.
+
+
+263
+00:10:09,196 --> 00:10:10,566
+And now, I'd like to welcome my
+
+
+264
+00:10:10,566 --> 00:10:12,076
+colleague Joel onto the stage to
+
+
+265
+00:10:12,076 --> 00:10:13,636
+do a quick Playground demo of a
+
+
+266
+00:10:13,636 --> 00:10:13,946
+Search request.
+
+
+267
+00:10:14,516 --> 00:10:17,686
+[ Applause ]
+
+
+268
+00:10:18,186 --> 00:10:20,986
+>> Thank you, Tim.
+
+
+269
+00:10:21,216 --> 00:10:22,496
+Hi, my name is Joel, and I'd
+
+
+270
+00:10:22,496 --> 00:10:23,826
+like to show you just how easy
+
+
+271
+00:10:23,826 --> 00:10:26,186
+it is to fetch content from
+
+
+272
+00:10:26,186 --> 00:10:28,706
+Apple Music to enrich your apps
+
+
+273
+00:10:28,786 --> 00:10:29,436
+in Swift.
+
+
+274
+00:10:31,116 --> 00:10:32,786
+To do that, I'd like to show you
+
+
+275
+00:10:32,786 --> 00:10:34,456
+how to fetch some content from
+
+
+276
+00:10:34,456 --> 00:10:35,856
+this catalog search endpoint,
+
+
+277
+00:10:36,436 --> 00:10:37,986
+and here we'll be searching for
+
+
+278
+00:10:38,166 --> 00:10:39,446
+albums from Khalid.
+
+
+279
+00:10:40,486 --> 00:10:43,036
+To do so, we'll simply start
+
+
+280
+00:10:43,126 --> 00:10:44,856
+building the URL for this search
+
+
+281
+00:10:44,856 --> 00:10:46,876
+request, using URL components,
+
+
+282
+00:10:47,006 --> 00:10:48,396
+and one important part of this
+
+
+283
+00:10:48,396 --> 00:10:51,766
+URL in the path is the inclusion
+
+
+284
+00:10:51,766 --> 00:10:53,276
+of the Storefront county code
+
+
+285
+00:10:53,766 --> 00:10:54,946
+corresponding to the user.
+
+
+286
+00:10:55,436 --> 00:10:58,516
+Then, you need to add a few
+
+
+287
+00:10:58,516 --> 00:11:00,256
+query parameters to this
+
+
+288
+00:11:00,256 --> 00:11:02,366
+request, and we'll do so by
+
+
+289
+00:11:02,576 --> 00:11:04,406
+using query items, and we'll
+
+
+290
+00:11:04,406 --> 00:11:07,286
+simply set the term to "Kahalid"
+
+
+291
+00:11:07,666 --> 00:11:09,276
+and type 2 albums.
+
+
+292
+00:11:09,846 --> 00:11:12,986
+Once you have that, you can
+
+
+293
+00:11:12,986 --> 00:11:14,516
+construct a fully formed URL,
+
+
+294
+00:11:15,136 --> 00:11:16,646
+and then a URL request with
+
+
+295
+00:11:16,646 --> 00:11:16,936
+that.
+
+
+296
+00:11:18,016 --> 00:11:20,316
+And then, you need to include an
+
+
+297
+00:11:20,316 --> 00:11:22,546
+HTTP header to this URL request,
+
+
+298
+00:11:22,546 --> 00:11:23,626
+which is the authorization
+
+
+299
+00:11:23,626 --> 00:11:26,236
+header, and this is useful to
+
+
+300
+00:11:26,236 --> 00:11:27,846
+authenticate your app with Apple
+
+
+301
+00:11:27,846 --> 00:11:28,426
+Music API.
+
+
+302
+00:11:29,906 --> 00:11:31,026
+Here, we'll be using the
+
+
+303
+00:11:31,026 --> 00:11:33,236
+developer token as a part of the
+
+
+304
+00:11:33,236 --> 00:11:35,536
+value of this HTTP header with
+
+
+305
+00:11:35,536 --> 00:11:36,566
+the "Bearer" prefix.
+
+
+306
+00:11:37,026 --> 00:11:40,706
+Next stop, we can load the data,
+
+
+307
+00:11:40,986 --> 00:11:44,326
+using URL session, and with this
+
+
+308
+00:11:44,326 --> 00:11:46,576
+raw JSON data, we'll simply use
+
+
+309
+00:11:46,576 --> 00:11:48,486
+the new JSON Decoder in Swift
+
+
+310
+00:11:48,486 --> 00:11:51,216
+4.0 to parse this data, and it
+
+
+311
+00:11:51,216 --> 00:11:52,686
+really makes it easy to convert
+
+
+312
+00:11:52,686 --> 00:11:54,796
+JSON data into strongly typed
+
+
+313
+00:11:55,096 --> 00:11:56,076
+Swift structures.
+
+
+314
+00:11:56,396 --> 00:11:58,406
+You can simply define a few
+
+
+315
+00:11:58,406 --> 00:12:00,096
+Swift structures that conform to
+
+
+316
+00:12:00,096 --> 00:12:03,026
+the codable protocol, and then
+
+
+317
+00:12:03,246 --> 00:12:05,396
+you can feed such structures to
+
+
+318
+00:12:05,396 --> 00:12:06,296
+the JSON decoder.
+
+
+319
+00:12:06,296 --> 00:12:07,596
+In this case, I'll be passing
+
+
+320
+00:12:07,596 --> 00:12:08,906
+the Catalog Search Results
+
+
+321
+00:12:09,276 --> 00:12:11,356
+struct to the JSON Decoder,
+
+
+322
+00:12:11,476 --> 00:12:12,726
+along with the Search data, and
+
+
+323
+00:12:13,126 --> 00:12:14,746
+then I can take a peek into the
+
+
+324
+00:12:14,746 --> 00:12:15,366
+results.
+
+
+325
+00:12:16,026 --> 00:12:17,466
+So, here, I'll be looking for
+
+
+326
+00:12:17,466 --> 00:12:18,886
+the first album in these
+
+
+327
+00:12:18,886 --> 00:12:20,686
+results, and let's take a look
+
+
+328
+00:12:20,686 --> 00:12:23,696
+at the attributes we get.
+
+
+329
+00:12:23,886 --> 00:12:25,746
+Sure enough, we get the American
+
+
+330
+00:12:25,746 --> 00:12:28,186
+Teen Album by Khalid, including
+
+
+331
+00:12:28,186 --> 00:12:30,406
+the other related attributes.
+
+
+332
+00:12:31,276 --> 00:12:32,736
+And as you can see, we also have
+
+
+333
+00:12:32,736 --> 00:12:33,586
+some information about the
+
+
+334
+00:12:33,586 --> 00:12:35,846
+artwork, and this comes with a
+
+
+335
+00:12:35,846 --> 00:12:36,236
+URL.
+
+
+336
+00:12:36,236 --> 00:12:37,666
+But if you really take a look at
+
+
+337
+00:12:37,666 --> 00:12:39,126
+this URL, it's more of a URL
+
+
+338
+00:12:39,126 --> 00:12:40,656
+format string because it allows
+
+
+339
+00:12:40,656 --> 00:12:42,946
+you to replace a width and
+
+
+340
+00:12:42,946 --> 00:12:44,726
+height token at the end of the
+
+
+341
+00:12:44,726 --> 00:12:47,126
+URL with the desired width and
+
+
+342
+00:12:47,126 --> 00:12:48,736
+height to match the user end
+
+
+343
+00:12:48,736 --> 00:12:50,256
+face in your app.
+
+
+344
+00:12:50,766 --> 00:12:53,486
+So, to fetch the artwork for
+
+
+345
+00:12:53,486 --> 00:12:56,216
+this album, I just created the
+
+
+346
+00:12:56,216 --> 00:12:57,966
+Helper method on this artwork
+
+
+347
+00:12:57,966 --> 00:12:59,796
+structure, and it's really
+
+
+348
+00:12:59,796 --> 00:13:00,476
+simple.
+
+
+349
+00:13:00,616 --> 00:13:01,976
+We'll just replace the width
+
+
+350
+00:13:02,046 --> 00:13:06,846
+token, w with the desired width
+
+
+351
+00:13:07,306 --> 00:13:10,046
+here, and then we'll do the same
+
+
+352
+00:13:10,046 --> 00:13:10,646
+for the height.
+
+
+353
+00:13:10,646 --> 00:13:12,446
+And because most artwork for
+
+
+354
+00:13:12,446 --> 00:13:13,706
+music content is perfectly
+
+
+355
+00:13:13,706 --> 00:13:14,636
+square, we'll simply use the
+
+
+356
+00:13:14,636 --> 00:13:15,366
+same width in height.
+
+
+357
+00:13:15,366 --> 00:13:18,086
+And with that, you have a fully
+
+
+358
+00:13:18,086 --> 00:13:18,726
+formed URL.
+
+
+359
+00:13:19,916 --> 00:13:22,606
+So, here, I just constructed a
+
+
+360
+00:13:22,606 --> 00:13:26,396
+URL for this album that has a
+
+
+361
+00:13:26,396 --> 00:13:28,726
+width of 1200 pixels, and let's
+
+
+362
+00:13:28,726 --> 00:13:29,976
+just take a look at what we get.
+
+
+363
+00:13:33,686 --> 00:13:34,546
+Here it is.
+
+
+364
+00:13:34,546 --> 00:13:35,826
+This is the album artwork for
+
+
+365
+00:13:35,826 --> 00:13:37,166
+this American Teen album by
+
+
+366
+00:13:37,166 --> 00:13:37,586
+Khalid.
+
+
+367
+00:13:37,966 --> 00:13:41,176
+So, this is how easy it is to
+
+
+368
+00:13:41,176 --> 00:13:42,576
+fetch content from Apple Music.
+
+
+369
+00:13:42,686 --> 00:13:43,916
+Now, I'd like to head it back to
+
+
+370
+00:13:43,916 --> 00:13:45,486
+Tim, and he'll tell you all
+
+
+371
+00:13:45,486 --> 00:13:46,786
+about personalized requests.
+
+
+372
+00:13:46,786 --> 00:13:46,966
+Thank you.
+
+
+373
+00:13:47,516 --> 00:13:50,896
+[ Applause ]
+
+
+374
+00:13:51,396 --> 00:13:51,876
+>> Thanks, Joel.
+
+
+375
+00:13:54,476 --> 00:13:56,286
+So, I'm going to talk a little
+
+
+376
+00:13:56,286 --> 00:13:58,016
+bit about personalized requests
+
+
+377
+00:13:58,016 --> 00:13:59,286
+with the Apple Music API.
+
+
+378
+00:14:00,656 --> 00:14:01,716
+The URL structure is just a
+
+
+379
+00:14:01,716 --> 00:14:02,516
+little bit different.
+
+
+380
+00:14:03,026 --> 00:14:05,286
+After the Version, you'll see
+
+
+381
+00:14:05,286 --> 00:14:06,906
+that every personalized call
+
+
+382
+00:14:07,196 --> 00:14:08,046
+starts with me.
+
+
+383
+00:14:08,256 --> 00:14:09,656
+Here, I have a URL that will
+
+
+384
+00:14:09,656 --> 00:14:10,816
+give me the recently played
+
+
+385
+00:14:10,816 --> 00:14:14,486
+items for a user's account.
+
+
+386
+00:14:16,116 --> 00:14:18,426
+So, you'll also notice that the
+
+
+387
+00:14:18,426 --> 00:14:20,976
+Storefront part of the path is
+
+
+388
+00:14:20,976 --> 00:14:21,376
+missing.
+
+
+389
+00:14:22,096 --> 00:14:24,416
+That's because a user's account
+
+
+390
+00:14:24,516 --> 00:14:26,676
+is bound to the Storefront, so
+
+
+391
+00:14:26,676 --> 00:14:28,376
+they can only play content that
+
+
+392
+00:14:28,376 --> 00:14:29,646
+is available in the Storefront,
+
+
+393
+00:14:29,646 --> 00:14:31,116
+which their account is
+
+
+394
+00:14:31,116 --> 00:14:32,506
+legitimately available for.
+
+
+395
+00:14:33,856 --> 00:14:36,456
+So, what do you need to play?
+
+
+396
+00:14:36,636 --> 00:14:37,396
+What do you need to get
+
+
+397
+00:14:37,396 --> 00:14:38,246
+personalized data?
+
+
+398
+00:14:38,416 --> 00:14:40,216
+The user must have an Apple
+
+
+399
+00:14:40,216 --> 00:14:42,616
+Music subscription, and every
+
+
+400
+00:14:42,616 --> 00:14:44,176
+call to a personalized request
+
+
+401
+00:14:44,176 --> 00:14:46,316
+requires two things, the
+
+
+402
+00:14:46,316 --> 00:14:48,556
+developer token, and a Music
+
+
+403
+00:14:48,556 --> 00:14:50,146
+User token, which Joel will show
+
+
+404
+00:14:50,146 --> 00:14:51,246
+you how to get in the latter
+
+
+405
+00:14:51,246 --> 00:14:52,376
+half of the presentation.
+
+
+406
+00:14:55,046 --> 00:14:56,406
+Now, how do I get access to the
+
+
+407
+00:14:58,156 --> 00:14:58,276
+API?
+
+
+408
+00:14:58,486 --> 00:15:00,636
+One, you have to be a member of
+
+
+409
+00:15:00,636 --> 00:15:01,936
+the Apple Developer Program.
+
+
+410
+00:15:04,006 --> 00:15:05,996
+Second thing you need is a
+
+
+411
+00:15:05,996 --> 00:15:08,486
+MusicKit private key.
+
+
+412
+00:15:08,726 --> 00:15:10,126
+You can find a MusicKit private
+
+
+413
+00:15:10,126 --> 00:15:11,856
+key in the Accounts section of
+
+
+414
+00:15:11,856 --> 00:15:13,476
+the Apple Developer Portal in
+
+
+415
+00:15:13,476 --> 00:15:15,666
+the Certificates and Identities
+
+
+416
+00:15:15,666 --> 00:15:15,936
+area.
+
+
+417
+00:15:15,936 --> 00:15:17,936
+Once you have the Music private
+
+
+418
+00:15:17,936 --> 00:15:19,906
+key, you can use that to sign
+
+
+419
+00:15:20,006 --> 00:15:20,986
+the Developer token.
+
+
+420
+00:15:21,506 --> 00:15:23,386
+The Developer token is in JSON
+
+
+421
+00:15:23,386 --> 00:15:25,866
+Web Token format, much like the
+
+
+422
+00:15:25,866 --> 00:15:28,856
+APNS token, and it's required,
+
+
+423
+00:15:28,856 --> 00:15:31,256
+as I mentioned previously, in
+
+
+424
+00:15:31,256 --> 00:15:32,886
+the authorization header for
+
+
+425
+00:15:32,886 --> 00:15:35,246
+every Apple Music API request.
+
+
+426
+00:15:37,696 --> 00:15:39,586
+Just one note about security,
+
+
+427
+00:15:40,496 --> 00:15:42,016
+keep you MusicKit private key
+
+
+428
+00:15:42,016 --> 00:15:42,426
+secure.
+
+
+429
+00:15:42,906 --> 00:15:44,796
+Don't embed it in the binaries
+
+
+430
+00:15:44,796 --> 00:15:46,226
+of your application.
+
+
+431
+00:15:46,686 --> 00:15:48,306
+What we recommend is that you
+
+
+432
+00:15:48,306 --> 00:15:50,076
+dynamically generate your
+
+
+433
+00:15:50,076 --> 00:15:52,356
+developer tokens, preferably on
+
+
+434
+00:15:52,356 --> 00:15:53,436
+a server that's within your
+
+
+435
+00:15:53,436 --> 00:15:54,386
+control and that you have
+
+
+436
+00:15:54,386 --> 00:15:54,976
+authorization access for.
+
+
+437
+00:15:59,486 --> 00:16:01,606
+Some notes about the format of a
+
+
+438
+00:16:01,766 --> 00:16:02,736
+Developer token.
+
+
+439
+00:16:04,136 --> 00:16:05,836
+Developer token has two parts,
+
+
+440
+00:16:07,346 --> 00:16:10,496
+required headers, which are the
+
+
+441
+00:16:10,496 --> 00:16:11,496
+encryption algorithm.
+
+
+442
+00:16:11,846 --> 00:16:13,736
+We only support, ES256 is ou
+
+
+443
+00:16:13,736 --> 00:16:15,676
+encryption algorithm, and the
+
+
+444
+00:16:15,676 --> 00:16:16,566
+key identifier.
+
+
+445
+00:16:16,936 --> 00:16:18,656
+When you download your MusicKit
+
+
+446
+00:16:18,656 --> 00:16:20,316
+private key, you can find this
+
+
+447
+00:16:20,316 --> 00:16:21,846
+as part of that download.
+
+
+448
+00:16:23,716 --> 00:16:25,756
+The second half is the required
+
+
+449
+00:16:25,756 --> 00:16:26,306
+claims.
+
+
+450
+00:16:26,426 --> 00:16:28,146
+We have three required claims,
+
+
+451
+00:16:28,446 --> 00:16:32,176
+an Issuer ID, which is the Team
+
+
+452
+00:16:32,176 --> 00:16:33,436
+ID, and you can find this in the
+
+
+453
+00:16:33,436 --> 00:16:34,876
+Membership section of the Apple
+
+
+454
+00:16:34,876 --> 00:16:35,666
+Developer portal.
+
+
+455
+00:16:36,706 --> 00:16:38,216
+We have an issue at time for
+
+
+456
+00:16:38,216 --> 00:16:40,186
+this Developer token, which is
+
+
+457
+00:16:40,186 --> 00:16:43,746
+in UNIX format; and finally, you
+
+
+458
+00:16:43,746 --> 00:16:44,836
+have an expiration.
+
+
+459
+00:16:46,856 --> 00:16:49,046
+Tokens can only be generated
+
+
+460
+00:16:49,046 --> 00:16:51,496
+that expire 6 months from now.
+
+
+461
+00:16:52,906 --> 00:16:56,086
+So, with that, I'm going to turn
+
+
+462
+00:16:56,086 --> 00:16:56,616
+over the rest of the
+
+
+463
+00:16:56,616 --> 00:16:57,646
+presentation to my colleague,
+
+
+464
+00:16:57,646 --> 00:16:58,316
+Joel, and he'll tell you a
+
+
+465
+00:16:58,316 --> 00:16:59,706
+little bit about using MusicKit
+
+
+466
+00:16:59,706 --> 00:16:59,976
+on iOS.
+
+
+467
+00:17:00,516 --> 00:17:03,876
+[ Aapplause ]
+
+
+468
+00:17:04,376 --> 00:17:04,626
+>> Thank you.
+
+
+469
+00:17:05,156 --> 00:17:05,386
+Thank you.
+
+
+470
+00:17:05,386 --> 00:17:07,336
+>> Thank you, Tim.
+
+
+471
+00:17:07,816 --> 00:17:09,925
+Hi again. So, I'd like to tell
+
+
+472
+00:17:09,925 --> 00:17:11,185
+you all about how you can take
+
+
+473
+00:17:11,185 --> 00:17:12,826
+full advantage of MusicKit for
+
+
+474
+00:17:12,826 --> 00:17:13,935
+your iOS apps.
+
+
+475
+00:17:14,746 --> 00:17:16,685
+And to do that, first, I will
+
+
+476
+00:17:16,685 --> 00:17:18,175
+tell you some more about how you
+
+
+477
+00:17:18,175 --> 00:17:19,616
+can get full access to Apple
+
+
+478
+00:17:19,616 --> 00:17:20,185
+Music API.
+
+
+479
+00:17:21,336 --> 00:17:23,336
+Then, I'll tell you what you're
+
+
+480
+00:17:23,336 --> 00:17:24,435
+supposed to do if you're faced
+
+
+481
+00:17:24,435 --> 00:17:25,445
+with a user who doesn't
+
+
+482
+00:17:25,445 --> 00:17:26,516
+currently have an Apple Music
+
+
+483
+00:17:26,516 --> 00:17:27,165
+subscription.
+
+
+484
+00:17:27,876 --> 00:17:28,956
+And finally, I'll tell you how
+
+
+485
+00:17:28,956 --> 00:17:31,386
+you can use the iOS SDK to
+
+
+486
+00:17:31,806 --> 00:17:34,086
+initiate and control playback of
+
+
+487
+00:17:34,136 --> 00:17:35,256
+subscription and library
+
+
+488
+00:17:35,256 --> 00:17:35,776
+content.
+
+
+489
+00:17:35,776 --> 00:17:38,876
+So, let's talk about getting
+
+
+490
+00:17:38,876 --> 00:17:41,346
+full access to Apple Music API.
+
+
+491
+00:17:41,876 --> 00:17:43,016
+The first thing you might wonder
+
+
+492
+00:17:43,016 --> 00:17:45,356
+about is authentication, but as
+
+
+493
+00:17:45,356 --> 00:17:47,296
+it turns out most users are
+
+
+494
+00:17:47,296 --> 00:17:49,086
+already signed in with an iTune
+
+
+495
+00:17:49,086 --> 00:17:50,796
+Store account on their iOS
+
+
+496
+00:17:50,796 --> 00:17:52,546
+device, and for this reason, you
+
+
+497
+00:17:52,546 --> 00:17:53,736
+really don't need to worry about
+
+
+498
+00:17:53,876 --> 00:17:55,766
+Prompt User for Credentials.
+
+
+499
+00:17:56,876 --> 00:17:58,426
+However, because privacy is such
+
+
+500
+00:17:58,426 --> 00:18:00,536
+an important concern on iOS, you
+
+
+501
+00:18:00,536 --> 00:18:02,416
+really need to get the user's
+
+
+502
+00:18:02,416 --> 00:18:04,656
+informed consent before we grant
+
+
+503
+00:18:04,656 --> 00:18:06,806
+your app access to Apple Music.
+
+
+504
+00:18:07,896 --> 00:18:09,886
+This user consent is very
+
+
+505
+00:18:09,886 --> 00:18:11,756
+similar to what ou would request
+
+
+506
+00:18:11,756 --> 00:18:13,396
+before getting access to the
+
+
+507
+00:18:13,636 --> 00:18:15,846
+user's location or the user's
+
+
+508
+00:18:15,846 --> 00:18:16,966
+contact information.
+
+
+509
+00:18:19,156 --> 00:18:20,856
+This is also something you need
+
+
+510
+00:18:20,856 --> 00:18:23,176
+to request per application and
+
+
+511
+00:18:23,176 --> 00:18:24,426
+per iOS device.
+
+
+512
+00:18:24,516 --> 00:18:26,936
+So, if your apps, app works on
+
+
+513
+00:18:26,936 --> 00:18:28,206
+both iPhone and iPad for the
+
+
+514
+00:18:28,206 --> 00:18:29,736
+same user, make sure to request
+
+
+515
+00:18:29,736 --> 00:18:31,156
+this user consent separately.
+
+
+516
+00:18:32,876 --> 00:18:34,816
+This is what the user consent
+
+
+517
+00:18:34,816 --> 00:18:38,446
+dialogue looks like in the Nike
+
+
+518
+00:18:38,446 --> 00:18:41,876
+Plus Run Club app, and it's the
+
+
+519
+00:18:41,956 --> 00:18:43,776
+standard user consent dialogue
+
+
+520
+00:18:43,776 --> 00:18:44,536
+for privacy.
+
+
+521
+00:18:45,486 --> 00:18:46,676
+And one important part of it is
+
+
+522
+00:18:46,676 --> 00:18:48,746
+the subtitle where the third
+
+
+523
+00:18:48,746 --> 00:18:50,316
+party app developer is required
+
+
+524
+00:18:50,316 --> 00:18:52,316
+to inform the user as to why it
+
+
+525
+00:18:52,556 --> 00:18:54,036
+requires access to the Apple
+
+
+526
+00:18:54,036 --> 00:18:55,596
+Music data of the user.
+
+
+527
+00:18:59,416 --> 00:19:01,756
+Requesting the user consent is
+
+
+528
+00:19:01,756 --> 00:19:03,656
+needed to get access to both the
+
+
+529
+00:19:03,656 --> 00:19:05,676
+device library as well as the
+
+
+530
+00:19:05,676 --> 00:19:06,736
+music user token.
+
+
+531
+00:19:07,256 --> 00:19:09,486
+You can read the current
+
+
+532
+00:19:09,486 --> 00:19:11,356
+authorization status for your
+
+
+533
+00:19:11,356 --> 00:19:12,186
+app to see if you've already
+
+
+534
+00:19:12,186 --> 00:19:13,886
+been granted this user consent,
+
+
+535
+00:19:14,496 --> 00:19:16,076
+and this will not prompt the
+
+
+536
+00:19:16,076 --> 00:19:17,766
+user with the dialogue I just
+
+
+537
+00:19:17,766 --> 00:19:18,236
+showed you.
+
+
+538
+00:19:18,536 --> 00:19:19,646
+However, you can more simply
+
+
+539
+00:19:19,646 --> 00:19:22,136
+request authorization, and this
+
+
+540
+00:19:22,136 --> 00:19:23,966
+will prompt the user unless your
+
+
+541
+00:19:23,966 --> 00:19:25,366
+app has already received this
+
+
+542
+00:19:26,166 --> 00:19:26,856
+authorization.
+
+
+543
+00:19:27,446 --> 00:19:30,476
+To do so, you can use a class
+
+
+544
+00:19:30,476 --> 00:19:31,616
+and distorted framework.
+
+
+545
+00:19:31,896 --> 00:19:32,306
+It's called
+
+
+546
+00:19:32,596 --> 00:19:34,896
+SKCloudServiceController, and
+
+
+547
+00:19:34,896 --> 00:19:36,306
+you can call a method on it, a
+
+
+548
+00:19:36,306 --> 00:19:38,276
+class method named Request
+
+
+549
+00:19:38,276 --> 00:19:39,066
+Authorization.
+
+
+550
+00:19:40,256 --> 00:19:41,156
+We'll call your completion
+
+
+551
+00:19:41,156 --> 00:19:42,886
+handler with a status code, and
+
+
+552
+00:19:42,886 --> 00:19:44,486
+you know you can proceed to call
+
+
+553
+00:19:44,686 --> 00:19:46,726
+Apple Music API if you get the
+
+
+554
+00:19:46,726 --> 00:19:48,966
+authorized status code.
+
+
+555
+00:19:50,196 --> 00:19:51,946
+Additionally, you will have to
+
+
+556
+00:19:51,946 --> 00:19:53,846
+set the NS Apple Music Usage
+
+
+557
+00:19:53,846 --> 00:19:55,756
+description field in your Info P
+
+
+558
+00:19:55,756 --> 00:19:58,006
+list to populate the subtitle of
+
+
+559
+00:19:58,006 --> 00:19:59,276
+the user consent dialogue.
+
+
+560
+00:20:01,416 --> 00:20:03,296
+The next important step is to
+
+
+561
+00:20:03,296 --> 00:20:04,796
+fetch the subscription status.
+
+
+562
+00:20:05,196 --> 00:20:06,556
+To determine if the user is
+
+
+563
+00:20:06,556 --> 00:20:07,816
+actually subscribed to Apple
+
+
+564
+00:20:07,816 --> 00:20:09,826
+Music, and this is important for
+
+
+565
+00:20:09,826 --> 00:20:12,226
+issuing personalized requests to
+
+
+566
+00:20:12,266 --> 00:20:14,096
+get at data such as recently
+
+
+567
+00:20:14,096 --> 00:20:15,766
+played or heavy rotation, for
+
+
+568
+00:20:15,766 --> 00:20:16,186
+example.
+
+
+569
+00:20:17,006 --> 00:20:19,836
+However, this is not necessarily
+
+
+570
+00:20:19,896 --> 00:20:21,766
+a simple yes and no type of
+
+
+571
+00:20:21,766 --> 00:20:22,306
+question.
+
+
+572
+00:20:22,886 --> 00:20:24,166
+The subscription status may be
+
+
+573
+00:20:24,166 --> 00:20:26,856
+complex because while a user may
+
+
+574
+00:20:26,856 --> 00:20:27,946
+be an Apple Music subscriber
+
+
+575
+00:20:27,946 --> 00:20:30,236
+because that user may simply pay
+
+
+576
+00:20:30,236 --> 00:20:31,956
+the monthly fee, it's also
+
+
+577
+00:20:31,956 --> 00:20:34,496
+possible a user is a subscriber
+
+
+578
+00:20:34,496 --> 00:20:35,496
+through their carrier.
+
+
+579
+00:20:36,756 --> 00:20:38,676
+Additionally, some users can
+
+
+580
+00:20:38,676 --> 00:20:40,076
+play subscription content for
+
+
+581
+00:20:40,076 --> 00:20:41,966
+Apple Music, and yet your apps
+
+
+582
+00:20:41,966 --> 00:20:44,306
+won't be able to add content to
+
+
+583
+00:20:44,306 --> 00:20:46,556
+those user's music libraries.
+
+
+584
+00:20:47,676 --> 00:20:49,236
+And this is because the iCloud
+
+
+585
+00:20:49,236 --> 00:20:51,326
+Music Library feature has to be
+
+
+586
+00:20:51,326 --> 00:20:52,176
+enabled separately.
+
+
+587
+00:20:53,516 --> 00:20:55,836
+Finally, it's possible you won't
+
+
+588
+00:20:55,836 --> 00:20:57,076
+be able to suggest to all of
+
+
+589
+00:20:57,076 --> 00:20:58,616
+your users to become Apple Music
+
+
+590
+00:20:58,616 --> 00:21:00,416
+subscribers because we don't
+
+
+591
+00:21:00,416 --> 00:21:01,886
+offer Apple Music in every
+
+
+592
+00:21:01,886 --> 00:21:03,666
+single country, and even in
+
+
+593
+00:21:03,666 --> 00:21:04,846
+countries where we do offer
+
+
+594
+00:21:04,846 --> 00:21:07,296
+Apple Music, there are settings
+
+
+595
+00:21:07,296 --> 00:21:09,076
+such as education settings or
+
+
+596
+00:21:09,076 --> 00:21:10,866
+enterprise settings where
+
+
+597
+00:21:10,866 --> 00:21:11,716
+becoming an Apple Music
+
+
+598
+00:21:11,716 --> 00:21:13,036
+subscriber is actually
+
+
+599
+00:21:13,036 --> 00:21:13,516
+restricted.
+
+
+600
+00:21:14,476 --> 00:21:16,026
+So, for this reason, we expose
+
+
+601
+00:21:16,026 --> 00:21:17,496
+three independent capabilities
+
+
+602
+00:21:17,496 --> 00:21:18,086
+you can query.
+
+
+603
+00:21:18,726 --> 00:21:20,006
+The music catalog playback
+
+
+604
+00:21:20,006 --> 00:21:22,376
+capability, the add to iCloud
+
+
+605
+00:21:22,376 --> 00:21:24,596
+Music Library capability, and
+
+
+606
+00:21:24,746 --> 00:21:25,846
+you can also tell if the user
+
+
+607
+00:21:25,846 --> 00:21:26,886
+can become a subscriber.
+
+
+608
+00:21:27,866 --> 00:21:29,556
+So, it's important that you
+
+
+609
+00:21:29,556 --> 00:21:30,986
+check these individual
+
+
+610
+00:21:30,986 --> 00:21:33,666
+capabilities in your app before
+
+
+611
+00:21:33,666 --> 00:21:35,256
+you take an action related to
+
+
+612
+00:21:35,256 --> 00:21:35,856
+Apple Music.
+
+
+613
+00:21:36,086 --> 00:21:37,736
+So, for example, if you want to
+
+
+614
+00:21:37,736 --> 00:21:39,166
+have a Play button in your app
+
+
+615
+00:21:39,166 --> 00:21:40,686
+to preview a piece of content
+
+
+616
+00:21:40,686 --> 00:21:42,046
+from Apple Music, make sure to
+
+
+617
+00:21:42,046 --> 00:21:43,556
+check the music catalog playback
+
+
+618
+00:21:43,556 --> 00:21:44,116
+capability.
+
+
+619
+00:21:44,726 --> 00:21:46,446
+Conversely, if you want to have
+
+
+620
+00:21:46,446 --> 00:21:48,426
+an Add button to add a certain
+
+
+621
+00:21:48,426 --> 00:21:50,956
+song to a playlist from the
+
+
+622
+00:21:50,956 --> 00:21:52,956
+user's library, make sure that
+
+
+623
+00:21:52,956 --> 00:21:54,326
+the Add to iCloud Music Library
+
+
+624
+00:21:54,556 --> 00:21:55,936
+capability is enabled.
+
+
+625
+00:21:57,896 --> 00:21:59,706
+Fetching the subscription status
+
+
+626
+00:21:59,706 --> 00:22:01,676
+information requires the user's
+
+
+627
+00:22:01,676 --> 00:22:04,136
+consent, and you can do it in
+
+
+628
+00:22:04,136 --> 00:22:05,476
+code using, again,
+
+
+629
+00:22:05,476 --> 00:22:06,866
+SKCloudServiceController.
+
+
+630
+00:22:07,526 --> 00:22:08,786
+Here, we'll be calling an
+
+
+631
+00:22:08,786 --> 00:22:10,966
+instance method called Request
+
+
+632
+00:22:10,966 --> 00:22:13,696
+Capabilities, and we'll call
+
+
+633
+00:22:13,696 --> 00:22:15,486
+your completion handler with an
+
+
+634
+00:22:15,556 --> 00:22:16,976
+Option set of capabilities.
+
+
+635
+00:22:18,196 --> 00:22:19,326
+You can check inside of that
+
+
+636
+00:22:19,326 --> 00:22:21,396
+Option set for the presence of
+
+
+637
+00:22:21,566 --> 00:22:22,936
+the Music Catalog Playback
+
+
+638
+00:22:23,126 --> 00:22:24,506
+capability to check if the user
+
+
+639
+00:22:24,506 --> 00:22:26,796
+can play subscription content or
+
+
+640
+00:22:26,796 --> 00:22:29,276
+for the presence of Add to Cloud
+
+
+641
+00:22:29,276 --> 00:22:30,976
+Music Library to see if your app
+
+
+642
+00:22:30,976 --> 00:22:32,476
+can add songs to the Cloud
+
+
+643
+00:22:32,476 --> 00:22:33,456
+Library of this user.
+
+
+644
+00:22:33,926 --> 00:22:37,606
+Next stop, you might need to
+
+
+645
+00:22:37,606 --> 00:22:39,156
+know the Storefront Country
+
+
+646
+00:22:39,156 --> 00:22:39,406
+Code.
+
+
+647
+00:22:39,406 --> 00:22:40,756
+This is particularly important
+
+
+648
+00:22:40,756 --> 00:22:43,796
+for requesting content from the
+
+
+649
+00:22:43,796 --> 00:22:45,406
+catalog end points of the Apple
+
+
+650
+00:22:45,406 --> 00:22:47,376
+Music API because, as you know,
+
+
+651
+00:22:47,416 --> 00:22:49,366
+the Storefront Country Code is
+
+
+652
+00:22:49,366 --> 00:22:51,436
+an important part of the past of
+
+
+653
+00:22:51,576 --> 00:22:52,506
+those URLs.
+
+
+654
+00:22:53,496 --> 00:22:54,716
+To fetch this Storefront Country
+
+
+655
+00:22:54,716 --> 00:22:56,446
+Code, you'll be able to use
+
+
+656
+00:22:56,446 --> 00:22:57,976
+another instance method of
+
+
+657
+00:22:57,976 --> 00:22:59,436
+SKCloudServiceController.
+
+
+658
+00:23:00,276 --> 00:23:01,836
+This time it's called Request
+
+
+659
+00:23:01,836 --> 00:23:04,186
+Storefront Country Code, and
+
+
+660
+00:23:04,506 --> 00:23:05,756
+we'll invoke your Completion
+
+
+661
+00:23:05,756 --> 00:23:07,556
+Handler with a two-letter
+
+
+662
+00:23:07,556 --> 00:23:09,946
+country code, which you can then
+
+
+663
+00:23:09,946 --> 00:23:12,186
+use to build out the URL for
+
+
+664
+00:23:12,186 --> 00:23:14,826
+your catalog end point request.
+
+
+665
+00:23:14,946 --> 00:23:15,926
+In this case, we're trying to
+
+
+666
+00:23:15,926 --> 00:23:18,466
+build the top songs URL, and
+
+
+667
+00:23:18,466 --> 00:23:20,836
+this is the particular line that
+
+
+668
+00:23:20,836 --> 00:23:22,366
+is relevant where we use the
+
+
+669
+00:23:22,366 --> 00:23:23,646
+Storefront Country Code in the
+
+
+670
+00:23:23,646 --> 00:23:28,986
+middle of the path of this URL.
+
+
+671
+00:23:28,986 --> 00:23:30,396
+Finally, to unlock the full
+
+
+672
+00:23:30,396 --> 00:23:32,556
+power of Apple Music API, you
+
+
+673
+00:23:32,556 --> 00:23:34,476
+will need to get the music user
+
+
+674
+00:23:34,476 --> 00:23:36,146
+token, which is very important
+
+
+675
+00:23:36,376 --> 00:23:37,416
+to issue requests for
+
+
+676
+00:23:37,476 --> 00:23:39,556
+personalized content, such as
+
+
+677
+00:23:39,746 --> 00:23:41,516
+recently played or heavy
+
+
+678
+00:23:41,516 --> 00:23:42,126
+rotation.
+
+
+679
+00:23:42,786 --> 00:23:43,936
+This is derived from your
+
+
+680
+00:23:43,936 --> 00:23:46,596
+developer token, and because
+
+
+681
+00:23:46,596 --> 00:23:47,976
+fetching the music user token is
+
+
+682
+00:23:47,976 --> 00:23:49,456
+a somewhat expensive operation,
+
+
+683
+00:23:49,866 --> 00:23:51,276
+we recommend you cache the music
+
+
+684
+00:23:51,276 --> 00:23:52,566
+user token once you've fetched
+
+
+685
+00:23:52,566 --> 00:23:52,796
+it.
+
+
+686
+00:23:52,896 --> 00:23:54,786
+You can do so using user
+
+
+687
+00:23:54,786 --> 00:23:57,066
+defaults, for example, but make
+
+
+688
+00:23:57,066 --> 00:23:58,466
+sure not to transfer the music
+
+
+689
+00:23:58,466 --> 00:23:59,946
+user token across devices
+
+
+690
+00:24:00,386 --> 00:24:02,756
+because you might be violating
+
+
+691
+00:24:02,756 --> 00:24:05,476
+user consent if you do so.
+
+
+692
+00:24:05,696 --> 00:24:07,056
+Since you'll be caching this
+
+
+693
+00:24:07,056 --> 00:24:08,816
+music user token, you should
+
+
+694
+00:24:08,896 --> 00:24:11,376
+also be aware of when you should
+
+
+695
+00:24:11,376 --> 00:24:12,896
+invalidate this cache and fetch
+
+
+696
+00:24:12,896 --> 00:24:14,396
+the music user token again, and
+
+
+697
+00:24:14,396 --> 00:24:15,476
+this is typically whenever you
+
+
+698
+00:24:15,586 --> 00:24:17,546
+get a forbidden status code from
+
+
+699
+00:24:17,596 --> 00:24:19,006
+any of the Apple Music API
+
+
+700
+00:24:19,126 --> 00:24:21,246
+endpoints; that is the (403)
+
+
+701
+00:24:21,246 --> 00:24:23,186
+HTTP status code.
+
+
+702
+00:24:23,586 --> 00:24:24,706
+This could happen in a number of
+
+
+703
+00:24:24,706 --> 00:24:26,466
+scenarios, For example, the user
+
+
+704
+00:24:26,616 --> 00:24:27,836
+might change the password
+
+
+705
+00:24:27,836 --> 00:24:29,226
+associated with the iTunes store
+
+
+706
+00:24:29,226 --> 00:24:31,766
+account, or the user might
+
+
+707
+00:24:31,766 --> 00:24:33,086
+actually decide to revoke the
+
+
+708
+00:24:33,086 --> 00:24:34,626
+user token associated with your
+
+
+709
+00:24:34,946 --> 00:24:36,886
+app, or, finally, the user token
+
+
+710
+00:24:36,886 --> 00:24:37,966
+could expire naturally.
+
+
+711
+00:24:39,396 --> 00:24:41,026
+In all of these cases, make sure
+
+
+712
+00:24:41,026 --> 00:24:42,796
+to refetch the music user token
+
+
+713
+00:24:42,896 --> 00:24:44,956
+after checking the capabilities
+
+
+714
+00:24:44,956 --> 00:24:46,856
+again, just in case the active
+
+
+715
+00:24:46,856 --> 00:24:48,016
+iTunes store account has
+
+
+716
+00:24:48,016 --> 00:24:49,666
+changed, meanwhile.
+
+
+717
+00:24:50,256 --> 00:24:52,536
+So, to fetch the music user
+
+
+718
+00:24:52,536 --> 00:24:54,456
+token, we'll be using store
+
+
+719
+00:24:54,456 --> 00:24:56,456
+kits, SKCloudServiceController,
+
+
+720
+00:24:56,456 --> 00:24:56,966
+once more.
+
+
+721
+00:24:57,856 --> 00:24:59,156
+Here, we have another method.
+
+
+722
+00:24:59,726 --> 00:25:01,746
+Request user token for developer
+
+
+723
+00:25:01,746 --> 00:25:02,286
+token.
+
+
+724
+00:25:02,536 --> 00:25:03,986
+You'll pass the developer token
+
+
+725
+00:25:04,366 --> 00:25:06,036
+as a parameter, and then we'll
+
+
+726
+00:25:06,036 --> 00:25:07,516
+invoke our completion handler
+
+
+727
+00:25:07,786 --> 00:25:09,266
+and hand you the music user
+
+
+728
+00:25:09,266 --> 00:25:09,926
+token.
+
+
+729
+00:25:10,686 --> 00:25:12,526
+You can then use that to
+
+
+730
+00:25:12,916 --> 00:25:14,456
+properly populate the relevant
+
+
+731
+00:25:14,456 --> 00:25:16,726
+HTTP headers in your URL request
+
+
+732
+00:25:17,216 --> 00:25:19,736
+and specifically the music token
+
+
+733
+00:25:20,026 --> 00:25:21,036
+HTTP header.
+
+
+734
+00:25:21,386 --> 00:25:24,976
+Once you've gotten the User
+
+
+735
+00:25:24,976 --> 00:25:27,776
+Token and User Consent, you have
+
+
+736
+00:25:27,776 --> 00:25:29,486
+full access to Apple Music API,
+
+
+737
+00:25:29,486 --> 00:25:31,126
+so you can proceed to build
+
+
+738
+00:25:31,466 --> 00:25:32,816
+amazing user experiences for
+
+
+739
+00:25:32,816 --> 00:25:34,776
+your apps that keep your users
+
+
+740
+00:25:34,776 --> 00:25:35,436
+engaged.
+
+
+741
+00:25:35,966 --> 00:25:37,216
+However, sometimes, you'll be
+
+
+742
+00:25:37,216 --> 00:25:38,956
+faced with another edge case
+
+
+743
+00:25:39,386 --> 00:25:40,936
+when a user is not already an
+
+
+744
+00:25:40,936 --> 00:25:41,916
+Apple Music subscriber.
+
+
+745
+00:25:42,446 --> 00:25:45,106
+When that's the case, you might
+
+
+746
+00:25:45,146 --> 00:25:47,416
+want to show a subscription view
+
+
+747
+00:25:48,076 --> 00:25:52,526
+to suggest to the user to join
+
+
+748
+00:25:52,526 --> 00:25:54,766
+Apple Music so they can take
+
+
+749
+00:25:54,846 --> 00:25:57,216
+part in our trial period, get
+
+
+750
+00:25:57,216 --> 00:25:59,416
+access to over 40 million songs,
+
+
+751
+00:25:59,896 --> 00:26:00,976
+and also unlock the full
+
+
+752
+00:26:00,976 --> 00:26:02,966
+potential of your apps.
+
+
+753
+00:26:03,716 --> 00:26:05,156
+Additionally, it's particularly
+
+
+754
+00:26:05,216 --> 00:26:06,846
+relevant for you as developers
+
+
+755
+00:26:06,846 --> 00:26:08,326
+because you can get rewarded for
+
+
+756
+00:26:08,326 --> 00:26:09,326
+bringing in Apple Music
+
+
+757
+00:26:09,326 --> 00:26:11,046
+subscribers by taking part in
+
+
+758
+00:26:11,046 --> 00:26:11,976
+our Affiliate Program.
+
+
+759
+00:26:15,566 --> 00:26:16,636
+So, when exactly are you
+
+
+760
+00:26:16,636 --> 00:26:17,416
+supposed to show the
+
+
+761
+00:26:17,416 --> 00:26:18,186
+Subscription View?
+
+
+762
+00:26:18,866 --> 00:26:20,036
+You should do so whenever you
+
+
+763
+00:26:20,036 --> 00:26:21,196
+detect that the user cannot
+
+
+764
+00:26:21,276 --> 00:26:22,806
+currently playback subscription
+
+
+765
+00:26:22,806 --> 00:26:23,316
+content.
+
+
+766
+00:26:24,276 --> 00:26:25,906
+But the user can become an Apple
+
+
+767
+00:26:25,906 --> 00:26:26,746
+Music subscriber.
+
+
+768
+00:26:27,316 --> 00:26:28,676
+In terms of the capabilities we
+
+
+769
+00:26:28,676 --> 00:26:30,326
+discussed previously, that means
+
+
+770
+00:26:30,326 --> 00:26:31,426
+you need to make sure the music
+
+
+771
+00:26:31,426 --> 00:26:33,336
+catalog playback capability is
+
+
+772
+00:26:33,336 --> 00:26:35,346
+currently disabled while the
+
+
+773
+00:26:35,346 --> 00:26:36,716
+music catalog subscription
+
+
+774
+00:26:36,716 --> 00:26:39,116
+eligible capability is enabled.
+
+
+775
+00:26:39,666 --> 00:26:42,956
+As a side note, in the very rare
+
+
+776
+00:26:42,956 --> 00:26:44,676
+occurrence that the user doesn't
+
+
+777
+00:26:44,676 --> 00:26:45,856
+have an active iTunes Store
+
+
+778
+00:26:45,856 --> 00:26:48,146
+account on this device, you will
+
+
+779
+00:26:48,146 --> 00:26:49,946
+see that status reported the
+
+
+780
+00:26:49,946 --> 00:26:51,956
+exact same way, and we will make
+
+
+781
+00:26:51,956 --> 00:26:53,226
+sure to include a Sign In button
+
+
+782
+00:26:53,226 --> 00:26:53,886
+as part of the Subscription
+
+
+783
+00:26:53,886 --> 00:26:53,976
+View.
+
+
+784
+00:26:58,416 --> 00:26:59,796
+A subscription view is quite
+
+
+785
+00:26:59,796 --> 00:27:02,516
+configurable and, namely, you
+
+
+786
+00:27:02,516 --> 00:27:04,006
+can choose the main message we
+
+
+787
+00:27:04,006 --> 00:27:04,936
+convey to the user.
+
+
+788
+00:27:05,336 --> 00:27:07,146
+By default, we'll tell the user
+
+
+789
+00:27:07,146 --> 00:27:08,066
+Join Apple Music.
+
+
+790
+00:27:08,816 --> 00:27:10,336
+But by passing an optional
+
+
+791
+00:27:10,336 --> 00:27:12,346
+message identifier, you can
+
+
+792
+00:27:12,346 --> 00:27:13,966
+choose a more tailored message
+
+
+793
+00:27:14,216 --> 00:27:15,346
+based on the next action you
+
+
+794
+00:27:15,346 --> 00:27:17,416
+want to take in your app.
+
+
+795
+00:27:18,256 --> 00:27:19,916
+So, we have other values you can
+
+
+796
+00:27:19,916 --> 00:27:20,846
+choose from for the message
+
+
+797
+00:27:20,846 --> 00:27:24,056
+identifier, such as Connect, and
+
+
+798
+00:27:24,056 --> 00:27:25,566
+we'll tell the user connect to
+
+
+799
+00:27:25,566 --> 00:27:26,126
+Apple Music.
+
+
+800
+00:27:26,126 --> 00:27:29,266
+We also have Add Music, and well
+
+
+801
+00:27:29,686 --> 00:27:31,996
+tell the user add all the music
+
+
+802
+00:27:31,996 --> 00:27:32,426
+you want.
+
+
+803
+00:27:33,066 --> 00:27:35,406
+And we finally have Play Music.
+
+
+804
+00:27:36,886 --> 00:27:39,126
+So, make sure to pick the best
+
+
+805
+00:27:39,126 --> 00:27:40,126
+message identifier that
+
+
+806
+00:27:40,126 --> 00:27:41,436
+corresponds to the next action
+
+
+807
+00:27:41,436 --> 00:27:43,036
+you want to take in your app, so
+
+
+808
+00:27:43,036 --> 00:27:44,656
+we can choose the right message
+
+
+809
+00:27:44,656 --> 00:27:45,896
+that will make the most sense to
+
+
+810
+00:27:45,896 --> 00:27:46,316
+the user.
+
+
+811
+00:27:46,856 --> 00:27:49,596
+You can also make the
+
+
+812
+00:27:49,596 --> 00:27:51,716
+subscription view contextual by
+
+
+813
+00:27:51,716 --> 00:27:52,946
+highlighting a certain piece of
+
+
+814
+00:27:53,016 --> 00:27:55,816
+content, such as a song, album,
+
+
+815
+00:27:56,096 --> 00:27:58,016
+playlist, or radio station.
+
+
+816
+00:27:58,826 --> 00:28:00,596
+You can do so by passing an
+
+
+817
+00:28:00,596 --> 00:28:02,816
+iTunes item identifier option
+
+
+818
+00:28:03,616 --> 00:28:05,946
+which requires a value of tight
+
+
+819
+00:28:05,946 --> 00:28:07,926
+string, and that corresponds to
+
+
+820
+00:28:07,926 --> 00:28:09,766
+the ID field of the JSON
+
+
+821
+00:28:09,766 --> 00:28:11,336
+representation of an Apple Music
+
+
+822
+00:28:11,576 --> 00:28:12,716
+API resource.
+
+
+823
+00:28:14,896 --> 00:28:16,466
+There are a few more options you
+
+
+824
+00:28:16,466 --> 00:28:17,366
+need to be aware of for this
+
+
+825
+00:28:17,366 --> 00:28:18,126
+subscription view.
+
+
+826
+00:28:18,126 --> 00:28:20,146
+You will have to set the action
+
+
+827
+00:28:20,196 --> 00:28:22,276
+to subscribe, and you can also
+
+
+828
+00:28:22,276 --> 00:28:24,756
+pass optional affiliate tokens
+
+
+829
+00:28:24,756 --> 00:28:26,156
+and campaign tokens if you are
+
+
+830
+00:28:26,156 --> 00:28:28,096
+taking part in our Affiliate
+
+
+831
+00:28:28,096 --> 00:28:29,076
+Program.
+
+
+832
+00:28:30,036 --> 00:28:32,686
+Putting it all together, this is
+
+
+833
+00:28:32,686 --> 00:28:33,426
+how you can show the
+
+
+834
+00:28:33,426 --> 00:28:34,806
+Subscription view.
+
+
+835
+00:28:35,656 --> 00:28:38,136
+We'll instantiating a view
+
+
+836
+00:28:38,136 --> 00:28:40,306
+controller from Store Kits SK
+
+
+837
+00:28:43,016 --> 00:28:45,316
+CloudServiceSetupViewController,
+
+
+838
+00:28:46,376 --> 00:28:47,886
+and you can set yourself up as a
+
+
+839
+00:28:47,886 --> 00:28:48,966
+delegate for this
+
+
+840
+00:28:48,966 --> 00:28:49,556
+ViewController.
+
+
+841
+00:28:50,416 --> 00:28:52,286
+Then, you need to build the list
+
+
+842
+00:28:52,286 --> 00:28:54,206
+of options we just discussed.
+
+
+843
+00:28:54,806 --> 00:28:56,096
+In this case, we will be setting
+
+
+844
+00:28:56,096 --> 00:28:58,676
+the action to subscribe and the
+
+
+845
+00:28:58,676 --> 00:29:00,356
+message identifier to play
+
+
+846
+00:29:00,356 --> 00:29:04,136
+music, and you need to call the
+
+
+847
+00:29:04,136 --> 00:29:06,686
+load with options method to load
+
+
+848
+00:29:06,686 --> 00:29:07,826
+all the content of the
+
+
+849
+00:29:07,826 --> 00:29:08,496
+subscription view.
+
+
+850
+00:29:08,496 --> 00:29:09,586
+And this is because it's a
+
+
+851
+00:29:09,586 --> 00:29:11,106
+server driven view that requires
+
+
+852
+00:29:11,106 --> 00:29:12,536
+us to load a certain amount of
+
+
+853
+00:29:12,536 --> 00:29:13,036
+content.
+
+
+854
+00:29:14,466 --> 00:29:15,406
+Because this process is
+
+
+855
+00:29:15,406 --> 00:29:17,776
+asynchronous, we recommend you
+
+
+856
+00:29:17,776 --> 00:29:19,146
+show a spinner in your app while
+
+
+857
+00:29:19,236 --> 00:29:20,956
+we're loading this content, and
+
+
+858
+00:29:20,956 --> 00:29:22,136
+you can do so using
+
+
+859
+00:29:22,136 --> 00:29:23,636
+UIActivityIndicatorView.
+
+
+860
+00:29:24,966 --> 00:29:25,986
+Once we're done loading all the
+
+
+861
+00:29:25,986 --> 00:29:27,696
+content, we'll invoke the
+
+
+862
+00:29:27,696 --> 00:29:29,466
+completion handler, and you can
+
+
+863
+00:29:29,466 --> 00:29:30,796
+proceed to show the subscription
+
+
+864
+00:29:30,796 --> 00:29:31,126
+view.
+
+
+865
+00:29:31,346 --> 00:29:33,136
+If it did succeed Boolean, it's
+
+
+866
+00:29:33,136 --> 00:29:35,666
+set to true by simply calling
+
+
+867
+00:29:35,666 --> 00:29:36,906
+the PresentViewController method
+
+
+868
+00:29:36,906 --> 00:29:37,656
+from UIKit.
+
+
+869
+00:29:38,216 --> 00:29:41,776
+And that's how you show the
+
+
+870
+00:29:42,076 --> 00:29:42,886
+subscription view.
+
+
+871
+00:29:42,886 --> 00:29:43,956
+Additionally, if the user
+
+
+872
+00:29:43,956 --> 00:29:45,566
+decides to become a subscriber
+
+
+873
+00:29:45,566 --> 00:29:46,886
+as a result of this, you can
+
+
+874
+00:29:47,336 --> 00:29:48,966
+detect that by observing the
+
+
+875
+00:29:48,966 --> 00:29:50,306
+capabilities did change
+
+
+876
+00:29:50,306 --> 00:29:51,376
+notification from
+
+
+877
+00:29:51,376 --> 00:29:53,486
+SKCloudServiceController, and
+
+
+878
+00:29:53,486 --> 00:29:54,986
+you can also detect that the
+
+
+879
+00:29:54,986 --> 00:29:56,476
+subscription view was dismissed
+
+
+880
+00:29:56,476 --> 00:29:58,066
+using the belated delegate
+
+
+881
+00:29:58,066 --> 00:29:58,446
+method.
+
+
+882
+00:29:58,996 --> 00:30:04,066
+So, with that, you have all the
+
+
+883
+00:30:04,066 --> 00:30:06,106
+tokens you need to have Apple
+
+
+884
+00:30:06,106 --> 00:30:08,026
+Music API, fetch Apple Music
+
+
+885
+00:30:08,026 --> 00:30:09,226
+content, and you made sure the
+
+
+886
+00:30:09,226 --> 00:30:09,976
+user is a subscriber.
+
+
+887
+00:30:10,076 --> 00:30:12,496
+So, we can have some more fun
+
+
+888
+00:30:12,966 --> 00:30:14,966
+and actually do some playback of
+
+
+889
+00:30:14,966 --> 00:30:16,556
+subscription or library content.
+
+
+890
+00:30:17,586 --> 00:30:19,236
+And to do so, we'll switch gears
+
+
+891
+00:30:19,236 --> 00:30:20,496
+a little bit and take a look at
+
+
+892
+00:30:20,496 --> 00:30:21,976
+another framework in the iOS
+
+
+893
+00:30:21,976 --> 00:30:23,996
+SDK, the MediaPlayer framework.
+
+
+894
+00:30:26,656 --> 00:30:27,856
+You'll find the MediaPlayer
+
+
+895
+00:30:27,856 --> 00:30:29,746
+framework a class named MP
+
+
+896
+00:30:29,746 --> 00:30:31,826
+MusicPlayer Controller, which
+
+
+897
+00:30:31,906 --> 00:30:34,686
+offers two distinct players that
+
+
+898
+00:30:34,686 --> 00:30:36,956
+allow you to control music
+
+
+899
+00:30:36,986 --> 00:30:38,946
+playback for two different types
+
+
+900
+00:30:38,946 --> 00:30:39,806
+of use cases.
+
+
+901
+00:30:40,046 --> 00:30:41,696
+To highlight that, let's start
+
+
+902
+00:30:41,696 --> 00:30:43,006
+with an example.
+
+
+903
+00:30:43,866 --> 00:30:45,546
+Let's say you're building a
+
+
+904
+00:30:45,546 --> 00:30:46,636
+social networking app.
+
+
+905
+00:30:47,116 --> 00:30:48,106
+You want to make it easy for
+
+
+906
+00:30:48,106 --> 00:30:49,636
+your users to share music
+
+
+907
+00:30:49,636 --> 00:30:51,496
+content with their friends, and
+
+
+908
+00:30:51,496 --> 00:30:52,506
+so it's important that the
+
+
+909
+00:30:52,506 --> 00:30:53,736
+friend receiving such a piece of
+
+
+910
+00:30:53,736 --> 00:30:57,446
+content is able to preview that
+
+
+911
+00:30:57,446 --> 00:31:00,326
+song or album from your app.
+
+
+912
+00:31:00,416 --> 00:31:02,696
+However, you should make sure
+
+
+913
+00:31:02,696 --> 00:31:03,886
+that the friend receiving this
+
+
+914
+00:31:03,886 --> 00:31:04,956
+piece of content can then
+
+
+915
+00:31:05,006 --> 00:31:06,376
+benefit from the full feature
+
+
+916
+00:31:06,376 --> 00:31:08,476
+set of the music app, allowing
+
+
+917
+00:31:08,476 --> 00:31:09,756
+the friend to go back to the
+
+
+918
+00:31:09,756 --> 00:31:12,176
+music app and maybe share the
+
+
+919
+00:31:12,176 --> 00:31:15,046
+song further, using Connect or
+
+
+920
+00:31:15,046 --> 00:31:15,426
+AirDrop.
+
+
+921
+00:31:17,316 --> 00:31:18,896
+For such applications, the
+
+
+922
+00:31:18,896 --> 00:31:20,456
+system user player might be the
+
+
+923
+00:31:20,456 --> 00:31:21,666
+right fit.
+
+
+924
+00:31:22,236 --> 00:31:24,266
+However, if you need more
+
+
+925
+00:31:24,266 --> 00:31:25,796
+control over the playback
+
+
+926
+00:31:25,796 --> 00:31:27,666
+experience, you might want to
+
+
+927
+00:31:27,666 --> 00:31:28,676
+take a look at the application
+
+
+928
+00:31:28,676 --> 00:31:30,256
+queue player, and a good example
+
+
+929
+00:31:30,256 --> 00:31:31,876
+here might be a fitness app.
+
+
+930
+00:31:32,666 --> 00:31:34,426
+It's possible you want to have
+
+
+931
+00:31:34,426 --> 00:31:35,676
+some music playing in the
+
+
+932
+00:31:35,676 --> 00:31:38,806
+background while your user is
+
+
+933
+00:31:38,956 --> 00:31:42,526
+running outside, and so you
+
+
+934
+00:31:42,526 --> 00:31:44,376
+might want to make sure that the
+
+
+935
+00:31:44,486 --> 00:31:46,106
+music matches the pace of the
+
+
+936
+00:31:46,106 --> 00:31:46,506
+runner.
+
+
+937
+00:31:47,636 --> 00:31:49,016
+You might also want to insert a
+
+
+938
+00:31:49,056 --> 00:31:50,086
+power song in the middle of the
+
+
+939
+00:31:50,086 --> 00:31:51,836
+playback queue and have your own
+
+
+940
+00:31:51,836 --> 00:31:53,396
+customized playback controls.
+
+
+941
+00:31:53,916 --> 00:31:56,296
+The application queue player
+
+
+942
+00:31:56,296 --> 00:31:57,856
+will allow you to do all of
+
+
+943
+00:31:58,486 --> 00:31:59,346
+those things.
+
+
+944
+00:31:59,536 --> 00:32:00,866
+Both of these players will do a
+
+
+945
+00:32:00,866 --> 00:32:02,466
+lot for you automatically.
+
+
+946
+00:32:02,786 --> 00:32:04,196
+They will make sure to populate
+
+
+947
+00:32:04,196 --> 00:32:05,436
+the control center in lock
+
+
+948
+00:32:05,436 --> 00:32:05,856
+screen.
+
+
+949
+00:32:07,036 --> 00:32:08,906
+However, things will be recorded
+
+
+950
+00:32:08,906 --> 00:32:09,956
+a bit differently, depending on
+
+
+951
+00:32:09,956 --> 00:32:11,676
+the player you pick because the
+
+
+952
+00:32:11,676 --> 00:32:13,056
+music app will be recoded as a
+
+
+953
+00:32:13,056 --> 00:32:14,186
+Now Playing app with the system
+
+
+954
+00:32:14,186 --> 00:32:15,816
+music player, whereas it's going
+
+
+955
+00:32:15,816 --> 00:32:17,226
+to be your app recorded as the
+
+
+956
+00:32:17,226 --> 00:32:18,496
+Now Playing app if you choose
+
+
+957
+00:32:18,496 --> 00:32:19,706
+the application queue player.
+
+
+958
+00:32:20,096 --> 00:32:22,676
+And this is because with the
+
+
+959
+00:32:22,676 --> 00:32:24,856
+System Music Player, your app is
+
+
+960
+00:32:24,906 --> 00:32:26,256
+acting as a simple remote
+
+
+961
+00:32:26,256 --> 00:32:27,636
+control of the music app.
+
+
+962
+00:32:28,446 --> 00:32:29,276
+Whereas if you use the
+
+
+963
+00:32:29,276 --> 00:32:31,226
+application queue player, your
+
+
+964
+00:32:31,226 --> 00:32:32,946
+app fully owns the playback
+
+
+965
+00:32:32,946 --> 00:32:34,556
+queue completely independent
+
+
+966
+00:32:35,146 --> 00:32:36,726
+from the music app.
+
+
+967
+00:32:38,676 --> 00:32:40,306
+Both of these players allow you
+
+
+968
+00:32:40,306 --> 00:32:41,656
+to control the playback queue
+
+
+969
+00:32:41,656 --> 00:32:44,256
+with simple operations such as
+
+
+970
+00:32:44,346 --> 00:32:45,386
+completely replacing the
+
+
+971
+00:32:45,386 --> 00:32:46,616
+playback queue with a Set Queue
+
+
+972
+00:32:46,616 --> 00:32:49,266
+command, and you can also use
+
+
+973
+00:32:49,266 --> 00:32:51,076
+the Up Next functionality by
+
+
+974
+00:32:51,406 --> 00:32:53,876
+setting content to Play Next or
+
+
+975
+00:32:53,876 --> 00:32:54,386
+Play Later.
+
+
+976
+00:32:54,876 --> 00:32:57,856
+But with the application queue
+
+
+977
+00:32:57,856 --> 00:32:59,436
+player, you can go one step
+
+
+978
+00:32:59,436 --> 00:33:02,016
+further by inserting items in
+
+
+979
+00:33:02,016 --> 00:33:03,266
+the middle of the playback queue
+
+
+980
+00:33:03,906 --> 00:33:05,176
+over moving items that are
+
+
+981
+00:33:05,176 --> 00:33:06,956
+already in the playback queue.
+
+
+982
+00:33:08,296 --> 00:33:09,586
+To achieve some of those
+
+
+983
+00:33:09,586 --> 00:33:10,646
+playback queue manipulation
+
+
+984
+00:33:10,646 --> 00:33:12,836
+tasks, you'll be using a concept
+
+
+985
+00:33:12,836 --> 00:33:14,276
+we call queue descriptors.
+
+
+986
+00:33:14,746 --> 00:33:16,026
+We offer three different types
+
+
+987
+00:33:16,026 --> 00:33:17,456
+of queue descriptors based on
+
+
+988
+00:33:17,456 --> 00:33:18,936
+the type of content you're
+
+
+989
+00:33:18,936 --> 00:33:19,466
+dealing with.
+
+
+990
+00:33:20,506 --> 00:33:22,626
+The first one is the media item
+
+
+991
+00:33:22,856 --> 00:33:24,916
+queue descriptor, and this is
+
+
+992
+00:33:24,916 --> 00:33:27,336
+useful if you have an instance
+
+
+993
+00:33:27,336 --> 00:33:28,826
+of MPMediaItem or
+
+
+994
+00:33:28,826 --> 00:33:30,826
+MPMediaItemCollection, which you
+
+
+995
+00:33:30,826 --> 00:33:32,286
+would like to start playback
+
+
+996
+00:33:32,366 --> 00:33:32,536
+with.
+
+
+997
+00:33:32,976 --> 00:33:34,956
+And typically, you get a hold of
+
+
+998
+00:33:34,956 --> 00:33:37,716
+such instances by making device
+
+
+999
+00:33:37,866 --> 00:33:39,226
+library queries using
+
+
+1000
+00:33:39,226 --> 00:33:42,356
+MPMediaQuery, or by presenting
+
+
+1001
+00:33:42,356 --> 00:33:43,656
+the media picker to allow the
+
+
+1002
+00:33:43,656 --> 00:33:45,296
+user to select a piece of
+
+
+1003
+00:33:45,296 --> 00:33:46,866
+content from his library.
+
+
+1004
+00:33:47,366 --> 00:33:50,936
+For catalog playback, we also
+
+
+1005
+00:33:50,936 --> 00:33:52,626
+have the store queue descriptor,
+
+
+1006
+00:33:52,836 --> 00:33:55,616
+and here the data you need to
+
+
+1007
+00:33:55,616 --> 00:33:56,746
+use the store queue descriptor
+
+
+1008
+00:33:56,746 --> 00:33:58,536
+is a store ID, and that's a
+
+
+1009
+00:33:58,536 --> 00:34:00,076
+string that corresponds to the
+
+
+1010
+00:34:00,076 --> 00:34:01,596
+ID field of the JSON
+
+
+1011
+00:34:01,596 --> 00:34:02,966
+representation of an Apple Music
+
+
+1012
+00:34:02,966 --> 00:34:03,966
+API resource.
+
+
+1013
+00:34:05,106 --> 00:34:06,456
+And this is typically useful for
+
+
+1014
+00:34:06,456 --> 00:34:08,136
+catalog content such as from
+
+
+1015
+00:34:08,136 --> 00:34:09,076
+catalog search.
+
+
+1016
+00:34:10,936 --> 00:34:12,886
+We also have a new queue
+
+
+1017
+00:34:12,886 --> 00:34:14,366
+descriptor, the playback, the
+
+
+1018
+00:34:14,366 --> 00:34:15,226
+play parameter's queue
+
+
+1019
+00:34:15,226 --> 00:34:19,005
+descriptor, and this does
+
+
+1020
+00:34:19,085 --> 00:34:20,045
+everything the store queue
+
+
+1021
+00:34:20,045 --> 00:34:22,666
+descriptor does, in addition to
+
+
+1022
+00:34:22,726 --> 00:34:24,335
+handling personalized content,
+
+
+1023
+00:34:24,516 --> 00:34:26,156
+such as content from recently
+
+
+1024
+00:34:26,156 --> 00:34:29,416
+played or heavy rotation, and it
+
+
+1025
+00:34:29,416 --> 00:34:30,916
+also supports playback of radio
+
+
+1026
+00:34:30,916 --> 00:34:31,476
+stations.
+
+
+1027
+00:34:32,295 --> 00:34:33,735
+Here, the data you'll need to
+
+
+1028
+00:34:33,735 --> 00:34:35,106
+use for the play parameters
+
+
+1029
+00:34:35,106 --> 00:34:37,366
+queue descriptor is the value
+
+
+1030
+00:34:37,366 --> 00:34:38,886
+associated with the play params
+
+
+1031
+00:34:39,366 --> 00:34:41,646
+field in the JSON representation
+
+
+1032
+00:34:41,716 --> 00:34:43,346
+of an Apple Music API resource.
+
+
+1033
+00:34:43,876 --> 00:34:47,356
+So, let's take a look at how you
+
+
+1034
+00:34:47,356 --> 00:34:48,716
+can use those queue descriptors
+
+
+1035
+00:34:48,716 --> 00:34:50,556
+to control playback in your
+
+
+1036
+00:34:51,056 --> 00:34:51,576
+apps.
+
+
+1037
+00:34:51,576 --> 00:34:52,596
+Here, we'll do some simple
+
+
+1038
+00:34:52,596 --> 00:34:54,306
+playback queue manipulation
+
+
+1039
+00:34:54,306 --> 00:34:55,786
+tasks, and we'll choose to use
+
+
+1040
+00:34:55,786 --> 00:34:56,766
+the SystemMusicPlayer.
+
+
+1041
+00:34:58,696 --> 00:35:00,936
+Both players support simple
+
+
+1042
+00:35:01,136 --> 00:35:03,856
+playback tweaks you can apply to
+
+
+1043
+00:35:03,856 --> 00:35:05,616
+them such as setting the repeat
+
+
+1044
+00:35:05,616 --> 00:35:06,186
+mode to all.
+
+
+1045
+00:35:06,186 --> 00:35:07,486
+But you can also change the
+
+
+1046
+00:35:07,486 --> 00:35:08,986
+shuffle mode if you like.
+
+
+1047
+00:35:09,936 --> 00:35:11,916
+The first thing we'll do is
+
+
+1048
+00:35:12,386 --> 00:35:13,596
+change the playback queue,
+
+
+1049
+00:35:13,596 --> 00:35:14,996
+replace it completely with a
+
+
+1050
+00:35:14,996 --> 00:35:17,576
+local album represented with an
+
+
+1051
+00:35:17,616 --> 00:35:18,896
+MPMediaItemCollection.
+
+
+1052
+00:35:19,996 --> 00:35:21,516
+Because that's the type of data
+
+
+1053
+00:35:21,516 --> 00:35:23,516
+we have, we'll be using the
+
+
+1054
+00:35:23,516 --> 00:35:25,816
+MPMediaItem, I'm sorry, the
+
+
+1055
+00:35:25,816 --> 00:35:26,916
+MediaItemQueueDescriptor.
+
+
+1056
+00:35:28,576 --> 00:35:30,246
+You can also decide to start
+
+
+1057
+00:35:30,326 --> 00:35:31,766
+playback with the fourth song of
+
+
+1058
+00:35:31,766 --> 00:35:33,356
+the album by setting the start
+
+
+1059
+00:35:33,356 --> 00:35:35,646
+item with the fourth item of the
+
+
+1060
+00:35:35,646 --> 00:35:36,026
+album.
+
+
+1061
+00:35:36,336 --> 00:35:39,966
+And you can use that to call the
+
+
+1062
+00:35:39,966 --> 00:35:40,976
+setQueue method on the player.
+
+
+1063
+00:35:45,436 --> 00:35:47,836
+You can also use Up Next to add
+
+
+1064
+00:35:47,836 --> 00:35:49,666
+a song to Play Next using the
+
+
+1065
+00:35:49,666 --> 00:35:51,616
+prepend method on the player.
+
+
+1066
+00:35:52,726 --> 00:35:54,526
+And here, we're trying to add a
+
+
+1067
+00:35:54,526 --> 00:35:56,376
+catalog song to Play Next.
+
+
+1068
+00:35:56,736 --> 00:35:57,946
+It's represented with a Store
+
+
+1069
+00:35:57,946 --> 00:35:59,936
+ID, and for this reason, we have
+
+
+1070
+00:35:59,976 --> 00:36:01,006
+to use the store queue
+
+
+1071
+00:36:01,006 --> 00:36:01,536
+descriptor.
+
+
+1072
+00:36:02,066 --> 00:36:06,776
+But you can also add songs from
+
+
+1073
+00:36:06,776 --> 00:36:08,706
+recently played, for example, to
+
+
+1074
+00:36:08,706 --> 00:36:10,816
+the queue, and they'll typically
+
+
+1075
+00:36:10,816 --> 00:36:12,126
+be represented with play
+
+
+1076
+00:36:12,126 --> 00:36:13,346
+parameters you can find in the
+
+
+1077
+00:36:13,346 --> 00:36:14,666
+JSON representation of Apple
+
+
+1078
+00:36:14,666 --> 00:36:15,916
+Music API resources.
+
+
+1079
+00:36:16,446 --> 00:36:18,346
+And because that's the data we
+
+
+1080
+00:36:18,346 --> 00:36:19,616
+have, we'll be using the play
+
+
+1081
+00:36:19,616 --> 00:36:20,676
+parameters queue descriptor.
+
+
+1082
+00:36:21,146 --> 00:36:24,316
+Then, in this case, we'll choose
+
+
+1083
+00:36:24,316 --> 00:36:25,836
+to use it with the append method
+
+
+1084
+00:36:26,066 --> 00:36:28,086
+of the player to add this song
+
+
+1085
+00:36:28,086 --> 00:36:28,966
+to Play Later.
+
+
+1086
+00:36:28,966 --> 00:36:32,676
+If your app requires more
+
+
+1087
+00:36:32,676 --> 00:36:34,026
+control over the playback queue,
+
+
+1088
+00:36:34,026 --> 00:36:36,606
+however, you can switch to the
+
+
+1089
+00:36:36,606 --> 00:36:38,656
+ApplicationQueuePlayer to unlock
+
+
+1090
+00:36:38,656 --> 00:36:39,576
+some more features.
+
+
+1091
+00:36:41,076 --> 00:36:43,096
+Mainly, you can call the perform
+
+
+1092
+00:36:43,606 --> 00:36:45,276
+queue transaction method on the
+
+
+1093
+00:36:45,276 --> 00:36:46,356
+ApplicationQueuePlayer.
+
+
+1094
+00:36:46,396 --> 00:36:49,386
+It requires two closures as
+
+
+1095
+00:36:49,386 --> 00:36:50,106
+parameters.
+
+
+1096
+00:36:50,706 --> 00:36:51,656
+The first one is the queue
+
+
+1097
+00:36:51,656 --> 00:36:52,386
+transaction.
+
+
+1098
+00:36:53,466 --> 00:36:55,596
+We'll be passing a mutable queue
+
+
+1099
+00:36:56,476 --> 00:36:57,886
+object, which represents the
+
+
+1100
+00:36:57,886 --> 00:36:59,116
+current state of the playback
+
+
+1101
+00:36:59,116 --> 00:36:59,336
+queue.
+
+
+1102
+00:37:00,256 --> 00:37:01,806
+You can call a few methods on
+
+
+1103
+00:37:01,806 --> 00:37:03,086
+this mutable queue, such as the
+
+
+1104
+00:37:03,086 --> 00:37:04,946
+remove method to remove the
+
+
+1105
+00:37:04,946 --> 00:37:07,096
+third item currently in the
+
+
+1106
+00:37:07,096 --> 00:37:07,706
+playback queue.
+
+
+1107
+00:37:09,176 --> 00:37:10,666
+You can also call the insert
+
+
+1108
+00:37:10,816 --> 00:37:13,196
+after method, which we're
+
+
+1109
+00:37:13,196 --> 00:37:14,606
+calling here to insert an item
+
+
+1110
+00:37:14,606 --> 00:37:16,386
+after the fifth item of the
+
+
+1111
+00:37:16,386 --> 00:37:16,936
+playback queue.
+
+
+1112
+00:37:17,946 --> 00:37:20,356
+Once we're done applying all of
+
+
+1113
+00:37:20,356 --> 00:37:21,366
+those modifications to the
+
+
+1114
+00:37:21,366 --> 00:37:22,616
+playback queue, we'll call your
+
+
+1115
+00:37:22,616 --> 00:37:24,446
+completion handler to let you
+
+
+1116
+00:37:24,446 --> 00:37:24,646
+know.
+
+
+1117
+00:37:25,226 --> 00:37:28,176
+And that's an overview of
+
+
+1118
+00:37:28,176 --> 00:37:29,376
+everything you can do in terms
+
+
+1119
+00:37:29,376 --> 00:37:31,106
+of playback with Apple Music,
+
+
+1120
+00:37:31,636 --> 00:37:32,836
+and we can't wait to see the
+
+
+1121
+00:37:32,836 --> 00:37:34,496
+experiences you'll build in your
+
+
+1122
+00:37:34,496 --> 00:37:34,906
+apps.
+
+
+1123
+00:37:36,016 --> 00:37:37,526
+So, let's talk about timeframe.
+
+
+1124
+00:37:38,146 --> 00:37:39,596
+When can you adopt these APIs in
+
+
+1125
+00:37:39,596 --> 00:37:40,196
+your apps?
+
+
+1126
+00:37:40,726 --> 00:37:43,466
+As it turns out, a lot of these
+
+
+1127
+00:37:43,466 --> 00:37:45,246
+APIs trickled in throughout
+
+
+1128
+00:37:45,246 --> 00:37:47,066
+several releases, and many of
+
+
+1129
+00:37:47,066 --> 00:37:49,096
+them are available on iOS 10.3
+
+
+1130
+00:37:49,916 --> 00:37:50,986
+with a few caveats.
+
+
+1131
+00:37:51,686 --> 00:37:53,266
+We will begin generating music
+
+
+1132
+00:37:53,356 --> 00:37:55,646
+user tokens for iOS 10.3 devices
+
+
+1133
+00:37:55,706 --> 00:37:56,486
+later this fall.
+
+
+1134
+00:37:57,306 --> 00:37:58,836
+You'll also have to use an
+
+
+1135
+00:37:58,836 --> 00:38:00,736
+alternate method to get to the
+
+
+1136
+00:38:00,736 --> 00:38:03,166
+storefront country code, and you
+
+
+1137
+00:38:03,166 --> 00:38:04,646
+can use, for example, the
+
+
+1138
+00:38:04,646 --> 00:38:06,616
+current locale's region code as
+
+
+1139
+00:38:06,616 --> 00:38:07,516
+an approximation.
+
+
+1140
+00:38:08,756 --> 00:38:10,176
+However, you'll be able to
+
+
+1141
+00:38:10,176 --> 00:38:11,666
+initiate playback with catalog
+
+
+1142
+00:38:11,666 --> 00:38:13,366
+content using the store queue
+
+
+1143
+00:38:13,366 --> 00:38:17,376
+descriptor right on iOS 10.3.
+
+
+1144
+00:38:17,586 --> 00:38:19,626
+On iOS 11, with beta you have
+
+
+1145
+00:38:19,626 --> 00:38:21,036
+available to you today, you can
+
+
+1146
+00:38:21,036 --> 00:38:22,516
+do everything we just discussed
+
+
+1147
+00:38:22,996 --> 00:38:24,346
+with the exception of play
+
+
+1148
+00:38:24,346 --> 00:38:26,326
+parameters, queue descriptors,
+
+
+1149
+00:38:26,646 --> 00:38:27,976
+which will come in a later beta.
+
+
+1150
+00:38:28,516 --> 00:38:31,366
+And because play parameters
+
+
+1151
+00:38:31,366 --> 00:38:32,706
+queue descriptors support
+
+
+1152
+00:38:32,706 --> 00:38:33,486
+everything the store queue
+
+
+1153
+00:38:33,486 --> 00:38:34,976
+descriptor supports, in addition
+
+
+1154
+00:38:34,976 --> 00:38:36,166
+to radio stations and
+
+
+1155
+00:38:36,166 --> 00:38:37,696
+personalized content, if you're
+
+
+1156
+00:38:37,696 --> 00:38:39,326
+targeting iOS 11 and later, you
+
+
+1157
+00:38:39,326 --> 00:38:40,796
+should really use that primarily
+
+
+1158
+00:38:40,796 --> 00:38:41,516
+instead of the store queue
+
+
+1159
+00:38:41,516 --> 00:38:41,976
+descriptor.
+
+
+1160
+00:38:45,546 --> 00:38:48,376
+So, to summarize, Apple Music
+
+
+1161
+00:38:48,446 --> 00:38:50,206
+offers a breadth of content,
+
+
+1162
+00:38:50,206 --> 00:38:52,346
+over 40 million songs and
+
+
+1163
+00:38:52,626 --> 00:38:53,966
+personalized recommendations for
+
+
+1164
+00:38:53,966 --> 00:38:55,886
+your users, and you can use
+
+
+1165
+00:38:55,886 --> 00:38:57,936
+that, leverage this content to
+
+
+1166
+00:38:57,936 --> 00:38:59,206
+create immersive experiences in
+
+
+1167
+00:38:59,206 --> 00:39:00,766
+your apps to keep your users
+
+
+1168
+00:39:00,816 --> 00:39:01,486
+engaged.
+
+
+1169
+00:39:02,116 --> 00:39:04,746
+To do that, you'll have to use
+
+
+1170
+00:39:05,036 --> 00:39:06,456
+StoreKit framework to get the
+
+
+1171
+00:39:06,456 --> 00:39:09,056
+user's consent and the Music
+
+
+1172
+00:39:09,056 --> 00:39:11,576
+user token to unlock the full
+
+
+1173
+00:39:11,576 --> 00:39:13,086
+capabilities of Apple Music API.
+
+
+1174
+00:39:13,226 --> 00:39:15,516
+And you can call Apple Music
+
+
+1175
+00:39:15,516 --> 00:39:17,756
+API, fetch the relevant data,
+
+
+1176
+00:39:18,106 --> 00:39:20,956
+parse it from JSON, and use
+
+
+1177
+00:39:20,956 --> 00:39:22,816
+MediaPlayer framework to control
+
+
+1178
+00:39:22,816 --> 00:39:24,286
+playback of this piece of
+
+
+1179
+00:39:24,286 --> 00:39:24,736
+content.
+
+
+1180
+00:39:26,676 --> 00:39:28,236
+For more information on
+
+
+1181
+00:39:28,236 --> 00:39:29,726
+MusicKit, feel free to check out
+
+
+1182
+00:39:29,726 --> 00:39:31,046
+our developer portal with this
+
+
+1183
+00:39:31,046 --> 00:39:31,666
+URL.
+
+
+1184
+00:39:32,196 --> 00:39:33,416
+You also have a few related
+
+
+1185
+00:39:33,416 --> 00:39:33,916
+sessions.
+
+
+1186
+00:39:33,916 --> 00:39:35,506
+We just had the What's New in
+
+
+1187
+00:39:35,506 --> 00:39:37,426
+Audio session in this room.
+
+
+1188
+00:39:37,846 --> 00:39:39,206
+We'll also have tomorrow
+
+
+1189
+00:39:39,206 --> 00:39:40,076
+morning, What's New in
+
+
+1190
+00:39:40,076 --> 00:39:41,306
+Foundation, where you can learn
+
+
+1191
+00:39:41,396 --> 00:39:42,886
+all about using the new JSON
+
+
+1192
+00:39:42,886 --> 00:39:46,396
+decoder in Swift 4.0 and on
+
+
+1193
+00:39:46,396 --> 00:39:47,596
+Thursday, you can learn about
+
+
+1194
+00:39:47,596 --> 00:39:48,666
+AirPlay 2 as well.
+
+
+1195
+00:39:49,176 --> 00:39:50,416
+Thank you very much, and enjoy
+
+
+1196
+00:39:50,416 --> 00:39:51,396
+the rest of the conference.
+
+
+1197
+00:39:52,516 --> 00:40:02,360
+[ Applause ]
+

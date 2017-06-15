@@ -1,0 +1,6219 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Cheers ]
+
+
+2
+00:00:22,176 --> 00:00:23,306
+>> Hi, everyone.
+
+
+3
+00:00:23,396 --> 00:00:24,816
+My name is Neil Desai, and I'm a
+
+
+4
+00:00:24,816 --> 00:00:26,236
+WatchKit Frameworks Engineer,
+
+
+5
+00:00:26,506 --> 00:00:28,506
+and I'm really excited to talk
+
+
+6
+00:00:28,506 --> 00:00:30,166
+about the life of a watchOS app
+
+
+7
+00:00:30,166 --> 00:00:30,436
+today.
+
+
+8
+00:00:32,506 --> 00:00:35,086
+So, watch apps have a phenomenal
+
+
+9
+00:00:35,086 --> 00:00:37,316
+capacity to be simple yet
+
+
+10
+00:00:37,316 --> 00:00:38,626
+incredibly powerful.
+
+
+11
+00:00:39,276 --> 00:00:40,926
+Well-designed watch apps have
+
+
+12
+00:00:40,926 --> 00:00:43,036
+the potential to be the ultimate
+
+
+13
+00:00:43,036 --> 00:00:44,786
+companion on your user's wrist.
+
+
+14
+00:00:45,586 --> 00:00:47,926
+Now, let's imagine your user for
+
+
+15
+00:00:47,926 --> 00:00:48,376
+a second.
+
+
+16
+00:00:48,876 --> 00:00:50,366
+What are they asking for when
+
+
+17
+00:00:50,366 --> 00:00:51,736
+they want to use your watch app?
+
+
+18
+00:00:52,476 --> 00:00:53,626
+Maybe they want to quickly
+
+
+19
+00:00:53,626 --> 00:00:55,316
+glance at some information, or
+
+
+20
+00:00:55,316 --> 00:00:56,526
+complete a simple task.
+
+
+21
+00:00:57,206 --> 00:00:58,916
+We think about great watch apps
+
+
+22
+00:00:59,186 --> 00:01:00,406
+that are designed to help your
+
+
+23
+00:01:00,406 --> 00:01:02,646
+user accomplish their goals in a
+
+
+24
+00:01:02,646 --> 00:01:04,906
+simple, quick way so that the
+
+
+25
+00:01:04,906 --> 00:01:06,726
+technology disappears and the
+
+
+26
+00:01:06,726 --> 00:01:08,946
+user can go about their day and
+
+
+27
+00:01:08,946 --> 00:01:11,196
+have an enhanced experience, all
+
+
+28
+00:01:11,196 --> 00:01:14,486
+because of your app.
+
+
+29
+00:01:14,756 --> 00:01:16,706
+So, today we're going to design
+
+
+30
+00:01:16,706 --> 00:01:18,356
+an app that I've been working on
+
+
+31
+00:01:18,356 --> 00:01:19,266
+in watchOS 3.
+
+
+32
+00:01:19,886 --> 00:01:21,336
+We're not ready to ship it just
+
+
+33
+00:01:21,336 --> 00:01:23,046
+yet, but we'll get to take
+
+
+34
+00:01:23,046 --> 00:01:24,396
+advantage of some of the new
+
+
+35
+00:01:24,396 --> 00:01:26,676
+capabilities and enhancements in
+
+
+36
+00:01:26,676 --> 00:01:28,796
+watchOS 4 to take our app to the
+
+
+37
+00:01:28,796 --> 00:01:30,146
+next level.
+
+
+38
+00:01:30,756 --> 00:01:32,786
+Today, we're going to talk
+
+
+39
+00:01:32,786 --> 00:01:34,536
+through four different additions
+
+
+40
+00:01:34,536 --> 00:01:36,806
+in watchOS 4 that can help
+
+
+41
+00:01:36,806 --> 00:01:37,606
+design our app.
+
+
+42
+00:01:38,486 --> 00:01:39,506
+We're going to talk about some
+
+
+43
+00:01:39,506 --> 00:01:41,446
+new things, such as our new
+
+
+44
+00:01:43,166 --> 00:01:45,076
+Unified Process Runtime.
+
+
+45
+00:01:45,496 --> 00:01:46,896
+We're going to get some great
+
+
+46
+00:01:46,896 --> 00:01:48,296
+performance improvements in our
+
+
+47
+00:01:48,296 --> 00:01:49,486
+app, and I'm going to show you
+
+
+48
+00:01:49,486 --> 00:01:51,226
+how to do so in watchOS 4.
+
+
+49
+00:01:53,376 --> 00:01:54,866
+We're going to talk through our
+
+
+50
+00:01:54,866 --> 00:01:56,376
+new Frontmost App State.
+
+
+51
+00:01:56,766 --> 00:01:57,996
+We're going to take advantage of
+
+
+52
+00:01:57,996 --> 00:02:00,156
+this state and build an amazing
+
+
+53
+00:02:00,156 --> 00:02:01,526
+experience for our user.
+
+
+54
+00:02:03,776 --> 00:02:05,646
+Also, we're going to talk about
+
+
+55
+00:02:05,646 --> 00:02:07,166
+some new improvements we've made
+
+
+56
+00:02:07,166 --> 00:02:09,246
+to Background App Refresh, and
+
+
+57
+00:02:09,416 --> 00:02:10,596
+how we can take advantage of
+
+
+58
+00:02:10,596 --> 00:02:10,886
+them.
+
+
+59
+00:02:12,676 --> 00:02:14,786
+And lastly, we're going to talk
+
+
+60
+00:02:14,786 --> 00:02:16,506
+about some new background modes
+
+
+61
+00:02:16,506 --> 00:02:18,836
+that are available in watchOS 4,
+
+
+62
+00:02:18,836 --> 00:02:20,216
+and take advantage of one of
+
+
+63
+00:02:20,216 --> 00:02:21,036
+them in our app.
+
+
+64
+00:02:22,126 --> 00:02:24,336
+So, let's get started and dive
+
+
+65
+00:02:24,336 --> 00:02:26,716
+right into our new Unified
+
+
+66
+00:02:26,716 --> 00:02:27,736
+Process Runtime.
+
+
+67
+00:02:28,596 --> 00:02:29,886
+So, we've designed a
+
+
+68
+00:02:29,886 --> 00:02:31,596
+single-process architecture that
+
+
+69
+00:02:31,596 --> 00:02:33,276
+will help your apps become even
+
+
+70
+00:02:33,276 --> 00:02:35,166
+faster and more responsive to
+
+
+71
+00:02:35,166 --> 00:02:35,906
+your user.
+
+
+72
+00:02:36,526 --> 00:02:38,516
+So, let's now just revisit some
+
+
+73
+00:02:38,516 --> 00:02:39,796
+of the history of where we came
+
+
+74
+00:02:39,796 --> 00:02:41,056
+from and where we're now at,
+
+
+75
+00:02:41,146 --> 00:02:41,426
+today.
+
+
+76
+00:02:43,566 --> 00:02:45,996
+So in watchOS 3, your apps UI
+
+
+77
+00:02:45,996 --> 00:02:47,806
+lived in the app process, which
+
+
+78
+00:02:47,806 --> 00:02:49,556
+we managed for you, and your
+
+
+79
+00:02:49,556 --> 00:02:51,456
+code lived in the watch
+
+
+80
+00:02:51,456 --> 00:02:53,206
+extension, so we had two
+
+
+81
+00:02:53,206 --> 00:02:54,716
+separate processes, in this
+
+
+82
+00:02:54,716 --> 00:02:56,076
+case, that lived on the system.
+
+
+83
+00:02:57,436 --> 00:02:59,296
+So, we changed things internally
+
+
+84
+00:02:59,296 --> 00:03:01,206
+and unified our process runtime,
+
+
+85
+00:03:02,106 --> 00:03:04,646
+so now the UI and your extension
+
+
+86
+00:03:04,646 --> 00:03:06,646
+code all get executed from the
+
+
+87
+00:03:06,646 --> 00:03:07,596
+same process.
+
+
+88
+00:03:08,296 --> 00:03:09,926
+And now, you might be wondering,
+
+
+89
+00:03:09,926 --> 00:03:13,266
+why exactly did we do this?
+
+
+90
+00:03:13,446 --> 00:03:15,496
+So ultimately, we wanted to
+
+
+91
+00:03:15,496 --> 00:03:17,156
+improve the performance of all
+
+
+92
+00:03:17,156 --> 00:03:19,526
+WatchKit apps on watchOS 4, so
+
+
+93
+00:03:19,526 --> 00:03:21,356
+users could have an even better
+
+
+94
+00:03:21,356 --> 00:03:22,596
+experience with your apps.
+
+
+95
+00:03:23,246 --> 00:03:25,326
+And, I'm really happy to say,
+
+
+96
+00:03:25,326 --> 00:03:26,906
+we've accomplished our goals.
+
+
+97
+00:03:28,066 --> 00:03:29,556
+We can see touch latency
+
+
+98
+00:03:29,556 --> 00:03:30,946
+improvements of almost up to
+
+
+99
+00:03:30,946 --> 00:03:33,416
+twice as fast in some cases.
+
+
+100
+00:03:33,986 --> 00:03:35,546
+So, from the moment a user
+
+
+101
+00:03:35,546 --> 00:03:37,126
+actually touches the screen, to
+
+
+102
+00:03:37,126 --> 00:03:38,956
+when your code gets called into,
+
+
+103
+00:03:39,236 --> 00:03:40,436
+we've seen a dramatic
+
+
+104
+00:03:40,436 --> 00:03:41,076
+improvement.
+
+
+105
+00:03:42,236 --> 00:03:44,026
+Also, for example, we've seen
+
+
+106
+00:03:44,026 --> 00:03:45,376
+dramatic frames-per-second
+
+
+107
+00:03:45,376 --> 00:03:47,116
+improvements when tied to
+
+
+108
+00:03:47,116 --> 00:03:49,676
+general pan gestures, and we
+
+
+109
+00:03:49,676 --> 00:03:51,156
+expect launch performance to
+
+
+110
+00:03:51,156 --> 00:03:51,986
+also improve.
+
+
+111
+00:03:53,176 --> 00:03:55,066
+And now, since we just have one
+
+
+112
+00:03:55,066 --> 00:03:57,376
+process to manage your UI and
+
+
+113
+00:03:57,376 --> 00:03:59,236
+your extension code, we now have
+
+
+114
+00:03:59,236 --> 00:04:00,976
+upped the memory limits to
+
+
+115
+00:04:00,976 --> 00:04:01,726
+account for this.
+
+
+116
+00:04:03,016 --> 00:04:03,996
+And, you might be wondering,
+
+
+117
+00:04:03,996 --> 00:04:04,966
+there's a lot of architecture
+
+
+118
+00:04:04,966 --> 00:04:07,036
+that we did internally, so what
+
+
+119
+00:04:07,036 --> 00:04:08,346
+do you all have to do to change
+
+
+120
+00:04:08,516 --> 00:04:10,656
+your apps to adopt this new
+
+
+121
+00:04:10,656 --> 00:04:11,306
+mechanism?
+
+
+122
+00:04:11,626 --> 00:04:13,376
+And, the great thing is that
+
+
+123
+00:04:13,376 --> 00:04:14,646
+there are actually no changes
+
+
+124
+00:04:14,646 --> 00:04:15,606
+required at all.
+
+
+125
+00:04:16,206 --> 00:04:18,466
+So, you'll be happy to hear that
+
+
+126
+00:04:18,815 --> 00:04:20,366
+all existing native WatchKit
+
+
+127
+00:04:20,366 --> 00:04:22,236
+extensions in the App Store
+
+
+128
+00:04:22,236 --> 00:04:24,776
+today will get this behavior as
+
+
+129
+00:04:24,776 --> 00:04:26,226
+soon as your user upgrades to
+
+
+130
+00:04:26,226 --> 00:04:27,116
+watchOS 4.
+
+
+131
+00:04:27,776 --> 00:04:29,686
+This new Unified Process Runtime
+
+
+132
+00:04:29,686 --> 00:04:30,986
+is completely backwards
+
+
+133
+00:04:30,986 --> 00:04:31,606
+compatible.
+
+
+134
+00:04:32,786 --> 00:04:34,286
+As long as your app is built
+
+
+135
+00:04:34,286 --> 00:04:36,336
+with watchOS 2 or later, you
+
+
+136
+00:04:36,336 --> 00:04:38,006
+don't have to anything else.
+
+
+137
+00:04:38,826 --> 00:04:40,816
+So, this means the app we're
+
+
+138
+00:04:40,816 --> 00:04:43,016
+going to improve today doesn't
+
+
+139
+00:04:43,016 --> 00:04:45,126
+need to change in Xcode, or on
+
+
+140
+00:04:45,126 --> 00:04:45,836
+the App Store.
+
+
+141
+00:04:46,046 --> 00:04:47,426
+It just works.
+
+
+142
+00:04:49,586 --> 00:04:51,946
+So now, let's talk about our new
+
+
+143
+00:04:52,086 --> 00:04:53,036
+Frontmost App State.
+
+
+144
+00:04:54,126 --> 00:04:56,206
+On the watch, a user many times
+
+
+145
+00:04:56,206 --> 00:04:57,516
+uses an app in a matter of
+
+
+146
+00:04:57,516 --> 00:04:59,666
+seconds, and then they put their
+
+
+147
+00:04:59,666 --> 00:05:01,446
+wrist down and expect the app to
+
+
+148
+00:05:01,446 --> 00:05:03,456
+finish up whatever task needs to
+
+
+149
+00:05:03,456 --> 00:05:04,066
+be finished.
+
+
+150
+00:05:05,346 --> 00:05:07,096
+Many times, a user wants to
+
+
+151
+00:05:07,096 --> 00:05:08,796
+raise their wrist again and see
+
+
+152
+00:05:08,796 --> 00:05:10,516
+your app has finished doing
+
+
+153
+00:05:10,516 --> 00:05:12,626
+whatever it needs to, and they
+
+
+154
+00:05:12,626 --> 00:05:14,406
+want it to feel like magic.
+
+
+155
+00:05:15,316 --> 00:05:16,396
+And, users shouldn't have to
+
+
+156
+00:05:16,396 --> 00:05:17,606
+keep their wrist up, for your
+
+
+157
+00:05:17,606 --> 00:05:18,556
+app to have to finish doing
+
+
+158
+00:05:18,556 --> 00:05:19,736
+whatever task it needs to
+
+
+159
+00:05:19,736 --> 00:05:21,466
+finish, and this is a really
+
+
+160
+00:05:21,466 --> 00:05:23,196
+common pain point for our users.
+
+
+161
+00:05:24,116 --> 00:05:26,806
+So, we thought a lot about all
+
+
+162
+00:05:26,806 --> 00:05:28,006
+the different ways we could give
+
+
+163
+00:05:28,006 --> 00:05:30,246
+you all more runtime to help
+
+
+164
+00:05:30,246 --> 00:05:32,216
+finish your tasks for your user,
+
+
+165
+00:05:32,786 --> 00:05:35,246
+and today, we're introducing a
+
+
+166
+00:05:35,246 --> 00:05:36,926
+collection of new capabilities
+
+
+167
+00:05:37,136 --> 00:05:38,926
+we call the Frontmost App State
+
+
+168
+00:05:38,926 --> 00:05:40,976
+to help you design experiences
+
+
+169
+00:05:40,976 --> 00:05:41,866
+for this case.
+
+
+170
+00:05:44,186 --> 00:05:46,456
+So, without further ado, let's
+
+
+171
+00:05:46,456 --> 00:05:47,276
+talk about our app.
+
+
+172
+00:05:47,986 --> 00:05:51,436
+So, the app is called Apple Pie
+
+
+173
+00:05:51,436 --> 00:05:53,376
+Me, and let's see how it looks.
+
+
+174
+00:05:53,896 --> 00:05:55,906
+So, it's a food delivery service
+
+
+175
+00:05:55,906 --> 00:05:57,196
+where you can get apple pies
+
+
+176
+00:05:57,316 --> 00:05:59,206
+delivered wherever you are, so
+
+
+177
+00:05:59,206 --> 00:06:00,256
+an apple pie a day keeps the
+
+
+178
+00:06:00,256 --> 00:06:01,146
+doctor away, right?
+
+
+179
+00:06:01,676 --> 00:06:03,976
+I think so, at least, I really
+
+
+180
+00:06:03,976 --> 00:06:05,866
+hope so, because I eat an apple
+
+
+181
+00:06:05,866 --> 00:06:07,736
+pie every single day, and
+
+
+182
+00:06:07,786 --> 00:06:08,656
+they're delicious.
+
+
+183
+00:06:09,836 --> 00:06:12,106
+And, I'm pretty busy, and I
+
+
+184
+00:06:12,106 --> 00:06:13,146
+always just want to quickly
+
+
+185
+00:06:13,146 --> 00:06:14,476
+order my apple pie, and get it
+
+
+186
+00:06:14,476 --> 00:06:15,686
+delivered wherever I am.
+
+
+187
+00:06:16,696 --> 00:06:18,316
+And, most importantly, I want to
+
+
+188
+00:06:18,316 --> 00:06:20,016
+tap the order button and then
+
+
+189
+00:06:20,016 --> 00:06:21,706
+simply put my wrist down and go
+
+
+190
+00:06:21,706 --> 00:06:22,426
+about my day.
+
+
+191
+00:06:23,196 --> 00:06:24,986
+In watchOS 3, it was a bit
+
+
+192
+00:06:25,036 --> 00:06:26,506
+difficult to build a perfect
+
+
+193
+00:06:26,506 --> 00:06:28,966
+experience, but with watchOS 4,
+
+
+194
+00:06:28,966 --> 00:06:30,286
+I'm going to show you how to
+
+
+195
+00:06:30,286 --> 00:06:32,166
+surprise and delight your users
+
+
+196
+00:06:32,306 --> 00:06:33,806
+using our new Frontmost App
+
+
+197
+00:06:33,806 --> 00:06:34,146
+State.
+
+
+198
+00:06:36,166 --> 00:06:37,946
+So, to help explain the
+
+
+199
+00:06:37,946 --> 00:06:39,676
+Frontmost App State, we're going
+
+
+200
+00:06:39,676 --> 00:06:41,386
+to talk through what exactly
+
+
+201
+00:06:41,386 --> 00:06:42,786
+application state means on the
+
+
+202
+00:06:42,786 --> 00:06:44,846
+watch, what does the term
+
+
+203
+00:06:44,846 --> 00:06:46,986
+frontmost mean, the enhanced
+
+
+204
+00:06:46,986 --> 00:06:48,176
+capabilities that you're going
+
+
+205
+00:06:48,176 --> 00:06:50,386
+to receive, and lastly, we're
+
+
+206
+00:06:50,386 --> 00:06:51,146
+going to walk through
+
+
+207
+00:06:51,146 --> 00:06:52,676
+architecting our Apple Pie Me
+
+
+208
+00:06:52,676 --> 00:06:52,906
+app.
+
+
+209
+00:06:55,446 --> 00:06:56,876
+So, let's say our user decides
+
+
+210
+00:06:56,876 --> 00:06:57,606
+to launch our app.
+
+
+211
+00:06:58,056 --> 00:07:00,286
+So here, the app is foreground,
+
+
+212
+00:07:00,416 --> 00:07:01,786
+the screen is on, and the
+
+
+213
+00:07:01,786 --> 00:07:03,486
+application state, in this case,
+
+
+214
+00:07:03,486 --> 00:07:04,136
+is active.
+
+
+215
+00:07:05,466 --> 00:07:06,616
+So now, let's say our user
+
+
+216
+00:07:06,616 --> 00:07:08,056
+decided to go back to the watch
+
+
+217
+00:07:08,056 --> 00:07:08,396
+face.
+
+
+218
+00:07:09,286 --> 00:07:11,946
+So, in this case, the app is
+
+
+219
+00:07:11,946 --> 00:07:14,356
+actually in the background and,
+
+
+220
+00:07:14,486 --> 00:07:15,936
+for instance, your application
+
+
+221
+00:07:15,936 --> 00:07:16,816
+might be running for a
+
+
+222
+00:07:16,816 --> 00:07:18,096
+complication update, for
+
+
+223
+00:07:18,096 --> 00:07:18,506
+example.
+
+
+224
+00:07:20,036 --> 00:07:21,246
+And now, let's say our user
+
+
+225
+00:07:21,246 --> 00:07:23,606
+decides to go back to our app.
+
+
+226
+00:07:23,706 --> 00:07:25,256
+So, we're active in foreground
+
+
+227
+00:07:25,256 --> 00:07:27,166
+again, and now the user's using
+
+
+228
+00:07:27,166 --> 00:07:28,726
+the app, but then they decide
+
+
+229
+00:07:28,726 --> 00:07:29,586
+they want to put their wrist
+
+
+230
+00:07:29,586 --> 00:07:29,896
+down.
+
+
+231
+00:07:30,316 --> 00:07:32,256
+So, the screen turns off, and
+
+
+232
+00:07:32,256 --> 00:07:33,986
+your app is no longer foreground
+
+
+233
+00:07:34,586 --> 00:07:35,396
+because of this.
+
+
+234
+00:07:35,956 --> 00:07:37,776
+However, since your app was the
+
+
+235
+00:07:37,776 --> 00:07:39,246
+last thing used, it's the
+
+
+236
+00:07:39,246 --> 00:07:41,996
+frontmost app, so when the user
+
+
+237
+00:07:41,996 --> 00:07:43,736
+raises their wrist again, your
+
+
+238
+00:07:43,736 --> 00:07:45,166
+app will be what they see,
+
+
+239
+00:07:45,576 --> 00:07:46,926
+instead of the watch face.
+
+
+240
+00:07:48,136 --> 00:07:50,156
+During this time, we think of
+
+
+241
+00:07:50,156 --> 00:07:51,726
+your app as the frontmost app.
+
+
+242
+00:07:52,866 --> 00:07:54,476
+So now, when your app is
+
+
+243
+00:07:54,476 --> 00:07:55,996
+frontmost in this way, the
+
+
+244
+00:07:55,996 --> 00:07:57,816
+application state will be
+
+
+245
+00:07:57,816 --> 00:08:00,116
+background, and you might be
+
+
+246
+00:08:00,116 --> 00:08:02,366
+wondering how exactly, or how
+
+
+247
+00:08:02,366 --> 00:08:04,066
+long does the app stay frontmost
+
+
+248
+00:08:04,066 --> 00:08:04,296
+for?
+
+
+249
+00:08:05,646 --> 00:08:07,296
+So, it's going to be two minutes
+
+
+250
+00:08:07,296 --> 00:08:08,236
+for all apps.
+
+
+251
+00:08:09,106 --> 00:08:10,836
+However, if there is an
+
+
+252
+00:08:10,836 --> 00:08:13,146
+expectation by your user to see
+
+
+253
+00:08:13,146 --> 00:08:14,966
+your app next when they raise
+
+
+254
+00:08:14,966 --> 00:08:16,356
+their wrist, then you can use a
+
+
+255
+00:08:16,356 --> 00:08:18,716
+new API to extend this timeout
+
+
+256
+00:08:18,986 --> 00:08:20,006
+to be eight minutes.
+
+
+257
+00:08:21,176 --> 00:08:22,836
+So, for example, if you're a
+
+
+258
+00:08:22,836 --> 00:08:24,186
+ride-sharing app in the middle
+
+
+259
+00:08:24,186 --> 00:08:26,086
+of a ride, then you might want
+
+
+260
+00:08:26,086 --> 00:08:27,406
+additional time in the frontmost
+
+
+261
+00:08:27,406 --> 00:08:28,526
+state, because there's a
+
+
+262
+00:08:28,526 --> 00:08:30,406
+reasonable expectation that the
+
+
+263
+00:08:30,406 --> 00:08:32,116
+user wants to see your app the
+
+
+264
+00:08:32,116 --> 00:08:33,135
+next time they raise their
+
+
+265
+00:08:33,135 --> 00:08:33,546
+wrist.
+
+
+266
+00:08:34,676 --> 00:08:37,035
+However, in many cases, if you
+
+
+267
+00:08:37,035 --> 00:08:38,966
+forget to turn this off when
+
+
+268
+00:08:38,966 --> 00:08:40,176
+it's not needed, you can
+
+
+269
+00:08:40,176 --> 00:08:42,186
+unwittingly annoy your user and
+
+
+270
+00:08:42,186 --> 00:08:43,226
+leave them with a subpar
+
+
+271
+00:08:43,226 --> 00:08:44,015
+experience.
+
+
+272
+00:08:44,496 --> 00:08:46,196
+So, always just make sure to
+
+
+273
+00:08:46,196 --> 00:08:48,046
+turn it off, to reset the time
+
+
+274
+00:08:48,046 --> 00:08:49,896
+back to two minutes when you no
+
+
+275
+00:08:49,896 --> 00:08:51,156
+longer need this experience.
+
+
+276
+00:08:52,456 --> 00:08:54,626
+So, let's jump into code to see
+
+
+277
+00:08:54,626 --> 00:08:56,086
+how we might enable the extended
+
+
+278
+00:08:56,086 --> 00:08:56,476
+timeout.
+
+
+279
+00:08:58,726 --> 00:08:59,996
+So, it's really simple.
+
+
+280
+00:08:59,996 --> 00:09:01,456
+It's a Boolean property on our
+
+
+281
+00:09:01,456 --> 00:09:03,196
+WKExtension, and when we want
+
+
+282
+00:09:03,196 --> 00:09:04,456
+eight minutes, we can set it to
+
+
+283
+00:09:04,456 --> 00:09:06,246
+be true, and when we want to go
+
+
+284
+00:09:06,246 --> 00:09:07,416
+back to the default of two
+
+
+285
+00:09:07,416 --> 00:09:08,626
+minutes, we just set it to be
+
+
+286
+00:09:08,626 --> 00:09:09,066
+false.
+
+
+287
+00:09:11,916 --> 00:09:13,706
+So, there's one other point I
+
+
+288
+00:09:13,706 --> 00:09:14,666
+wanted to mention.
+
+
+289
+00:09:14,936 --> 00:09:16,816
+If the user raises their wrist
+
+
+290
+00:09:16,816 --> 00:09:18,306
+and views your app, then the
+
+
+291
+00:09:18,306 --> 00:09:20,916
+timeout is reset, regardless if,
+
+
+292
+00:09:20,916 --> 00:09:23,266
+if you use the frontmost
+
+
+293
+00:09:23,266 --> 00:09:24,666
+extended API or not.
+
+
+294
+00:09:25,716 --> 00:09:27,556
+Essentially, if the user is
+
+
+295
+00:09:27,556 --> 00:09:29,116
+still interested in using your
+
+
+296
+00:09:29,116 --> 00:09:30,526
+app, your app will stay
+
+
+297
+00:09:30,526 --> 00:09:31,226
+frontmost.
+
+
+298
+00:09:34,026 --> 00:09:36,376
+So, now we know what frontmost
+
+
+299
+00:09:36,376 --> 00:09:37,926
+means, but what does this all
+
+
+300
+00:09:37,926 --> 00:09:38,656
+really mean?
+
+
+301
+00:09:38,656 --> 00:09:40,026
+Like, what exactly does this new
+
+
+302
+00:09:40,026 --> 00:09:40,786
+state give us?
+
+
+303
+00:09:41,466 --> 00:09:42,736
+Well, we're going to get some
+
+
+304
+00:09:42,736 --> 00:09:43,956
+enhanced capabilities.
+
+
+305
+00:09:44,556 --> 00:09:47,376
+So, we're going to change the
+
+
+306
+00:09:47,376 --> 00:09:48,676
+notion of how we get our
+
+
+307
+00:09:48,676 --> 00:09:50,336
+WatchConnectivity resumes, and
+
+
+308
+00:09:50,336 --> 00:09:51,976
+our NSURLSession resumes.
+
+
+309
+00:09:52,186 --> 00:09:53,136
+So, our transfer and
+
+
+310
+00:09:53,136 --> 00:09:54,996
+connectivity is now improved.
+
+
+311
+00:09:55,596 --> 00:09:57,456
+We'll also change a little bit
+
+
+312
+00:09:57,456 --> 00:09:58,976
+about our task completions.
+
+
+313
+00:09:59,456 --> 00:10:00,516
+>> And then, we're also going to
+
+
+314
+00:10:00,516 --> 00:10:01,866
+allow haptics to be played in
+
+
+315
+00:10:01,866 --> 00:10:02,896
+this frontmost state.
+
+
+316
+00:10:03,216 --> 00:10:04,946
+And lastly, we're going to get a
+
+
+317
+00:10:04,946 --> 00:10:06,526
+frontmost notification, so we
+
+
+318
+00:10:06,526 --> 00:10:08,786
+can handle this via the user
+
+
+319
+00:10:08,786 --> 00:10:10,426
+notifications framework, and
+
+
+320
+00:10:10,426 --> 00:10:11,736
+choose the right experience.
+
+
+321
+00:10:13,226 --> 00:10:14,566
+So, let's dive right in.
+
+
+322
+00:10:15,176 --> 00:10:18,266
+So, for WatchConnectivity, we've
+
+
+323
+00:10:18,266 --> 00:10:19,896
+changed the way our background
+
+
+324
+00:10:19,896 --> 00:10:22,116
+transfers work, so when you use
+
+
+325
+00:10:22,116 --> 00:10:23,926
+on the phone, update application
+
+
+326
+00:10:23,926 --> 00:10:26,296
+context, transfer user info, or
+
+
+327
+00:10:26,296 --> 00:10:28,466
+transfer file, the request, when
+
+
+328
+00:10:28,466 --> 00:10:29,706
+you send it from the phone to
+
+
+329
+00:10:29,706 --> 00:10:31,516
+the watch, it'll just go right
+
+
+330
+00:10:31,566 --> 00:10:33,336
+through, wake up your app on the
+
+
+331
+00:10:33,336 --> 00:10:35,036
+watch, and then just deliver
+
+
+332
+00:10:35,036 --> 00:10:35,686
+your payload.
+
+
+333
+00:10:36,936 --> 00:10:39,456
+And, there's one point I wanted
+
+
+334
+00:10:39,456 --> 00:10:40,846
+to mention in relation to
+
+
+335
+00:10:40,846 --> 00:10:42,696
+WatchConnectivity, is that send
+
+
+336
+00:10:42,696 --> 00:10:44,266
+message won't work when you're
+
+
+337
+00:10:44,266 --> 00:10:45,896
+frontmost, but the screen's off,
+
+
+338
+00:10:46,126 --> 00:10:47,396
+because your application state
+
+
+339
+00:10:47,396 --> 00:10:48,046
+is background.
+
+
+340
+00:10:48,956 --> 00:10:50,376
+So, just always make sure that
+
+
+341
+00:10:50,376 --> 00:10:52,146
+call is reachable first, and
+
+
+342
+00:10:52,146 --> 00:10:53,266
+then that can allow you to send
+
+
+343
+00:10:53,266 --> 00:10:53,826
+the message.
+
+
+344
+00:10:55,196 --> 00:10:56,756
+And, along the same vein as
+
+
+345
+00:10:56,756 --> 00:10:58,696
+WatchConnectivity, we're also
+
+
+346
+00:10:58,696 --> 00:10:59,856
+going to change the notion of
+
+
+347
+00:10:59,856 --> 00:11:01,846
+our resumes for NSURLSession.
+
+
+348
+00:11:02,416 --> 00:11:03,816
+So, when we have a background
+
+
+349
+00:11:03,816 --> 00:11:05,726
+download, for instance, and the
+
+
+350
+00:11:05,726 --> 00:11:07,336
+system's downloading it for us,
+
+
+351
+00:11:08,116 --> 00:11:09,136
+and then when the system is
+
+
+352
+00:11:09,136 --> 00:11:09,986
+finished, it's going to
+
+
+353
+00:11:09,986 --> 00:11:11,886
+automatically wake up our app,
+
+
+354
+00:11:11,886 --> 00:11:13,176
+if we're in the frontmost state,
+
+
+355
+00:11:13,446 --> 00:11:15,116
+and deliver the data right to
+
+
+356
+00:11:15,116 --> 00:11:16,706
+our application.
+
+
+357
+00:11:18,356 --> 00:11:19,396
+And, of course, with
+
+
+358
+00:11:19,396 --> 00:11:20,796
+NSURLSession, there is actually
+
+
+359
+00:11:20,796 --> 00:11:21,936
+two major parts.
+
+
+360
+00:11:22,246 --> 00:11:23,476
+There is the resume, when the
+
+
+361
+00:11:23,476 --> 00:11:25,446
+system has actually completed
+
+
+362
+00:11:25,446 --> 00:11:26,766
+downloading whatever it is you
+
+
+363
+00:11:26,766 --> 00:11:28,336
+need, but then there's also the
+
+
+364
+00:11:28,336 --> 00:11:30,386
+initiation of a download in the
+
+
+365
+00:11:30,386 --> 00:11:30,936
+background.
+
+
+366
+00:11:32,386 --> 00:11:34,246
+So, in most cases, this will
+
+
+367
+00:11:34,246 --> 00:11:36,566
+occur immediately, also, and in
+
+
+368
+00:11:36,566 --> 00:11:38,066
+very rare cases, it could get
+
+
+369
+00:11:38,066 --> 00:11:40,726
+delayed up to 10 minutes, but
+
+
+370
+00:11:40,726 --> 00:11:42,296
+it's a very rare situation.
+
+
+371
+00:11:42,936 --> 00:11:44,566
+If you've ever used
+
+
+372
+00:11:44,636 --> 00:11:46,586
+NSURLSession, which probably
+
+
+373
+00:11:46,586 --> 00:11:48,316
+almost everyone has here, for a
+
+
+374
+00:11:48,316 --> 00:11:49,936
+background transfer, this is a
+
+
+375
+00:11:49,936 --> 00:11:51,476
+really big deal on the frontmost
+
+
+376
+00:11:51,476 --> 00:11:51,766
+state.
+
+
+377
+00:11:52,226 --> 00:11:54,726
+To reliably depend on the
+
+
+378
+00:11:54,726 --> 00:11:57,866
+initiation and the resume of our
+
+
+379
+00:11:57,866 --> 00:11:59,966
+connectivity is really going to
+
+
+380
+00:11:59,966 --> 00:12:01,366
+change the design landscape for
+
+
+381
+00:12:01,366 --> 00:12:03,126
+the watch, and also, in
+
+
+382
+00:12:03,126 --> 00:12:03,816
+addition, with our
+
+
+383
+00:12:03,816 --> 00:12:05,226
+WatchConnectivity and getting
+
+
+384
+00:12:05,226 --> 00:12:06,436
+requests right from our phone.
+
+
+385
+00:12:09,246 --> 00:12:12,826
+So, another thing is, a lot of
+
+
+386
+00:12:12,826 --> 00:12:13,816
+times, a user might put their
+
+
+387
+00:12:13,816 --> 00:12:15,586
+wrist down, and in that moment,
+
+
+388
+00:12:15,586 --> 00:12:17,296
+your application goes into the
+
+
+389
+00:12:17,296 --> 00:12:19,966
+background, but you might need
+
+
+390
+00:12:19,966 --> 00:12:21,086
+to finish up a task.
+
+
+391
+00:12:21,086 --> 00:12:22,186
+So, say you need to close a
+
+
+392
+00:12:22,186 --> 00:12:23,766
+database, or do something else.
+
+
+393
+00:12:24,536 --> 00:12:26,286
+So, you can just use the
+
+
+394
+00:12:26,376 --> 00:12:28,326
+NSProcessInfo class to perform
+
+
+395
+00:12:28,326 --> 00:12:31,006
+expiring activity API to get up
+
+
+396
+00:12:31,006 --> 00:12:32,766
+to 30 seconds when foreground
+
+
+397
+00:12:32,766 --> 00:12:34,956
+initiated, and up to 10 seconds
+
+
+398
+00:12:34,956 --> 00:12:36,146
+when background initiated.
+
+
+399
+00:12:36,566 --> 00:12:38,706
+So, for example, for background
+
+
+400
+00:12:38,706 --> 00:12:40,266
+initiated, maybe you're running
+
+
+401
+00:12:40,266 --> 00:12:42,246
+in a complication for an update,
+
+
+402
+00:12:42,246 --> 00:12:43,606
+and you just need a little extra
+
+
+403
+00:12:43,606 --> 00:12:45,036
+time to get done.
+
+
+404
+00:12:45,486 --> 00:12:46,656
+So, you can just use the
+
+
+405
+00:12:46,656 --> 00:12:48,896
+NSProcessInfo class to get some
+
+
+406
+00:12:48,896 --> 00:12:49,676
+additional time.
+
+
+407
+00:12:50,856 --> 00:12:52,826
+And now, when you're frontmost,
+
+
+408
+00:12:52,826 --> 00:12:55,236
+and you use that API, then
+
+
+409
+00:12:55,956 --> 00:12:57,856
+you'll get increased priority by
+
+
+410
+00:12:57,856 --> 00:12:58,506
+the system.
+
+
+411
+00:12:58,936 --> 00:13:00,806
+So, because the system believes
+
+
+412
+00:13:00,806 --> 00:13:02,706
+that your app is more important
+
+
+413
+00:13:02,706 --> 00:13:04,026
+to the user, because it's still
+
+
+414
+00:13:04,026 --> 00:13:05,566
+in the frontmost state, the
+
+
+415
+00:13:05,566 --> 00:13:07,196
+priority by the system will get
+
+
+416
+00:13:07,196 --> 00:13:09,126
+increased, so you're more likely
+
+
+417
+00:13:09,126 --> 00:13:10,746
+to get the runtime that you need
+
+
+418
+00:13:10,996 --> 00:13:12,426
+to finish up whatever task you
+
+
+419
+00:13:12,426 --> 00:13:13,696
+need to do for your user.
+
+
+420
+00:13:16,636 --> 00:13:18,126
+And, another benefit of being
+
+
+421
+00:13:18,126 --> 00:13:20,126
+frontmost is, you can now play
+
+
+422
+00:13:20,126 --> 00:13:21,946
+haptics, so when you have
+
+
+423
+00:13:21,946 --> 00:13:23,596
+runtime for another reason, you
+
+
+424
+00:13:23,596 --> 00:13:24,976
+can easily just play a haptic.
+
+
+425
+00:13:26,056 --> 00:13:26,396
+Thank you.
+
+
+426
+00:13:27,516 --> 00:13:29,766
+[ Applause ]
+
+
+427
+00:13:30,266 --> 00:13:31,836
+>> So, sometimes haptics can get
+
+
+428
+00:13:31,836 --> 00:13:33,196
+a little confusing here or
+
+
+429
+00:13:33,196 --> 00:13:35,386
+there, so let me just dive in
+
+
+430
+00:13:35,386 --> 00:13:38,436
+and talk to you about, so if
+
+
+431
+00:13:38,436 --> 00:13:39,986
+haptics, if you play a haptic,
+
+
+432
+00:13:39,986 --> 00:13:41,956
+and let's say some audio is
+
+
+433
+00:13:41,956 --> 00:13:44,096
+playing out a speaker, then only
+
+
+434
+00:13:44,096 --> 00:13:45,346
+the audio from a haptic will
+
+
+435
+00:13:45,346 --> 00:13:46,976
+play, and it ducks what's
+
+
+436
+00:13:47,006 --> 00:13:47,726
+currently playing.
+
+
+437
+00:13:48,616 --> 00:13:49,936
+If audio is playing out of
+
+
+438
+00:13:50,006 --> 00:13:51,536
+Bluetooth headphones and the
+
+
+439
+00:13:51,536 --> 00:13:53,376
+screen is on, then the haptics
+
+
+440
+00:13:53,376 --> 00:13:55,166
+will play, and if the screen is
+
+
+441
+00:13:55,166 --> 00:13:56,606
+off, then just the audio will
+
+
+442
+00:13:56,606 --> 00:13:58,056
+play, because that makes the
+
+
+443
+00:13:58,056 --> 00:14:00,096
+most sense for your user.
+
+
+444
+00:14:02,716 --> 00:14:04,456
+And so lastly, the other benefit
+
+
+445
+00:14:04,456 --> 00:14:06,276
+of being frontmost is, when you
+
+
+446
+00:14:06,276 --> 00:14:07,726
+receive a remote or local
+
+
+447
+00:14:07,726 --> 00:14:09,466
+notification via the user
+
+
+448
+00:14:09,466 --> 00:14:11,186
+notifications framework, you'll
+
+
+449
+00:14:11,186 --> 00:14:13,136
+then get called into, and then
+
+
+450
+00:14:13,136 --> 00:14:14,296
+you can decide the right
+
+
+451
+00:14:14,296 --> 00:14:15,556
+experience for your user.
+
+
+452
+00:14:16,086 --> 00:14:17,416
+So, maybe you want to just
+
+
+453
+00:14:17,416 --> 00:14:19,126
+update your UI, and play the
+
+
+454
+00:14:19,126 --> 00:14:20,746
+notification like normally, you
+
+
+455
+00:14:20,746 --> 00:14:22,216
+can have that choice, now.
+
+
+456
+00:14:23,596 --> 00:14:25,666
+And so, you'll get called into,
+
+
+457
+00:14:25,666 --> 00:14:26,606
+when you just override the
+
+
+458
+00:14:26,606 --> 00:14:28,266
+function userNotification
+
+
+459
+00:14:28,606 --> 00:14:29,996
+willPresent notification
+
+
+460
+00:14:30,106 --> 00:14:31,066
+withCompletionHandler.
+
+
+461
+00:14:31,606 --> 00:14:34,446
+And, the key of all these
+
+
+462
+00:14:34,446 --> 00:14:36,656
+benefits, and this can really
+
+
+463
+00:14:36,656 --> 00:14:38,566
+change the design landscape, but
+
+
+464
+00:14:38,566 --> 00:14:40,916
+the best part about all this is
+
+
+465
+00:14:40,916 --> 00:14:43,976
+it's free, so if your app gets a
+
+
+466
+00:14:43,976 --> 00:14:45,156
+WatchConnectivity or
+
+
+467
+00:14:45,246 --> 00:14:47,556
+NSURLSession resume, your app
+
+
+468
+00:14:47,556 --> 00:14:49,026
+will now get additional runtime.
+
+
+469
+00:14:49,766 --> 00:14:50,906
+If your app implements the
+
+
+470
+00:14:50,906 --> 00:14:52,096
+willPresent notification
+
+
+471
+00:14:52,096 --> 00:14:53,756
+callback, you'll now get that
+
+
+472
+00:14:53,756 --> 00:14:55,356
+for free in the frontmost state.
+
+
+473
+00:14:56,096 --> 00:14:58,046
+Also, if, for example, you want
+
+
+474
+00:14:58,046 --> 00:14:59,696
+to use a NSProcessInfo
+
+
+475
+00:14:59,696 --> 00:15:02,386
+performExpiringActivity API to
+
+
+476
+00:15:02,386 --> 00:15:03,436
+complete a task on
+
+
+477
+00:15:03,436 --> 00:15:05,196
+applicationWillEnterBackground,
+
+
+478
+00:15:05,566 --> 00:15:06,466
+you'll get some additional
+
+
+479
+00:15:06,466 --> 00:15:07,536
+priority by the system.
+
+
+480
+00:15:08,676 --> 00:15:10,126
+You can change nothing in
+
+
+481
+00:15:10,126 --> 00:15:12,066
+watchOS 4, and your current,
+
+
+482
+00:15:12,066 --> 00:15:13,836
+native application will
+
+
+483
+00:15:13,836 --> 00:15:15,946
+automatically be more glanceable
+
+
+484
+00:15:15,946 --> 00:15:17,636
+and actionable by default.
+
+
+485
+00:15:18,246 --> 00:15:19,766
+And, with the Unified Process
+
+
+486
+00:15:19,766 --> 00:15:21,176
+Runtime we talked about earlier,
+
+
+487
+00:15:21,576 --> 00:15:22,916
+your application will be even
+
+
+488
+00:15:22,916 --> 00:15:23,756
+more responsive.
+
+
+489
+00:15:24,856 --> 00:15:27,036
+But, we want you all to take it
+
+
+490
+00:15:27,036 --> 00:15:27,856
+a step further.
+
+
+491
+00:15:28,706 --> 00:15:30,476
+Your apps can now leap forward
+
+
+492
+00:15:30,476 --> 00:15:32,096
+in functionality if you take
+
+
+493
+00:15:32,096 --> 00:15:33,306
+these new behaviors into
+
+
+494
+00:15:33,306 --> 00:15:33,766
+account.
+
+
+495
+00:15:34,656 --> 00:15:36,586
+You need to architect your apps
+
+
+496
+00:15:36,586 --> 00:15:37,846
+for this experience.
+
+
+497
+00:15:38,926 --> 00:15:41,116
+So now, let's talk through the
+
+
+498
+00:15:41,116 --> 00:15:42,526
+Apple Pie Me app, and get
+
+
+499
+00:15:42,526 --> 00:15:44,016
+started architecting our app
+
+
+500
+00:15:44,066 --> 00:15:45,496
+using these new capabilities.
+
+
+501
+00:15:46,266 --> 00:15:47,706
+So, let's revisit some of the
+
+
+502
+00:15:47,706 --> 00:15:49,656
+design goals for the app from
+
+
+503
+00:15:49,656 --> 00:15:50,956
+the perspective of our user.
+
+
+504
+00:15:52,756 --> 00:15:55,186
+So, here we are at a timeline of
+
+
+505
+00:15:55,186 --> 00:15:56,886
+our user, and really, the user
+
+
+506
+00:15:56,886 --> 00:15:58,306
+just wants to order apple pie,
+
+
+507
+00:15:58,676 --> 00:15:59,976
+and then they want to eat apple
+
+
+508
+00:15:59,976 --> 00:16:02,106
+pie, and sometimes in between,
+
+
+509
+00:16:02,106 --> 00:16:02,866
+they just want to view the
+
+
+510
+00:16:02,866 --> 00:16:03,896
+status of their order.
+
+
+511
+00:16:04,556 --> 00:16:05,786
+So, it's a pretty simple app
+
+
+512
+00:16:05,786 --> 00:16:06,956
+from the user's perspective.
+
+
+513
+00:16:07,556 --> 00:16:08,766
+But now, let's break down the
+
+
+514
+00:16:08,766 --> 00:16:10,066
+problem from our app's
+
+
+515
+00:16:10,066 --> 00:16:10,726
+perspective.
+
+
+516
+00:16:12,676 --> 00:16:14,696
+So, when that Order button is
+
+
+517
+00:16:14,696 --> 00:16:15,886
+pressed, then we're going to
+
+
+518
+00:16:15,886 --> 00:16:17,316
+send that order to our server,
+
+
+519
+00:16:17,916 --> 00:16:19,376
+and eventually, when the
+
+
+520
+00:16:19,796 --> 00:16:21,026
+restaurant has received the
+
+
+521
+00:16:21,026 --> 00:16:23,796
+request properly, and we know
+
+
+522
+00:16:23,796 --> 00:16:24,836
+that the pie is cooking, we're
+
+
+523
+00:16:24,836 --> 00:16:25,486
+going to send a push
+
+
+524
+00:16:25,486 --> 00:16:26,186
+notification.
+
+
+525
+00:16:26,616 --> 00:16:27,906
+And then, we also want to tell
+
+
+526
+00:16:27,906 --> 00:16:30,356
+our user when a courier is on
+
+
+527
+00:16:30,356 --> 00:16:32,626
+the way, and when a courier is
+
+
+528
+00:16:32,626 --> 00:16:33,066
+outside.
+
+
+529
+00:16:34,166 --> 00:16:35,596
+So, let's break this down some
+
+
+530
+00:16:35,596 --> 00:16:38,936
+more, and take it step by step.
+
+
+531
+00:16:39,136 --> 00:16:40,826
+So, we're at the Receive Order,
+
+
+532
+00:16:40,826 --> 00:16:43,006
+and how exactly do we do this?
+
+
+533
+00:16:43,616 --> 00:16:45,226
+Once the user taps the Order
+
+
+534
+00:16:45,226 --> 00:16:46,936
+button, what exactly should we
+
+
+535
+00:16:46,936 --> 00:16:47,396
+show?
+
+
+536
+00:16:48,576 --> 00:16:49,556
+We're going to be sending the
+
+
+537
+00:16:49,556 --> 00:16:50,666
+order to our server here, and
+
+
+538
+00:16:50,666 --> 00:16:52,376
+can't guarantee it'll come back
+
+
+539
+00:16:52,376 --> 00:16:53,636
+immediately, no matter what.
+
+
+540
+00:16:54,396 --> 00:16:56,736
+And, do we show something like
+
+
+541
+00:16:56,806 --> 00:16:58,446
+this, maybe a Loading indicator?
+
+
+542
+00:16:59,076 --> 00:17:00,656
+So, sometimes Loading indicators
+
+
+543
+00:17:00,656 --> 00:17:02,456
+do make sense to your user, but
+
+
+544
+00:17:02,456 --> 00:17:04,156
+in this case, it's actually
+
+
+545
+00:17:04,156 --> 00:17:05,165
+pretty confusing.
+
+
+546
+00:17:05,256 --> 00:17:06,906
+I might see this, and I might
+
+
+547
+00:17:06,906 --> 00:17:08,665
+think, "Oh, I need to hold my
+
+
+548
+00:17:08,665 --> 00:17:09,646
+wrist up.
+
+
+549
+00:17:09,965 --> 00:17:11,006
+How long do I have to hold my
+
+
+550
+00:17:11,006 --> 00:17:11,486
+wrist up?"
+
+
+551
+00:17:12,046 --> 00:17:13,106
+This isn't really a great
+
+
+552
+00:17:13,106 --> 00:17:14,246
+experience on the watch.
+
+
+553
+00:17:15,185 --> 00:17:16,915
+But instead, we could actually
+
+
+554
+00:17:16,915 --> 00:17:18,046
+show something like this.
+
+
+555
+00:17:18,486 --> 00:17:20,016
+So, hey, we'll tap you when the
+
+
+556
+00:17:20,016 --> 00:17:20,726
+pie's ready.
+
+
+557
+00:17:21,006 --> 00:17:22,376
+So, the user knows they can just
+
+
+558
+00:17:22,376 --> 00:17:24,086
+drop their wrist and go about
+
+
+559
+00:17:24,086 --> 00:17:26,685
+their day.
+
+
+560
+00:17:26,935 --> 00:17:28,776
+So, now we know at the Receive
+
+
+561
+00:17:28,776 --> 00:17:30,896
+Order screen, we know we just
+
+
+562
+00:17:30,896 --> 00:17:31,926
+want to show this new UI
+
+
+563
+00:17:31,926 --> 00:17:34,196
+immediately, so now let's break
+
+
+564
+00:17:34,196 --> 00:17:36,266
+this down into its separate
+
+
+565
+00:17:36,266 --> 00:17:36,886
+components.
+
+
+566
+00:17:38,116 --> 00:17:40,646
+So, we want to use NSURLSession
+
+
+567
+00:17:40,646 --> 00:17:41,816
+and post the order to our
+
+
+568
+00:17:41,816 --> 00:17:44,176
+server, and we also want to
+
+
+569
+00:17:44,176 --> 00:17:45,966
+extend the timeout, and then
+
+
+570
+00:17:45,966 --> 00:17:46,796
+just update our UI.
+
+
+571
+00:17:48,216 --> 00:17:50,346
+And lastly, there are times when
+
+
+572
+00:17:50,346 --> 00:17:51,866
+our server might not be
+
+
+573
+00:17:51,866 --> 00:17:53,486
+responsive, or something could
+
+
+574
+00:17:53,486 --> 00:17:55,466
+have gone wrong, and we need to
+
+
+575
+00:17:55,466 --> 00:17:57,926
+handle that case.
+
+
+576
+00:17:58,096 --> 00:18:00,356
+So, we need a mechanism that
+
+
+577
+00:18:00,356 --> 00:18:01,956
+allows us to schedule something
+
+
+578
+00:18:01,956 --> 00:18:03,706
+around, let's say, five minutes
+
+
+579
+00:18:03,706 --> 00:18:04,046
+from now.
+
+
+580
+00:18:04,576 --> 00:18:06,166
+And, we also need something that
+
+
+581
+00:18:06,166 --> 00:18:07,936
+doesn't depend on the network,
+
+
+582
+00:18:08,426 --> 00:18:10,196
+or something that, regardless of
+
+
+583
+00:18:10,196 --> 00:18:12,166
+frontmost or not, should alert
+
+
+584
+00:18:12,166 --> 00:18:12,676
+our user.
+
+
+585
+00:18:14,386 --> 00:18:15,926
+We also need something that we
+
+
+586
+00:18:15,926 --> 00:18:18,826
+can cancel later on, and so, if
+
+
+587
+00:18:18,826 --> 00:18:19,716
+you're thinking about a local
+
+
+588
+00:18:19,716 --> 00:18:20,816
+notification, then you'd be
+
+
+589
+00:18:20,816 --> 00:18:21,746
+absolutely right.
+
+
+590
+00:18:22,396 --> 00:18:23,656
+So, we could just show a local
+
+
+591
+00:18:23,656 --> 00:18:25,036
+notification that says, "Oh no!
+
+
+592
+00:18:25,136 --> 00:18:26,096
+Something went wrong."
+
+
+593
+00:18:26,096 --> 00:18:27,626
+And then, the user can easily
+
+
+594
+00:18:27,626 --> 00:18:29,076
+just tap on the Reorder button
+
+
+595
+00:18:29,616 --> 00:18:32,006
+and get another apple pie, or
+
+
+596
+00:18:32,206 --> 00:18:33,326
+they could just tap on the App
+
+
+597
+00:18:33,326 --> 00:18:34,966
+icon and go into the app and see
+
+
+598
+00:18:34,966 --> 00:18:35,566
+what went wrong.
+
+
+599
+00:18:37,236 --> 00:18:39,226
+So, let's just add that last
+
+
+600
+00:18:39,226 --> 00:18:41,836
+step, and now, let's just jump
+
+
+601
+00:18:41,836 --> 00:18:43,726
+into some code and see how this
+
+
+602
+00:18:43,726 --> 00:18:46,846
+can be done.
+
+
+603
+00:18:47,016 --> 00:18:48,746
+So, here we are at our IBAction
+
+
+604
+00:18:48,746 --> 00:18:49,926
+for when the Order button is
+
+
+605
+00:18:49,926 --> 00:18:51,766
+actually pressed, and then we
+
+
+606
+00:18:51,766 --> 00:18:52,986
+just want to grab our background
+
+
+607
+00:18:52,986 --> 00:18:54,276
+session, and then we're going to
+
+
+608
+00:18:54,276 --> 00:18:55,566
+want to post the order to our
+
+
+609
+00:18:55,566 --> 00:18:56,056
+server.
+
+
+610
+00:18:56,626 --> 00:18:57,836
+And then, because there's a
+
+
+611
+00:18:57,836 --> 00:18:59,366
+reasonable expectation that the
+
+
+612
+00:18:59,366 --> 00:19:01,086
+user wants to see our app the
+
+
+613
+00:19:01,086 --> 00:19:02,386
+next time, because they just
+
+
+614
+00:19:02,386 --> 00:19:04,166
+pressed the Order button, then
+
+
+615
+00:19:04,166 --> 00:19:05,396
+we're just going to extend our
+
+
+616
+00:19:05,396 --> 00:19:06,266
+frontmost timeout.
+
+
+617
+00:19:07,016 --> 00:19:08,446
+And then, we're going to trigger
+
+
+618
+00:19:08,446 --> 00:19:10,596
+that just-in-case scenario, our
+
+
+619
+00:19:10,596 --> 00:19:13,456
+fallback local notification, and
+
+
+620
+00:19:13,456 --> 00:19:14,416
+then we're just going to want to
+
+
+621
+00:19:14,416 --> 00:19:15,376
+reload some new UI.
+
+
+622
+00:19:18,476 --> 00:19:20,556
+Great. So now, we've received
+
+
+623
+00:19:20,556 --> 00:19:22,096
+the order, and eventually we're
+
+
+624
+00:19:22,096 --> 00:19:22,796
+going to send a push
+
+
+625
+00:19:22,796 --> 00:19:24,596
+notification for when the pie is
+
+
+626
+00:19:24,596 --> 00:19:24,976
+cooking.
+
+
+627
+00:19:25,876 --> 00:19:27,896
+So now, let's say our user puts
+
+
+628
+00:19:27,896 --> 00:19:29,656
+their wrist down sometime after
+
+
+629
+00:19:29,936 --> 00:19:30,986
+we've received the order.
+
+
+630
+00:19:32,446 --> 00:19:35,066
+So, right before we send that
+
+
+631
+00:19:35,066 --> 00:19:37,236
+notification, we expect to be in
+
+
+632
+00:19:37,236 --> 00:19:39,616
+the Frontmost App State, but
+
+
+633
+00:19:39,616 --> 00:19:41,766
+really, we, the developer, we
+
+
+634
+00:19:41,766 --> 00:19:42,766
+don't really need to know too
+
+
+635
+00:19:42,766 --> 00:19:44,556
+much about when the user puts
+
+
+636
+00:19:44,556 --> 00:19:45,786
+their wrist down, or raises it
+
+
+637
+00:19:45,786 --> 00:19:46,236
+up.
+
+
+638
+00:19:46,546 --> 00:19:47,786
+The next event that's really
+
+
+639
+00:19:47,786 --> 00:19:49,886
+just important is our push
+
+
+640
+00:19:49,886 --> 00:19:51,366
+notification, to just alert our
+
+
+641
+00:19:51,366 --> 00:19:52,796
+user that their pie is cooking.
+
+
+642
+00:19:53,656 --> 00:19:55,216
+If the app is frontmost, we'll
+
+
+643
+00:19:55,216 --> 00:19:56,696
+get our willPresent notification
+
+
+644
+00:19:56,696 --> 00:19:58,026
+callback we talked about
+
+
+645
+00:19:58,026 --> 00:19:58,416
+earlier.
+
+
+646
+00:19:59,446 --> 00:20:00,786
+Otherwise, if we're not
+
+
+647
+00:20:00,786 --> 00:20:02,666
+frontmost, the user just gets a
+
+
+648
+00:20:02,666 --> 00:20:03,936
+notification like normally.
+
+
+649
+00:20:04,996 --> 00:20:06,236
+And so, let's jump back into
+
+
+650
+00:20:06,236 --> 00:20:07,796
+some code and see what we can
+
+
+651
+00:20:07,796 --> 00:20:07,966
+do.
+
+
+652
+00:20:10,256 --> 00:20:11,736
+So, here we're just going to
+
+
+653
+00:20:11,736 --> 00:20:13,356
+override our user notification
+
+
+654
+00:20:13,356 --> 00:20:15,296
+center, willPresent notification
+
+
+655
+00:20:15,516 --> 00:20:16,496
+withCompletionHandler.
+
+
+656
+00:20:17,026 --> 00:20:17,906
+And then, the first thing we
+
+
+657
+00:20:17,906 --> 00:20:19,636
+want to do is, we just want to
+
+
+658
+00:20:19,636 --> 00:20:21,716
+make sure that we cancel our
+
+
+659
+00:20:21,716 --> 00:20:22,846
+local notification.
+
+
+660
+00:20:23,426 --> 00:20:24,936
+And then, we just want to reload
+
+
+661
+00:20:24,936 --> 00:20:27,156
+our new UI, and then, because we
+
+
+662
+00:20:27,156 --> 00:20:29,036
+did that, we want to just tap
+
+
+663
+00:20:29,036 --> 00:20:30,256
+our user, so they know to raise
+
+
+664
+00:20:30,256 --> 00:20:30,766
+their wrist.
+
+
+665
+00:20:31,446 --> 00:20:32,756
+And lastly, we want to call the
+
+
+666
+00:20:32,756 --> 00:20:34,196
+completionHandler and finish up.
+
+
+667
+00:20:35,016 --> 00:20:36,086
+And, I wanted to point out for
+
+
+668
+00:20:36,086 --> 00:20:37,716
+the completionHandler, it
+
+
+669
+00:20:37,716 --> 00:20:39,376
+actually takes a UNNotification
+
+
+670
+00:20:39,376 --> 00:20:41,136
+PresentationOptions, and so
+
+
+671
+00:20:41,136 --> 00:20:43,856
+that's the options of alert,
+
+
+672
+00:20:43,856 --> 00:20:44,756
+badge, or sound.
+
+
+673
+00:20:45,706 --> 00:20:47,376
+And, in this particular case, we
+
+
+674
+00:20:47,376 --> 00:20:48,536
+actually don't want a
+
+
+675
+00:20:48,536 --> 00:20:50,486
+notification to appear on top of
+
+
+676
+00:20:50,486 --> 00:20:52,046
+our app, because we've already
+
+
+677
+00:20:52,046 --> 00:20:53,776
+tapped the user, and we've
+
+
+678
+00:20:53,776 --> 00:20:56,016
+updated our UI, so instead,
+
+
+679
+00:20:56,016 --> 00:20:56,836
+we're just calling
+
+
+680
+00:20:56,836 --> 00:20:57,946
+completionHandler with none of
+
+
+681
+00:20:57,946 --> 00:20:59,456
+the options, so essentially
+
+
+682
+00:20:59,456 --> 00:21:00,576
+we're just going to be consuming
+
+
+683
+00:21:00,576 --> 00:21:02,436
+the notification, and then,
+
+
+684
+00:21:02,626 --> 00:21:04,256
+because the tap comes in, the
+
+
+685
+00:21:04,256 --> 00:21:05,326
+user would raise their wrist.
+
+
+686
+00:21:09,056 --> 00:21:11,586
+So, we just tap the user, and
+
+
+687
+00:21:11,586 --> 00:21:12,736
+they might see something such as
+
+
+688
+00:21:12,736 --> 00:21:13,206
+the following.
+
+
+689
+00:21:14,716 --> 00:21:16,816
+So, great, their pie is coming.
+
+
+690
+00:21:16,816 --> 00:21:18,066
+It's about 12 minutes away.
+
+
+691
+00:21:18,556 --> 00:21:22,256
+It's cooking in the oven.
+
+
+692
+00:21:22,256 --> 00:21:23,966
+So, here's where we were, and
+
+
+693
+00:21:23,966 --> 00:21:24,856
+now let's go back to our
+
+
+694
+00:21:24,856 --> 00:21:25,396
+timeline.
+
+
+695
+00:21:26,756 --> 00:21:28,026
+So, now we know our pie's
+
+
+696
+00:21:28,026 --> 00:21:29,096
+cooking at the restaurant.
+
+
+697
+00:21:29,706 --> 00:21:31,406
+And now, let's say we want the
+
+
+698
+00:21:31,406 --> 00:21:33,326
+user to be able to raise their
+
+
+699
+00:21:33,326 --> 00:21:34,896
+wrist and see as up to date of
+
+
+700
+00:21:34,896 --> 00:21:35,996
+an ETA as possible.
+
+
+701
+00:21:36,876 --> 00:21:38,406
+So, as soon as the user raises
+
+
+702
+00:21:38,406 --> 00:21:39,946
+their wrist, we will, of course,
+
+
+703
+00:21:39,946 --> 00:21:41,686
+ask for the most up-to-date ETA,
+
+
+704
+00:21:42,626 --> 00:21:44,316
+and this means that the next
+
+
+705
+00:21:44,316 --> 00:21:45,516
+time the user raises their wrist
+
+
+706
+00:21:45,516 --> 00:21:48,206
+again, we'd expect them to see
+
+
+707
+00:21:48,206 --> 00:21:49,516
+that up-to-date ETA.
+
+
+708
+00:21:52,276 --> 00:21:54,036
+Great. So, we handled our push
+
+
+709
+00:21:54,036 --> 00:21:54,846
+notification.
+
+
+710
+00:21:55,076 --> 00:21:56,336
+We now have a mechanism for
+
+
+711
+00:21:56,336 --> 00:21:59,196
+updating our ETAs, and now we
+
+
+712
+00:21:59,196 --> 00:22:00,136
+just want to send a push
+
+
+713
+00:22:00,136 --> 00:22:01,706
+notification again for when the
+
+
+714
+00:22:01,706 --> 00:22:02,596
+courier is on the way.
+
+
+715
+00:22:03,736 --> 00:22:05,536
+And, if we receive this push in
+
+
+716
+00:22:05,536 --> 00:22:07,766
+willPresent, then we're just
+
+
+717
+00:22:07,766 --> 00:22:10,146
+going to tap our user again, and
+
+
+718
+00:22:10,146 --> 00:22:11,526
+then maybe we might want to add
+
+
+719
+00:22:11,526 --> 00:22:13,416
+a map and an updated ETA showing
+
+
+720
+00:22:13,416 --> 00:22:14,666
+either where we are, or where
+
+
+721
+00:22:14,666 --> 00:22:17,596
+the courier is.
+
+
+722
+00:22:17,816 --> 00:22:19,466
+And, let's say, after we sent a
+
+
+723
+00:22:19,466 --> 00:22:21,236
+push notification for our
+
+
+724
+00:22:21,236 --> 00:22:22,706
+courier is on the way, the user
+
+
+725
+00:22:22,706 --> 00:22:24,416
+decides to maybe raise their
+
+
+726
+00:22:24,416 --> 00:22:24,746
+wrist.
+
+
+727
+00:22:25,506 --> 00:22:27,026
+So now, the user would see the
+
+
+728
+00:22:27,026 --> 00:22:28,586
+map and where their courier is,
+
+
+729
+00:22:28,646 --> 00:22:30,096
+and the app would provide a
+
+
+730
+00:22:30,096 --> 00:22:31,926
+great, glanceable experience.
+
+
+731
+00:22:32,396 --> 00:22:34,206
+And next, we can just send
+
+
+732
+00:22:34,306 --> 00:22:35,976
+another push for when our
+
+
+733
+00:22:35,976 --> 00:22:36,806
+courier is outside.
+
+
+734
+00:22:38,186 --> 00:22:40,096
+And then, if we're still in the
+
+
+735
+00:22:40,096 --> 00:22:41,766
+frontmost state, we can easily
+
+
+736
+00:22:41,766 --> 00:22:43,276
+just play another haptic like
+
+
+737
+00:22:43,276 --> 00:22:45,356
+before, and update our UI to
+
+
+738
+00:22:45,356 --> 00:22:46,416
+show that the courier is right
+
+
+739
+00:22:46,416 --> 00:22:46,906
+outside.
+
+
+740
+00:22:47,616 --> 00:22:49,836
+And, at this point, let's just
+
+
+741
+00:22:49,836 --> 00:22:50,966
+make sure to disable our
+
+
+742
+00:22:50,966 --> 00:22:52,586
+frontmost timeout extended API,
+
+
+743
+00:22:53,236 --> 00:22:55,086
+since we expect our user to be
+
+
+744
+00:22:55,086 --> 00:22:57,006
+eating apple pie now, instead of
+
+
+745
+00:22:57,376 --> 00:22:58,626
+actually just using our app.
+
+
+746
+00:22:59,576 --> 00:23:00,996
+So, let's take a look at our
+
+
+747
+00:23:00,996 --> 00:23:01,836
+overall timeline.
+
+
+748
+00:23:04,216 --> 00:23:06,296
+So, here's our whole flow, and
+
+
+749
+00:23:06,296 --> 00:23:08,046
+it all looks great, but let's
+
+
+750
+00:23:08,046 --> 00:23:09,646
+try to challenge our assumptions
+
+
+751
+00:23:09,646 --> 00:23:10,626
+as much as possible.
+
+
+752
+00:23:11,426 --> 00:23:12,726
+Now, what happens if the user
+
+
+753
+00:23:12,726 --> 00:23:14,216
+decides to go back to the watch
+
+
+754
+00:23:14,216 --> 00:23:14,566
+face?
+
+
+755
+00:23:15,746 --> 00:23:17,546
+So, we're no longer frontmost in
+
+
+756
+00:23:17,546 --> 00:23:19,936
+that case, but does that really
+
+
+757
+00:23:19,936 --> 00:23:20,826
+change anything?
+
+
+758
+00:23:21,346 --> 00:23:22,446
+Not really, right?
+
+
+759
+00:23:22,446 --> 00:23:24,066
+Let's take it through our app
+
+
+760
+00:23:24,066 --> 00:23:27,666
+code again.
+
+
+761
+00:23:27,846 --> 00:23:29,116
+So, we use the background
+
+
+762
+00:23:29,116 --> 00:23:30,796
+NSURLSession to post the order
+
+
+763
+00:23:30,796 --> 00:23:32,266
+to our server, so if, right
+
+
+764
+00:23:32,266 --> 00:23:34,016
+afterwards, the user decided to
+
+
+765
+00:23:34,016 --> 00:23:35,466
+go back to the watch face, we
+
+
+766
+00:23:35,466 --> 00:23:36,786
+know that that will continue,
+
+
+767
+00:23:36,846 --> 00:23:38,826
+and then properly post the order
+
+
+768
+00:23:38,826 --> 00:23:39,456
+to our server.
+
+
+769
+00:23:40,006 --> 00:23:41,276
+And then, we just send a push
+
+
+770
+00:23:41,276 --> 00:23:42,576
+notification for all the
+
+
+771
+00:23:42,576 --> 00:23:43,416
+different stages.
+
+
+772
+00:23:43,896 --> 00:23:45,276
+So, even if we're not frontmost,
+
+
+773
+00:23:45,316 --> 00:23:46,636
+the user just gets a regular
+
+
+774
+00:23:46,636 --> 00:23:47,366
+notification.
+
+
+775
+00:23:49,776 --> 00:23:51,696
+And so, here we are at our
+
+
+776
+00:23:51,696 --> 00:23:52,616
+overall timeline.
+
+
+777
+00:23:53,036 --> 00:23:55,636
+So, we've handled the cases when
+
+
+778
+00:23:55,636 --> 00:23:57,276
+our server wasn't working
+
+
+779
+00:23:57,276 --> 00:23:58,456
+properly with the local
+
+
+780
+00:23:58,456 --> 00:24:00,376
+notification, and we've worked
+
+
+781
+00:24:00,376 --> 00:24:01,836
+through how to use some of the
+
+
+782
+00:24:01,836 --> 00:24:03,446
+new Frontmost App State to
+
+
+783
+00:24:03,476 --> 00:24:04,926
+provide a great experience to
+
+
+784
+00:24:04,926 --> 00:24:05,466
+our user.
+
+
+785
+00:24:06,186 --> 00:24:07,556
+And, the best part about all of
+
+
+786
+00:24:07,556 --> 00:24:09,586
+this is that our app works great
+
+
+787
+00:24:09,586 --> 00:24:10,916
+with or without the Frontmost
+
+
+788
+00:24:10,916 --> 00:24:11,426
+App State.
+
+
+789
+00:24:14,886 --> 00:24:16,966
+And so, we've now gone through
+
+
+790
+00:24:16,966 --> 00:24:18,586
+the Frontmost App State, and our
+
+
+791
+00:24:18,726 --> 00:24:20,456
+Unified Process Runtime, and how
+
+
+792
+00:24:20,456 --> 00:24:21,156
+it affects our app.
+
+
+793
+00:24:21,896 --> 00:24:23,226
+So, let's just now take some
+
+
+794
+00:24:23,226 --> 00:24:24,886
+time to revisit Background App
+
+
+795
+00:24:24,886 --> 00:24:26,596
+Refresh, which was introduced
+
+
+796
+00:24:26,596 --> 00:24:27,996
+last year, and see what
+
+
+797
+00:24:27,996 --> 00:24:29,556
+improvements we've added, and
+
+
+798
+00:24:29,556 --> 00:24:30,886
+how we can apply it to Apple Pie
+
+
+799
+00:24:30,886 --> 00:24:31,006
+Me.
+
+
+800
+00:24:32,276 --> 00:24:33,106
+So, let's just go through a
+
+
+801
+00:24:33,106 --> 00:24:33,856
+brief overview.
+
+
+802
+00:24:34,946 --> 00:24:37,456
+So, in watchOS, the system wakes
+
+
+803
+00:24:37,456 --> 00:24:39,006
+your application by handing it a
+
+
+804
+00:24:39,756 --> 00:24:40,846
+task, and the system has a
+
+
+805
+00:24:40,846 --> 00:24:43,286
+limited number of these to hand
+
+
+806
+00:24:43,286 --> 00:24:44,576
+out, so just make sure to make
+
+
+807
+00:24:44,576 --> 00:24:45,646
+the best use of each one you
+
+
+808
+00:24:45,646 --> 00:24:45,936
+get.
+
+
+809
+00:24:47,456 --> 00:24:48,956
+And, when the system wants to
+
+
+810
+00:24:48,956 --> 00:24:51,206
+wake your app, it gives you one
+
+
+811
+00:24:51,206 --> 00:24:53,146
+or more of these tasks, and then
+
+
+812
+00:24:53,146 --> 00:24:54,546
+you can do any work you'd like
+
+
+813
+00:24:54,546 --> 00:24:55,886
+in the background, and you just
+
+
+814
+00:24:55,886 --> 00:24:57,146
+make sure to hold this task for
+
+
+815
+00:24:57,146 --> 00:24:58,196
+as long as you're doing work.
+
+
+816
+00:24:58,636 --> 00:25:01,116
+And, the way in which the system
+
+
+817
+00:25:01,116 --> 00:25:02,516
+will deliver these tasks to you
+
+
+818
+00:25:02,986 --> 00:25:04,716
+is when you implement your
+
+
+819
+00:25:04,936 --> 00:25:06,996
+handle background tasks callback
+
+
+820
+00:25:07,286 --> 00:25:08,966
+on your WKExtension delegate.
+
+
+821
+00:25:14,476 --> 00:25:15,726
+And so, when you finish your
+
+
+822
+00:25:15,726 --> 00:25:17,926
+background work, you just return
+
+
+823
+00:25:17,926 --> 00:25:19,506
+the task to the system by
+
+
+824
+00:25:19,506 --> 00:25:20,946
+calling setTaskCompleted.
+
+
+825
+00:25:22,176 --> 00:25:23,916
+So, we've changed a little bit
+
+
+826
+00:25:23,916 --> 00:25:26,026
+of the API, so let's walk
+
+
+827
+00:25:26,026 --> 00:25:27,106
+through that now, now that we
+
+
+828
+00:25:27,106 --> 00:25:28,156
+have a good, conceptual
+
+
+829
+00:25:28,156 --> 00:25:28,536
+overview.
+
+
+830
+00:25:31,336 --> 00:25:33,296
+So, before, we would implement
+
+
+831
+00:25:33,296 --> 00:25:35,046
+our handle background tasks, and
+
+
+832
+00:25:35,046 --> 00:25:36,446
+then we would switch case on all
+
+
+833
+00:25:36,446 --> 00:25:37,356
+of the different tasks.
+
+
+834
+00:25:37,806 --> 00:25:39,786
+So, in this example, we have a
+
+
+835
+00:25:39,786 --> 00:25:41,246
+WKApplicationRefresh
+
+
+836
+00:25:41,246 --> 00:25:44,466
+BackgroundTask, and then, let's
+
+
+837
+00:25:44,466 --> 00:25:45,426
+say we perform whatever
+
+
+838
+00:25:45,426 --> 00:25:46,806
+functions we need to, to get our
+
+
+839
+00:25:46,806 --> 00:25:48,546
+app up to date, and then we just
+
+
+840
+00:25:48,546 --> 00:25:49,726
+want to schedule a snapshot.
+
+
+841
+00:25:50,776 --> 00:25:51,456
+And so, we use the
+
+
+842
+00:25:51,456 --> 00:25:54,036
+scheduleSnapshotRefresh, and we
+
+
+843
+00:25:54,586 --> 00:25:55,536
+use a preferred date.
+
+
+844
+00:25:55,726 --> 00:25:56,966
+And then, we just call
+
+
+845
+00:25:56,966 --> 00:25:58,036
+setTaskCompleted.
+
+
+846
+00:25:58,736 --> 00:26:00,316
+And, the important thing here
+
+
+847
+00:26:00,746 --> 00:26:02,226
+that was a little tricky was, it
+
+
+848
+00:26:02,226 --> 00:26:03,616
+was really important to call
+
+
+849
+00:26:03,616 --> 00:26:05,646
+setTaskCompleted after you
+
+
+850
+00:26:05,646 --> 00:26:06,936
+actually scheduled a snapshot
+
+
+851
+00:26:06,936 --> 00:26:08,876
+refresh, because if you called
+
+
+852
+00:26:08,876 --> 00:26:10,846
+it before, then, like I
+
+
+853
+00:26:10,846 --> 00:26:12,506
+mentioned, you're actually, by
+
+
+854
+00:26:12,506 --> 00:26:14,306
+calling setTaskCompleted, you're
+
+
+855
+00:26:14,306 --> 00:26:15,766
+returning the task to the
+
+
+856
+00:26:15,766 --> 00:26:17,736
+system, and no snapshot would
+
+
+857
+00:26:17,736 --> 00:26:18,576
+then be scheduled.
+
+
+858
+00:26:18,576 --> 00:26:20,826
+So, this was a little bit
+
+
+859
+00:26:20,826 --> 00:26:22,776
+cumbersome, and not the best
+
+
+860
+00:26:22,776 --> 00:26:23,436
+experience.
+
+
+861
+00:26:24,776 --> 00:26:26,756
+So now, all you have to do is
+
+
+862
+00:26:26,756 --> 00:26:27,886
+just call a new function that
+
+
+863
+00:26:27,886 --> 00:26:27,976
+says
+
+
+864
+00:26:28,136 --> 00:26:29,956
+setTaskCompletedWithSnapshot,
+
+
+865
+00:26:30,246 --> 00:26:31,746
+and you set it to be true when
+
+
+866
+00:26:31,746 --> 00:26:33,286
+you want that snapshot, and set
+
+
+867
+00:26:33,286 --> 00:26:34,446
+it to be false when you don't.
+
+
+868
+00:26:35,876 --> 00:26:37,486
+And so, for all tasks, the
+
+
+869
+00:26:37,486 --> 00:26:39,296
+default is just to take a
+
+
+870
+00:26:39,296 --> 00:26:40,506
+snapshot immediately.
+
+
+871
+00:26:41,256 --> 00:26:43,696
+However, for snapshot, just make
+
+
+872
+00:26:43,696 --> 00:26:45,246
+sure to remember that there's a
+
+
+873
+00:26:45,246 --> 00:26:47,326
+special call to setTaskCompleted
+
+
+874
+00:26:47,696 --> 00:26:48,446
+with a snapshot.
+
+
+875
+00:26:48,846 --> 00:26:51,906
+So, let's take a look at that.
+
+
+876
+00:26:52,086 --> 00:26:54,246
+So, here it is, again, we're
+
+
+877
+00:26:54,246 --> 00:26:55,196
+implementing our handle
+
+
+878
+00:26:55,196 --> 00:26:56,606
+background task, and this time,
+
+
+879
+00:26:56,956 --> 00:26:57,606
+we just have a
+
+
+880
+00:26:57,606 --> 00:26:59,676
+WKSnapshotRefreshBackgroundTask,
+
+
+881
+00:27:00,316 --> 00:27:01,256
+so we're just going to call
+
+
+882
+00:27:01,256 --> 00:27:02,966
+setTaskCompleted with a restored
+
+
+883
+00:27:02,966 --> 00:27:04,456
+default state, and then our
+
+
+884
+00:27:04,456 --> 00:27:06,096
+estimatedSnapshotExpiration.
+
+
+885
+00:27:07,376 --> 00:27:09,316
+So, this is really great, and
+
+
+886
+00:27:09,316 --> 00:27:10,956
+it's very simple to use, but I
+
+
+887
+00:27:10,956 --> 00:27:12,316
+actually want to point out one
+
+
+888
+00:27:12,316 --> 00:27:14,246
+cool trick.
+
+
+889
+00:27:14,426 --> 00:27:16,046
+So now, you can actually use
+
+
+890
+00:27:16,046 --> 00:27:17,926
+setTaskCompletedWithSnapshot on
+
+
+891
+00:27:17,926 --> 00:27:19,086
+your snapshotTask.
+
+
+892
+00:27:19,526 --> 00:27:22,036
+So, what that does is it will,
+
+
+893
+00:27:22,036 --> 00:27:23,126
+of course, take a snapshot
+
+
+894
+00:27:23,126 --> 00:27:25,206
+immediately, and then it'll
+
+
+895
+00:27:25,206 --> 00:27:26,976
+actually schedule a snapshot an
+
+
+896
+00:27:27,106 --> 00:27:28,506
+hour from now, if you set it to
+
+
+897
+00:27:28,506 --> 00:27:29,006
+be true.
+
+
+898
+00:27:29,806 --> 00:27:31,556
+So, essentially what this means,
+
+
+899
+00:27:31,886 --> 00:27:33,246
+if you just keep calling
+
+
+900
+00:27:33,246 --> 00:27:35,146
+setTaskCompletedWithSnapshot as
+
+
+901
+00:27:35,146 --> 00:27:36,776
+true, you're going to set up a
+
+
+902
+00:27:36,776 --> 00:27:38,366
+one-hour cadence, and it's
+
+
+903
+00:27:38,366 --> 00:27:39,906
+really easy to constantly make
+
+
+904
+00:27:39,906 --> 00:27:41,806
+sure that your app is up to date
+
+
+905
+00:27:41,806 --> 00:27:42,536
+every hour.
+
+
+906
+00:27:43,976 --> 00:27:46,076
+And, if you want more custom
+
+
+907
+00:27:46,076 --> 00:27:48,346
+data behavior, for example, then
+
+
+908
+00:27:48,346 --> 00:27:49,486
+just make sure to call
+
+
+909
+00:27:49,486 --> 00:27:51,216
+setTaskCompletedWithSnapshot
+
+
+910
+00:27:51,216 --> 00:27:54,526
+false after scheduling your
+
+
+911
+00:27:54,636 --> 00:27:56,366
+snapshot refresh, because if you
+
+
+912
+00:27:56,366 --> 00:27:58,166
+call it with true in this case,
+
+
+913
+00:27:58,166 --> 00:27:58,956
+then we're actually going to
+
+
+914
+00:27:58,956 --> 00:28:00,746
+replace your previously
+
+
+915
+00:28:00,746 --> 00:28:02,176
+scheduled snapshot, and just
+
+
+916
+00:28:02,176 --> 00:28:03,546
+replace it with one an hour from
+
+
+917
+00:28:03,546 --> 00:28:03,776
+now.
+
+
+918
+00:28:04,186 --> 00:28:05,356
+So, if you do want that custom
+
+
+919
+00:28:05,356 --> 00:28:06,966
+behavior, just make sure to set
+
+
+920
+00:28:06,966 --> 00:28:07,596
+it to be false.
+
+
+921
+00:28:10,696 --> 00:28:12,766
+So, another important thing for
+
+
+922
+00:28:12,766 --> 00:28:14,286
+our handle background tasks is
+
+
+923
+00:28:14,736 --> 00:28:16,586
+how we actually update our
+
+
+924
+00:28:16,586 --> 00:28:17,476
+complications.
+
+
+925
+00:28:17,906 --> 00:28:19,996
+So, in watchOS 3, we actually
+
+
+926
+00:28:19,996 --> 00:28:21,526
+soft deprecated on our
+
+
+927
+00:28:21,526 --> 00:28:24,576
+CLKComplicationDataSource, our
+
+
+928
+00:28:24,576 --> 00:28:26,976
+getNextRequestedUpdateDate, our
+
+
+929
+00:28:26,976 --> 00:28:29,406
+requestedUpdateDidBegin, and our
+
+
+930
+00:28:29,406 --> 00:28:31,336
+requestedUpdateBudgetExhausted.
+
+
+931
+00:28:31,896 --> 00:28:34,706
+So now, in watchOS 3, I should
+
+
+932
+00:28:34,706 --> 00:28:37,086
+say, if you implemented handle
+
+
+933
+00:28:37,086 --> 00:28:38,516
+background tasks, these just
+
+
+934
+00:28:38,516 --> 00:28:40,116
+wouldn't get called into, and
+
+
+935
+00:28:40,116 --> 00:28:41,076
+now they're just fully
+
+
+936
+00:28:41,076 --> 00:28:42,236
+deprecated, so they won't get
+
+
+937
+00:28:42,236 --> 00:28:43,026
+called into at all.
+
+
+938
+00:28:44,456 --> 00:28:46,226
+So, if you want to update your
+
+
+939
+00:28:46,226 --> 00:28:48,236
+complications, again, just make
+
+
+940
+00:28:48,236 --> 00:28:49,736
+sure to handle background tasks,
+
+
+941
+00:28:50,306 --> 00:28:51,076
+and then just call
+
+
+942
+00:28:51,076 --> 00:28:53,636
+scheduleBackgroundRefresh with
+
+
+943
+00:28:53,686 --> 00:28:54,966
+whatever date you want to update
+
+
+944
+00:28:54,966 --> 00:28:55,856
+your complication.
+
+
+945
+00:28:57,056 --> 00:28:58,816
+And so, last year, a lot of
+
+
+946
+00:28:58,816 --> 00:29:00,236
+times complications can be tied
+
+
+947
+00:29:00,236 --> 00:29:01,676
+to some sort of networking task,
+
+
+948
+00:29:01,906 --> 00:29:05,106
+and so last year, we guided you
+
+
+949
+00:29:05,106 --> 00:29:09,416
+all to essentially, basically
+
+
+950
+00:29:09,416 --> 00:29:10,896
+just schedule a background
+
+
+951
+00:29:10,896 --> 00:29:13,586
+refresh, and then that way you
+
+
+952
+00:29:13,586 --> 00:29:15,046
+would schedule it maybe for,
+
+
+953
+00:29:15,626 --> 00:29:17,266
+let's say, 15 minutes from now,
+
+
+954
+00:29:17,266 --> 00:29:18,466
+if you wanted a complication
+
+
+955
+00:29:18,466 --> 00:29:19,826
+update by 7:45.
+
+
+956
+00:29:20,416 --> 00:29:21,146
+So, essentially you would
+
+
+957
+00:29:21,146 --> 00:29:22,086
+schedule that background
+
+
+958
+00:29:22,086 --> 00:29:24,046
+refresh, and then you would get
+
+
+959
+00:29:24,046 --> 00:29:26,756
+woken up around 7:30 to get that
+
+
+960
+00:29:26,756 --> 00:29:28,686
+NSURLSession, and then you could
+
+
+961
+00:29:28,756 --> 00:29:31,696
+trigger that, and then by 7:45,
+
+
+962
+00:29:31,696 --> 00:29:33,246
+you would have enough time to
+
+
+963
+00:29:33,246 --> 00:29:34,406
+update your complication.
+
+
+964
+00:29:38,216 --> 00:29:40,296
+But now, with some new
+
+
+965
+00:29:40,386 --> 00:29:42,036
+NSURLSession APIs, we can
+
+
+966
+00:29:42,036 --> 00:29:43,296
+actually just reduce a step
+
+
+967
+00:29:43,296 --> 00:29:45,006
+here, and the reason we had
+
+
+968
+00:29:45,006 --> 00:29:46,246
+these steps was really because
+
+
+969
+00:29:46,646 --> 00:29:48,086
+we wanted to ensure we gave
+
+
+970
+00:29:48,086 --> 00:29:49,786
+enough background running time
+
+
+971
+00:29:49,786 --> 00:29:51,136
+to our NSURLSession.
+
+
+972
+00:29:51,656 --> 00:29:53,856
+But now, with some new API in
+
+
+973
+00:29:53,856 --> 00:29:55,876
+URLSessionTask, we can actually
+
+
+974
+00:29:55,876 --> 00:29:56,966
+just set an earliest begin date.
+
+
+975
+00:29:57,046 --> 00:29:59,456
+So, when we actually call the
+
+
+976
+00:29:59,456 --> 00:30:02,066
+download task, we can actually
+
+
+977
+00:30:02,066 --> 00:30:03,866
+just set on that task our
+
+
+978
+00:30:03,866 --> 00:30:06,146
+variable, earliestBeginDate, so
+
+
+979
+00:30:06,146 --> 00:30:07,166
+that way, we're telling the
+
+
+980
+00:30:07,166 --> 00:30:08,856
+system, "Hey, we don't need this
+
+
+981
+00:30:08,856 --> 00:30:10,346
+right now, we just need this at
+
+
+982
+00:30:10,676 --> 00:30:12,076
+whenever date we've specified."
+
+
+983
+00:30:12,596 --> 00:30:16,776
+And so now, we can actually just
+
+
+984
+00:30:16,936 --> 00:30:17,796
+reduce that step.
+
+
+985
+00:30:18,216 --> 00:30:19,556
+So, here in our schedule
+
+
+986
+00:30:19,556 --> 00:30:21,296
+background refresh, we probably
+
+
+987
+00:30:21,296 --> 00:30:23,236
+also just want to kick off our
+
+
+988
+00:30:23,286 --> 00:30:25,096
+URLSession task, and set it up
+
+
+989
+00:30:25,096 --> 00:30:26,586
+with the earliest begin date,
+
+
+990
+00:30:26,746 --> 00:30:28,896
+and so that way the system, on
+
+
+991
+00:30:28,896 --> 00:30:30,286
+our behalf, will actually just
+
+
+992
+00:30:30,286 --> 00:30:32,786
+trigger that NSURLSession around
+
+
+993
+00:30:32,786 --> 00:30:35,036
+7:30 p.m., and then when that
+
+
+994
+00:30:35,036 --> 00:30:37,626
+resume comes back, we can update
+
+
+995
+00:30:37,626 --> 00:30:39,626
+our complication at 7:45 p.m.
+
+
+996
+00:30:42,356 --> 00:30:44,646
+So now, let's talk about how we
+
+
+997
+00:30:44,646 --> 00:30:46,186
+can actually incorporate some of
+
+
+998
+00:30:46,186 --> 00:30:47,496
+the Background App Refresh
+
+
+999
+00:30:47,846 --> 00:30:50,556
+things we just talked about into
+
+
+1000
+00:30:50,556 --> 00:30:53,386
+our app, Apple Pie Me.
+
+
+1001
+00:30:53,626 --> 00:30:55,866
+So, here's that timeline we
+
+
+1002
+00:30:55,866 --> 00:30:56,586
+looked at earlier.
+
+
+1003
+00:30:57,206 --> 00:30:58,696
+So now, let's just focus in on
+
+
+1004
+00:30:58,696 --> 00:31:00,176
+the Pie's Cooking notification.
+
+
+1005
+00:31:00,526 --> 00:31:03,226
+So, if you remember, the code,
+
+
+1006
+00:31:03,366 --> 00:31:04,406
+before, it looked a lot like
+
+
+1007
+00:31:04,406 --> 00:31:04,796
+this.
+
+
+1008
+00:31:04,796 --> 00:31:06,526
+We implemented
+
+
+1009
+00:31:06,526 --> 00:31:08,116
+userNotificationCenter,
+
+
+1010
+00:31:08,116 --> 00:31:09,716
+willPresent notification with
+
+
+1011
+00:31:09,716 --> 00:31:12,026
+CompletionHandler, and then we
+
+
+1012
+00:31:12,026 --> 00:31:13,576
+just cancelled those fallback
+
+
+1013
+00:31:13,576 --> 00:31:14,776
+local notifications.
+
+
+1014
+00:31:15,306 --> 00:31:16,496
+We updated our UI.
+
+
+1015
+00:31:16,936 --> 00:31:18,376
+We then played a haptic, and
+
+
+1016
+00:31:18,376 --> 00:31:19,586
+called our completionHandler.
+
+
+1017
+00:31:20,166 --> 00:31:21,396
+And now, the great thing is,
+
+
+1018
+00:31:21,396 --> 00:31:22,186
+once you call that
+
+
+1019
+00:31:22,186 --> 00:31:23,846
+completionHandler, your app will
+
+
+1020
+00:31:23,846 --> 00:31:26,306
+get suspended, and you will get
+
+
+1021
+00:31:26,306 --> 00:31:28,056
+called into via handle
+
+
+1022
+00:31:28,056 --> 00:31:29,816
+background tasks with a snapshot
+
+
+1023
+00:31:29,816 --> 00:31:31,566
+task, and then your reason for
+
+
+1024
+00:31:31,566 --> 00:31:33,116
+that snapshot would be app
+
+
+1025
+00:31:33,116 --> 00:31:33,756
+backgrounded.
+
+
+1026
+00:31:35,296 --> 00:31:37,416
+So now, when you have an ETA you
+
+
+1027
+00:31:37,456 --> 00:31:39,186
+can share, you can just make
+
+
+1028
+00:31:39,186 --> 00:31:41,146
+sure your snapshot looks as up
+
+
+1029
+00:31:41,146 --> 00:31:42,606
+to date as possible in the doc.
+
+
+1030
+00:31:43,096 --> 00:31:45,336
+And then, another thing I wanted
+
+
+1031
+00:31:45,336 --> 00:31:47,606
+to point out from before was, if
+
+
+1032
+00:31:47,606 --> 00:31:49,206
+you remember, we actually used,
+
+
+1033
+00:31:49,406 --> 00:31:50,316
+when the user raised their
+
+
+1034
+00:31:50,316 --> 00:31:52,086
+wrist, we then kicked off an
+
+
+1035
+00:31:52,086 --> 00:31:54,336
+NSURLSession to then grab the
+
+
+1036
+00:31:54,336 --> 00:31:55,746
+most up-to-date ETA.
+
+
+1037
+00:31:55,746 --> 00:31:57,616
+And so now, with that new API we
+
+
+1038
+00:31:57,616 --> 00:31:58,946
+just talked about on our
+
+
+1039
+00:31:58,946 --> 00:32:01,266
+URLSessionTask, we can actually
+
+
+1040
+00:32:01,266 --> 00:32:03,516
+just even schedule an ETA for
+
+
+1041
+00:32:03,516 --> 00:32:04,416
+some time from now.
+
+
+1042
+00:32:05,006 --> 00:32:06,316
+So, let's say, for example,
+
+
+1043
+00:32:07,156 --> 00:32:08,716
+maybe our pie's coming in 12
+
+
+1044
+00:32:08,716 --> 00:32:09,916
+minutes, and we just want to
+
+
+1045
+00:32:09,916 --> 00:32:11,956
+schedule an ETA, like a refresh,
+
+
+1046
+00:32:12,366 --> 00:32:14,486
+around, let's say, like, eight
+
+
+1047
+00:32:14,486 --> 00:32:15,736
+minutes from now, for example.
+
+
+1048
+00:32:18,556 --> 00:32:20,296
+So, let's think about our
+
+
+1049
+00:32:20,296 --> 00:32:21,946
+overall timeline once again.
+
+
+1050
+00:32:22,246 --> 00:32:23,616
+This was a really simple app,
+
+
+1051
+00:32:23,616 --> 00:32:24,016
+actually.
+
+
+1052
+00:32:24,016 --> 00:32:26,176
+It was just, we had an Order
+
+
+1053
+00:32:26,176 --> 00:32:28,126
+button, and then we were able to
+
+
+1054
+00:32:28,126 --> 00:32:28,616
+eat pie.
+
+
+1055
+00:32:29,186 --> 00:32:30,906
+And then, but, it was actually
+
+
+1056
+00:32:30,986 --> 00:32:33,946
+really powerful under the
+
+
+1057
+00:32:33,946 --> 00:32:37,946
+surface in our app code, and so
+
+
+1058
+00:32:37,946 --> 00:32:40,106
+we were able to take advantage
+
+
+1059
+00:32:40,106 --> 00:32:43,226
+of our NSURLSession resumes, our
+
+
+1060
+00:32:43,226 --> 00:32:45,496
+haptics in conjunction with our
+
+
+1061
+00:32:45,736 --> 00:32:47,206
+frontmost notifications.
+
+
+1062
+00:32:47,596 --> 00:32:49,966
+We're also taking advantage of
+
+
+1063
+00:32:49,966 --> 00:32:51,846
+our Background App Refresh, as
+
+
+1064
+00:32:51,846 --> 00:32:53,516
+well as we were able to schedule
+
+
+1065
+00:32:53,646 --> 00:32:55,866
+NSURLSession ETA requests.
+
+
+1066
+00:32:56,686 --> 00:32:58,546
+So, creating a great watch app
+
+
+1067
+00:32:58,736 --> 00:33:00,236
+that delivered you apple pies
+
+
+1068
+00:33:00,536 --> 00:33:02,276
+was certainly possible before,
+
+
+1069
+00:33:02,616 --> 00:33:05,376
+but now with watchOS 4, you can
+
+
+1070
+00:33:05,376 --> 00:33:07,776
+take a huge leap forward and wow
+
+
+1071
+00:33:07,776 --> 00:33:08,496
+your users.
+
+
+1072
+00:33:09,856 --> 00:33:12,236
+So now, let's dive into some of
+
+
+1073
+00:33:12,236 --> 00:33:13,326
+our new background modes.
+
+
+1074
+00:33:14,586 --> 00:33:17,086
+So, in watchOS 3, we introduced
+
+
+1075
+00:33:17,086 --> 00:33:19,096
+our workout session as a
+
+
+1076
+00:33:19,096 --> 00:33:21,246
+background mode, and now we
+
+
+1077
+00:33:21,246 --> 00:33:22,686
+actually have audio recording
+
+
+1078
+00:33:22,686 --> 00:33:24,966
+sessions, and then we also have
+
+
+1079
+00:33:24,966 --> 00:33:26,126
+navigation sessions.
+
+
+1080
+00:33:26,816 --> 00:33:28,036
+So, let's dive right into our
+
+
+1081
+00:33:28,036 --> 00:33:29,626
+audio recording session.
+
+
+1082
+00:33:30,706 --> 00:33:32,476
+So, in watchOS 3, you could
+
+
+1083
+00:33:32,476 --> 00:33:34,516
+record audio, but it would,
+
+
+1084
+00:33:34,516 --> 00:33:35,816
+essentially the API would
+
+
+1085
+00:33:36,116 --> 00:33:38,576
+present a modal presentation
+
+
+1086
+00:33:38,946 --> 00:33:40,606
+that would show our UI, and then
+
+
+1087
+00:33:40,606 --> 00:33:42,586
+the user could then stop the
+
+
+1088
+00:33:42,586 --> 00:33:44,176
+recording, and then that file
+
+
+1089
+00:33:44,176 --> 00:33:45,496
+would get delivered to you all,
+
+
+1090
+00:33:45,496 --> 00:33:46,116
+the developer.
+
+
+1091
+00:33:47,376 --> 00:33:49,306
+However, now you can actually
+
+
+1092
+00:33:49,306 --> 00:33:51,406
+just use your own UI, so you can
+
+
+1093
+00:33:51,406 --> 00:33:52,766
+build the exact recording
+
+
+1094
+00:33:52,766 --> 00:33:54,876
+experience you want in watchOS4.
+
+
+1095
+00:33:55,866 --> 00:33:57,426
+And, the important thing is, now
+
+
+1096
+00:33:57,426 --> 00:33:58,756
+it can be background running
+
+
+1097
+00:33:59,246 --> 00:34:00,356
+but, of course, it's foreground
+
+
+1098
+00:34:00,356 --> 00:34:01,756
+initiated and background
+
+
+1099
+00:34:01,756 --> 00:34:03,166
+running, just like our workouts.
+
+
+1100
+00:34:03,646 --> 00:34:06,826
+And then, your app will stay
+
+
+1101
+00:34:06,826 --> 00:34:09,926
+frontmost while it's recording,
+
+
+1102
+00:34:10,335 --> 00:34:12,686
+and what's great about that is,
+
+
+1103
+00:34:12,686 --> 00:34:13,786
+you actually have the ability to
+
+
+1104
+00:34:13,786 --> 00:34:14,676
+play haptics.
+
+
+1105
+00:34:15,085 --> 00:34:16,306
+So, let's say, for example,
+
+
+1106
+00:34:16,306 --> 00:34:18,025
+you're an app that wants to
+
+
+1107
+00:34:18,025 --> 00:34:19,266
+detect what sort of song is
+
+
+1108
+00:34:19,266 --> 00:34:20,266
+playing around you.
+
+
+1109
+00:34:20,266 --> 00:34:22,306
+You could easily just press the
+
+
+1110
+00:34:22,306 --> 00:34:23,146
+Record button.
+
+
+1111
+00:34:23,606 --> 00:34:24,656
+The user would put their wrist
+
+
+1112
+00:34:24,656 --> 00:34:25,126
+down.
+
+
+1113
+00:34:25,126 --> 00:34:26,426
+You could detect what's playing,
+
+
+1114
+00:34:26,786 --> 00:34:27,835
+and then you could easily tap
+
+
+1115
+00:34:27,835 --> 00:34:29,045
+your user, so they know that,
+
+
+1116
+00:34:29,045 --> 00:34:30,255
+hey, you detected what song it
+
+
+1117
+00:34:30,255 --> 00:34:32,246
+was, and then you could show
+
+
+1118
+00:34:32,246 --> 00:34:33,076
+that to your user.
+
+
+1119
+00:34:33,536 --> 00:34:36,676
+And then, what's also great is
+
+
+1120
+00:34:36,676 --> 00:34:38,386
+that, just like workout
+
+
+1121
+00:34:38,386 --> 00:34:39,565
+sessions, it's a background
+
+
+1122
+00:34:39,565 --> 00:34:42,246
+running mode, but the heart rate
+
+
+1123
+00:34:42,246 --> 00:34:43,406
+sensor is not going to be on, so
+
+
+1124
+00:34:43,406 --> 00:34:44,696
+there's actually less battery
+
+
+1125
+00:34:44,696 --> 00:34:47,646
+life impact because of this.
+
+
+1126
+00:34:47,835 --> 00:34:49,036
+And, another thing I wanted to
+
+
+1127
+00:34:49,036 --> 00:34:51,946
+mention is, if for some reason
+
+
+1128
+00:34:51,946 --> 00:34:53,516
+the user decides to go back to
+
+
+1129
+00:34:53,516 --> 00:34:54,696
+the watch face, for instance,
+
+
+1130
+00:34:55,016 --> 00:34:55,966
+we're going to show that
+
+
+1131
+00:34:56,306 --> 00:34:58,456
+Microphone icon at the very top,
+
+
+1132
+00:34:58,456 --> 00:34:59,886
+so that way the user knows that
+
+
+1133
+00:34:59,886 --> 00:35:01,516
+something's recording, and then
+
+
+1134
+00:35:01,616 --> 00:35:03,326
+they can also tap on that icon
+
+
+1135
+00:35:03,546 --> 00:35:04,706
+and get launched right back to
+
+
+1136
+00:35:04,706 --> 00:35:04,976
+the app.
+
+
+1137
+00:35:08,576 --> 00:35:12,446
+So, for playback, in watchOS3.1,
+
+
+1138
+00:35:12,446 --> 00:35:14,726
+we introduced AVAudioPlayer, and
+
+
+1139
+00:35:14,726 --> 00:35:17,306
+so now, for recording, all you
+
+
+1140
+00:35:17,306 --> 00:35:19,236
+need to use is AVAudioInputNode
+
+
+1141
+00:35:19,236 --> 00:35:21,086
+via AVAudioEngine, or
+
+
+1142
+00:35:21,086 --> 00:35:23,796
+AVAudioRecorder, and then our
+
+
+1143
+00:35:23,796 --> 00:35:25,226
+AVAudio recording for
+
+
+1144
+00:35:25,226 --> 00:35:25,806
+permissions.
+
+
+1145
+00:35:27,006 --> 00:35:28,146
+And, there's a whole bunch of
+
+
+1146
+00:35:28,146 --> 00:35:29,566
+formats that are now supported.
+
+
+1147
+00:35:30,526 --> 00:35:33,076
+And so, let's talk about some of
+
+
+1148
+00:35:33,076 --> 00:35:36,516
+our locations background mode.
+
+
+1149
+00:35:36,686 --> 00:35:38,416
+So, just like audio recording
+
+
+1150
+00:35:38,486 --> 00:35:40,286
+and our workout sessions, it's
+
+
+1151
+00:35:40,286 --> 00:35:41,936
+foreground initiated, and then
+
+
+1152
+00:35:41,936 --> 00:35:42,816
+just background running.
+
+
+1153
+00:35:44,246 --> 00:35:45,346
+And, of course, you're going to
+
+
+1154
+00:35:45,346 --> 00:35:46,876
+be frontmost while in session.
+
+
+1155
+00:35:49,006 --> 00:35:50,776
+So, one thing to note is, you
+
+
+1156
+00:35:50,776 --> 00:35:53,366
+must call startUpdatingLocation
+
+
+1157
+00:35:53,366 --> 00:35:54,166
+while your app is in the
+
+
+1158
+00:35:54,166 --> 00:35:56,496
+foreground, and you should also
+
+
+1159
+00:35:56,496 --> 00:35:57,606
+just make sure to set
+
+
+1160
+00:35:57,606 --> 00:35:59,796
+allowsBackgroundLocationUpdates
+
+
+1161
+00:35:59,796 --> 00:36:01,596
+to true only when the navigation
+
+
+1162
+00:36:01,596 --> 00:36:03,206
+session has actually begun, and
+
+
+1163
+00:36:03,206 --> 00:36:04,406
+then set it to be false when
+
+
+1164
+00:36:04,406 --> 00:36:06,876
+it's not.
+
+
+1165
+00:36:07,096 --> 00:36:09,126
+So, if you recall, for Apple Pie
+
+
+1166
+00:36:09,126 --> 00:36:11,076
+Me app, we actually had two
+
+
+1167
+00:36:11,076 --> 00:36:11,756
+users.
+
+
+1168
+00:36:12,076 --> 00:36:13,586
+We had myself, the person that
+
+
+1169
+00:36:13,586 --> 00:36:15,246
+was about to eat that awesome
+
+
+1170
+00:36:15,246 --> 00:36:17,056
+apple pie, and then we actually
+
+
+1171
+00:36:17,056 --> 00:36:18,256
+had a courier that was going to
+
+
+1172
+00:36:18,256 --> 00:36:19,076
+bring it to us.
+
+
+1173
+00:36:19,556 --> 00:36:20,636
+So, in this case, we might
+
+
+1174
+00:36:20,636 --> 00:36:22,286
+actually just want to build a
+
+
+1175
+00:36:22,286 --> 00:36:24,036
+companion driver app for that
+
+
+1176
+00:36:24,576 --> 00:36:26,126
+driver, so that way they can
+
+
+1177
+00:36:26,126 --> 00:36:27,486
+easily be navigated on their
+
+
+1178
+00:36:27,486 --> 00:36:29,236
+wrist to our destination.
+
+
+1179
+00:36:29,736 --> 00:36:31,906
+And, the great thing is, you can
+
+
+1180
+00:36:31,906 --> 00:36:33,076
+even play haptics while in
+
+
+1181
+00:36:33,076 --> 00:36:36,496
+session, so now if, for example,
+
+
+1182
+00:36:36,496 --> 00:36:38,556
+for a right turn or a left turn,
+
+
+1183
+00:36:38,556 --> 00:36:39,316
+you could play a different
+
+
+1184
+00:36:39,316 --> 00:36:41,566
+haptic, or maybe when a user has
+
+
+1185
+00:36:41,776 --> 00:36:43,156
+missed a turn, for example.
+
+
+1186
+00:36:43,586 --> 00:36:44,836
+And, I'm really excited about
+
+
+1187
+00:36:44,836 --> 00:36:46,726
+this one, because, like, for
+
+
+1188
+00:36:46,726 --> 00:36:49,036
+example, transit apps that, you
+
+
+1189
+00:36:49,036 --> 00:36:51,246
+could imagine, you want to, just
+
+
+1190
+00:36:51,246 --> 00:36:52,126
+right before the stop you're
+
+
+1191
+00:36:52,126 --> 00:36:53,946
+about to get off at, the user
+
+
+1192
+00:36:53,946 --> 00:36:56,056
+could be easily tapped, and then
+
+
+1193
+00:36:56,056 --> 00:36:57,046
+they could know, oh, I need to
+
+
+1194
+00:36:57,046 --> 00:36:58,906
+go to the doors, and so I can
+
+
+1195
+00:36:58,906 --> 00:37:03,216
+get off at the next stop.
+
+
+1196
+00:37:03,426 --> 00:37:05,636
+So, we're really excited about
+
+
+1197
+00:37:05,636 --> 00:37:07,616
+our new Unified Process Runtime,
+
+
+1198
+00:37:07,836 --> 00:37:09,006
+our new enhancements to
+
+
+1199
+00:37:09,006 --> 00:37:10,936
+Background App Refresh, and our
+
+
+1200
+00:37:10,936 --> 00:37:12,606
+new background modes, and I
+
+
+1201
+00:37:12,606 --> 00:37:14,266
+especially am really excited
+
+
+1202
+00:37:14,266 --> 00:37:15,916
+about the new Frontmost App
+
+
+1203
+00:37:15,916 --> 00:37:16,276
+State.
+
+
+1204
+00:37:16,976 --> 00:37:18,276
+And, we think the design
+
+
+1205
+00:37:18,276 --> 00:37:19,556
+landscape will change in a
+
+
+1206
+00:37:19,556 --> 00:37:21,466
+really unique way on watchOS.
+
+
+1207
+00:37:25,136 --> 00:37:27,366
+So, I challenge you all to
+
+
+1208
+00:37:27,366 --> 00:37:28,756
+design apps for the new
+
+
+1209
+00:37:28,756 --> 00:37:29,776
+Frontmost App State.
+
+
+1210
+00:37:30,886 --> 00:37:31,996
+Think through the enhanced
+
+
+1211
+00:37:31,996 --> 00:37:33,496
+capabilities, and design
+
+
+1212
+00:37:33,496 --> 00:37:34,626
+experiences where the
+
+
+1213
+00:37:34,626 --> 00:37:36,396
+interactions are just two
+
+
+1214
+00:37:36,396 --> 00:37:37,036
+seconds.
+
+
+1215
+00:37:37,676 --> 00:37:39,486
+And so, we went through how to
+
+
+1216
+00:37:39,486 --> 00:37:42,536
+use NSURLSession, haptics, and
+
+
+1217
+00:37:42,536 --> 00:37:44,666
+frontmost notifications, but
+
+
+1218
+00:37:44,666 --> 00:37:45,816
+that only really scratches the
+
+
+1219
+00:37:45,816 --> 00:37:46,386
+surface.
+
+
+1220
+00:37:46,816 --> 00:37:48,146
+With the enhancements to watch
+
+
+1221
+00:37:48,146 --> 00:37:49,606
+connectivity and task
+
+
+1222
+00:37:49,606 --> 00:37:51,286
+completions, you could design
+
+
+1223
+00:37:51,316 --> 00:37:53,196
+even more powerful interactions
+
+
+1224
+00:37:53,496 --> 00:37:54,886
+that are incredibly simple to
+
+
+1225
+00:37:54,886 --> 00:37:55,326
+use.
+
+
+1226
+00:37:55,916 --> 00:37:57,206
+And so, I'm really excited to
+
+
+1227
+00:37:57,206 --> 00:37:58,676
+see how you all take advantage
+
+
+1228
+00:37:58,676 --> 00:37:59,866
+of these new capabilities.
+
+
+1229
+00:38:00,806 --> 00:38:02,206
+So, if you want more information
+
+
+1230
+00:38:02,206 --> 00:38:03,406
+about this session or any other
+
+
+1231
+00:38:03,406 --> 00:38:05,066
+session, feel free to go to
+
+
+1232
+00:38:05,066 --> 00:38:07,996
+developer.apple.com, and then we
+
+
+1233
+00:38:07,996 --> 00:38:08,846
+have some great related
+
+
+1234
+00:38:08,846 --> 00:38:09,426
+sessions.
+
+
+1235
+00:38:09,426 --> 00:38:10,746
+There's a great one tomorrow for
+
+
+1236
+00:38:10,746 --> 00:38:12,076
+planning a great Apple Watch
+
+
+1237
+00:38:12,076 --> 00:38:12,786
+experience.
+
+
+1238
+00:38:13,056 --> 00:38:14,336
+I highly recommend checking it
+
+
+1239
+00:38:14,336 --> 00:38:14,586
+out.
+
+
+1240
+00:38:14,586 --> 00:38:16,036
+I'm super excited for that one.
+
+
+1241
+00:38:16,416 --> 00:38:18,336
+And, I hope you all have a great
+
+
+1242
+00:38:18,336 --> 00:38:18,976
+WWDC.
+
+
+1243
+00:38:19,256 --> 00:38:19,646
+Thank you.
+
+
+1244
+00:38:20,516 --> 00:38:23,500
+[ Applause ]
+

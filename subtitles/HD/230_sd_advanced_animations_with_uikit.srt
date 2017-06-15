@@ -1,0 +1,5839 @@
+1
+00:00:07,516 --> 00:00:15,500
+[ Background Sounds ]
+
+
+2
+00:00:22,046 --> 00:00:23,816
+>> Hey everyone, I'm Joe Cerra
+
+
+3
+00:00:23,816 --> 00:00:26,466
+and I'm an engineer UIKit and
+
+
+4
+00:00:26,466 --> 00:00:28,416
+welcome to advanced animations
+
+
+5
+00:00:28,416 --> 00:00:29,146
+with UIKit.
+
+
+6
+00:00:29,246 --> 00:00:32,246
+So, today we have a lot to talk
+
+
+7
+00:00:32,246 --> 00:00:32,546
+about.
+
+
+8
+00:00:32,856 --> 00:00:33,826
+We're going to start off by
+
+
+9
+00:00:33,826 --> 00:00:35,536
+covering some of the basics and
+
+
+10
+00:00:35,536 --> 00:00:37,576
+how animations work and also how
+
+
+11
+00:00:37,576 --> 00:00:38,596
+animations are timed.
+
+
+12
+00:00:40,126 --> 00:00:41,286
+We're going to discuss how to
+
+
+13
+00:00:41,286 --> 00:00:42,496
+make animations fully
+
+
+14
+00:00:42,496 --> 00:00:43,756
+interactive and interruptible
+
+
+15
+00:00:43,756 --> 00:00:45,856
+using some modern techniques.
+
+
+16
+00:00:46,496 --> 00:00:48,006
+Then we're going to talk about
+
+
+17
+00:00:48,006 --> 00:00:49,016
+some of the new API that we're
+
+
+18
+00:00:49,016 --> 00:00:50,526
+providing this year in iOS 11.
+
+
+19
+00:00:50,526 --> 00:00:52,966
+And then we're going to use all
+
+
+20
+00:00:52,966 --> 00:00:54,176
+of that knowledge and I'm going
+
+
+21
+00:00:54,176 --> 00:00:55,626
+to show you how to coordinate
+
+
+22
+00:00:55,626 --> 00:00:56,186
+animations.
+
+
+23
+00:00:57,336 --> 00:00:58,946
+And then finally, we're going to
+
+
+24
+00:00:58,946 --> 00:01:00,826
+go over some tips and tricks and
+
+
+25
+00:01:00,826 --> 00:01:02,116
+a few more techniques to help
+
+
+26
+00:01:02,116 --> 00:01:03,006
+you create really great
+
+
+27
+00:01:03,006 --> 00:01:04,156
+animations for your users.
+
+
+28
+00:01:05,766 --> 00:01:06,806
+So, let's get into it.
+
+
+29
+00:01:08,436 --> 00:01:09,926
+UIView-based animations have
+
+
+30
+00:01:09,926 --> 00:01:10,956
+been around really since the
+
+
+31
+00:01:10,956 --> 00:01:11,716
+dawn of iOS.
+
+
+32
+00:01:11,716 --> 00:01:13,566
+And here's a quick refresher on
+
+
+33
+00:01:13,566 --> 00:01:14,116
+how they work.
+
+
+34
+00:01:15,456 --> 00:01:16,676
+So, say I have a UIView that
+
+
+35
+00:01:16,676 --> 00:01:17,976
+renders a circle and I'd like
+
+
+36
+00:01:17,976 --> 00:01:20,176
+the animate it from its position
+
+
+37
+00:01:20,176 --> 00:01:21,566
+of X equals zero to 100.
+
+
+38
+00:01:21,766 --> 00:01:24,136
+Well the way I might do this is
+
+
+39
+00:01:24,136 --> 00:01:25,506
+by calling the UIView.animate
+
+
+40
+00:01:25,506 --> 00:01:25,846
+method.
+
+
+41
+00:01:26,566 --> 00:01:28,086
+Here I'm calling UIView.animate
+
+
+42
+00:01:28,086 --> 00:01:30,126
+with a duration, performing some
+
+
+43
+00:01:30,126 --> 00:01:31,266
+animations in an animation
+
+
+44
+00:01:31,266 --> 00:01:31,576
+block.
+
+
+45
+00:01:31,986 --> 00:01:33,236
+In this case, I'm offsetting the
+
+
+46
+00:01:33,236 --> 00:01:35,466
+X value of our circle by 100.
+
+
+47
+00:01:36,466 --> 00:01:38,326
+And when I do that UIKit will
+
+
+48
+00:01:38,326 --> 00:01:39,776
+implicitly create an animation,
+
+
+49
+00:01:39,776 --> 00:01:41,116
+add it to our layer and produce
+
+
+50
+00:01:41,146 --> 00:01:42,136
+the following animation.
+
+
+51
+00:01:44,316 --> 00:01:46,286
+But last year we introduced the
+
+
+52
+00:01:46,286 --> 00:01:48,226
+UIViewPropertyAnimator, which
+
+
+53
+00:01:48,226 --> 00:01:49,936
+gives us a lot more control for
+
+
+54
+00:01:49,936 --> 00:01:51,736
+animations than its predecessor
+
+
+55
+00:01:51,736 --> 00:01:52,586
+UIViewAnimate.
+
+
+56
+00:01:53,126 --> 00:01:55,326
+Now this includes being able to
+
+
+57
+00:01:55,326 --> 00:01:57,146
+provide custom timing functions
+
+
+58
+00:01:57,416 --> 00:01:58,286
+and the ability to make your
+
+
+59
+00:01:58,286 --> 00:01:59,896
+animations fully interactive and
+
+
+60
+00:01:59,896 --> 00:02:01,496
+interruptible really easily.
+
+
+61
+00:02:02,466 --> 00:02:03,906
+In fact, with property animator
+
+
+62
+00:02:04,526 --> 00:02:05,896
+you can modify your animations
+
+
+63
+00:02:05,896 --> 00:02:06,536
+on the fly.
+
+
+64
+00:02:07,926 --> 00:02:08,596
+So, let's take a look at our
+
+
+65
+00:02:08,596 --> 00:02:09,606
+animation again and this time
+
+
+66
+00:02:09,606 --> 00:02:10,996
+we're going to use an animator
+
+
+67
+00:02:10,996 --> 00:02:12,456
+to animate it.
+
+
+68
+00:02:12,456 --> 00:02:13,436
+So, we create our animator
+
+
+69
+00:02:13,526 --> 00:02:14,556
+providing a duration and a
+
+
+70
+00:02:14,556 --> 00:02:16,306
+timing curve provider
+
+
+71
+00:02:16,306 --> 00:02:16,926
+animations.
+
+
+72
+00:02:17,536 --> 00:02:18,996
+And then we call startAnimator
+
+
+73
+00:02:19,156 --> 00:02:20,616
+which actually then runs that
+
+
+74
+00:02:20,616 --> 00:02:22,306
+animation block producing this
+
+
+75
+00:02:22,306 --> 00:02:22,796
+animation.
+
+
+76
+00:02:27,076 --> 00:02:28,366
+Now in the last two examples we
+
+
+77
+00:02:28,366 --> 00:02:29,816
+drove our animation with a
+
+
+78
+00:02:29,816 --> 00:02:30,986
+linear timing curve.
+
+
+79
+00:02:31,636 --> 00:02:33,316
+And what a timing curve is, is
+
+
+80
+00:02:33,316 --> 00:02:34,806
+essentially a function that maps
+
+
+81
+00:02:34,956 --> 00:02:37,396
+time to progress or the fraction
+
+
+82
+00:02:37,396 --> 00:02:38,806
+of elapsed time of your
+
+
+83
+00:02:38,806 --> 00:02:40,606
+animation to the fraction of
+
+
+84
+00:02:40,656 --> 00:02:41,786
+progress of your animation.
+
+
+85
+00:02:43,146 --> 00:02:44,236
+Now linear timing curves are
+
+
+86
+00:02:44,236 --> 00:02:46,226
+actually kind of interesting and
+
+
+87
+00:02:46,256 --> 00:02:47,826
+this is because the fraction of
+
+
+88
+00:02:47,916 --> 00:02:49,336
+time is equal to the fraction of
+
+
+89
+00:02:49,366 --> 00:02:51,036
+progress and we'll see why this
+
+
+90
+00:02:51,036 --> 00:02:53,896
+is interesting in just a second.
+
+
+91
+00:02:54,286 --> 00:02:56,026
+There are also of course, timing
+
+
+92
+00:02:56,026 --> 00:02:57,816
+curves other than linear, such
+
+
+93
+00:02:57,816 --> 00:02:59,446
+as the built-in ease in timing
+
+
+94
+00:02:59,446 --> 00:03:01,076
+function which starts off slowly
+
+
+95
+00:03:01,076 --> 00:03:02,006
+and then accelerates.
+
+
+96
+00:03:02,756 --> 00:03:04,426
+And the built-in ease out timing
+
+
+97
+00:03:04,426 --> 00:03:05,346
+function which starts off
+
+
+98
+00:03:05,386 --> 00:03:06,656
+quickly and then decelerates.
+
+
+99
+00:03:07,636 --> 00:03:09,346
+Well with property animators you
+
+
+100
+00:03:09,346 --> 00:03:10,416
+can provide your own custom
+
+
+101
+00:03:10,416 --> 00:03:11,876
+timing functions, such as this
+
+
+102
+00:03:11,876 --> 00:03:12,056
+one.
+
+
+103
+00:03:12,766 --> 00:03:14,156
+And the way you do that is by
+
+
+104
+00:03:14,156 --> 00:03:15,736
+providing two cubic Bezier
+
+
+105
+00:03:15,736 --> 00:03:16,346
+control points.
+
+
+106
+00:03:17,686 --> 00:03:19,106
+Now we'll see a little bit later
+
+
+107
+00:03:19,466 --> 00:03:21,686
+why it can be really useful to
+
+
+108
+00:03:21,686 --> 00:03:22,646
+be able to provide your own
+
+
+109
+00:03:22,646 --> 00:03:23,666
+custom timing functions.
+
+
+110
+00:03:25,766 --> 00:03:27,196
+So that's essentially how
+
+
+111
+00:03:27,196 --> 00:03:27,986
+animations work.
+
+
+112
+00:03:29,116 --> 00:03:30,256
+Now I want to talk about how to
+
+
+113
+00:03:30,256 --> 00:03:31,576
+make your animations fully
+
+
+114
+00:03:31,576 --> 00:03:32,146
+interactive.
+
+
+115
+00:03:33,766 --> 00:03:35,306
+So, an interactive animation is
+
+
+116
+00:03:35,306 --> 00:03:36,916
+one in which the user's actions
+
+
+117
+00:03:36,956 --> 00:03:38,946
+interactively drive the progress
+
+
+118
+00:03:38,946 --> 00:03:39,676
+of your animation.
+
+
+119
+00:03:40,646 --> 00:03:41,716
+So, here's a familiar example
+
+
+120
+00:03:41,716 --> 00:03:43,126
+where a gesture is driving
+
+
+121
+00:03:43,126 --> 00:03:44,526
+interactive animation and now
+
+
+122
+00:03:44,526 --> 00:03:46,646
+we're using 3D Touch to drive
+
+
+123
+00:03:46,646 --> 00:03:47,556
+another animation.
+
+
+124
+00:03:48,086 --> 00:03:50,786
+And we can, of course, dismiss
+
+
+125
+00:03:50,786 --> 00:03:51,756
+our Control Center view
+
+
+126
+00:03:51,756 --> 00:03:53,076
+interactively with a gesture.
+
+
+127
+00:03:54,646 --> 00:03:55,386
+So, let's do a quick
+
+
+128
+00:03:55,586 --> 00:03:56,396
+demonstration here.
+
+
+129
+00:03:56,976 --> 00:03:58,596
+So, we're going to add a
+
+
+130
+00:03:58,596 --> 00:03:59,756
+PanGestureRecognizer to our
+
+
+131
+00:03:59,756 --> 00:04:02,226
+circle and we're going to
+
+
+132
+00:04:02,226 --> 00:04:03,626
+animate it, but we're going to
+
+
+133
+00:04:03,626 --> 00:04:04,796
+do so with our finger by
+
+
+134
+00:04:04,796 --> 00:04:05,706
+scrubbing an animator.
+
+
+135
+00:04:05,706 --> 00:04:07,386
+And at this point we're going to
+
+
+136
+00:04:07,386 --> 00:04:08,756
+lift our finger off and continue
+
+
+137
+00:04:08,756 --> 00:04:09,966
+that animation to its target
+
+
+138
+00:04:09,966 --> 00:04:10,376
+position.
+
+
+139
+00:04:10,376 --> 00:04:13,366
+Now here's the code to do this.
+
+
+140
+00:04:14,456 --> 00:04:17,245
+We're going to save an instance
+
+
+141
+00:04:17,245 --> 00:04:19,086
+of our property animator in our
+
+
+142
+00:04:19,146 --> 00:04:20,646
+hand gesture recognizer handler.
+
+
+143
+00:04:21,116 --> 00:04:22,386
+We're going to create that
+
+
+144
+00:04:22,386 --> 00:04:23,816
+animator and initialize it with
+
+
+145
+00:04:23,866 --> 00:04:25,536
+some animations in an ease out
+
+
+146
+00:04:25,536 --> 00:04:25,976
+timing function.
+
+
+147
+00:04:30,116 --> 00:04:31,376
+Afterwards we're going to call
+
+
+148
+00:04:31,376 --> 00:04:33,076
+pauseAnimation immediately after
+
+
+149
+00:04:33,136 --> 00:04:34,056
+and that's going to run that
+
+
+150
+00:04:34,056 --> 00:04:35,596
+animation block producing that
+
+
+151
+00:04:35,596 --> 00:04:36,776
+animation implicitly.
+
+
+152
+00:04:37,556 --> 00:04:39,026
+And what property animator does
+
+
+153
+00:04:39,156 --> 00:04:41,056
+is essentially sets the speed of
+
+
+154
+00:04:41,056 --> 00:04:42,406
+that animation to zero.
+
+
+155
+00:04:43,006 --> 00:04:44,636
+So now we can interact with it.
+
+
+156
+00:04:45,176 --> 00:04:46,326
+So, we're going to scrub our
+
+
+157
+00:04:46,326 --> 00:04:47,576
+animator's fraction complete
+
+
+158
+00:04:47,696 --> 00:04:48,906
+based on the distance our finger
+
+
+159
+00:04:48,906 --> 00:04:50,626
+travels relative to the total
+
+
+160
+00:04:50,626 --> 00:04:52,336
+distance of the animation, which
+
+
+161
+00:04:52,336 --> 00:04:53,936
+in this case is 100 because
+
+
+162
+00:04:53,936 --> 00:04:55,076
+we're animating from zero to
+
+
+163
+00:04:55,076 --> 00:04:55,426
+100.
+
+
+164
+00:04:57,666 --> 00:04:58,766
+And when our finger is lifted
+
+
+165
+00:04:58,766 --> 00:04:59,776
+off we're just going to call
+
+
+166
+00:04:59,776 --> 00:05:00,666
+continueAnimation.
+
+
+167
+00:05:02,536 --> 00:05:04,056
+Now that's really easy, but
+
+
+168
+00:05:04,056 --> 00:05:05,326
+there's actually two really
+
+
+169
+00:05:05,326 --> 00:05:06,626
+interesting moments that occur
+
+
+170
+00:05:06,686 --> 00:05:08,216
+here and that is when we pause
+
+
+171
+00:05:08,216 --> 00:05:09,266
+our animation and then when we
+
+
+172
+00:05:09,306 --> 00:05:10,346
+continue it, so let's take a
+
+
+173
+00:05:10,346 --> 00:05:10,926
+look at those.
+
+
+174
+00:05:12,346 --> 00:05:13,226
+So, we've just created our
+
+
+175
+00:05:13,226 --> 00:05:14,966
+animator and we're about to
+
+
+176
+00:05:14,966 --> 00:05:16,306
+pause it so we can interact with
+
+
+177
+00:05:16,306 --> 00:05:16,376
+it.
+
+
+178
+00:05:16,646 --> 00:05:18,696
+Notice that our animator has
+
+
+179
+00:05:18,696 --> 00:05:20,246
+been created with an ease out
+
+
+180
+00:05:20,246 --> 00:05:20,866
+timing function.
+
+
+181
+00:05:21,336 --> 00:05:22,416
+So, let's call pause and see
+
+
+182
+00:05:22,416 --> 00:05:23,566
+what happens.
+
+
+183
+00:05:25,396 --> 00:05:27,536
+So, our animator becomes active,
+
+
+184
+00:05:28,016 --> 00:05:29,346
+but we've just converted our
+
+
+185
+00:05:29,346 --> 00:05:31,266
+timing curve automatically into
+
+
+186
+00:05:31,266 --> 00:05:32,186
+a linear timing curve.
+
+
+187
+00:05:32,816 --> 00:05:33,966
+Why did the property animator do
+
+
+188
+00:05:33,966 --> 00:05:34,216
+that?
+
+
+189
+00:05:35,206 --> 00:05:36,596
+Well it turns out this makes
+
+
+190
+00:05:36,596 --> 00:05:38,026
+scrubbing your animation really
+
+
+191
+00:05:38,026 --> 00:05:40,006
+easy because of that property of
+
+
+192
+00:05:40,006 --> 00:05:41,406
+linear timing functions where
+
+
+193
+00:05:41,566 --> 00:05:42,846
+the fraction of time is equal to
+
+
+194
+00:05:42,846 --> 00:05:44,406
+the fraction of progress, you
+
+
+195
+00:05:44,406 --> 00:05:45,786
+can now scrub both time and
+
+
+196
+00:05:45,786 --> 00:05:46,966
+progress uniformly.
+
+
+197
+00:05:48,926 --> 00:05:49,746
+Now let's take a look at what
+
+
+198
+00:05:49,746 --> 00:05:50,946
+happens when we continue our
+
+
+199
+00:05:50,946 --> 00:05:51,406
+animation.
+
+
+200
+00:05:52,676 --> 00:05:53,276
+So, we're scrubbing our
+
+
+201
+00:05:53,276 --> 00:05:55,226
+animation here and now our
+
+
+202
+00:05:55,226 --> 00:05:56,356
+finger is lifted off and we're
+
+
+203
+00:05:56,356 --> 00:05:58,316
+about call continueAnimation, so
+
+
+204
+00:05:58,316 --> 00:06:02,796
+let's see what that does.
+
+
+205
+00:06:03,036 --> 00:06:04,436
+So, we convert back to that ease
+
+
+206
+00:06:04,436 --> 00:06:06,706
+out timing function, but also
+
+
+207
+00:06:06,706 --> 00:06:07,786
+something interesting happened.
+
+
+208
+00:06:07,786 --> 00:06:09,586
+We remapped time in the process.
+
+
+209
+00:06:10,046 --> 00:06:11,326
+So, fraction complete which was
+
+
+210
+00:06:11,326 --> 00:06:14,676
+once 50% is now 10% and the
+
+
+211
+00:06:14,676 --> 00:06:16,626
+reason for that is we want to
+
+
+212
+00:06:16,626 --> 00:06:18,456
+keep our progress value stable
+
+
+213
+00:06:18,456 --> 00:06:19,686
+when we convert back to that
+
+
+214
+00:06:19,686 --> 00:06:20,696
+ease out timing function.
+
+
+215
+00:06:22,826 --> 00:06:23,916
+Also, I want to draw attention
+
+
+216
+00:06:23,916 --> 00:06:25,206
+to our duration factor here,
+
+
+217
+00:06:25,206 --> 00:06:26,746
+which is zero and what this
+
+
+218
+00:06:26,746 --> 00:06:27,866
+means is for our property
+
+
+219
+00:06:27,866 --> 00:06:28,796
+animator to use whatever
+
+
+220
+00:06:28,796 --> 00:06:30,186
+remaining time it has left,
+
+
+221
+00:06:30,686 --> 00:06:32,556
+which in this case would be 90%
+
+
+222
+00:06:32,986 --> 00:06:34,306
+of its original duration.
+
+
+223
+00:06:34,706 --> 00:06:36,616
+So, if for example, our animator
+
+
+224
+00:06:36,616 --> 00:06:37,796
+was created with a duration of
+
+
+225
+00:06:37,796 --> 00:06:39,736
+two seconds it would continue in
+
+
+226
+00:06:39,736 --> 00:06:40,706
+1.8 seconds.
+
+
+227
+00:06:42,646 --> 00:06:44,306
+So that's how interactive
+
+
+228
+00:06:44,306 --> 00:06:45,076
+animations work.
+
+
+229
+00:06:45,076 --> 00:06:46,366
+Now let's talk about how to make
+
+
+230
+00:06:46,366 --> 00:06:47,366
+our animations fully
+
+
+231
+00:06:47,366 --> 00:06:47,896
+interruptible.
+
+
+232
+00:06:50,006 --> 00:06:51,206
+Now an interruptible animation
+
+
+233
+00:06:51,206 --> 00:06:52,186
+is one in which the user's
+
+
+234
+00:06:52,186 --> 00:06:53,666
+actions interrupt or pause a
+
+
+235
+00:06:53,666 --> 00:06:54,776
+currently running animation.
+
+
+236
+00:06:55,496 --> 00:06:56,336
+Here's an example that you're
+
+
+237
+00:06:56,336 --> 00:06:57,266
+probably familiar with, with
+
+
+238
+00:06:57,266 --> 00:06:57,796
+Safari.
+
+
+239
+00:06:57,966 --> 00:06:59,306
+When you flick your finger, it
+
+
+240
+00:06:59,306 --> 00:07:00,966
+accelerates and then it sort of
+
+
+241
+00:07:00,966 --> 00:07:01,696
+decelerates.
+
+
+242
+00:07:02,186 --> 00:07:03,116
+But if you touch the screen
+
+
+243
+00:07:03,116 --> 00:07:04,286
+again you interrupt that
+
+
+244
+00:07:04,286 --> 00:07:05,936
+animation at which point you can
+
+
+245
+00:07:05,936 --> 00:07:07,046
+scrub it.
+
+
+246
+00:07:08,456 --> 00:07:09,476
+So, we're going to do one more
+
+
+247
+00:07:09,476 --> 00:07:11,376
+demonstration this time and
+
+
+248
+00:07:11,376 --> 00:07:12,246
+we're going to add our
+
+
+249
+00:07:12,246 --> 00:07:13,506
+PanGestureRecognizer to our
+
+
+250
+00:07:13,506 --> 00:07:14,906
+circle, but this time we're
+
+
+251
+00:07:14,906 --> 00:07:15,916
+going to let it animate for a
+
+
+252
+00:07:15,916 --> 00:07:16,766
+little bit and then we're going
+
+
+253
+00:07:16,796 --> 00:07:17,766
+to catch it midflight.
+
+
+254
+00:07:19,266 --> 00:07:20,996
+So here it is animating then we
+
+
+255
+00:07:20,996 --> 00:07:22,796
+catch it with our finger at this
+
+
+256
+00:07:22,906 --> 00:07:24,046
+point we can scrub it, but we've
+
+
+257
+00:07:24,046 --> 00:07:25,606
+already seen how that works so
+
+
+258
+00:07:25,606 --> 00:07:26,246
+instead, we're just going to
+
+
+259
+00:07:26,246 --> 00:07:27,426
+lift our finger and continue the
+
+
+260
+00:07:27,426 --> 00:07:28,486
+animation to its target
+
+
+261
+00:07:28,486 --> 00:07:29,000
+destination.
+
+
+262
+00:07:33,336 --> 00:07:34,686
+So, here's the code from before
+
+
+263
+00:07:34,686 --> 00:07:35,416
+and we're just going to make a
+
+
+264
+00:07:35,416 --> 00:07:37,086
+few changes so we can support
+
+
+265
+00:07:37,086 --> 00:07:38,246
+both interactive and
+
+
+266
+00:07:38,246 --> 00:07:39,376
+interruptible animations.
+
+
+267
+00:07:39,376 --> 00:07:41,436
+So, we're going to introduce a
+
+
+268
+00:07:41,436 --> 00:07:42,406
+new method here called
+
+
+269
+00:07:42,406 --> 00:07:43,936
+animateTransitionIfNeeded and
+
+
+270
+00:07:43,936 --> 00:07:46,656
+this is a custom method, this is
+
+
+271
+00:07:46,656 --> 00:07:48,226
+not a UIKit method for example.
+
+
+272
+00:07:49,046 --> 00:07:50,356
+So, what this does is it'll
+
+
+273
+00:07:50,356 --> 00:07:51,606
+initiate our transition if it
+
+
+274
+00:07:51,606 --> 00:07:52,546
+isn't already running.
+
+
+275
+00:07:53,436 --> 00:07:54,316
+Were also going to introduce a
+
+
+276
+00:07:54,316 --> 00:07:55,456
+new property called
+
+
+277
+00:07:55,556 --> 00:07:56,726
+progressWhenInterrupted and this
+
+
+278
+00:07:56,996 --> 00:07:58,306
+is going to save any relative
+
+
+279
+00:07:58,336 --> 00:07:59,616
+progress made by your animator
+
+
+280
+00:07:59,616 --> 00:08:00,886
+prior to it being interrupted.
+
+
+281
+00:08:00,886 --> 00:08:03,536
+Now when our gesture begins
+
+
+282
+00:08:03,536 --> 00:08:04,186
+we're going to create that
+
+
+283
+00:08:04,186 --> 00:08:05,426
+animator again, but this time
+
+
+284
+00:08:05,426 --> 00:08:06,846
+only if our transition isn't
+
+
+285
+00:08:06,846 --> 00:08:07,126
+running.
+
+
+286
+00:08:07,736 --> 00:08:08,726
+We're then going to pause it so
+
+
+287
+00:08:08,726 --> 00:08:09,706
+that we can interact with it and
+
+
+288
+00:08:10,206 --> 00:08:11,306
+we're going to save any relative
+
+
+289
+00:08:11,306 --> 00:08:12,766
+progress made by it prior to
+
+
+290
+00:08:12,766 --> 00:08:13,526
+being interrupted.
+
+
+291
+00:08:15,316 --> 00:08:16,316
+When our finger moves we're
+
+
+292
+00:08:16,316 --> 00:08:17,446
+going to scrub our animator's
+
+
+293
+00:08:17,446 --> 00:08:19,176
+fraction complete, but this time
+
+
+294
+00:08:19,436 --> 00:08:20,096
+we're going to scrub our
+
+
+295
+00:08:20,096 --> 00:08:21,596
+animator based on the distance
+
+
+296
+00:08:21,596 --> 00:08:23,156
+our finger has traveled relative
+
+
+297
+00:08:23,156 --> 00:08:25,206
+to any progress it made prior to
+
+
+298
+00:08:25,206 --> 00:08:25,856
+being interrupted.
+
+
+299
+00:08:27,636 --> 00:08:28,666
+And when our finger lifts we're
+
+
+300
+00:08:28,666 --> 00:08:29,686
+going to continue our animation.
+
+
+301
+00:08:30,956 --> 00:08:31,976
+But to make this example a
+
+
+302
+00:08:31,976 --> 00:08:32,996
+little bit more interesting
+
+
+303
+00:08:33,405 --> 00:08:34,765
+let's continue with an ease out
+
+
+304
+00:08:34,765 --> 00:08:36,246
+timing function and let's assume
+
+
+305
+00:08:36,246 --> 00:08:37,356
+that our animation was created
+
+
+306
+00:08:37,356 --> 00:08:38,456
+with an ease and timing function
+
+
+307
+00:08:38,785 --> 00:08:39,895
+just to see what that does.
+
+
+308
+00:08:42,806 --> 00:08:44,456
+So, here we are about to
+
+
+309
+00:08:44,456 --> 00:08:45,876
+interrupt our animation and
+
+
+310
+00:08:45,876 --> 00:08:47,426
+fraction completes about 50% sol
+
+
+311
+00:08:47,426 --> 00:08:48,716
+it's ran for about half its
+
+
+312
+00:08:48,716 --> 00:08:50,286
+duration and progress is only
+
+
+313
+00:08:50,286 --> 00:08:51,626
+about 10% because we're on an
+
+
+314
+00:08:51,676 --> 00:08:52,686
+ease out timing function.
+
+
+315
+00:08:53,146 --> 00:08:54,526
+So, let's call pause and watch
+
+
+316
+00:08:55,086 --> 00:08:56,046
+what happens.
+
+
+317
+00:08:56,256 --> 00:08:57,676
+So again, we convert into that
+
+
+318
+00:08:57,676 --> 00:08:58,666
+linear timing function to make
+
+
+319
+00:08:58,666 --> 00:09:00,526
+scrubbing really easy, but we
+
+
+320
+00:09:00,526 --> 00:09:02,316
+also have remapped time just as
+
+
+321
+00:09:02,316 --> 00:09:03,536
+we did before to keep progress
+
+
+322
+00:09:03,536 --> 00:09:04,766
+stable so our animation doesn't
+
+
+323
+00:09:04,766 --> 00:09:05,026
+jump.
+
+
+324
+00:09:05,886 --> 00:09:06,566
+Now when we call
+
+
+325
+00:09:06,566 --> 00:09:08,576
+continueAnimation we're going to
+
+
+326
+00:09:08,576 --> 00:09:10,196
+do so with an ease out timing
+
+
+327
+00:09:10,196 --> 00:09:11,696
+function and again, you can see
+
+
+328
+00:09:12,116 --> 00:09:13,946
+we convert back into that new
+
+
+329
+00:09:13,946 --> 00:09:15,616
+timing function and remap time
+
+
+330
+00:09:15,616 --> 00:09:15,876
+again.
+
+
+331
+00:09:17,126 --> 00:09:18,596
+So, this is a really subtle
+
+
+332
+00:09:18,596 --> 00:09:20,156
+aspect of property animators
+
+
+333
+00:09:20,186 --> 00:09:20,916
+that's really important to
+
+
+334
+00:09:20,916 --> 00:09:21,706
+understand when you're
+
+
+335
+00:09:21,706 --> 00:09:22,566
+manipulating them.
+
+
+336
+00:09:23,186 --> 00:09:27,286
+So that's how to make animations
+
+
+337
+00:09:27,286 --> 00:09:28,046
+fully interactive and
+
+
+338
+00:09:28,046 --> 00:09:28,596
+interruptible.
+
+
+339
+00:09:28,646 --> 00:09:29,676
+Now let's talk about some of the
+
+
+340
+00:09:29,676 --> 00:09:30,826
+new API that we're providing
+
+
+341
+00:09:30,826 --> 00:09:31,126
+this year.
+
+
+342
+00:09:32,686 --> 00:09:35,036
+So, new in iOS 11 property
+
+
+343
+00:09:35,036 --> 00:09:36,696
+animator is getting two new
+
+
+344
+00:09:36,696 --> 00:09:39,536
+properties, scrubsLinearly and
+
+
+345
+00:09:39,536 --> 00:09:40,516
+pausesOnCompletion.
+
+
+346
+00:09:41,396 --> 00:09:43,356
+It's also getting a new behavior
+
+
+347
+00:09:43,356 --> 00:09:45,716
+which is starting as paused, so
+
+
+348
+00:09:45,716 --> 00:09:46,626
+let's talk about these.
+
+
+349
+00:09:47,996 --> 00:09:48,816
+So, in the last couple of
+
+
+350
+00:09:48,816 --> 00:09:50,436
+examples you saw that when we
+
+
+351
+00:09:50,436 --> 00:09:51,836
+paused our animator it converts
+
+
+352
+00:09:51,836 --> 00:09:52,896
+the timing function into a
+
+
+353
+00:09:52,896 --> 00:09:54,386
+linear timing function and it
+
+
+354
+00:09:54,386 --> 00:09:56,136
+does this to make scrubbing the
+
+
+355
+00:09:56,276 --> 00:09:57,496
+progress of your animator really
+
+
+356
+00:09:57,546 --> 00:09:57,896
+easy.
+
+
+357
+00:09:58,696 --> 00:09:59,926
+But you know sometimes it's
+
+
+358
+00:09:59,926 --> 00:10:01,056
+really useful for your animator
+
+
+359
+00:10:01,056 --> 00:10:02,326
+to maintain its pacing when it's
+
+
+360
+00:10:02,326 --> 00:10:03,436
+being driven interactively.
+
+
+361
+00:10:04,166 --> 00:10:05,216
+And now you can do that by
+
+
+362
+00:10:05,216 --> 00:10:06,516
+disabling linear scrubbing.
+
+
+363
+00:10:07,416 --> 00:10:08,556
+And here's just a quick example
+
+
+364
+00:10:08,626 --> 00:10:10,506
+where linearly scrubbing the
+
+
+365
+00:10:10,506 --> 00:10:12,876
+opacity of the circle on top and
+
+
+366
+00:10:12,876 --> 00:10:14,216
+we're nonlinearly scrubbing the
+
+
+367
+00:10:14,216 --> 00:10:15,556
+opacity of the circle on the
+
+
+368
+00:10:15,556 --> 00:10:16,996
+bottom according to an ease out
+
+
+369
+00:10:16,996 --> 00:10:17,596
+timing function.
+
+
+370
+00:10:19,086 --> 00:10:20,226
+We'll see a little bit later
+
+
+371
+00:10:20,226 --> 00:10:21,036
+when we're coordinating
+
+
+372
+00:10:21,036 --> 00:10:22,136
+transitions this could be a
+
+
+373
+00:10:22,136 --> 00:10:23,456
+really interesting thing to do
+
+
+374
+00:10:23,456 --> 00:10:26,426
+to create some pretty compelling
+
+
+375
+00:10:26,426 --> 00:10:27,006
+animations.
+
+
+376
+00:10:28,906 --> 00:10:30,336
+Animators can now also pause on
+
+
+377
+00:10:30,336 --> 00:10:30,826
+completion.
+
+
+378
+00:10:32,316 --> 00:10:33,966
+So, when an animator's
+
+
+379
+00:10:33,966 --> 00:10:35,316
+animations finish it will
+
+
+380
+00:10:35,316 --> 00:10:36,556
+automatically transition into
+
+
+381
+00:10:36,556 --> 00:10:37,456
+the inactive state.
+
+
+382
+00:10:38,066 --> 00:10:39,296
+And when it does that it's going
+
+
+383
+00:10:39,296 --> 00:10:40,586
+to release any animations that
+
+
+384
+00:10:40,586 --> 00:10:42,336
+it was previously tracking which
+
+
+385
+00:10:42,336 --> 00:10:44,246
+means you cannot manipulate or
+
+
+386
+00:10:44,246 --> 00:10:45,516
+even reverse them after they've
+
+
+387
+00:10:45,576 --> 00:10:45,966
+finished.
+
+
+388
+00:10:46,916 --> 00:10:48,166
+But now if you set pauses on
+
+
+389
+00:10:48,166 --> 00:10:50,016
+completion to true your animator
+
+
+390
+00:10:50,016 --> 00:10:51,606
+will pause at 100% fraction
+
+
+391
+00:10:51,606 --> 00:10:53,316
+complete allowing you to at any
+
+
+392
+00:10:53,316 --> 00:10:54,646
+point in the future reverse
+
+
+393
+00:10:54,646 --> 00:10:55,286
+those animations.
+
+
+394
+00:10:55,916 --> 00:10:58,766
+And to give you guys a little
+
+
+395
+00:10:58,766 --> 00:11:00,176
+bit of insight here we actually
+
+
+396
+00:11:00,176 --> 00:11:01,286
+use this in UIKit for
+
+
+397
+00:11:01,286 --> 00:11:01,906
+Drag-and-Drop.
+
+
+398
+00:11:02,726 --> 00:11:04,556
+So, here's an example of a lift
+
+
+399
+00:11:04,556 --> 00:11:05,876
+animation and as you may be
+
+
+400
+00:11:05,876 --> 00:11:07,206
+aware, you can provide your own
+
+
+401
+00:11:07,506 --> 00:11:08,846
+alongside animations to
+
+
+402
+00:11:08,846 --> 00:11:09,776
+customize this.
+
+
+403
+00:11:10,706 --> 00:11:11,726
+And we're actually going to
+
+
+404
+00:11:11,726 --> 00:11:13,656
+drive those animations by a
+
+
+405
+00:11:13,656 --> 00:11:15,086
+property animator that pauses on
+
+
+406
+00:11:15,086 --> 00:11:16,806
+completion internally in UIKit.
+
+
+407
+00:11:17,686 --> 00:11:18,816
+And because of that we could
+
+
+408
+00:11:18,976 --> 00:11:20,876
+easily reverse those animations
+
+
+409
+00:11:20,876 --> 00:11:22,666
+for you at any time after the
+
+
+410
+00:11:22,826 --> 00:11:25,286
+user lifts their finger even if
+
+
+411
+00:11:25,326 --> 00:11:26,516
+your animations have already
+
+
+412
+00:11:26,516 --> 00:11:27,000
+finished.
+
+
+413
+00:11:30,916 --> 00:11:32,756
+I also should mention that we're
+
+
+414
+00:11:32,756 --> 00:11:33,446
+not going to call your
+
+
+415
+00:11:33,446 --> 00:11:34,636
+animator's completion handler
+
+
+416
+00:11:34,636 --> 00:11:35,896
+when it pauses on completion,
+
+
+417
+00:11:36,356 --> 00:11:37,346
+but if you are interested to
+
+
+418
+00:11:37,346 --> 00:11:38,286
+know when those animations have
+
+
+419
+00:11:38,366 --> 00:11:39,836
+finished you can simply observe
+
+
+420
+00:11:39,866 --> 00:11:40,716
+the running property.
+
+
+421
+00:11:41,266 --> 00:11:44,906
+And finally, now you can create
+
+
+422
+00:11:44,906 --> 00:11:46,426
+a property animator and start it
+
+
+423
+00:11:46,426 --> 00:11:47,646
+before you've provided any
+
+
+424
+00:11:47,646 --> 00:11:48,496
+animations to it.
+
+
+425
+00:11:49,196 --> 00:11:50,646
+Now what this does is any
+
+
+426
+00:11:50,646 --> 00:11:51,516
+animation blocks that you
+
+
+427
+00:11:51,516 --> 00:11:53,126
+subsequently provide will be ran
+
+
+428
+00:11:53,126 --> 00:11:54,776
+immediately instead of escaping.
+
+
+429
+00:11:54,776 --> 00:11:56,106
+And this is great if you're
+
+
+430
+00:11:56,106 --> 00:11:57,476
+transitioning any of your UIView
+
+
+431
+00:11:57,506 --> 00:11:59,086
+animate code over to using
+
+
+432
+00:11:59,086 --> 00:11:59,906
+property animators.
+
+
+433
+00:12:00,526 --> 00:12:04,256
+Now I just want to spend a
+
+
+434
+00:12:04,366 --> 00:12:05,596
+couple minutes here talking
+
+
+435
+00:12:05,596 --> 00:12:06,336
+about springs.
+
+
+436
+00:12:07,006 --> 00:12:07,866
+So, spring animations are
+
+
+437
+00:12:07,866 --> 00:12:10,376
+pervasive in UIKit in iOS and
+
+
+438
+00:12:10,376 --> 00:12:11,616
+they add a sense of realism to
+
+
+439
+00:12:11,616 --> 00:12:12,306
+your animations.
+
+
+440
+00:12:13,546 --> 00:12:14,856
+Now in UIKit we provide two
+
+
+441
+00:12:14,856 --> 00:12:16,516
+kinds of springs, critically
+
+
+442
+00:12:16,516 --> 00:12:17,936
+damped springs and under damped
+
+
+443
+00:12:17,936 --> 00:12:18,226
+springs.
+
+
+444
+00:12:19,516 --> 00:12:20,726
+A critically damped spring is
+
+
+445
+00:12:20,726 --> 00:12:22,026
+one which accelerates quickly
+
+
+446
+00:12:22,026 --> 00:12:23,326
+and it sort of decelerates just
+
+
+447
+00:12:23,326 --> 00:12:24,506
+as quickly hovering over its
+
+
+448
+00:12:24,506 --> 00:12:27,376
+target value, whereas an under
+
+
+449
+00:12:27,376 --> 00:12:28,376
+damped spring accelerates
+
+
+450
+00:12:28,376 --> 00:12:30,076
+quickly beyond its target value
+
+
+451
+00:12:30,076 --> 00:12:31,046
+and then oscillates.
+
+
+452
+00:12:32,826 --> 00:12:34,006
+So, spring animations are unique
+
+
+453
+00:12:34,006 --> 00:12:35,646
+in this way and we think of
+
+
+454
+00:12:35,646 --> 00:12:36,986
+spring animations just as we
+
+
+455
+00:12:36,986 --> 00:12:38,396
+think about timing curves.
+
+
+456
+00:12:39,056 --> 00:12:40,286
+But spring animations are also
+
+
+457
+00:12:40,286 --> 00:12:41,626
+unique in that they always
+
+
+458
+00:12:41,696 --> 00:12:42,736
+animate from their current
+
+
+459
+00:12:42,736 --> 00:12:43,576
+presentation value.
+
+
+460
+00:12:43,576 --> 00:12:45,136
+And there are a couple reasons
+
+
+461
+00:12:45,136 --> 00:12:46,076
+why we do this.
+
+
+462
+00:12:47,976 --> 00:12:49,376
+So, the first is, it may
+
+
+463
+00:12:49,376 --> 00:12:51,096
+actually be undefined to convert
+
+
+464
+00:12:51,096 --> 00:12:52,606
+a spring animation to a cubic
+
+
+465
+00:12:52,606 --> 00:12:54,056
+animation and this is because
+
+
+466
+00:12:54,056 --> 00:12:55,456
+cubic timing functions don't
+
+
+467
+00:12:55,456 --> 00:12:56,466
+oscillate or overshoot their
+
+
+468
+00:12:56,466 --> 00:12:58,076
+value as they're bounded by
+
+
+469
+00:12:58,076 --> 00:12:59,376
+minimum and maximum values.
+
+
+470
+00:12:59,906 --> 00:13:03,526
+And the second reason it's a
+
+
+471
+00:13:03,526 --> 00:13:05,016
+little bit more interesting and
+
+
+472
+00:13:05,456 --> 00:13:07,626
+this is if you animate with a
+
+
+473
+00:13:07,626 --> 00:13:09,136
+two-dimensional initial velocity
+
+
+474
+00:13:09,136 --> 00:13:11,196
+with unique DX and DY components
+
+
+475
+00:13:11,626 --> 00:13:12,976
+property animator is actually
+
+
+476
+00:13:12,976 --> 00:13:14,276
+going to decompose that for you
+
+
+477
+00:13:14,606 --> 00:13:15,626
+and create two spring
+
+
+478
+00:13:15,626 --> 00:13:16,166
+animations.
+
+
+479
+00:13:17,036 --> 00:13:17,946
+And because those two spring
+
+
+480
+00:13:17,946 --> 00:13:19,466
+animations have different
+
+
+481
+00:13:19,466 --> 00:13:20,656
+velocities they're going to be
+
+
+482
+00:13:20,656 --> 00:13:21,636
+desynchronized so we're not
+
+
+483
+00:13:21,636 --> 00:13:22,356
+going to be able to convert
+
+
+484
+00:13:22,386 --> 00:13:23,966
+those onto a cubic animation.
+
+
+485
+00:13:24,546 --> 00:13:28,196
+So, if you do have to interrupt
+
+
+486
+00:13:28,196 --> 00:13:29,356
+the spring animation here are a
+
+
+487
+00:13:29,356 --> 00:13:30,506
+few best practices.
+
+
+488
+00:13:31,636 --> 00:13:32,596
+So, the first thing you can do
+
+
+489
+00:13:32,726 --> 00:13:33,836
+is consider stopping your spring
+
+
+490
+00:13:33,836 --> 00:13:35,046
+animation, promoting current
+
+
+491
+00:13:35,046 --> 00:13:36,166
+presentation value to model
+
+
+492
+00:13:36,166 --> 00:13:37,396
+value, and then creating a
+
+
+493
+00:13:37,396 --> 00:13:38,466
+brand-new animation from there.
+
+
+494
+00:13:39,056 --> 00:13:42,196
+The second thing you can do is
+
+
+495
+00:13:42,226 --> 00:13:43,256
+consider using a critically
+
+
+496
+00:13:43,256 --> 00:13:44,346
+damped spring without initial
+
+
+497
+00:13:44,346 --> 00:13:45,446
+velocity as these don't
+
+
+498
+00:13:45,446 --> 00:13:47,026
+overshoot or oscillate.
+
+
+499
+00:13:48,416 --> 00:13:50,106
+And then finally, if you are
+
+
+500
+00:13:50,106 --> 00:13:51,526
+animating with a two-dimensional
+
+
+501
+00:13:51,526 --> 00:13:52,986
+initial velocity with unique X
+
+
+502
+00:13:52,986 --> 00:13:54,986
+and Y components you can
+
+
+503
+00:13:54,986 --> 00:13:56,256
+consider decomposing that
+
+
+504
+00:13:56,256 --> 00:13:58,356
+yourself and driving the X
+
+
+505
+00:13:58,356 --> 00:14:00,106
+animations with one animator and
+
+
+506
+00:14:00,106 --> 00:14:01,536
+the Y animations with another.
+
+
+507
+00:14:03,246 --> 00:14:06,156
+So that's how property
+
+
+508
+00:14:06,156 --> 00:14:06,876
+animations work.
+
+
+509
+00:14:07,686 --> 00:14:09,116
+Now let's talk about how to use
+
+
+510
+00:14:09,116 --> 00:14:10,686
+all that knowledge to coordinate
+
+
+511
+00:14:10,796 --> 00:14:11,336
+animations.
+
+
+512
+00:14:12,416 --> 00:14:13,726
+So, for this we're going to
+
+
+513
+00:14:13,726 --> 00:14:15,086
+build a fully interactive
+
+
+514
+00:14:15,086 --> 00:14:16,156
+interruptible animated
+
+
+515
+00:14:16,156 --> 00:14:17,786
+transition that coordinates
+
+
+516
+00:14:17,786 --> 00:14:19,696
+across multiple uniquely timed
+
+
+517
+00:14:19,916 --> 00:14:20,416
+animators.
+
+
+518
+00:14:22,376 --> 00:14:23,746
+So, say that we have an app and
+
+
+519
+00:14:23,746 --> 00:14:24,776
+our app is showing some piece of
+
+
+520
+00:14:24,776 --> 00:14:26,256
+content and anchored to the
+
+
+521
+00:14:26,256 --> 00:14:27,316
+bottom of the screen is the
+
+
+522
+00:14:27,316 --> 00:14:28,916
+Comments button and when we tap
+
+
+523
+00:14:28,916 --> 00:14:30,506
+on it it expands showing our
+
+
+524
+00:14:30,506 --> 00:14:31,106
+comments view.
+
+
+525
+00:14:32,386 --> 00:14:33,496
+Now we might implement this
+
+
+526
+00:14:33,496 --> 00:14:35,386
+using UIView controller animated
+
+
+527
+00:14:35,386 --> 00:14:36,666
+transitioning for example, but
+
+
+528
+00:14:37,286 --> 00:14:38,916
+we'd like this to be completely
+
+
+529
+00:14:38,916 --> 00:14:40,106
+interactive and interruptible so
+
+
+530
+00:14:40,106 --> 00:14:41,146
+I'd like to show you how to do
+
+
+531
+00:14:41,146 --> 00:14:41,376
+that.
+
+
+532
+00:14:41,926 --> 00:14:43,866
+So, the first thing we're going
+
+
+533
+00:14:43,866 --> 00:14:45,446
+to do is add two gesture
+
+
+534
+00:14:45,446 --> 00:14:46,806
+recognizers, a tap gesture
+
+
+535
+00:14:46,806 --> 00:14:48,116
+recognizer so that we can tap on
+
+
+536
+00:14:48,116 --> 00:14:49,436
+it and expands and tap on it
+
+
+537
+00:14:49,436 --> 00:14:50,536
+again it will collapse.
+
+
+538
+00:14:51,016 --> 00:14:52,166
+We'd also like to be able to tap
+
+
+539
+00:14:52,166 --> 00:14:53,296
+on it while that animation is
+
+
+540
+00:14:53,346 --> 00:14:54,656
+running so it can be reversed.
+
+
+541
+00:14:55,666 --> 00:14:56,576
+And we're going to add a pan
+
+
+542
+00:14:56,576 --> 00:14:57,526
+gesture recognizer so we can
+
+
+543
+00:14:57,566 --> 00:14:58,196
+interact with it.
+
+
+544
+00:14:58,986 --> 00:15:00,246
+So, here's our code form before
+
+
+545
+00:15:00,916 --> 00:15:01,826
+and we're going to make just a
+
+
+546
+00:15:01,826 --> 00:15:03,446
+couple modifications to it to
+
+
+547
+00:15:03,446 --> 00:15:04,636
+create this infrastructure that
+
+
+548
+00:15:04,636 --> 00:15:05,486
+we're going to build on.
+
+
+549
+00:15:06,516 --> 00:15:07,186
+So, the first thing we're going
+
+
+550
+00:15:07,186 --> 00:15:08,906
+to do is we're going to replace
+
+
+551
+00:15:08,956 --> 00:15:10,056
+our instance of our property
+
+
+552
+00:15:10,056 --> 00:15:11,876
+animator with a collection of
+
+
+553
+00:15:11,876 --> 00:15:13,156
+running property animators.
+
+
+554
+00:15:14,966 --> 00:15:16,746
+And for that collection of
+
+
+555
+00:15:16,986 --> 00:15:19,036
+running property animators if we
+
+
+556
+00:15:19,036 --> 00:15:20,236
+ever create a property animator
+
+
+557
+00:15:20,236 --> 00:15:20,986
+we're just going to add it to
+
+
+558
+00:15:21,036 --> 00:15:22,516
+that collection and let's assume
+
+
+559
+00:15:22,576 --> 00:15:23,646
+that when those animations
+
+
+560
+00:15:23,646 --> 00:15:24,646
+finish it's automatically
+
+
+561
+00:15:24,646 --> 00:15:24,996
+removed.
+
+
+562
+00:15:26,546 --> 00:15:27,876
+Next, we're going to reintroduce
+
+
+563
+00:15:27,876 --> 00:15:29,696
+our animateTransitionIfNeeded
+
+
+564
+00:15:29,696 --> 00:15:30,936
+method and it's going to take a
+
+
+565
+00:15:30,936 --> 00:15:32,386
+target state to animate to.
+
+
+566
+00:15:32,976 --> 00:15:36,026
+So, if we look at this if our
+
+
+567
+00:15:36,026 --> 00:15:37,406
+runningAnimators.isEmpty that
+
+
+568
+00:15:37,406 --> 00:15:38,356
+means there's no transition
+
+
+569
+00:15:38,356 --> 00:15:39,716
+currently running, so we're
+
+
+570
+00:15:39,716 --> 00:15:41,036
+going to initiate a transition
+
+
+571
+00:15:41,036 --> 00:15:41,956
+if that is the case.
+
+
+572
+00:15:41,956 --> 00:15:42,996
+And we're going to do that by
+
+
+573
+00:15:42,996 --> 00:15:44,476
+creating a new property animator
+
+
+574
+00:15:44,476 --> 00:15:45,556
+for our frame which is going to
+
+
+575
+00:15:45,556 --> 00:15:46,716
+use a critically damped spring.
+
+
+576
+00:15:46,716 --> 00:15:48,456
+We're then going to perform our
+
+
+577
+00:15:48,456 --> 00:15:49,946
+animations and we're going to
+
+
+578
+00:15:49,946 --> 00:15:51,446
+start that animator and add it
+
+
+579
+00:15:51,446 --> 00:15:52,356
+to that collection of running
+
+
+580
+00:15:52,356 --> 00:15:52,796
+animators.
+
+
+581
+00:15:57,046 --> 00:15:57,896
+Next, in our tap gesture
+
+
+582
+00:15:57,896 --> 00:15:58,956
+recognizer handler we're going
+
+
+583
+00:15:58,956 --> 00:16:00,496
+to call this method and this is
+
+
+584
+00:16:00,496 --> 00:16:02,366
+going to animate or reverse our
+
+
+585
+00:16:02,366 --> 00:16:03,166
+running transition.
+
+
+586
+00:16:03,726 --> 00:16:05,416
+So, if our transition isn't
+
+
+587
+00:16:05,416 --> 00:16:06,346
+running we're going to just
+
+
+588
+00:16:06,406 --> 00:16:07,476
+initiate our transition,
+
+
+589
+00:16:08,136 --> 00:16:09,786
+otherwise we're going to iterate
+
+
+590
+00:16:09,786 --> 00:16:10,916
+through all of our running
+
+
+591
+00:16:10,916 --> 00:16:12,346
+property animators and reverse
+
+
+592
+00:16:12,346 --> 00:16:12,526
+them.
+
+
+593
+00:16:17,066 --> 00:16:18,356
+Now for these next three methods
+
+
+594
+00:16:18,356 --> 00:16:19,486
+we're just going to extract our
+
+
+595
+00:16:19,486 --> 00:16:21,156
+pan gesture recognizer handling
+
+
+596
+00:16:21,156 --> 00:16:23,136
+code from before, so I'm just
+
+
+597
+00:16:23,136 --> 00:16:24,396
+going to quickly summarize what
+
+
+598
+00:16:24,396 --> 00:16:24,756
+these do.
+
+
+599
+00:16:25,426 --> 00:16:26,016
+So, for
+
+
+600
+00:16:26,016 --> 00:16:27,356
+startInteractiveTransition this
+
+
+601
+00:16:27,356 --> 00:16:28,536
+is called when your gesture
+
+
+602
+00:16:28,536 --> 00:16:29,846
+begins and it's just going to
+
+
+603
+00:16:29,846 --> 00:16:30,926
+initiate the transition if it
+
+
+604
+00:16:30,926 --> 00:16:32,676
+isn't running, pause all of your
+
+
+605
+00:16:32,676 --> 00:16:34,506
+animators uniformly, and save
+
+
+606
+00:16:34,506 --> 00:16:36,096
+any relative progress made by
+
+
+607
+00:16:36,096 --> 00:16:36,276
+them.
+
+
+608
+00:16:38,416 --> 00:16:39,766
+UpdateInteractiveTransition is
+
+
+609
+00:16:39,766 --> 00:16:41,556
+going to scrub your animators
+
+
+610
+00:16:41,556 --> 00:16:43,936
+uniformly relative to the
+
+
+611
+00:16:43,936 --> 00:16:45,366
+distance your finger travels and
+
+
+612
+00:16:45,406 --> 00:16:47,226
+any progress that your animators
+
+
+613
+00:16:47,226 --> 00:16:48,486
+made prior to being interrupted.
+
+
+614
+00:16:49,466 --> 00:16:50,396
+And then finally, when your
+
+
+615
+00:16:50,396 --> 00:16:51,286
+finger is lifted we just call
+
+
+616
+00:16:51,286 --> 00:16:52,666
+continue animation on all your
+
+
+617
+00:16:52,666 --> 00:16:53,876
+animators conditionally
+
+
+618
+00:16:53,876 --> 00:16:54,876
+reversing them based on the
+
+
+619
+00:16:54,876 --> 00:16:55,736
+direction your finger was
+
+
+620
+00:16:55,736 --> 00:16:56,126
+traveling.
+
+
+621
+00:16:57,906 --> 00:16:58,716
+So, let's check this out.
+
+
+622
+00:17:00,506 --> 00:17:02,126
+So, we can drive our animation
+
+
+623
+00:17:02,216 --> 00:17:04,336
+non-interactively by tapping, we
+
+
+624
+00:17:04,336 --> 00:17:05,685
+can also interactively drive it
+
+
+625
+00:17:06,576 --> 00:17:07,886
+by pulling up or pulling down,
+
+
+626
+00:17:09,536 --> 00:17:11,695
+and we can tap on it again while
+
+
+627
+00:17:11,695 --> 00:17:12,866
+it's running to interrupt it and
+
+
+628
+00:17:12,866 --> 00:17:13,386
+reverse it.
+
+
+629
+00:17:14,415 --> 00:17:15,846
+And we can also capture
+
+
+630
+00:17:15,846 --> 00:17:17,326
+animation while it's running and
+
+
+631
+00:17:17,326 --> 00:17:18,406
+at which point we can scrub it.
+
+
+632
+00:17:19,945 --> 00:17:21,266
+So now we've created this
+
+
+633
+00:17:21,336 --> 00:17:23,236
+infrastructure and right now we
+
+
+634
+00:17:23,236 --> 00:17:24,455
+just have a frame animation
+
+
+635
+00:17:24,455 --> 00:17:25,675
+which isn't that interesting, so
+
+
+636
+00:17:25,675 --> 00:17:26,536
+let's make this a little bit
+
+
+637
+00:17:26,536 --> 00:17:27,096
+more interesting.
+
+
+638
+00:17:29,046 --> 00:17:29,936
+So, first thing we're going to
+
+
+639
+00:17:29,936 --> 00:17:30,606
+do is we're going to add an
+
+
+640
+00:17:30,636 --> 00:17:31,396
+interactive blur.
+
+
+641
+00:17:32,596 --> 00:17:35,306
+Now in iOS 8 we introduced
+
+
+642
+00:17:35,346 --> 00:17:37,286
+UIVisualEffectView, which allows
+
+
+643
+00:17:37,286 --> 00:17:39,056
+us to add blur and vibrancy to
+
+
+644
+00:17:39,056 --> 00:17:39,696
+our view hierarchy.
+
+
+645
+00:17:39,696 --> 00:17:42,226
+And it turns out that the
+
+
+646
+00:17:42,316 --> 00:17:43,036
+effects property of
+
+
+647
+00:17:43,036 --> 00:17:43,976
+VisualEffectsView is an
+
+
+648
+00:17:44,026 --> 00:17:45,996
+animatable property so that's
+
+
+649
+00:17:45,996 --> 00:17:46,236
+great.
+
+
+650
+00:17:47,136 --> 00:17:48,196
+So, what we're going to do here
+
+
+651
+00:17:48,496 --> 00:17:49,856
+is the only code changes we're
+
+
+652
+00:17:49,856 --> 00:17:51,066
+going to make is to animate
+
+
+653
+00:17:51,066 --> 00:17:53,096
+transition if needed and we're
+
+
+654
+00:17:53,096 --> 00:17:54,146
+just going to create a new
+
+
+655
+00:17:54,146 --> 00:17:55,946
+animator for our blur, which is
+
+
+656
+00:17:55,946 --> 00:17:57,026
+going to use a critically damped
+
+
+657
+00:17:57,026 --> 00:17:57,986
+spring at least for now.
+
+
+658
+00:17:58,906 --> 00:17:59,956
+And then we're going to perform
+
+
+659
+00:17:59,956 --> 00:18:01,026
+our animations here either
+
+
+660
+00:18:01,026 --> 00:18:02,146
+setting or unsetting the blur
+
+
+661
+00:18:02,146 --> 00:18:03,736
+effect, starting our blur
+
+
+662
+00:18:03,736 --> 00:18:04,896
+animator and adding it to that
+
+
+663
+00:18:04,896 --> 00:18:06,666
+collection and here's what we
+
+
+664
+00:18:06,666 --> 00:18:06,866
+get.
+
+
+665
+00:18:13,236 --> 00:18:14,046
+So, we can now have an
+
+
+666
+00:18:14,046 --> 00:18:17,916
+interactive blur animation, but.
+
+
+667
+00:18:17,916 --> 00:18:22,336
+Let's see that again in slow
+
+
+668
+00:18:22,336 --> 00:18:24,076
+motion because I've got to be
+
+
+669
+00:18:24,076 --> 00:18:25,426
+honest with you guys, I don't
+
+
+670
+00:18:25,426 --> 00:18:26,496
+know if I'm really feeling this
+
+
+671
+00:18:26,536 --> 00:18:27,466
+blur animation right now.
+
+
+672
+00:18:28,526 --> 00:18:29,856
+I feel like it's animating
+
+
+673
+00:18:29,856 --> 00:18:30,986
+potentially a little bit too
+
+
+674
+00:18:30,986 --> 00:18:31,416
+quickly.
+
+
+675
+00:18:32,506 --> 00:18:34,076
+Now let's drive this and take a
+
+
+676
+00:18:34,076 --> 00:18:34,556
+look at it.
+
+
+677
+00:18:35,326 --> 00:18:36,316
+So maybe it looks a little
+
+
+678
+00:18:36,316 --> 00:18:37,486
+better, but it still doesn't
+
+
+679
+00:18:37,486 --> 00:18:38,086
+look quite right.
+
+
+680
+00:18:38,086 --> 00:18:40,246
+Now there are a few reasons for
+
+
+681
+00:18:40,246 --> 00:18:40,416
+this.
+
+
+682
+00:18:41,786 --> 00:18:42,986
+The first is because we're using
+
+
+683
+00:18:42,986 --> 00:18:44,386
+a critically damped spring our
+
+
+684
+00:18:44,386 --> 00:18:45,636
+blur is going to animate in too
+
+
+685
+00:18:45,636 --> 00:18:46,046
+quickly.
+
+
+686
+00:18:47,216 --> 00:18:48,476
+And because our property
+
+
+687
+00:18:48,476 --> 00:18:49,996
+animator is going to linearly
+
+
+688
+00:18:49,996 --> 00:18:51,506
+scrub it our blur is still going
+
+
+689
+00:18:51,506 --> 00:18:52,626
+to animate in a little bit too
+
+
+690
+00:18:52,626 --> 00:18:53,756
+quickly and it's going animate
+
+
+691
+00:18:53,756 --> 00:18:54,646
+out too slowly.
+
+
+692
+00:18:55,726 --> 00:18:57,026
+So, in order to fix this, we're
+
+
+693
+00:18:57,136 --> 00:18:58,096
+actually going to provide our
+
+
+694
+00:18:58,096 --> 00:18:59,336
+own custom timing curves.
+
+
+695
+00:18:59,776 --> 00:19:01,336
+So, our custom ease in function
+
+
+696
+00:19:01,336 --> 00:19:02,346
+so that our blur animates in
+
+
+697
+00:19:02,436 --> 00:19:04,256
+really slowly and a custom ease
+
+
+698
+00:19:04,256 --> 00:19:05,236
+out timing function so it
+
+
+699
+00:19:05,236 --> 00:19:06,696
+animates out really quickly.
+
+
+700
+00:19:07,476 --> 00:19:08,836
+And because these are inversions
+
+
+701
+00:19:08,836 --> 00:19:10,176
+of each other we're going to get
+
+
+702
+00:19:10,176 --> 00:19:12,096
+symmetric pacing, which means
+
+
+703
+00:19:12,096 --> 00:19:13,446
+that the path of our animation
+
+
+704
+00:19:13,446 --> 00:19:14,766
+on its way out will match that
+
+
+705
+00:19:14,766 --> 00:19:15,756
+of its path on the way in.
+
+
+706
+00:19:17,386 --> 00:19:18,286
+So, here's the code for this,
+
+
+707
+00:19:18,456 --> 00:19:19,666
+we're just creating cubic timing
+
+
+708
+00:19:19,666 --> 00:19:20,926
+parameters based on the target
+
+
+709
+00:19:20,926 --> 00:19:22,966
+state and we're going to disable
+
+
+710
+00:19:22,966 --> 00:19:24,256
+linear scrubbing here so that
+
+
+711
+00:19:24,256 --> 00:19:25,436
+our animator maintains its
+
+
+712
+00:19:25,496 --> 00:19:26,636
+pacing when we're driving it
+
+
+713
+00:19:26,636 --> 00:19:27,256
+interactively.
+
+
+714
+00:19:28,466 --> 00:19:29,416
+So, let's check this out again.
+
+
+715
+00:19:34,056 --> 00:19:34,396
+Much better.
+
+
+716
+00:19:34,846 --> 00:19:36,336
+It's really subtle, but it's
+
+
+717
+00:19:36,336 --> 00:19:37,286
+much better this time.
+
+
+718
+00:19:37,556 --> 00:19:39,216
+And let's also do that a little
+
+
+719
+00:19:39,216 --> 00:19:40,306
+bit more slowly so you can
+
+
+720
+00:19:40,306 --> 00:19:41,246
+really get a sense of what it
+
+
+721
+00:19:41,246 --> 00:19:41,626
+looks like.
+
+
+722
+00:19:47,056 --> 00:19:47,966
+And also, let's drive that
+
+
+723
+00:19:47,966 --> 00:19:48,856
+interactively so you can see
+
+
+724
+00:19:48,856 --> 00:19:49,996
+that it does indeed maintain its
+
+
+725
+00:19:50,036 --> 00:19:51,206
+pacing when you're driving it
+
+
+726
+00:19:51,206 --> 00:19:51,716
+interactively.
+
+
+727
+00:19:56,046 --> 00:19:57,666
+Cool, so now we have two
+
+
+728
+00:19:58,076 --> 00:19:59,546
+property animators with unique
+
+
+729
+00:19:59,546 --> 00:20:00,466
+timing characteristics
+
+
+730
+00:20:00,646 --> 00:20:01,626
+contributing to our overall
+
+
+731
+00:20:01,626 --> 00:20:02,166
+transition.
+
+
+732
+00:20:02,426 --> 00:20:04,006
+But let's make it a little bit
+
+
+733
+00:20:04,006 --> 00:20:04,666
+more interesting.
+
+
+734
+00:20:05,146 --> 00:20:06,526
+I'd now like to demonstrate a
+
+
+735
+00:20:06,526 --> 00:20:07,746
+technique I like to call view
+
+
+736
+00:20:07,746 --> 00:20:08,166
+morphing.
+
+
+737
+00:20:09,236 --> 00:20:10,926
+So, say that we have a label; in
+
+
+738
+00:20:10,926 --> 00:20:12,676
+this case we have a label.
+
+
+739
+00:20:12,676 --> 00:20:14,166
+It's blue, it's kind of small,
+
+
+740
+00:20:14,526 --> 00:20:16,096
+it's got a regular typeface and
+
+
+741
+00:20:16,096 --> 00:20:17,136
+let's say we want it to be a lot
+
+
+742
+00:20:17,136 --> 00:20:18,246
+bigger, maybe a different color,
+
+
+743
+00:20:18,246 --> 00:20:19,316
+maybe a heavier typeface.
+
+
+744
+00:20:19,986 --> 00:20:21,286
+What would that transition look
+
+
+745
+00:20:21,806 --> 00:20:21,906
+like?
+
+
+746
+00:20:22,556 --> 00:20:24,736
+Well this is what I call view
+
+
+747
+00:20:24,736 --> 00:20:26,036
+morphing, it's the scaling
+
+
+748
+00:20:26,036 --> 00:20:27,766
+translation and opacity blending
+
+
+749
+00:20:27,796 --> 00:20:28,586
+of two views.
+
+
+750
+00:20:29,326 --> 00:20:30,356
+So, in this case, we're going to
+
+
+751
+00:20:30,356 --> 00:20:32,016
+use UILabels, but this technique
+
+
+752
+00:20:32,016 --> 00:20:33,486
+is generally applicable to any
+
+
+753
+00:20:33,486 --> 00:20:35,006
+view or view hierarchy; not just
+
+
+754
+00:20:35,006 --> 00:20:35,386
+labels.
+
+
+755
+00:20:37,116 --> 00:20:38,546
+So, [inaudible] we're going to
+
+
+756
+00:20:38,546 --> 00:20:39,496
+take our comments label and
+
+
+757
+00:20:39,496 --> 00:20:40,656
+we're going to make it blue and
+
+
+758
+00:20:40,656 --> 00:20:41,796
+when it expands we're going to
+
+
+759
+00:20:41,796 --> 00:20:42,796
+want it to look like this.
+
+
+760
+00:20:43,066 --> 00:20:44,466
+And notice it's much darker, but
+
+
+761
+00:20:44,466 --> 00:20:45,946
+it's also slightly inset from
+
+
+762
+00:20:45,946 --> 00:20:47,066
+the top of its parent view.
+
+
+763
+00:20:48,476 --> 00:20:49,906
+And the way that we're going to
+
+
+764
+00:20:49,906 --> 00:20:50,976
+animate that is like this.
+
+
+765
+00:20:59,376 --> 00:21:00,406
+So, how are we going to build
+
+
+766
+00:21:00,406 --> 00:21:00,496
+this?
+
+
+767
+00:21:00,976 --> 00:21:02,316
+Well, UILabels don't expose any
+
+
+768
+00:21:02,316 --> 00:21:03,656
+animatable properties, but
+
+
+769
+00:21:03,656 --> 00:21:04,556
+that's okay because as I
+
+
+770
+00:21:04,556 --> 00:21:05,546
+mentioned, this is generally
+
+
+771
+00:21:05,546 --> 00:21:06,516
+application to any view or view
+
+
+772
+00:21:06,516 --> 00:21:07,556
+hierarchy, not just labels.
+
+
+773
+00:21:07,726 --> 00:21:10,406
+What we're going to do is use
+
+
+774
+00:21:10,406 --> 00:21:11,596
+UIView's oft overlooked
+
+
+775
+00:21:11,666 --> 00:21:13,526
+transform property and we're
+
+
+776
+00:21:13,526 --> 00:21:14,726
+going to compute the scale and
+
+
+777
+00:21:14,726 --> 00:21:16,246
+translation for both of our
+
+
+778
+00:21:16,246 --> 00:21:17,906
+labels so that we can blend them
+
+
+779
+00:21:17,906 --> 00:21:18,576
+into each other.
+
+
+780
+00:21:19,186 --> 00:21:20,766
+And we're also going to animate
+
+
+781
+00:21:20,766 --> 00:21:21,966
+their opacities so that we can
+
+
+782
+00:21:21,966 --> 00:21:22,866
+blend them together.
+
+
+783
+00:21:22,866 --> 00:21:25,536
+So, first thing we're going to
+
+
+784
+00:21:25,536 --> 00:21:26,626
+do is compute the scale.
+
+
+785
+00:21:27,086 --> 00:21:29,296
+It turns out this is really easy
+
+
+786
+00:21:29,296 --> 00:21:30,566
+to do, it's just a simple
+
+
+787
+00:21:30,566 --> 00:21:31,936
+dimensional ratio based on the
+
+
+788
+00:21:31,936 --> 00:21:32,836
+target dimension and your
+
+
+789
+00:21:32,836 --> 00:21:33,546
+current dimension.
+
+
+790
+00:21:33,546 --> 00:21:35,456
+And, in fact, once you computed
+
+
+791
+00:21:35,456 --> 00:21:36,976
+one of these you basically get
+
+
+792
+00:21:36,976 --> 00:21:38,136
+the other one for free by taking
+
+
+793
+00:21:38,136 --> 00:21:38,746
+the inverse.
+
+
+794
+00:21:38,746 --> 00:21:42,036
+Now computing translations is a
+
+
+795
+00:21:42,036 --> 00:21:43,576
+little bit more interesting and
+
+
+796
+00:21:43,576 --> 00:21:45,536
+this is because we're animating
+
+
+797
+00:21:45,536 --> 00:21:46,556
+our scale, which is going to
+
+
+798
+00:21:46,556 --> 00:21:47,636
+affect our bounds during the
+
+
+799
+00:21:47,636 --> 00:21:49,456
+transition, so we can't just
+
+
+800
+00:21:49,456 --> 00:21:50,796
+simply take the Y offsets.
+
+
+801
+00:21:50,796 --> 00:21:54,086
+What we can do is pre-apply that
+
+
+802
+00:21:54,086 --> 00:21:55,746
+scale of transform in order to
+
+
+803
+00:21:55,746 --> 00:21:57,406
+obtain a new value for our Y
+
+
+804
+00:21:57,406 --> 00:21:58,496
+offsets and we could use that
+
+
+805
+00:21:58,496 --> 00:21:59,256
+for our translation.
+
+
+806
+00:22:00,936 --> 00:22:01,876
+And now we're going to drive
+
+
+807
+00:22:01,876 --> 00:22:03,806
+this using three animators, a
+
+
+808
+00:22:03,806 --> 00:22:05,296
+critically damped spring to
+
+
+809
+00:22:05,296 --> 00:22:06,516
+drive our transform so that it
+
+
+810
+00:22:06,516 --> 00:22:08,136
+follows the overall path of the
+
+
+811
+00:22:08,136 --> 00:22:10,166
+transition and then ease in and
+
+
+812
+00:22:10,166 --> 00:22:11,656
+ease out animators to perform
+
+
+813
+00:22:11,656 --> 00:22:13,236
+the opacity blending, both of
+
+
+814
+00:22:13,236 --> 00:22:14,416
+which are going to scrub
+
+
+815
+00:22:14,416 --> 00:22:15,086
+nonlinearly.
+
+
+816
+00:22:15,656 --> 00:22:17,916
+And here's the code for this and
+
+
+817
+00:22:17,916 --> 00:22:19,336
+I've also omitted some of the
+
+
+818
+00:22:19,336 --> 00:22:20,246
+repetitive bits.
+
+
+819
+00:22:20,596 --> 00:22:21,726
+So, we created transform
+
+
+820
+00:22:21,726 --> 00:22:22,636
+animator, we animate the
+
+
+821
+00:22:22,636 --> 00:22:23,926
+transform of our labels.
+
+
+822
+00:22:24,396 --> 00:22:25,676
+The incoming label is getting
+
+
+823
+00:22:25,676 --> 00:22:27,396
+the identity transform and
+
+
+824
+00:22:27,396 --> 00:22:28,726
+that's because it's already been
+
+
+825
+00:22:28,726 --> 00:22:30,346
+pre-scaled and translated down
+
+
+826
+00:22:30,626 --> 00:22:32,366
+to match the bounds of the
+
+
+827
+00:22:32,426 --> 00:22:33,116
+outgoing label.
+
+
+828
+00:22:33,976 --> 00:22:35,116
+And the outgoing label is going
+
+
+829
+00:22:35,116 --> 00:22:36,086
+to get transformed such that it
+
+
+830
+00:22:36,086 --> 00:22:37,506
+matches the bounds of the
+
+
+831
+00:22:37,506 --> 00:22:39,096
+incoming label prior to it being
+
+
+832
+00:22:39,096 --> 00:22:39,496
+animated.
+
+
+833
+00:22:39,496 --> 00:22:42,086
+And then we create two property
+
+
+834
+00:22:42,086 --> 00:22:43,306
+animators here to blend our
+
+
+835
+00:22:43,306 --> 00:22:44,616
+alphas, we disable linear
+
+
+836
+00:22:44,616 --> 00:22:45,716
+scrubbing here so they maintain
+
+
+837
+00:22:45,716 --> 00:22:48,046
+their pacing and let's see what
+
+
+838
+00:22:48,046 --> 00:22:50,646
+that gets us.
+
+
+839
+00:22:51,256 --> 00:22:53,526
+So again, non-interactively we
+
+
+840
+00:22:53,526 --> 00:22:55,936
+can animate this transition, but
+
+
+841
+00:22:57,266 --> 00:22:58,686
+we can also interactively
+
+
+842
+00:22:58,686 --> 00:23:00,036
+animate it and it looks great.
+
+
+843
+00:23:02,666 --> 00:23:04,056
+And we can even animate it and
+
+
+844
+00:23:04,056 --> 00:23:05,606
+then interrupt it and it just
+
+
+845
+00:23:05,676 --> 00:23:06,126
+works.
+
+
+846
+00:23:07,706 --> 00:23:09,976
+What I think is really cool --
+
+
+847
+00:23:10,516 --> 00:23:15,606
+[ Applause ]
+
+
+848
+00:23:16,106 --> 00:23:16,676
+What I think is really cool
+
+
+849
+00:23:16,676 --> 00:23:18,436
+about this is we now have one
+
+
+850
+00:23:18,436 --> 00:23:20,056
+cohesive animated transition
+
+
+851
+00:23:20,056 --> 00:23:21,486
+that's being driven by six
+
+
+852
+00:23:21,636 --> 00:23:22,986
+different property animators,
+
+
+853
+00:23:23,416 --> 00:23:24,586
+five of which have their own
+
+
+854
+00:23:24,766 --> 00:23:25,716
+timing characteristics.
+
+
+855
+00:23:26,576 --> 00:23:27,926
+Now being able to do this prior
+
+
+856
+00:23:27,926 --> 00:23:29,466
+to property animators required a
+
+
+857
+00:23:29,626 --> 00:23:31,516
+ton of code and complexity, but
+
+
+858
+00:23:31,516 --> 00:23:32,606
+now with this infrastructure
+
+
+859
+00:23:32,606 --> 00:23:34,346
+we've set up we can use property
+
+
+860
+00:23:34,346 --> 00:23:35,526
+animators to easily achieve
+
+
+861
+00:23:35,526 --> 00:23:37,146
+these effects just by declaring
+
+
+862
+00:23:37,146 --> 00:23:38,406
+our timing characteristics and
+
+
+863
+00:23:38,406 --> 00:23:39,296
+scrubbing behaviors.
+
+
+864
+00:23:41,626 --> 00:23:42,526
+So that's how to coordinate
+
+
+865
+00:23:42,526 --> 00:23:43,146
+animations.
+
+
+866
+00:23:44,066 --> 00:23:45,226
+Now let's talk about some tips
+
+
+867
+00:23:45,226 --> 00:23:46,216
+and tricks and some additional
+
+
+868
+00:23:46,216 --> 00:23:47,616
+techniques that you can use when
+
+
+869
+00:23:47,616 --> 00:23:48,616
+you're creating animations for
+
+
+870
+00:23:48,616 --> 00:23:49,066
+users.
+
+
+871
+00:23:51,006 --> 00:23:52,346
+So, is there anyone out there
+
+
+872
+00:23:52,346 --> 00:23:53,516
+that's ever tried to animate a
+
+
+873
+00:23:53,516 --> 00:23:54,336
+corner radius before?
+
+
+874
+00:23:55,356 --> 00:23:56,566
+I imagine maybe a few of you.
+
+
+875
+00:23:57,756 --> 00:23:59,356
+So, to do this you pretty much
+
+
+876
+00:23:59,356 --> 00:24:00,606
+have to manually set your corner
+
+
+877
+00:24:00,606 --> 00:24:01,786
+radius or if you want to animate
+
+
+878
+00:24:01,786 --> 00:24:03,356
+it you have to create a CA basic
+
+
+879
+00:24:03,356 --> 00:24:04,496
+animation and set its to and
+
+
+880
+00:24:04,496 --> 00:24:05,046
+from values.
+
+
+881
+00:24:05,446 --> 00:24:08,626
+What we'd like to do is animate
+
+
+882
+00:24:08,626 --> 00:24:10,066
+our corner radius such that it's
+
+
+883
+00:24:10,066 --> 00:24:10,806
+interactive.
+
+
+884
+00:24:12,236 --> 00:24:14,846
+So, how are we going to do this?
+
+
+885
+00:24:16,136 --> 00:24:17,056
+Well I'm really happy to let you
+
+
+886
+00:24:17,056 --> 00:24:18,506
+guys know that corner radius is
+
+
+887
+00:24:18,506 --> 00:24:20,406
+now a fully animatable property
+
+
+888
+00:24:20,506 --> 00:24:20,936
+in UIKit.
+
+
+889
+00:24:21,516 --> 00:24:27,566
+[ Applause ]
+
+
+890
+00:24:28,066 --> 00:24:29,236
+Now because UIView doesn't
+
+
+891
+00:24:29,236 --> 00:24:30,356
+expose the corner radius
+
+
+892
+00:24:30,406 --> 00:24:31,776
+property you actually have to
+
+
+893
+00:24:31,776 --> 00:24:33,216
+reach into your views backing
+
+
+894
+00:24:33,216 --> 00:24:34,506
+layer to modify the corner
+
+
+895
+00:24:34,506 --> 00:24:35,896
+radius, but as long as you do
+
+
+896
+00:24:35,896 --> 00:24:37,216
+that within an animation block
+
+
+897
+00:24:37,216 --> 00:24:38,496
+we're going to implicitly create
+
+
+898
+00:24:38,496 --> 00:24:39,946
+that animation for you and it'll
+
+
+899
+00:24:39,946 --> 00:24:40,906
+be fully trackable and
+
+
+900
+00:24:40,906 --> 00:24:41,336
+scrubbable.
+
+
+901
+00:24:41,916 --> 00:24:43,106
+In fact, you can even do this
+
+
+902
+00:24:43,106 --> 00:24:44,476
+from the UIView animate method.
+
+
+903
+00:24:45,926 --> 00:24:46,746
+So that takes care of our
+
+
+904
+00:24:46,746 --> 00:24:47,746
+interactive corner radius
+
+
+905
+00:24:47,746 --> 00:24:48,296
+animation.
+
+
+906
+00:24:48,296 --> 00:24:50,006
+Now what about these two guys,
+
+
+907
+00:24:50,816 --> 00:24:52,066
+we only want to animate the top
+
+
+908
+00:24:52,066 --> 00:24:53,526
+left and right corners, so how
+
+
+909
+00:24:53,526 --> 00:24:54,186
+do we do that?
+
+
+910
+00:24:55,786 --> 00:24:56,756
+Well I'm also happy to let you
+
+
+911
+00:24:56,756 --> 00:24:57,916
+guys know we're adding a new
+
+
+912
+00:24:57,916 --> 00:24:59,506
+property to CALayer, which is
+
+
+913
+00:24:59,506 --> 00:24:59,976
+maskedCorners.
+
+
+914
+00:25:00,516 --> 00:25:05,556
+[ Applause ]
+
+
+915
+00:25:06,056 --> 00:25:06,626
+Now this allows us to
+
+
+916
+00:25:06,626 --> 00:25:07,796
+selectively choose which corners
+
+
+917
+00:25:07,796 --> 00:25:08,926
+we want to apply our corner
+
+
+918
+00:25:08,926 --> 00:25:10,356
+radius mask to, which in our
+
+
+919
+00:25:10,356 --> 00:25:11,746
+case is going to be the top left
+
+
+920
+00:25:11,746 --> 00:25:12,746
+and top right corners.
+
+
+921
+00:25:14,906 --> 00:25:16,296
+And now finally, here's the code
+
+
+922
+00:25:16,296 --> 00:25:17,626
+to do this again, omitting some
+
+
+923
+00:25:17,626 --> 00:25:18,486
+of the repetitive bits.
+
+
+924
+00:25:18,796 --> 00:25:20,416
+So, we're just creating a new
+
+
+925
+00:25:20,416 --> 00:25:21,336
+animator here, we're going to
+
+
+926
+00:25:21,336 --> 00:25:22,526
+use a linear timing function and
+
+
+927
+00:25:22,526 --> 00:25:23,606
+we're going to perform our
+
+
+928
+00:25:23,606 --> 00:25:25,246
+corner radius animations and
+
+
+929
+00:25:25,246 --> 00:25:26,156
+that's pretty much all we need
+
+
+930
+00:25:26,256 --> 00:25:28,076
+to and that gives us the
+
+
+931
+00:25:28,076 --> 00:25:28,956
+following animation.
+
+
+932
+00:25:34,076 --> 00:25:35,156
+And it's subtle, but we are
+
+
+933
+00:25:35,156 --> 00:25:36,606
+indeed interactively scrubbing
+
+
+934
+00:25:36,606 --> 00:25:37,756
+the corner radius there, which
+
+
+935
+00:25:37,756 --> 00:25:38,000
+is cool.
+
+
+936
+00:25:42,436 --> 00:25:44,576
+Now if there's one underlying
+
+
+937
+00:25:44,576 --> 00:25:46,776
+message thus far it's that it's
+
+
+938
+00:25:46,876 --> 00:25:48,456
+really important for all your
+
+
+939
+00:25:48,456 --> 00:25:50,076
+animators to share the same unit
+
+
+940
+00:25:50,076 --> 00:25:50,576
+duration.
+
+
+941
+00:25:51,146 --> 00:25:52,466
+This makes scrubbing them really
+
+
+942
+00:25:52,546 --> 00:25:54,046
+easy and it makes it possible to
+
+
+943
+00:25:54,046 --> 00:25:55,206
+uniformly scrub them.
+
+
+944
+00:25:56,626 --> 00:25:58,406
+But, you know, sometimes it's
+
+
+945
+00:25:58,406 --> 00:25:59,266
+kind of useful to have an
+
+
+946
+00:25:59,266 --> 00:26:00,646
+animation that finishes a little
+
+
+947
+00:26:00,646 --> 00:26:02,156
+early or one that maybe starts
+
+
+948
+00:26:02,156 --> 00:26:02,726
+with a delay.
+
+
+949
+00:26:03,756 --> 00:26:06,656
+And an example this could be in
+
+
+950
+00:26:06,656 --> 00:26:08,396
+the following animation where if
+
+
+951
+00:26:08,396 --> 00:26:09,576
+you notice the Details button
+
+
+952
+00:26:09,576 --> 00:26:10,806
+here it animates in about
+
+
+953
+00:26:10,806 --> 00:26:12,796
+halfway through is when it
+
+
+954
+00:26:12,796 --> 00:26:13,236
+starts.
+
+
+955
+00:26:13,626 --> 00:26:14,976
+And it's fully animated out
+
+
+956
+00:26:14,976 --> 00:26:16,336
+around that same halfway point.
+
+
+957
+00:26:17,646 --> 00:26:19,416
+And if we try this interactively
+
+
+958
+00:26:19,416 --> 00:26:21,106
+you can really see it, so it
+
+
+959
+00:26:21,106 --> 00:26:22,316
+just starts animating at this
+
+
+960
+00:26:22,316 --> 00:26:25,496
+point and it's fully animated
+
+
+961
+00:26:25,496 --> 00:26:26,616
+out right around there.
+
+
+962
+00:26:27,696 --> 00:26:29,466
+And if you look across UIKit you
+
+
+963
+00:26:29,466 --> 00:26:30,926
+can actually see a lot of places
+
+
+964
+00:26:30,926 --> 00:26:31,746
+where we do this.
+
+
+965
+00:26:31,986 --> 00:26:34,116
+In fact, UINavigationBar since
+
+
+966
+00:26:34,216 --> 00:26:36,066
+iOS 7 has had this effect when
+
+
+967
+00:26:36,066 --> 00:26:37,626
+you drive that animation
+
+
+968
+00:26:37,626 --> 00:26:38,266
+interactively.
+
+
+969
+00:26:40,116 --> 00:26:41,676
+So, we could create an animator
+
+
+970
+00:26:41,676 --> 00:26:43,236
+with reduced duration or we
+
+
+971
+00:26:43,236 --> 00:26:44,466
+could use a delay factor here,
+
+
+972
+00:26:44,846 --> 00:26:45,566
+but that's really going to
+
+
+973
+00:26:45,566 --> 00:26:46,786
+complicate our scrubbing code.
+
+
+974
+00:26:47,176 --> 00:26:48,666
+It turns out there's a much more
+
+
+975
+00:26:48,666 --> 00:26:49,856
+elegant solution here and that
+
+
+976
+00:26:49,856 --> 00:26:51,706
+is using keyframe animations.
+
+
+977
+00:26:52,776 --> 00:26:54,226
+So, if we look at the UIView
+
+
+978
+00:26:54,226 --> 00:26:55,436
+headers we see the following two
+
+
+979
+00:26:55,436 --> 00:26:56,256
+keyframe methods.
+
+
+980
+00:26:56,956 --> 00:26:57,776
+And I'd like to draw your
+
+
+981
+00:26:57,776 --> 00:26:59,336
+attention to RelativeStartTime
+
+
+982
+00:26:59,336 --> 00:27:00,506
+and RelativeDuration.
+
+
+983
+00:27:01,146 --> 00:27:02,096
+So, in order to create this
+
+
+984
+00:27:02,096 --> 00:27:04,546
+effect, we perform a keyframe
+
+
+985
+00:27:04,546 --> 00:27:06,166
+animation inside of our property
+
+
+986
+00:27:06,166 --> 00:27:07,956
+animator, so we call
+
+
+987
+00:27:07,956 --> 00:27:09,786
+UIView.animateKeyframes with a
+
+
+988
+00:27:09,786 --> 00:27:11,206
+relative duration of zero.
+
+
+989
+00:27:11,726 --> 00:27:12,866
+And what this means is our
+
+
+990
+00:27:12,866 --> 00:27:14,356
+keyframe animation will inherit
+
+
+991
+00:27:14,516 --> 00:27:15,696
+the duration of its outer
+
+
+992
+00:27:15,696 --> 00:27:17,726
+property animator and in fact,
+
+
+993
+00:27:17,886 --> 00:27:19,516
+if you nest animations like this
+
+
+994
+00:27:19,786 --> 00:27:20,806
+you'll get this inheritance
+
+
+995
+00:27:20,806 --> 00:27:21,776
+behavior for free.
+
+
+996
+00:27:21,856 --> 00:27:22,936
+So, this can be really useful if
+
+
+997
+00:27:22,936 --> 00:27:23,856
+you're not using property
+
+
+998
+00:27:23,856 --> 00:27:24,376
+animators.
+
+
+999
+00:27:26,276 --> 00:27:27,826
+Now when we expand our comments
+
+
+1000
+00:27:27,826 --> 00:27:28,976
+view we want that animation to
+
+
+1001
+00:27:28,976 --> 00:27:29,976
+start late so we're going to use
+
+
+1002
+00:27:29,976 --> 00:27:31,996
+a relative start time of 0.5 and
+
+
+1003
+00:27:32,346 --> 00:27:33,286
+we're going to compensate for
+
+
+1004
+00:27:33,286 --> 00:27:34,136
+that by using a relative
+
+
+1005
+00:27:34,136 --> 00:27:35,346
+duration of 0.5.
+
+
+1006
+00:27:35,926 --> 00:27:37,556
+And when we collapse it we're
+
+
+1007
+00:27:37,556 --> 00:27:38,426
+going to use a relative start
+
+
+1008
+00:27:38,426 --> 00:27:39,596
+time of zero because we want it
+
+
+1009
+00:27:39,596 --> 00:27:41,306
+to immediately begin or we use a
+
+
+1010
+00:27:41,306 --> 00:27:43,966
+relative duration of 0.5 so that
+
+
+1011
+00:27:43,966 --> 00:27:44,786
+it finishes early.
+
+
+1012
+00:27:45,706 --> 00:27:46,406
+And I'd like to draw your
+
+
+1013
+00:27:46,406 --> 00:27:47,416
+attention to these two
+
+
+1014
+00:27:47,416 --> 00:27:48,176
+parameters here.
+
+
+1015
+00:27:48,786 --> 00:27:49,786
+So, you don't have to use a
+
+
+1016
+00:27:49,786 --> 00:27:50,986
+linear timing function for your
+
+
+1017
+00:27:50,986 --> 00:27:52,796
+keyframe animations you can use
+
+
+1018
+00:27:52,976 --> 00:27:54,526
+any timing function you want,
+
+
+1019
+00:27:54,666 --> 00:27:56,176
+including your own custom timing
+
+
+1020
+00:27:56,176 --> 00:27:56,646
+functions.
+
+
+1021
+00:27:57,216 --> 00:27:58,186
+And if you have multiple
+
+
+1022
+00:27:58,186 --> 00:27:59,626
+keyframes here, which we don't,
+
+
+1023
+00:28:00,076 --> 00:28:01,406
+you could actually interpolate
+
+
+1024
+00:28:01,446 --> 00:28:02,896
+them using the options parameter
+
+
+1025
+00:28:03,986 --> 00:28:05,236
+or control the way that they're
+
+
+1026
+00:28:05,236 --> 00:28:06,466
+interpolated using the options
+
+
+1027
+00:28:06,466 --> 00:28:06,816
+parameter.
+
+
+1028
+00:28:06,816 --> 00:28:12,486
+Now lastly, I'd like to talk a
+
+
+1029
+00:28:12,486 --> 00:28:14,036
+little bit about additive
+
+
+1030
+00:28:14,036 --> 00:28:14,546
+animations.
+
+
+1031
+00:28:16,416 --> 00:28:17,456
+So, additive animations are
+
+
+1032
+00:28:17,456 --> 00:28:19,436
+really powerful and I find them
+
+
+1033
+00:28:19,436 --> 00:28:20,656
+really interesting because they
+
+
+1034
+00:28:20,656 --> 00:28:23,226
+allow us to modify or to animate
+
+
+1035
+00:28:23,226 --> 00:28:25,196
+a single property of a view with
+
+
+1036
+00:28:25,196 --> 00:28:26,856
+multiple simultaneously running
+
+
+1037
+00:28:26,956 --> 00:28:27,476
+animations.
+
+
+1038
+00:28:28,476 --> 00:28:31,266
+Now for this demonstration the
+
+
+1039
+00:28:32,236 --> 00:28:34,626
+sort of point of it is that I'd
+
+
+1040
+00:28:34,696 --> 00:28:36,066
+like to demonstrate how to think
+
+
+1041
+00:28:36,066 --> 00:28:37,346
+a little bit more additively
+
+
+1042
+00:28:37,416 --> 00:28:38,396
+when we're designing and
+
+
+1043
+00:28:38,396 --> 00:28:39,316
+building our animations.
+
+
+1044
+00:28:39,826 --> 00:28:40,496
+So, let's say that we have a
+
+
+1045
+00:28:40,496 --> 00:28:41,986
+square and let's say that we'd
+
+
+1046
+00:28:41,986 --> 00:28:43,756
+like to animate it by 360
+
+
+1047
+00:28:43,756 --> 00:28:44,746
+degrees times 10.
+
+
+1048
+00:28:45,136 --> 00:28:45,946
+That animation might look
+
+
+1049
+00:28:45,946 --> 00:28:46,756
+something like this.
+
+
+1050
+00:28:50,706 --> 00:28:51,706
+Now you might be thinking well
+
+
+1051
+00:28:51,706 --> 00:28:53,646
+that's just as easy as animating
+
+
+1052
+00:28:53,646 --> 00:28:56,136
+the transform our view and you
+
+
+1053
+00:28:56,136 --> 00:28:57,216
+wouldn't actually be wrong.
+
+
+1054
+00:28:58,396 --> 00:28:59,876
+But code such as this, which is
+
+
+1055
+00:28:59,876 --> 00:29:01,336
+animating our view by 20 pi
+
+
+1056
+00:29:01,336 --> 00:29:03,446
+radians, does not produce that
+
+
+1057
+00:29:03,446 --> 00:29:03,916
+animation.
+
+
+1058
+00:29:04,926 --> 00:29:06,336
+It actually produces this
+
+
+1059
+00:29:06,336 --> 00:29:06,766
+animation.
+
+
+1060
+00:29:07,306 --> 00:29:10,676
+Did you see it?
+
+
+1061
+00:29:10,676 --> 00:29:14,886
+Well, it actually didn't animate
+
+
+1062
+00:29:15,006 --> 00:29:16,346
+and there's a really good reason
+
+
+1063
+00:29:16,346 --> 00:29:16,696
+for that.
+
+
+1064
+00:29:17,666 --> 00:29:18,896
+That's because Core Animation
+
+
+1065
+00:29:18,966 --> 00:29:20,186
+only cares about the total
+
+
+1066
+00:29:20,186 --> 00:29:21,026
+displacement when you're
+
+
+1067
+00:29:21,026 --> 00:29:22,256
+animating the transform of your
+
+
+1068
+00:29:22,256 --> 00:29:22,476
+view.
+
+
+1069
+00:29:23,266 --> 00:29:24,996
+So, in this case, the target
+
+
+1070
+00:29:24,996 --> 00:29:26,656
+rotational value, which is 20 pi
+
+
+1071
+00:29:26,656 --> 00:29:28,406
+radians, is the same orientation
+
+
+1072
+00:29:28,406 --> 00:29:30,206
+as the current rotational value.
+
+
+1073
+00:29:30,886 --> 00:29:32,096
+So, the total displacement there
+
+
+1074
+00:29:32,096 --> 00:29:33,106
+is actually zero.
+
+
+1075
+00:29:34,496 --> 00:29:35,916
+Now Core Animation will actually
+
+
+1076
+00:29:36,126 --> 00:29:37,306
+produce an animation for you,
+
+
+1077
+00:29:37,476 --> 00:29:38,726
+but it's to and from values are
+
+
+1078
+00:29:38,726 --> 00:29:39,616
+going to be the same.
+
+
+1079
+00:29:40,736 --> 00:29:42,106
+And you know a similar problem
+
+
+1080
+00:29:42,106 --> 00:29:43,786
+exists if you try to rotate a
+
+
+1081
+00:29:43,786 --> 00:29:44,986
+view by 180 degrees
+
+
+1082
+00:29:45,046 --> 00:29:46,986
+counterclockwise by specifying
+
+
+1083
+00:29:46,986 --> 00:29:48,046
+negative pi radians.
+
+
+1084
+00:29:49,066 --> 00:29:50,566
+And that's because Core
+
+
+1085
+00:29:50,566 --> 00:29:52,086
+Animation because it only cares
+
+
+1086
+00:29:52,086 --> 00:29:53,866
+about total displacement is
+
+
+1087
+00:29:53,866 --> 00:29:54,896
+going to look for the shortest
+
+
+1088
+00:29:55,256 --> 00:29:56,246
+path, which when ambiguous,
+
+
+1089
+00:29:56,246 --> 00:29:57,556
+which it is here, will be
+
+
+1090
+00:29:57,726 --> 00:29:58,296
+clockwise.
+
+
+1091
+00:29:58,296 --> 00:30:00,976
+So, how do we do this?
+
+
+1092
+00:30:01,086 --> 00:30:03,266
+Well we could drop down a core
+
+
+1093
+00:30:03,266 --> 00:30:04,596
+animation and create our own CA
+
+
+1094
+00:30:04,596 --> 00:30:06,486
+basic animation and manually set
+
+
+1095
+00:30:06,486 --> 00:30:07,566
+our to and from values and
+
+
+1096
+00:30:07,566 --> 00:30:08,576
+that's perfectly fine and would
+
+
+1097
+00:30:08,576 --> 00:30:08,826
+work.
+
+
+1098
+00:30:09,436 --> 00:30:11,606
+But we wouldn't get the tracking
+
+
+1099
+00:30:11,606 --> 00:30:12,576
+and scrubbing behavior from
+
+
+1100
+00:30:12,576 --> 00:30:13,496
+property animators.
+
+
+1101
+00:30:14,136 --> 00:30:15,336
+And it also would make this
+
+
+1102
+00:30:15,406 --> 00:30:16,836
+example much less interesting.
+
+
+1103
+00:30:18,336 --> 00:30:20,216
+What we could do is we could
+
+
+1104
+00:30:20,386 --> 00:30:21,996
+decompose this into several
+
+
+1105
+00:30:21,996 --> 00:30:23,786
+smaller additive rotational
+
+
+1106
+00:30:23,826 --> 00:30:25,446
+animations and animate them all
+
+
+1107
+00:30:25,446 --> 00:30:26,656
+together to create our desired
+
+
+1108
+00:30:26,656 --> 00:30:27,006
+effect.
+
+
+1109
+00:30:27,976 --> 00:30:30,166
+So, it turns out transform is an
+
+
+1110
+00:30:30,166 --> 00:30:31,506
+additively animatable property
+
+
+1111
+00:30:32,036 --> 00:30:33,536
+as long as it's affine along
+
+
+1112
+00:30:33,536 --> 00:30:35,236
+with frame, bound, center, and
+
+
+1113
+00:30:35,236 --> 00:30:35,646
+position.
+
+
+1114
+00:30:37,596 --> 00:30:39,456
+So, in our solution we're
+
+
+1115
+00:30:39,456 --> 00:30:40,896
+actually going to create 20
+
+
+1116
+00:30:41,266 --> 00:30:43,816
+animations altogether and each
+
+
+1117
+00:30:43,816 --> 00:30:44,956
+animation is going to animate
+
+
+1118
+00:30:45,026 --> 00:30:47,356
+for 180 degrees and altogether
+
+
+1119
+00:30:47,356 --> 00:30:49,176
+they're going to contribute to
+
+
+1120
+00:30:49,176 --> 00:30:50,166
+this following animation.
+
+
+1121
+00:30:51,886 --> 00:30:53,136
+Now what's kind of cool is we
+
+
+1122
+00:30:53,136 --> 00:30:55,056
+actually have 20 animations
+
+
+1123
+00:30:55,196 --> 00:30:56,606
+running simultaneously here.
+
+
+1124
+00:30:57,586 --> 00:30:58,756
+And I'm not suggesting that this
+
+
+1125
+00:30:58,756 --> 00:31:02,826
+is a good idea generally, but it
+
+
+1126
+00:31:02,916 --> 00:31:04,296
+does help us think a little bit
+
+
+1127
+00:31:04,296 --> 00:31:06,146
+more additively when we're
+
+
+1128
+00:31:06,496 --> 00:31:07,936
+designing and composing and
+
+
+1129
+00:31:07,936 --> 00:31:08,996
+creating our animations.
+
+
+1130
+00:31:09,046 --> 00:31:10,546
+So, the point of this is to
+
+
+1131
+00:31:10,816 --> 00:31:12,446
+consider how you can chain many
+
+
+1132
+00:31:12,446 --> 00:31:14,806
+animations together or compose
+
+
+1133
+00:31:14,806 --> 00:31:16,256
+together to create interesting
+
+
+1134
+00:31:16,256 --> 00:31:16,906
+transitions.
+
+
+1135
+00:31:18,616 --> 00:31:21,296
+So today, we learned about how
+
+
+1136
+00:31:21,296 --> 00:31:22,316
+to make animations fully
+
+
+1137
+00:31:22,316 --> 00:31:23,596
+interactive and interruptible
+
+
+1138
+00:31:23,596 --> 00:31:24,746
+using some modern techniques.
+
+
+1139
+00:31:25,696 --> 00:31:26,746
+We also talked about how to
+
+
+1140
+00:31:26,746 --> 00:31:28,166
+coordinate several animations
+
+
+1141
+00:31:28,166 --> 00:31:29,816
+together that all have unique
+
+
+1142
+00:31:29,916 --> 00:31:30,696
+timing functions.
+
+
+1143
+00:31:31,446 --> 00:31:33,226
+And we looked at some techniques
+
+
+1144
+00:31:33,226 --> 00:31:34,756
+in order to help us create some
+
+
+1145
+00:31:34,756 --> 00:31:36,066
+really awesome animations for
+
+
+1146
+00:31:36,066 --> 00:31:36,546
+our users.
+
+
+1147
+00:31:37,266 --> 00:31:38,716
+It is my hope that you walk away
+
+
+1148
+00:31:38,716 --> 00:31:40,846
+from this presentation and
+
+
+1149
+00:31:41,046 --> 00:31:42,136
+consider making more of your
+
+
+1150
+00:31:42,136 --> 00:31:43,356
+animated transitions fully
+
+
+1151
+00:31:43,356 --> 00:31:44,606
+interactive and interruptible.
+
+
+1152
+00:31:45,186 --> 00:31:47,196
+So, we have a few related
+
+
+1153
+00:31:47,196 --> 00:31:47,696
+sessions.
+
+
+1154
+00:31:47,936 --> 00:31:49,386
+If you've missed any of these I
+
+
+1155
+00:31:49,386 --> 00:31:50,276
+encourage you to watch them
+
+
+1156
+00:31:50,276 --> 00:31:52,726
+online and there are a few
+
+
+1157
+00:31:52,726 --> 00:31:54,296
+interesting sessions from prior
+
+
+1158
+00:31:54,296 --> 00:31:54,796
+years.
+
+
+1159
+00:31:55,066 --> 00:31:56,046
+So, if you're interested in
+
+
+1160
+00:31:56,046 --> 00:31:57,536
+animations, I highly encourage
+
+
+1161
+00:31:57,536 --> 00:31:58,366
+you to check these out,
+
+
+1162
+00:31:58,806 --> 00:32:00,076
+especially last year's session
+
+
+1163
+00:32:00,076 --> 00:32:00,806
+where we introduced
+
+
+1164
+00:32:00,806 --> 00:32:01,926
+UIViewPropertyAnimator.
+
+
+1165
+00:32:02,766 --> 00:32:04,006
+For more information, please
+
+
+1166
+00:32:04,006 --> 00:32:05,136
+feel free to visit the following
+
+
+1167
+00:32:05,136 --> 00:32:07,766
+URL and thank you all very much.
+
+
+1168
+00:32:08,516 --> 00:32:12,830
+[ Applause ]
+

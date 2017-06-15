@@ -1,0 +1,8219 @@
+1
+00:00:27,686 --> 00:00:29,246
+>> Good morning, everyone, and
+
+
+2
+00:00:29,246 --> 00:00:30,806
+welcome to the SceneKit, What's
+
+
+3
+00:00:30,806 --> 00:00:31,586
+New session.
+
+
+4
+00:00:31,896 --> 00:00:34,456
+As you already know, SceneKit is
+
+
+5
+00:00:34,456 --> 00:00:36,736
+Apple's high-level API for 3D.
+
+
+6
+00:00:37,006 --> 00:00:38,816
+It's built on top of Metal and
+
+
+7
+00:00:38,816 --> 00:00:40,506
+it's available on all our
+
+
+8
+00:00:40,506 --> 00:00:41,056
+platforms.
+
+
+9
+00:00:41,746 --> 00:00:43,686
+This session will be about the
+
+
+10
+00:00:43,686 --> 00:00:45,436
+new feature we are adding to
+
+
+11
+00:00:45,436 --> 00:00:45,996
+SceneKit.
+
+
+12
+00:00:46,676 --> 00:00:48,006
+We will not cover the basics
+
+
+13
+00:00:48,006 --> 00:00:49,556
+today, so if you are new to
+
+
+14
+00:00:49,556 --> 00:00:50,656
+SceneKit, I encourage you to
+
+
+15
+00:00:50,656 --> 00:00:52,346
+watch our previous presentations
+
+
+16
+00:00:52,666 --> 00:00:53,496
+from the past years.
+
+
+17
+00:00:55,316 --> 00:00:56,866
+So here's our agenda for today.
+
+
+18
+00:00:57,876 --> 00:01:00,516
+I will first present some camera
+
+
+19
+00:01:00,516 --> 00:01:03,366
+improvements that includes some
+
+
+20
+00:01:03,366 --> 00:01:04,976
+new camera effects and some new
+
+
+21
+00:01:04,976 --> 00:01:07,376
+APIs to simplify the control of
+
+
+22
+00:01:07,996 --> 00:01:08,706
+cameras.
+
+
+23
+00:01:08,706 --> 00:01:10,056
+Then, Amaury will come on stage
+
+
+24
+00:01:10,056 --> 00:01:11,416
+and talk about tessellation and
+
+
+25
+00:01:11,416 --> 00:01:13,726
+subdivision, some improvements
+
+
+26
+00:01:13,726 --> 00:01:15,506
+and new APIs on the animation
+
+
+27
+00:01:15,506 --> 00:01:18,376
+front, and to finish, we'll
+
+
+28
+00:01:18,376 --> 00:01:20,106
+present some new developer tools
+
+
+29
+00:01:20,516 --> 00:01:22,416
+and talk about some related
+
+
+30
+00:01:22,416 --> 00:01:24,586
+technologies, including ARKit.
+
+
+31
+00:01:26,016 --> 00:01:27,596
+Now, to start, I would like to
+
+
+32
+00:01:27,596 --> 00:01:29,656
+show you a little demo that
+
+
+33
+00:01:29,656 --> 00:01:31,346
+illustrates some of the new API
+
+
+34
+00:01:31,346 --> 00:01:33,876
+I'm going to detail later during
+
+
+35
+00:01:33,876 --> 00:01:34,616
+the session.
+
+
+36
+00:01:40,886 --> 00:01:42,636
+So this demo is a simple game
+
+
+37
+00:01:42,636 --> 00:01:44,436
+example with a character that I
+
+
+38
+00:01:44,436 --> 00:01:45,816
+can manipulate with a virtual
+
+
+39
+00:01:45,816 --> 00:01:46,286
+D-pad.
+
+
+40
+00:01:46,866 --> 00:01:49,966
+I can attack, jump, and we are
+
+
+41
+00:01:49,966 --> 00:01:51,236
+on the camera with the virtual
+
+
+42
+00:01:51,236 --> 00:01:51,676
+D-pad.
+
+
+43
+00:01:52,056 --> 00:01:54,076
+And the first thing I would like
+
+
+44
+00:01:54,076 --> 00:01:56,086
+to highlight in the demo is the
+
+
+45
+00:01:56,086 --> 00:01:57,346
+behavior of the camera.
+
+
+46
+00:01:57,996 --> 00:01:59,916
+As you can see, the camera
+
+
+47
+00:01:59,916 --> 00:02:01,426
+follows the character smoothly.
+
+
+48
+00:02:01,426 --> 00:02:03,766
+And by smoothly, I mean it
+
+
+49
+00:02:03,986 --> 00:02:05,656
+doesn't strictly reproduce the
+
+
+50
+00:02:05,656 --> 00:02:07,546
+movement of the character, but
+
+
+51
+00:02:07,546 --> 00:02:09,145
+it tries to keep a constant
+
+
+52
+00:02:09,145 --> 00:02:11,206
+distance an elevation with the
+
+
+53
+00:02:11,206 --> 00:02:13,926
+character, but always move with
+
+
+54
+00:02:13,926 --> 00:02:15,346
+a smooth acceleration and
+
+
+55
+00:02:15,346 --> 00:02:16,136
+deceleration.
+
+
+56
+00:02:17,046 --> 00:02:18,326
+And you will see that the
+
+
+57
+00:02:18,326 --> 00:02:19,506
+behavior of the camera will
+
+
+58
+00:02:19,506 --> 00:02:20,936
+adapt, depending on the
+
+
+59
+00:02:20,936 --> 00:02:22,256
+different zones of the game.
+
+
+60
+00:02:22,336 --> 00:02:25,116
+For example, here as I approach
+
+
+61
+00:02:25,116 --> 00:02:27,326
+this fight area, the camera
+
+
+62
+00:02:27,536 --> 00:02:29,016
+moved down a little bit and
+
+
+63
+00:02:29,016 --> 00:02:30,656
+adjust the depth of field to
+
+
+64
+00:02:30,656 --> 00:02:32,116
+focus on the character and the
+
+
+65
+00:02:32,116 --> 00:02:32,796
+enemies.
+
+
+66
+00:02:34,416 --> 00:02:35,646
+Speaking of enemies, we have two
+
+
+67
+00:02:35,646 --> 00:02:37,036
+enemies here with very basic
+
+
+68
+00:02:37,036 --> 00:02:37,646
+behavior.
+
+
+69
+00:02:38,436 --> 00:02:39,806
+One is chasing me while the
+
+
+70
+00:02:39,806 --> 00:02:41,466
+other is moving away, and I will
+
+
+71
+00:02:41,466 --> 00:02:42,876
+explain briefly how this was
+
+
+72
+00:02:42,876 --> 00:02:44,536
+implemented using GameplayKit.
+
+
+73
+00:02:44,536 --> 00:02:46,706
+For now, let's just kill them,
+
+
+74
+00:02:49,336 --> 00:02:51,376
+and the other one.
+
+
+75
+00:02:52,806 --> 00:02:54,696
+And collect that gem here.
+
+
+76
+00:02:55,846 --> 00:02:57,296
+Here the camera smoothly
+
+
+77
+00:02:57,296 --> 00:02:58,616
+transitioned to a cinematic view
+
+
+78
+00:02:59,546 --> 00:03:01,046
+with a strong depth of field to
+
+
+79
+00:03:01,106 --> 00:03:02,246
+[inaudible] the key, and you can
+
+
+80
+00:03:02,246 --> 00:03:03,446
+notice also some nice
+
+
+81
+00:03:03,446 --> 00:03:04,216
+[inaudible] in the background.
+
+
+82
+00:03:05,326 --> 00:03:08,506
+So let's collect that key.
+
+
+83
+00:03:08,506 --> 00:03:09,656
+And as I [inaudible] to this new
+
+
+84
+00:03:09,656 --> 00:03:11,006
+zone here, where I have to
+
+
+85
+00:03:11,006 --> 00:03:13,306
+carefully jump on platforms, the
+
+
+86
+00:03:13,306 --> 00:03:15,146
+camera smoothly transitioned to
+
+
+87
+00:03:15,146 --> 00:03:16,836
+a new behavior where it now
+
+
+88
+00:03:16,836 --> 00:03:18,726
+stops rotating and stay aligned
+
+
+89
+00:03:19,096 --> 00:03:21,216
+with the platform.
+
+
+90
+00:03:21,216 --> 00:03:23,156
+To simplify my jumps to the
+
+
+91
+00:03:23,156 --> 00:03:25,646
+platforms, so let's jump.
+
+
+92
+00:03:25,866 --> 00:03:27,816
+That was intentional.
+
+
+93
+00:03:29,146 --> 00:03:32,026
+And let's collect the key.
+
+
+94
+00:03:32,966 --> 00:03:34,176
+Again, a new zone where the
+
+
+95
+00:03:34,176 --> 00:03:35,296
+camera will automatically
+
+
+96
+00:03:35,296 --> 00:03:37,706
+reorient itself and stay aligned
+
+
+97
+00:03:37,766 --> 00:03:38,686
+with the platform.
+
+
+98
+00:03:45,086 --> 00:03:46,116
+And it looks like there are some
+
+
+99
+00:03:46,196 --> 00:03:47,756
+friends to free here, and I have
+
+
+100
+00:03:47,756 --> 00:03:50,036
+the key, so let's do it.
+
+
+101
+00:03:52,096 --> 00:03:54,576
+And to finish, the new cinematic
+
+
+102
+00:03:54,576 --> 00:03:57,406
+view with many characters
+
+
+103
+00:03:57,406 --> 00:03:58,106
+running around.
+
+
+104
+00:03:58,526 --> 00:04:02,016
+And here we have 3200 bots to
+
+
+105
+00:04:02,016 --> 00:04:03,636
+animate, and we are going to
+
+
+106
+00:04:03,636 --> 00:04:04,416
+achieve that in [inaudible] on
+
+
+107
+00:04:04,456 --> 00:04:06,516
+this new iPad Pro.
+
+
+108
+00:04:06,556 --> 00:04:07,986
+So this is really fast.
+
+
+109
+00:04:08,076 --> 00:04:09,026
+We have been focusing on
+
+
+110
+00:04:09,026 --> 00:04:10,416
+character animation [inaudible]
+
+
+111
+00:04:10,506 --> 00:04:11,126
+in this [inaudible].
+
+
+112
+00:04:11,276 --> 00:04:13,066
+And implementing all this has
+
+
+113
+00:04:13,066 --> 00:04:14,776
+been much simpler with the new
+
+
+114
+00:04:14,776 --> 00:04:16,916
+APIs, with the new animation
+
+
+115
+00:04:16,916 --> 00:04:18,106
+APIs I will present later.
+
+
+116
+00:04:18,416 --> 00:04:20,176
+So that's all the demo.
+
+
+117
+00:04:21,516 --> 00:04:26,756
+[ Applause ]
+
+
+118
+00:04:27,256 --> 00:04:28,906
+Other ways we are really happy
+
+
+119
+00:04:28,906 --> 00:04:31,016
+to share this demo with you as a
+
+
+120
+00:04:31,066 --> 00:04:33,856
+sample code, and the sample code
+
+
+121
+00:04:33,856 --> 00:04:35,506
+runs on iOS, tvOS, and macOS,
+
+
+122
+00:04:35,506 --> 00:04:38,676
+and is available in Swift and
+
+
+123
+00:04:39,276 --> 00:04:40,766
+Objective-C.
+
+
+124
+00:04:41,786 --> 00:04:43,846
+During the demo, I insisted on
+
+
+125
+00:04:43,846 --> 00:04:45,566
+the camera behavior because this
+
+
+126
+00:04:45,566 --> 00:04:46,526
+is something that is really
+
+
+127
+00:04:46,526 --> 00:04:47,916
+difficult to write.
+
+
+128
+00:04:48,696 --> 00:04:50,586
+We are seeing many questions and
+
+
+129
+00:04:50,586 --> 00:04:51,856
+related requests on developer
+
+
+130
+00:04:51,856 --> 00:04:53,826
+forums about this, and so we
+
+
+131
+00:04:53,826 --> 00:04:55,836
+are, we improved our camera API
+
+
+132
+00:04:55,836 --> 00:04:59,236
+in this release to both simplify
+
+
+133
+00:04:59,236 --> 00:05:00,646
+this problem and also improve
+
+
+134
+00:05:00,646 --> 00:05:01,416
+the ongoing quality.
+
+
+135
+00:05:02,046 --> 00:05:05,656
+So to do this, we are
+
+
+136
+00:05:05,656 --> 00:05:07,136
+transitioning to a physically
+
+
+137
+00:05:07,136 --> 00:05:09,276
+based camera API, and we
+
+
+138
+00:05:09,276 --> 00:05:10,626
+leveraged this new API to
+
+
+139
+00:05:10,626 --> 00:05:11,646
+implement the physically
+
+
+140
+00:05:11,646 --> 00:05:12,886
+plausible depth of field.
+
+
+141
+00:05:13,266 --> 00:05:14,896
+We also improved the motion blur
+
+
+142
+00:05:14,896 --> 00:05:16,236
+and added [inaudible] support
+
+
+143
+00:05:16,236 --> 00:05:17,246
+for screen space ambient
+
+
+144
+00:05:17,246 --> 00:05:17,836
+occlusion.
+
+
+145
+00:05:17,886 --> 00:05:20,226
+And I will then, I will talk
+
+
+146
+00:05:20,226 --> 00:05:21,876
+next about the new APIs, what I
+
+
+147
+00:05:21,876 --> 00:05:23,496
+did to simplify the control of
+
+
+148
+00:05:23,496 --> 00:05:23,996
+cameras.
+
+
+149
+00:05:24,776 --> 00:05:27,166
+So transitioning to physically
+
+
+150
+00:05:27,166 --> 00:05:29,196
+based API, camera API.
+
+
+151
+00:05:30,236 --> 00:05:31,946
+First, we are deprecating our
+
+
+152
+00:05:31,946 --> 00:05:34,656
+legacy projection model, so
+
+
+153
+00:05:34,656 --> 00:05:35,986
+will, of course, ensure the
+
+
+154
+00:05:35,986 --> 00:05:38,066
+[inaudible], but be aware that
+
+
+155
+00:05:38,066 --> 00:05:39,196
+we are moving away from the x4
+
+
+156
+00:05:39,196 --> 00:05:42,486
+and y4 properties to adopt some
+
+
+157
+00:05:42,486 --> 00:05:43,526
+things that [inaudible] cameras.
+
+
+158
+00:05:43,526 --> 00:05:46,096
+For example, if you want to
+
+
+159
+00:05:46,096 --> 00:05:46,806
+configure your [inaudible]
+
+
+160
+00:05:46,806 --> 00:05:49,626
+projection, you can now either
+
+
+161
+00:05:49,626 --> 00:05:52,046
+set the fieldOfView property or
+
+
+162
+00:05:52,046 --> 00:05:53,416
+configure the focalLength and
+
+
+163
+00:05:53,416 --> 00:05:54,146
+sensorHeight.
+
+
+164
+00:05:55,136 --> 00:05:55,996
+These properties are linked
+
+
+165
+00:05:55,996 --> 00:05:57,526
+together, so if you configure
+
+
+166
+00:05:57,526 --> 00:05:58,236
+the focalLength for [inaudible],
+
+
+167
+00:05:58,236 --> 00:06:00,066
+it will update the fieldOfView
+
+
+168
+00:06:00,066 --> 00:06:01,366
+accordingly, and vice versa.
+
+
+169
+00:06:03,076 --> 00:06:04,646
+Then, [inaudible] modeling
+
+
+170
+00:06:04,826 --> 00:06:06,506
+[inaudible] camera depth of
+
+
+171
+00:06:06,506 --> 00:06:06,916
+field.
+
+
+172
+00:06:07,656 --> 00:06:08,636
+To achieve at the depth of
+
+
+173
+00:06:08,636 --> 00:06:10,576
+field, set the wantsDepthOfField
+
+
+174
+00:06:10,576 --> 00:06:11,986
+property to true, and then
+
+
+175
+00:06:11,986 --> 00:06:13,696
+configure it by setting the
+
+
+176
+00:06:13,696 --> 00:06:15,336
+focusDistance and fStop
+
+
+177
+00:06:15,336 --> 00:06:15,906
+properties.
+
+
+178
+00:06:16,796 --> 00:06:18,756
+SceneKit [inaudible] approximate
+
+
+179
+00:06:18,756 --> 00:06:19,706
+[inaudible] photo camera depth
+
+
+180
+00:06:19,706 --> 00:06:21,556
+of field, and it will blur the
+
+
+181
+00:06:21,556 --> 00:06:23,076
+scene in a way that is
+
+
+182
+00:06:23,076 --> 00:06:25,016
+consistent with these parameters
+
+
+183
+00:06:25,016 --> 00:06:26,216
+that come from the photography
+
+
+184
+00:06:26,216 --> 00:06:26,546
+world.
+
+
+185
+00:06:27,086 --> 00:06:31,136
+So new depth of field will also
+
+
+186
+00:06:31,136 --> 00:06:33,046
+simulate the bokeh you would get
+
+
+187
+00:06:33,046 --> 00:06:34,206
+with real photo cameras.
+
+
+188
+00:06:35,306 --> 00:06:37,646
+Bokeh appear on bright objects
+
+
+189
+00:06:37,646 --> 00:06:40,016
+that are out of focus, and
+
+
+190
+00:06:40,016 --> 00:06:42,016
+because they are generated by
+
+
+191
+00:06:42,016 --> 00:06:44,136
+pixels with very high intensity,
+
+
+192
+00:06:44,526 --> 00:06:46,036
+this feature works best if you
+
+
+193
+00:06:46,106 --> 00:06:47,556
+render your scene with an HDR
+
+
+194
+00:06:47,556 --> 00:06:47,946
+camera.
+
+
+195
+00:06:48,516 --> 00:06:49,816
+And to configure this, just set
+
+
+196
+00:06:49,816 --> 00:06:52,606
+wantsHDR property to true on
+
+
+197
+00:06:53,586 --> 00:06:54,636
+[inaudible] camera.
+
+
+198
+00:06:54,636 --> 00:06:56,126
+Then, the shape of the bokeh
+
+
+199
+00:06:56,126 --> 00:06:57,736
+depends on the number of blade
+
+
+200
+00:06:57,736 --> 00:06:58,676
+of the aperture.
+
+
+201
+00:06:58,746 --> 00:07:00,546
+And you can also configure that
+
+
+202
+00:07:00,546 --> 00:07:01,176
+on [inaudible] camera.
+
+
+203
+00:07:01,176 --> 00:07:03,726
+Here are a few examples with a
+
+
+204
+00:07:03,726 --> 00:07:05,266
+different value for this
+
+
+205
+00:07:07,396 --> 00:07:07,616
+property.
+
+
+206
+00:07:08,746 --> 00:07:10,716
+Then, we improved our motion
+
+
+207
+00:07:10,716 --> 00:07:11,666
+blur in this release.
+
+
+208
+00:07:11,666 --> 00:07:13,516
+We already presented a first
+
+
+209
+00:07:13,516 --> 00:07:15,226
+report of motion blur last year
+
+
+210
+00:07:15,586 --> 00:07:18,016
+that was able to blur the scene
+
+
+211
+00:07:18,266 --> 00:07:19,256
+based on the motion of the
+
+
+212
+00:07:19,256 --> 00:07:19,636
+camera.
+
+
+213
+00:07:19,966 --> 00:07:20,986
+That means that if your camera
+
+
+214
+00:07:20,986 --> 00:07:23,046
+was moving fast in a scene, you
+
+
+215
+00:07:23,046 --> 00:07:24,166
+would get the motion blur.
+
+
+216
+00:07:24,386 --> 00:07:25,876
+But if your camera was static
+
+
+217
+00:07:26,046 --> 00:07:26,966
+and the objects were moving
+
+
+218
+00:07:26,966 --> 00:07:27,976
+around, you would not get any
+
+
+219
+00:07:27,976 --> 00:07:28,476
+motion blur.
+
+
+220
+00:07:29,506 --> 00:07:30,646
+So in this release, we are
+
+
+221
+00:07:30,646 --> 00:07:32,486
+adding support for object motion
+
+
+222
+00:07:32,486 --> 00:07:34,916
+blur, and you get per-object
+
+
+223
+00:07:35,196 --> 00:07:37,126
+blur automatically when you
+
+
+224
+00:07:37,126 --> 00:07:39,096
+activate the motion blur on your
+
+
+225
+00:07:40,776 --> 00:07:41,016
+camera.
+
+
+226
+00:07:41,456 --> 00:07:42,866
+One more effect provided by
+
+
+227
+00:07:42,866 --> 00:07:44,066
+[inaudible] camera is now the
+
+
+228
+00:07:44,066 --> 00:07:44,996
+ambient occlusion.
+
+
+229
+00:07:45,586 --> 00:07:48,166
+The principle of ambient
+
+
+230
+00:07:48,166 --> 00:07:49,366
+occlusion is simple.
+
+
+231
+00:07:50,026 --> 00:07:52,086
+The idea is that a point on a
+
+
+232
+00:07:52,086 --> 00:07:54,306
+flat surface receives all the
+
+
+233
+00:07:54,306 --> 00:07:55,986
+environment incoming light,
+
+
+234
+00:07:57,226 --> 00:07:59,436
+whereas points in cavities will
+
+
+235
+00:07:59,436 --> 00:08:01,576
+just receive part of it because
+
+
+236
+00:08:01,846 --> 00:08:02,896
+some of this light will be
+
+
+237
+00:08:02,896 --> 00:08:04,056
+occluded by the surface.
+
+
+238
+00:08:05,676 --> 00:08:07,636
+Simply to put, screen space
+
+
+239
+00:08:07,636 --> 00:08:09,316
+ambient occlusion, which means
+
+
+240
+00:08:09,316 --> 00:08:11,306
+that this occlusion factor will
+
+
+241
+00:08:11,306 --> 00:08:13,506
+be computed in screen space for
+
+
+242
+00:08:13,506 --> 00:08:14,306
+every pixels.
+
+
+243
+00:08:15,416 --> 00:08:16,996
+This is done by analyzing the
+
+
+244
+00:08:16,996 --> 00:08:18,496
+depth buffer and normal buffer,
+
+
+245
+00:08:18,496 --> 00:08:20,766
+and SceneKit will determine if a
+
+
+246
+00:08:20,766 --> 00:08:22,786
+point is in a cavity or not by
+
+
+247
+00:08:22,786 --> 00:08:24,396
+comparing its depth and normal
+
+
+248
+00:08:24,396 --> 00:08:25,786
+with the neighbor fragments.
+
+
+249
+00:08:27,406 --> 00:08:28,896
+So here's an example of an
+
+
+250
+00:08:28,896 --> 00:08:30,396
+object with no ambient
+
+
+251
+00:08:30,396 --> 00:08:32,346
+occlusion, and here with a very
+
+
+252
+00:08:32,346 --> 00:08:33,956
+strong ambient occlusion to make
+
+
+253
+00:08:33,956 --> 00:08:35,116
+the effect of use on the slide.
+
+
+254
+00:08:37,096 --> 00:08:38,856
+To activate the screen space
+
+
+255
+00:08:38,856 --> 00:08:40,905
+ambient occlusion, just set the
+
+
+256
+00:08:40,905 --> 00:08:41,885
+screenSpaceAmbient
+
+
+257
+00:08:41,885 --> 00:08:43,535
+OcclusionIntensity to a value
+
+
+258
+00:08:43,535 --> 00:08:45,956
+greater than 0, and then you
+
+
+259
+00:08:45,956 --> 00:08:47,576
+have a few parameters you can
+
+
+260
+00:08:47,576 --> 00:08:49,796
+tune that will depend on the
+
+
+261
+00:08:49,796 --> 00:08:51,226
+look you want to achieve and on
+
+
+262
+00:08:51,226 --> 00:08:52,596
+the size and the topology of
+
+
+263
+00:08:52,646 --> 00:08:53,106
+your scene.
+
+
+264
+00:08:53,406 --> 00:08:55,136
+But let's see all these effects
+
+
+265
+00:08:55,136 --> 00:08:56,806
+live in a demo, and for this,
+
+
+266
+00:08:56,806 --> 00:08:58,076
+please welcome Anatole on stage.
+
+
+267
+00:08:59,266 --> 00:09:01,266
+[ Applause ]
+
+
+268
+00:09:01,516 --> 00:09:02,086
+>> Thank you, Thomas.
+
+
+269
+00:09:03,656 --> 00:09:04,516
+Good morning, everyone.
+
+
+270
+00:09:07,216 --> 00:09:08,856
+So let's come back to the first
+
+
+271
+00:09:08,856 --> 00:09:11,066
+demo and bring up some debug UI
+
+
+272
+00:09:11,066 --> 00:09:12,556
+to help me show you our new
+
+
+273
+00:09:12,556 --> 00:09:13,466
+depth of field effect.
+
+
+274
+00:09:15,306 --> 00:09:16,926
+Here we have -- sorry.
+
+
+275
+00:09:17,866 --> 00:09:21,656
+Here we have a beautiful
+
+
+276
+00:09:21,656 --> 00:09:22,196
+[inaudible].
+
+
+277
+00:09:22,196 --> 00:09:23,986
+The focus distance is set to a
+
+
+278
+00:09:23,986 --> 00:09:25,606
+small distance because the key
+
+
+279
+00:09:25,656 --> 00:09:26,696
+is close to the camera.
+
+
+280
+00:09:26,896 --> 00:09:29,276
+And the effect number is set to
+
+
+281
+00:09:29,276 --> 00:09:30,926
+a small value because we want a
+
+
+282
+00:09:30,926 --> 00:09:31,436
+strong blur.
+
+
+283
+00:09:32,366 --> 00:09:33,976
+As you can see, nice work here
+
+
+284
+00:09:33,976 --> 00:09:35,506
+on the background due to the
+
+
+285
+00:09:35,506 --> 00:09:38,656
+illuminance of the particle.
+
+
+286
+00:09:39,326 --> 00:09:41,246
+Now, with the second camera, I
+
+
+287
+00:09:41,246 --> 00:09:42,726
+now have a far-focused distance.
+
+
+288
+00:09:43,316 --> 00:09:45,066
+So the objects in the background
+
+
+289
+00:09:45,066 --> 00:09:47,266
+are sharp and the flowers in the
+
+
+290
+00:09:47,266 --> 00:09:48,866
+foreground are blurred.
+
+
+291
+00:09:50,096 --> 00:09:51,986
+[inaudible] point of view, and
+
+
+292
+00:09:52,066 --> 00:09:53,726
+here I can, for example, play
+
+
+293
+00:09:53,726 --> 00:09:55,546
+with the FStop number to get
+
+
+294
+00:09:55,546 --> 00:09:57,716
+more or less blur.
+
+
+295
+00:09:57,716 --> 00:10:00,756
+And I can wait for the camera.
+
+
+296
+00:10:00,876 --> 00:10:02,636
+And then with the second slider,
+
+
+297
+00:10:02,636 --> 00:10:04,316
+we define where we want to focus
+
+
+298
+00:10:04,316 --> 00:10:04,926
+in this scene.
+
+
+299
+00:10:05,506 --> 00:10:08,646
+So this new depth of field
+
+
+300
+00:10:08,646 --> 00:10:10,486
+effect can be incredibly useful
+
+
+301
+00:10:10,486 --> 00:10:11,966
+for instance to produce
+
+
+302
+00:10:11,966 --> 00:10:14,966
+cinematic effect in video game.
+
+
+303
+00:10:15,186 --> 00:10:16,936
+Now, let's open another app to
+
+
+304
+00:10:16,936 --> 00:10:18,046
+show you of our new [inaudible]
+
+
+305
+00:10:18,046 --> 00:10:19,016
+object motion blur.
+
+
+306
+00:10:20,666 --> 00:10:21,666
+Here we have a scene with a
+
+
+307
+00:10:21,666 --> 00:10:22,706
+tower of blocks.
+
+
+308
+00:10:23,506 --> 00:10:25,156
+If I press the Shoot button, I
+
+
+309
+00:10:25,236 --> 00:10:26,716
+throw some spheres on the tower.
+
+
+310
+00:10:27,236 --> 00:10:30,716
+And this is how it looks by
+
+
+311
+00:10:30,716 --> 00:10:32,456
+default without any motion blur.
+
+
+312
+00:10:33,726 --> 00:10:35,336
+Now, I reset the scene, enable
+
+
+313
+00:10:35,336 --> 00:10:37,086
+the Motion Blur, and toss
+
+
+314
+00:10:37,086 --> 00:10:37,376
+[inaudible] spheres.
+
+
+315
+00:10:37,876 --> 00:10:42,436
+You can see the effect of the
+
+
+316
+00:10:42,436 --> 00:10:44,106
+motion blur on those spheres
+
+
+317
+00:10:44,106 --> 00:10:45,646
+because they move really fast.
+
+
+318
+00:10:46,406 --> 00:10:48,216
+And you can also see the effect
+
+
+319
+00:10:48,216 --> 00:10:49,696
+applied to the blocks when the
+
+
+320
+00:10:49,696 --> 00:10:50,466
+tower explodes.
+
+
+321
+00:10:51,386 --> 00:10:52,936
+But now, let's take a closer
+
+
+322
+00:10:53,546 --> 00:10:53,656
+look.
+
+
+323
+00:10:53,656 --> 00:10:55,426
+I can for that freeze the scene
+
+
+324
+00:10:55,426 --> 00:10:56,846
+and move closer a little bit.
+
+
+325
+00:10:57,916 --> 00:10:59,686
+Our brain interprets the blur's
+
+
+326
+00:10:59,686 --> 00:11:01,706
+movement, and you can actually
+
+
+327
+00:11:01,706 --> 00:11:03,806
+see the objects in motion
+
+
+328
+00:11:03,806 --> 00:11:04,306
+[inaudible] static.
+
+
+329
+00:11:05,806 --> 00:11:07,056
+We can even change the point of
+
+
+330
+00:11:07,056 --> 00:11:08,366
+view, and we still have a good
+
+
+331
+00:11:08,366 --> 00:11:09,986
+idea of the direction of each
+
+
+332
+00:11:09,986 --> 00:11:10,256
+object.
+
+
+333
+00:11:10,986 --> 00:11:13,866
+So this really improves the
+
+
+334
+00:11:13,866 --> 00:11:15,626
+perception of motion in the
+
+
+335
+00:11:15,956 --> 00:11:17,476
+scene, and the result looks more
+
+
+336
+00:11:17,476 --> 00:11:17,906
+realistic.
+
+
+337
+00:11:18,486 --> 00:11:20,726
+And now, let's see the screen
+
+
+338
+00:11:20,726 --> 00:11:22,106
+space ambient occlusion in
+
+
+339
+00:11:22,106 --> 00:11:24,096
+[inaudible].
+
+
+340
+00:11:24,096 --> 00:11:25,206
+You can see some spheres
+
+
+341
+00:11:25,206 --> 00:11:27,076
+illuminated by the sky and the
+
+
+342
+00:11:27,076 --> 00:11:27,776
+direction of light.
+
+
+343
+00:11:29,536 --> 00:11:31,026
+With the first slider, I can add
+
+
+344
+00:11:31,026 --> 00:11:32,386
+some ambient occlusion to the
+
+
+345
+00:11:32,386 --> 00:11:32,736
+scene.
+
+
+346
+00:11:33,956 --> 00:11:35,286
+As you can see, some [inaudible]
+
+
+347
+00:11:35,286 --> 00:11:36,776
+shadow is added, and I can
+
+
+348
+00:11:36,776 --> 00:11:38,376
+change the intensity to give the
+
+
+349
+00:11:38,376 --> 00:11:39,736
+sphere more or less shadows.
+
+
+350
+00:11:41,536 --> 00:11:43,416
+The amount of occlusion depend
+
+
+351
+00:11:43,416 --> 00:11:44,836
+on the curvature of the surface.
+
+
+352
+00:11:45,816 --> 00:11:47,476
+To know if a pixel is in the
+
+
+353
+00:11:47,476 --> 00:11:49,216
+cavity or not, we inspect the
+
+
+354
+00:11:49,216 --> 00:11:50,136
+neighbor pixels.
+
+
+355
+00:11:50,886 --> 00:11:52,406
+And so we have this radius
+
+
+356
+00:11:52,456 --> 00:11:54,526
+parameter that let us define how
+
+
+357
+00:11:54,526 --> 00:11:55,696
+far we look from neighboring
+
+
+358
+00:11:55,696 --> 00:11:56,176
+pixels.
+
+
+359
+00:11:57,576 --> 00:11:59,386
+The visual result is [inaudible]
+
+
+360
+00:11:59,386 --> 00:12:02,186
+occlusion with small radius and
+
+
+361
+00:12:02,186 --> 00:12:03,896
+more [inaudible] shadows with
+
+
+362
+00:12:03,896 --> 00:12:04,666
+large radius.
+
+
+363
+00:12:05,076 --> 00:12:08,116
+This is computed in real time,
+
+
+364
+00:12:08,116 --> 00:12:09,586
+so it is perfect if you work
+
+
+365
+00:12:09,586 --> 00:12:11,056
+with dynamic objects when
+
+
+366
+00:12:11,056 --> 00:12:12,236
+[inaudible] ambient occlusion
+
+
+367
+00:12:12,236 --> 00:12:13,146
+maps or [inaudible].
+
+
+368
+00:12:13,746 --> 00:12:16,576
+That adds some detail to the
+
+
+369
+00:12:16,576 --> 00:12:17,916
+perception of the deeps -- of
+
+
+370
+00:12:17,916 --> 00:12:19,876
+the depths, sorry -- and take a
+
+
+371
+00:12:19,876 --> 00:12:21,376
+look of global illumination to
+
+
+372
+00:12:21,506 --> 00:12:22,336
+your scene.
+
+
+373
+00:12:23,396 --> 00:12:24,206
+That's it for the demo.
+
+
+374
+00:12:24,206 --> 00:12:25,736
+Let's come back to the slide,
+
+
+375
+00:12:25,736 --> 00:12:27,296
+and I'll hand it back to Thomas.
+
+
+376
+00:12:28,516 --> 00:12:33,796
+[ Applause ]
+
+
+377
+00:12:34,296 --> 00:12:35,196
+Thank you, Anatole.
+
+
+378
+00:12:35,726 --> 00:12:37,216
+So we have talked about some new
+
+
+379
+00:12:37,216 --> 00:12:38,106
+camera effects.
+
+
+380
+00:12:38,336 --> 00:12:39,826
+Now, let's talk about camera
+
+
+381
+00:12:39,826 --> 00:12:40,426
+control.
+
+
+382
+00:12:41,156 --> 00:12:42,516
+I did say earlier this is a
+
+
+383
+00:12:42,516 --> 00:12:43,716
+difficult problem, and we see
+
+
+384
+00:12:43,716 --> 00:12:45,256
+many questions about it.
+
+
+385
+00:12:45,256 --> 00:12:47,626
+And we identified two
+
+
+386
+00:12:48,436 --> 00:12:50,706
+[inaudible] -- people will wants
+
+
+387
+00:12:50,916 --> 00:12:52,446
+to inspect a 3D object by
+
+
+388
+00:12:52,446 --> 00:12:54,316
+rotating a 3D object or rotating
+
+
+389
+00:12:54,376 --> 00:12:55,496
+around the 3D object.
+
+
+390
+00:12:55,836 --> 00:12:57,746
+For example, developers who are
+
+
+391
+00:12:57,746 --> 00:12:59,596
+building a simple 3D viewer or
+
+
+392
+00:12:59,596 --> 00:13:03,826
+an editor and developers who
+
+
+393
+00:13:03,826 --> 00:13:05,236
+need a, some more sophisticated
+
+
+394
+00:13:05,236 --> 00:13:06,026
+camera behavior.
+
+
+395
+00:13:06,026 --> 00:13:08,156
+For example, for games or a more
+
+
+396
+00:13:08,156 --> 00:13:08,856
+advanced app.
+
+
+397
+00:13:09,626 --> 00:13:10,736
+So let's start with the first
+
+
+398
+00:13:10,736 --> 00:13:11,516
+use case for now.
+
+
+399
+00:13:12,826 --> 00:13:14,746
+Until now, if you wanted to
+
+
+400
+00:13:14,746 --> 00:13:17,336
+manipulate a 3D object, you had
+
+
+401
+00:13:17,336 --> 00:13:18,906
+to implement your own management
+
+
+402
+00:13:18,906 --> 00:13:21,116
+of events and move the camera
+
+
+403
+00:13:21,116 --> 00:13:23,096
+position and orientation based
+
+
+404
+00:13:23,096 --> 00:13:24,716
+on gestures or mouse events.
+
+
+405
+00:13:25,856 --> 00:13:27,146
+For convenience, we are
+
+
+406
+00:13:27,146 --> 00:13:28,926
+providing an allowCameraControl
+
+
+407
+00:13:28,926 --> 00:13:31,716
+API on SCNView, but these were
+
+
+408
+00:13:31,716 --> 00:13:33,096
+just providing you a default
+
+
+409
+00:13:33,096 --> 00:13:35,606
+camera behavior that was not
+
+
+410
+00:13:35,636 --> 00:13:37,366
+configurable and that was
+
+
+411
+00:13:37,366 --> 00:13:38,896
+essentially there for debugging
+
+
+412
+00:13:38,896 --> 00:13:39,476
+properties.
+
+
+413
+00:13:39,676 --> 00:13:42,406
+So in this new release, we are
+
+
+414
+00:13:42,406 --> 00:13:44,466
+introducing a new class named
+
+
+415
+00:13:44,466 --> 00:13:47,076
+SCNCameraController, and the
+
+
+416
+00:13:47,076 --> 00:13:48,946
+SCNCameraController allows you
+
+
+417
+00:13:48,946 --> 00:13:50,966
+to manipulate a camera with the
+
+
+418
+00:13:50,966 --> 00:13:52,706
+most common camera behavior you
+
+
+419
+00:13:52,706 --> 00:13:54,206
+would find in 3D software.
+
+
+420
+00:13:55,856 --> 00:13:57,516
+So the, this behavior had built
+
+
+421
+00:13:57,516 --> 00:13:59,116
+in in the camera controller, and
+
+
+422
+00:13:59,116 --> 00:14:00,936
+the SCNView has a built-in
+
+
+423
+00:14:00,936 --> 00:14:02,536
+default camera controller that
+
+
+424
+00:14:02,536 --> 00:14:04,626
+you can directly configure for
+
+
+425
+00:14:04,626 --> 00:14:05,986
+the need of your application.
+
+
+426
+00:14:06,986 --> 00:14:08,016
+Now, if you need something more
+
+
+427
+00:14:08,016 --> 00:14:09,746
+specific, you can still
+
+
+428
+00:14:09,746 --> 00:14:10,856
+instantiate your own
+
+
+429
+00:14:10,856 --> 00:14:12,476
+SCNCameraController and drive it
+
+
+430
+00:14:12,476 --> 00:14:15,396
+programmatically if you want.
+
+
+431
+00:14:15,896 --> 00:14:17,666
+So the SCNCameraController
+
+
+432
+00:14:17,666 --> 00:14:19,406
+provide out of the box most of
+
+
+433
+00:14:19,406 --> 00:14:21,166
+the common camera operation
+
+
+434
+00:14:21,166 --> 00:14:21,486
+tools.
+
+
+435
+00:14:22,326 --> 00:14:25,176
+And to give some examples, the
+
+
+436
+00:14:25,176 --> 00:14:27,316
+Orbit Turntable allows you to
+
+
+437
+00:14:27,316 --> 00:14:29,056
+orbit your camera around a 3D
+
+
+438
+00:14:29,056 --> 00:14:31,476
+object and will prevent roll.
+
+
+439
+00:14:31,616 --> 00:14:33,786
+That means that the horizon will
+
+
+440
+00:14:33,786 --> 00:14:35,846
+always remain level, regardless
+
+
+441
+00:14:35,846 --> 00:14:37,396
+of the rotations you are doing.
+
+
+442
+00:14:38,796 --> 00:14:41,656
+The Orbit Arcball will orbit the
+
+
+443
+00:14:41,656 --> 00:14:43,566
+camera using the vertical and
+
+
+444
+00:14:43,566 --> 00:14:45,716
+horizontal axes in screen space.
+
+
+445
+00:14:45,846 --> 00:14:47,626
+So this mode can be more
+
+
+446
+00:14:47,626 --> 00:14:49,376
+intuitive in some cases, but it
+
+
+447
+00:14:49,376 --> 00:14:51,656
+doesn't prevent roll, so it
+
+
+448
+00:14:51,656 --> 00:14:52,706
+really depends on your
+
+
+449
+00:14:52,706 --> 00:14:53,326
+application.
+
+
+450
+00:14:55,356 --> 00:14:58,066
+[inaudible] the Fly mode is more
+
+
+451
+00:14:58,066 --> 00:15:00,206
+suitable for lap scenes you want
+
+
+452
+00:15:00,206 --> 00:15:01,136
+to maybe get into.
+
+
+453
+00:15:01,626 --> 00:15:03,786
+And in that case, the center of
+
+
+454
+00:15:03,836 --> 00:15:05,466
+rotation of the camera is a
+
+
+455
+00:15:05,466 --> 00:15:07,366
+camera itself, which means that
+
+
+456
+00:15:07,476 --> 00:15:09,856
+you rotate the camera to look
+
+
+457
+00:15:09,856 --> 00:15:11,756
+around in a position to orbit
+
+
+458
+00:15:11,756 --> 00:15:12,696
+around an object.
+
+
+459
+00:15:14,576 --> 00:15:16,576
+So again, we believe that the
+
+
+460
+00:15:16,576 --> 00:15:18,136
+scene camera controller will
+
+
+461
+00:15:18,476 --> 00:15:19,836
+provide most of the common
+
+
+462
+00:15:19,836 --> 00:15:21,296
+camera operation tools.
+
+
+463
+00:15:21,296 --> 00:15:22,716
+And if you need something very
+
+
+464
+00:15:22,716 --> 00:15:24,146
+specific, you will be able, you
+
+
+465
+00:15:24,146 --> 00:15:25,676
+can still try your camera
+
+
+466
+00:15:25,676 --> 00:15:26,656
+controller and your camera
+
+
+467
+00:15:26,656 --> 00:15:27,356
+programmatically.
+
+
+468
+00:15:28,856 --> 00:15:29,896
+Now, let's see the second class
+
+
+469
+00:15:29,896 --> 00:15:30,496
+of programs.
+
+
+470
+00:15:30,996 --> 00:15:32,336
+Developing, we need a more
+
+
+471
+00:15:32,336 --> 00:15:33,786
+sophisticated camera behavior.
+
+
+472
+00:15:33,786 --> 00:15:34,816
+For example, for games.
+
+
+473
+00:15:35,806 --> 00:15:37,906
+And we address this problem by
+
+
+474
+00:15:37,976 --> 00:15:40,376
+chaining constraints to define a
+
+
+475
+00:15:40,376 --> 00:15:41,306
+camera behavior.
+
+
+476
+00:15:43,076 --> 00:15:45,976
+SceneKit was already providing a
+
+
+477
+00:15:45,976 --> 00:15:47,816
+bunch of built-in constraints,
+
+
+478
+00:15:47,996 --> 00:15:49,936
+and we're adding a few new this
+
+
+479
+00:15:49,936 --> 00:15:51,696
+year that will work on any
+
+
+480
+00:15:51,696 --> 00:15:53,956
+arbitrary node but work well in
+
+
+481
+00:15:53,956 --> 00:15:55,086
+particular for camera.
+
+
+482
+00:15:55,566 --> 00:15:57,836
+And to illustrate some of them,
+
+
+483
+00:15:57,836 --> 00:16:01,376
+the SCNDistanceConstraint forces
+
+
+484
+00:16:01,376 --> 00:16:02,716
+a node to keep a minimum and
+
+
+485
+00:16:02,716 --> 00:16:04,866
+maximum distance with another
+
+
+486
+00:16:04,866 --> 00:16:06,526
+specified target node.
+
+
+487
+00:16:07,836 --> 00:16:09,336
+So replicate our constraints.
+
+
+488
+00:16:09,336 --> 00:16:12,006
+We replicate a node position and
+
+
+489
+00:16:12,006 --> 00:16:14,246
+orientation with an optional
+
+
+490
+00:16:14,246 --> 00:16:14,756
+offset.
+
+
+491
+00:16:15,436 --> 00:16:18,216
+And the acceleration constraint
+
+
+492
+00:16:18,216 --> 00:16:20,146
+will ensure that the node won't
+
+
+493
+00:16:20,146 --> 00:16:22,316
+move or accelerate faster than a
+
+
+494
+00:16:22,316 --> 00:16:24,236
+given maximum velocity and
+
+
+495
+00:16:24,236 --> 00:16:25,056
+acceleration.
+
+
+496
+00:16:25,696 --> 00:16:27,296
+So these are just examples.
+
+
+497
+00:16:27,296 --> 00:16:28,576
+Let's see what we can do with
+
+
+498
+00:16:28,576 --> 00:16:29,166
+this constraint.
+
+
+499
+00:16:30,476 --> 00:16:32,696
+So here we have a character
+
+
+500
+00:16:32,696 --> 00:16:33,856
+moving around in a scene, and
+
+
+501
+00:16:34,206 --> 00:16:35,556
+the camera has no constraint
+
+
+502
+00:16:35,556 --> 00:16:37,056
+yet, and he's therefore static.
+
+
+503
+00:16:37,826 --> 00:16:40,066
+If I add the look at constraint
+
+
+504
+00:16:40,066 --> 00:16:42,086
+to the camera with the character
+
+
+505
+00:16:42,086 --> 00:16:44,566
+as a target node, I now have my
+
+
+506
+00:16:44,566 --> 00:16:46,416
+camera that rotates to satisfy
+
+
+507
+00:16:46,416 --> 00:16:47,786
+the look at constraint and I
+
+
+508
+00:16:47,786 --> 00:16:48,906
+have the camera that look in the
+
+
+509
+00:16:48,906 --> 00:16:50,136
+direction of the character.
+
+
+510
+00:16:51,756 --> 00:16:54,186
+If I add a replicator constraint
+
+
+511
+00:16:54,616 --> 00:16:56,946
+and I have basic camera
+
+
+512
+00:16:56,946 --> 00:16:59,396
+behavior, that replicate the
+
+
+513
+00:16:59,506 --> 00:17:01,146
+movement of the character with
+
+
+514
+00:17:01,146 --> 00:17:02,866
+some offset and continue to look
+
+
+515
+00:17:02,866 --> 00:17:04,086
+in the direction of the
+
+
+516
+00:17:04,596 --> 00:17:04,836
+character.
+
+
+517
+00:17:05,376 --> 00:17:06,616
+If I add into that an
+
+
+518
+00:17:06,616 --> 00:17:08,586
+acceleration constraint, I now
+
+
+519
+00:17:08,636 --> 00:17:10,526
+have the same behavior, but that
+
+
+520
+00:17:10,526 --> 00:17:12,276
+is most thanks to the
+
+
+521
+00:17:12,276 --> 00:17:14,026
+acceleration constraint that is
+
+
+522
+00:17:14,026 --> 00:17:15,185
+applied after the other
+
+
+523
+00:17:15,185 --> 00:17:15,935
+constraint.
+
+
+524
+00:17:17,236 --> 00:17:19,415
+And if I replace the replicator
+
+
+525
+00:17:19,415 --> 00:17:21,665
+constraint by a distance
+
+
+526
+00:17:21,665 --> 00:17:23,636
+constraint, I now have a new
+
+
+527
+00:17:23,636 --> 00:17:25,506
+camera behavior that now follows
+
+
+528
+00:17:25,506 --> 00:17:26,935
+a character to satisfy the
+
+
+529
+00:17:26,935 --> 00:17:27,965
+distance constraint.
+
+
+530
+00:17:29,086 --> 00:17:30,186
+It continued to look into the
+
+
+531
+00:17:30,186 --> 00:17:31,186
+direction of the character, of
+
+
+532
+00:17:31,216 --> 00:17:33,006
+course, and all this will be
+
+
+533
+00:17:33,006 --> 00:17:34,726
+always moves, regardless of the
+
+
+534
+00:17:34,726 --> 00:17:36,386
+movement of the character,
+
+
+535
+00:17:36,656 --> 00:17:37,886
+thanks to the acceleration
+
+
+536
+00:17:37,886 --> 00:17:38,436
+constraint.
+
+
+537
+00:17:38,686 --> 00:17:41,366
+And so that's how easy it is to
+
+
+538
+00:17:41,366 --> 00:17:42,756
+define a camera behavior, and
+
+
+539
+00:17:42,756 --> 00:17:45,086
+that's what we did in our Fox 2
+
+
+540
+00:17:45,366 --> 00:17:46,276
+example.
+
+
+541
+00:17:46,946 --> 00:17:48,826
+And just by defining a different
+
+
+542
+00:17:48,916 --> 00:17:50,906
+set of constraints, depending on
+
+
+543
+00:17:50,906 --> 00:17:52,836
+the different zones of the game,
+
+
+544
+00:17:52,966 --> 00:17:54,336
+we were able to define the
+
+
+545
+00:17:54,336 --> 00:17:56,516
+camera behavior for the entire
+
+
+546
+00:17:56,516 --> 00:17:56,906
+game.
+
+
+547
+00:17:59,616 --> 00:18:01,216
+One more note about camera
+
+
+548
+00:18:01,216 --> 00:18:01,746
+control.
+
+
+549
+00:18:03,086 --> 00:18:04,896
+We extended SCNNode with the
+
+
+550
+00:18:04,896 --> 00:18:06,746
+categories that provide much
+
+
+551
+00:18:06,746 --> 00:18:09,706
+utilities for you to convert and
+
+
+552
+00:18:09,706 --> 00:18:11,036
+access vectors in different
+
+
+553
+00:18:11,066 --> 00:18:11,696
+spaces.
+
+
+554
+00:18:12,636 --> 00:18:14,956
+But most of all, all the node
+
+
+555
+00:18:14,956 --> 00:18:16,296
+transform properties,
+
+
+556
+00:18:16,296 --> 00:18:17,616
+[inaudible] position, rotation,
+
+
+557
+00:18:17,616 --> 00:18:19,456
+scale, and matrix, and
+
+
+558
+00:18:19,456 --> 00:18:21,576
+transform, are now directly
+
+
+559
+00:18:21,666 --> 00:18:24,496
+available as SIMD properties
+
+
+560
+00:18:24,706 --> 00:18:26,526
+for, to ease math operations.
+
+
+561
+00:18:27,196 --> 00:18:30,086
+So thanks to SIMD types,
+
+
+562
+00:18:30,086 --> 00:18:30,866
+operations on [inaudible]
+
+
+563
+00:18:30,866 --> 00:18:32,706
+vectors, and matrices are more
+
+
+564
+00:18:32,706 --> 00:18:34,196
+simple to write and they are
+
+
+565
+00:18:34,196 --> 00:18:35,496
+much more preferred anyway.
+
+
+566
+00:18:36,276 --> 00:18:37,306
+Just be aware of a few
+
+
+567
+00:18:37,306 --> 00:18:38,856
+limitations with SMD types, as
+
+
+568
+00:18:38,856 --> 00:18:40,526
+they are not KVO and KVC
+
+
+569
+00:18:40,526 --> 00:18:42,216
+compliant and they cannot be
+
+
+570
+00:18:42,216 --> 00:18:43,546
+included as an S-value.
+
+
+571
+00:18:43,976 --> 00:18:46,686
+So that's for camera controller.
+
+
+572
+00:18:46,846 --> 00:18:47,916
+Now, I'll hand it over to Amaury
+
+
+573
+00:18:47,916 --> 00:18:49,146
+to talk about tessellation and
+
+
+574
+00:18:49,146 --> 00:18:49,726
+subdivision.
+
+
+575
+00:18:50,516 --> 00:18:53,136
+[ Applause ]
+
+
+576
+00:18:53,636 --> 00:18:54,226
+>> Thank you, Thomas.
+
+
+577
+00:18:56,436 --> 00:18:57,886
+So we know that great graphics
+
+
+578
+00:18:58,026 --> 00:18:59,156
+are essential to your
+
+
+579
+00:18:59,156 --> 00:19:01,096
+application to build engagement
+
+
+580
+00:19:01,096 --> 00:19:01,886
+and delight your users.
+
+
+581
+00:19:01,886 --> 00:19:04,386
+And there are many aspects to
+
+
+582
+00:19:04,386 --> 00:19:05,046
+great graphics.
+
+
+583
+00:19:05,696 --> 00:19:07,296
+For instance, there is added
+
+
+584
+00:19:07,296 --> 00:19:07,736
+realism.
+
+
+585
+00:19:07,736 --> 00:19:09,566
+And that's why over the years
+
+
+586
+00:19:09,566 --> 00:19:11,496
+we've introduced new rendering
+
+
+587
+00:19:11,496 --> 00:19:13,206
+capabilities, such as
+
+
+588
+00:19:13,206 --> 00:19:15,316
+physically-based shading and
+
+
+589
+00:19:15,646 --> 00:19:16,726
+[inaudible] for more realistic
+
+
+590
+00:19:17,126 --> 00:19:18,546
+camera optics.
+
+
+591
+00:19:19,436 --> 00:19:22,866
+But high-resolution assets is
+
+
+592
+00:19:23,016 --> 00:19:24,476
+another very important aspect.
+
+
+593
+00:19:25,726 --> 00:19:27,206
+In your application, you want to
+
+
+594
+00:19:27,206 --> 00:19:29,076
+be able to have both very smooth
+
+
+595
+00:19:29,076 --> 00:19:32,186
+surfaces as well as very rich
+
+
+596
+00:19:32,326 --> 00:19:33,166
+and detailed ones.
+
+
+597
+00:19:33,946 --> 00:19:35,336
+Now, the issue is that when you
+
+
+598
+00:19:35,336 --> 00:19:36,586
+deal with high-resolution
+
+
+599
+00:19:36,586 --> 00:19:38,476
+assets, they require more
+
+
+600
+00:19:38,476 --> 00:19:40,696
+memory, both on disk and at
+
+
+601
+00:19:40,696 --> 00:19:42,676
+runtime, and they would require
+
+
+602
+00:19:42,676 --> 00:19:43,656
+more processing time.
+
+
+603
+00:19:43,886 --> 00:19:45,626
+So in this section, we will have
+
+
+604
+00:19:45,626 --> 00:19:47,436
+a look at proper techniques that
+
+
+605
+00:19:47,436 --> 00:19:49,686
+allow artists and you developers
+
+
+606
+00:19:49,936 --> 00:19:51,276
+to work with low-resolution
+
+
+607
+00:19:51,276 --> 00:19:53,146
+models that can become of high
+
+
+608
+00:19:53,146 --> 00:19:54,676
+quality when rendered on the
+
+
+609
+00:19:54,676 --> 00:19:55,116
+screen.
+
+
+610
+00:19:56,796 --> 00:19:58,516
+So I will start by explaining
+
+
+611
+00:19:58,516 --> 00:20:00,126
+what tessellation is and how it
+
+
+612
+00:20:00,126 --> 00:20:01,876
+works, then I will show you how
+
+
+613
+00:20:01,876 --> 00:20:03,546
+you can leverage this in
+
+
+614
+00:20:03,546 --> 00:20:03,926
+SceneKit.
+
+
+615
+00:20:04,416 --> 00:20:05,746
+And finally, we will have a look
+
+
+616
+00:20:05,746 --> 00:20:07,186
+at something a little different,
+
+
+617
+00:20:07,186 --> 00:20:08,526
+subdivision surfaces.
+
+
+618
+00:20:09,426 --> 00:20:11,356
+So tessellation.
+
+
+619
+00:20:12,396 --> 00:20:13,696
+Tessellation is a feature
+
+
+620
+00:20:13,696 --> 00:20:15,996
+applied last year in Metal, and
+
+
+621
+00:20:16,056 --> 00:20:17,766
+the idea behind this feature is
+
+
+622
+00:20:17,766 --> 00:20:19,666
+that you provide the GPU with a
+
+
+623
+00:20:19,666 --> 00:20:21,656
+low-resolution mesh, or coarse
+
+
+624
+00:20:21,656 --> 00:20:24,116
+mesh, and then you let the GPU
+
+
+625
+00:20:24,116 --> 00:20:25,856
+generate model memory that has
+
+
+626
+00:20:25,856 --> 00:20:28,376
+more vertices on the fly when
+
+
+627
+00:20:28,376 --> 00:20:29,216
+the model is rendered.
+
+
+628
+00:20:30,736 --> 00:20:33,366
+So subdivision surfaces really
+
+
+629
+00:20:33,456 --> 00:20:34,576
+are a powerful tool.
+
+
+630
+00:20:35,046 --> 00:20:36,876
+They are what you use in the
+
+
+631
+00:20:36,976 --> 00:20:38,986
+industry to easily create,
+
+
+632
+00:20:40,016 --> 00:20:41,546
+store, and animate
+
+
+633
+00:20:42,006 --> 00:20:43,456
+low-resolution models that can
+
+
+634
+00:20:43,456 --> 00:20:45,326
+become of very high quality when
+
+
+635
+00:20:45,326 --> 00:20:45,656
+rendered.
+
+
+636
+00:20:45,726 --> 00:20:46,656
+So let's have a look.
+
+
+637
+00:20:46,976 --> 00:20:49,336
+So this is a triangle, and this
+
+
+638
+00:20:49,336 --> 00:20:52,606
+is a tessellated version of it.
+
+
+639
+00:20:52,906 --> 00:20:55,566
+So SceneKit gets to decide how
+
+
+640
+00:20:55,566 --> 00:20:57,826
+much an edge can be split.
+
+
+641
+00:20:58,026 --> 00:20:59,916
+It can decide how much vertices
+
+
+642
+00:20:59,916 --> 00:21:01,456
+can be created on the first edge
+
+
+643
+00:21:02,026 --> 00:21:03,116
+and on the second edge.
+
+
+644
+00:21:03,536 --> 00:21:04,586
+And of course, it can do that
+
+
+645
+00:21:05,146 --> 00:21:05,916
+for the third edge.
+
+
+646
+00:21:06,776 --> 00:21:08,576
+And what's nice is that SceneKit
+
+
+647
+00:21:08,576 --> 00:21:10,096
+also gets to generate more
+
+
+648
+00:21:10,096 --> 00:21:12,296
+vertices inside the triangle.
+
+
+649
+00:21:13,786 --> 00:21:16,346
+So these are called tessellation
+
+
+650
+00:21:16,716 --> 00:21:17,126
+factors.
+
+
+651
+00:21:17,126 --> 00:21:18,626
+SceneKit is a high-level API,
+
+
+652
+00:21:18,626 --> 00:21:20,926
+and we made it super easy for
+
+
+653
+00:21:20,926 --> 00:21:22,176
+you to [inaudible] tessellation.
+
+
+654
+00:21:23,126 --> 00:21:24,296
+We are adding the new
+
+
+655
+00:21:24,296 --> 00:21:27,436
+SCNGeometryTessellator class as
+
+
+656
+00:21:27,436 --> 00:21:29,246
+well as the tessellator property
+
+
+657
+00:21:29,316 --> 00:21:30,346
+on SCNGeometry.
+
+
+658
+00:21:31,136 --> 00:21:32,846
+And the tessellator exposes a
+
+
+659
+00:21:32,846 --> 00:21:34,746
+few properties that allow for
+
+
+660
+00:21:34,746 --> 00:21:35,386
+different modes.
+
+
+661
+00:21:35,916 --> 00:21:38,126
+So let's have a look at the
+
+
+662
+00:21:38,126 --> 00:21:39,706
+simplest example first.
+
+
+663
+00:21:41,056 --> 00:21:42,516
+In this mode, you provide
+
+
+664
+00:21:42,516 --> 00:21:45,416
+SceneKit with constant edge and
+
+
+665
+00:21:45,476 --> 00:21:47,556
+inside tessellation factors that
+
+
+666
+00:21:47,556 --> 00:21:49,376
+will be used for all the
+
+
+667
+00:21:49,376 --> 00:21:50,786
+triangles in the coarse mesh.
+
+
+668
+00:21:51,166 --> 00:21:52,326
+So with this mode, you will have
+
+
+669
+00:21:52,326 --> 00:21:54,846
+a uniform tessellation, and you
+
+
+670
+00:21:54,846 --> 00:21:56,216
+will add the same amount of
+
+
+671
+00:21:56,216 --> 00:21:58,046
+geometry everywhere across the
+
+
+672
+00:21:58,046 --> 00:21:58,626
+coarse mesh.
+
+
+673
+00:21:58,976 --> 00:22:02,686
+So let's take a look at the more
+
+
+674
+00:22:02,686 --> 00:22:04,616
+complex example now.
+
+
+675
+00:22:05,286 --> 00:22:06,566
+Here you can ask SceneKit to
+
+
+676
+00:22:06,566 --> 00:22:07,866
+come up with special
+
+
+677
+00:22:07,866 --> 00:22:10,176
+tessellation factors so that no
+
+
+678
+00:22:10,176 --> 00:22:11,336
+edge is too long.
+
+
+679
+00:22:11,796 --> 00:22:13,656
+So here you provide a maximum
+
+
+680
+00:22:13,656 --> 00:22:15,416
+edge length in local space.
+
+
+681
+00:22:17,006 --> 00:22:19,006
+Even more powerful, you can ask
+
+
+682
+00:22:19,006 --> 00:22:21,226
+SceneKit to constantly evaluate
+
+
+683
+00:22:21,226 --> 00:22:22,936
+at each frame the tessellation
+
+
+684
+00:22:22,936 --> 00:22:25,486
+factors, depending on the
+
+
+685
+00:22:25,486 --> 00:22:27,296
+project inside of the object.
+
+
+686
+00:22:28,186 --> 00:22:30,376
+So in this mode, you will
+
+
+687
+00:22:30,376 --> 00:22:32,376
+provide the maximum edge length
+
+
+688
+00:22:32,696 --> 00:22:34,956
+in screen space that is in
+
+
+689
+00:22:34,956 --> 00:22:35,456
+pixels.
+
+
+690
+00:22:35,806 --> 00:22:40,496
+So that's it for tessellation.
+
+
+691
+00:22:41,126 --> 00:22:42,326
+And now, if you have a look at
+
+
+692
+00:22:43,316 --> 00:22:44,786
+the original triangle and the
+
+
+693
+00:22:44,836 --> 00:22:46,526
+tessellated version, you might
+
+
+694
+00:22:46,526 --> 00:22:48,386
+be a little disappointed, and
+
+
+695
+00:22:48,806 --> 00:22:49,926
+that's because all the new
+
+
+696
+00:22:49,926 --> 00:22:52,956
+geometry data actually lies in
+
+
+697
+00:22:52,956 --> 00:22:54,026
+the original triangle.
+
+
+698
+00:22:54,596 --> 00:22:55,976
+So for your highly-detailed
+
+
+699
+00:22:55,976 --> 00:22:57,636
+mesh, you want to do something
+
+
+700
+00:22:57,636 --> 00:23:00,316
+with this extra geometry.
+
+
+701
+00:23:01,036 --> 00:23:02,436
+And that leads us to the new
+
+
+702
+00:23:02,496 --> 00:23:04,256
+tessellation-based geometry
+
+
+703
+00:23:04,366 --> 00:23:04,676
+APIs.
+
+
+704
+00:23:05,316 --> 00:23:08,876
+So first of all, let me remind
+
+
+705
+00:23:08,876 --> 00:23:09,796
+you of shader modifiers.
+
+
+706
+00:23:10,866 --> 00:23:12,966
+Shader modifiers are completely
+
+
+707
+00:23:12,966 --> 00:23:13,876
+supported with the new
+
+
+708
+00:23:13,876 --> 00:23:15,076
+tessellation pipeline.
+
+
+709
+00:23:15,426 --> 00:23:16,806
+And with a few lines of code,
+
+
+710
+00:23:16,806 --> 00:23:18,196
+you can create really custom
+
+
+711
+00:23:18,226 --> 00:23:18,586
+effects.
+
+
+712
+00:23:19,336 --> 00:23:20,786
+So for instance, if you have an
+
+
+713
+00:23:20,786 --> 00:23:22,946
+application, and there's water,
+
+
+714
+00:23:22,946 --> 00:23:24,036
+and you want to simulate an
+
+
+715
+00:23:24,036 --> 00:23:26,156
+ocean with waves or really any
+
+
+716
+00:23:26,466 --> 00:23:28,086
+idea, an effect of your own,
+
+
+717
+00:23:28,966 --> 00:23:30,326
+shader modifiers are the right
+
+
+718
+00:23:30,326 --> 00:23:31,796
+tools, are really powerful for
+
+
+719
+00:23:32,026 --> 00:23:32,116
+that.
+
+
+720
+00:23:32,626 --> 00:23:33,676
+But of course, we are also
+
+
+721
+00:23:33,676 --> 00:23:35,616
+adding out-of-the-box effects,
+
+
+722
+00:23:35,886 --> 00:23:37,546
+such as geometry smoothing.
+
+
+723
+00:23:38,586 --> 00:23:39,506
+This is a new feature.
+
+
+724
+00:23:40,396 --> 00:23:42,126
+And for instance, if you specify
+
+
+725
+00:23:42,706 --> 00:23:44,316
+the pnTriangles smoothingMode,
+
+
+726
+00:23:45,046 --> 00:23:47,386
+SceneKit will take into account
+
+
+727
+00:23:47,496 --> 00:23:49,536
+the position in normal of each
+
+
+728
+00:23:49,536 --> 00:23:53,066
+vertex as well as the position
+
+
+729
+00:23:53,066 --> 00:23:54,726
+in normal of its neighbors to
+
+
+730
+00:23:55,246 --> 00:23:56,576
+project them on a smooth
+
+
+731
+00:23:56,576 --> 00:23:56,856
+surface.
+
+
+732
+00:23:57,296 --> 00:23:59,156
+Another effect that you might
+
+
+733
+00:23:59,156 --> 00:24:01,026
+have heard about -- displacement
+
+
+734
+00:24:01,026 --> 00:24:02,156
+maps and height maps.
+
+
+735
+00:24:03,326 --> 00:24:04,226
+So what's a height map?
+
+
+736
+00:24:05,196 --> 00:24:06,066
+Well, height map is a
+
+
+737
+00:24:06,066 --> 00:24:08,286
+gray-scaled image that stores
+
+
+738
+00:24:08,286 --> 00:24:10,936
+the elevation or altitude of any
+
+
+739
+00:24:11,016 --> 00:24:12,356
+point on the surface.
+
+
+740
+00:24:13,526 --> 00:24:15,016
+This technique is commonly used
+
+
+741
+00:24:15,016 --> 00:24:17,076
+for effects such as terrain
+
+
+742
+00:24:17,246 --> 00:24:19,086
+rendering, so let's take that as
+
+
+743
+00:24:19,176 --> 00:24:20,576
+an example.
+
+
+744
+00:24:21,706 --> 00:24:24,626
+We start with a plane that we
+
+
+745
+00:24:24,736 --> 00:24:27,456
+tessellate and that we deform
+
+
+746
+00:24:27,456 --> 00:24:29,626
+using the height map.
+
+
+747
+00:24:31,076 --> 00:24:33,226
+So it's a really simple example,
+
+
+748
+00:24:33,826 --> 00:24:34,906
+but it's highly effective.
+
+
+749
+00:24:35,756 --> 00:24:37,806
+And the API is really simple
+
+
+750
+00:24:37,806 --> 00:24:38,016
+too.
+
+
+751
+00:24:38,686 --> 00:24:39,686
+We are adding the new
+
+
+752
+00:24:39,686 --> 00:24:41,516
+displacement material property
+
+
+753
+00:24:41,646 --> 00:24:43,876
+on SCNMaterial, and so I bet you
+
+
+754
+00:24:43,876 --> 00:24:45,106
+already know how to use it.
+
+
+755
+00:24:45,376 --> 00:24:47,016
+You just specify its contents,
+
+
+756
+00:24:47,526 --> 00:24:48,916
+and then if you modify its
+
+
+757
+00:24:48,916 --> 00:24:51,036
+intensity, you can come up with
+
+
+758
+00:24:51,036 --> 00:24:52,316
+the animation I just showed.
+
+
+759
+00:24:53,136 --> 00:24:54,526
+Now, let's get one step further
+
+
+760
+00:24:54,526 --> 00:24:56,706
+with vector displacement maps.
+
+
+761
+00:24:58,256 --> 00:25:00,306
+Vector displacement maps are the
+
+
+762
+00:25:00,306 --> 00:25:02,336
+extension of height maps, but
+
+
+763
+00:25:02,336 --> 00:25:03,586
+instead of only storing the
+
+
+764
+00:25:03,586 --> 00:25:05,916
+elevation, you can store a
+
+
+765
+00:25:05,916 --> 00:25:07,186
+displacement is all three
+
+
+766
+00:25:07,186 --> 00:25:09,026
+directions, and that's why you
+
+
+767
+00:25:09,026 --> 00:25:10,156
+have a cut-out image.
+
+
+768
+00:25:10,856 --> 00:25:12,996
+For instance, green is the
+
+
+769
+00:25:12,996 --> 00:25:14,666
+displacement along the normal,
+
+
+770
+00:25:15,056 --> 00:25:16,636
+and red and blue along the
+
+
+771
+00:25:16,636 --> 00:25:17,946
+tangent and bitangent.
+
+
+772
+00:25:19,266 --> 00:25:20,316
+So will you guess what that
+
+
+773
+00:25:20,316 --> 00:25:20,566
+does?
+
+
+774
+00:25:21,386 --> 00:25:22,686
+Let's have a look.
+
+
+775
+00:25:25,466 --> 00:25:27,996
+Okay, so this is a, see, the
+
+
+776
+00:25:27,996 --> 00:25:29,566
+example, but in your
+
+
+777
+00:25:29,626 --> 00:25:30,536
+application, you can use
+
+
+778
+00:25:30,596 --> 00:25:32,336
+displacement maps to add the
+
+
+779
+00:25:32,476 --> 00:25:34,276
+details, fine details to your
+
+
+780
+00:25:34,276 --> 00:25:34,786
+geometry.
+
+
+781
+00:25:35,336 --> 00:25:37,536
+So for instance, if you have a
+
+
+782
+00:25:37,746 --> 00:25:39,866
+demo with a chameleon, you can
+
+
+783
+00:25:39,866 --> 00:25:41,306
+add detail to its skin.
+
+
+784
+00:25:41,836 --> 00:25:44,286
+Or if you have an application
+
+
+785
+00:25:44,406 --> 00:25:45,856
+and there are rocks you can get
+
+
+786
+00:25:45,856 --> 00:25:47,006
+really close to, vector
+
+
+787
+00:25:47,006 --> 00:25:48,646
+displacement maps are the right
+
+
+788
+00:25:48,646 --> 00:25:48,866
+tool.
+
+
+789
+00:25:49,786 --> 00:25:52,636
+The API is the same, except that
+
+
+790
+00:25:53,166 --> 00:25:55,146
+instead of just red, you specify
+
+
+791
+00:25:55,336 --> 00:25:57,406
+"all" for the texture components
+
+
+792
+00:25:57,616 --> 00:25:58,696
+to indicate that you are
+
+
+793
+00:25:58,746 --> 00:26:00,726
+interested in more than one
+
+
+794
+00:26:00,726 --> 00:26:03,126
+color option of the input image.
+
+
+795
+00:26:03,366 --> 00:26:06,666
+So that's it for tessellation
+
+
+796
+00:26:06,666 --> 00:26:08,306
+and tessellation-based effects.
+
+
+797
+00:26:08,606 --> 00:26:09,636
+Now, let's have a look at
+
+
+798
+00:26:09,946 --> 00:26:11,346
+subdivision surfaces.
+
+
+799
+00:26:13,416 --> 00:26:15,236
+So you might already have heard
+
+
+800
+00:26:15,236 --> 00:26:17,326
+of our subdivision surfaces and
+
+
+801
+00:26:17,326 --> 00:26:18,766
+[inaudible] class subdivision.
+
+
+802
+00:26:19,386 --> 00:26:21,266
+It's a standardized algorithm
+
+
+803
+00:26:21,616 --> 00:26:23,316
+that starts with a coarse mesh
+
+
+804
+00:26:23,746 --> 00:26:26,626
+and that iteratively refines it.
+
+
+805
+00:26:31,866 --> 00:26:33,346
+And so you see how quickly we
+
+
+806
+00:26:33,346 --> 00:26:35,486
+get from a coarse mesh to a very
+
+
+807
+00:26:35,556 --> 00:26:36,686
+smooth and detailed one.
+
+
+808
+00:26:37,716 --> 00:26:40,086
+Now, not everything is perfectly
+
+
+809
+00:26:40,086 --> 00:26:41,756
+round, so with subdivision
+
+
+810
+00:26:41,756 --> 00:26:43,346
+surfaces, you can specify
+
+
+811
+00:26:43,346 --> 00:26:45,356
+creases and corners to have
+
+
+812
+00:26:45,886 --> 00:26:47,916
+distinct sharpnesses for your
+
+
+813
+00:26:47,916 --> 00:26:50,986
+edges and vertices.
+
+
+814
+00:26:52,386 --> 00:26:54,336
+So subdivision surfaces, they
+
+
+815
+00:26:54,596 --> 00:26:56,536
+are extensively used in the
+
+
+816
+00:26:56,536 --> 00:26:58,576
+industry to easily create,
+
+
+817
+00:26:59,156 --> 00:27:01,276
+store, and animate your
+
+
+818
+00:27:01,276 --> 00:27:02,786
+resolution models that can
+
+
+819
+00:27:02,786 --> 00:27:04,566
+become of very high quality when
+
+
+820
+00:27:04,566 --> 00:27:05,386
+rendered on the screen.
+
+
+821
+00:27:05,646 --> 00:27:08,216
+And it turns out that we added
+
+
+822
+00:27:08,216 --> 00:27:10,156
+support for subdivision surfaces
+
+
+823
+00:27:10,316 --> 00:27:12,676
+a few years ago in SceneKit, but
+
+
+824
+00:27:12,996 --> 00:27:14,876
+we used to run the subdivision
+
+
+825
+00:27:14,876 --> 00:27:16,106
+code on the CPU.
+
+
+826
+00:27:16,906 --> 00:27:18,816
+And so that takes some time and
+
+
+827
+00:27:18,816 --> 00:27:20,276
+a huge amount of memory,
+
+
+828
+00:27:20,406 --> 00:27:21,876
+especially when you go to higher
+
+
+829
+00:27:21,876 --> 00:27:24,016
+level of subdivision, as the
+
+
+830
+00:27:24,016 --> 00:27:26,326
+number of vertices generated
+
+
+831
+00:27:26,326 --> 00:27:27,656
+grows exponentially.
+
+
+832
+00:27:29,356 --> 00:27:30,786
+So we have great news this year.
+
+
+833
+00:27:32,826 --> 00:27:34,206
+You might have heard about the
+
+
+834
+00:27:34,206 --> 00:27:36,266
+OpenSubdiv project from Pixar,
+
+
+835
+00:27:36,266 --> 00:27:37,466
+which is an open tools
+
+
+836
+00:27:37,466 --> 00:27:39,306
+implementation for efficiently
+
+
+837
+00:27:39,306 --> 00:27:40,516
+evaluation of subdivision
+
+
+838
+00:27:40,516 --> 00:27:41,046
+surfaces.
+
+
+839
+00:27:41,046 --> 00:27:44,176
+And last year at WWDC, Apple
+
+
+840
+00:27:44,176 --> 00:27:45,756
+announced that we would be
+
+
+841
+00:27:45,756 --> 00:27:47,166
+contributing to this project
+
+
+842
+00:27:47,336 --> 00:27:48,316
+with a Metal-based
+
+
+843
+00:27:48,316 --> 00:27:50,496
+implementation so that you can
+
+
+844
+00:27:50,496 --> 00:27:52,276
+run the subdivision code on the
+
+
+845
+00:27:52,316 --> 00:27:53,526
+GPU using Metal.
+
+
+846
+00:27:54,556 --> 00:27:55,896
+And so this year, you can
+
+
+847
+00:27:56,156 --> 00:27:57,406
+leverage all these amazing
+
+
+848
+00:27:57,406 --> 00:27:58,956
+technologies very easily.
+
+
+849
+00:27:59,666 --> 00:28:02,126
+And with the Metal-based
+
+
+850
+00:28:02,126 --> 00:28:03,576
+implementation come many
+
+
+851
+00:28:03,576 --> 00:28:04,296
+advantages.
+
+
+852
+00:28:04,816 --> 00:28:07,266
+First, we leverage tessellation,
+
+
+853
+00:28:07,506 --> 00:28:08,806
+and it comes with all the memory
+
+
+854
+00:28:08,806 --> 00:28:10,616
+benefits I've talked about
+
+
+855
+00:28:10,646 --> 00:28:10,776
+earlier.
+
+
+856
+00:28:11,306 --> 00:28:13,426
+And with the tessellation, we'll
+
+
+857
+00:28:13,426 --> 00:28:15,506
+have very smooth surfaces even
+
+
+858
+00:28:15,506 --> 00:28:17,206
+for low subdivision levels.
+
+
+859
+00:28:18,216 --> 00:28:19,926
+Now, in addition to uniform
+
+
+860
+00:28:19,926 --> 00:28:21,336
+subdivision, we support
+
+
+861
+00:28:21,336 --> 00:28:22,726
+feature-adaptive subdivision,
+
+
+862
+00:28:23,186 --> 00:28:24,166
+which I will explain in a
+
+
+863
+00:28:24,166 --> 00:28:24,446
+minute.
+
+
+864
+00:28:25,186 --> 00:28:27,356
+And last, we have an all-GPU
+
+
+865
+00:28:27,356 --> 00:28:29,526
+pipeline for efficient animation
+
+
+866
+00:28:29,586 --> 00:28:31,106
+of subdivided meshes.
+
+
+867
+00:28:31,226 --> 00:28:34,086
+So let's take a look at this
+
+
+868
+00:28:34,136 --> 00:28:34,836
+example.
+
+
+869
+00:28:35,136 --> 00:28:36,076
+It's the key you saw in the
+
+
+870
+00:28:36,076 --> 00:28:37,896
+demo, and as you see, it's a
+
+
+871
+00:28:37,966 --> 00:28:39,606
+very coarse mesh.
+
+
+872
+00:28:40,206 --> 00:28:41,046
+Not much detail.
+
+
+873
+00:28:42,326 --> 00:28:43,596
+And this is a tessellation
+
+
+874
+00:28:43,596 --> 00:28:45,026
+version, subdivided one.
+
+
+875
+00:28:46,036 --> 00:28:47,836
+So with asset, you can see that
+
+
+876
+00:28:47,836 --> 00:28:49,946
+you have hard edges but also
+
+
+877
+00:28:49,946 --> 00:28:50,486
+nice curves.
+
+
+878
+00:28:50,516 --> 00:28:52,686
+So how did we do that?
+
+
+879
+00:28:53,626 --> 00:28:54,376
+Using creases.
+
+
+880
+00:28:56,336 --> 00:28:58,166
+So with subdivision surfaces,
+
+
+881
+00:28:58,326 --> 00:28:59,816
+artists can really come up with
+
+
+882
+00:28:59,816 --> 00:29:01,806
+great designs and they can
+
+
+883
+00:29:01,806 --> 00:29:04,276
+easily create them and then tune
+
+
+884
+00:29:04,276 --> 00:29:07,246
+them to have the desired look
+
+
+885
+00:29:08,356 --> 00:29:09,466
+they want.
+
+
+886
+00:29:09,786 --> 00:29:11,506
+Now, feature-adaptive
+
+
+887
+00:29:11,506 --> 00:29:12,116
+subdivision.
+
+
+888
+00:29:14,746 --> 00:29:16,296
+When uniform subdivision
+
+
+889
+00:29:16,586 --> 00:29:18,216
+converges towards a [inaudible]
+
+
+890
+00:29:18,216 --> 00:29:19,596
+face that this moves by
+
+
+891
+00:29:19,626 --> 00:29:21,446
+exponentially increasing the
+
+
+892
+00:29:21,446 --> 00:29:22,506
+number of polygons,
+
+
+893
+00:29:23,766 --> 00:29:25,556
+feature-adaptive subdivision can
+
+
+894
+00:29:25,606 --> 00:29:27,786
+isolate irregular parts of your
+
+
+895
+00:29:27,786 --> 00:29:30,346
+mesh and create busy patches as
+
+
+896
+00:29:30,346 --> 00:29:30,576
+well.
+
+
+897
+00:29:31,286 --> 00:29:32,716
+So then, with tessellation, we
+
+
+898
+00:29:32,716 --> 00:29:34,456
+can create new vertices on these
+
+
+899
+00:29:34,586 --> 00:29:36,576
+perfect mathematical curves, and
+
+
+900
+00:29:36,576 --> 00:29:38,006
+so it leads to very smooth
+
+
+901
+00:29:38,006 --> 00:29:40,376
+surfaces with a lower memory
+
+
+902
+00:29:40,406 --> 00:29:40,806
+footprint.
+
+
+903
+00:29:41,376 --> 00:29:44,386
+Now, the API is really simple.
+
+
+904
+00:29:45,366 --> 00:29:46,846
+You just specify a subdivision
+
+
+905
+00:29:46,846 --> 00:29:49,116
+level and then you opt into
+
+
+906
+00:29:49,566 --> 00:29:50,416
+tessellation.
+
+
+907
+00:29:51,646 --> 00:29:53,246
+And then for feature-adaptive
+
+
+908
+00:29:53,246 --> 00:29:54,536
+subdivision, it's really easy to
+
+
+909
+00:29:54,576 --> 00:29:55,286
+configure too.
+
+
+910
+00:29:56,226 --> 00:29:58,856
+Now, last, animation of
+
+
+911
+00:29:58,856 --> 00:29:59,986
+subdivision surfaces.
+
+
+912
+00:30:01,076 --> 00:30:02,556
+This year, we have an all-GPU
+
+
+913
+00:30:02,556 --> 00:30:04,516
+pipeline that is really
+
+
+914
+00:30:04,516 --> 00:30:05,106
+efficient.
+
+
+915
+00:30:05,556 --> 00:30:07,866
+You can have a coarse mesh that
+
+
+916
+00:30:07,866 --> 00:30:10,766
+you can deform using morphing.
+
+
+917
+00:30:10,766 --> 00:30:12,966
+And then if you want, you can
+
+
+918
+00:30:12,966 --> 00:30:14,126
+add [inaudible] with skinning.
+
+
+919
+00:30:14,466 --> 00:30:15,836
+And finally, as the last step,
+
+
+920
+00:30:16,066 --> 00:30:17,776
+we run the refinement code on
+
+
+921
+00:30:17,776 --> 00:30:18,356
+the GPU.
+
+
+922
+00:30:18,816 --> 00:30:20,066
+And this is very performant
+
+
+923
+00:30:20,176 --> 00:30:21,516
+because we are working on the
+
+
+924
+00:30:21,516 --> 00:30:23,596
+GPU on the low-resolution mesh,
+
+
+925
+00:30:24,036 --> 00:30:25,616
+and then the very detailed one
+
+
+926
+00:30:25,736 --> 00:30:27,466
+is generated on the fly by the
+
+
+927
+00:30:27,616 --> 00:30:28,916
+GPU using tessellation.
+
+
+928
+00:30:30,796 --> 00:30:31,996
+So now that you want to give
+
+
+929
+00:30:31,996 --> 00:30:33,996
+subdivision surfaces a try, just
+
+
+930
+00:30:33,996 --> 00:30:35,156
+remember two things.
+
+
+931
+00:30:35,306 --> 00:30:37,196
+First, if you are loading a set
+
+
+932
+00:30:37,196 --> 00:30:39,556
+from files, specify the
+
+
+933
+00:30:39,556 --> 00:30:41,966
+preserveOriginalTopology option.
+
+
+934
+00:30:42,906 --> 00:30:44,236
+And if you are creating
+
+
+935
+00:30:44,236 --> 00:30:45,646
+geometries programmatically,
+
+
+936
+00:30:45,786 --> 00:30:47,086
+remember to use the polygon
+
+
+937
+00:30:47,086 --> 00:30:47,756
+primitive type.
+
+
+938
+00:30:48,586 --> 00:30:49,246
+This is because with
+
+
+939
+00:30:49,246 --> 00:30:50,746
+subdivision, working with
+
+
+940
+00:30:50,836 --> 00:30:52,466
+triangles is not the same as
+
+
+941
+00:30:52,466 --> 00:30:53,296
+working with quads.
+
+
+942
+00:30:54,556 --> 00:30:55,656
+And with that, let's have a
+
+
+943
+00:30:55,656 --> 00:30:56,506
+quick demo.
+
+
+944
+00:31:05,646 --> 00:31:07,916
+OK. So this is a simple
+
+
+945
+00:31:07,916 --> 00:31:09,186
+[inaudible] application I'm
+
+
+946
+00:31:09,286 --> 00:31:10,166
+going to be working on.
+
+
+947
+00:31:10,936 --> 00:31:14,226
+So I can easily pinch to zoom,
+
+
+948
+00:31:15,076 --> 00:31:16,986
+and I can drag to rotate.
+
+
+949
+00:31:18,066 --> 00:31:19,106
+It's very easy.
+
+
+950
+00:31:19,646 --> 00:31:21,556
+Now, if I pinch, then pay
+
+
+951
+00:31:21,556 --> 00:31:22,876
+attention to the [inaudible] of
+
+
+952
+00:31:22,916 --> 00:31:23,336
+the object.
+
+
+953
+00:31:24,356 --> 00:31:25,586
+As you can see, it's very
+
+
+954
+00:31:25,586 --> 00:31:28,236
+smooth, and you can use a normal
+
+
+955
+00:31:28,236 --> 00:31:30,656
+map to add detail on the
+
+
+956
+00:31:30,656 --> 00:31:31,316
+surface.
+
+
+957
+00:31:31,696 --> 00:31:34,376
+And now, the purpose of this
+
+
+958
+00:31:34,376 --> 00:31:35,846
+application is very simple.
+
+
+959
+00:31:35,846 --> 00:31:39,466
+I can take my finger and simply
+
+
+960
+00:31:39,806 --> 00:31:40,396
+[inaudible] on the mesh.
+
+
+961
+00:31:41,776 --> 00:31:44,406
+So let's kill that and let's
+
+
+962
+00:31:44,406 --> 00:31:45,046
+write something.
+
+
+963
+00:31:45,856 --> 00:31:48,096
+So as I draw, pay a look at the
+
+
+964
+00:31:48,096 --> 00:31:49,116
+silhouette of the object.
+
+
+965
+00:31:50,986 --> 00:31:52,986
+Here I'm actually modifying the
+
+
+966
+00:31:53,026 --> 00:31:53,576
+geometry.
+
+
+967
+00:31:54,286 --> 00:31:55,596
+I'm not just adding surface
+
+
+968
+00:31:55,636 --> 00:31:58,336
+details like we do with a normal
+
+
+969
+00:31:58,336 --> 00:31:58,566
+map.
+
+
+970
+00:32:06,496 --> 00:32:07,906
+OK, so how was that done?
+
+
+971
+00:32:08,276 --> 00:32:10,576
+Well, with subdivision surfaces,
+
+
+972
+00:32:10,646 --> 00:32:12,016
+tessellation, and height maps.
+
+
+973
+00:32:12,236 --> 00:32:13,036
+So let's have a look.
+
+
+974
+00:32:13,856 --> 00:32:17,526
+What we do is that we start with
+
+
+975
+00:32:17,526 --> 00:32:18,726
+a very coarse mesh.
+
+
+976
+00:32:18,726 --> 00:32:21,036
+As you can see, very low
+
+
+977
+00:32:21,036 --> 00:32:21,496
+polygon.
+
+
+978
+00:32:22,316 --> 00:32:25,106
+It doesn't come with normals, so
+
+
+979
+00:32:25,106 --> 00:32:27,126
+we have flat shading here, but
+
+
+980
+00:32:27,126 --> 00:32:28,876
+it has texture coordinates.
+
+
+981
+00:32:29,386 --> 00:32:31,876
+So we can simply map a normal on
+
+
+982
+00:32:31,876 --> 00:32:34,726
+it and later a height map.
+
+
+983
+00:32:34,916 --> 00:32:36,866
+So now, let's subdivide it.
+
+
+984
+00:32:38,186 --> 00:32:40,156
+Let's see the smooth normals
+
+
+985
+00:32:40,286 --> 00:32:42,806
+that are generated, and then
+
+
+986
+00:32:43,236 --> 00:32:45,946
+let's have a look at the wire
+
+
+987
+00:32:45,946 --> 00:32:48,176
+frame and see how much vertices
+
+
+988
+00:32:48,176 --> 00:32:51,396
+are created, how many vertices
+
+
+989
+00:32:51,396 --> 00:32:52,986
+are created when I enabled
+
+
+990
+00:32:53,226 --> 00:32:55,246
+subdivision on it.
+
+
+991
+00:32:56,056 --> 00:32:58,506
+When I take my finger, I simply
+
+
+992
+00:32:58,556 --> 00:33:02,546
+draw in the height map, and all
+
+
+993
+00:33:02,546 --> 00:33:04,426
+the vertices are displaced.
+
+
+994
+00:33:05,856 --> 00:33:07,536
+Now, let's clear that.
+
+
+995
+00:33:07,646 --> 00:33:09,166
+And just for fun, let's enable
+
+
+996
+00:33:09,976 --> 00:33:11,326
+screen space tessellation.
+
+
+997
+00:33:12,136 --> 00:33:14,166
+Now, I will pinch and take a
+
+
+998
+00:33:14,166 --> 00:33:15,536
+look at when I get close or
+
+
+999
+00:33:15,536 --> 00:33:16,486
+farther from the object.
+
+
+1000
+00:33:18,006 --> 00:33:19,206
+SceneKit will come up with new
+
+
+1001
+00:33:19,206 --> 00:33:21,066
+tessellation factors, and it
+
+
+1002
+00:33:21,066 --> 00:33:23,316
+will create new vertices on the
+
+
+1003
+00:33:23,316 --> 00:33:23,606
+fly.
+
+
+1004
+00:33:24,216 --> 00:33:28,326
+And that's it for the demo.
+
+
+1005
+00:33:29,516 --> 00:33:34,686
+[ Applause ]
+
+
+1006
+00:33:35,186 --> 00:33:35,526
+Thank you.
+
+
+1007
+00:33:36,066 --> 00:33:39,476
+So as a wrap up, tessellation
+
+
+1008
+00:33:39,846 --> 00:33:41,046
+and features relying on
+
+
+1009
+00:33:41,046 --> 00:33:42,926
+tessellation are available with
+
+
+1010
+00:33:42,926 --> 00:33:45,926
+Metal on all Macs and available
+
+
+1011
+00:33:45,966 --> 00:33:48,486
+on iOS devices with the A9 chip
+
+
+1012
+00:33:48,486 --> 00:33:50,086
+or later, so that includes
+
+
+1013
+00:33:50,416 --> 00:33:52,676
+iPhone 6S and all of the iPad
+
+
+1014
+00:33:52,706 --> 00:33:53,536
+Pro models.
+
+
+1015
+00:33:56,056 --> 00:33:58,016
+Now, let's have a look at
+
+
+1016
+00:33:58,106 --> 00:33:59,336
+something completely different
+
+
+1017
+00:33:59,826 --> 00:34:02,676
+-- our enhancements to animation
+
+
+1018
+00:34:02,766 --> 00:34:02,976
+APIs.
+
+
+1019
+00:34:10,616 --> 00:34:12,525
+This year, we are introducing
+
+
+1020
+00:34:12,525 --> 00:34:16,206
+the new SCNAnimation protocol as
+
+
+1021
+00:34:16,306 --> 00:34:18,456
+well as the SCNAnimationPlayer
+
+
+1022
+00:34:18,456 --> 00:34:18,846
+class.
+
+
+1023
+00:34:19,926 --> 00:34:23,356
+They make it easier to start
+
+
+1024
+00:34:23,735 --> 00:34:25,656
+animations and to mutate it,
+
+
+1025
+00:34:25,916 --> 00:34:27,466
+mutate them while they are
+
+
+1026
+00:34:27,466 --> 00:34:27,686
+running.
+
+
+1027
+00:34:28,866 --> 00:34:30,326
+So for instance, now you can
+
+
+1028
+00:34:30,326 --> 00:34:32,335
+easily change the speed of an
+
+
+1029
+00:34:32,335 --> 00:34:34,266
+animation and you can blend
+
+
+1030
+00:34:34,356 --> 00:34:35,806
+animations on the fly.
+
+
+1031
+00:34:36,476 --> 00:34:37,616
+Of course, we still fully
+
+
+1032
+00:34:37,616 --> 00:34:40,755
+support CA animation APIs.
+
+
+1033
+00:34:40,755 --> 00:34:43,496
+CA animation conforms to our new
+
+
+1034
+00:34:43,496 --> 00:34:44,146
+protocol.
+
+
+1035
+00:34:44,946 --> 00:34:47,056
+But with the new APIs, it's much
+
+
+1036
+00:34:47,056 --> 00:34:47,315
+easier.
+
+
+1037
+00:34:47,315 --> 00:34:51,235
+You can work dynamically on
+
+
+1038
+00:34:51,235 --> 00:34:52,315
+animations while they are
+
+
+1039
+00:34:52,315 --> 00:34:54,306
+running, and these APIs are
+
+
+1040
+00:34:54,306 --> 00:34:55,806
+available on all platforms,
+
+
+1041
+00:34:55,966 --> 00:34:56,826
+including watchOS.
+
+
+1042
+00:34:58,116 --> 00:34:59,836
+So let's take a look at the old
+
+
+1043
+00:34:59,836 --> 00:34:59,976
+way.
+
+
+1044
+00:35:01,176 --> 00:35:02,446
+So let's say you had a character
+
+
+1045
+00:35:02,446 --> 00:35:04,426
+that could walk and jump.
+
+
+1046
+00:35:05,086 --> 00:35:06,376
+You would first start by adding
+
+
+1047
+00:35:06,376 --> 00:35:08,216
+the walk animation, and then
+
+
+1048
+00:35:08,216 --> 00:35:09,586
+when you wanted the character to
+
+
+1049
+00:35:09,586 --> 00:35:11,566
+jump, you would add the jump
+
+
+1050
+00:35:11,566 --> 00:35:14,676
+animation to replace the other
+
+
+1051
+00:35:15,616 --> 00:35:15,816
+one.
+
+
+1052
+00:35:15,926 --> 00:35:18,116
+Now, with the new API, you start
+
+
+1053
+00:35:18,116 --> 00:35:20,096
+by creating and configuring
+
+
+1054
+00:35:20,146 --> 00:35:22,226
+animation players, and then when
+
+
+1055
+00:35:22,226 --> 00:35:23,476
+you want a character to jump,
+
+
+1056
+00:35:23,796 --> 00:35:25,056
+you manipulate the player
+
+
+1057
+00:35:25,056 --> 00:35:26,996
+instead of the animation
+
+
+1058
+00:35:26,996 --> 00:35:27,516
+directly.
+
+
+1059
+00:35:27,886 --> 00:35:29,506
+So it's a very similar API.
+
+
+1060
+00:35:30,586 --> 00:35:31,626
+The difference is that now you
+
+
+1061
+00:35:31,626 --> 00:35:33,766
+can mutate animations while they
+
+
+1062
+00:35:33,766 --> 00:35:34,326
+are running.
+
+
+1063
+00:35:34,426 --> 00:35:36,016
+So you can change their speed
+
+
+1064
+00:35:36,406 --> 00:35:37,626
+and you can mix animations.
+
+
+1065
+00:35:38,576 --> 00:35:39,976
+And animation blending is
+
+
+1066
+00:35:39,976 --> 00:35:40,936
+actually new this year.
+
+
+1067
+00:35:41,886 --> 00:35:43,256
+So let's take the example of
+
+
+1068
+00:35:43,256 --> 00:35:46,166
+Max, who can walk, run, but also
+
+
+1069
+00:35:46,276 --> 00:35:46,466
+step.
+
+
+1070
+00:35:47,046 --> 00:35:48,826
+We have different animation
+
+
+1071
+00:35:48,826 --> 00:35:51,016
+files for each kind of motion.
+
+
+1072
+00:35:52,776 --> 00:35:55,156
+With the new blending API, you
+
+
+1073
+00:35:55,156 --> 00:35:57,446
+can easily transition from the
+
+
+1074
+00:35:57,596 --> 00:35:58,996
+step animation to the walk
+
+
+1075
+00:35:58,996 --> 00:36:00,956
+animation, and so you can bring
+
+
+1076
+00:36:00,956 --> 00:36:02,856
+fluidity and be more expressive
+
+
+1077
+00:36:02,986 --> 00:36:03,936
+in your applications.
+
+
+1078
+00:36:04,586 --> 00:36:06,656
+And after you blend animation,
+
+
+1079
+00:36:06,656 --> 00:36:07,646
+you can also play with the
+
+
+1080
+00:36:07,646 --> 00:36:07,976
+speed.
+
+
+1081
+00:36:08,316 --> 00:36:14,286
+So Max can run slower on it.
+
+
+1082
+00:36:14,576 --> 00:36:16,366
+Finally, let me mention
+
+
+1083
+00:36:16,506 --> 00:36:18,356
+enhancements to our animation
+
+
+1084
+00:36:18,356 --> 00:36:19,466
+evaluation code.
+
+
+1085
+00:36:20,596 --> 00:36:23,296
+So we have a new implementation
+
+
+1086
+00:36:23,296 --> 00:36:25,416
+that makes it faster to start
+
+
+1087
+00:36:25,416 --> 00:36:27,416
+animations on arbitrary objects
+
+
+1088
+00:36:27,416 --> 00:36:29,376
+in the scene.
+
+
+1089
+00:36:29,416 --> 00:36:31,186
+And we made the evaluation of
+
+
+1090
+00:36:31,186 --> 00:36:32,826
+skeletal animation much more
+
+
+1091
+00:36:32,826 --> 00:36:33,376
+performant.
+
+
+1092
+00:36:33,376 --> 00:36:35,506
+So if you have a lot of
+
+
+1093
+00:36:35,506 --> 00:36:36,526
+characters, you have a lot of
+
+
+1094
+00:36:36,526 --> 00:36:39,796
+bones in your scene, such as in
+
+
+1095
+00:36:39,836 --> 00:36:41,296
+the Fox demo you just saw.
+
+
+1096
+00:36:42,316 --> 00:36:43,746
+We have this new implementation
+
+
+1097
+00:36:43,746 --> 00:36:45,256
+that makes things much faster.
+
+
+1098
+00:36:46,396 --> 00:36:48,636
+And with that, let me hand over
+
+
+1099
+00:36:48,696 --> 00:36:50,976
+to Sebastien for updates on our
+
+
+1100
+00:36:50,976 --> 00:36:51,596
+developer tools.
+
+
+1101
+00:36:52,391 --> 00:36:54,391
+[ Applause ]
+
+
+1102
+00:36:54,766 --> 00:36:55,326
+>> Thank you, Amaury.
+
+
+1103
+00:36:58,856 --> 00:37:00,616
+So last year, we introduced FPS
+
+
+1104
+00:37:00,666 --> 00:37:01,286
+Gauges.
+
+
+1105
+00:37:02,176 --> 00:37:03,396
+It's a great way to have an
+
+
+1106
+00:37:03,396 --> 00:37:04,686
+overview of the performance of
+
+
+1107
+00:37:04,686 --> 00:37:05,576
+your application regarding
+
+
+1108
+00:37:05,576 --> 00:37:05,996
+SceneKit.
+
+
+1109
+00:37:06,726 --> 00:37:08,646
+And they split the categories so
+
+
+1110
+00:37:08,646 --> 00:37:09,966
+that you can see exactly where
+
+
+1111
+00:37:09,966 --> 00:37:11,526
+the time is taken for the CPU
+
+
+1112
+00:37:11,526 --> 00:37:12,156
+and the GPU.
+
+
+1113
+00:37:12,486 --> 00:37:13,626
+So you can know if it's going in
+
+
+1114
+00:37:13,626 --> 00:37:14,916
+the rendering and physics or
+
+
+1115
+00:37:14,916 --> 00:37:15,356
+particles.
+
+
+1116
+00:37:15,956 --> 00:37:17,636
+It's integrated in Xcode, and
+
+
+1117
+00:37:17,636 --> 00:37:19,166
+you can have a look at exactly
+
+
+1118
+00:37:19,166 --> 00:37:20,396
+how it behaves all the time.
+
+
+1119
+00:37:21,006 --> 00:37:22,626
+And it's cool to exactly know
+
+
+1120
+00:37:22,626 --> 00:37:24,946
+what's taking time so you can
+
+
+1121
+00:37:24,946 --> 00:37:26,976
+reuse your meshes or animations,
+
+
+1122
+00:37:26,976 --> 00:37:27,476
+for example.
+
+
+1123
+00:37:28,406 --> 00:37:29,636
+But what happens with, when you
+
+
+1124
+00:37:29,636 --> 00:37:30,416
+skip a frame?
+
+
+1125
+00:37:30,416 --> 00:37:31,636
+How do you know exactly what
+
+
+1126
+00:37:31,636 --> 00:37:32,106
+happened?
+
+
+1127
+00:37:32,256 --> 00:37:35,596
+What caused the frame skipping?
+
+
+1128
+00:37:36,896 --> 00:37:38,106
+This year, we are introducing a
+
+
+1129
+00:37:38,106 --> 00:37:38,846
+new instrument.
+
+
+1130
+00:37:39,346 --> 00:37:41,086
+It's a template for SceneKit
+
+
+1131
+00:37:41,666 --> 00:37:42,936
+that you can use to record the
+
+
+1132
+00:37:42,936 --> 00:37:44,766
+trace of your application and
+
+
+1133
+00:37:44,766 --> 00:37:46,486
+exactly know what happens frame
+
+
+1134
+00:37:46,486 --> 00:37:47,106
+by frame.
+
+
+1135
+00:37:47,576 --> 00:37:49,796
+It's very simple to use.
+
+
+1136
+00:37:49,796 --> 00:37:52,366
+You just create a template as
+
+
+1137
+00:37:52,366 --> 00:37:54,076
+you would for any other trace,
+
+
+1138
+00:37:54,586 --> 00:37:55,336
+and it'll record your
+
+
+1139
+00:37:55,336 --> 00:37:57,416
+application performance, and you
+
+
+1140
+00:37:57,416 --> 00:37:58,656
+will get this view.
+
+
+1141
+00:37:59,036 --> 00:38:01,436
+It's full length that detail
+
+
+1142
+00:38:01,436 --> 00:38:02,216
+what's happening in your
+
+
+1143
+00:38:02,216 --> 00:38:02,726
+application.
+
+
+1144
+00:38:02,886 --> 00:38:04,046
+The first one is the frame.
+
+
+1145
+00:38:04,046 --> 00:38:05,116
+It gives you the time that is
+
+
+1146
+00:38:05,116 --> 00:38:07,836
+taken to render one frame for
+
+
+1147
+00:38:07,836 --> 00:38:10,016
+your application, and you can
+
+
+1148
+00:38:10,016 --> 00:38:11,266
+see exactly how long it takes.
+
+
+1149
+00:38:12,546 --> 00:38:14,286
+The second one gives you the
+
+
+1150
+00:38:14,286 --> 00:38:15,096
+rendering time.
+
+
+1151
+00:38:15,276 --> 00:38:16,906
+It's the time that is taken by
+
+
+1152
+00:38:16,906 --> 00:38:18,666
+SceneKit to actually gather all
+
+
+1153
+00:38:18,666 --> 00:38:20,216
+the data and send it to the GPU.
+
+
+1154
+00:38:20,776 --> 00:38:24,056
+The third one gives you the
+
+
+1155
+00:38:24,116 --> 00:38:25,566
+updating stage.
+
+
+1156
+00:38:25,896 --> 00:38:26,976
+It's the time that is taken to
+
+
+1157
+00:38:26,976 --> 00:38:28,926
+update the physics, particles,
+
+
+1158
+00:38:29,066 --> 00:38:31,326
+and your custom delegate, if you
+
+
+1159
+00:38:31,326 --> 00:38:31,776
+have one.
+
+
+1160
+00:38:32,096 --> 00:38:34,586
+And the last one, but not the
+
+
+1161
+00:38:34,586 --> 00:38:36,316
+least, is the time that is taken
+
+
+1162
+00:38:36,316 --> 00:38:38,346
+to upload texture to the GPU as
+
+
+1163
+00:38:38,346 --> 00:38:39,486
+well as compile shaders.
+
+
+1164
+00:38:40,416 --> 00:38:42,666
+And let's see how it looks when
+
+
+1165
+00:38:42,666 --> 00:38:44,106
+we have a skipped frame.
+
+
+1166
+00:38:44,606 --> 00:38:45,826
+This is a very simple example.
+
+
+1167
+00:38:47,056 --> 00:38:48,196
+You can see that all the frames
+
+
+1168
+00:38:48,196 --> 00:38:49,696
+are very slow to render and that
+
+
+1169
+00:38:49,696 --> 00:38:52,816
+at one point we have one frame
+
+
+1170
+00:38:52,816 --> 00:38:54,036
+that is taking the time that it
+
+
+1171
+00:38:54,076 --> 00:38:55,476
+would take normally for four
+
+
+1172
+00:38:55,476 --> 00:38:56,416
+frames to render.
+
+
+1173
+00:38:57,036 --> 00:38:59,826
+And when we dig down, we dig
+
+
+1174
+00:38:59,826 --> 00:39:01,456
+what exactly is happening, we
+
+
+1175
+00:39:01,456 --> 00:39:02,796
+can see that a new shader was
+
+
+1176
+00:39:02,796 --> 00:39:04,186
+compiled, and it takes a lot of
+
+
+1177
+00:39:04,186 --> 00:39:04,426
+time.
+
+
+1178
+00:39:04,906 --> 00:39:07,236
+In this case, we can know, maybe
+
+
+1179
+00:39:07,636 --> 00:39:09,926
+try to find a strategy to load
+
+
+1180
+00:39:09,926 --> 00:39:11,616
+the shader at the start of the
+
+
+1181
+00:39:11,616 --> 00:39:12,876
+application.
+
+
+1182
+00:39:13,596 --> 00:39:17,006
+We have also added a way to
+
+
+1183
+00:39:17,006 --> 00:39:19,436
+combine the SceneKit instrument
+
+
+1184
+00:39:19,436 --> 00:39:20,666
+with the Metal instrument trace.
+
+
+1185
+00:39:20,666 --> 00:39:23,496
+So you can see the combination
+
+
+1186
+00:39:23,576 --> 00:39:25,246
+of both at the same time and see
+
+
+1187
+00:39:25,246 --> 00:39:26,956
+exactly what happens behind the
+
+
+1188
+00:39:26,956 --> 00:39:29,026
+screen to understand what's
+
+
+1189
+00:39:29,026 --> 00:39:30,426
+happening in your application.
+
+
+1190
+00:39:31,236 --> 00:39:33,566
+This year, we have also added a
+
+
+1191
+00:39:33,566 --> 00:39:34,596
+new debug tool.
+
+
+1192
+00:39:35,466 --> 00:39:36,626
+It's an enhancement to the view
+
+
+1193
+00:39:36,626 --> 00:39:38,286
+debugger in Xcode.
+
+
+1194
+00:39:38,726 --> 00:39:39,796
+It's very simple to use.
+
+
+1195
+00:39:39,796 --> 00:39:41,076
+You just use the regular view
+
+
+1196
+00:39:41,076 --> 00:39:42,676
+debugger as you would normally.
+
+
+1197
+00:39:43,466 --> 00:39:45,076
+And it will capture the view
+
+
+1198
+00:39:45,076 --> 00:39:47,756
+hierarchy as well as the scene
+
+
+1199
+00:39:47,986 --> 00:39:48,636
+automatically.
+
+
+1200
+00:39:48,796 --> 00:39:50,686
+So if there is a SceneKit scene,
+
+
+1201
+00:39:51,116 --> 00:39:53,006
+SceneKit view in your
+
+
+1202
+00:39:53,006 --> 00:39:54,386
+application, it will capture the
+
+
+1203
+00:39:54,386 --> 00:39:54,746
+scene.
+
+
+1204
+00:39:55,116 --> 00:39:57,086
+And if you select the scene in
+
+
+1205
+00:39:57,086 --> 00:39:58,806
+the view hierarchy, it will
+
+
+1206
+00:39:58,806 --> 00:40:00,466
+automatically send it to the
+
+
+1207
+00:40:00,466 --> 00:40:01,756
+SceneKit editor, where you can
+
+
+1208
+00:40:02,026 --> 00:40:03,826
+inspect all your objects, move
+
+
+1209
+00:40:03,896 --> 00:40:05,276
+the camera around, and see
+
+
+1210
+00:40:05,276 --> 00:40:07,576
+exactly how, what is in your
+
+
+1211
+00:40:07,576 --> 00:40:08,596
+application and what is in your
+
+
+1212
+00:40:08,596 --> 00:40:09,036
+scene.
+
+
+1213
+00:40:09,596 --> 00:40:13,456
+We have also added support for
+
+
+1214
+00:40:13,456 --> 00:40:14,646
+the new features this year.
+
+
+1215
+00:40:14,976 --> 00:40:17,426
+So we have a new way to handle
+
+
+1216
+00:40:17,426 --> 00:40:18,986
+the cameras in Xcode.
+
+
+1217
+00:40:19,466 --> 00:40:21,316
+You can see that there is a new
+
+
+1218
+00:40:21,316 --> 00:40:22,686
+way to choose the behavior that
+
+
+1219
+00:40:22,686 --> 00:40:23,046
+you want.
+
+
+1220
+00:40:24,596 --> 00:40:26,546
+We have added perspective and
+
+
+1221
+00:40:26,546 --> 00:40:28,116
+autographic cameras so that you
+
+
+1222
+00:40:28,116 --> 00:40:29,966
+can actually inspect your scene
+
+
+1223
+00:40:29,966 --> 00:40:32,316
+much easier, and you'll still
+
+
+1224
+00:40:32,316 --> 00:40:33,526
+have access to all your regular
+
+
+1225
+00:40:33,526 --> 00:40:34,066
+cameras.
+
+
+1226
+00:40:34,636 --> 00:40:37,436
+We have also added the new
+
+
+1227
+00:40:37,436 --> 00:40:39,516
+behavior, so you can fly around
+
+
+1228
+00:40:39,516 --> 00:40:41,256
+on turn and use the arcball.
+
+
+1229
+00:40:41,486 --> 00:40:43,916
+It's much easier to inspect very
+
+
+1230
+00:40:43,916 --> 00:40:44,436
+big scenes.
+
+
+1231
+00:40:44,956 --> 00:40:48,556
+We have also completely revamped
+
+
+1232
+00:40:48,656 --> 00:40:50,086
+the Shader Modifier Editor.
+
+
+1233
+00:40:50,086 --> 00:40:52,016
+So now, you can edit your shader
+
+
+1234
+00:40:52,016 --> 00:40:54,476
+modifiers as well as your
+
+
+1235
+00:40:54,476 --> 00:40:56,446
+material at the same time in one
+
+
+1236
+00:40:56,446 --> 00:40:56,776
+screen.
+
+
+1237
+00:40:56,776 --> 00:40:57,806
+You don't have to go back and
+
+
+1238
+00:40:57,806 --> 00:41:00,676
+forth in selecting objects.
+
+
+1239
+00:41:00,676 --> 00:41:01,466
+It's a completely new
+
+
+1240
+00:41:01,466 --> 00:41:02,986
+implementation, and it also
+
+
+1241
+00:41:02,986 --> 00:41:04,586
+supports custom material
+
+
+1242
+00:41:04,586 --> 00:41:05,046
+properties.
+
+
+1243
+00:41:05,046 --> 00:41:06,906
+So if there is no, not enough
+
+
+1244
+00:41:06,906 --> 00:41:09,616
+property slots in your material,
+
+
+1245
+00:41:09,756 --> 00:41:12,946
+you can add colors, floats, or
+
+
+1246
+00:41:12,946 --> 00:41:14,266
+vectors to add your own
+
+
+1247
+00:41:14,266 --> 00:41:16,136
+implementation in your shader
+
+
+1248
+00:41:16,136 --> 00:41:16,716
+modifier.
+
+
+1249
+00:41:17,266 --> 00:41:18,136
+Very easy to use.
+
+
+1250
+00:41:18,886 --> 00:41:21,286
+We have added support for more
+
+
+1251
+00:41:21,486 --> 00:41:22,626
+features that we have added this
+
+
+1252
+00:41:22,626 --> 00:41:22,956
+year.
+
+
+1253
+00:41:23,566 --> 00:41:24,836
+So first is there is a new
+
+
+1254
+00:41:24,836 --> 00:41:27,526
+displacement material slot that
+
+
+1255
+00:41:27,526 --> 00:41:28,956
+you can use for the
+
+
+1256
+00:41:28,956 --> 00:41:29,676
+tessellation.
+
+
+1257
+00:41:30,416 --> 00:41:32,126
+Of course, we have tessellation.
+
+
+1258
+00:41:32,686 --> 00:41:34,376
+We have added support for the
+
+
+1259
+00:41:34,376 --> 00:41:35,146
+new constraints.
+
+
+1260
+00:41:35,306 --> 00:41:36,946
+So you can add them into your
+
+
+1261
+00:41:36,946 --> 00:41:38,546
+nodes, and test them in real
+
+
+1262
+00:41:38,546 --> 00:41:40,596
+time in Xcode, and edit them in
+
+
+1263
+00:41:40,596 --> 00:41:41,326
+the inspector.
+
+
+1264
+00:41:41,326 --> 00:41:43,836
+We have support for cascaded
+
+
+1265
+00:41:43,836 --> 00:41:45,236
+shadows that we will tell you
+
+
+1266
+00:41:45,236 --> 00:41:46,476
+about more later.
+
+
+1267
+00:41:47,246 --> 00:41:48,616
+And we also have a new
+
+
+1268
+00:41:48,616 --> 00:41:50,226
+procedural sky that is very easy
+
+
+1269
+00:41:50,226 --> 00:41:51,596
+to use as a background or the
+
+
+1270
+00:41:51,596 --> 00:41:52,486
+lighting environment.
+
+
+1271
+00:41:52,766 --> 00:41:54,176
+For example, to test your
+
+
+1272
+00:41:54,176 --> 00:41:54,846
+[inaudible] material when you
+
+
+1273
+00:41:54,846 --> 00:41:56,186
+don't have a proper [inaudible]
+
+
+1274
+00:41:56,186 --> 00:41:56,956
+map set.
+
+
+1275
+00:41:57,486 --> 00:41:58,346
+And it's completely
+
+
+1276
+00:41:58,346 --> 00:42:00,346
+configurable, so you can get day
+
+
+1277
+00:42:00,346 --> 00:42:01,546
+or night sky, for example.
+
+
+1278
+00:42:01,546 --> 00:42:04,566
+And last, but not least, we have
+
+
+1279
+00:42:04,566 --> 00:42:06,496
+added the possibility to
+
+
+1280
+00:42:06,496 --> 00:42:08,066
+override the material for
+
+
+1281
+00:42:08,346 --> 00:42:09,306
+reference nodes.
+
+
+1282
+00:42:09,816 --> 00:42:10,986
+And what are reference nodes?
+
+
+1283
+00:42:11,546 --> 00:42:12,686
+Reference nodes are actually
+
+
+1284
+00:42:12,686 --> 00:42:15,776
+nodes that refer to one, only
+
+
+1285
+00:42:15,776 --> 00:42:19,546
+one, scene file but used more
+
+
+1286
+00:42:19,546 --> 00:42:20,776
+than once in your scene.
+
+
+1287
+00:42:22,046 --> 00:42:23,556
+Until now, you could only have
+
+
+1288
+00:42:23,556 --> 00:42:25,896
+exactly the same rendering for
+
+
+1289
+00:42:25,896 --> 00:42:27,176
+both, for all the nodes.
+
+
+1290
+00:42:27,176 --> 00:42:28,396
+It's not only two nodes.
+
+
+1291
+00:42:28,946 --> 00:42:30,606
+But now, you can overwrite some
+
+
+1292
+00:42:30,606 --> 00:42:32,946
+or all of the materials of, that
+
+
+1293
+00:42:32,946 --> 00:42:34,346
+you are using in the scene and
+
+
+1294
+00:42:34,346 --> 00:42:35,696
+change the look of some of, or
+
+
+1295
+00:42:35,726 --> 00:42:37,346
+all the instance.
+
+
+1296
+00:42:38,196 --> 00:42:40,176
+And with that, I hand it over to
+
+
+1297
+00:42:40,176 --> 00:42:41,826
+Thomas to tell you about related
+
+
+1298
+00:42:41,826 --> 00:42:42,436
+technologies.
+
+
+1299
+00:42:43,221 --> 00:42:45,221
+[ Applause ]
+
+
+1300
+00:42:45,426 --> 00:42:45,746
+>> Thank you.
+
+
+1301
+00:42:49,496 --> 00:42:51,136
+OK, so let's talk about related
+
+
+1302
+00:42:51,136 --> 00:42:53,336
+technologies and start with
+
+
+1303
+00:42:53,336 --> 00:42:53,836
+ARKit.
+
+
+1304
+00:42:54,516 --> 00:42:59,096
+So you have [applause] -- yeah.
+
+
+1305
+00:42:59,096 --> 00:43:01,236
+[laughs] So you have all seen
+
+
+1306
+00:43:01,236 --> 00:43:02,496
+the introduction of ARKit on
+
+
+1307
+00:43:02,496 --> 00:43:03,966
+Monday during the keynote and
+
+
+1308
+00:43:03,966 --> 00:43:05,696
+State of the Union, and you may
+
+
+1309
+00:43:05,696 --> 00:43:08,586
+have noticed that ARKit provides
+
+
+1310
+00:43:08,586 --> 00:43:11,556
+an ARSCNView that provides an
+
+
+1311
+00:43:11,556 --> 00:43:13,926
+easy solution for AR that just
+
+
+1312
+00:43:13,926 --> 00:43:15,226
+work out of the box.
+
+
+1313
+00:43:16,116 --> 00:43:18,836
+And in fact, the ARSCNView is a
+
+
+1314
+00:43:18,836 --> 00:43:20,396
+subclass of SCNView.
+
+
+1315
+00:43:20,606 --> 00:43:21,826
+And that means that you have
+
+
+1316
+00:43:21,896 --> 00:43:23,866
+full access to SceneKit via
+
+
+1317
+00:43:23,866 --> 00:43:24,326
+ARKit.
+
+
+1318
+00:43:24,326 --> 00:43:25,846
+You have access to the scene
+
+
+1319
+00:43:25,846 --> 00:43:26,246
+graph.
+
+
+1320
+00:43:26,616 --> 00:43:28,026
+You can add post processes,
+
+
+1321
+00:43:28,106 --> 00:43:30,006
+particles, physics, [inaudible],
+
+
+1322
+00:43:30,386 --> 00:43:31,666
+custom shaders.
+
+
+1323
+00:43:31,666 --> 00:43:32,506
+If you want, you can do
+
+
+1324
+00:43:32,506 --> 00:43:33,616
+basically everything.
+
+
+1325
+00:43:34,626 --> 00:43:36,916
+And so with ARKit and SceneKit,
+
+
+1326
+00:43:36,916 --> 00:43:38,866
+it's really easy to set up a
+
+
+1327
+00:43:38,866 --> 00:43:40,786
+scene like in this example here.
+
+
+1328
+00:43:41,056 --> 00:43:43,026
+I would let you guess where this
+
+
+1329
+00:43:43,026 --> 00:43:44,276
+video is shot.
+
+
+1330
+00:43:44,396 --> 00:43:45,226
+There is a hint in the
+
+
+1331
+00:43:45,226 --> 00:43:47,096
+background, and my accent is
+
+
+1332
+00:43:47,096 --> 00:43:47,656
+another hint.
+
+
+1333
+00:43:48,666 --> 00:43:50,786
+And so here, to set up a scene
+
+
+1334
+00:43:50,786 --> 00:43:52,256
+like this, we just needed to
+
+
+1335
+00:43:52,256 --> 00:43:55,636
+load a SceneKit object, as you
+
+
+1336
+00:43:55,636 --> 00:43:58,166
+usually do, and set up an AR
+
+
+1337
+00:43:58,166 --> 00:43:59,676
+video, and run an AR session.
+
+
+1338
+00:43:59,826 --> 00:44:02,026
+And then, from the ARSCNView
+
+
+1339
+00:44:02,026 --> 00:44:04,646
+delegate, you just need to
+
+
+1340
+00:44:04,646 --> 00:44:07,316
+attach your [inaudible] objects
+
+
+1341
+00:44:07,316 --> 00:44:09,556
+to the anchor detected by ARKit.
+
+
+1342
+00:44:09,556 --> 00:44:10,466
+It's that simple.
+
+
+1343
+00:44:11,506 --> 00:44:15,076
+And to support ARSCNView, we
+
+
+1344
+00:44:15,076 --> 00:44:17,266
+extended our material property
+
+
+1345
+00:44:17,636 --> 00:44:20,076
+to support AVCaptureDevice and
+
+
+1346
+00:44:20,076 --> 00:44:23,346
+AVPlayer as a natively supported
+
+
+1347
+00:44:23,346 --> 00:44:24,116
+type of content.
+
+
+1348
+00:44:25,086 --> 00:44:26,266
+So that means that it's very
+
+
+1349
+00:44:26,266 --> 00:44:26,526
+easy.
+
+
+1350
+00:44:26,526 --> 00:44:27,776
+With just one line of code, you
+
+
+1351
+00:44:27,776 --> 00:44:29,616
+can now directly connect.
+
+
+1352
+00:44:29,896 --> 00:44:31,616
+So you do a feed off your iPhone
+
+
+1353
+00:44:31,616 --> 00:44:34,066
+or iPad directly to a texture in
+
+
+1354
+00:44:34,066 --> 00:44:35,386
+SceneKit or to the scene
+
+
+1355
+00:44:35,386 --> 00:44:35,966
+background.
+
+
+1356
+00:44:36,596 --> 00:44:36,776
+Yeah.
+
+
+1357
+00:44:38,516 --> 00:44:41,896
+[ Applause ]
+
+
+1358
+00:44:42,396 --> 00:44:43,256
+Now, I would like to give you a
+
+
+1359
+00:44:43,256 --> 00:44:45,306
+little trick regarding augmented
+
+
+1360
+00:44:45,306 --> 00:44:46,896
+reality and shadows.
+
+
+1361
+00:44:47,076 --> 00:44:48,716
+So the fact is that your object
+
+
+1362
+00:44:48,896 --> 00:44:50,926
+will look better integrated if
+
+
+1363
+00:44:50,926 --> 00:44:52,706
+your object casts some shadows
+
+
+1364
+00:44:52,706 --> 00:44:54,576
+on the ground like in this
+
+
+1365
+00:44:54,576 --> 00:44:57,756
+example here.
+
+
+1366
+00:44:57,756 --> 00:45:00,266
+And so the trick is that to
+
+
+1367
+00:45:00,266 --> 00:45:02,266
+achieve this, we editing our
+
+
+1368
+00:45:02,266 --> 00:45:04,496
+object in Xcode, we added a
+
+
+1369
+00:45:04,496 --> 00:45:05,886
+directional light that casts
+
+
+1370
+00:45:05,886 --> 00:45:09,026
+some shadows, and then we added
+
+
+1371
+00:45:09,026 --> 00:45:10,596
+a plane to receive the shadows.
+
+
+1372
+00:45:11,166 --> 00:45:12,476
+Now, the goal is to hide the
+
+
+1373
+00:45:12,476 --> 00:45:13,546
+plane because we don't want to
+
+
+1374
+00:45:13,546 --> 00:45:16,096
+see it in our scene, but we
+
+
+1375
+00:45:16,096 --> 00:45:17,576
+cannot simply make the plane
+
+
+1376
+00:45:17,576 --> 00:45:18,116
+hidden.
+
+
+1377
+00:45:18,296 --> 00:45:19,866
+Otherwise, the shadow would
+
+
+1378
+00:45:19,866 --> 00:45:20,366
+disappear.
+
+
+1379
+00:45:21,136 --> 00:45:23,966
+So the trick is to configure the
+
+
+1380
+00:45:23,966 --> 00:45:26,306
+plane to not write in the color
+
+
+1381
+00:45:26,396 --> 00:45:26,666
+buffer.
+
+
+1382
+00:45:27,396 --> 00:45:28,456
+This can be done
+
+
+1383
+00:45:28,676 --> 00:45:31,206
+programmatically or using the
+
+
+1384
+00:45:31,206 --> 00:45:32,356
+inspector in Xcode.
+
+
+1385
+00:45:32,626 --> 00:45:34,296
+And if I do this, the plane will
+
+
+1386
+00:45:34,296 --> 00:45:35,736
+disappear, but the shadow as
+
+
+1387
+00:45:35,736 --> 00:45:35,946
+well.
+
+
+1388
+00:45:36,896 --> 00:45:38,856
+But the plane still writes in
+
+
+1389
+00:45:38,856 --> 00:45:40,796
+the depth buffer, which means
+
+
+1390
+00:45:40,796 --> 00:45:42,046
+that I cannot configure my
+
+
+1391
+00:45:42,096 --> 00:45:43,236
+light, and change the shadow
+
+
+1392
+00:45:43,236 --> 00:45:45,826
+technique, and move from forward
+
+
+1393
+00:45:46,676 --> 00:45:49,126
+here to default shadows.
+
+
+1394
+00:45:50,166 --> 00:45:52,266
+And now, the shadow will come
+
+
+1395
+00:45:52,266 --> 00:45:54,306
+back because default shadows
+
+
+1396
+00:45:54,306 --> 00:45:55,776
+work as a [inaudible] full
+
+
+1397
+00:45:56,166 --> 00:45:58,416
+screen, and it will compose
+
+
+1398
+00:45:58,416 --> 00:46:01,286
+shadows over the image based on
+
+
+1399
+00:46:01,286 --> 00:46:02,756
+the depth buffer of the scene
+
+
+1400
+00:46:02,756 --> 00:46:03,986
+and the depth buffer of the
+
+
+1401
+00:46:03,986 --> 00:46:04,506
+light map.
+
+
+1402
+00:46:05,136 --> 00:46:06,676
+And so for default shadows, the
+
+
+1403
+00:46:06,676 --> 00:46:08,256
+plane still exists because the
+
+
+1404
+00:46:08,256 --> 00:46:09,926
+plane still rendered into the
+
+
+1405
+00:46:09,926 --> 00:46:10,416
+depth buffer.
+
+
+1406
+00:46:10,416 --> 00:46:13,026
+So that's for the trick for
+
+
+1407
+00:46:13,026 --> 00:46:14,066
+shadows in ARKit.
+
+
+1408
+00:46:14,366 --> 00:46:15,656
+Now, I would like to talk about
+
+
+1409
+00:46:15,656 --> 00:46:16,316
+GameplayKit.
+
+
+1410
+00:46:17,116 --> 00:46:19,066
+GameplayKit entity and
+
+
+1411
+00:46:19,066 --> 00:46:20,956
+components now support driving
+
+
+1412
+00:46:20,956 --> 00:46:21,906
+SceneKit objects.
+
+
+1413
+00:46:22,416 --> 00:46:23,956
+The typical use case is when you
+
+
+1414
+00:46:23,956 --> 00:46:25,176
+want to implement character
+
+
+1415
+00:46:25,176 --> 00:46:26,436
+behaviors, and that's what we
+
+
+1416
+00:46:26,436 --> 00:46:28,406
+did in our Fox 2 example for the
+
+
+1417
+00:46:28,406 --> 00:46:28,946
+enemies.
+
+
+1418
+00:46:29,666 --> 00:46:31,396
+In our case, we have GKScene
+
+
+1419
+00:46:31,656 --> 00:46:33,446
+with two entities, one for each
+
+
+1420
+00:46:33,446 --> 00:46:33,866
+enemy.
+
+
+1421
+00:46:34,616 --> 00:46:36,826
+And we implemented two behaviors
+
+
+1422
+00:46:36,826 --> 00:46:37,816
+as GKComponent.
+
+
+1423
+00:46:38,526 --> 00:46:40,516
+Now, the main interest resides
+
+
+1424
+00:46:40,516 --> 00:46:42,646
+in the Xcode integration that
+
+
+1425
+00:46:42,646 --> 00:46:44,326
+allows us to directly assign the
+
+
+1426
+00:46:44,326 --> 00:46:46,566
+behavior to our enemies directly
+
+
+1427
+00:46:46,566 --> 00:46:47,096
+in Xcode.
+
+
+1428
+00:46:47,256 --> 00:46:49,186
+And we can also use the Xcode
+
+
+1429
+00:46:49,186 --> 00:46:51,416
+inspector to directly edit the
+
+
+1430
+00:46:51,416 --> 00:46:54,446
+properties of our behaviors.
+
+
+1431
+00:46:56,686 --> 00:46:57,946
+Next, Model I/O.
+
+
+1432
+00:46:57,946 --> 00:47:00,816
+Model I/O improved their support
+
+
+1433
+00:47:00,816 --> 00:47:02,426
+for USD in the 3D.
+
+
+1434
+00:47:02,826 --> 00:47:04,556
+As a reminder, USD stands for
+
+
+1435
+00:47:04,736 --> 00:47:06,396
+Universal Scene Description, and
+
+
+1436
+00:47:06,396 --> 00:47:08,766
+it is a 3D file format developed
+
+
+1437
+00:47:08,766 --> 00:47:09,446
+by Pixar.
+
+
+1438
+00:47:11,386 --> 00:47:13,056
+So SceneKit and Model I/O
+
+
+1439
+00:47:13,056 --> 00:47:14,066
+improved the support for USD
+
+
+1440
+00:47:14,066 --> 00:47:16,206
+and, in particular, for Metal
+
+
+1441
+00:47:16,206 --> 00:47:17,736
+I/O's and for animations.
+
+
+1442
+00:47:18,096 --> 00:47:19,286
+If you want more information
+
+
+1443
+00:47:19,286 --> 00:47:21,626
+about USD, you can check our
+
+
+1444
+00:47:21,626 --> 00:47:23,996
+previous presentation from last
+
+
+1445
+00:47:23,996 --> 00:47:25,626
+year, and that will also be in
+
+
+1446
+00:47:25,626 --> 00:47:27,456
+our session on Friday afternoon,
+
+
+1447
+00:47:27,746 --> 00:47:29,396
+From Art to Engine with Model
+
+
+1448
+00:47:29,396 --> 00:47:29,676
+I/O.
+
+
+1449
+00:47:31,456 --> 00:47:32,956
+Next is UIFocus.
+
+
+1450
+00:47:33,266 --> 00:47:36,406
+And so UIFocus engine is part of
+
+
+1451
+00:47:36,486 --> 00:47:38,416
+UIKit, and it allows you to
+
+
+1452
+00:47:38,416 --> 00:47:40,516
+select and focus objects on your
+
+
+1453
+00:47:40,516 --> 00:47:43,166
+Apple TV using the Siri Remote.
+
+
+1454
+00:47:44,406 --> 00:47:46,816
+Now, SCN, it now conforms to
+
+
+1455
+00:47:46,816 --> 00:47:49,366
+UIFocusItem, which means that
+
+
+1456
+00:47:49,366 --> 00:47:52,446
+you can decide which object in
+
+
+1457
+00:47:52,446 --> 00:47:54,736
+your scene, which object would
+
+
+1458
+00:47:54,736 --> 00:47:56,106
+be focusable on it.
+
+
+1459
+00:47:57,186 --> 00:47:58,806
+And then, the focus engine will
+
+
+1460
+00:47:58,806 --> 00:48:00,476
+call you back and will tell you
+
+
+1461
+00:48:00,476 --> 00:48:01,696
+what object should be now
+
+
+1462
+00:48:01,696 --> 00:48:03,336
+focused in [inaudible] gestures
+
+
+1463
+00:48:03,336 --> 00:48:04,746
+on the Apple Siri Remote.
+
+
+1464
+00:48:06,136 --> 00:48:07,196
+And then, it's up to you to
+
+
+1465
+00:48:07,196 --> 00:48:08,236
+decide what action you want to
+
+
+1466
+00:48:08,236 --> 00:48:09,726
+take and what visual feedback
+
+
+1467
+00:48:09,796 --> 00:48:10,526
+you want to provide.
+
+
+1468
+00:48:11,286 --> 00:48:12,436
+To briefly explain how this
+
+
+1469
+00:48:12,466 --> 00:48:14,596
+works, let's say here I
+
+
+1470
+00:48:14,596 --> 00:48:16,116
+configure the white pieces to be
+
+
+1471
+00:48:16,116 --> 00:48:16,786
+focusable.
+
+
+1472
+00:48:17,996 --> 00:48:19,316
+SceneKit will automatically
+
+
+1473
+00:48:19,316 --> 00:48:20,946
+compute the projected area of
+
+
+1474
+00:48:21,006 --> 00:48:23,296
+your object and give that to the
+
+
+1475
+00:48:23,296 --> 00:48:23,986
+focus engine.
+
+
+1476
+00:48:25,066 --> 00:48:26,726
+Then, the focus engine will take
+
+
+1477
+00:48:26,726 --> 00:48:29,836
+care of selecting the right
+
+
+1478
+00:48:30,416 --> 00:48:32,566
+object based on the gestures on
+
+
+1479
+00:48:32,566 --> 00:48:33,096
+the remote.
+
+
+1480
+00:48:33,656 --> 00:48:36,526
+And SceneKit will take care of
+
+
+1481
+00:48:37,016 --> 00:48:38,406
+keeping the projected areas on
+
+
+1482
+00:48:38,406 --> 00:48:40,186
+the screen updated if you move
+
+
+1483
+00:48:40,186 --> 00:48:41,656
+your objects or if you move the
+
+
+1484
+00:48:41,656 --> 00:48:42,516
+camera around.
+
+
+1485
+00:48:43,566 --> 00:48:44,896
+So the only thing you have to do
+
+
+1486
+00:48:44,896 --> 00:48:46,456
+here is just to define what
+
+
+1487
+00:48:46,456 --> 00:48:48,006
+object should be focusable on
+
+
+1488
+00:48:48,006 --> 00:48:48,576
+it, and that's all.
+
+
+1489
+00:48:49,516 --> 00:48:54,096
+[ Applause ]
+
+
+1490
+00:48:54,596 --> 00:48:55,316
+Now, to conclude this
+
+
+1491
+00:48:55,316 --> 00:48:56,736
+presentation, I would like to
+
+
+1492
+00:48:56,736 --> 00:48:57,896
+mention a few rendering
+
+
+1493
+00:48:57,896 --> 00:48:59,346
+additions that we added to our
+
+
+1494
+00:48:59,346 --> 00:48:59,846
+renderer.
+
+
+1495
+00:49:00,316 --> 00:49:02,066
+And the first one is a support
+
+
+1496
+00:49:02,066 --> 00:49:03,586
+for point cloud rendering.
+
+
+1497
+00:49:04,696 --> 00:49:06,466
+We improved our [inaudible]
+
+
+1498
+00:49:06,466 --> 00:49:07,366
+object and added these
+
+
+1499
+00:49:07,366 --> 00:49:09,156
+properties that will allow you
+
+
+1500
+00:49:09,156 --> 00:49:10,736
+to configure the appearance of
+
+
+1501
+00:49:10,856 --> 00:49:11,536
+point cloud.
+
+
+1502
+00:49:11,906 --> 00:49:13,796
+So these properties were
+
+
+1503
+00:49:13,796 --> 00:49:15,826
+[inaudible] point cloud, which
+
+
+1504
+00:49:15,826 --> 00:49:16,736
+means that they were created
+
+
+1505
+00:49:16,736 --> 00:49:18,356
+with an area of point and with a
+
+
+1506
+00:49:18,356 --> 00:49:19,476
+primitive type point.
+
+
+1507
+00:49:19,966 --> 00:49:21,446
+And with these properties, you
+
+
+1508
+00:49:21,446 --> 00:49:23,156
+can configure the size in screen
+
+
+1509
+00:49:23,156 --> 00:49:25,596
+space and in world space, and
+
+
+1510
+00:49:25,596 --> 00:49:26,916
+SceneKit will render your point
+
+
+1511
+00:49:26,916 --> 00:49:29,116
+cloud, and texture them, and
+
+
+1512
+00:49:29,116 --> 00:49:30,386
+light them according to the
+
+
+1513
+00:49:30,386 --> 00:49:31,956
+materials that are attached to
+
+
+1514
+00:49:31,956 --> 00:49:32,606
+your geometry.
+
+
+1515
+00:49:33,086 --> 00:49:37,346
+Then, we added two new
+
+
+1516
+00:49:37,346 --> 00:49:39,176
+transparency modes to our
+
+
+1517
+00:49:39,176 --> 00:49:41,736
+material to address the problems
+
+
+1518
+00:49:41,736 --> 00:49:44,366
+of double-sided objects or
+
+
+1519
+00:49:44,366 --> 00:49:45,786
+concave objects that are
+
+
+1520
+00:49:45,826 --> 00:49:46,676
+semitransparent.
+
+
+1521
+00:49:47,456 --> 00:49:49,006
+So if you take the object on the
+
+
+1522
+00:49:49,006 --> 00:49:51,346
+left, you can see a double-sided
+
+
+1523
+00:49:51,346 --> 00:49:53,786
+sphere, semitransparent, and you
+
+
+1524
+00:49:53,786 --> 00:49:55,616
+will notice the artifact because
+
+
+1525
+00:49:55,616 --> 00:49:57,386
+the polygons are not rendered
+
+
+1526
+00:49:57,386 --> 00:49:58,246
+from back to front.
+
+
+1527
+00:49:58,866 --> 00:50:00,086
+So SceneKit will render your
+
+
+1528
+00:50:00,086 --> 00:50:01,806
+objects from back to front for
+
+
+1529
+00:50:01,806 --> 00:50:04,426
+great transparency, but it won't
+
+
+1530
+00:50:04,736 --> 00:50:07,066
+sort the individual polygons of
+
+
+1531
+00:50:07,066 --> 00:50:07,706
+a geometry.
+
+
+1532
+00:50:08,486 --> 00:50:09,846
+And so to address that problem,
+
+
+1533
+00:50:09,966 --> 00:50:11,256
+we introduced two new
+
+
+1534
+00:50:11,256 --> 00:50:12,056
+transparency mode.
+
+
+1535
+00:50:12,306 --> 00:50:15,166
+So first one, single layer, will
+
+
+1536
+00:50:15,166 --> 00:50:16,906
+render your object in two passes
+
+
+1537
+00:50:16,906 --> 00:50:19,006
+to only render the front-most
+
+
+1538
+00:50:19,006 --> 00:50:20,406
+faces in the second pass.
+
+
+1539
+00:50:20,676 --> 00:50:23,296
+So that fixes the artifact, but,
+
+
+1540
+00:50:23,296 --> 00:50:24,556
+as you can see, object doesn't
+
+
+1541
+00:50:24,556 --> 00:50:25,486
+look double sided.
+
+
+1542
+00:50:25,486 --> 00:50:26,926
+And the typical use case for
+
+
+1543
+00:50:26,926 --> 00:50:28,416
+this mode is when you want to
+
+
+1544
+00:50:28,416 --> 00:50:31,136
+fade out an object and avoid the
+
+
+1545
+00:50:31,336 --> 00:50:34,716
+artifacts due to the overlapping
+
+
+1546
+00:50:34,716 --> 00:50:36,706
+polygon during the fade-out.
+
+
+1547
+00:50:37,506 --> 00:50:40,176
+So second mode, dual layer, will
+
+
+1548
+00:50:40,176 --> 00:50:41,566
+also render your object in two
+
+
+1549
+00:50:41,566 --> 00:50:42,076
+passes.
+
+
+1550
+00:50:42,546 --> 00:50:43,646
+So first pass with render the
+
+
+1551
+00:50:43,646 --> 00:50:45,606
+back faces, and the second pass
+
+
+1552
+00:50:45,606 --> 00:50:46,926
+will render the front faces.
+
+
+1553
+00:50:46,996 --> 00:50:48,826
+And it allows us to render this
+
+
+1554
+00:50:48,826 --> 00:50:50,176
+double-sided sphere correctly
+
+
+1555
+00:50:50,276 --> 00:50:52,716
+here and also the gem from our
+
+
+1556
+00:50:52,716 --> 00:50:53,516
+Fox demo.
+
+
+1557
+00:50:53,836 --> 00:50:55,446
+And this gem, that comes from
+
+
+1558
+00:50:55,446 --> 00:50:56,976
+the Swift Playground Learn to
+
+
+1559
+00:50:57,136 --> 00:50:58,186
+Code curriculum.
+
+
+1560
+00:50:59,976 --> 00:51:02,576
+One last addition is a support
+
+
+1561
+00:51:02,576 --> 00:51:03,866
+for cascaded shadow maps.
+
+
+1562
+00:51:04,066 --> 00:51:05,756
+So cascaded shadow maps is an
+
+
+1563
+00:51:05,756 --> 00:51:07,776
+optimization of shadow maps.
+
+
+1564
+00:51:08,276 --> 00:51:10,716
+The idea is that it splits your
+
+
+1565
+00:51:10,716 --> 00:51:12,076
+shadow maps into multiple
+
+
+1566
+00:51:12,076 --> 00:51:15,246
+textures or multiple cascades to
+
+
+1567
+00:51:15,246 --> 00:51:17,726
+allocate more precision to areas
+
+
+1568
+00:51:17,726 --> 00:51:19,256
+that are closer to the camera
+
+
+1569
+00:51:19,586 --> 00:51:21,156
+and less precision for areas
+
+
+1570
+00:51:21,156 --> 00:51:21,916
+that are far away.
+
+
+1571
+00:51:22,896 --> 00:51:24,406
+To configure cascaded shadow
+
+
+1572
+00:51:24,406 --> 00:51:26,086
+maps, just tell us how many
+
+
+1573
+00:51:26,086 --> 00:51:27,506
+cascades you want, you can
+
+
+1574
+00:51:27,506 --> 00:51:28,546
+configure the size of your
+
+
+1575
+00:51:28,546 --> 00:51:30,486
+cascade, and then you have a
+
+
+1576
+00:51:30,486 --> 00:51:32,566
+parameter named
+
+
+1577
+00:51:32,656 --> 00:51:35,626
+shadowCascadeSplittingFactor
+
+
+1578
+00:51:35,626 --> 00:51:38,316
+that you can adjust to control
+
+
+1579
+00:51:38,426 --> 00:51:39,736
+the distribution of your
+
+
+1580
+00:51:39,736 --> 00:51:41,336
+cascades, depending on the
+
+
+1581
+00:51:41,336 --> 00:51:42,736
+distance from the point of view.
+
+
+1582
+00:51:43,396 --> 00:51:45,516
+For example, this is a recording
+
+
+1583
+00:51:45,516 --> 00:51:48,476
+on, from our Fox 2 example, and
+
+
+1584
+00:51:48,476 --> 00:51:49,696
+in our case, we're using full
+
+
+1585
+00:51:49,696 --> 00:51:51,336
+cascade, represented by
+
+
+1586
+00:51:51,336 --> 00:51:56,426
+different color tint here, and
+
+
+1587
+00:51:56,426 --> 00:51:57,676
+here I'm playing with the
+
+
+1588
+00:51:57,676 --> 00:51:59,286
+splitting factor so that you can
+
+
+1589
+00:51:59,286 --> 00:52:01,186
+get an idea on how this impacts
+
+
+1590
+00:52:01,186 --> 00:52:03,306
+distribution on the cascade
+
+
+1591
+00:52:03,306 --> 00:52:04,346
+depending on the distance from
+
+
+1592
+00:52:04,346 --> 00:52:04,906
+the point of view.
+
+
+1593
+00:52:05,966 --> 00:52:07,646
+As you can see, the right area
+
+
+1594
+00:52:07,646 --> 00:52:09,096
+represents the first cascade,
+
+
+1595
+00:52:09,216 --> 00:52:10,686
+and so it represents a smaller
+
+
+1596
+00:52:10,686 --> 00:52:12,536
+area of the world, and so we
+
+
+1597
+00:52:12,536 --> 00:52:14,016
+have higher precision there,
+
+
+1598
+00:52:14,626 --> 00:52:16,686
+whereas the green cascade in the
+
+
+1599
+00:52:16,686 --> 00:52:18,206
+back represents a much larger
+
+
+1600
+00:52:18,206 --> 00:52:19,486
+area, and so we're fewer
+
+
+1601
+00:52:19,486 --> 00:52:21,516
+precision for the green cascade.
+
+
+1602
+00:52:22,466 --> 00:52:24,236
+Note that you can, you are also
+
+
+1603
+00:52:24,236 --> 00:52:26,516
+able to visualize cascaded
+
+
+1604
+00:52:26,516 --> 00:52:28,716
+shadow maps with your own scene
+
+
+1605
+00:52:28,776 --> 00:52:29,706
+using Xcode.
+
+
+1606
+00:52:32,096 --> 00:52:34,996
+Okay, to wrap up, so this new
+
+
+1607
+00:52:34,996 --> 00:52:37,716
+version of SceneKit introduced
+
+
+1608
+00:52:37,716 --> 00:52:39,596
+new camera APIs to simplify the
+
+
+1609
+00:52:39,596 --> 00:52:41,336
+control of cameras with some new
+
+
+1610
+00:52:41,336 --> 00:52:42,696
+great effects like depths of
+
+
+1611
+00:52:42,696 --> 00:52:44,856
+field, motion blur, and screen
+
+
+1612
+00:52:44,856 --> 00:52:45,926
+space ambient occlusion.
+
+
+1613
+00:52:47,346 --> 00:52:49,266
+Also, a great GPU support for
+
+
+1614
+00:52:49,266 --> 00:52:50,626
+tessellation and subdivision.
+
+
+1615
+00:52:51,076 --> 00:52:52,306
+Some new APIs.
+
+
+1616
+00:52:52,526 --> 00:52:53,676
+Much more performant for
+
+
+1617
+00:52:53,676 --> 00:52:55,126
+animations and with the
+
+
+1618
+00:52:55,126 --> 00:52:56,196
+animation [inaudible].
+
+
+1619
+00:52:57,276 --> 00:52:58,586
+Some new, great tools to
+
+
+1620
+00:52:58,806 --> 00:53:01,056
+capture, trace, and edit your
+
+
+1621
+00:53:01,116 --> 00:53:01,416
+scenes.
+
+
+1622
+00:53:01,746 --> 00:53:02,986
+And of course, a really great
+
+
+1623
+00:53:02,986 --> 00:53:04,596
+story for augmented reality
+
+
+1624
+00:53:04,876 --> 00:53:05,876
+thanks to ARKit.
+
+
+1625
+00:53:07,796 --> 00:53:09,406
+For more information, please
+
+
+1626
+00:53:09,406 --> 00:53:10,856
+check our developer website.
+
+
+1627
+00:53:11,376 --> 00:53:13,696
+You can access our sample code
+
+
+1628
+00:53:13,696 --> 00:53:15,836
+from there.
+
+
+1629
+00:53:15,946 --> 00:53:19,506
+Some related sessions.
+
+
+1630
+00:53:19,926 --> 00:53:21,606
+So [inaudible], graphic
+
+
+1631
+00:53:21,606 --> 00:53:23,566
+technologies that SceneKit
+
+
+1632
+00:53:23,566 --> 00:53:25,556
+integrate with, like Metal,
+
+
+1633
+00:53:25,556 --> 00:53:26,976
+SpriteKit, and Model I/O, of
+
+
+1634
+00:53:26,976 --> 00:53:27,366
+course.
+
+
+1635
+00:53:28,396 --> 00:53:30,446
+There will be, there is a
+
+
+1636
+00:53:30,446 --> 00:53:32,316
+session about tvOS and UIFocus
+
+
+1637
+00:53:32,476 --> 00:53:33,156
+support.
+
+
+1638
+00:53:33,156 --> 00:53:34,276
+And there will be a great
+
+
+1639
+00:53:34,276 --> 00:53:36,176
+session tomorrow about SceneKit,
+
+
+1640
+00:53:36,176 --> 00:53:37,466
+using SceneKit in Swift
+
+
+1641
+00:53:37,466 --> 00:53:39,896
+Playground tomorrow morning.
+
+
+1642
+00:53:40,246 --> 00:53:41,446
+And that's about it.
+
+
+1643
+00:53:41,976 --> 00:53:42,336
+Thank you.
+
+
+1644
+00:53:43,016 --> 00:53:45,000
+[ Applause ]
+

@@ -1,0 +1,10274 @@
+1
+00:00:07,516 --> 00:00:21,706
+[ Background Conversation ]
+
+
+2
+00:00:22,206 --> 00:00:22,716
+>> Good morning.
+
+
+3
+00:00:25,086 --> 00:00:26,006
+I'm glad you could make it.
+
+
+4
+00:00:26,576 --> 00:00:27,676
+My name is Robb, and together
+
+
+5
+00:00:27,676 --> 00:00:28,786
+with my coworkers, Wenson and
+
+
+6
+00:00:28,786 --> 00:00:29,756
+Tom, I'm going to take you on a
+
+
+7
+00:00:29,756 --> 00:00:31,326
+deep dive today through the new
+
+
+8
+00:00:31,326 --> 00:00:32,485
+eight drag-and-drop APIs we are
+
+
+9
+00:00:32,485 --> 00:00:34,216
+introducing in iOS 11.
+
+
+10
+00:00:34,476 --> 00:00:36,776
+So, we have a bunch of new APIs
+
+
+11
+00:00:36,776 --> 00:00:38,166
+for you, but I don't want you to
+
+
+12
+00:00:38,166 --> 00:00:38,866
+get intimidated.
+
+
+13
+00:00:39,266 --> 00:00:40,066
+Even though we have a lot of
+
+
+14
+00:00:40,066 --> 00:00:41,656
+ground to cover, you can
+
+
+15
+00:00:41,656 --> 00:00:44,186
+gradually adopt these APIs and,
+
+
+16
+00:00:44,186 --> 00:00:45,466
+in fact, if you are one of the
+
+
+17
+00:00:45,466 --> 00:00:47,006
+few people who use Collection
+
+
+18
+00:00:47,006 --> 00:00:48,176
+view or Table view, there is a
+
+
+19
+00:00:48,176 --> 00:00:49,296
+dedicated session for you
+
+
+20
+00:00:49,296 --> 00:00:51,886
+tomorrow in Hall 2 that you can
+
+
+21
+00:00:51,886 --> 00:00:53,216
+check out, and it's followed
+
+
+22
+00:00:53,216 --> 00:00:54,526
+back-to-back by one on
+
+
+23
+00:00:54,576 --> 00:00:55,406
+NSItemProvider.
+
+
+24
+00:00:55,786 --> 00:00:57,156
+If you ever wondered what the U
+
+
+25
+00:00:57,156 --> 00:00:58,736
+in UDI stands for, do not miss
+
+
+26
+00:00:58,736 --> 00:01:00,236
+this session.
+
+
+27
+00:01:00,556 --> 00:01:02,126
+This session, however, is going
+
+
+28
+00:01:02,126 --> 00:01:03,126
+to split in two halves.
+
+
+29
+00:01:03,196 --> 00:01:04,336
+First, we're going to talk about
+
+
+30
+00:01:04,336 --> 00:01:05,536
+the drag side of things, the
+
+
+31
+00:01:05,536 --> 00:01:06,996
+drag interactions, it's
+
+
+32
+00:01:06,996 --> 00:01:08,476
+delegate, the session, the
+
+
+33
+00:01:08,476 --> 00:01:09,476
+associated drag item and
+
+
+34
+00:01:09,476 --> 00:01:11,006
+previews, and then Tom is going
+
+
+35
+00:01:11,006 --> 00:01:12,226
+to take over in the second half,
+
+
+36
+00:01:12,226 --> 00:01:13,656
+and do a similar thing for the
+
+
+37
+00:01:13,656 --> 00:01:14,256
+drop side.
+
+
+38
+00:01:14,376 --> 00:01:16,546
+So, we have a lot of stuff to
+
+
+39
+00:01:16,546 --> 00:01:17,756
+talk about, and we're going to
+
+
+40
+00:01:17,756 --> 00:01:19,296
+start with advanced drag
+
+
+41
+00:01:19,296 --> 00:01:19,926
+interactions.
+
+
+42
+00:01:21,156 --> 00:01:22,516
+So, as you already know, drag
+
+
+43
+00:01:22,816 --> 00:01:25,016
+and drop on iOS is not only a
+
+
+44
+00:01:25,016 --> 00:01:26,106
+way to share data between
+
+
+45
+00:01:26,106 --> 00:01:27,676
+applications, it's also a fluid
+
+
+46
+00:01:27,676 --> 00:01:29,296
+user interaction, and with these
+
+
+47
+00:01:29,296 --> 00:01:32,156
+kinds of complex user
+
+
+48
+00:01:32,156 --> 00:01:33,686
+interactions, consistency is
+
+
+49
+00:01:33,686 --> 00:01:34,786
+key, and you achieve this
+
+
+50
+00:01:34,786 --> 00:01:36,186
+consistency by using
+
+
+51
+00:01:36,186 --> 00:01:37,166
+UIDragInteraction.
+
+
+52
+00:01:37,206 --> 00:01:38,316
+You can take one of those and
+
+
+53
+00:01:38,316 --> 00:01:39,916
+install it on any of your views.
+
+
+54
+00:01:39,916 --> 00:01:40,966
+You don't have to subclass
+
+
+55
+00:01:40,966 --> 00:01:43,026
+anything, or even worse, go in
+
+
+56
+00:01:43,026 --> 00:01:43,796
+and change the existing
+
+
+57
+00:01:43,796 --> 00:01:45,096
+superclass of the custom views.
+
+
+58
+00:01:45,456 --> 00:01:46,596
+Just install one of them, and it
+
+
+59
+00:01:46,596 --> 00:01:47,886
+will do the necessary gesture
+
+
+60
+00:01:47,886 --> 00:01:48,716
+bookkeeping for you.
+
+
+61
+00:01:49,106 --> 00:01:50,106
+You do, however, have to
+
+
+62
+00:01:50,386 --> 00:01:51,346
+implement
+
+
+63
+00:01:51,346 --> 00:01:53,716
+UIDragInteractionDelegate, which
+
+
+64
+00:01:53,716 --> 00:01:55,426
+at least return a UIDragItem.
+
+
+65
+00:01:55,856 --> 00:01:57,386
+You can [inaudible] into a bunch
+
+
+66
+00:01:57,386 --> 00:01:59,556
+of notifications about lifecycle
+
+
+67
+00:01:59,556 --> 00:02:00,926
+and perform some animations, and
+
+
+68
+00:02:00,926 --> 00:02:03,076
+we'll go over those in a second.
+
+
+69
+00:02:03,996 --> 00:02:05,196
+If none of this makes any sense
+
+
+70
+00:02:05,196 --> 00:02:06,346
+to you, I would recommend you
+
+
+71
+00:02:06,346 --> 00:02:07,786
+catch up on Introducing Drag and
+
+
+72
+00:02:07,786 --> 00:02:08,976
+Drop, which is a session we had
+
+
+73
+00:02:08,976 --> 00:02:10,946
+yesterday, so if you missed it,
+
+
+74
+00:02:10,946 --> 00:02:12,456
+you will have to check out the
+
+
+75
+00:02:12,456 --> 00:02:14,626
+video, and that will kind of
+
+
+76
+00:02:14,626 --> 00:02:15,336
+cover the basics.
+
+
+77
+00:02:15,666 --> 00:02:17,176
+However, if the basics were good
+
+
+78
+00:02:17,176 --> 00:02:18,696
+enough, you wouldn't be here
+
+
+79
+00:02:18,696 --> 00:02:20,096
+today, so let's look at some of
+
+
+80
+00:02:20,096 --> 00:02:21,536
+the behaviors that native
+
+
+81
+00:02:21,536 --> 00:02:24,116
+applications in iOS 11 employ,
+
+
+82
+00:02:24,426 --> 00:02:25,626
+and what your users will come to
+
+
+83
+00:02:25,626 --> 00:02:26,676
+expect of your applications,
+
+
+84
+00:02:26,676 --> 00:02:27,136
+going forward.
+
+
+85
+00:02:27,846 --> 00:02:30,586
+So, here you see me in Mail, and
+
+
+86
+00:02:30,586 --> 00:02:31,876
+you can see that, as I start a
+
+
+87
+00:02:31,876 --> 00:02:33,446
+drag with a long press on a
+
+
+88
+00:02:33,446 --> 00:02:34,516
+message, I can then tap
+
+
+89
+00:02:34,886 --> 00:02:36,366
+subsequent messages and they
+
+
+90
+00:02:36,366 --> 00:02:39,016
+will flock to the drag session
+
+
+91
+00:02:39,016 --> 00:02:40,396
+that I have already in progress,
+
+
+92
+00:02:40,396 --> 00:02:41,836
+so the little batch count keeps
+
+
+93
+00:02:41,836 --> 00:02:42,346
+increasing, there.
+
+
+94
+00:02:42,896 --> 00:02:43,796
+This is not something you get
+
+
+95
+00:02:43,796 --> 00:02:45,286
+out of the box for free, but
+
+
+96
+00:02:45,286 --> 00:02:46,426
+it's not very hard to implement,
+
+
+97
+00:02:46,426 --> 00:02:47,176
+either, and I'm going to show
+
+
+98
+00:02:47,176 --> 00:02:47,596
+you how.
+
+
+99
+00:02:48,666 --> 00:02:49,726
+So, in this example, I've
+
+
+100
+00:02:49,726 --> 00:02:50,556
+already implemented
+
+
+101
+00:02:50,556 --> 00:02:51,776
+UIDragInteractionDelegate,
+
+
+102
+00:02:52,426 --> 00:02:54,556
+specifically the required method
+
+
+103
+00:02:54,556 --> 00:02:55,276
+dragInteraction
+
+
+104
+00:02:55,276 --> 00:02:57,076
+itemsForBeginning session, in
+
+
+105
+00:02:57,076 --> 00:02:58,866
+which I create an NSItemProvider
+
+
+106
+00:02:58,866 --> 00:03:00,796
+for the message I want to drag,
+
+
+107
+00:03:01,896 --> 00:03:03,996
+then I create a UIDragItem with
+
+
+108
+00:03:03,996 --> 00:03:05,846
+said itemProvider set to
+
+
+109
+00:03:05,846 --> 00:03:07,726
+localObject to the message, so I
+
+
+110
+00:03:07,726 --> 00:03:09,466
+can later easily refer back to
+
+
+111
+00:03:09,466 --> 00:03:11,226
+the message, and then I return
+
+
+112
+00:03:11,226 --> 00:03:12,086
+the dropped-in array.
+
+
+113
+00:03:13,226 --> 00:03:14,846
+Now, you could use the exact
+
+
+114
+00:03:14,846 --> 00:03:15,906
+same implementation for
+
+
+115
+00:03:15,906 --> 00:03:17,306
+dragInteraction itemsForAddingTo
+
+
+116
+00:03:17,306 --> 00:03:19,106
+session withTouchAt point, and
+
+
+117
+00:03:19,106 --> 00:03:19,646
+that would work.
+
+
+118
+00:03:20,386 --> 00:03:21,416
+However, there is some edge
+
+
+119
+00:03:21,416 --> 00:03:22,886
+cases that I want you to think
+
+
+120
+00:03:22,886 --> 00:03:24,416
+about as you implement flocking
+
+
+121
+00:03:24,416 --> 00:03:25,836
+by opting into this method.
+
+
+122
+00:03:26,646 --> 00:03:28,176
+First, if you implement this
+
+
+123
+00:03:28,176 --> 00:03:29,676
+method, your dragInteraction can
+
+
+124
+00:03:29,676 --> 00:03:31,126
+now flock with any other
+
+
+125
+00:03:31,326 --> 00:03:32,246
+dragInteraction in your
+
+
+126
+00:03:32,246 --> 00:03:33,416
+application, not with
+
+
+127
+00:03:33,416 --> 00:03:34,216
+dragInteractions in other
+
+
+128
+00:03:34,216 --> 00:03:35,246
+applications, because we
+
+
+129
+00:03:35,246 --> 00:03:36,086
+currently don't allow
+
+
+130
+00:03:36,086 --> 00:03:37,686
+cross-application flocking, but
+
+
+131
+00:03:37,686 --> 00:03:38,876
+that dragInteractionDelegate
+
+
+132
+00:03:38,876 --> 00:03:40,236
+that Bob's implementing in that
+
+
+133
+00:03:40,236 --> 00:03:41,916
+other department, you can
+
+
+134
+00:03:41,916 --> 00:03:42,946
+potentially flock with that, so
+
+
+135
+00:03:42,946 --> 00:03:43,916
+you want to be aware.
+
+
+136
+00:03:44,306 --> 00:03:45,536
+In this case, I decided that I
+
+
+137
+00:03:45,536 --> 00:03:46,816
+only want to flock my messages
+
+
+138
+00:03:47,256 --> 00:03:51,226
+with other messages, so I
+
+
+139
+00:03:51,226 --> 00:03:52,356
+iterate over all the items in
+
+
+140
+00:03:52,356 --> 00:03:54,016
+the session, and if any of them
+
+
+141
+00:03:54,186 --> 00:03:56,736
+does not have an NSItemProvider
+
+
+142
+00:03:56,956 --> 00:03:58,556
+that has a UDI conforming to
+
+
+143
+00:03:58,556 --> 00:04:00,136
+this type, in this example,
+
+
+144
+00:04:00,136 --> 00:04:01,956
+private.example.mail, I'll abort
+
+
+145
+00:04:02,026 --> 00:04:03,876
+by returning an empty array, and
+
+
+146
+00:04:03,876 --> 00:04:04,886
+this will give other gesture
+
+
+147
+00:04:04,886 --> 00:04:07,086
+recognizes to recognize the tap
+
+
+148
+00:04:07,086 --> 00:04:08,256
+that triggered this flocking
+
+
+149
+00:04:08,506 --> 00:04:08,936
+attempt.
+
+
+150
+00:04:09,516 --> 00:04:12,646
+Similarly, by default, the same
+
+
+151
+00:04:13,056 --> 00:04:14,176
+dragInteraction, therefore the
+
+
+152
+00:04:14,176 --> 00:04:15,846
+same UI view can flock multiple
+
+
+153
+00:04:16,456 --> 00:04:16,726
+times.
+
+
+154
+00:04:16,726 --> 00:04:17,935
+We can't possibly know if that
+
+
+155
+00:04:17,935 --> 00:04:18,676
+makes sense for your
+
+
+156
+00:04:18,676 --> 00:04:21,086
+application, or if maybe
+
+
+157
+00:04:21,086 --> 00:04:22,316
+different regions inside your
+
+
+158
+00:04:22,316 --> 00:04:23,676
+view correspond to different
+
+
+159
+00:04:23,676 --> 00:04:25,456
+drag items, so you have to tell
+
+
+160
+00:04:25,456 --> 00:04:25,606
+us.
+
+
+161
+00:04:25,686 --> 00:04:26,786
+And, in this case, I check if
+
+
+162
+00:04:26,786 --> 00:04:28,226
+the local object of any of the
+
+
+163
+00:04:28,226 --> 00:04:29,516
+other items already in the
+
+
+164
+00:04:29,516 --> 00:04:30,786
+session correspond to the
+
+
+165
+00:04:30,786 --> 00:04:31,896
+message that I want to check
+
+
+166
+00:04:31,896 --> 00:04:33,506
+now, and if it's already there,
+
+
+167
+00:04:33,716 --> 00:04:34,986
+I also abort, using an empty
+
+
+168
+00:04:34,986 --> 00:04:35,236
+array.
+
+
+169
+00:04:35,236 --> 00:04:36,616
+So, this is how you get
+
+
+170
+00:04:36,616 --> 00:04:37,016
+flocking.
+
+
+171
+00:04:38,456 --> 00:04:40,326
+Another behavior that Mail has
+
+
+172
+00:04:41,396 --> 00:04:42,346
+is this.
+
+
+173
+00:04:42,826 --> 00:04:44,176
+As I long-press on a thread,
+
+
+174
+00:04:44,176 --> 00:04:45,976
+instead of lifting one item that
+
+
+175
+00:04:45,976 --> 00:04:49,076
+represents the thread, one item,
+
+
+176
+00:04:49,446 --> 00:04:51,296
+I instead lift three that each
+
+
+177
+00:04:51,296 --> 00:04:52,756
+represent a message in this
+
+
+178
+00:04:52,806 --> 00:04:54,016
+thread, as indicated by the
+
+
+179
+00:04:54,016 --> 00:04:57,096
+little blue bubble, there.
+
+
+180
+00:04:57,096 --> 00:04:58,186
+As we've already seen,
+
+
+181
+00:04:58,846 --> 00:05:00,706
+UIDragInteractionDelegates drag
+
+
+182
+00:05:00,706 --> 00:05:02,366
+item itemsForBeginning session
+
+
+183
+00:05:02,366 --> 00:05:03,666
+returns an array, so it stands
+
+
+184
+00:05:03,666 --> 00:05:04,646
+to reason we can, in fact,
+
+
+185
+00:05:04,646 --> 00:05:06,276
+return multiple items here, and
+
+
+186
+00:05:06,336 --> 00:05:08,416
+then that's something I'll do
+
+
+187
+00:05:08,416 --> 00:05:08,626
+here.
+
+
+188
+00:05:08,796 --> 00:05:10,466
+So, I grab all the messages from
+
+
+189
+00:05:10,466 --> 00:05:13,596
+my mailThread, I sort them, and
+
+
+190
+00:05:13,596 --> 00:05:14,646
+I'll explain why in a second,
+
+
+191
+00:05:14,916 --> 00:05:18,126
+and then I return a UIDragItem
+
+
+192
+00:05:18,126 --> 00:05:19,156
+for each of them in the exact
+
+
+193
+00:05:19,156 --> 00:05:20,026
+same fashion that you've seen
+
+
+194
+00:05:20,026 --> 00:05:20,336
+before.
+
+
+195
+00:05:20,706 --> 00:05:21,716
+Now, the reason that I'm sorting
+
+
+196
+00:05:21,716 --> 00:05:23,686
+them is that the order of the
+
+
+197
+00:05:23,686 --> 00:05:24,576
+array that you return here
+
+
+198
+00:05:24,576 --> 00:05:25,696
+matters, and it's so that the
+
+
+199
+00:05:25,696 --> 00:05:27,586
+last item in the array is going
+
+
+200
+00:05:27,586 --> 00:05:29,346
+to be the topmost object of your
+
+
+201
+00:05:29,346 --> 00:05:30,196
+lift, and since I want the
+
+
+202
+00:05:30,196 --> 00:05:31,716
+newest message first, I sort
+
+
+203
+00:05:31,716 --> 00:05:33,876
+them so that the oldest is the
+
+
+204
+00:05:33,876 --> 00:05:34,596
+first in the array.
+
+
+205
+00:05:35,166 --> 00:05:35,966
+And, this would work.
+
+
+206
+00:05:36,226 --> 00:05:37,536
+However, if this was all we
+
+
+207
+00:05:37,536 --> 00:05:41,006
+implemented, all the items would
+
+
+208
+00:05:41,006 --> 00:05:42,996
+lift with the same preview.
+
+
+209
+00:05:43,166 --> 00:05:44,016
+That means they would have the
+
+
+210
+00:05:44,016 --> 00:05:45,366
+same visual representation and,
+
+
+211
+00:05:45,366 --> 00:05:46,856
+by default, the preview that we
+
+
+212
+00:05:46,856 --> 00:05:48,846
+create is going to be based on
+
+
+213
+00:05:48,846 --> 00:05:49,856
+the view that the interaction is
+
+
+214
+00:05:49,856 --> 00:05:51,036
+installed on, so that would mean
+
+
+215
+00:05:51,036 --> 00:05:52,146
+that all three messages would
+
+
+216
+00:05:52,146 --> 00:05:53,826
+have the thread as their visual
+
+
+217
+00:05:53,826 --> 00:05:54,486
+representation.
+
+
+218
+00:05:54,746 --> 00:05:56,246
+And, since I don't want that, I
+
+
+219
+00:05:56,246 --> 00:05:57,286
+implement the optional
+
+
+220
+00:05:57,286 --> 00:05:58,006
+dragInteraction
+
+
+221
+00:05:58,006 --> 00:05:59,536
+previewForLifting item session,
+
+
+222
+00:05:59,816 --> 00:06:00,956
+in which I get to return my own
+
+
+223
+00:06:00,956 --> 00:06:01,476
+drag preview.
+
+
+224
+00:06:01,976 --> 00:06:04,096
+So, what I do here is, I first
+
+
+225
+00:06:04,096 --> 00:06:05,336
+attempt to find the message
+
+
+226
+00:06:05,596 --> 00:06:08,496
+associated with that item, and
+
+
+227
+00:06:08,496 --> 00:06:10,456
+if I have it, I grab its
+
+
+228
+00:06:10,456 --> 00:06:11,686
+associated message views through
+
+
+229
+00:06:11,686 --> 00:06:12,856
+its helper method I happen to
+
+
+230
+00:06:12,856 --> 00:06:14,246
+have, and initialize my
+
+
+231
+00:06:14,246 --> 00:06:16,186
+UITargetedDragPreview with that.
+
+
+232
+00:06:16,186 --> 00:06:18,116
+And, that would mean that all of
+
+
+233
+00:06:18,856 --> 00:06:20,286
+the messages that I'm lifting
+
+
+234
+00:06:20,286 --> 00:06:21,106
+would have their own
+
+
+235
+00:06:21,106 --> 00:06:22,426
+representation based on the
+
+
+236
+00:06:22,426 --> 00:06:23,766
+message view dedicated to them.
+
+
+237
+00:06:24,556 --> 00:06:26,336
+And, last but not least, here's
+
+
+238
+00:06:26,336 --> 00:06:28,806
+another thing that Mail can do
+
+
+239
+00:06:28,806 --> 00:06:29,756
+that is kind of tricky.
+
+
+240
+00:06:30,966 --> 00:06:32,456
+You see me here dragging photos
+
+
+241
+00:06:32,536 --> 00:06:35,146
+from Photos to Mail, and if you
+
+
+242
+00:06:35,146 --> 00:06:36,696
+pay attention, you'll notice
+
+
+243
+00:06:36,696 --> 00:06:39,786
+that the photos lift into an
+
+
+244
+00:06:40,426 --> 00:06:42,066
+appropriate size for the entire
+
+
+245
+00:06:42,066 --> 00:06:43,146
+width of the compose sheet.
+
+
+246
+00:06:43,806 --> 00:06:45,926
+So, how is it that Mail already
+
+
+247
+00:06:45,926 --> 00:06:47,256
+knows how much room to make, and
+
+
+248
+00:06:47,256 --> 00:06:48,426
+where to target the preview?
+
+
+249
+00:06:48,756 --> 00:06:49,916
+Is it because the data just
+
+
+250
+00:06:49,916 --> 00:06:51,226
+happened to arrive so quickly?
+
+
+251
+00:06:51,516 --> 00:06:53,746
+No. You should not make any
+
+
+252
+00:06:54,106 --> 00:06:55,386
+assumptions here.
+
+
+253
+00:06:55,386 --> 00:06:56,826
+In my demos, the data's going to
+
+
+254
+00:06:56,826 --> 00:06:58,186
+arrive in time, but that may not
+
+
+255
+00:06:58,186 --> 00:07:00,186
+be the case for your users, and
+
+
+256
+00:07:00,186 --> 00:07:01,116
+there's a better way to handle
+
+
+257
+00:07:01,116 --> 00:07:01,706
+this situation.
+
+
+258
+00:07:02,176 --> 00:07:04,176
+It turns out that NSItemProvider
+
+
+259
+00:07:05,086 --> 00:07:06,146
+has a property called
+
+
+260
+00:07:06,496 --> 00:07:08,356
+preferredPresentationSize, which
+
+
+261
+00:07:08,356 --> 00:07:09,436
+allows you to communicate the
+
+
+262
+00:07:09,436 --> 00:07:10,726
+size that you expect something
+
+
+263
+00:07:10,726 --> 00:07:11,826
+to be represented at on the
+
+
+264
+00:07:11,826 --> 00:07:12,926
+other side, kind of out of
+
+
+265
+00:07:12,976 --> 00:07:14,686
+channel, so even though I'm
+
+
+266
+00:07:14,686 --> 00:07:16,166
+initializing the NSItemProvider
+
+
+267
+00:07:16,166 --> 00:07:17,486
+with the file here, I happen to
+
+
+268
+00:07:17,486 --> 00:07:18,896
+know the size, and I can set its
+
+
+269
+00:07:18,896 --> 00:07:20,016
+preferredPresentationSize
+
+
+270
+00:07:20,016 --> 00:07:21,476
+accordingly, and then Mail is
+
+
+271
+00:07:21,476 --> 00:07:22,546
+able to read that out on the
+
+
+272
+00:07:22,546 --> 00:07:24,126
+other side, and everything else
+
+
+273
+00:07:24,126 --> 00:07:24,996
+is just the same.
+
+
+274
+00:07:25,616 --> 00:07:27,446
+Now, you can take my word for it
+
+
+275
+00:07:27,446 --> 00:07:28,806
+that this works, but we've only
+
+
+276
+00:07:28,806 --> 00:07:29,976
+known each other for what, nine
+
+
+277
+00:07:29,976 --> 00:07:30,266
+minutes?
+
+
+278
+00:07:30,436 --> 00:07:31,956
+So, Wenson's going to show you a
+
+
+279
+00:07:31,956 --> 00:07:33,526
+demo now.
+
+
+280
+00:07:34,516 --> 00:07:41,636
+[ Applause ]
+
+
+281
+00:07:42,136 --> 00:07:42,526
+>> Alright.
+
+
+282
+00:07:42,526 --> 00:07:43,156
+Thank you, Robb.
+
+
+283
+00:07:48,076 --> 00:07:49,096
+>> So now, before I jump into
+
+
+284
+00:07:49,096 --> 00:07:50,356
+the demo, there's a couple of
+
+
+285
+00:07:50,356 --> 00:07:51,166
+things I'd like to say.
+
+
+286
+00:07:51,716 --> 00:07:53,056
+All of the sample code that I'm
+
+
+287
+00:07:53,056 --> 00:07:54,586
+about to show you will all be
+
+
+288
+00:07:54,586 --> 00:07:56,426
+available online, and I strongly
+
+
+289
+00:07:56,426 --> 00:07:57,346
+encourage you all to check it
+
+
+290
+00:07:57,346 --> 00:07:57,636
+out.
+
+
+291
+00:07:58,176 --> 00:07:59,536
+Second of all, we will be going
+
+
+292
+00:07:59,536 --> 00:08:01,236
+over not one but two demo apps
+
+
+293
+00:08:01,236 --> 00:08:01,506
+today.
+
+
+294
+00:08:01,966 --> 00:08:03,236
+First one is called Drag Source,
+
+
+295
+00:08:03,236 --> 00:08:04,696
+and it will focus on drag
+
+
+296
+00:08:04,696 --> 00:08:05,306
+interactions.
+
+
+297
+00:08:05,616 --> 00:08:07,346
+Second one, Drop Destination,
+
+
+298
+00:08:07,386 --> 00:08:08,676
+will focus, as you might have
+
+
+299
+00:08:08,716 --> 00:08:09,876
+guessed, on the drop side.
+
+
+300
+00:08:10,456 --> 00:08:12,966
+So, with that said, let's take a
+
+
+301
+00:08:12,966 --> 00:08:15,266
+look at our first demo app.
+
+
+302
+00:08:15,506 --> 00:08:19,236
+So, in here, we see four stacks
+
+
+303
+00:08:19,236 --> 00:08:22,516
+of images, and currently, we
+
+
+304
+00:08:22,516 --> 00:08:24,026
+have implemented very basic
+
+
+305
+00:08:24,026 --> 00:08:25,996
+cases of drag interactions, so
+
+
+306
+00:08:25,996 --> 00:08:27,396
+we're able to drag a single
+
+
+307
+00:08:27,396 --> 00:08:28,776
+image out of each stack.
+
+
+308
+00:08:29,926 --> 00:08:31,816
+So, that works great, but it
+
+
+309
+00:08:31,816 --> 00:08:33,076
+would be kind of cool if we
+
+
+310
+00:08:33,076 --> 00:08:34,946
+could drag an entire stack of
+
+
+311
+00:08:34,946 --> 00:08:36,876
+images out as individual items,
+
+
+312
+00:08:37,066 --> 00:08:37,996
+one per each image.
+
+
+313
+00:08:38,765 --> 00:08:39,546
+So, let's take a look at the
+
+
+314
+00:08:39,546 --> 00:08:40,785
+code and see what we can do.
+
+
+315
+00:08:41,936 --> 00:08:43,726
+Now, currently, if you look at
+
+
+316
+00:08:43,726 --> 00:08:45,916
+this, we just consider the last
+
+
+317
+00:08:45,916 --> 00:08:47,676
+image view, and use it to create
+
+
+318
+00:08:47,676 --> 00:08:50,046
+a new drag item, just using that
+
+
+319
+00:08:50,046 --> 00:08:50,776
+last image view.
+
+
+320
+00:08:51,426 --> 00:08:52,746
+Instead, it's a pretty short
+
+
+321
+00:08:52,746 --> 00:08:55,266
+stretch to enumerate through all
+
+
+322
+00:08:55,266 --> 00:08:57,606
+of our available image views and
+
+
+323
+00:08:57,606 --> 00:08:59,206
+return drag item for each one.
+
+
+324
+00:08:59,206 --> 00:09:00,926
+So, we're going to do just that,
+
+
+325
+00:09:01,816 --> 00:09:02,916
+and now let's see how it
+
+
+326
+00:09:02,916 --> 00:09:03,436
+behaves.
+
+
+327
+00:09:04,506 --> 00:09:05,636
+So, watch what happens when I
+
+
+328
+00:09:05,636 --> 00:09:07,306
+begin a drag on the second stack
+
+
+329
+00:09:07,306 --> 00:09:07,886
+of images.
+
+
+330
+00:09:09,096 --> 00:09:10,196
+You'll notice that there's a
+
+
+331
+00:09:10,196 --> 00:09:11,746
+badge count of three this time.
+
+
+332
+00:09:11,946 --> 00:09:12,876
+That indicates that there are
+
+
+333
+00:09:12,876 --> 00:09:13,996
+three items in the drag,
+
+
+334
+00:09:14,296 --> 00:09:15,176
+corresponding to the three
+
+
+335
+00:09:15,176 --> 00:09:16,196
+images in the stack.
+
+
+336
+00:09:16,816 --> 00:09:18,066
+Now, if I bring up Photos on my
+
+
+337
+00:09:18,066 --> 00:09:20,706
+right side, here, you'll notice
+
+
+338
+00:09:21,156 --> 00:09:23,496
+that I can actually drop these
+
+
+339
+00:09:23,496 --> 00:09:25,266
+three images into Photos, and
+
+
+340
+00:09:25,266 --> 00:09:27,976
+it'll save them as individual
+
+
+341
+00:09:27,976 --> 00:09:28,346
+items.
+
+
+342
+00:09:29,266 --> 00:09:30,356
+Now, while we're in Photos,
+
+
+343
+00:09:30,356 --> 00:09:31,166
+there's something else I'd like
+
+
+344
+00:09:31,166 --> 00:09:31,646
+to show you.
+
+
+345
+00:09:32,046 --> 00:09:34,586
+So, I've begun a drag on one of
+
+
+346
+00:09:34,586 --> 00:09:36,636
+these images, and now, if I tap
+
+
+347
+00:09:37,296 --> 00:09:38,386
+on these other two images,
+
+
+348
+00:09:38,486 --> 00:09:39,676
+you'll see that we add those to
+
+
+349
+00:09:39,676 --> 00:09:41,106
+the existing drag session as
+
+
+350
+00:09:41,106 --> 00:09:41,616
+well.
+
+
+351
+00:09:42,286 --> 00:09:43,506
+So, as Robb mentioned, this is
+
+
+352
+00:09:43,506 --> 00:09:44,896
+not a behavior we get for free.
+
+
+353
+00:09:45,446 --> 00:09:46,506
+Luckily, it's pretty easy to
+
+
+354
+00:09:46,506 --> 00:09:47,916
+implement, and I'll show you
+
+
+355
+00:09:47,916 --> 00:09:48,126
+how.
+
+
+356
+00:09:48,966 --> 00:09:51,096
+So, going back to the code, all
+
+
+357
+00:09:51,096 --> 00:09:51,946
+we've got to implement is
+
+
+358
+00:09:51,946 --> 00:09:53,246
+itemsForAddingTo session.
+
+
+359
+00:09:54,166 --> 00:09:55,706
+So, the thing to notice here is
+
+
+360
+00:09:55,706 --> 00:09:57,286
+that we can actually use the
+
+
+361
+00:09:57,286 --> 00:09:59,296
+exact same logic to construct
+
+
+362
+00:09:59,296 --> 00:10:01,086
+drag items in itemsForAddingTo
+
+
+363
+00:10:01,086 --> 00:10:03,086
+session as in itemsForBeginning
+
+
+364
+00:10:03,086 --> 00:10:03,466
+session.
+
+
+365
+00:10:04,046 --> 00:10:05,776
+So, to make this easier for
+
+
+366
+00:10:05,776 --> 00:10:07,026
+ourselves, we'll just take the
+
+
+367
+00:10:07,026 --> 00:10:08,456
+logic that used to have in
+
+
+368
+00:10:08,456 --> 00:10:09,746
+itemsForBeginning session and
+
+
+369
+00:10:10,086 --> 00:10:11,616
+introduce a new helper method.
+
+
+370
+00:10:11,696 --> 00:10:13,466
+I'm going to call this dragItems
+
+
+371
+00:10:13,466 --> 00:10:13,946
+for session.
+
+
+372
+00:10:15,466 --> 00:10:17,056
+Then, in both places, when we
+
+
+373
+00:10:17,056 --> 00:10:18,226
+are adding to an existing
+
+
+374
+00:10:18,226 --> 00:10:21,526
+session, right here, and when we
+
+
+375
+00:10:21,526 --> 00:10:23,886
+are creating a new session in
+
+
+376
+00:10:23,886 --> 00:10:25,716
+itemsForBeginning session, we'll
+
+
+377
+00:10:25,716 --> 00:10:27,076
+simply turn around and call this
+
+
+378
+00:10:27,076 --> 00:10:27,566
+new helper.
+
+
+379
+00:10:27,566 --> 00:10:31,466
+OK? So, that should give us the
+
+
+380
+00:10:31,466 --> 00:10:34,236
+ability to add more images into
+
+
+381
+00:10:34,236 --> 00:10:36,176
+our existing drag session, and
+
+
+382
+00:10:36,176 --> 00:10:38,036
+as you can see, as I tap on each
+
+
+383
+00:10:38,036 --> 00:10:39,186
+of these other three views,
+
+
+384
+00:10:39,726 --> 00:10:42,116
+we're able to add all 10 images
+
+
+385
+00:10:42,116 --> 00:10:43,416
+into the drag session.
+
+
+386
+00:10:43,936 --> 00:10:45,216
+So, that works pretty well, but
+
+
+387
+00:10:45,586 --> 00:10:46,986
+there's one caveat.
+
+
+388
+00:10:47,286 --> 00:10:49,166
+So, notice here, I'm going to
+
+
+389
+00:10:49,166 --> 00:10:50,276
+start a drag on the first stack
+
+
+390
+00:10:50,276 --> 00:10:51,616
+of images, and I'm just going to
+
+
+391
+00:10:51,616 --> 00:10:52,616
+keep on tapping the first stack
+
+
+392
+00:10:52,616 --> 00:10:53,196
+of images.
+
+
+393
+00:10:54,196 --> 00:10:55,606
+So, you can see that I'm able to
+
+
+394
+00:10:55,606 --> 00:10:56,946
+arbitrarily add a whole ton of
+
+
+395
+00:10:56,946 --> 00:10:58,546
+images that I probably shouldn't
+
+
+396
+00:10:58,546 --> 00:10:59,166
+be able to add.
+
+
+397
+00:10:59,526 --> 00:11:00,656
+This seems like a bug to me.
+
+
+398
+00:11:00,976 --> 00:11:02,916
+I have 26 copies of each image
+
+
+399
+00:11:02,916 --> 00:11:03,916
+now in the drag session.
+
+
+400
+00:11:04,416 --> 00:11:06,316
+So, let's figure out how we can
+
+
+401
+00:11:06,316 --> 00:11:06,776
+fix that.
+
+
+402
+00:11:07,696 --> 00:11:09,396
+Now, here's our helper that we
+
+
+403
+00:11:09,396 --> 00:11:11,826
+just introduced, and what we can
+
+
+404
+00:11:11,826 --> 00:11:13,496
+do here is, instead of using all
+
+
+405
+00:11:13,496 --> 00:11:14,476
+the imageViews to create
+
+
+406
+00:11:14,476 --> 00:11:16,126
+dragItems every single time we
+
+
+407
+00:11:16,126 --> 00:11:17,816
+tap, what we're going to do is
+
+
+408
+00:11:17,886 --> 00:11:19,086
+filter out the imageViews, so we
+
+
+409
+00:11:19,086 --> 00:11:20,516
+don't use an imageView to create
+
+
+410
+00:11:20,516 --> 00:11:22,106
+more than one dragItem.
+
+
+411
+00:11:23,946 --> 00:11:25,606
+So, with those three lines of
+
+
+412
+00:11:25,606 --> 00:11:27,636
+code, I'm going to hop back into
+
+
+413
+00:11:27,636 --> 00:11:29,866
+the app and show you how it
+
+
+414
+00:11:30,786 --> 00:11:30,936
+works.
+
+
+415
+00:11:31,086 --> 00:11:33,686
+OK. So now, I've begun a drag on
+
+
+416
+00:11:33,686 --> 00:11:34,696
+the first stack of images, and
+
+
+417
+00:11:34,696 --> 00:11:35,756
+I'm going to tap the next three
+
+
+418
+00:11:35,756 --> 00:11:36,146
+stacks.
+
+
+419
+00:11:36,536 --> 00:11:37,666
+Now, watch what happens when I
+
+
+420
+00:11:37,666 --> 00:11:38,936
+try to add more items.
+
+
+421
+00:11:40,056 --> 00:11:41,486
+Our bug seems to be fixed.
+
+
+422
+00:11:41,486 --> 00:11:42,826
+We can no longer add redundant
+
+
+423
+00:11:42,826 --> 00:11:44,286
+items to our drag session.
+
+
+424
+00:11:44,896 --> 00:11:46,056
+So, these were just some basics
+
+
+425
+00:11:46,056 --> 00:11:47,396
+for manipulating the drag items
+
+
+426
+00:11:47,396 --> 00:11:48,256
+that we supplied through our
+
+
+427
+00:11:48,256 --> 00:11:48,826
+delegates.
+
+
+428
+00:11:49,326 --> 00:11:50,426
+I'd like to now hand it back to
+
+
+429
+00:11:50,426 --> 00:11:52,646
+Robb to discuss some of the more
+
+
+430
+00:11:52,646 --> 00:11:54,176
+advanced techniques for
+
+
+431
+00:11:54,176 --> 00:11:55,916
+customizing animations and drag
+
+
+432
+00:11:55,916 --> 00:11:56,426
+previews.
+
+
+433
+00:11:57,516 --> 00:12:04,546
+[ Applause ]
+
+
+434
+00:12:05,046 --> 00:12:07,076
+>> So, let's add some polish to
+
+
+435
+00:12:07,076 --> 00:12:07,716
+our previews.
+
+
+436
+00:12:09,026 --> 00:12:10,906
+One thing that's often the case
+
+
+437
+00:12:10,996 --> 00:12:12,676
+is that the view that you want
+
+
+438
+00:12:12,676 --> 00:12:14,956
+to lift is not quite ready for
+
+
+439
+00:12:14,956 --> 00:12:16,356
+prime time, so maybe there's
+
+
+440
+00:12:16,356 --> 00:12:17,656
+some highlighting state, or you
+
+
+441
+00:12:17,656 --> 00:12:18,956
+have some overlay that you want
+
+
+442
+00:12:18,956 --> 00:12:19,456
+to fade out.
+
+
+443
+00:12:19,866 --> 00:12:21,306
+And, the lift is actually a
+
+
+444
+00:12:21,306 --> 00:12:22,956
+great point to do that, because
+
+
+445
+00:12:23,286 --> 00:12:24,946
+during the lift, the view is
+
+
+446
+00:12:24,946 --> 00:12:26,406
+still live, so any changes you
+
+
+447
+00:12:26,406 --> 00:12:28,086
+make inside of that view will be
+
+
+448
+00:12:28,086 --> 00:12:29,606
+reflected during the animation,
+
+
+449
+00:12:29,606 --> 00:12:31,456
+and it's only that, at the point
+
+
+450
+00:12:31,456 --> 00:12:33,696
+where the user starts moving
+
+
+451
+00:12:33,696 --> 00:12:35,216
+their finger that we perform a
+
+
+452
+00:12:35,216 --> 00:12:37,226
+snapshot, and that state is what
+
+
+453
+00:12:37,226 --> 00:12:38,466
+the user will see for the rest
+
+
+454
+00:12:38,466 --> 00:12:39,296
+of the drag interaction.
+
+
+455
+00:12:40,406 --> 00:12:42,806
+The way you could animate
+
+
+456
+00:12:42,806 --> 00:12:45,636
+alongside the lift is like so.
+
+
+457
+00:12:46,256 --> 00:12:47,286
+There is an option delegate
+
+
+458
+00:12:47,286 --> 00:12:48,406
+method, dragInteraction
+
+
+459
+00:12:48,406 --> 00:12:49,796
+willAnimateLiftWith animator
+
+
+460
+00:12:49,796 --> 00:12:52,526
+session, in which you get handed
+
+
+461
+00:12:52,526 --> 00:12:54,696
+an animator object, and here I'm
+
+
+462
+00:12:55,036 --> 00:12:57,206
+going to just grab all the
+
+
+463
+00:12:57,206 --> 00:12:58,756
+messages that I have on the
+
+
+464
+00:12:58,756 --> 00:13:00,016
+items in the session, and find
+
+
+465
+00:13:00,016 --> 00:13:01,356
+their associated messageViews.
+
+
+466
+00:13:01,386 --> 00:13:02,826
+So now, I have an array of
+
+
+467
+00:13:02,826 --> 00:13:04,296
+messageViews, and for each of
+
+
+468
+00:13:04,296 --> 00:13:06,426
+them, I will just add an
+
+
+469
+00:13:06,426 --> 00:13:08,406
+animation to the animator in
+
+
+470
+00:13:08,406 --> 00:13:09,906
+which I fade out an overlay by
+
+
+471
+00:13:09,906 --> 00:13:11,056
+setting its alpha to zero.
+
+
+472
+00:13:11,616 --> 00:13:13,266
+And then, in the completion
+
+
+473
+00:13:13,266 --> 00:13:14,866
+block, I will set the alpha back
+
+
+474
+00:13:14,866 --> 00:13:16,176
+to one, and what that will do is
+
+
+475
+00:13:16,216 --> 00:13:18,576
+that as the view lifts up, the
+
+
+476
+00:13:18,576 --> 00:13:19,646
+overlay will fade out.
+
+
+477
+00:13:19,646 --> 00:13:21,456
+If the user lets go and the view
+
+
+478
+00:13:21,456 --> 00:13:22,456
+settles back into place, the
+
+
+479
+00:13:22,456 --> 00:13:23,806
+overlay will fade in, because
+
+
+480
+00:13:23,806 --> 00:13:24,976
+the animator is able to
+
+
+481
+00:13:24,976 --> 00:13:26,206
+automatically revert this
+
+
+482
+00:13:26,206 --> 00:13:26,676
+animation.
+
+
+483
+00:13:27,026 --> 00:13:28,716
+Then, when the drag starts, we
+
+
+484
+00:13:28,716 --> 00:13:30,266
+will snapshot the view, and
+
+
+485
+00:13:30,266 --> 00:13:31,536
+after that, the completion block
+
+
+486
+00:13:31,536 --> 00:13:33,086
+will get called, and the overlay
+
+
+487
+00:13:33,526 --> 00:13:34,896
+will be reinstalled.
+
+
+488
+00:13:34,896 --> 00:13:37,436
+So, that means in the snapshot,
+
+
+489
+00:13:37,436 --> 00:13:38,636
+there won't be an overlay, but
+
+
+490
+00:13:38,636 --> 00:13:39,616
+in the view that remains inside
+
+
+491
+00:13:39,616 --> 00:13:40,736
+the application, there will be.
+
+
+492
+00:13:41,546 --> 00:13:42,706
+But, what if the view that
+
+
+493
+00:13:42,806 --> 00:13:45,356
+you're lifting, the view that
+
+
+494
+00:13:45,356 --> 00:13:46,416
+you're lifting is not the view
+
+
+495
+00:13:46,416 --> 00:13:47,076
+that the interaction is
+
+
+496
+00:13:47,076 --> 00:13:48,306
+installed on, or what if the
+
+
+497
+00:13:48,306 --> 00:13:51,266
+view isn't square, or what else
+
+
+498
+00:13:51,266 --> 00:13:51,676
+can we do?
+
+
+499
+00:13:51,976 --> 00:13:53,056
+So, we already saw that
+
+
+500
+00:13:53,056 --> 00:13:54,536
+UIDragPreview can be initialized
+
+
+501
+00:13:54,536 --> 00:13:55,756
+with the view, but there are two
+
+
+502
+00:13:55,816 --> 00:13:57,466
+other parameters, and I'll go
+
+
+503
+00:13:57,466 --> 00:13:58,566
+over each of them individually.
+
+
+504
+00:13:58,986 --> 00:14:00,906
+The first is a parameters object
+
+
+505
+00:14:00,906 --> 00:14:02,426
+that allows you to customize the
+
+
+506
+00:14:02,756 --> 00:14:04,086
+appearance, and the second one
+
+
+507
+00:14:04,086 --> 00:14:05,076
+is a target that's used for
+
+
+508
+00:14:05,076 --> 00:14:05,536
+positioning.
+
+
+509
+00:14:06,496 --> 00:14:07,756
+So first, the parameters.
+
+
+510
+00:14:08,036 --> 00:14:09,116
+That is an instance of
+
+
+511
+00:14:09,116 --> 00:14:10,786
+UIDragPreviewParameters, and it
+
+
+512
+00:14:10,786 --> 00:14:11,676
+has two properties.
+
+
+513
+00:14:11,996 --> 00:14:13,136
+The first is a color, and that's
+
+
+514
+00:14:13,136 --> 00:14:14,286
+going to be the background color
+
+
+515
+00:14:14,286 --> 00:14:15,676
+of the view that we will install
+
+
+516
+00:14:15,676 --> 00:14:17,346
+behind your view, because a lot
+
+
+517
+00:14:17,346 --> 00:14:18,366
+of views aren't actually fully
+
+
+518
+00:14:18,366 --> 00:14:20,486
+opaque, and it would look not so
+
+
+519
+00:14:20,486 --> 00:14:21,886
+good if we just lifted them as
+
+
+520
+00:14:21,926 --> 00:14:22,256
+they are.
+
+
+521
+00:14:22,676 --> 00:14:24,366
+However, you get to customize
+
+
+522
+00:14:24,366 --> 00:14:25,776
+this color in any way you want.
+
+
+523
+00:14:25,776 --> 00:14:27,536
+You can make it black, or clear.
+
+
+524
+00:14:27,536 --> 00:14:30,376
+You can really go to town, here.
+
+
+525
+00:14:30,376 --> 00:14:31,516
+The second property is a little
+
+
+526
+00:14:31,516 --> 00:14:32,236
+more complicated.
+
+
+527
+00:14:32,236 --> 00:14:35,336
+It's a UIBezierPath that lets us
+
+
+528
+00:14:35,336 --> 00:14:37,346
+know what the visible region of
+
+
+529
+00:14:37,816 --> 00:14:39,396
+your view should be, so if your
+
+
+530
+00:14:39,396 --> 00:14:41,426
+view is not square, you could
+
+
+531
+00:14:41,426 --> 00:14:42,546
+set a rounded rectangle here.
+
+
+532
+00:14:42,906 --> 00:14:44,576
+But, there are some things to be
+
+
+533
+00:14:44,576 --> 00:14:44,926
+aware of.
+
+
+534
+00:14:45,376 --> 00:14:46,596
+So, by default, if you don't
+
+
+535
+00:14:46,596 --> 00:14:48,236
+supply drag preview parameters,
+
+
+536
+00:14:48,236 --> 00:14:50,676
+so you don't set a path on the
+
+
+537
+00:14:50,746 --> 00:14:52,026
+drag preview parameters you
+
+
+538
+00:14:52,026 --> 00:14:53,696
+supply, we will lift the entire
+
+
+539
+00:14:53,696 --> 00:14:53,926
+view.
+
+
+540
+00:14:54,246 --> 00:14:56,206
+If you wanted to crop out the
+
+
+541
+00:14:56,206 --> 00:14:57,786
+subrect phon, so in this case,
+
+
+542
+00:14:57,786 --> 00:14:58,856
+the rounded rectangle with the
+
+
+543
+00:14:58,856 --> 00:15:00,236
+kid in it, you could supply a
+
+
+544
+00:15:00,236 --> 00:15:02,176
+Bezier path, and it would result
+
+
+545
+00:15:02,226 --> 00:15:03,136
+in something like this.
+
+
+546
+00:15:03,176 --> 00:15:04,976
+So, it's important, however,
+
+
+547
+00:15:05,136 --> 00:15:07,476
+that the Bezier path that you
+
+
+548
+00:15:07,476 --> 00:15:09,486
+supply has to make sense within
+
+
+549
+00:15:09,486 --> 00:15:10,526
+the coordinate space of the
+
+
+550
+00:15:10,526 --> 00:15:10,806
+view.
+
+
+551
+00:15:10,806 --> 00:15:12,006
+So, in this case, the bounds
+
+
+552
+00:15:12,006 --> 00:15:13,176
+that I initialized this rounded
+
+
+553
+00:15:13,176 --> 00:15:14,896
+rectangle with have an origin
+
+
+554
+00:15:14,896 --> 00:15:16,586
+that is relative to the origin
+
+
+555
+00:15:16,856 --> 00:15:18,436
+of the container, as indicated
+
+
+556
+00:15:18,436 --> 00:15:20,526
+in gray, sorry, as, the origin
+
+
+557
+00:15:20,526 --> 00:15:21,956
+of the view, as indicated in
+
+
+558
+00:15:21,956 --> 00:15:23,256
+gray, so that's the top left
+
+
+559
+00:15:23,256 --> 00:15:23,586
+corner.
+
+
+560
+00:15:24,536 --> 00:15:25,826
+And, you want to also make note
+
+
+561
+00:15:25,826 --> 00:15:27,126
+of the midpoint, because it's
+
+
+562
+00:15:27,126 --> 00:15:28,306
+the midpoint of the visible path
+
+
+563
+00:15:28,306 --> 00:15:29,646
+that we'll later use for
+
+
+564
+00:15:29,646 --> 00:15:30,836
+positioning, when we talk about
+
+
+565
+00:15:30,836 --> 00:15:31,216
+target.
+
+
+566
+00:15:31,976 --> 00:15:33,566
+So, this is how you would get
+
+
+567
+00:15:33,606 --> 00:15:35,206
+this kind of preview.
+
+
+568
+00:15:35,646 --> 00:15:36,816
+However, you're not limited to
+
+
+569
+00:15:36,816 --> 00:15:38,556
+giving us a path that is smaller
+
+
+570
+00:15:38,816 --> 00:15:39,426
+than the view.
+
+
+571
+00:15:39,486 --> 00:15:41,376
+You can also give us one that's
+
+
+572
+00:15:41,376 --> 00:15:41,656
+bigger.
+
+
+573
+00:15:41,656 --> 00:15:43,016
+So, in this case, I chose an
+
+
+574
+00:15:43,016 --> 00:15:45,196
+origin that is negative, and it
+
+
+575
+00:15:45,196 --> 00:15:46,046
+works in the [inaudible] of the
+
+
+576
+00:15:46,046 --> 00:15:47,536
+view, and that would result in
+
+
+577
+00:15:47,536 --> 00:15:49,086
+this kind of platter that frames
+
+
+578
+00:15:49,086 --> 00:15:49,536
+the picture.
+
+
+579
+00:15:49,536 --> 00:15:50,526
+And, the color you see here is
+
+
+580
+00:15:50,526 --> 00:15:51,906
+in fact a background color that
+
+
+581
+00:15:51,906 --> 00:15:52,636
+defaulted to white.
+
+
+582
+00:15:53,226 --> 00:15:54,546
+Now, if you're bold enough to
+
+
+583
+00:15:54,546 --> 00:15:55,416
+implement your own text
+
+
+584
+00:15:55,416 --> 00:15:56,936
+rendering, there's a dedicated,
+
+
+585
+00:15:56,936 --> 00:15:59,236
+thank you, style that you can
+
+
+586
+00:15:59,236 --> 00:16:01,856
+use to match the way that we
+
+
+587
+00:16:01,856 --> 00:16:03,626
+lift text, so you want to refer
+
+
+588
+00:16:03,626 --> 00:16:05,816
+to the documentation for that.
+
+
+589
+00:16:06,296 --> 00:16:08,336
+And, the target, so the target
+
+
+590
+00:16:08,336 --> 00:16:10,696
+is used to position a transitory
+
+
+591
+00:16:10,696 --> 00:16:12,266
+view that we will use to perform
+
+
+592
+00:16:12,266 --> 00:16:13,376
+the animation with inside your
+
+
+593
+00:16:13,376 --> 00:16:13,926
+view hierarchy.
+
+
+594
+00:16:14,286 --> 00:16:16,136
+If you don't supply your target,
+
+
+595
+00:16:16,136 --> 00:16:17,386
+we will infer one based on the
+
+
+596
+00:16:17,386 --> 00:16:18,396
+superview of the view that you
+
+
+597
+00:16:18,396 --> 00:16:18,866
+provided.
+
+
+598
+00:16:18,866 --> 00:16:20,906
+That means if you provide a view
+
+
+599
+00:16:20,906 --> 00:16:22,996
+as your view in the direct, in
+
+
+600
+00:16:22,996 --> 00:16:25,026
+the targeted direct preview, if
+
+
+601
+00:16:25,706 --> 00:16:27,446
+that view is not in the view
+
+
+602
+00:16:27,446 --> 00:16:28,716
+hierarchy, you will have to
+
+
+603
+00:16:28,716 --> 00:16:29,436
+supply your target.
+
+
+604
+00:16:29,436 --> 00:16:31,396
+Otherwise, we can infer one.
+
+
+605
+00:16:31,676 --> 00:16:33,746
+This UIDragPreviewTarget has
+
+
+606
+00:16:33,826 --> 00:16:34,426
+three parameters.
+
+
+607
+00:16:34,426 --> 00:16:35,336
+The first is the container.
+
+
+608
+00:16:35,436 --> 00:16:36,106
+This is where we're going to
+
+
+609
+00:16:36,106 --> 00:16:37,576
+install the view, so you want to
+
+
+610
+00:16:37,576 --> 00:16:39,366
+be aware of any add or remove
+
+
+611
+00:16:39,366 --> 00:16:40,806
+subview calls in that container.
+
+
+612
+00:16:42,066 --> 00:16:42,756
+And, the second one is a
+
+
+613
+00:16:42,756 --> 00:16:44,116
+position, and the third is a
+
+
+614
+00:16:44,116 --> 00:16:44,596
+transform.
+
+
+615
+00:16:44,596 --> 00:16:45,686
+The transform is only relevant
+
+
+616
+00:16:45,686 --> 00:16:46,916
+on drop, and it allows you to
+
+
+617
+00:16:47,136 --> 00:16:49,326
+rotate or scale on set down.
+
+
+618
+00:16:49,666 --> 00:16:50,466
+The position, however, is a
+
+
+619
+00:16:50,466 --> 00:16:51,376
+little more tricky.
+
+
+620
+00:16:52,066 --> 00:16:54,706
+So, as I mentioned, if you give
+
+
+621
+00:16:54,706 --> 00:16:56,076
+us a point in your container, as
+
+
+622
+00:16:56,076 --> 00:16:57,476
+indicated in gray, by default we
+
+
+623
+00:16:57,476 --> 00:16:59,216
+will center the midpoint of your
+
+
+624
+00:16:59,216 --> 00:17:01,346
+view around this position, so if
+
+
+625
+00:17:01,346 --> 00:17:03,126
+you don't supply a visible path,
+
+
+626
+00:17:03,436 --> 00:17:04,276
+it would look like so.
+
+
+627
+00:17:04,776 --> 00:17:05,806
+However, if you do supply a
+
+
+628
+00:17:05,806 --> 00:17:07,695
+visible path, then as I said,
+
+
+629
+00:17:08,215 --> 00:17:10,836
+the midpoint of the bounds of
+
+
+630
+00:17:10,836 --> 00:17:12,146
+this path will be centered
+
+
+631
+00:17:12,146 --> 00:17:12,836
+around this point.
+
+
+632
+00:17:12,836 --> 00:17:14,236
+So, it's no longer the midpoint
+
+
+633
+00:17:14,236 --> 00:17:14,766
+of the view.
+
+
+634
+00:17:14,766 --> 00:17:16,205
+It's the midpoint of the visible
+
+
+635
+00:17:16,205 --> 00:17:16,536
+path.
+
+
+636
+00:17:16,566 --> 00:17:17,986
+And, it also means that if your
+
+
+637
+00:17:17,986 --> 00:17:18,886
+path is a little bit more
+
+
+638
+00:17:18,886 --> 00:17:21,205
+complicated, such as this one,
+
+
+639
+00:17:21,276 --> 00:17:22,836
+where I just unioned two rounded
+
+
+640
+00:17:22,836 --> 00:17:24,205
+rectangles together, the
+
+
+641
+00:17:24,205 --> 00:17:26,415
+midpoint is now not even in any
+
+
+642
+00:17:26,415 --> 00:17:27,556
+of the two rectangles.
+
+
+643
+00:17:27,556 --> 00:17:28,746
+It's still the midpoint of the
+
+
+644
+00:17:28,746 --> 00:17:29,996
+enclosing bounds of both of
+
+
+645
+00:17:29,996 --> 00:17:30,486
+these shapes.
+
+
+646
+00:17:31,846 --> 00:17:33,506
+But, if you already had a chance
+
+
+647
+00:17:33,506 --> 00:17:34,986
+to look at iOS 11, you have
+
+
+648
+00:17:34,986 --> 00:17:36,466
+noticed that a lot of the apps
+
+
+649
+00:17:36,466 --> 00:17:38,026
+in the system are actually able
+
+
+650
+00:17:38,026 --> 00:17:39,926
+to update the preview after the
+
+
+651
+00:17:39,926 --> 00:17:41,426
+lift, so here you can see Maps,
+
+
+652
+00:17:41,426 --> 00:17:43,676
+and as I move this little Apple
+
+
+653
+00:17:44,296 --> 00:17:46,536
+Park cell around, it gets
+
+
+654
+00:17:46,536 --> 00:17:47,786
+replaced by this little map
+
+
+655
+00:17:47,786 --> 00:17:49,386
+snippet after the fact.
+
+
+656
+00:17:49,386 --> 00:17:50,846
+So, how can we do that?
+
+
+657
+00:17:50,846 --> 00:17:51,906
+Well, it turns out, there's a
+
+
+658
+00:17:51,906 --> 00:17:53,496
+second preview class in the
+
+
+659
+00:17:53,496 --> 00:17:54,716
+systems, next to
+
+
+660
+00:17:54,716 --> 00:17:55,866
+UITargetedDragPreview, and that
+
+
+661
+00:17:55,866 --> 00:17:58,506
+is UIDragPreview which, as you
+
+
+662
+00:17:58,506 --> 00:17:59,266
+might have guessed, is very
+
+
+663
+00:17:59,266 --> 00:17:59,766
+similar to
+
+
+664
+00:17:59,766 --> 00:18:01,766
+UITargetedDragPreview, but it
+
+
+665
+00:18:01,766 --> 00:18:03,406
+doesn't have a target.
+
+
+666
+00:18:03,586 --> 00:18:04,636
+All the other semantics still
+
+
+667
+00:18:04,636 --> 00:18:06,366
+apply, and the view that you
+
+
+668
+00:18:06,806 --> 00:18:08,836
+initialize this preview with may
+
+
+669
+00:18:08,836 --> 00:18:09,606
+or may not be in the view
+
+
+670
+00:18:09,606 --> 00:18:09,976
+hierarchy.
+
+
+671
+00:18:09,976 --> 00:18:11,006
+It's not relevant anymore, at
+
+
+672
+00:18:11,006 --> 00:18:11,406
+this point.
+
+
+673
+00:18:12,696 --> 00:18:14,146
+But, how will you update this
+
+
+674
+00:18:14,176 --> 00:18:14,566
+preview?
+
+
+675
+00:18:15,116 --> 00:18:17,396
+First, you want to find a spot
+
+
+676
+00:18:17,396 --> 00:18:19,366
+in your session lifecycle where
+
+
+677
+00:18:19,366 --> 00:18:19,906
+it's appropriate.
+
+
+678
+00:18:19,906 --> 00:18:21,526
+So, in this case, I chose
+
+
+679
+00:18:21,526 --> 00:18:22,986
+sessionDidMove, and what I want
+
+
+680
+00:18:22,986 --> 00:18:24,756
+to do here is that as the user
+
+
+681
+00:18:25,086 --> 00:18:26,946
+moves out of the listView in my
+
+
+682
+00:18:26,946 --> 00:18:28,716
+hypothetical Mail app, I want to
+
+
+683
+00:18:28,716 --> 00:18:29,886
+replace what they're dragging
+
+
+684
+00:18:29,886 --> 00:18:31,056
+with a little envelope graphic.
+
+
+685
+00:18:31,576 --> 00:18:32,796
+So first, I perform a hit check
+
+
+686
+00:18:32,796 --> 00:18:34,456
+to see if I'm still inside the
+
+
+687
+00:18:34,456 --> 00:18:35,566
+listView, and if I am, I just
+
+
+688
+00:18:35,566 --> 00:18:36,916
+abort by returning nothing.
+
+
+689
+00:18:38,126 --> 00:18:39,646
+And then, I iterate over all the
+
+
+690
+00:18:39,896 --> 00:18:41,716
+items that have a message as
+
+
+691
+00:18:41,716 --> 00:18:43,046
+their localObject.
+
+
+692
+00:18:44,116 --> 00:18:45,536
+I check if I have already
+
+
+693
+00:18:45,536 --> 00:18:46,776
+updated this item, because this
+
+
+694
+00:18:46,776 --> 00:18:47,946
+operation is not free, and
+
+
+695
+00:18:47,946 --> 00:18:49,736
+sessionDidMove may get called
+
+
+696
+00:18:49,736 --> 00:18:51,336
+quite frequently, but if I
+
+
+697
+00:18:51,336 --> 00:18:53,586
+haven't, then I will set the
+
+
+698
+00:18:53,586 --> 00:18:54,986
+previewProvider, and this is a
+
+
+699
+00:18:54,986 --> 00:18:56,396
+block that we will later call to
+
+
+700
+00:18:56,396 --> 00:18:58,206
+update the preview, and inside
+
+
+701
+00:18:58,206 --> 00:18:59,166
+the block, I first create an
+
+
+702
+00:18:59,166 --> 00:19:00,316
+imageView with the image I would
+
+
+703
+00:19:00,316 --> 00:19:02,536
+like, and then I initialize a
+
+
+704
+00:19:02,536 --> 00:19:03,976
+new drag preview with this, and
+
+
+705
+00:19:03,976 --> 00:19:05,166
+it's important to realize that
+
+
+706
+00:19:05,246 --> 00:19:06,886
+we may not actually call in this
+
+
+707
+00:19:06,956 --> 00:19:07,256
+block.
+
+
+708
+00:19:07,736 --> 00:19:09,766
+So, if you are lifting many
+
+
+709
+00:19:09,766 --> 00:19:11,476
+messages, we may not, we may
+
+
+710
+00:19:11,476 --> 00:19:12,616
+decide not to display all of
+
+
+711
+00:19:12,616 --> 00:19:13,826
+them, and we wouldn't bother
+
+
+712
+00:19:13,826 --> 00:19:15,036
+calling in a preview block for
+
+
+713
+00:19:15,036 --> 00:19:15,986
+the views that we don't actually
+
+
+714
+00:19:15,986 --> 00:19:16,576
+show on the screen.
+
+
+715
+00:19:16,576 --> 00:19:18,436
+And, last but not least, I have
+
+
+716
+00:19:18,436 --> 00:19:19,296
+to do some bookkeeping.
+
+
+717
+00:19:19,676 --> 00:19:21,846
+So, theory is still second to
+
+
+718
+00:19:21,846 --> 00:19:23,036
+practice, and Wenson's going to
+
+
+719
+00:19:23,036 --> 00:19:24,136
+give you another demo, and I'll
+
+
+720
+00:19:24,136 --> 00:19:24,726
+see you in the last.
+
+
+721
+00:19:24,726 --> 00:19:25,076
+Thank you.
+
+
+722
+00:19:26,516 --> 00:19:30,546
+[ Applause ]
+
+
+723
+00:19:31,046 --> 00:19:31,256
+>> Alright.
+
+
+724
+00:19:31,566 --> 00:19:32,316
+Thanks again, Robb.
+
+
+725
+00:19:32,806 --> 00:19:34,176
+So now, I'd like to introduce
+
+
+726
+00:19:34,286 --> 00:19:36,216
+the second example we are going
+
+
+727
+00:19:36,216 --> 00:19:37,646
+to be looking at in Drag Source.
+
+
+728
+00:19:38,556 --> 00:19:39,266
+So, check this out.
+
+
+729
+00:19:40,316 --> 00:19:41,806
+When I drag on this image of two
+
+
+730
+00:19:41,806 --> 00:19:44,296
+QR codes, we have a drag session
+
+
+731
+00:19:44,296 --> 00:19:45,686
+that contains two items.
+
+
+732
+00:19:45,916 --> 00:19:46,996
+What are these two items?
+
+
+733
+00:19:46,996 --> 00:19:48,446
+Well, if I drop it in Photos,
+
+
+734
+00:19:48,446 --> 00:19:49,486
+we'll see that it's actually the
+
+
+735
+00:19:49,486 --> 00:19:50,936
+cropped images of the QR codes.
+
+
+736
+00:19:51,196 --> 00:19:51,946
+So, I've gone ahead and
+
+
+737
+00:19:51,946 --> 00:19:53,196
+detected, where are the QR codes
+
+
+738
+00:19:53,196 --> 00:19:54,746
+are already in this image?
+
+
+739
+00:19:55,356 --> 00:19:56,546
+Now, the thing we can polish
+
+
+740
+00:19:56,546 --> 00:19:58,576
+here is the drag preview.
+
+
+741
+00:19:58,796 --> 00:19:59,496
+So, we haven't done any
+
+
+742
+00:19:59,496 --> 00:19:59,976
+customization yet.
+
+
+743
+00:20:00,216 --> 00:20:01,866
+And so, by default, we use the
+
+
+744
+00:20:01,866 --> 00:20:03,446
+entire image view to represent
+
+
+745
+00:20:03,856 --> 00:20:06,176
+either of the items, either of
+
+
+746
+00:20:06,396 --> 00:20:07,406
+the QR codes.
+
+
+747
+00:20:07,706 --> 00:20:09,336
+That is, we are actually seeing
+
+
+748
+00:20:09,556 --> 00:20:11,586
+the entire image view twice, two
+
+
+749
+00:20:11,586 --> 00:20:12,536
+of them stacked on top of each
+
+
+750
+00:20:12,536 --> 00:20:12,746
+other.
+
+
+751
+00:20:13,006 --> 00:20:14,456
+It would be kind of cool if we
+
+
+752
+00:20:14,456 --> 00:20:16,026
+could use just the cropped image
+
+
+753
+00:20:16,026 --> 00:20:17,336
+of the QR code as the drag
+
+
+754
+00:20:17,336 --> 00:20:19,106
+preview as we are lifting, and
+
+
+755
+00:20:19,106 --> 00:20:19,956
+when we are dragging them
+
+
+756
+00:20:19,956 --> 00:20:20,316
+around.
+
+
+757
+00:20:21,076 --> 00:20:22,726
+So, let's take a look at what we
+
+
+758
+00:20:22,726 --> 00:20:23,956
+need to do this.
+
+
+759
+00:20:25,136 --> 00:20:26,336
+First thing we're going to do is
+
+
+760
+00:20:26,336 --> 00:20:27,736
+implement previewForLifting
+
+
+761
+00:20:27,736 --> 00:20:29,596
+item, so in here, we're going to
+
+
+762
+00:20:29,596 --> 00:20:30,756
+take some information about the
+
+
+763
+00:20:30,756 --> 00:20:32,896
+QR code, namely the cropped
+
+
+764
+00:20:32,896 --> 00:20:34,526
+image of the QR code, as well as
+
+
+765
+00:20:34,526 --> 00:20:35,886
+some geometry describing where
+
+
+766
+00:20:35,886 --> 00:20:37,146
+it is in the image, and we're
+
+
+767
+00:20:37,146 --> 00:20:38,346
+going to use it to create a new
+
+
+768
+00:20:38,346 --> 00:20:39,226
+UIImageView.
+
+
+769
+00:20:40,316 --> 00:20:41,346
+Then, we're going to create a
+
+
+770
+00:20:41,346 --> 00:20:43,316
+drag preview target and drag
+
+
+771
+00:20:43,316 --> 00:20:44,296
+preview parameters.
+
+
+772
+00:20:44,626 --> 00:20:45,776
+Note that right here we set the
+
+
+773
+00:20:45,776 --> 00:20:47,136
+visiblePath to a new
+
+
+774
+00:20:47,136 --> 00:20:48,156
+UIBezierPath that's a
+
+
+775
+00:20:48,156 --> 00:20:49,546
+roundedRect, and that will give
+
+
+776
+00:20:49,546 --> 00:20:51,006
+us a nice rounded preview.
+
+
+777
+00:20:51,566 --> 00:20:52,406
+So, we combine all of this
+
+
+778
+00:20:52,406 --> 00:20:53,826
+information into a new targeted
+
+
+779
+00:20:53,826 --> 00:20:55,956
+drag preview, and with this
+
+
+780
+00:20:55,956 --> 00:20:58,616
+change, we should see a much
+
+
+781
+00:20:58,616 --> 00:21:01,276
+more polished drag preview when
+
+
+782
+00:21:01,276 --> 00:21:01,546
+we lift.
+
+
+783
+00:21:02,216 --> 00:21:03,626
+Now, check out what happens when
+
+
+784
+00:21:03,626 --> 00:21:04,366
+I begin to lift.
+
+
+785
+00:21:04,966 --> 00:21:06,286
+So, instead of the entire image
+
+
+786
+00:21:06,286 --> 00:21:07,666
+view popping up this time, we
+
+
+787
+00:21:07,666 --> 00:21:10,496
+see individual rects for the QR
+
+
+788
+00:21:10,496 --> 00:21:13,126
+codes get lifted up, and as I
+
+
+789
+00:21:13,126 --> 00:21:14,666
+drag, you can see that these are
+
+
+790
+00:21:14,666 --> 00:21:16,516
+the two QR codes flying around,
+
+
+791
+00:21:17,056 --> 00:21:19,686
+so that looks pretty good, but
+
+
+792
+00:21:19,686 --> 00:21:20,706
+there's something that looks
+
+
+793
+00:21:20,706 --> 00:21:21,916
+kind of weird, and I'm about to
+
+
+794
+00:21:21,916 --> 00:21:22,216
+show you.
+
+
+795
+00:21:22,216 --> 00:21:23,266
+Watch what happens to the QR
+
+
+796
+00:21:23,266 --> 00:21:24,736
+codes when I let go.
+
+
+797
+00:21:25,046 --> 00:21:26,176
+Now, I've let go somewhere that
+
+
+798
+00:21:26,176 --> 00:21:26,876
+doesn't actually accept the
+
+
+799
+00:21:26,876 --> 00:21:28,456
+drop, and so we'll do a cancel
+
+
+800
+00:21:28,456 --> 00:21:28,926
+animation.
+
+
+801
+00:21:29,246 --> 00:21:30,476
+The problem is that we haven't
+
+
+802
+00:21:30,476 --> 00:21:32,476
+actually told UIKit where the
+
+
+803
+00:21:32,656 --> 00:21:34,116
+drag preview should animate to
+
+
+804
+00:21:34,116 --> 00:21:34,766
+when we cancel.
+
+
+805
+00:21:35,316 --> 00:21:36,376
+So, let's fix that problem.
+
+
+806
+00:21:36,376 --> 00:21:38,406
+We're going to do that by
+
+
+807
+00:21:38,406 --> 00:21:39,046
+implementing
+
+
+808
+00:21:39,046 --> 00:21:40,436
+previewForCancelling item.
+
+
+809
+00:21:41,156 --> 00:21:42,746
+This looks and works a lot like
+
+
+810
+00:21:42,746 --> 00:21:43,686
+previewForLifting item.
+
+
+811
+00:21:44,146 --> 00:21:45,696
+In fact, observe that if we want
+
+
+812
+00:21:45,696 --> 00:21:46,946
+the QR codes to go back to their
+
+
+813
+00:21:46,946 --> 00:21:48,496
+original locations, what we can
+
+
+814
+00:21:48,496 --> 00:21:50,096
+actually do, similar to what we
+
+
+815
+00:21:50,096 --> 00:21:51,786
+did in the first example, is
+
+
+816
+00:21:51,786 --> 00:21:53,446
+take our code that used to live
+
+
+817
+00:21:53,446 --> 00:21:55,176
+in previewForLifting item and
+
+
+818
+00:21:55,176 --> 00:21:56,916
+factor it out into a separate
+
+
+819
+00:21:56,916 --> 00:21:57,246
+helper.
+
+
+820
+00:21:57,286 --> 00:21:58,056
+So, we're going to call it
+
+
+821
+00:21:58,056 --> 00:21:59,706
+dragPreview for item, and what
+
+
+822
+00:21:59,706 --> 00:22:03,506
+this is going to do is return
+
+
+823
+00:22:03,506 --> 00:22:05,256
+the original location of the QR
+
+
+824
+00:22:05,256 --> 00:22:07,556
+codes in both the places where
+
+
+825
+00:22:07,556 --> 00:22:09,736
+we are lifting and when we are
+
+
+826
+00:22:09,736 --> 00:22:10,236
+cancelling.
+
+
+827
+00:22:11,166 --> 00:22:12,646
+So, I'm going to call that
+
+
+828
+00:22:12,646 --> 00:22:14,576
+helper in these two places
+
+
+829
+00:22:15,206 --> 00:22:18,176
+really fast, and rerun the
+
+
+830
+00:22:18,176 --> 00:22:18,656
+application.
+
+
+831
+00:22:20,966 --> 00:22:22,656
+Alright. Now, let's see what
+
+
+832
+00:22:22,656 --> 00:22:23,466
+happens when I cancel.
+
+
+833
+00:22:24,436 --> 00:22:25,566
+And, see that they fly back to
+
+
+834
+00:22:25,566 --> 00:22:26,876
+their original locations and
+
+
+835
+00:22:26,876 --> 00:22:27,576
+then settle down.
+
+
+836
+00:22:27,576 --> 00:22:29,346
+So, that looks so much better
+
+
+837
+00:22:29,346 --> 00:22:30,856
+than it did before, but there's
+
+
+838
+00:22:30,856 --> 00:22:31,806
+one more thing I'd like to show
+
+
+839
+00:22:31,806 --> 00:22:31,996
+you.
+
+
+840
+00:22:32,626 --> 00:22:35,246
+So, we're going to hop on over
+
+
+841
+00:22:35,366 --> 00:22:36,536
+to the right side, where we have
+
+
+842
+00:22:36,536 --> 00:22:38,966
+Photos, and you can notice that,
+
+
+843
+00:22:38,966 --> 00:22:40,706
+as I drag some images, we'll
+
+
+844
+00:22:40,706 --> 00:22:41,796
+fade out the background of the
+
+
+845
+00:22:41,796 --> 00:22:43,536
+image views to kind of indicate
+
+
+846
+00:22:43,596 --> 00:22:44,806
+that we are currently dragging
+
+
+847
+00:22:44,806 --> 00:22:45,926
+an image from that view.
+
+
+848
+00:22:46,566 --> 00:22:47,826
+There are a lot of apps around
+
+
+849
+00:22:47,826 --> 00:22:49,336
+the system that do this, and we
+
+
+850
+00:22:49,336 --> 00:22:50,586
+can certainly get the same
+
+
+851
+00:22:50,586 --> 00:22:52,166
+effect in our own demo app.
+
+
+852
+00:22:53,076 --> 00:22:53,796
+So, I'll show you how.
+
+
+853
+00:22:54,466 --> 00:22:56,956
+What we're going to do is
+
+
+854
+00:22:56,956 --> 00:22:58,036
+implement a few alongside
+
+
+855
+00:22:58,036 --> 00:22:58,716
+animations.
+
+
+856
+00:22:59,156 --> 00:23:00,826
+So, as we animate the lift, we
+
+
+857
+00:23:00,826 --> 00:23:02,206
+get this animator object that
+
+
+858
+00:23:02,206 --> 00:23:03,686
+we're able to attach alongside
+
+
+859
+00:23:03,686 --> 00:23:04,466
+animations on.
+
+
+860
+00:23:04,466 --> 00:23:05,646
+So, we're going to add this new
+
+
+861
+00:23:05,646 --> 00:23:07,396
+block that sets our alpha to
+
+
+862
+00:23:07,396 --> 00:23:10,056
+0.5, our alpha being the alpha
+
+
+863
+00:23:10,056 --> 00:23:11,466
+of the overall image view.
+
+
+864
+00:23:11,766 --> 00:23:12,796
+So, we're going to fade out the
+
+
+865
+00:23:12,796 --> 00:23:13,666
+image view as the lift is
+
+
+866
+00:23:13,666 --> 00:23:15,406
+happening, and as the lift is
+
+
+867
+00:23:15,406 --> 00:23:16,736
+canceling, I'm sorry, as the
+
+
+868
+00:23:16,736 --> 00:23:18,396
+drag preview is canceling, we
+
+
+869
+00:23:18,396 --> 00:23:19,656
+are going to revert the alpha to
+
+
+870
+00:23:19,656 --> 00:23:20,576
+1, so we're going to fade the
+
+
+871
+00:23:20,576 --> 00:23:21,436
+view back in.
+
+
+872
+00:23:21,946 --> 00:23:23,266
+Now, it would be kind of a shame
+
+
+873
+00:23:23,266 --> 00:23:25,486
+if our alpha were permanently
+
+
+874
+00:23:25,486 --> 00:23:27,966
+ghosted at 0.5, so when the drag
+
+
+875
+00:23:27,966 --> 00:23:29,756
+session ends, we've got to be
+
+
+876
+00:23:29,756 --> 00:23:31,326
+careful and set our alpha back
+
+
+877
+00:23:31,326 --> 00:23:33,216
+to 1, to make sure that we're at
+
+
+878
+00:23:33,216 --> 00:23:34,506
+full opacity when the drag
+
+
+879
+00:23:34,546 --> 00:23:35,086
+finishes.
+
+
+880
+00:23:37,216 --> 00:23:39,806
+So, with those changes, I've
+
+
+881
+00:23:39,806 --> 00:23:42,056
+rerun the app, and now watch
+
+
+882
+00:23:42,056 --> 00:23:42,956
+what happens when I begin the
+
+
+883
+00:23:42,956 --> 00:23:43,196
+lift.
+
+
+884
+00:23:44,046 --> 00:23:45,326
+You can see, this nicely
+
+
+885
+00:23:45,326 --> 00:23:46,976
+indicates exactly where the QR
+
+
+886
+00:23:46,976 --> 00:23:48,556
+codes are by fading out the rest
+
+
+887
+00:23:48,556 --> 00:23:51,136
+of the image view, and as I
+
+
+888
+00:23:51,136 --> 00:23:52,786
+cancel, you notice that the rest
+
+
+889
+00:23:52,786 --> 00:23:54,146
+of the image view fades back in
+
+
+890
+00:23:54,426 --> 00:23:55,066
+just as nicely.
+
+
+891
+00:23:56,316 --> 00:23:57,026
+So, that's all good and
+
+
+892
+00:23:57,026 --> 00:23:57,496
+polished.
+
+
+893
+00:23:57,756 --> 00:23:58,796
+Let's look at our third example.
+
+
+894
+00:23:59,326 --> 00:24:00,776
+This is Draggable Location Image
+
+
+895
+00:24:00,776 --> 00:24:03,226
+View, and in here, the trick is
+
+
+896
+00:24:03,226 --> 00:24:06,406
+that we're adding not only the
+
+
+897
+00:24:06,406 --> 00:24:08,506
+image as a representation to the
+
+
+898
+00:24:08,506 --> 00:24:09,656
+item providers when we start a
+
+
+899
+00:24:09,656 --> 00:24:11,646
+drag, but we are also adding the
+
+
+900
+00:24:11,646 --> 00:24:12,296
+location.
+
+
+901
+00:24:12,816 --> 00:24:15,106
+What that means is that I'm able
+
+
+902
+00:24:15,106 --> 00:24:16,416
+to drop into an application that
+
+
+903
+00:24:16,416 --> 00:24:18,206
+accepts location, such as Maps,
+
+
+904
+00:24:18,596 --> 00:24:20,146
+at it will actually navigate me
+
+
+905
+00:24:20,206 --> 00:24:21,896
+and drop a pin at the location
+
+
+906
+00:24:22,086 --> 00:24:23,236
+where this photo was taken,
+
+
+907
+00:24:23,496 --> 00:24:24,516
+which is, of course, the Golden
+
+
+908
+00:24:24,516 --> 00:24:25,016
+Gate Bridge.
+
+
+909
+00:24:25,496 --> 00:24:26,506
+So, that looks pretty good,
+
+
+910
+00:24:26,926 --> 00:24:27,736
+except for one thing.
+
+
+911
+00:24:28,726 --> 00:24:29,946
+Now, when I begin a drag, I
+
+
+912
+00:24:29,946 --> 00:24:31,106
+haven't done any customization
+
+
+913
+00:24:31,106 --> 00:24:32,986
+around the drag preview, and so
+
+
+914
+00:24:32,986 --> 00:24:34,456
+this default drag preview, which
+
+
+915
+00:24:34,456 --> 00:24:35,356
+is the entire image view,
+
+
+916
+00:24:35,556 --> 00:24:36,936
+doesn't do a really good job of
+
+
+917
+00:24:36,936 --> 00:24:37,916
+really highlighting the fact
+
+
+918
+00:24:38,256 --> 00:24:39,956
+that we have a location, and not
+
+
+919
+00:24:39,956 --> 00:24:40,686
+just an image.
+
+
+920
+00:24:40,826 --> 00:24:41,556
+It looks just like we're
+
+
+921
+00:24:41,556 --> 00:24:42,636
+dragging an image right now.
+
+
+922
+00:24:43,456 --> 00:24:44,416
+So, let's fix that.
+
+
+923
+00:24:44,676 --> 00:24:45,836
+Now, we're going to go into
+
+
+924
+00:24:45,836 --> 00:24:47,006
+Draggable Location Image View.
+
+
+925
+00:24:47,006 --> 00:24:48,356
+This is where our logic is going
+
+
+926
+00:24:48,446 --> 00:24:49,776
+to live, and we're going to
+
+
+927
+00:24:49,776 --> 00:24:51,146
+implement sessionWillBegin.
+
+
+928
+00:24:51,676 --> 00:24:53,376
+So, what do we want to do when
+
+
+929
+00:24:53,376 --> 00:24:54,376
+the session is about to begin?
+
+
+930
+00:24:55,336 --> 00:24:56,536
+We're going to take our drag
+
+
+931
+00:24:56,536 --> 00:24:57,676
+item that we've created, and
+
+
+932
+00:24:57,796 --> 00:24:58,556
+we're going to set the
+
+
+933
+00:24:58,556 --> 00:25:00,116
+previewProvider property to a
+
+
+934
+00:25:00,116 --> 00:25:00,756
+new block.
+
+
+935
+00:25:01,226 --> 00:25:02,446
+Now, in this block, what we're
+
+
+936
+00:25:02,446 --> 00:25:03,696
+going to do is create a new
+
+
+937
+00:25:03,696 --> 00:25:04,576
+LocationPlatterView.
+
+
+938
+00:25:04,576 --> 00:25:05,596
+This is just a custom view I
+
+
+939
+00:25:05,596 --> 00:25:06,926
+wrote that knows how to
+
+
+940
+00:25:06,926 --> 00:25:08,466
+represent both an image, as well
+
+
+941
+00:25:08,466 --> 00:25:10,226
+as some text describing the
+
+
+942
+00:25:10,226 --> 00:25:11,156
+location of the image.
+
+
+943
+00:25:11,446 --> 00:25:13,366
+And, we're going to create a new
+
+
+944
+00:25:13,366 --> 00:25:14,986
+UIDragPreview using this
+
+
+945
+00:25:14,986 --> 00:25:15,616
+information.
+
+
+946
+00:25:16,126 --> 00:25:20,346
+OK. So, with that change, we
+
+
+947
+00:25:20,346 --> 00:25:21,636
+should be able to see a much
+
+
+948
+00:25:21,636 --> 00:25:24,136
+nicer, hotter representation for
+
+
+949
+00:25:24,136 --> 00:25:24,816
+our drag preview.
+
+
+950
+00:25:25,846 --> 00:25:26,746
+So, watch what happens when I
+
+
+951
+00:25:26,746 --> 00:25:27,356
+begin a lift.
+
+
+952
+00:25:27,986 --> 00:25:29,066
+Now, interestingly, there's
+
+
+953
+00:25:29,166 --> 00:25:30,726
+actually no difference.
+
+
+954
+00:25:31,326 --> 00:25:32,886
+The reason is because we put our
+
+
+955
+00:25:32,886 --> 00:25:34,936
+logic into sessionWillBegin, and
+
+
+956
+00:25:34,936 --> 00:25:36,966
+the session does not begin until
+
+
+957
+00:25:36,966 --> 00:25:38,236
+I actually start moving my
+
+
+958
+00:25:38,236 --> 00:25:38,586
+finger.
+
+
+959
+00:25:39,256 --> 00:25:40,546
+So now, I'm going to start
+
+
+960
+00:25:40,546 --> 00:25:41,876
+moving, and look at that.
+
+
+961
+00:25:42,036 --> 00:25:43,406
+The drag preview has now morphed
+
+
+962
+00:25:43,406 --> 00:25:44,966
+into this platter representation
+
+
+963
+00:25:45,176 --> 00:25:46,336
+that shows both the image.
+
+
+964
+00:25:47,516 --> 00:25:49,606
+[ Applause ]
+
+
+965
+00:25:50,106 --> 00:25:51,266
+That now shows both the image,
+
+
+966
+00:25:51,266 --> 00:25:52,646
+as well as the location, and as
+
+
+967
+00:25:52,646 --> 00:25:53,766
+always, I'm able to drop into
+
+
+968
+00:25:53,766 --> 00:25:54,136
+Maps.
+
+
+969
+00:25:54,246 --> 00:25:56,186
+It'll navigate me and drop a pin
+
+
+970
+00:25:56,186 --> 00:25:56,346
+there.
+
+
+971
+00:25:57,166 --> 00:25:58,236
+So, we've discussed a number of
+
+
+972
+00:25:58,296 --> 00:26:00,526
+the advanced techniques on the
+
+
+973
+00:26:00,596 --> 00:26:01,906
+drag interaction side of things.
+
+
+974
+00:26:02,126 --> 00:26:03,446
+I would like to now hand it to
+
+
+975
+00:26:03,446 --> 00:26:05,026
+my other colleague, Tom, to
+
+
+976
+00:26:05,026 --> 00:26:06,976
+discuss some of the advanced
+
+
+977
+00:26:06,976 --> 00:26:09,416
+APIs used to customize drop
+
+
+978
+00:26:09,416 --> 00:26:10,086
+interactions.
+
+
+979
+00:26:11,516 --> 00:26:15,016
+[ Applause ]
+
+
+980
+00:26:15,516 --> 00:26:17,756
+>> Thanks, Wenson, for finally
+
+
+981
+00:26:17,756 --> 00:26:18,756
+dragging me into this.
+
+
+982
+00:26:19,486 --> 00:26:20,476
+No, I'm happy to be here.
+
+
+983
+00:26:21,996 --> 00:26:23,646
+So, let's talk about the drop
+
+
+984
+00:26:23,646 --> 00:26:23,976
+side.
+
+
+985
+00:26:24,466 --> 00:26:26,356
+Let's take a deep dive into a
+
+
+986
+00:26:26,356 --> 00:26:26,616
+drop.
+
+
+987
+00:26:26,616 --> 00:26:28,636
+We're going to talk about drop
+
+
+988
+00:26:28,636 --> 00:26:30,616
+sessions first, and that will
+
+
+989
+00:26:30,616 --> 00:26:32,306
+bring us to actually performing
+
+
+990
+00:26:32,346 --> 00:26:32,736
+a drop.
+
+
+991
+00:26:32,736 --> 00:26:34,956
+So, what is a drop session?
+
+
+992
+00:26:34,956 --> 00:26:36,396
+It's the other side of a drag
+
+
+993
+00:26:36,396 --> 00:26:36,776
+session.
+
+
+994
+00:26:36,886 --> 00:26:37,766
+It gives you access to
+
+
+995
+00:26:37,766 --> 00:26:39,266
+everything related to a drop.
+
+
+996
+00:26:39,806 --> 00:26:41,536
+You can get access to the drag
+
+
+997
+00:26:41,536 --> 00:26:42,816
+location where the user is
+
+
+998
+00:26:42,816 --> 00:26:44,016
+dragging inside your view.
+
+
+999
+00:26:44,016 --> 00:26:46,366
+It gives you access to the items
+
+
+1000
+00:26:46,366 --> 00:26:48,386
+in the view, what type of data
+
+
+1001
+00:26:48,386 --> 00:26:50,216
+is there, and actually their
+
+
+1002
+00:26:50,216 --> 00:26:51,046
+data in the end.
+
+
+1003
+00:26:51,046 --> 00:26:52,576
+It gives you access to the
+
+
+1004
+00:26:52,576 --> 00:26:54,376
+configuration, so you can act
+
+
+1005
+00:26:54,376 --> 00:26:55,116
+appropriately.
+
+
+1006
+00:26:55,836 --> 00:26:56,986
+And finally, it gives you access
+
+
+1007
+00:26:56,986 --> 00:26:58,346
+to the drag session itself when
+
+
+1008
+00:26:58,346 --> 00:26:59,516
+you're dragging locally, but
+
+
+1009
+00:26:59,516 --> 00:27:00,586
+more about that later.
+
+
+1010
+00:27:04,476 --> 00:27:06,016
+One thing to keep in mind about
+
+
+1011
+00:27:06,056 --> 00:27:08,256
+drop interactions is that only
+
+
+1012
+00:27:08,256 --> 00:27:09,506
+one interaction would handle
+
+
+1013
+00:27:09,506 --> 00:27:11,036
+only one active drop session at
+
+
+1014
+00:27:11,036 --> 00:27:11,706
+the same time.
+
+
+1015
+00:27:12,816 --> 00:27:13,336
+Why is this?
+
+
+1016
+00:27:13,406 --> 00:27:15,376
+Because, it would fit most use
+
+
+1017
+00:27:15,506 --> 00:27:16,476
+case scenarios.
+
+
+1018
+00:27:17,086 --> 00:27:18,766
+That means that once the user is
+
+
+1019
+00:27:18,766 --> 00:27:20,596
+dragging around and enters your
+
+
+1020
+00:27:20,596 --> 00:27:23,046
+interaction, any other session
+
+
+1021
+00:27:23,046 --> 00:27:24,286
+that comes around and tries to
+
+
+1022
+00:27:24,286 --> 00:27:26,186
+enter your interaction won't be
+
+
+1023
+00:27:26,186 --> 00:27:26,616
+picked up.
+
+
+1024
+00:27:27,736 --> 00:27:29,476
+Remember, you can drag with more
+
+
+1025
+00:27:29,476 --> 00:27:30,436
+than one finger at the same
+
+
+1026
+00:27:30,436 --> 00:27:30,726
+time.
+
+
+1027
+00:27:31,816 --> 00:27:32,826
+Now, if you don't want this
+
+
+1028
+00:27:32,826 --> 00:27:34,376
+behavior, and you do want more
+
+
+1029
+00:27:34,376 --> 00:27:35,856
+than one session to be active on
+
+
+1030
+00:27:35,856 --> 00:27:37,046
+your view at the same time,
+
+
+1031
+00:27:37,326 --> 00:27:38,346
+there's a few options.
+
+
+1032
+00:27:38,816 --> 00:27:40,236
+You can add more interactions,
+
+
+1033
+00:27:40,236 --> 00:27:41,336
+just add a few more drop
+
+
+1034
+00:27:41,336 --> 00:27:42,386
+interactions, and they will all
+
+
+1035
+00:27:42,386 --> 00:27:43,636
+be handled at the same time.
+
+
+1036
+00:27:44,096 --> 00:27:45,846
+They can have the same logic, or
+
+
+1037
+00:27:45,846 --> 00:27:46,936
+they can have different logic.
+
+
+1038
+00:27:46,936 --> 00:27:47,616
+Doesn't really matter.
+
+
+1039
+00:27:48,396 --> 00:27:49,456
+Or, there's a property you can
+
+
+1040
+00:27:49,456 --> 00:27:50,766
+set on the interaction called
+
+
+1041
+00:27:50,766 --> 00:27:52,666
+allowSimultaneousDropSessions.
+
+
+1042
+00:27:52,836 --> 00:27:54,356
+Set it to true, and that will
+
+
+1043
+00:27:54,356 --> 00:27:56,166
+lift the block on only one
+
+
+1044
+00:27:56,166 --> 00:27:57,826
+session, and you can handle more
+
+
+1045
+00:27:57,826 --> 00:27:58,926
+than one session at the same
+
+
+1046
+00:27:58,926 --> 00:27:59,176
+time.
+
+
+1047
+00:27:59,616 --> 00:28:01,256
+But, your delegate has to handle
+
+
+1048
+00:28:01,256 --> 00:28:01,916
+this properly.
+
+
+1049
+00:28:02,006 --> 00:28:05,106
+Let's talk a bit about how a
+
+
+1050
+00:28:05,106 --> 00:28:05,746
+drop works.
+
+
+1051
+00:28:05,856 --> 00:28:07,076
+We've been over this yesterday
+
+
+1052
+00:28:07,076 --> 00:28:08,286
+in the introductory talk, but
+
+
+1053
+00:28:08,286 --> 00:28:09,116
+let's gloss over it.
+
+
+1054
+00:28:09,826 --> 00:28:10,986
+User is dragging something, it's
+
+
+1055
+00:28:11,166 --> 00:28:12,266
+approaching your view.
+
+
+1056
+00:28:13,126 --> 00:28:14,836
+Before we do anything, we'll
+
+
+1057
+00:28:14,836 --> 00:28:16,526
+call canHandle session on your
+
+
+1058
+00:28:16,526 --> 00:28:18,266
+interaction delegate, and that
+
+
+1059
+00:28:18,266 --> 00:28:20,466
+will trigger, depending on what
+
+
+1060
+00:28:20,466 --> 00:28:22,226
+you return here, will allow you
+
+
+1061
+00:28:22,226 --> 00:28:23,546
+to handle the session or not.
+
+
+1062
+00:28:23,546 --> 00:28:25,546
+If you return false, it will be
+
+
+1063
+00:28:25,546 --> 00:28:26,826
+as if the view doesn't appear to
+
+
+1064
+00:28:26,826 --> 00:28:28,206
+the drop session, and nothing
+
+
+1065
+00:28:28,206 --> 00:28:28,576
+will happen.
+
+
+1066
+00:28:29,206 --> 00:28:30,776
+If you return true or do not
+
+
+1067
+00:28:30,816 --> 00:28:32,086
+implement this, will continue
+
+
+1068
+00:28:32,086 --> 00:28:33,416
+and call sessionDidEnter to
+
+
+1069
+00:28:33,416 --> 00:28:35,466
+indicate that the drag has
+
+
+1070
+00:28:35,466 --> 00:28:37,736
+entered your view.
+
+
+1071
+00:28:37,946 --> 00:28:39,146
+User then moves their finger
+
+
+1072
+00:28:39,146 --> 00:28:39,996
+around, and will call
+
+
+1073
+00:28:39,996 --> 00:28:42,286
+sessionDidUpdate repeatedly, and
+
+
+1074
+00:28:42,286 --> 00:28:43,166
+you have to return a drop
+
+
+1075
+00:28:43,166 --> 00:28:43,866
+proposal here.
+
+
+1076
+00:28:44,126 --> 00:28:45,856
+Now, keep in mind, this will be
+
+
+1077
+00:28:45,856 --> 00:28:48,146
+called a lot of times, so try to
+
+
+1078
+00:28:48,146 --> 00:28:49,876
+do at least minimal work here.
+
+
+1079
+00:28:50,266 --> 00:28:51,636
+Don't do too much, because your
+
+
+1080
+00:28:51,636 --> 00:28:53,546
+frame rate will suffer and users
+
+
+1081
+00:28:53,546 --> 00:28:54,686
+don't like that.
+
+
+1082
+00:28:55,856 --> 00:28:57,416
+When a user lifts their finger,
+
+
+1083
+00:28:57,416 --> 00:28:58,326
+will execute a drop.
+
+
+1084
+00:28:58,496 --> 00:28:59,476
+More about that later.
+
+
+1085
+00:29:00,136 --> 00:29:01,666
+And finally, will call
+
+
+1086
+00:29:01,666 --> 00:29:02,916
+sessionDidEnd to indicate that
+
+
+1087
+00:29:02,916 --> 00:29:04,466
+the session has ended and your
+
+
+1088
+00:29:04,466 --> 00:29:05,836
+interaction, by default, is
+
+
+1089
+00:29:05,836 --> 00:29:07,646
+ready to accept new sessions
+
+
+1090
+00:29:07,686 --> 00:29:08,016
+again.
+
+
+1091
+00:29:09,176 --> 00:29:11,186
+Now, let's pretend that the user
+
+
+1092
+00:29:11,626 --> 00:29:13,376
+did not lift their finger, and
+
+
+1093
+00:29:13,376 --> 00:29:13,936
+bring them back.
+
+
+1094
+00:29:15,316 --> 00:29:16,826
+If they move outside, we'll call
+
+
+1095
+00:29:16,826 --> 00:29:18,266
+sessionDidExit to indicate that
+
+
+1096
+00:29:18,266 --> 00:29:19,866
+the session has left your view.
+
+
+1097
+00:29:20,436 --> 00:29:21,536
+It does not mean that the
+
+
+1098
+00:29:21,596 --> 00:29:22,476
+session has ended.
+
+
+1099
+00:29:23,016 --> 00:29:24,376
+It's still going on, so if the
+
+
+1100
+00:29:24,376 --> 00:29:26,656
+user lifts their finger outside
+
+
+1101
+00:29:26,656 --> 00:29:27,886
+of your view, we'll call
+
+
+1102
+00:29:27,886 --> 00:29:29,506
+sessionDidEnd again to indicate
+
+
+1103
+00:29:29,506 --> 00:29:30,696
+that the session has actually
+
+
+1104
+00:29:30,696 --> 00:29:31,086
+ended.
+
+
+1105
+00:29:32,356 --> 00:29:34,016
+Now, let's pretend again that
+
+
+1106
+00:29:34,016 --> 00:29:35,186
+the user did not lift their
+
+
+1107
+00:29:35,186 --> 00:29:36,206
+finger, and bring it back,
+
+
+1108
+00:29:37,096 --> 00:29:38,806
+outside of the view, they bring
+
+
+1109
+00:29:38,806 --> 00:29:40,056
+it back in again, we'll call
+
+
+1110
+00:29:40,056 --> 00:29:42,086
+sessionDidEnter again, and start
+
+
+1111
+00:29:42,086 --> 00:29:43,616
+calling sessionDidUpdate to
+
+
+1112
+00:29:43,616 --> 00:29:45,146
+update the session and get a
+
+
+1113
+00:29:45,146 --> 00:29:45,826
+drop proposal.
+
+
+1114
+00:29:47,236 --> 00:29:48,806
+Now, pretend that the user has
+
+
+1115
+00:29:48,806 --> 00:29:50,666
+rested on a place inside your
+
+
+1116
+00:29:50,666 --> 00:29:51,896
+view where you cannot accept a
+
+
+1117
+00:29:51,896 --> 00:29:52,246
+drop.
+
+
+1118
+00:29:52,686 --> 00:29:54,206
+You'll return an operation
+
+
+1119
+00:29:54,206 --> 00:29:55,586
+cancel or forbidden.
+
+
+1120
+00:29:55,586 --> 00:29:57,386
+If the user then lifts their
+
+
+1121
+00:29:57,386 --> 00:30:00,596
+finger, we'll call sessionDidEnd
+
+
+1122
+00:30:00,596 --> 00:30:00,976
+right away.
+
+
+1123
+00:30:01,296 --> 00:30:02,076
+Nothing happens.
+
+
+1124
+00:30:02,076 --> 00:30:03,446
+No drop is executed, and we're
+
+
+1125
+00:30:03,446 --> 00:30:06,706
+just canceling the drop.
+
+
+1126
+00:30:06,846 --> 00:30:08,086
+Let's focus on this drop
+
+
+1127
+00:30:08,086 --> 00:30:09,166
+proposal for a second.
+
+
+1128
+00:30:09,596 --> 00:30:10,696
+I'm not going to talk about the
+
+
+1129
+00:30:10,696 --> 00:30:11,906
+drop operations that was covered
+
+
+1130
+00:30:11,906 --> 00:30:13,196
+yesterday in the introductory
+
+
+1131
+00:30:13,196 --> 00:30:14,846
+talk, but there's two more
+
+
+1132
+00:30:14,846 --> 00:30:15,856
+properties that might be
+
+
+1133
+00:30:15,856 --> 00:30:16,276
+interesting.
+
+
+1134
+00:30:16,466 --> 00:30:17,456
+First, precision mode.
+
+
+1135
+00:30:18,136 --> 00:30:19,586
+If you set precision mode by
+
+
+1136
+00:30:19,856 --> 00:30:22,206
+setting isPrecise to true, your
+
+
+1137
+00:30:22,206 --> 00:30:25,396
+will hit tests inside your view
+
+
+1138
+00:30:25,396 --> 00:30:26,816
+slightly above the touch of the
+
+
+1139
+00:30:26,816 --> 00:30:27,246
+user.
+
+
+1140
+00:30:27,416 --> 00:30:29,586
+So, the actual hit test location
+
+
+1141
+00:30:29,586 --> 00:30:30,996
+inside your view will be not
+
+
+1142
+00:30:30,996 --> 00:30:32,706
+under the finger, but slightly
+
+
+1143
+00:30:32,706 --> 00:30:33,006
+above.
+
+
+1144
+00:30:33,676 --> 00:30:35,216
+This allows more precise
+
+
+1145
+00:30:35,266 --> 00:30:36,506
+dropping inside your view,
+
+
+1146
+00:30:36,506 --> 00:30:37,736
+because the user can actually
+
+
+1147
+00:30:37,736 --> 00:30:39,306
+see where they are dropping.
+
+
+1148
+00:30:39,706 --> 00:30:41,276
+A good example is the Text
+
+
+1149
+00:30:41,276 --> 00:30:41,876
+controls.
+
+
+1150
+00:30:42,126 --> 00:30:43,666
+They use precision mode to show
+
+
+1151
+00:30:43,666 --> 00:30:45,536
+with carets where the user will
+
+
+1152
+00:30:45,536 --> 00:30:47,166
+actually drop the items inside a
+
+
+1153
+00:30:47,166 --> 00:30:48,026
+Text view.
+
+
+1154
+00:30:48,466 --> 00:30:50,166
+You can see it here, that the
+
+
+1155
+00:30:50,166 --> 00:30:51,746
+caret is shown slightly above
+
+
+1156
+00:30:51,746 --> 00:30:53,196
+the touch where the user is
+
+
+1157
+00:30:53,196 --> 00:30:54,096
+touching the glass.
+
+
+1158
+00:30:54,596 --> 00:30:55,846
+If you would not do this, the
+
+
+1159
+00:30:55,846 --> 00:30:57,216
+caret will be below the finger,
+
+
+1160
+00:30:57,216 --> 00:30:58,306
+and it will be very hard to
+
+
+1161
+00:30:58,556 --> 00:31:01,466
+precisely drop inside a specific
+
+
+1162
+00:31:01,506 --> 00:31:02,306
+point in the text.
+
+
+1163
+00:31:02,946 --> 00:31:03,876
+So, if you do implement
+
+
+1164
+00:31:03,876 --> 00:31:06,836
+precision mode, please indicate
+
+
+1165
+00:31:06,836 --> 00:31:08,986
+some UI at the drop site to
+
+
+1166
+00:31:08,986 --> 00:31:10,406
+indicate to the user where they
+
+
+1167
+00:31:10,406 --> 00:31:12,356
+will be dropping this items.
+
+
+1168
+00:31:12,786 --> 00:31:14,506
+Next up is
+
+
+1169
+00:31:14,506 --> 00:31:16,216
+prefersFullSizePreview.
+
+
+1170
+00:31:16,766 --> 00:31:18,876
+This brings us to preview
+
+
+1171
+00:31:18,876 --> 00:31:19,286
+scaling.
+
+
+1172
+00:31:19,286 --> 00:31:20,296
+As you might have noticed by
+
+
+1173
+00:31:20,296 --> 00:31:22,786
+playing around with iOS 11, if
+
+
+1174
+00:31:22,786 --> 00:31:24,036
+you start to drag something, it
+
+
+1175
+00:31:24,036 --> 00:31:24,996
+will scale it down.
+
+
+1176
+00:31:24,996 --> 00:31:26,366
+The system will always scale
+
+
+1177
+00:31:26,366 --> 00:31:26,886
+things down.
+
+
+1178
+00:31:27,496 --> 00:31:28,386
+Why do we do this?
+
+
+1179
+00:31:28,476 --> 00:31:29,466
+Because it doesn't make a lot of
+
+
+1180
+00:31:29,466 --> 00:31:30,896
+sense to have a big preview
+
+
+1181
+00:31:30,896 --> 00:31:32,346
+covering the screen and your UI,
+
+
+1182
+00:31:32,536 --> 00:31:33,646
+because it's interactive.
+
+
+1183
+00:31:34,356 --> 00:31:36,006
+If you blocked the screen with a
+
+
+1184
+00:31:36,006 --> 00:31:37,716
+preview that's too large, it's
+
+
+1185
+00:31:37,716 --> 00:31:39,256
+hard to navigate around, so we
+
+
+1186
+00:31:39,256 --> 00:31:42,026
+scale those down, but in certain
+
+
+1187
+00:31:42,026 --> 00:31:43,996
+cases, it might be interesting
+
+
+1188
+00:31:43,996 --> 00:31:45,586
+to prefer a full-size preview.
+
+
+1189
+00:31:46,016 --> 00:31:47,886
+For example, you have a list and
+
+
+1190
+00:31:47,886 --> 00:31:49,406
+this list you can reorder.
+
+
+1191
+00:31:49,406 --> 00:31:50,656
+So, you pick something up and
+
+
+1192
+00:31:50,746 --> 00:31:51,506
+try to drag it up.
+
+
+1193
+00:31:52,086 --> 00:31:53,436
+It would not make sense to scale
+
+
+1194
+00:31:53,436 --> 00:31:55,956
+that whole item down, so you can
+
+
+1195
+00:31:55,956 --> 00:31:57,666
+add prefersFullSizePreviews
+
+
+1196
+00:31:57,666 --> 00:31:57,876
+here.
+
+
+1197
+00:31:58,456 --> 00:31:59,626
+There's two ways to do this.
+
+
+1198
+00:31:59,716 --> 00:32:00,836
+At the drag site, there's drag
+
+
+1199
+00:32:00,836 --> 00:32:01,356
+interaction
+
+
+1200
+00:32:01,356 --> 00:32:03,006
+prefersFullSizePreviewsFor
+
+
+1201
+00:32:03,006 --> 00:32:03,466
+session.
+
+
+1202
+00:32:04,176 --> 00:32:05,566
+Return true here, and we'll try
+
+
+1203
+00:32:05,566 --> 00:32:07,536
+to keep those previews full
+
+
+1204
+00:32:07,536 --> 00:32:09,636
+size, and at the drop site, you
+
+
+1205
+00:32:09,636 --> 00:32:11,296
+can set the flag to true on the
+
+
+1206
+00:32:11,296 --> 00:32:12,096
+drop proposal.
+
+
+1207
+00:32:12,926 --> 00:32:15,146
+Note that this is a preference.
+
+
+1208
+00:32:15,856 --> 00:32:18,616
+You can ask to scale, not to
+
+
+1209
+00:32:18,616 --> 00:32:20,366
+scale, but we might not always
+
+
+1210
+00:32:20,426 --> 00:32:20,866
+honor it.
+
+
+1211
+00:32:20,916 --> 00:32:22,326
+There's certain conditions where
+
+
+1212
+00:32:22,326 --> 00:32:23,726
+the system will scale down
+
+
+1213
+00:32:23,756 --> 00:32:24,216
+anyway.
+
+
+1214
+00:32:25,296 --> 00:32:27,026
+A few of these are flocks.
+
+
+1215
+00:32:27,026 --> 00:32:29,106
+So, if you add more items to the
+
+
+1216
+00:32:29,106 --> 00:32:31,036
+drag, we will always scale those
+
+
+1217
+00:32:31,036 --> 00:32:32,846
+items down, even if you prefer
+
+
+1218
+00:32:32,846 --> 00:32:33,746
+full-size scaling.
+
+
+1219
+00:32:35,126 --> 00:32:37,316
+A single preview, if you are
+
+
+1220
+00:32:37,466 --> 00:32:40,066
+dragging one item and dragging
+
+
+1221
+00:32:40,066 --> 00:32:41,176
+it outside your app, we will
+
+
+1222
+00:32:41,176 --> 00:32:42,896
+always scale that down, too.
+
+
+1223
+00:32:43,976 --> 00:32:45,396
+And finally, once something is
+
+
+1224
+00:32:45,396 --> 00:32:46,836
+scaled down, we will never scale
+
+
+1225
+00:32:46,836 --> 00:32:47,476
+it back up again.
+
+
+1226
+00:32:47,526 --> 00:32:48,396
+So, keep that in mind.
+
+
+1227
+00:32:48,446 --> 00:32:49,846
+It's a preference, but not
+
+
+1228
+00:32:50,016 --> 00:32:50,906
+something set in stone.
+
+
+1229
+00:32:51,366 --> 00:32:54,096
+Let's go to performing a drop.
+
+
+1230
+00:32:54,246 --> 00:32:55,166
+When you're ready to perform a
+
+
+1231
+00:32:55,166 --> 00:32:56,746
+drop, user lift their finger,
+
+
+1232
+00:32:57,256 --> 00:33:00,286
+and we'll have to start loading
+
+
+1233
+00:33:00,286 --> 00:33:01,166
+the data at this point.
+
+
+1234
+00:33:01,406 --> 00:33:03,146
+In fact, this is the only moment
+
+
+1235
+00:33:03,146 --> 00:33:04,716
+in time where you can actually
+
+
+1236
+00:33:04,716 --> 00:33:07,746
+request data and allow it to
+
+
+1237
+00:33:07,746 --> 00:33:09,886
+succeed, because in any other of
+
+
+1238
+00:33:09,886 --> 00:33:11,556
+the lifetime calls, if you try
+
+
+1239
+00:33:11,556 --> 00:33:12,966
+this, it will always fail.
+
+
+1240
+00:33:12,966 --> 00:33:14,666
+Only in performDrop you have a
+
+
+1241
+00:33:14,666 --> 00:33:15,746
+chance of getting data.
+
+
+1242
+00:33:16,366 --> 00:33:17,486
+There's cooperation required on
+
+
+1243
+00:33:17,486 --> 00:33:18,706
+the other side, so that's why I
+
+
+1244
+00:33:18,706 --> 00:33:19,836
+say, "There's only a chance,"
+
+
+1245
+00:33:19,896 --> 00:33:21,276
+but usually you will get some
+
+
+1246
+00:33:21,276 --> 00:33:21,666
+data.
+
+
+1247
+00:33:22,286 --> 00:33:23,276
+These data loads are always
+
+
+1248
+00:33:23,276 --> 00:33:24,716
+asynchronous, so please don't
+
+
+1249
+00:33:24,716 --> 00:33:25,196
+block here.
+
+
+1250
+00:33:25,606 --> 00:33:26,836
+If you block for too long and
+
+
+1251
+00:33:26,836 --> 00:33:28,376
+you don't know how long this
+
+
+1252
+00:33:28,376 --> 00:33:30,886
+data will be taking to arrive
+
+
+1253
+00:33:30,886 --> 00:33:32,426
+there, will kill your app, and
+
+
+1254
+00:33:32,426 --> 00:33:33,416
+that's not the best user
+
+
+1255
+00:33:33,416 --> 00:33:34,756
+experience for our users.
+
+
+1256
+00:33:35,026 --> 00:33:35,856
+So, don't do this.
+
+
+1257
+00:33:36,366 --> 00:33:39,006
+Load data in the background will
+
+
+1258
+00:33:39,006 --> 00:33:40,856
+animate the items down into your
+
+
+1259
+00:33:40,856 --> 00:33:42,226
+view so the user can see you
+
+
+1260
+00:33:42,226 --> 00:33:43,736
+dropped, and then finally, we'll
+
+
+1261
+00:33:43,736 --> 00:33:44,996
+call concludeDrop to indicate
+
+
+1262
+00:33:44,996 --> 00:33:46,186
+that the animation is done, and
+
+
+1263
+00:33:46,376 --> 00:33:47,696
+as far as the user is concerned,
+
+
+1264
+00:33:47,806 --> 00:33:48,836
+the drop is finished.
+
+
+1265
+00:33:51,396 --> 00:33:53,116
+This does not mean that the data
+
+
+1266
+00:33:53,176 --> 00:33:53,726
+is there yet.
+
+
+1267
+00:33:53,896 --> 00:33:55,356
+If you can see, the first call
+
+
+1268
+00:33:55,356 --> 00:33:56,456
+here is still going on.
+
+
+1269
+00:33:56,766 --> 00:33:57,796
+But, more about that later.
+
+
+1270
+00:33:58,916 --> 00:33:59,696
+How do you load data?
+
+
+1271
+00:33:59,696 --> 00:34:02,826
+There's a very useful call on
+
+
+1272
+00:34:02,826 --> 00:34:04,626
+the session called loadObjects
+
+
+1273
+00:34:04,626 --> 00:34:05,626
+of class completion.
+
+
+1274
+00:34:06,136 --> 00:34:06,986
+It's very good to load
+
+
+1275
+00:34:06,986 --> 00:34:07,776
+homogeneous data.
+
+
+1276
+00:34:07,776 --> 00:34:09,565
+If you have only images in the
+
+
+1277
+00:34:09,565 --> 00:34:11,596
+drag or in the drop, and you
+
+
+1278
+00:34:11,596 --> 00:34:12,826
+know you can only accept those,
+
+
+1279
+00:34:12,826 --> 00:34:14,886
+use URImage as class here, and
+
+
+1280
+00:34:14,886 --> 00:34:16,246
+it will give you back a nice
+
+
+1281
+00:34:16,246 --> 00:34:17,946
+array sorted exactly the same as
+
+
+1282
+00:34:17,946 --> 00:34:19,426
+the sessions, in the sessions
+
+
+1283
+00:34:19,426 --> 00:34:22,596
+items array, and we'll give it
+
+
+1284
+00:34:22,596 --> 00:34:23,025
+right to you.
+
+
+1285
+00:34:23,056 --> 00:34:23,906
+We'll do the heaving lifting
+
+
+1286
+00:34:23,906 --> 00:34:25,016
+behind your back, and you'll get
+
+
+1287
+00:34:25,016 --> 00:34:25,806
+a nice array back.
+
+
+1288
+00:34:26,206 --> 00:34:27,126
+This completion block will be
+
+
+1289
+00:34:27,126 --> 00:34:28,726
+called on the main queue, so you
+
+
+1290
+00:34:28,726 --> 00:34:30,246
+can update URI right away.
+
+
+1291
+00:34:30,856 --> 00:34:32,806
+If you have more mixed data
+
+
+1292
+00:34:32,806 --> 00:34:33,826
+here, or you wanted some more
+
+
+1293
+00:34:33,826 --> 00:34:35,545
+control, you can just iterate
+
+
+1294
+00:34:35,545 --> 00:34:37,446
+over the session items and load
+
+
+1295
+00:34:37,646 --> 00:34:38,766
+each of them individually, if
+
+
+1296
+00:34:38,766 --> 00:34:39,126
+you want.
+
+
+1297
+00:34:39,286 --> 00:34:40,266
+Use loadObject, or
+
+
+1298
+00:34:40,266 --> 00:34:41,926
+loadDataRepresentation, or
+
+
+1299
+00:34:41,926 --> 00:34:44,216
+loadFileRepresentation on the
+
+
+1300
+00:34:44,216 --> 00:34:45,156
+item provider.
+
+
+1301
+00:34:45,186 --> 00:34:46,266
+It gives you more fine-grained
+
+
+1302
+00:34:46,266 --> 00:34:47,356
+control over what you want to
+
+
+1303
+00:34:47,356 --> 00:34:49,335
+load and how, and it even allows
+
+
+1304
+00:34:49,335 --> 00:34:51,416
+you to load multiple file
+
+
+1305
+00:34:51,416 --> 00:34:53,116
+representations for each item,
+
+
+1306
+00:34:53,116 --> 00:34:53,876
+if you choose to.
+
+
+1307
+00:34:54,946 --> 00:34:55,795
+Keep in mind that this
+
+
+1308
+00:34:55,795 --> 00:34:56,806
+completion block will be called
+
+
+1309
+00:34:56,806 --> 00:34:59,496
+on the background queue, so if
+
+
+1310
+00:34:59,496 --> 00:35:00,806
+you want to do URI work here,
+
+
+1311
+00:35:00,806 --> 00:35:01,876
+dispatch to the main queue.
+
+
+1312
+00:35:02,026 --> 00:35:04,536
+I'm going to hand it over back
+
+
+1313
+00:35:04,536 --> 00:35:06,096
+to Wenson to show off how that
+
+
+1314
+00:35:06,096 --> 00:35:07,426
+actually works in practice.
+
+
+1315
+00:35:08,516 --> 00:35:13,546
+[ Applause ]
+
+
+1316
+00:35:14,046 --> 00:35:14,226
+>> Alright.
+
+
+1317
+00:35:14,686 --> 00:35:15,206
+Thanks, Tom.
+
+
+1318
+00:35:15,876 --> 00:35:17,036
+So now, I'd like to introduce
+
+
+1319
+00:35:17,386 --> 00:35:18,706
+the second part of our demo.
+
+
+1320
+00:35:19,436 --> 00:35:21,476
+This is the, this is the second
+
+
+1321
+00:35:21,476 --> 00:35:22,466
+demo app, called Drop
+
+
+1322
+00:35:22,466 --> 00:35:24,136
+Destination, and what we'll be
+
+
+1323
+00:35:24,136 --> 00:35:25,696
+doing here is building a photo
+
+
+1324
+00:35:25,696 --> 00:35:26,836
+gallery very similar to the
+
+
+1325
+00:35:26,836 --> 00:35:28,216
+Photos app, where dropping
+
+
+1326
+00:35:28,216 --> 00:35:29,956
+images will populate this area
+
+
+1327
+00:35:29,956 --> 00:35:31,436
+with additional Image views.
+
+
+1328
+00:35:32,066 --> 00:35:34,306
+So, the idea is that this flow
+
+
+1329
+00:35:34,306 --> 00:35:34,816
+should work.
+
+
+1330
+00:35:34,816 --> 00:35:35,896
+I should be able to drop here,
+
+
+1331
+00:35:36,256 --> 00:35:37,906
+and I should see more Image
+
+
+1332
+00:35:37,906 --> 00:35:38,306
+views.
+
+
+1333
+00:35:38,796 --> 00:35:39,456
+Now, of course, that didn't
+
+
+1334
+00:35:39,456 --> 00:35:41,156
+happen, so let's go into the
+
+
+1335
+00:35:41,156 --> 00:35:42,516
+code and see why that's the
+
+
+1336
+00:35:42,516 --> 00:35:42,826
+case.
+
+
+1337
+00:35:43,926 --> 00:35:44,846
+So, this is where most of our
+
+
+1338
+00:35:44,846 --> 00:35:45,796
+logic is going to live,
+
+
+1339
+00:35:45,796 --> 00:35:47,006
+Droppable Image Preview
+
+
+1340
+00:35:47,006 --> 00:35:48,736
+Controller, and here, you can
+
+
+1341
+00:35:48,736 --> 00:35:49,926
+see that all we've implemented
+
+
+1342
+00:35:49,926 --> 00:35:50,846
+is sessionDidUpdate.
+
+
+1343
+00:35:51,546 --> 00:35:52,796
+So, it's no wonder that the drop
+
+
+1344
+00:35:52,796 --> 00:35:53,936
+doesn't work, because we haven't
+
+
+1345
+00:35:53,936 --> 00:35:55,416
+actually implemented any drop
+
+
+1346
+00:35:55,416 --> 00:35:55,966
+handling yet.
+
+
+1347
+00:35:56,256 --> 00:35:57,306
+I'm going to implement
+
+
+1348
+00:35:57,306 --> 00:35:59,306
+performDrop right here, and in
+
+
+1349
+00:35:59,556 --> 00:36:01,346
+this method, we are going to
+
+
+1350
+00:36:01,346 --> 00:36:02,886
+iterate through all of our items
+
+
+1351
+00:36:02,886 --> 00:36:03,326
+in the session.
+
+
+1352
+00:36:03,566 --> 00:36:05,126
+Now, for each item, if we are
+
+
+1353
+00:36:05,126 --> 00:36:06,916
+able to load a UI image, we're
+
+
+1354
+00:36:06,916 --> 00:36:08,206
+going to go ahead and insert a
+
+
+1355
+00:36:08,206 --> 00:36:09,296
+new Image view into our
+
+
+1356
+00:36:09,296 --> 00:36:11,426
+hierarchy and kick off a load
+
+
+1357
+00:36:11,426 --> 00:36:12,286
+from the itemProvider.
+
+
+1358
+00:36:12,946 --> 00:36:13,906
+Now, when the itemProvider is
+
+
+1359
+00:36:13,906 --> 00:36:14,786
+done loading, we're going to
+
+
+1360
+00:36:14,786 --> 00:36:16,356
+call back to the main queue and
+
+
+1361
+00:36:16,356 --> 00:36:17,826
+set the image of the Image view
+
+
+1362
+00:36:17,826 --> 00:36:19,526
+that we just inserted to this
+
+
+1363
+00:36:19,526 --> 00:36:20,606
+new image returned by the
+
+
+1364
+00:36:20,606 --> 00:36:21,386
+itemProvider.
+
+
+1365
+00:36:21,386 --> 00:36:23,986
+So, with that little change, we
+
+
+1366
+00:36:23,986 --> 00:36:25,966
+should be able to get this flow,
+
+
+1367
+00:36:25,966 --> 00:36:27,146
+this basic flow to work.
+
+
+1368
+00:36:27,746 --> 00:36:31,196
+So, let's see what happens.
+
+
+1369
+00:36:31,716 --> 00:36:33,306
+Now, the first thing you'll
+
+
+1370
+00:36:33,306 --> 00:36:34,296
+notice is that now there's a
+
+
+1371
+00:36:34,296 --> 00:36:35,466
+green plus-three badge.
+
+
+1372
+00:36:35,576 --> 00:36:36,596
+This indicates that there is
+
+
+1373
+00:36:36,596 --> 00:36:37,806
+indeed an action to be
+
+
+1374
+00:36:37,806 --> 00:36:39,486
+performed, and that action, of
+
+
+1375
+00:36:39,486 --> 00:36:41,656
+course, is inserting new images.
+
+
+1376
+00:36:42,276 --> 00:36:42,916
+So, that works.
+
+
+1377
+00:36:43,446 --> 00:36:44,286
+It's very basic, though.
+
+
+1378
+00:36:44,636 --> 00:36:46,476
+There is now another feature I'd
+
+
+1379
+00:36:46,476 --> 00:36:47,706
+like to highlight while we're
+
+
+1380
+00:36:47,956 --> 00:36:48,066
+here.
+
+
+1381
+00:36:48,366 --> 00:36:49,776
+So, you might have noticed this
+
+
+1382
+00:36:49,916 --> 00:36:50,946
+area at the bottom that says
+
+
+1383
+00:36:50,946 --> 00:36:52,546
+Drop here to delete photos.
+
+
+1384
+00:36:53,286 --> 00:36:54,366
+It does what it says on the tin.
+
+
+1385
+00:36:55,016 --> 00:36:56,326
+When I drop it here, we remove
+
+
+1386
+00:36:56,326 --> 00:36:57,226
+it from the top area.
+
+
+1387
+00:36:57,276 --> 00:36:58,886
+So, that's kind of nice, but the
+
+
+1388
+00:36:58,886 --> 00:36:59,956
+thing is, we haven't done any
+
+
+1389
+00:36:59,956 --> 00:37:01,386
+customization around the drop
+
+
+1390
+00:37:01,386 --> 00:37:02,976
+preview yet, and so by default,
+
+
+1391
+00:37:03,156 --> 00:37:04,666
+images just kind of fly towards
+
+
+1392
+00:37:04,666 --> 00:37:05,706
+the center and fade out.
+
+
+1393
+00:37:06,166 --> 00:37:07,456
+I'm going to now hand it back to
+
+
+1394
+00:37:07,456 --> 00:37:09,376
+Tom to see what we can do to
+
+
+1395
+00:37:09,376 --> 00:37:09,976
+make this better.
+
+
+1396
+00:37:10,516 --> 00:37:15,546
+[ Applause ]
+
+
+1397
+00:37:16,046 --> 00:37:16,786
+>> Turns out, you don't need a
+
+
+1398
+00:37:16,786 --> 00:37:18,776
+lot of codes to perform a drop.
+
+
+1399
+00:37:18,776 --> 00:37:20,776
+So, let's talk about drop
+
+
+1400
+00:37:20,776 --> 00:37:22,426
+previews and their animations.
+
+
+1401
+00:37:22,946 --> 00:37:25,356
+Let's bring back this diagram,
+
+
+1402
+00:37:25,356 --> 00:37:28,096
+but it turns out that it's a bit
+
+
+1403
+00:37:28,096 --> 00:37:29,986
+more of a simplification, and
+
+
+1404
+00:37:29,986 --> 00:37:30,836
+there's more going on.
+
+
+1405
+00:37:30,836 --> 00:37:31,836
+So, let's bring this
+
+
+1406
+00:37:31,836 --> 00:37:33,626
+concludeDrop to the side, and
+
+
+1407
+00:37:33,626 --> 00:37:35,096
+let's talk about what's going on
+
+
+1408
+00:37:35,156 --> 00:37:35,646
+in between.
+
+
+1409
+00:37:36,806 --> 00:37:37,936
+Started loading our data, and
+
+
+1410
+00:37:38,666 --> 00:37:40,026
+once we've performed our
+
+
+1411
+00:37:40,026 --> 00:37:42,436
+completes, we ask you for a
+
+
+1412
+00:37:42,436 --> 00:37:44,056
+preview for dropping the item by
+
+
+1413
+00:37:44,056 --> 00:37:45,476
+calling previewForDropping item
+
+
+1414
+00:37:45,476 --> 00:37:46,906
+with defaultPreview, giving you
+
+
+1415
+00:37:46,906 --> 00:37:47,736
+a default preview.
+
+
+1416
+00:37:48,306 --> 00:37:49,526
+You can return a new preview
+
+
+1417
+00:37:49,526 --> 00:37:51,746
+here, or return the default
+
+
+1418
+00:37:51,746 --> 00:37:53,146
+preview, or nil, whatever you
+
+
+1419
+00:37:53,146 --> 00:37:53,526
+want.
+
+
+1420
+00:37:53,826 --> 00:37:54,796
+More about that later.
+
+
+1421
+00:37:54,796 --> 00:37:58,056
+So, any of the previews we get,
+
+
+1422
+00:37:58,056 --> 00:38:00,046
+or the defaults we have, we'll
+
+
+1423
+00:38:00,046 --> 00:38:01,836
+use these and animate those down
+
+
+1424
+00:38:01,876 --> 00:38:03,846
+into your view, so the user can
+
+
+1425
+00:38:03,846 --> 00:38:04,926
+actually see something dropping.
+
+
+1426
+00:38:06,076 --> 00:38:08,056
+While that's going on, we'll
+
+
+1427
+00:38:08,056 --> 00:38:09,806
+animate willDropWith animator so
+
+
+1428
+00:38:09,806 --> 00:38:11,216
+you can animate alongside.
+
+
+1429
+00:38:12,366 --> 00:38:13,746
+Now, as Robb mentioned before,
+
+
+1430
+00:38:14,656 --> 00:38:16,096
+same as in the lift side, the
+
+
+1431
+00:38:16,096 --> 00:38:17,296
+drop side is live, too.
+
+
+1432
+00:38:17,906 --> 00:38:19,586
+While you're dragging, there is
+
+
+1433
+00:38:19,586 --> 00:38:20,706
+a snapshot, but while you're
+
+
+1434
+00:38:20,706 --> 00:38:21,956
+dropping or canceling or
+
+
+1435
+00:38:21,956 --> 00:38:23,536
+lifting, the view is live, so
+
+
+1436
+00:38:23,536 --> 00:38:25,066
+you can also update the view you
+
+
+1437
+00:38:25,066 --> 00:38:27,036
+give us here, or animate
+
+
+1438
+00:38:27,036 --> 00:38:29,526
+alongside any other UI you have.
+
+
+1439
+00:38:31,676 --> 00:38:33,556
+Those animations finish, and
+
+
+1440
+00:38:33,696 --> 00:38:34,826
+we'll call concludeDrop to
+
+
+1441
+00:38:34,826 --> 00:38:36,826
+indicate to you that the drop is
+
+
+1442
+00:38:36,826 --> 00:38:38,496
+finished and, as far as the user
+
+
+1443
+00:38:38,496 --> 00:38:39,956
+is concerned, they can continue
+
+
+1444
+00:38:39,956 --> 00:38:40,976
+with their business.
+
+
+1445
+00:38:41,956 --> 00:38:46,426
+Now, again, this does not mean
+
+
+1446
+00:38:46,466 --> 00:38:48,076
+that the data is already there.
+
+
+1447
+00:38:48,516 --> 00:38:49,846
+You can see here, and that's
+
+
+1448
+00:38:50,066 --> 00:38:51,746
+just two examples, there's one
+
+
+1449
+00:38:51,796 --> 00:38:53,086
+very long load object call
+
+
+1450
+00:38:53,086 --> 00:38:54,186
+that's going on beyond
+
+
+1451
+00:38:54,326 --> 00:38:54,996
+concludeDrop.
+
+
+1452
+00:38:55,386 --> 00:38:56,796
+There's one that, like, ends in
+
+
+1453
+00:38:56,796 --> 00:38:58,466
+the middle between willAnimate
+
+
+1454
+00:38:58,466 --> 00:39:00,166
+and previewForDropping, and even
+
+
+1455
+00:39:00,166 --> 00:39:01,646
+the previews are animating at a
+
+
+1456
+00:39:01,646 --> 00:39:02,916
+different duration.
+
+
+1457
+00:39:03,256 --> 00:39:04,426
+That's because, depending on
+
+
+1458
+00:39:04,426 --> 00:39:06,106
+what target you give us, they
+
+
+1459
+00:39:06,106 --> 00:39:07,656
+might take longer to travel
+
+
+1460
+00:39:07,656 --> 00:39:07,956
+there.
+
+
+1461
+00:39:08,776 --> 00:39:09,776
+Something that's farther away
+
+
+1462
+00:39:09,776 --> 00:39:11,276
+from the finger will take a
+
+
+1463
+00:39:11,276 --> 00:39:12,336
+little bit longer than something
+
+
+1464
+00:39:12,336 --> 00:39:13,546
+that's closer to your finger.
+
+
+1465
+00:39:14,136 --> 00:39:15,016
+So, keep this in mind.
+
+
+1466
+00:39:15,266 --> 00:39:17,026
+The animations do not take the
+
+
+1467
+00:39:17,026 --> 00:39:17,586
+same time.
+
+
+1468
+00:39:17,766 --> 00:39:18,716
+They are slightly different.
+
+
+1469
+00:39:22,136 --> 00:39:23,866
+So, we have drop previews, and
+
+
+1470
+00:39:23,866 --> 00:39:25,626
+as Wenson already showed, we
+
+
+1471
+00:39:25,626 --> 00:39:26,886
+also have cancel previews.
+
+
+1472
+00:39:26,886 --> 00:39:28,166
+They look almost exactly the
+
+
+1473
+00:39:28,166 --> 00:39:29,506
+same, and the same goes for
+
+
+1474
+00:39:29,506 --> 00:39:30,406
+lifting previews.
+
+
+1475
+00:39:30,406 --> 00:39:32,276
+It's the same approach, but just
+
+
+1476
+00:39:32,276 --> 00:39:33,206
+different locations.
+
+
+1477
+00:39:34,636 --> 00:39:36,036
+Wenson's previews demos showed
+
+
+1478
+00:39:36,036 --> 00:39:37,186
+that it's probably better to
+
+
+1479
+00:39:37,186 --> 00:39:39,456
+implement previewForCanceling
+
+
+1480
+00:39:39,456 --> 00:39:40,566
+item, because it gives a better
+
+
+1481
+00:39:40,566 --> 00:39:41,496
+user experience.
+
+
+1482
+00:39:41,496 --> 00:39:43,036
+You can fly back the items.
+
+
+1483
+00:39:43,826 --> 00:39:45,876
+When you update the UI, you can,
+
+
+1484
+00:39:45,876 --> 00:39:46,866
+I mean, the user can navigate
+
+
+1485
+00:39:46,866 --> 00:39:48,516
+around so your original UI can
+
+
+1486
+00:39:48,516 --> 00:39:50,806
+be very different than the one
+
+
+1487
+00:39:50,806 --> 00:39:52,476
+that you started at, so keep
+
+
+1488
+00:39:52,476 --> 00:39:56,176
+this in mind.
+
+
+1489
+00:39:56,356 --> 00:39:56,886
+Additionally,
+
+
+1490
+00:39:56,886 --> 00:39:58,496
+willAnimateDropWith animator is
+
+
+1491
+00:39:58,566 --> 00:39:59,376
+very similar to
+
+
+1492
+00:39:59,376 --> 00:40:00,976
+willAnimateCancelWith animator.
+
+
+1493
+00:40:01,166 --> 00:40:03,956
+And again, different occasions,
+
+
+1494
+00:40:03,956 --> 00:40:04,916
+but the same approach.
+
+
+1495
+00:40:05,486 --> 00:40:07,476
+The UIDragAnimating protocol
+
+
+1496
+00:40:07,476 --> 00:40:08,816
+here is very similar to
+
+
+1497
+00:40:08,816 --> 00:40:10,626
+UIViewPropertyAnimator, so
+
+
+1498
+00:40:10,626 --> 00:40:12,626
+you'll be right at home, there.
+
+
+1499
+00:40:13,246 --> 00:40:14,986
+Now, let's talk about this
+
+
+1500
+00:40:14,986 --> 00:40:15,956
+default preview we give you.
+
+
+1501
+00:40:15,956 --> 00:40:17,016
+Why do we give it to you?
+
+
+1502
+00:40:17,086 --> 00:40:20,636
+You could just return it here,
+
+
+1503
+00:40:20,776 --> 00:40:21,556
+and you get this.
+
+
+1504
+00:40:22,036 --> 00:40:25,206
+Well, that's fine, but that's
+
+
+1505
+00:40:25,206 --> 00:40:26,086
+not why we give it to you.
+
+
+1506
+00:40:26,326 --> 00:40:27,726
+So, if you do want the default
+
+
+1507
+00:40:27,726 --> 00:40:28,816
+preview, and you want the
+
+
+1508
+00:40:28,816 --> 00:40:31,086
+default animations, just return
+
+
+1509
+00:40:31,086 --> 00:40:31,516
+nil here.
+
+
+1510
+00:40:31,516 --> 00:40:32,806
+That indicates to the system
+
+
+1511
+00:40:33,086 --> 00:40:34,036
+that you're fine with the
+
+
+1512
+00:40:34,036 --> 00:40:36,066
+defaults and the system can do
+
+
+1513
+00:40:36,066 --> 00:40:37,556
+what it wants to animate
+
+
+1514
+00:40:37,556 --> 00:40:38,776
+everything down, and how it
+
+
+1515
+00:40:38,776 --> 00:40:39,336
+represents it.
+
+
+1516
+00:40:40,236 --> 00:40:41,316
+So, why do we give you this
+
+
+1517
+00:40:41,316 --> 00:40:41,996
+default preview?
+
+
+1518
+00:40:42,986 --> 00:40:44,426
+Well, you can retarget it.
+
+
+1519
+00:40:44,466 --> 00:40:46,626
+That's why we, what we want you
+
+
+1520
+00:40:46,626 --> 00:40:46,896
+to do.
+
+
+1521
+00:40:46,896 --> 00:40:47,946
+If you retarget it, you know
+
+
+1522
+00:40:47,946 --> 00:40:49,106
+where it's going to be inside
+
+
+1523
+00:40:49,106 --> 00:40:49,506
+your view.
+
+
+1524
+00:40:49,856 --> 00:40:51,436
+We'll animate it down into the
+
+
+1525
+00:40:51,436 --> 00:40:53,516
+target you specified, and that's
+
+
+1526
+00:40:53,516 --> 00:40:55,016
+a better experience.
+
+
+1527
+00:40:55,556 --> 00:40:57,056
+That only works, of course, if
+
+
+1528
+00:40:57,056 --> 00:40:58,266
+you know where to target to.
+
+
+1529
+00:40:58,266 --> 00:40:59,466
+If you don't know the location,
+
+
+1530
+00:40:59,806 --> 00:41:00,656
+you can't retarget.
+
+
+1531
+00:41:02,036 --> 00:41:04,446
+And finally, you can create your
+
+
+1532
+00:41:04,446 --> 00:41:06,646
+own custom preview and make your
+
+
+1533
+00:41:06,646 --> 00:41:07,176
+own UI here.
+
+
+1534
+00:41:07,176 --> 00:41:08,506
+You're free to do what you want.
+
+
+1535
+00:41:09,326 --> 00:41:11,336
+The preview you give us will
+
+
+1536
+00:41:11,336 --> 00:41:12,416
+animate to the target you
+
+
+1537
+00:41:12,416 --> 00:41:13,026
+specified.
+
+
+1538
+00:41:14,316 --> 00:41:15,566
+There's a few limits here.
+
+
+1539
+00:41:15,566 --> 00:41:16,906
+If there's fewer items in the
+
+
+1540
+00:41:16,906 --> 00:41:18,466
+flock, then we'll ask you a
+
+
+1541
+00:41:18,466 --> 00:41:20,126
+preview for each of the items
+
+
+1542
+00:41:20,406 --> 00:41:21,456
+and give you an alongside
+
+
+1543
+00:41:21,456 --> 00:41:23,176
+animation for each of the items,
+
+
+1544
+00:41:23,176 --> 00:41:25,836
+so depending on how much they
+
+
+1545
+00:41:25,836 --> 00:41:27,256
+are, you'll get these.
+
+
+1546
+00:41:27,756 --> 00:41:31,416
+If there are many items in the
+
+
+1547
+00:41:31,416 --> 00:41:33,776
+flock, or in the session, then
+
+
+1548
+00:41:33,776 --> 00:41:35,426
+we'll use the default previews
+
+
+1549
+00:41:35,426 --> 00:41:37,596
+for all of them, so we won't ask
+
+
+1550
+00:41:37,596 --> 00:41:38,386
+you for preview.
+
+
+1551
+00:41:39,046 --> 00:41:40,916
+We do give you one alongside
+
+
+1552
+00:41:40,916 --> 00:41:42,976
+animation to go with that one
+
+
+1553
+00:41:42,976 --> 00:41:44,696
+animation for all the items.
+
+
+1554
+00:41:45,346 --> 00:41:47,316
+Don't take my word for it.
+
+
+1555
+00:41:47,466 --> 00:41:49,046
+Wenson's going to show how to do
+
+
+1556
+00:41:49,866 --> 00:41:49,976
+this.
+
+
+1557
+00:41:50,516 --> 00:41:54,226
+[ Applause ]
+
+
+1558
+00:41:54,726 --> 00:41:55,486
+>> Thanks again, Tom.
+
+
+1559
+00:41:56,296 --> 00:41:58,206
+So, to jog your memory, the part
+
+
+1560
+00:41:58,206 --> 00:41:59,776
+that we'd like to polish is this
+
+
+1561
+00:41:59,776 --> 00:42:00,606
+drop animation.
+
+
+1562
+00:42:01,406 --> 00:42:02,396
+Let's find out how to do that.
+
+
+1563
+00:42:03,546 --> 00:42:04,796
+So, we're now in Droppable
+
+
+1564
+00:42:04,796 --> 00:42:06,616
+Delete View, and over here,
+
+
+1565
+00:42:07,106 --> 00:42:08,366
+first thing we're going to do is
+
+
+1566
+00:42:08,366 --> 00:42:09,726
+implement a previewForDropping.
+
+
+1567
+00:42:11,076 --> 00:42:12,306
+So, given the item, we're going
+
+
+1568
+00:42:12,306 --> 00:42:13,446
+to create this drag preview
+
+
+1569
+00:42:13,446 --> 00:42:13,836
+target.
+
+
+1570
+00:42:14,866 --> 00:42:16,656
+Now, this looks very similar to
+
+
+1571
+00:42:16,656 --> 00:42:17,896
+what we've done before, only
+
+
+1572
+00:42:17,896 --> 00:42:19,166
+this time, we have an explicit
+
+
+1573
+00:42:19,166 --> 00:42:21,316
+transform set, so what this is
+
+
+1574
+00:42:21,316 --> 00:42:22,956
+going to do is animate our
+
+
+1575
+00:42:22,956 --> 00:42:24,496
+default preview's width and
+
+
+1576
+00:42:24,496 --> 00:42:26,546
+height to 10% of its original
+
+
+1577
+00:42:26,546 --> 00:42:26,936
+value.
+
+
+1578
+00:42:27,156 --> 00:42:28,366
+So, you're going to specify that
+
+
+1579
+00:42:28,366 --> 00:42:28,846
+transform.
+
+
+1580
+00:42:28,846 --> 00:42:29,826
+We're also going to set the
+
+
+1581
+00:42:29,826 --> 00:42:31,506
+center to the be the iconView
+
+
+1582
+00:42:31,506 --> 00:42:31,806
+center.
+
+
+1583
+00:42:31,806 --> 00:42:33,656
+The iconView is, if you go back
+
+
+1584
+00:42:33,656 --> 00:42:35,336
+to the app, this little trash
+
+
+1585
+00:42:35,336 --> 00:42:37,056
+can at the very bottom, here, on
+
+
+1586
+00:42:37,056 --> 00:42:37,466
+the left.
+
+
+1587
+00:42:38,626 --> 00:42:39,866
+So, we're going to animate to
+
+
+1588
+00:42:39,866 --> 00:42:41,256
+there, and we're going to
+
+
+1589
+00:42:41,256 --> 00:42:42,966
+retarget the default preview to
+
+
+1590
+00:42:42,966 --> 00:42:44,516
+that location using this target.
+
+
+1591
+00:42:44,746 --> 00:42:46,296
+But wait, there's more.
+
+
+1592
+00:42:47,086 --> 00:42:49,486
+We can actually do a little more
+
+
+1593
+00:42:49,486 --> 00:42:50,006
+polish here.
+
+
+1594
+00:42:50,626 --> 00:42:52,026
+Let's add an alongside animation
+
+
+1595
+00:42:52,026 --> 00:42:53,016
+on the drop, as well.
+
+
+1596
+00:42:53,266 --> 00:42:55,686
+So, let's add a transform to the
+
+
+1597
+00:42:55,686 --> 00:42:57,766
+iconView to the trash can as the
+
+
+1598
+00:42:57,766 --> 00:42:59,076
+drop is taking place.
+
+
+1599
+00:42:59,076 --> 00:43:00,106
+So, we're going to transform it
+
+
+1600
+00:43:00,146 --> 00:43:01,986
+to 1.25 scale.
+
+
+1601
+00:43:01,986 --> 00:43:03,176
+That's going to make it grow
+
+
+1602
+00:43:03,176 --> 00:43:04,676
+slightly, by 25%.
+
+
+1603
+00:43:05,716 --> 00:43:06,836
+Now, we don't want to have it
+
+
+1604
+00:43:06,836 --> 00:43:09,746
+permanently at 125% size, so
+
+
+1605
+00:43:09,746 --> 00:43:10,886
+we're going to set the transform
+
+
+1606
+00:43:10,886 --> 00:43:12,316
+back to the identity when we
+
+
+1607
+00:43:12,316 --> 00:43:13,646
+conclude the drop.
+
+
+1608
+00:43:14,586 --> 00:43:16,566
+So, with these little tweaks,
+
+
+1609
+00:43:17,286 --> 00:43:18,656
+should be able to see a little
+
+
+1610
+00:43:18,656 --> 00:43:20,006
+more polished experience.
+
+
+1611
+00:43:20,506 --> 00:43:23,216
+I'm going to go back and drag
+
+
+1612
+00:43:23,216 --> 00:43:23,826
+some photos here.
+
+
+1613
+00:43:24,076 --> 00:43:25,386
+So, pay attention to what
+
+
+1614
+00:43:25,386 --> 00:43:26,916
+happens to the photo when I drop
+
+
+1615
+00:43:26,916 --> 00:43:27,026
+it.
+
+
+1616
+00:43:27,886 --> 00:43:29,276
+You see, this time it goes into
+
+
+1617
+00:43:29,276 --> 00:43:30,736
+the trash can and disappears.
+
+
+1618
+00:43:31,166 --> 00:43:32,416
+And, speaking of the trash can,
+
+
+1619
+00:43:32,926 --> 00:43:34,326
+you also see that kind of grow
+
+
+1620
+00:43:34,326 --> 00:43:36,306
+in size and then shrink when the
+
+
+1621
+00:43:36,306 --> 00:43:37,256
+drop is concluded.
+
+
+1622
+00:43:38,296 --> 00:43:39,376
+So, that looks a lot better than
+
+
+1623
+00:43:39,376 --> 00:43:39,996
+it did before.
+
+
+1624
+00:43:39,996 --> 00:43:40,176
+Now.
+
+
+1625
+00:43:41,516 --> 00:43:44,556
+[ Applause ]
+
+
+1626
+00:43:45,056 --> 00:43:45,816
+So, I'd like to now show you
+
+
+1627
+00:43:45,816 --> 00:43:47,076
+something that might not look as
+
+
+1628
+00:43:47,076 --> 00:43:47,266
+good.
+
+
+1629
+00:43:48,366 --> 00:43:50,396
+So, in this case, this is the
+
+
+1630
+00:43:50,396 --> 00:43:52,126
+last panel of Drag Source.
+
+
+1631
+00:43:52,426 --> 00:43:53,676
+We have Slow Draggable Image
+
+
+1632
+00:43:53,676 --> 00:43:53,926
+Views.
+
+
+1633
+00:43:53,926 --> 00:43:55,106
+Now, they're called slow because
+
+
+1634
+00:43:55,106 --> 00:43:56,446
+they're stimulating items coming
+
+
+1635
+00:43:56,446 --> 00:43:58,726
+in from a remote server far, far
+
+
+1636
+00:43:58,726 --> 00:43:59,006
+away.
+
+
+1637
+00:44:00,176 --> 00:44:01,876
+If I drop these four photos into
+
+
+1638
+00:44:01,876 --> 00:44:03,346
+here, it's going to take a
+
+
+1639
+00:44:03,346 --> 00:44:04,656
+really long time to load.
+
+
+1640
+00:44:05,116 --> 00:44:07,296
+So long, in fact, that we will
+
+
+1641
+00:44:07,296 --> 00:44:08,586
+begin showing this app modal
+
+
+1642
+00:44:08,586 --> 00:44:10,116
+dialog that at least allows the
+
+
+1643
+00:44:10,116 --> 00:44:10,856
+user to cancel.
+
+
+1644
+00:44:12,136 --> 00:44:13,566
+But, as is the theme of this
+
+
+1645
+00:44:13,566 --> 00:44:15,286
+presentation, this can also be
+
+
+1646
+00:44:15,286 --> 00:44:16,116
+customized away.
+
+
+1647
+00:44:16,116 --> 00:44:17,646
+So, I'm going to hand it back to
+
+
+1648
+00:44:17,646 --> 00:44:19,806
+Tom to see how we can do that.
+
+
+1649
+00:44:20,516 --> 00:44:24,556
+[ Applause ]
+
+
+1650
+00:44:25,056 --> 00:44:27,416
+>> So, how do we deal with slow
+
+
+1651
+00:44:27,416 --> 00:44:28,106
+data delivery?
+
+
+1652
+00:44:28,686 --> 00:44:31,516
+Like I mentioned before, data
+
+
+1653
+00:44:31,516 --> 00:44:33,146
+loads are always asynchronous.
+
+
+1654
+00:44:33,856 --> 00:44:35,026
+So, there's two disconnected
+
+
+1655
+00:44:35,026 --> 00:44:35,946
+timelines at play here.
+
+
+1656
+00:44:35,986 --> 00:44:37,896
+There's data loading, one goal,
+
+
+1657
+00:44:37,896 --> 00:44:39,166
+and there's animating the drop
+
+
+1658
+00:44:39,166 --> 00:44:40,646
+previews, and they're not the
+
+
+1659
+00:44:40,646 --> 00:44:40,996
+same.
+
+
+1660
+00:44:42,016 --> 00:44:43,276
+Bring back this diagram, you can
+
+
+1661
+00:44:43,396 --> 00:44:45,536
+clearly see that there's not one
+
+
+1662
+00:44:45,536 --> 00:44:47,276
+line here that's equally in
+
+
+1663
+00:44:47,276 --> 00:44:47,806
+size.
+
+
+1664
+00:44:48,486 --> 00:44:49,846
+The loadObject calls take
+
+
+1665
+00:44:49,846 --> 00:44:51,206
+different time, and the preview
+
+
+1666
+00:44:51,206 --> 00:44:52,456
+animations take different time.
+
+
+1667
+00:44:53,126 --> 00:44:55,726
+And, you can also see that we
+
+
+1668
+00:44:55,816 --> 00:44:56,916
+don't have data yet at the
+
+
+1669
+00:44:56,916 --> 00:44:58,666
+moment we ask you for a preview.
+
+
+1670
+00:45:00,836 --> 00:45:02,726
+One use case for this, or one
+
+
+1671
+00:45:02,956 --> 00:45:04,306
+case that you might run into if
+
+
+1672
+00:45:04,306 --> 00:45:06,236
+you drag photos from Photos into
+
+
+1673
+00:45:06,236 --> 00:45:08,136
+an email, and those photos might
+
+
+1674
+00:45:08,136 --> 00:45:09,606
+be stored on iCloud, because
+
+
+1675
+00:45:09,606 --> 00:45:10,616
+we're saving space on your
+
+
+1676
+00:45:10,616 --> 00:45:11,206
+device.
+
+
+1677
+00:45:12,126 --> 00:45:14,446
+While you're dropping, well show
+
+
+1678
+00:45:14,446 --> 00:45:16,906
+the app modal UI, giving the
+
+
+1679
+00:45:16,946 --> 00:45:18,686
+user some sense of progress and
+
+
+1680
+00:45:18,686 --> 00:45:19,846
+a way to cancel out.
+
+
+1681
+00:45:21,806 --> 00:45:23,316
+That's a real-life use case.
+
+
+1682
+00:45:24,786 --> 00:45:26,776
+So, you saw this Cancel button,
+
+
+1683
+00:45:26,776 --> 00:45:28,666
+because we don't want to user to
+
+
+1684
+00:45:28,666 --> 00:45:29,586
+be waiting forever.
+
+
+1685
+00:45:29,766 --> 00:45:31,306
+We don't know how long the data
+
+
+1686
+00:45:31,306 --> 00:45:32,556
+will take to arrive.
+
+
+1687
+00:45:33,226 --> 00:45:34,446
+Might be two seconds, might be
+
+
+1688
+00:45:34,446 --> 00:45:35,056
+two minutes.
+
+
+1689
+00:45:35,056 --> 00:45:36,586
+So, we give the user a way to
+
+
+1690
+00:45:36,586 --> 00:45:37,056
+cancel.
+
+
+1691
+00:45:37,426 --> 00:45:38,946
+If that happens, we'll call the
+
+
+1692
+00:45:38,946 --> 00:45:40,746
+completion blocks with nil data
+
+
+1693
+00:45:40,746 --> 00:45:41,996
+and an error set so you can
+
+
+1694
+00:45:41,996 --> 00:45:43,346
+detect this.
+
+
+1695
+00:45:43,946 --> 00:45:46,246
+Additionally, both sessions and
+
+
+1696
+00:45:46,246 --> 00:45:47,346
+item providers provide
+
+
+1697
+00:45:47,466 --> 00:45:48,326
+ProgressReporting.
+
+
+1698
+00:45:48,326 --> 00:45:48,816
+The session is
+
+
+1699
+00:45:48,816 --> 00:45:49,996
+ProgressReporting, so you can
+
+
+1700
+00:45:50,196 --> 00:45:51,346
+observe its progress.
+
+
+1701
+00:45:51,646 --> 00:45:53,346
+And, the item provider load
+
+
+1702
+00:45:53,346 --> 00:45:55,596
+methods all return a progress
+
+
+1703
+00:45:55,596 --> 00:45:57,366
+object you can also use.
+
+
+1704
+00:45:59,516 --> 00:46:00,876
+Progress has a cancellation
+
+
+1705
+00:46:00,876 --> 00:46:02,576
+handler which is a perfect spot
+
+
+1706
+00:46:02,576 --> 00:46:03,776
+to handle the cancel.
+
+
+1707
+00:46:04,506 --> 00:46:06,266
+Add you code there to handle any
+
+
+1708
+00:46:06,266 --> 00:46:08,306
+of the items coming in and not
+
+
+1709
+00:46:08,306 --> 00:46:09,696
+being there, and you can remove
+
+
+1710
+00:46:09,696 --> 00:46:11,656
+them again from your modal.
+
+
+1711
+00:46:13,106 --> 00:46:14,916
+Now, this also brings us to
+
+
+1712
+00:46:14,916 --> 00:46:16,246
+showing custom progress, like
+
+
+1713
+00:46:16,246 --> 00:46:17,406
+Wenson said before.
+
+
+1714
+00:46:17,616 --> 00:46:19,996
+If you don't want this app modal
+
+
+1715
+00:46:19,996 --> 00:46:21,386
+UI, you can turn it off by
+
+
+1716
+00:46:21,386 --> 00:46:22,086
+setting session
+
+
+1717
+00:46:22,176 --> 00:46:23,686
+progressIndicatorStyle to none,
+
+
+1718
+00:46:23,686 --> 00:46:25,566
+and then we won't show the UI at
+
+
+1719
+00:46:25,626 --> 00:46:26,286
+all.
+
+
+1720
+00:46:26,826 --> 00:46:28,406
+Now, this does mean you have to
+
+
+1721
+00:46:28,406 --> 00:46:29,786
+provide that experience to the
+
+
+1722
+00:46:29,786 --> 00:46:30,916
+user, yourself.
+
+
+1723
+00:46:31,296 --> 00:46:32,466
+You can do this by observing the
+
+
+1724
+00:46:32,466 --> 00:46:33,296
+progress again.
+
+
+1725
+00:46:33,466 --> 00:46:34,186
+There's a progress on the
+
+
+1726
+00:46:34,186 --> 00:46:35,786
+session, and the per-item
+
+
+1727
+00:46:35,786 --> 00:46:36,966
+progress returned by the item
+
+
+1728
+00:46:36,966 --> 00:46:37,616
+providers.
+
+
+1729
+00:46:38,406 --> 00:46:39,636
+If you do this, use this
+
+
+1730
+00:46:39,666 --> 00:46:41,296
+progress to indicate some UI
+
+
+1731
+00:46:41,296 --> 00:46:43,906
+there where the user is, where
+
+
+1732
+00:46:44,306 --> 00:46:45,986
+you can see, for each item, if
+
+
+1733
+00:46:45,986 --> 00:46:47,706
+it's loading or, in general, for
+
+
+1734
+00:46:47,706 --> 00:46:49,406
+your view, but please allow the
+
+
+1735
+00:46:49,406 --> 00:46:51,256
+user to cancel or navigate away,
+
+
+1736
+00:46:51,256 --> 00:46:53,026
+so they are not blocked on using
+
+
+1737
+00:46:53,026 --> 00:46:53,416
+your view.
+
+
+1738
+00:46:53,946 --> 00:46:57,466
+But, the big question remains,
+
+
+1739
+00:46:57,466 --> 00:46:59,126
+how do I generate a preview if I
+
+
+1740
+00:46:59,126 --> 00:46:59,856
+don't have any data?
+
+
+1741
+00:47:00,046 --> 00:47:01,186
+I want to create this custom
+
+
+1742
+00:47:01,186 --> 00:47:02,306
+preview, but it doesn't work.
+
+
+1743
+00:47:02,736 --> 00:47:04,256
+Well, turns out, you can't.
+
+
+1744
+00:47:04,476 --> 00:47:05,786
+If there's no data, you cannot
+
+
+1745
+00:47:06,986 --> 00:47:07,736
+create a new one.
+
+
+1746
+00:47:08,706 --> 00:47:10,126
+Just use the default previews.
+
+
+1747
+00:47:10,126 --> 00:47:11,076
+They're a pretty accurate
+
+
+1748
+00:47:11,076 --> 00:47:12,366
+representation of what's
+
+
+1749
+00:47:12,366 --> 00:47:13,396
+actually in the item.
+
+
+1750
+00:47:14,346 --> 00:47:16,256
+Was set by the drag side, and so
+
+
+1751
+00:47:16,256 --> 00:47:17,636
+you can actually use this to
+
+
+1752
+00:47:17,636 --> 00:47:18,396
+animate this down.
+
+
+1753
+00:47:19,026 --> 00:47:21,446
+We target it, add a transform,
+
+
+1754
+00:47:21,446 --> 00:47:22,936
+you can change however you want
+
+
+1755
+00:47:23,556 --> 00:47:23,626
+it.
+
+
+1756
+00:47:25,496 --> 00:47:27,836
+You can also make a placeholder
+
+
+1757
+00:47:27,996 --> 00:47:28,686
+progress view.
+
+
+1758
+00:47:29,166 --> 00:47:30,516
+If you have something that you
+
+
+1759
+00:47:30,516 --> 00:47:32,386
+want to show, and like, show a
+
+
+1760
+00:47:32,386 --> 00:47:34,226
+spinner there, that's probably a
+
+
+1761
+00:47:34,226 --> 00:47:36,406
+good idea, if it makes sense for
+
+
+1762
+00:47:36,406 --> 00:47:36,626
+your UI.
+
+
+1763
+00:47:36,626 --> 00:47:39,126
+One of the great things is that
+
+
+1764
+00:47:39,286 --> 00:47:40,556
+Collection view and Table view
+
+
+1765
+00:47:40,556 --> 00:47:42,086
+have built-in support for this,
+
+
+1766
+00:47:42,456 --> 00:47:43,656
+so you don't have to worry about
+
+
+1767
+00:47:43,656 --> 00:47:43,756
+it.
+
+
+1768
+00:47:43,756 --> 00:47:45,736
+It's very easy to turn on.
+
+
+1769
+00:47:46,586 --> 00:47:48,716
+So, I know it's early, tomorrow
+
+
+1770
+00:47:48,716 --> 00:47:51,766
+at 9 a.m., fourth day of WWDC,
+
+
+1771
+00:47:51,766 --> 00:47:53,116
+but please come to this session.
+
+
+1772
+00:47:53,116 --> 00:47:56,066
+It will be worth your time.
+
+
+1773
+00:47:56,286 --> 00:47:57,816
+So, never assume the data will
+
+
+1774
+00:47:57,816 --> 00:47:58,396
+be there.
+
+
+1775
+00:47:59,006 --> 00:48:00,616
+That's the one advice I can give
+
+
+1776
+00:48:00,616 --> 00:48:00,846
+you.
+
+
+1777
+00:48:01,686 --> 00:48:03,406
+Even if you are testing, and
+
+
+1778
+00:48:04,256 --> 00:48:06,186
+locally it might be, the data
+
+
+1779
+00:48:06,186 --> 00:48:07,486
+might be there right away, this
+
+
+1780
+00:48:07,486 --> 00:48:08,836
+might not be the case for your
+
+
+1781
+00:48:08,836 --> 00:48:09,416
+users.
+
+
+1782
+00:48:09,416 --> 00:48:10,766
+You don't know how it's going to
+
+
+1783
+00:48:10,766 --> 00:48:11,556
+be in the field.
+
+
+1784
+00:48:12,796 --> 00:48:13,886
+And, always account for the
+
+
+1785
+00:48:13,886 --> 00:48:14,656
+worst case.
+
+
+1786
+00:48:15,146 --> 00:48:16,196
+That's the best approach you can
+
+
+1787
+00:48:16,196 --> 00:48:17,736
+take, even if it goes fast, does
+
+
+1788
+00:48:17,736 --> 00:48:19,266
+good, but assume that it's going
+
+
+1789
+00:48:19,266 --> 00:48:20,336
+to take a while.
+
+
+1790
+00:48:21,516 --> 00:48:23,236
+If implemented properly, this
+
+
+1791
+00:48:23,236 --> 00:48:24,976
+could look like this.
+
+
+1792
+00:48:34,046 --> 00:48:35,856
+Custom preview, custom progress
+
+
+1793
+00:48:35,856 --> 00:48:37,706
+here, so your user is not
+
+
+1794
+00:48:37,706 --> 00:48:37,966
+blocked.
+
+
+1795
+00:48:39,936 --> 00:48:41,566
+Finally, let's talk about how to
+
+
+1796
+00:48:41,566 --> 00:48:43,556
+improve your in-app experience
+
+
+1797
+00:48:43,596 --> 00:48:45,056
+by adding drag and drop.
+
+
+1798
+00:48:45,366 --> 00:48:46,216
+Drag and drop is something you
+
+
+1799
+00:48:46,216 --> 00:48:48,946
+can use, to use between apps,
+
+
+1800
+00:48:49,026 --> 00:48:50,496
+but you can also use it to
+
+
+1801
+00:48:50,496 --> 00:48:51,426
+enhance your own app.
+
+
+1802
+00:48:52,216 --> 00:48:53,886
+There's a few nice things we
+
+
+1803
+00:48:53,886 --> 00:48:55,736
+added to accommodate that.
+
+
+1804
+00:48:55,876 --> 00:48:57,476
+First is localDragSession on
+
+
+1805
+00:48:57,476 --> 00:48:58,466
+UIDropSession.
+
+
+1806
+00:48:58,786 --> 00:49:00,086
+This gives you access to the
+
+
+1807
+00:49:00,086 --> 00:49:01,176
+drag session, as I mentioned
+
+
+1808
+00:49:01,176 --> 00:49:01,876
+before.
+
+
+1809
+00:49:02,866 --> 00:49:04,536
+You can access any kind of data
+
+
+1810
+00:49:04,536 --> 00:49:05,276
+in the drag session.
+
+
+1811
+00:49:05,576 --> 00:49:07,856
+The items again, any stages that
+
+
+1812
+00:49:07,856 --> 00:49:08,956
+are, is available.
+
+
+1813
+00:49:09,756 --> 00:49:11,736
+It only works for in-drag apps.
+
+
+1814
+00:49:11,876 --> 00:49:13,006
+If you're dragging outside your
+
+
+1815
+00:49:13,006 --> 00:49:14,296
+app, the drop session will not
+
+
+1816
+00:49:14,296 --> 00:49:16,076
+have corresponding local drag
+
+
+1817
+00:49:18,216 --> 00:49:18,396
+session.
+
+
+1818
+00:49:18,556 --> 00:49:19,806
+Additionally, as Robb showed
+
+
+1819
+00:49:19,806 --> 00:49:21,256
+before, there's localObject on
+
+
+1820
+00:49:21,256 --> 00:49:22,036
+UIDragItem.
+
+
+1821
+00:49:23,326 --> 00:49:25,646
+It's a very good container for
+
+
+1822
+00:49:25,646 --> 00:49:26,446
+local data.
+
+
+1823
+00:49:26,756 --> 00:49:28,556
+You can use it to have states,
+
+
+1824
+00:49:28,786 --> 00:49:30,286
+set some states in
+
+
+1825
+00:49:30,286 --> 00:49:32,456
+itemsForBeginning session, and
+
+
+1826
+00:49:32,596 --> 00:49:34,056
+use that state to generate a
+
+
+1827
+00:49:34,056 --> 00:49:35,306
+lift preview, for example.
+
+
+1828
+00:49:35,756 --> 00:49:37,316
+Or, you can use it to transfer
+
+
+1829
+00:49:37,316 --> 00:49:38,826
+data from the drag site to the
+
+
+1830
+00:49:38,826 --> 00:49:39,316
+drop site.
+
+
+1831
+00:49:39,796 --> 00:49:41,396
+That's much easier than building
+
+
+1832
+00:49:41,396 --> 00:49:43,276
+itemProviders that will transfer
+
+
+1833
+00:49:43,276 --> 00:49:44,586
+your data outside your app.
+
+
+1834
+00:49:45,196 --> 00:49:46,506
+If you do allow the drag to go
+
+
+1835
+00:49:46,506 --> 00:49:47,716
+outside your app, you still have
+
+
+1836
+00:49:47,746 --> 00:49:48,646
+to do that, of course.
+
+
+1837
+00:49:49,176 --> 00:49:51,296
+And finally, there's
+
+
+1838
+00:49:51,296 --> 00:49:52,956
+localContext for UIDragSession
+
+
+1839
+00:49:53,286 --> 00:49:55,646
+which allows you to keep states
+
+
+1840
+00:49:55,696 --> 00:49:57,046
+for that drag session and the
+
+
+1841
+00:49:57,046 --> 00:49:58,526
+drop session, of course,
+
+
+1842
+00:49:59,586 --> 00:50:01,276
+locally, without resorting to
+
+
+1843
+00:50:01,276 --> 00:50:04,086
+app global states, and it makes
+
+
+1844
+00:50:04,116 --> 00:50:05,396
+things a bit easier for you.
+
+
+1845
+00:50:08,496 --> 00:50:10,276
+How do you keep a drag inside
+
+
+1846
+00:50:10,276 --> 00:50:10,576
+your app?
+
+
+1847
+00:50:11,016 --> 00:50:12,266
+There's a method you have to
+
+
+1848
+00:50:12,266 --> 00:50:14,316
+implement on the dragInteraction
+
+
+1849
+00:50:14,316 --> 00:50:15,176
+delegate called
+
+
+1850
+00:50:15,176 --> 00:50:16,216
+sessionIsRestrictedTo
+
+
+1851
+00:50:16,216 --> 00:50:17,296
+DraggingApplication.
+
+
+1852
+00:50:17,736 --> 00:50:19,466
+If you return true here, then
+
+
+1853
+00:50:19,466 --> 00:50:20,826
+the drag won't be able to leave
+
+
+1854
+00:50:20,826 --> 00:50:21,176
+your app.
+
+
+1855
+00:50:21,346 --> 00:50:23,076
+The user will still be able to
+
+
+1856
+00:50:23,466 --> 00:50:24,526
+drag outside your app, of
+
+
+1857
+00:50:24,526 --> 00:50:26,336
+course, but any of the drop
+
+
+1858
+00:50:26,336 --> 00:50:28,116
+sessions outside your app will
+
+
+1859
+00:50:28,116 --> 00:50:30,006
+not see the drag.
+
+
+1860
+00:50:30,286 --> 00:50:32,396
+So, visually, it will look the
+
+
+1861
+00:50:32,396 --> 00:50:33,886
+same, but nothing will be able
+
+
+1862
+00:50:33,886 --> 00:50:35,546
+to accept it, only inside your
+
+
+1863
+00:50:35,546 --> 00:50:35,756
+app.
+
+
+1864
+00:50:35,896 --> 00:50:38,076
+You can also inspect this on the
+
+
+1865
+00:50:38,076 --> 00:50:39,326
+drag and the drop session, if
+
+
+1866
+00:50:39,326 --> 00:50:40,356
+you want to.
+
+
+1867
+00:50:42,716 --> 00:50:45,196
+One last thing, local drag and
+
+
+1868
+00:50:45,346 --> 00:50:46,866
+drop for iPhone, this is
+
+
+1869
+00:50:46,866 --> 00:50:47,896
+disabled by default.
+
+
+1870
+00:50:48,486 --> 00:50:50,206
+On iPad, it's enabled by
+
+
+1871
+00:50:50,206 --> 00:50:50,616
+default.
+
+
+1872
+00:50:51,216 --> 00:50:53,496
+This is because you want your
+
+
+1873
+00:50:53,496 --> 00:50:56,066
+apps to behave according to size
+
+
+1874
+00:50:56,066 --> 00:50:57,586
+class so that if you have a side
+
+
+1875
+00:50:57,586 --> 00:50:59,136
+app, that works, too, but still,
+
+
+1876
+00:50:59,136 --> 00:51:00,346
+on the iPad, you can drag out
+
+
+1877
+00:51:00,526 --> 00:51:02,546
+into another app, but an app of
+
+
+1878
+00:51:02,696 --> 00:51:04,396
+the same size will not work on
+
+
+1879
+00:51:04,486 --> 00:51:04,886
+iPhone.
+
+
+1880
+00:51:05,396 --> 00:51:06,756
+So, if you do go on to enable
+
+
+1881
+00:51:06,756 --> 00:51:08,006
+drag and drop inside your app
+
+
+1882
+00:51:08,006 --> 00:51:09,686
+also on the phone, you have to
+
+
+1883
+00:51:09,686 --> 00:51:11,786
+enable it by setting isEnabled
+
+
+1884
+00:51:12,216 --> 00:51:14,176
+on the drag interaction to true.
+
+
+1885
+00:51:14,356 --> 00:51:16,276
+That will enable the
+
+
+1886
+00:51:16,276 --> 00:51:17,666
+interaction, even on the phone.
+
+
+1887
+00:51:17,666 --> 00:51:21,446
+I'm going to hand it over to
+
+
+1888
+00:51:21,446 --> 00:51:22,676
+Wenson for a final demo.
+
+
+1889
+00:51:24,516 --> 00:51:28,056
+[ Applause ]
+
+
+1890
+00:51:28,556 --> 00:51:29,396
+>> Thanks again, Tom.
+
+
+1891
+00:51:29,776 --> 00:51:30,866
+So now, we're going to put
+
+
+1892
+00:51:30,866 --> 00:51:31,676
+together everything we've
+
+
+1893
+00:51:31,676 --> 00:51:33,346
+learned so far to implement our
+
+
+1894
+00:51:33,346 --> 00:51:34,796
+own custom progress UI.
+
+
+1895
+00:51:34,796 --> 00:51:36,706
+Let's just jump right into the
+
+
+1896
+00:51:36,706 --> 00:51:37,036
+code.
+
+
+1897
+00:51:37,276 --> 00:51:38,556
+So, we're going back and
+
+
+1898
+00:51:38,556 --> 00:51:40,046
+revisiting Droppable Image Grid
+
+
+1899
+00:51:40,046 --> 00:51:40,686
+View Controller.
+
+
+1900
+00:51:41,266 --> 00:51:42,226
+Now, here's the function that we
+
+
+1901
+00:51:42,226 --> 00:51:43,656
+implemented earlier for
+
+
+1902
+00:51:43,656 --> 00:51:44,676
+performDrop.
+
+
+1903
+00:51:44,676 --> 00:51:46,616
+We're just going to add a few
+
+
+1904
+00:51:46,616 --> 00:51:47,166
+lines here.
+
+
+1905
+00:51:48,286 --> 00:51:49,746
+It's going to look something
+
+
+1906
+00:51:50,106 --> 00:51:53,546
+like this.
+
+
+1907
+00:51:53,686 --> 00:51:54,906
+First of all, we're going to set
+
+
+1908
+00:51:54,906 --> 00:51:57,216
+the progressIndicatorStyle to
+
+
+1909
+00:51:57,216 --> 00:51:57,536
+none.
+
+
+1910
+00:51:57,736 --> 00:51:59,046
+This is going to instruct UIKit
+
+
+1911
+00:51:59,356 --> 00:52:00,526
+to not show the app modal
+
+
+1912
+00:52:00,526 --> 00:52:01,036
+dialog.
+
+
+1913
+00:52:01,516 --> 00:52:03,506
+Next, we're going to remember a
+
+
+1914
+00:52:03,506 --> 00:52:05,486
+little bit of state for the drag
+
+
+1915
+00:52:05,486 --> 00:52:06,566
+item that is being dropped.
+
+
+1916
+00:52:06,706 --> 00:52:08,596
+Now, the important thing here is
+
+
+1917
+00:52:08,596 --> 00:52:09,566
+that we're going to remember the
+
+
+1918
+00:52:09,666 --> 00:52:11,656
+view that we are inserting into
+
+
+1919
+00:52:11,656 --> 00:52:13,006
+the view hierarchy of the grid,
+
+
+1920
+00:52:13,246 --> 00:52:14,796
+as well as this progress that's
+
+
+1921
+00:52:14,796 --> 00:52:16,546
+returned when we load object on
+
+
+1922
+00:52:16,546 --> 00:52:17,176
+the item provider.
+
+
+1923
+00:52:17,496 --> 00:52:19,156
+This is going to come in handy
+
+
+1924
+00:52:19,256 --> 00:52:20,566
+right now when we implement
+
+
+1925
+00:52:20,716 --> 00:52:21,566
+previewForDropping.
+
+
+1926
+00:52:22,936 --> 00:52:24,296
+So, the first thing we do here
+
+
+1927
+00:52:24,606 --> 00:52:25,486
+is we're going to read some
+
+
+1928
+00:52:25,486 --> 00:52:27,566
+state out of our item states
+
+
+1929
+00:52:27,566 --> 00:52:28,076
+dictionary.
+
+
+1930
+00:52:28,226 --> 00:52:29,406
+This is going to describe
+
+
+1931
+00:52:29,746 --> 00:52:31,606
+information about the item that
+
+
+1932
+00:52:31,606 --> 00:52:32,516
+is being dropped.
+
+
+1933
+00:52:33,056 --> 00:52:34,386
+Namely, it will allow us to
+
+
+1934
+00:52:34,386 --> 00:52:35,636
+create a new progress spinner
+
+
+1935
+00:52:35,636 --> 00:52:35,816
+view.
+
+
+1936
+00:52:36,306 --> 00:52:37,396
+This is a custom view that just
+
+
+1937
+00:52:37,396 --> 00:52:39,826
+knows how to represent a spinner
+
+
+1938
+00:52:40,686 --> 00:52:42,026
+indicating the progress of a
+
+
+1939
+00:52:42,026 --> 00:52:42,316
+load.
+
+
+1940
+00:52:43,536 --> 00:52:44,366
+So, we'll create this custom
+
+
+1941
+00:52:44,366 --> 00:52:44,986
+view right here.
+
+
+1942
+00:52:45,246 --> 00:52:46,316
+The rest is very similar to what
+
+
+1943
+00:52:46,316 --> 00:52:46,996
+you've seen before.
+
+
+1944
+00:52:46,996 --> 00:52:48,166
+We'll create a target, create a
+
+
+1945
+00:52:48,166 --> 00:52:49,816
+drag preview using that target
+
+
+1946
+00:52:50,556 --> 00:52:51,456
+and parameters.
+
+
+1947
+00:52:52,726 --> 00:52:53,706
+So, consider this.
+
+
+1948
+00:52:54,346 --> 00:52:55,766
+What happens if the image
+
+
+1949
+00:52:55,766 --> 00:52:57,036
+actually loads really fast?
+
+
+1950
+00:52:57,176 --> 00:52:59,536
+What will happen is, we'll show
+
+
+1951
+00:52:59,536 --> 00:53:00,596
+something at their destination
+
+
+1952
+00:53:01,066 --> 00:53:02,196
+while the drop is still
+
+
+1953
+00:53:02,196 --> 00:53:03,626
+animating, so we'll see this
+
+
+1954
+00:53:03,626 --> 00:53:04,626
+drop preview flying to the
+
+
+1955
+00:53:04,626 --> 00:53:06,196
+destination that already has
+
+
+1956
+00:53:06,196 --> 00:53:07,616
+content, and the drop preview is
+
+
+1957
+00:53:07,616 --> 00:53:08,876
+going to show this spinny
+
+
+1958
+00:53:09,106 --> 00:53:09,846
+loading progress.
+
+
+1959
+00:53:09,846 --> 00:53:10,516
+It's going to look kind of
+
+
+1960
+00:53:10,516 --> 00:53:10,826
+weird.
+
+
+1961
+00:53:11,426 --> 00:53:12,846
+So, this will handle that edge
+
+
+1962
+00:53:12,846 --> 00:53:13,916
+case right here.
+
+
+1963
+00:53:14,236 --> 00:53:15,506
+What we're going to do is set
+
+
+1964
+00:53:15,506 --> 00:53:16,886
+the alpha of our destination
+
+
+1965
+00:53:16,886 --> 00:53:17,806
+view to zero, so we're going to
+
+
+1966
+00:53:17,806 --> 00:53:19,096
+hide whatever we show at our
+
+
+1967
+00:53:19,096 --> 00:53:20,996
+destination while the drop is
+
+
+1968
+00:53:20,996 --> 00:53:21,656
+taking place.
+
+
+1969
+00:53:22,316 --> 00:53:23,286
+Now, when the drop is finished
+
+
+1970
+00:53:23,286 --> 00:53:24,296
+animating, we're going to set
+
+
+1971
+00:53:24,296 --> 00:53:25,206
+the alpha back to one, and
+
+
+1972
+00:53:25,206 --> 00:53:26,506
+what's going to happen is that
+
+
+1973
+00:53:26,506 --> 00:53:27,286
+the drop preview at the
+
+
+1974
+00:53:27,286 --> 00:53:29,306
+destination will fade away and
+
+
+1975
+00:53:29,306 --> 00:53:31,756
+give way to show the actual
+
+
+1976
+00:53:31,756 --> 00:53:32,986
+destination view underneath,
+
+
+1977
+00:53:32,986 --> 00:53:34,166
+because we set the alpha to one
+
+
+1978
+00:53:34,326 --> 00:53:34,736
+this time.
+
+
+1979
+00:53:35,776 --> 00:53:36,536
+So, that should take care of
+
+
+1980
+00:53:36,536 --> 00:53:36,756
+that.
+
+
+1981
+00:53:37,306 --> 00:53:38,386
+There's one last bit of
+
+
+1982
+00:53:38,386 --> 00:53:39,536
+bookkeeping we should do, and
+
+
+1983
+00:53:40,306 --> 00:53:41,046
+that's implementing
+
+
+1984
+00:53:41,046 --> 00:53:41,686
+concludeDrop.
+
+
+1985
+00:53:41,686 --> 00:53:42,826
+Now, when the drop is finished,
+
+
+1986
+00:53:42,826 --> 00:53:43,896
+we've just got to do a little
+
+
+1987
+00:53:43,896 --> 00:53:45,376
+bit of good bookkeeping and
+
+
+1988
+00:53:45,806 --> 00:53:47,796
+remove all of the items that are
+
+
+1989
+00:53:47,796 --> 00:53:49,076
+no longer relevant in our
+
+
+1990
+00:53:49,076 --> 00:53:50,376
+dictionary of item states.
+
+
+1991
+00:53:51,546 --> 00:53:52,726
+So, that was a lot of, those
+
+
+1992
+00:53:52,796 --> 00:53:53,776
+were a lot of changes.
+
+
+1993
+00:53:54,766 --> 00:53:55,606
+Let's see it in action.
+
+
+1994
+00:54:01,066 --> 00:54:02,216
+So, I'm going to repeat the same
+
+
+1995
+00:54:02,216 --> 00:54:03,656
+scenario with Slow Draggable
+
+
+1996
+00:54:03,656 --> 00:54:04,206
+Image Views.
+
+
+1997
+00:54:04,496 --> 00:54:05,286
+Watch what happens.
+
+
+1998
+00:54:06,396 --> 00:54:07,866
+This time, we get a different
+
+
+1999
+00:54:07,896 --> 00:54:09,856
+progress UI for each drop that
+
+
+2000
+00:54:09,856 --> 00:54:11,236
+is happening, each item that is
+
+
+2001
+00:54:11,236 --> 00:54:13,026
+being dropped, and that is
+
+
+2002
+00:54:13,026 --> 00:54:14,976
+really cool, because it allows
+
+
+2003
+00:54:14,976 --> 00:54:16,586
+us to do things such as this.
+
+
+2004
+00:54:17,136 --> 00:54:19,476
+If I repeat the same procedure,
+
+
+2005
+00:54:19,716 --> 00:54:20,816
+you can see that I'm able to do
+
+
+2006
+00:54:20,816 --> 00:54:21,896
+things like scroll the Image
+
+
+2007
+00:54:21,896 --> 00:54:23,576
+view, sorry, the Grid view, and
+
+
+2008
+00:54:23,576 --> 00:54:24,776
+also interact with different
+
+
+2009
+00:54:24,776 --> 00:54:27,056
+items while the load is
+
+
+2010
+00:54:27,056 --> 00:54:27,426
+happening.
+
+
+2011
+00:54:28,516 --> 00:54:32,216
+[ Applause ]
+
+
+2012
+00:54:32,716 --> 00:54:33,686
+So, that's some really powerful
+
+
+2013
+00:54:33,686 --> 00:54:35,076
+stuff, and we've come a long way
+
+
+2014
+00:54:35,076 --> 00:54:35,806
+in today's session.
+
+
+2015
+00:54:36,306 --> 00:54:37,466
+I would like to now hand it back
+
+
+2016
+00:54:37,466 --> 00:54:39,036
+to Tom to give a quick recap.
+
+
+2017
+00:54:40,026 --> 00:54:40,856
+I'll see you at the labs.
+
+
+2018
+00:54:42,516 --> 00:54:46,716
+[ Applause ]
+
+
+2019
+00:54:47,216 --> 00:54:48,356
+>> That looks pretty sweet, if
+
+
+2020
+00:54:48,356 --> 00:54:49,016
+you ask me.
+
+
+2021
+00:54:50,486 --> 00:54:53,166
+Anyway, we talked about how drag
+
+
+2022
+00:54:53,166 --> 00:54:54,876
+and drop can be a very powerful
+
+
+2023
+00:54:54,876 --> 00:54:56,366
+and user-driven input-output
+
+
+2024
+00:54:56,366 --> 00:54:57,276
+mechanism for your app.
+
+
+2025
+00:54:58,916 --> 00:55:00,666
+You can create custom and very
+
+
+2026
+00:55:00,666 --> 00:55:02,126
+stunning visuals on the lift
+
+
+2027
+00:55:02,126 --> 00:55:04,036
+side, on the drop side, and when
+
+
+2028
+00:55:04,036 --> 00:55:04,656
+you're canceling.
+
+
+2029
+00:55:05,096 --> 00:55:06,916
+You can animate a lot.
+
+
+2030
+00:55:07,586 --> 00:55:08,866
+We talked about how to handle
+
+
+2031
+00:55:08,866 --> 00:55:10,246
+asynchronous data, and
+
+
+2032
+00:55:10,626 --> 00:55:11,446
+slow-running data.
+
+
+2033
+00:55:12,216 --> 00:55:13,356
+And finally, we mentioned how
+
+
+2034
+00:55:13,356 --> 00:55:14,986
+you can use drag and drop even
+
+
+2035
+00:55:14,986 --> 00:55:16,106
+inside your app, to make your
+
+
+2036
+00:55:16,106 --> 00:55:17,006
+app a lot better.
+
+
+2037
+00:55:19,276 --> 00:55:20,496
+There is some more information
+
+
+2038
+00:55:20,496 --> 00:55:20,756
+here.
+
+
+2039
+00:55:20,756 --> 00:55:22,506
+You can re-watch this video, if
+
+
+2040
+00:55:22,506 --> 00:55:23,146
+you weren't here.
+
+
+2041
+00:55:23,146 --> 00:55:26,306
+That would be strange, I guess.
+
+
+2042
+00:55:27,916 --> 00:55:29,166
+There's a few related sessions,
+
+
+2043
+00:55:29,166 --> 00:55:30,356
+if you missed Introducing Drag
+
+
+2044
+00:55:30,356 --> 00:55:32,616
+and Drop yesterday, please watch
+
+
+2045
+00:55:32,616 --> 00:55:34,506
+the video, it's chock full of
+
+
+2046
+00:55:34,506 --> 00:55:35,136
+information.
+
+
+2047
+00:55:35,786 --> 00:55:37,296
+Again, there's two sessions
+
+
+2048
+00:55:37,296 --> 00:55:39,306
+tomorrow, on Collection view and
+
+
+2049
+00:55:39,306 --> 00:55:40,696
+Table view, and then data
+
+
+2050
+00:55:40,696 --> 00:55:43,276
+delivery, back to back, in Hall
+
+
+2051
+00:55:43,276 --> 00:55:43,576
+2.
+
+
+2052
+00:55:43,936 --> 00:55:44,776
+Thanks for listening.
+
+
+2053
+00:55:44,956 --> 00:55:46,176
+Enjoy the rest of your WWDC, and
+
+
+2054
+00:55:46,176 --> 00:55:47,386
+see you around.
+
+
+2055
+00:55:48,516 --> 00:55:51,940
+[ Applause ]
+

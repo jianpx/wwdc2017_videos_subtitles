@@ -1,0 +1,7064 @@
+1
+00:00:00,506 --> 00:00:26,546
+[ Applause ]
+
+
+2
+00:00:27,046 --> 00:00:27,376
+>> Good morning.
+
+
+3
+00:00:28,036 --> 00:00:29,106
+My name is Dave Browning.
+
+
+4
+00:00:29,376 --> 00:00:30,576
+I'm on the CloudKit team here at
+
+
+5
+00:00:30,576 --> 00:00:32,665
+Apple, and I'm super excited to
+
+
+6
+00:00:32,665 --> 00:00:33,626
+talk to you about some new
+
+
+7
+00:00:33,626 --> 00:00:35,336
+things in CloudKit, especially a
+
+
+8
+00:00:35,336 --> 00:00:36,856
+brand-new CloudKit Dashboard.
+
+
+9
+00:00:36,996 --> 00:00:38,626
+If you're not familiar with it,
+
+
+10
+00:00:38,886 --> 00:00:39,806
+the Dashboard is a web
+
+
+11
+00:00:39,806 --> 00:00:41,626
+application designed to help you
+
+
+12
+00:00:41,626 --> 00:00:42,766
+as you're adding CloudKit
+
+
+13
+00:00:42,766 --> 00:00:44,606
+functionality to your apps.
+
+
+14
+00:00:46,176 --> 00:00:47,796
+So first, I'd like to talk about
+
+
+15
+00:00:47,796 --> 00:00:49,216
+some of our goals behind the
+
+
+16
+00:00:49,216 --> 00:00:50,306
+things we're announcing today,
+
+
+17
+00:00:50,806 --> 00:00:52,136
+and at a high level, as the
+
+
+18
+00:00:52,136 --> 00:00:54,346
+title of this session suggests,
+
+
+19
+00:00:55,006 --> 00:00:56,236
+we really want to help you build
+
+
+20
+00:00:56,236 --> 00:00:57,816
+better applications on top of
+
+
+21
+00:00:57,856 --> 00:00:59,726
+CloudKit, and we want to do that
+
+
+22
+00:00:59,726 --> 00:01:00,966
+in a number of different ways.
+
+
+23
+00:01:02,006 --> 00:01:03,786
+First, we want to help you
+
+
+24
+00:01:03,786 --> 00:01:05,206
+through all stages of your app's
+
+
+25
+00:01:05,206 --> 00:01:05,736
+lifecycle.
+
+
+26
+00:01:06,406 --> 00:01:07,226
+So, when you're first learning
+
+
+27
+00:01:07,226 --> 00:01:08,496
+about CloudKit, when you're
+
+
+28
+00:01:08,496 --> 00:01:09,386
+starting to build your
+
+
+29
+00:01:09,386 --> 00:01:10,346
+functionality into your
+
+
+30
+00:01:10,346 --> 00:01:11,996
+application, when you're beta
+
+
+31
+00:01:11,996 --> 00:01:13,736
+testing with users, when you're
+
+
+32
+00:01:13,736 --> 00:01:14,576
+getting your app out into the
+
+
+33
+00:01:14,576 --> 00:01:15,886
+App Store, going to production,
+
+
+34
+00:01:16,076 --> 00:01:17,556
+scaling up, really honing in
+
+
+35
+00:01:17,556 --> 00:01:19,276
+your user experience, and then
+
+
+36
+00:01:19,276 --> 00:01:20,856
+finally, potentially supporting
+
+
+37
+00:01:20,856 --> 00:01:22,176
+customer problems in the wild.
+
+
+38
+00:01:22,916 --> 00:01:24,016
+We want to give you the tools
+
+
+39
+00:01:24,016 --> 00:01:25,396
+necessary to help you throughout
+
+
+40
+00:01:25,396 --> 00:01:26,216
+all of those phases.
+
+
+41
+00:01:26,216 --> 00:01:29,836
+We also want to give you a way
+
+
+42
+00:01:29,836 --> 00:01:31,386
+to experiment with the entire
+
+
+43
+00:01:31,386 --> 00:01:31,636
+API.
+
+
+44
+00:01:31,636 --> 00:01:33,486
+Now, obviously, you can jump
+
+
+45
+00:01:33,486 --> 00:01:35,196
+right in to Xcode and start
+
+
+46
+00:01:35,196 --> 00:01:36,816
+using our API and figuring out
+
+
+47
+00:01:36,816 --> 00:01:38,346
+how it works, but we want to
+
+
+48
+00:01:38,346 --> 00:01:39,066
+give you something to sit
+
+
+49
+00:01:39,066 --> 00:01:40,946
+alongside Xcode that lets you
+
+
+50
+00:01:40,946 --> 00:01:42,666
+visually play with that same API
+
+
+51
+00:01:42,666 --> 00:01:44,376
+so that you can experiment with
+
+
+52
+00:01:44,376 --> 00:01:45,966
+it, understand how it works,
+
+
+53
+00:01:46,366 --> 00:01:47,216
+while you're building that
+
+
+54
+00:01:47,216 --> 00:01:48,266
+functionality into your
+
+
+55
+00:01:48,266 --> 00:01:48,786
+application.
+
+
+56
+00:01:49,286 --> 00:01:51,796
+We also want to give you
+
+
+57
+00:01:51,796 --> 00:01:53,226
+visibility into all events
+
+
+58
+00:01:53,226 --> 00:01:54,846
+across the system, across all of
+
+
+59
+00:01:54,846 --> 00:01:56,926
+your users, and especially once
+
+
+60
+00:01:56,926 --> 00:01:57,856
+you're out in production in the
+
+
+61
+00:01:57,856 --> 00:01:59,526
+App Store and growing your user
+
+
+62
+00:01:59,526 --> 00:02:01,126
+base, we want to help you
+
+
+63
+00:02:01,126 --> 00:02:02,376
+understand the aggregate
+
+
+64
+00:02:02,376 --> 00:02:04,176
+behavior, the communication
+
+
+65
+00:02:04,366 --> 00:02:05,806
+among all those users back at
+
+
+66
+00:02:05,806 --> 00:02:06,646
+the CloudKit server.
+
+
+67
+00:02:08,765 --> 00:02:10,616
+Now, before I jump into a live
+
+
+68
+00:02:10,616 --> 00:02:11,776
+demo of the Dashboard, I want to
+
+
+69
+00:02:11,776 --> 00:02:12,536
+do two things.
+
+
+70
+00:02:12,976 --> 00:02:14,236
+First, let's do a quick
+
+
+71
+00:02:14,236 --> 00:02:15,646
+refresher of some CloudKit
+
+
+72
+00:02:15,646 --> 00:02:16,316
+concepts.
+
+
+73
+00:02:16,706 --> 00:02:17,716
+If you've used CloudKit before,
+
+
+74
+00:02:17,716 --> 00:02:18,786
+you'll be familiar with some of
+
+
+75
+00:02:18,786 --> 00:02:19,566
+this, but it's a good
+
+
+76
+00:02:19,566 --> 00:02:20,736
+foundation, if you haven't used
+
+
+77
+00:02:20,736 --> 00:02:22,016
+it, because I'll be using these
+
+
+78
+00:02:22,016 --> 00:02:23,136
+concepts throughout the session.
+
+
+79
+00:02:23,136 --> 00:02:25,636
+And then after that, second, I
+
+
+80
+00:02:25,766 --> 00:02:27,936
+want to show you and talk about
+
+
+81
+00:02:27,936 --> 00:02:29,956
+an example iOS application that
+
+
+82
+00:02:29,956 --> 00:02:31,866
+we built on top of CloudKit that
+
+
+83
+00:02:31,866 --> 00:02:33,506
+I'll be demoing today alongside
+
+
+84
+00:02:33,506 --> 00:02:35,036
+the Dashboard to show you how
+
+
+85
+00:02:35,036 --> 00:02:36,446
+the Dashboard can help you when
+
+
+86
+00:02:36,446 --> 00:02:37,396
+you're testing and building your
+
+
+87
+00:02:37,396 --> 00:02:37,946
+application.
+
+
+88
+00:02:38,656 --> 00:02:39,776
+Alright. So, first, some
+
+
+89
+00:02:39,776 --> 00:02:40,776
+CloudKit concepts.
+
+
+90
+00:02:41,486 --> 00:02:43,396
+At the end of the day, you're
+
+
+91
+00:02:43,396 --> 00:02:45,476
+using the API to store records
+
+
+92
+00:02:45,596 --> 00:02:46,676
+back to the CloudKit server.
+
+
+93
+00:02:47,436 --> 00:02:48,626
+This is your structured data,
+
+
+94
+00:02:48,716 --> 00:02:50,516
+your keys and values, and as a
+
+
+95
+00:02:50,516 --> 00:02:51,686
+reminder, the values can be
+
+
+96
+00:02:51,686 --> 00:02:53,306
+different types, strings, ints
+
+
+97
+00:02:53,306 --> 00:02:54,656
+[phonetic], doubles, an asset,
+
+
+98
+00:02:54,656 --> 00:02:55,576
+which is a binary file.
+
+
+99
+00:02:56,516 --> 00:02:57,926
+When you store a record, it
+
+
+100
+00:02:57,926 --> 00:02:59,446
+always exists inside of what we
+
+
+101
+00:02:59,446 --> 00:03:00,246
+call a zone.
+
+
+102
+00:03:00,866 --> 00:03:02,366
+A zone is basically a bucket of
+
+
+103
+00:03:02,366 --> 00:03:04,176
+records, and it's a foundational
+
+
+104
+00:03:04,176 --> 00:03:05,956
+piece of some of our APIs that
+
+
+105
+00:03:06,006 --> 00:03:06,956
+we'll talk about in a bit.
+
+
+106
+00:03:07,766 --> 00:03:09,216
+A zone always exists in a
+
+
+107
+00:03:09,216 --> 00:03:11,366
+database, and some databases
+
+
+108
+00:03:11,366 --> 00:03:12,466
+allow you to create different
+
+
+109
+00:03:12,466 --> 00:03:13,896
+zones, if you need to bucket
+
+
+110
+00:03:13,896 --> 00:03:15,026
+records in different ways.
+
+
+111
+00:03:16,086 --> 00:03:18,086
+All of your users have their own
+
+
+112
+00:03:18,086 --> 00:03:19,046
+private database.
+
+
+113
+00:03:19,166 --> 00:03:20,166
+This is where you store their
+
+
+114
+00:03:20,166 --> 00:03:21,736
+private data that only they can
+
+
+115
+00:03:21,736 --> 00:03:22,006
+see.
+
+
+116
+00:03:23,206 --> 00:03:25,146
+They also have their own shared
+
+
+117
+00:03:25,146 --> 00:03:26,806
+database, and this is because
+
+
+118
+00:03:26,806 --> 00:03:28,316
+last year, we launched CloudKit
+
+
+119
+00:03:28,316 --> 00:03:29,966
+Sharing, and if one of your
+
+
+120
+00:03:29,966 --> 00:03:31,596
+users shares data with another
+
+
+121
+00:03:31,596 --> 00:03:33,176
+one, that data shows up in their
+
+
+122
+00:03:33,176 --> 00:03:34,056
+shared database.
+
+
+123
+00:03:34,326 --> 00:03:35,706
+You can think of it as a proxy
+
+
+124
+00:03:35,986 --> 00:03:37,236
+back to the owner's private
+
+
+125
+00:03:37,236 --> 00:03:37,426
+data.
+
+
+126
+00:03:38,316 --> 00:03:39,296
+And then finally, there's a
+
+
+127
+00:03:39,296 --> 00:03:41,206
+public database which everyone
+
+
+128
+00:03:41,206 --> 00:03:42,336
+can read and write to, and
+
+
+129
+00:03:42,336 --> 00:03:43,256
+there's one of those.
+
+
+130
+00:03:44,496 --> 00:03:45,896
+All of this data, all of these
+
+
+131
+00:03:45,896 --> 00:03:47,426
+databases live in side of an
+
+
+132
+00:03:47,426 --> 00:03:48,056
+environment.
+
+
+133
+00:03:48,756 --> 00:03:49,436
+When you're building your
+
+
+134
+00:03:49,436 --> 00:03:50,536
+application, this is the
+
+
+135
+00:03:50,536 --> 00:03:52,446
+development environment, and at
+
+
+136
+00:03:52,446 --> 00:03:53,536
+the environment level, you
+
+
+137
+00:03:53,536 --> 00:03:55,176
+define your schema, your record
+
+
+138
+00:03:55,176 --> 00:03:56,446
+types, the type of data you'll
+
+
+139
+00:03:56,446 --> 00:03:58,036
+be storing, and potentially
+
+
+140
+00:03:58,036 --> 00:03:59,106
+indexes, if you're going to be
+
+
+141
+00:03:59,106 --> 00:03:59,656
+querying it.
+
+
+142
+00:04:00,746 --> 00:04:01,286
+Now, you're using the
+
+
+143
+00:04:01,286 --> 00:04:02,256
+development environment as
+
+
+144
+00:04:02,256 --> 00:04:03,366
+you're building your app, and
+
+
+145
+00:04:03,616 --> 00:04:04,606
+then once you put your app in a
+
+
+146
+00:04:04,606 --> 00:04:05,946
+store, it talks to the
+
+
+147
+00:04:05,946 --> 00:04:06,986
+production environment.
+
+
+148
+00:04:07,756 --> 00:04:09,066
+So, we give you a way to promote
+
+
+149
+00:04:09,066 --> 00:04:10,316
+your schema changes to the
+
+
+150
+00:04:10,316 --> 00:04:12,096
+production environment, and then
+
+
+151
+00:04:12,096 --> 00:04:13,946
+in production, all of your users
+
+
+152
+00:04:13,946 --> 00:04:15,566
+have their own private, shared,
+
+
+153
+00:04:15,606 --> 00:04:16,906
+and one public database there,
+
+
+154
+00:04:17,096 --> 00:04:18,096
+separate from the development
+
+
+155
+00:04:18,096 --> 00:04:18,536
+environment.
+
+
+156
+00:04:18,776 --> 00:04:20,555
+And then, all of this lives in
+
+
+157
+00:04:20,555 --> 00:04:22,186
+the highest-level concept, which
+
+
+158
+00:04:22,186 --> 00:04:22,766
+is a container.
+
+
+159
+00:04:23,506 --> 00:04:24,336
+Container has a unique
+
+
+160
+00:04:24,336 --> 00:04:26,256
+identifier, and it usually maps
+
+
+161
+00:04:26,256 --> 00:04:26,956
+one to one with your
+
+
+162
+00:04:26,956 --> 00:04:27,536
+application.
+
+
+163
+00:04:28,516 --> 00:04:30,016
+Okay, so that was the CloudKit
+
+
+164
+00:04:30,046 --> 00:04:30,646
+concepts.
+
+
+165
+00:04:31,066 --> 00:04:32,496
+So, I mentioned that we built an
+
+
+166
+00:04:32,496 --> 00:04:34,086
+example application on top of
+
+
+167
+00:04:34,086 --> 00:04:35,336
+CloudKit that I want to use
+
+
+168
+00:04:35,336 --> 00:04:36,236
+today during the demo.
+
+
+169
+00:04:36,706 --> 00:04:37,806
+So, let's talk about it.
+
+
+170
+00:04:38,396 --> 00:04:39,846
+It's a to-do list app, the
+
+
+171
+00:04:39,846 --> 00:04:40,606
+age-old example.
+
+
+172
+00:04:40,696 --> 00:04:41,596
+It's relatively simple.
+
+
+173
+00:04:42,056 --> 00:04:43,666
+The idea is, users can create
+
+
+174
+00:04:43,666 --> 00:04:44,936
+to-do lists, and they can have
+
+
+175
+00:04:44,936 --> 00:04:45,976
+items inside of there.
+
+
+176
+00:04:46,536 --> 00:04:47,626
+So, let's talk about the data
+
+
+177
+00:04:47,626 --> 00:04:49,096
+model that we'll be using, since
+
+
+178
+00:04:49,096 --> 00:04:50,396
+we'll be storing this data back
+
+
+179
+00:04:50,506 --> 00:04:51,096
+to CloudKit.
+
+
+180
+00:04:52,256 --> 00:04:53,616
+So, every time your user creates
+
+
+181
+00:04:53,616 --> 00:04:55,926
+a to-do list in the app, we'll
+
+
+182
+00:04:55,926 --> 00:04:57,156
+create a List record on the
+
+
+183
+00:04:57,156 --> 00:04:57,466
+server.
+
+
+184
+00:04:58,626 --> 00:04:59,646
+Whenever they create items
+
+
+185
+00:04:59,646 --> 00:05:00,946
+within the list, we'll have an
+
+
+186
+00:05:00,946 --> 00:05:02,776
+item record for each, and we
+
+
+187
+00:05:02,776 --> 00:05:05,136
+need a way to point the item
+
+
+188
+00:05:05,136 --> 00:05:06,186
+back to the list to which it
+
+
+189
+00:05:06,186 --> 00:05:07,936
+belongs, and in CloudKit, you do
+
+
+190
+00:05:07,936 --> 00:05:09,556
+that with a reference, which is
+
+
+191
+00:05:09,556 --> 00:05:10,736
+basically a pointer back to
+
+
+192
+00:05:10,736 --> 00:05:11,826
+another record via its
+
+
+193
+00:05:11,826 --> 00:05:12,426
+identifier.
+
+
+194
+00:05:12,966 --> 00:05:14,416
+And, in this case, we're going
+
+
+195
+00:05:14,416 --> 00:05:15,746
+to use what's called the parent
+
+
+196
+00:05:15,746 --> 00:05:16,386
+reference.
+
+
+197
+00:05:16,966 --> 00:05:18,496
+The parent reference is a system
+
+
+198
+00:05:18,496 --> 00:05:19,836
+field that exists on every
+
+
+199
+00:05:19,836 --> 00:05:20,226
+record.
+
+
+200
+00:05:20,506 --> 00:05:21,596
+It's there for you by default,
+
+
+201
+00:05:21,596 --> 00:05:23,516
+and it's the way in CloudKit
+
+
+202
+00:05:23,516 --> 00:05:24,976
+that you logically tell the
+
+
+203
+00:05:24,976 --> 00:05:26,836
+server when something has a
+
+
+204
+00:05:26,836 --> 00:05:27,166
+parent.
+
+
+205
+00:05:27,356 --> 00:05:28,606
+So, in this case, we'll point
+
+
+206
+00:05:28,606 --> 00:05:30,186
+the item back to the List record
+
+
+207
+00:05:30,296 --> 00:05:31,476
+using this parent reference.
+
+
+208
+00:05:32,426 --> 00:05:33,956
+Now, we also, in this example
+
+
+209
+00:05:33,956 --> 00:05:35,926
+app, wanted to allow our users
+
+
+210
+00:05:36,216 --> 00:05:38,216
+to securely share to-do lists
+
+
+211
+00:05:38,216 --> 00:05:39,726
+with other users using CloudKit
+
+
+212
+00:05:39,726 --> 00:05:40,076
+Sharing.
+
+
+213
+00:05:40,976 --> 00:05:41,926
+So, here's how that will work in
+
+
+214
+00:05:41,926 --> 00:05:42,546
+the data model.
+
+
+215
+00:05:43,566 --> 00:05:45,346
+Our List record will be what we
+
+
+216
+00:05:45,346 --> 00:05:47,176
+call a Root record, and it will
+
+
+217
+00:05:47,176 --> 00:05:48,326
+point to a Share record.
+
+
+218
+00:05:48,786 --> 00:05:50,066
+A share is where you define the
+
+
+219
+00:05:50,066 --> 00:05:51,196
+set of participants and their
+
+
+220
+00:05:51,196 --> 00:05:53,416
+permissions, and because we use
+
+
+221
+00:05:53,416 --> 00:05:54,866
+the parent reference to point
+
+
+222
+00:05:54,866 --> 00:05:56,676
+items back to a list, they
+
+
+223
+00:05:56,706 --> 00:05:57,956
+automatically get included in
+
+
+224
+00:05:57,956 --> 00:05:58,866
+the share for us.
+
+
+225
+00:05:59,016 --> 00:05:59,876
+You don't have to go and share
+
+
+226
+00:05:59,876 --> 00:06:00,486
+them separately.
+
+
+227
+00:06:01,196 --> 00:06:03,546
+To learn more about sharing,
+
+
+228
+00:06:04,076 --> 00:06:05,116
+make sure to go back and check
+
+
+229
+00:06:05,116 --> 00:06:06,356
+out last year's session, What's
+
+
+230
+00:06:06,356 --> 00:06:07,106
+New with CloudKit.
+
+
+231
+00:06:08,216 --> 00:06:09,526
+Okay, so that's how we're going
+
+
+232
+00:06:09,526 --> 00:06:10,426
+to be storing the data.
+
+
+233
+00:06:10,946 --> 00:06:12,246
+Now, let's talk about the APIs
+
+
+234
+00:06:12,246 --> 00:06:13,956
+we're going to be using, how
+
+
+235
+00:06:13,956 --> 00:06:15,316
+we'll communicate back to the
+
+
+236
+00:06:15,316 --> 00:06:15,726
+server.
+
+
+237
+00:06:16,606 --> 00:06:17,416
+So, the way we wanted this
+
+
+238
+00:06:17,416 --> 00:06:19,206
+application to work is that if
+
+
+239
+00:06:19,206 --> 00:06:21,136
+the user opens it up and creates
+
+
+240
+00:06:21,136 --> 00:06:22,806
+to-do lists with items on their
+
+
+241
+00:06:22,806 --> 00:06:24,286
+iPhone, but they also have an
+
+
+242
+00:06:24,346 --> 00:06:25,606
+iPad, and they run the app
+
+
+243
+00:06:25,606 --> 00:06:26,996
+there, we want that data to be
+
+
+244
+00:06:26,996 --> 00:06:27,766
+synchronized.
+
+
+245
+00:06:28,276 --> 00:06:29,186
+And, because we're using
+
+
+246
+00:06:29,186 --> 00:06:31,146
+sharing, if I share a list with
+
+
+247
+00:06:31,146 --> 00:06:32,516
+someone else, and either of us
+
+
+248
+00:06:32,586 --> 00:06:34,176
+edits it, we want the other to
+
+
+249
+00:06:34,176 --> 00:06:35,176
+see those edits.
+
+
+250
+00:06:36,186 --> 00:06:37,796
+So, we have a core data, we're
+
+
+251
+00:06:37,796 --> 00:06:39,046
+locally storing all of our data
+
+
+252
+00:06:39,046 --> 00:06:40,716
+locally in core data, and we do
+
+
+253
+00:06:40,716 --> 00:06:42,176
+this for quick reads and writes,
+
+
+254
+00:06:42,216 --> 00:06:43,406
+and for offline access.
+
+
+255
+00:06:44,426 --> 00:06:45,366
+But, every time there's a
+
+
+256
+00:06:45,366 --> 00:06:46,726
+modification, when there's
+
+
+257
+00:06:46,726 --> 00:06:48,326
+network availability, we want to
+
+
+258
+00:06:48,326 --> 00:06:49,476
+send that back to the server.
+
+
+259
+00:06:49,976 --> 00:06:51,246
+The server holds the truth.
+
+
+260
+00:06:51,856 --> 00:06:54,046
+And, if we use in CloudKit
+
+
+261
+00:06:54,046 --> 00:06:55,866
+what's called subscriptions, we
+
+
+262
+00:06:55,866 --> 00:06:57,186
+can have the server send push
+
+
+263
+00:06:57,186 --> 00:06:59,006
+notifications to my other
+
+
+264
+00:06:59,006 --> 00:07:00,486
+devices or to other users'
+
+
+265
+00:07:00,486 --> 00:07:02,526
+devices whenever data they care
+
+
+266
+00:07:02,526 --> 00:07:03,396
+about changes.
+
+
+267
+00:07:03,866 --> 00:07:04,566
+So, here's how we're going to
+
+
+268
+00:07:04,566 --> 00:07:05,546
+make that work in the example
+
+
+269
+00:07:05,546 --> 00:07:05,666
+app.
+
+
+270
+00:07:06,396 --> 00:07:08,026
+The first time it runs, we're
+
+
+271
+00:07:08,026 --> 00:07:08,646
+going to create a
+
+
+272
+00:07:08,646 --> 00:07:10,516
+CKDatabaseSubscription on the
+
+
+273
+00:07:10,516 --> 00:07:12,466
+server for that user's private
+
+
+274
+00:07:12,466 --> 00:07:13,026
+database.
+
+
+275
+00:07:13,386 --> 00:07:14,836
+That tells the server to send
+
+
+276
+00:07:14,836 --> 00:07:16,106
+push notifications to this
+
+
+277
+00:07:16,106 --> 00:07:17,816
+user's devices whenever their
+
+
+278
+00:07:17,816 --> 00:07:19,396
+private data changes, anything
+
+
+279
+00:07:19,396 --> 00:07:20,576
+inside their private database.
+
+
+280
+00:07:21,446 --> 00:07:22,426
+We also, because we're using
+
+
+281
+00:07:22,426 --> 00:07:24,736
+sharing, have a subscription in
+
+
+282
+00:07:24,736 --> 00:07:25,776
+their shared database.
+
+
+283
+00:07:26,096 --> 00:07:27,926
+So, CloudKit will now send push
+
+
+284
+00:07:27,926 --> 00:07:29,276
+notifications to this user's
+
+
+285
+00:07:29,276 --> 00:07:30,926
+devices when data changes in
+
+
+286
+00:07:30,956 --> 00:07:32,016
+either of those places.
+
+
+287
+00:07:33,316 --> 00:07:34,376
+Now, once we receive one of
+
+
+288
+00:07:34,376 --> 00:07:35,606
+those push notifications in our
+
+
+289
+00:07:35,606 --> 00:07:37,776
+app, or when it launches, we
+
+
+290
+00:07:37,776 --> 00:07:39,206
+need a way to ask the server for
+
+
+291
+00:07:39,296 --> 00:07:40,556
+the changes that exist that we
+
+
+292
+00:07:40,556 --> 00:07:42,006
+don't have yet, and we're going
+
+
+293
+00:07:42,006 --> 00:07:43,256
+to do that with
+
+
+294
+00:07:43,336 --> 00:07:46,686
+CKFetchDatabaseChangesOperation.
+
+
+295
+00:07:47,226 --> 00:07:48,786
+This asks the server, "Please
+
+
+296
+00:07:48,786 --> 00:07:49,846
+tell me what zones have
+
+
+297
+00:07:49,846 --> 00:07:51,006
+changed," remember, we mentioned
+
+
+298
+00:07:51,006 --> 00:07:52,766
+zones earlier, "inside of this
+
+
+299
+00:07:52,766 --> 00:07:53,326
+database."
+
+
+300
+00:07:53,756 --> 00:07:55,496
+And, if any of them did, we can
+
+
+301
+00:07:55,496 --> 00:07:56,516
+then turn around and ask the
+
+
+302
+00:07:56,516 --> 00:07:58,316
+server what records changed
+
+
+303
+00:07:58,316 --> 00:07:59,846
+inside of that zone, or those
+
+
+304
+00:07:59,846 --> 00:08:02,246
+zones, with CKFetchRecordZone
+
+
+305
+00:08:02,246 --> 00:08:03,256
+ChangesOperation.
+
+
+306
+00:08:04,956 --> 00:08:06,656
+To learn more about this, check
+
+
+307
+00:08:06,656 --> 00:08:07,686
+our last year's session,
+
+
+308
+00:08:07,686 --> 00:08:09,716
+CloudKit Best Practices, and
+
+
+309
+00:08:09,716 --> 00:08:10,956
+because it is such a commonly
+
+
+310
+00:08:10,956 --> 00:08:12,636
+used workflow, we've added new
+
+
+311
+00:08:12,636 --> 00:08:13,766
+documentation called
+
+
+312
+00:08:13,766 --> 00:08:15,216
+"Maintaining a Local Cache of
+
+
+313
+00:08:15,216 --> 00:08:16,906
+CloudKit Records," that walks
+
+
+314
+00:08:16,906 --> 00:08:18,216
+you through this workflow and
+
+
+315
+00:08:18,216 --> 00:08:19,546
+gives you a bunch of Swift code
+
+
+316
+00:08:19,546 --> 00:08:20,506
+so that you can build it into
+
+
+317
+00:08:20,506 --> 00:08:21,286
+your application.
+
+
+318
+00:08:23,106 --> 00:08:25,766
+Now, because fetching changes is
+
+
+319
+00:08:25,766 --> 00:08:27,616
+such a common thing, we've built
+
+
+320
+00:08:27,616 --> 00:08:28,556
+the ability to play and
+
+
+321
+00:08:28,556 --> 00:08:29,966
+experiment with it right inside
+
+
+322
+00:08:29,966 --> 00:08:30,696
+the Dashboard.
+
+
+323
+00:08:31,356 --> 00:08:32,256
+So, let's go take a look.
+
+
+324
+00:08:34,216 --> 00:08:35,476
+Alright. So, up on the screen,
+
+
+325
+00:08:35,736 --> 00:08:37,626
+on the left side, you can see
+
+
+326
+00:08:37,626 --> 00:08:39,155
+the new CloudKit Dashboard, and
+
+
+327
+00:08:39,155 --> 00:08:40,905
+on the right side, I'm sharing
+
+
+328
+00:08:40,905 --> 00:08:42,056
+the screen of this iPhone
+
+
+329
+00:08:42,366 --> 00:08:43,796
+running that example to-do list
+
+
+330
+00:08:43,796 --> 00:08:44,816
+application that I mentioned
+
+
+331
+00:08:44,816 --> 00:08:45,136
+before.
+
+
+332
+00:08:46,736 --> 00:08:47,396
+Now, if you look in the
+
+
+333
+00:08:47,396 --> 00:08:49,356
+Dashboard, we're on the home
+
+
+334
+00:08:49,356 --> 00:08:49,776
+page.
+
+
+335
+00:08:50,156 --> 00:08:51,546
+I'm signed in with my developer
+
+
+336
+00:08:51,546 --> 00:08:53,266
+account, and the first thing you
+
+
+337
+00:08:53,266 --> 00:08:54,456
+can see are all of your
+
+
+338
+00:08:54,456 --> 00:08:56,026
+developer teams, all of the
+
+
+339
+00:08:56,026 --> 00:08:56,966
+teams that you're a part of,
+
+
+340
+00:08:56,966 --> 00:08:57,816
+because you may be a part of
+
+
+341
+00:08:57,816 --> 00:08:58,526
+more than one team.
+
+
+342
+00:08:58,986 --> 00:09:01,186
+For each team, you can see the
+
+
+343
+00:09:01,186 --> 00:09:02,646
+CloudKit containers that that
+
+
+344
+00:09:02,646 --> 00:09:04,676
+teams owns, and you can quickly
+
+
+345
+00:09:04,676 --> 00:09:05,596
+see which ones have been
+
+
+346
+00:09:05,596 --> 00:09:06,966
+deployed to production and which
+
+
+347
+00:09:06,966 --> 00:09:08,046
+ones are still in development.
+
+
+348
+00:09:09,056 --> 00:09:10,176
+If you have a bunch of teams, or
+
+
+349
+00:09:10,176 --> 00:09:11,376
+a bunch of containers, you can
+
+
+350
+00:09:11,376 --> 00:09:12,486
+always filter down the list up
+
+
+351
+00:09:12,486 --> 00:09:12,896
+at the top.
+
+
+352
+00:09:14,086 --> 00:09:15,136
+Now, in this case, this is the
+
+
+353
+00:09:15,136 --> 00:09:16,266
+container I'm using for this
+
+
+354
+00:09:16,266 --> 00:09:17,986
+example app that I'm demoing, so
+
+
+355
+00:09:17,986 --> 00:09:18,566
+let's click in.
+
+
+356
+00:09:19,236 --> 00:09:21,466
+When you click into a container,
+
+
+357
+00:09:21,846 --> 00:09:22,996
+you see the development and
+
+
+358
+00:09:22,996 --> 00:09:24,216
+production environments that I
+
+
+359
+00:09:24,216 --> 00:09:25,866
+mentioned earlier, side by side.
+
+
+360
+00:09:25,936 --> 00:09:27,606
+And, in this case, we're using
+
+
+361
+00:09:27,606 --> 00:09:28,646
+the development environment,
+
+
+362
+00:09:28,646 --> 00:09:29,596
+because I'm still building this
+
+
+363
+00:09:29,596 --> 00:09:30,196
+example app.
+
+
+364
+00:09:30,806 --> 00:09:31,886
+So, let's click into the data
+
+
+365
+00:09:31,886 --> 00:09:33,776
+section, and into a tab called
+
+
+366
+00:09:33,776 --> 00:09:34,386
+Zones.
+
+
+367
+00:09:35,606 --> 00:09:37,296
+This lets you play with the zone
+
+
+368
+00:09:37,296 --> 00:09:38,956
+API in CloudKit.
+
+
+369
+00:09:39,276 --> 00:09:41,416
+You can ask the server for zone
+
+
+370
+00:09:41,416 --> 00:09:42,896
+information inside of a specific
+
+
+371
+00:09:42,896 --> 00:09:43,506
+database.
+
+
+372
+00:09:44,226 --> 00:09:45,496
+Now, in this case, I want to
+
+
+373
+00:09:45,496 --> 00:09:47,226
+show you, I'm logged into the
+
+
+374
+00:09:47,226 --> 00:09:49,046
+Dashboard with my developer
+
+
+375
+00:09:49,046 --> 00:09:51,296
+account, and that Apple ID is
+
+
+376
+00:09:51,296 --> 00:09:54,206
+the same one on my device.
+
+
+377
+00:09:54,206 --> 00:09:55,666
+It's my personal iCloud account,
+
+
+378
+00:09:55,736 --> 00:09:56,916
+and my developer account.
+
+
+379
+00:09:57,716 --> 00:09:59,186
+So, because it is my personal
+
+
+380
+00:09:59,186 --> 00:10:01,036
+iCloud account, I can see my
+
+
+381
+00:10:01,036 --> 00:10:02,976
+private and shared databases.
+
+
+382
+00:10:03,776 --> 00:10:05,486
+>> So here, the Dashboard asks
+
+
+383
+00:10:05,486 --> 00:10:06,606
+you, "Would you like to load
+
+
+384
+00:10:06,606 --> 00:10:08,186
+zones from a private database
+
+
+385
+00:10:08,186 --> 00:10:09,316
+for this account, a shared
+
+
+386
+00:10:09,316 --> 00:10:10,326
+database, or the public
+
+
+387
+00:10:10,326 --> 00:10:10,786
+database?"
+
+
+388
+00:10:11,076 --> 00:10:12,196
+And, let's do the private
+
+
+389
+00:10:12,196 --> 00:10:12,716
+database.
+
+
+390
+00:10:13,766 --> 00:10:14,846
+Because we want to use the fetch
+
+
+391
+00:10:14,846 --> 00:10:16,336
+changes APIs, we're going to
+
+
+392
+00:10:16,336 --> 00:10:17,806
+check this box to fetch the
+
+
+393
+00:10:17,806 --> 00:10:19,466
+zones that have changed inside
+
+
+394
+00:10:19,466 --> 00:10:21,346
+of this database since a certain
+
+
+395
+00:10:21,346 --> 00:10:21,916
+point in time.
+
+
+396
+00:10:21,916 --> 00:10:24,356
+Now, the way this API works is,
+
+
+397
+00:10:24,356 --> 00:10:25,546
+it allows you to specify a
+
+
+398
+00:10:25,546 --> 00:10:27,376
+change token which marks where
+
+
+399
+00:10:27,376 --> 00:10:28,566
+in history you have synchronized
+
+
+400
+00:10:28,566 --> 00:10:28,926
+up to.
+
+
+401
+00:10:29,806 --> 00:10:31,336
+You can apply that here, and
+
+
+402
+00:10:31,336 --> 00:10:32,356
+we're going to leave it blank,
+
+
+403
+00:10:32,496 --> 00:10:33,606
+which tells the server we want
+
+
+404
+00:10:33,636 --> 00:10:35,086
+all changes inside of this
+
+
+405
+00:10:35,086 --> 00:10:36,456
+database since the beginning of
+
+
+406
+00:10:36,456 --> 00:10:38,926
+time, and if I fetch the
+
+
+407
+00:10:38,926 --> 00:10:39,846
+changes, you see we get a
+
+
+408
+00:10:39,846 --> 00:10:40,396
+result.
+
+
+409
+00:10:41,006 --> 00:10:43,336
+This To-dos zone is the zone
+
+
+410
+00:10:43,336 --> 00:10:44,776
+that my application created the
+
+
+411
+00:10:44,776 --> 00:10:46,466
+first time it ran on this
+
+
+412
+00:10:46,466 --> 00:10:48,206
+device, and it gives us a place
+
+
+413
+00:10:48,206 --> 00:10:49,476
+to store the future records that
+
+
+414
+00:10:49,476 --> 00:10:50,956
+we'll be saving as the user
+
+
+415
+00:10:50,956 --> 00:10:52,576
+creates to-do lists and items.
+
+
+416
+00:10:53,586 --> 00:10:55,166
+Notice that the server returned
+
+
+417
+00:10:55,166 --> 00:10:56,566
+a change token which, it's
+
+
+418
+00:10:56,736 --> 00:10:58,036
+populated automatically in this
+
+
+419
+00:10:58,036 --> 00:10:59,546
+field, marking that we've moved
+
+
+420
+00:10:59,546 --> 00:11:00,506
+forward in time.
+
+
+421
+00:11:01,176 --> 00:11:02,596
+So, if I fetch changes again
+
+
+422
+00:11:02,596 --> 00:11:04,516
+with this token now, the server
+
+
+423
+00:11:04,516 --> 00:11:06,296
+says, "No zones have changed
+
+
+424
+00:11:06,296 --> 00:11:07,736
+since then," so we're up to
+
+
+425
+00:11:08,396 --> 00:11:08,486
+date.
+
+
+426
+00:11:09,196 --> 00:11:10,406
+Now, if I clear that token and
+
+
+427
+00:11:10,616 --> 00:11:11,666
+we go back since the beginning
+
+
+428
+00:11:11,666 --> 00:11:13,066
+of time, we'll see my To-dos
+
+
+429
+00:11:13,066 --> 00:11:13,416
+zone.
+
+
+430
+00:11:14,276 --> 00:11:15,906
+If I hover this row, the
+
+
+431
+00:11:15,906 --> 00:11:17,076
+Dashboard gives us a handy
+
+
+432
+00:11:17,076 --> 00:11:18,946
+little link to then go and fetch
+
+
+433
+00:11:18,946 --> 00:11:20,766
+the record changes inside of
+
+
+434
+00:11:20,766 --> 00:11:21,226
+this zone.
+
+
+435
+00:11:21,706 --> 00:11:22,466
+So, let's do that.
+
+
+436
+00:11:23,356 --> 00:11:24,976
+Notice it's taken us over to the
+
+
+437
+00:11:24,976 --> 00:11:25,726
+Records tab.
+
+
+438
+00:11:26,356 --> 00:11:27,876
+It's chosen my private database,
+
+
+439
+00:11:28,456 --> 00:11:29,856
+the To-dos zone that I clicked
+
+
+440
+00:11:29,856 --> 00:11:31,656
+on, and it said we want to load
+
+
+441
+00:11:31,656 --> 00:11:33,216
+record using the fetch changes
+
+
+442
+00:11:33,216 --> 00:11:33,676
+APIs.
+
+
+443
+00:11:34,116 --> 00:11:35,406
+And, we see two results over on
+
+
+444
+00:11:35,406 --> 00:11:35,726
+the right.
+
+
+445
+00:11:36,466 --> 00:11:38,576
+The first is a List record, and
+
+
+446
+00:11:38,576 --> 00:11:39,546
+if you look on the right side of
+
+
+447
+00:11:39,546 --> 00:11:40,866
+the screen, you'll see that's
+
+
+448
+00:11:40,866 --> 00:11:42,196
+because I've already created a
+
+
+449
+00:11:42,196 --> 00:11:43,666
+to-do list in my application,
+
+
+450
+00:11:43,796 --> 00:11:45,916
+Vacation Ideas, and it's stored
+
+
+451
+00:11:45,916 --> 00:11:47,446
+that back to the server, and so
+
+
+452
+00:11:47,446 --> 00:11:48,516
+the server is telling us about
+
+
+453
+00:11:48,516 --> 00:11:49,136
+that change.
+
+
+454
+00:11:50,296 --> 00:11:51,486
+We also see a shared record, but
+
+
+455
+00:11:51,486 --> 00:11:52,366
+we'll get back to that in just a
+
+
+456
+00:11:52,366 --> 00:11:52,726
+second.
+
+
+457
+00:11:53,696 --> 00:11:55,086
+So, much like the fetch database
+
+
+458
+00:11:55,086 --> 00:11:56,646
+changes, when you fetch zone
+
+
+459
+00:11:56,646 --> 00:11:58,096
+changes, the server returned to
+
+
+460
+00:11:58,096 --> 00:12:00,656
+us the change token where we are
+
+
+461
+00:12:00,656 --> 00:12:02,536
+now in history, so if I fetch
+
+
+462
+00:12:02,536 --> 00:12:04,466
+changes again, it says there are
+
+
+463
+00:12:04,466 --> 00:12:06,416
+no new record changes inside of
+
+
+464
+00:12:06,416 --> 00:12:08,046
+this zone since that point of
+
+
+465
+00:12:08,436 --> 00:12:08,526
+time.
+
+
+466
+00:12:09,466 --> 00:12:11,036
+Alright. Now, let's take the iOS
+
+
+467
+00:12:11,036 --> 00:12:13,146
+application and create a new
+
+
+468
+00:12:13,146 --> 00:12:13,746
+to-do list.
+
+
+469
+00:12:14,496 --> 00:12:15,126
+Or, maybe not.
+
+
+470
+00:12:18,066 --> 00:12:23,206
+Well, the good news is, oh,
+
+
+471
+00:12:24,336 --> 00:12:25,026
+there it goes.
+
+
+472
+00:12:25,226 --> 00:12:25,916
+It caught up.
+
+
+473
+00:12:26,436 --> 00:12:28,356
+Alright. And, let's name this
+
+
+474
+00:12:28,356 --> 00:12:30,376
+one Chores, because
+
+
+475
+00:12:30,376 --> 00:12:31,326
+unfortunately I'll have to do
+
+
+476
+00:12:31,326 --> 00:12:31,586
+those.
+
+
+477
+00:12:32,936 --> 00:12:34,316
+Alright. So, that technically
+
+
+478
+00:12:34,316 --> 00:12:35,636
+saved back two lists to the
+
+
+479
+00:12:35,636 --> 00:12:37,006
+server, so we have three here in
+
+
+480
+00:12:37,006 --> 00:12:38,026
+our iOS application.
+
+
+481
+00:12:38,626 --> 00:12:39,456
+Now, let's jump back to the
+
+
+482
+00:12:39,456 --> 00:12:41,166
+Dashboard and fetch those
+
+
+483
+00:12:41,266 --> 00:12:42,906
+changes inside of this zone
+
+
+484
+00:12:43,256 --> 00:12:44,386
+since the last time, when it
+
+
+485
+00:12:44,386 --> 00:12:46,146
+said there weren't any.
+
+
+486
+00:12:47,196 --> 00:12:48,746
+So now, when I fetch changes, we
+
+
+487
+00:12:48,746 --> 00:12:50,086
+see those two List records that
+
+
+488
+00:12:50,086 --> 00:12:52,406
+I just created in the app.
+
+
+489
+00:12:52,406 --> 00:12:54,076
+And, if I tap on the record name
+
+
+490
+00:12:54,076 --> 00:12:56,036
+for that second one, it opens up
+
+
+491
+00:12:56,036 --> 00:12:57,636
+what we call the Record Editor.
+
+
+492
+00:12:58,296 --> 00:12:59,796
+This shows you information about
+
+
+493
+00:12:59,796 --> 00:13:01,436
+that specific record, and in
+
+
+494
+00:13:01,436 --> 00:13:02,636
+this case, we can see its unique
+
+
+495
+00:13:02,636 --> 00:13:03,246
+record name.
+
+
+496
+00:13:03,946 --> 00:13:05,846
+We can see the record type, and
+
+
+497
+00:13:05,846 --> 00:13:07,256
+in this case, it's a List record
+
+
+498
+00:13:07,256 --> 00:13:08,376
+type, like I mentioned before,
+
+
+499
+00:13:08,376 --> 00:13:09,296
+when we were talking about the
+
+
+500
+00:13:09,296 --> 00:13:09,896
+data model.
+
+
+501
+00:13:10,856 --> 00:13:12,596
+It's in my private database in
+
+
+502
+00:13:12,596 --> 00:13:14,266
+the To-dos zone, and it was
+
+
+503
+00:13:14,266 --> 00:13:15,626
+created and modified by me just
+
+
+504
+00:13:15,626 --> 00:13:16,186
+a second ago.
+
+
+505
+00:13:17,466 --> 00:13:18,546
+Down below, you can see the
+
+
+506
+00:13:18,546 --> 00:13:20,506
+fields that we stored for this
+
+
+507
+00:13:20,506 --> 00:13:21,726
+record, and in this case, we're
+
+
+508
+00:13:21,726 --> 00:13:23,496
+using a Name field to store the
+
+
+509
+00:13:23,496 --> 00:13:24,746
+name that the user provided in
+
+
+510
+00:13:24,746 --> 00:13:25,436
+the application.
+
+
+511
+00:13:26,256 --> 00:13:28,086
+So, I've decided, chores don't
+
+
+512
+00:13:28,086 --> 00:13:30,076
+sound very exciting, so let's
+
+
+513
+00:13:30,076 --> 00:13:31,656
+rename this to Movies to Watch,
+
+
+514
+00:13:31,656 --> 00:13:32,756
+and change the to-do list.
+
+
+515
+00:13:33,296 --> 00:13:34,506
+Now, I'm going to save this back
+
+
+516
+00:13:34,506 --> 00:13:35,206
+to the Server view of the
+
+
+517
+00:13:35,206 --> 00:13:36,466
+Dashboard, and I want you to
+
+
+518
+00:13:36,466 --> 00:13:37,906
+watch the iOS application on the
+
+
+519
+00:13:37,906 --> 00:13:38,486
+right side.
+
+
+520
+00:13:39,906 --> 00:13:42,186
+So, the Dashboard changed, saved
+
+
+521
+00:13:42,186 --> 00:13:43,366
+that record change back to the
+
+
+522
+00:13:43,366 --> 00:13:43,736
+server.
+
+
+523
+00:13:44,436 --> 00:13:45,706
+The server saw that I had a
+
+
+524
+00:13:45,706 --> 00:13:47,046
+subscription for my private
+
+
+525
+00:13:47,046 --> 00:13:48,506
+database, sent a push
+
+
+526
+00:13:48,506 --> 00:13:49,876
+notification to my device.
+
+
+527
+00:13:50,496 --> 00:13:52,066
+My application saw that push,
+
+
+528
+00:13:52,466 --> 00:13:53,746
+turned around, fetched the new
+
+
+529
+00:13:53,746 --> 00:13:55,936
+changes, updated its local core
+
+
+530
+00:13:55,936 --> 00:13:57,566
+data cache, and now you can see
+
+
+531
+00:13:57,566 --> 00:13:59,226
+the UI reflects the fact that
+
+
+532
+00:13:59,226 --> 00:14:00,596
+we've changed that list to
+
+
+533
+00:14:00,596 --> 00:14:01,486
+Movies to Watch.
+
+
+534
+00:14:02,396 --> 00:14:04,066
+So, hopefully that walks you
+
+
+535
+00:14:04,066 --> 00:14:05,296
+through some of the things that
+
+
+536
+00:14:05,296 --> 00:14:06,546
+you can do now with the fetch
+
+
+537
+00:14:06,546 --> 00:14:07,176
+changes API.
+
+
+538
+00:14:08,376 --> 00:14:10,386
+Let's jump back to slides and
+
+
+539
+00:14:10,386 --> 00:14:11,616
+recap what we just talked about.
+
+
+540
+00:14:12,986 --> 00:14:15,496
+So, in the Dashboard, when we
+
+
+541
+00:14:15,496 --> 00:14:17,346
+use the Record Editor to modify
+
+
+542
+00:14:17,346 --> 00:14:18,596
+that record to update it on the
+
+
+543
+00:14:18,596 --> 00:14:21,236
+server, it used the publicly
+
+
+544
+00:14:21,236 --> 00:14:23,156
+available CloudKit Web Service
+
+
+545
+00:14:23,156 --> 00:14:24,686
+APIs that all of you can use.
+
+
+546
+00:14:25,266 --> 00:14:26,936
+It sent an HTTP post to the
+
+
+547
+00:14:26,936 --> 00:14:28,846
+records modify end point, and it
+
+
+548
+00:14:28,846 --> 00:14:30,626
+sent a JSON body saying, "I
+
+
+549
+00:14:30,626 --> 00:14:31,606
+would like to update this
+
+
+550
+00:14:31,606 --> 00:14:33,556
+record," and set its name field
+
+
+551
+00:14:33,556 --> 00:14:34,506
+to Movies to Watch.
+
+
+552
+00:14:35,576 --> 00:14:37,186
+That corresponds to the
+
+
+553
+00:14:37,186 --> 00:14:39,516
+CKModifyRecordsOperation in the
+
+
+554
+00:14:39,516 --> 00:14:41,466
+iOS, the native API, which we're
+
+
+555
+00:14:41,466 --> 00:14:42,756
+using in the example iOS
+
+
+556
+00:14:42,756 --> 00:14:43,596
+application up here.
+
+
+557
+00:14:45,306 --> 00:14:47,076
+When we fetched zone changes
+
+
+558
+00:14:47,126 --> 00:14:49,366
+inside of our To-dos zone, that
+
+
+559
+00:14:49,366 --> 00:14:50,676
+used the publicly available
+
+
+560
+00:14:50,676 --> 00:14:52,396
+records changes end point, and
+
+
+561
+00:14:52,396 --> 00:14:53,706
+it said, "Server, please tell me
+
+
+562
+00:14:53,936 --> 00:14:54,826
+the set of records that have
+
+
+563
+00:14:54,826 --> 00:14:56,376
+changed in the To-dos zone for
+
+
+564
+00:14:56,376 --> 00:14:58,176
+days of count since this change
+
+
+565
+00:14:58,176 --> 00:14:58,476
+token."
+
+
+566
+00:14:58,866 --> 00:15:00,876
+And, that corresponds to the
+
+
+567
+00:15:00,876 --> 00:15:01,866
+CKFetchRecordZone
+
+
+568
+00:15:01,866 --> 00:15:03,666
+ChangesOperation in the native
+
+
+569
+00:15:03,666 --> 00:15:05,206
+API, which we're using in our
+
+
+570
+00:15:05,206 --> 00:15:05,406
+app.
+
+
+571
+00:15:06,206 --> 00:15:07,226
+So, the point here is that the
+
+
+572
+00:15:07,226 --> 00:15:08,516
+Dashboard now lets you play with
+
+
+573
+00:15:08,516 --> 00:15:10,606
+the exact same APIs that you're
+
+
+574
+00:15:10,606 --> 00:15:11,676
+using in your native and web
+
+
+575
+00:15:11,676 --> 00:15:13,746
+applications, hopefully allowing
+
+
+576
+00:15:13,746 --> 00:15:14,936
+you to understand and debug
+
+
+577
+00:15:14,936 --> 00:15:16,226
+functionality as you're building
+
+
+578
+00:15:16,226 --> 00:15:17,236
+it into your application.
+
+
+579
+00:15:18,576 --> 00:15:21,396
+Now, I mentioned that part of
+
+
+580
+00:15:21,396 --> 00:15:22,206
+getting all of this data
+
+
+581
+00:15:22,206 --> 00:15:23,826
+synchronization to work is
+
+
+582
+00:15:23,826 --> 00:15:25,066
+subscriptions and push
+
+
+583
+00:15:25,066 --> 00:15:27,456
+notifications, so let's jump
+
+
+584
+00:15:27,456 --> 00:15:29,106
+back into the Dashboard and see
+
+
+585
+00:15:29,306 --> 00:15:30,756
+how it's given us the ability to
+
+
+586
+00:15:30,756 --> 00:15:32,366
+experiment and understand more
+
+
+587
+00:15:32,366 --> 00:15:33,056
+of this behavior.
+
+
+588
+00:15:34,006 --> 00:15:34,856
+So, I'm going to close out the
+
+
+589
+00:15:34,856 --> 00:15:36,146
+Record Editor, and as a
+
+
+590
+00:15:36,146 --> 00:15:36,836
+reminder, we're in the
+
+
+591
+00:15:36,836 --> 00:15:38,166
+development environment data
+
+
+592
+00:15:38,166 --> 00:15:38,646
+section.
+
+
+593
+00:15:39,046 --> 00:15:40,246
+There's a new tab here for
+
+
+594
+00:15:40,246 --> 00:15:41,026
+Subscriptions.
+
+
+595
+00:15:41,996 --> 00:15:43,626
+If I click it, this lets me use
+
+
+596
+00:15:43,666 --> 00:15:44,926
+the subscriptions API in
+
+
+597
+00:15:44,926 --> 00:15:46,506
+CloudKit to fetch down
+
+
+598
+00:15:46,506 --> 00:15:48,246
+subscriptions that exist inside
+
+
+599
+00:15:48,246 --> 00:15:49,406
+of a specific database.
+
+
+600
+00:15:49,576 --> 00:15:51,486
+So, I'm going to ask what
+
+
+601
+00:15:51,486 --> 00:15:52,626
+subscriptions exist in my
+
+
+602
+00:15:52,626 --> 00:15:54,466
+private database, and we see
+
+
+603
+00:15:54,466 --> 00:15:55,866
+that our server returned a
+
+
+604
+00:15:55,866 --> 00:15:56,256
+result.
+
+
+605
+00:15:56,726 --> 00:15:57,916
+It's a database subscription,
+
+
+606
+00:15:58,166 --> 00:15:59,686
+and I've given it the ID of
+
+
+607
+00:15:59,686 --> 00:16:00,916
+private changes, which is
+
+
+608
+00:16:00,916 --> 00:16:02,076
+something I chose in my code.
+
+
+609
+00:16:02,616 --> 00:16:03,656
+So, that's a subscription that
+
+
+610
+00:16:03,656 --> 00:16:05,476
+exists that will tell the server
+
+
+611
+00:16:05,476 --> 00:16:06,916
+to send push notifications
+
+
+612
+00:16:07,246 --> 00:16:08,236
+whenever my private data
+
+
+613
+00:16:08,236 --> 00:16:08,786
+changes.
+
+
+614
+00:16:09,286 --> 00:16:11,176
+If we look in the shared
+
+
+615
+00:16:11,176 --> 00:16:13,216
+database, we also see a database
+
+
+616
+00:16:13,216 --> 00:16:14,516
+subscription there, like I
+
+
+617
+00:16:14,516 --> 00:16:16,116
+mentioned, with the ID, shared
+
+
+618
+00:16:16,116 --> 00:16:16,696
+changes.
+
+
+619
+00:16:18,246 --> 00:16:20,316
+Now, there are subscriptions and
+
+
+620
+00:16:20,316 --> 00:16:21,506
+push notifications and you're
+
+
+621
+00:16:21,506 --> 00:16:22,896
+fetching changes, potentially
+
+
+622
+00:16:22,896 --> 00:16:24,356
+across multiple devices.
+
+
+623
+00:16:24,706 --> 00:16:25,996
+There's a lot going on here.
+
+
+624
+00:16:26,186 --> 00:16:28,066
+Wouldn't it be awesome to see a
+
+
+625
+00:16:28,066 --> 00:16:30,216
+log of all of these events as
+
+
+626
+00:16:30,216 --> 00:16:31,476
+they're happening on the server?
+
+
+627
+00:16:32,006 --> 00:16:32,756
+Well, now there is.
+
+
+628
+00:16:33,696 --> 00:16:34,736
+If I click back up to the
+
+
+629
+00:16:34,736 --> 00:16:38,026
+container, thanks, there's a new
+
+
+630
+00:16:38,026 --> 00:16:39,726
+section called Logs that I'm
+
+
+631
+00:16:39,726 --> 00:16:40,546
+going to click into for the
+
+
+632
+00:16:40,546 --> 00:16:41,566
+development environment.
+
+
+633
+00:16:42,516 --> 00:16:44,016
+This starts on a feature we call
+
+
+634
+00:16:44,076 --> 00:16:44,796
+Live Log.
+
+
+635
+00:16:45,446 --> 00:16:46,896
+It opens up a real-time
+
+
+636
+00:16:46,896 --> 00:16:48,526
+connection back to the CloudKit
+
+
+637
+00:16:48,526 --> 00:16:50,526
+server, and the server will push
+
+
+638
+00:16:50,526 --> 00:16:52,406
+events as they happen right to
+
+
+639
+00:16:52,406 --> 00:16:52,996
+your browser.
+
+
+640
+00:16:53,776 --> 00:16:55,466
+It loads a bit of history, so
+
+
+641
+00:16:55,466 --> 00:16:56,556
+here we can see some requests we
+
+
+642
+00:16:56,556 --> 00:16:58,326
+were doing from iOS, from the
+
+
+643
+00:16:58,326 --> 00:17:00,116
+app up here, as well as from the
+
+
+644
+00:17:00,116 --> 00:17:01,626
+Web Service API, because that's
+
+
+645
+00:17:01,626 --> 00:17:02,766
+what the CloudKit Dashboard was
+
+
+646
+00:17:02,766 --> 00:17:03,126
+using.
+
+
+647
+00:17:03,666 --> 00:17:04,826
+We can see we were doing some
+
+
+648
+00:17:04,826 --> 00:17:06,276
+record modifies, some zone
+
+
+649
+00:17:06,276 --> 00:17:08,576
+fetches, etc. Now, let me clear
+
+
+650
+00:17:08,576 --> 00:17:10,076
+this out, and let's create a new
+
+
+651
+00:17:10,076 --> 00:17:11,646
+list, and watch what happens in
+
+
+652
+00:17:11,646 --> 00:17:12,106
+the log.
+
+
+653
+00:17:12,106 --> 00:17:14,106
+So, I'm going to create a list,
+
+
+654
+00:17:14,306 --> 00:17:16,195
+then we see the event pop in, or
+
+
+655
+00:17:16,195 --> 00:17:16,556
+boom.
+
+
+656
+00:17:17,046 --> 00:17:18,435
+So, here we can see some
+
+
+657
+00:17:18,435 --> 00:17:19,715
+information about the specific
+
+
+658
+00:17:19,715 --> 00:17:21,715
+event, but let's jump back into
+
+
+659
+00:17:21,715 --> 00:17:23,316
+slides and talk about all of the
+
+
+660
+00:17:23,316 --> 00:17:24,836
+things you might see show up in
+
+
+661
+00:17:24,836 --> 00:17:26,066
+your log.
+
+
+662
+00:17:27,616 --> 00:17:30,076
+So, here's an example row, like
+
+
+663
+00:17:30,076 --> 00:17:31,006
+we just saw in the user
+
+
+664
+00:17:31,006 --> 00:17:31,546
+interface.
+
+
+665
+00:17:31,766 --> 00:17:33,156
+Let's walk through each column
+
+
+666
+00:17:33,266 --> 00:17:34,396
+and see what shows up.
+
+
+667
+00:17:35,346 --> 00:17:36,746
+The first one is the time.
+
+
+668
+00:17:37,086 --> 00:17:38,066
+This is the time at which the
+
+
+669
+00:17:38,066 --> 00:17:39,176
+event happened on the server.
+
+
+670
+00:17:40,226 --> 00:17:41,676
+The next column is the platform.
+
+
+671
+00:17:42,176 --> 00:17:43,696
+This tells you which platform
+
+
+672
+00:17:43,696 --> 00:17:44,776
+the request came from.
+
+
+673
+00:17:45,276 --> 00:17:46,716
+Because CloudKit is available
+
+
+674
+00:17:46,716 --> 00:17:49,876
+iOS macOS, tvOS, and watchOS,
+
+
+675
+00:17:49,876 --> 00:17:51,096
+you may see all of those show up
+
+
+676
+00:17:51,096 --> 00:17:52,376
+here, if you're building apps on
+
+
+677
+00:17:52,376 --> 00:17:53,146
+those platforms.
+
+
+678
+00:17:53,826 --> 00:17:55,236
+You also see the version of the
+
+
+679
+00:17:55,236 --> 00:17:56,906
+platform, and if you're using
+
+
+680
+00:17:56,906 --> 00:17:58,716
+the Web Service API to build a
+
+
+681
+00:17:58,716 --> 00:18:00,266
+web application or to extend
+
+
+682
+00:18:00,266 --> 00:18:01,536
+your app to another platform,
+
+
+683
+00:18:01,966 --> 00:18:02,866
+then you'll see it show up here
+
+
+684
+00:18:02,866 --> 00:18:03,236
+as web.
+
+
+685
+00:18:04,726 --> 00:18:06,876
+The next column is the user.
+
+
+686
+00:18:07,466 --> 00:18:08,716
+This will show you the CloudKit
+
+
+687
+00:18:08,716 --> 00:18:09,766
+user record ID.
+
+
+688
+00:18:10,586 --> 00:18:13,206
+Now, in this case, if the person
+
+
+689
+00:18:13,426 --> 00:18:15,256
+that sent this event is on your
+
+
+690
+00:18:15,256 --> 00:18:16,806
+developer team, we know their
+
+
+691
+00:18:16,806 --> 00:18:17,846
+name, and we'll show it.
+
+
+692
+00:18:18,396 --> 00:18:19,866
+So, we knew my name, because I'm
+
+
+693
+00:18:19,866 --> 00:18:21,176
+logged into Dashboard on my
+
+
+694
+00:18:21,176 --> 00:18:22,626
+team, and this is handy as
+
+
+695
+00:18:22,626 --> 00:18:23,656
+you're testing things out with
+
+
+696
+00:18:23,656 --> 00:18:24,776
+people on your team in
+
+
+697
+00:18:24,776 --> 00:18:25,266
+development.
+
+
+698
+00:18:25,836 --> 00:18:26,916
+But, for everyone else, for all
+
+
+699
+00:18:26,916 --> 00:18:28,006
+of your normal users, it will
+
+
+700
+00:18:28,006 --> 00:18:29,116
+show you the CloudKit user
+
+
+701
+00:18:29,116 --> 00:18:30,836
+record ID.
+
+
+702
+00:18:31,286 --> 00:18:32,656
+The next column is the type of
+
+
+703
+00:18:32,656 --> 00:18:33,166
+the event.
+
+
+704
+00:18:33,806 --> 00:18:35,486
+This is most commonly database,
+
+
+705
+00:18:35,486 --> 00:18:36,376
+as you're interacting with the
+
+
+706
+00:18:36,376 --> 00:18:38,676
+database API, but if you have
+
+
+707
+00:18:38,676 --> 00:18:40,506
+subscriptions and CloudKit is
+
+
+708
+00:18:40,506 --> 00:18:41,816
+sending push notifications on
+
+
+709
+00:18:41,816 --> 00:18:43,516
+your behalf, you will see pushes
+
+
+710
+00:18:43,516 --> 00:18:44,926
+show up right here in this log
+
+
+711
+00:18:44,926 --> 00:18:45,596
+as they happen.
+
+
+712
+00:18:46,496 --> 00:18:47,806
+You will also see sharing events
+
+
+713
+00:18:47,836 --> 00:18:48,646
+called out separately.
+
+
+714
+00:18:50,146 --> 00:18:52,076
+The next column is the operation
+
+
+715
+00:18:52,076 --> 00:18:52,246
+ID.
+
+
+716
+00:18:52,916 --> 00:18:54,826
+So, as of iOS 10.3, and the
+
+
+717
+00:18:54,826 --> 00:18:56,396
+newest version of macOS Sierra,
+
+
+718
+00:18:57,166 --> 00:18:58,266
+CloudKit will automatically
+
+
+719
+00:18:58,266 --> 00:18:59,966
+create unique IDs for every
+
+
+720
+00:18:59,966 --> 00:19:01,456
+operation that you're issuing in
+
+
+721
+00:19:01,456 --> 00:19:03,036
+the native API, and you will see
+
+
+722
+00:19:03,036 --> 00:19:03,636
+them show up here.
+
+
+723
+00:19:05,156 --> 00:19:06,666
+The next column is operation
+
+
+724
+00:19:06,666 --> 00:19:08,266
+group name, which we'll get back
+
+
+725
+00:19:08,266 --> 00:19:10,316
+to in just a second, and the
+
+
+726
+00:19:10,316 --> 00:19:11,866
+final column are the set of
+
+
+727
+00:19:11,866 --> 00:19:13,846
+details specific to this type of
+
+
+728
+00:19:13,846 --> 00:19:14,196
+event.
+
+
+729
+00:19:14,866 --> 00:19:15,696
+Now, in this case, it was a
+
+
+730
+00:19:15,696 --> 00:19:17,516
+database event, and so we can
+
+
+731
+00:19:17,516 --> 00:19:18,606
+see the type of database
+
+
+732
+00:19:18,606 --> 00:19:20,126
+operation that we issued back to
+
+
+733
+00:19:20,126 --> 00:19:20,616
+the server.
+
+
+734
+00:19:21,116 --> 00:19:22,756
+This one was a zone fetch, but
+
+
+735
+00:19:22,756 --> 00:19:23,726
+you'll see things like record
+
+
+736
+00:19:23,726 --> 00:19:25,256
+modify, database changes,
+
+
+737
+00:19:25,476 --> 00:19:26,336
+depending on the type of
+
+
+738
+00:19:26,336 --> 00:19:27,456
+operations you're submitting.
+
+
+739
+00:19:29,256 --> 00:19:30,156
+In this case, because it's a
+
+
+740
+00:19:30,156 --> 00:19:31,526
+database operation, we could see
+
+
+741
+00:19:31,526 --> 00:19:32,806
+it was in the private database,
+
+
+742
+00:19:33,036 --> 00:19:36,316
+and in the To-dos zone.
+
+
+743
+00:19:36,446 --> 00:19:38,006
+We also see the server latency.
+
+
+744
+00:19:38,356 --> 00:19:39,546
+Now, this is how much time it
+
+
+745
+00:19:39,546 --> 00:19:40,516
+took the CloudKit server to
+
+
+746
+00:19:40,516 --> 00:19:42,376
+process this, but note that it
+
+
+747
+00:19:42,376 --> 00:19:44,136
+doesn't include internet latency
+
+
+748
+00:19:44,206 --> 00:19:45,886
+or the time spent getting from
+
+
+749
+00:19:45,886 --> 00:19:47,086
+the client to the server and
+
+
+750
+00:19:48,716 --> 00:19:48,866
+back.
+
+
+751
+00:19:49,076 --> 00:19:50,666
+You can see the request size,
+
+
+752
+00:19:50,876 --> 00:19:51,986
+and the response size.
+
+
+753
+00:19:53,076 --> 00:19:54,156
+You can also see the hardware
+
+
+754
+00:19:54,156 --> 00:19:55,896
+identifier, and no, this is not
+
+
+755
+00:19:55,896 --> 00:19:56,536
+a new iPhone.
+
+
+756
+00:19:57,136 --> 00:19:58,376
+This is actually the identifier
+
+
+757
+00:19:58,376 --> 00:20:00,256
+for an iPhone 6s Plus, like I'm
+
+
+758
+00:20:00,256 --> 00:20:00,826
+running up here.
+
+
+759
+00:20:02,706 --> 00:20:03,786
+>> Some more information about
+
+
+760
+00:20:03,786 --> 00:20:04,906
+operation groups, which we'll
+
+
+761
+00:20:04,906 --> 00:20:06,866
+talk about in just a second, and
+
+
+762
+00:20:06,866 --> 00:20:08,026
+finally, the request ID.
+
+
+763
+00:20:08,746 --> 00:20:10,616
+This is interesting, because
+
+
+764
+00:20:10,766 --> 00:20:12,406
+when you issue an operation via
+
+
+765
+00:20:12,466 --> 00:20:14,986
+the API, that usually maps to a
+
+
+766
+00:20:14,986 --> 00:20:17,346
+one-to-one request, but in some
+
+
+767
+00:20:17,346 --> 00:20:18,746
+cases, the client may need to
+
+
+768
+00:20:18,746 --> 00:20:20,466
+issue multiple network requests
+
+
+769
+00:20:20,466 --> 00:20:22,166
+to carry out your operation, and
+
+
+770
+00:20:22,166 --> 00:20:23,676
+if it does, you will see
+
+
+771
+00:20:23,676 --> 00:20:25,496
+multiple rows show up in the log
+
+
+772
+00:20:25,496 --> 00:20:27,306
+with the same operation ID but
+
+
+773
+00:20:27,306 --> 00:20:28,856
+different request IDs, allowing
+
+
+774
+00:20:28,856 --> 00:20:29,666
+you to differentiate.
+
+
+775
+00:20:30,806 --> 00:20:33,266
+If an event leads to an error,
+
+
+776
+00:20:33,506 --> 00:20:34,466
+you will see it called out in
+
+
+777
+00:20:34,466 --> 00:20:35,806
+red, and it will tell you the
+
+
+778
+00:20:35,806 --> 00:20:36,826
+specific type of error.
+
+
+779
+00:20:37,456 --> 00:20:38,846
+In this case, I tried to fetch a
+
+
+780
+00:20:38,846 --> 00:20:40,676
+zone that didn't exist, and so
+
+
+781
+00:20:40,676 --> 00:20:41,876
+the server said this was a zone
+
+
+782
+00:20:41,876 --> 00:20:44,556
+not found.
+
+
+783
+00:20:44,556 --> 00:20:45,306
+Alright. So, I mentioned
+
+
+784
+00:20:45,306 --> 00:20:46,836
+operation groups a couple times,
+
+
+785
+00:20:46,956 --> 00:20:47,806
+so what's that about?
+
+
+786
+00:20:48,506 --> 00:20:50,536
+Well, new in iOS 11 and all of
+
+
+787
+00:20:50,536 --> 00:20:51,896
+the other matching platforms,
+
+
+788
+00:20:52,176 --> 00:20:53,836
+we've provided, as you probably
+
+
+789
+00:20:53,836 --> 00:20:56,166
+guessed, the ability to group
+
+
+790
+00:20:56,166 --> 00:20:59,036
+operations based on application
+
+
+791
+00:20:59,036 --> 00:20:59,466
+logic.
+
+
+792
+00:20:59,936 --> 00:21:01,056
+So, let me give you an example.
+
+
+793
+00:21:01,986 --> 00:21:03,456
+In this example to-do list app,
+
+
+794
+00:21:03,666 --> 00:21:04,766
+there are a number of things
+
+
+795
+00:21:04,766 --> 00:21:06,266
+that it needs to do when it
+
+
+796
+00:21:06,266 --> 00:21:07,596
+first launches, in the
+
+
+797
+00:21:07,596 --> 00:21:08,866
+initialization logic.
+
+
+798
+00:21:09,716 --> 00:21:11,046
+It needed to create a zone on
+
+
+799
+00:21:11,046 --> 00:21:12,706
+the server within which to store
+
+
+800
+00:21:12,706 --> 00:21:13,346
+our records.
+
+
+801
+00:21:13,976 --> 00:21:15,176
+It needs to create two
+
+
+802
+00:21:15,176 --> 00:21:15,866
+subscriptions.
+
+
+803
+00:21:15,866 --> 00:21:16,556
+Remember, I mentioned the
+
+
+804
+00:21:16,556 --> 00:21:17,666
+database subscription in the
+
+
+805
+00:21:17,666 --> 00:21:18,926
+private and shared database.
+
+
+806
+00:21:20,266 --> 00:21:21,656
+And, it needs to fetch down any
+
+
+807
+00:21:21,656 --> 00:21:23,416
+existing changes in the private
+
+
+808
+00:21:23,416 --> 00:21:24,826
+and shared database, and then
+
+
+809
+00:21:24,826 --> 00:21:26,316
+potentially fetch zone changes.
+
+
+810
+00:21:26,586 --> 00:21:27,336
+So, there's a number of
+
+
+811
+00:21:27,336 --> 00:21:29,286
+operations, all of which
+
+
+812
+00:21:29,286 --> 00:21:30,846
+encompass the initialization
+
+
+813
+00:21:30,846 --> 00:21:32,386
+logic, and so we now have a way
+
+
+814
+00:21:32,386 --> 00:21:33,486
+to group all of that logic
+
+
+815
+00:21:33,616 --> 00:21:34,036
+together.
+
+
+816
+00:21:34,086 --> 00:21:36,876
+Now, as you probably know, there
+
+
+817
+00:21:36,876 --> 00:21:37,976
+are a number of Apple
+
+
+818
+00:21:37,976 --> 00:21:39,336
+applications built on top of
+
+
+819
+00:21:39,336 --> 00:21:40,806
+CloudKit, and I'd like to give
+
+
+820
+00:21:40,806 --> 00:21:43,206
+you some examples of how we use
+
+
+821
+00:21:43,206 --> 00:21:44,506
+operation group names in our
+
+
+822
+00:21:44,506 --> 00:21:44,926
+apps.
+
+
+823
+00:21:45,866 --> 00:21:47,776
+So, iCloud Backup is built on
+
+
+824
+00:21:47,776 --> 00:21:48,536
+top of CloudKit.
+
+
+825
+00:21:48,736 --> 00:21:50,516
+So, every night when your iPhone
+
+
+826
+00:21:50,516 --> 00:21:52,026
+or iPad is plugged in and on
+
+
+827
+00:21:52,026 --> 00:21:53,576
+Wi-Fi, it'll automatically back
+
+
+828
+00:21:53,576 --> 00:21:54,286
+itself up.
+
+
+829
+00:21:54,736 --> 00:21:56,116
+That may take a number of
+
+
+830
+00:21:56,116 --> 00:21:58,006
+CloudKit operations to do, and
+
+
+831
+00:21:58,006 --> 00:21:59,746
+so we can group those up inside
+
+
+832
+00:21:59,746 --> 00:22:01,046
+of an operation group named
+
+
+833
+00:22:01,046 --> 00:22:01,816
+Automated Backup.
+
+
+834
+00:22:02,656 --> 00:22:03,546
+If the user triggers one
+
+
+835
+00:22:03,546 --> 00:22:05,086
+manually, we can call that out
+
+
+836
+00:22:05,086 --> 00:22:06,456
+separately as a Manual Backup.
+
+
+837
+00:22:07,026 --> 00:22:08,366
+And, when they go to restore the
+
+
+838
+00:22:08,366 --> 00:22:09,896
+data on a new device, we can
+
+
+839
+00:22:09,896 --> 00:22:11,076
+have an operation group that
+
+
+840
+00:22:11,076 --> 00:22:12,216
+encompasses all of the
+
+
+841
+00:22:12,216 --> 00:22:13,116
+operations within.
+
+
+842
+00:22:14,166 --> 00:22:15,936
+iCloud Photo Library is built on
+
+
+843
+00:22:15,936 --> 00:22:17,556
+top of CloudKit, and they use
+
+
+844
+00:22:17,556 --> 00:22:19,086
+operation groups to designate
+
+
+845
+00:22:19,086 --> 00:22:19,906
+when they're setting up your
+
+
+846
+00:22:19,906 --> 00:22:21,776
+library, downloading thumbnails,
+
+
+847
+00:22:22,046 --> 00:22:22,926
+or fetching a movie that you
+
+
+848
+00:22:22,926 --> 00:22:23,486
+tapped on.
+
+
+849
+00:22:24,576 --> 00:22:25,796
+iCloud Drive is built on
+
+
+850
+00:22:25,796 --> 00:22:27,196
+CloudKit, and so they have
+
+
+851
+00:22:27,196 --> 00:22:29,096
+operation groups to call out
+
+
+852
+00:22:29,096 --> 00:22:30,146
+when they're initially pulling
+
+
+853
+00:22:30,146 --> 00:22:31,686
+down any changes from a server,
+
+
+854
+00:22:32,036 --> 00:22:33,506
+when they do so after a push
+
+
+855
+00:22:33,576 --> 00:22:35,446
+because of a subscription, or
+
+
+856
+00:22:35,446 --> 00:22:36,526
+when you tap into a file to
+
+
+857
+00:22:36,526 --> 00:22:37,646
+download it.
+
+
+858
+00:22:38,236 --> 00:22:39,906
+So, let's look at the API.
+
+
+859
+00:22:40,856 --> 00:22:42,156
+So, there's a new class,
+
+
+860
+00:22:42,156 --> 00:22:43,266
+CKOperationGroup.
+
+
+861
+00:22:44,326 --> 00:22:45,586
+It provides you an operation
+
+
+862
+00:22:45,586 --> 00:22:47,166
+group ID set for you by the
+
+
+863
+00:22:47,166 --> 00:22:47,596
+system.
+
+
+864
+00:22:48,096 --> 00:22:50,106
+It allows you to specify a
+
+
+865
+00:22:50,286 --> 00:22:52,466
+CKOperationConfiguration, which
+
+
+866
+00:22:52,466 --> 00:22:53,286
+we'll talk about in just a
+
+
+867
+00:22:53,286 --> 00:22:53,636
+second.
+
+
+868
+00:22:54,136 --> 00:22:56,726
+It allows you to provide a name.
+
+
+869
+00:22:57,016 --> 00:22:58,246
+This is any string that makes
+
+
+870
+00:22:58,246 --> 00:22:59,956
+sense in your application, and
+
+
+871
+00:22:59,956 --> 00:23:01,126
+the names on the previous slide
+
+
+872
+00:23:01,126 --> 00:23:02,906
+were ones that we use, and you
+
+
+873
+00:23:02,906 --> 00:23:04,246
+want to be careful not to put
+
+
+874
+00:23:04,246 --> 00:23:05,456
+personally identifiable
+
+
+875
+00:23:05,456 --> 00:23:06,476
+information into this.
+
+
+876
+00:23:06,756 --> 00:23:08,076
+This is your app logic, what
+
+
+877
+00:23:08,076 --> 00:23:08,556
+it's doing.
+
+
+878
+00:23:10,426 --> 00:23:11,996
+The next property is quantity.
+
+
+879
+00:23:12,696 --> 00:23:13,926
+This is an integer that you can
+
+
+880
+00:23:13,926 --> 00:23:15,656
+set, and it's completely up to
+
+
+881
+00:23:15,656 --> 00:23:16,376
+your application.
+
+
+882
+00:23:17,066 --> 00:23:18,836
+So, some examples from our apps
+
+
+883
+00:23:18,836 --> 00:23:20,696
+might be when we're backing
+
+
+884
+00:23:20,696 --> 00:23:22,326
+something up in iCloud Backup,
+
+
+885
+00:23:22,526 --> 00:23:23,696
+we might designate how many
+
+
+886
+00:23:23,696 --> 00:23:24,776
+files we're backing up.
+
+
+887
+00:23:25,766 --> 00:23:27,156
+Or, in iCloud Photo Library,
+
+
+888
+00:23:27,156 --> 00:23:27,676
+when they're downloading
+
+
+889
+00:23:27,676 --> 00:23:28,856
+thumbnails, we could use it to
+
+
+890
+00:23:28,856 --> 00:23:30,306
+say how many thumbnails are
+
+
+891
+00:23:30,306 --> 00:23:31,486
+being downloaded in this group.
+
+
+892
+00:23:31,866 --> 00:23:32,576
+But, the point is, it's
+
+
+893
+00:23:32,576 --> 00:23:33,256
+completely up to your
+
+
+894
+00:23:33,256 --> 00:23:33,786
+application.
+
+
+895
+00:23:36,206 --> 00:23:37,746
+You could also set the expected
+
+
+896
+00:23:37,746 --> 00:23:40,596
+send and receive sizes, and this
+
+
+897
+00:23:40,596 --> 00:23:41,736
+tells the server, I'm sorry,
+
+
+898
+00:23:41,736 --> 00:23:43,366
+tells the client how much data
+
+
+899
+00:23:43,666 --> 00:23:44,966
+you think you're estimating will
+
+
+900
+00:23:44,966 --> 00:23:46,736
+be sent back and forth between
+
+
+901
+00:23:46,736 --> 00:23:47,366
+you and the server.
+
+
+902
+00:23:47,656 --> 00:23:49,306
+And, notice the type is
+
+
+903
+00:23:49,306 --> 00:23:51,416
+CKOperationGroupTransferSize,
+
+
+904
+00:23:51,566 --> 00:23:54,016
+and this is an enum which allows
+
+
+905
+00:23:54,016 --> 00:23:55,726
+you to specify an order of
+
+
+906
+00:23:55,726 --> 00:23:56,396
+magnitude.
+
+
+907
+00:23:56,806 --> 00:23:57,706
+So, the point is, is that it's
+
+
+908
+00:23:57,706 --> 00:23:59,016
+an order-of-magnitude estimate.
+
+
+909
+00:23:59,146 --> 00:24:00,176
+It doesn't have to be perfect
+
+
+910
+00:24:00,176 --> 00:24:01,316
+exact byte counts.
+
+
+911
+00:24:01,566 --> 00:24:03,106
+And, by setting things like
+
+
+912
+00:24:03,106 --> 00:24:04,676
+these properties, as well as
+
+
+913
+00:24:04,676 --> 00:24:05,696
+properties like quality of
+
+
+914
+00:24:05,696 --> 00:24:07,906
+service, this allows the system
+
+
+915
+00:24:07,906 --> 00:24:09,806
+to optimize when network calls
+
+
+916
+00:24:09,806 --> 00:24:10,866
+are sent back to the server
+
+
+917
+00:24:11,356 --> 00:24:12,826
+based on the network conditions
+
+
+918
+00:24:12,876 --> 00:24:14,546
+of your user's device.
+
+
+919
+00:24:15,456 --> 00:24:17,726
+Finally, once you've configured
+
+
+920
+00:24:17,726 --> 00:24:19,776
+an operation group, you can add
+
+
+921
+00:24:19,776 --> 00:24:21,866
+an operation to it by applying
+
+
+922
+00:24:21,866 --> 00:24:23,026
+it to its group property.
+
+
+923
+00:24:24,006 --> 00:24:24,746
+Now, I mentioned
+
+
+924
+00:24:24,746 --> 00:24:26,876
+CKOperationConfiguration, so
+
+
+925
+00:24:26,876 --> 00:24:27,736
+let's talk about that for a
+
+
+926
+00:24:27,736 --> 00:24:28,096
+second.
+
+
+927
+00:24:29,246 --> 00:24:31,066
+In the past, you used to define
+
+
+928
+00:24:31,066 --> 00:24:31,696
+properties like
+
+
+929
+00:24:31,696 --> 00:24:32,706
+qualityOfService,
+
+
+930
+00:24:32,736 --> 00:24:34,026
+allowsCellularAccess,
+
+
+931
+00:24:34,246 --> 00:24:36,446
+isLongLived on an operation.
+
+
+932
+00:24:37,166 --> 00:24:38,746
+That is now deprecated, and
+
+
+933
+00:24:38,746 --> 00:24:40,576
+instead, you apply it to a
+
+
+934
+00:24:40,576 --> 00:24:43,246
+CKOperationConfiguration, and
+
+
+935
+00:24:43,246 --> 00:24:44,686
+the reason for that is because
+
+
+936
+00:24:44,686 --> 00:24:45,876
+we found that it was very easy
+
+
+937
+00:24:45,876 --> 00:24:47,736
+to forget to apply these to all
+
+
+938
+00:24:47,736 --> 00:24:48,776
+of the operations that you're
+
+
+939
+00:24:48,776 --> 00:24:49,646
+issuing in your client.
+
+
+940
+00:24:50,346 --> 00:24:52,086
+So now, you can set it up maybe
+
+
+941
+00:24:52,086 --> 00:24:53,356
+once or a few times.
+
+
+942
+00:24:54,076 --> 00:24:55,726
+You can apply it specifically to
+
+
+943
+00:24:55,726 --> 00:24:56,846
+an operation, if that makes
+
+
+944
+00:24:56,846 --> 00:24:59,516
+sense, or hopefully more likely,
+
+
+945
+00:24:59,736 --> 00:25:01,096
+to an entire operation group,
+
+
+946
+00:25:01,506 --> 00:25:02,836
+which applies it to all of the
+
+
+947
+00:25:02,836 --> 00:25:04,586
+operations within, and that was
+
+
+948
+00:25:04,586 --> 00:25:05,596
+that default configuration
+
+
+949
+00:25:05,596 --> 00:25:07,106
+property on operation group that
+
+
+950
+00:25:07,106 --> 00:25:07,716
+we saw before.
+
+
+951
+00:25:09,676 --> 00:25:11,786
+OK. So, if you look back at that
+
+
+952
+00:25:11,786 --> 00:25:13,316
+example log event from before,
+
+
+953
+00:25:13,626 --> 00:25:14,576
+let's call out some of the
+
+
+954
+00:25:14,576 --> 00:25:15,786
+things that we saw around
+
+
+955
+00:25:15,786 --> 00:25:16,836
+operation groups.
+
+
+956
+00:25:17,436 --> 00:25:18,906
+So here, you can see in the log
+
+
+957
+00:25:18,906 --> 00:25:20,996
+the operation group name, so I
+
+
+958
+00:25:20,996 --> 00:25:22,256
+can see this event happened
+
+
+959
+00:25:22,256 --> 00:25:23,706
+because of my applications
+
+
+960
+00:25:23,816 --> 00:25:25,036
+initialization logic.
+
+
+961
+00:25:25,796 --> 00:25:26,846
+You can also see its unique
+
+
+962
+00:25:26,846 --> 00:25:28,636
+operation group ID and a
+
+
+963
+00:25:28,636 --> 00:25:30,036
+quantity property, if you set
+
+
+964
+00:25:30,036 --> 00:25:30,186
+it.
+
+
+965
+00:25:31,386 --> 00:25:32,816
+Now, at every event, you can see
+
+
+966
+00:25:32,816 --> 00:25:34,376
+the operation group that it
+
+
+967
+00:25:34,376 --> 00:25:34,956
+applied to.
+
+
+968
+00:25:35,486 --> 00:25:36,736
+You can then see the specific
+
+
+969
+00:25:36,736 --> 00:25:39,036
+operation that applies, based on
+
+
+970
+00:25:39,036 --> 00:25:40,736
+the operation ID, and if it
+
+
+971
+00:25:40,736 --> 00:25:42,296
+leads to multiple requests, you
+
+
+972
+00:25:42,296 --> 00:25:44,086
+can always see the specific
+
+
+973
+00:25:45,146 --> 00:25:46,406
+request ID.
+
+
+974
+00:25:47,526 --> 00:25:48,846
+Alright. So, with this new log
+
+
+975
+00:25:48,846 --> 00:25:50,146
+feature and the things being
+
+
+976
+00:25:50,146 --> 00:25:51,716
+exposed, let's take a minute to
+
+
+977
+00:25:51,716 --> 00:25:52,666
+talk about privacy.
+
+
+978
+00:25:53,566 --> 00:25:55,296
+As you know, Apple cares very
+
+
+979
+00:25:55,296 --> 00:25:56,746
+deeply about our users' privacy,
+
+
+980
+00:25:57,546 --> 00:25:58,956
+but with CloudKit, we also
+
+
+981
+00:25:58,956 --> 00:26:00,456
+understand that you're working
+
+
+982
+00:26:00,456 --> 00:26:01,846
+with a system that you don't own
+
+
+983
+00:26:01,896 --> 00:26:03,856
+or have full control over, yet
+
+
+984
+00:26:03,856 --> 00:26:05,406
+you still need to debug customer
+
+
+985
+00:26:05,406 --> 00:26:06,236
+problems.
+
+
+986
+00:26:06,906 --> 00:26:07,996
+So, with both of those things in
+
+
+987
+00:26:07,996 --> 00:26:09,326
+mind, here's how it works.
+
+
+988
+00:26:09,686 --> 00:26:11,986
+As a reminder, when you log into
+
+
+989
+00:26:11,986 --> 00:26:13,466
+the CloudKit Dashboard with your
+
+
+990
+00:26:13,466 --> 00:26:15,556
+iCloud account, you can see your
+
+
+991
+00:26:15,556 --> 00:26:17,106
+private and shared data in your
+
+
+992
+00:26:17,106 --> 00:26:18,486
+private and shared databases,
+
+
+993
+00:26:18,606 --> 00:26:19,366
+just like I showed.
+
+
+994
+00:26:19,936 --> 00:26:21,166
+But, you cannot see the private
+
+
+995
+00:26:21,166 --> 00:26:22,856
+and shared data of other users.
+
+
+996
+00:26:23,956 --> 00:26:25,456
+You can see the public data in
+
+
+997
+00:26:25,456 --> 00:26:26,726
+the public database, because
+
+
+998
+00:26:26,726 --> 00:26:28,986
+it's meant to be public, and you
+
+
+999
+00:26:28,986 --> 00:26:31,056
+can now see log events for you
+
+
+1000
+00:26:31,056 --> 00:26:32,206
+and every other user.
+
+
+1001
+00:26:32,626 --> 00:26:34,746
+However, log events do not
+
+
+1002
+00:26:34,746 --> 00:26:35,806
+include the data.
+
+
+1003
+00:26:36,696 --> 00:26:38,346
+So, for example, some of the
+
+
+1004
+00:26:38,346 --> 00:26:39,696
+events we would see in the case
+
+
+1005
+00:26:39,696 --> 00:26:41,256
+of this to-do list app, you
+
+
+1006
+00:26:41,256 --> 00:26:42,546
+could see that my account was
+
+
+1007
+00:26:42,546 --> 00:26:45,066
+issuing record modifies, but you
+
+
+1008
+00:26:45,066 --> 00:26:46,246
+couldn't see that I was creating
+
+
+1009
+00:26:46,246 --> 00:26:48,656
+a list named Vacation Ideas, or
+
+
+1010
+00:26:48,656 --> 00:26:50,266
+Chores, or Movies to Watch.
+
+
+1011
+00:26:51,116 --> 00:26:52,176
+So, we hope that this balance
+
+
+1012
+00:26:52,176 --> 00:26:53,386
+really allows you to debug
+
+
+1013
+00:26:53,386 --> 00:26:54,976
+problems as they happen, while
+
+
+1014
+00:26:54,976 --> 00:26:56,176
+still keeping your customers'
+
+
+1015
+00:26:56,176 --> 00:26:58,466
+data safe and private.
+
+
+1016
+00:26:59,156 --> 00:27:00,726
+OK, so I mentioned earlier that
+
+
+1017
+00:27:00,726 --> 00:27:02,736
+we wanted to add the ability to
+
+
+1018
+00:27:02,736 --> 00:27:04,206
+share in this example
+
+
+1019
+00:27:04,206 --> 00:27:04,716
+application.
+
+
+1020
+00:27:04,716 --> 00:27:06,566
+We want to let our users
+
+
+1021
+00:27:06,706 --> 00:27:08,476
+securely share a to-do list with
+
+
+1022
+00:27:08,516 --> 00:27:09,826
+other users so that they can
+
+
+1023
+00:27:09,826 --> 00:27:10,426
+collaborate.
+
+
+1024
+00:27:11,376 --> 00:27:12,656
+As a reminder, this was our data
+
+
+1025
+00:27:12,656 --> 00:27:13,006
+model.
+
+
+1026
+00:27:13,636 --> 00:27:14,986
+We point items back to a list
+
+
+1027
+00:27:14,986 --> 00:27:16,866
+via the parent reference, and we
+
+
+1028
+00:27:16,866 --> 00:27:18,036
+have the list as the root record
+
+
+1029
+00:27:18,036 --> 00:27:18,526
+in a share.
+
+
+1030
+00:27:19,996 --> 00:27:21,076
+Now, we've added some of the
+
+
+1031
+00:27:21,076 --> 00:27:23,526
+ability to debug and explore
+
+
+1032
+00:27:23,526 --> 00:27:24,566
+more of this in CloudKit
+
+
+1033
+00:27:24,566 --> 00:27:28,026
+Dashboard, so let's go take a
+
+
+1034
+00:27:28,276 --> 00:27:28,406
+look.
+
+
+1035
+00:27:29,326 --> 00:27:30,206
+Now, on the right side of the
+
+
+1036
+00:27:30,206 --> 00:27:31,316
+screen, I want you to look at
+
+
+1037
+00:27:31,316 --> 00:27:32,086
+the iOS app.
+
+
+1038
+00:27:32,086 --> 00:27:33,576
+I'm going to tap into that top
+
+
+1039
+00:27:33,576 --> 00:27:35,956
+Vacation Ideas List record, and
+
+
+1040
+00:27:35,956 --> 00:27:36,956
+you'll notice that it shows us
+
+
+1041
+00:27:36,956 --> 00:27:38,346
+some information saying that
+
+
+1042
+00:27:38,346 --> 00:27:39,306
+this is already shared.
+
+
+1043
+00:27:40,036 --> 00:27:41,516
+So, what happened was, I created
+
+
+1044
+00:27:41,516 --> 00:27:43,356
+this to-do list on my phone,
+
+
+1045
+00:27:43,706 --> 00:27:44,686
+which means it's in my private
+
+
+1046
+00:27:44,686 --> 00:27:47,046
+database, so I'm the owner, but
+
+
+1047
+00:27:47,046 --> 00:27:48,216
+I invited my friend, Emily
+
+
+1048
+00:27:48,216 --> 00:27:50,356
+Parker, to share this, because
+
+
+1049
+00:27:50,356 --> 00:27:51,626
+she's a travel expert, and I
+
+
+1050
+00:27:51,626 --> 00:27:52,876
+wanted her to give me some ideas
+
+
+1051
+00:27:52,876 --> 00:27:53,956
+on where to go on vacation.
+
+
+1052
+00:27:54,546 --> 00:27:58,406
+So, in the Dashboard, if we go
+
+
+1053
+00:27:58,406 --> 00:27:59,876
+back to the data section,
+
+
+1054
+00:28:00,506 --> 00:28:01,566
+remember, the last time we were
+
+
+1055
+00:28:01,566 --> 00:28:03,356
+looking at the records in my
+
+
+1056
+00:28:03,356 --> 00:28:05,006
+private database in the To-dos
+
+
+1057
+00:28:05,006 --> 00:28:08,706
+zone, and if we fetch changes
+
+
+1058
+00:28:08,876 --> 00:28:09,846
+until we get to a point where
+
+
+1059
+00:28:09,846 --> 00:28:10,846
+nothing has changed, so the
+
+
+1060
+00:28:10,846 --> 00:28:12,616
+Dashboard is up to date, let's
+
+
+1061
+00:28:12,616 --> 00:28:14,656
+add an item in the iOS
+
+
+1062
+00:28:14,656 --> 00:28:15,216
+application.
+
+
+1063
+00:28:16,196 --> 00:28:17,906
+So, let's say I would love to go
+
+
+1064
+00:28:17,906 --> 00:28:18,706
+to Paris.
+
+
+1065
+00:28:20,016 --> 00:28:21,556
+So, my iOS app has stored that
+
+
+1066
+00:28:21,556 --> 00:28:23,166
+record as an Item record back to
+
+
+1067
+00:28:23,166 --> 00:28:24,856
+the server, and if I fetch
+
+
+1068
+00:28:24,856 --> 00:28:26,126
+changes in the Dashboard again,
+
+
+1069
+00:28:26,426 --> 00:28:27,386
+we see it show up.
+
+
+1070
+00:28:27,936 --> 00:28:29,366
+I'm going to tap on the record
+
+
+1071
+00:28:29,366 --> 00:28:30,866
+name and open up the Record
+
+
+1072
+00:28:30,866 --> 00:28:31,206
+Editor.
+
+
+1073
+00:28:31,786 --> 00:28:33,106
+Again, we can see this is of the
+
+
+1074
+00:28:33,106 --> 00:28:33,966
+Item record type.
+
+
+1075
+00:28:34,426 --> 00:28:36,056
+It's in my private database in
+
+
+1076
+00:28:36,056 --> 00:28:38,286
+the To-dos zone, and down under
+
+
+1077
+00:28:38,286 --> 00:28:39,516
+the Field section, we can see
+
+
+1078
+00:28:39,516 --> 00:28:41,086
+Paris, the name that I provided
+
+
+1079
+00:28:41,086 --> 00:28:41,806
+in the iOS app.
+
+
+1080
+00:28:41,856 --> 00:28:44,036
+Now, if I zoom in a bit, you'll
+
+
+1081
+00:28:44,036 --> 00:28:45,076
+notice there's a section here
+
+
+1082
+00:28:45,076 --> 00:28:47,146
+labeled Sharing, and it tells us
+
+
+1083
+00:28:47,146 --> 00:28:47,956
+that this record is a
+
+
+1084
+00:28:47,956 --> 00:28:48,596
+descendant.
+
+
+1085
+00:28:49,206 --> 00:28:50,596
+That means that it points to a
+
+
+1086
+00:28:50,646 --> 00:28:52,626
+parent via its parent reference.
+
+
+1087
+00:28:53,436 --> 00:28:54,556
+The Dashboard tells us the
+
+
+1088
+00:28:54,556 --> 00:28:56,346
+record name for that parent, and
+
+
+1089
+00:28:56,346 --> 00:28:57,966
+provides us a little jump icon
+
+
+1090
+00:28:58,166 --> 00:28:59,816
+to load that parent up inside
+
+
+1091
+00:28:59,816 --> 00:29:00,526
+the Record Editor.
+
+
+1092
+00:29:01,066 --> 00:29:02,086
+So, let's do that.
+
+
+1093
+00:29:02,616 --> 00:29:04,126
+So now, we're looking at a List
+
+
+1094
+00:29:04,126 --> 00:29:06,366
+record, and this is the Vacation
+
+
+1095
+00:29:06,406 --> 00:29:08,306
+Ideas List record within which
+
+
+1096
+00:29:08,306 --> 00:29:09,506
+we created the Paris item.
+
+
+1097
+00:29:10,736 --> 00:29:11,946
+In the Sharing section, we can
+
+
+1098
+00:29:11,946 --> 00:29:13,396
+see that this is a Root record
+
+
+1099
+00:29:13,396 --> 00:29:13,936
+in a share.
+
+
+1100
+00:29:14,896 --> 00:29:16,476
+It points to a specific share.
+
+
+1101
+00:29:16,906 --> 00:29:18,126
+It tells us what that name is,
+
+
+1102
+00:29:18,336 --> 00:29:19,536
+and we can open up that share.
+
+
+1103
+00:29:20,936 --> 00:29:22,236
+So now, we're looking at a
+
+
+1104
+00:29:22,236 --> 00:29:25,606
+CloudKit.share record, and down
+
+
+1105
+00:29:25,916 --> 00:29:27,656
+below, you'll see on the share,
+
+
+1106
+00:29:27,656 --> 00:29:28,826
+you can actually see information
+
+
+1107
+00:29:28,826 --> 00:29:30,246
+about the sharing participants.
+
+
+1108
+00:29:30,626 --> 00:29:31,866
+So, in this case, you can see me
+
+
+1109
+00:29:31,866 --> 00:29:33,886
+as the owner, and Emily, having
+
+
+1110
+00:29:33,886 --> 00:29:34,336
+accepted.
+
+
+1111
+00:29:35,156 --> 00:29:35,986
+You can add and remove
+
+
+1112
+00:29:35,986 --> 00:29:37,916
+participants right here to test
+
+
+1113
+00:29:37,916 --> 00:29:39,686
+out how your app behaves when
+
+
+1114
+00:29:39,686 --> 00:29:40,966
+that data is modified on the
+
+
+1115
+00:29:40,966 --> 00:29:41,356
+server.
+
+
+1116
+00:29:41,726 --> 00:29:42,806
+This allows you to browse
+
+
+1117
+00:29:42,806 --> 00:29:44,386
+relationships, and if the Record
+
+
+1118
+00:29:44,386 --> 00:29:45,576
+Editor detects that there are
+
+
+1119
+00:29:45,576 --> 00:29:47,386
+any other types of references in
+
+
+1120
+00:29:47,386 --> 00:29:48,766
+your record, it will also let
+
+
+1121
+00:29:48,766 --> 00:29:50,236
+you jump to them, and we have a
+
+
+1122
+00:29:50,236 --> 00:29:51,436
+bit of back and forward History
+
+
+1123
+00:29:51,436 --> 00:29:53,766
+buttons up here in the top left.
+
+
+1124
+00:29:53,766 --> 00:29:55,046
+So, that shows you a bit of how
+
+
+1125
+00:29:55,046 --> 00:29:57,016
+you can view and navigate the
+
+
+1126
+00:29:57,016 --> 00:29:58,966
+data relationships going on with
+
+
+1127
+00:29:58,966 --> 00:29:59,436
+sharing.
+
+
+1128
+00:30:00,666 --> 00:30:02,506
+>> Let's take a look at how logs
+
+
+1129
+00:30:02,506 --> 00:30:04,036
+can help you out when you're
+
+
+1130
+00:30:04,036 --> 00:30:05,296
+doing sharing functionality in
+
+
+1131
+00:30:05,296 --> 00:30:05,616
+your app.
+
+
+1132
+00:30:06,126 --> 00:30:07,246
+So, I'm going to load up the
+
+
+1133
+00:30:07,246 --> 00:30:07,776
+logs.
+
+
+1134
+00:30:08,056 --> 00:30:08,836
+Let's clear it out.
+
+
+1135
+00:30:09,406 --> 00:30:11,266
+Let's create another item in my
+
+
+1136
+00:30:11,266 --> 00:30:12,106
+iOS application.
+
+
+1137
+00:30:13,306 --> 00:30:14,726
+So, let's say I'd also really
+
+
+1138
+00:30:14,726 --> 00:30:16,156
+like to go to Vienna, Austria.
+
+
+1139
+00:30:16,526 --> 00:30:17,866
+Now, I'm going to hit Return.
+
+
+1140
+00:30:17,906 --> 00:30:19,026
+I want you to watch the
+
+
+1141
+00:30:19,026 --> 00:30:19,766
+Dashboard log.
+
+
+1142
+00:30:20,746 --> 00:30:22,716
+So first, we see a request come
+
+
+1143
+00:30:22,716 --> 00:30:24,306
+in for the record modify.
+
+
+1144
+00:30:25,416 --> 00:30:27,166
+We can see, notice my operation
+
+
+1145
+00:30:27,166 --> 00:30:27,726
+group name.
+
+
+1146
+00:30:28,166 --> 00:30:29,706
+I'm using one saying, "Oh, this
+
+
+1147
+00:30:29,706 --> 00:30:31,656
+is logic for creating an item in
+
+
+1148
+00:30:31,656 --> 00:30:32,276
+the application.
+
+
+1149
+00:30:32,866 --> 00:30:34,796
+It was a record modify in Dave's
+
+
+1150
+00:30:34,796 --> 00:30:35,636
+private database."
+
+
+1151
+00:30:36,556 --> 00:30:38,136
+After that, we can subsequently
+
+
+1152
+00:30:38,136 --> 00:30:39,746
+see that CloudKit sent a push
+
+
+1153
+00:30:39,746 --> 00:30:41,276
+notification to Emily.
+
+
+1154
+00:30:42,326 --> 00:30:43,866
+It was in her shared database
+
+
+1155
+00:30:43,996 --> 00:30:45,596
+because of a subscription called
+
+
+1156
+00:30:45,596 --> 00:30:47,206
+Shared Changes that we set up on
+
+
+1157
+00:30:47,206 --> 00:30:48,476
+her device when she first ran
+
+
+1158
+00:30:48,476 --> 00:30:48,786
+the app.
+
+
+1159
+00:30:50,266 --> 00:30:51,726
+The push notification made it to
+
+
+1160
+00:30:51,726 --> 00:30:54,036
+Emily's device, and then her app
+
+
+1161
+00:30:54,036 --> 00:30:55,426
+turned around and fetched
+
+
+1162
+00:30:55,546 --> 00:30:57,216
+database changes, and then zone
+
+
+1163
+00:30:57,216 --> 00:30:58,666
+changes, and notice the
+
+
+1164
+00:30:58,666 --> 00:31:00,266
+operation group name, fetching
+
+
+1165
+00:31:00,266 --> 00:31:01,766
+changes after notification.
+
+
+1166
+00:31:02,376 --> 00:31:04,016
+So, we really hope that this
+
+
+1167
+00:31:04,016 --> 00:31:05,026
+will help you as you're
+
+
+1168
+00:31:05,026 --> 00:31:06,076
+debugging and trying to
+
+
+1169
+00:31:06,076 --> 00:31:07,066
+understand what's happening
+
+
+1170
+00:31:07,066 --> 00:31:08,486
+across multiple devices and
+
+
+1171
+00:31:08,486 --> 00:31:10,116
+potentially, multiple users in
+
+
+1172
+00:31:10,116 --> 00:31:10,956
+sharing cases.
+
+
+1173
+00:31:11,986 --> 00:31:12,846
+Now, in this case, we were in
+
+
+1174
+00:31:12,846 --> 00:31:15,226
+the Live Log, but we also have a
+
+
+1175
+00:31:15,226 --> 00:31:16,446
+feature called Historical Log.
+
+
+1176
+00:31:16,966 --> 00:31:18,116
+This allows you to go back and
+
+
+1177
+00:31:18,116 --> 00:31:19,236
+view events that happened in the
+
+
+1178
+00:31:19,236 --> 00:31:19,696
+past.
+
+
+1179
+00:31:20,276 --> 00:31:21,586
+We store events for up to seven
+
+
+1180
+00:31:21,586 --> 00:31:23,166
+days, and you can do things
+
+
+1181
+00:31:23,166 --> 00:31:25,846
+like, show me all the events
+
+
+1182
+00:31:25,846 --> 00:31:27,686
+that happened yesterday, let's
+
+
+1183
+00:31:27,686 --> 00:31:29,996
+say, between 9 and 10, and you
+
+
+1184
+00:31:29,996 --> 00:31:30,816
+can provide a bunch more
+
+
+1185
+00:31:30,816 --> 00:31:32,516
+filters, and this will return to
+
+
+1186
+00:31:32,516 --> 00:31:33,746
+you all the events matching
+
+
+1187
+00:31:33,746 --> 00:31:34,486
+those filters.
+
+
+1188
+00:31:36,286 --> 00:31:37,576
+Alright. The last thing that I
+
+
+1189
+00:31:37,576 --> 00:31:38,896
+would like to talk about is
+
+
+1190
+00:31:38,896 --> 00:31:39,456
+telemetry.
+
+
+1191
+00:31:40,276 --> 00:31:41,446
+So, last year we offered
+
+
+1192
+00:31:41,446 --> 00:31:42,936
+CloudKit Telemetry, and this
+
+
+1193
+00:31:42,936 --> 00:31:43,726
+year we've expanded the
+
+
+1194
+00:31:43,726 --> 00:31:44,156
+offering.
+
+
+1195
+00:31:45,076 --> 00:31:46,926
+As a reminder, telemetry is your
+
+
+1196
+00:31:46,926 --> 00:31:48,756
+way to understand aggregate
+
+
+1197
+00:31:48,756 --> 00:31:50,876
+behavior happening across all of
+
+
+1198
+00:31:50,876 --> 00:31:52,206
+your users' devices coming into
+
+
+1199
+00:31:52,206 --> 00:31:52,866
+your container.
+
+
+1200
+00:31:53,826 --> 00:31:54,676
+In this case, we're looking at
+
+
+1201
+00:31:54,676 --> 00:31:56,386
+the development environment, so
+
+
+1202
+00:31:56,386 --> 00:31:57,776
+we're seeing information that
+
+
+1203
+00:31:57,776 --> 00:31:58,906
+I've been playing with from this
+
+
+1204
+00:31:58,906 --> 00:32:00,156
+app onstage.
+
+
+1205
+00:32:01,626 --> 00:32:03,446
+You can choose a time filter, so
+
+
+1206
+00:32:03,446 --> 00:32:04,706
+you can choose the last year,
+
+
+1207
+00:32:04,876 --> 00:32:06,956
+the last 30 days, the last day,
+
+
+1208
+00:32:06,956 --> 00:32:08,706
+or the last hour, and let's look
+
+
+1209
+00:32:08,706 --> 00:32:09,956
+at the last hour, since that's
+
+
+1210
+00:32:09,956 --> 00:32:11,226
+when we've been onstage playing
+
+
+1211
+00:32:11,226 --> 00:32:12,986
+with this app.
+
+
+1212
+00:32:13,516 --> 00:32:14,626
+You can ask for telemetry
+
+
+1213
+00:32:14,626 --> 00:32:15,816
+information that applies to
+
+
+1214
+00:32:15,816 --> 00:32:17,236
+everyone's private database,
+
+
+1215
+00:32:17,586 --> 00:32:19,486
+everyone's shared database, or
+
+
+1216
+00:32:19,486 --> 00:32:20,906
+just the public database, and
+
+
+1217
+00:32:20,906 --> 00:32:21,746
+let's leave it on private.
+
+
+1218
+00:32:22,976 --> 00:32:24,056
+You can also view telemetry
+
+
+1219
+00:32:24,056 --> 00:32:25,566
+information around all
+
+
+1220
+00:32:25,566 --> 00:32:27,576
+operations within that time
+
+
+1221
+00:32:27,576 --> 00:32:28,536
+window for the private
+
+
+1222
+00:32:28,536 --> 00:32:30,386
+databases, and we'll tell you
+
+
+1223
+00:32:30,386 --> 00:32:31,436
+the specific types of
+
+
+1224
+00:32:31,436 --> 00:32:33,106
+operations, and how many of each
+
+
+1225
+00:32:33,106 --> 00:32:34,456
+came in during that time window.
+
+
+1226
+00:32:34,776 --> 00:32:36,266
+So, you could say, "I would like
+
+
+1227
+00:32:36,266 --> 00:32:37,546
+to see telemetry information
+
+
+1228
+00:32:37,596 --> 00:32:38,836
+only for record modify
+
+
+1229
+00:32:38,836 --> 00:32:39,606
+operations."
+
+
+1230
+00:32:40,246 --> 00:32:41,276
+But, in this case, let's look at
+
+
+1231
+00:32:41,276 --> 00:32:42,396
+it for all operations.
+
+
+1232
+00:32:43,696 --> 00:32:44,636
+The first graph you see at the
+
+
+1233
+00:32:44,636 --> 00:32:46,156
+top is called Requests.
+
+
+1234
+00:32:46,916 --> 00:32:48,456
+This shows you all of the
+
+
+1235
+00:32:48,456 --> 00:32:49,916
+requests coming into the server,
+
+
+1236
+00:32:49,996 --> 00:32:51,506
+again, during this specific time
+
+
+1237
+00:32:51,506 --> 00:32:52,606
+window, and for the private
+
+
+1238
+00:32:52,606 --> 00:32:55,096
+databases, and how many requests
+
+
+1239
+00:32:55,096 --> 00:32:56,626
+for each type came in at a time
+
+
+1240
+00:32:56,626 --> 00:32:57,376
+slice.
+
+
+1241
+00:32:58,356 --> 00:32:59,796
+Notice it's called requests, and
+
+
+1242
+00:32:59,796 --> 00:33:01,396
+not operations, and that's
+
+
+1243
+00:33:01,396 --> 00:33:03,116
+because, as I said before, as
+
+
+1244
+00:33:03,116 --> 00:33:04,486
+you're issuing operations from
+
+
+1245
+00:33:04,486 --> 00:33:06,266
+the API, in some cases, that
+
+
+1246
+00:33:06,266 --> 00:33:08,136
+leads to multiple requests, and
+
+
+1247
+00:33:08,136 --> 00:33:09,236
+we want to give you visibility
+
+
+1248
+00:33:09,236 --> 00:33:10,546
+into all of the requests.
+
+
+1249
+00:33:11,476 --> 00:33:12,726
+So, here we can see that I was
+
+
+1250
+00:33:12,726 --> 00:33:14,626
+doing record modifies, database
+
+
+1251
+00:33:14,626 --> 00:33:16,296
+changes, subscription modifies,
+
+
+1252
+00:33:16,526 --> 00:33:17,476
+and how many of each.
+
+
+1253
+00:33:18,336 --> 00:33:19,346
+We hope that this helps you,
+
+
+1254
+00:33:19,496 --> 00:33:21,496
+during development, understand
+
+
+1255
+00:33:21,496 --> 00:33:22,746
+how many types of requests
+
+
+1256
+00:33:22,746 --> 00:33:23,916
+you're sending in, as you start
+
+
+1257
+00:33:23,916 --> 00:33:24,896
+to test and build your app.
+
+
+1258
+00:33:26,186 --> 00:33:27,766
+And then, in production, and
+
+
+1259
+00:33:27,766 --> 00:33:28,696
+we'll see some examples in a
+
+
+1260
+00:33:28,696 --> 00:33:30,436
+second, we really hope it lets
+
+
+1261
+00:33:30,436 --> 00:33:32,456
+you monitor the types of request
+
+
+1262
+00:33:32,456 --> 00:33:33,546
+coming in across all of your
+
+
+1263
+00:33:33,546 --> 00:33:35,596
+users, to check for things like
+
+
+1264
+00:33:35,596 --> 00:33:37,566
+drops or spikes that may mean
+
+
+1265
+00:33:37,566 --> 00:33:39,076
+there's a bug as you release new
+
+
+1266
+00:33:39,076 --> 00:33:39,896
+app versions.
+
+
+1267
+00:33:42,186 --> 00:33:43,726
+If I scroll down a bit, the next
+
+
+1268
+00:33:43,726 --> 00:33:45,536
+graph is called Server Latency.
+
+
+1269
+00:33:46,266 --> 00:33:47,386
+Here, we're exposing to you
+
+
+1270
+00:33:47,386 --> 00:33:48,856
+exactly how long, again, it took
+
+
+1271
+00:33:48,856 --> 00:33:50,066
+the server to process these
+
+
+1272
+00:33:50,066 --> 00:33:50,556
+events.
+
+
+1273
+00:33:51,376 --> 00:33:52,446
+We show you the 50th and the
+
+
+1274
+00:33:52,446 --> 00:33:54,676
+95th percentile, and as a
+
+
+1275
+00:33:54,676 --> 00:33:55,896
+reminder, you can jump in and
+
+
+1276
+00:33:55,896 --> 00:33:57,476
+see how long it takes for
+
+
+1277
+00:33:57,476 --> 00:33:59,016
+certain types of operations.
+
+
+1278
+00:33:59,646 --> 00:34:00,646
+And, the reason we want to give
+
+
+1279
+00:34:00,646 --> 00:34:02,006
+you this information is so that
+
+
+1280
+00:34:02,006 --> 00:34:04,036
+it helps you understand how long
+
+
+1281
+00:34:04,036 --> 00:34:05,846
+it takes to process the type of
+
+
+1282
+00:34:05,846 --> 00:34:07,206
+operation that you're adding to
+
+
+1283
+00:34:07,206 --> 00:34:08,795
+your application, so that you
+
+
+1284
+00:34:08,795 --> 00:34:09,856
+can choose the right one,
+
+
+1285
+00:34:09,856 --> 00:34:10,996
+depending on the experience that
+
+
+1286
+00:34:10,996 --> 00:34:11,706
+you're trying to build.
+
+
+1287
+00:34:12,856 --> 00:34:15,735
+The next graph is Error Counts.
+
+
+1288
+00:34:16,186 --> 00:34:17,585
+This used to be called Error
+
+
+1289
+00:34:17,585 --> 00:34:19,106
+Rate, so we used to show you
+
+
+1290
+00:34:19,196 --> 00:34:20,746
+what percentage of requests
+
+
+1291
+00:34:20,746 --> 00:34:21,065
+failed.
+
+
+1292
+00:34:21,536 --> 00:34:23,585
+Now we show you how many exact
+
+
+1293
+00:34:23,585 --> 00:34:25,646
+ones failed, and how many users
+
+
+1294
+00:34:25,646 --> 00:34:27,326
+it affected, and the specific
+
+
+1295
+00:34:27,326 --> 00:34:28,065
+types of errors.
+
+
+1296
+00:34:28,065 --> 00:34:29,565
+So, in this case, you can see at
+
+
+1297
+00:34:29,565 --> 00:34:31,186
+this time slice, there was one
+
+
+1298
+00:34:31,186 --> 00:34:31,516
+error.
+
+
+1299
+00:34:31,676 --> 00:34:33,126
+It was a conflict, which meant I
+
+
+1300
+00:34:33,126 --> 00:34:34,335
+tried to update something that
+
+
+1301
+00:34:34,335 --> 00:34:35,266
+was already updated on the
+
+
+1302
+00:34:35,266 --> 00:34:36,886
+server, and it affected one
+
+
+1303
+00:34:36,886 --> 00:34:37,226
+user.
+
+
+1304
+00:34:38,235 --> 00:34:39,356
+So, we hope that this
+
+
+1305
+00:34:39,356 --> 00:34:40,726
+information will allow you to
+
+
+1306
+00:34:40,726 --> 00:34:42,036
+detect when you might have
+
+
+1307
+00:34:42,036 --> 00:34:43,926
+problems in your app causing
+
+
+1308
+00:34:43,926 --> 00:34:45,616
+more errors, and to understand
+
+
+1309
+00:34:45,616 --> 00:34:46,746
+what percentage of your user
+
+
+1310
+00:34:46,746 --> 00:34:47,866
+base it might be affecting.
+
+
+1311
+00:34:49,505 --> 00:34:50,726
+And finally, you still have
+
+
+1312
+00:34:50,726 --> 00:34:52,076
+access to your average request
+
+
+1313
+00:34:52,076 --> 00:34:53,926
+size, which shows you how much
+
+
+1314
+00:34:53,926 --> 00:34:55,136
+data is coming in to the server.
+
+
+1315
+00:34:56,156 --> 00:34:57,085
+Now again, this was my
+
+
+1316
+00:34:57,085 --> 00:34:58,316
+development environment.
+
+
+1317
+00:34:58,996 --> 00:35:00,456
+Let's jump back to slides and
+
+
+1318
+00:35:00,456 --> 00:35:01,856
+take a look at some example
+
+
+1319
+00:35:02,086 --> 00:35:03,586
+screenshots of these graphs in
+
+
+1320
+00:35:03,586 --> 00:35:04,056
+the wild.
+
+
+1321
+00:35:05,316 --> 00:35:07,696
+So, here's a Request graph from
+
+
+1322
+00:35:07,696 --> 00:35:08,726
+one of your containers in the
+
+
+1323
+00:35:08,726 --> 00:35:10,366
+wild, and you can see, on any
+
+
+1324
+00:35:10,366 --> 00:35:12,316
+one day, they do about 2.3
+
+
+1325
+00:35:12,316 --> 00:35:14,086
+million record fetch operations
+
+
+1326
+00:35:14,326 --> 00:35:16,656
+across all of their users in the
+
+
+1327
+00:35:16,656 --> 00:35:17,526
+private database.
+
+
+1328
+00:35:18,296 --> 00:35:19,646
+And, what's interesting is if
+
+
+1329
+00:35:19,646 --> 00:35:20,836
+you look at this scale, you can
+
+
+1330
+00:35:20,836 --> 00:35:22,286
+actually start to see trends
+
+
+1331
+00:35:22,816 --> 00:35:24,646
+across weekday and weekends.
+
+
+1332
+00:35:25,486 --> 00:35:26,586
+And so, these developers can
+
+
+1333
+00:35:26,586 --> 00:35:27,936
+hopefully use this to, like I
+
+
+1334
+00:35:27,936 --> 00:35:30,206
+said, monitor for spikes or
+
+
+1335
+00:35:30,206 --> 00:35:32,126
+drops, changes in this behavior,
+
+
+1336
+00:35:32,446 --> 00:35:33,896
+as they release new versions.
+
+
+1337
+00:35:34,256 --> 00:35:35,516
+And, of course, if you change
+
+
+1338
+00:35:35,516 --> 00:35:36,766
+how you interact with CloudKit,
+
+
+1339
+00:35:37,036 --> 00:35:38,396
+then maybe you expect a change.
+
+
+1340
+00:35:40,336 --> 00:35:42,266
+Here's an example of an Errors
+
+
+1341
+00:35:42,266 --> 00:35:43,166
+graph in the wild.
+
+
+1342
+00:35:44,136 --> 00:35:45,316
+Notice that they have about, oh,
+
+
+1343
+00:35:45,316 --> 00:35:47,006
+on any one day, 1500
+
+
+1344
+00:35:47,006 --> 00:35:48,896
+zone-not-found errors, but it's
+
+
+1345
+00:35:48,896 --> 00:35:50,806
+only affecting about 55 users,
+
+
+1346
+00:35:50,806 --> 00:35:51,546
+which could be a small
+
+
+1347
+00:35:51,546 --> 00:35:52,676
+percentage of their total user
+
+
+1348
+00:35:52,676 --> 00:35:53,396
+base.
+
+
+1349
+00:35:53,666 --> 00:35:55,216
+So, it might mean that there's
+
+
+1350
+00:35:55,216 --> 00:35:56,056
+an edge case in their
+
+
+1351
+00:35:56,056 --> 00:35:57,496
+application where it gets into a
+
+
+1352
+00:35:57,496 --> 00:35:58,606
+weird state where it thinks a
+
+
+1353
+00:35:58,606 --> 00:35:59,736
+zone exists that doesn't
+
+
+1354
+00:35:59,736 --> 00:36:00,826
+actually exist in the server.
+
+
+1355
+00:36:02,506 --> 00:36:04,196
+We have CKError documentation
+
+
+1356
+00:36:04,326 --> 00:36:05,436
+that used to tell you all the
+
+
+1357
+00:36:05,436 --> 00:36:06,776
+types of errors you might see.
+
+
+1358
+00:36:07,136 --> 00:36:08,826
+We've updated that to explain
+
+
+1359
+00:36:08,826 --> 00:36:10,856
+what each error means, and how
+
+
+1360
+00:36:10,856 --> 00:36:11,956
+you might handle that in your
+
+
+1361
+00:36:11,956 --> 00:36:12,586
+application.
+
+
+1362
+00:36:13,156 --> 00:36:14,306
+So, the errors you'll see show
+
+
+1363
+00:36:14,306 --> 00:36:15,706
+up in this graph map back to
+
+
+1364
+00:36:15,706 --> 00:36:16,506
+that documentation.
+
+
+1365
+00:36:18,676 --> 00:36:19,996
+We also give you some telemetry
+
+
+1366
+00:36:19,996 --> 00:36:21,336
+around the push notifications
+
+
+1367
+00:36:21,336 --> 00:36:22,516
+that CloudKit is sending for
+
+
+1368
+00:36:22,516 --> 00:36:23,886
+your application in the wild.
+
+
+1369
+00:36:24,426 --> 00:36:25,896
+It's separated based on the
+
+
+1370
+00:36:25,896 --> 00:36:27,396
+subscriptions in the private,
+
+
+1371
+00:36:27,396 --> 00:36:29,556
+public, and shared database, and
+
+
+1372
+00:36:29,556 --> 00:36:30,976
+this is sort of a sanity check.
+
+
+1373
+00:36:30,976 --> 00:36:32,116
+If a customer complains that
+
+
+1374
+00:36:32,116 --> 00:36:33,526
+data is not synchronizing, you
+
+
+1375
+00:36:33,526 --> 00:36:34,746
+can go here and feel good that
+
+
+1376
+00:36:34,746 --> 00:36:35,986
+CloudKit is still sending push
+
+
+1377
+00:36:35,986 --> 00:36:37,156
+notifications, that
+
+
+1378
+00:36:37,156 --> 00:36:37,966
+subscriptions are still
+
+
+1379
+00:36:37,966 --> 00:36:38,926
+configured right in your
+
+
+1380
+00:36:38,926 --> 00:36:39,456
+application.
+
+
+1381
+00:36:39,936 --> 00:36:43,236
+OK. So, what did we cover today?
+
+
+1382
+00:36:43,816 --> 00:36:45,606
+Well, we've launched a brand-new
+
+
+1383
+00:36:45,606 --> 00:36:46,546
+CloudKit Dashboard.
+
+
+1384
+00:36:46,876 --> 00:36:48,166
+We hope you check it out, try it
+
+
+1385
+00:36:48,166 --> 00:36:48,656
+out.
+
+
+1386
+00:36:48,656 --> 00:36:49,916
+Please give us your feedback,
+
+
+1387
+00:36:49,916 --> 00:36:50,826
+let us know what works, what
+
+
+1388
+00:36:50,826 --> 00:36:51,826
+doesn't work, what else you'd
+
+
+1389
+00:36:51,826 --> 00:36:52,456
+like to see there.
+
+
+1390
+00:36:53,926 --> 00:36:54,656
+We've launched a new
+
+
+1391
+00:36:54,656 --> 00:36:56,156
+CKOperationGroup API.
+
+
+1392
+00:36:57,216 --> 00:36:59,196
+We hope you've started to see
+
+
+1393
+00:36:59,196 --> 00:37:00,846
+the help it can provide you,
+
+
+1394
+00:37:00,846 --> 00:37:02,176
+especially when looking in the
+
+
+1395
+00:37:02,176 --> 00:37:03,996
+Dashboard Log, to understand
+
+
+1396
+00:37:04,186 --> 00:37:06,396
+exactly what code led to what
+
+
+1397
+00:37:06,396 --> 00:37:07,886
+network request being sent back
+
+
+1398
+00:37:07,886 --> 00:37:08,416
+to the server.
+
+
+1399
+00:37:10,246 --> 00:37:11,256
+Like I said, we want all of your
+
+
+1400
+00:37:11,256 --> 00:37:11,756
+feedback.
+
+
+1401
+00:37:11,756 --> 00:37:13,236
+It really does guide what we do,
+
+
+1402
+00:37:13,236 --> 00:37:14,736
+so follow Radars, post on the
+
+
+1403
+00:37:14,736 --> 00:37:15,736
+forums, let us know.
+
+
+1404
+00:37:17,296 --> 00:37:18,606
+For more information, here's a
+
+
+1405
+00:37:18,606 --> 00:37:19,736
+link back to this specific
+
+
+1406
+00:37:19,736 --> 00:37:21,336
+session, and we also have an
+
+
+1407
+00:37:21,336 --> 00:37:22,696
+email address, cloudkit@apple.
+
+
+1408
+00:37:22,896 --> 00:37:24,156
+You're always welcome to reach
+
+
+1409
+00:37:24,156 --> 00:37:25,496
+out and ask us any questions you
+
+
+1410
+00:37:25,496 --> 00:37:25,786
+have.
+
+
+1411
+00:37:26,846 --> 00:37:27,986
+And with that, thank you very
+
+
+1412
+00:37:27,986 --> 00:37:28,316
+much.
+
+
+1413
+00:37:28,316 --> 00:37:30,406
+Have a wonderful conference.
+

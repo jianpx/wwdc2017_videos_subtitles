@@ -1,0 +1,5089 @@
+1
+00:00:00,506 --> 00:00:27,056
+[ Applause ]
+
+
+2
+00:00:27,556 --> 00:00:28,596
+>> Good afternoon everybody.
+
+
+3
+00:00:28,676 --> 00:00:30,416
+Welcome to session 220,
+
+
+4
+00:00:30,416 --> 00:00:32,746
+customize loading in WKWebView.
+
+
+5
+00:00:33,706 --> 00:00:34,806
+My name is Brady Eidson.
+
+
+6
+00:00:34,806 --> 00:00:36,376
+I'm a software engineer on this
+
+
+7
+00:00:36,376 --> 00:00:37,636
+[inaudible] teams at Apple.
+
+
+8
+00:00:37,636 --> 00:00:38,986
+A little later I'll be joined up
+
+
+9
+00:00:38,986 --> 00:00:40,686
+here with my colleague, Alex
+
+
+10
+00:00:40,686 --> 00:00:41,216
+Christensen.
+
+
+11
+00:00:41,746 --> 00:00:43,546
+Let's just start out with a
+
+
+12
+00:00:43,546 --> 00:00:44,216
+quick question.
+
+
+13
+00:00:44,376 --> 00:00:46,456
+How many of you integrate web
+
+
+14
+00:00:46,456 --> 00:00:47,966
+content into your applications?
+
+
+15
+00:00:48,476 --> 00:00:50,566
+You're probably all in the right
+
+
+16
+00:00:50,566 --> 00:00:50,876
+room.
+
+
+17
+00:00:51,876 --> 00:00:52,986
+Now a follow up.
+
+
+18
+00:00:52,986 --> 00:00:54,236
+How many of you have used
+
+
+19
+00:00:54,236 --> 00:00:56,236
+WKWebView to integrate that web
+
+
+20
+00:00:56,236 --> 00:00:56,676
+content?
+
+
+21
+00:00:57,386 --> 00:00:58,546
+Fewer hands came up.
+
+
+22
+00:00:58,546 --> 00:00:59,436
+Still a lot of you though.
+
+
+23
+00:00:59,656 --> 00:01:02,046
+So I'm very excited to talk
+
+
+24
+00:01:02,046 --> 00:01:03,856
+about some great new APIs in
+
+
+25
+00:01:03,856 --> 00:01:05,786
+WKWebView that will help all of
+
+
+26
+00:01:05,786 --> 00:01:07,036
+you who are already using
+
+
+27
+00:01:07,036 --> 00:01:09,106
+WKWebView do some cool new
+
+
+28
+00:01:09,106 --> 00:01:11,566
+things and hopefully adopt --
+
+
+29
+00:01:11,566 --> 00:01:13,286
+help the rest of you to adopt
+
+
+30
+00:01:13,286 --> 00:01:13,986
+WKWebView.
+
+
+31
+00:01:16,806 --> 00:01:19,666
+Apple is a big believer in web
+
+
+32
+00:01:19,666 --> 00:01:20,506
+technologies.
+
+
+33
+00:01:20,986 --> 00:01:23,076
+We know how important they are
+
+
+34
+00:01:23,076 --> 00:01:25,396
+to our developers, our users,
+
+
+35
+00:01:25,506 --> 00:01:26,656
+and your users.
+
+
+36
+00:01:27,196 --> 00:01:29,206
+We have a handful of different
+
+
+37
+00:01:29,206 --> 00:01:30,866
+technologies you can use to
+
+
+38
+00:01:30,866 --> 00:01:32,206
+integrate web content in your
+
+
+39
+00:01:32,206 --> 00:01:32,746
+application.
+
+
+40
+00:01:33,886 --> 00:01:35,556
+Today's talk is primarily about
+
+
+41
+00:01:35,556 --> 00:01:38,006
+WKWebView but I do briefly want
+
+
+42
+00:01:38,006 --> 00:01:39,946
+to mention a different one which
+
+
+43
+00:01:39,946 --> 00:01:41,516
+is Safari View Controller.
+
+
+44
+00:01:42,606 --> 00:01:45,036
+If you need an in app web
+
+
+45
+00:01:45,036 --> 00:01:47,516
+browsing experience, Safari View
+
+
+46
+00:01:47,516 --> 00:01:48,936
+Controller is, by far, the
+
+
+47
+00:01:48,936 --> 00:01:50,216
+preferred way for you to go.
+
+
+48
+00:01:51,516 --> 00:01:53,216
+Using just a few lines of code,
+
+
+49
+00:01:53,506 --> 00:01:55,316
+you can integrate a powerful
+
+
+50
+00:01:55,316 --> 00:01:57,356
+secure web browser into your
+
+
+51
+00:01:57,536 --> 00:01:57,816
+app.
+
+
+52
+00:01:58,266 --> 00:01:59,346
+You don't even need to worry
+
+
+53
+00:01:59,346 --> 00:02:00,266
+about adding the UI.
+
+
+54
+00:02:00,896 --> 00:02:05,096
+But underneath that UI is web
+
+
+55
+00:02:05,096 --> 00:02:05,536
+content.
+
+
+56
+00:02:06,236 --> 00:02:08,955
+And many of you have much deeper
+
+
+57
+00:02:08,955 --> 00:02:10,866
+needs than a straight forward
+
+
+58
+00:02:10,866 --> 00:02:12,456
+web browsing experience can
+
+
+59
+00:02:12,456 --> 00:02:12,946
+fulfill.
+
+
+60
+00:02:13,866 --> 00:02:16,596
+You need customization of the
+
+
+61
+00:02:16,596 --> 00:02:19,426
+behavior of the loading of the
+
+
+62
+00:02:19,426 --> 00:02:22,146
+web content of how it renders,
+
+
+63
+00:02:22,406 --> 00:02:24,916
+of how it interacts with your
+
+
+64
+00:02:24,916 --> 00:02:25,736
+native UI.
+
+
+65
+00:02:26,436 --> 00:02:29,066
+In fact, many of you might be
+
+
+66
+00:02:29,116 --> 00:02:31,056
+integrating the web content into
+
+
+67
+00:02:31,056 --> 00:02:32,536
+your native UI in such a way
+
+
+68
+00:02:32,536 --> 00:02:33,916
+that it's not even obvious
+
+
+69
+00:02:33,916 --> 00:02:35,646
+you're using web content at all.
+
+
+70
+00:02:39,276 --> 00:02:43,036
+If this is you, then WKWebView
+
+
+71
+00:02:43,466 --> 00:02:46,636
+is, by far, the preferred way to
+
+
+72
+00:02:46,636 --> 00:02:46,856
+go.
+
+
+73
+00:02:46,856 --> 00:02:50,246
+Now I want to briefly talk about
+
+
+74
+00:02:50,246 --> 00:02:51,576
+WKWebView's architecture.
+
+
+75
+00:02:52,746 --> 00:02:54,666
+When you integrate web content
+
+
+76
+00:02:54,666 --> 00:02:56,096
+into your application using
+
+
+77
+00:02:56,096 --> 00:02:59,556
+WKWebView, you are inviting the
+
+
+78
+00:02:59,556 --> 00:03:01,376
+entire web platform into your
+
+
+79
+00:03:01,376 --> 00:03:03,736
+application with all of its
+
+
+80
+00:03:03,736 --> 00:03:05,636
+power, all of its flexibility
+
+
+81
+00:03:05,866 --> 00:03:07,806
+but also all of its complexity.
+
+
+82
+00:03:09,596 --> 00:03:12,076
+So WKWebView isolates your
+
+
+83
+00:03:12,076 --> 00:03:14,106
+application from this complexity
+
+
+84
+00:03:14,416 --> 00:03:15,716
+as best we know how.
+
+
+85
+00:03:16,296 --> 00:03:18,996
+It does this using process
+
+
+86
+00:03:18,996 --> 00:03:19,706
+isolation.
+
+
+87
+00:03:20,406 --> 00:03:22,366
+We load the web content and
+
+
+88
+00:03:22,366 --> 00:03:23,576
+render it and execute
+
+
+89
+00:03:23,576 --> 00:03:25,176
+JavaScript, that type of stuff,
+
+
+90
+00:03:25,436 --> 00:03:27,396
+in a separate process from your
+
+
+91
+00:03:27,396 --> 00:03:28,546
+application's process.
+
+
+92
+00:03:29,866 --> 00:03:31,416
+This gives us some fantastic
+
+
+93
+00:03:31,516 --> 00:03:32,716
+security benefits.
+
+
+94
+00:03:33,286 --> 00:03:35,166
+We can protect your application
+
+
+95
+00:03:35,446 --> 00:03:37,016
+from potentially malicious web
+
+
+96
+00:03:37,016 --> 00:03:37,496
+content.
+
+
+97
+00:03:38,026 --> 00:03:40,426
+In fact, different bits of web
+
+
+98
+00:03:40,426 --> 00:03:41,876
+content can each run in their
+
+
+99
+00:03:41,876 --> 00:03:43,286
+own web process.
+
+
+100
+00:03:43,836 --> 00:03:45,596
+So we can protect your trusted
+
+
+101
+00:03:45,596 --> 00:03:47,156
+web content from other
+
+
+102
+00:03:47,156 --> 00:03:48,296
+potentially malicious web
+
+
+103
+00:03:48,296 --> 00:03:48,696
+content.
+
+
+104
+00:03:50,136 --> 00:03:51,836
+This also opens up some great
+
+
+105
+00:03:51,956 --> 00:03:53,296
+performance benefits.
+
+
+106
+00:03:53,536 --> 00:03:54,626
+Web content can be run
+
+
+107
+00:03:54,856 --> 00:03:55,766
+concurrently with your
+
+
+108
+00:03:55,766 --> 00:03:57,276
+application because of the
+
+
+109
+00:03:57,276 --> 00:03:59,296
+security, we can enable the
+
+
+110
+00:03:59,296 --> 00:04:00,716
+advanced JavaScript Just-In-Time
+
+
+111
+00:04:00,716 --> 00:04:01,266
+compiler.
+
+
+112
+00:04:01,806 --> 00:04:05,376
+But because all this is
+
+
+113
+00:04:05,376 --> 00:04:06,856
+happening in a separate process,
+
+
+114
+00:04:07,336 --> 00:04:08,876
+the normal steps you would take
+
+
+115
+00:04:09,086 --> 00:04:11,626
+to configure your process don't
+
+
+116
+00:04:11,626 --> 00:04:13,166
+apply to the web content.
+
+
+117
+00:04:13,796 --> 00:04:15,896
+We need explicit APIs to
+
+
+118
+00:04:15,896 --> 00:04:17,426
+interact with the web content.
+
+
+119
+00:04:18,766 --> 00:04:20,005
+And every since we introduced
+
+
+120
+00:04:20,005 --> 00:04:22,286
+WKWebView, we've been gathering
+
+
+121
+00:04:22,286 --> 00:04:23,946
+feedback from developers of all
+
+
+122
+00:04:23,946 --> 00:04:25,476
+types working on all sorts of
+
+
+123
+00:04:25,476 --> 00:04:26,266
+applications.
+
+
+124
+00:04:27,136 --> 00:04:29,596
+And we've compiled a list of a
+
+
+125
+00:04:29,596 --> 00:04:31,516
+top three that we're going to
+
+
+126
+00:04:31,516 --> 00:04:32,396
+introduce today.
+
+
+127
+00:04:32,396 --> 00:04:34,336
+And we think that these three
+
+
+128
+00:04:34,336 --> 00:04:36,996
+new mechanisms will unlock some
+
+
+129
+00:04:36,996 --> 00:04:38,376
+pretty powerful capabilities
+
+
+130
+00:04:38,576 --> 00:04:39,676
+that you guys have been asking
+
+
+131
+00:04:39,676 --> 00:04:39,876
+for.
+
+
+132
+00:04:43,046 --> 00:04:44,326
+So first we're going to
+
+
+133
+00:04:44,326 --> 00:04:46,236
+introduce a way to manage
+
+
+134
+00:04:46,346 --> 00:04:48,626
+cookies visible to a WKWebView.
+
+
+135
+00:04:48,626 --> 00:04:52,676
+We're going to introduce a
+
+
+136
+00:04:52,676 --> 00:04:53,876
+fantastic mechanism for
+
+
+137
+00:04:53,876 --> 00:04:56,956
+filtering unwanted content from
+
+
+138
+00:04:57,016 --> 00:04:57,706
+your WebView.
+
+
+139
+00:04:58,106 --> 00:05:02,466
+And finally, a way for you to
+
+
+140
+00:05:02,466 --> 00:05:04,566
+provide custom resources to web
+
+
+141
+00:05:04,566 --> 00:05:07,286
+content no matter where you have
+
+
+142
+00:05:07,286 --> 00:05:08,396
+the data for those custom
+
+
+143
+00:05:08,396 --> 00:05:09,016
+resources.
+
+
+144
+00:05:09,016 --> 00:05:10,236
+Wherever -- no matter where it
+
+
+145
+00:05:10,236 --> 00:05:10,656
+comes from.
+
+
+146
+00:05:11,196 --> 00:05:15,516
+So first managing cookies.
+
+
+147
+00:05:16,036 --> 00:05:18,536
+We actually know that a lot of
+
+
+148
+00:05:18,836 --> 00:05:20,396
+the developers dipping their
+
+
+149
+00:05:20,396 --> 00:05:22,256
+toes in the waters of WKWebView
+
+
+150
+00:05:22,436 --> 00:05:23,636
+are pretty new to the web
+
+
+151
+00:05:23,636 --> 00:05:24,116
+platform.
+
+
+152
+00:05:24,926 --> 00:05:25,976
+So I briefly want to go over
+
+
+153
+00:05:26,146 --> 00:05:28,306
+what is a cookie?
+
+
+154
+00:05:28,816 --> 00:05:30,376
+When a webpage is rendered in a
+
+
+155
+00:05:30,376 --> 00:05:32,376
+browser engine, a lot of sub
+
+
+156
+00:05:32,376 --> 00:05:33,216
+resources come up.
+
+
+157
+00:05:33,466 --> 00:05:36,236
+Images, JavaScript files, style
+
+
+158
+00:05:36,236 --> 00:05:38,086
+sheets, things like that.
+
+
+159
+00:05:38,496 --> 00:05:40,596
+For each sub resource, we need
+
+
+160
+00:05:40,596 --> 00:05:42,036
+to make a request to the server.
+
+
+161
+00:05:42,226 --> 00:05:44,336
+The server needs to respond with
+
+
+162
+00:05:44,386 --> 00:05:46,546
+the data of the resource itself
+
+
+163
+00:05:47,136 --> 00:05:48,366
+and some meta data about the
+
+
+164
+00:05:48,366 --> 00:05:48,896
+resource.
+
+
+165
+00:05:49,396 --> 00:05:51,576
+And both the requests and the
+
+
+166
+00:05:51,576 --> 00:05:53,216
+responses include little bits of
+
+
+167
+00:05:53,216 --> 00:05:54,226
+data called cookies.
+
+
+168
+00:05:55,416 --> 00:05:56,676
+The server will respond with a
+
+
+169
+00:05:56,676 --> 00:05:58,406
+cookie which the browser
+
+
+170
+00:05:58,406 --> 00:06:00,386
+remembers and can send back out
+
+
+171
+00:06:00,386 --> 00:06:01,626
+to the server in future
+
+
+172
+00:06:01,626 --> 00:06:02,326
+requests.
+
+
+173
+00:06:03,206 --> 00:06:04,856
+This helps track a user's
+
+
+174
+00:06:04,856 --> 00:06:06,286
+session when using a web
+
+
+175
+00:06:06,286 --> 00:06:06,976
+application.
+
+
+176
+00:06:07,646 --> 00:06:09,726
+Things like their log in
+
+
+177
+00:06:09,726 --> 00:06:10,316
+credentials.
+
+
+178
+00:06:10,316 --> 00:06:12,016
+Their log in state, a log in
+
+
+179
+00:06:12,016 --> 00:06:12,516
+token.
+
+
+180
+00:06:13,056 --> 00:06:14,636
+Or if it's a shopping
+
+
+181
+00:06:14,636 --> 00:06:17,006
+application, perhaps, the state
+
+
+182
+00:06:17,006 --> 00:06:18,166
+of their shopping cart and
+
+
+183
+00:06:18,166 --> 00:06:20,466
+what's in it.
+
+
+184
+00:06:20,966 --> 00:06:22,066
+When you're integrating web
+
+
+185
+00:06:22,066 --> 00:06:23,226
+content into your native
+
+
+186
+00:06:23,226 --> 00:06:26,146
+application, you often need to
+
+
+187
+00:06:26,146 --> 00:06:27,636
+manipulate these bits of data.
+
+
+188
+00:06:28,876 --> 00:06:31,096
+You might know things ahead of
+
+
+189
+00:06:31,096 --> 00:06:32,976
+time to help prompt prime the
+
+
+190
+00:06:32,976 --> 00:06:33,436
+WebView.
+
+
+191
+00:06:33,436 --> 00:06:35,736
+To make the experience smoother.
+
+
+192
+00:06:35,736 --> 00:06:38,576
+You might need to do something
+
+
+193
+00:06:38,576 --> 00:06:40,316
+like add a log out button where
+
+
+194
+00:06:40,316 --> 00:06:41,496
+you could just delete the
+
+
+195
+00:06:41,496 --> 00:06:43,186
+session cookie or the cookie
+
+
+196
+00:06:43,186 --> 00:06:45,036
+representing the user's session
+
+
+197
+00:06:45,036 --> 00:06:46,056
+log in.
+
+
+198
+00:06:47,616 --> 00:06:49,796
+There's also other -- another
+
+
+199
+00:06:49,866 --> 00:06:51,686
+type of why you need -- might
+
+
+200
+00:06:51,686 --> 00:06:53,456
+need to manage cookies which is
+
+
+201
+00:06:53,456 --> 00:06:54,976
+the opposite of helping the
+
+
+202
+00:06:54,976 --> 00:06:55,746
+session along.
+
+
+203
+00:06:56,046 --> 00:06:57,516
+You might need to protect the
+
+
+204
+00:06:57,576 --> 00:06:59,376
+user from having a session
+
+
+205
+00:06:59,376 --> 00:07:02,426
+tracked for certain types of
+
+
+206
+00:07:02,426 --> 00:07:03,876
+applications and perhaps,
+
+
+207
+00:07:03,876 --> 00:07:05,586
+certain types of users this is
+
+
+208
+00:07:05,586 --> 00:07:07,336
+becoming more and more important
+
+
+209
+00:07:07,336 --> 00:07:09,106
+to be aware of these days.
+
+
+210
+00:07:10,396 --> 00:07:12,216
+So whatever your reason is to
+
+
+211
+00:07:12,216 --> 00:07:13,606
+manipulate the cookies visible
+
+
+212
+00:07:13,606 --> 00:07:15,786
+to a WKWebView, the new API,
+
+
+213
+00:07:15,786 --> 00:07:19,096
+WKHTTPCookieStore, will do what
+
+
+214
+00:07:19,096 --> 00:07:21,496
+you need it to do.
+
+
+215
+00:07:22,316 --> 00:07:25,036
+Using the HTTPCookieStore, you
+
+
+216
+00:07:25,076 --> 00:07:26,876
+can add and remove individual
+
+
+217
+00:07:26,876 --> 00:07:28,376
+cookies visible to a WebView.
+
+
+218
+00:07:29,716 --> 00:07:32,676
+Pretty straight forward.
+
+
+219
+00:07:32,676 --> 00:07:35,226
+You can also get a list of all
+
+
+220
+00:07:35,226 --> 00:07:36,546
+of the cookies visible in the
+
+
+221
+00:07:36,546 --> 00:07:36,806
+WebView.
+
+
+222
+00:07:36,806 --> 00:07:39,096
+You know if you're a veteran
+
+
+223
+00:07:39,576 --> 00:07:41,776
+WKWebView user, you might have
+
+
+224
+00:07:41,776 --> 00:07:43,526
+used JavaScript to get the
+
+
+225
+00:07:43,526 --> 00:07:46,256
+cookies visible to the current
+
+
+226
+00:07:46,256 --> 00:07:48,036
+document displayed in a WebView
+
+
+227
+00:07:49,066 --> 00:07:50,196
+but when you do that, you didn't
+
+
+228
+00:07:50,196 --> 00:07:52,736
+get at the http only cookies
+
+
+229
+00:07:52,886 --> 00:07:53,706
+that are supposed to be hidden
+
+
+230
+00:07:53,706 --> 00:07:54,456
+from JavaScript.
+
+
+231
+00:07:55,216 --> 00:07:56,376
+Now that is possible.
+
+
+232
+00:07:56,676 --> 00:08:00,926
+And then finally it adds a
+
+
+233
+00:08:00,926 --> 00:08:02,566
+mechanism for you to observe
+
+
+234
+00:08:02,566 --> 00:08:03,846
+changes to the cookie store.
+
+
+235
+00:08:04,586 --> 00:08:06,076
+While you might be specifically
+
+
+236
+00:08:06,076 --> 00:08:07,996
+adding or removing cookies from
+
+
+237
+00:08:07,996 --> 00:08:10,216
+the cookie store, any resource
+
+
+238
+00:08:10,216 --> 00:08:11,536
+requests that goes to a server
+
+
+239
+00:08:11,536 --> 00:08:13,066
+and comes back could also add
+
+
+240
+00:08:13,066 --> 00:08:15,046
+new cookies to the store or
+
+
+241
+00:08:15,046 --> 00:08:16,706
+JavaScript executed in a page
+
+
+242
+00:08:16,836 --> 00:08:17,936
+could add new cookies.
+
+
+243
+00:08:18,276 --> 00:08:20,156
+And you can now observe those
+
+
+244
+00:08:20,156 --> 00:08:20,706
+changes.
+
+
+245
+00:08:22,626 --> 00:08:24,896
+So you can get to a specific
+
+
+246
+00:08:24,896 --> 00:08:27,276
+WKWebView cookie's store through
+
+
+247
+00:08:27,276 --> 00:08:28,636
+its website data store.
+
+
+248
+00:08:29,286 --> 00:08:30,466
+This is already a property
+
+
+249
+00:08:30,466 --> 00:08:31,826
+that's exposed on a WebView's
+
+
+250
+00:08:31,826 --> 00:08:32,626
+configuration.
+
+
+251
+00:08:32,926 --> 00:08:34,326
+And now the website data store
+
+
+252
+00:08:34,326 --> 00:08:35,966
+itself has a new property to get
+
+
+253
+00:08:35,966 --> 00:08:36,635
+to the cookie store.
+
+
+254
+00:08:36,635 --> 00:08:42,025
+To add a cookie, you use the
+
+
+255
+00:08:42,025 --> 00:08:44,145
+already established HTTPCookie
+
+
+256
+00:08:44,145 --> 00:08:46,316
+API to construct the cookie
+
+
+257
+00:08:46,316 --> 00:08:47,596
+object you'd like to put in the
+
+
+258
+00:08:47,596 --> 00:08:48,106
+data store.
+
+
+259
+00:08:48,896 --> 00:08:52,376
+The specifics of this are up to
+
+
+260
+00:08:52,376 --> 00:08:53,986
+you and the web service you are
+
+
+261
+00:08:53,986 --> 00:08:56,166
+interacting with but once you
+
+
+262
+00:08:56,166 --> 00:08:57,176
+have the cookie all set and
+
+
+263
+00:08:57,176 --> 00:08:59,706
+ready to go, you'll call set
+
+
+264
+00:08:59,736 --> 00:09:00,956
+cookie on the cookie store with
+
+
+265
+00:09:00,996 --> 00:09:01,396
+your cookie.
+
+
+266
+00:09:02,506 --> 00:09:03,416
+Now you'll notice there's your
+
+
+267
+00:09:03,416 --> 00:09:04,526
+trailing closure here, a
+
+
+268
+00:09:04,526 --> 00:09:05,436
+completion handler.
+
+
+269
+00:09:05,906 --> 00:09:08,316
+This process is asynchronous and
+
+
+270
+00:09:08,316 --> 00:09:09,736
+it needs to send out to all
+
+
+271
+00:09:09,736 --> 00:09:12,106
+those processes involved in the
+
+
+272
+00:09:12,106 --> 00:09:14,516
+WKWebView mechanism that are
+
+
+273
+00:09:14,516 --> 00:09:15,916
+isolated from your application.
+
+
+274
+00:09:16,106 --> 00:09:18,146
+So you need to wait until WebKit
+
+
+275
+00:09:18,146 --> 00:09:19,696
+decides it's all done and ready
+
+
+276
+00:09:19,696 --> 00:09:20,096
+to go.
+
+
+277
+00:09:20,096 --> 00:09:21,966
+And you can be confident in your
+
+
+278
+00:09:21,966 --> 00:09:23,716
+completion handler that any
+
+
+279
+00:09:23,716 --> 00:09:25,016
+request you load in the WebView
+
+
+280
+00:09:25,356 --> 00:09:26,866
+will have that cookie applied.
+
+
+281
+00:09:30,176 --> 00:09:31,546
+If you need to manipulate the
+
+
+282
+00:09:31,546 --> 00:09:33,776
+existing cookies, you can get at
+
+
+283
+00:09:33,776 --> 00:09:34,956
+the set of all cookies.
+
+
+284
+00:09:36,006 --> 00:09:37,156
+Again in your completion
+
+
+285
+00:09:37,156 --> 00:09:38,586
+handler, you'll have a set of
+
+
+286
+00:09:38,586 --> 00:09:39,676
+the cookies and you can walk
+
+
+287
+00:09:39,676 --> 00:09:40,796
+through and find the right one.
+
+
+288
+00:09:41,386 --> 00:09:42,616
+In this illustration, we're
+
+
+289
+00:09:42,806 --> 00:09:44,386
+going for logging the user out
+
+
+290
+00:09:44,386 --> 00:09:45,756
+by finding the log in cookie.
+
+
+291
+00:09:46,286 --> 00:09:49,336
+And then we'll call delete and
+
+
+292
+00:09:49,336 --> 00:09:50,136
+get rid of that cookie.
+
+
+293
+00:09:50,986 --> 00:09:52,166
+And again, in our completion
+
+
+294
+00:09:52,166 --> 00:09:53,896
+handler, we will know that any
+
+
+295
+00:09:53,896 --> 00:09:55,116
+future requests in the WebView
+
+
+296
+00:09:55,356 --> 00:09:56,516
+will have that cookie removed.
+
+
+297
+00:09:56,906 --> 00:09:58,286
+And those are the basics of
+
+
+298
+00:09:58,286 --> 00:10:00,016
+managing cookies using
+
+
+299
+00:10:00,066 --> 00:10:01,496
+WKHTTPCookieStore.
+
+
+300
+00:10:02,086 --> 00:10:03,376
+We'll see a little bit more
+
+
+301
+00:10:03,376 --> 00:10:04,936
+about that later but I'd like to
+
+
+302
+00:10:04,936 --> 00:10:07,476
+move on to filtering unwanted
+
+
+303
+00:10:08,836 --> 00:10:09,086
+content.
+
+
+304
+00:10:10,126 --> 00:10:11,786
+When you a load page in a
+
+
+305
+00:10:11,786 --> 00:10:13,656
+WebView, an HTML document,
+
+
+306
+00:10:14,436 --> 00:10:15,776
+there's all those sub resources
+
+
+307
+00:10:15,926 --> 00:10:17,016
+that are loaded that I already
+
+
+308
+00:10:17,016 --> 00:10:17,446
+mentioned.
+
+
+309
+00:10:18,566 --> 00:10:20,106
+And there's a number of reasons
+
+
+310
+00:10:20,106 --> 00:10:21,566
+why you need to make on a
+
+
+311
+00:10:21,566 --> 00:10:23,956
+resource by resource basis a
+
+
+312
+00:10:23,956 --> 00:10:25,216
+decision about whether or not to
+
+
+313
+00:10:25,216 --> 00:10:27,216
+load the resource or otherwise,
+
+
+314
+00:10:27,216 --> 00:10:28,286
+change how the resource is
+
+
+315
+00:10:28,286 --> 00:10:28,676
+loaded.
+
+
+316
+00:10:29,226 --> 00:10:31,596
+A common case we hear from
+
+
+317
+00:10:31,596 --> 00:10:33,496
+developers is they're working on
+
+
+318
+00:10:33,496 --> 00:10:36,076
+a browser targeted for schools,
+
+
+319
+00:10:36,076 --> 00:10:37,756
+libraries, some other public
+
+
+320
+00:10:37,756 --> 00:10:40,586
+place where the content loaded
+
+
+321
+00:10:40,586 --> 00:10:41,886
+in the browser has to be family
+
+
+322
+00:10:41,886 --> 00:10:42,316
+friendly.
+
+
+323
+00:10:42,616 --> 00:10:43,786
+So we need to filter out
+
+
+324
+00:10:43,786 --> 00:10:45,466
+everything is not family
+
+
+325
+00:10:45,466 --> 00:10:45,796
+friendly.
+
+
+326
+00:10:46,316 --> 00:10:50,206
+In a similar vane, we've heard
+
+
+327
+00:10:50,206 --> 00:10:51,156
+from developers working on
+
+
+328
+00:10:51,156 --> 00:10:52,896
+corporate intranet applications
+
+
+329
+00:10:53,336 --> 00:10:54,596
+that they have varying needs
+
+
+330
+00:10:54,596 --> 00:10:55,476
+within the same app.
+
+
+331
+00:10:55,556 --> 00:10:57,576
+One WebView might need to block
+
+
+332
+00:10:57,576 --> 00:10:59,506
+all content that is not coming
+
+
+333
+00:10:59,506 --> 00:11:00,596
+from the corporate's network.
+
+
+334
+00:11:01,036 --> 00:11:02,266
+Another WebView might need to
+
+
+335
+00:11:02,266 --> 00:11:04,326
+block all content coming from
+
+
+336
+00:11:04,446 --> 00:11:05,996
+certain specific servers.
+
+
+337
+00:11:06,486 --> 00:11:07,936
+You can have each WebView setup
+
+
+338
+00:11:08,296 --> 00:11:10,976
+to do its own thing on a per sub
+
+
+339
+00:11:10,976 --> 00:11:11,866
+resource basis.
+
+
+340
+00:11:15,536 --> 00:11:16,866
+And then there's insecure
+
+
+341
+00:11:16,866 --> 00:11:17,356
+content.
+
+
+342
+00:11:17,966 --> 00:11:19,396
+We can upgrade it to be as
+
+
+343
+00:11:19,396 --> 00:11:21,306
+secure as we possibly know how.
+
+
+344
+00:11:21,716 --> 00:11:23,446
+This can help keep our user's
+
+
+345
+00:11:23,446 --> 00:11:25,266
+data and their browsing activity
+
+
+346
+00:11:25,426 --> 00:11:26,896
+and our app's browsing activity
+
+
+347
+00:11:27,436 --> 00:11:28,836
+hidden from prying eyes.
+
+
+348
+00:11:32,116 --> 00:11:35,526
+So the new WKContentRuleList API
+
+
+349
+00:11:35,526 --> 00:11:37,986
+will help you do all of these
+
+
+350
+00:11:39,956 --> 00:11:40,086
+things.
+
+
+351
+00:11:40,286 --> 00:11:42,386
+Now if you're familiar with
+
+
+352
+00:11:42,986 --> 00:11:44,916
+Safari content blocking
+
+
+353
+00:11:44,966 --> 00:11:47,076
+extensions where you provide a
+
+
+354
+00:11:47,076 --> 00:11:49,676
+rule set to configure Safari to
+
+
+355
+00:11:49,676 --> 00:11:51,326
+block certain resources loads,
+
+
+356
+00:11:52,226 --> 00:11:54,766
+the ContentRuleList has the same
+
+
+357
+00:11:54,866 --> 00:11:56,536
+syntax as those content blocker
+
+
+358
+00:11:56,536 --> 00:11:57,126
+extensions.
+
+
+359
+00:11:57,526 --> 00:12:01,276
+With them, you can block
+
+
+360
+00:12:01,396 --> 00:12:04,406
+specific resource loads by --
+
+
+361
+00:12:04,666 --> 00:12:06,636
+for example, matching the url of
+
+
+362
+00:12:06,636 --> 00:12:07,876
+the resource to a regular
+
+
+363
+00:12:07,876 --> 00:12:08,396
+expression.
+
+
+364
+00:12:08,686 --> 00:12:10,016
+You might be able to tell WebKit
+
+
+365
+00:12:10,016 --> 00:12:11,706
+ahead of time don't ever load
+
+
+366
+00:12:11,926 --> 00:12:12,886
+such urls.
+
+
+367
+00:12:13,236 --> 00:12:17,436
+In some cases, if you block a
+
+
+368
+00:12:17,436 --> 00:12:19,176
+resource load all together, you
+
+
+369
+00:12:19,176 --> 00:12:21,246
+can break the webpage in subtle,
+
+
+370
+00:12:21,346 --> 00:12:22,906
+sometimes not so subtle ways.
+
+
+371
+00:12:23,466 --> 00:12:25,296
+So there is a rule action where
+
+
+372
+00:12:25,296 --> 00:12:26,716
+you can tell WebKit to perform
+
+
+373
+00:12:26,716 --> 00:12:28,386
+the load but make the resulting
+
+
+374
+00:12:28,386 --> 00:12:29,576
+content invisible.
+
+
+375
+00:12:29,976 --> 00:12:34,926
+And then finally we can upgrade
+
+
+376
+00:12:34,926 --> 00:12:37,356
+those insecure resource loads to
+
+
+377
+00:12:37,356 --> 00:12:38,396
+be secure loads.
+
+
+378
+00:12:39,126 --> 00:12:40,216
+This comes in two important
+
+
+379
+00:12:40,216 --> 00:12:40,726
+forms.
+
+
+380
+00:12:40,896 --> 00:12:45,156
+One is any http plain text url
+
+
+381
+00:12:45,646 --> 00:12:47,446
+that is come across, you can
+
+
+382
+00:12:47,446 --> 00:12:49,306
+upgrade it to be an encrypted
+
+
+383
+00:12:49,306 --> 00:12:50,196
+https url.
+
+
+384
+00:12:51,336 --> 00:12:54,146
+And you can also block cookies
+
+
+385
+00:12:54,446 --> 00:12:56,156
+from being sent out with certain
+
+
+386
+00:12:56,156 --> 00:12:56,876
+requests.
+
+
+387
+00:12:57,336 --> 00:12:58,576
+If the requests are to a
+
+
+388
+00:12:58,576 --> 00:13:01,026
+resource of a sensitive nature,
+
+
+389
+00:13:01,156 --> 00:13:03,526
+you can prevent your user's data
+
+
+390
+00:13:03,526 --> 00:13:05,116
+and session state from leaking
+
+
+391
+00:13:05,116 --> 00:13:06,216
+out with those requests.
+
+
+392
+00:13:08,516 --> 00:13:11,646
+When you provide your rule list
+
+
+393
+00:13:11,646 --> 00:13:14,886
+to WebKit, WebKit compiles into
+
+
+394
+00:13:15,096 --> 00:13:16,846
+an efficient byte code format.
+
+
+395
+00:13:17,066 --> 00:13:19,336
+This is kind of an
+
+
+396
+00:13:19,336 --> 00:13:21,166
+implementation detail that's not
+
+
+397
+00:13:21,166 --> 00:13:22,506
+directly relevant to you.
+
+
+398
+00:13:22,726 --> 00:13:25,126
+I'm bringing it up because I
+
+
+399
+00:13:25,126 --> 00:13:26,636
+want to assure you that a
+
+
+400
+00:13:26,636 --> 00:13:28,666
+content rule list even a large
+
+
+401
+00:13:28,756 --> 00:13:31,626
+set of thousands of rules we've
+
+
+402
+00:13:31,626 --> 00:13:32,966
+been spending a lot of time
+
+
+403
+00:13:32,966 --> 00:13:33,986
+working on making that as
+
+
+404
+00:13:34,326 --> 00:13:35,496
+efficient as possible.
+
+
+405
+00:13:35,496 --> 00:13:36,976
+And no matter how big your rule
+
+
+406
+00:13:36,976 --> 00:13:38,636
+set is, if it compiles
+
+
+407
+00:13:38,636 --> 00:13:40,666
+successfully you should not see
+
+
+408
+00:13:40,666 --> 00:13:41,866
+degradation in loading
+
+
+409
+00:13:41,866 --> 00:13:42,546
+performance.
+
+
+410
+00:13:46,906 --> 00:13:49,106
+You supply your rules in a
+
+
+411
+00:13:49,106 --> 00:13:51,066
+simple JSON format.
+
+
+412
+00:13:52,196 --> 00:13:54,586
+The JSON has pairs of triggers
+
+
+413
+00:13:55,146 --> 00:13:55,986
+and actions.
+
+
+414
+00:13:56,746 --> 00:13:58,286
+In this example up on the
+
+
+415
+00:13:58,286 --> 00:14:01,456
+screen, the trigger is matching
+
+
+416
+00:14:01,456 --> 00:14:03,376
+a url that is a url.
+
+
+417
+00:14:03,476 --> 00:14:04,906
+It's for every single url that's
+
+
+418
+00:14:04,906 --> 00:14:05,946
+a regular expression that says
+
+
+419
+00:14:06,356 --> 00:14:09,436
+for all urls take the action of
+
+
+420
+00:14:09,436 --> 00:14:11,566
+making the url https.
+
+
+421
+00:14:12,286 --> 00:14:15,466
+So this is a common and
+
+
+422
+00:14:15,466 --> 00:14:17,996
+important shotgun approach to
+
+
+423
+00:14:17,996 --> 00:14:19,716
+upgrading all plain text
+
+
+424
+00:14:19,876 --> 00:14:22,866
+requests to be encrypted ones.
+
+
+425
+00:14:23,196 --> 00:14:26,456
+I'm not going to go into the
+
+
+426
+00:14:26,456 --> 00:14:27,936
+other actions and triggers that
+
+
+427
+00:14:27,936 --> 00:14:30,926
+are available right here because
+
+
+428
+00:14:30,926 --> 00:14:31,996
+I have so much more I'd like to
+
+
+429
+00:14:31,996 --> 00:14:33,826
+talk about today but there are
+
+
+430
+00:14:33,826 --> 00:14:35,456
+resources that we will refer you
+
+
+431
+00:14:35,456 --> 00:14:37,586
+to to get the full breadth of
+
+
+432
+00:14:37,586 --> 00:14:39,126
+what is available to you.
+
+
+433
+00:14:40,696 --> 00:14:43,046
+Once you have your JSON, you'll
+
+
+434
+00:14:43,046 --> 00:14:44,746
+pass it to the related new API,
+
+
+435
+00:14:44,786 --> 00:14:47,486
+WKContentRuleListStore, to
+
+
+436
+00:14:47,486 --> 00:14:49,336
+compile it into that efficient
+
+
+437
+00:14:49,336 --> 00:14:50,766
+byte code format.
+
+
+438
+00:14:52,716 --> 00:14:54,556
+Now notice there's a string
+
+
+439
+00:14:54,626 --> 00:14:56,086
+identifier passed in.
+
+
+440
+00:14:56,536 --> 00:14:58,146
+It's up to you to come up with
+
+
+441
+00:14:58,146 --> 00:14:59,896
+what the string is and it will
+
+
+442
+00:14:59,896 --> 00:15:01,636
+be relevant in just a little
+
+
+443
+00:15:02,166 --> 00:15:02,266
+bit.
+
+
+444
+00:15:04,456 --> 00:15:06,466
+You'll have a completion handler
+
+
+445
+00:15:06,466 --> 00:15:07,556
+and when your completion handler
+
+
+446
+00:15:07,556 --> 00:15:08,316
+is called with the
+
+
+447
+00:15:08,316 --> 00:15:10,586
+WKContentRuleList, you can
+
+
+448
+00:15:10,586 --> 00:15:11,916
+create a WebView with that rule
+
+
+449
+00:15:11,916 --> 00:15:14,016
+list installed and start loading
+
+
+450
+00:15:14,016 --> 00:15:16,246
+content -- start loading web
+
+
+451
+00:15:16,246 --> 00:15:17,776
+content that filters out
+
+
+452
+00:15:17,776 --> 00:15:19,156
+unwanted sub resources.
+
+
+453
+00:15:19,426 --> 00:15:22,756
+So that identifier.
+
+
+454
+00:15:23,746 --> 00:15:25,396
+When we compile a rule list from
+
+
+455
+00:15:25,396 --> 00:15:27,176
+JSON to the efficient byte code
+
+
+456
+00:15:27,176 --> 00:15:28,916
+format, you can name it.
+
+
+457
+00:15:29,306 --> 00:15:31,286
+And then later you can look up
+
+
+458
+00:15:31,286 --> 00:15:33,126
+by the same identifier so you
+
+
+459
+00:15:33,126 --> 00:15:34,426
+don't have to compile it again.
+
+
+460
+00:15:34,656 --> 00:15:36,976
+WebKit stores it on the storage
+
+
+461
+00:15:36,976 --> 00:15:39,546
+of the device and can look it up
+
+
+462
+00:15:39,546 --> 00:15:40,376
+much quicker later.
+
+
+463
+00:15:40,876 --> 00:15:42,066
+So you can -- you only need to
+
+
+464
+00:15:42,066 --> 00:15:43,906
+compile a certain rule set once.
+
+
+465
+00:15:44,256 --> 00:15:47,326
+Once you have your
+
+
+466
+00:15:47,326 --> 00:15:50,486
+WKContentRuleList as I just
+
+
+467
+00:15:50,486 --> 00:15:51,756
+mentioned, you add it to the
+
+
+468
+00:15:51,756 --> 00:15:53,946
+WebView's configuration and now
+
+
+469
+00:15:54,056 --> 00:15:54,716
+you're ready to go.
+
+
+470
+00:15:55,296 --> 00:15:57,306
+I believe there's no better way
+
+
+471
+00:15:57,306 --> 00:15:59,096
+to see what cool new APIs can do
+
+
+472
+00:15:59,096 --> 00:16:00,346
+other than a demo.
+
+
+473
+00:16:00,446 --> 00:16:01,936
+So I'd like to invite Alex on
+
+
+474
+00:16:01,936 --> 00:16:03,406
+the stage to show you a little
+
+
+475
+00:16:03,406 --> 00:16:03,746
+bit more.
+
+
+476
+00:16:04,516 --> 00:16:09,996
+[ Applause ]
+
+
+477
+00:16:10,496 --> 00:16:11,346
+>> Thanks Brady.
+
+
+478
+00:16:13,396 --> 00:16:16,646
+I am making an app and it's an
+
+
+479
+00:16:16,646 --> 00:16:17,516
+educational app.
+
+
+480
+00:16:17,896 --> 00:16:20,236
+And it will help people to learn
+
+
+481
+00:16:20,236 --> 00:16:22,456
+something more about a subject
+
+
+482
+00:16:23,226 --> 00:16:25,226
+that makes me very happy and
+
+
+483
+00:16:25,226 --> 00:16:26,566
+that is dogs.
+
+
+484
+00:16:27,696 --> 00:16:30,706
+And so my users are going to
+
+
+485
+00:16:30,706 --> 00:16:31,796
+read articles online.
+
+
+486
+00:16:33,066 --> 00:16:34,916
+They're going to take a quiz on
+
+
+487
+00:16:34,916 --> 00:16:36,386
+these articles and then they are
+
+
+488
+00:16:36,386 --> 00:16:38,376
+going to receive a diploma.
+
+
+489
+00:16:39,556 --> 00:16:41,396
+So since I am going to be
+
+
+490
+00:16:41,396 --> 00:16:42,716
+showing web content and
+
+
+491
+00:16:42,716 --> 00:16:44,156
+integrating into my app, I'm
+
+
+492
+00:16:44,156 --> 00:16:46,326
+going to use WKWebView.
+
+
+493
+00:16:53,456 --> 00:16:54,246
+There we go.
+
+
+494
+00:16:55,086 --> 00:16:58,896
+We have a very simple app that
+
+
+495
+00:16:58,896 --> 00:17:01,426
+basically does nothing but open
+
+
+496
+00:17:01,516 --> 00:17:03,696
+a WKWebView and open up the web
+
+
+497
+00:17:03,696 --> 00:17:05,526
+content in that WKWebView.
+
+
+498
+00:17:06,086 --> 00:17:08,006
+Let's see what it looks like
+
+
+499
+00:17:08,006 --> 00:17:11,606
+right out of the box.
+
+
+500
+00:17:11,766 --> 00:17:13,945
+Okay. So this web service checks
+
+
+501
+00:17:14,596 --> 00:17:18,185
+the http header for the presence
+
+
+502
+00:17:18,185 --> 00:17:21,685
+of a cookie to indicate who the
+
+
+503
+00:17:21,685 --> 00:17:25,076
+student is and if there is no
+
+
+504
+00:17:25,076 --> 00:17:27,406
+cookie, then it will forward us
+
+
+505
+00:17:27,406 --> 00:17:28,415
+to a log in screen.
+
+
+506
+00:17:29,716 --> 00:17:32,576
+And we could click here to log
+
+
+507
+00:17:32,576 --> 00:17:33,086
+in.
+
+
+508
+00:17:34,276 --> 00:17:37,596
+And we could log in but this
+
+
+509
+00:17:38,066 --> 00:17:39,726
+user experience can be improved
+
+
+510
+00:17:39,726 --> 00:17:44,666
+upon and maybe we've already
+
+
+511
+00:17:44,666 --> 00:17:46,076
+logged into the app using the
+
+
+512
+00:17:46,076 --> 00:17:47,056
+touch ID or something.
+
+
+513
+00:17:47,516 --> 00:17:49,076
+And we know how to communicate
+
+
+514
+00:17:49,076 --> 00:17:50,256
+with this web service.
+
+
+515
+00:17:51,076 --> 00:17:52,556
+The fact that this student is
+
+
+516
+00:17:52,556 --> 00:17:53,996
+logged in with a cookie.
+
+
+517
+00:17:54,296 --> 00:17:56,566
+So we're going to do just that.
+
+
+518
+00:18:02,636 --> 00:18:04,616
+To do that, we need to make an
+
+
+519
+00:18:04,616 --> 00:18:05,426
+http cookie.
+
+
+520
+00:18:06,396 --> 00:18:09,406
+We need to put this cookie into
+
+
+521
+00:18:09,406 --> 00:18:10,546
+a website data store's
+
+
+522
+00:18:10,626 --> 00:18:14,666
+httpCookieStore using the new
+
+
+523
+00:18:14,666 --> 00:18:16,426
+API set cookie.
+
+
+524
+00:18:17,176 --> 00:18:21,616
+And then once that's done, we
+
+
+525
+00:18:21,616 --> 00:18:24,236
+need to tell the WKWebView to
+
+
+526
+00:18:24,406 --> 00:18:27,566
+use the website data store that
+
+
+527
+00:18:27,626 --> 00:18:30,136
+has the cookie inside of it and
+
+
+528
+00:18:30,136 --> 00:18:32,006
+we do so through the WKWebView
+
+
+529
+00:18:32,006 --> 00:18:32,786
+configuration.
+
+
+530
+00:18:34,076 --> 00:18:34,636
+Right here.
+
+
+531
+00:18:36,126 --> 00:18:38,566
+Set the website data store to be
+
+
+532
+00:18:38,566 --> 00:18:40,576
+the one that has a cookie in it.
+
+
+533
+00:18:40,576 --> 00:18:41,666
+And then we proceed as we did
+
+
+534
+00:18:41,666 --> 00:18:42,096
+before.
+
+
+535
+00:18:42,686 --> 00:18:43,886
+Use this configuration.
+
+
+536
+00:18:44,086 --> 00:18:44,946
+Open a WebView.
+
+
+537
+00:18:45,036 --> 00:18:45,976
+Open the web content.
+
+
+538
+00:18:54,236 --> 00:18:54,896
+All right.
+
+
+539
+00:18:55,096 --> 00:18:56,856
+So right off the bat, we are
+
+
+540
+00:18:56,856 --> 00:18:57,466
+logged in.
+
+
+541
+00:18:57,816 --> 00:19:00,326
+Our initial request has this
+
+
+542
+00:19:00,326 --> 00:19:01,786
+http cookie in its header.
+
+
+543
+00:19:02,486 --> 00:19:06,446
+So this article that I want my
+
+
+544
+00:19:06,446 --> 00:19:09,996
+users to read has some sub
+
+
+545
+00:19:09,996 --> 00:19:12,246
+resources that are loaded over
+
+
+546
+00:19:13,216 --> 00:19:15,026
+unencrypted http connections.
+
+
+547
+00:19:15,946 --> 00:19:18,486
+And our app transport security,
+
+
+548
+00:19:19,726 --> 00:19:21,506
+by default, keeps our users safe
+
+
+549
+00:19:21,536 --> 00:19:22,996
+by preventing loads over
+
+
+550
+00:19:22,996 --> 00:19:25,396
+unencrypted http connections.
+
+
+551
+00:19:26,126 --> 00:19:30,266
+And so right here, we see some
+
+
+552
+00:19:30,376 --> 00:19:33,146
+missing images.
+
+
+553
+00:19:34,046 --> 00:19:36,606
+These -- the servers from which
+
+
+554
+00:19:36,606 --> 00:19:38,696
+we wanted to get these images
+
+
+555
+00:19:39,586 --> 00:19:41,306
+are correctly configured with
+
+
+556
+00:19:41,306 --> 00:19:43,946
+https tls certificates on them
+
+
+557
+00:19:44,576 --> 00:19:46,876
+and if we had made an encrypted
+
+
+558
+00:19:47,166 --> 00:19:49,756
+https request, it would have
+
+
+559
+00:19:49,756 --> 00:19:51,506
+responded with the same image.
+
+
+560
+00:19:52,746 --> 00:19:54,936
+So if we wanted to go in and
+
+
+561
+00:19:55,366 --> 00:19:58,356
+take the http url and turn it
+
+
+562
+00:19:58,356 --> 00:20:01,146
+into an https url just before
+
+
+563
+00:20:01,146 --> 00:20:03,706
+the load, then we would receive
+
+
+564
+00:20:04,406 --> 00:20:06,486
+the data that we wanted over a
+
+
+565
+00:20:06,486 --> 00:20:07,376
+secure connection.
+
+
+566
+00:20:08,536 --> 00:20:11,266
+Let's do that using a
+
+
+567
+00:20:11,566 --> 00:20:12,976
+WKContentRuleList.
+
+
+568
+00:20:21,496 --> 00:20:23,146
+Okay. I added a little bit of
+
+
+569
+00:20:24,686 --> 00:20:24,866
+code.
+
+
+570
+00:20:26,146 --> 00:20:28,616
+Here we have the content rule
+
+
+571
+00:20:28,616 --> 00:20:31,056
+list that we want to use.
+
+
+572
+00:20:31,596 --> 00:20:33,476
+In this case we have one rule.
+
+
+573
+00:20:34,276 --> 00:20:36,926
+It contains a trigger which is a
+
+
+574
+00:20:36,926 --> 00:20:38,116
+regular expression that matches
+
+
+575
+00:20:38,196 --> 00:20:38,726
+everything.
+
+
+576
+00:20:39,296 --> 00:20:40,666
+This regular expression is run
+
+
+577
+00:20:40,666 --> 00:20:42,756
+on the urls of each resource
+
+
+578
+00:20:43,066 --> 00:20:46,226
+WebKit is about to fetch.
+
+
+579
+00:20:46,436 --> 00:20:48,096
+The action is make https.
+
+
+580
+00:20:48,546 --> 00:20:51,566
+So if we would have requested an
+
+
+581
+00:20:51,566 --> 00:20:54,506
+unsecure resource, request a
+
+
+582
+00:20:54,506 --> 00:20:56,086
+secure resource basically by
+
+
+583
+00:20:56,086 --> 00:20:57,816
+just adding an s into the
+
+
+584
+00:20:57,816 --> 00:20:58,216
+scheme.
+
+
+585
+00:20:59,336 --> 00:21:00,946
+Once we have this JSON, we need
+
+
+586
+00:21:00,946 --> 00:21:02,436
+to compile the content rule
+
+
+587
+00:21:03,786 --> 00:21:04,406
+list.
+
+
+588
+00:21:05,146 --> 00:21:07,496
+Once this content rule list is
+
+
+589
+00:21:07,496 --> 00:21:11,546
+compiled, we need to take the
+
+
+590
+00:21:11,546 --> 00:21:15,746
+content rule list and add it to
+
+
+591
+00:21:15,746 --> 00:21:17,276
+the WKWebView configuration
+
+
+592
+00:21:17,656 --> 00:21:19,296
+through the user content
+
+
+593
+00:21:19,296 --> 00:21:21,026
+controller and then proceed as
+
+
+594
+00:21:21,086 --> 00:21:21,416
+before.
+
+
+595
+00:21:22,076 --> 00:21:25,546
+So let's see what happens when
+
+
+596
+00:21:25,546 --> 00:21:26,116
+we do this.
+
+
+597
+00:21:26,116 --> 00:21:30,296
+We load the article and these
+
+
+598
+00:21:30,296 --> 00:21:33,186
+resources are now being loaded
+
+
+599
+00:21:33,186 --> 00:21:34,336
+over secure connections.
+
+
+600
+00:21:35,366 --> 00:21:35,726
+All right.
+
+
+601
+00:21:35,926 --> 00:21:37,776
+So we now have an app that
+
+
+602
+00:21:38,126 --> 00:21:40,546
+starts with cookies and it
+
+
+603
+00:21:40,546 --> 00:21:42,206
+promotes all of its insecure
+
+
+604
+00:21:42,206 --> 00:21:43,936
+resources to secure resources.
+
+
+605
+00:21:44,846 --> 00:21:46,036
+Let's hear more about customized
+
+
+606
+00:21:46,036 --> 00:21:46,826
+loading from Brady.
+
+
+607
+00:21:46,936 --> 00:21:48,936
+[ Applause ]
+
+
+608
+00:21:49,046 --> 00:21:49,836
+>> Thank you, Alex.
+
+
+609
+00:21:52,036 --> 00:21:53,056
+Pretty straight forward.
+
+
+610
+00:21:53,136 --> 00:21:55,186
+I do want to reiterate a couple
+
+
+611
+00:21:55,186 --> 00:21:55,786
+of points.
+
+
+612
+00:21:59,046 --> 00:22:02,496
+Alex showed that you can now set
+
+
+613
+00:22:02,496 --> 00:22:05,486
+a cookie in a WKWebView and know
+
+
+614
+00:22:05,486 --> 00:22:06,986
+when the right time is to make a
+
+
+615
+00:22:06,986 --> 00:22:08,476
+request where that cookie will
+
+
+616
+00:22:08,476 --> 00:22:09,006
+be applied.
+
+
+617
+00:22:09,006 --> 00:22:11,566
+And that's enabled by the new
+
+
+618
+00:22:11,566 --> 00:22:13,086
+WKHTTPCookieStore API.
+
+
+619
+00:22:16,736 --> 00:22:18,296
+And then to hammer it home, the
+
+
+620
+00:22:18,296 --> 00:22:20,646
+one little bit of the content
+
+
+621
+00:22:20,646 --> 00:22:22,066
+rule list power that we like
+
+
+622
+00:22:22,066 --> 00:22:24,186
+focusing on is upgrading
+
+
+623
+00:22:24,386 --> 00:22:26,466
+insecure, unencrypted resource
+
+
+624
+00:22:26,466 --> 00:22:30,296
+requests to be https with just
+
+
+625
+00:22:30,296 --> 00:22:31,686
+that simple rule list.
+
+
+626
+00:22:31,686 --> 00:22:33,046
+With one action and one trigger.
+
+
+627
+00:22:33,566 --> 00:22:34,906
+Alex showed how WebKit can
+
+
+628
+00:22:34,906 --> 00:22:36,566
+efficiently do that
+
+
+629
+00:22:36,566 --> 00:22:38,946
+automatically on your behalf.
+
+
+630
+00:22:42,136 --> 00:22:44,326
+And now I'd like to move on to
+
+
+631
+00:22:44,326 --> 00:22:46,596
+our third and final new
+
+
+632
+00:22:46,596 --> 00:22:48,526
+mechanism which is the ability
+
+
+633
+00:22:48,526 --> 00:22:50,476
+to provide custom resources.
+
+
+634
+00:22:51,016 --> 00:22:54,196
+We've heard from a lot of
+
+
+635
+00:22:54,196 --> 00:22:56,876
+developers that they have a
+
+
+636
+00:22:56,876 --> 00:22:58,386
+bundle of web content that they
+
+
+637
+00:22:58,386 --> 00:22:58,916
+control.
+
+
+638
+00:22:59,786 --> 00:23:00,946
+Some of them put it in their
+
+
+639
+00:23:00,946 --> 00:23:02,056
+application bundle.
+
+
+640
+00:23:02,286 --> 00:23:03,926
+Some of them host it on a web
+
+
+641
+00:23:03,926 --> 00:23:05,376
+server that they control.
+
+
+642
+00:23:05,376 --> 00:23:08,036
+And they would like to insert
+
+
+643
+00:23:08,036 --> 00:23:10,116
+into that web content resource
+
+
+644
+00:23:10,116 --> 00:23:12,176
+data local to the user's device.
+
+
+645
+00:23:12,546 --> 00:23:17,196
+One pretty cool app that has
+
+
+646
+00:23:17,196 --> 00:23:19,606
+this need that we've seen is a
+
+
+647
+00:23:19,606 --> 00:23:21,806
+photo book maker where it's
+
+
+648
+00:23:21,806 --> 00:23:24,716
+using entirely web technologies
+
+
+649
+00:23:24,946 --> 00:23:26,486
+to have a photo book layout
+
+
+650
+00:23:27,266 --> 00:23:28,896
+where the company's designers
+
+
+651
+00:23:28,896 --> 00:23:30,466
+are adding new templates for new
+
+
+652
+00:23:30,466 --> 00:23:31,866
+layouts and styles of the photo
+
+
+653
+00:23:31,866 --> 00:23:33,786
+books but they want to access
+
+
+654
+00:23:33,786 --> 00:23:35,166
+photos that are local to the
+
+
+655
+00:23:35,166 --> 00:23:36,196
+user's device.
+
+
+656
+00:23:37,196 --> 00:23:38,966
+And using this new API that will
+
+
+657
+00:23:38,966 --> 00:23:39,586
+be possible.
+
+
+658
+00:23:41,916 --> 00:23:43,216
+There's also a lot of game
+
+
+659
+00:23:43,216 --> 00:23:44,376
+developers out there we hear
+
+
+660
+00:23:44,376 --> 00:23:46,446
+from who have an in game
+
+
+661
+00:23:46,446 --> 00:23:48,596
+newsletter or an in game
+
+
+662
+00:23:48,736 --> 00:23:50,296
+leaderboard that uses web
+
+
+663
+00:23:50,296 --> 00:23:50,966
+technology.
+
+
+664
+00:23:51,566 --> 00:23:53,556
+And they want to integrate local
+
+
+665
+00:23:53,766 --> 00:23:55,866
+experiences from their user's
+
+
+666
+00:23:55,866 --> 00:23:57,556
+local play of the game so their
+
+
+667
+00:23:57,556 --> 00:24:00,196
+user feels more attached to the
+
+
+668
+00:24:00,196 --> 00:24:02,466
+goings on in the game's
+
+
+669
+00:24:02,466 --> 00:24:03,286
+universe.
+
+
+670
+00:24:03,806 --> 00:24:07,136
+These are just a couple of
+
+
+671
+00:24:07,136 --> 00:24:07,776
+examples.
+
+
+672
+00:24:08,176 --> 00:24:09,816
+There's many more things of what
+
+
+673
+00:24:09,816 --> 00:24:11,606
+you can do with the new
+
+
+674
+00:24:11,606 --> 00:24:13,616
+WKURLSchemeHandler API.
+
+
+675
+00:24:15,876 --> 00:24:18,846
+WKURLSchemeHandler allows your
+
+
+676
+00:24:18,846 --> 00:24:21,036
+app to handle resource loads for
+
+
+677
+00:24:21,036 --> 00:24:23,006
+a particularly url scheme.
+
+
+678
+00:24:23,316 --> 00:24:26,276
+Now just so we're all on the
+
+
+679
+00:24:26,276 --> 00:24:26,976
+same page.
+
+
+680
+00:24:27,086 --> 00:24:28,246
+What is an url scheme?
+
+
+681
+00:24:28,766 --> 00:24:30,646
+These are examples of some urls
+
+
+682
+00:24:30,646 --> 00:24:31,656
+we've probably seen.
+
+
+683
+00:24:32,916 --> 00:24:34,096
+And these are the schemes.
+
+
+684
+00:24:34,826 --> 00:24:36,446
+Everything that comes before the
+
+
+685
+00:24:36,446 --> 00:24:37,076
+first colon.
+
+
+686
+00:24:38,106 --> 00:24:39,486
+So referencing custom url
+
+
+687
+00:24:39,486 --> 00:24:40,536
+schemes that WebKit doesn't
+
+
+688
+00:24:40,536 --> 00:24:43,046
+already handle itself, you can
+
+
+689
+00:24:43,046 --> 00:24:44,786
+register a scheme handler to
+
+
+690
+00:24:44,786 --> 00:24:46,056
+handle resource loads to any
+
+
+691
+00:24:46,056 --> 00:24:47,796
+resource that has a url matching
+
+
+692
+00:24:47,796 --> 00:24:48,306
+that scheme.
+
+
+693
+00:24:48,826 --> 00:24:51,126
+In this example, we've
+
+
+694
+00:24:51,126 --> 00:24:52,446
+arbitrarily chosen the scheme
+
+
+695
+00:24:52,446 --> 00:24:52,866
+local.
+
+
+696
+00:24:52,946 --> 00:24:54,916
+Not a standard url scheme that
+
+
+697
+00:24:54,916 --> 00:24:56,426
+WebKit handles itself.
+
+
+698
+00:24:56,426 --> 00:24:58,126
+Not any part of any web standard
+
+
+699
+00:24:58,126 --> 00:24:59,626
+or anything like that.
+
+
+700
+00:25:00,736 --> 00:25:02,866
+But one could conceivably see
+
+
+701
+00:25:02,866 --> 00:25:04,596
+how it could become a web
+
+
+702
+00:25:04,596 --> 00:25:05,436
+standard in the future.
+
+
+703
+00:25:05,436 --> 00:25:07,206
+It might become something WebKit
+
+
+704
+00:25:07,206 --> 00:25:07,956
+handles itself.
+
+
+705
+00:25:08,106 --> 00:25:09,596
+So we'd like to encourage the
+
+
+706
+00:25:09,906 --> 00:25:11,836
+best practice of future proofing
+
+
+707
+00:25:11,866 --> 00:25:13,456
+your custom scheme by name
+
+
+708
+00:25:13,456 --> 00:25:14,906
+spacing it with your company
+
+
+709
+00:25:14,906 --> 00:25:17,366
+name or the app bundle name,
+
+
+710
+00:25:17,366 --> 00:25:17,956
+something like that.
+
+
+711
+00:25:21,696 --> 00:25:23,466
+What is a WKURLSchemeHandler
+
+
+712
+00:25:23,466 --> 00:25:23,916
+itself?
+
+
+713
+00:25:24,466 --> 00:25:26,256
+It's a fairly simple protocol
+
+
+714
+00:25:26,296 --> 00:25:28,026
+that you implement with two
+
+
+715
+00:25:28,026 --> 00:25:30,506
+methods so you are told to start
+
+
+716
+00:25:30,506 --> 00:25:33,036
+loading a scheme task or stop
+
+
+717
+00:25:33,036 --> 00:25:33,496
+loading one.
+
+
+718
+00:25:33,956 --> 00:25:36,586
+We'll get into what the scheme
+
+
+719
+00:25:36,586 --> 00:25:38,226
+task is in a little bit.
+
+
+720
+00:25:38,716 --> 00:25:39,666
+Once you've implemented the
+
+
+721
+00:25:39,666 --> 00:25:43,426
+protocol, you will set the
+
+
+722
+00:25:43,426 --> 00:25:44,716
+scheme handler on the WebView's
+
+
+723
+00:25:44,716 --> 00:25:46,616
+configuration and this is where
+
+
+724
+00:25:46,616 --> 00:25:48,636
+you decide which url scheme you
+
+
+725
+00:25:48,636 --> 00:25:50,096
+want that scheme handler to
+
+
+726
+00:25:50,096 --> 00:25:51,146
+handle custom loads for.
+
+
+727
+00:25:52,046 --> 00:25:53,616
+You can use the same instance of
+
+
+728
+00:25:53,616 --> 00:25:55,466
+your class for all the custom
+
+
+729
+00:25:55,466 --> 00:25:57,116
+url schemes in your app.
+
+
+730
+00:25:57,496 --> 00:25:59,066
+You can have a different class
+
+
+731
+00:25:59,216 --> 00:26:00,416
+for different url schemes.
+
+
+732
+00:26:00,476 --> 00:26:03,136
+You can have different instances
+
+
+733
+00:26:03,136 --> 00:26:04,356
+for all the different schemes or
+
+
+734
+00:26:04,356 --> 00:26:06,536
+have one shared instance for all
+
+
+735
+00:26:06,536 --> 00:26:06,996
+the schemes.
+
+
+736
+00:26:07,036 --> 00:26:07,666
+It's up to you and your
+
+
+737
+00:26:07,666 --> 00:26:08,766
+application's architecture.
+
+
+738
+00:26:09,286 --> 00:26:14,016
+And then you create your WebView
+
+
+739
+00:26:14,526 --> 00:26:15,786
+and load some content in it.
+
+
+740
+00:26:16,106 --> 00:26:17,896
+And any sub resource in that web
+
+
+741
+00:26:17,896 --> 00:26:19,846
+content that references your
+
+
+742
+00:26:19,846 --> 00:26:21,006
+custom url scheme that you
+
+
+743
+00:26:21,006 --> 00:26:23,566
+registered will call back into
+
+
+744
+00:26:23,566 --> 00:26:24,856
+the object that you registered
+
+
+745
+00:26:24,976 --> 00:26:25,926
+with the WKWebView.
+
+
+746
+00:26:26,336 --> 00:26:29,066
+And note that this includes even
+
+
+747
+00:26:29,306 --> 00:26:31,086
+the top level html document
+
+
+748
+00:26:31,086 --> 00:26:33,396
+itself, can be of the custom
+
+
+749
+00:26:33,396 --> 00:26:34,746
+scheme that you registered.
+
+
+750
+00:26:35,306 --> 00:26:40,466
+So what is that WKURLSchemeTask.
+
+
+751
+00:26:41,476 --> 00:26:43,326
+Each task sent to your handler
+
+
+752
+00:26:43,436 --> 00:26:45,516
+represents a specific sub
+
+
+753
+00:26:45,516 --> 00:26:46,166
+resource load.
+
+
+754
+00:26:47,116 --> 00:26:49,566
+The task contains the url
+
+
+755
+00:26:49,616 --> 00:26:50,746
+request object.
+
+
+756
+00:26:51,416 --> 00:26:53,226
+This is the same information
+
+
+757
+00:26:53,226 --> 00:26:54,966
+that would go out to an http
+
+
+758
+00:26:54,966 --> 00:26:56,646
+server if this request was going
+
+
+759
+00:26:56,646 --> 00:26:57,556
+out onto the network.
+
+
+760
+00:26:58,166 --> 00:26:59,876
+It includes a lot of little bits
+
+
+761
+00:26:59,876 --> 00:27:01,266
+of data about the resource but
+
+
+762
+00:27:01,266 --> 00:27:02,526
+very importantly, the url
+
+
+763
+00:27:02,526 --> 00:27:02,896
+itself.
+
+
+764
+00:27:04,966 --> 00:27:07,136
+And then the task has four
+
+
+765
+00:27:07,386 --> 00:27:09,016
+straight forward methods for you
+
+
+766
+00:27:09,016 --> 00:27:10,526
+to communicate loading progress
+
+
+767
+00:27:10,526 --> 00:27:12,056
+back to WebKit for this
+
+
+768
+00:27:12,056 --> 00:27:12,976
+particular resource.
+
+
+769
+00:27:17,246 --> 00:27:19,706
+Once you are given a task and
+
+
+770
+00:27:19,706 --> 00:27:21,486
+told to start loading for it,
+
+
+771
+00:27:22,336 --> 00:27:23,566
+first thing you need to do is
+
+
+772
+00:27:23,706 --> 00:27:24,776
+create a response.
+
+
+773
+00:27:25,636 --> 00:27:26,856
+Just like that url request
+
+
+774
+00:27:26,856 --> 00:27:28,866
+object represents what would go
+
+
+775
+00:27:28,976 --> 00:27:31,156
+to a server on the network, this
+
+
+776
+00:27:31,156 --> 00:27:32,286
+is the response that would come
+
+
+777
+00:27:32,286 --> 00:27:33,076
+back from the server.
+
+
+778
+00:27:33,476 --> 00:27:35,226
+You need to manufacture that.
+
+
+779
+00:27:36,446 --> 00:27:38,006
+Very importantly, in the
+
+
+780
+00:27:38,006 --> 00:27:39,466
+response, you need to include
+
+
+781
+00:27:39,466 --> 00:27:40,136
+the mime type.
+
+
+782
+00:27:40,416 --> 00:27:42,006
+For those of you not yet
+
+
+783
+00:27:42,006 --> 00:27:43,086
+intimately familiar with web
+
+
+784
+00:27:43,086 --> 00:27:44,536
+technologies this is kind of
+
+
+785
+00:27:44,536 --> 00:27:45,506
+like the file type.
+
+
+786
+00:27:45,806 --> 00:27:47,356
+It's you telling WebKit how to
+
+
+787
+00:27:47,356 --> 00:27:48,286
+interpret the resource.
+
+
+788
+00:27:48,606 --> 00:27:50,326
+This is an HTML resource.
+
+
+789
+00:27:50,446 --> 00:27:55,296
+This is a JPEG image, etc. Once
+
+
+790
+00:27:55,296 --> 00:27:57,226
+you have the response, you tell
+
+
+791
+00:27:57,226 --> 00:27:59,086
+the task that the response was
+
+
+792
+00:27:59,086 --> 00:27:59,436
+received.
+
+
+793
+00:28:00,016 --> 00:28:02,396
+In this case, we have all of the
+
+
+794
+00:28:02,396 --> 00:28:04,066
+data for the response in memory
+
+
+795
+00:28:04,066 --> 00:28:04,536
+already.
+
+
+796
+00:28:04,916 --> 00:28:06,446
+So we can immediately pass the
+
+
+797
+00:28:06,446 --> 00:28:07,956
+data back to WebKit for the
+
+
+798
+00:28:07,956 --> 00:28:08,386
+task.
+
+
+799
+00:28:08,706 --> 00:28:12,476
+And then we signal completion of
+
+
+800
+00:28:12,476 --> 00:28:13,376
+the load to WebKit.
+
+
+801
+00:28:13,476 --> 00:28:14,946
+So WebKit isn't waiting for more
+
+
+802
+00:28:14,946 --> 00:28:18,516
+data to come in.
+
+
+803
+00:28:18,776 --> 00:28:20,446
+Again, no better way to
+
+
+804
+00:28:20,446 --> 00:28:21,856
+illustrate other than to see it
+
+
+805
+00:28:21,856 --> 00:28:22,386
+into action.
+
+
+806
+00:28:22,476 --> 00:28:23,696
+So I'd like to invite Alex back
+
+
+807
+00:28:23,696 --> 00:28:24,246
+on to stage.
+
+
+808
+00:28:26,516 --> 00:28:29,826
+[ Applause ]
+
+
+809
+00:28:30,326 --> 00:28:30,836
+>> Thanks Brady.
+
+
+810
+00:28:32,506 --> 00:28:34,866
+So remember in my app, I'm going
+
+
+811
+00:28:34,866 --> 00:28:36,826
+to have my users read articles
+
+
+812
+00:28:36,826 --> 00:28:39,736
+online, take quizzes on those
+
+
+813
+00:28:39,736 --> 00:28:40,976
+articles, and then receive a
+
+
+814
+00:28:40,976 --> 00:28:41,496
+diploma.
+
+
+815
+00:28:42,166 --> 00:28:43,806
+And I have a team of web
+
+
+816
+00:28:43,806 --> 00:28:45,126
+designers who is constantly
+
+
+817
+00:28:45,126 --> 00:28:46,926
+coming up with beautiful diploma
+
+
+818
+00:28:46,926 --> 00:28:47,436
+designs.
+
+
+819
+00:28:47,906 --> 00:28:49,126
+And so I want the users of my
+
+
+820
+00:28:49,126 --> 00:28:51,126
+app to go and fetch these new
+
+
+821
+00:28:51,126 --> 00:28:54,286
+designs from my servers but I
+
+
+822
+00:28:54,286 --> 00:28:57,116
+want each diploma to include a
+
+
+823
+00:28:57,116 --> 00:28:59,096
+picture of the user's avatar and
+
+
+824
+00:28:59,566 --> 00:29:01,496
+I want that to be loaded locally
+
+
+825
+00:29:01,496 --> 00:29:02,636
+on the user's device.
+
+
+826
+00:29:03,506 --> 00:29:06,916
+And so to do this custom local
+
+
+827
+00:29:06,916 --> 00:29:09,276
+loading within WebKit, I am
+
+
+828
+00:29:09,276 --> 00:29:11,136
+going to use a custom scheme.
+
+
+829
+00:29:12,006 --> 00:29:14,256
+Now let me show you the source
+
+
+830
+00:29:15,116 --> 00:29:17,576
+of my diploma.
+
+
+831
+00:29:21,046 --> 00:29:22,846
+Okay. So here I have some HTML.
+
+
+832
+00:29:23,656 --> 00:29:24,556
+And I have an image.
+
+
+833
+00:29:25,346 --> 00:29:27,196
+And its source has a url with a
+
+
+834
+00:29:27,196 --> 00:29:28,016
+custom scheme.
+
+
+835
+00:29:28,746 --> 00:29:31,076
+In this case, canine school dash
+
+
+836
+00:29:32,496 --> 00:29:33,776
+avatar.
+
+
+837
+00:29:33,776 --> 00:29:38,286
+And if I open this in a browser
+
+
+838
+00:29:38,286 --> 00:29:41,436
+or in a WKWebView the WKWebView
+
+
+839
+00:29:41,816 --> 00:29:43,126
+won't know what to do with this.
+
+
+840
+00:29:43,126 --> 00:29:45,386
+Let me show you what that looks
+
+
+841
+00:29:45,386 --> 00:29:45,976
+like really quick.
+
+
+842
+00:29:49,156 --> 00:29:49,866
+Take the quiz.
+
+
+843
+00:29:51,296 --> 00:29:52,796
+Dogs. Yes.
+
+
+844
+00:29:53,476 --> 00:29:56,746
+Okay. So here I have my
+
+
+845
+00:29:56,746 --> 00:29:57,726
+beautiful diploma.
+
+
+846
+00:29:58,636 --> 00:30:01,486
+And I have a missing image tag
+
+
+847
+00:30:02,046 --> 00:30:04,946
+because WebKit tried to load a
+
+
+848
+00:30:05,016 --> 00:30:07,196
+resource that had the school --
+
+
+849
+00:30:07,276 --> 00:30:09,746
+that had the scheme canine
+
+
+850
+00:30:09,746 --> 00:30:11,806
+school dash avatar and WebKit
+
+
+851
+00:30:11,806 --> 00:30:13,316
+doesn't know what to do with
+
+
+852
+00:30:13,366 --> 00:30:14,086
+such a scheme.
+
+
+853
+00:30:15,106 --> 00:30:18,366
+So we can use the
+
+
+854
+00:30:18,366 --> 00:30:22,096
+WKURLSchemeHandler to teach this
+
+
+855
+00:30:22,206 --> 00:30:24,996
+WKWebView what to do with such a
+
+
+856
+00:30:24,996 --> 00:30:25,366
+request.
+
+
+857
+00:30:27,046 --> 00:30:29,536
+Okay. So I added a bit of code.
+
+
+858
+00:30:29,846 --> 00:30:34,606
+I have an object, a class that
+
+
+859
+00:30:34,606 --> 00:30:37,036
+implements WKURLSchemeHandler
+
+
+860
+00:30:37,776 --> 00:30:39,446
+and there's a bit of code.
+
+
+861
+00:30:39,446 --> 00:30:40,356
+I'll get back to this in a
+
+
+862
+00:30:40,356 --> 00:30:40,766
+second.
+
+
+863
+00:30:42,396 --> 00:30:44,936
+But down here, in my WKWebView
+
+
+864
+00:30:44,936 --> 00:30:47,496
+configuration, I need to call
+
+
+865
+00:30:47,496 --> 00:30:49,236
+the new method set
+
+
+866
+00:30:49,236 --> 00:30:52,586
+URLSchemeHandler with an
+
+
+867
+00:30:52,586 --> 00:30:54,366
+instance of my class that
+
+
+868
+00:30:54,366 --> 00:30:55,446
+implements url,
+
+
+869
+00:30:55,596 --> 00:31:00,636
+WKURLSchemeHandler and then I
+
+
+870
+00:31:00,636 --> 00:31:02,946
+need to tell WebKit what url
+
+
+871
+00:31:02,946 --> 00:31:05,316
+scheme this class is going to
+
+
+872
+00:31:05,316 --> 00:31:07,526
+handle the requests of.
+
+
+873
+00:31:10,256 --> 00:31:12,006
+In my class implementation,
+
+
+874
+00:31:14,036 --> 00:31:17,766
+implementing WKURLSchemeHandler
+
+
+875
+00:31:18,166 --> 00:31:20,076
+means I have these two methods.
+
+
+876
+00:31:20,456 --> 00:31:22,206
+Start and stop.
+
+
+877
+00:31:24,216 --> 00:31:25,906
+Start is called by the web
+
+
+878
+00:31:25,906 --> 00:31:29,336
+content when a request for this
+
+
+879
+00:31:29,366 --> 00:31:30,596
+scheme is generated.
+
+
+880
+00:31:31,316 --> 00:31:33,246
+So in this case, when the web
+
+
+881
+00:31:33,246 --> 00:31:35,266
+content wants to load my image.
+
+
+882
+00:31:35,876 --> 00:31:40,486
+It's my job to respond to this
+
+
+883
+00:31:40,486 --> 00:31:43,166
+request using this url scheme
+
+
+884
+00:31:44,006 --> 00:31:44,226
+task.
+
+
+885
+00:31:45,616 --> 00:31:47,856
+In my case, I'm going to pull up
+
+
+886
+00:31:47,856 --> 00:31:49,066
+an image picker and allow the
+
+
+887
+00:31:49,066 --> 00:31:50,646
+user to pick an image.
+
+
+888
+00:31:50,646 --> 00:31:51,826
+So I don't need to respond
+
+
+889
+00:31:51,826 --> 00:31:52,416
+immediately.
+
+
+890
+00:31:53,786 --> 00:31:56,736
+If the WKWebView calls my stop
+
+
+891
+00:31:56,736 --> 00:31:59,076
+method while this happening,
+
+
+892
+00:31:59,706 --> 00:32:01,536
+then it -- I shouldn't respond
+
+
+893
+00:32:01,626 --> 00:32:03,976
+to that request anymore because
+
+
+894
+00:32:03,976 --> 00:32:05,666
+it was cancelled or something
+
+
+895
+00:32:05,666 --> 00:32:05,946
+like that.
+
+
+896
+00:32:10,236 --> 00:32:12,636
+Down here once my image picker
+
+
+897
+00:32:12,636 --> 00:32:14,756
+is done, I will have my data.
+
+
+898
+00:32:15,606 --> 00:32:18,166
+In this case, I will JPEG encode
+
+
+899
+00:32:18,166 --> 00:32:18,336
+it.
+
+
+900
+00:32:19,486 --> 00:32:20,836
+And I need to call these three
+
+
+901
+00:32:20,836 --> 00:32:21,176
+methods.
+
+
+902
+00:32:22,136 --> 00:32:23,736
+Did receive response.
+
+
+903
+00:32:24,866 --> 00:32:27,916
+Did receive data and did finish.
+
+
+904
+00:32:29,776 --> 00:32:31,706
+Did receive data is special.
+
+
+905
+00:32:31,706 --> 00:32:33,526
+I can call it more than once as
+
+
+906
+00:32:33,656 --> 00:32:35,616
+the data is generated or as its
+
+
+907
+00:32:35,616 --> 00:32:38,996
+received or however I want to
+
+
+908
+00:32:38,996 --> 00:32:39,926
+provide this data.
+
+
+909
+00:32:40,226 --> 00:32:41,496
+In this case, I'm only calling
+
+
+910
+00:32:41,496 --> 00:32:43,116
+it once because I have the
+
+
+911
+00:32:43,116 --> 00:32:46,646
+entire data of the response, the
+
+
+912
+00:32:46,646 --> 00:32:48,556
+JPEG encoded image in one
+
+
+913
+00:32:48,556 --> 00:32:48,916
+buffer.
+
+
+914
+00:32:51,896 --> 00:32:53,796
+So let's see what happens when I
+
+
+915
+00:32:53,796 --> 00:32:54,906
+have this implemented.
+
+
+916
+00:33:02,276 --> 00:33:04,276
+Okay. I'm already logged in
+
+
+917
+00:33:04,746 --> 00:33:05,656
+because I have the cookie.
+
+
+918
+00:33:06,516 --> 00:33:08,006
+Everything is loaded securely.
+
+
+919
+00:33:08,186 --> 00:33:11,396
+I take the quiz.
+
+
+920
+00:33:12,086 --> 00:33:13,496
+Dogs. Yes.
+
+
+921
+00:33:15,056 --> 00:33:17,506
+Okay. So this image picker comes
+
+
+922
+00:33:17,506 --> 00:33:21,076
+up because this start method has
+
+
+923
+00:33:21,076 --> 00:33:21,536
+been called.
+
+
+924
+00:33:22,276 --> 00:33:26,706
+I go into my camera roll and I
+
+
+925
+00:33:26,826 --> 00:33:29,356
+choose my avatar photo that I
+
+
+926
+00:33:29,356 --> 00:33:31,246
+want to be in my web content.
+
+
+927
+00:33:31,966 --> 00:33:34,946
+And then because of calling
+
+
+928
+00:33:34,946 --> 00:33:38,136
+those methods on the task, I now
+
+
+929
+00:33:38,136 --> 00:33:40,136
+have that data in my web
+
+
+930
+00:33:40,176 --> 00:33:40,666
+content.
+
+
+931
+00:33:41,256 --> 00:33:42,406
+So I now have an application
+
+
+932
+00:33:42,406 --> 00:33:44,496
+that manages its cookies, that
+
+
+933
+00:33:44,496 --> 00:33:46,566
+uses a content rule list to
+
+
+934
+00:33:46,566 --> 00:33:49,246
+upgrade insecure requests, and
+
+
+935
+00:33:49,246 --> 00:33:51,386
+that does custom loading through
+
+
+936
+00:33:52,206 --> 00:33:55,706
+a WKURLSchemeHandler.
+
+
+937
+00:33:56,586 --> 00:33:57,186
+Back to Brady.
+
+
+938
+00:33:58,516 --> 00:34:00,576
+[ Applause ]
+
+
+939
+00:34:01,076 --> 00:34:02,366
+>> So to reiterate once again,
+
+
+940
+00:34:02,676 --> 00:34:04,726
+what we just saw, Alex show us
+
+
+941
+00:34:04,726 --> 00:34:05,206
+in code.
+
+
+942
+00:34:06,196 --> 00:34:07,776
+He chose a future proof url
+
+
+943
+00:34:07,776 --> 00:34:08,186
+scheme.
+
+
+944
+00:34:09,005 --> 00:34:10,646
+A best practice that I want to
+
+
+945
+00:34:10,646 --> 00:34:12,766
+reiterate a few times to make
+
+
+946
+00:34:12,766 --> 00:34:14,206
+sure you don't choose a scheme
+
+
+947
+00:34:14,376 --> 00:34:15,636
+that might become some sort of
+
+
+948
+00:34:15,636 --> 00:34:16,755
+standardized schema in the
+
+
+949
+00:34:16,755 --> 00:34:17,126
+future.
+
+
+950
+00:34:17,485 --> 00:34:21,686
+And then he showed something I
+
+
+951
+00:34:21,686 --> 00:34:23,556
+hadn't even explicitly mentioned
+
+
+952
+00:34:23,636 --> 00:34:24,815
+which is that you can provide
+
+
+953
+00:34:24,815 --> 00:34:26,616
+the data for a task
+
+
+954
+00:34:26,856 --> 00:34:27,696
+asynchronously.
+
+
+955
+00:34:28,576 --> 00:34:29,866
+You might generate the data
+
+
+956
+00:34:29,866 --> 00:34:30,516
+locally.
+
+
+957
+00:34:30,676 --> 00:34:32,016
+You might have the user take a
+
+
+958
+00:34:32,016 --> 00:34:32,525
+picture.
+
+
+959
+00:34:32,946 --> 00:34:34,216
+You might do your own networking
+
+
+960
+00:34:34,216 --> 00:34:34,846
+to get the data.
+
+
+961
+00:34:35,126 --> 00:34:36,466
+However long it takes for you to
+
+
+962
+00:34:36,466 --> 00:34:38,096
+get the data you can provide it
+
+
+963
+00:34:38,096 --> 00:34:39,946
+back to WebKit asynchronously.
+
+
+964
+00:34:44,045 --> 00:34:45,446
+So that is it for all the new
+
+
+965
+00:34:45,446 --> 00:34:47,426
+stuff I have to talk you about
+
+
+966
+00:34:47,426 --> 00:34:47,735
+today.
+
+
+967
+00:34:48,306 --> 00:34:49,146
+Today we went over
+
+
+968
+00:34:49,386 --> 00:34:52,755
+WKHTTPCookieStore, the new API
+
+
+969
+00:34:52,755 --> 00:34:54,565
+for managing cookies in your
+
+
+970
+00:34:54,565 --> 00:34:55,576
+WKWebViews.
+
+
+971
+00:34:56,126 --> 00:34:58,936
+We talked about
+
+
+972
+00:34:58,936 --> 00:35:01,866
+WKContentRuleList, a fast and
+
+
+973
+00:35:01,866 --> 00:35:04,386
+efficient way to filter unwanted
+
+
+974
+00:35:04,386 --> 00:35:06,886
+content from your WKWebViews.
+
+
+975
+00:35:07,396 --> 00:35:10,586
+And we talked about
+
+
+976
+00:35:10,586 --> 00:35:14,036
+WKURLSchemeHandler, a fantastic
+
+
+977
+00:35:14,036 --> 00:35:16,266
+way for you to provide custom
+
+
+978
+00:35:16,266 --> 00:35:18,586
+resources to web content no
+
+
+979
+00:35:18,586 --> 00:35:20,006
+matter where that web content
+
+
+980
+00:35:20,006 --> 00:35:20,626
+comes from.
+
+
+981
+00:35:21,176 --> 00:35:25,366
+I'd like to reiterate one more
+
+
+982
+00:35:25,366 --> 00:35:27,186
+time that we came up with these
+
+
+983
+00:35:27,186 --> 00:35:28,826
+new APIs and worked hard on them
+
+
+984
+00:35:29,056 --> 00:35:30,846
+because of developer feedback
+
+
+985
+00:35:31,066 --> 00:35:32,576
+that we've gotten from all of
+
+
+986
+00:35:32,576 --> 00:35:32,866
+you.
+
+
+987
+00:35:33,296 --> 00:35:34,836
+And we'd like you to continue
+
+
+988
+00:35:34,836 --> 00:35:36,676
+giving us your feedback so we
+
+
+989
+00:35:36,676 --> 00:35:38,426
+can gather it and come up with
+
+
+990
+00:35:38,966 --> 00:35:41,086
+the next great new features that
+
+
+991
+00:35:41,086 --> 00:35:42,846
+will exist in future versions of
+
+
+992
+00:35:42,846 --> 00:35:43,546
+WKWebView.
+
+
+993
+00:35:44,446 --> 00:35:46,246
+For more information, please
+
+
+994
+00:35:46,246 --> 00:35:48,086
+visit the website for this
+
+
+995
+00:35:48,086 --> 00:35:50,276
+session and there are some
+
+
+996
+00:35:50,276 --> 00:35:51,966
+related sessions I'd encourage
+
+
+997
+00:35:51,966 --> 00:35:52,766
+you to look into.
+
+
+998
+00:35:53,296 --> 00:35:54,526
+Tomorrow morning we're going to
+
+
+999
+00:35:54,526 --> 00:35:55,566
+talk about some great new things
+
+
+1000
+00:35:55,566 --> 00:35:56,686
+in Safari View Controller.
+
+
+1001
+00:35:56,776 --> 00:35:58,296
+So if you are interested in
+
+
+1002
+00:35:58,296 --> 00:36:00,186
+adding a powerful in app web
+
+
+1003
+00:36:00,186 --> 00:36:01,216
+browsing experience to your
+
+
+1004
+00:36:01,216 --> 00:36:03,746
+application, please come see
+
+
+1005
+00:36:03,746 --> 00:36:04,666
+that.
+
+
+1006
+00:36:05,236 --> 00:36:07,056
+And we also have -- well some
+
+
+1007
+00:36:07,056 --> 00:36:09,186
+old talks about when we first
+
+
+1008
+00:36:09,186 --> 00:36:11,026
+introduced the WKWebView API.
+
+
+1009
+00:36:11,026 --> 00:36:13,056
+And also when we introduced
+
+
+1010
+00:36:13,056 --> 00:36:14,006
+those content blocking
+
+
+1011
+00:36:14,006 --> 00:36:15,296
+extensions for Safari.
+
+
+1012
+00:36:15,886 --> 00:36:17,676
+That's where you can get a lot
+
+
+1013
+00:36:17,676 --> 00:36:19,596
+of detail on the powerful rule
+
+
+1014
+00:36:19,596 --> 00:36:21,516
+set that is available to you
+
+
+1015
+00:36:21,516 --> 00:36:23,216
+using WKContentRuleList.
+
+
+1016
+00:36:24,556 --> 00:36:25,646
+Thanks for coming and I hope you
+
+
+1017
+00:36:25,646 --> 00:36:27,056
+have a great rest of WWDC.
+
+
+1018
+00:36:27,056 --> 00:36:28,000
+[ Applause ]
+

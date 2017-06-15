@@ -1,0 +1,6374 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Crowd Sounds ]
+
+
+2
+00:00:24,516 --> 00:00:26,736
+[ Applause ]
+
+
+3
+00:00:27,236 --> 00:00:28,126
+>> Good morning, everyone.
+
+
+4
+00:00:28,746 --> 00:00:30,476
+Welcome to VR with Metal 2.
+
+
+5
+00:00:31,156 --> 00:00:32,646
+My name is Rav Dhiraj, and I'm a
+
+
+6
+00:00:32,646 --> 00:00:34,466
+member of the GPU Software Team
+
+
+7
+00:00:34,716 --> 00:00:35,226
+at Apple.
+
+
+8
+00:00:35,676 --> 00:00:37,446
+So, as you saw in our
+
+
+9
+00:00:37,446 --> 00:00:39,006
+Introducing Metal 2 Session,
+
+
+10
+00:00:39,416 --> 00:00:40,726
+we've enabled some great new
+
+
+11
+00:00:40,726 --> 00:00:41,626
+features this year.
+
+
+12
+00:00:42,436 --> 00:00:43,546
+And in this session, I'll be
+
+
+13
+00:00:43,606 --> 00:00:45,476
+focusing specifically on the
+
+
+14
+00:00:45,476 --> 00:00:46,986
+support for VR that we're adding
+
+
+15
+00:00:46,986 --> 00:00:47,666
+with Metal 2.
+
+
+16
+00:00:48,226 --> 00:00:51,426
+So, I'll start with a brief
+
+
+17
+00:00:51,506 --> 00:00:53,396
+summary of what we've enabled in
+
+
+18
+00:00:53,396 --> 00:00:54,626
+macOS High Sierra.
+
+
+19
+00:00:54,626 --> 00:00:57,106
+And then, take a deep dive into
+
+
+20
+00:00:57,106 --> 00:00:58,386
+what's required to build a VR
+
+
+21
+00:00:58,386 --> 00:00:58,866
+app.
+
+
+22
+00:00:59,186 --> 00:01:00,976
+And then, end by providing some
+
+
+23
+00:01:00,976 --> 00:01:02,576
+details on how you can take
+
+
+24
+00:01:02,576 --> 00:01:04,046
+advantage of the new external
+
+
+25
+00:01:04,046 --> 00:01:05,906
+GPU support that we've added to
+
+
+26
+00:01:05,906 --> 00:01:06,436
+the OS.
+
+
+27
+00:01:09,256 --> 00:01:09,516
+All right.
+
+
+28
+00:01:09,516 --> 00:01:11,166
+I hope everyone here knows what
+
+
+29
+00:01:11,216 --> 00:01:12,276
+virtual reality is.
+
+
+30
+00:01:12,786 --> 00:01:14,706
+But just in case, it's am
+
+
+31
+00:01:14,706 --> 00:01:17,526
+immersive 360-degree 3D
+
+
+32
+00:01:17,606 --> 00:01:20,246
+experience, with direct object
+
+
+33
+00:01:20,246 --> 00:01:21,726
+manipulation using controllera.
+
+
+34
+00:01:22,366 --> 00:01:24,476
+And an interactive room sized
+
+
+35
+00:01:24,476 --> 00:01:25,676
+environment that you can
+
+
+36
+00:01:25,676 --> 00:01:27,476
+explore, thanks to highly
+
+
+37
+00:01:27,476 --> 00:01:28,826
+accurate motion tracking.
+
+
+38
+00:01:30,036 --> 00:01:31,306
+Now, we at Apple think that this
+
+
+39
+00:01:31,306 --> 00:01:32,716
+is a great new medium for
+
+
+40
+00:01:32,716 --> 00:01:34,786
+developers like you to create
+
+
+41
+00:01:34,786 --> 00:01:36,646
+new experiences for our users.
+
+
+42
+00:01:37,276 --> 00:01:40,956
+And Metal 2 enables this support
+
+
+43
+00:01:40,956 --> 00:01:41,846
+in three ways.
+
+
+44
+00:01:42,516 --> 00:01:46,766
+First, by providing a fast path
+
+
+45
+00:01:46,846 --> 00:01:48,316
+to present the frame directly to
+
+
+46
+00:01:48,316 --> 00:01:49,776
+the VR headset with our new
+
+
+47
+00:01:50,296 --> 00:01:52,006
+Direct to Display capability.
+
+
+48
+00:01:53,616 --> 00:01:56,136
+Second, by enabling new features
+
+
+49
+00:01:56,136 --> 00:01:57,696
+like Viewport Array that are
+
+
+50
+00:01:57,756 --> 00:02:00,026
+specifically targeting VR.
+
+
+51
+00:02:01,506 --> 00:02:03,006
+And finally, by providing that
+
+
+52
+00:02:03,076 --> 00:02:04,366
+foundational support for
+
+
+53
+00:02:04,366 --> 00:02:06,096
+external GPUs, so that
+
+
+54
+00:02:06,096 --> 00:02:07,796
+developers have a broader range
+
+
+55
+00:02:07,796 --> 00:02:08,705
+of Mac hardware.
+
+
+56
+00:02:08,946 --> 00:02:10,616
+Of VR capable Mac hardware to
+
+
+57
+00:02:10,616 --> 00:02:11,066
+work on.
+
+
+58
+00:02:11,606 --> 00:02:13,566
+So, let's get right into what
+
+
+59
+00:02:13,566 --> 00:02:15,566
+we've enabled with macOS High
+
+
+60
+00:02:15,696 --> 00:02:16,036
+Sierra.
+
+
+61
+00:02:17,056 --> 00:02:18,726
+So, we've added built-in plug
+
+
+62
+00:02:18,726 --> 00:02:20,186
+and play support for the HTC
+
+
+63
+00:02:20,396 --> 00:02:21,616
+Vive VR headset.
+
+
+64
+00:02:21,616 --> 00:02:24,286
+And this headset works in
+
+
+65
+00:02:24,286 --> 00:02:26,346
+conjunction with Valve SteamVR
+
+
+66
+00:02:26,346 --> 00:02:28,436
+runtime, which provides a number
+
+
+67
+00:02:28,436 --> 00:02:30,206
+of services, including the VR
+
+
+68
+00:02:30,206 --> 00:02:31,086
+compositor.
+
+
+69
+00:02:32,556 --> 00:02:33,946
+Valve is also bringing their
+
+
+70
+00:02:34,006 --> 00:02:36,796
+open VR APIs to macOS, so that
+
+
+71
+00:02:36,796 --> 00:02:39,136
+you guys can create VR apps that
+
+
+72
+00:02:39,136 --> 00:02:40,136
+work with SteamVR.
+
+
+73
+00:02:40,416 --> 00:02:41,466
+We've been working really
+
+
+74
+00:02:41,466 --> 00:02:43,006
+closely with Valve over the last
+
+
+75
+00:02:43,106 --> 00:02:45,216
+year to align our releases, and
+
+
+76
+00:02:45,216 --> 00:02:47,256
+both SteamVR and OpenVR are
+
+
+77
+00:02:47,726 --> 00:02:49,566
+available to download in beta
+
+
+78
+00:02:49,636 --> 00:02:50,746
+form, this week.
+
+
+79
+00:02:51,386 --> 00:02:55,376
+So, before I go on, I'd like to
+
+
+80
+00:02:55,406 --> 00:02:57,156
+describe what the VR compositor
+
+
+81
+00:02:57,156 --> 00:02:57,856
+actually does.
+
+
+82
+00:02:59,056 --> 00:03:00,616
+So, in a nutshell, it distorts
+
+
+83
+00:03:00,716 --> 00:03:02,766
+the image that your app renders
+
+
+84
+00:03:02,816 --> 00:03:05,106
+to account for the lens optics
+
+
+85
+00:03:05,106 --> 00:03:06,156
+in the VR headset.
+
+
+86
+00:03:07,186 --> 00:03:08,526
+In this example, you can see the
+
+
+87
+00:03:08,686 --> 00:03:10,296
+barrel distortion that the
+
+
+88
+00:03:10,296 --> 00:03:12,106
+compositor is applying to
+
+
+89
+00:03:12,106 --> 00:03:13,516
+account for the pincushion
+
+
+90
+00:03:13,516 --> 00:03:14,676
+effect of the lenses.
+
+
+91
+00:03:15,676 --> 00:03:16,696
+Now, in practice, there's
+
+
+92
+00:03:16,696 --> 00:03:18,306
+actually a lot more complexity
+
+
+93
+00:03:18,306 --> 00:03:19,056
+under the covers.
+
+
+94
+00:03:19,356 --> 00:03:20,746
+And the compositor had to handle
+
+
+95
+00:03:20,746 --> 00:03:21,916
+things like chromatic
+
+
+96
+00:03:21,916 --> 00:03:24,316
+aberration, and also presenting
+
+
+97
+00:03:24,316 --> 00:03:26,176
+a Chaperone UI, so that
+
+
+98
+00:03:26,206 --> 00:03:28,146
+developers know the bounds of
+
+
+99
+00:03:28,286 --> 00:03:31,256
+their VR space.
+
+
+100
+00:03:31,466 --> 00:03:32,316
+All right.
+
+
+101
+00:03:32,316 --> 00:03:33,436
+Now, that you have built-in
+
+
+102
+00:03:33,486 --> 00:03:36,386
+support for a VR headset, a VR
+
+
+103
+00:03:36,896 --> 00:03:39,066
+compositor with SteamVR, and an
+
+
+104
+00:03:39,066 --> 00:03:41,296
+API to write to, let's dive
+
+
+105
+00:03:41,396 --> 00:03:42,976
+right into how you build a VR
+
+
+106
+00:03:42,976 --> 00:03:43,286
+app.
+
+
+107
+00:03:44,756 --> 00:03:46,096
+Well, we have two options.
+
+
+108
+00:03:46,866 --> 00:03:49,156
+You first, is to use an existing
+
+
+109
+00:03:49,156 --> 00:03:50,996
+game engine that has VR support.
+
+
+110
+00:03:51,786 --> 00:03:53,426
+This is a great option that many
+
+
+111
+00:03:53,426 --> 00:03:55,126
+developers prefer, because it
+
+
+112
+00:03:55,126 --> 00:03:56,566
+hides some of the complexities
+
+
+113
+00:03:56,566 --> 00:03:57,726
+of the VR compositor.
+
+
+114
+00:03:58,456 --> 00:04:00,356
+It also provides a familiar
+
+
+115
+00:04:00,356 --> 00:04:01,786
+content creation tool chain.
+
+
+116
+00:04:03,156 --> 00:04:04,916
+Now, your second option, is to
+
+
+117
+00:04:04,916 --> 00:04:06,906
+write a native VR app that calls
+
+
+118
+00:04:06,906 --> 00:04:08,106
+open VR, directly.
+
+
+119
+00:04:08,926 --> 00:04:10,766
+This gives your app full control
+
+
+120
+00:04:11,086 --> 00:04:12,716
+of rendering and synchronization
+
+
+121
+00:04:12,716 --> 00:04:13,756
+with the VR compositor.
+
+
+122
+00:04:14,236 --> 00:04:15,236
+But at the cost of some
+
+
+123
+00:04:15,236 --> 00:04:16,366
+additional complexity.
+
+
+124
+00:04:16,935 --> 00:04:19,906
+Which path you take depends on
+
+
+125
+00:04:19,906 --> 00:04:20,875
+the goals of your app.
+
+
+126
+00:04:21,486 --> 00:04:23,346
+Let's start by talking a bit
+
+
+127
+00:04:23,846 --> 00:04:24,946
+about the game engines.
+
+
+128
+00:04:26,796 --> 00:04:29,306
+So, you saw Epic's Unreal Engine
+
+
+129
+00:04:29,426 --> 00:04:31,316
+4 in action in the keynote, and
+
+
+130
+00:04:31,316 --> 00:04:32,976
+it's a powerful platform on
+
+
+131
+00:04:32,976 --> 00:04:34,066
+which to build your VR
+
+
+132
+00:04:34,066 --> 00:04:34,966
+experiences.
+
+
+133
+00:04:36,246 --> 00:04:38,416
+VR support will be coming later,
+
+
+134
+00:04:38,416 --> 00:04:40,676
+this year, and you can find
+
+
+135
+00:04:40,676 --> 00:04:42,646
+tutorials and other information
+
+
+136
+00:04:42,646 --> 00:04:43,586
+on Epic's website.
+
+
+137
+00:04:44,966 --> 00:04:46,656
+We're also really excited that
+
+
+138
+00:04:46,696 --> 00:04:48,936
+Unity is bringing VR support to
+
+
+139
+00:04:48,936 --> 00:04:50,596
+macOS in a future release of
+
+
+140
+00:04:50,626 --> 00:04:51,216
+their engine.
+
+
+141
+00:04:51,896 --> 00:04:53,116
+We've been working closely with
+
+
+142
+00:04:53,116 --> 00:04:54,296
+them to ensure that the engine
+
+
+143
+00:04:54,296 --> 00:04:56,266
+is optimized for both VR
+
+
+144
+00:04:56,266 --> 00:04:58,586
+playback and development using
+
+
+145
+00:04:58,586 --> 00:04:58,876
+Metal.
+
+
+146
+00:05:02,076 --> 00:05:03,396
+So, I'd like to take a moment,
+
+
+147
+00:05:03,396 --> 00:05:04,636
+at this point, to talk about a
+
+
+148
+00:05:04,766 --> 00:05:06,936
+specific Unity title called
+
+
+149
+00:05:06,936 --> 00:05:08,336
+Space Pirate Trainer.
+
+
+150
+00:05:08,806 --> 00:05:10,396
+So, we've been collaborating
+
+
+151
+00:05:10,396 --> 00:05:12,556
+with Unity and I-Illusions to
+
+
+152
+00:05:12,556 --> 00:05:14,596
+bring an early preview of Space
+
+
+153
+00:05:14,666 --> 00:05:16,196
+Pirate Trainer to macOS.
+
+
+154
+00:05:16,916 --> 00:05:19,836
+And the speed at with I-Illusion
+
+
+155
+00:05:20,066 --> 00:05:21,916
+was able to bring their app to
+
+
+156
+00:05:21,916 --> 00:05:23,176
+our platform was truly
+
+
+157
+00:05:23,236 --> 00:05:23,716
+astounding.
+
+
+158
+00:05:23,716 --> 00:05:25,916
+They had a working build in just
+
+
+159
+00:05:25,916 --> 00:05:28,536
+a few hours, then a stable fully
+
+
+160
+00:05:28,536 --> 00:05:30,386
+playable game in just a handful
+
+
+161
+00:05:30,386 --> 00:05:30,786
+of days.
+
+
+162
+00:05:31,926 --> 00:05:33,476
+We've been having tremendous fun
+
+
+163
+00:05:33,566 --> 00:05:35,166
+playing with this game, and
+
+
+164
+00:05:35,206 --> 00:05:36,336
+think that it's a great
+
+
+165
+00:05:36,336 --> 00:05:38,516
+representation of the type of VR
+
+
+166
+00:05:38,516 --> 00:05:39,886
+experience that you can build
+
+
+167
+00:05:40,146 --> 00:05:40,766
+with unity.
+
+
+168
+00:05:42,176 --> 00:05:43,166
+We hope you get a chance to
+
+
+169
+00:05:43,166 --> 00:05:44,136
+check it out at WWDC.
+
+
+170
+00:05:44,136 --> 00:05:45,936
+We think you'll love it, as
+
+
+171
+00:05:45,936 --> 00:05:46,226
+well.
+
+
+172
+00:05:47,556 --> 00:05:50,636
+So, Unity and Unreal Engine 4
+
+
+173
+00:05:50,636 --> 00:05:52,376
+are two great options for VR
+
+
+174
+00:05:52,376 --> 00:05:53,136
+development.
+
+
+175
+00:05:54,536 --> 00:05:56,536
+But you can, of course, choose
+
+
+176
+00:05:56,536 --> 00:05:58,136
+to write a native SteamVR app,
+
+
+177
+00:05:58,496 --> 00:05:59,756
+that calls the open VR
+
+
+178
+00:05:59,846 --> 00:06:00,766
+framework, directly.
+
+
+179
+00:06:01,566 --> 00:06:02,906
+Now, we'll have details on how
+
+
+180
+00:06:02,906 --> 00:06:03,996
+you can add the framework to
+
+
+181
+00:06:03,996 --> 00:06:05,756
+your app, later in the session.
+
+
+182
+00:06:06,006 --> 00:06:07,436
+But you can download binaries
+
+
+183
+00:06:07,476 --> 00:06:09,386
+and API documentation at the
+
+
+184
+00:06:09,386 --> 00:06:10,366
+OpenVR GitHub.
+
+
+185
+00:06:12,776 --> 00:06:14,286
+There'll also be a Metal
+
+
+186
+00:06:14,346 --> 00:06:16,416
+specific sample app available to
+
+
+187
+00:06:16,416 --> 00:06:17,786
+download in the near future.
+
+
+188
+00:06:18,626 --> 00:06:19,676
+But to give you a taste of
+
+
+189
+00:06:19,676 --> 00:06:21,556
+what's involved, I'd like to
+
+
+190
+00:06:21,556 --> 00:06:23,616
+now, provide a primer on VR app
+
+
+191
+00:06:23,616 --> 00:06:25,316
+development in a segment that I
+
+
+192
+00:06:25,316 --> 00:06:27,026
+like to call VR App Building
+
+
+193
+00:06:27,026 --> 00:06:27,526
+101.
+
+
+194
+00:06:28,666 --> 00:06:29,856
+So, we're going to cover a few
+
+
+195
+00:06:29,856 --> 00:06:30,356
+things, here.
+
+
+196
+00:06:31,106 --> 00:06:32,706
+We'll start with an overview of
+
+
+197
+00:06:32,766 --> 00:06:34,176
+some of the challenges involved
+
+
+198
+00:06:34,176 --> 00:06:35,246
+in VR development.
+
+
+199
+00:06:36,496 --> 00:06:38,376
+And then, talk a bit about some
+
+
+200
+00:06:38,376 --> 00:06:40,206
+unique considerations on our
+
+
+201
+00:06:40,206 --> 00:06:40,836
+platform.
+
+
+202
+00:06:40,916 --> 00:06:43,096
+And then, take a deep dive into
+
+
+203
+00:06:43,096 --> 00:06:45,306
+the anatomy of a VR frame.
+
+
+204
+00:06:46,156 --> 00:06:47,136
+And then, end with some best
+
+
+205
+00:06:47,226 --> 00:06:48,826
+practices specific to VR apps.
+
+
+206
+00:06:50,326 --> 00:06:51,246
+So, we've got a lot to cover,
+
+
+207
+00:06:51,246 --> 00:06:51,446
+here.
+
+
+208
+00:06:51,636 --> 00:06:53,066
+So, let's get started with the
+
+
+209
+00:06:53,066 --> 00:06:53,536
+overview.
+
+
+210
+00:06:54,106 --> 00:06:57,586
+So, a traditional non-VR work
+
+
+211
+00:06:57,586 --> 00:07:00,166
+load targeting a 60Hz display
+
+
+212
+00:07:00,706 --> 00:07:03,696
+has around 16.7 milliseconds to
+
+
+213
+00:07:03,696 --> 00:07:06,986
+do work for the frame.
+
+
+214
+00:07:07,166 --> 00:07:09,986
+And in many cases, the app has
+
+
+215
+00:07:10,396 --> 00:07:12,856
+the entire frame budget to do
+
+
+216
+00:07:12,856 --> 00:07:14,016
+work on the GPU.
+
+
+217
+00:07:14,566 --> 00:07:17,266
+A VR workload, on the other
+
+
+218
+00:07:17,326 --> 00:07:19,656
+hand, has to target a 90 frame
+
+
+219
+00:07:19,656 --> 00:07:20,676
+per second display.
+
+
+220
+00:07:20,676 --> 00:07:22,766
+And it needs to hit this target
+
+
+221
+00:07:22,806 --> 00:07:24,686
+to achieve a smooth stutter-free
+
+
+222
+00:07:24,686 --> 00:07:26,446
+experience on a headset like the
+
+
+223
+00:07:26,446 --> 00:07:26,806
+Vive.
+
+
+224
+00:07:27,756 --> 00:07:29,186
+So, this reduces the available
+
+
+225
+00:07:29,186 --> 00:07:31,116
+frame budget to around 11
+
+
+226
+00:07:31,116 --> 00:07:31,886
+milliseconds.
+
+
+227
+00:07:33,276 --> 00:07:35,186
+Additionally, the VR compositor
+
+
+228
+00:07:35,186 --> 00:07:37,296
+has to do work on the GPU to
+
+
+229
+00:07:37,296 --> 00:07:39,136
+prepare the frame for the VR
+
+
+230
+00:07:39,136 --> 00:07:39,616
+headset.
+
+
+231
+00:07:40,716 --> 00:07:42,136
+This can take up to 1
+
+
+232
+00:07:42,136 --> 00:07:44,266
+millisecond, leaving you app an
+
+
+233
+00:07:44,266 --> 00:07:46,446
+effective frame time budget of
+
+
+234
+00:07:46,446 --> 00:07:48,026
+around 10 milliseconds.
+
+
+235
+00:07:48,796 --> 00:07:51,726
+Which is about 60% of the non-VR
+
+
+236
+00:07:51,726 --> 00:07:52,036
+case.
+
+
+237
+00:07:52,776 --> 00:07:55,636
+And if that wasn't enough, your
+
+
+238
+00:07:55,636 --> 00:07:57,656
+app also has to do more work
+
+
+239
+00:07:57,656 --> 00:07:58,276
+every frame.
+
+
+240
+00:07:59,306 --> 00:08:01,256
+This includes stereo rendering
+
+
+241
+00:08:01,556 --> 00:08:03,106
+for the left and right eye.
+
+
+242
+00:08:04,096 --> 00:08:05,786
+And also, rendering to a higher
+
+
+243
+00:08:05,786 --> 00:08:07,416
+resolution, in many cases.
+
+
+244
+00:08:08,476 --> 00:08:10,086
+The Vive headset has a
+
+
+245
+00:08:10,086 --> 00:08:12,836
+resolution of 2160 x 1200.
+
+
+246
+00:08:13,186 --> 00:08:15,476
+That's 25% more pixels than a
+
+
+247
+00:08:15,476 --> 00:08:16,586
+1080 display.
+
+
+248
+00:08:17,576 --> 00:08:19,676
+Additionally, many VR apps
+
+
+249
+00:08:19,676 --> 00:08:22,696
+render at a 1.2 to 1.4 X scale
+
+
+250
+00:08:22,746 --> 00:08:24,216
+factor to further improve
+
+
+251
+00:08:24,216 --> 00:08:24,776
+quality.
+
+
+252
+00:08:25,366 --> 00:08:28,316
+So, in summary, your app has a
+
+
+253
+00:08:28,316 --> 00:08:30,246
+lot more work to do in less
+
+
+254
+00:08:30,336 --> 00:08:30,626
+time.
+
+
+255
+00:08:31,526 --> 00:08:32,645
+Welcome to VR development.
+
+
+256
+00:08:34,596 --> 00:08:35,186
+All right.
+
+
+257
+00:08:35,186 --> 00:08:36,535
+Let's talk about some platform
+
+
+258
+00:08:36,535 --> 00:08:37,336
+specifics.
+
+
+259
+00:08:38,336 --> 00:08:40,535
+So, Metal 2 introduces a new
+
+
+260
+00:08:40,535 --> 00:08:42,806
+Direct to Display capability for
+
+
+261
+00:08:42,806 --> 00:08:44,166
+supported headsets like the
+
+
+262
+00:08:44,166 --> 00:08:44,596
+Vive.
+
+
+263
+00:08:45,476 --> 00:08:47,886
+This is a low latency path that
+
+
+264
+00:08:47,926 --> 00:08:49,446
+bypasses the OS window
+
+
+265
+00:08:49,446 --> 00:08:51,376
+compositor, and gives the VR
+
+
+266
+00:08:51,376 --> 00:08:54,256
+compositor, like SteamVR, the
+
+
+267
+00:08:54,256 --> 00:08:55,896
+direct ability to present a
+
+
+268
+00:08:55,896 --> 00:08:57,646
+surface onto the VR headset.
+
+
+269
+00:08:58,326 --> 00:09:00,146
+This avoids any pixel processing
+
+
+270
+00:09:00,146 --> 00:09:03,546
+or additional copies by the OS.
+
+
+271
+00:09:03,806 --> 00:09:05,276
+Now, it's worth noting that in
+
+
+272
+00:09:05,346 --> 00:09:06,926
+order to guarantee this fast
+
+
+273
+00:09:06,996 --> 00:09:09,846
+path, that macOS does not treat
+
+
+274
+00:09:09,896 --> 00:09:11,366
+VR headsets as displays.
+
+
+275
+00:09:11,956 --> 00:09:13,146
+They're hidden from the system
+
+
+276
+00:09:13,286 --> 00:09:15,376
+and offer no extended desktop
+
+
+277
+00:09:15,376 --> 00:09:16,056
+capabilities.
+
+
+278
+00:09:16,746 --> 00:09:20,676
+So, to summarize, we move from a
+
+
+279
+00:09:20,676 --> 00:09:22,976
+model where you can present or
+
+
+280
+00:09:23,516 --> 00:09:25,276
+an app presents to a display
+
+
+281
+00:09:25,366 --> 00:09:26,336
+through the OS window
+
+
+282
+00:09:26,336 --> 00:09:27,026
+compositor.
+
+
+283
+00:09:28,316 --> 00:09:30,086
+To one where a VR app can
+
+
+284
+00:09:30,136 --> 00:09:32,456
+present to a headset directly
+
+
+285
+00:09:32,496 --> 00:09:33,756
+through the VR compositor.
+
+
+286
+00:09:34,566 --> 00:09:36,446
+And that's our Direct to Display
+
+
+287
+00:09:36,516 --> 00:09:39,716
+capability for VR with Metal 2.
+
+
+288
+00:09:41,416 --> 00:09:41,976
+All right.
+
+
+289
+00:09:42,206 --> 00:09:43,556
+Keeping with the theme of macOS
+
+
+290
+00:09:43,616 --> 00:09:46,126
+platform specifics, let's talk a
+
+
+291
+00:09:46,126 --> 00:09:48,026
+bit about how your app selects a
+
+
+292
+00:09:48,026 --> 00:09:49,296
+Metal device to use.
+
+
+293
+00:09:50,276 --> 00:09:52,266
+So, in macOS, the VR compositor
+
+
+294
+00:09:52,316 --> 00:09:54,546
+can query the OS to find the
+
+
+295
+00:09:54,546 --> 00:09:57,006
+Metal device for the GPU that
+
+
+296
+00:09:57,006 --> 00:09:58,346
+the headset is attached to.
+
+
+297
+00:09:59,556 --> 00:10:00,786
+And for performance reasons,
+
+
+298
+00:10:01,356 --> 00:10:02,776
+your app will want to select the
+
+
+299
+00:10:02,776 --> 00:10:04,766
+same device that the compositor
+
+
+300
+00:10:04,766 --> 00:10:04,976
+is using.
+
+
+301
+00:10:06,266 --> 00:10:07,226
+So, we've worked with Valve to
+
+
+302
+00:10:07,226 --> 00:10:08,476
+make sure that there's an API to
+
+
+303
+00:10:08,476 --> 00:10:10,566
+do this, simply called
+
+
+304
+00:10:10,856 --> 00:10:13,186
+GetOutputDevice to get the Metal
+
+
+305
+00:10:13,186 --> 00:10:14,266
+device that you should render
+
+
+306
+00:10:14,266 --> 00:10:14,506
+to.
+
+
+307
+00:10:14,876 --> 00:10:15,486
+It's that simple.
+
+
+308
+00:10:18,486 --> 00:10:20,416
+Now, let's talk about managing
+
+
+309
+00:10:20,416 --> 00:10:22,236
+drawable surfaces on macOS.
+
+
+310
+00:10:23,576 --> 00:10:25,376
+So, the VR compositor and your
+
+
+311
+00:10:25,376 --> 00:10:28,126
+app each maintain separate pools
+
+
+312
+00:10:28,396 --> 00:10:29,576
+of drawable surfaces.
+
+
+313
+00:10:30,196 --> 00:10:32,276
+And in a typical frame your app
+
+
+314
+00:10:32,556 --> 00:10:34,176
+will render to textures that it
+
+
+315
+00:10:34,176 --> 00:10:36,926
+owns, submit these to the VR
+
+
+316
+00:10:36,926 --> 00:10:37,736
+compositor.
+
+
+317
+00:10:38,806 --> 00:10:40,666
+These will get composited onto a
+
+
+318
+00:10:40,666 --> 00:10:42,186
+surface that the compositor
+
+
+319
+00:10:42,186 --> 00:10:44,076
+owns, and that's the surface
+
+
+320
+00:10:44,076 --> 00:10:45,246
+that'll get presented to the
+
+
+321
+00:10:45,246 --> 00:10:45,766
+headset.
+
+
+322
+00:10:47,006 --> 00:10:49,716
+And on macOS, IO surfaces are
+
+
+323
+00:10:49,716 --> 00:10:51,376
+ideal for transferring this
+
+
+324
+00:10:51,556 --> 00:10:53,496
+rendered data from your app to
+
+
+325
+00:10:53,496 --> 00:10:54,286
+the compositor.
+
+
+326
+00:10:54,816 --> 00:10:56,346
+So, make sure that you create
+
+
+327
+00:10:56,346 --> 00:10:58,066
+Metal textures that are backed
+
+
+328
+00:10:58,416 --> 00:10:59,566
+by IO surfaces.
+
+
+329
+00:11:01,076 --> 00:11:02,596
+As a refresher, let's take a
+
+
+330
+00:11:02,656 --> 00:11:03,926
+quick look at how you create
+
+
+331
+00:11:03,926 --> 00:11:04,606
+those textures.
+
+
+332
+00:11:06,616 --> 00:11:08,046
+So, you'll want to build a
+
+
+333
+00:11:08,156 --> 00:11:09,766
+texture descriptor that
+
+
+334
+00:11:09,766 --> 00:11:11,436
+specifies the Render Target
+
+
+335
+00:11:11,476 --> 00:11:13,266
+Usage flag, since your app will
+
+
+336
+00:11:13,266 --> 00:11:14,406
+be rendering into it.
+
+
+337
+00:11:15,276 --> 00:11:17,416
+But also, the Shader Read Usage
+
+
+338
+00:11:17,416 --> 00:11:17,766
+flag.
+
+
+339
+00:11:18,146 --> 00:11:19,336
+Since the compositor will be
+
+
+340
+00:11:19,426 --> 00:11:20,926
+sourcing it as an input.
+
+
+341
+00:11:21,406 --> 00:11:24,726
+And then, to create your left
+
+
+342
+00:11:24,946 --> 00:11:26,976
+and right eye Textures, you
+
+
+343
+00:11:27,066 --> 00:11:29,966
+simply pass IO surfaces that you
+
+
+344
+00:11:29,966 --> 00:11:31,586
+previously allocated and this
+
+
+345
+00:11:31,626 --> 00:11:33,096
+Texture descriptor to
+
+
+346
+00:11:33,096 --> 00:11:34,696
+newTextureWithDescriptor.
+
+
+347
+00:11:35,366 --> 00:11:35,596
+All right.
+
+
+348
+00:11:35,716 --> 00:11:36,786
+I'd like to now, take a few
+
+
+349
+00:11:36,786 --> 00:11:39,266
+minutes to talk or to describe a
+
+
+350
+00:11:39,266 --> 00:11:40,676
+typical frame in a VR app.
+
+
+351
+00:11:41,576 --> 00:11:43,076
+This is important, because your
+
+
+352
+00:11:43,076 --> 00:11:45,086
+app and the VR compositor need
+
+
+353
+00:11:45,086 --> 00:11:46,376
+to work in lock step.
+
+
+354
+00:11:47,436 --> 00:11:49,186
+As I noted before, the rendered
+
+
+355
+00:11:49,186 --> 00:11:50,826
+output of your app will be
+
+
+356
+00:11:50,826 --> 00:11:53,096
+passed to the VR compositor for
+
+
+357
+00:11:53,096 --> 00:11:54,336
+additional processing on the
+
+
+358
+00:11:54,336 --> 00:11:54,926
+GPU.
+
+
+359
+00:11:55,726 --> 00:11:57,756
+And since the GPU is a shared
+
+
+360
+00:11:57,806 --> 00:12:00,596
+resource, synchronization and
+
+
+361
+00:12:00,596 --> 00:12:02,486
+when work is scheduled matters.
+
+
+362
+00:12:03,086 --> 00:12:05,436
+So, let's start at the beginning
+
+
+363
+00:12:05,436 --> 00:12:06,026
+of the frame.
+
+
+364
+00:12:06,946 --> 00:12:08,706
+Your app will need to query the
+
+
+365
+00:12:08,706 --> 00:12:10,506
+VR system to get the headset
+
+
+366
+00:12:10,506 --> 00:12:12,196
+poses that it needs to render
+
+
+367
+00:12:12,196 --> 00:12:12,746
+the frame.
+
+
+368
+00:12:13,936 --> 00:12:15,766
+For SteamVr, this is done by the
+
+
+369
+00:12:15,866 --> 00:12:17,316
+WaitGetPoses call.
+
+
+370
+00:12:18,366 --> 00:12:20,406
+And then, your app can encode
+
+
+371
+00:12:20,406 --> 00:12:22,116
+the rendered commands for that
+
+
+372
+00:12:22,246 --> 00:12:24,246
+frame immediately after getting
+
+
+373
+00:12:24,246 --> 00:12:24,946
+those inputs.
+
+
+374
+00:12:25,536 --> 00:12:28,406
+And then, once you've encoded
+
+
+375
+00:12:28,406 --> 00:12:30,136
+your command buffer, you can
+
+
+376
+00:12:30,176 --> 00:12:31,836
+commit it to Metal to queue onto
+
+
+377
+00:12:31,836 --> 00:12:32,576
+the GPU.
+
+
+378
+00:12:33,146 --> 00:12:35,296
+And then, submit your left and
+
+
+379
+00:12:35,296 --> 00:12:37,956
+right eye textures to SteamVR.
+
+
+380
+00:12:38,946 --> 00:12:40,666
+This'll wake the compositor so
+
+
+381
+00:12:40,666 --> 00:12:42,606
+it can start encoding its GPU
+
+
+382
+00:12:42,606 --> 00:12:43,896
+work for the frame.
+
+
+383
+00:12:44,476 --> 00:12:46,976
+And then, since ordered
+
+
+384
+00:12:46,976 --> 00:12:49,286
+execution matters, your app will
+
+
+385
+00:12:49,286 --> 00:12:50,816
+also need to signal the VR
+
+
+386
+00:12:50,816 --> 00:12:53,526
+compositor when work that is
+
+
+387
+00:12:53,596 --> 00:12:54,896
+sent to the GPU has been
+
+
+388
+00:12:54,896 --> 00:12:55,436
+scheduled.
+
+
+389
+00:12:56,656 --> 00:12:58,566
+So, for a Metal SteamVR app, you
+
+
+390
+00:12:58,646 --> 00:13:00,706
+simply wait until your command
+
+
+391
+00:13:00,706 --> 00:13:02,746
+buffer has been scheduled, and
+
+
+392
+00:13:02,746 --> 00:13:04,496
+then, you can call the SteamVR
+
+
+393
+00:13:04,496 --> 00:13:06,406
+PostPresentHandoff function.
+
+
+394
+00:13:07,136 --> 00:13:08,886
+This'll signal the VR compositor
+
+
+395
+00:13:09,136 --> 00:13:10,726
+that it can commit its work to
+
+
+396
+00:13:10,726 --> 00:13:13,026
+the GPU and it'll get queued up
+
+
+397
+00:13:13,476 --> 00:13:14,366
+in the right order.
+
+
+398
+00:13:14,366 --> 00:13:16,886
+So, let's see what that would
+
+
+399
+00:13:16,886 --> 00:13:18,346
+look like in your draw loop.
+
+
+400
+00:13:18,706 --> 00:13:20,276
+So, at the top of your loop
+
+
+401
+00:13:20,686 --> 00:13:22,006
+you'd have your WaitGetPoses
+
+
+402
+00:13:22,006 --> 00:13:23,876
+call, to gather the inputs from
+
+
+403
+00:13:23,876 --> 00:13:24,396
+the headset.
+
+
+404
+00:13:25,656 --> 00:13:27,196
+You then, build your command
+
+
+405
+00:13:27,196 --> 00:13:29,536
+buffer to render your scene and
+
+
+406
+00:13:29,536 --> 00:13:30,706
+commit it to the GPU.
+
+
+407
+00:13:31,826 --> 00:13:33,146
+And then, at this point, you'll
+
+
+408
+00:13:33,236 --> 00:13:35,086
+submit your left and right eye
+
+
+409
+00:13:35,186 --> 00:13:36,576
+textures to SteamVR.
+
+
+410
+00:13:37,906 --> 00:13:39,876
+And then, once you've waited for
+
+
+411
+00:13:39,876 --> 00:13:40,796
+that command buffer to be
+
+
+412
+00:13:40,836 --> 00:13:43,466
+scheduled, you can call
+
+
+413
+00:13:43,466 --> 00:13:45,086
+PostPresentHandoff to tell the
+
+
+414
+00:13:45,086 --> 00:13:47,226
+VR compositor that it's now free
+
+
+415
+00:13:47,456 --> 00:13:49,966
+to commit work to the GPU, as
+
+
+416
+00:13:50,856 --> 00:13:51,016
+well.
+
+
+417
+00:13:51,926 --> 00:13:53,496
+So, one more note before I move
+
+
+418
+00:13:53,496 --> 00:13:53,726
+on.
+
+
+419
+00:13:55,056 --> 00:13:57,046
+It's worth noting that as we
+
+
+420
+00:13:57,046 --> 00:13:58,486
+extend this diagram to include
+
+
+421
+00:13:58,486 --> 00:14:00,676
+the next frame, it's
+
+
+422
+00:14:00,986 --> 00:14:04,086
+WaitGetPoses and not the
+
+
+423
+00:14:04,196 --> 00:14:06,556
+vertical blank that defines the
+
+
+424
+00:14:06,556 --> 00:14:08,046
+start of the frame for your app.
+
+
+425
+00:14:08,896 --> 00:14:09,956
+This is an important thing to
+
+
+426
+00:14:09,956 --> 00:14:11,026
+keep in mind, and we'll be
+
+
+427
+00:14:11,026 --> 00:14:12,116
+coming back to this, very
+
+
+428
+00:14:12,116 --> 00:14:12,556
+shortly.
+
+
+429
+00:14:13,136 --> 00:14:15,016
+All right.
+
+
+430
+00:14:15,986 --> 00:14:17,396
+Let's move on to talk about some
+
+
+431
+00:14:17,396 --> 00:14:18,416
+best practices.
+
+
+432
+00:14:19,026 --> 00:14:22,626
+So, the first is to avoid
+
+
+433
+00:14:22,626 --> 00:14:24,596
+introducing a GPU bubble at the
+
+
+434
+00:14:24,596 --> 00:14:26,146
+start of your frame, while
+
+
+435
+00:14:26,146 --> 00:14:27,836
+encoding commands on the CPU.
+
+
+436
+00:14:29,036 --> 00:14:31,646
+So, helpfully, SteamVR offers a
+
+
+437
+00:14:31,646 --> 00:14:33,216
+useful mechanism to let you
+
+
+438
+00:14:33,216 --> 00:14:35,206
+start work for that frame early,
+
+
+439
+00:14:35,626 --> 00:14:37,216
+by giving your app a two to
+
+
+440
+00:14:37,276 --> 00:14:38,856
+three millisecond running start.
+
+
+441
+00:14:40,286 --> 00:14:41,226
+So, his should look very
+
+
+442
+00:14:41,276 --> 00:14:41,786
+familiar.
+
+
+443
+00:14:42,456 --> 00:14:43,836
+By aligning the start of your
+
+
+444
+00:14:43,836 --> 00:14:46,126
+frame with WaitGetPoses, you'll
+
+
+445
+00:14:46,126 --> 00:14:47,416
+ensure that you're taking
+
+
+446
+00:14:47,416 --> 00:14:48,966
+advantage of this optimization
+
+
+447
+00:14:49,226 --> 00:14:50,576
+and getting that running start.
+
+
+448
+00:14:54,076 --> 00:14:54,636
+All right.
+
+
+449
+00:14:54,716 --> 00:14:57,076
+Next, make sure that your app is
+
+
+450
+00:14:57,076 --> 00:14:59,146
+not building large monolithic
+
+
+451
+00:14:59,196 --> 00:15:00,396
+command buffers before
+
+
+452
+00:15:00,396 --> 00:15:02,146
+committing them to the GPU, as
+
+
+453
+00:15:02,146 --> 00:15:03,936
+this can also introduce GPU
+
+
+454
+00:15:03,936 --> 00:15:04,456
+bubbles.
+
+
+455
+00:15:05,496 --> 00:15:07,966
+Instead, you want to split your
+
+
+456
+00:15:07,966 --> 00:15:09,416
+command buffers where possible
+
+
+457
+00:15:09,656 --> 00:15:11,206
+and commit them as you go, to
+
+
+458
+00:15:11,206 --> 00:15:13,466
+maximize GPU utilization in the
+
+
+459
+00:15:13,466 --> 00:15:13,866
+frame.
+
+
+460
+00:15:14,406 --> 00:15:18,246
+So, the next optimization that
+
+
+461
+00:15:18,246 --> 00:15:19,886
+we recommend is to try and
+
+
+462
+00:15:19,956 --> 00:15:22,046
+coalesce your left and right eye
+
+
+463
+00:15:22,046 --> 00:15:22,846
+draws, together.
+
+
+464
+00:15:25,036 --> 00:15:26,836
+The Metal 2 Viewport Array
+
+
+465
+00:15:26,836 --> 00:15:28,296
+feature provides a great
+
+
+466
+00:15:28,296 --> 00:15:30,296
+mechanism for you to do this, by
+
+
+467
+00:15:30,296 --> 00:15:32,036
+letting your app select a per
+
+
+468
+00:15:32,096 --> 00:15:34,176
+primitive destination viewport
+
+
+469
+00:15:34,596 --> 00:15:35,546
+in the vertex shader.
+
+
+470
+00:15:36,326 --> 00:15:37,796
+This can substantially reduce
+
+
+471
+00:15:37,796 --> 00:15:39,666
+your draw call overhead, as you
+
+
+472
+00:15:39,666 --> 00:15:41,256
+can now render to both the left
+
+
+473
+00:15:41,916 --> 00:15:43,626
+and the right eye with a single
+
+
+474
+00:15:43,626 --> 00:15:44,186
+draw call.
+
+
+475
+00:15:45,386 --> 00:15:46,726
+So, let's take a look at an
+
+
+476
+00:15:46,726 --> 00:15:48,296
+example of how you can adopt
+
+
+477
+00:15:48,676 --> 00:15:50,236
+Viewport Array for your Metal
+
+
+478
+00:15:50,236 --> 00:15:51,746
+app using instancing.
+
+
+479
+00:15:53,136 --> 00:15:54,016
+So, the first thing I want to
+
+
+480
+00:15:54,016 --> 00:15:55,616
+point out is that you'll need to
+
+
+481
+00:15:55,616 --> 00:15:57,446
+create a texture that's twice as
+
+
+482
+00:15:57,446 --> 00:15:58,956
+wide, because you'll now be
+
+
+483
+00:15:58,956 --> 00:16:00,356
+rendering both the left and
+
+
+484
+00:16:00,356 --> 00:16:02,266
+right eye scene to the same
+
+
+485
+00:16:02,436 --> 00:16:02,906
+texture.
+
+
+486
+00:16:03,836 --> 00:16:05,766
+And then, you simply create your
+
+
+487
+00:16:05,766 --> 00:16:07,386
+Viewpoint array that defines the
+
+
+488
+00:16:07,386 --> 00:16:10,026
+bounds for your left and your
+
+
+489
+00:16:10,026 --> 00:16:11,596
+right eye viewports.
+
+
+490
+00:16:12,786 --> 00:16:13,906
+And then, you can pass this
+
+
+491
+00:16:13,946 --> 00:16:15,216
+Viewport array to your render
+
+
+492
+00:16:15,216 --> 00:16:16,976
+commanding coder using the new
+
+
+493
+00:16:17,416 --> 00:16:18,426
+setViewports API.
+
+
+494
+00:16:19,586 --> 00:16:20,586
+And then, at this point, you'll
+
+
+495
+00:16:20,586 --> 00:16:21,826
+want to make an instance to
+
+
+496
+00:16:21,976 --> 00:16:23,706
+DrawPrimitives call with an
+
+
+497
+00:16:23,766 --> 00:16:26,286
+instance count of 2 to issue the
+
+
+498
+00:16:26,286 --> 00:16:27,366
+draw to your left and right
+
+
+499
+00:16:27,416 --> 00:16:28,066
+Viewports.
+
+
+500
+00:16:29,286 --> 00:16:31,046
+We'll be using the instance ID
+
+
+501
+00:16:31,366 --> 00:16:33,836
+as our eye index in the vertex
+
+
+502
+00:16:33,836 --> 00:16:34,146
+shader.
+
+
+503
+00:16:35,286 --> 00:16:36,136
+So, let's take a look at that
+
+
+504
+00:16:36,136 --> 00:16:36,786
+vertex shader.
+
+
+505
+00:16:37,406 --> 00:16:39,536
+So, the first thing I want to
+
+
+506
+00:16:39,536 --> 00:16:42,126
+point out is that the viewport
+
+
+507
+00:16:42,456 --> 00:16:44,096
+is selected by the new viewport
+
+
+508
+00:16:44,316 --> 00:16:45,436
+underscore array underscore
+
+
+509
+00:16:45,436 --> 00:16:46,276
+index attribute.
+
+
+510
+00:16:47,756 --> 00:16:49,276
+And then, as I previously noted,
+
+
+511
+00:16:49,406 --> 00:16:50,166
+we're using the instance
+
+
+512
+00:16:50,166 --> 00:16:52,486
+underscore id as our eye index.
+
+
+513
+00:16:52,826 --> 00:16:54,186
+And we'll be able to use it to
+
+
+514
+00:16:54,186 --> 00:16:56,416
+access our viewport dependent
+
+
+515
+00:16:56,416 --> 00:16:57,936
+data like this model view
+
+
+516
+00:16:57,966 --> 00:16:59,646
+projection matrix in this
+
+
+517
+00:16:59,646 --> 00:17:00,176
+example.
+
+
+518
+00:17:00,716 --> 00:17:03,166
+And then, finally, you do want
+
+
+519
+00:17:03,166 --> 00:17:05,006
+to associate your viewport index
+
+
+520
+00:17:05,476 --> 00:17:06,705
+with the instance underscore id
+
+
+521
+00:17:06,746 --> 00:17:08,006
+so that the right viewport is
+
+
+522
+00:17:08,066 --> 00:17:10,056
+selected when rasterizing your
+
+
+523
+00:17:10,056 --> 00:17:10,435
+image.
+
+
+524
+00:17:11,465 --> 00:17:13,465
+And that's how you use the new
+
+
+525
+00:17:13,465 --> 00:17:15,286
+Viewport Array feature to reduce
+
+
+526
+00:17:15,346 --> 00:17:17,906
+the draw call cost in your VR
+
+
+527
+00:17:18,856 --> 00:17:18,976
+apps.
+
+
+528
+00:17:20,296 --> 00:17:20,846
+All right.
+
+
+529
+00:17:21,006 --> 00:17:22,386
+The final optimization that I
+
+
+530
+00:17:22,386 --> 00:17:24,006
+want to talk about, today, is
+
+
+531
+00:17:24,066 --> 00:17:25,465
+really a general best practice.
+
+
+532
+00:17:25,465 --> 00:17:27,406
+You want to try and reduce the
+
+
+533
+00:17:27,406 --> 00:17:29,716
+number of pixels that you're
+
+
+534
+00:17:29,716 --> 00:17:30,876
+shading every frame.
+
+
+535
+00:17:31,406 --> 00:17:33,236
+So, due to the nature of the
+
+
+536
+00:17:33,236 --> 00:17:35,816
+lens warp, about 15% of your
+
+
+537
+00:17:35,816 --> 00:17:37,876
+rendered scene is not actually
+
+
+538
+00:17:37,876 --> 00:17:39,386
+visible on the VR headset.
+
+
+539
+00:17:40,136 --> 00:17:41,626
+This is represented by the blue
+
+
+540
+00:17:41,626 --> 00:17:42,586
+regions in this image.
+
+
+541
+00:17:43,536 --> 00:17:45,976
+Luckily, SteamVR offers a mesh
+
+
+542
+00:17:46,056 --> 00:17:47,786
+based stencil mask that is
+
+
+543
+00:17:47,866 --> 00:17:49,466
+specific to the Vive headset
+
+
+544
+00:17:49,626 --> 00:17:51,006
+that you can use to cull these
+
+
+545
+00:17:51,066 --> 00:17:51,576
+pixels.
+
+
+546
+00:17:52,096 --> 00:17:54,296
+It's really easy to use and
+
+
+547
+00:17:54,326 --> 00:17:55,996
+provides a substantial benefit.
+
+
+548
+00:17:55,996 --> 00:17:56,866
+All right.
+
+
+549
+00:17:57,876 --> 00:18:00,586
+That brings us to the end of our
+
+
+550
+00:18:00,666 --> 00:18:01,976
+brief journey into building a VR
+
+
+551
+00:18:01,976 --> 00:18:02,306
+app.
+
+
+552
+00:18:02,766 --> 00:18:03,716
+So, with that background
+
+
+553
+00:18:03,716 --> 00:18:05,256
+covered, I'd like to now
+
+
+554
+00:18:05,256 --> 00:18:06,916
+introduce Nat Brown from Valve
+
+
+555
+00:18:06,996 --> 00:18:08,836
+Software, to come onstage and
+
+
+556
+00:18:08,836 --> 00:18:10,886
+talk a bit more about SteamVR on
+
+
+557
+00:18:10,886 --> 00:18:11,386
+macOS.
+
+
+558
+00:18:12,016 --> 00:18:13,726
+[ Applause ]
+
+
+559
+00:18:13,726 --> 00:18:14,126
+Thanks, Nat.
+
+
+560
+00:18:14,356 --> 00:18:14,746
+>> Thanks, Rav.
+
+
+561
+00:18:16,146 --> 00:18:17,516
+Hi, everybody.
+
+
+562
+00:18:17,566 --> 00:18:20,486
+I'm Nat. I work on VR at Valve.
+
+
+563
+00:18:20,786 --> 00:18:22,546
+So, if you don't know Valve,
+
+
+564
+00:18:22,546 --> 00:18:24,076
+we're a game company.
+
+
+565
+00:18:24,076 --> 00:18:25,186
+We distribute games and we have
+
+
+566
+00:18:25,186 --> 00:18:28,636
+a community of gamers that play
+
+
+567
+00:18:28,636 --> 00:18:29,276
+on Steam.
+
+
+568
+00:18:29,636 --> 00:18:30,896
+It turns out, games are actually
+
+
+569
+00:18:30,896 --> 00:18:33,266
+a super-interesting crucible for
+
+
+570
+00:18:33,266 --> 00:18:34,186
+user interface and
+
+
+571
+00:18:34,186 --> 00:18:35,226
+human/computer interaction.
+
+
+572
+00:18:35,676 --> 00:18:36,766
+And at Valve, we do a lot of
+
+
+573
+00:18:36,766 --> 00:18:39,006
+experiments around games and
+
+
+574
+00:18:39,006 --> 00:18:39,306
+input.
+
+
+575
+00:18:40,156 --> 00:18:42,356
+So, years of VR prototypes
+
+
+576
+00:18:42,886 --> 00:18:44,186
+really didn't click, for us, for
+
+
+577
+00:18:44,186 --> 00:18:45,346
+making games or any other kind
+
+
+578
+00:18:45,346 --> 00:18:45,826
+of content.
+
+
+579
+00:18:46,366 --> 00:18:47,866
+Until we found this sweet
+
+
+580
+00:18:47,866 --> 00:18:50,106
+combination of 90 hertz low
+
+
+581
+00:18:50,106 --> 00:18:52,096
+persistence displays, accurate
+
+
+582
+00:18:52,096 --> 00:18:53,716
+room scale tracking, with two
+
+
+583
+00:18:53,716 --> 00:18:54,536
+track controllers.
+
+
+584
+00:18:55,276 --> 00:18:57,056
+We consider this a magical
+
+
+585
+00:18:57,056 --> 00:18:58,076
+threshold for VR.
+
+
+586
+00:18:58,726 --> 00:19:00,826
+I like to think of it as kind of
+
+
+587
+00:19:00,826 --> 00:19:02,776
+similar to how when you first
+
+
+588
+00:19:03,246 --> 00:19:04,546
+used a smartphone with low
+
+
+589
+00:19:04,546 --> 00:19:06,216
+latency accurate touch, it
+
+
+590
+00:19:06,216 --> 00:19:07,066
+really felt magical.
+
+
+591
+00:19:07,396 --> 00:19:08,536
+That's what this magical
+
+
+592
+00:19:08,536 --> 00:19:11,526
+threshold is, for VR.
+
+
+593
+00:19:11,746 --> 00:19:12,916
+Once room scale VR really
+
+
+594
+00:19:12,916 --> 00:19:14,216
+clicked for us, we knew that we
+
+
+595
+00:19:14,216 --> 00:19:16,166
+could build VR games and VR
+
+
+596
+00:19:16,166 --> 00:19:16,496
+content.
+
+
+597
+00:19:17,516 --> 00:19:19,366
+We license aspects of our VR
+
+
+598
+00:19:19,366 --> 00:19:22,296
+technology like base stations,
+
+
+599
+00:19:22,466 --> 00:19:24,686
+headset lens designs, and so
+
+
+600
+00:19:24,686 --> 00:19:26,686
+forth, non-exclusively to
+
+
+601
+00:19:26,686 --> 00:19:28,156
+partners like HTC and LG.
+
+
+602
+00:19:28,156 --> 00:19:30,016
+And we have a big program that
+
+
+603
+00:19:30,016 --> 00:19:31,486
+licenses Lighthouse tracking
+
+
+604
+00:19:31,486 --> 00:19:32,816
+technology to lots of different
+
+
+605
+00:19:32,816 --> 00:19:33,216
+partners.
+
+
+606
+00:19:33,756 --> 00:19:37,196
+Our approach to the software
+
+
+607
+00:19:37,196 --> 00:19:38,336
+stack you've heard a little bit
+
+
+608
+00:19:38,336 --> 00:19:39,906
+about, already, is called the
+
+
+609
+00:19:39,906 --> 00:19:42,186
+SteamVr runtime.
+
+
+610
+00:19:42,416 --> 00:19:43,936
+SteamVr has an application
+
+
+611
+00:19:43,936 --> 00:19:45,506
+model, up above, and a hardware
+
+
+612
+00:19:45,506 --> 00:19:46,876
+and driver model, down below.
+
+
+613
+00:19:47,016 --> 00:19:49,266
+Our goal here, is to promote
+
+
+614
+00:19:49,266 --> 00:19:50,606
+experiments in VR, because we're
+
+
+615
+00:19:50,606 --> 00:19:52,096
+really in the early days of what
+
+
+616
+00:19:52,096 --> 00:19:53,546
+VR is and what the content's
+
+
+617
+00:19:53,546 --> 00:19:55,006
+going to be like.
+
+
+618
+00:19:55,546 --> 00:19:57,236
+We wanted to make this model so
+
+
+619
+00:19:57,236 --> 00:19:58,746
+that people could experiment in
+
+
+620
+00:19:58,746 --> 00:19:59,576
+VR hardware and content and
+
+
+621
+00:19:59,576 --> 00:19:59,976
+reduce risk.
+
+
+622
+00:20:00,046 --> 00:20:03,036
+So, you can go out, maybe not
+
+
+623
+00:20:03,036 --> 00:20:04,246
+you, but some of you can go out
+
+
+624
+00:20:04,536 --> 00:20:06,186
+and design a new headset or a
+
+
+625
+00:20:06,186 --> 00:20:08,346
+new tracking system, or new
+
+
+626
+00:20:08,346 --> 00:20:08,896
+controllers.
+
+
+627
+00:20:09,066 --> 00:20:10,526
+And then, you can come to an
+
+
+628
+00:20:10,526 --> 00:20:12,146
+Open VR platform, and you can
+
+
+629
+00:20:12,146 --> 00:20:13,526
+write a driver that plugs right
+
+
+630
+00:20:13,526 --> 00:20:13,726
+in.
+
+
+631
+00:20:14,036 --> 00:20:15,116
+And you'll have access to all
+
+
+632
+00:20:15,116 --> 00:20:16,606
+the existing content that's
+
+
+633
+00:20:16,606 --> 00:20:17,336
+already running.
+
+
+634
+00:20:18,056 --> 00:20:19,596
+That will give you real world
+
+
+635
+00:20:19,596 --> 00:20:21,666
+tests that make your hardware
+
+
+636
+00:20:21,666 --> 00:20:21,966
+better.
+
+
+637
+00:20:21,966 --> 00:20:23,266
+Because you and your customers
+
+
+638
+00:20:23,496 --> 00:20:25,426
+can compare your new idea
+
+
+639
+00:20:25,426 --> 00:20:26,566
+directly with other hardware
+
+
+640
+00:20:26,566 --> 00:20:27,326
+that's already out there.
+
+
+641
+00:20:27,826 --> 00:20:29,246
+So, hardware developers don't
+
+
+642
+00:20:29,246 --> 00:20:30,566
+have to develop custom content
+
+
+643
+00:20:30,916 --> 00:20:32,206
+and content developers don't
+
+
+644
+00:20:32,206 --> 00:20:33,926
+have to bet on which hardware
+
+
+645
+00:20:33,926 --> 00:20:34,486
+will win.
+
+
+646
+00:20:34,486 --> 00:20:36,476
+They can just focus on making
+
+
+647
+00:20:37,236 --> 00:20:38,906
+great content.
+
+
+648
+00:20:38,906 --> 00:20:41,486
+So, applications link to the
+
+
+649
+00:20:41,486 --> 00:20:42,336
+Open VR framework.
+
+
+650
+00:20:42,336 --> 00:20:44,286
+It's a really tiny library, and
+
+
+651
+00:20:44,286 --> 00:20:45,786
+all it knows how to do is define
+
+
+652
+00:20:46,106 --> 00:20:47,166
+the runtime that's currently
+
+
+653
+00:20:47,166 --> 00:20:47,576
+installed.
+
+
+654
+00:20:47,576 --> 00:20:49,336
+So, it finds this VR client
+
+
+655
+00:20:49,336 --> 00:20:50,546
+library, that's a shared
+
+
+656
+00:20:50,546 --> 00:20:51,816
+library, and that either
+
+
+657
+00:20:51,816 --> 00:20:53,556
+connects to or launches the
+
+
+658
+00:20:53,556 --> 00:20:55,006
+other runtime processes of
+
+
+659
+00:20:55,006 --> 00:20:55,596
+SteamVr.
+
+
+660
+00:20:55,996 --> 00:20:57,156
+The vrmonitor process.
+
+
+661
+00:20:57,156 --> 00:20:58,516
+You're going to see a lot of
+
+
+662
+00:20:58,516 --> 00:21:00,066
+that little window.
+
+
+663
+00:21:00,066 --> 00:21:01,486
+It's a UI and a setting
+
+
+664
+00:21:01,486 --> 00:21:02,066
+application.
+
+
+665
+00:21:02,066 --> 00:21:03,586
+It shows you the state of any
+
+
+666
+00:21:03,586 --> 00:21:04,536
+attached headsets and
+
+
+667
+00:21:04,536 --> 00:21:05,886
+controllers, and the tracking
+
+
+668
+00:21:05,886 --> 00:21:06,326
+sensors.
+
+
+669
+00:21:06,836 --> 00:21:11,896
+The vrserver is in charge of
+
+
+670
+00:21:12,006 --> 00:21:13,656
+keeping track of drivers,
+
+
+671
+00:21:13,836 --> 00:21:14,976
+loading alternate drivers.
+
+
+672
+00:21:14,976 --> 00:21:16,806
+And it puts poses and other
+
+
+673
+00:21:16,806 --> 00:21:19,076
+information into shared memory.
+
+
+674
+00:21:19,076 --> 00:21:21,136
+So, that your application and
+
+
+675
+00:21:21,136 --> 00:21:22,656
+the rest of the SteamVR runtime
+
+
+676
+00:21:22,706 --> 00:21:24,836
+have access to it.
+
+
+677
+00:21:25,106 --> 00:21:26,336
+The vrcompositor, you just heard
+
+
+678
+00:21:26,336 --> 00:21:28,066
+a little bit about, this process
+
+
+679
+00:21:28,276 --> 00:21:30,696
+is sort of like the Windows
+
+
+680
+00:21:30,696 --> 00:21:31,086
+server.
+
+
+681
+00:21:31,326 --> 00:21:33,026
+It draws scenes and overlays to
+
+
+682
+00:21:33,026 --> 00:21:33,636
+the headset.
+
+
+683
+00:21:33,636 --> 00:21:35,506
+And it corrects images for lens
+
+
+684
+00:21:35,536 --> 00:21:36,666
+distortion, color.
+
+
+685
+00:21:36,886 --> 00:21:37,716
+And one of the things that's
+
+
+686
+00:21:37,716 --> 00:21:39,526
+sort of under the hood, that you
+
+
+687
+00:21:39,526 --> 00:21:42,656
+may not understand, is it
+
+
+688
+00:21:42,656 --> 00:21:43,746
+corrects for smearing and
+
+
+689
+00:21:43,746 --> 00:21:44,726
+ghosting under motion.
+
+
+690
+00:21:45,086 --> 00:21:48,506
+And it also, fades into a stable
+
+
+691
+00:21:48,506 --> 00:21:50,216
+tracking area when applications
+
+
+692
+00:21:50,216 --> 00:21:51,446
+fail to meet frame rate.
+
+
+693
+00:21:51,716 --> 00:21:52,846
+Because we don't want people to
+
+
+694
+00:21:52,846 --> 00:21:53,846
+fall over or bump into
+
+
+695
+00:21:53,846 --> 00:21:54,186
+something.
+
+
+696
+00:21:54,526 --> 00:21:55,926
+So, the vrcompositor
+
+
+697
+00:21:55,926 --> 00:21:56,946
+communicates with Metal, like
+
+
+698
+00:21:56,946 --> 00:21:57,386
+you heard.
+
+
+699
+00:21:57,596 --> 00:21:59,066
+It presents directly to the
+
+
+700
+00:21:59,066 --> 00:22:00,026
+headset through the Direct to
+
+
+701
+00:22:00,026 --> 00:22:01,546
+Display Metal 2 API.
+
+
+702
+00:22:03,146 --> 00:22:03,526
+Let's see.
+
+
+703
+00:22:03,526 --> 00:22:05,216
+Last, but not least, the mighty
+
+
+704
+00:22:05,496 --> 00:22:06,266
+vrdashboard.
+
+
+705
+00:22:06,486 --> 00:22:09,216
+That is a piece of UI that lets
+
+
+706
+00:22:09,216 --> 00:22:10,606
+you select applications.
+
+
+707
+00:22:10,936 --> 00:22:12,176
+It lets you control volume,
+
+
+708
+00:22:12,576 --> 00:22:13,636
+other system settings.
+
+
+709
+00:22:14,486 --> 00:22:16,256
+We provide a default one that
+
+
+710
+00:22:16,256 --> 00:22:17,586
+shows you your Steam library,
+
+
+711
+00:22:17,586 --> 00:22:18,606
+unless you choose applications.
+
+
+712
+00:22:18,956 --> 00:22:20,096
+But there's actually an API.
+
+
+713
+00:22:20,096 --> 00:22:21,206
+So, you can write your own
+
+
+714
+00:22:21,446 --> 00:22:22,736
+dashboard application, as well.
+
+
+715
+00:22:22,966 --> 00:22:24,646
+So, Valve and Apple, we started
+
+
+716
+00:22:24,646 --> 00:22:25,886
+working together more closely,
+
+
+717
+00:22:26,086 --> 00:22:27,336
+about a year ago.
+
+
+718
+00:22:27,646 --> 00:22:28,776
+And our port to Metal from
+
+
+719
+00:22:28,776 --> 00:22:30,286
+OpenGL, it didn't cost us very
+
+
+720
+00:22:30,286 --> 00:22:30,566
+much.
+
+
+721
+00:22:30,686 --> 00:22:31,856
+Metal is a really cool API.
+
+
+722
+00:22:31,856 --> 00:22:34,116
+And it was critical for us to
+
+
+723
+00:22:34,116 --> 00:22:35,716
+get VR up and performing.
+
+
+724
+00:22:35,876 --> 00:22:38,166
+Our biggest request to Apple, a
+
+
+725
+00:22:38,166 --> 00:22:39,836
+year ago, was for this Direct to
+
+
+726
+00:22:39,836 --> 00:22:40,536
+Display feature.
+
+
+727
+00:22:40,986 --> 00:22:42,126
+Because it's critical to ensure
+
+
+728
+00:22:42,126 --> 00:22:43,476
+that the VR compositor has the
+
+
+729
+00:22:43,476 --> 00:22:45,846
+fastest time predictable path to
+
+
+730
+00:22:45,846 --> 00:22:46,966
+the headset display panels.
+
+
+731
+00:22:47,906 --> 00:22:50,046
+We also, really needed super
+
+
+732
+00:22:50,046 --> 00:22:52,166
+accurate low variance VBL,
+
+
+733
+00:22:52,276 --> 00:22:53,606
+vertical blank, events.
+
+
+734
+00:22:53,956 --> 00:22:54,726
+So, that we could set the
+
+
+735
+00:22:54,726 --> 00:22:56,216
+cadence of the VR frame
+
+
+736
+00:22:56,216 --> 00:22:57,856
+presentation timing, and we
+
+
+737
+00:22:57,856 --> 00:22:58,936
+could predict those poses
+
+
+738
+00:22:58,936 --> 00:23:00,086
+accurately.
+
+
+739
+00:23:00,316 --> 00:23:01,736
+Predicting the pose accurately
+
+
+740
+00:23:01,966 --> 00:23:04,156
+is actually more important than
+
+
+741
+00:23:04,156 --> 00:23:06,016
+the time between motion happens
+
+
+742
+00:23:06,316 --> 00:23:07,366
+and when the display happens.
+
+
+743
+00:23:07,366 --> 00:23:08,496
+If we know when it's going to
+
+
+744
+00:23:08,496 --> 00:23:09,436
+be, that's actually more
+
+
+745
+00:23:09,436 --> 00:23:09,886
+important.
+
+
+746
+00:23:10,656 --> 00:23:12,816
+Finally, we hit some speed bumps
+
+
+747
+00:23:12,816 --> 00:23:13,836
+around inter-process and
+
+
+748
+00:23:13,836 --> 00:23:15,456
+inter-thread synchronization.
+
+
+749
+00:23:15,816 --> 00:23:17,196
+Once everything else was working
+
+
+750
+00:23:17,196 --> 00:23:18,516
+really well, Metal was blazing
+
+
+751
+00:23:18,516 --> 00:23:21,596
+fast, we had really tight VBL,
+
+
+752
+00:23:21,596 --> 00:23:22,816
+but we still were having some
+
+
+753
+00:23:22,816 --> 00:23:24,116
+synchronization problems.
+
+
+754
+00:23:24,316 --> 00:23:25,906
+But Apple helped us find better
+
+
+755
+00:23:25,906 --> 00:23:28,066
+ways to signal and synchronize
+
+
+756
+00:23:28,066 --> 00:23:29,446
+with low scheduling variance
+
+
+757
+00:23:29,446 --> 00:23:30,716
+between all the processes and
+
+
+758
+00:23:30,716 --> 00:23:31,376
+thread involved.
+
+
+759
+00:23:33,286 --> 00:23:37,416
+Okay. So, my diagram of a VR
+
+
+760
+00:23:37,496 --> 00:23:38,306
+frame is a little more
+
+
+761
+00:23:38,306 --> 00:23:39,236
+complicated.
+
+
+762
+00:23:39,466 --> 00:23:40,686
+Most of you are never going to
+
+
+763
+00:23:40,686 --> 00:23:41,776
+look under the hood, this far.
+
+
+764
+00:23:41,776 --> 00:23:42,686
+But I thought I'd show it to
+
+
+765
+00:23:42,686 --> 00:23:43,066
+you, anyway.
+
+
+766
+00:23:43,556 --> 00:23:46,746
+So, the low persistence OLED of
+
+
+767
+00:23:46,746 --> 00:23:48,646
+the HTC Vibe uses global
+
+
+768
+00:23:48,646 --> 00:23:49,126
+illumination.
+
+
+769
+00:23:49,996 --> 00:23:52,146
+All of the pixels of the display
+
+
+770
+00:23:52,146 --> 00:23:54,226
+flash for a tiny period, all at
+
+
+771
+00:23:54,226 --> 00:23:54,726
+once.
+
+
+772
+00:23:54,726 --> 00:23:56,276
+And this is common in VR,
+
+
+773
+00:23:56,276 --> 00:23:57,556
+because heads move really
+
+
+774
+00:23:57,556 --> 00:23:57,936
+quickly.
+
+
+775
+00:23:58,426 --> 00:24:00,676
+And we want to make sure that
+
+
+776
+00:24:00,676 --> 00:24:02,506
+the image doesn't smear or tear
+
+
+777
+00:24:02,506 --> 00:24:03,526
+in front of the user.
+
+
+778
+00:24:03,886 --> 00:24:05,566
+So, the panel illuminates for
+
+
+779
+00:24:05,566 --> 00:24:07,776
+about two milliseconds, one
+
+
+780
+00:24:07,776 --> 00:24:09,266
+frame after it is presented by
+
+
+781
+00:24:09,266 --> 00:24:10,966
+the GPU, because the panel takes
+
+
+782
+00:24:11,036 --> 00:24:12,326
+time to charge before it can do
+
+
+783
+00:24:12,326 --> 00:24:14,096
+that global illumination pulse.
+
+
+784
+00:24:14,916 --> 00:24:16,266
+So, over here, that's the
+
+
+785
+00:24:16,266 --> 00:24:17,076
+photons coming out.
+
+
+786
+00:24:17,076 --> 00:24:18,046
+We're going to follow this red
+
+
+787
+00:24:18,106 --> 00:24:19,246
+frame through this sequence.
+
+
+788
+00:24:19,636 --> 00:24:23,436
+So, way out here is the photons
+
+
+789
+00:24:23,436 --> 00:24:24,236
+coming out.
+
+
+790
+00:24:24,836 --> 00:24:25,916
+Because of this timing,
+
+
+791
+00:24:26,316 --> 00:24:27,706
+applications typically pick up a
+
+
+792
+00:24:27,756 --> 00:24:28,926
+pose, like you heard before,
+
+
+793
+00:24:28,986 --> 00:24:30,986
+from IVR compositor wakeup
+
+
+794
+00:24:30,986 --> 00:24:31,406
+poses.
+
+
+795
+00:24:31,646 --> 00:24:33,946
+So, wakeup poses stalls and
+
+
+796
+00:24:33,946 --> 00:24:36,096
+returns with a pose for that
+
+
+797
+00:24:36,096 --> 00:24:37,356
+future firing of photons.
+
+
+798
+00:24:37,616 --> 00:24:39,526
+So, the rendering is happening
+
+
+799
+00:24:39,526 --> 00:24:41,146
+here, and you present it there,
+
+
+800
+00:24:41,366 --> 00:24:42,386
+here in the middle.
+
+
+801
+00:24:42,516 --> 00:24:43,796
+But the photons don't go out
+
+
+802
+00:24:43,796 --> 00:24:44,056
+there.
+
+
+803
+00:24:44,056 --> 00:24:46,916
+So, we've had to predict a pose
+
+
+804
+00:24:46,916 --> 00:24:49,426
+about 25 milliseconds out.
+
+
+805
+00:24:50,076 --> 00:24:54,206
+So, 25 milliseconds is two
+
+
+806
+00:24:54,206 --> 00:24:56,206
+frames plus the little tiny bit
+
+
+807
+00:24:56,366 --> 00:24:57,186
+of running start.
+
+
+808
+00:24:57,236 --> 00:24:58,036
+And you heard how running
+
+
+809
+00:24:58,036 --> 00:25:00,516
+start's very important, because
+
+
+810
+00:25:00,516 --> 00:25:01,706
+we want to give you as much of
+
+
+811
+00:25:01,706 --> 00:25:04,146
+that 11 milliseconds of GPU to
+
+
+812
+00:25:04,146 --> 00:25:05,826
+get the most excellent pixels up
+
+
+813
+00:25:05,826 --> 00:25:07,376
+in front of the users, that you
+
+
+814
+00:25:08,216 --> 00:25:08,306
+can.
+
+
+815
+00:25:08,396 --> 00:25:11,006
+So, one last thing that's
+
+
+816
+00:25:11,006 --> 00:25:11,656
+happening, here.
+
+
+817
+00:25:11,726 --> 00:25:12,736
+You see this frame actually
+
+
+818
+00:25:12,736 --> 00:25:14,156
+stretches back all the way to
+
+
+819
+00:25:14,156 --> 00:25:14,926
+the beginning of the slide.
+
+
+820
+00:25:15,416 --> 00:25:16,906
+And that's because this
+
+
+821
+00:25:16,906 --> 00:25:19,486
+application, and your game
+
+
+822
+00:25:19,486 --> 00:25:20,526
+engine might be doing this under
+
+
+823
+00:25:20,526 --> 00:25:22,566
+the covers, is kind of more
+
+
+824
+00:25:22,566 --> 00:25:23,136
+complicated.
+
+
+825
+00:25:23,356 --> 00:25:24,726
+It has some physics and input
+
+
+826
+00:25:24,726 --> 00:25:26,586
+event processing, that it needs
+
+
+827
+00:25:26,586 --> 00:25:27,116
+to do.
+
+
+828
+00:25:27,146 --> 00:25:28,386
+And that's costly work that's
+
+
+829
+00:25:28,386 --> 00:25:29,526
+going to take some CPU time,
+
+
+830
+00:25:29,526 --> 00:25:29,916
+over here.
+
+
+831
+00:25:30,496 --> 00:25:32,046
+But that code actually needs
+
+
+832
+00:25:32,106 --> 00:25:33,286
+pose information, also.
+
+
+833
+00:25:33,936 --> 00:25:35,346
+It needs to know when the
+
+
+834
+00:25:35,346 --> 00:25:36,526
+buttons were pressed and where
+
+
+835
+00:25:36,526 --> 00:25:37,366
+the controllers were.
+
+
+836
+00:25:37,366 --> 00:25:38,456
+Maybe it's interpolating
+
+
+837
+00:25:38,746 --> 00:25:39,576
+something having to do with
+
+
+838
+00:25:39,576 --> 00:25:41,546
+motion, or you're blocking
+
+
+839
+00:25:41,796 --> 00:25:42,796
+something, or you're firing
+
+
+840
+00:25:42,796 --> 00:25:43,136
+something.
+
+
+841
+00:25:43,556 --> 00:25:47,026
+So, this thread actually, it's
+
+
+842
+00:25:47,026 --> 00:25:48,146
+going to wake up at around the
+
+
+843
+00:25:48,146 --> 00:25:49,626
+same time, because wakeup poses
+
+
+844
+00:25:49,626 --> 00:25:51,476
+gives it this important kind of
+
+
+845
+00:25:51,586 --> 00:25:52,126
+synch point.
+
+
+846
+00:25:52,466 --> 00:25:53,866
+But it's going to be calling a
+
+
+847
+00:25:53,866 --> 00:25:55,346
+different API, because it's
+
+
+848
+00:25:55,346 --> 00:25:56,756
+trying to get a pose much
+
+
+849
+00:25:56,756 --> 00:25:57,346
+further out.
+
+
+850
+00:25:57,536 --> 00:25:59,106
+It's looking 36 milliseconds
+
+
+851
+00:25:59,106 --> 00:26:00,776
+out, and so, it's going to be
+
+
+852
+00:26:00,776 --> 00:26:02,746
+calling the getDevice to
+
+
+853
+00:26:02,746 --> 00:26:04,026
+absolute tracking poses.
+
+
+854
+00:26:04,406 --> 00:26:06,946
+So, I tell you this just so you
+
+
+855
+00:26:06,946 --> 00:26:09,636
+know, Open VR has some pretty
+
+
+856
+00:26:09,636 --> 00:26:12,706
+deep APIs for you to tune your
+
+
+857
+00:26:12,706 --> 00:26:13,746
+applications so that you're
+
+
+858
+00:26:13,746 --> 00:26:15,856
+predicting where the headset and
+
+
+859
+00:26:15,856 --> 00:26:16,806
+where the controllers are going
+
+
+860
+00:26:16,806 --> 00:26:18,806
+to be very accurately, based on
+
+
+861
+00:26:19,236 --> 00:26:21,696
+where you need them to be, where
+
+
+862
+00:26:21,696 --> 00:26:23,106
+your code needs them to be.
+
+
+863
+00:26:23,106 --> 00:26:24,946
+So, the point of wakeup poses is
+
+
+864
+00:26:24,946 --> 00:26:26,526
+it gives you a predictable point
+
+
+865
+00:26:26,526 --> 00:26:28,176
+in time at running start, so you
+
+
+866
+00:26:28,176 --> 00:26:29,376
+always know when those photons
+
+
+867
+00:26:29,376 --> 00:26:30,506
+are going to come out.
+
+
+868
+00:26:31,536 --> 00:26:35,316
+So, last but not least, let's
+
+
+869
+00:26:35,316 --> 00:26:36,276
+talk about what you need to do
+
+
+870
+00:26:36,276 --> 00:26:37,426
+to get up and running with
+
+
+871
+00:26:37,426 --> 00:26:38,366
+SteamVr and macOS.
+
+
+872
+00:26:38,366 --> 00:26:39,656
+So, first of all, it's a tool in
+
+
+873
+00:26:39,656 --> 00:26:41,816
+Steam, as a developer gets
+
+
+874
+00:26:41,816 --> 00:26:43,546
+started by installing Steam and
+
+
+875
+00:26:43,546 --> 00:26:44,906
+registering for a free account.
+
+
+876
+00:26:45,696 --> 00:26:47,626
+And if you don't use Steam, you
+
+
+877
+00:26:47,626 --> 00:26:47,996
+should.
+
+
+878
+00:26:49,336 --> 00:26:51,086
+Next, install SteamVR itself.
+
+
+879
+00:26:51,166 --> 00:26:53,066
+SteamVR is under the Library
+
+
+880
+00:26:53,066 --> 00:26:53,946
+menu in Tools.
+
+
+881
+00:26:54,296 --> 00:26:56,046
+Search for SteamVR, right click
+
+
+882
+00:26:56,046 --> 00:26:58,366
+on it, choose the Properties,
+
+
+883
+00:26:58,366 --> 00:27:00,246
+choose the Beta tab, and opt
+
+
+884
+00:27:00,246 --> 00:27:00,776
+into the Beta.
+
+
+885
+00:27:01,246 --> 00:27:02,006
+For now, it's a beta.
+
+
+886
+00:27:02,316 --> 00:27:03,206
+Then, install it.
+
+
+887
+00:27:03,206 --> 00:27:04,566
+We'll be keeping SteamVr up to
+
+
+888
+00:27:04,566 --> 00:27:05,946
+date as we fix any bugs that you
+
+
+889
+00:27:05,946 --> 00:27:06,246
+find.
+
+
+890
+00:27:07,166 --> 00:27:08,346
+Finally, you want to download
+
+
+891
+00:27:08,346 --> 00:27:09,896
+the Open VR headers and the
+
+
+892
+00:27:09,896 --> 00:27:11,686
+framework from GitHub.
+
+
+893
+00:27:11,686 --> 00:27:12,796
+And I've put a link, right up
+
+
+894
+00:27:12,846 --> 00:27:15,406
+there, for you in the slides.
+
+
+895
+00:27:15,556 --> 00:27:17,096
+So, here's the funky part.
+
+
+896
+00:27:17,656 --> 00:27:18,886
+You need to include that Open VR
+
+
+897
+00:27:18,886 --> 00:27:20,766
+bootstrapping framework inside
+
+
+898
+00:27:20,766 --> 00:27:21,526
+of your application.
+
+
+899
+00:27:22,106 --> 00:27:24,166
+The Open VR framework that you
+
+
+900
+00:27:24,166 --> 00:27:25,756
+link to, that conveys the
+
+
+901
+00:27:25,756 --> 00:27:27,216
+version of the interfaces of the
+
+
+902
+00:27:27,216 --> 00:27:28,436
+runtime you've built and tested
+
+
+903
+00:27:28,436 --> 00:27:28,866
+against.
+
+
+904
+00:27:29,146 --> 00:27:30,866
+And that allows us to upgrade
+
+
+905
+00:27:30,946 --> 00:27:32,736
+the runtime and to version
+
+
+906
+00:27:32,736 --> 00:27:33,616
+forward, gracefully.
+
+
+907
+00:27:33,616 --> 00:27:35,306
+Because we move this forward
+
+
+908
+00:27:35,536 --> 00:27:36,196
+quite actively.
+
+
+909
+00:27:36,386 --> 00:27:38,376
+In XCode, instead of just adding
+
+
+910
+00:27:38,376 --> 00:27:39,146
+the framework to your link
+
+
+911
+00:27:39,146 --> 00:27:40,796
+phase, go into General Settings
+
+
+912
+00:27:40,986 --> 00:27:42,216
+and make it an embedded binary.
+
+
+913
+00:27:42,216 --> 00:27:43,786
+So, it will be installed into
+
+
+914
+00:27:43,786 --> 00:27:45,136
+the contents frameworks portion
+
+
+915
+00:27:45,136 --> 00:27:46,086
+of your application bundle.
+
+
+916
+00:27:46,896 --> 00:27:50,506
+Okay. Finally, we really want
+
+
+917
+00:27:50,506 --> 00:27:51,296
+your feedback.
+
+
+918
+00:27:51,476 --> 00:27:53,016
+So, we put some things right
+
+
+919
+00:27:53,016 --> 00:27:54,426
+into the UI of vrmonitor.
+
+
+920
+00:27:54,426 --> 00:27:56,266
+There's a pointer to SteamVR's
+
+
+921
+00:27:56,266 --> 00:27:57,756
+support site and the community
+
+
+922
+00:27:57,756 --> 00:27:58,756
+hardware discussions.
+
+
+923
+00:27:59,046 --> 00:28:00,646
+And you can report a bug, create
+
+
+924
+00:28:00,646 --> 00:28:01,976
+a system report, and send it to
+
+
+925
+00:28:01,976 --> 00:28:03,306
+us or probably send it to me.
+
+
+926
+00:28:03,306 --> 00:28:05,476
+You can reach me at
+
+
+927
+00:28:05,476 --> 00:28:07,736
+natb@valvesoftware.com, but I'd
+
+
+928
+00:28:07,736 --> 00:28:08,586
+rather you use the tool.
+
+
+929
+00:28:09,196 --> 00:28:12,396
+And with that, thanks very much.
+
+
+930
+00:28:12,396 --> 00:28:13,826
+I'm really looking forward to
+
+
+931
+00:28:13,826 --> 00:28:15,306
+what you guys make with VR.
+
+
+932
+00:28:15,376 --> 00:28:16,616
+And thanks, to everybody at
+
+
+933
+00:28:16,616 --> 00:28:18,246
+Apple for making VR shine on
+
+
+934
+00:28:18,246 --> 00:28:18,756
+macOS.
+
+
+935
+00:28:19,336 --> 00:28:19,716
+Thank you.
+
+
+936
+00:28:20,516 --> 00:28:22,636
+[ Applause ]
+
+
+937
+00:28:23,136 --> 00:28:23,576
+>> Thanks, Nat.
+
+
+938
+00:28:24,886 --> 00:28:25,926
+It's been great working with
+
+
+939
+00:28:25,926 --> 00:28:27,376
+Valve, and I'm still astounded
+
+
+940
+00:28:27,376 --> 00:28:28,236
+about what we've been able to
+
+
+941
+00:28:28,236 --> 00:28:29,636
+achieve, over the last year.
+
+
+942
+00:28:31,206 --> 00:28:31,816
+All right.
+
+
+943
+00:28:31,816 --> 00:28:33,506
+Let's move on to talk about the
+
+
+944
+00:28:33,506 --> 00:28:35,466
+external GPU support that we've
+
+
+945
+00:28:35,466 --> 00:28:37,296
+added with macOS High Sierra.
+
+
+946
+00:28:37,986 --> 00:28:40,816
+So, an external GPU is a
+
+
+947
+00:28:40,816 --> 00:28:42,196
+standalone chassis with a
+
+
+948
+00:28:42,306 --> 00:28:44,436
+desktop class GPU in it, that
+
+
+949
+00:28:44,436 --> 00:28:47,146
+you can plug directly to your
+
+
+950
+00:28:47,146 --> 00:28:48,926
+host system via Thunderbolt.
+
+
+951
+00:28:49,856 --> 00:28:52,186
+And as noted previously, the
+
+
+952
+00:28:52,466 --> 00:28:54,216
+primary motivation here, was to
+
+
+953
+00:28:54,216 --> 00:28:55,876
+enable developers like you to
+
+
+954
+00:28:55,876 --> 00:28:58,166
+build great VR apps using a
+
+
+955
+00:28:58,256 --> 00:28:59,936
+broader range of Mac hardware.
+
+
+956
+00:29:00,686 --> 00:29:02,196
+There's a great workflow story,
+
+
+957
+00:29:02,196 --> 00:29:03,436
+here, where you can use your
+
+
+958
+00:29:03,436 --> 00:29:05,996
+MacBook Pro with an external GPU
+
+
+959
+00:29:06,236 --> 00:29:07,946
+to get the rendering horsepower
+
+
+960
+00:29:07,946 --> 00:29:08,696
+that you need for VR.
+
+
+961
+00:29:08,696 --> 00:29:11,466
+But of course, there's also
+
+
+962
+00:29:11,466 --> 00:29:12,896
+additional performance benefit
+
+
+963
+00:29:12,936 --> 00:29:15,086
+to be had for other GPU bound
+
+
+964
+00:29:15,086 --> 00:29:17,506
+cases, like games and pro apps,
+
+
+965
+00:29:17,506 --> 00:29:17,976
+as well.
+
+
+966
+00:29:18,576 --> 00:29:22,706
+And as you saw on Monday, we've
+
+
+967
+00:29:22,706 --> 00:29:24,246
+been partnering with Sonnet and
+
+
+968
+00:29:24,246 --> 00:29:26,426
+AMD to offer you an external
+
+
+969
+00:29:26,426 --> 00:29:28,666
+graphics developer kit with an
+
+
+970
+00:29:28,706 --> 00:29:32,226
+AMD Radeon RX-580 GPU in it.
+
+
+971
+00:29:32,556 --> 00:29:34,616
+This kit is optimized for use
+
+
+972
+00:29:34,616 --> 00:29:36,106
+with all our Thunderbolt 3
+
+
+973
+00:29:36,106 --> 00:29:37,966
+capable Macs, and is available
+
+
+974
+00:29:37,966 --> 00:29:38,906
+for purchase through our
+
+
+975
+00:29:38,906 --> 00:29:40,626
+developer program, today.
+
+
+976
+00:29:41,236 --> 00:29:41,966
+All right.
+
+
+977
+00:29:42,246 --> 00:29:44,066
+Let's dive right into how you
+
+
+978
+00:29:44,066 --> 00:29:45,846
+identify the external GPU.
+
+
+979
+00:29:46,556 --> 00:29:48,116
+This device enumeration code
+
+
+980
+00:29:48,116 --> 00:29:49,196
+should look very familiar to
+
+
+981
+00:29:49,246 --> 00:29:49,476
+you.
+
+
+982
+00:29:50,616 --> 00:29:52,646
+CopyAllDevices will give you all
+
+
+983
+00:29:52,646 --> 00:29:54,166
+the Metal devices in the system.
+
+
+984
+00:29:54,906 --> 00:29:56,336
+And then, you can identify the
+
+
+985
+00:29:56,336 --> 00:29:58,626
+external GPU by simply looking
+
+
+986
+00:29:58,626 --> 00:30:00,576
+for the removable property in
+
+
+987
+00:30:00,576 --> 00:30:00,976
+the device.
+
+
+988
+00:30:01,976 --> 00:30:03,466
+This is very similar to how you
+
+
+989
+00:30:03,546 --> 00:30:04,936
+previously identified the low
+
+
+990
+00:30:04,936 --> 00:30:06,646
+power devices on our platforms.
+
+
+991
+00:30:06,646 --> 00:30:10,336
+Now, let's talk a bit about
+
+
+992
+00:30:10,336 --> 00:30:11,246
+Thunderbolt bandwidth
+
+
+993
+00:30:11,276 --> 00:30:12,066
+capabilities.
+
+
+994
+00:30:12,816 --> 00:30:15,086
+So, Thunderbolt 3 offers twice
+
+
+995
+00:30:15,146 --> 00:30:16,386
+the theoretical bandwidth of
+
+
+996
+00:30:16,436 --> 00:30:18,326
+Thunderbolt 2, which is great.
+
+
+997
+00:30:19,166 --> 00:30:20,406
+But you have to keep in mind
+
+
+998
+00:30:20,406 --> 00:30:21,806
+that this is still a quarter the
+
+
+999
+00:30:21,806 --> 00:30:24,056
+bandwidth of the PCI bus
+
+
+1000
+00:30:24,306 --> 00:30:25,956
+available to the internal GPUs
+
+
+1001
+00:30:25,956 --> 00:30:27,116
+in our platforms.
+
+
+1002
+00:30:28,356 --> 00:30:29,286
+So, this is important.
+
+
+1003
+00:30:29,906 --> 00:30:31,586
+You have a choice, now, between
+
+
+1004
+00:30:31,586 --> 00:30:33,896
+using the internal GPU with a
+
+
+1005
+00:30:34,006 --> 00:30:36,426
+high bandwidth link, or a high
+
+
+1006
+00:30:36,516 --> 00:30:38,656
+performance external GPU with a
+
+
+1007
+00:30:38,656 --> 00:30:39,926
+link at about a quarter the
+
+
+1008
+00:30:39,926 --> 00:30:40,466
+bandwidth.
+
+
+1009
+00:30:41,126 --> 00:30:43,536
+So, you need to treat the link
+
+
+1010
+00:30:43,536 --> 00:30:45,056
+and the GPU as a pair when
+
+
+1011
+00:30:45,056 --> 00:30:47,486
+deciding which GPU you use.
+
+
+1012
+00:30:48,816 --> 00:30:50,606
+Additionally, users can now
+
+
+1013
+00:30:50,606 --> 00:30:52,706
+attach displays to different
+
+
+1014
+00:30:52,706 --> 00:30:52,896
+GPUs.
+
+
+1015
+00:30:52,896 --> 00:30:55,746
+And in this environment, there's
+
+
+1016
+00:30:55,746 --> 00:30:57,746
+a penalty to render on one GPU
+
+
+1017
+00:30:58,006 --> 00:30:59,576
+and then, display on another, as
+
+
+1018
+00:30:59,576 --> 00:31:00,516
+that date needs to be
+
+
+1019
+00:31:00,516 --> 00:31:02,226
+transferred across the link.
+
+
+1020
+00:31:03,736 --> 00:31:05,046
+So, where your content is
+
+
+1021
+00:31:05,106 --> 00:31:08,946
+displayed clearly is a huge
+
+
+1022
+00:31:08,946 --> 00:31:10,526
+consideration when you decide
+
+
+1023
+00:31:10,646 --> 00:31:12,176
+which GPU you want to use, as
+
+
+1024
+00:31:12,176 --> 00:31:12,406
+well.
+
+
+1025
+00:31:13,606 --> 00:31:14,206
+So, there's additional
+
+
+1026
+00:31:14,206 --> 00:31:15,106
+complexity, here.
+
+
+1027
+00:31:15,856 --> 00:31:16,806
+But fortunately, there's a
+
+
+1028
+00:31:16,866 --> 00:31:18,566
+couple simple things that you
+
+
+1029
+00:31:18,566 --> 00:31:20,156
+can do to make your app a good
+
+
+1030
+00:31:20,216 --> 00:31:21,656
+citizen in a multi-GPU
+
+
+1031
+00:31:21,656 --> 00:31:22,196
+environment.
+
+
+1032
+00:31:23,136 --> 00:31:24,116
+So, let's start with GPU
+
+
+1033
+00:31:24,166 --> 00:31:24,746
+selection.
+
+
+1034
+00:31:25,646 --> 00:31:27,066
+The best advice that we can give
+
+
+1035
+00:31:27,066 --> 00:31:29,836
+you is to render on the same GPU
+
+
+1036
+00:31:29,836 --> 00:31:31,516
+that's driving the display your
+
+
+1037
+00:31:31,516 --> 00:31:31,916
+app is on.
+
+
+1038
+00:31:32,506 --> 00:31:34,306
+I call this the golden rule of
+
+
+1039
+00:31:34,306 --> 00:31:35,116
+GPU selection.
+
+
+1040
+00:31:36,216 --> 00:31:37,356
+So, let's extend this and build
+
+
+1041
+00:31:37,356 --> 00:31:38,306
+a decision tree.
+
+
+1042
+00:31:39,756 --> 00:31:41,186
+So, if the content your app is
+
+
+1043
+00:31:41,226 --> 00:31:43,226
+rendering will be presented to a
+
+
+1044
+00:31:43,226 --> 00:31:46,006
+display, you want to select the
+
+
+1045
+00:31:46,656 --> 00:31:48,436
+GPU that's driving that display.
+
+
+1046
+00:31:48,656 --> 00:31:49,596
+This is our golden rule.
+
+
+1047
+00:31:50,776 --> 00:31:51,936
+However, if your app is doing
+
+
+1048
+00:31:51,976 --> 00:31:53,986
+compute or other offline
+
+
+1049
+00:31:53,986 --> 00:31:55,956
+rendering operations, then you
+
+
+1050
+00:31:55,956 --> 00:31:57,616
+need to decide if you prefer to
+
+
+1051
+00:31:57,616 --> 00:31:59,526
+use the low power GPU is it's
+
+
+1052
+00:31:59,526 --> 00:32:00,116
+available.
+
+
+1053
+00:32:01,126 --> 00:32:02,646
+This can be particularly useful
+
+
+1054
+00:32:02,646 --> 00:32:04,006
+on our portables, where
+
+
+1055
+00:32:04,276 --> 00:32:05,596
+selecting this device can have a
+
+
+1056
+00:32:05,666 --> 00:32:07,136
+substantial battery savings.
+
+
+1057
+00:32:07,916 --> 00:32:09,066
+But of course, if you need the
+
+
+1058
+00:32:09,066 --> 00:32:11,186
+GPU horsepower for things like
+
+
+1059
+00:32:11,186 --> 00:32:12,546
+VR, you're going to want to
+
+
+1060
+00:32:12,546 --> 00:32:14,216
+select the external GPU.
+
+
+1061
+00:32:14,216 --> 00:32:17,126
+So, let's get back to our golden
+
+
+1062
+00:32:17,126 --> 00:32:19,256
+rule and find out how you
+
+
+1063
+00:32:19,256 --> 00:32:21,196
+identify the Metal device that's
+
+
+1064
+00:32:21,196 --> 00:32:22,556
+driving a particular display.
+
+
+1065
+00:32:23,866 --> 00:32:24,806
+Well, it turns out that this is
+
+
+1066
+00:32:24,876 --> 00:32:25,766
+really easy to do.
+
+
+1067
+00:32:26,496 --> 00:32:27,576
+There's an existing core
+
+
+1068
+00:32:27,576 --> 00:32:29,416
+graphics API that will give you
+
+
+1069
+00:32:29,416 --> 00:32:30,176
+this device.
+
+
+1070
+00:32:30,996 --> 00:32:32,646
+You simply have to get the ID
+
+
+1071
+00:32:33,216 --> 00:32:34,586
+for the display that your window
+
+
+1072
+00:32:34,586 --> 00:32:36,026
+is on, by querying the
+
+
+1073
+00:32:36,026 --> 00:32:36,906
+NSScreenNumber.
+
+
+1074
+00:32:37,636 --> 00:32:39,516
+And then, call
+
+
+1075
+00:32:39,576 --> 00:32:42,116
+CGDirectDisplayCopyCurrentMetal
+
+
+1076
+00:32:42,116 --> 00:32:44,076
+Device to get the Metal device
+
+
+1077
+00:32:44,146 --> 00:32:45,346
+that's driving that display.
+
+
+1078
+00:32:46,036 --> 00:32:46,606
+It's that simple.
+
+
+1079
+00:32:46,606 --> 00:32:47,306
+All right.
+
+
+1080
+00:32:49,236 --> 00:32:51,586
+Now, that we've established that
+
+
+1081
+00:32:51,586 --> 00:32:53,056
+each display can be attached to
+
+
+1082
+00:32:53,056 --> 00:32:55,346
+a different GPU, your app will
+
+
+1083
+00:32:55,346 --> 00:32:57,656
+need to handle GPU migration as
+
+
+1084
+00:32:57,656 --> 00:32:58,706
+your displays are moved.
+
+
+1085
+00:32:59,116 --> 00:33:00,566
+Sorry, as your window is moved
+
+
+1086
+00:33:00,566 --> 00:33:01,706
+across those displays.
+
+
+1087
+00:33:03,776 --> 00:33:05,586
+So, you can do that by
+
+
+1088
+00:33:05,656 --> 00:33:07,646
+registering for the new, well,
+
+
+1089
+00:33:07,646 --> 00:33:08,946
+it's not new, our existing
+
+
+1090
+00:33:09,376 --> 00:33:10,926
+notification handler called
+
+
+1091
+00:33:11,206 --> 00:33:12,896
+WindowDidChangeScreen.
+
+
+1092
+00:33:12,896 --> 00:33:14,416
+So, let's take a look at what
+
+
+1093
+00:33:14,416 --> 00:33:15,826
+you do with this notification
+
+
+1094
+00:33:15,826 --> 00:33:16,146
+handler.
+
+
+1095
+00:33:16,406 --> 00:33:18,506
+So, you'll want to start by
+
+
+1096
+00:33:18,596 --> 00:33:21,406
+finding the Metal device for the
+
+
+1097
+00:33:21,406 --> 00:33:23,286
+display your app is now on, by
+
+
+1098
+00:33:23,286 --> 00:33:24,626
+calling the core graphics API
+
+
+1099
+00:33:24,626 --> 00:33:26,196
+that we previously discussed.
+
+
+1100
+00:33:27,476 --> 00:33:28,586
+You can early out if it's the
+
+
+1101
+00:33:28,586 --> 00:33:29,646
+same device that you're
+
+
+1102
+00:33:29,686 --> 00:33:31,106
+currently rendering to, since no
+
+
+1103
+00:33:31,106 --> 00:33:33,036
+GPU migration will be required.
+
+
+1104
+00:33:33,036 --> 00:33:35,336
+And then, you'll want to perform
+
+
+1105
+00:33:35,566 --> 00:33:37,606
+your device migration and switch
+
+
+1106
+00:33:37,606 --> 00:33:39,316
+to using the new device for all
+
+
+1107
+00:33:39,316 --> 00:33:39,966
+your rendering.
+
+
+1108
+00:33:41,016 --> 00:33:43,236
+So, that's how you use a display
+
+
+1109
+00:33:43,236 --> 00:33:45,246
+change notification to handle
+
+
+1110
+00:33:45,246 --> 00:33:46,376
+GPU migration.
+
+
+1111
+00:33:46,376 --> 00:33:48,166
+But what about the case where
+
+
+1112
+00:33:48,166 --> 00:33:50,076
+the external GPU is plugged in,
+
+
+1113
+00:33:50,366 --> 00:33:51,756
+or unplugged from your system?
+
+
+1114
+00:33:53,116 --> 00:33:54,786
+Well, Metal 2 introduces three
+
+
+1115
+00:33:54,786 --> 00:33:56,526
+new notifications to help you
+
+
+1116
+00:33:56,526 --> 00:33:57,146
+with this case.
+
+
+1117
+00:33:58,316 --> 00:34:01,016
+These are DeviceWasAdded when an
+
+
+1118
+00:34:01,016 --> 00:34:02,616
+external GPU was plugged in,
+
+
+1119
+00:34:03,726 --> 00:34:05,076
+DeviceWasRemoved when it's
+
+
+1120
+00:34:05,116 --> 00:34:06,336
+unplugged, and
+
+
+1121
+00:34:06,336 --> 00:34:08,735
+DeviceRemovalRequested when the
+
+
+1122
+00:34:08,735 --> 00:34:10,896
+OS signals an intent to remove a
+
+
+1123
+00:34:10,896 --> 00:34:12,795
+GPU at some point in the future.
+
+
+1124
+00:34:14,235 --> 00:34:15,406
+So, let's take a look at how you
+
+
+1125
+00:34:15,406 --> 00:34:16,716
+would register for, and then,
+
+
+1126
+00:34:16,716 --> 00:34:18,706
+respond to these notifications.
+
+
+1127
+00:34:19,815 --> 00:34:21,315
+So, you'll want to use the new
+
+
+1128
+00:34:21,416 --> 00:34:24,016
+CopyAllDevicesWithObserver API
+
+
+1129
+00:34:24,686 --> 00:34:25,786
+that we've introduced with Metal
+
+
+1130
+00:34:25,786 --> 00:34:26,085
+2.
+
+
+1131
+00:34:26,846 --> 00:34:27,936
+This will let you register a
+
+
+1132
+00:34:28,045 --> 00:34:30,416
+handler for these new device
+
+
+1133
+00:34:30,416 --> 00:34:31,686
+change notifications.
+
+
+1134
+00:34:32,686 --> 00:34:34,136
+In this case, we're simply
+
+
+1135
+00:34:34,136 --> 00:34:35,536
+invoking a function called
+
+
+1136
+00:34:35,896 --> 00:34:37,266
+handleGPUHotPlug.
+
+
+1137
+00:34:37,976 --> 00:34:38,876
+So, let's take a look at it.
+
+
+1138
+00:34:39,666 --> 00:34:41,126
+It's really straightforward.
+
+
+1139
+00:34:41,616 --> 00:34:43,446
+All you have to do is check for
+
+
+1140
+00:34:43,446 --> 00:34:45,216
+and directly respond to each
+
+
+1141
+00:34:45,216 --> 00:34:45,946
+notification.
+
+
+1142
+00:34:46,686 --> 00:34:47,676
+But I want to point out a couple
+
+
+1143
+00:34:47,676 --> 00:34:48,275
+of things, here.
+
+
+1144
+00:34:49,315 --> 00:34:50,966
+The first is that your app
+
+
+1145
+00:34:50,966 --> 00:34:51,896
+should treat the
+
+
+1146
+00:34:51,946 --> 00:34:53,436
+DeviceRemovalRequested
+
+
+1147
+00:34:53,436 --> 00:34:55,696
+notification as a hint to start
+
+
+1148
+00:34:55,795 --> 00:34:57,966
+migrating off the external GPU.
+
+
+1149
+00:34:58,446 --> 00:35:02,216
+And second, if your app did not
+
+
+1150
+00:35:02,216 --> 00:35:02,796
+receive the
+
+
+1151
+00:35:02,796 --> 00:35:04,116
+DeviceRemovalRequested
+
+
+1152
+00:35:04,116 --> 00:35:06,016
+notification, then it should
+
+
+1153
+00:35:06,016 --> 00:35:08,186
+treat DeviceWasRemoved as an
+
+
+1154
+00:35:08,286 --> 00:35:10,246
+unexpected GPU removal.
+
+
+1155
+00:35:10,826 --> 00:35:13,646
+So, an unexpected GPU removal is
+
+
+1156
+00:35:13,646 --> 00:35:15,316
+when your external GPU is
+
+
+1157
+00:35:15,436 --> 00:35:17,036
+disconnected or powered down
+
+
+1158
+00:35:17,156 --> 00:35:18,566
+without the OS being aware.
+
+
+1159
+00:35:19,926 --> 00:35:20,986
+So, this is the equivalent of
+
+
+1160
+00:35:20,986 --> 00:35:22,196
+somebody reaching into your
+
+
+1161
+00:35:22,196 --> 00:35:24,116
+system and yanking out that GPU.
+
+
+1162
+00:35:24,896 --> 00:35:26,126
+And since the hardware is no
+
+
+1163
+00:35:26,126 --> 00:35:28,286
+longer there, some Metal API
+
+
+1164
+00:35:28,286 --> 00:35:30,086
+calls will start returning
+
+
+1165
+00:35:30,086 --> 00:35:30,496
+errors.
+
+
+1166
+00:35:30,646 --> 00:35:32,486
+So, you'll want to add defensive
+
+
+1167
+00:35:32,536 --> 00:35:33,986
+code to your app to protect
+
+
+1168
+00:35:33,986 --> 00:35:34,556
+against this.
+
+
+1169
+00:35:35,146 --> 00:35:36,516
+So, it can survive until it
+
+
+1170
+00:35:36,616 --> 00:35:37,786
+receives a migration
+
+
+1171
+00:35:37,786 --> 00:35:39,236
+notification and it can
+
+
+1172
+00:35:39,236 --> 00:35:41,076
+gracefully switch to another GPU
+
+
+1173
+00:35:41,076 --> 00:35:41,696
+in the system.
+
+
+1174
+00:35:42,876 --> 00:35:44,116
+It's also worth pointing out
+
+
+1175
+00:35:44,296 --> 00:35:45,756
+that if you had any transient
+
+
+1176
+00:35:45,756 --> 00:35:47,916
+data on the external GPU's local
+
+
+1177
+00:35:47,916 --> 00:35:49,646
+memory, your app may need to
+
+
+1178
+00:35:49,646 --> 00:35:50,926
+regenerate this, as it's no
+
+
+1179
+00:35:50,926 --> 00:35:51,386
+longer there.
+
+
+1180
+00:35:51,386 --> 00:35:52,066
+All right.
+
+
+1181
+00:35:53,346 --> 00:35:55,666
+Now, on to some best practices.
+
+
+1182
+00:35:56,456 --> 00:35:57,916
+So, we recommend that you don't
+
+
+1183
+00:35:57,916 --> 00:35:59,716
+immediately release devices
+
+
+1184
+00:35:59,966 --> 00:36:02,466
+after you migrate, as users tend
+
+
+1185
+00:36:02,466 --> 00:36:04,106
+to move windows back and forth
+
+
+1186
+00:36:04,106 --> 00:36:05,066
+across displays.
+
+
+1187
+00:36:05,946 --> 00:36:08,356
+Instead, employ a lazy teardown
+
+
+1188
+00:36:08,426 --> 00:36:10,126
+policy with some reasonable
+
+
+1189
+00:36:10,276 --> 00:36:10,636
+timeout.
+
+
+1190
+00:36:12,136 --> 00:36:14,566
+Additionally, if your app has a
+
+
+1191
+00:36:14,566 --> 00:36:16,936
+complex UI with a number of
+
+
+1192
+00:36:16,936 --> 00:36:19,366
+windows, you may, may, need to
+
+
+1193
+00:36:19,366 --> 00:36:21,476
+handle GPU migrations separately
+
+
+1194
+00:36:21,526 --> 00:36:22,306
+for each window.
+
+
+1195
+00:36:23,426 --> 00:36:25,526
+And then, finally, we recommend
+
+
+1196
+00:36:25,526 --> 00:36:27,086
+that you profile your app in
+
+
+1197
+00:36:27,086 --> 00:36:29,516
+multi-GPU situations, to ensure
+
+
+1198
+00:36:29,516 --> 00:36:30,736
+that you're not needlessly
+
+
+1199
+00:36:30,736 --> 00:36:32,356
+transferring data back and
+
+
+1200
+00:36:32,426 --> 00:36:35,986
+forth, across the GPUs.
+
+
+1201
+00:36:36,186 --> 00:36:36,446
+All right.
+
+
+1202
+00:36:36,696 --> 00:36:38,196
+Let's tie it back to VR with
+
+
+1203
+00:36:38,196 --> 00:36:39,816
+some best practices specific to
+
+
+1204
+00:36:39,816 --> 00:36:40,676
+this use case.
+
+
+1205
+00:36:41,816 --> 00:36:44,156
+First and most obvious, make
+
+
+1206
+00:36:44,156 --> 00:36:45,616
+sure you attach the VR headset
+
+
+1207
+00:36:45,736 --> 00:36:47,536
+directly to the external GPU.
+
+
+1208
+00:36:48,836 --> 00:36:50,076
+Less obvious, but equally
+
+
+1209
+00:36:50,076 --> 00:36:51,766
+important, you want to make sure
+
+
+1210
+00:36:51,766 --> 00:36:53,256
+that your app is presenting its
+
+
+1211
+00:36:53,256 --> 00:36:56,256
+UI or the mirrored VR content to
+
+
+1212
+00:36:56,256 --> 00:36:57,746
+a display that's also being
+
+
+1213
+00:36:57,746 --> 00:36:59,336
+driven by the external GPU.
+
+
+1214
+00:37:00,036 --> 00:37:01,206
+This will ensure that both the
+
+
+1215
+00:37:01,206 --> 00:37:03,626
+VR compositor and your app are
+
+
+1216
+00:37:03,626 --> 00:37:05,316
+rendering with the external GPU.
+
+
+1217
+00:37:05,906 --> 00:37:08,396
+And finally, make sure you cache
+
+
+1218
+00:37:08,396 --> 00:37:10,846
+as many resources as possible on
+
+
+1219
+00:37:10,846 --> 00:37:12,556
+the external GPU's local memory,
+
+
+1220
+00:37:12,906 --> 00:37:14,226
+so that you're not streaming
+
+
+1221
+00:37:14,226 --> 00:37:15,416
+data across the Thunderbolt
+
+
+1222
+00:37:15,416 --> 00:37:17,016
+link, unless absolutely
+
+
+1223
+00:37:17,016 --> 00:37:17,596
+required.
+
+
+1224
+00:37:18,216 --> 00:37:19,236
+All right.
+
+
+1225
+00:37:20,376 --> 00:37:22,096
+So, this brings us to the end of
+
+
+1226
+00:37:22,096 --> 00:37:22,826
+our session.
+
+
+1227
+00:37:23,046 --> 00:37:24,386
+So, let's quickly review what
+
+
+1228
+00:37:24,386 --> 00:37:25,196
+we've covered, today.
+
+
+1229
+00:37:25,476 --> 00:37:27,676
+So, the big news is that you can
+
+
+1230
+00:37:27,676 --> 00:37:29,526
+now, develop VR content on
+
+
+1231
+00:37:29,526 --> 00:37:30,316
+macOS.
+
+
+1232
+00:37:31,376 --> 00:37:32,886
+We've added built-in support for
+
+
+1233
+00:37:33,126 --> 00:37:34,716
+the HTC Vibe headset.
+
+
+1234
+00:37:35,336 --> 00:37:37,366
+And we've partnered with Valve
+
+
+1235
+00:37:37,366 --> 00:37:39,296
+to enable an optimized version,
+
+
+1236
+00:37:39,546 --> 00:37:41,046
+an optimized Metal version of
+
+
+1237
+00:37:41,046 --> 00:37:43,106
+the SteamVR runtime on our
+
+
+1238
+00:37:43,106 --> 00:37:43,576
+platform.
+
+
+1239
+00:37:44,966 --> 00:37:46,216
+Additionally, two of the most
+
+
+1240
+00:37:46,306 --> 00:37:48,486
+popular game engines, Unity and
+
+
+1241
+00:37:48,486 --> 00:37:50,566
+Unreal Engine 4 will be bringing
+
+
+1242
+00:37:50,636 --> 00:37:52,596
+VR support to the Mac, in the
+
+
+1243
+00:37:52,596 --> 00:37:53,276
+near future.
+
+
+1244
+00:37:53,766 --> 00:37:55,406
+But of course, we also encourage
+
+
+1245
+00:37:55,406 --> 00:37:56,806
+you to build your own native VR
+
+
+1246
+00:37:56,806 --> 00:37:57,296
+app.
+
+
+1247
+00:37:58,126 --> 00:37:59,726
+And finally, we added support
+
+
+1248
+00:37:59,726 --> 00:38:00,626
+for external GPUs.
+
+
+1249
+00:38:00,626 --> 00:38:02,846
+And we hope that this motivates
+
+
+1250
+00:38:02,846 --> 00:38:04,606
+you to ensure that your app is a
+
+
+1251
+00:38:04,746 --> 00:38:06,946
+good citizen in a multi-GPU
+
+
+1252
+00:38:06,946 --> 00:38:08,326
+environment, so that you can
+
+
+1253
+00:38:08,376 --> 00:38:09,376
+take advantage of that
+
+
+1254
+00:38:09,376 --> 00:38:10,706
+additional GPU horsepower.
+
+
+1255
+00:38:12,696 --> 00:38:14,746
+We're really excited to see what
+
+
+1256
+00:38:14,746 --> 00:38:15,696
+you guys are going to be able to
+
+
+1257
+00:38:15,696 --> 00:38:17,206
+build with this new technology.
+
+
+1258
+00:38:18,436 --> 00:38:19,396
+So, be sure to check out the
+
+
+1259
+00:38:19,396 --> 00:38:20,406
+other sessions on the Metal
+
+
+1260
+00:38:20,406 --> 00:38:20,756
+Track.
+
+
+1261
+00:38:21,086 --> 00:38:22,666
+We had a great Introducing Metal
+
+
+1262
+00:38:22,666 --> 00:38:23,706
+2 session, yesterday.
+
+
+1263
+00:38:23,706 --> 00:38:24,826
+If you didn't get a chance to
+
+
+1264
+00:38:24,926 --> 00:38:26,126
+see it, I encourage you to watch
+
+
+1265
+00:38:26,176 --> 00:38:27,186
+the video online.
+
+
+1266
+00:38:28,076 --> 00:38:29,466
+We have two additional sessions
+
+
+1267
+00:38:29,466 --> 00:38:30,766
+in the afternoon, tomorrow,
+
+
+1268
+00:38:31,336 --> 00:38:32,726
+Metal 2 Optimization and
+
+
+1269
+00:38:32,726 --> 00:38:34,696
+Debugging, and Using Metal 2 for
+
+
+1270
+00:38:34,696 --> 00:38:35,136
+Compute.
+
+
+1271
+00:38:35,326 --> 00:38:36,636
+We hope to see you, there.
+
+
+1272
+00:38:37,516 --> 00:38:38,196
+I'll see you, there.
+
+
+1273
+00:38:38,196 --> 00:38:39,286
+Thank you, very much, and have a
+
+
+1274
+00:38:39,336 --> 00:38:40,476
+great WWDC.
+
+
+1275
+00:38:41,016 --> 00:38:43,000
+[ Applause ]
+

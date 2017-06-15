@@ -1,0 +1,8704 @@
+1
+00:00:22,516 --> 00:00:24,776
+[ Applause ]
+
+
+2
+00:00:25,276 --> 00:00:25,726
+>> Hello.
+
+
+3
+00:00:26,516 --> 00:00:28,606
+[ Applause ]
+
+
+4
+00:00:29,106 --> 00:00:30,606
+Hello everybody, thank you for
+
+
+5
+00:00:30,606 --> 00:00:31,926
+coming this evening.
+
+
+6
+00:00:32,116 --> 00:00:33,156
+Last session of the day.
+
+
+7
+00:00:34,156 --> 00:00:35,516
+We're here to talk about what's
+
+
+8
+00:00:35,516 --> 00:00:38,106
+new in Wallet and Apple Pay.
+
+
+9
+00:00:38,796 --> 00:00:40,306
+And there are three things that
+
+
+10
+00:00:40,306 --> 00:00:41,206
+we're going to talk about.
+
+
+11
+00:00:41,206 --> 00:00:41,986
+We're going to break today's
+
+
+12
+00:00:41,986 --> 00:00:43,626
+session down to three sections.
+
+
+13
+00:00:44,036 --> 00:00:45,916
+The first one is going to be a
+
+
+14
+00:00:45,916 --> 00:00:47,116
+little bit about the Apply Pay
+
+
+15
+00:00:47,116 --> 00:00:47,916
+experience.
+
+
+16
+00:00:48,336 --> 00:00:49,696
+Some of you might be familiar
+
+
+17
+00:00:49,696 --> 00:00:51,216
+with Apple Pay, but we've also
+
+
+18
+00:00:51,216 --> 00:00:52,766
+been quite busy this past year,
+
+
+19
+00:00:52,936 --> 00:00:53,796
+so we're going to run through
+
+
+20
+00:00:53,796 --> 00:00:54,696
+some of the new things we've
+
+
+21
+00:00:54,696 --> 00:00:55,096
+been doing.
+
+
+22
+00:00:56,226 --> 00:00:57,526
+Then we're going to look at iOS
+
+
+23
+00:00:57,526 --> 00:00:59,746
+11 and macOS High Sierra and
+
+
+24
+00:00:59,746 --> 00:01:00,896
+we're going to talk about what's
+
+
+25
+00:01:00,896 --> 00:01:01,856
+new with Apple Pay.
+
+
+26
+00:01:02,396 --> 00:01:04,135
+And then, finally, we're going
+
+
+27
+00:01:04,135 --> 00:01:05,756
+to look at some of the new API
+
+
+28
+00:01:05,756 --> 00:01:07,786
+inside of Wallet.
+
+
+29
+00:01:08,216 --> 00:01:10,476
+Now, there are a few things
+
+
+30
+00:01:10,566 --> 00:01:11,826
+we're not going to cover in this
+
+
+31
+00:01:11,826 --> 00:01:12,296
+session.
+
+
+32
+00:01:12,576 --> 00:01:15,376
+We're not going to cover getting
+
+
+33
+00:01:15,376 --> 00:01:17,416
+started with the Apply Pay API
+
+
+34
+00:01:17,416 --> 00:01:19,196
+and how you integrate Apple Pay
+
+
+35
+00:01:19,196 --> 00:01:20,446
+with your payment processor.
+
+
+36
+00:01:20,786 --> 00:01:22,376
+We have a lot of great resources
+
+
+37
+00:01:22,376 --> 00:01:24,016
+for that, you can check out last
+
+
+38
+00:01:24,016 --> 00:01:27,026
+year's WWDC sessions, "Apply Pay
+
+
+39
+00:01:27,026 --> 00:01:28,606
+on the Web," and "What's New
+
+
+40
+00:01:28,606 --> 00:01:30,616
+With Wallet and Apple Pay" 2016
+
+
+41
+00:01:30,786 --> 00:01:31,666
+for more information.
+
+
+42
+00:01:33,106 --> 00:01:34,176
+So, let's dive right in and
+
+
+43
+00:01:34,316 --> 00:01:36,436
+let's talk about the Apply Pay
+
+
+44
+00:01:36,656 --> 00:01:37,416
+experience.
+
+
+45
+00:01:38,526 --> 00:01:39,816
+Now, hopefully many of you
+
+
+46
+00:01:39,816 --> 00:01:41,886
+who've used Apple Pay either in
+
+
+47
+00:01:41,886 --> 00:01:44,066
+a store, or in an app, or on the
+
+
+48
+00:01:44,116 --> 00:01:46,296
+web, and if you have, you'll
+
+
+49
+00:01:46,296 --> 00:01:48,286
+know that Apple Pay is easy,
+
+
+50
+00:01:48,616 --> 00:01:51,606
+secure, and private way to pay.
+
+
+51
+00:01:52,166 --> 00:01:55,516
+And when we first launched Apple
+
+
+52
+00:01:55,516 --> 00:01:57,566
+Pay in iOS 8, we supported
+
+
+53
+00:01:57,566 --> 00:02:00,106
+payments within applications.
+
+
+54
+00:02:00,576 --> 00:02:03,616
+Here's a good example.
+
+
+55
+00:02:03,986 --> 00:02:05,926
+But, since then we've expanded
+
+
+56
+00:02:05,926 --> 00:02:08,446
+Apple Pay to far more places.
+
+
+57
+00:02:09,386 --> 00:02:11,666
+We've expanded it to Safari.
+
+
+58
+00:02:12,796 --> 00:02:14,026
+You can now make payments from
+
+
+59
+00:02:14,026 --> 00:02:17,476
+Safari on mac and on iOS.
+
+
+60
+00:02:17,476 --> 00:02:19,196
+We've also expanded it to Siri.
+
+
+61
+00:02:19,886 --> 00:02:21,726
+You can make payments now from
+
+
+62
+00:02:21,726 --> 00:02:23,176
+within SiriKit.
+
+
+63
+00:02:24,096 --> 00:02:25,436
+Another great extension point
+
+
+64
+00:02:25,436 --> 00:02:26,936
+we've added Apple Pay to is
+
+
+65
+00:02:27,076 --> 00:02:28,906
+messages, you can write messages
+
+
+66
+00:02:28,906 --> 00:02:30,266
+apps that can take advantage of
+
+
+67
+00:02:30,266 --> 00:02:31,736
+Apple Pay directly from within
+
+
+68
+00:02:31,736 --> 00:02:32,896
+the message's application.
+
+
+69
+00:02:32,976 --> 00:02:35,036
+You can buy a movie ticket and
+
+
+70
+00:02:35,036 --> 00:02:36,336
+send it to a friend without ever
+
+
+71
+00:02:36,396 --> 00:02:37,846
+having to leave the messages
+
+
+72
+00:02:37,846 --> 00:02:38,036
+app.
+
+
+73
+00:02:39,426 --> 00:02:40,836
+And finally, we've added support
+
+
+74
+00:02:40,936 --> 00:02:42,136
+for watchOS.
+
+
+75
+00:02:42,526 --> 00:02:45,246
+You can make payments within
+
+
+76
+00:02:45,376 --> 00:02:46,926
+watchOS on WatchKit.
+
+
+77
+00:02:47,456 --> 00:02:49,816
+Last year, we also added
+
+
+78
+00:02:49,816 --> 00:02:52,176
+support, natively on the new Mac
+
+
+79
+00:02:52,176 --> 00:02:53,426
+Book Pro with Touch Bar.
+
+
+80
+00:02:53,836 --> 00:02:54,916
+So, now you can make payments
+
+
+81
+00:02:54,916 --> 00:02:56,376
+directly on your Mac without
+
+
+82
+00:02:56,376 --> 00:02:57,686
+handing them off to an iOS
+
+
+83
+00:02:57,686 --> 00:02:58,196
+device.
+
+
+84
+00:02:58,606 --> 00:03:00,896
+And hopefully you've also had a
+
+
+85
+00:03:00,896 --> 00:03:02,046
+chance to see some of the apps
+
+
+86
+00:03:02,176 --> 00:03:03,766
+that have been built on top of
+
+
+87
+00:03:03,766 --> 00:03:04,216
+WatchKit.
+
+
+88
+00:03:04,516 --> 00:03:05,766
+The Apple Store is a great
+
+
+89
+00:03:05,766 --> 00:03:06,246
+example.
+
+
+90
+00:03:06,386 --> 00:03:08,786
+You can buy accessories directly
+
+
+91
+00:03:08,986 --> 00:03:09,666
+from your wrist.
+
+
+92
+00:03:10,556 --> 00:03:12,276
+You just pick an accessory, pick
+
+
+93
+00:03:12,276 --> 00:03:13,606
+a card, and you're done.
+
+
+94
+00:03:14,836 --> 00:03:16,226
+Now, when we first launched
+
+
+95
+00:03:16,226 --> 00:03:17,546
+Apple Pay it was only available
+
+
+96
+00:03:17,546 --> 00:03:18,816
+in the United States, but since
+
+
+97
+00:03:18,816 --> 00:03:20,306
+then we've been extremely busy.
+
+
+98
+00:03:20,586 --> 00:03:22,316
+In the past year alone, we've
+
+
+99
+00:03:22,316 --> 00:03:23,936
+launched in over a dozen new
+
+
+100
+00:03:23,936 --> 00:03:24,566
+countries.
+
+
+101
+00:03:24,766 --> 00:03:26,106
+Here are all the countries that
+
+
+102
+00:03:26,106 --> 00:03:27,826
+we're currently supported in.
+
+
+103
+00:03:28,746 --> 00:03:29,576
+One country that I'm
+
+
+104
+00:03:29,576 --> 00:03:31,886
+particularly excited about is
+
+
+105
+00:03:31,886 --> 00:03:32,426
+Japan.
+
+
+106
+00:03:32,686 --> 00:03:34,166
+In Japan, you can actually use
+
+
+107
+00:03:34,166 --> 00:03:36,146
+Apple Pay directly on the Tokyo
+
+
+108
+00:03:36,146 --> 00:03:37,726
+Transit System with your Suica
+
+
+109
+00:03:37,726 --> 00:03:38,036
+Card.
+
+
+110
+00:03:38,036 --> 00:03:39,576
+It works really, really well.
+
+
+111
+00:03:41,156 --> 00:03:42,376
+Another thing we launched last
+
+
+112
+00:03:42,376 --> 00:03:45,396
+year after WWDC was Apple Pay
+
+
+113
+00:03:45,396 --> 00:03:46,566
+for nonprofits.
+
+
+114
+00:03:46,966 --> 00:03:48,226
+This is really interesting if
+
+
+115
+00:03:48,226 --> 00:03:49,746
+you're a nonprofit and you want
+
+
+116
+00:03:49,746 --> 00:03:51,546
+to take Apple Pay either within
+
+
+117
+00:03:51,546 --> 00:03:53,876
+your application, or perhaps on
+
+
+118
+00:03:53,876 --> 00:03:54,586
+your website.
+
+
+119
+00:03:54,586 --> 00:03:56,956
+Here's an example from OXFAM in
+
+
+120
+00:03:56,956 --> 00:03:57,836
+the United Kingdom.
+
+
+121
+00:03:57,836 --> 00:03:59,216
+They're one of the largest
+
+
+122
+00:03:59,436 --> 00:04:02,386
+nonprofits in the UK and they
+
+
+123
+00:04:02,386 --> 00:04:03,656
+actually found that using Apple
+
+
+124
+00:04:03,656 --> 00:04:05,796
+Pay reduced the time that it
+
+
+125
+00:04:05,796 --> 00:04:07,676
+took to get a donation from 2
+
+
+126
+00:04:07,676 --> 00:04:09,736
+minutes to 10 seconds.
+
+
+127
+00:04:09,846 --> 00:04:11,486
+That's a huge decrease.
+
+
+128
+00:04:11,816 --> 00:04:12,846
+And as a result, they're seeing
+
+
+129
+00:04:12,846 --> 00:04:14,926
+much better user experience and
+
+
+130
+00:04:14,926 --> 00:04:15,616
+performance.
+
+
+131
+00:04:16,836 --> 00:04:18,416
+Now, if you're interested in
+
+
+132
+00:04:18,416 --> 00:04:20,146
+accepting Apple Pay as a
+
+
+133
+00:04:20,146 --> 00:04:22,036
+nonprofit, it's really easy to
+
+
+134
+00:04:22,036 --> 00:04:22,356
+do.
+
+
+135
+00:04:22,966 --> 00:04:24,456
+You can use it inside of your
+
+
+136
+00:04:24,456 --> 00:04:25,586
+apps and on the web.
+
+
+137
+00:04:25,726 --> 00:04:27,346
+And to help support you, we've
+
+
+138
+00:04:27,346 --> 00:04:29,176
+added a new donate with Apple
+
+
+139
+00:04:29,176 --> 00:04:30,616
+Pay button style.
+
+
+140
+00:04:31,306 --> 00:04:32,696
+There's a very simple signup
+
+
+141
+00:04:32,696 --> 00:04:33,326
+process.
+
+
+142
+00:04:33,686 --> 00:04:34,836
+You can find out more about
+
+
+143
+00:04:34,836 --> 00:04:36,336
+where this is supported and how
+
+
+144
+00:04:36,336 --> 00:04:38,166
+to get started at the developer
+
+
+145
+00:04:38,166 --> 00:04:38,466
+site.
+
+
+146
+00:04:39,026 --> 00:04:42,066
+Now, if you're not using Apple
+
+
+147
+00:04:42,066 --> 00:04:43,996
+Pay, you might be wondering why
+
+
+148
+00:04:43,996 --> 00:04:46,506
+should I adapt it in my app or
+
+
+149
+00:04:46,506 --> 00:04:48,606
+on the web.
+
+
+150
+00:04:48,756 --> 00:04:50,696
+Apple Pay is one of the best
+
+
+151
+00:04:50,696 --> 00:04:52,096
+ways for users to pay.
+
+
+152
+00:04:52,166 --> 00:04:53,476
+It has one of the highest
+
+
+153
+00:04:53,576 --> 00:04:55,336
+customer satisfaction ratings of
+
+
+154
+00:04:55,336 --> 00:04:56,456
+any wallet.
+
+
+155
+00:04:56,946 --> 00:04:58,496
+But it's also the best way for
+
+
+156
+00:04:58,496 --> 00:04:59,746
+merchants to be paid.
+
+
+157
+00:05:00,326 --> 00:05:02,386
+I want to illustrate that with a
+
+
+158
+00:05:02,386 --> 00:05:04,116
+little example of a typical
+
+
+159
+00:05:04,116 --> 00:05:04,746
+product flow.
+
+
+160
+00:05:06,176 --> 00:05:07,306
+So, normally in the checkout
+
+
+161
+00:05:07,306 --> 00:05:09,926
+process, we buy a product.
+
+
+162
+00:05:09,926 --> 00:05:11,696
+We go to a website, we got to an
+
+
+163
+00:05:11,696 --> 00:05:13,446
+app, we see the product and we
+
+
+164
+00:05:13,606 --> 00:05:14,886
+add it to our cart.
+
+
+165
+00:05:15,306 --> 00:05:16,346
+And then we go to checkout.
+
+
+166
+00:05:16,346 --> 00:05:18,126
+And the first thing we normally
+
+
+167
+00:05:18,126 --> 00:05:20,436
+have to do is we have to create
+
+
+168
+00:05:20,436 --> 00:05:21,696
+an account, or sight in.
+
+
+169
+00:05:21,696 --> 00:05:23,566
+And if I don't have an account,
+
+
+170
+00:05:23,566 --> 00:05:25,256
+maybe I've got to like create
+
+
+171
+00:05:25,256 --> 00:05:27,606
+one and then go to my email to
+
+
+172
+00:05:27,606 --> 00:05:28,536
+verify it.
+
+
+173
+00:05:28,906 --> 00:05:30,386
+So, I've left the site already.
+
+
+174
+00:05:30,386 --> 00:05:32,106
+And then I come back and I've
+
+
+175
+00:05:32,106 --> 00:05:33,466
+got to add my shipping address.
+
+
+176
+00:05:34,206 --> 00:05:35,806
+And then once I add my shipping
+
+
+177
+00:05:35,806 --> 00:05:37,346
+address, well I shipped it to
+
+
+178
+00:05:37,346 --> 00:05:40,066
+work, and my credit card uses my
+
+
+179
+00:05:40,066 --> 00:05:41,236
+home address as my billing.
+
+
+180
+00:05:41,236 --> 00:05:42,256
+So, now I've got to add my
+
+
+181
+00:05:42,356 --> 00:05:43,236
+billing address.
+
+
+182
+00:05:43,696 --> 00:05:45,386
+And I've got to type in my card
+
+
+183
+00:05:45,386 --> 00:05:46,096
+details.
+
+
+184
+00:05:46,466 --> 00:05:48,056
+Except, I left my credit card on
+
+
+185
+00:05:48,056 --> 00:05:49,286
+the other side of the stage, so
+
+
+186
+00:05:49,286 --> 00:05:50,986
+now I've got to go over there to
+
+
+187
+00:05:50,986 --> 00:05:52,846
+get the CVV number on the back.
+
+
+188
+00:05:53,186 --> 00:05:55,116
+And then I've got to review the
+
+
+189
+00:05:55,116 --> 00:05:55,986
+transaction.
+
+
+190
+00:05:56,096 --> 00:05:58,266
+And then finally I can confirm
+
+
+191
+00:05:58,266 --> 00:05:58,896
+and pay.
+
+
+192
+00:05:59,826 --> 00:06:01,676
+So, it's not really surprising
+
+
+193
+00:06:01,676 --> 00:06:02,506
+that if you've done any
+
+
+194
+00:06:02,506 --> 00:06:04,976
+ecommerce work, conversion rates
+
+
+195
+00:06:04,976 --> 00:06:06,206
+is one of the biggest things you
+
+
+196
+00:06:06,206 --> 00:06:06,766
+encounter.
+
+
+197
+00:06:07,016 --> 00:06:08,826
+Users drop off all the time
+
+
+198
+00:06:08,826 --> 00:06:09,786
+during purchase.
+
+
+199
+00:06:10,586 --> 00:06:12,486
+But, with Apple Pay, it's so
+
+
+200
+00:06:12,486 --> 00:06:13,216
+much simpler.
+
+
+201
+00:06:13,636 --> 00:06:16,186
+You just tap or click the buy
+
+
+202
+00:06:16,186 --> 00:06:17,786
+with Apple Pay button, and
+
+
+203
+00:06:17,786 --> 00:06:18,286
+you're done.
+
+
+204
+00:06:18,286 --> 00:06:20,226
+All of these steps are coalesced
+
+
+205
+00:06:20,226 --> 00:06:22,686
+into a single user experience.
+
+
+206
+00:06:23,016 --> 00:06:24,306
+And this has some really
+
+
+207
+00:06:24,306 --> 00:06:26,556
+dramatic results for
+
+
+208
+00:06:26,636 --> 00:06:27,596
+performance.
+
+
+209
+00:06:28,086 --> 00:06:30,386
+Over the past three years, we've
+
+
+210
+00:06:30,386 --> 00:06:32,266
+been asking merchants what they
+
+
+211
+00:06:32,266 --> 00:06:33,276
+found with Apple Pay.
+
+
+212
+00:06:33,946 --> 00:06:35,006
+And they've told us that they've
+
+
+213
+00:06:35,006 --> 00:06:36,906
+seen between 2 and 5 times
+
+
+214
+00:06:36,906 --> 00:06:38,396
+increased conversion rates with
+
+
+215
+00:06:38,396 --> 00:06:40,416
+Apple Pay, that they've seen
+
+
+216
+00:06:40,416 --> 00:06:41,936
+higher purchase frequency.
+
+
+217
+00:06:42,466 --> 00:06:44,336
+And the checkouts move much,
+
+
+218
+00:06:44,336 --> 00:06:45,116
+much faster.
+
+
+219
+00:06:45,116 --> 00:06:47,436
+And a result of all of these,
+
+
+220
+00:06:48,016 --> 00:06:49,356
+they see improved customer
+
+
+221
+00:06:49,356 --> 00:06:51,266
+acquisition and satisfaction.
+
+
+222
+00:06:52,056 --> 00:06:53,446
+Users are more likely to become
+
+
+223
+00:06:53,446 --> 00:06:54,996
+your customers, and they're more
+
+
+224
+00:06:54,996 --> 00:06:56,136
+likely to be happy.
+
+
+225
+00:06:56,136 --> 00:06:57,956
+I want to give you a few
+
+
+226
+00:06:57,956 --> 00:06:58,676
+examples.
+
+
+227
+00:06:58,676 --> 00:07:00,866
+If you are a freelance or a
+
+
+228
+00:07:00,866 --> 00:07:02,556
+contractor, you might know about
+
+
+229
+00:07:02,556 --> 00:07:04,086
+Intuit, they have an app and a
+
+
+230
+00:07:04,126 --> 00:07:05,506
+service that lets you generate
+
+
+231
+00:07:05,506 --> 00:07:06,166
+invoices.
+
+
+232
+00:07:06,346 --> 00:07:07,656
+They took advantage of Apple
+
+
+233
+00:07:07,656 --> 00:07:07,986
+Pay.
+
+
+234
+00:07:08,036 --> 00:07:09,226
+You can pay your invoice
+
+
+235
+00:07:09,476 --> 00:07:10,086
+directly.
+
+
+236
+00:07:10,246 --> 00:07:11,126
+And they found that these
+
+
+237
+00:07:11,126 --> 00:07:13,116
+invoices were paid 30% faster
+
+
+238
+00:07:13,116 --> 00:07:13,826
+with Apple Pay.
+
+
+239
+00:07:14,146 --> 00:07:15,386
+And half these invoices were
+
+
+240
+00:07:15,386 --> 00:07:16,956
+paid immediately, the same day
+
+
+241
+00:07:16,956 --> 00:07:17,706
+they were received.
+
+
+242
+00:07:18,146 --> 00:07:19,596
+I used to be a freelancer and
+
+
+243
+00:07:19,596 --> 00:07:20,876
+that was unheard of when I
+
+
+244
+00:07:20,876 --> 00:07:21,566
+freelanced.
+
+
+245
+00:07:22,306 --> 00:07:24,516
+Another app that's had a lot of
+
+
+246
+00:07:24,516 --> 00:07:27,136
+success is Indiegogo.
+
+
+247
+00:07:27,136 --> 00:07:28,796
+They adopted Apple Pay so you
+
+
+248
+00:07:28,796 --> 00:07:31,166
+can use it to pledge for items
+
+
+249
+00:07:31,166 --> 00:07:34,026
+there and they've seen a 250%
+
+
+250
+00:07:34,026 --> 00:07:35,286
+increase in conversion rate.
+
+
+251
+00:07:36,456 --> 00:07:38,176
+There are a few other benefits
+
+
+252
+00:07:38,176 --> 00:07:40,096
+outside of conversion.
+
+
+253
+00:07:40,466 --> 00:07:43,206
+Many merchants see a reduction
+
+
+254
+00:07:43,996 --> 00:07:45,036
+in chargebacks.
+
+
+255
+00:07:45,246 --> 00:07:46,316
+This is huge.
+
+
+256
+00:07:46,316 --> 00:07:47,166
+If you deal with these, you'll
+
+
+257
+00:07:47,166 --> 00:07:48,486
+know they can be very expensive
+
+
+258
+00:07:48,486 --> 00:07:49,816
+and time consuming to resolve.
+
+
+259
+00:07:49,876 --> 00:07:52,016
+And perhaps, most importantly
+
+
+260
+00:07:52,016 --> 00:07:54,136
+with Apple Pay there's no need
+
+
+261
+00:07:54,136 --> 00:07:56,556
+to handle or store credit card
+
+
+262
+00:07:56,556 --> 00:07:57,066
+numbers.
+
+
+263
+00:07:58,086 --> 00:07:58,936
+This is huge.
+
+
+264
+00:07:58,936 --> 00:08:00,036
+You don't need to handle you
+
+
+265
+00:08:00,036 --> 00:08:01,376
+know regular credit card
+
+
+266
+00:08:01,376 --> 00:08:02,526
+numbers, instead you're handling
+
+
+267
+00:08:02,526 --> 00:08:04,536
+device-specific tokens.
+
+
+268
+00:08:05,566 --> 00:08:07,016
+You also get a trusted user
+
+
+269
+00:08:07,016 --> 00:08:07,796
+experience.
+
+
+270
+00:08:08,036 --> 00:08:09,376
+Instead of going to five
+
+
+271
+00:08:09,376 --> 00:08:10,746
+different sites and getting five
+
+
+272
+00:08:10,746 --> 00:08:12,266
+completely different checkouts,
+
+
+273
+00:08:12,526 --> 00:08:14,146
+you get a single UI that uses
+
+
+274
+00:08:14,146 --> 00:08:14,586
+trust.
+
+
+275
+00:08:14,676 --> 00:08:16,996
+Built directly in Safari or into
+
+
+276
+00:08:17,776 --> 00:08:17,926
+iOS.
+
+
+277
+00:08:19,776 --> 00:08:21,806
+So, hopefully if you haven't
+
+
+278
+00:08:21,906 --> 00:08:23,536
+adopted Apple Pay I've convinced
+
+
+279
+00:08:23,536 --> 00:08:25,676
+you to go after this session and
+
+
+280
+00:08:25,676 --> 00:08:27,056
+immediately start putting it on
+
+
+281
+00:08:27,056 --> 00:08:27,506
+your site.
+
+
+282
+00:08:27,766 --> 00:08:29,216
+So, I want to give you a few
+
+
+283
+00:08:29,336 --> 00:08:31,106
+bits of advice on how you can
+
+
+284
+00:08:31,106 --> 00:08:32,405
+perfect the Apple Pay
+
+
+285
+00:08:32,405 --> 00:08:33,116
+experience.
+
+
+286
+00:08:33,846 --> 00:08:34,806
+When you're thinking about
+
+
+287
+00:08:34,806 --> 00:08:36,316
+designing for Apple Pay, it's
+
+
+288
+00:08:36,316 --> 00:08:37,775
+important to think about three
+
+
+289
+00:08:37,996 --> 00:08:39,265
+basic principles.
+
+
+290
+00:08:39,846 --> 00:08:41,366
+How can I make purchasing
+
+
+291
+00:08:41,405 --> 00:08:41,966
+easier?
+
+
+292
+00:08:42,866 --> 00:08:44,356
+How can I make purchasing
+
+
+293
+00:08:44,356 --> 00:08:45,066
+faster?
+
+
+294
+00:08:46,016 --> 00:08:47,666
+And how can you make purchasing
+
+
+295
+00:08:47,996 --> 00:08:48,536
+clearer?
+
+
+296
+00:08:49,496 --> 00:08:50,996
+And when you put these together,
+
+
+297
+00:08:51,586 --> 00:08:53,686
+you get a great design and a
+
+
+298
+00:08:53,686 --> 00:08:54,986
+great user experience.
+
+
+299
+00:08:55,156 --> 00:08:55,996
+And if you've been to our
+
+
+300
+00:08:55,996 --> 00:08:58,276
+website, you'll see we use three
+
+
+301
+00:08:58,276 --> 00:09:00,586
+terms to describe how to best
+
+
+302
+00:09:00,766 --> 00:09:01,456
+perfect these.
+
+
+303
+00:09:01,596 --> 00:09:02,506
+One of these is something we
+
+
+304
+00:09:02,506 --> 00:09:03,646
+call upstreaming.
+
+
+305
+00:09:04,376 --> 00:09:05,526
+Another technique in our
+
+
+306
+00:09:05,526 --> 00:09:06,796
+interface guide, we call
+
+
+307
+00:09:06,796 --> 00:09:07,696
+defaulting.
+
+
+308
+00:09:07,946 --> 00:09:09,826
+And a third technique in our
+
+
+309
+00:09:09,826 --> 00:09:11,076
+interface guide we call
+
+
+310
+00:09:11,076 --> 00:09:11,996
+streamlining.
+
+
+311
+00:09:12,596 --> 00:09:14,056
+So, I want to run through each
+
+
+312
+00:09:14,056 --> 00:09:16,246
+of these and I want to see how
+
+
+313
+00:09:16,246 --> 00:09:17,406
+they can help.
+
+
+314
+00:09:18,066 --> 00:09:20,236
+Upstreaming is about
+
+
+315
+00:09:20,236 --> 00:09:22,076
+accelerating single item
+
+
+316
+00:09:22,076 --> 00:09:23,446
+purchases with Apple Pay
+
+
+317
+00:09:23,516 --> 00:09:25,086
+directly on product pages.
+
+
+318
+00:09:25,606 --> 00:09:27,346
+We're accelerating multi-item
+
+
+319
+00:09:27,346 --> 00:09:28,966
+purchases with express check
+
+
+320
+00:09:28,966 --> 00:09:29,236
+out.
+
+
+321
+00:09:29,726 --> 00:09:31,556
+Let me give you an example.
+
+
+322
+00:09:31,806 --> 00:09:33,656
+I live in San Francisco, so it
+
+
+323
+00:09:33,656 --> 00:09:35,306
+is obviously very important that
+
+
+324
+00:09:35,306 --> 00:09:36,596
+I have a constant stock of
+
+
+325
+00:09:36,886 --> 00:09:38,246
+hoodies to wear.
+
+
+326
+00:09:38,376 --> 00:09:40,516
+So, here is Lululemon's site, I
+
+
+327
+00:09:40,516 --> 00:09:42,246
+can buy a hoodie, and you'll see
+
+
+328
+00:09:42,446 --> 00:09:44,756
+that there is a buy with Apple
+
+
+329
+00:09:44,756 --> 00:09:46,196
+Pay button directly on the
+
+
+330
+00:09:46,196 --> 00:09:47,106
+product page.
+
+
+331
+00:09:48,026 --> 00:09:49,576
+Placing the Apple Pay button on
+
+
+332
+00:09:49,576 --> 00:09:51,456
+your product pages drastically
+
+
+333
+00:09:51,456 --> 00:09:53,706
+increases conversions by several
+
+
+334
+00:09:53,706 --> 00:09:54,966
+orders of magnitude.
+
+
+335
+00:09:54,966 --> 00:09:56,446
+It allows purchasing
+
+
+336
+00:09:56,716 --> 00:09:57,896
+immediately.
+
+
+337
+00:10:00,046 --> 00:10:01,276
+And also, if you allow
+
+
+338
+00:10:01,276 --> 00:10:02,636
+purchasing without creating
+
+
+339
+00:10:02,636 --> 00:10:04,376
+accounts, as is done here,
+
+
+340
+00:10:04,756 --> 00:10:05,686
+you'll get an even better
+
+
+341
+00:10:05,686 --> 00:10:06,536
+performance.
+
+
+342
+00:10:08,296 --> 00:10:11,976
+Now, sometimes, guest check out
+
+
+343
+00:10:12,436 --> 00:10:13,256
+isn't feasible.
+
+
+344
+00:10:13,786 --> 00:10:15,806
+But there are some techniques
+
+
+345
+00:10:15,806 --> 00:10:17,916
+you can use to help mitigate
+
+
+346
+00:10:17,916 --> 00:10:18,326
+this.
+
+
+347
+00:10:19,036 --> 00:10:20,276
+Firstly, you can write the
+
+
+348
+00:10:20,276 --> 00:10:22,096
+account creation seamless with
+
+
+349
+00:10:22,316 --> 00:10:23,566
+iOS and macOS.
+
+
+350
+00:10:24,086 --> 00:10:25,456
+One of the ways that you can do
+
+
+351
+00:10:25,456 --> 00:10:26,746
+this is through shared web
+
+
+352
+00:10:26,816 --> 00:10:27,626
+credentials.
+
+
+353
+00:10:27,626 --> 00:10:29,556
+This was introduced a few years
+
+
+354
+00:10:29,556 --> 00:10:30,616
+ago and there have actually been
+
+
+355
+00:10:30,616 --> 00:10:31,776
+some great improvements to
+
+
+356
+00:10:31,776 --> 00:10:33,176
+shared web credentials in iOS
+
+
+357
+00:10:33,176 --> 00:10:33,626
+11.
+
+
+358
+00:10:33,726 --> 00:10:35,516
+So, do check out the Safari
+
+
+359
+00:10:35,516 --> 00:10:36,996
+sessions to find out more about
+
+
+360
+00:10:36,996 --> 00:10:37,246
+that.
+
+
+361
+00:10:37,876 --> 00:10:39,356
+Another thing you can do that is
+
+
+362
+00:10:39,356 --> 00:10:42,536
+new in iOS 11 is have native app
+
+
+363
+00:10:42,636 --> 00:10:43,376
+autofill.
+
+
+364
+00:10:43,586 --> 00:10:45,646
+iOS 11 will now autofill
+
+
+365
+00:10:45,646 --> 00:10:47,996
+passwords within applications.
+
+
+366
+00:10:48,116 --> 00:10:49,456
+And to take advantage of this,
+
+
+367
+00:10:49,456 --> 00:10:51,556
+all you need to do is hint your
+
+
+368
+00:10:51,556 --> 00:10:53,796
+UI text fields with the right UI
+
+
+369
+00:10:53,796 --> 00:10:56,616
+text content type; password,
+
+
+370
+00:10:56,616 --> 00:10:57,646
+email, etcetera.
+
+
+371
+00:10:59,086 --> 00:11:00,856
+You can also create an account
+
+
+372
+00:11:00,856 --> 00:11:02,606
+after payment using data the you
+
+
+373
+00:11:02,606 --> 00:11:04,676
+gather from Apple Pay.
+
+
+374
+00:11:04,886 --> 00:11:05,906
+So, the user's email, for
+
+
+375
+00:11:05,906 --> 00:11:06,316
+example.
+
+
+376
+00:11:06,316 --> 00:11:08,396
+You can create an account once
+
+
+377
+00:11:08,396 --> 00:11:10,006
+purchase has happened.
+
+
+378
+00:11:10,956 --> 00:11:12,696
+Now, the second technique that I
+
+
+379
+00:11:12,696 --> 00:11:14,336
+mentioned is defaulting.
+
+
+380
+00:11:15,076 --> 00:11:16,766
+And this is about making Apple
+
+
+381
+00:11:16,766 --> 00:11:18,286
+Pay the default payment option
+
+
+382
+00:11:18,286 --> 00:11:19,116
+where possible.
+
+
+383
+00:11:19,116 --> 00:11:20,816
+And you can actually take
+
+
+384
+00:11:20,816 --> 00:11:22,546
+advantage of a new feature we're
+
+
+385
+00:11:22,546 --> 00:11:23,626
+adding that I'll talk about in
+
+
+386
+00:11:23,626 --> 00:11:24,846
+just a moment, that we call
+
+
+387
+00:11:24,846 --> 00:11:25,756
+in-line set up.
+
+
+388
+00:11:25,836 --> 00:11:26,866
+You'll see how that can make
+
+
+389
+00:11:27,126 --> 00:11:29,036
+Apple Pay immediate, even if the
+
+
+390
+00:11:29,036 --> 00:11:31,346
+user doesn't have cards on their
+
+
+391
+00:11:31,346 --> 00:11:32,436
+iOS device.
+
+
+392
+00:11:35,116 --> 00:11:36,896
+The final technique I mentioned
+
+
+393
+00:11:36,896 --> 00:11:38,026
+was streamlining.
+
+
+394
+00:11:38,956 --> 00:11:40,896
+This is about making purchasing
+
+
+395
+00:11:40,896 --> 00:11:43,086
+with Apple Pay quick and simple.
+
+
+396
+00:11:44,296 --> 00:11:45,296
+It's about collecting the
+
+
+397
+00:11:45,296 --> 00:11:46,856
+necessary information before
+
+
+398
+00:11:46,856 --> 00:11:47,816
+checkout begins.
+
+
+399
+00:11:47,816 --> 00:11:49,536
+If you need a size or a color,
+
+
+400
+00:11:49,686 --> 00:11:50,756
+make sure you get it before
+
+
+401
+00:11:50,756 --> 00:11:51,646
+checkout starts.
+
+
+402
+00:11:52,136 --> 00:11:53,556
+And it's also about preferring
+
+
+403
+00:11:53,556 --> 00:11:55,246
+customer information from Apple
+
+
+404
+00:11:55,246 --> 00:11:55,596
+Pay.
+
+
+405
+00:11:55,946 --> 00:11:57,496
+Don't ask for the user's email
+
+
+406
+00:11:57,496 --> 00:11:58,866
+address yourself.
+
+
+407
+00:11:58,866 --> 00:12:00,186
+You'll be able to collect it
+
+
+408
+00:12:00,186 --> 00:12:01,746
+along with shipping information,
+
+
+409
+00:12:01,826 --> 00:12:03,846
+billing information, and so on,
+
+
+410
+00:12:03,846 --> 00:12:04,926
+directly from the Apple Pay
+
+
+411
+00:12:04,926 --> 00:12:05,886
+sheet.
+
+
+412
+00:12:06,816 --> 00:12:08,636
+That brings me to the Apple Pay
+
+
+413
+00:12:08,636 --> 00:12:09,326
+sheet.
+
+
+414
+00:12:09,766 --> 00:12:11,096
+You may be familiar with it.
+
+
+415
+00:12:11,166 --> 00:12:12,226
+This is what it looks like on
+
+
+416
+00:12:12,226 --> 00:12:13,036
+the Apple Store.
+
+
+417
+00:12:13,396 --> 00:12:15,156
+And I've got some general advice
+
+
+418
+00:12:15,216 --> 00:12:16,506
+for when you're thinking about
+
+
+419
+00:12:16,506 --> 00:12:18,176
+using Apple Pay and how to best
+
+
+420
+00:12:18,176 --> 00:12:19,406
+take advantage of this sheet.
+
+
+421
+00:12:19,906 --> 00:12:22,716
+One piece of advice is only to
+
+
+422
+00:12:22,716 --> 00:12:24,406
+present and request essential
+
+
+423
+00:12:24,406 --> 00:12:25,106
+information.
+
+
+424
+00:12:26,056 --> 00:12:27,486
+Don't request information you're
+
+
+425
+00:12:27,486 --> 00:12:28,386
+not going to use.
+
+
+426
+00:12:28,386 --> 00:12:30,116
+If you don't need the user's
+
+
+427
+00:12:30,116 --> 00:12:31,546
+phone number, don't ask for it.
+
+
+428
+00:12:32,896 --> 00:12:34,306
+Another thing to bear in mind,
+
+
+429
+00:12:34,306 --> 00:12:36,006
+is that the screen estate is
+
+
+430
+00:12:36,006 --> 00:12:36,786
+quite limited.
+
+
+431
+00:12:36,786 --> 00:12:37,916
+There isn't a lot of space.
+
+
+432
+00:12:37,986 --> 00:12:38,936
+So, you should keep your line
+
+
+433
+00:12:38,936 --> 00:12:40,526
+items short and meaningful.
+
+
+434
+00:12:41,196 --> 00:12:43,066
+It's not intended to be a kind
+
+
+435
+00:12:43,066 --> 00:12:44,076
+of full receipt.
+
+
+436
+00:12:44,166 --> 00:12:45,446
+The Apple Pay sheet is intended
+
+
+437
+00:12:45,446 --> 00:12:46,396
+to be a summary.
+
+
+438
+00:12:46,706 --> 00:12:48,266
+So, use these line items to
+
+
+439
+00:12:48,266 --> 00:12:50,086
+explain additional charges,
+
+
+440
+00:12:50,436 --> 00:12:51,806
+discounts, tax.
+
+
+441
+00:12:52,136 --> 00:12:54,066
+Let me go back to the Apple
+
+
+442
+00:12:54,066 --> 00:12:55,506
+store and show you what I mean.
+
+
+443
+00:12:56,086 --> 00:12:58,376
+Here you'll see I'm buying an
+
+
+444
+00:12:58,486 --> 00:13:00,626
+iPad and here in the sheet I see
+
+
+445
+00:13:00,786 --> 00:13:04,626
+a subtotal, shipping, tax, and a
+
+
+446
+00:13:04,626 --> 00:13:05,166
+total.
+
+
+447
+00:13:05,686 --> 00:13:07,396
+So, very top level.
+
+
+448
+00:13:08,516 --> 00:13:10,986
+Now, sometimes you don't know
+
+
+449
+00:13:11,156 --> 00:13:12,786
+what you're going to charge.
+
+
+450
+00:13:13,956 --> 00:13:15,746
+Perhaps you're a ride sharing
+
+
+451
+00:13:15,746 --> 00:13:17,036
+company and you don't actually
+
+
+452
+00:13:17,036 --> 00:13:18,636
+charge the user until the ride
+
+
+453
+00:13:18,636 --> 00:13:19,026
+is over.
+
+
+454
+00:13:19,026 --> 00:13:20,886
+Or perhaps you want to add an
+
+
+455
+00:13:20,886 --> 00:13:22,486
+optional gratuity that the user
+
+
+456
+00:13:22,486 --> 00:13:24,136
+picks at the end of the
+
+
+457
+00:13:24,136 --> 00:13:24,856
+transaction.
+
+
+458
+00:13:25,146 --> 00:13:27,946
+You can use pending items to
+
+
+459
+00:13:27,946 --> 00:13:28,826
+achieve this.
+
+
+460
+00:13:28,826 --> 00:13:30,586
+It's important to clearly
+
+
+461
+00:13:30,586 --> 00:13:32,206
+disclose that these pending
+
+
+462
+00:13:32,206 --> 00:13:33,786
+items are additional costs.
+
+
+463
+00:13:34,136 --> 00:13:37,236
+Here's an example, we just mark
+
+
+464
+00:13:37,236 --> 00:13:39,936
+the type as pending, and it will
+
+
+465
+00:13:39,936 --> 00:13:41,766
+show up on the Apple Pay sheet
+
+
+466
+00:13:41,946 --> 00:13:42,716
+without an amount.
+
+
+467
+00:13:43,246 --> 00:13:46,676
+Now, the total amount has to be
+
+
+468
+00:13:46,676 --> 00:13:47,416
+nonnegative.
+
+
+469
+00:13:47,586 --> 00:13:48,686
+It doesn't really make sense to
+
+
+470
+00:13:48,686 --> 00:13:49,576
+have a payment that's for a
+
+
+471
+00:13:49,576 --> 00:13:50,276
+negative amount.
+
+
+472
+00:13:51,096 --> 00:13:52,456
+But it can be pending.
+
+
+473
+00:13:53,086 --> 00:13:54,746
+So, you can have a total that is
+
+
+474
+00:13:54,746 --> 00:13:56,696
+not known at the time the time
+
+
+475
+00:13:56,696 --> 00:13:57,936
+the transaction is taking place.
+
+
+476
+00:13:59,236 --> 00:14:00,536
+It's very important for the
+
+
+477
+00:14:00,536 --> 00:14:02,186
+total amount to use the business
+
+
+478
+00:14:02,186 --> 00:14:03,226
+name that will appear on the
+
+
+479
+00:14:03,226 --> 00:14:03,976
+card statement.
+
+
+480
+00:14:04,066 --> 00:14:05,396
+It's important for two reasons.
+
+
+481
+00:14:05,396 --> 00:14:07,836
+Firstly, users want to be able
+
+
+482
+00:14:07,836 --> 00:14:09,726
+to reconcile what appears within
+
+
+483
+00:14:09,726 --> 00:14:11,106
+the Wallet application and on
+
+
+484
+00:14:11,106 --> 00:14:12,556
+their bank statement with what
+
+
+485
+00:14:12,556 --> 00:14:13,026
+they paid.
+
+
+486
+00:14:13,566 --> 00:14:15,246
+Also, now that we support the
+
+
+487
+00:14:15,246 --> 00:14:16,876
+new Mac Book Pro with Touch Bar,
+
+
+488
+00:14:16,876 --> 00:14:18,526
+we actually show the merchant's
+
+
+489
+00:14:18,526 --> 00:14:20,486
+name on the Touch Bar itself.
+
+
+490
+00:14:20,806 --> 00:14:22,206
+So, again, it's important to
+
+
+491
+00:14:22,206 --> 00:14:23,386
+make sure that it matches what
+
+
+492
+00:14:23,386 --> 00:14:24,376
+the user expects.
+
+
+493
+00:14:26,676 --> 00:14:28,526
+Now, one use case that's grown
+
+
+494
+00:14:28,526 --> 00:14:29,956
+over the last year with Apple
+
+
+495
+00:14:29,956 --> 00:14:31,766
+Pay is subscriptions.
+
+
+496
+00:14:31,976 --> 00:14:34,176
+For example, news sites that
+
+
+497
+00:14:34,176 --> 00:14:36,436
+want to use Apple Pay on the web
+
+
+498
+00:14:36,816 --> 00:14:38,016
+to take subscriptions.
+
+
+499
+00:14:38,566 --> 00:14:39,976
+You can do that, but there's
+
+
+500
+00:14:39,976 --> 00:14:41,286
+some advice I'd like to give
+
+
+501
+00:14:41,286 --> 00:14:41,516
+you.
+
+
+502
+00:14:41,566 --> 00:14:43,716
+It's important to clarify the
+
+
+503
+00:14:43,716 --> 00:14:45,266
+subscription details prior to
+
+
+504
+00:14:45,266 --> 00:14:45,956
+payment.
+
+
+505
+00:14:46,436 --> 00:14:48,116
+It's important to include line
+
+
+506
+00:14:48,116 --> 00:14:49,876
+items that reiterate the billing
+
+
+507
+00:14:49,876 --> 00:14:50,556
+frequency.
+
+
+508
+00:14:51,456 --> 00:14:53,416
+And for variable subscriptions
+
+
+509
+00:14:53,636 --> 00:14:54,906
+use pending items.
+
+
+510
+00:14:55,136 --> 00:14:56,426
+Let me give you an example.
+
+
+511
+00:14:56,746 --> 00:14:59,276
+I have a little side job, a
+
+
+512
+00:14:59,276 --> 00:15:01,736
+little app I'm working, it sells
+
+
+513
+00:15:01,736 --> 00:15:03,336
+avocado toast to naïve
+
+
+514
+00:15:03,336 --> 00:15:04,026
+millennials.
+
+
+515
+00:15:04,366 --> 00:15:05,706
+Here it is.
+
+
+516
+00:15:05,706 --> 00:15:07,356
+It's a subscription, of course,
+
+
+517
+00:15:07,416 --> 00:15:08,736
+because that's what's getting
+
+
+518
+00:15:08,736 --> 00:15:10,166
+all the funding, so I'm told.
+
+
+519
+00:15:10,536 --> 00:15:12,146
+And here's my Apple Pay sheet.
+
+
+520
+00:15:12,766 --> 00:15:14,266
+And you'll see that I have here,
+
+
+521
+00:15:14,266 --> 00:15:16,016
+weekly service, so in my line
+
+
+522
+00:15:16,016 --> 00:15:18,306
+item I'm clearly indicating the
+
+
+523
+00:15:18,306 --> 00:15:19,266
+length of time that the
+
+
+524
+00:15:19,266 --> 00:15:20,206
+subscription is for.
+
+
+525
+00:15:20,696 --> 00:15:22,546
+I'm also noting a discount.
+
+
+526
+00:15:22,546 --> 00:15:23,556
+You can do that in the sheet.
+
+
+527
+00:15:23,556 --> 00:15:24,906
+You can note introductory
+
+
+528
+00:15:24,906 --> 00:15:25,546
+discounts.
+
+
+529
+00:15:25,846 --> 00:15:27,676
+And then what will be charged at
+
+
+530
+00:15:27,676 --> 00:15:28,686
+this current time.
+
+
+531
+00:15:29,286 --> 00:15:30,606
+And then you can use the same
+
+
+532
+00:15:30,606 --> 00:15:31,966
+information, the same payment
+
+
+533
+00:15:31,966 --> 00:15:33,716
+data you get from Apple Pay to
+
+
+534
+00:15:33,716 --> 00:15:35,156
+make subsequent charges.
+
+
+535
+00:15:36,566 --> 00:15:38,416
+Now, sometimes there are certain
+
+
+536
+00:15:38,416 --> 00:15:40,126
+types of subscriptions where the
+
+
+537
+00:15:40,126 --> 00:15:41,336
+cost varies.
+
+
+538
+00:15:41,556 --> 00:15:43,156
+Maybe you're a meal ordering
+
+
+539
+00:15:43,156 --> 00:15:45,016
+service and the number of meals
+
+
+540
+00:15:45,016 --> 00:15:46,966
+that the user gets varies week
+
+
+541
+00:15:46,966 --> 00:15:49,116
+by week, month by month.
+
+
+542
+00:15:49,116 --> 00:15:50,776
+Use pending amounts for variable
+
+
+543
+00:15:50,776 --> 00:15:51,616
+subscriptions.
+
+
+544
+00:15:51,996 --> 00:15:53,536
+Another thing to bear in mind is
+
+
+545
+00:15:53,536 --> 00:15:54,776
+that if your subscription is
+
+
+546
+00:15:54,776 --> 00:15:56,576
+variable, and the user changes
+
+
+547
+00:15:56,576 --> 00:15:58,186
+their plan, for example, you
+
+
+548
+00:15:58,186 --> 00:15:59,596
+only need to show the payment
+
+
+549
+00:15:59,596 --> 00:16:01,306
+sheet if a change is going to
+
+
+550
+00:16:01,306 --> 00:16:03,016
+result in additional fees.
+
+
+551
+00:16:03,616 --> 00:16:05,586
+If the user decreases the cost
+
+
+552
+00:16:05,636 --> 00:16:07,706
+authorization is necessary.
+
+
+553
+00:16:09,176 --> 00:16:10,566
+So, that's the payment sheet.
+
+
+554
+00:16:11,546 --> 00:16:13,546
+I want to talk now about
+
+
+555
+00:16:13,976 --> 00:16:14,736
+buttons.
+
+
+556
+00:16:15,476 --> 00:16:16,796
+Specifically, I want to talk
+
+
+557
+00:16:16,796 --> 00:16:18,666
+about the Apple Pay buttons.
+
+
+558
+00:16:18,976 --> 00:16:21,976
+Please, use the built-in Apple
+
+
+559
+00:16:21,976 --> 00:16:22,796
+Pay buttons.
+
+
+560
+00:16:22,996 --> 00:16:24,156
+Don't create your own.
+
+
+561
+00:16:24,156 --> 00:16:25,766
+A couple reasons why you don't
+
+
+562
+00:16:25,766 --> 00:16:26,476
+want to do that.
+
+
+563
+00:16:26,476 --> 00:16:28,176
+Firstly, the Apple Pay buttons
+
+
+564
+00:16:28,176 --> 00:16:30,566
+are localized to any language
+
+
+565
+00:16:30,566 --> 00:16:31,956
+that the user can choose.
+
+
+566
+00:16:32,246 --> 00:16:33,826
+They're also vectors, so they're
+
+
+567
+00:16:33,826 --> 00:16:35,536
+completely scalable, so you
+
+
+568
+00:16:35,536 --> 00:16:36,426
+don't need to worry about them
+
+
+569
+00:16:36,426 --> 00:16:37,416
+not looking right.
+
+
+570
+00:16:37,686 --> 00:16:39,066
+And they're available in a
+
+
+571
+00:16:39,066 --> 00:16:40,096
+number of styles.
+
+
+572
+00:16:40,526 --> 00:16:42,216
+We first introduced the native
+
+
+573
+00:16:42,216 --> 00:16:44,056
+buttons in iOS 8.3.
+
+
+574
+00:16:44,276 --> 00:16:46,246
+So, you can target 8.3 and
+
+
+575
+00:16:46,246 --> 00:16:48,136
+above, which is nearly the
+
+
+576
+00:16:48,136 --> 00:16:50,936
+entire in store base right now.
+
+
+577
+00:16:51,176 --> 00:16:55,066
+And in macOS 10.12.1 and iOS
+
+
+578
+00:16:55,066 --> 00:16:57,816
+10.1 we made it a little easier
+
+
+579
+00:16:58,246 --> 00:16:58,976
+on web.
+
+
+580
+00:16:58,976 --> 00:17:01,426
+We used simplified CSS styles.
+
+
+581
+00:17:01,886 --> 00:17:03,746
+Let me give you some examples,
+
+
+582
+00:17:03,746 --> 00:17:05,756
+some code examples.
+
+
+583
+00:17:05,756 --> 00:17:07,056
+So, here is the not very
+
+
+584
+00:17:07,056 --> 00:17:08,455
+exciting code in Swift.
+
+
+585
+00:17:08,886 --> 00:17:10,736
+PKPaymentButton is a UI button
+
+
+586
+00:17:10,736 --> 00:17:11,465
+subclass.
+
+
+587
+00:17:11,465 --> 00:17:12,566
+You just provide a type and a
+
+
+588
+00:17:12,566 --> 00:17:13,126
+style.
+
+
+589
+00:17:13,455 --> 00:17:16,306
+We have buttons in black, white,
+
+
+590
+00:17:16,465 --> 00:17:17,776
+and white with an outline.
+
+
+591
+00:17:18,626 --> 00:17:20,096
+Let me show you the same button
+
+
+592
+00:17:20,136 --> 00:17:20,965
+in HTML.
+
+
+593
+00:17:21,606 --> 00:17:23,826
+So, this is the new CSS style it
+
+
+594
+00:17:23,826 --> 00:17:26,955
+was introduced in iOS 10.1.
+
+
+595
+00:17:26,955 --> 00:17:28,306
+There's a WebKit appearance
+
+
+596
+00:17:28,346 --> 00:17:30,756
+style Apple Pay button, and a
+
+
+597
+00:17:30,756 --> 00:17:32,016
+type buy.
+
+
+598
+00:17:33,126 --> 00:17:34,916
+Now, we have four button styles.
+
+
+599
+00:17:35,116 --> 00:17:36,276
+Let me show them to you.
+
+
+600
+00:17:36,816 --> 00:17:39,386
+On the left are the Swift
+
+
+601
+00:17:39,686 --> 00:17:40,786
+symbols, on the right the CSS
+
+
+602
+00:17:40,786 --> 00:17:40,936
+names.
+
+
+603
+00:17:40,936 --> 00:17:44,316
+We have a plain button.
+
+
+604
+00:17:44,856 --> 00:17:47,596
+We have a buy with Apple Pay
+
+
+605
+00:17:47,596 --> 00:17:48,006
+button.
+
+
+606
+00:17:49,356 --> 00:17:51,146
+We also have a Set up Apple Pay
+
+
+607
+00:17:51,146 --> 00:17:51,556
+button.
+
+
+608
+00:17:51,776 --> 00:17:53,546
+We'll see how to use that
+
+
+609
+00:17:53,546 --> 00:17:54,046
+shortly.
+
+
+610
+00:17:55,006 --> 00:17:58,406
+And new in iOS 10.2 and macOS
+
+
+611
+00:17:58,406 --> 00:18:00,736
+10.12.3, we have a Donate with
+
+
+612
+00:18:00,736 --> 00:18:01,606
+Apple Pay button if you're a
+
+
+613
+00:18:01,606 --> 00:18:02,246
+nonprofit.
+
+
+614
+00:18:02,606 --> 00:18:04,006
+Now, obviously as a nonprofit,
+
+
+615
+00:18:04,006 --> 00:18:05,516
+you probably want to target all
+
+
+616
+00:18:05,516 --> 00:18:07,836
+versions of iOS or macOS before
+
+
+617
+00:18:08,326 --> 00:18:08,536
+that.
+
+
+618
+00:18:08,536 --> 00:18:09,696
+In that case, you can just fall
+
+
+619
+00:18:09,696 --> 00:18:11,076
+back to the regular plain
+
+
+620
+00:18:11,406 --> 00:18:11,796
+button.
+
+
+621
+00:18:12,116 --> 00:18:15,016
+So, that's the quick update on
+
+
+622
+00:18:15,016 --> 00:18:16,556
+Apple Pay over the past year and
+
+
+623
+00:18:16,556 --> 00:18:18,346
+a review of some of our best
+
+
+624
+00:18:18,346 --> 00:18:19,046
+practices.
+
+
+625
+00:18:20,236 --> 00:18:21,576
+And I want to tell you the
+
+
+626
+00:18:21,576 --> 00:18:22,796
+exciting part of the talk.
+
+
+627
+00:18:23,166 --> 00:18:25,366
+Which is what's new with Apple
+
+
+628
+00:18:27,296 --> 00:18:27,376
+Pay.
+
+
+629
+00:18:27,616 --> 00:18:29,726
+When we thought about what we
+
+
+630
+00:18:29,726 --> 00:18:30,856
+could do this year with Apple
+
+
+631
+00:18:30,856 --> 00:18:32,726
+Pay we thought how could we make
+
+
+632
+00:18:33,236 --> 00:18:35,296
+a best in class conversion even
+
+
+633
+00:18:35,296 --> 00:18:35,626
+better.
+
+
+634
+00:18:36,706 --> 00:18:37,956
+And how could we help users
+
+
+635
+00:18:37,956 --> 00:18:39,546
+resolve common problems that
+
+
+636
+00:18:39,546 --> 00:18:40,466
+they told us about.
+
+
+637
+00:18:41,576 --> 00:18:42,806
+And finally, how can we help
+
+
+638
+00:18:42,806 --> 00:18:44,206
+make getting started with Apple
+
+
+639
+00:18:44,206 --> 00:18:46,476
+Pay fast and easy, so even more
+
+
+640
+00:18:46,476 --> 00:18:47,846
+of your potential customers can
+
+
+641
+00:18:47,846 --> 00:18:50,926
+come with cards already on their
+
+
+642
+00:18:51,696 --> 00:18:51,856
+device.
+
+
+643
+00:18:52,006 --> 00:18:53,926
+So, I think you'll see that the
+
+
+644
+00:18:53,926 --> 00:18:55,036
+next few slides will show some
+
+
+645
+00:18:55,036 --> 00:18:55,746
+of the ways we're going to
+
+
+646
+00:18:55,746 --> 00:18:56,296
+achieve that.
+
+
+647
+00:18:56,676 --> 00:18:58,586
+The first way is through Set up
+
+
+648
+00:18:58,586 --> 00:18:59,136
+Apple Pay.
+
+
+649
+00:19:00,326 --> 00:19:02,636
+Now, starting with this version
+
+
+650
+00:19:02,636 --> 00:19:04,046
+of iOS, we strongly recommend
+
+
+651
+00:19:04,046 --> 00:19:05,086
+that you show the Apple Pay
+
+
+652
+00:19:05,086 --> 00:19:06,846
+button for all devices that are
+
+
+653
+00:19:06,846 --> 00:19:08,566
+hardware capable with Apple Pay.
+
+
+654
+00:19:09,056 --> 00:19:11,106
+And you can choose the Set up or
+
+
+655
+00:19:11,106 --> 00:19:12,656
+Buy button stars that suit your
+
+
+656
+00:19:12,656 --> 00:19:13,096
+needs.
+
+
+657
+00:19:13,096 --> 00:19:15,116
+If the API tells you the user
+
+
+658
+00:19:15,116 --> 00:19:16,726
+doesn't have any cards, you
+
+
+659
+00:19:16,726 --> 00:19:18,156
+could optionally display Set up.
+
+
+660
+00:19:18,156 --> 00:19:19,286
+If it makes more sense in your
+
+
+661
+00:19:19,286 --> 00:19:20,936
+design to stick with Buy, you
+
+
+662
+00:19:20,936 --> 00:19:21,546
+can do that.
+
+
+663
+00:19:22,916 --> 00:19:23,846
+But we've introduced something
+
+
+664
+00:19:23,846 --> 00:19:24,946
+to really help with that.
+
+
+665
+00:19:24,946 --> 00:19:25,776
+And the reason for this new
+
+
+666
+00:19:25,776 --> 00:19:27,636
+advice is because now we support
+
+
+667
+00:19:27,816 --> 00:19:28,986
+inline set up.
+
+
+668
+00:19:29,746 --> 00:19:31,566
+Apple Pay Set up is now offered
+
+
+669
+00:19:31,566 --> 00:19:32,566
+automatically.
+
+
+670
+00:19:32,876 --> 00:19:35,306
+If you try to present an Apple
+
+
+671
+00:19:35,306 --> 00:19:37,166
+Pay sheet on previous versions
+
+
+672
+00:19:37,166 --> 00:19:38,586
+of iOS, if the user didn't have
+
+
+673
+00:19:38,586 --> 00:19:40,006
+any cards, that would actually
+
+
+674
+00:19:40,006 --> 00:19:40,436
+be an error.
+
+
+675
+00:19:40,536 --> 00:19:42,226
+Actually, you wouldn't be able
+
+
+676
+00:19:42,226 --> 00:19:43,546
+to present the view controller.
+
+
+677
+00:19:43,866 --> 00:19:45,406
+Now, you will actually present,
+
+
+678
+00:19:45,526 --> 00:19:47,216
+or present Apple Pay Set up.
+
+
+679
+00:19:47,216 --> 00:19:49,986
+And most importantly, users are
+
+
+680
+00:19:49,986 --> 00:19:52,286
+returned to the purchase as soon
+
+
+681
+00:19:52,286 --> 00:19:53,366
+as set up completes.
+
+
+682
+00:19:53,596 --> 00:19:54,726
+Which means that it's actually
+
+
+683
+00:19:54,726 --> 00:19:56,606
+faster than a manual check out
+
+
+684
+00:19:56,606 --> 00:19:57,986
+to add and Apple Pay card and
+
+
+685
+00:19:57,986 --> 00:19:58,906
+complete the purchase.
+
+
+686
+00:19:59,166 --> 00:20:01,146
+I want to actually show you what
+
+
+687
+00:20:01,146 --> 00:20:03,236
+that looks like and how quick it
+
+
+688
+00:20:03,236 --> 00:20:03,666
+is.
+
+
+689
+00:20:04,046 --> 00:20:06,976
+So, here is the Apple store, on
+
+
+690
+00:20:06,976 --> 00:20:08,256
+their website this time, not
+
+
+691
+00:20:08,256 --> 00:20:08,626
+their app.
+
+
+692
+00:20:09,076 --> 00:20:10,056
+And we're going to see what
+
+
+693
+00:20:10,056 --> 00:20:11,546
+happens when we try to tap the
+
+
+694
+00:20:11,546 --> 00:20:13,536
+Buy button without cards.
+
+
+695
+00:20:13,706 --> 00:20:14,996
+It's going to go quite quickly.
+
+
+696
+00:20:15,576 --> 00:20:18,416
+Okay, so we get a little
+
+
+697
+00:20:18,416 --> 00:20:19,636
+dialogue to add a card.
+
+
+698
+00:20:20,096 --> 00:20:24,876
+We're going to add a card.
+
+
+699
+00:20:24,916 --> 00:20:26,226
+This is a card that I've already
+
+
+700
+00:20:26,226 --> 00:20:27,476
+used on another phone, so it's
+
+
+701
+00:20:27,476 --> 00:20:27,886
+already there.
+
+
+702
+00:20:27,886 --> 00:20:30,546
+I just enter my security code.
+
+
+703
+00:20:32,376 --> 00:20:33,796
+Now we're going to add the card.
+
+
+704
+00:20:34,516 --> 00:20:35,796
+Read the terms thoroughly
+
+
+705
+00:20:35,796 --> 00:20:36,306
+[laughter].
+
+
+706
+00:20:36,306 --> 00:20:40,496
+And then we're going to add it
+
+
+707
+00:20:40,496 --> 00:20:42,376
+to Wallet, activate the card.
+
+
+708
+00:20:42,426 --> 00:20:44,856
+And boom, we're done.
+
+
+709
+00:20:44,856 --> 00:20:46,766
+Now what's going to happen?
+
+
+710
+00:20:46,826 --> 00:20:47,856
+Immediately we're going to go to
+
+
+711
+00:20:47,856 --> 00:20:49,576
+the Apple Pay sheet so we can
+
+
+712
+00:20:49,576 --> 00:20:50,566
+continue the payment.
+
+
+713
+00:20:51,136 --> 00:20:51,996
+This is great.
+
+
+714
+00:20:51,996 --> 00:20:53,336
+That actually took less than 30
+
+
+715
+00:20:53,336 --> 00:20:54,786
+seconds, which is still much
+
+
+716
+00:20:54,786 --> 00:20:56,066
+faster than manually typing my
+
+
+717
+00:20:56,066 --> 00:20:57,056
+card number and all this
+
+
+718
+00:20:57,056 --> 00:20:58,856
+information on the regular Apple
+
+
+719
+00:20:58,856 --> 00:20:59,536
+Store checkout.
+
+
+720
+00:20:59,536 --> 00:21:01,326
+And again, this happens
+
+
+721
+00:21:01,326 --> 00:21:02,486
+completely automatically.
+
+
+722
+00:21:02,486 --> 00:21:03,846
+You don't have to make any code
+
+
+723
+00:21:03,846 --> 00:21:04,446
+changes.
+
+
+724
+00:21:04,626 --> 00:21:05,526
+There's no new API.
+
+
+725
+00:21:05,526 --> 00:21:07,426
+All you have to do is present
+
+
+726
+00:21:07,426 --> 00:21:08,936
+Apple Pay if the user doesn't
+
+
+727
+00:21:08,936 --> 00:21:09,646
+have cards.
+
+
+728
+00:21:09,646 --> 00:21:11,786
+So, I recommend you will go and
+
+
+729
+00:21:11,786 --> 00:21:14,196
+take advantage of that.
+
+
+730
+00:21:14,566 --> 00:21:15,886
+Now, if you were at the keynote,
+
+
+731
+00:21:15,996 --> 00:21:17,826
+or watched it online, one thing
+
+
+732
+00:21:17,826 --> 00:21:18,676
+that might have got you quite
+
+
+733
+00:21:18,676 --> 00:21:21,176
+excited was Apple Pay Cash.
+
+
+734
+00:21:22,456 --> 00:21:24,036
+Apple Pay Cash allows you to
+
+
+735
+00:21:24,036 --> 00:21:27,226
+send money to fellow users of
+
+
+736
+00:21:27,226 --> 00:21:27,866
+iMessage.
+
+
+737
+00:21:28,116 --> 00:21:29,706
+And the money you received is
+
+
+738
+00:21:29,706 --> 00:21:31,726
+kept inside Apple Pay Cash.
+
+
+739
+00:21:32,366 --> 00:21:34,266
+Now, Apple Pay Cash can be used
+
+
+740
+00:21:34,326 --> 00:21:36,206
+in stores, physical stores.
+
+
+741
+00:21:36,496 --> 00:21:37,766
+But it can also be used within
+
+
+742
+00:21:37,766 --> 00:21:39,566
+apps and on the web, just like
+
+
+743
+00:21:39,566 --> 00:21:40,416
+any other card.
+
+
+744
+00:21:40,726 --> 00:21:42,566
+In fact, if you can process
+
+
+745
+00:21:42,566 --> 00:21:44,876
+credit cards, you can process
+
+
+746
+00:21:45,006 --> 00:21:45,986
+Apple Pay Cash.
+
+
+747
+00:21:46,206 --> 00:21:47,686
+We will have more information on
+
+
+748
+00:21:47,686 --> 00:21:49,076
+exactly what you need to do very
+
+
+749
+00:21:49,216 --> 00:21:51,326
+shortly on our developer site.
+
+
+750
+00:21:51,616 --> 00:21:52,866
+But rest assured if you take
+
+
+751
+00:21:52,866 --> 00:21:54,086
+credit cards today, there will
+
+
+752
+00:21:54,086 --> 00:21:55,936
+be no real work to take Apple
+
+
+753
+00:21:55,936 --> 00:21:56,506
+Pay Cash.
+
+
+754
+00:21:57,266 --> 00:21:58,076
+There are a few things you
+
+
+755
+00:21:58,076 --> 00:21:59,246
+should know about Apple Pay Cash
+
+
+756
+00:21:59,246 --> 00:22:02,046
+if you're in in-app or website
+
+
+757
+00:22:02,046 --> 00:22:02,756
+developer.
+
+
+758
+00:22:03,276 --> 00:22:06,326
+Apple Pay Cash is a stored
+
+
+759
+00:22:06,326 --> 00:22:07,106
+balance card.
+
+
+760
+00:22:07,136 --> 00:22:08,066
+You have a balance.
+
+
+761
+00:22:09,016 --> 00:22:11,136
+So, let me give you an example.
+
+
+762
+00:22:11,406 --> 00:22:12,856
+My business model for
+
+
+763
+00:22:12,856 --> 00:22:14,216
+subscriptions wasn't really
+
+
+764
+00:22:14,216 --> 00:22:16,216
+working, so I've switched to an
+
+
+765
+00:22:16,216 --> 00:22:17,966
+on-demand model where we deliver
+
+
+766
+00:22:17,966 --> 00:22:19,986
+the avocado toast directly to
+
+
+767
+00:22:19,986 --> 00:22:20,746
+your seats.
+
+
+768
+00:22:21,316 --> 00:22:23,606
+And so, now I'm just going to
+
+
+769
+00:22:23,606 --> 00:22:24,736
+one off charge.
+
+
+770
+00:22:25,036 --> 00:22:26,256
+But I'm trying to make this
+
+
+771
+00:22:26,256 --> 00:22:27,556
+payment with an Apple Pay Cash
+
+
+772
+00:22:27,556 --> 00:22:27,886
+card.
+
+
+773
+00:22:28,146 --> 00:22:29,596
+Unfortunately, I don't have many
+
+
+774
+00:22:29,596 --> 00:22:30,476
+friends and they haven't
+
+
+775
+00:22:30,476 --> 00:22:31,626
+actually sent me any money.
+
+
+776
+00:22:31,676 --> 00:22:33,826
+So, you'll see this UI is new.
+
+
+777
+00:22:33,966 --> 00:22:35,806
+It says insufficient balance.
+
+
+778
+00:22:36,246 --> 00:22:37,736
+The important thing to note here
+
+
+779
+00:22:37,736 --> 00:22:39,176
+is that we're now using the
+
+
+780
+00:22:39,176 --> 00:22:41,326
+total amount that you supply to
+
+
+781
+00:22:41,326 --> 00:22:42,626
+determine whether the payment
+
+
+782
+00:22:42,626 --> 00:22:44,646
+can happen with Apple Pay Cash.
+
+
+783
+00:22:44,886 --> 00:22:46,846
+That means that it's important
+
+
+784
+00:22:46,846 --> 00:22:48,366
+that your total reflects what
+
+
+785
+00:22:48,366 --> 00:22:50,906
+you intend to charge, Apple Pay
+
+
+786
+00:22:50,906 --> 00:22:53,436
+Cash is only available when your
+
+
+787
+00:22:53,436 --> 00:22:56,216
+balance exceeds the total being
+
+
+788
+00:22:56,216 --> 00:22:56,776
+requested.
+
+
+789
+00:22:57,956 --> 00:22:59,686
+Now, if you're not sure of the
+
+
+790
+00:22:59,686 --> 00:23:01,896
+total, you can use a pending
+
+
+791
+00:23:02,436 --> 00:23:02,696
+amount.
+
+
+792
+00:23:02,696 --> 00:23:04,316
+Using a pending amount bypasses
+
+
+793
+00:23:04,316 --> 00:23:05,606
+this behavior, we will allow the
+
+
+794
+00:23:05,606 --> 00:23:07,106
+payment to happen regardless, of
+
+
+795
+00:23:07,106 --> 00:23:08,396
+course bear in mind it may still
+
+
+796
+00:23:08,396 --> 00:23:10,286
+be like any stored value card,
+
+
+797
+00:23:10,626 --> 00:23:11,996
+rejected if the user doesn't
+
+
+798
+00:23:11,996 --> 00:23:12,706
+have a balance.
+
+
+799
+00:23:13,246 --> 00:23:15,946
+Let's talk about some new API
+
+
+800
+00:23:15,946 --> 00:23:17,956
+that we've added briefly.
+
+
+801
+00:23:18,156 --> 00:23:20,256
+One use case we've been asked a
+
+
+802
+00:23:20,256 --> 00:23:21,216
+lot about, particularly in
+
+
+803
+00:23:21,216 --> 00:23:23,176
+Europe is about limiting Apple
+
+
+804
+00:23:23,176 --> 00:23:24,956
+Pay to specific countries.
+
+
+805
+00:23:25,156 --> 00:23:26,806
+Sometimes this is required for
+
+
+806
+00:23:26,806 --> 00:23:28,336
+regulatory compliance.
+
+
+807
+00:23:28,726 --> 00:23:29,746
+Now you can.
+
+
+808
+00:23:30,116 --> 00:23:31,546
+You just pass in this new
+
+
+809
+00:23:31,546 --> 00:23:33,026
+property, supportedCountries,
+
+
+810
+00:23:33,026 --> 00:23:35,096
+and you just set the countries
+
+
+811
+00:23:35,096 --> 00:23:36,256
+that you want to limit to.
+
+
+812
+00:23:37,066 --> 00:23:38,336
+Bear in mind that like some of
+
+
+813
+00:23:38,336 --> 00:23:40,266
+our other API that exists today,
+
+
+814
+00:23:40,266 --> 00:23:41,746
+that lets you say limit to
+
+
+815
+00:23:41,746 --> 00:23:43,816
+credit or debit cards, this
+
+
+816
+00:23:43,816 --> 00:23:45,216
+isn't available on every single
+
+
+817
+00:23:45,216 --> 00:23:45,596
+card.
+
+
+818
+00:23:45,596 --> 00:23:47,136
+So, just bear that in mind.
+
+
+819
+00:23:47,376 --> 00:23:48,766
+For more information about that,
+
+
+820
+00:23:48,766 --> 00:23:50,716
+check out last year's session.
+
+
+821
+00:23:50,886 --> 00:23:54,606
+Now, I want to talk about the
+
+
+822
+00:23:54,606 --> 00:23:55,856
+biggest change that we're making
+
+
+823
+00:23:55,856 --> 00:23:57,686
+to Apple Pay and that's to do
+
+
+824
+00:23:57,686 --> 00:23:59,576
+with error handling.
+
+
+825
+00:24:01,396 --> 00:24:04,066
+Sometimes, things can go wrong
+
+
+826
+00:24:04,686 --> 00:24:06,696
+with Apple Pay, I regret to tell
+
+
+827
+00:24:06,696 --> 00:24:06,906
+you.
+
+
+828
+00:24:07,236 --> 00:24:09,226
+And it can be problematic to
+
+
+829
+00:24:09,226 --> 00:24:11,106
+communicate this to users today.
+
+
+830
+00:24:11,106 --> 00:24:12,806
+We've had feedback from
+
+
+831
+00:24:12,806 --> 00:24:14,086
+developers, we've had feedback
+
+
+832
+00:24:14,086 --> 00:24:14,806
+from users.
+
+
+833
+00:24:15,286 --> 00:24:17,366
+What are some examples of this?
+
+
+834
+00:24:17,366 --> 00:24:20,016
+The payment instrument failed to
+
+
+835
+00:24:20,016 --> 00:24:20,676
+process.
+
+
+836
+00:24:21,476 --> 00:24:23,326
+The billing address didn't match
+
+
+837
+00:24:23,326 --> 00:24:24,976
+what the bank had on the card.
+
+
+838
+00:24:25,386 --> 00:24:27,186
+The email address was invalid.
+
+
+839
+00:24:27,786 --> 00:24:29,166
+The postal address had an
+
+
+840
+00:24:29,166 --> 00:24:32,056
+incorrect zip or postal code.
+
+
+841
+00:24:32,056 --> 00:24:33,826
+The telephone was missing an
+
+
+842
+00:24:33,826 --> 00:24:34,556
+area code.
+
+
+843
+00:24:35,126 --> 00:24:36,696
+And we can divide these up into
+
+
+844
+00:24:36,696 --> 00:24:37,796
+two categories.
+
+
+845
+00:24:38,316 --> 00:24:40,636
+We can divide them up into what
+
+
+846
+00:24:40,636 --> 00:24:43,536
+I call fatal errors and nonfatal
+
+
+847
+00:24:43,536 --> 00:24:43,946
+errors.
+
+
+848
+00:24:45,206 --> 00:24:46,666
+Fatal errors are errors that
+
+
+849
+00:24:46,666 --> 00:24:48,006
+can't actually be resolved by
+
+
+850
+00:24:48,006 --> 00:24:49,216
+the user there and then.
+
+
+851
+00:24:49,216 --> 00:24:50,246
+And you need to handle them
+
+
+852
+00:24:50,246 --> 00:24:51,436
+outside of Apple Pay.
+
+
+853
+00:24:51,766 --> 00:24:53,176
+But they're also often not
+
+
+854
+00:24:53,176 --> 00:24:53,896
+preventable.
+
+
+855
+00:24:54,316 --> 00:24:55,696
+What's an example of that?
+
+
+856
+00:24:56,146 --> 00:24:57,576
+The user has exceeded their
+
+
+857
+00:24:57,576 --> 00:24:58,246
+credit limit.
+
+
+858
+00:24:58,356 --> 00:24:59,936
+You're not going to be able to
+
+
+859
+00:24:59,936 --> 00:25:01,196
+solve that within Apple Pay,
+
+
+860
+00:25:01,196 --> 00:25:02,046
+you're going to need to go to
+
+
+861
+00:25:02,046 --> 00:25:03,066
+your bank to fix it.
+
+
+862
+00:25:04,046 --> 00:25:05,926
+But many errors are nonfatal,
+
+
+863
+00:25:05,926 --> 00:25:07,166
+they can be resolved by the
+
+
+864
+00:25:07,166 --> 00:25:07,636
+user.
+
+
+865
+00:25:08,236 --> 00:25:09,816
+And they can be handled within
+
+
+866
+00:25:09,816 --> 00:25:10,806
+Apple Pay itself.
+
+
+867
+00:25:11,186 --> 00:25:11,916
+And sometimes they're
+
+
+868
+00:25:11,916 --> 00:25:13,506
+foreseeable and preventable.
+
+
+869
+00:25:14,876 --> 00:25:16,906
+But in previous versions for
+
+
+870
+00:25:16,906 --> 00:25:18,566
+iOS, it was a little tricky to
+
+
+871
+00:25:18,566 --> 00:25:19,916
+communicate what exactly was
+
+
+872
+00:25:19,916 --> 00:25:20,246
+wrong.
+
+
+873
+00:25:21,336 --> 00:25:22,796
+Whenever a payment is complete
+
+
+874
+00:25:22,796 --> 00:25:24,456
+in the native API, you would
+
+
+875
+00:25:24,456 --> 00:25:25,476
+return a
+
+
+876
+00:25:25,476 --> 00:25:27,526
+PKPaymentAuthorizationStatus
+
+
+877
+00:25:27,746 --> 00:25:28,296
+Enum.
+
+
+878
+00:25:28,406 --> 00:25:29,916
+You'd have a similar Enum in the
+
+
+879
+00:25:29,916 --> 00:25:30,456
+web API.
+
+
+880
+00:25:30,456 --> 00:25:33,066
+And these have no specificity.
+
+
+881
+00:25:33,466 --> 00:25:34,696
+You can only say invalid
+
+
+882
+00:25:34,696 --> 00:25:35,936
+shipping address, invalid
+
+
+883
+00:25:35,976 --> 00:25:37,566
+billing, invalid contact.
+
+
+884
+00:25:38,146 --> 00:25:39,746
+So, the user's not really sure
+
+
+885
+00:25:39,746 --> 00:25:40,546
+what went wrong.
+
+
+886
+00:25:40,746 --> 00:25:41,906
+But even if the user could
+
+
+887
+00:25:41,946 --> 00:25:43,396
+figure out what went wrong, they
+
+
+888
+00:25:43,396 --> 00:25:44,756
+weren't actually able to edit
+
+
+889
+00:25:44,756 --> 00:25:45,846
+existing values.
+
+
+890
+00:25:46,206 --> 00:25:47,636
+So, they'd have to go and pick
+
+
+891
+00:25:47,636 --> 00:25:49,016
+an entirely new address or type
+
+
+892
+00:25:49,016 --> 00:25:49,416
+one in.
+
+
+893
+00:25:49,416 --> 00:25:51,436
+And that's not a great
+
+
+894
+00:25:51,436 --> 00:25:52,026
+experience.
+
+
+895
+00:25:52,076 --> 00:25:53,036
+So, we are changing that.
+
+
+896
+00:25:53,386 --> 00:25:54,646
+And we're changing it in three
+
+
+897
+00:25:54,646 --> 00:25:55,036
+ways.
+
+
+898
+00:25:55,876 --> 00:25:57,006
+Firstly, we're going to
+
+
+899
+00:25:57,006 --> 00:25:58,386
+introduce some new guidelines to
+
+
+900
+00:25:58,386 --> 00:25:59,746
+better handle user data.
+
+
+901
+00:26:00,676 --> 00:26:01,556
+We've also introduced a
+
+
+902
+00:26:01,556 --> 00:26:03,706
+brand-new UI for users to input
+
+
+903
+00:26:03,706 --> 00:26:04,536
+and edit data.
+
+
+904
+00:26:04,536 --> 00:26:05,906
+If you've tried out the iOS
+
+
+905
+00:26:05,906 --> 00:26:06,896
+Veetle, you might have seen
+
+
+906
+00:26:06,896 --> 00:26:07,216
+this.
+
+
+907
+00:26:07,836 --> 00:26:09,316
+And finally, and perhaps most
+
+
+908
+00:26:09,316 --> 00:26:10,496
+excitingly for you, we've
+
+
+909
+00:26:10,496 --> 00:26:12,756
+introduced new API to let you
+
+
+910
+00:26:12,756 --> 00:26:14,836
+communicate precise errors about
+
+
+911
+00:26:14,836 --> 00:26:15,506
+what went wrong.
+
+
+912
+00:26:16,726 --> 00:26:17,786
+So, let's go through these one
+
+
+913
+00:26:17,786 --> 00:26:18,166
+at a time.
+
+
+914
+00:26:18,676 --> 00:26:21,176
+Let's talk about handling user
+
+
+915
+00:26:21,176 --> 00:26:21,586
+data.
+
+
+916
+00:26:22,706 --> 00:26:23,546
+This is a fun one.
+
+
+917
+00:26:23,756 --> 00:26:26,176
+Contact information on iOS and
+
+
+918
+00:26:26,176 --> 00:26:27,526
+macOS can come from many
+
+
+919
+00:26:27,526 --> 00:26:28,636
+different sources.
+
+
+920
+00:26:29,026 --> 00:26:30,456
+It can come from iCloud, it can
+
+
+921
+00:26:30,456 --> 00:26:32,166
+come from contacts manually
+
+
+922
+00:26:32,166 --> 00:26:32,746
+typed in.
+
+
+923
+00:26:33,276 --> 00:26:34,276
+But it can also come from
+
+
+924
+00:26:34,276 --> 00:26:37,026
+LinkedIn, Facebook, VIDO,
+
+
+925
+00:26:37,226 --> 00:26:38,556
+[inaudible], it can come from
+
+
+926
+00:26:38,556 --> 00:26:39,176
+anywhere.
+
+
+927
+00:26:39,406 --> 00:26:41,296
+And you shouldn't expect this
+
+
+928
+00:26:41,296 --> 00:26:42,716
+information to conform to your
+
+
+929
+00:26:42,716 --> 00:26:44,026
+business logic.
+
+
+930
+00:26:45,316 --> 00:26:46,406
+What do I mean by that?
+
+
+931
+00:26:46,966 --> 00:26:49,066
+Here is an example of a postal
+
+
+932
+00:26:49,066 --> 00:26:49,566
+address.
+
+
+933
+00:26:49,926 --> 00:26:51,026
+It is for the Apple store in
+
+
+934
+00:26:51,026 --> 00:26:52,116
+Boston, which is a very nice
+
+
+935
+00:26:52,116 --> 00:26:52,666
+Apple store.
+
+
+936
+00:26:52,666 --> 00:26:54,206
+You should visit, say hello,
+
+
+937
+00:26:54,206 --> 00:26:55,116
+tell them I sent you.
+
+
+938
+00:26:56,466 --> 00:26:58,886
+Now, the address may look
+
+
+939
+00:26:58,886 --> 00:27:00,506
+correct to you, and if you wrote
+
+
+940
+00:27:00,506 --> 00:27:01,886
+this on an envelope and dropped
+
+
+941
+00:27:01,886 --> 00:27:03,206
+it in the mail, it would get
+
+
+942
+00:27:03,206 --> 00:27:03,436
+there.
+
+
+943
+00:27:04,126 --> 00:27:05,116
+But it's actually got a few
+
+
+944
+00:27:05,116 --> 00:27:07,186
+problems that could trick an
+
+
+945
+00:27:07,186 --> 00:27:08,596
+unwitting developer up.
+
+
+946
+00:27:08,596 --> 00:27:11,386
+Some of them don't really seem
+
+
+947
+00:27:11,386 --> 00:27:12,226
+like big problems.
+
+
+948
+00:27:12,566 --> 00:27:13,836
+Street is abbreviated.
+
+
+949
+00:27:14,326 --> 00:27:15,346
+Seems like most systems should
+
+
+950
+00:27:15,346 --> 00:27:16,356
+be able to handle this.
+
+
+951
+00:27:17,336 --> 00:27:19,766
+Some problems are a little more
+
+
+952
+00:27:19,766 --> 00:27:20,916
+serious.
+
+
+953
+00:27:20,916 --> 00:27:22,726
+If you paid attention in civics,
+
+
+954
+00:27:22,926 --> 00:27:23,916
+you may have noticed that
+
+
+955
+00:27:23,916 --> 00:27:25,316
+Massachusetts is misspelled.
+
+
+956
+00:27:25,316 --> 00:27:26,346
+It has two T's.
+
+
+957
+00:27:26,346 --> 00:27:27,756
+I lived there for four years.
+
+
+958
+00:27:27,756 --> 00:27:28,866
+I still can't spell it right.
+
+
+959
+00:27:29,866 --> 00:27:31,986
+Now, if you were doing an exact
+
+
+960
+00:27:31,986 --> 00:27:33,856
+string match on the state, this
+
+
+961
+00:27:33,856 --> 00:27:35,026
+might cause you a problem.
+
+
+962
+00:27:35,436 --> 00:27:37,126
+Another thing that's a little
+
+
+963
+00:27:37,126 --> 00:27:38,206
+odd is this zip code.
+
+
+964
+00:27:38,546 --> 00:27:41,356
+It says zip plus 4, which is a
+
+
+965
+00:27:41,666 --> 00:27:43,486
+regular zip code with 4
+
+
+966
+00:27:43,486 --> 00:27:44,516
+additional digits for
+
+
+967
+00:27:44,516 --> 00:27:45,456
+specificity.
+
+
+968
+00:27:46,236 --> 00:27:48,186
+If your backend system was only
+
+
+969
+00:27:48,186 --> 00:27:50,286
+expecting 5 digits, if your like
+
+
+970
+00:27:50,396 --> 00:27:51,696
+database was only going to
+
+
+971
+00:27:51,696 --> 00:27:53,606
+accept 5 numbers, you might hit
+
+
+972
+00:27:53,606 --> 00:27:54,936
+some problems ingesting this.
+
+
+973
+00:27:56,146 --> 00:27:58,636
+Country is another example where
+
+
+974
+00:27:58,636 --> 00:28:01,156
+you might trip up.
+
+
+975
+00:28:01,516 --> 00:28:03,326
+This is a localized country
+
+
+976
+00:28:03,326 --> 00:28:03,746
+name.
+
+
+977
+00:28:03,746 --> 00:28:05,386
+There's actually another field
+
+
+978
+00:28:05,386 --> 00:28:06,856
+that the user doesn't see called
+
+
+979
+00:28:06,856 --> 00:28:07,596
+country code.
+
+
+980
+00:28:07,806 --> 00:28:08,936
+You should use that instead,
+
+
+981
+00:28:08,966 --> 00:28:10,626
+because country code is always
+
+
+982
+00:28:10,626 --> 00:28:12,706
+going to be accurate.
+
+
+983
+00:28:12,826 --> 00:28:13,876
+This is in the language of the
+
+
+984
+00:28:13,876 --> 00:28:14,216
+user.
+
+
+985
+00:28:14,546 --> 00:28:16,606
+So, you may well be like, OK I'm
+
+
+986
+00:28:16,606 --> 00:28:17,946
+going to string match United
+
+
+987
+00:28:17,946 --> 00:28:19,366
+States, USA, all of its
+
+
+988
+00:28:19,366 --> 00:28:19,906
+variants.
+
+
+989
+00:28:19,906 --> 00:28:21,496
+Well, surprise, your user is
+
+
+990
+00:28:21,496 --> 00:28:23,046
+French and this field is
+
+
+991
+00:28:23,046 --> 00:28:25,336
+actually Etats-Unis and you
+
+
+992
+00:28:25,336 --> 00:28:26,366
+can't now ingest it.
+
+
+993
+00:28:26,366 --> 00:28:28,256
+So, don't use country, use
+
+
+994
+00:28:28,256 --> 00:28:28,996
+country code.
+
+
+995
+00:28:29,086 --> 00:28:31,886
+The phone number also could trip
+
+
+996
+00:28:31,886 --> 00:28:32,636
+you up.
+
+
+997
+00:28:32,636 --> 00:28:33,556
+It has some dashes.
+
+
+998
+00:28:33,556 --> 00:28:34,886
+So, if your system was only set
+
+
+999
+00:28:34,886 --> 00:28:36,826
+up to accept numeric digits you
+
+
+1000
+00:28:36,826 --> 00:28:37,736
+could have some problems.
+
+
+1001
+00:28:37,916 --> 00:28:39,976
+But it's also got a country
+
+
+1002
+00:28:40,486 --> 00:28:42,276
+code, which could trip you up.
+
+
+1003
+00:28:43,026 --> 00:28:45,096
+So, be prepared for fuzzy input.
+
+
+1004
+00:28:45,306 --> 00:28:47,216
+Don't force the user to comply
+
+
+1005
+00:28:47,216 --> 00:28:49,396
+with your business logic.
+
+
+1006
+00:28:49,656 --> 00:28:50,806
+There are lots of techniques you
+
+
+1007
+00:28:50,806 --> 00:28:52,846
+can do to validate addresses.
+
+
+1008
+00:28:52,846 --> 00:28:55,056
+For example instead of using the
+
+
+1009
+00:28:55,056 --> 00:28:56,746
+state field directly you can
+
+
+1010
+00:28:56,746 --> 00:28:58,356
+infer it from the zip code.
+
+
+1011
+00:28:58,696 --> 00:28:59,606
+That's an example.
+
+
+1012
+00:28:59,766 --> 00:29:01,226
+There are lots of tools to help
+
+
+1013
+00:29:01,226 --> 00:29:02,956
+you pass phone numbers, both
+
+
+1014
+00:29:02,956 --> 00:29:04,786
+tolls available within iOS and
+
+
+1015
+00:29:04,786 --> 00:29:06,086
+also third party tools.
+
+
+1016
+00:29:06,866 --> 00:29:07,866
+You might wonder, well why
+
+
+1017
+00:29:07,866 --> 00:29:09,216
+doesn't Apple Pay do this for
+
+
+1018
+00:29:09,216 --> 00:29:09,486
+me?
+
+
+1019
+00:29:09,766 --> 00:29:11,826
+Well, your business logic may
+
+
+1020
+00:29:11,826 --> 00:29:13,316
+actually differ from another
+
+
+1021
+00:29:13,316 --> 00:29:14,516
+merchant's business logic.
+
+
+1022
+00:29:14,516 --> 00:29:16,386
+One merchant may only accept
+
+
+1023
+00:29:16,386 --> 00:29:17,326
+phone numbers with a country
+
+
+1024
+00:29:17,326 --> 00:29:17,656
+code.
+
+
+1025
+00:29:17,936 --> 00:29:19,746
+Another merchant may only accept
+
+
+1026
+00:29:19,746 --> 00:29:20,646
+phone numbers without.
+
+
+1027
+00:29:21,046 --> 00:29:22,366
+And you don't want the user to
+
+
+1028
+00:29:22,366 --> 00:29:23,356
+like have to create two
+
+
+1029
+00:29:23,356 --> 00:29:24,706
+different addresses, two
+
+
+1030
+00:29:24,706 --> 00:29:25,616
+different phone numbers.
+
+
+1031
+00:29:26,046 --> 00:29:27,216
+So, don't force the user to
+
+
+1032
+00:29:27,216 --> 00:29:28,386
+comply with your business logic.
+
+
+1033
+00:29:28,386 --> 00:29:30,856
+Now, we are going to help you a
+
+
+1034
+00:29:30,856 --> 00:29:31,196
+little bit.
+
+
+1035
+00:29:31,196 --> 00:29:33,016
+There's some new API's within
+
+
+1036
+00:29:33,016 --> 00:29:34,416
+the context framework to support
+
+
+1037
+00:29:34,416 --> 00:29:35,596
+worldwide addresses.
+
+
+1038
+00:29:35,786 --> 00:29:37,266
+The example I gave for you was
+
+
+1039
+00:29:37,266 --> 00:29:38,576
+from the US, but these problems
+
+
+1040
+00:29:38,576 --> 00:29:39,876
+actually happen throughout the
+
+
+1041
+00:29:39,876 --> 00:29:40,266
+world.
+
+
+1042
+00:29:40,506 --> 00:29:42,256
+There are new fields in contact
+
+
+1043
+00:29:42,256 --> 00:29:43,606
+for something that's called
+
+
+1044
+00:29:43,606 --> 00:29:45,326
+supplementary sub-locality.
+
+
+1045
+00:29:45,546 --> 00:29:47,176
+That's very applicable in China.
+
+
+1046
+00:29:47,736 --> 00:29:49,486
+In Japan, now, within Apple Pay
+
+
+1047
+00:29:49,486 --> 00:29:51,246
+you can request phonetic name in
+
+
+1048
+00:29:51,246 --> 00:29:52,456
+addition to regular name,
+
+
+1049
+00:29:52,896 --> 00:29:54,646
+another very important addition
+
+
+1050
+00:29:54,646 --> 00:29:54,936
+there.
+
+
+1051
+00:29:55,666 --> 00:29:56,946
+But despite all of these, and
+
+
+1052
+00:29:56,946 --> 00:29:58,796
+despite your best intentions,
+
+
+1053
+00:29:59,666 --> 00:30:01,846
+things can still go wrong.
+
+
+1054
+00:30:02,046 --> 00:30:03,906
+The USPS may be able to deliver
+
+
+1055
+00:30:03,906 --> 00:30:05,556
+this to Santa, but I cannot.
+
+
+1056
+00:30:05,556 --> 00:30:07,156
+I know not where he lives.
+
+
+1057
+00:30:08,116 --> 00:30:09,916
+So, what are somethings that can
+
+
+1058
+00:30:09,916 --> 00:30:10,566
+go wrong?
+
+
+1059
+00:30:10,566 --> 00:30:11,916
+The phone number could just be
+
+
+1060
+00:30:11,916 --> 00:30:13,326
+missing digits entirely.
+
+
+1061
+00:30:13,726 --> 00:30:15,576
+The postal code and address
+
+
+1062
+00:30:15,576 --> 00:30:16,526
+don't match.
+
+
+1063
+00:30:16,526 --> 00:30:18,716
+The email address is misspelled.
+
+
+1064
+00:30:19,266 --> 00:30:20,966
+The address is otherwise
+
+
+1065
+00:30:20,966 --> 00:30:21,696
+unusable.
+
+
+1066
+00:30:22,396 --> 00:30:23,936
+And so, we're going to introduce
+
+
+1067
+00:30:23,936 --> 00:30:25,716
+some new API to help you out
+
+
+1068
+00:30:25,716 --> 00:30:26,086
+with that.
+
+
+1069
+00:30:26,446 --> 00:30:28,636
+And we call it custom errors.
+
+
+1070
+00:30:29,916 --> 00:30:32,056
+Custom errors let you gracefully
+
+
+1071
+00:30:32,056 --> 00:30:33,826
+handle invalid or incorrect data
+
+
+1072
+00:30:33,826 --> 00:30:34,476
+in Apple Pay.
+
+
+1073
+00:30:34,866 --> 00:30:36,316
+And they also let you display
+
+
+1074
+00:30:36,426 --> 00:30:37,886
+custom error messages.
+
+
+1075
+00:30:37,886 --> 00:30:39,736
+Your own error messages directly
+
+
+1076
+00:30:39,736 --> 00:30:40,776
+in the Apple Pay sheet.
+
+
+1077
+00:30:41,346 --> 00:30:42,686
+You can direct the user to
+
+
+1078
+00:30:42,686 --> 00:30:44,986
+specific fields that need
+
+
+1079
+00:30:45,206 --> 00:30:45,836
+correction.
+
+
+1080
+00:30:46,666 --> 00:30:48,606
+Let's go back to my delightful
+
+
+1081
+00:30:48,606 --> 00:30:49,736
+avocado toast app.
+
+
+1082
+00:30:50,066 --> 00:30:51,766
+The delivery wasn't working, so
+
+
+1083
+00:30:51,766 --> 00:30:53,336
+I've gone back to subscriptions.
+
+
+1084
+00:30:53,596 --> 00:30:54,886
+We're going for our series A
+
+
+1085
+00:30:54,886 --> 00:30:55,386
+funding.
+
+
+1086
+00:30:55,786 --> 00:30:57,236
+And you'll see here, I've got a
+
+
+1087
+00:30:57,236 --> 00:30:58,236
+shipping address error.
+
+
+1088
+00:30:58,366 --> 00:30:59,996
+Shipping address incorrect.
+
+
+1089
+00:30:59,996 --> 00:31:03,236
+And that's not very clear, but
+
+
+1090
+00:31:03,236 --> 00:31:04,836
+if the user taps in, you'll
+
+
+1091
+00:31:04,836 --> 00:31:06,136
+actually see, now we have a
+
+
+1092
+00:31:06,136 --> 00:31:07,896
+custom error that was provided
+
+
+1093
+00:31:07,936 --> 00:31:09,276
+by the application.
+
+
+1094
+00:31:09,486 --> 00:31:10,696
+Your zip code doesn't match your
+
+
+1095
+00:31:10,696 --> 00:31:11,166
+city.
+
+
+1096
+00:31:11,206 --> 00:31:13,116
+And if you go through even
+
+
+1097
+00:31:13,116 --> 00:31:14,106
+further, we'll actually
+
+
+1098
+00:31:14,106 --> 00:31:16,086
+highlight the individual fields
+
+
+1099
+00:31:16,226 --> 00:31:17,786
+for the user to correct.
+
+
+1100
+00:31:17,786 --> 00:31:19,766
+You'll see an example in Jon's
+
+
+1101
+00:31:19,766 --> 00:31:20,966
+demo, shortly.
+
+
+1102
+00:31:22,596 --> 00:31:24,896
+Now, one unfortunate side effect
+
+
+1103
+00:31:24,896 --> 00:31:25,846
+of this is that we've had to
+
+
+1104
+00:31:25,846 --> 00:31:27,756
+deprecate a little bit of API.
+
+
+1105
+00:31:28,016 --> 00:31:29,786
+All of our completion handlers
+
+
+1106
+00:31:29,916 --> 00:31:32,026
+in the past in Apple Pay took,
+
+
+1107
+00:31:32,086 --> 00:31:33,526
+as I mentioned this Enum.
+
+
+1108
+00:31:34,146 --> 00:31:35,356
+Well, we didn't really want to
+
+
+1109
+00:31:35,356 --> 00:31:36,806
+have hundreds of different Enums
+
+
+1110
+00:31:36,806 --> 00:31:37,866
+for each type of error.
+
+
+1111
+00:31:37,896 --> 00:31:40,816
+So, instead we're replacing them
+
+
+1112
+00:31:40,816 --> 00:31:42,226
+with an object.
+
+
+1113
+00:31:42,226 --> 00:31:43,246
+In this case, this is the
+
+
+1114
+00:31:43,246 --> 00:31:44,726
+delicate callback when a payment
+
+
+1115
+00:31:44,726 --> 00:31:46,246
+is actually authorized and you
+
+
+1116
+00:31:46,246 --> 00:31:47,106
+return a
+
+
+1117
+00:31:47,106 --> 00:31:48,706
+PKPaymentAuthorizationResult.
+
+
+1118
+00:31:49,236 --> 00:31:52,716
+So, we have to do little bit of
+
+
+1119
+00:31:52,886 --> 00:31:53,136
+renaming.
+
+
+1120
+00:31:53,136 --> 00:31:54,946
+Now, this result object contains
+
+
+1121
+00:31:54,946 --> 00:31:56,606
+a status and it contains an
+
+
+1122
+00:31:56,606 --> 00:31:57,676
+array of errors.
+
+
+1123
+00:31:58,166 --> 00:31:59,606
+Now, the status is the status
+
+
+1124
+00:31:59,606 --> 00:32:00,466
+that you're used to.
+
+
+1125
+00:32:00,466 --> 00:32:02,056
+The payment was successful or
+
+
+1126
+00:32:02,526 --> 00:32:02,926
+not.
+
+
+1127
+00:32:02,926 --> 00:32:03,956
+If you, for example, have a
+
+
+1128
+00:32:03,956 --> 00:32:05,286
+successful payment, you simply
+
+
+1129
+00:32:05,286 --> 00:32:07,136
+return a result with no errors
+
+
+1130
+00:32:07,466 --> 00:32:08,826
+and a single status set.
+
+
+1131
+00:32:09,666 --> 00:32:11,256
+But the errors themselves just
+
+
+1132
+00:32:11,256 --> 00:32:12,696
+standard NS errors describing
+
+
+1133
+00:32:12,696 --> 00:32:13,336
+what went wrong.
+
+
+1134
+00:32:14,366 --> 00:32:15,586
+Each error represents an
+
+
+1135
+00:32:15,586 --> 00:32:16,846
+individual problem with a
+
+
+1136
+00:32:16,846 --> 00:32:17,256
+payment.
+
+
+1137
+00:32:17,666 --> 00:32:19,046
+And you can chain errors
+
+
+1138
+00:32:19,046 --> 00:32:19,496
+together.
+
+
+1139
+00:32:19,496 --> 00:32:20,616
+So, you can have more than one.
+
+
+1140
+00:32:20,616 --> 00:32:22,046
+If the user's email is wrong,
+
+
+1141
+00:32:22,186 --> 00:32:23,636
+phone is wrong, shipping is
+
+
+1142
+00:32:23,636 --> 00:32:23,866
+wrong.
+
+
+1143
+00:32:23,866 --> 00:32:25,016
+You can just do it all in one
+
+
+1144
+00:32:25,016 --> 00:32:25,226
+go.
+
+
+1145
+00:32:26,406 --> 00:32:28,406
+Now, you use NSError codes to
+
+
+1146
+00:32:28,406 --> 00:32:31,196
+indicate the issue and User Info
+
+
+1147
+00:32:31,196 --> 00:32:32,846
+Keys on NSError to provide
+
+
+1148
+00:32:32,846 --> 00:32:34,446
+specific resolution steps and
+
+
+1149
+00:32:34,446 --> 00:32:35,116
+information.
+
+
+1150
+00:32:35,736 --> 00:32:38,676
+Now, creating NSErrors can be a
+
+
+1151
+00:32:38,676 --> 00:32:39,896
+little bit laborious and so
+
+
+1152
+00:32:39,896 --> 00:32:41,596
+we've got some factory helpers
+
+
+1153
+00:32:41,596 --> 00:32:43,386
+to assist you here.
+
+
+1154
+00:32:43,616 --> 00:32:45,276
+Here's an example in Swift.
+
+
+1155
+00:32:45,576 --> 00:32:47,276
+I'm creating a payment shipping
+
+
+1156
+00:32:47,276 --> 00:32:48,346
+address invalid error.
+
+
+1157
+00:32:48,636 --> 00:32:49,806
+And you'll see that this takes
+
+
+1158
+00:32:49,806 --> 00:32:51,676
+two properties at two
+
+
+1159
+00:32:51,676 --> 00:32:52,386
+parameters.
+
+
+1160
+00:32:52,646 --> 00:32:55,506
+It takes a CN contact key
+
+
+1161
+00:32:55,506 --> 00:32:57,026
+indicating the field that was
+
+
+1162
+00:32:57,026 --> 00:32:57,366
+wrong.
+
+
+1163
+00:32:57,366 --> 00:32:58,826
+So, in this case, the error is
+
+
+1164
+00:32:59,006 --> 00:33:00,446
+the user put a wrong country in
+
+
+1165
+00:33:00,446 --> 00:33:01,886
+and we only deliver to the US.
+
+
+1166
+00:33:02,136 --> 00:33:03,616
+So, I say CN postal address
+
+
+1167
+00:33:03,616 --> 00:33:04,296
+country key.
+
+
+1168
+00:33:04,566 --> 00:33:05,966
+And then the localized
+
+
+1169
+00:33:05,966 --> 00:33:06,626
+description.
+
+
+1170
+00:33:06,746 --> 00:33:08,026
+This is a localized error that
+
+
+1171
+00:33:08,026 --> 00:33:09,126
+you provide that will be
+
+
+1172
+00:33:09,126 --> 00:33:09,946
+displayed in the sheet.
+
+
+1173
+00:33:10,746 --> 00:33:12,796
+Now, in ES6 and JavaScript,
+
+
+1174
+00:33:12,796 --> 00:33:14,456
+obviously NSError doesn't exist.
+
+
+1175
+00:33:14,786 --> 00:33:17,616
+So, we have a new type called
+
+
+1176
+00:33:17,616 --> 00:33:18,506
+Apple Pay Error.
+
+
+1177
+00:33:18,506 --> 00:33:20,476
+You can check for the existence
+
+
+1178
+00:33:20,476 --> 00:33:21,936
+of this type to determine
+
+
+1179
+00:33:21,936 --> 00:33:24,026
+whether Safari supports this new
+
+
+1180
+00:33:24,026 --> 00:33:24,316
+API.
+
+
+1181
+00:33:25,026 --> 00:33:27,496
+And here you provide the type of
+
+
+1182
+00:33:27,496 --> 00:33:29,226
+error, shipping contact is
+
+
+1183
+00:33:29,526 --> 00:33:30,116
+invalid.
+
+
+1184
+00:33:30,116 --> 00:33:31,326
+The field it relates to,
+
+
+1185
+00:33:31,396 --> 00:33:33,046
+country, and your localized
+
+
+1186
+00:33:33,046 --> 00:33:33,606
+description.
+
+
+1187
+00:33:33,816 --> 00:33:35,916
+And most of our delegate
+
+
+1188
+00:33:35,916 --> 00:33:37,936
+callback have changed.
+
+
+1189
+00:33:38,436 --> 00:33:39,826
+So, here's another example,
+
+
+1190
+00:33:39,826 --> 00:33:41,456
+didSelectShipingContract, and it
+
+
+1191
+00:33:41,456 --> 00:33:42,216
+takes an object,
+
+
+1192
+00:33:42,596 --> 00:33:43,826
+PKPaymentRequest
+
+
+1193
+00:33:44,046 --> 00:33:45,366
+ShippingContactUpdate.
+
+
+1194
+00:33:46,736 --> 00:33:48,516
+Now, like for like APIs are
+
+
+1195
+00:33:48,646 --> 00:33:50,666
+available in Safari 11.
+
+
+1196
+00:33:50,666 --> 00:33:53,066
+Safari 11, only on iOS 11 and
+
+
+1197
+00:33:53,066 --> 00:33:54,366
+macOS High Sierra.
+
+
+1198
+00:33:54,366 --> 00:33:56,156
+It's not support on Safari 11
+
+
+1199
+00:33:56,156 --> 00:33:58,066
+running on older versions of the
+
+
+1200
+00:33:58,066 --> 00:33:59,696
+operating system.
+
+
+1201
+00:33:59,826 --> 00:34:01,166
+Now, because JavaScript is a
+
+
+1202
+00:34:01,166 --> 00:34:02,406
+little more forgiving when it
+
+
+1203
+00:34:02,406 --> 00:34:04,646
+comes to API's we haven't had to
+
+
+1204
+00:34:04,646 --> 00:34:06,086
+actually make a deprecation
+
+
+1205
+00:34:06,086 --> 00:34:06,386
+here.
+
+
+1206
+00:34:06,666 --> 00:34:07,706
+The existing completion
+
+
+1207
+00:34:07,706 --> 00:34:08,686
+functions have nearly been
+
+
+1208
+00:34:08,686 --> 00:34:09,456
+overloaded.
+
+
+1209
+00:34:09,775 --> 00:34:12,266
+So, here is the old API, you'll
+
+
+1210
+00:34:12,266 --> 00:34:13,636
+see we passed in individual
+
+
+1211
+00:34:13,636 --> 00:34:15,585
+items, the total, the line
+
+
+1212
+00:34:15,585 --> 00:34:16,726
+items, the status.
+
+
+1213
+00:34:16,936 --> 00:34:18,826
+And the new API, we simply pass
+
+
+1214
+00:34:18,826 --> 00:34:20,176
+in an object.
+
+
+1215
+00:34:20,436 --> 00:34:21,545
+So, if you're actually writing
+
+
+1216
+00:34:21,545 --> 00:34:22,696
+Apple Pay on web, this is a
+
+
+1217
+00:34:22,696 --> 00:34:23,766
+pretty straightforward change
+
+
+1218
+00:34:23,766 --> 00:34:24,065
+for you.
+
+
+1219
+00:34:24,846 --> 00:34:25,876
+Now, if you are writing Apple
+
+
+1220
+00:34:25,876 --> 00:34:28,076
+Pay in application, I want to
+
+
+1221
+00:34:28,076 --> 00:34:29,416
+show you that it's really not
+
+
+1222
+00:34:29,416 --> 00:34:31,136
+that much work to implement this
+
+
+1223
+00:34:31,136 --> 00:34:31,585
+new API.
+
+
+1224
+00:34:31,585 --> 00:34:33,686
+And to do that, I'm going to ask
+
+
+1225
+00:34:33,686 --> 00:34:35,275
+Jon to come up and he's going to
+
+
+1226
+00:34:35,275 --> 00:34:36,366
+give you a quick demo of how to
+
+
+1227
+00:34:36,366 --> 00:34:37,815
+migrate an Apple Pay App.
+
+
+1228
+00:34:38,206 --> 00:34:38,485
+Jon.
+
+
+1229
+00:34:39,516 --> 00:34:42,755
+[ Applause ]
+
+
+1230
+00:34:43,255 --> 00:34:43,856
+>> Hi, everyone.
+
+
+1231
+00:34:44,025 --> 00:34:45,366
+I'm Jon and I'm going to show
+
+
+1232
+00:34:45,366 --> 00:34:47,446
+you how easy it is to update and
+
+
+1233
+00:34:47,446 --> 00:34:49,306
+existing Apple Pay project in
+
+
+1234
+00:34:49,376 --> 00:34:50,856
+Swift, to the new API.
+
+
+1235
+00:34:51,646 --> 00:34:53,275
+So, I'm going to be going
+
+
+1236
+00:34:53,275 --> 00:34:54,396
+through four things today.
+
+
+1237
+00:34:54,956 --> 00:34:56,516
+First, I'll take a look at an
+
+
+1238
+00:34:56,646 --> 00:34:58,726
+existing project's code and see
+
+
+1239
+00:34:58,726 --> 00:35:00,026
+its current implementation.
+
+
+1240
+00:35:00,346 --> 00:35:01,416
+And if you've worked with Apple
+
+
+1241
+00:35:01,416 --> 00:35:03,076
+Pay before, most of this stuff
+
+
+1242
+00:35:03,076 --> 00:35:04,436
+will be familiar to you already.
+
+
+1243
+00:35:05,196 --> 00:35:06,756
+Second, I'll deploy the app to
+
+
+1244
+00:35:06,756 --> 00:35:08,616
+the simulator and interact with
+
+
+1245
+00:35:08,616 --> 00:35:10,686
+the Apple Pay sheet as if I were
+
+
+1246
+00:35:10,686 --> 00:35:12,516
+a customer of your app trying to
+
+
+1247
+00:35:12,516 --> 00:35:14,216
+ship an item to one of my
+
+
+1248
+00:35:14,216 --> 00:35:14,776
+friends.
+
+
+1249
+00:35:15,496 --> 00:35:17,516
+The next thing I'll do is I'll
+
+
+1250
+00:35:17,516 --> 00:35:18,816
+update the code that we have
+
+
+1251
+00:35:19,256 --> 00:35:21,126
+with the new API and show you
+
+
+1252
+00:35:21,126 --> 00:35:22,476
+three different errors that
+
+
+1253
+00:35:22,476 --> 00:35:23,736
+we've introduced this year.
+
+
+1254
+00:35:24,446 --> 00:35:26,216
+And lastly, I'll deploy the app
+
+
+1255
+00:35:26,216 --> 00:35:27,986
+again to the simulator and show
+
+
+1256
+00:35:27,986 --> 00:35:29,576
+you the differences in behaviors
+
+
+1257
+00:35:29,866 --> 00:35:31,576
+from the old Apple Pay sheet and
+
+
+1258
+00:35:31,576 --> 00:35:32,606
+the new Apple Pay sheet.
+
+
+1259
+00:35:33,266 --> 00:35:34,456
+So, let's take a look at what we
+
+
+1260
+00:35:34,456 --> 00:35:34,736
+have.
+
+
+1261
+00:35:36,426 --> 00:35:37,916
+So, as you can see, our app is
+
+
+1262
+00:35:37,916 --> 00:35:38,536
+pretty simple.
+
+
+1263
+00:35:38,726 --> 00:35:40,896
+It has an image of the item that
+
+
+1264
+00:35:40,896 --> 00:35:43,026
+we want to purchase, as well as
+
+
+1265
+00:35:43,026 --> 00:35:44,346
+a Buy with Apple Pay button.
+
+
+1266
+00:35:44,806 --> 00:35:46,116
+So, let's jump into the code.
+
+
+1267
+00:35:47,106 --> 00:35:48,476
+The first function we have is
+
+
+1268
+00:35:48,546 --> 00:35:50,716
+viewDidLoad and in here, we're
+
+
+1269
+00:35:50,716 --> 00:35:52,216
+creating a PKPayment button,
+
+
+1270
+00:35:52,586 --> 00:35:54,266
+setting the type to buy and the
+
+
+1271
+00:35:54,326 --> 00:35:56,356
+style to black, as well as
+
+
+1272
+00:35:56,356 --> 00:35:58,076
+adding it to the view.
+
+
+1273
+00:35:58,076 --> 00:36:00,746
+And in the add to view function,
+
+
+1274
+00:36:01,026 --> 00:36:02,446
+we're adding various constraints
+
+
+1275
+00:36:02,446 --> 00:36:04,066
+to it as well as setting the
+
+
+1276
+00:36:04,066 --> 00:36:06,306
+target, when I click it to this
+
+
+1277
+00:36:06,306 --> 00:36:07,986
+next function, startPayment.
+
+
+1278
+00:36:08,496 --> 00:36:11,016
+So, let's take a look at that.
+
+
+1279
+00:36:11,496 --> 00:36:13,076
+So, here the first things we do
+
+
+1280
+00:36:13,446 --> 00:36:15,226
+is create a few PKPayment
+
+
+1281
+00:36:15,226 --> 00:36:17,296
+summary items, as well as a
+
+
+1282
+00:36:17,296 --> 00:36:18,496
+PKShipping method.
+
+
+1283
+00:36:18,846 --> 00:36:20,066
+And then the last thing is
+
+
+1284
+00:36:20,096 --> 00:36:22,646
+create an array of those objects
+
+
+1285
+00:36:22,646 --> 00:36:24,646
+that we'll later pass in to the
+
+
+1286
+00:36:24,646 --> 00:36:25,586
+PKPayment request.
+
+
+1287
+00:36:26,656 --> 00:36:27,516
+So, let's take a look at the
+
+
+1288
+00:36:27,516 --> 00:36:28,706
+payment request.
+
+
+1289
+00:36:29,746 --> 00:36:30,986
+Here, it's pretty simple.
+
+
+1290
+00:36:31,056 --> 00:36:33,186
+After we initialize it, we set
+
+
+1291
+00:36:33,186 --> 00:36:35,176
+the payment summary items to the
+
+
+1292
+00:36:35,176 --> 00:36:37,096
+items that we created before, as
+
+
+1293
+00:36:37,096 --> 00:36:38,566
+well as set various properties,
+
+
+1294
+00:36:39,006 --> 00:36:40,856
+such as a merchant identifier,
+
+
+1295
+00:36:40,856 --> 00:36:41,936
+the capabilities.
+
+
+1296
+00:36:42,306 --> 00:36:43,646
+Etcetera, etcetera.
+
+
+1297
+00:36:44,306 --> 00:36:46,166
+The last thing, this last line
+
+
+1298
+00:36:46,166 --> 00:36:47,336
+is probably the most important.
+
+
+1299
+00:36:47,726 --> 00:36:49,676
+It's required shipping contact
+
+
+1300
+00:36:49,676 --> 00:36:49,916
+field.
+
+
+1301
+00:36:50,596 --> 00:36:52,196
+And this is a new property in
+
+
+1302
+00:36:52,196 --> 00:36:53,316
+PKPayment request.
+
+
+1303
+00:36:53,986 --> 00:36:55,976
+And here it takes in a set of PK
+
+
+1304
+00:36:55,976 --> 00:36:58,076
+content fields and in this case,
+
+
+1305
+00:36:58,256 --> 00:37:00,076
+the developer is requesting the
+
+
+1306
+00:37:00,076 --> 00:37:01,826
+user provide an email address,
+
+
+1307
+00:37:02,156 --> 00:37:03,616
+as well as a postal address.
+
+
+1308
+00:37:03,926 --> 00:37:05,546
+So, the last thing we do in this
+
+
+1309
+00:37:05,546 --> 00:37:08,056
+function is create a PKPayment
+
+
+1310
+00:37:08,056 --> 00:37:10,296
+authorization controller, with
+
+
+1311
+00:37:10,296 --> 00:37:11,386
+this payment request that we
+
+
+1312
+00:37:11,386 --> 00:37:11,886
+created.
+
+
+1313
+00:37:12,346 --> 00:37:13,676
+Set the delegate to ourselves
+
+
+1314
+00:37:14,166 --> 00:37:14,926
+and present it.
+
+
+1315
+00:37:15,346 --> 00:37:16,416
+So, that's pretty simple.
+
+
+1316
+00:37:17,646 --> 00:37:18,946
+So, let's take a look at the
+
+
+1317
+00:37:18,946 --> 00:37:19,626
+protocol.
+
+
+1318
+00:37:20,586 --> 00:37:22,356
+The first function we have, it's
+
+
+1319
+00:37:22,356 --> 00:37:23,766
+a didSelectShippingContact
+
+
+1320
+00:37:23,766 --> 00:37:24,246
+function.
+
+
+1321
+00:37:24,746 --> 00:37:26,516
+So, this gets called whenever
+
+
+1322
+00:37:26,516 --> 00:37:27,906
+the Apple Pay sheet first comes
+
+
+1323
+00:37:27,906 --> 00:37:30,416
+up, as well as whenever a user
+
+
+1324
+00:37:30,416 --> 00:37:32,366
+edits one of their addresses, or
+
+
+1325
+00:37:32,366 --> 00:37:33,626
+selects a new address.
+
+
+1326
+00:37:34,426 --> 00:37:35,406
+And you can tell that this is
+
+
+1327
+00:37:35,406 --> 00:37:36,726
+the old API because this
+
+
+1328
+00:37:36,726 --> 00:37:38,496
+completion block takes in a
+
+
+1329
+00:37:38,496 --> 00:37:40,306
+PKPaymentAuthorizationStatus
+
+
+1330
+00:37:40,306 --> 00:37:40,696
+Enum.
+
+
+1331
+00:37:41,436 --> 00:37:43,006
+Another thing to note is that
+
+
+1332
+00:37:43,006 --> 00:37:44,646
+this contact information is
+
+
+1333
+00:37:44,646 --> 00:37:47,186
+actually redacted, so you don't
+
+
+1334
+00:37:47,186 --> 00:37:48,816
+get information like the email
+
+
+1335
+00:37:48,816 --> 00:37:51,436
+address, the phone number, or
+
+
+1336
+00:37:51,436 --> 00:37:53,006
+the street until the user
+
+
+1337
+00:37:53,006 --> 00:37:54,136
+authorizes the payment.
+
+
+1338
+00:37:54,136 --> 00:37:57,416
+So, let's see what we have here.
+
+
+1339
+00:37:57,966 --> 00:37:59,166
+So, we're doing some basic
+
+
+1340
+00:37:59,166 --> 00:38:01,226
+validation and in this case,
+
+
+1341
+00:38:01,226 --> 00:38:02,756
+we're just checking if the state
+
+
+1342
+00:38:02,756 --> 00:38:03,366
+is valid.
+
+
+1343
+00:38:03,746 --> 00:38:05,236
+And if it's not, we set the
+
+
+1344
+00:38:05,236 --> 00:38:05,956
+status to
+
+
+1345
+00:38:05,956 --> 00:38:07,686
+invalidShippingPostalAddress.
+
+
+1346
+00:38:08,156 --> 00:38:09,516
+Otherwise, we set the payment
+
+
+1347
+00:38:09,516 --> 00:38:10,636
+status to success.
+
+
+1348
+00:38:11,346 --> 00:38:12,406
+The last thing we do, it's
+
+
+1349
+00:38:12,406 --> 00:38:13,436
+called the completion block,
+
+
+1350
+00:38:13,856 --> 00:38:15,876
+with that paymentStatus, as well
+
+
+1351
+00:38:15,876 --> 00:38:17,366
+as the same shipping methods,
+
+
+1352
+00:38:17,576 --> 00:38:18,806
+and the same payment summary
+
+
+1353
+00:38:18,806 --> 00:38:19,236
+items.
+
+
+1354
+00:38:19,776 --> 00:38:21,166
+Of course, you can update the
+
+
+1355
+00:38:21,166 --> 00:38:22,626
+shipping methods and the summary
+
+
+1356
+00:38:22,626 --> 00:38:23,956
+items if you needed to.
+
+
+1357
+00:38:23,956 --> 00:38:25,716
+But in this case, we're just
+
+
+1358
+00:38:25,716 --> 00:38:26,706
+passing the same ones.
+
+
+1359
+00:38:27,906 --> 00:38:29,736
+So, the next function we have is
+
+
+1360
+00:38:29,736 --> 00:38:31,626
+the didAuthorizePaymentMethod.
+
+
+1361
+00:38:31,626 --> 00:38:33,346
+And this gets called after the
+
+
+1362
+00:38:33,346 --> 00:38:34,876
+user authorizes the payment,
+
+
+1363
+00:38:35,296 --> 00:38:36,846
+using Touch ID, or with
+
+
+1364
+00:38:36,846 --> 00:38:37,456
+Passcode.
+
+
+1365
+00:38:38,026 --> 00:38:39,486
+And another thing to note is
+
+
+1366
+00:38:39,486 --> 00:38:41,326
+that this PKPayment object
+
+
+1367
+00:38:41,726 --> 00:38:43,526
+contains a property shipping
+
+
+1368
+00:38:43,526 --> 00:38:46,166
+contact, with the full contact
+
+
+1369
+00:38:46,166 --> 00:38:46,846
+information.
+
+
+1370
+00:38:47,226 --> 00:38:48,506
+So, you're given the email
+
+
+1371
+00:38:48,506 --> 00:38:50,016
+address, the phone and the
+
+
+1372
+00:38:50,016 --> 00:38:51,426
+street that you were not given
+
+
+1373
+00:38:51,426 --> 00:38:52,146
+previously.
+
+
+1374
+00:38:52,626 --> 00:38:53,836
+So, we hope that you can
+
+
+1375
+00:38:53,836 --> 00:38:55,386
+validate the full contact
+
+
+1376
+00:38:55,386 --> 00:38:56,926
+information in this method.
+
+
+1377
+00:38:58,296 --> 00:38:59,876
+And for simplicity sake, all
+
+
+1378
+00:38:59,876 --> 00:39:00,666
+we're doing is checking the
+
+
+1379
+00:39:00,666 --> 00:39:02,216
+email, but you can do more of
+
+
+1380
+00:39:02,216 --> 00:39:02,616
+course.
+
+
+1381
+00:39:03,066 --> 00:39:05,646
+And if the email check fails, we
+
+
+1382
+00:39:05,646 --> 00:39:07,756
+set the payment status to the
+
+
+1383
+00:39:07,876 --> 00:39:10,286
+Enum invalidShippingContact.
+
+
+1384
+00:39:11,316 --> 00:39:13,206
+And if it succeeds, we set the
+
+
+1385
+00:39:13,206 --> 00:39:14,666
+payment status to success.
+
+
+1386
+00:39:15,206 --> 00:39:16,236
+The last thing we do is call the
+
+
+1387
+00:39:16,236 --> 00:39:17,286
+completion block with that
+
+
+1388
+00:39:17,286 --> 00:39:17,756
+status.
+
+
+1389
+00:39:18,266 --> 00:39:19,456
+So, let's see how this works
+
+
+1390
+00:39:19,866 --> 00:39:21,706
+after we deploy it and interact
+
+
+1391
+00:39:21,706 --> 00:39:22,916
+with the Apple Pay sheet in the
+
+
+1392
+00:39:22,916 --> 00:39:23,406
+simulator.
+
+
+1393
+00:39:23,406 --> 00:39:26,706
+So, the app comes up.
+
+
+1394
+00:39:27,406 --> 00:39:28,566
+We tap the buy with Apple Pay
+
+
+1395
+00:39:28,566 --> 00:39:28,916
+button.
+
+
+1396
+00:39:29,026 --> 00:39:30,076
+And the Apple Pay sheet comes
+
+
+1397
+00:39:30,076 --> 00:39:30,296
+up.
+
+
+1398
+00:39:30,846 --> 00:39:31,966
+So, let's say I want to ship
+
+
+1399
+00:39:31,966 --> 00:39:33,506
+this to my friend Sarah.
+
+
+1400
+00:39:34,086 --> 00:39:35,906
+After I select shipping, I can
+
+
+1401
+00:39:35,906 --> 00:39:38,466
+select add shipping address and
+
+
+1402
+00:39:38,466 --> 00:39:40,946
+as you can see, this is the new
+
+
+1403
+00:39:40,946 --> 00:39:43,996
+UI to add a shipping address.
+
+
+1404
+00:39:44,556 --> 00:39:45,826
+So, you can either enter it
+
+
+1405
+00:39:45,826 --> 00:39:47,596
+manually or search one of your
+
+
+1406
+00:39:47,596 --> 00:39:49,766
+contacts, or use one of the
+
+
+1407
+00:39:49,766 --> 00:39:51,976
+suggested locations that the
+
+
+1408
+00:39:52,096 --> 00:39:53,726
+Apple Pay sheet provides for
+
+
+1409
+00:39:53,726 --> 00:39:53,926
+you.
+
+
+1410
+00:39:54,396 --> 00:39:56,056
+In this case, I'm just going to
+
+
+1411
+00:39:56,056 --> 00:39:57,246
+select my friend Sarah.
+
+
+1412
+00:39:57,616 --> 00:40:00,076
+She lives in Hawaii, so it might
+
+
+1413
+00:40:00,076 --> 00:40:01,586
+be a little bit, there might be
+
+
+1414
+00:40:01,586 --> 00:40:02,766
+some problems with the address.
+
+
+1415
+00:40:03,106 --> 00:40:03,666
+Well, let's see.
+
+
+1416
+00:40:04,316 --> 00:40:06,816
+Of course, there's an error.
+
+
+1417
+00:40:07,216 --> 00:40:09,106
+And you can see that the text is
+
+
+1418
+00:40:09,106 --> 00:40:10,866
+red so the user knows that
+
+
+1419
+00:40:10,866 --> 00:40:11,836
+there's something wrong with the
+
+
+1420
+00:40:11,836 --> 00:40:12,286
+address.
+
+
+1421
+00:40:12,766 --> 00:40:15,216
+But it's not really clear where
+
+
+1422
+00:40:15,326 --> 00:40:16,836
+the issue is.
+
+
+1423
+00:40:17,246 --> 00:40:19,256
+As I look at it, the street
+
+
+1424
+00:40:19,256 --> 00:40:20,226
+seems fine.
+
+
+1425
+00:40:20,496 --> 00:40:21,576
+Hawaii is a valid state.
+
+
+1426
+00:40:21,736 --> 00:40:23,406
+Everything looks fine.
+
+
+1427
+00:40:23,406 --> 00:40:26,896
+And so, if I select that, again,
+
+
+1428
+00:40:27,386 --> 00:40:28,506
+there's not a lot of information
+
+
+1429
+00:40:28,506 --> 00:40:29,376
+on what's wrong with the
+
+
+1430
+00:40:29,376 --> 00:40:29,926
+address.
+
+
+1431
+00:40:30,516 --> 00:40:33,686
+I know my friend, Daniel, likes
+
+
+1432
+00:40:33,686 --> 00:40:34,526
+this item as well.
+
+
+1433
+00:40:34,906 --> 00:40:36,266
+So, he lives in California.
+
+
+1434
+00:40:36,266 --> 00:40:37,506
+So, let's just see if we can
+
+
+1435
+00:40:37,506 --> 00:40:38,236
+ship it to him.
+
+
+1436
+00:40:38,316 --> 00:40:40,946
+After we got back, it looks like
+
+
+1437
+00:40:40,946 --> 00:40:41,746
+there's no more error.
+
+
+1438
+00:40:42,126 --> 00:40:42,806
+So, there must have been
+
+
+1439
+00:40:42,806 --> 00:40:44,216
+something wrong with Sarah's
+
+
+1440
+00:40:44,216 --> 00:40:45,776
+address, but it wasn't clear to
+
+
+1441
+00:40:45,776 --> 00:40:47,796
+me what was the actual issue.
+
+
+1442
+00:40:48,086 --> 00:40:49,626
+So, let's try to authorize this
+
+
+1443
+00:40:49,626 --> 00:40:51,226
+payment by hitting the Pay with
+
+
+1444
+00:40:51,226 --> 00:40:54,676
+Passcode button.
+
+
+1445
+00:40:54,676 --> 00:40:55,946
+The Apple Pay sheet shows that
+
+
+1446
+00:40:55,946 --> 00:40:56,686
+there's an error with the
+
+
+1447
+00:40:56,686 --> 00:40:57,246
+contact.
+
+
+1448
+00:40:57,846 --> 00:40:59,416
+Again, the text is highlighted
+
+
+1449
+00:40:59,416 --> 00:40:59,756
+red.
+
+
+1450
+00:41:00,216 --> 00:41:02,606
+And if I select that, there's no
+
+
+1451
+00:41:02,776 --> 00:41:06,126
+clear text showing what's wrong
+
+
+1452
+00:41:06,126 --> 00:41:07,356
+with this contact information.
+
+
+1453
+00:41:07,736 --> 00:41:09,236
+It could be the percent sign, it
+
+
+1454
+00:41:09,736 --> 00:41:12,356
+could be just I don't like an
+
+
+1455
+00:41:12,356 --> 00:41:13,836
+iCloud.com email address.
+
+
+1456
+00:41:14,406 --> 00:41:15,636
+So, let's just select Daniel's
+
+
+1457
+00:41:15,766 --> 00:41:16,986
+real email address to see how
+
+
+1458
+00:41:16,986 --> 00:41:17,566
+that works.
+
+
+1459
+00:41:18,536 --> 00:41:20,456
+After we select that, we hit Pay
+
+
+1460
+00:41:20,456 --> 00:41:22,766
+with Passcode and the payment
+
+
+1461
+00:41:22,766 --> 00:41:23,286
+succeeds.
+
+
+1462
+00:41:23,816 --> 00:41:25,696
+Okay, so that's good.
+
+
+1463
+00:41:26,166 --> 00:41:27,676
+But as a user, it was really
+
+
+1464
+00:41:27,676 --> 00:41:29,386
+difficult to figure out what was
+
+
+1465
+00:41:29,386 --> 00:41:30,526
+wrong with the address that we
+
+
+1466
+00:41:30,526 --> 00:41:31,346
+had previously.
+
+
+1467
+00:41:31,846 --> 00:41:33,696
+So, let's implement the new APIs
+
+
+1468
+00:41:33,696 --> 00:41:34,426
+that we have.
+
+
+1469
+00:41:34,736 --> 00:41:36,336
+So, the first function that we
+
+
+1470
+00:41:36,336 --> 00:41:36,836
+have is a
+
+
+1471
+00:41:36,836 --> 00:41:39,866
+didSelectShippingContact method.
+
+
+1472
+00:41:40,546 --> 00:41:42,646
+And here it takes in a
+
+
+1473
+00:41:42,936 --> 00:41:43,726
+PKPaymentRequest
+
+
+1474
+00:41:43,726 --> 00:41:45,326
+ShippingContactUpdate object.
+
+
+1475
+00:41:45,966 --> 00:41:48,816
+The first thing we want to do is
+
+
+1476
+00:41:48,816 --> 00:41:50,716
+we have a local variable of the
+
+
+1477
+00:41:50,716 --> 00:41:53,296
+update before and we don't
+
+
+1478
+00:41:53,296 --> 00:41:54,246
+initialize it yet.
+
+
+1479
+00:41:54,906 --> 00:41:56,806
+We'll initialize it afterwards,
+
+
+1480
+00:41:57,076 --> 00:41:58,836
+after we check the errors that
+
+
+1481
+00:41:58,836 --> 00:41:59,206
+we have.
+
+
+1482
+00:41:59,876 --> 00:42:01,326
+The next thing we do is create
+
+
+1483
+00:42:01,326 --> 00:42:03,386
+an array of errors that we'll
+
+
+1484
+00:42:03,386 --> 00:42:05,556
+append to as we validate the
+
+
+1485
+00:42:05,906 --> 00:42:07,446
+address.
+
+
+1486
+00:42:07,686 --> 00:42:09,606
+So, similar to before, we're
+
+
+1487
+00:42:09,606 --> 00:42:11,216
+checking if the state is valid.
+
+
+1488
+00:42:11,636 --> 00:42:13,676
+And if it's not valid, instead
+
+
+1489
+00:42:13,676 --> 00:42:15,496
+of setting the status to an
+
+
+1490
+00:42:15,496 --> 00:42:17,416
+invalid shipping address, we'll
+
+
+1491
+00:42:17,416 --> 00:42:19,006
+append an error, a new type of
+
+
+1492
+00:42:19,006 --> 00:42:19,246
+error.
+
+
+1493
+00:42:19,596 --> 00:42:20,966
+A paymentShipingAddress
+
+
+1494
+00:42:20,966 --> 00:42:22,056
+UnserviceableError.
+
+
+1495
+00:42:22,506 --> 00:42:24,576
+And in here, all it takes is a
+
+
+1496
+00:42:24,576 --> 00:42:25,656
+localized description.
+
+
+1497
+00:42:26,206 --> 00:42:27,406
+And in this case, we're saying
+
+
+1498
+00:42:27,826 --> 00:42:29,266
+that we're unable to ship to
+
+
+1499
+00:42:29,266 --> 00:42:31,276
+this state.
+
+
+1500
+00:42:31,596 --> 00:42:32,936
+Let's see, we'll add another
+
+
+1501
+00:42:32,936 --> 00:42:33,636
+check that we didn't do
+
+
+1502
+00:42:33,636 --> 00:42:35,376
+previously, which is check if
+
+
+1503
+00:42:35,376 --> 00:42:36,406
+the zip is valid.
+
+
+1504
+00:42:37,036 --> 00:42:39,016
+And this is another type of
+
+
+1505
+00:42:39,016 --> 00:42:40,776
+error a paymentShippingAddress
+
+
+1506
+00:42:40,816 --> 00:42:41,596
+InvalidError.
+
+
+1507
+00:42:42,056 --> 00:42:44,556
+And this takes in a key, a
+
+
+1508
+00:42:44,556 --> 00:42:46,356
+CNPostalAddress key.
+
+
+1509
+00:42:46,976 --> 00:42:48,236
+And in this case we're taking a
+
+
+1510
+00:42:48,236 --> 00:42:50,206
+CNPostalAddress postal code key,
+
+
+1511
+00:42:50,566 --> 00:42:53,536
+which tells PassKit to show
+
+
+1512
+00:42:53,836 --> 00:42:56,076
+where the error is while the
+
+
+1513
+00:42:56,076 --> 00:42:57,346
+user tries to edit their
+
+
+1514
+00:42:57,346 --> 00:42:57,876
+address.
+
+
+1515
+00:42:59,396 --> 00:43:00,386
+Again, this takes in
+
+
+1516
+00:43:00,386 --> 00:43:03,566
+localizedDescription, the zip
+
+
+1517
+00:43:03,906 --> 00:43:05,666
+code doesn't match the city.
+
+
+1518
+00:43:06,556 --> 00:43:08,646
+Yeah, so let's continue.
+
+
+1519
+00:43:09,036 --> 00:43:10,986
+And the next thing we do is
+
+
+1520
+00:43:10,986 --> 00:43:12,446
+check if the errors array is
+
+
+1521
+00:43:12,446 --> 00:43:12,926
+empty.
+
+
+1522
+00:43:13,096 --> 00:43:16,186
+If it is, we'll initialize our
+
+
+1523
+00:43:16,186 --> 00:43:17,606
+update object with the
+
+
+1524
+00:43:17,606 --> 00:43:19,376
+paymentSummaryItems, unchanged.
+
+
+1525
+00:43:19,826 --> 00:43:22,256
+Otherwise, we'll initialize the
+
+
+1526
+00:43:22,256 --> 00:43:25,436
+update object with the errors as
+
+
+1527
+00:43:25,436 --> 00:43:27,056
+well as the payment summary
+
+
+1528
+00:43:27,056 --> 00:43:28,486
+items and the shipping methods.
+
+
+1529
+00:43:29,576 --> 00:43:32,256
+So, the last thing we do here is
+
+
+1530
+00:43:32,386 --> 00:43:33,626
+call the completion block, with
+
+
+1531
+00:43:33,786 --> 00:43:34,596
+this new object.
+
+
+1532
+00:43:35,936 --> 00:43:37,516
+So, let's fix our
+
+
+1533
+00:43:37,516 --> 00:43:38,906
+didAuthorizePayment function.
+
+
+1534
+00:43:39,406 --> 00:43:42,536
+So, this is the old code that we
+
+
+1535
+00:43:42,536 --> 00:43:43,856
+have, so we can comment that
+
+
+1536
+00:43:43,856 --> 00:43:44,156
+out.
+
+
+1537
+00:43:44,726 --> 00:43:46,026
+And the first thing we do,
+
+
+1538
+00:43:46,146 --> 00:43:48,956
+similarly to before, is create
+
+
+1539
+00:43:49,366 --> 00:43:50,856
+an array of errors that we'll
+
+
+1540
+00:43:50,856 --> 00:43:51,476
+append to.
+
+
+1541
+00:43:52,766 --> 00:43:54,166
+In this case, we're checking one
+
+
+1542
+00:43:54,166 --> 00:43:56,006
+thing, which is if the email
+
+
+1543
+00:43:56,006 --> 00:43:57,966
+address is valid or not.
+
+
+1544
+00:43:58,406 --> 00:44:01,756
+And if it's not, we'll append
+
+
+1545
+00:44:01,756 --> 00:44:03,236
+another type of error, a
+
+
+1546
+00:44:03,236 --> 00:44:04,846
+paymentContactInvalidError.
+
+
+1547
+00:44:05,156 --> 00:44:06,006
+And instead of taking a
+
+
+1548
+00:44:06,006 --> 00:44:08,236
+CNPostalAddress key, this takes
+
+
+1549
+00:44:08,236 --> 00:44:10,476
+in a PKContact field key.
+
+
+1550
+00:44:11,356 --> 00:44:13,456
+And here, we're passing and
+
+
+1551
+00:44:13,966 --> 00:44:16,626
+email address so that it can
+
+
+1552
+00:44:16,626 --> 00:44:18,236
+show in the correct location.
+
+
+1553
+00:44:18,676 --> 00:44:20,016
+Okay, and that takes another
+
+
+1554
+00:44:20,016 --> 00:44:21,946
+localized description that will
+
+
+1555
+00:44:21,946 --> 00:44:23,136
+be presented on the Apple Pay
+
+
+1556
+00:44:23,136 --> 00:44:23,476
+sheet.
+
+
+1557
+00:44:26,476 --> 00:44:28,206
+Similarly, we're checking if the
+
+
+1558
+00:44:28,206 --> 00:44:29,946
+errors array is empty.
+
+
+1559
+00:44:30,376 --> 00:44:31,986
+If it is, we'll set this status
+
+
+1560
+00:44:32,096 --> 00:44:32,796
+to success.
+
+
+1561
+00:44:33,046 --> 00:44:34,536
+Otherwise, we'll set the status
+
+
+1562
+00:44:34,926 --> 00:44:35,596
+to failure.
+
+
+1563
+00:44:35,966 --> 00:44:37,696
+And the last thing we do is call
+
+
+1564
+00:44:37,696 --> 00:44:39,736
+the completion block with
+
+
+1565
+00:44:39,816 --> 00:44:40,446
+initialize
+
+
+1566
+00:44:40,446 --> 00:44:42,316
+PKPaymentAuthorizationResult,
+
+
+1567
+00:44:42,926 --> 00:44:44,626
+using that same status as well
+
+
+1568
+00:44:44,626 --> 00:44:45,786
+as the errors that we created.
+
+
+1569
+00:44:46,996 --> 00:44:48,326
+So, let's see how this works
+
+
+1570
+00:44:48,476 --> 00:44:50,136
+after we deploy it.
+
+
+1571
+00:44:51,316 --> 00:44:52,956
+After the app comes up, we'll
+
+
+1572
+00:44:52,956 --> 00:44:53,856
+hit the Buy with Apple Pay
+
+
+1573
+00:44:53,856 --> 00:44:54,926
+button once again.
+
+
+1574
+00:44:54,926 --> 00:44:57,196
+And immediately we're presented
+
+
+1575
+00:44:57,196 --> 00:44:57,766
+with an error.
+
+
+1576
+00:44:58,256 --> 00:44:59,376
+The app doesn't ship to this
+
+
+1577
+00:44:59,376 --> 00:45:00,066
+shipping address.
+
+
+1578
+00:45:00,066 --> 00:45:01,396
+So, this is one of the new
+
+
+1579
+00:45:01,396 --> 00:45:02,356
+errors that we've introduced
+
+
+1580
+00:45:02,356 --> 00:45:02,816
+this year.
+
+
+1581
+00:45:03,596 --> 00:45:05,616
+And there's a shipping
+
+
+1582
+00:45:05,616 --> 00:45:08,506
+unavailable text underneath out
+
+
+1583
+00:45:08,506 --> 00:45:08,976
+contact.
+
+
+1584
+00:45:09,496 --> 00:45:11,456
+After I select that, there's
+
+
+1585
+00:45:11,456 --> 00:45:13,516
+text underneath our contact
+
+
+1586
+00:45:13,516 --> 00:45:14,736
+saying unable to ship to this
+
+
+1587
+00:45:14,736 --> 00:45:15,066
+state.
+
+
+1588
+00:45:15,516 --> 00:45:16,946
+So, this is pretty clear to the
+
+
+1589
+00:45:16,946 --> 00:45:19,826
+user, saying that the app
+
+
+1590
+00:45:19,956 --> 00:45:21,516
+doesn't support shipping to
+
+
+1591
+00:45:21,516 --> 00:45:22,066
+Hawaii.
+
+
+1592
+00:45:22,736 --> 00:45:24,496
+Let's try to ship this to my
+
+
+1593
+00:45:24,496 --> 00:45:26,816
+friend, John Appleseed whose
+
+
+1594
+00:45:27,226 --> 00:45:29,006
+shipping address is in
+
+
+1595
+00:45:29,296 --> 00:45:29,936
+Cupertino.
+
+
+1596
+00:45:30,056 --> 00:45:33,286
+After I select that, an error
+
+
+1597
+00:45:33,366 --> 00:45:35,496
+shows up saying that the zip
+
+
+1598
+00:45:35,496 --> 00:45:36,586
+code doesn't match the city.
+
+
+1599
+00:45:37,166 --> 00:45:39,006
+And if I select that address,
+
+
+1600
+00:45:39,876 --> 00:45:41,786
+the zip code is highlighted in
+
+
+1601
+00:45:41,786 --> 00:45:42,136
+red.
+
+
+1602
+00:45:42,636 --> 00:45:45,296
+And because I know that 12345
+
+
+1603
+00:45:45,536 --> 00:45:47,446
+isn't the proper zip code to
+
+
+1604
+00:45:47,446 --> 00:45:49,906
+Cupertino I can fix that and
+
+
+1605
+00:45:49,906 --> 00:45:53,386
+write 95014, hit done to save
+
+
+1606
+00:45:53,386 --> 00:45:53,576
+it.
+
+
+1607
+00:45:53,976 --> 00:45:56,126
+Go back, and I fixed all the
+
+
+1608
+00:45:56,246 --> 00:45:57,526
+contact information, or the
+
+
+1609
+00:45:57,526 --> 00:45:59,586
+address issues that I've had.
+
+
+1610
+00:46:00,336 --> 00:46:01,746
+Again, let's try to pay with
+
+
+1611
+00:46:01,746 --> 00:46:04,816
+Passcode and see that we have an
+
+
+1612
+00:46:04,816 --> 00:46:06,346
+error with our contact
+
+
+1613
+00:46:06,346 --> 00:46:07,026
+information.
+
+
+1614
+00:46:07,676 --> 00:46:09,696
+After we click that, we see that
+
+
+1615
+00:46:10,226 --> 00:46:11,496
+there's an invalid character
+
+
+1616
+00:46:11,496 --> 00:46:13,326
+found in the email, which is the
+
+
+1617
+00:46:13,326 --> 00:46:14,176
+percent sign.
+
+
+1618
+00:46:14,626 --> 00:46:17,036
+So, as a user I can edit this
+
+
+1619
+00:46:17,036 --> 00:46:18,296
+email address to remove that
+
+
+1620
+00:46:18,296 --> 00:46:20,116
+percent sign, or I can just
+
+
+1621
+00:46:20,116 --> 00:46:22,676
+select another email address.
+
+
+1622
+00:46:23,196 --> 00:46:24,556
+So, I'll select John Appleseed's
+
+
+1623
+00:46:24,556 --> 00:46:25,956
+email address, at mac.com.
+
+
+1624
+00:46:27,056 --> 00:46:29,436
+I went back, hit pay with
+
+
+1625
+00:46:29,436 --> 00:46:31,296
+Passcode, the payment should
+
+
+1626
+00:46:31,296 --> 00:46:31,836
+authorize.
+
+
+1627
+00:46:32,466 --> 00:46:34,776
+And that shows you with the new
+
+
+1628
+00:46:34,776 --> 00:46:36,416
+APIs that we introduce in iOS
+
+
+1629
+00:46:36,416 --> 00:46:38,866
+11, you have the power to give
+
+
+1630
+00:46:38,866 --> 00:46:40,646
+more feedback to the user when
+
+
+1631
+00:46:40,646 --> 00:46:42,136
+dealing with addresses on the
+
+
+1632
+00:46:42,136 --> 00:46:42,946
+Apple Pay sheet.
+
+
+1633
+00:46:43,566 --> 00:46:45,146
+And we hope that this creates a
+
+
+1634
+00:46:45,146 --> 00:46:46,996
+better user experience, when
+
+
+1635
+00:46:46,996 --> 00:46:48,716
+users are using Apple Pay within
+
+
+1636
+00:46:48,716 --> 00:46:49,186
+your apps.
+
+
+1637
+00:46:49,436 --> 00:46:49,976
+Thank you.
+
+
+1638
+00:46:50,516 --> 00:46:54,546
+[ Applause ]
+
+
+1639
+00:46:55,046 --> 00:46:55,556
+>> Thank you Jon.
+
+
+1640
+00:46:55,896 --> 00:46:57,616
+I hope you all go off and take
+
+
+1641
+00:46:57,616 --> 00:46:59,296
+the time to update your apps.
+
+
+1642
+00:46:59,716 --> 00:47:01,946
+I want to talk briefly about
+
+
+1643
+00:47:01,946 --> 00:47:02,986
+what's new with Wallet.
+
+
+1644
+00:47:03,646 --> 00:47:04,846
+If you've downloaded [inaudible]
+
+
+1645
+00:47:05,196 --> 00:47:06,746
+of iOS 11, you might have
+
+
+1646
+00:47:06,746 --> 00:47:08,236
+noticed one major thing that's
+
+
+1647
+00:47:08,236 --> 00:47:09,706
+new with Wallet, it looks a
+
+
+1648
+00:47:09,706 --> 00:47:10,336
+little different.
+
+
+1649
+00:47:10,426 --> 00:47:11,876
+It's a little brighter.
+
+
+1650
+00:47:12,226 --> 00:47:13,486
+There's also, if you haven't
+
+
+1651
+00:47:13,486 --> 00:47:14,786
+found it yet, a new mass
+
+
+1652
+00:47:14,816 --> 00:47:16,396
+deletion management interface
+
+
+1653
+00:47:16,396 --> 00:47:16,976
+for your passes.
+
+
+1654
+00:47:16,976 --> 00:47:19,896
+This new color scheme means that
+
+
+1655
+00:47:19,896 --> 00:47:20,976
+it's probably a good time for
+
+
+1656
+00:47:20,976 --> 00:47:22,386
+you to revisit your past
+
+
+1657
+00:47:22,386 --> 00:47:22,876
+designs.
+
+
+1658
+00:47:23,076 --> 00:47:24,476
+Take a look at them, make sure
+
+
+1659
+00:47:24,476 --> 00:47:26,126
+that they look great.
+
+
+1660
+00:47:26,406 --> 00:47:27,816
+If you never updated them to
+
+
+1661
+00:47:27,816 --> 00:47:30,776
+have watch assets or 3x assets,
+
+
+1662
+00:47:31,046 --> 00:47:32,006
+may be a good time.
+
+
+1663
+00:47:32,606 --> 00:47:34,336
+Well, I also want to give you a
+
+
+1664
+00:47:34,336 --> 00:47:36,256
+quick update about NFC passes.
+
+
+1665
+00:47:36,256 --> 00:47:38,706
+NFC passes are regular passes
+
+
+1666
+00:47:38,706 --> 00:47:39,796
+that let you send customer
+
+
+1667
+00:47:39,796 --> 00:47:41,556
+information over NFC.
+
+
+1668
+00:47:41,556 --> 00:47:43,696
+Starting in iOS 11 we are only
+
+
+1669
+00:47:43,696 --> 00:47:45,506
+going to support a more secure
+
+
+1670
+00:47:45,506 --> 00:47:47,016
+type of NFC pass that we call
+
+
+1671
+00:47:47,016 --> 00:47:48,606
+encrypted NFC passes.
+
+
+1672
+00:47:48,606 --> 00:47:50,506
+If you'd like to know more about
+
+
+1673
+00:47:50,506 --> 00:47:51,856
+NFC passes, you can check out
+
+
+1674
+00:47:51,856 --> 00:47:52,976
+last year's session.
+
+
+1675
+00:47:52,976 --> 00:47:54,416
+You can also go to our
+
+
+1676
+00:47:54,416 --> 00:47:56,606
+developer's site and find out
+
+
+1677
+00:47:56,606 --> 00:47:58,516
+more, and register to take
+
+
+1678
+00:47:58,516 --> 00:48:00,506
+advantage of them.
+
+
+1679
+00:48:00,656 --> 00:48:02,226
+Now, there's one minor new
+
+
+1680
+00:48:02,226 --> 00:48:03,716
+feature in Wallet this year for
+
+
+1681
+00:48:03,716 --> 00:48:04,166
+passes.
+
+
+1682
+00:48:04,166 --> 00:48:05,476
+And that's sharing.
+
+
+1683
+00:48:05,696 --> 00:48:07,566
+Much requested feature, passes
+
+
+1684
+00:48:07,566 --> 00:48:09,786
+can now be opted out sharing.
+
+
+1685
+00:48:10,476 --> 00:48:12,296
+This is useful for single use
+
+
+1686
+00:48:12,296 --> 00:48:14,266
+items like loyalty cards of
+
+
+1687
+00:48:14,266 --> 00:48:14,906
+tickets.
+
+
+1688
+00:48:15,056 --> 00:48:16,256
+It's really easy to take
+
+
+1689
+00:48:16,256 --> 00:48:16,916
+advantage of.
+
+
+1690
+00:48:17,366 --> 00:48:19,186
+It's just a top level JSON key
+
+
+1691
+00:48:19,376 --> 00:48:21,446
+in your pass JSON.
+
+
+1692
+00:48:21,446 --> 00:48:22,906
+Here it is sharingProhibited.
+
+
+1693
+00:48:22,906 --> 00:48:24,576
+So, your gift cards, your
+
+
+1694
+00:48:24,576 --> 00:48:25,826
+loyalty cards.
+
+
+1695
+00:48:25,826 --> 00:48:27,706
+You set this to true and the
+
+
+1696
+00:48:27,706 --> 00:48:29,856
+user can't share it via airdrop,
+
+
+1697
+00:48:29,856 --> 00:48:30,546
+iMessage.
+
+
+1698
+00:48:30,766 --> 00:48:33,146
+This is a convenience feature,
+
+
+1699
+00:48:33,146 --> 00:48:34,266
+not a security feature.
+
+
+1700
+00:48:34,266 --> 00:48:36,726
+Obviously, users can still share
+
+
+1701
+00:48:36,726 --> 00:48:37,506
+in other ways.
+
+
+1702
+00:48:37,506 --> 00:48:39,406
+It won't be supported on older
+
+
+1703
+00:48:39,406 --> 00:48:40,546
+versions of iOS.
+
+
+1704
+00:48:40,796 --> 00:48:42,426
+But it's good if you need a good
+
+
+1705
+00:48:42,426 --> 00:48:43,726
+reason to not allow the user to
+
+
+1706
+00:48:43,726 --> 00:48:45,656
+share for pure experience
+
+
+1707
+00:48:45,966 --> 00:48:46,816
+reasons.
+
+
+1708
+00:48:47,666 --> 00:48:50,656
+That's what's new with Apple Pay
+
+
+1709
+00:48:50,656 --> 00:48:51,766
+and Wallet.
+
+
+1710
+00:48:52,006 --> 00:48:53,666
+We saw some guidelines for
+
+
+1711
+00:48:53,666 --> 00:48:55,596
+building best in brands Apple
+
+
+1712
+00:48:55,596 --> 00:48:57,676
+Pay experiences, new API for
+
+
+1713
+00:48:57,776 --> 00:48:59,836
+handling complex errors, and new
+
+
+1714
+00:48:59,836 --> 00:49:02,166
+ways to share interact passes in
+
+
+1715
+00:49:02,166 --> 00:49:02,306
+NFC.
+
+
+1716
+00:49:02,306 --> 00:49:03,846
+And for more information on any
+
+
+1717
+00:49:03,846 --> 00:49:05,456
+of these things, you can check
+
+
+1718
+00:49:05,456 --> 00:49:06,866
+out our developer site.
+
+
+1719
+00:49:07,006 --> 00:49:09,126
+There's something else you also
+
+
+1720
+00:49:09,126 --> 00:49:10,296
+might want to check out and I
+
+
+1721
+00:49:10,296 --> 00:49:11,636
+suspect a lot of you in the room
+
+
+1722
+00:49:11,636 --> 00:49:13,236
+are extremely excited by.
+
+
+1723
+00:49:13,506 --> 00:49:15,796
+And that is the Core NFC
+
+
+1724
+00:49:15,936 --> 00:49:17,176
+framework.
+
+
+1725
+00:49:17,176 --> 00:49:20,846
+Now, you can read NFC tags on
+
+
+1726
+00:49:20,846 --> 00:49:22,916
+supported hardware.
+
+
+1727
+00:49:23,186 --> 00:49:24,956
+Now we have a special session
+
+
+1728
+00:49:24,956 --> 00:49:25,316
+for this.
+
+
+1729
+00:49:25,316 --> 00:49:26,456
+It's online only.
+
+
+1730
+00:49:26,636 --> 00:49:28,636
+It's available now.
+
+
+1731
+00:49:28,636 --> 00:49:31,696
+It's just search introducing
+
+
+1732
+00:49:31,696 --> 00:49:33,686
+CoreNFC on the WWDC site, check
+
+
+1733
+00:49:33,686 --> 00:49:33,996
+it out.
+
+
+1734
+00:49:34,616 --> 00:49:35,826
+That's everything from us for
+
+
+1735
+00:49:35,826 --> 00:49:36,346
+this year.
+
+
+1736
+00:49:36,576 --> 00:49:38,036
+I hope you go out now and have a
+
+
+1737
+00:49:38,036 --> 00:49:39,626
+great beer bash and I hope we'll
+
+
+1738
+00:49:39,626 --> 00:49:41,136
+see you next year to talk even
+
+
+1739
+00:49:41,136 --> 00:49:42,636
+more about Apple Pay and Wallet.
+
+
+1740
+00:49:42,836 --> 00:49:43,786
+Thank you very much.
+
+
+1741
+00:49:44,516 --> 00:49:48,730
+[ Applause ]
+

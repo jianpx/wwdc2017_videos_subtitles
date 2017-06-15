@@ -1,0 +1,5054 @@
+1
+00:00:21,016 --> 00:00:22,806
+[ Applause ]
+
+
+2
+00:00:22,806 --> 00:00:23,406
+>> Good morning.
+
+
+3
+00:00:27,586 --> 00:00:29,776
+Welcome to Session 227, Data
+
+
+4
+00:00:29,776 --> 00:00:30,926
+Delivery with Drag and Drop.
+
+
+5
+00:00:31,556 --> 00:00:33,196
+My name is Dave Rahardja, and
+
+
+6
+00:00:33,196 --> 00:00:34,446
+I'm joined here, today, by my
+
+
+7
+00:00:34,446 --> 00:00:35,636
+colleague Tanu, who's going to
+
+
+8
+00:00:35,636 --> 00:00:36,476
+be operating the demos.
+
+
+9
+00:00:40,406 --> 00:00:41,596
+So, if you've been following
+
+
+10
+00:00:41,596 --> 00:00:43,106
+along in our series of Drag and
+
+
+11
+00:00:43,106 --> 00:00:44,886
+Drop sessions, this diagram
+
+
+12
+00:00:44,886 --> 00:00:46,146
+should be pretty familiar to
+
+
+13
+00:00:46,386 --> 00:00:46,656
+you.
+
+
+14
+00:00:47,476 --> 00:00:48,886
+During this session, we're going
+
+
+15
+00:00:48,886 --> 00:00:50,636
+to be focusing on this part of
+
+
+16
+00:00:50,636 --> 00:00:53,026
+the diagram, Item Providers.
+
+
+17
+00:00:53,706 --> 00:00:55,236
+Now, Item Providers are
+
+
+18
+00:00:55,236 --> 00:00:57,246
+fundamental to the way data is
+
+
+19
+00:00:57,246 --> 00:00:58,966
+transferred between applications
+
+
+20
+00:00:58,966 --> 00:00:59,766
+in drag and drop.
+
+
+21
+00:01:00,656 --> 00:01:02,346
+So, in this session, we're going
+
+
+22
+00:01:02,346 --> 00:01:05,066
+to cover four topics about item
+
+
+23
+00:01:05,066 --> 00:01:05,606
+providers.
+
+
+24
+00:01:05,916 --> 00:01:07,016
+We're going to cover some
+
+
+25
+00:01:07,016 --> 00:01:07,746
+basics.
+
+
+26
+00:01:08,456 --> 00:01:09,716
+We're going to talk about how
+
+
+27
+00:01:09,716 --> 00:01:11,996
+uniform type identifiers help
+
+
+28
+00:01:11,996 --> 00:01:13,556
+your apps to be more compatible
+
+
+29
+00:01:13,556 --> 00:01:16,066
+with others in the system.
+
+
+30
+00:01:16,836 --> 00:01:18,416
+We're going to cover how you can
+
+
+31
+00:01:18,416 --> 00:01:20,606
+create model classes that work
+
+
+32
+00:01:20,606 --> 00:01:21,916
+really well with drag and drop.
+
+
+33
+00:01:23,266 --> 00:01:24,086
+And finally, we're going to
+
+
+34
+00:01:24,086 --> 00:01:25,626
+close out by covering some
+
+
+35
+00:01:25,626 --> 00:01:27,656
+advanced topics that'll add some
+
+
+36
+00:01:27,656 --> 00:01:29,166
+real polish to your apps in our
+
+
+37
+00:01:29,166 --> 00:01:29,686
+ecosystem.
+
+
+38
+00:01:30,906 --> 00:01:31,806
+So, let's get started.
+
+
+39
+00:01:34,176 --> 00:01:35,206
+Let's talk about some
+
+
+40
+00:01:35,206 --> 00:01:36,766
+NSItemProvider basics.
+
+
+41
+00:01:37,256 --> 00:01:38,696
+So, what's an NSItemProvider?
+
+
+42
+00:01:39,756 --> 00:01:43,406
+Simply put, an NSItemProvider is
+
+
+43
+00:01:43,406 --> 00:01:44,226
+a data promise.
+
+
+44
+00:01:46,056 --> 00:01:47,916
+All data is loaded through drag
+
+
+45
+00:01:47,916 --> 00:01:50,616
+and drop asynchronously and on
+
+
+46
+00:01:50,616 --> 00:01:50,996
+demand.
+
+
+47
+00:01:52,506 --> 00:01:54,996
+An NSItemProvider can also, help
+
+
+48
+00:01:54,996 --> 00:01:57,306
+you to provide progress and
+
+
+49
+00:01:57,306 --> 00:01:58,906
+cancellation of data transfer.
+
+
+50
+00:02:00,326 --> 00:02:01,736
+And it is supported widely in
+
+
+51
+00:02:01,736 --> 00:02:02,196
+our API.
+
+
+52
+00:02:02,196 --> 00:02:04,676
+Of course, in drag and drop, but
+
+
+53
+00:02:04,676 --> 00:02:06,886
+also in UIPasteConfiguration.
+
+
+54
+00:02:07,536 --> 00:02:08,686
+And we've added API for
+
+
+55
+00:02:08,735 --> 00:02:10,246
+UIPasteboard, so that you can
+
+
+56
+00:02:10,246 --> 00:02:12,126
+use NSItemProvider directly with
+
+
+57
+00:02:12,736 --> 00:02:12,806
+it.
+
+
+58
+00:02:15,676 --> 00:02:17,306
+So, what does it mean to provide
+
+
+59
+00:02:17,306 --> 00:02:18,516
+data or promise data?
+
+
+60
+00:02:19,796 --> 00:02:21,286
+Providing data to an
+
+
+61
+00:02:21,286 --> 00:02:23,006
+NSItemProvider is really simple.
+
+
+62
+00:02:23,886 --> 00:02:25,356
+All you have to do is create an
+
+
+63
+00:02:25,356 --> 00:02:27,266
+NSItemProvider and pass it an
+
+
+64
+00:02:27,266 --> 00:02:29,136
+object that is suitable for use.
+
+
+65
+00:02:29,586 --> 00:02:31,126
+Now, a lot of our system
+
+
+66
+00:02:31,326 --> 00:02:33,036
+provided classes, such as
+
+
+67
+00:02:33,036 --> 00:02:35,656
+UIImage in a string, in its
+
+
+68
+00:02:35,656 --> 00:02:37,466
+attributed string can be used
+
+
+69
+00:02:37,466 --> 00:02:37,846
+this way.
+
+
+70
+00:02:38,006 --> 00:02:39,246
+And we'll see in a few slides
+
+
+71
+00:02:39,246 --> 00:02:40,156
+now, how you can make your
+
+
+72
+00:02:40,156 --> 00:02:41,736
+classes work in this fashion, as
+
+
+73
+00:02:41,736 --> 00:02:41,896
+well.
+
+
+74
+00:02:43,576 --> 00:02:46,356
+Once you provide the data, it
+
+
+75
+00:02:46,356 --> 00:02:47,546
+can be retrieved by the
+
+
+76
+00:02:47,546 --> 00:02:49,296
+receiving application equally
+
+
+77
+00:02:49,296 --> 00:02:51,256
+simply, by calling the
+
+
+78
+00:02:51,256 --> 00:02:52,876
+loadObject method on the
+
+
+79
+00:02:52,876 --> 00:02:56,826
+itemProvider, therein.
+
+
+80
+00:02:57,116 --> 00:02:59,956
+Remember that data transfer is
+
+
+81
+00:02:59,956 --> 00:03:01,886
+asynchronous and that your
+
+
+82
+00:03:01,886 --> 00:03:03,456
+completionHandlers will be
+
+
+83
+00:03:03,456 --> 00:03:05,836
+called on a nonmain cue.
+
+
+84
+00:03:06,196 --> 00:03:07,606
+So, if you're going to update
+
+
+85
+00:03:07,756 --> 00:03:10,616
+the UI with your received data,
+
+
+86
+00:03:11,246 --> 00:03:12,986
+be sure to dispatch back to the
+
+
+87
+00:03:12,986 --> 00:03:15,246
+main queue before you call UIKit
+
+
+88
+00:03:15,516 --> 00:03:15,956
+methods.
+
+
+89
+00:03:15,956 --> 00:03:16,906
+And you're going to see this
+
+
+90
+00:03:17,006 --> 00:03:18,526
+brought up a few times.
+
+
+91
+00:03:19,216 --> 00:03:21,376
+So, to show you how easy it is
+
+
+92
+00:03:21,376 --> 00:03:23,126
+to use NSItemProviders, we're
+
+
+93
+00:03:23,126 --> 00:03:24,576
+going to start with a demo.
+
+
+94
+00:03:24,676 --> 00:03:24,896
+Tanu.
+
+
+95
+00:03:26,516 --> 00:03:32,776
+[ Applause ]
+
+
+96
+00:03:33,276 --> 00:03:34,346
+>> Good morning, everyone.
+
+
+97
+00:03:35,116 --> 00:03:36,436
+You've now heard of drag and
+
+
+98
+00:03:36,436 --> 00:03:38,186
+drop and NSItemProviders.
+
+
+99
+00:03:38,946 --> 00:03:39,866
+But now, you're probably
+
+
+100
+00:03:39,866 --> 00:03:41,486
+wondering how to use these in
+
+
+101
+00:03:41,486 --> 00:03:42,016
+your own apps.
+
+
+102
+00:03:42,946 --> 00:03:44,616
+My name is Tanu Singhal, and
+
+
+103
+00:03:44,616 --> 00:03:46,466
+I'll show you a simple demo that
+
+
+104
+00:03:46,466 --> 00:03:47,806
+will help you get started with
+
+
+105
+00:03:48,016 --> 00:03:48,946
+NSItemProviders.
+
+
+106
+00:04:01,556 --> 00:04:03,766
+We have an app, here, that has a
+
+
+107
+00:04:03,766 --> 00:04:05,196
+list of customers for our
+
+
+108
+00:04:05,246 --> 00:04:05,766
+product.
+
+
+109
+00:04:05,766 --> 00:04:08,156
+Now, I met some new people who
+
+
+110
+00:04:08,156 --> 00:04:09,796
+are also interested in trying
+
+
+111
+00:04:09,796 --> 00:04:10,646
+out this product.
+
+
+112
+00:04:11,156 --> 00:04:12,716
+So, I noted their names down in
+
+
+113
+00:04:12,716 --> 00:04:13,326
+Reminders.
+
+
+114
+00:04:14,506 --> 00:04:16,546
+It would be nice if could drag a
+
+
+115
+00:04:16,546 --> 00:04:19,305
+name and drop it into my app.
+
+
+116
+00:04:19,815 --> 00:04:20,836
+So, how do we do this?
+
+
+117
+00:04:22,005 --> 00:04:22,736
+Let's look at the
+
+
+118
+00:04:22,736 --> 00:04:24,316
+TableViewController for our
+
+
+119
+00:04:24,316 --> 00:04:25,766
+Contacts app.
+
+
+120
+00:04:26,556 --> 00:04:28,716
+Before I start typing I want you
+
+
+121
+00:04:28,716 --> 00:04:30,496
+to know that we made the sample
+
+
+122
+00:04:30,496 --> 00:04:31,846
+code for this available on the
+
+
+123
+00:04:31,846 --> 00:04:32,766
+developer website.
+
+
+124
+00:04:33,166 --> 00:04:34,316
+So, you don't have to worry
+
+
+125
+00:04:34,316 --> 00:04:35,716
+about jotting down everything,
+
+
+126
+00:04:35,716 --> 00:04:36,166
+right now.
+
+
+127
+00:04:36,956 --> 00:04:41,096
+In the TableViewController, I'll
+
+
+128
+00:04:41,246 --> 00:04:42,686
+add a TableViewDropDelegate.
+
+
+129
+00:04:44,036 --> 00:04:45,616
+Let's also set this delegate.
+
+
+130
+00:04:45,726 --> 00:04:49,516
+You may have heard of the
+
+
+131
+00:04:49,516 --> 00:04:51,516
+TableViewDropDelegate in
+
+
+132
+00:04:51,516 --> 00:04:52,356
+previous sessions.
+
+
+133
+00:04:53,046 --> 00:04:54,956
+But if you haven't, then don't
+
+
+134
+00:04:54,956 --> 00:04:55,316
+worry.
+
+
+135
+00:04:55,666 --> 00:04:57,636
+Because for now, we only need to
+
+
+136
+00:04:57,636 --> 00:04:59,416
+implement one method called
+
+
+137
+00:04:59,416 --> 00:05:00,956
+TableView performDropWith
+
+
+138
+00:05:00,956 --> 00:05:01,636
+coordinator.
+
+
+139
+00:05:02,196 --> 00:05:05,456
+In this method, I'll iterate
+
+
+140
+00:05:05,456 --> 00:05:08,206
+over the drag items provided by
+
+
+141
+00:05:08,206 --> 00:05:09,126
+the ItemProvider.
+
+
+142
+00:05:09,496 --> 00:05:10,726
+Sorry, the dragItems provider by
+
+
+143
+00:05:10,726 --> 00:05:11,396
+the coordinator.
+
+
+144
+00:05:11,856 --> 00:05:15,536
+Now, each dragItem has its own
+
+
+145
+00:05:15,536 --> 00:05:16,426
+itemProvider.
+
+
+146
+00:05:16,426 --> 00:05:18,796
+And we can check whether the
+
+
+147
+00:05:18,956 --> 00:05:20,786
+itemProvider can load objects of
+
+
+148
+00:05:20,786 --> 00:05:21,556
+a certain type.
+
+
+149
+00:05:22,466 --> 00:05:23,646
+So, I'm going to check if the
+
+
+150
+00:05:23,646 --> 00:05:25,576
+itemProvider can load a string.
+
+
+151
+00:05:26,256 --> 00:05:27,696
+For that, I'll call the
+
+
+152
+00:05:27,696 --> 00:05:29,216
+canLoadObject method.
+
+
+153
+00:05:30,246 --> 00:05:32,836
+If it can load it, then I'll
+
+
+154
+00:05:32,836 --> 00:05:34,506
+call the loadObject method.
+
+
+155
+00:05:34,636 --> 00:05:36,796
+And the completionHandler of
+
+
+156
+00:05:36,796 --> 00:05:39,086
+this loadObject method will give
+
+
+157
+00:05:39,086 --> 00:05:40,866
+me an object which will be a
+
+
+158
+00:05:40,866 --> 00:05:43,146
+string that I can use to update
+
+
+159
+00:05:43,146 --> 00:05:45,226
+my data models, as well as my
+
+
+160
+00:05:45,226 --> 00:05:45,476
+UI.
+
+
+161
+00:05:46,416 --> 00:05:50,206
+One thing to note is that the
+
+
+162
+00:05:50,206 --> 00:05:51,836
+completionHandler is on the
+
+
+163
+00:05:51,836 --> 00:05:52,756
+background thread.
+
+
+164
+00:05:53,496 --> 00:05:55,026
+So, if you want to make any
+
+
+165
+00:05:55,026 --> 00:05:56,456
+changes to your UI, then you
+
+
+166
+00:05:56,456 --> 00:05:57,756
+need to go back to the main
+
+
+167
+00:05:57,756 --> 00:05:58,986
+thread, and then make those
+
+
+168
+00:05:59,026 --> 00:05:59,516
+changes.
+
+
+169
+00:06:00,316 --> 00:06:03,886
+So, let me dispatch my main
+
+
+170
+00:06:03,886 --> 00:06:04,356
+queue.
+
+
+171
+00:06:05,226 --> 00:06:06,606
+And in the main thread I'll use
+
+
+172
+00:06:06,976 --> 00:06:09,226
+the string object, and I'll
+
+
+173
+00:06:09,226 --> 00:06:10,726
+insert it into the TableView.
+
+
+174
+00:06:11,936 --> 00:06:13,536
+This code is ready to run, now.
+
+
+175
+00:06:17,656 --> 00:06:19,116
+Wait just a moment.
+
+
+176
+00:06:19,816 --> 00:06:22,646
+And this time, I can drag a name
+
+
+177
+00:06:22,646 --> 00:06:24,746
+from Reminders and drop it into
+
+
+178
+00:06:24,746 --> 00:06:25,886
+my app.
+
+
+179
+00:06:31,386 --> 00:06:33,466
+The canLoadObject and LoadObject
+
+
+180
+00:06:33,466 --> 00:06:35,116
+methods can also be used for
+
+
+181
+00:06:35,166 --> 00:06:36,976
+other system types, like
+
+
+182
+00:06:36,976 --> 00:06:38,486
+attributed strings, URLs,
+
+
+183
+00:06:38,606 --> 00:06:40,116
+images, and even colors.
+
+
+184
+00:06:40,196 --> 00:06:42,126
+So, now that you've seen how
+
+
+185
+00:06:42,186 --> 00:06:44,256
+straightforward it is to handle
+
+
+186
+00:06:44,256 --> 00:06:46,566
+system objects in your using
+
+
+187
+00:06:46,566 --> 00:06:48,616
+itemProviders, I would encourage
+
+
+188
+00:06:48,686 --> 00:06:50,806
+all of you to try out these
+
+
+189
+00:06:50,806 --> 00:06:51,266
+APIs.
+
+
+190
+00:06:51,786 --> 00:06:53,556
+Up next, Dave will talk about
+
+
+191
+00:06:53,556 --> 00:06:54,816
+Progress and Cancellation.
+
+
+192
+00:06:58,516 --> 00:07:01,616
+[ Applause ]
+
+
+193
+00:07:02,116 --> 00:07:02,906
+>> Thank you, Tanu.
+
+
+194
+00:07:06,736 --> 00:07:08,636
+So, that covers the basics about
+
+
+195
+00:07:08,636 --> 00:07:10,196
+how to use NSItemProviders in
+
+
+196
+00:07:10,196 --> 00:07:10,966
+your application.
+
+
+197
+00:07:11,196 --> 00:07:12,116
+It was really simple.
+
+
+198
+00:07:12,866 --> 00:07:13,936
+Now, let's talk about progress
+
+
+199
+00:07:13,936 --> 00:07:14,676
+and cancellation.
+
+
+200
+00:07:16,096 --> 00:07:18,056
+When you retrieve data using
+
+
+201
+00:07:18,096 --> 00:07:20,936
+NSItemProviders, we return a
+
+
+202
+00:07:20,936 --> 00:07:22,926
+progress object to you that
+
+
+203
+00:07:23,536 --> 00:07:25,346
+allows you to track the progress
+
+
+204
+00:07:25,346 --> 00:07:27,056
+of data transfer as it occurs.
+
+
+205
+00:07:27,276 --> 00:07:30,436
+The progress object has two
+
+
+206
+00:07:30,436 --> 00:07:31,596
+interesting properties on it,
+
+
+207
+00:07:31,596 --> 00:07:32,726
+that you might want to observe.
+
+
+208
+00:07:33,556 --> 00:07:34,676
+The first, is the
+
+
+209
+00:07:34,676 --> 00:07:36,386
+fractionCompleted property,
+
+
+210
+00:07:36,696 --> 00:07:38,306
+which tells you from zero to
+
+
+211
+00:07:38,306 --> 00:07:40,116
+one, how much of the data has
+
+
+212
+00:07:40,116 --> 00:07:40,706
+been transferred.
+
+
+213
+00:07:41,446 --> 00:07:44,156
+And the second, is an isFinished
+
+
+214
+00:07:44,156 --> 00:07:46,196
+property that tells you that the
+
+
+215
+00:07:46,196 --> 00:07:47,156
+data transfer has been
+
+
+216
+00:07:47,156 --> 00:07:48,686
+completed, whether it is
+
+
+217
+00:07:48,686 --> 00:07:49,456
+successful or not.
+
+
+218
+00:07:51,286 --> 00:07:53,126
+You can use key value observing
+
+
+219
+00:07:53,126 --> 00:07:55,936
+to watch these two properties
+
+
+220
+00:07:56,196 --> 00:07:58,986
+and update your UI accordingly.
+
+
+221
+00:07:59,396 --> 00:08:00,896
+Such as by providing your own
+
+
+222
+00:08:00,936 --> 00:08:02,276
+progress indicator and
+
+
+223
+00:08:02,276 --> 00:08:03,966
+cancellation button.
+
+
+224
+00:08:05,296 --> 00:08:07,476
+There is a cancel method on the
+
+
+225
+00:08:07,476 --> 00:08:09,006
+progress object that will
+
+
+226
+00:08:09,006 --> 00:08:10,286
+immediately cancel the data
+
+
+227
+00:08:10,286 --> 00:08:11,206
+transfer, as well.
+
+
+228
+00:08:11,716 --> 00:08:14,536
+When you call he cancel method
+
+
+229
+00:08:14,746 --> 00:08:16,206
+on the return progress object,
+
+
+230
+00:08:16,816 --> 00:08:18,266
+your receiving application will
+
+
+231
+00:08:18,266 --> 00:08:20,306
+receive, will get a callback on
+
+
+232
+00:08:20,306 --> 00:08:22,156
+the completionHandler with an
+
+
+233
+00:08:22,196 --> 00:08:23,926
+error in it, regardless of
+
+
+234
+00:08:23,926 --> 00:08:24,936
+whether or not the source
+
+
+235
+00:08:24,936 --> 00:08:26,806
+application has cancelled their
+
+
+236
+00:08:27,086 --> 00:08:27,696
+data providing.
+
+
+237
+00:08:30,766 --> 00:08:32,956
+You get one progress object per
+
+
+238
+00:08:32,956 --> 00:08:33,876
+load request.
+
+
+239
+00:08:34,436 --> 00:08:36,056
+However, there's an overall
+
+
+240
+00:08:36,056 --> 00:08:37,736
+progress object that you can get
+
+
+241
+00:08:37,736 --> 00:08:39,916
+from the UIDropSession that
+
+
+242
+00:08:39,916 --> 00:08:42,285
+allows you to monitor and cancel
+
+
+243
+00:08:42,285 --> 00:08:44,756
+the entire remaining data
+
+
+244
+00:08:44,806 --> 00:08:46,126
+transfer in progress.
+
+
+245
+00:08:46,126 --> 00:08:49,716
+So, now that we've covered the
+
+
+246
+00:08:49,716 --> 00:08:51,596
+basics, let's talk about
+
+
+247
+00:08:51,596 --> 00:08:53,156
+maximizing compatibility.
+
+
+248
+00:08:53,656 --> 00:08:57,506
+You want your application to
+
+
+249
+00:08:57,786 --> 00:08:59,486
+provide data to as many other
+
+
+250
+00:08:59,486 --> 00:09:01,276
+applications on the system, as
+
+
+251
+00:09:01,276 --> 00:09:01,696
+possible.
+
+
+252
+00:09:02,886 --> 00:09:05,466
+And receive drops from as many
+
+
+253
+00:09:05,466 --> 00:09:06,836
+applications, as possible, as
+
+
+254
+00:09:06,836 --> 00:09:07,046
+well.
+
+
+255
+00:09:07,896 --> 00:09:10,836
+The key to understanding how to
+
+
+256
+00:09:10,836 --> 00:09:13,346
+maximize compatibility is
+
+
+257
+00:09:13,346 --> 00:09:15,136
+understanding uniform type
+
+
+258
+00:09:15,136 --> 00:09:15,826
+identifiers.
+
+
+259
+00:09:16,936 --> 00:09:18,306
+So, let's recap.
+
+
+260
+00:09:19,466 --> 00:09:22,466
+One NSItemProvider represents
+
+
+261
+00:09:22,466 --> 00:09:24,356
+one thing that the user is
+
+
+262
+00:09:24,356 --> 00:09:25,986
+dragging across the glass.
+
+
+263
+00:09:27,006 --> 00:09:29,186
+However, there can be multiple
+
+
+264
+00:09:29,186 --> 00:09:30,376
+representations that you can
+
+
+265
+00:09:30,376 --> 00:09:32,106
+make available for every item
+
+
+266
+00:09:32,106 --> 00:09:33,446
+that the user is dragging.
+
+
+267
+00:09:33,446 --> 00:09:35,596
+Let me give you an example.
+
+
+268
+00:09:36,666 --> 00:09:37,816
+If you're writing a vector
+
+
+269
+00:09:37,816 --> 00:09:39,476
+drawing program, for example,
+
+
+270
+00:09:40,106 --> 00:09:41,496
+you could offer a native file
+
+
+271
+00:09:41,496 --> 00:09:43,816
+format for best quality as the
+
+
+272
+00:09:43,816 --> 00:09:44,766
+thing that you're dragging.
+
+
+273
+00:09:46,126 --> 00:09:47,546
+But you might also offer
+
+
+274
+00:09:47,546 --> 00:09:51,056
+conversions to PDF, PNG, or even
+
+
+275
+00:09:51,056 --> 00:09:53,176
+JPG, so that you can drop this
+
+
+276
+00:09:53,176 --> 00:09:55,036
+item on a variety of destination
+
+
+277
+00:09:55,036 --> 00:09:55,746
+applications.
+
+
+278
+00:09:56,016 --> 00:09:59,386
+Uniform type identifiers allow
+
+
+279
+00:09:59,386 --> 00:10:01,666
+you to tag these representations
+
+
+280
+00:10:01,796 --> 00:10:02,786
+with unique strings that
+
+
+281
+00:10:02,786 --> 00:10:05,456
+identify the kinds of data that
+
+
+282
+00:10:05,456 --> 00:10:07,976
+you're putting up for the drag.
+
+
+283
+00:10:09,576 --> 00:10:11,046
+For a native file format, you
+
+
+284
+00:10:11,046 --> 00:10:12,256
+can define your own strings,
+
+
+285
+00:10:12,256 --> 00:10:12,766
+such as
+
+
+286
+00:10:12,766 --> 00:10:14,536
+com.yourcompany.vector-drawing.
+
+
+287
+00:10:15,786 --> 00:10:17,986
+And for commonly known types,
+
+
+288
+00:10:18,016 --> 00:10:21,326
+such as PDF and PNG, you can use
+
+
+289
+00:10:21,416 --> 00:10:22,976
+the symbols defined in mobile
+
+
+290
+00:10:22,976 --> 00:10:28,206
+core services to tag them.
+
+
+291
+00:10:28,416 --> 00:10:30,186
+Now, fidelity order matters.
+
+
+292
+00:10:30,896 --> 00:10:32,776
+The order in which you register
+
+
+293
+00:10:32,876 --> 00:10:35,086
+your representations should
+
+
+294
+00:10:35,156 --> 00:10:36,746
+correspond to the order of
+
+
+295
+00:10:36,746 --> 00:10:38,986
+quality that you're making
+
+
+296
+00:10:38,986 --> 00:10:40,446
+available to the destination.
+
+
+297
+00:10:41,266 --> 00:10:42,766
+Usually, the highest fidelity
+
+
+298
+00:10:42,766 --> 00:10:43,916
+would be your internal data
+
+
+299
+00:10:43,916 --> 00:10:44,846
+representation type.
+
+
+300
+00:10:45,196 --> 00:10:47,886
+And then, followed by the next
+
+
+301
+00:10:47,886 --> 00:10:49,926
+high fidelity common type, and
+
+
+302
+00:10:49,926 --> 00:10:51,426
+so on and so forth.
+
+
+303
+00:10:52,016 --> 00:10:55,176
+Now, one tip to remember when
+
+
+304
+00:10:55,176 --> 00:10:57,046
+using type identifiers to
+
+
+305
+00:10:57,046 --> 00:10:59,336
+register your representations,
+
+
+306
+00:10:59,856 --> 00:11:03,216
+is that there are uniform type
+
+
+307
+00:11:03,216 --> 00:11:04,926
+identifiers that correspond to
+
+
+308
+00:11:04,926 --> 00:11:06,356
+abstract types.
+
+
+309
+00:11:06,536 --> 00:11:09,626
+Such as data, or plain text, or
+
+
+310
+00:11:09,656 --> 00:11:10,096
+image.
+
+
+311
+00:11:11,516 --> 00:11:12,926
+Avoid these.
+
+
+312
+00:11:13,786 --> 00:11:16,916
+Instead, use concrete data types
+
+
+313
+00:11:17,406 --> 00:11:18,906
+that help the consumer of your
+
+
+314
+00:11:18,906 --> 00:11:21,476
+data interpret the bytes that
+
+
+315
+00:11:21,476 --> 00:11:22,486
+you're going to send over to
+
+
+316
+00:11:22,486 --> 00:11:22,716
+them.
+
+
+317
+00:11:23,736 --> 00:11:25,226
+So, for example, use
+
+
+318
+00:11:25,226 --> 00:11:26,926
+utf8-plain-text, instead of
+
+
+319
+00:11:27,156 --> 00:11:28,236
+plain-text.
+
+
+320
+00:11:28,946 --> 00:11:30,556
+Or probably .png instead of
+
+
+321
+00:11:30,556 --> 00:11:32,516
+image, so that the receiver can
+
+
+322
+00:11:32,516 --> 00:11:33,386
+interpret your data.
+
+
+323
+00:11:35,716 --> 00:11:37,436
+Of course, for your private type
+
+
+324
+00:11:37,436 --> 00:11:38,616
+identifier, you're free to
+
+
+325
+00:11:38,616 --> 00:11:40,326
+define your own data types and
+
+
+326
+00:11:40,326 --> 00:11:40,996
+byte layouts.
+
+
+327
+00:11:43,576 --> 00:11:46,596
+So, you've seen how these
+
+
+328
+00:11:46,596 --> 00:11:48,536
+multiple representations allow
+
+
+329
+00:11:48,536 --> 00:11:50,196
+you to maximize compatibility.
+
+
+330
+00:11:50,906 --> 00:11:52,396
+But you didn't see any of this
+
+
+331
+00:11:52,536 --> 00:11:54,416
+type identifiers being used in
+
+
+332
+00:11:54,416 --> 00:11:56,016
+our initial example code of
+
+
+333
+00:11:56,076 --> 00:11:58,126
+creating NSItemProviders.
+
+
+334
+00:11:58,446 --> 00:11:59,636
+So, how did this work together?
+
+
+335
+00:12:01,376 --> 00:12:04,196
+This is where we talk about
+
+
+336
+00:12:04,196 --> 00:12:05,986
+creating model classes that
+
+
+337
+00:12:05,986 --> 00:12:07,496
+harness the power of both
+
+
+338
+00:12:07,496 --> 00:12:08,786
+multiple representations for
+
+
+339
+00:12:08,786 --> 00:12:09,566
+compatibility.
+
+
+340
+00:12:10,416 --> 00:12:12,006
+And the simplicity of using
+
+
+341
+00:12:12,006 --> 00:12:13,516
+objects to initialize
+
+
+342
+00:12:13,516 --> 00:12:14,346
+itemProviders.
+
+
+343
+00:12:15,266 --> 00:12:19,366
+To create model classes that
+
+
+344
+00:12:19,366 --> 00:12:21,246
+work well with drag and drop,
+
+
+345
+00:12:21,366 --> 00:12:23,676
+we're going to talk about two
+
+
+346
+00:12:24,276 --> 00:12:26,466
+protocols that help you to do
+
+
+347
+00:12:26,466 --> 00:12:26,696
+this.
+
+
+348
+00:12:27,396 --> 00:12:29,556
+NSItemProviderReading and
+
+
+349
+00:12:29,556 --> 00:12:30,806
+NSItemProviderWriting.
+
+
+350
+00:12:32,036 --> 00:12:32,966
+Let's talk about the writing
+
+
+351
+00:12:32,966 --> 00:12:33,716
+protocol, first.
+
+
+352
+00:12:34,756 --> 00:12:36,946
+NSItemProviderWriting exports
+
+
+353
+00:12:36,946 --> 00:12:39,546
+data from your model object and
+
+
+354
+00:12:40,256 --> 00:12:43,246
+NSItemProviderReading imports
+
+
+355
+00:12:43,246 --> 00:12:45,406
+data and creates a model object
+
+
+356
+00:12:45,816 --> 00:12:47,226
+from a representation.
+
+
+357
+00:12:47,776 --> 00:12:52,336
+And by adopting these protocols,
+
+
+358
+00:12:52,666 --> 00:12:54,716
+you can maintain the conversion
+
+
+359
+00:12:54,716 --> 00:12:56,836
+between your model objects and
+
+
+360
+00:12:56,836 --> 00:12:58,446
+multiple representations with
+
+
+361
+00:12:58,446 --> 00:13:02,546
+your model object and not with
+
+
+362
+00:13:04,236 --> 00:13:04,706
+the UI code.
+
+
+363
+00:13:05,046 --> 00:13:06,216
+So, let's take a look at
+
+
+364
+00:13:06,216 --> 00:13:07,326
+NSItemProviderWriting.
+
+
+365
+00:13:07,446 --> 00:13:10,796
+This is what it looks like.
+
+
+366
+00:13:11,806 --> 00:13:13,476
+There are only two things that
+
+
+367
+00:13:13,476 --> 00:13:15,766
+you need to implement to conform
+
+
+368
+00:13:15,766 --> 00:13:16,476
+to this protocol.
+
+
+369
+00:13:17,356 --> 00:13:18,796
+The first is a
+
+
+370
+00:13:18,796 --> 00:13:21,036
+writableTypeIdentifiersForItem
+
+
+371
+00:13:21,036 --> 00:13:22,236
+Provider property.
+
+
+372
+00:13:23,046 --> 00:13:24,696
+This is the list of the type
+
+
+373
+00:13:24,696 --> 00:13:26,516
+identifiers that you can export
+
+
+374
+00:13:27,116 --> 00:13:28,046
+in fidelity order.
+
+
+375
+00:13:28,466 --> 00:13:29,736
+Highest fidelity first.
+
+
+376
+00:13:30,276 --> 00:13:33,646
+And then, a loadData method
+
+
+377
+00:13:34,706 --> 00:13:35,986
+which will take that
+
+
+378
+00:13:35,986 --> 00:13:37,056
+typeIdentifier that has been
+
+
+379
+00:13:37,056 --> 00:13:38,286
+requested by the other
+
+
+380
+00:13:38,336 --> 00:13:39,186
+application.
+
+
+381
+00:13:39,266 --> 00:13:40,506
+Which will call a
+
+
+382
+00:13:40,756 --> 00:13:43,216
+completionHandler, either with
+
+
+383
+00:13:43,216 --> 00:13:44,256
+the data that you've made
+
+
+384
+00:13:44,256 --> 00:13:47,566
+available or with an error.
+
+
+385
+00:13:47,766 --> 00:13:49,266
+By implementing this protocol,
+
+
+386
+00:13:49,716 --> 00:13:52,746
+the UI code can look like this
+
+
+387
+00:13:54,296 --> 00:13:56,526
+and our framework code will do
+
+
+388
+00:13:56,526 --> 00:13:58,626
+the equivalent of this, for you.
+
+
+389
+00:13:59,136 --> 00:14:03,606
+All right.
+
+
+390
+00:14:03,776 --> 00:14:05,236
+Let's take a look at the reading
+
+
+391
+00:14:05,236 --> 00:14:05,636
+protocol.
+
+
+392
+00:14:06,036 --> 00:14:07,476
+The reading protocol is, of
+
+
+393
+00:14:07,476 --> 00:14:08,896
+course, the other end of the
+
+
+394
+00:14:08,896 --> 00:14:09,126
+pipe.
+
+
+395
+00:14:09,716 --> 00:14:13,906
+It too, has two things that you
+
+
+396
+00:14:13,906 --> 00:14:14,556
+need to implement.
+
+
+397
+00:14:15,436 --> 00:14:17,126
+The first is the list of
+
+
+398
+00:14:17,126 --> 00:14:19,756
+readable type identifiers in
+
+
+399
+00:14:19,756 --> 00:14:20,866
+fidelity order, also.
+
+
+400
+00:14:21,256 --> 00:14:23,386
+And the second, is that
+
+
+401
+00:14:23,386 --> 00:14:26,306
+initializer that will take a NS
+
+
+402
+00:14:26,306 --> 00:14:28,676
+data block, a NS data object,
+
+
+403
+00:14:29,336 --> 00:14:31,316
+which should be used to
+
+
+404
+00:14:32,306 --> 00:14:33,586
+initialize the instance of your
+
+
+405
+00:14:33,636 --> 00:14:33,976
+object.
+
+
+406
+00:14:39,046 --> 00:14:40,526
+When you implement this protocol
+
+
+407
+00:14:40,966 --> 00:14:42,736
+the UI code can look like this,
+
+
+408
+00:14:42,876 --> 00:14:43,866
+a canLoadObject.
+
+
+409
+00:14:44,636 --> 00:14:45,736
+You can pass it to your vector
+
+
+410
+00:14:45,736 --> 00:14:46,566
+drawing object.
+
+
+411
+00:14:47,586 --> 00:14:48,936
+And when you call the
+
+
+412
+00:14:48,936 --> 00:14:51,406
+loadObject, our framework code
+
+
+413
+00:14:51,406 --> 00:14:53,916
+will matchmake the two lists of
+
+
+414
+00:14:53,996 --> 00:14:55,286
+type identifiers, both from the
+
+
+415
+00:14:55,286 --> 00:14:56,486
+provider and the consumer.
+
+
+416
+00:14:56,996 --> 00:14:59,306
+To find the best match to ensure
+
+
+417
+00:14:59,306 --> 00:15:00,886
+that the highest quality data is
+
+
+418
+00:15:00,886 --> 00:15:02,116
+used to create an instance of
+
+
+419
+00:15:02,116 --> 00:15:03,046
+your object.
+
+
+420
+00:15:04,446 --> 00:15:07,096
+So, in short, to make model
+
+
+421
+00:15:07,096 --> 00:15:08,846
+classes that work well with drag
+
+
+422
+00:15:08,846 --> 00:15:10,926
+and drop, you should create,
+
+
+423
+00:15:11,106 --> 00:15:13,646
+these classes should conform to
+
+
+424
+00:15:13,696 --> 00:15:15,886
+NSItemProvider reading and
+
+
+425
+00:15:15,886 --> 00:15:16,846
+writing protocols.
+
+
+426
+00:15:17,816 --> 00:15:18,976
+Because these are Objective-C
+
+
+427
+00:15:18,976 --> 00:15:20,916
+protocols, your model classes
+
+
+428
+00:15:20,916 --> 00:15:22,306
+should also inherit from
+
+
+429
+00:15:22,306 --> 00:15:22,866
+NSObject.
+
+
+430
+00:15:23,286 --> 00:15:25,886
+And when you do this, you can
+
+
+431
+00:15:25,886 --> 00:15:27,486
+use your classes and your
+
+
+432
+00:15:27,486 --> 00:15:29,556
+objects wherever NSItemProvider
+
+
+433
+00:15:29,556 --> 00:15:31,886
+is supported, drag and drop, and
+
+
+434
+00:15:32,006 --> 00:15:34,526
+UIPasteConfiguration, and also,
+
+
+435
+00:15:34,526 --> 00:15:35,826
+with the new API in
+
+
+436
+00:15:36,176 --> 00:15:37,026
+UIPasteboard.
+
+
+437
+00:15:38,406 --> 00:15:39,726
+So, to show you how this is done
+
+
+438
+00:15:39,726 --> 00:15:41,496
+in code, I'm going to ask Tanu
+
+
+439
+00:15:41,746 --> 00:15:42,556
+to do another demo.
+
+
+440
+00:15:45,516 --> 00:15:48,576
+[ Applause ]
+
+
+441
+00:15:49,076 --> 00:15:49,806
+>> Hello, again.
+
+
+442
+00:15:50,776 --> 00:15:52,296
+In the previous demo, we learned
+
+
+443
+00:15:52,296 --> 00:15:54,296
+to load simple system objects
+
+
+444
+00:15:54,296 --> 00:15:54,926
+like strings.
+
+
+445
+00:15:55,606 --> 00:15:57,966
+Now, let's see how we can drag a
+
+
+446
+00:15:57,966 --> 00:15:59,886
+rich contact card from the
+
+
+447
+00:15:59,886 --> 00:16:02,176
+Contacts app and drop that into
+
+
+448
+00:16:02,176 --> 00:16:02,916
+our app.
+
+
+449
+00:16:07,626 --> 00:16:09,756
+To do this, I've created a class
+
+
+450
+00:16:10,186 --> 00:16:11,376
+called ContactCard.
+
+
+451
+00:16:12,266 --> 00:16:13,736
+This holds the name, phone
+
+
+452
+00:16:13,736 --> 00:16:15,436
+number, and photo for a contact.
+
+
+453
+00:16:15,436 --> 00:16:18,486
+Now, I'm going to go back into
+
+
+454
+00:16:18,486 --> 00:16:20,016
+the TableView controller, and
+
+
+455
+00:16:20,296 --> 00:16:22,076
+this is the performDrop method
+
+
+456
+00:16:22,076 --> 00:16:23,586
+that we implemented, before.
+
+
+457
+00:16:24,756 --> 00:16:26,716
+Last time, we were trying to
+
+
+458
+00:16:26,716 --> 00:16:27,556
+load a string.
+
+
+459
+00:16:28,186 --> 00:16:30,336
+Now, we want to load a contact
+
+
+460
+00:16:30,336 --> 00:16:30,736
+card.
+
+
+461
+00:16:31,686 --> 00:16:33,496
+So, I'll replace all instances
+
+
+462
+00:16:33,576 --> 00:16:35,806
+of NSSTring with ContactCard.
+
+
+463
+00:16:40,196 --> 00:16:41,596
+Since we are requesting a
+
+
+464
+00:16:41,596 --> 00:16:43,166
+contact card the
+
+
+465
+00:16:43,166 --> 00:16:44,896
+completionHandler will directly
+
+
+466
+00:16:44,896 --> 00:16:46,706
+give me a contact card object,
+
+
+467
+00:16:46,706 --> 00:16:49,286
+and I can use that to insert
+
+
+468
+00:16:49,286 --> 00:16:50,276
+into my TableView.
+
+
+469
+00:16:50,276 --> 00:16:52,926
+Now, this should have worked,
+
+
+470
+00:16:52,926 --> 00:16:53,256
+right?
+
+
+471
+00:16:53,966 --> 00:16:55,376
+But the reason we're getting
+
+
+472
+00:16:55,466 --> 00:16:57,336
+errors, here, is because the
+
+
+473
+00:16:57,336 --> 00:16:59,066
+NSItemProvider does not
+
+
+474
+00:16:59,066 --> 00:17:00,896
+recognize my ContactCard class.
+
+
+475
+00:17:01,356 --> 00:17:03,326
+So, we need to do a little work
+
+
+476
+00:17:03,326 --> 00:17:04,195
+to conform to the
+
+
+477
+00:17:04,195 --> 00:17:05,386
+NSItemProvider.
+
+
+478
+00:17:05,445 --> 00:17:08,596
+Let's look at the ContactCard
+
+
+479
+00:17:08,596 --> 00:17:09,126
+class, again.
+
+
+480
+00:17:09,126 --> 00:17:12,086
+And here, I'm going to implement
+
+
+481
+00:17:12,146 --> 00:17:14,016
+the NSItemProviderReading
+
+
+482
+00:17:14,016 --> 00:17:14,576
+protocol.
+
+
+483
+00:17:15,276 --> 00:17:16,136
+This will tell the
+
+
+484
+00:17:16,136 --> 00:17:18,455
+NSItemProvider that I can read
+
+
+485
+00:17:18,455 --> 00:17:19,736
+data that it provides.
+
+
+486
+00:17:21,215 --> 00:17:24,056
+Now, I need to specify the types
+
+
+487
+00:17:24,215 --> 00:17:26,026
+of identifiers that I can read.
+
+
+488
+00:17:26,506 --> 00:17:29,306
+My ContactCard class can read
+
+
+489
+00:17:29,306 --> 00:17:31,626
+either a vCard, or it can read
+
+
+490
+00:17:31,686 --> 00:17:33,056
+plain text.
+
+
+491
+00:17:33,366 --> 00:17:34,956
+Note that these need to be
+
+
+492
+00:17:35,026 --> 00:17:37,536
+specified in descending order of
+
+
+493
+00:17:37,576 --> 00:17:38,086
+fidelity.
+
+
+494
+00:17:38,936 --> 00:17:40,576
+If we specified plain text
+
+
+495
+00:17:40,686 --> 00:17:43,006
+first, then we would always get
+
+
+496
+00:17:43,006 --> 00:17:44,366
+called back for plain text.
+
+
+497
+00:17:44,866 --> 00:17:46,796
+Even when a more rich vCard type
+
+
+498
+00:17:46,796 --> 00:17:47,546
+was available.
+
+
+499
+00:17:48,016 --> 00:17:50,656
+So, after we've specified the
+
+
+500
+00:17:50,656 --> 00:17:52,916
+types we can read, we're going
+
+
+501
+00:17:53,036 --> 00:17:55,616
+to set up an initializer where
+
+
+502
+00:17:55,616 --> 00:17:56,926
+we'll actually read the data
+
+
+503
+00:17:57,036 --> 00:17:58,166
+from the itemProvider.
+
+
+504
+00:17:58,166 --> 00:18:01,196
+One of the arguments in this
+
+
+505
+00:18:01,246 --> 00:18:02,226
+initializer is the
+
+
+506
+00:18:02,266 --> 00:18:03,256
+typeIdentifier.
+
+
+507
+00:18:04,046 --> 00:18:06,036
+So, I can use that to figure out
+
+
+508
+00:18:06,386 --> 00:18:08,126
+what type of data I received.
+
+
+509
+00:18:08,556 --> 00:18:11,156
+If I got a vCard, I'll use a
+
+
+510
+00:18:11,206 --> 00:18:12,936
+helper method to set the phone
+
+
+511
+00:18:12,936 --> 00:18:14,246
+number, picture, and all the
+
+
+512
+00:18:14,246 --> 00:18:15,516
+other information I need.
+
+
+513
+00:18:15,516 --> 00:18:17,616
+If I just got plain text, I'm
+
+
+514
+00:18:18,076 --> 00:18:19,376
+going to set the name for my
+
+
+515
+00:18:19,376 --> 00:18:20,236
+contact card.
+
+
+516
+00:18:21,586 --> 00:18:24,376
+Now, when we run this, those
+
+
+517
+00:18:24,446 --> 00:18:25,576
+errors are resolved.
+
+
+518
+00:18:26,296 --> 00:18:26,926
+This is because the
+
+
+519
+00:18:26,926 --> 00:18:29,206
+NSItemProvider understands our
+
+
+520
+00:18:29,206 --> 00:18:29,926
+class, now.
+
+
+521
+00:18:30,506 --> 00:18:33,656
+So, this time, I can drag and
+
+
+522
+00:18:33,656 --> 00:18:35,056
+name from the Contacts app on
+
+
+523
+00:18:35,056 --> 00:18:37,196
+the right, and drop it into my
+
+
+524
+00:18:37,196 --> 00:18:37,306
+app.
+
+
+525
+00:18:38,116 --> 00:18:40,416
+As you can see, we loaded the
+
+
+526
+00:18:40,416 --> 00:18:41,926
+name, phone number, as well as
+
+
+527
+00:18:41,926 --> 00:18:43,406
+the photo for this contact.
+
+
+528
+00:18:44,026 --> 00:18:47,316
+Note that we can still drag out
+
+
+529
+00:18:47,316 --> 00:18:50,296
+plain text, like from the
+
+
+530
+00:18:50,356 --> 00:18:51,776
+Reminders app, again.
+
+
+531
+00:18:52,526 --> 00:18:54,246
+And this works, because our
+
+
+532
+00:18:54,836 --> 00:18:56,836
+ContactCard class not only
+
+
+533
+00:18:56,836 --> 00:18:58,446
+handles vCards, but it also
+
+
+534
+00:18:58,496 --> 00:18:59,496
+handles plain text.
+
+
+535
+00:18:59,706 --> 00:19:01,726
+So, this is what we wanted.
+
+
+536
+00:19:02,016 --> 00:19:03,396
+And our users really like this
+
+
+537
+00:19:03,436 --> 00:19:03,846
+feature.
+
+
+538
+00:19:04,566 --> 00:19:06,706
+But now, we have another feature
+
+
+539
+00:19:06,706 --> 00:19:07,176
+request.
+
+
+540
+00:19:07,856 --> 00:19:09,786
+They want the ability to drag
+
+
+541
+00:19:09,786 --> 00:19:12,276
+out contacts from our app and
+
+
+542
+00:19:12,276 --> 00:19:14,926
+drop it into other apps.
+
+
+543
+00:19:15,476 --> 00:19:16,796
+In order to implement that,
+
+
+544
+00:19:17,636 --> 00:19:20,336
+we'll have to conform to another
+
+
+545
+00:19:20,336 --> 00:19:21,826
+protocol called
+
+
+546
+00:19:21,826 --> 00:19:23,906
+NSItemProviderWriting protocol.
+
+
+547
+00:19:24,476 --> 00:19:28,166
+As part of this protocol, I'll
+
+
+548
+00:19:28,166 --> 00:19:31,376
+specify the types of identifiers
+
+
+549
+00:19:31,376 --> 00:19:32,116
+that I can write.
+
+
+550
+00:19:33,246 --> 00:19:34,866
+My class can again, write either
+
+
+551
+00:19:34,866 --> 00:19:38,366
+a vCard or plain text.
+
+
+552
+00:19:38,366 --> 00:19:40,756
+After this, we need to specify a
+
+
+553
+00:19:40,756 --> 00:19:41,796
+loadData method.
+
+
+554
+00:19:41,796 --> 00:19:45,096
+In this method, we'll create the
+
+
+555
+00:19:45,156 --> 00:19:47,506
+data that we want to provide to
+
+
+556
+00:19:47,506 --> 00:19:48,496
+the itemProvider.
+
+
+557
+00:19:49,126 --> 00:19:51,466
+So, based on the type
+
+
+558
+00:19:51,466 --> 00:19:52,846
+identifier, I can create
+
+
+559
+00:19:52,846 --> 00:19:55,326
+different types of data and I'll
+
+
+560
+00:19:55,326 --> 00:19:56,426
+just pass it to the
+
+
+561
+00:19:56,426 --> 00:19:57,476
+completionHandler.
+
+
+562
+00:19:57,996 --> 00:19:59,996
+Now, we have completed the
+
+
+563
+00:19:59,996 --> 00:20:02,106
+implementation for the
+
+
+564
+00:20:02,106 --> 00:20:03,976
+NSItemProviderWriting protocol.
+
+
+565
+00:20:05,466 --> 00:20:06,876
+There's just one last thing to
+
+
+566
+00:20:06,876 --> 00:20:07,126
+do.
+
+
+567
+00:20:07,126 --> 00:20:09,716
+We need to go back into our
+
+
+568
+00:20:09,716 --> 00:20:12,186
+TableViewController and tell the
+
+
+569
+00:20:12,186 --> 00:20:14,316
+TableView that it can be used to
+
+
+570
+00:20:14,316 --> 00:20:15,546
+drag out items.
+
+
+571
+00:20:16,526 --> 00:20:19,286
+To do this, I'll implement the
+
+
+572
+00:20:19,286 --> 00:20:20,606
+TableViewDragDelegate.
+
+
+573
+00:20:21,256 --> 00:20:23,456
+We need to set this delegate,
+
+
+574
+00:20:23,506 --> 00:20:23,986
+too.
+
+
+575
+00:20:24,536 --> 00:20:27,886
+And for this delegate, we'll
+
+
+576
+00:20:27,886 --> 00:20:30,186
+implement one method called
+
+
+577
+00:20:30,186 --> 00:20:31,556
+itemsForBeginning session.
+
+
+578
+00:20:32,116 --> 00:20:35,676
+In this method, I'm going to
+
+
+579
+00:20:35,676 --> 00:20:37,096
+create an itemProvider.
+
+
+580
+00:20:37,096 --> 00:20:39,586
+And you can see that I'm able to
+
+
+581
+00:20:39,586 --> 00:20:42,166
+pass a ContactCard object
+
+
+582
+00:20:42,236 --> 00:20:44,196
+directly to the itemProvider's
+
+
+583
+00:20:44,256 --> 00:20:45,056
+initializer.
+
+
+584
+00:20:45,586 --> 00:20:47,646
+This works only because we
+
+
+585
+00:20:47,646 --> 00:20:48,666
+implemented the
+
+
+586
+00:20:48,666 --> 00:20:50,356
+NSItemProviderWriting protocol.
+
+
+587
+00:20:51,686 --> 00:20:53,446
+Let's run this code, now.
+
+
+588
+00:21:02,126 --> 00:21:03,356
+And I would like to share a
+
+
+589
+00:21:03,356 --> 00:21:05,186
+contact with my colleague on
+
+
+590
+00:21:05,336 --> 00:21:05,916
+Messages.
+
+
+591
+00:21:07,206 --> 00:21:09,606
+So, let me drag out Dinesh's
+
+
+592
+00:21:09,606 --> 00:21:11,086
+contact and drop it.
+
+
+593
+00:21:11,876 --> 00:21:16,456
+As you can see, we were able to
+
+
+594
+00:21:16,806 --> 00:21:18,356
+send out the name, phone number,
+
+
+595
+00:21:18,356 --> 00:21:19,316
+as well as the photo.
+
+
+596
+00:21:19,676 --> 00:21:20,856
+Which is what we were trying to
+
+
+597
+00:21:20,856 --> 00:21:21,466
+accomplish.
+
+
+598
+00:21:21,756 --> 00:21:24,796
+So, now we have learned how the
+
+
+599
+00:21:24,796 --> 00:21:26,326
+NSItemProvider reading and
+
+
+600
+00:21:26,326 --> 00:21:30,326
+writing protocols can be used to
+
+
+601
+00:21:31,056 --> 00:21:33,556
+transfer data using custom class
+
+
+602
+00:21:33,556 --> 00:21:34,146
+objects.
+
+
+603
+00:21:35,036 --> 00:21:36,286
+These are really powerful
+
+
+604
+00:21:36,286 --> 00:21:38,186
+protocols and we think you'll
+
+
+605
+00:21:38,216 --> 00:21:39,806
+find them extremely useful when
+
+
+606
+00:21:39,806 --> 00:21:41,266
+you implement drag and drop in
+
+
+607
+00:21:41,266 --> 00:21:41,826
+your own apps.
+
+
+608
+00:21:42,416 --> 00:21:44,516
+Up next, Dave will cover some
+
+
+609
+00:21:44,516 --> 00:21:45,446
+advanced topics.
+
+
+610
+00:21:46,516 --> 00:21:51,956
+[ Applause ]
+
+
+611
+00:21:52,456 --> 00:21:53,176
+>> Thanks, Tanu.
+
+
+612
+00:21:54,396 --> 00:21:57,936
+So, cool. All right.
+
+
+613
+00:21:58,066 --> 00:21:59,206
+Next, we're going to cover some
+
+
+614
+00:21:59,206 --> 00:22:00,066
+advanced topics.
+
+
+615
+00:22:00,426 --> 00:22:01,966
+These are just some collection
+
+
+616
+00:22:01,966 --> 00:22:03,586
+of things that is very good to
+
+
+617
+00:22:03,586 --> 00:22:04,466
+know, when you're going to
+
+
+618
+00:22:04,466 --> 00:22:05,556
+polish your app so that it
+
+
+619
+00:22:05,556 --> 00:22:06,946
+shines in the drag-and-drop
+
+
+620
+00:22:06,946 --> 00:22:07,496
+environment.
+
+
+621
+00:22:09,226 --> 00:22:10,056
+The first thing we're going to
+
+
+622
+00:22:10,056 --> 00:22:11,616
+cover is data marshaling.
+
+
+623
+00:22:12,866 --> 00:22:14,016
+So, if you look at the
+
+
+624
+00:22:14,016 --> 00:22:16,706
+NSItemProvider API in iOS 11,
+
+
+625
+00:22:17,266 --> 00:22:18,556
+you'll discover that there are
+
+
+626
+00:22:18,556 --> 00:22:20,416
+three ways you can provide data.
+
+
+627
+00:22:21,546 --> 00:22:23,326
+You can provide data as a data
+
+
+628
+00:22:23,326 --> 00:22:24,416
+object, obviously.
+
+
+629
+00:22:25,406 --> 00:22:27,176
+But you can also provide data as
+
+
+630
+00:22:27,176 --> 00:22:30,306
+a file or a folder on your file
+
+
+631
+00:22:30,306 --> 00:22:30,776
+storage.
+
+
+632
+00:22:31,296 --> 00:22:35,126
+Third, you can provide the data
+
+
+633
+00:22:35,126 --> 00:22:37,296
+as a reference into a File
+
+
+634
+00:22:37,296 --> 00:22:37,796
+Provider.
+
+
+635
+00:22:38,226 --> 00:22:39,346
+We'll talk about File Providers
+
+
+636
+00:22:39,346 --> 00:22:39,816
+more, later.
+
+
+637
+00:22:42,316 --> 00:22:45,026
+Similarly, the receiver of the
+
+
+638
+00:22:45,026 --> 00:22:46,756
+data can retrieve data in three
+
+
+639
+00:22:46,756 --> 00:22:47,596
+different ways.
+
+
+640
+00:22:48,346 --> 00:22:50,526
+They can copy it as their own NS
+
+
+641
+00:22:50,526 --> 00:22:51,106
+data object.
+
+
+642
+00:22:52,306 --> 00:22:54,436
+They can copy a file or a folder
+
+
+643
+00:22:54,436 --> 00:22:55,326
+into their container.
+
+
+644
+00:22:55,866 --> 00:22:59,086
+And they can attempt to open the
+
+
+645
+00:22:59,086 --> 00:23:00,366
+file in place.
+
+
+646
+00:23:02,496 --> 00:23:04,936
+So, three ways to provide data,
+
+
+647
+00:23:04,936 --> 00:23:07,096
+and three ways to consume it.
+
+
+648
+00:23:07,376 --> 00:23:08,606
+What do you have to do to make
+
+
+649
+00:23:08,606 --> 00:23:10,286
+sure that data transfer happens
+
+
+650
+00:23:10,286 --> 00:23:11,716
+seamlessly, and that the data is
+
+
+651
+00:23:11,716 --> 00:23:12,866
+made available in the correct
+
+
+652
+00:23:12,926 --> 00:23:13,266
+format?
+
+
+653
+00:23:14,716 --> 00:23:15,856
+Well, the good news is you have
+
+
+654
+00:23:15,856 --> 00:23:16,466
+to do nothing.
+
+
+655
+00:23:16,736 --> 00:23:19,296
+We do it for you.
+
+
+656
+00:23:19,566 --> 00:23:21,406
+Data marshaling makes sure that
+
+
+657
+00:23:21,406 --> 00:23:22,836
+the provider of the data can
+
+
+658
+00:23:22,836 --> 00:23:24,196
+provide and consume the
+
+
+659
+00:23:24,196 --> 00:23:26,416
+information in the way that's
+
+
+660
+00:23:26,796 --> 00:23:29,016
+most convenient for them.
+
+
+661
+00:23:29,616 --> 00:23:31,666
+If you provide a file and then,
+
+
+662
+00:23:31,666 --> 00:23:33,536
+you consume it as a data, we
+
+
+663
+00:23:33,536 --> 00:23:34,886
+will read the file into an
+
+
+664
+00:23:34,886 --> 00:23:35,906
+NSData object for you.
+
+
+665
+00:23:36,416 --> 00:23:39,206
+If you provide an NSData and you
+
+
+666
+00:23:39,206 --> 00:23:40,656
+ask for a file copy, we'll write
+
+
+667
+00:23:40,656 --> 00:23:43,066
+it to file storage and give you
+
+
+668
+00:23:43,066 --> 00:23:44,226
+your L reference to it.
+
+
+669
+00:23:45,156 --> 00:23:47,246
+If they provided a folder and
+
+
+670
+00:23:47,246 --> 00:23:49,106
+you asked for NSData, we will
+
+
+671
+00:23:49,106 --> 00:23:50,276
+zip up the contents of the
+
+
+672
+00:23:50,276 --> 00:23:52,176
+folder and give you an NSData of
+
+
+673
+00:23:52,206 --> 00:23:52,896
+the zip file.
+
+
+674
+00:23:53,426 --> 00:23:56,826
+And if they provide a reference
+
+
+675
+00:23:56,826 --> 00:23:59,286
+to a file provider and you ask
+
+
+676
+00:23:59,286 --> 00:24:02,856
+for a file copy, we will call in
+
+
+677
+00:24:02,856 --> 00:24:03,916
+the promises for the file
+
+
+678
+00:24:03,916 --> 00:24:05,796
+provider and make a copy on your
+
+
+679
+00:24:05,796 --> 00:24:05,976
+behalf.
+
+
+680
+00:24:10,076 --> 00:24:10,326
+All right.
+
+
+681
+00:24:11,126 --> 00:24:12,906
+So, we've seen how progress and
+
+
+682
+00:24:12,906 --> 00:24:14,286
+cancellation worked from the
+
+
+683
+00:24:14,286 --> 00:24:14,986
+consumer side.
+
+
+684
+00:24:15,536 --> 00:24:17,036
+So, I want to talk a little bit
+
+
+685
+00:24:17,036 --> 00:24:18,026
+about how progress and
+
+
+686
+00:24:18,026 --> 00:24:19,926
+cancellation works on the
+
+
+687
+00:24:19,926 --> 00:24:20,616
+provider's side.
+
+
+688
+00:24:21,646 --> 00:24:22,946
+I'm going to show you a block of
+
+
+689
+00:24:22,946 --> 00:24:23,536
+code, here.
+
+
+690
+00:24:23,846 --> 00:24:25,096
+Don't worry that it's a dense
+
+
+691
+00:24:25,126 --> 00:24:26,086
+block of code, because I'm going
+
+
+692
+00:24:26,086 --> 00:24:27,206
+to highlight the parts that are
+
+
+693
+00:24:27,206 --> 00:24:28,426
+most important.
+
+
+694
+00:24:29,376 --> 00:24:30,966
+This is a loadData
+
+
+695
+00:24:31,776 --> 00:24:33,426
+implementation for our
+
+
+696
+00:24:33,426 --> 00:24:34,806
+NSItemProviderWriting.
+
+
+697
+00:24:36,156 --> 00:24:38,366
+In which you are going to use a
+
+
+698
+00:24:38,366 --> 00:24:39,466
+dataLoader object to
+
+
+699
+00:24:39,466 --> 00:24:40,986
+incrementally load data.
+
+
+700
+00:24:41,486 --> 00:24:44,966
+To provide progress and
+
+
+701
+00:24:44,966 --> 00:24:47,136
+cancellation support, the first
+
+
+702
+00:24:47,136 --> 00:24:48,076
+thing you have to do is create
+
+
+703
+00:24:48,076 --> 00:24:49,256
+your own progress object.
+
+
+704
+00:24:50,296 --> 00:24:51,446
+In this case, we're creating one
+
+
+705
+00:24:51,446 --> 00:24:53,086
+with a UnitCount of 100 as a
+
+
+706
+00:24:53,086 --> 00:24:53,606
+percentage.
+
+
+707
+00:24:54,156 --> 00:24:57,046
+On that progress object, you can
+
+
+708
+00:24:57,046 --> 00:24:58,686
+attach a cancellationHandler
+
+
+709
+00:24:58,966 --> 00:25:00,026
+that will be called when the
+
+
+710
+00:25:00,026 --> 00:25:01,526
+consumer of your data calls
+
+
+711
+00:25:01,646 --> 00:25:03,096
+cancel on their instance of the
+
+
+712
+00:25:03,096 --> 00:25:03,826
+progress object.
+
+
+713
+00:25:03,906 --> 00:25:06,656
+In this case, all we're doing is
+
+
+714
+00:25:06,656 --> 00:25:08,076
+setting a local variable from
+
+
+715
+00:25:08,076 --> 00:25:10,406
+true to false, which should stop
+
+
+716
+00:25:10,406 --> 00:25:12,596
+the dataLoader from loading the
+
+
+717
+00:25:12,596 --> 00:25:13,226
+next chunk.
+
+
+718
+00:25:14,166 --> 00:25:17,716
+As the dataLoader progresses,
+
+
+719
+00:25:17,716 --> 00:25:18,616
+you can update the
+
+
+720
+00:25:18,616 --> 00:25:20,066
+completedUnitCount on your
+
+
+721
+00:25:20,066 --> 00:25:22,186
+progress object to drive the
+
+
+722
+00:25:22,186 --> 00:25:23,216
+progress indicator on the
+
+
+723
+00:25:23,216 --> 00:25:23,626
+receiver.
+
+
+724
+00:25:24,666 --> 00:25:25,976
+And of course, you have to
+
+
+725
+00:25:25,976 --> 00:25:27,376
+return your own progress object
+
+
+726
+00:25:27,946 --> 00:25:30,026
+so that we can type it over to
+
+
+727
+00:25:30,116 --> 00:25:33,416
+the other side.
+
+
+728
+00:25:33,626 --> 00:25:33,866
+All right.
+
+
+729
+00:25:33,906 --> 00:25:34,626
+Switching gears, now.
+
+
+730
+00:25:35,066 --> 00:25:36,006
+We're going to talk about some
+
+
+731
+00:25:36,006 --> 00:25:40,576
+features that help you to polish
+
+
+732
+00:25:40,576 --> 00:25:43,576
+your data representations when
+
+
+733
+00:25:43,576 --> 00:25:45,596
+creating suites of apps.
+
+
+734
+00:25:45,596 --> 00:25:48,046
+So, we're going to talk about
+
+
+735
+00:25:48,046 --> 00:25:49,576
+Per-Representation Visibility.
+
+
+736
+00:25:50,076 --> 00:25:51,636
+Remember, you can provide
+
+
+737
+00:25:51,636 --> 00:25:53,026
+multiple representations of your
+
+
+738
+00:25:53,026 --> 00:25:54,616
+data in NSItemProvider.
+
+
+739
+00:25:55,726 --> 00:25:57,146
+You can restrict the visibility
+
+
+740
+00:25:57,146 --> 00:25:59,556
+of each representation to either
+
+
+741
+00:25:59,556 --> 00:26:01,316
+visible to only your source
+
+
+742
+00:26:01,316 --> 00:26:02,006
+application.
+
+
+743
+00:26:02,826 --> 00:26:04,816
+To the applications that are
+
+
+744
+00:26:04,816 --> 00:26:06,966
+assigned by your team, so in
+
+
+745
+00:26:06,966 --> 00:26:08,846
+your suite of apps, or to
+
+
+746
+00:26:08,846 --> 00:26:09,286
+everyone.
+
+
+747
+00:26:09,816 --> 00:26:12,506
+You can use this property to
+
+
+748
+00:26:12,506 --> 00:26:15,986
+hide private types that you are
+
+
+749
+00:26:15,986 --> 00:26:18,116
+rapidly maintaining with
+
+
+750
+00:26:18,116 --> 00:26:19,406
+versions of your application
+
+
+751
+00:26:19,406 --> 00:26:19,756
+suite.
+
+
+752
+00:26:20,056 --> 00:26:20,926
+So, you don't have to worry
+
+
+753
+00:26:20,926 --> 00:26:23,466
+about third parties serializing
+
+
+754
+00:26:23,466 --> 00:26:24,846
+your data to disc.
+
+
+755
+00:26:25,336 --> 00:26:29,586
+In a similar vein, you have a
+
+
+756
+00:26:29,756 --> 00:26:30,956
+team data property on
+
+
+757
+00:26:31,056 --> 00:26:31,836
+NSItemProvider.
+
+
+758
+00:26:32,656 --> 00:26:35,396
+This is an eight kilobyte data
+
+
+759
+00:26:35,396 --> 00:26:37,176
+block that you can attach
+
+
+760
+00:26:37,176 --> 00:26:38,866
+through an NSItemProvider.
+
+
+761
+00:26:39,186 --> 00:26:40,896
+They are only visible to other
+
+
+762
+00:26:40,896 --> 00:26:42,416
+applications in your team.
+
+
+763
+00:26:43,596 --> 00:26:45,706
+You can use this to improve your
+
+
+764
+00:26:45,706 --> 00:26:46,916
+UI in any way you see fit,
+
+
+765
+00:26:47,206 --> 00:26:48,226
+during a drag.
+
+
+766
+00:26:48,316 --> 00:26:50,016
+This is metadata, and can be
+
+
+767
+00:26:50,016 --> 00:26:51,556
+retrieved even before the user
+
+
+768
+00:26:51,556 --> 00:26:52,326
+lifts their finger.
+
+
+769
+00:26:56,016 --> 00:26:56,586
+All right.
+
+
+770
+00:26:56,956 --> 00:26:58,286
+There is a suggestedName
+
+
+771
+00:26:58,316 --> 00:27:00,246
+property on the NSItemProvider.
+
+
+772
+00:27:01,426 --> 00:27:02,916
+If you provide a string for the
+
+
+773
+00:27:02,916 --> 00:27:04,926
+suggested name, we will use it
+
+
+774
+00:27:04,926 --> 00:27:06,116
+as a file name when the
+
+
+775
+00:27:06,116 --> 00:27:08,646
+retriever writes your data to
+
+
+776
+00:27:08,946 --> 00:27:09,576
+disc.
+
+
+777
+00:27:10,596 --> 00:27:11,986
+This is especially useful, of
+
+
+778
+00:27:11,986 --> 00:27:13,076
+course, when you're providing an
+
+
+779
+00:27:13,076 --> 00:27:13,416
+NSData.
+
+
+780
+00:27:17,496 --> 00:27:18,836
+And the last property I want to
+
+
+781
+00:27:18,836 --> 00:27:20,706
+talk about is Preferred
+
+
+782
+00:27:21,006 --> 00:27:22,436
+Presentation Size.
+
+
+783
+00:27:23,186 --> 00:27:26,906
+This is a CG size property that
+
+
+784
+00:27:26,906 --> 00:27:28,646
+you can provide to give a hint
+
+
+785
+00:27:28,916 --> 00:27:31,126
+to the receiver about how big
+
+
+786
+00:27:31,126 --> 00:27:32,446
+your representation's going to
+
+
+787
+00:27:32,446 --> 00:27:34,096
+end up after they've laid out.
+
+
+788
+00:27:34,736 --> 00:27:36,326
+This is used, for example, by
+
+
+789
+00:27:36,326 --> 00:27:38,946
+Mail, to drop images into the
+
+
+790
+00:27:38,946 --> 00:27:40,626
+Mail Compose sheet, into the
+
+
+791
+00:27:40,626 --> 00:27:42,876
+destination layout, even before
+
+
+792
+00:27:42,876 --> 00:27:43,616
+the data arrives.
+
+
+793
+00:27:47,676 --> 00:27:49,016
+And finally, I'm going to talk
+
+
+794
+00:27:49,016 --> 00:27:50,546
+about File Providers.
+
+
+795
+00:27:51,076 --> 00:27:52,556
+So, File Providers is a whole
+
+
+796
+00:27:52,556 --> 00:27:53,626
+other topic, on its own.
+
+
+797
+00:27:54,456 --> 00:27:57,046
+But a short summary can be said
+
+
+798
+00:27:57,046 --> 00:27:57,746
+as follows.
+
+
+799
+00:27:58,246 --> 00:27:59,596
+A File Provider is an app
+
+
+800
+00:27:59,596 --> 00:28:00,116
+extension.
+
+
+801
+00:28:00,646 --> 00:28:03,576
+This app extension allows data
+
+
+802
+00:28:03,576 --> 00:28:05,196
+transfer from a network
+
+
+803
+00:28:05,196 --> 00:28:06,906
+download, for example, to
+
+
+804
+00:28:06,906 --> 00:28:08,486
+continue even if your main
+
+
+805
+00:28:08,486 --> 00:28:10,156
+application has been terminated.
+
+
+806
+00:28:11,416 --> 00:28:14,066
+For long running drags, this is
+
+
+807
+00:28:14,066 --> 00:28:15,126
+especially useful.
+
+
+808
+00:28:15,236 --> 00:28:17,886
+Because as the user waits for a
+
+
+809
+00:28:17,886 --> 00:28:19,686
+download to occur, they may
+
+
+810
+00:28:19,686 --> 00:28:21,486
+navigate away from your app, and
+
+
+811
+00:28:21,696 --> 00:28:23,566
+your app could get terminated.
+
+
+812
+00:28:25,336 --> 00:28:28,196
+If you provide a URL to a file
+
+
+813
+00:28:28,196 --> 00:28:29,356
+inside a File Provider
+
+
+814
+00:28:29,356 --> 00:28:31,956
+container, the File Provider
+
+
+815
+00:28:31,956 --> 00:28:33,456
+extension will continue to serve
+
+
+816
+00:28:33,456 --> 00:28:35,376
+the data transfer request, even
+
+
+817
+00:28:35,376 --> 00:28:36,886
+though your UI application is
+
+
+818
+00:28:36,886 --> 00:28:37,426
+terminated.
+
+
+819
+00:28:37,906 --> 00:28:39,226
+And that increases the chances
+
+
+820
+00:28:39,226 --> 00:28:40,196
+that your data is going to be
+
+
+821
+00:28:40,196 --> 00:28:41,196
+transferred successfully.
+
+
+822
+00:28:41,746 --> 00:28:45,906
+And as an added bonus, if you
+
+
+823
+00:28:46,226 --> 00:28:47,446
+create a File Provider that
+
+
+824
+00:28:47,446 --> 00:28:49,246
+appears in the file's app, we
+
+
+825
+00:28:49,626 --> 00:28:51,366
+will allow you to drag and drop
+
+
+826
+00:28:51,366 --> 00:28:52,856
+URLs that can be opened in
+
+
+827
+00:28:52,856 --> 00:28:53,236
+place.
+
+
+828
+00:28:53,736 --> 00:28:54,836
+Which means that multiple
+
+
+829
+00:28:54,836 --> 00:28:57,086
+applications can access that
+
+
+830
+00:28:57,086 --> 00:28:58,896
+same file, instead of getting
+
+
+831
+00:28:58,896 --> 00:28:59,566
+their own copy.
+
+
+832
+00:29:01,416 --> 00:29:02,436
+There's some really great
+
+
+833
+00:29:02,436 --> 00:29:03,806
+information available in the
+
+
+834
+00:29:03,806 --> 00:29:04,936
+following two sessions.
+
+
+835
+00:29:05,986 --> 00:29:06,966
+I highly recommend that you
+
+
+836
+00:29:06,966 --> 00:29:08,346
+attend them, if you are
+
+
+837
+00:29:08,346 --> 00:29:09,486
+interested in providing File
+
+
+838
+00:29:09,486 --> 00:29:11,636
+Providers in the context of drag
+
+
+839
+00:29:12,076 --> 00:29:14,566
+and drop.
+
+
+840
+00:29:14,746 --> 00:29:15,046
+All right.
+
+
+841
+00:29:16,596 --> 00:29:17,866
+Next, we're going to take a look
+
+
+842
+00:29:17,866 --> 00:29:18,996
+at what we can do with files in
+
+
+843
+00:29:18,996 --> 00:29:20,546
+drag and drop, by having Tanu do
+
+
+844
+00:29:20,546 --> 00:29:20,976
+another demo.
+
+
+845
+00:29:21,516 --> 00:29:25,996
+[ Applause ]
+
+
+846
+00:29:26,496 --> 00:29:27,246
+>> Hope you are ready for
+
+
+847
+00:29:27,246 --> 00:29:28,006
+another demo.
+
+
+848
+00:29:28,736 --> 00:29:30,976
+In the previous demo, we saw how
+
+
+849
+00:29:30,976 --> 00:29:32,606
+we could drag and drop simple
+
+
+850
+00:29:32,656 --> 00:29:34,196
+system objects, as well as
+
+
+851
+00:29:34,276 --> 00:29:35,526
+custom class objects.
+
+
+852
+00:29:36,206 --> 00:29:38,026
+Now, let's see how we can handle
+
+
+853
+00:29:38,116 --> 00:29:38,566
+files.
+
+
+854
+00:29:38,866 --> 00:29:40,856
+We'll look at our customer's
+
+
+855
+00:29:40,856 --> 00:29:41,266
+app, again.
+
+
+856
+00:29:41,266 --> 00:29:43,676
+And for some people, here, we
+
+
+857
+00:29:43,676 --> 00:29:45,796
+have additional data.
+
+
+858
+00:29:46,976 --> 00:29:48,416
+Like for Adam, we know what
+
+
+859
+00:29:48,486 --> 00:29:49,646
+products he's purchased.
+
+
+860
+00:29:49,906 --> 00:29:52,586
+Now, I would like to drag out
+
+
+861
+00:29:52,586 --> 00:29:55,416
+this file into another app and
+
+
+862
+00:29:55,416 --> 00:29:56,736
+potentially edit it, there.
+
+
+863
+00:29:57,976 --> 00:30:00,666
+To implement this, I'll look at
+
+
+864
+00:30:00,666 --> 00:30:02,796
+the ContactDetailsViewController
+
+
+865
+00:30:02,796 --> 00:30:03,946
+in my customer's app.
+
+
+866
+00:30:04,286 --> 00:30:09,696
+Over here, we will add a drag
+
+
+867
+00:30:09,696 --> 00:30:12,156
+interaction to the attachment
+
+
+868
+00:30:12,156 --> 00:30:13,496
+image that we just saw.
+
+
+869
+00:30:15,136 --> 00:30:17,386
+Let's also, implement the Drag
+
+
+870
+00:30:17,386 --> 00:30:18,426
+Interaction Delegate, right
+
+
+871
+00:30:18,426 --> 00:30:19,806
+here, because we have set the
+
+
+872
+00:30:19,806 --> 00:30:20,836
+delegate to self.
+
+
+873
+00:30:22,136 --> 00:30:23,426
+You may have heard of the drag
+
+
+874
+00:30:23,426 --> 00:30:24,816
+interaction delegate in previous
+
+
+875
+00:30:24,846 --> 00:30:25,326
+sessions.
+
+
+876
+00:30:26,156 --> 00:30:27,316
+If you're interested in learning
+
+
+877
+00:30:27,316 --> 00:30:28,756
+more about this delegate, I
+
+
+878
+00:30:28,756 --> 00:30:30,596
+would encourage you to check out
+
+
+879
+00:30:30,596 --> 00:30:32,536
+the video for Session 213 on
+
+
+880
+00:30:32,536 --> 00:30:33,516
+Mastering Drag and Drop.
+
+
+881
+00:30:33,586 --> 00:30:35,726
+For the purposes of this demo,
+
+
+882
+00:30:35,726 --> 00:30:37,516
+though, we'll only look at one
+
+
+883
+00:30:37,676 --> 00:30:39,356
+method, called itemsForBeginning
+
+
+884
+00:30:39,416 --> 00:30:39,886
+session.
+
+
+885
+00:30:40,436 --> 00:30:44,066
+In this method, we'll create a
+
+
+886
+00:30:44,066 --> 00:30:47,046
+new itemProvider, and on the
+
+
+887
+00:30:47,256 --> 00:30:50,316
+itemProvider we'll call a method
+
+
+888
+00:30:50,476 --> 00:30:50,676
+called
+
+
+889
+00:30:50,676 --> 00:30:52,346
+registerFileRepresentation.
+
+
+890
+00:30:52,606 --> 00:30:54,766
+This method takes four
+
+
+891
+00:30:54,816 --> 00:30:55,396
+arguments.
+
+
+892
+00:30:56,126 --> 00:30:58,176
+The first one is the type
+
+
+893
+00:30:58,176 --> 00:30:58,796
+identifier.
+
+
+894
+00:30:58,796 --> 00:31:01,136
+Our attachment file was actually
+
+
+895
+00:31:01,136 --> 00:31:01,676
+an image.
+
+
+896
+00:31:01,676 --> 00:31:03,576
+So, I've set the type identifier
+
+
+897
+00:31:03,666 --> 00:31:04,336
+to JPEG.
+
+
+898
+00:31:05,446 --> 00:31:07,176
+The second parameter is file
+
+
+899
+00:31:07,176 --> 00:31:07,766
+options.
+
+
+900
+00:31:08,576 --> 00:31:10,786
+This can be used to specify if
+
+
+901
+00:31:10,786 --> 00:31:12,756
+we want other apps to open our
+
+
+902
+00:31:12,756 --> 00:31:14,956
+file in place, or if we want
+
+
+903
+00:31:14,956 --> 00:31:15,856
+them to make a copy.
+
+
+904
+00:31:15,856 --> 00:31:17,986
+We would like them to open our
+
+
+905
+00:31:17,986 --> 00:31:19,716
+file in place, so we can see the
+
+
+906
+00:31:19,746 --> 00:31:20,496
+changes they make.
+
+
+907
+00:31:20,496 --> 00:31:23,206
+The third parameter is
+
+
+908
+00:31:23,206 --> 00:31:23,896
+visibility.
+
+
+909
+00:31:24,606 --> 00:31:26,296
+This can be your own process,
+
+
+910
+00:31:26,636 --> 00:31:28,236
+your team, or all.
+
+
+911
+00:31:28,376 --> 00:31:29,896
+I've just set it to all.
+
+
+912
+00:31:30,786 --> 00:31:32,176
+Finally, we have the
+
+
+913
+00:31:32,176 --> 00:31:33,196
+completionHandler.
+
+
+914
+00:31:33,196 --> 00:31:35,556
+And we are going to pass the URL
+
+
+915
+00:31:35,626 --> 00:31:38,026
+file into this
+
+
+916
+00:31:39,096 --> 00:31:40,586
+completionHandler.
+
+
+917
+00:31:40,586 --> 00:31:44,146
+So, let's get the URL, first.
+
+
+918
+00:31:44,146 --> 00:31:45,896
+Over here, I have a helper
+
+
+919
+00:31:45,896 --> 00:31:48,466
+method that grabs the URL for my
+
+
+920
+00:31:48,626 --> 00:31:50,356
+file from a File Provider.
+
+
+921
+00:31:50,556 --> 00:31:52,946
+I need to use a File Provider
+
+
+922
+00:31:53,086 --> 00:31:54,746
+only when I'm opening files in
+
+
+923
+00:31:54,806 --> 00:31:55,276
+place.
+
+
+924
+00:31:56,026 --> 00:31:57,646
+If I wanted other apps to make a
+
+
+925
+00:31:57,706 --> 00:31:59,796
+copy, then I do not need a File
+
+
+926
+00:31:59,796 --> 00:32:00,266
+Provider.
+
+
+927
+00:32:00,266 --> 00:32:01,596
+I could have just provided a
+
+
+928
+00:32:01,596 --> 00:32:02,546
+local URL.
+
+
+929
+00:32:03,036 --> 00:32:04,756
+We'll pass this URL to the
+
+
+930
+00:32:04,756 --> 00:32:06,106
+completionHandler.
+
+
+931
+00:32:06,106 --> 00:32:10,026
+Now, our itemProvider is set up.
+
+
+932
+00:32:10,026 --> 00:32:11,826
+And we can use this to create a
+
+
+933
+00:32:11,826 --> 00:32:12,766
+drag item.
+
+
+934
+00:32:13,296 --> 00:32:16,336
+With this, the code is ready to
+
+
+935
+00:32:16,336 --> 00:32:16,746
+run.
+
+
+936
+00:32:23,656 --> 00:32:26,076
+So, now I can drag out this
+
+
+937
+00:32:26,176 --> 00:32:26,606
+file.
+
+
+938
+00:32:27,966 --> 00:32:30,436
+And let me open another app
+
+
+939
+00:32:30,736 --> 00:32:31,566
+where I'll drop it.
+
+
+940
+00:32:38,216 --> 00:32:39,726
+So, we'll drag out the data,
+
+
+941
+00:32:40,226 --> 00:32:42,196
+drop it into a document editing
+
+
+942
+00:32:42,196 --> 00:32:42,276
+app.
+
+
+943
+00:32:42,996 --> 00:32:45,356
+And I'm concerned now, that Adam
+
+
+944
+00:32:45,356 --> 00:32:46,736
+is buying a lot of products from
+
+
+945
+00:32:46,736 --> 00:32:47,696
+our competitor.
+
+
+946
+00:32:48,166 --> 00:32:51,176
+So, let me highlight this and
+
+
+947
+00:32:51,176 --> 00:32:52,226
+save these changes.
+
+
+948
+00:32:52,826 --> 00:32:54,826
+So, since our document editing
+
+
+949
+00:32:54,826 --> 00:32:56,146
+app actually used the URL
+
+
+950
+00:32:56,146 --> 00:32:57,756
+provided by the customer's app,
+
+
+951
+00:32:58,546 --> 00:33:00,846
+you'll see that we got the same
+
+
+952
+00:33:00,846 --> 00:33:02,436
+changes back in our customer's
+
+
+953
+00:33:02,436 --> 00:33:02,506
+app.
+
+
+954
+00:33:03,516 --> 00:33:07,336
+[ Applause ]
+
+
+955
+00:33:07,836 --> 00:33:08,806
+Glad you like that.
+
+
+956
+00:33:10,216 --> 00:33:12,276
+We've now seen how to handle
+
+
+957
+00:33:12,276 --> 00:33:14,366
+system objects, custom class
+
+
+958
+00:33:14,366 --> 00:33:16,756
+objects, as well as files.
+
+
+959
+00:33:17,946 --> 00:33:19,466
+We have a wide range of APIs
+
+
+960
+00:33:19,466 --> 00:33:21,156
+that you can adopt.
+
+
+961
+00:33:21,156 --> 00:33:22,566
+And we look forward to seeing
+
+
+962
+00:33:22,726 --> 00:33:23,666
+how you use them.
+
+
+963
+00:33:23,896 --> 00:33:25,586
+Back to Dave, to summarize.
+
+
+964
+00:33:27,516 --> 00:33:30,896
+[ Applause ]
+
+
+965
+00:33:31,396 --> 00:33:32,516
+>> Thank you, Tanu.
+
+
+966
+00:33:34,076 --> 00:33:35,136
+All right.
+
+
+967
+00:33:35,326 --> 00:33:36,266
+Let's recap.
+
+
+968
+00:33:37,736 --> 00:33:39,286
+During this session, we've seen
+
+
+969
+00:33:39,516 --> 00:33:41,666
+how an NSItemProvider is
+
+
+970
+00:33:41,786 --> 00:33:43,586
+fundamental to the way data is
+
+
+971
+00:33:43,586 --> 00:33:45,716
+transferred between applications
+
+
+972
+00:33:46,096 --> 00:33:46,786
+in Drag and Drop.
+
+
+973
+00:33:48,196 --> 00:33:49,326
+We've seen how multiple
+
+
+974
+00:33:49,326 --> 00:33:50,846
+representations allow your
+
+
+975
+00:33:50,846 --> 00:33:52,866
+applications to maximize
+
+
+976
+00:33:52,866 --> 00:33:54,206
+compatibility with other
+
+
+977
+00:33:54,206 --> 00:33:55,026
+applications.
+
+
+978
+00:33:56,126 --> 00:33:57,936
+And we've seen how data is
+
+
+979
+00:33:57,936 --> 00:34:00,256
+transferred asynchronously with
+
+
+980
+00:34:00,326 --> 00:34:02,256
+progress in a cancellable
+
+
+981
+00:34:02,256 --> 00:34:02,936
+fashion.
+
+
+982
+00:34:05,316 --> 00:34:06,246
+We've also seen how
+
+
+983
+00:34:06,246 --> 00:34:07,906
+NSItemProvider reading and
+
+
+984
+00:34:07,906 --> 00:34:09,426
+writing protocols allow you to
+
+
+985
+00:34:09,426 --> 00:34:11,976
+make model classes that work
+
+
+986
+00:34:11,976 --> 00:34:13,966
+well with drag-and-drop UI code.
+
+
+987
+00:34:14,485 --> 00:34:18,476
+And how visibility and team data
+
+
+988
+00:34:18,726 --> 00:34:20,716
+allows you to create suites of
+
+
+989
+00:34:20,716 --> 00:34:22,255
+apps that work in especially
+
+
+990
+00:34:22,255 --> 00:34:24,906
+well together during drag and
+
+
+991
+00:34:26,335 --> 00:34:26,686
+drop.
+
+
+992
+00:34:26,686 --> 00:34:28,485
+And finally, we've seen how File
+
+
+993
+00:34:28,485 --> 00:34:30,766
+Providers afford you the ability
+
+
+994
+00:34:30,766 --> 00:34:32,985
+to open files in place as the
+
+
+995
+00:34:32,985 --> 00:34:36,815
+result of drag and drop.
+
+
+996
+00:34:36,936 --> 00:34:38,235
+For more information, please
+
+
+997
+00:34:38,235 --> 00:34:39,576
+visit our developer website,
+
+
+998
+00:34:39,576 --> 00:34:41,226
+Session 227.
+
+
+999
+00:34:41,716 --> 00:34:45,366
+And I highly encourage you to
+
+
+1000
+00:34:45,366 --> 00:34:47,356
+attend the File Provider related
+
+
+1001
+00:34:47,356 --> 00:34:50,025
+sessions, today and tomorrow, to
+
+
+1002
+00:34:50,025 --> 00:34:51,196
+learn more about how to create
+
+
+1003
+00:34:51,196 --> 00:34:53,025
+File Providers for your own
+
+
+1004
+00:34:53,025 --> 00:34:53,636
+applications.
+
+
+1005
+00:34:53,636 --> 00:34:56,036
+If you haven't seen the first
+
+
+1006
+00:34:56,036 --> 00:34:57,806
+three sessions on Drag and Drop,
+
+
+1007
+00:34:57,806 --> 00:34:58,986
+I highly recommend that you
+
+
+1008
+00:34:58,986 --> 00:34:59,926
+review them on video.
+
+
+1009
+00:35:00,426 --> 00:35:02,606
+Thank you, for your attention,
+
+
+1010
+00:35:02,606 --> 00:35:03,976
+and have a great WWDC.
+
+
+1011
+00:35:04,516 --> 00:35:08,500
+[ Applause ]
+

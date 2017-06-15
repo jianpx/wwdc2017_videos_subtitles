@@ -1,0 +1,5569 @@
+1
+00:00:27,516 --> 00:00:33,196
+[ Applause ]
+
+
+2
+00:00:33,696 --> 00:00:35,746
+>> Good morning and welcome to
+
+
+3
+00:00:35,746 --> 00:00:37,316
+your Apps and Evolving Network
+
+
+4
+00:00:37,376 --> 00:00:38,326
+Security Standards.
+
+
+5
+00:00:38,846 --> 00:00:41,086
+My name is Bailey Basile and I'm
+
+
+6
+00:00:41,086 --> 00:00:42,636
+secure transports engineer at
+
+
+7
+00:00:42,636 --> 00:00:43,086
+Apple.
+
+
+8
+00:00:43,856 --> 00:00:45,406
+Today, my colleague Chris and I
+
+
+9
+00:00:45,406 --> 00:00:46,966
+will be talking to you about the
+
+
+10
+00:00:46,966 --> 00:00:48,876
+ways that network security
+
+
+11
+00:00:48,916 --> 00:00:51,106
+standards change and how that
+
+
+12
+00:00:51,106 --> 00:00:52,616
+affects you and your apps.
+
+
+13
+00:00:53,766 --> 00:00:55,896
+We know that all of you care as
+
+
+14
+00:00:55,896 --> 00:00:57,936
+much about your users' privacy
+
+
+15
+00:00:57,936 --> 00:00:59,256
+and security as we do.
+
+
+16
+00:00:59,256 --> 00:01:01,446
+And that's why when you see
+
+
+17
+00:01:01,446 --> 00:01:04,226
+attacks like BEAST, and CRIME,
+
+
+18
+00:01:04,306 --> 00:01:06,656
+and DROWN, you worry about
+
+
+19
+00:01:06,656 --> 00:01:09,856
+whether your app is affected.
+
+
+20
+00:01:10,336 --> 00:01:13,346
+Unfortunately, all protocols
+
+
+21
+00:01:13,476 --> 00:01:15,856
+age, and as they are in the
+
+
+22
+00:01:15,856 --> 00:01:18,166
+public more attacks are found
+
+
+23
+00:01:18,166 --> 00:01:19,086
+over time.
+
+
+24
+00:01:20,136 --> 00:01:23,356
+Even worse, the algorithms upon
+
+
+25
+00:01:23,356 --> 00:01:26,906
+which these standards rely have
+
+
+26
+00:01:26,906 --> 00:01:29,346
+a built-in shelf life.
+
+
+27
+00:01:29,836 --> 00:01:32,126
+That means that as they age and
+
+
+28
+00:01:32,206 --> 00:01:34,886
+as computers get faster, those
+
+
+29
+00:01:34,886 --> 00:01:36,726
+algorithms become vulnerable to
+
+
+30
+00:01:36,726 --> 00:01:38,926
+attacks like collisions,
+
+
+31
+00:01:39,346 --> 00:01:41,696
+factorization and brute force.
+
+
+32
+00:01:43,086 --> 00:01:44,856
+When you hear about these scary
+
+
+33
+00:01:44,896 --> 00:01:47,286
+sounding attacks like a FLAME
+
+
+34
+00:01:47,616 --> 00:01:49,586
+and BREACH, and POODLE.
+
+
+35
+00:01:49,586 --> 00:01:51,136
+Well, maybe poodle doesn't sound
+
+
+36
+00:01:51,136 --> 00:01:51,686
+so scary.
+
+
+37
+00:01:52,796 --> 00:01:54,316
+When you hear about these scary
+
+
+38
+00:01:54,316 --> 00:01:56,856
+attacks, you wonder what you can
+
+
+39
+00:01:56,856 --> 00:01:59,336
+do to prevent your app from
+
+
+40
+00:01:59,336 --> 00:02:01,066
+appearing in the press the next
+
+
+41
+00:02:01,406 --> 00:02:03,146
+time a big attach happens.
+
+
+42
+00:02:03,816 --> 00:02:05,376
+And that's why today, I'm going
+
+
+43
+00:02:05,376 --> 00:02:06,736
+to be talking about some best
+
+
+44
+00:02:06,736 --> 00:02:09,466
+practices that you can follow in
+
+
+45
+00:02:09,496 --> 00:02:11,926
+order to ensure that your app is
+
+
+46
+00:02:11,926 --> 00:02:12,716
+not affected.
+
+
+47
+00:02:13,166 --> 00:02:14,986
+I'll also talk a little bit
+
+
+48
+00:02:14,986 --> 00:02:18,896
+about how Apple helps you by
+
+
+49
+00:02:18,896 --> 00:02:20,956
+removing insecure options from
+
+
+50
+00:02:20,956 --> 00:02:21,916
+our platforms.
+
+
+51
+00:02:23,176 --> 00:02:24,416
+Chris will then give you an
+
+
+52
+00:02:24,466 --> 00:02:26,356
+update on app transport
+
+
+53
+00:02:26,396 --> 00:02:28,156
+security, which is a mechanism
+
+
+54
+00:02:28,156 --> 00:02:30,736
+that you can use in your apps in
+
+
+55
+00:02:30,736 --> 00:02:32,286
+order to ensure that best
+
+
+56
+00:02:32,286 --> 00:02:33,856
+practices are enforced.
+
+
+57
+00:02:35,236 --> 00:02:36,916
+Finally, Chris will be giving
+
+
+58
+00:02:36,916 --> 00:02:39,466
+you a talk about Transport Layer
+
+
+59
+00:02:39,466 --> 00:02:42,386
+Security, or TLS and an exciting
+
+
+60
+00:02:42,386 --> 00:02:44,416
+new evolution in that protocol.
+
+
+61
+00:02:45,436 --> 00:02:46,966
+So, let's dive right into those
+
+
+62
+00:02:47,006 --> 00:02:48,046
+best practices.
+
+
+63
+00:02:48,886 --> 00:02:50,876
+I'll start at a high level.
+
+
+64
+00:02:51,576 --> 00:02:53,256
+First, the biggest thing you
+
+
+65
+00:02:53,256 --> 00:02:56,386
+have to remember, because as I
+
+
+66
+00:02:56,386 --> 00:02:58,476
+said, those protocols age, and
+
+
+67
+00:02:58,476 --> 00:03:00,376
+those standards have a built-in
+
+
+68
+00:03:00,376 --> 00:03:03,186
+shelf life, you can't set and
+
+
+69
+00:03:03,236 --> 00:03:05,576
+forget the security of your app.
+
+
+70
+00:03:06,486 --> 00:03:08,246
+You have to go through on a
+
+
+71
+00:03:08,246 --> 00:03:10,886
+regular basis and make sure that
+
+
+72
+00:03:10,886 --> 00:03:12,386
+your app is up to date.
+
+
+73
+00:03:12,806 --> 00:03:14,926
+And to know what to change, you
+
+
+74
+00:03:14,926 --> 00:03:16,516
+should be following standards
+
+
+75
+00:03:16,556 --> 00:03:19,226
+bodies, academic research and
+
+
+76
+00:03:19,226 --> 00:03:21,506
+industry best practices.
+
+
+77
+00:03:22,256 --> 00:03:24,706
+But the good news for all of
+
+
+78
+00:03:24,706 --> 00:03:26,996
+you, is that you are already
+
+
+79
+00:03:26,996 --> 00:03:28,776
+doing this because you're here
+
+
+80
+00:03:28,866 --> 00:03:29,366
+today.
+
+
+81
+00:03:30,616 --> 00:03:34,076
+If you are a developer or a
+
+
+82
+00:03:34,076 --> 00:03:35,916
+library developer, you may be
+
+
+83
+00:03:35,916 --> 00:03:38,416
+using a third-party library in
+
+
+84
+00:03:38,416 --> 00:03:39,466
+your app.
+
+
+85
+00:03:39,466 --> 00:03:41,276
+And those can be very risky.
+
+
+86
+00:03:41,776 --> 00:03:42,986
+In particular, if you're
+
+
+87
+00:03:42,986 --> 00:03:44,226
+integrating a third-party
+
+
+88
+00:03:44,226 --> 00:03:46,136
+library you have to be sure you
+
+
+89
+00:03:46,226 --> 00:03:47,246
+keep it up to date.
+
+
+90
+00:03:47,696 --> 00:03:49,376
+A library that you integrated
+
+
+91
+00:03:49,486 --> 00:03:52,156
+three years ago is already out
+
+
+92
+00:03:52,156 --> 00:03:54,576
+of date and maybe using weakened
+
+
+93
+00:03:54,646 --> 00:03:55,406
+security.
+
+
+94
+00:03:55,636 --> 00:03:57,446
+That means that your users are
+
+
+95
+00:03:57,446 --> 00:03:59,166
+not getting the security that
+
+
+96
+00:03:59,166 --> 00:03:59,766
+you want.
+
+
+97
+00:04:01,456 --> 00:04:04,096
+If you're using our APIs, we
+
+
+98
+00:04:04,096 --> 00:04:05,026
+help you here.
+
+
+99
+00:04:05,386 --> 00:04:07,396
+First, we remove many of the
+
+
+100
+00:04:07,396 --> 00:04:10,146
+insecure options from our APIs
+
+
+101
+00:04:10,416 --> 00:04:12,406
+so that you aren't affected.
+
+
+102
+00:04:13,756 --> 00:04:15,586
+We also make available App
+
+
+103
+00:04:15,846 --> 00:04:18,255
+Transport Security, or ATS, in
+
+
+104
+00:04:18,255 --> 00:04:19,736
+order for you to be able to
+
+
+105
+00:04:19,736 --> 00:04:21,755
+enforce those best practices in
+
+
+106
+00:04:21,755 --> 00:04:23,986
+your app, as long as you are
+
+
+107
+00:04:23,986 --> 00:04:26,246
+avoiding ATS exceptions.
+
+
+108
+00:04:27,986 --> 00:04:29,436
+Finally, when those attacks
+
+
+109
+00:04:29,686 --> 00:04:32,236
+happen, before those attacks
+
+
+110
+00:04:32,236 --> 00:04:34,446
+happen you have to remind your
+
+
+111
+00:04:34,476 --> 00:04:37,306
+clients, investors and managers
+
+
+112
+00:04:37,646 --> 00:04:39,246
+that it is worth the maintenance
+
+
+113
+00:04:39,296 --> 00:04:42,126
+cost to update your app so that
+
+
+114
+00:04:42,126 --> 00:04:44,376
+when the next attack happens you
+
+
+115
+00:04:44,376 --> 00:04:46,526
+are not scrambling to remediate
+
+
+116
+00:04:46,526 --> 00:04:48,716
+the problem wasting time and
+
+
+117
+00:04:48,716 --> 00:04:51,536
+energy and money as your app
+
+
+118
+00:04:52,166 --> 00:04:56,516
+appears in the press named as
+
+
+119
+00:04:56,626 --> 00:04:59,086
+one of the bad apps.
+
+
+120
+00:04:59,246 --> 00:05:01,196
+So, let's take a look back at
+
+
+121
+00:05:01,196 --> 00:05:02,376
+those attacks I was talking
+
+
+122
+00:05:02,376 --> 00:05:03,076
+about earlier.
+
+
+123
+00:05:04,046 --> 00:05:05,246
+I'd like to go through some
+
+
+124
+00:05:05,286 --> 00:05:07,126
+detailed best practices that you
+
+
+125
+00:05:07,126 --> 00:05:08,806
+can use to avoid these attacks.
+
+
+126
+00:05:09,346 --> 00:05:11,036
+Specifically, in the area of
+
+
+127
+00:05:11,036 --> 00:05:13,506
+encryption, cryptographic
+
+
+128
+00:05:13,506 --> 00:05:17,776
+hashes, public keys, protocols,
+
+
+129
+00:05:18,446 --> 00:05:19,846
+and revocation.
+
+
+130
+00:05:19,846 --> 00:05:23,326
+So, let's start right off the
+
+
+131
+00:05:23,326 --> 00:05:24,546
+bat with encryption.
+
+
+132
+00:05:25,376 --> 00:05:27,236
+Encryption, as all of you know
+
+
+133
+00:05:27,236 --> 00:05:29,786
+is a mechanism that you can use
+
+
+134
+00:05:29,786 --> 00:05:31,996
+to prevent your users' data from
+
+
+135
+00:05:31,996 --> 00:05:33,756
+being read by an attacker.
+
+
+136
+00:05:34,876 --> 00:05:36,556
+But unfortunately, some of the
+
+
+137
+00:05:36,556 --> 00:05:38,246
+algorithms that we've been using
+
+
+138
+00:05:38,246 --> 00:05:40,036
+for encryption for a long time
+
+
+139
+00:05:40,396 --> 00:05:42,536
+are vulnerable to attacks where
+
+
+140
+00:05:42,536 --> 00:05:46,226
+the key material or the plain
+
+
+141
+00:05:46,226 --> 00:05:48,136
+text could be recovered by an
+
+
+142
+00:05:48,166 --> 00:05:48,766
+attacker.
+
+
+143
+00:05:49,126 --> 00:05:51,096
+In particular, RC 4 is
+
+
+144
+00:05:51,176 --> 00:05:53,986
+vulnerable to an attack where
+
+
+145
+00:05:53,986 --> 00:05:55,896
+the key is recoverable within as
+
+
+146
+00:05:55,896 --> 00:05:57,646
+little as three days.
+
+
+147
+00:05:58,636 --> 00:06:00,906
+Furthermore, the CBC modes of
+
+
+148
+00:06:00,906 --> 00:06:04,856
+both Triple-DES and AES are
+
+
+149
+00:06:04,856 --> 00:06:06,816
+vulnerable to attacks like BEAST
+
+
+150
+00:06:07,186 --> 00:06:11,036
+and Lucky 13 that mean that the
+
+
+151
+00:06:11,516 --> 00:06:13,106
+algorithm is not providing the
+
+
+152
+00:06:13,206 --> 00:06:15,086
+same level of security as you
+
+
+153
+00:06:15,086 --> 00:06:18,646
+want your users to have.
+
+
+154
+00:06:19,366 --> 00:06:22,696
+We plan to remove both RC 4 and
+
+
+155
+00:06:22,696 --> 00:06:25,336
+Triple-DES from TLS across our
+
+
+156
+00:06:25,396 --> 00:06:26,856
+platforms in the future.
+
+
+157
+00:06:27,236 --> 00:06:29,916
+So, now is the time to upgrade.
+
+
+158
+00:06:31,336 --> 00:06:32,926
+Instead, you should be using
+
+
+159
+00:06:32,996 --> 00:06:34,526
+authenticated encryption
+
+
+160
+00:06:34,526 --> 00:06:37,206
+algorithm like AES-GCM or
+
+
+161
+00:06:37,206 --> 00:06:39,726
+ChaCha20/Poly1305.
+
+
+162
+00:06:40,686 --> 00:06:42,026
+Those will ensure that you have
+
+
+163
+00:06:42,026 --> 00:06:45,426
+both the best encryption and can
+
+
+164
+00:06:45,426 --> 00:06:47,516
+detect when that data has been
+
+
+165
+00:06:47,516 --> 00:06:48,196
+modified.
+
+
+166
+00:06:49,306 --> 00:06:50,726
+Speaking of modified data.
+
+
+167
+00:06:51,126 --> 00:06:52,156
+Let's talk now about
+
+
+168
+00:06:52,156 --> 00:06:53,826
+cryptographic hashes.
+
+
+169
+00:06:54,026 --> 00:06:56,516
+As you know, cryptographic
+
+
+170
+00:06:56,516 --> 00:06:58,446
+hashes are a mechanism that
+
+
+171
+00:06:58,446 --> 00:07:01,136
+allows you to detect when the
+
+
+172
+00:07:01,136 --> 00:07:03,556
+input data has been changed.
+
+
+173
+00:07:04,016 --> 00:07:05,716
+But unfortunately, some of the
+
+
+174
+00:07:05,716 --> 00:07:07,536
+cryptographic hash algorithms
+
+
+175
+00:07:07,586 --> 00:07:09,896
+that we've been using are
+
+
+176
+00:07:09,896 --> 00:07:11,086
+vulnerable to what's called a
+
+
+177
+00:07:11,086 --> 00:07:11,856
+collision attack.
+
+
+178
+00:07:12,536 --> 00:07:14,126
+A collision attack is where two
+
+
+179
+00:07:14,126 --> 00:07:15,866
+different inputs produce the
+
+
+180
+00:07:15,866 --> 00:07:17,546
+exact same output.
+
+
+181
+00:07:17,846 --> 00:07:21,046
+And so, you can't tell when an
+
+
+182
+00:07:21,616 --> 00:07:23,606
+attacker has modified the data
+
+
+183
+00:07:23,896 --> 00:07:25,396
+because the hashes will be the
+
+
+184
+00:07:25,476 --> 00:07:25,986
+same.
+
+
+185
+00:07:26,436 --> 00:07:29,716
+In particular, both MD 5 and
+
+
+186
+00:07:29,716 --> 00:07:32,026
+SHA-1 have demonstrated
+
+
+187
+00:07:32,026 --> 00:07:32,636
+collision attacks.
+
+
+188
+00:07:34,296 --> 00:07:37,096
+In fact, an MD-5 collision was
+
+
+189
+00:07:37,096 --> 00:07:39,296
+used in the Flame malware in
+
+
+190
+00:07:39,296 --> 00:07:41,896
+order to bypass platform
+
+
+191
+00:07:41,946 --> 00:07:43,756
+security and gain access to
+
+
+192
+00:07:43,756 --> 00:07:44,826
+users' systems.
+
+
+193
+00:07:45,536 --> 00:07:48,506
+We removed trust in all MD-5
+
+
+194
+00:07:48,586 --> 00:07:50,096
+signed certificates across our
+
+
+195
+00:07:50,156 --> 00:07:52,166
+platforms in previous years.
+
+
+196
+00:07:53,736 --> 00:07:56,616
+SHA-1 just recently had an
+
+
+197
+00:07:56,886 --> 00:07:57,036
+attack.
+
+
+198
+00:07:57,036 --> 00:07:58,726
+The Shouted attack was performed
+
+
+199
+00:07:59,166 --> 00:08:01,656
+earlier this year, and so this
+
+
+200
+00:08:01,656 --> 00:08:03,396
+is the freshest information.
+
+
+201
+00:08:03,856 --> 00:08:06,806
+Knowing that the SHA-1 one
+
+
+202
+00:08:06,926 --> 00:08:08,516
+attack was imminent, we removed
+
+
+203
+00:08:08,596 --> 00:08:10,756
+trust in all SHA-1 signed
+
+
+204
+00:08:10,756 --> 00:08:13,446
+certificates for TLS servers
+
+
+205
+00:08:13,896 --> 00:08:16,936
+when connecting through WebKit
+
+
+206
+00:08:17,066 --> 00:08:18,126
+and Safari.
+
+
+207
+00:08:19,026 --> 00:08:20,376
+And we've seen such an
+
+
+208
+00:08:20,376 --> 00:08:23,346
+improvement in the disk use of
+
+
+209
+00:08:23,346 --> 00:08:25,696
+SHA-1 certificates, that today
+
+
+210
+00:08:25,776 --> 00:08:26,856
+I'm announcing that we're
+
+
+211
+00:08:26,856 --> 00:08:29,516
+removing trust across all TLS
+
+
+212
+00:08:29,716 --> 00:08:32,015
+connections for SHA-1 signed
+
+
+213
+00:08:32,056 --> 00:08:32,716
+certificates.
+
+
+214
+00:08:33,306 --> 00:08:35,066
+I'll talk a little bit more
+
+
+215
+00:08:35,066 --> 00:08:36,616
+about how that affects you and
+
+
+216
+00:08:36,616 --> 00:08:38,296
+your app later on.
+
+
+217
+00:08:39,316 --> 00:08:41,216
+Instead, you should be using any
+
+
+218
+00:08:41,216 --> 00:08:44,296
+of the SHA-2 family of hashes in
+
+
+219
+00:08:44,296 --> 00:08:46,746
+order to get that best security
+
+
+220
+00:08:47,106 --> 00:08:48,766
+and avoid these collision
+
+
+221
+00:08:50,156 --> 00:08:50,316
+attacks.
+
+
+222
+00:08:50,606 --> 00:08:51,836
+Next, I'd like to talk about
+
+
+223
+00:08:52,046 --> 00:08:52,786
+public keys.
+
+
+224
+00:08:53,366 --> 00:08:55,746
+Public keys, as you know, are a
+
+
+225
+00:08:55,746 --> 00:08:58,346
+mechanism that provides an
+
+
+226
+00:08:58,346 --> 00:09:00,746
+identity, a sort of identity for
+
+
+227
+00:09:00,746 --> 00:09:01,186
+you.
+
+
+228
+00:09:01,486 --> 00:09:03,906
+Such that other people can
+
+
+229
+00:09:03,906 --> 00:09:05,676
+verify that something you signed
+
+
+230
+00:09:05,676 --> 00:09:07,526
+was signed by you and not
+
+
+231
+00:09:07,586 --> 00:09:08,206
+someone else.
+
+
+232
+00:09:08,936 --> 00:09:11,256
+And can be used to send you
+
+
+233
+00:09:11,256 --> 00:09:14,026
+encrypted data that only you can
+
+
+234
+00:09:14,026 --> 00:09:15,906
+decrypt with your private key.
+
+
+235
+00:09:16,956 --> 00:09:19,646
+But unfortunately, RSA key sizes
+
+
+236
+00:09:19,846 --> 00:09:22,236
+smaller than 1024 bits are
+
+
+237
+00:09:22,236 --> 00:09:25,856
+vulnerable to factorization
+
+
+238
+00:09:25,916 --> 00:09:26,166
+attacks.
+
+
+239
+00:09:27,226 --> 00:09:30,566
+In particular, a 768-bit RSA key
+
+
+240
+00:09:30,566 --> 00:09:33,966
+was factored back in 2009 and
+
+
+241
+00:09:34,476 --> 00:09:36,806
+that's why we removed trust from
+
+
+242
+00:09:36,866 --> 00:09:39,436
+any certificates using key sizes
+
+
+243
+00:09:39,536 --> 00:09:42,866
+smaller than 1024 bit RSA back
+
+
+244
+00:09:42,866 --> 00:09:44,956
+in the spring of 2016.
+
+
+245
+00:09:46,216 --> 00:09:49,916
+But the reality is even 1024 bit
+
+
+246
+00:09:49,916 --> 00:09:52,856
+RSA key sizes are not good
+
+
+247
+00:09:52,856 --> 00:09:53,226
+enough.
+
+
+248
+00:09:53,566 --> 00:09:55,796
+And we expect that an attack on
+
+
+249
+00:09:55,796 --> 00:09:58,866
+a 1024 bit RSA key is imminent.
+
+
+250
+00:09:59,216 --> 00:10:02,556
+And that's why today I'm
+
+
+251
+00:10:02,556 --> 00:10:04,136
+announcing that we're removing
+
+
+252
+00:10:04,136 --> 00:10:06,836
+trust from certificates using
+
+
+253
+00:10:06,906 --> 00:10:09,346
+key sizes smaller than 2048 bits
+
+
+254
+00:10:09,756 --> 00:10:11,976
+across all TLS connections to
+
+
+255
+00:10:11,976 --> 00:10:12,546
+servers.
+
+
+256
+00:10:13,496 --> 00:10:15,406
+In order to avoid these removals
+
+
+257
+00:10:15,866 --> 00:10:18,586
+and ensure that you have best
+
+
+258
+00:10:18,726 --> 00:10:20,596
+security, you should be using
+
+
+259
+00:10:20,656 --> 00:10:22,986
+RSA key sizes greater than or
+
+
+260
+00:10:23,036 --> 00:10:26,526
+equal to 2048 bits, or any of
+
+
+261
+00:10:26,526 --> 00:10:27,966
+the elliptic curves that are
+
+
+262
+00:10:27,966 --> 00:10:29,916
+trusted on our platforms.
+
+
+263
+00:10:30,576 --> 00:10:33,396
+Next, I'd like to spend some
+
+
+264
+00:10:33,396 --> 00:10:34,916
+time talking about protocols.
+
+
+265
+00:10:36,136 --> 00:10:38,696
+Protocols, as you know, are the
+
+
+266
+00:10:38,696 --> 00:10:40,956
+mechanism that you actually use
+
+
+267
+00:10:40,956 --> 00:10:42,436
+to talk to servers.
+
+
+268
+00:10:42,796 --> 00:10:44,196
+They are interoperable, which
+
+
+269
+00:10:44,196 --> 00:10:45,346
+means that you don't have to
+
+
+270
+00:10:45,346 --> 00:10:47,336
+worry whether the server you're
+
+
+271
+00:10:47,336 --> 00:10:49,306
+talking to across the world
+
+
+272
+00:10:49,696 --> 00:10:51,086
+supports the protocol you're
+
+
+273
+00:10:51,086 --> 00:10:51,666
+using.
+
+
+274
+00:10:52,656 --> 00:10:53,956
+Unfortunately, some of these
+
+
+275
+00:10:54,026 --> 00:10:58,026
+protocols are weak or provide no
+
+
+276
+00:10:58,136 --> 00:10:59,886
+security in particular.
+
+
+277
+00:10:59,886 --> 00:11:02,716
+If you are using http all of
+
+
+278
+00:11:02,716 --> 00:11:04,326
+your users' data is being
+
+
+279
+00:11:04,326 --> 00:11:05,936
+transmitted in the clear.
+
+
+280
+00:11:06,366 --> 00:11:08,106
+That means that anyone listening
+
+
+281
+00:11:08,106 --> 00:11:09,996
+in knows exactly that data.
+
+
+282
+00:11:11,286 --> 00:11:13,796
+But some of the older TLS
+
+
+283
+00:11:14,156 --> 00:11:16,356
+versions, like SSL Version 3,
+
+
+284
+00:11:16,836 --> 00:11:20,986
+TLS 1.0, and TLS 1.1 are also
+
+
+285
+00:11:20,986 --> 00:11:23,086
+vulnerable to numerous attacks.
+
+
+286
+00:11:24,216 --> 00:11:26,426
+And so, you should be avoiding
+
+
+287
+00:11:26,426 --> 00:11:28,746
+these when you configure your
+
+
+288
+00:11:28,746 --> 00:11:29,346
+servers.
+
+
+289
+00:11:30,006 --> 00:11:32,656
+We removed the use of SSL
+
+
+290
+00:11:32,656 --> 00:11:36,136
+Version 3 back in fall of 2015.
+
+
+291
+00:11:36,136 --> 00:11:37,786
+So, you've been protected on
+
+
+292
+00:11:38,006 --> 00:11:39,386
+that count for a while.
+
+
+293
+00:11:40,306 --> 00:11:42,176
+Instead, you should be using
+
+
+294
+00:11:42,516 --> 00:11:47,146
+HTTPS, that is HTTP over TLS,
+
+
+295
+00:11:47,766 --> 00:11:50,246
+with TLS 1.2.
+
+
+296
+00:11:50,846 --> 00:11:53,266
+TLS 1.2 is the current best
+
+
+297
+00:11:53,626 --> 00:11:56,636
+standard available for TLS
+
+
+298
+00:11:56,886 --> 00:11:57,496
+security.
+
+
+299
+00:11:58,146 --> 00:11:59,376
+But I'm pleased to announce
+
+
+300
+00:11:59,376 --> 00:12:00,876
+today that we're adding support
+
+
+301
+00:12:00,876 --> 00:12:03,166
+for the draft specification of
+
+
+302
+00:12:03,346 --> 00:12:04,706
+TLS 1.3.
+
+
+303
+00:12:05,586 --> 00:12:07,376
+Chris will be talking more about
+
+
+304
+00:12:07,406 --> 00:12:08,696
+that a little bit later.
+
+
+305
+00:12:10,126 --> 00:12:11,936
+Finally, I'd like to talk about
+
+
+306
+00:12:12,186 --> 00:12:13,076
+revocation.
+
+
+307
+00:12:13,686 --> 00:12:15,646
+Revocation is the mechanism that
+
+
+308
+00:12:15,646 --> 00:12:18,546
+clients use to verify the
+
+
+309
+00:12:18,546 --> 00:12:19,916
+certificate and determine
+
+
+310
+00:12:19,916 --> 00:12:21,326
+whether that certificate should
+
+
+311
+00:12:21,326 --> 00:12:23,946
+be trusted in the event that a
+
+
+312
+00:12:23,946 --> 00:12:26,996
+certificate is mishandled or
+
+
+313
+00:12:27,476 --> 00:12:28,296
+missed issued.
+
+
+314
+00:12:28,896 --> 00:12:31,036
+And of course, the worst thing
+
+
+315
+00:12:31,036 --> 00:12:32,636
+you can do in the area of
+
+
+316
+00:12:32,636 --> 00:12:36,746
+revocation is not check it.
+
+
+317
+00:12:36,876 --> 00:12:39,466
+Unfortunately, our platforms do
+
+
+318
+00:12:39,466 --> 00:12:41,896
+not check revocation by default
+
+
+319
+00:12:42,026 --> 00:12:44,176
+currently and I'll explain why
+
+
+320
+00:12:44,406 --> 00:12:44,896
+later.
+
+
+321
+00:12:45,606 --> 00:12:48,196
+That is, unless of course you
+
+
+322
+00:12:48,196 --> 00:12:50,266
+are using OCSP Stapling.
+
+
+323
+00:12:50,796 --> 00:12:53,136
+OCSP being the Online
+
+
+324
+00:12:53,226 --> 00:12:54,996
+Certificate Status Protocol.
+
+
+325
+00:12:55,526 --> 00:12:57,606
+If your servers are using OCSP
+
+
+326
+00:12:57,606 --> 00:13:00,776
+Stapling, your certificates are
+
+
+327
+00:13:00,886 --> 00:13:02,116
+always being checked for
+
+
+328
+00:13:02,116 --> 00:13:02,866
+revocation.
+
+
+329
+00:13:03,706 --> 00:13:05,646
+So, let's drill down into how
+
+
+330
+00:13:05,646 --> 00:13:09,326
+OCSP and OCSP Stapling work.
+
+
+331
+00:13:10,036 --> 00:13:13,596
+First, as usual, a server
+
+
+332
+00:13:13,776 --> 00:13:15,906
+requests a certificate from a
+
+
+333
+00:13:16,126 --> 00:13:17,816
+trusted third-party called a
+
+
+334
+00:13:17,876 --> 00:13:18,966
+certificate authority.
+
+
+335
+00:13:19,756 --> 00:13:22,206
+The server then uses that
+
+
+336
+00:13:22,206 --> 00:13:24,306
+certificate to identify itself
+
+
+337
+00:13:24,366 --> 00:13:26,676
+to clients connecting to it.
+
+
+338
+00:13:27,376 --> 00:13:29,486
+The client, in order to verify
+
+
+339
+00:13:29,486 --> 00:13:32,406
+that identity, then requests
+
+
+340
+00:13:32,716 --> 00:13:34,796
+information as to the status of
+
+
+341
+00:13:34,796 --> 00:13:36,696
+that certificate from the
+
+
+342
+00:13:36,766 --> 00:13:38,136
+certificate authority.
+
+
+343
+00:13:38,806 --> 00:13:39,976
+The certificate authority
+
+
+344
+00:13:39,976 --> 00:13:41,876
+replies back with a signed
+
+
+345
+00:13:42,026 --> 00:13:44,676
+message indicating the status of
+
+
+346
+00:13:44,676 --> 00:13:45,996
+the certificate that the client
+
+
+347
+00:13:45,996 --> 00:13:47,626
+is looking at.
+
+
+348
+00:13:47,806 --> 00:13:49,096
+The client verifies that
+
+
+349
+00:13:49,096 --> 00:13:50,916
+response and then uses that
+
+
+350
+00:13:51,206 --> 00:13:53,366
+status to determine whether to
+
+
+351
+00:13:53,366 --> 00:13:55,356
+continue the connection to the
+
+
+352
+00:13:55,446 --> 00:13:55,836
+server.
+
+
+353
+00:13:56,806 --> 00:13:59,516
+But unfortunately, OCSP has some
+
+
+354
+00:13:59,516 --> 00:14:00,076
+drawbacks.
+
+
+355
+00:14:00,926 --> 00:14:02,636
+As you can see from that
+
+
+356
+00:14:02,896 --> 00:14:04,736
+previous description It requires
+
+
+357
+00:14:04,736 --> 00:14:06,846
+an additional network connection
+
+
+358
+00:14:07,196 --> 00:14:08,896
+for every connection to the
+
+
+359
+00:14:08,896 --> 00:14:09,446
+server.
+
+
+360
+00:14:10,726 --> 00:14:12,806
+That means that your connections
+
+
+361
+00:14:12,806 --> 00:14:15,346
+in your apps appear slower and
+
+
+362
+00:14:15,346 --> 00:14:17,696
+none of us want that.
+
+
+363
+00:14:18,146 --> 00:14:20,726
+Furthermore, OCSP is performed
+
+
+364
+00:14:20,876 --> 00:14:21,836
+in the clear.
+
+
+365
+00:14:22,306 --> 00:14:23,616
+That means that all of the
+
+
+366
+00:14:24,026 --> 00:14:25,166
+traffic indicating which
+
+
+367
+00:14:25,206 --> 00:14:27,016
+certificate the client wants
+
+
+368
+00:14:27,046 --> 00:14:29,306
+checked is visible to anybody
+
+
+369
+00:14:29,456 --> 00:14:30,216
+watching.
+
+
+370
+00:14:30,706 --> 00:14:33,076
+And the reason that OCSP is
+
+
+371
+00:14:33,076 --> 00:14:35,366
+performed in the clear is that
+
+
+372
+00:14:36,026 --> 00:14:37,816
+it you would need it to
+
+
+373
+00:14:37,816 --> 00:14:40,136
+establish a secure connection.
+
+
+374
+00:14:40,296 --> 00:14:41,746
+So, if you had to establish a
+
+
+375
+00:14:41,806 --> 00:14:44,486
+secure connection to get OCSP,
+
+
+376
+00:14:44,656 --> 00:14:46,046
+you might end up in a circular
+
+
+377
+00:14:46,046 --> 00:14:46,646
+problem.
+
+
+378
+00:14:47,266 --> 00:14:49,786
+That's why OCSP is a huge
+
+
+379
+00:14:49,786 --> 00:14:51,386
+compromise of your users'
+
+
+380
+00:14:51,426 --> 00:14:52,156
+privacy.
+
+
+381
+00:14:52,636 --> 00:14:54,146
+Since all that information is in
+
+
+382
+00:14:54,146 --> 00:14:54,716
+the clear.
+
+
+383
+00:14:55,316 --> 00:14:57,546
+Anyone who is listening can and
+
+
+384
+00:14:57,626 --> 00:14:59,296
+find out what servers that
+
+
+385
+00:14:59,406 --> 00:15:00,786
+client is connecting to.
+
+
+386
+00:15:01,476 --> 00:15:03,416
+Furthermore, that third-party
+
+
+387
+00:15:03,476 --> 00:15:06,006
+certificate authority can
+
+
+388
+00:15:06,006 --> 00:15:08,506
+aggregate data as to which IP
+
+
+389
+00:15:08,506 --> 00:15:10,286
+address is which clients are
+
+
+390
+00:15:10,286 --> 00:15:13,366
+talking to which servers and
+
+
+391
+00:15:13,366 --> 00:15:15,516
+sell that to anybody they want.
+
+
+392
+00:15:15,516 --> 00:15:18,566
+So, that's very bad.
+
+
+393
+00:15:18,676 --> 00:15:20,916
+These 2 drawbacks are the reason
+
+
+394
+00:15:20,916 --> 00:15:24,436
+that we do not have OCSP enabled
+
+
+395
+00:15:24,436 --> 00:15:25,256
+by default.
+
+
+396
+00:15:25,926 --> 00:15:28,156
+And if you wanted to enable OCSP
+
+
+397
+00:15:28,156 --> 00:15:30,566
+in your app you would have to
+
+
+398
+00:15:30,566 --> 00:15:33,786
+integrate additional APIs.
+
+
+399
+00:15:34,436 --> 00:15:36,996
+So, next I want to talk about
+
+
+400
+00:15:37,176 --> 00:15:39,126
+OCSP Stapling, which is a
+
+
+401
+00:15:39,126 --> 00:15:42,666
+dramatic improvement on OCSP and
+
+
+402
+00:15:42,956 --> 00:15:44,646
+an evolution in the protocol
+
+
+403
+00:15:44,646 --> 00:15:46,356
+that removes many of the
+
+
+404
+00:15:46,356 --> 00:15:48,326
+drawbacks of OCSP.
+
+
+405
+00:15:49,146 --> 00:15:51,116
+As before, the server gets a
+
+
+406
+00:15:51,116 --> 00:15:52,976
+certificate from the certificate
+
+
+407
+00:15:52,976 --> 00:15:53,546
+authority.
+
+
+408
+00:15:54,336 --> 00:15:56,646
+But before sending that
+
+
+409
+00:15:56,646 --> 00:15:58,536
+certificate to a client, the
+
+
+410
+00:15:58,696 --> 00:16:01,156
+server requests the OCSP
+
+
+411
+00:16:01,156 --> 00:16:04,256
+response from the certificate
+
+
+412
+00:16:04,256 --> 00:16:04,826
+authority.
+
+
+413
+00:16:05,126 --> 00:16:06,336
+And when it gets that signed
+
+
+414
+00:16:06,336 --> 00:16:08,956
+response back, the server
+
+
+415
+00:16:08,956 --> 00:16:11,216
+verifies it and then sends it
+
+
+416
+00:16:11,216 --> 00:16:13,306
+along with the certificate to
+
+
+417
+00:16:13,306 --> 00:16:13,846
+the client.
+
+
+418
+00:16:14,646 --> 00:16:16,756
+The client can then verify both
+
+
+419
+00:16:16,786 --> 00:16:18,426
+the certificate and the
+
+
+420
+00:16:18,426 --> 00:16:19,486
+revocation status
+
+
+421
+00:16:19,636 --> 00:16:20,746
+simultaneously.
+
+
+422
+00:16:21,346 --> 00:16:23,326
+So, this is a huge win, both in
+
+
+423
+00:16:23,326 --> 00:16:25,096
+terms of performance, because
+
+
+424
+00:16:25,096 --> 00:16:26,506
+you don't need that additional
+
+
+425
+00:16:26,506 --> 00:16:27,636
+network connection on your
+
+
+426
+00:16:27,636 --> 00:16:28,076
+client.
+
+
+427
+00:16:28,726 --> 00:16:31,236
+And in terms of privacy, because
+
+
+428
+00:16:31,236 --> 00:16:32,806
+the client doesn't have to
+
+
+429
+00:16:32,806 --> 00:16:35,216
+connect to a third party to find
+
+
+430
+00:16:35,216 --> 00:16:37,166
+out about the revocation status.
+
+
+431
+00:16:38,546 --> 00:16:41,346
+But even OCSP Stapling has some
+
+
+432
+00:16:41,346 --> 00:16:41,876
+drawbacks.
+
+
+433
+00:16:42,826 --> 00:16:44,946
+We've noted that despite
+
+
+434
+00:16:44,946 --> 00:16:46,956
+encouraging all of you to adopt
+
+
+435
+00:16:46,956 --> 00:16:48,556
+it on your servers, that
+
+
+436
+00:16:48,556 --> 00:16:50,226
+adoption has been slow.
+
+
+437
+00:16:51,246 --> 00:16:54,006
+We are aware that enabling OCSP
+
+
+438
+00:16:54,006 --> 00:16:56,696
+in some of the open source
+
+
+439
+00:16:56,896 --> 00:16:59,176
+server implementations does have
+
+
+440
+00:16:59,176 --> 00:16:59,606
+drawbacks.
+
+
+441
+00:17:00,216 --> 00:17:02,076
+But we, nonetheless, encourage
+
+
+442
+00:17:02,076 --> 00:17:05,146
+you to fix those issues and to
+
+
+443
+00:17:05,146 --> 00:17:07,806
+adopt OCSP in order to improve
+
+
+444
+00:17:07,806 --> 00:17:10,955
+the security and the speed of
+
+
+445
+00:17:10,955 --> 00:17:12,796
+your app.
+
+
+446
+00:17:13,076 --> 00:17:15,856
+But the worst thing about OCSP
+
+
+447
+00:17:15,856 --> 00:17:17,766
+is that it actually doesn't
+
+
+448
+00:17:17,766 --> 00:17:20,516
+protect users against malicious
+
+
+449
+00:17:20,576 --> 00:17:21,116
+servers.
+
+
+450
+00:17:21,766 --> 00:17:23,665
+In particular, the malicious
+
+
+451
+00:17:23,665 --> 00:17:26,195
+server just need omit the
+
+
+452
+00:17:26,195 --> 00:17:28,616
+stapled OCSP response and the
+
+
+453
+00:17:28,616 --> 00:17:31,276
+client will never know that that
+
+
+454
+00:17:31,276 --> 00:17:33,016
+malicious server has a revoked
+
+
+455
+00:17:33,016 --> 00:17:33,786
+certificate.
+
+
+456
+00:17:35,106 --> 00:17:36,446
+That's why I'm pleased to
+
+
+457
+00:17:36,446 --> 00:17:39,066
+announce to you today that we
+
+
+458
+00:17:39,066 --> 00:17:41,946
+are enhancing revocation across
+
+
+459
+00:17:41,946 --> 00:17:43,266
+all of our platforms.
+
+
+460
+00:17:43,926 --> 00:17:46,256
+And it starts with us.
+
+
+461
+00:17:46,746 --> 00:17:49,126
+First, we gather information
+
+
+462
+00:17:49,286 --> 00:17:51,176
+from certificate transparency
+
+
+463
+00:17:51,176 --> 00:17:51,646
+logs.
+
+
+464
+00:17:52,146 --> 00:17:54,246
+Certificate transparency logs or
+
+
+465
+00:17:54,356 --> 00:17:58,256
+CT logs contain cryptographic
+
+
+466
+00:17:58,336 --> 00:18:00,376
+proofs of the existence of a
+
+
+467
+00:18:00,456 --> 00:18:01,136
+certificate.
+
+
+468
+00:18:01,756 --> 00:18:04,166
+You can find out more about CT
+
+
+469
+00:18:04,536 --> 00:18:06,856
+and how it works and how you can
+
+
+470
+00:18:06,856 --> 00:18:08,336
+use it to enhance the security
+
+
+471
+00:18:08,336 --> 00:18:10,626
+of your app by watching last
+
+
+472
+00:18:10,926 --> 00:18:13,066
+year's "What's New in Security"
+
+
+473
+00:18:13,146 --> 00:18:13,666
+session.
+
+
+474
+00:18:15,016 --> 00:18:16,696
+We use the information from the
+
+
+475
+00:18:16,746 --> 00:18:18,966
+certificate transparency logs to
+
+
+476
+00:18:19,046 --> 00:18:21,056
+find out about all of the
+
+
+477
+00:18:21,056 --> 00:18:22,646
+certificates that are trusted on
+
+
+478
+00:18:22,646 --> 00:18:23,516
+our platforms.
+
+
+479
+00:18:23,866 --> 00:18:25,406
+And if you want to help us
+
+
+480
+00:18:25,626 --> 00:18:28,086
+gather information about your
+
+
+481
+00:18:28,086 --> 00:18:29,806
+certificates in your apps and
+
+
+482
+00:18:29,806 --> 00:18:32,246
+your servers, you should verify
+
+
+483
+00:18:32,646 --> 00:18:34,286
+that your certificates are
+
+
+484
+00:18:34,286 --> 00:18:35,936
+logged to a CT log.
+
+
+485
+00:18:36,566 --> 00:18:39,176
+Many CA's will do this for you
+
+
+486
+00:18:39,176 --> 00:18:41,886
+so you just need check.
+
+
+487
+00:18:42,776 --> 00:18:45,406
+With that information, we now
+
+
+488
+00:18:45,406 --> 00:18:47,206
+know all of the certificate
+
+
+489
+00:18:47,206 --> 00:18:50,126
+authorities that are trusted on
+
+
+490
+00:18:50,466 --> 00:18:52,056
+our platforms.
+
+
+491
+00:18:52,216 --> 00:18:54,336
+And from that information we can
+
+
+492
+00:18:54,336 --> 00:18:57,076
+request all of the revocation
+
+
+493
+00:18:57,076 --> 00:18:58,736
+information from those
+
+
+494
+00:18:58,736 --> 00:18:59,866
+certificate authorities.
+
+
+495
+00:19:01,176 --> 00:19:03,316
+We then gather all of that
+
+
+496
+00:19:03,316 --> 00:19:04,756
+revocation information back.
+
+
+497
+00:19:05,556 --> 00:19:07,566
+We aggregate it into a single
+
+
+498
+00:19:07,566 --> 00:19:09,796
+efficient bundle, and then make
+
+
+499
+00:19:09,796 --> 00:19:11,746
+it available to all of our
+
+
+500
+00:19:11,746 --> 00:19:12,136
+clients.
+
+
+501
+00:19:13,726 --> 00:19:15,516
+Those clients check in
+
+
+502
+00:19:15,516 --> 00:19:18,466
+periodically with us to get that
+
+
+503
+00:19:18,466 --> 00:19:20,466
+bundled revocation information,
+
+
+504
+00:19:21,626 --> 00:19:24,916
+and use that latest status
+
+
+505
+00:19:25,016 --> 00:19:27,386
+revocation information when
+
+
+506
+00:19:27,746 --> 00:19:30,046
+checking server certificates
+
+
+507
+00:19:30,046 --> 00:19:31,206
+that they are using.
+
+
+508
+00:19:32,466 --> 00:19:36,176
+If the client hits a certificate
+
+
+509
+00:19:36,246 --> 00:19:38,346
+that is listed there, the client
+
+
+510
+00:19:38,346 --> 00:19:40,436
+will then perform OCSP.
+
+
+511
+00:19:40,766 --> 00:19:43,586
+Unless of course your app is
+
+
+512
+00:19:43,846 --> 00:19:45,866
+using OCSP Stapling.
+
+
+513
+00:19:47,116 --> 00:19:49,586
+The client uses this to verify
+
+
+514
+00:19:49,586 --> 00:19:51,206
+that the certificate really is
+
+
+515
+00:19:51,206 --> 00:19:51,726
+revoked.
+
+
+516
+00:19:51,726 --> 00:19:54,436
+So, we think this is a dramatic
+
+
+517
+00:19:54,436 --> 00:19:56,336
+improvement on the existing
+
+
+518
+00:19:56,406 --> 00:19:58,246
+state of revocation on our
+
+
+519
+00:19:58,246 --> 00:19:58,986
+platforms.
+
+
+520
+00:20:00,046 --> 00:20:02,346
+It has a dramatic improvement in
+
+
+521
+00:20:02,606 --> 00:20:04,496
+the privacy compromise area.
+
+
+522
+00:20:05,336 --> 00:20:06,896
+The bundle that we provide of
+
+
+523
+00:20:06,896 --> 00:20:08,296
+revocation information is the
+
+
+524
+00:20:08,296 --> 00:20:09,996
+same across all of our clients
+
+
+525
+00:20:10,156 --> 00:20:11,756
+and all of our platforms.
+
+
+526
+00:20:12,216 --> 00:20:15,106
+So, we never know which clients
+
+
+527
+00:20:15,106 --> 00:20:16,906
+are connecting to which servers.
+
+
+528
+00:20:17,736 --> 00:20:20,016
+Furthermore, only certificates
+
+
+529
+00:20:20,016 --> 00:20:23,636
+that are in that list require
+
+
+530
+00:20:23,636 --> 00:20:26,156
+the additional OCSP connection.
+
+
+531
+00:20:27,566 --> 00:20:30,946
+So, only the limited set of
+
+
+532
+00:20:30,946 --> 00:20:33,436
+certificates there risk that
+
+
+533
+00:20:33,536 --> 00:20:35,796
+additional privacy compromise if
+
+
+534
+00:20:35,976 --> 00:20:38,076
+your servers are not using OCSP
+
+
+535
+00:20:38,076 --> 00:20:38,826
+Stapling.
+
+
+536
+00:20:40,186 --> 00:20:43,556
+Another huge advantage is that
+
+
+537
+00:20:43,596 --> 00:20:47,376
+the information is automatically
+
+
+538
+00:20:47,516 --> 00:20:48,216
+updated.
+
+
+539
+00:20:49,166 --> 00:20:50,316
+That means that the client
+
+
+540
+00:20:50,596 --> 00:20:52,946
+always have that freshest
+
+
+541
+00:20:52,946 --> 00:20:55,026
+revocation information available
+
+
+542
+00:20:55,026 --> 00:20:56,906
+to them when making all of their
+
+
+543
+00:20:56,906 --> 00:20:59,476
+connections and this means that
+
+
+544
+00:20:59,476 --> 00:21:01,156
+you also get this for free.
+
+
+545
+00:21:01,486 --> 00:21:03,196
+You don't need to make a single
+
+
+546
+00:21:03,196 --> 00:21:05,176
+API call to get this best
+
+
+547
+00:21:05,176 --> 00:21:07,906
+practice security and faster
+
+
+548
+00:21:08,026 --> 00:21:08,806
+connections.
+
+
+549
+00:21:09,976 --> 00:21:12,426
+So, I've covered a lot of ground
+
+
+550
+00:21:12,426 --> 00:21:14,036
+in the last 20 minutes and I'd
+
+
+551
+00:21:14,036 --> 00:21:16,346
+like to recall what we talked
+
+
+552
+00:21:16,346 --> 00:21:16,726
+about.
+
+
+553
+00:21:17,386 --> 00:21:19,636
+First we talked about encryption
+
+
+554
+00:21:19,916 --> 00:21:21,766
+and using authenticated
+
+
+555
+00:21:21,766 --> 00:21:24,856
+encryption ciphers in your
+
+
+556
+00:21:24,946 --> 00:21:25,956
+servers and your apps.
+
+
+557
+00:21:27,106 --> 00:21:29,836
+We talked about hashes and how
+
+
+558
+00:21:29,836 --> 00:21:33,236
+to avoid collision attacks.
+
+
+559
+00:21:33,426 --> 00:21:35,936
+We talked about public keys and
+
+
+560
+00:21:35,936 --> 00:21:38,336
+using strong public keys that
+
+
+561
+00:21:38,336 --> 00:21:40,966
+are not subject to
+
+
+562
+00:21:41,056 --> 00:21:42,176
+factorization.
+
+
+563
+00:21:43,256 --> 00:21:45,246
+We also talked about protocols
+
+
+564
+00:21:45,246 --> 00:21:47,826
+and using the latest protocols
+
+
+565
+00:21:47,826 --> 00:21:51,966
+like TLS 1.2 and HTTPS to secure
+
+
+566
+00:21:51,966 --> 00:21:53,266
+your apps.
+
+
+567
+00:21:53,646 --> 00:21:55,316
+Finally, we talked about
+
+
+568
+00:21:55,316 --> 00:21:57,916
+revocation and how you can
+
+
+569
+00:21:57,916 --> 00:22:00,276
+improve the security of your app
+
+
+570
+00:22:00,486 --> 00:22:03,186
+by using revocation and OCSP
+
+
+571
+00:22:03,186 --> 00:22:04,736
+Stapling on your servers, and
+
+
+572
+00:22:04,736 --> 00:22:06,506
+the ways in which we've helped
+
+
+573
+00:22:06,506 --> 00:22:08,596
+you with a brand-new revocation
+
+
+574
+00:22:08,596 --> 00:22:09,246
+mechanism.
+
+
+575
+00:22:10,806 --> 00:22:12,586
+Now, I promise you that I'd talk
+
+
+576
+00:22:12,586 --> 00:22:14,956
+a little bit more about those
+
+
+577
+00:22:15,026 --> 00:22:16,616
+trust removals that I announced
+
+
+578
+00:22:16,696 --> 00:22:17,226
+earlier.
+
+
+579
+00:22:18,206 --> 00:22:20,286
+Let's go back and recall what
+
+
+580
+00:22:20,366 --> 00:22:22,006
+those trust removals were.
+
+
+581
+00:22:23,416 --> 00:22:25,396
+First, I announced that we would
+
+
+582
+00:22:25,396 --> 00:22:28,676
+be removing trust in any SHA-1
+
+
+583
+00:22:28,786 --> 00:22:30,906
+signed certificate for
+
+
+584
+00:22:30,906 --> 00:22:32,786
+connections to TLS servers
+
+
+585
+00:22:32,846 --> 00:22:34,986
+across all of our platforms.
+
+
+586
+00:22:35,906 --> 00:22:37,816
+I also announced that we would
+
+
+587
+00:22:37,816 --> 00:22:39,356
+be removing trust in
+
+
+588
+00:22:39,396 --> 00:22:41,976
+certificates using key sizes
+
+
+589
+00:22:42,136 --> 00:22:46,446
+smaller than 2048 bit RSA, also
+
+
+590
+00:22:46,446 --> 00:22:48,266
+in all TLS connections to
+
+
+591
+00:22:48,266 --> 00:22:48,736
+servers.
+
+
+592
+00:22:50,206 --> 00:22:52,086
+If you are connecting to a
+
+
+593
+00:22:52,206 --> 00:22:55,976
+server using TLS that has one of
+
+
+594
+00:22:55,976 --> 00:22:58,256
+these weak certificates, your
+
+
+595
+00:22:58,256 --> 00:23:01,106
+app will fail to make that
+
+
+596
+00:23:01,286 --> 00:23:04,166
+connection on macOS High Sierra
+
+
+597
+00:23:04,586 --> 00:23:07,366
+and iOS 11, and watchOS 4 and
+
+
+598
+00:23:07,586 --> 00:23:08,996
+tvOS 11.
+
+
+599
+00:23:09,836 --> 00:23:13,516
+Let's back up and remind
+
+
+600
+00:23:13,516 --> 00:23:16,496
+ourselves what certificates this
+
+
+601
+00:23:16,496 --> 00:23:18,196
+trust removal does not affect
+
+
+602
+00:23:18,626 --> 00:23:19,926
+based on my description.
+
+
+603
+00:23:20,866 --> 00:23:23,876
+First, this does not affect root
+
+
+604
+00:23:23,876 --> 00:23:24,556
+certificates.
+
+
+605
+00:23:25,606 --> 00:23:27,466
+In particular, root certificates
+
+
+606
+00:23:27,516 --> 00:23:29,936
+are not subject to the type of
+
+
+607
+00:23:29,976 --> 00:23:31,376
+collision attacks that we are
+
+
+608
+00:23:31,376 --> 00:23:34,076
+worried about with the SHA-1.
+
+
+609
+00:23:35,196 --> 00:23:38,526
+Also, we already removed all
+
+
+610
+00:23:38,526 --> 00:23:40,116
+roots certificates using key
+
+
+611
+00:23:40,116 --> 00:23:43,026
+sizes smaller than 2048 bits
+
+
+612
+00:23:43,496 --> 00:23:45,996
+back in fall of 2015.
+
+
+613
+00:23:46,226 --> 00:23:47,666
+So, you've been protected there
+
+
+614
+00:23:47,786 --> 00:23:48,616
+for awhile.
+
+
+615
+00:23:50,096 --> 00:23:51,906
+These trust removals also do not
+
+
+616
+00:23:51,906 --> 00:23:53,826
+affect enterprise distributed
+
+
+617
+00:23:53,826 --> 00:23:55,966
+certificates through mobile
+
+
+618
+00:23:55,966 --> 00:23:57,816
+device management or MDM.
+
+
+619
+00:23:58,496 --> 00:24:00,486
+It also doesn't affect user
+
+
+620
+00:24:00,486 --> 00:24:02,626
+installed certificates through
+
+
+621
+00:24:02,626 --> 00:24:05,596
+mail, Safari or keychain access.
+
+
+622
+00:24:06,766 --> 00:24:08,336
+Finally, it also doesn't affect
+
+
+623
+00:24:08,716 --> 00:24:11,096
+client certificates when used
+
+
+624
+00:24:11,336 --> 00:24:13,516
+with mutual authentication in
+
+
+625
+00:24:13,616 --> 00:24:13,986
+TLS.
+
+
+626
+00:24:15,196 --> 00:24:16,776
+It's not that we're not worried
+
+
+627
+00:24:16,846 --> 00:24:19,076
+about attacks on the
+
+
+628
+00:24:19,156 --> 00:24:21,236
+certificates, we are.
+
+
+629
+00:24:21,916 --> 00:24:24,156
+But we know that it takes time
+
+
+630
+00:24:24,826 --> 00:24:26,886
+for enterprises and users to
+
+
+631
+00:24:26,956 --> 00:24:29,676
+update all of their certificates
+
+
+632
+00:24:29,976 --> 00:24:31,956
+and their infrastructures to use
+
+
+633
+00:24:31,956 --> 00:24:33,496
+the latest algorithms.
+
+
+634
+00:24:33,916 --> 00:24:35,346
+And so, we're giving them just a
+
+
+635
+00:24:35,346 --> 00:24:36,596
+little bit more time.
+
+
+636
+00:24:37,446 --> 00:24:39,936
+I promise that we will be
+
+
+637
+00:24:39,936 --> 00:24:41,086
+removing trust in those
+
+
+638
+00:24:41,086 --> 00:24:42,376
+certificates later on.
+
+
+639
+00:24:42,706 --> 00:24:44,896
+So now is the time to start
+
+
+640
+00:24:44,896 --> 00:24:46,516
+updating, not then.
+
+
+641
+00:24:47,936 --> 00:24:49,506
+Now, you're probably wondering
+
+
+642
+00:24:49,506 --> 00:24:51,036
+what this looks like.
+
+
+643
+00:24:51,466 --> 00:24:52,646
+Because if it's affecting your
+
+
+644
+00:24:52,896 --> 00:24:53,746
+app, you need to know.
+
+
+645
+00:24:54,526 --> 00:24:56,596
+If you are in Safari, you see an
+
+
+646
+00:24:56,596 --> 00:24:57,726
+error dialog that looks
+
+
+647
+00:24:57,726 --> 00:24:59,106
+something like this.
+
+
+648
+00:24:59,726 --> 00:25:01,776
+And if we drill into the
+
+
+649
+00:25:01,836 --> 00:25:04,056
+certificate pane, we see that
+
+
+650
+00:25:04,056 --> 00:25:06,136
+there's a specific error message
+
+
+651
+00:25:06,176 --> 00:25:08,416
+for these removed weak
+
+
+652
+00:25:08,506 --> 00:25:08,916
+certificates.
+
+
+653
+00:25:08,916 --> 00:25:11,616
+And that's how you will know if
+
+
+654
+00:25:11,666 --> 00:25:13,136
+you're connecting to such a
+
+
+655
+00:25:13,136 --> 00:25:13,766
+certificate.
+
+
+656
+00:25:15,076 --> 00:25:16,536
+Now, many of you are app
+
+
+657
+00:25:16,646 --> 00:25:18,206
+developers and so you care more
+
+
+658
+00:25:18,206 --> 00:25:19,346
+about what you're going to see
+
+
+659
+00:25:19,346 --> 00:25:20,086
+in the logs.
+
+
+660
+00:25:20,086 --> 00:25:21,706
+Because you may never connect to
+
+
+661
+00:25:21,706 --> 00:25:23,806
+this server through Safari.
+
+
+662
+00:25:24,466 --> 00:25:25,796
+If you're looking in the logs,
+
+
+663
+00:25:26,046 --> 00:25:28,036
+you're going to see an invalid
+
+
+664
+00:25:28,166 --> 00:25:33,086
+searching or -9807 SSL error in
+
+
+665
+00:25:33,086 --> 00:25:34,836
+your URL session or URL
+
+
+666
+00:25:34,916 --> 00:25:35,506
+connection.
+
+
+667
+00:25:37,336 --> 00:25:39,836
+There's only one thing that you
+
+
+668
+00:25:39,836 --> 00:25:41,636
+can do in order to fix this
+
+
+669
+00:25:41,636 --> 00:25:43,996
+problem and that is to have your
+
+
+670
+00:25:43,996 --> 00:25:46,456
+server administrators upgrade
+
+
+671
+00:25:46,456 --> 00:25:48,056
+their servers to use new
+
+
+672
+00:25:48,126 --> 00:25:48,986
+certificates.
+
+
+673
+00:25:50,186 --> 00:25:52,346
+The good news is that all
+
+
+674
+00:25:52,406 --> 00:25:54,016
+certificate authorities trusted
+
+
+675
+00:25:54,086 --> 00:25:57,146
+on our platforms only issue
+
+
+676
+00:25:57,146 --> 00:25:58,556
+certificates that are not
+
+
+677
+00:25:58,796 --> 00:26:01,446
+subject to these removals and
+
+
+678
+00:26:01,446 --> 00:26:03,196
+you can find a list of all of
+
+
+679
+00:26:03,196 --> 00:26:04,776
+the root certificates that are
+
+
+680
+00:26:04,776 --> 00:26:08,926
+trusted on our platforms at this
+
+
+681
+00:26:09,026 --> 00:26:09,146
+link.
+
+
+682
+00:26:09,236 --> 00:26:11,156
+So, we've covered quite a bit
+
+
+683
+00:26:11,156 --> 00:26:13,986
+more ground now and I think I at
+
+
+684
+00:26:13,986 --> 00:26:15,796
+least am wondering what should I
+
+
+685
+00:26:15,796 --> 00:26:18,656
+do when I go back to my office.
+
+
+686
+00:26:18,656 --> 00:26:21,626
+How can I ensure that I have
+
+
+687
+00:26:21,626 --> 00:26:23,056
+best security.
+
+
+688
+00:26:23,526 --> 00:26:24,756
+And the very first thing you
+
+
+689
+00:26:24,756 --> 00:26:26,916
+should do is check your
+
+
+690
+00:26:26,916 --> 00:26:29,026
+implementations, libraries and
+
+
+691
+00:26:29,176 --> 00:26:30,766
+servers against those best
+
+
+692
+00:26:30,766 --> 00:26:32,386
+practices that I've listed.
+
+
+693
+00:26:33,066 --> 00:26:34,646
+We even have that handy chart
+
+
+694
+00:26:34,706 --> 00:26:36,976
+that you can use to ensure that
+
+
+695
+00:26:36,976 --> 00:26:39,096
+you have those good algorithms.
+
+
+696
+00:26:39,926 --> 00:26:42,006
+If you're a server developer you
+
+
+697
+00:26:42,006 --> 00:26:43,656
+might actually have quite a bit
+
+
+698
+00:26:43,656 --> 00:26:46,416
+of work to do in order to ensure
+
+
+699
+00:26:46,496 --> 00:26:48,236
+you have the best security for
+
+
+700
+00:26:48,386 --> 00:26:49,296
+all of your clients.
+
+
+701
+00:26:51,216 --> 00:26:52,366
+You should go through and
+
+
+702
+00:26:52,366 --> 00:26:55,336
+replace any SHA-1 or weak RSA
+
+
+703
+00:26:55,406 --> 00:26:58,376
+key certificates so that your
+
+
+704
+00:26:58,376 --> 00:27:00,626
+clients will not see failures on
+
+
+705
+00:27:00,756 --> 00:27:01,786
+our platforms.
+
+
+706
+00:27:02,506 --> 00:27:04,546
+And if you haven't already, you
+
+
+707
+00:27:04,546 --> 00:27:06,816
+should upgrade your servers to
+
+
+708
+00:27:06,816 --> 00:27:09,946
+TLS 1.2 and one of those
+
+
+709
+00:27:10,156 --> 00:27:11,936
+authenticated encryption ciphers
+
+
+710
+00:27:12,026 --> 00:27:13,286
+that I listed earlier.
+
+
+711
+00:27:14,756 --> 00:27:16,986
+You should allow the client to
+
+
+712
+00:27:16,986 --> 00:27:19,506
+determine what order to use
+
+
+713
+00:27:19,506 --> 00:27:22,326
+those ciphers because the
+
+
+714
+00:27:22,326 --> 00:27:25,346
+clients may be optimizing to use
+
+
+715
+00:27:25,346 --> 00:27:27,806
+the best and fastest cipher as
+
+
+716
+00:27:27,806 --> 00:27:30,356
+opposed to one of the slower
+
+
+717
+00:27:30,456 --> 00:27:32,106
+equally secure ciphers.
+
+
+718
+00:27:33,596 --> 00:27:34,716
+If you haven't already should
+
+
+719
+00:27:34,876 --> 00:27:37,866
+also enable OCSP Stapling so
+
+
+720
+00:27:37,866 --> 00:27:40,166
+that you can be sure that all of
+
+
+721
+00:27:40,166 --> 00:27:42,556
+your clients always have up to
+
+
+722
+00:27:42,556 --> 00:27:44,436
+date revocation information and
+
+
+723
+00:27:44,796 --> 00:27:46,756
+don't have to make privacy
+
+
+724
+00:27:46,756 --> 00:27:48,866
+compromising additional network
+
+
+725
+00:27:48,936 --> 00:27:49,656
+connections.
+
+
+726
+00:27:51,036 --> 00:27:52,886
+Finally, in order to help us
+
+
+727
+00:27:53,246 --> 00:27:54,836
+with our new revocation
+
+
+728
+00:27:54,836 --> 00:27:56,746
+mechanism you should check that
+
+
+729
+00:27:56,746 --> 00:27:58,726
+your certificates are being logs
+
+
+730
+00:27:58,726 --> 00:28:00,496
+to a certificate transparency
+
+
+731
+00:28:00,496 --> 00:28:00,836
+log.
+
+
+732
+00:28:02,166 --> 00:28:04,246
+Now many of you are probably app
+
+
+733
+00:28:04,416 --> 00:28:05,096
+developers.
+
+
+734
+00:28:05,986 --> 00:28:07,616
+And the good news for you is
+
+
+735
+00:28:07,616 --> 00:28:09,926
+that you have only one job.
+
+
+736
+00:28:10,816 --> 00:28:13,016
+Our platform has made it easy to
+
+
+737
+00:28:13,016 --> 00:28:15,556
+adopt best practices and all you
+
+
+738
+00:28:15,556 --> 00:28:18,616
+have to do is avoid ATS
+
+
+739
+00:28:18,906 --> 00:28:19,796
+exceptions.
+
+
+740
+00:28:19,976 --> 00:28:22,026
+If you are using an ATS
+
+
+741
+00:28:22,026 --> 00:28:22,626
+exception.
+
+
+742
+00:28:22,626 --> 00:28:25,856
+You are saying that connection
+
+
+743
+00:28:25,856 --> 00:28:28,606
+should have weaker security than
+
+
+744
+00:28:28,656 --> 00:28:30,536
+our platform can enforce.
+
+
+745
+00:28:31,306 --> 00:28:34,716
+So, now Chris is going to talk
+
+
+746
+00:28:34,716 --> 00:28:36,236
+to you about app transport
+
+
+747
+00:28:36,236 --> 00:28:37,996
+security a little bit more and
+
+
+748
+00:28:37,996 --> 00:28:39,436
+give you an update on the
+
+
+749
+00:28:39,436 --> 00:28:40,676
+current status.
+
+
+750
+00:28:41,106 --> 00:28:41,326
+Chris.
+
+
+751
+00:28:42,516 --> 00:28:48,696
+[ Applause ]
+
+
+752
+00:28:49,196 --> 00:28:49,826
+>> Thank you, Bailey.
+
+
+753
+00:28:49,826 --> 00:28:51,906
+Now, continuing along this
+
+
+754
+00:28:51,996 --> 00:28:54,206
+thread of best practices, I want
+
+
+755
+00:28:54,206 --> 00:28:55,666
+to dive a little bit deeper into
+
+
+756
+00:28:56,876 --> 00:28:57,136
+ATS.
+
+
+757
+00:28:57,136 --> 00:28:57,956
+ATS for those that aren't
+
+
+758
+00:28:57,956 --> 00:28:59,126
+familiar is a feature we
+
+
+759
+00:28:59,126 --> 00:29:01,106
+released in iOS 9 and
+
+
+760
+00:29:01,596 --> 00:29:02,966
+[inaudible] aimed at increasing
+
+
+761
+00:29:02,966 --> 00:29:04,346
+the security and privacy of your
+
+
+762
+00:29:04,346 --> 00:29:05,126
+customers' data.
+
+
+763
+00:29:05,796 --> 00:29:09,106
+ATS ensures that most of the
+
+
+764
+00:29:09,106 --> 00:29:10,466
+application data sent over the
+
+
+765
+00:29:10,466 --> 00:29:11,806
+network is encrypted and
+
+
+766
+00:29:11,806 --> 00:29:12,826
+protected by default.
+
+
+767
+00:29:14,716 --> 00:29:16,266
+Basically, this means moving
+
+
+768
+00:29:16,266 --> 00:29:18,656
+away from insecure and legacy
+
+
+769
+00:29:18,946 --> 00:29:19,816
+HTP toward HTTPS.
+
+
+770
+00:29:19,816 --> 00:29:22,166
+And that means a couple things,
+
+
+771
+00:29:22,936 --> 00:29:25,076
+the first of which is to use the
+
+
+772
+00:29:25,076 --> 00:29:26,506
+latest standardized version TLS,
+
+
+773
+00:29:26,746 --> 00:29:27,636
+version 1.2.
+
+
+774
+00:29:28,176 --> 00:29:29,556
+This has been updated and
+
+
+775
+00:29:29,556 --> 00:29:31,256
+amended over the years to take
+
+
+776
+00:29:31,256 --> 00:29:32,846
+into account some of the attacks
+
+
+777
+00:29:32,846 --> 00:29:34,136
+that Bailey eluded to earlier.
+
+
+778
+00:29:35,046 --> 00:29:36,256
+It also means using strong
+
+
+779
+00:29:36,256 --> 00:29:36,886
+cryptography.
+
+
+780
+00:29:37,646 --> 00:29:39,306
+That means using block cyphers
+
+
+781
+00:29:39,306 --> 00:29:41,096
+like AES and hash functions from
+
+
+782
+00:29:41,096 --> 00:29:41,926
+the SHA-2 family.
+
+
+783
+00:29:43,236 --> 00:29:44,696
+Importantly, it also means using
+
+
+784
+00:29:44,696 --> 00:29:46,186
+key exchange algorithms that
+
+
+785
+00:29:46,186 --> 00:29:47,366
+provide forward secrecy.
+
+
+786
+00:29:47,366 --> 00:29:49,226
+And this is an increasingly
+
+
+787
+00:29:49,226 --> 00:29:50,566
+important property in today's
+
+
+788
+00:29:50,566 --> 00:29:54,156
+day where the content of your
+
+
+789
+00:29:54,156 --> 00:29:56,486
+application's data as
+
+
+790
+00:29:56,486 --> 00:29:58,386
+transmitted over the network are
+
+
+791
+00:29:58,386 --> 00:29:59,926
+kept save, even in the event
+
+
+792
+00:29:59,926 --> 00:30:01,136
+that the long-term private key
+
+
+793
+00:30:01,136 --> 00:30:02,376
+of a server is compromised.
+
+
+794
+00:30:03,706 --> 00:30:05,566
+Now, we live in a world where
+
+
+795
+00:30:05,566 --> 00:30:07,276
+not all TL servers are equal,
+
+
+796
+00:30:07,466 --> 00:30:09,266
+and moreover, not all TLS
+
+
+797
+00:30:09,266 --> 00:30:10,806
+servers use the same version or
+
+
+798
+00:30:10,806 --> 00:30:11,586
+configuration.
+
+
+799
+00:30:12,296 --> 00:30:14,416
+For example, you might have to
+
+
+800
+00:30:14,416 --> 00:30:15,646
+connect to an add server that
+
+
+801
+00:30:15,646 --> 00:30:17,136
+doesn't even support HTTPS.
+
+
+802
+00:30:18,026 --> 00:30:18,976
+So, what do you do?
+
+
+803
+00:30:20,026 --> 00:30:21,136
+This is where exceptions come
+
+
+804
+00:30:21,136 --> 00:30:21,366
+in.
+
+
+805
+00:30:22,256 --> 00:30:24,696
+Exceptions allow your app to opt
+
+
+806
+00:30:24,696 --> 00:30:26,916
+out of ATS enforcement for
+
+
+807
+00:30:26,916 --> 00:30:29,496
+particular domains, or globally
+
+
+808
+00:30:29,496 --> 00:30:30,546
+across your application.
+
+
+809
+00:30:32,026 --> 00:30:33,916
+Exceptions are intended to be
+
+
+810
+00:30:33,916 --> 00:30:35,926
+temporary to help you maintain
+
+
+811
+00:30:35,926 --> 00:30:37,716
+functionality while servers
+
+
+812
+00:30:37,716 --> 00:30:39,456
+upgrade to more modern TLS
+
+
+813
+00:30:39,456 --> 00:30:40,426
+configurations.
+
+
+814
+00:30:41,996 --> 00:30:43,816
+Last year, we announced plans to
+
+
+815
+00:30:43,816 --> 00:30:45,486
+start requiring justification
+
+
+816
+00:30:45,486 --> 00:30:47,446
+for exceptions in the app store.
+
+
+817
+00:30:48,586 --> 00:30:50,706
+And since then, we've heard that
+
+
+818
+00:30:50,706 --> 00:30:51,946
+the exceptions we had available
+
+
+819
+00:30:51,946 --> 00:30:53,686
+to you did not adequately meet
+
+
+820
+00:30:53,846 --> 00:30:54,976
+all of your use cases.
+
+
+821
+00:30:55,656 --> 00:30:58,326
+And since universal ATS adoption
+
+
+822
+00:30:58,326 --> 00:31:01,216
+remains our primary goal, we've
+
+
+823
+00:31:01,216 --> 00:31:03,056
+taken that time to update the
+
+
+824
+00:31:03,056 --> 00:31:03,866
+exceptions that we have
+
+
+825
+00:31:03,866 --> 00:31:05,846
+available to you to meet and
+
+
+826
+00:31:05,846 --> 00:31:07,206
+satisfy these use cases.
+
+
+827
+00:31:07,576 --> 00:31:08,766
+And I want to dive into some
+
+
+828
+00:31:08,766 --> 00:31:10,596
+recent ones that were added in
+
+
+829
+00:31:10,596 --> 00:31:11,076
+the past.
+
+
+830
+00:31:11,866 --> 00:31:13,536
+Specifically, we've gone beyond
+
+
+831
+00:31:13,536 --> 00:31:14,746
+just acceptance for WebKit
+
+
+832
+00:31:14,746 --> 00:31:15,196
+content.
+
+
+833
+00:31:16,016 --> 00:31:17,116
+There are exceptions now to
+
+
+834
+00:31:17,116 --> 00:31:18,916
+ensure that if you are streaming
+
+
+835
+00:31:18,916 --> 00:31:20,176
+data through the AVFoundation
+
+
+836
+00:31:20,176 --> 00:31:21,406
+framework that happens to be
+
+
+837
+00:31:21,406 --> 00:31:23,176
+encrypted at rest, you can opt
+
+
+838
+00:31:23,176 --> 00:31:24,516
+out of ATS for that particular
+
+
+839
+00:31:24,516 --> 00:31:24,856
+data.
+
+
+840
+00:31:25,856 --> 00:31:26,956
+We also have exceptions to
+
+
+841
+00:31:26,956 --> 00:31:29,456
+support opting out of ATS for
+
+
+842
+00:31:29,456 --> 00:31:31,876
+arbitrary WebView request and
+
+
+843
+00:31:32,036 --> 00:31:33,706
+opting out of ATS for local
+
+
+844
+00:31:33,706 --> 00:31:34,546
+network connections.
+
+
+845
+00:31:35,406 --> 00:31:36,546
+Here, local network connections
+
+
+846
+00:31:36,546 --> 00:31:37,936
+is just a connection made to a
+
+
+847
+00:31:37,936 --> 00:31:39,986
+raw IP address, or a server with
+
+
+848
+00:31:39,986 --> 00:31:41,286
+an unqualified domain name.
+
+
+849
+00:31:42,516 --> 00:31:44,986
+I want to be clear, even though
+
+
+850
+00:31:44,986 --> 00:31:46,396
+it may not be necessary for the
+
+
+851
+00:31:46,396 --> 00:31:47,426
+security and privacy of your
+
+
+852
+00:31:47,426 --> 00:31:50,096
+data to opt out of ATS, because
+
+
+853
+00:31:50,096 --> 00:31:51,426
+you have otherwise encrypted
+
+
+854
+00:31:51,426 --> 00:31:52,676
+your data before transmitting
+
+
+855
+00:31:52,676 --> 00:31:53,046
+it.
+
+
+856
+00:31:53,476 --> 00:31:54,696
+We still believe that the right
+
+
+857
+00:31:54,696 --> 00:31:56,896
+and proper thing to do is to use
+
+
+858
+00:31:56,896 --> 00:31:58,316
+TLS to protect your data in
+
+
+859
+00:31:58,316 --> 00:31:58,766
+transit.
+
+
+860
+00:31:58,936 --> 00:32:00,936
+That means as app developers,
+
+
+861
+00:32:01,046 --> 00:32:02,166
+and as Bailey already mentioned,
+
+
+862
+00:32:02,706 --> 00:32:04,366
+your goal should be to minimize
+
+
+863
+00:32:04,406 --> 00:32:06,236
+or remove exceptions where at
+
+
+864
+00:32:06,236 --> 00:32:08,026
+all possible, if it is within
+
+
+865
+00:32:08,026 --> 00:32:09,496
+your power to do so.
+
+
+866
+00:32:10,266 --> 00:32:12,016
+I also want to point out a
+
+
+867
+00:32:12,016 --> 00:32:13,546
+recent key that was added to
+
+
+868
+00:32:13,546 --> 00:32:14,406
+support certificate
+
+
+869
+00:32:14,406 --> 00:32:15,136
+transparency.
+
+
+870
+00:32:16,306 --> 00:32:18,126
+If you want a particular server
+
+
+871
+00:32:18,126 --> 00:32:20,756
+to opt into or participate in
+
+
+872
+00:32:20,756 --> 00:32:22,256
+certificate transparency to help
+
+
+873
+00:32:22,256 --> 00:32:24,236
+protect your apps, and users'
+
+
+874
+00:32:24,236 --> 00:32:27,956
+apps against certificate
+
+
+875
+00:32:27,956 --> 00:32:29,396
+[inaudible] attacks, you can
+
+
+876
+00:32:29,396 --> 00:32:31,446
+specify for a particular domain
+
+
+877
+00:32:31,736 --> 00:32:32,696
+whether or not you want that
+
+
+878
+00:32:32,696 --> 00:32:35,766
+server to participate in CT.
+
+
+879
+00:32:36,156 --> 00:32:38,776
+Now, we remain committed to ATS.
+
+
+880
+00:32:39,706 --> 00:32:41,146
+And in the past year we've
+
+
+881
+00:32:41,146 --> 00:32:43,086
+continued upgrading the services
+
+
+882
+00:32:43,366 --> 00:32:44,436
+that we make available to you as
+
+
+883
+00:32:44,436 --> 00:32:45,606
+developers, to make sure that
+
+
+884
+00:32:45,606 --> 00:32:46,666
+they are ATS compliant.
+
+
+885
+00:32:47,506 --> 00:32:48,866
+All the services you see here
+
+
+886
+00:32:49,056 --> 00:32:50,966
+are fully ATS compliant, meaning
+
+
+887
+00:32:50,966 --> 00:32:51,936
+that your apps will not have to
+
+
+888
+00:32:51,936 --> 00:32:53,696
+specify and exceptions when
+
+
+889
+00:32:53,696 --> 00:32:54,366
+talking to them.
+
+
+890
+00:32:55,266 --> 00:32:56,606
+You get best practice network
+
+
+891
+00:32:56,606 --> 00:32:58,576
+security out of the box, which
+
+
+892
+00:32:58,576 --> 00:32:59,436
+is the ultimate goal.
+
+
+893
+00:33:00,866 --> 00:33:01,996
+Now, also in this past year, we
+
+
+894
+00:33:01,996 --> 00:33:04,686
+kept an eye on the app store to
+
+
+895
+00:33:04,736 --> 00:33:06,926
+track and see how ATS adoption
+
+
+896
+00:33:07,556 --> 00:33:08,386
+is going.
+
+
+897
+00:33:08,546 --> 00:33:10,696
+We see adoption increasing.
+
+
+898
+00:33:11,616 --> 00:33:13,186
+We've also been seeing the
+
+
+899
+00:33:13,186 --> 00:33:14,476
+number of exceptions increasing.
+
+
+900
+00:33:14,916 --> 00:33:15,796
+Which means that there's still
+
+
+901
+00:33:15,796 --> 00:33:16,746
+more work to be done.
+
+
+902
+00:33:17,536 --> 00:33:18,836
+If you are an app developer,
+
+
+903
+00:33:19,256 --> 00:33:21,036
+continue to be vigilant and
+
+
+904
+00:33:21,036 --> 00:33:23,306
+remove, or minimize your reliant
+
+
+905
+00:33:23,306 --> 00:33:24,026
+on exceptions.
+
+
+906
+00:33:24,566 --> 00:33:26,246
+If you are a server operator or
+
+
+907
+00:33:26,246 --> 00:33:29,146
+owner, please continue upgrading
+
+
+908
+00:33:29,146 --> 00:33:30,366
+your server configurations to
+
+
+909
+00:33:30,366 --> 00:33:32,726
+support 1.2 and more modern
+
+
+910
+00:33:32,726 --> 00:33:35,216
+versions of TLS.
+
+
+911
+00:33:35,436 --> 00:33:39,486
+Now, speaking of TLS, I want to
+
+
+912
+00:33:39,486 --> 00:33:40,996
+give you a brief glimpse into
+
+
+913
+00:33:40,996 --> 00:33:42,226
+the future of this critical
+
+
+914
+00:33:42,256 --> 00:33:43,156
+security protocol.
+
+
+915
+00:33:44,236 --> 00:33:45,306
+For those of you who don't know,
+
+
+916
+00:33:45,626 --> 00:33:47,256
+TLS is quickly becoming the
+
+
+917
+00:33:47,256 --> 00:33:48,106
+[inaudible] of the internet.
+
+
+918
+00:33:48,576 --> 00:33:49,996
+More and more of your traffic is
+
+
+919
+00:33:50,036 --> 00:33:52,616
+protected on the wire thanks to
+
+
+920
+00:33:52,616 --> 00:33:53,226
+TLS, today.
+
+
+921
+00:33:54,866 --> 00:33:57,226
+However, not all traffic is
+
+
+922
+00:33:57,226 --> 00:33:58,066
+protected the same.
+
+
+923
+00:33:59,026 --> 00:34:00,186
+This protocol has been with us
+
+
+924
+00:34:00,186 --> 00:34:01,926
+for many, many years and there
+
+
+925
+00:34:01,926 --> 00:34:02,576
+are many different
+
+
+926
+00:34:02,576 --> 00:34:03,726
+implementations and
+
+
+927
+00:34:03,726 --> 00:34:05,166
+configurations of servers out
+
+
+928
+00:34:05,166 --> 00:34:06,746
+there supporting a wide variety
+
+
+929
+00:34:06,746 --> 00:34:08,275
+of TLS versions.
+
+
+930
+00:34:09,636 --> 00:34:11,126
+And over time the protocol has
+
+
+931
+00:34:11,126 --> 00:34:12,616
+been patched and amended to
+
+
+932
+00:34:12,616 --> 00:34:13,835
+generally address some of the
+
+
+933
+00:34:13,835 --> 00:34:15,045
+attacks that Bailey eluded to
+
+
+934
+00:34:15,045 --> 00:34:17,166
+earlier and just to fix up
+
+
+935
+00:34:17,166 --> 00:34:18,176
+general deficiency in the
+
+
+936
+00:34:18,176 --> 00:34:18,646
+protocol.
+
+
+937
+00:34:19,775 --> 00:34:21,116
+In recent years, the internet
+
+
+938
+00:34:21,116 --> 00:34:22,056
+community has taken it upon
+
+
+939
+00:34:22,056 --> 00:34:22,996
+themselves and deemed it
+
+
+940
+00:34:22,996 --> 00:34:24,216
+necessary to start working on
+
+
+941
+00:34:24,216 --> 00:34:25,096
+the next version of this
+
+
+942
+00:34:25,565 --> 00:34:26,436
+critical protocol.
+
+
+943
+00:34:27,886 --> 00:34:30,815
+TLS 1.3. And in the spirit of
+
+
+944
+00:34:30,815 --> 00:34:32,676
+best practices, we are closely
+
+
+945
+00:34:32,676 --> 00:34:33,976
+tracking this work to ensure
+
+
+946
+00:34:33,976 --> 00:34:35,755
+that we are ready to adopt it
+
+
+947
+00:34:36,016 --> 00:34:37,916
+and help you adopt it when it
+
+
+948
+00:34:37,916 --> 00:34:40,275
+becomes a standard.
+
+
+949
+00:34:40,396 --> 00:34:42,476
+TLS 1.3 is truly best practice
+
+
+950
+00:34:42,476 --> 00:34:43,126
+by design.
+
+
+951
+00:34:44,156 --> 00:34:45,485
+All of the features, the
+
+
+952
+00:34:45,485 --> 00:34:46,576
+majority of the features that
+
+
+953
+00:34:46,576 --> 00:34:47,876
+are in ATS compliance
+
+
+954
+00:34:47,876 --> 00:34:49,936
+configurations are simply part
+
+
+955
+00:34:49,936 --> 00:34:50,826
+of the core standard.
+
+
+956
+00:34:52,016 --> 00:34:54,136
+That means legacy cryptographic
+
+
+957
+00:34:54,136 --> 00:34:55,755
+cipher suites, hash functions,
+
+
+958
+00:34:55,755 --> 00:34:56,906
+and key exchange algorithms are
+
+
+959
+00:34:56,906 --> 00:34:58,316
+simply not allowed.
+
+
+960
+00:34:58,606 --> 00:34:59,806
+Not that you shouldn't use them,
+
+
+961
+00:35:00,016 --> 00:35:01,246
+they're just not there to begin
+
+
+962
+00:35:01,246 --> 00:35:01,426
+with.
+
+
+963
+00:35:02,496 --> 00:35:03,846
+That means the specification is
+
+
+964
+00:35:03,886 --> 00:35:04,996
+overall much simpler.
+
+
+965
+00:35:05,786 --> 00:35:06,726
+Which means that it's easier to
+
+
+966
+00:35:06,726 --> 00:35:08,996
+implement, easier to reason
+
+
+967
+00:35:08,996 --> 00:35:10,856
+about, and most importantly
+
+
+968
+00:35:11,116 --> 00:35:11,956
+easier to test.
+
+
+969
+00:35:12,126 --> 00:35:13,736
+And this gives us greater
+
+
+970
+00:35:13,736 --> 00:35:15,036
+confidence that the
+
+
+971
+00:35:15,036 --> 00:35:17,096
+implementation is free, or at
+
+
+972
+00:35:17,096 --> 00:35:19,926
+least has very few problems that
+
+
+973
+00:35:19,926 --> 00:35:21,256
+have plagued TLS libraries in
+
+
+974
+00:35:21,996 --> 00:35:23,836
+the past.
+
+
+975
+00:35:23,986 --> 00:35:25,626
+As a result of this simplicity,
+
+
+976
+00:35:26,346 --> 00:35:27,596
+it also has improved network
+
+
+977
+00:35:27,596 --> 00:35:28,246
+efficiency.
+
+
+978
+00:35:29,096 --> 00:35:30,126
+And let me show you what I mean
+
+
+979
+00:35:30,956 --> 00:35:31,786
+by that.
+
+
+980
+00:35:31,936 --> 00:35:32,836
+Let's walk through a typical
+
+
+981
+00:35:32,836 --> 00:35:35,976
+handshake in TLS 1.2 and 1.3 to
+
+
+982
+00:35:35,976 --> 00:35:37,116
+establish a connection to a
+
+
+983
+00:35:37,116 --> 00:35:37,526
+server.
+
+
+984
+00:35:38,136 --> 00:35:41,796
+We start with a TCP connection,
+
+
+985
+00:35:42,216 --> 00:35:43,406
+which requires one round trip
+
+
+986
+00:35:43,406 --> 00:35:44,176
+between the client and the
+
+
+987
+00:35:44,176 --> 00:35:44,506
+server.
+
+
+988
+00:35:45,876 --> 00:35:47,026
+Next step you start your TLS
+
+
+989
+00:35:47,026 --> 00:35:48,906
+handshake, where the client and
+
+
+990
+00:35:48,906 --> 00:35:50,106
+server exchange some hellos and
+
+
+991
+00:35:50,106 --> 00:35:51,666
+some initial centrifugation
+
+
+992
+00:35:51,666 --> 00:35:54,476
+information needed to proceed
+
+
+993
+00:35:54,476 --> 00:35:55,546
+with the rest of the connection.
+
+
+994
+00:35:56,246 --> 00:35:58,806
+In TLS 1.3, they actually start
+
+
+995
+00:35:58,806 --> 00:36:00,756
+also negotiating key material
+
+
+996
+00:36:00,896 --> 00:36:03,256
+used to encrypt the rest of the
+
+
+997
+00:36:03,256 --> 00:36:05,476
+traffic sent over that section,
+
+
+998
+00:36:05,996 --> 00:36:07,066
+which means that in the next
+
+
+999
+00:36:07,066 --> 00:36:08,586
+round, the client can start
+
+
+1000
+00:36:08,586 --> 00:36:09,726
+sending application data.
+
+
+1001
+00:36:10,916 --> 00:36:13,536
+In 1.2, the client and server
+
+
+1002
+00:36:13,536 --> 00:36:14,466
+are still negotiating key
+
+
+1003
+00:36:14,466 --> 00:36:16,316
+material, which means that
+
+
+1004
+00:36:16,316 --> 00:36:18,896
+requires one more round trip to
+
+
+1005
+00:36:18,896 --> 00:36:20,566
+establish this session and start
+
+
+1006
+00:36:20,566 --> 00:36:21,166
+sending data.
+
+
+1007
+00:36:22,456 --> 00:36:23,476
+Now, this may not seem like a
+
+
+1008
+00:36:23,476 --> 00:36:24,806
+lot, but let me put it in
+
+
+1009
+00:36:24,806 --> 00:36:25,596
+perspective for you.
+
+
+1010
+00:36:26,546 --> 00:36:27,786
+We collect data from a wide
+
+
+1011
+00:36:27,786 --> 00:36:30,356
+variety of devices on different
+
+
+1012
+00:36:30,356 --> 00:36:32,976
+networks, both carrier, cellular
+
+
+1013
+00:36:33,126 --> 00:36:34,416
+and wi-fi around the world.
+
+
+1014
+00:36:34,466 --> 00:36:36,866
+And our data suggests that at
+
+
+1015
+00:36:36,866 --> 00:36:38,426
+least 10% of cellular
+
+
+1016
+00:36:38,426 --> 00:36:41,566
+connections, or at least 10% of
+
+
+1017
+00:36:41,566 --> 00:36:42,846
+TLS connections on cellular
+
+
+1018
+00:36:42,846 --> 00:36:44,236
+networks, rather, require at
+
+
+1019
+00:36:44,236 --> 00:36:45,636
+least 800 milliseconds to
+
+
+1020
+00:36:45,636 --> 00:36:46,236
+complete.
+
+
+1021
+00:36:46,806 --> 00:36:49,206
+And 10% of TLS connections on
+
+
+1022
+00:36:49,206 --> 00:36:50,966
+wi-fi networks take 500
+
+
+1023
+00:36:50,966 --> 00:36:51,946
+milliseconds to complete.
+
+
+1024
+00:36:53,026 --> 00:36:55,566
+TLS 1.3 would effectively shave
+
+
+1025
+00:36:55,566 --> 00:36:57,676
+1/3 of that time off, which is a
+
+
+1026
+00:36:57,676 --> 00:37:00,906
+huge win in mobile world.
+
+
+1027
+00:37:01,516 --> 00:37:05,036
+Now, TLS 1.3 is still very much
+
+
+1028
+00:37:05,036 --> 00:37:05,966
+a work in progress.
+
+
+1029
+00:37:06,026 --> 00:37:08,156
+And that's why ATS compliance is
+
+
+1030
+00:37:08,156 --> 00:37:10,036
+still focused on getting you to
+
+
+1031
+00:37:10,036 --> 00:37:12,046
+1.2, and ensuring that you're
+
+
+1032
+00:37:12,046 --> 00:37:13,956
+using the latest proper standard
+
+
+1033
+00:37:13,956 --> 00:37:14,536
+of the protocol.
+
+
+1034
+00:37:15,556 --> 00:37:17,806
+However, if you want to
+
+
+1035
+00:37:17,806 --> 00:37:19,656
+experiment with TLS 1.3 to
+
+
+1036
+00:37:19,656 --> 00:37:20,636
+prepare yourself for this
+
+
+1037
+00:37:20,636 --> 00:37:22,396
+protocol, I'm pleased to
+
+
+1038
+00:37:22,446 --> 00:37:24,706
+announce that we can now allow
+
+
+1039
+00:37:24,706 --> 00:37:25,376
+you to do that.
+
+
+1040
+00:37:26,336 --> 00:37:27,926
+It is not on by default in any
+
+
+1041
+00:37:27,926 --> 00:37:28,656
+of our systems.
+
+
+1042
+00:37:29,296 --> 00:37:31,036
+However, if you opt into the
+
+
+1043
+00:37:31,036 --> 00:37:33,576
+seed and want to start
+
+
+1044
+00:37:33,576 --> 00:37:35,176
+experimenting with it, you can
+
+
+1045
+00:37:35,176 --> 00:37:39,596
+install a profile on iOS, or
+
+
+1046
+00:37:39,596 --> 00:37:41,226
+enable system wide TLS 1.3 on
+
+
+1047
+00:37:41,226 --> 00:37:42,866
+macOS with the simple defaults
+
+
+1048
+00:37:43,566 --> 00:37:43,666
+write.
+
+
+1049
+00:37:44,286 --> 00:37:46,736
+And you would do this to prime
+
+
+1050
+00:37:46,736 --> 00:37:47,916
+your application and your
+
+
+1051
+00:37:47,916 --> 00:37:49,716
+network as the protocol marches
+
+
+1052
+00:37:49,716 --> 00:37:51,056
+toward standardization in the
+
+
+1053
+00:37:51,056 --> 00:37:51,586
+next year.
+
+
+1054
+00:37:52,116 --> 00:37:54,396
+And in the meantime, we're
+
+
+1055
+00:37:54,396 --> 00:37:56,516
+paying our due diligence and
+
+
+1056
+00:37:56,516 --> 00:37:58,056
+working with third parties and
+
+
+1057
+00:37:58,056 --> 00:37:59,286
+with our enterprise partners to
+
+
+1058
+00:37:59,286 --> 00:38:01,916
+ensure their apps and their
+
+
+1059
+00:38:01,916 --> 00:38:02,876
+networks are ready for the
+
+
+1060
+00:38:02,876 --> 00:38:04,746
+adoption of the protocol as
+
+
+1061
+00:38:05,736 --> 00:38:05,856
+well.
+
+
+1062
+00:38:07,296 --> 00:38:08,416
+Now, I want to take a step back
+
+
+1063
+00:38:08,416 --> 00:38:09,716
+and come full circle with
+
+
+1064
+00:38:09,716 --> 00:38:11,326
+everything Bailey and I talked
+
+
+1065
+00:38:11,826 --> 00:38:13,356
+about today.
+
+
+1066
+00:38:13,546 --> 00:38:15,556
+One of our primary objectives is
+
+
+1067
+00:38:15,556 --> 00:38:17,296
+to help you keep your customers'
+
+
+1068
+00:38:17,296 --> 00:38:18,446
+data secure and private.
+
+
+1069
+00:38:19,376 --> 00:38:20,696
+And we do this by giving you
+
+
+1070
+00:38:20,696 --> 00:38:21,676
+best practice tools and
+
+
+1071
+00:38:21,676 --> 00:38:23,116
+technologies to help achieve
+
+
+1072
+00:38:23,226 --> 00:38:23,716
+that goal.
+
+
+1073
+00:38:24,986 --> 00:38:26,326
+However, you need to do some
+
+
+1074
+00:38:26,326 --> 00:38:27,016
+work yourself.
+
+
+1075
+00:38:27,646 --> 00:38:29,256
+And that means avoiding legacy
+
+
+1076
+00:38:29,256 --> 00:38:30,816
+or deprecated algorithms when at
+
+
+1077
+00:38:30,816 --> 00:38:31,496
+all possible.
+
+
+1078
+00:38:31,696 --> 00:38:33,666
+And it also means continuing to
+
+
+1079
+00:38:33,666 --> 00:38:34,686
+upgrade to modern TLS
+
+
+1080
+00:38:34,686 --> 00:38:35,546
+configurations.
+
+
+1081
+00:38:36,866 --> 00:38:37,726
+If you're a server owner,
+
+
+1082
+00:38:37,726 --> 00:38:39,916
+operator, again, that means
+
+
+1083
+00:38:39,916 --> 00:38:42,096
+moving to 1.2 to make sure that
+
+
+1084
+00:38:42,096 --> 00:38:44,406
+every app that is ATS compliant
+
+
+1085
+00:38:44,406 --> 00:38:45,016
+can speak to you.
+
+
+1086
+00:38:46,226 --> 00:38:47,356
+If you're an app developer,
+
+
+1087
+00:38:47,356 --> 00:38:49,526
+again, that means minimizing or
+
+
+1088
+00:38:49,526 --> 00:38:51,066
+reducing the use of exceptions.
+
+
+1089
+00:38:52,666 --> 00:38:53,566
+And if you're particularly
+
+
+1090
+00:38:53,566 --> 00:38:55,366
+adventurous, that means also
+
+
+1091
+00:38:55,366 --> 00:38:57,976
+trying out TLS 1.3 to prime your
+
+
+1092
+00:38:57,976 --> 00:38:59,956
+application and your network for
+
+
+1093
+00:38:59,956 --> 00:39:00,996
+the next exciting version of
+
+
+1094
+00:39:00,996 --> 00:39:01,536
+this protocol.
+
+
+1095
+00:39:02,116 --> 00:39:05,736
+If you'd like any more
+
+
+1096
+00:39:05,736 --> 00:39:07,886
+information on any of the topics
+
+
+1097
+00:39:07,886 --> 00:39:09,306
+that Bailey and I discussed, you
+
+
+1098
+00:39:09,306 --> 00:39:10,326
+can visit this link above.
+
+
+1099
+00:39:11,866 --> 00:39:13,646
+Next up in this room we have a
+
+
+1100
+00:39:13,646 --> 00:39:15,026
+session on privacy and your
+
+
+1101
+00:39:15,026 --> 00:39:16,286
+apps, which I highly encourage
+
+
+1102
+00:39:16,286 --> 00:39:17,546
+everyone to attend, given your
+
+
+1103
+00:39:17,546 --> 00:39:18,466
+interest in security.
+
+
+1104
+00:39:19,236 --> 00:39:20,586
+Tomorrow we have two back to
+
+
+1105
+00:39:20,586 --> 00:39:22,216
+back jam packed sessions full of
+
+
+1106
+00:39:22,216 --> 00:39:23,386
+advances in networking, which
+
+
+1107
+00:39:23,656 --> 00:39:25,396
+would be very interesting and
+
+
+1108
+00:39:25,396 --> 00:39:27,416
+relevant to anyone at all who is
+
+
+1109
+00:39:27,416 --> 00:39:28,176
+interested in TLS.
+
+
+1110
+00:39:28,176 --> 00:39:29,906
+And that's all I have.
+
+
+1111
+00:39:30,486 --> 00:39:31,266
+Thank you for your time and
+
+
+1112
+00:39:31,266 --> 00:39:32,896
+attention, enjoy the rest of the
+
+
+1113
+00:39:32,896 --> 00:39:33,536
+conference.
+
+
+1114
+00:39:34,516 --> 00:39:38,500
+[ Applause ]
+

@@ -1,0 +1,9324 @@
+1
+00:00:20,516 --> 00:00:23,546
+[ Applause ]
+
+
+2
+00:00:24,046 --> 00:00:25,186
+>> Hello, everyone.
+
+
+3
+00:00:26,306 --> 00:00:27,856
+I hope you're having a great
+
+
+4
+00:00:27,856 --> 00:00:28,206
+WWDC.
+
+
+5
+00:00:28,206 --> 00:00:31,156
+Welcome to Building Great
+
+
+6
+00:00:31,216 --> 00:00:32,936
+Document-based Apps.
+
+
+7
+00:00:33,946 --> 00:00:35,736
+Today we are going to talk about
+
+
+8
+00:00:35,736 --> 00:00:37,406
+all the new features of the
+
+
+9
+00:00:37,406 --> 00:00:38,756
+Files app and how to integrate
+
+
+10
+00:00:38,756 --> 00:00:40,196
+them in your app.
+
+
+11
+00:00:40,576 --> 00:00:41,936
+First, let's talk about the
+
+
+12
+00:00:41,936 --> 00:00:43,336
+Files app.
+
+
+13
+00:00:43,866 --> 00:00:45,336
+One of the biggest features of
+
+
+14
+00:00:45,336 --> 00:00:47,246
+this app is that it gathers all
+
+
+15
+00:00:47,246 --> 00:00:48,636
+the cloud vendors in one place.
+
+
+16
+00:00:49,306 --> 00:00:50,806
+This is done thanks to the new
+
+
+17
+00:00:50,806 --> 00:00:51,826
+file provider extension.
+
+
+18
+00:00:52,416 --> 00:00:54,116
+All the cloud vendors that use
+
+
+19
+00:00:54,116 --> 00:00:55,546
+this file provider extension
+
+
+20
+00:00:55,606 --> 00:00:58,506
+will appear next to the iCloud
+
+
+21
+00:00:58,506 --> 00:00:59,896
+drive on my iPad in the sidebar.
+
+
+22
+00:01:00,436 --> 00:01:02,216
+If you want to know more about
+
+
+23
+00:01:02,216 --> 00:01:04,316
+this extension, we invite you to
+
+
+24
+00:01:04,316 --> 00:01:05,256
+check out the File Provider
+
+
+25
+00:01:05,256 --> 00:01:06,766
+Enhancements session tomorrow at
+
+
+26
+00:01:06,766 --> 00:01:10,706
+11:00 a.m. There are two file
+
+
+27
+00:01:11,156 --> 00:01:12,426
+providers by default in the
+
+
+28
+00:01:12,426 --> 00:01:12,796
+system.
+
+
+29
+00:01:13,266 --> 00:01:14,106
+The first one is the iCloud
+
+
+30
+00:01:14,106 --> 00:01:15,226
+Drive provider.
+
+
+31
+00:01:15,806 --> 00:01:16,996
+It will show all the files
+
+
+32
+00:01:16,996 --> 00:01:18,256
+inside the iCloud drive folder
+
+
+33
+00:01:18,256 --> 00:01:20,116
+of the user as well as all the
+
+
+34
+00:01:20,176 --> 00:01:21,766
+files in the Cloud container of
+
+
+35
+00:01:21,766 --> 00:01:23,076
+all the applications in the
+
+
+36
+00:01:23,076 --> 00:01:23,456
+system.
+
+
+37
+00:01:24,016 --> 00:01:27,366
+The second provider is the on my
+
+
+38
+00:01:27,366 --> 00:01:28,066
+iPad provider.
+
+
+39
+00:01:28,726 --> 00:01:30,386
+It will let the user leverage
+
+
+40
+00:01:30,386 --> 00:01:31,656
+the storage of their devices.
+
+
+41
+00:01:31,656 --> 00:01:34,196
+It will show the content inside
+
+
+42
+00:01:34,196 --> 00:01:35,866
+the Documents folder of the app
+
+
+43
+00:01:35,866 --> 00:01:36,326
+container.
+
+
+44
+00:01:36,406 --> 00:01:38,606
+If you want your app to be part
+
+
+45
+00:01:38,606 --> 00:01:40,836
+of this local storage provider,
+
+
+46
+00:01:41,196 --> 00:01:42,046
+your app needs to be a
+
+
+47
+00:01:42,046 --> 00:01:44,596
+document-based app or support
+
+
+48
+00:01:44,766 --> 00:01:46,596
+File Sharing and Opening
+
+
+49
+00:01:46,596 --> 00:01:47,266
+Documents In Place.
+
+
+50
+00:01:48,116 --> 00:01:49,756
+As I said before, we are going
+
+
+51
+00:01:49,756 --> 00:01:51,106
+to be showing the documents
+
+
+52
+00:01:51,106 --> 00:01:52,526
+inside the, the files inside the
+
+
+53
+00:01:52,526 --> 00:01:53,186
+Documents folder.
+
+
+54
+00:01:53,666 --> 00:01:55,716
+So please keep the content of
+
+
+55
+00:01:55,716 --> 00:01:56,666
+this folder clean.
+
+
+56
+00:01:57,146 --> 00:01:58,676
+You should only have the files
+
+
+57
+00:01:58,676 --> 00:01:59,556
+that matter to the user.
+
+
+58
+00:02:00,536 --> 00:02:01,916
+Also, you have to keep in mind
+
+
+59
+00:02:02,276 --> 00:02:03,546
+that these files won't be synced
+
+
+60
+00:02:03,546 --> 00:02:05,166
+across multiple devices but
+
+
+61
+00:02:05,276 --> 00:02:07,246
+still will be part of the iCloud
+
+
+62
+00:02:07,246 --> 00:02:08,126
+backup.
+
+
+63
+00:02:09,406 --> 00:02:11,166
+Now I would like to talk about
+
+
+64
+00:02:11,266 --> 00:02:12,296
+the new Recents view.
+
+
+65
+00:02:13,286 --> 00:02:14,466
+This view will show all the
+
+
+66
+00:02:14,466 --> 00:02:15,606
+documents that have been
+
+
+67
+00:02:15,606 --> 00:02:17,426
+recently opened, imported, and
+
+
+68
+00:02:17,426 --> 00:02:17,896
+modified.
+
+
+69
+00:02:18,686 --> 00:02:20,166
+Also, it will show all the
+
+
+70
+00:02:20,166 --> 00:02:22,656
+documents organized by tags and
+
+
+71
+00:02:22,756 --> 00:02:23,786
+all the documents that are
+
+
+72
+00:02:23,786 --> 00:02:24,696
+shared with other people.
+
+
+73
+00:02:27,076 --> 00:02:29,466
+Tags are a great means to
+
+
+74
+00:02:29,466 --> 00:02:30,046
+organize files.
+
+
+75
+00:02:30,046 --> 00:02:32,236
+And in iOS 11, there's new
+
+
+76
+00:02:32,236 --> 00:02:33,736
+tagging UI that will let the
+
+
+77
+00:02:33,736 --> 00:02:35,916
+user create new tag and manage
+
+
+78
+00:02:35,956 --> 00:02:36,556
+their tags.
+
+
+79
+00:02:37,436 --> 00:02:38,666
+Tags will be synced across
+
+
+80
+00:02:38,666 --> 00:02:41,086
+multiple providers and they will
+
+
+81
+00:02:41,086 --> 00:02:42,576
+be also synced across all your
+
+
+82
+00:02:42,576 --> 00:02:43,046
+devices.
+
+
+83
+00:02:45,576 --> 00:02:46,946
+The last thing -- The last
+
+
+84
+00:02:46,946 --> 00:02:48,726
+feature I would like to talk
+
+
+85
+00:02:48,726 --> 00:02:50,316
+about in the Files App is the
+
+
+86
+00:02:50,316 --> 00:02:51,016
+Recents Popover.
+
+
+87
+00:02:51,836 --> 00:02:53,526
+The user will be able to present
+
+
+88
+00:02:53,526 --> 00:02:55,226
+this popover when performing a
+
+
+89
+00:02:55,226 --> 00:02:57,466
+long press on the Files App.
+
+
+90
+00:02:57,686 --> 00:02:59,206
+This [inaudible] will show all
+
+
+91
+00:02:59,206 --> 00:03:00,656
+the recent documents and the
+
+
+92
+00:03:00,656 --> 00:03:02,276
+user will be able to open them
+
+
+93
+00:03:02,276 --> 00:03:03,456
+with just one tap.
+
+
+94
+00:03:03,946 --> 00:03:06,196
+It will also let the user import
+
+
+95
+00:03:06,196 --> 00:03:07,396
+the document into any
+
+
+96
+00:03:07,396 --> 00:03:09,756
+application using the new Drag
+
+
+97
+00:03:10,336 --> 00:03:13,366
+and Drop gesture.
+
+
+98
+00:03:13,416 --> 00:03:15,176
+I'm sure now you want to have
+
+
+99
+00:03:15,176 --> 00:03:16,556
+all these great features in your
+
+
+100
+00:03:17,246 --> 00:03:17,506
+app.
+
+
+101
+00:03:19,176 --> 00:03:21,036
+Throughout the last release
+
+
+102
+00:03:21,036 --> 00:03:22,546
+cycles, we've received very many
+
+
+103
+00:03:22,546 --> 00:03:23,156
+requests from you.
+
+
+104
+00:03:24,376 --> 00:03:26,076
+You want to have a unified UI
+
+
+105
+00:03:26,436 --> 00:03:27,196
+for file browsing.
+
+
+106
+00:03:28,426 --> 00:03:29,746
+You want your app to be able to
+
+
+107
+00:03:29,746 --> 00:03:31,876
+access any file from other apps
+
+
+108
+00:03:31,956 --> 00:03:32,546
+in the system.
+
+
+109
+00:03:33,176 --> 00:03:36,236
+You don't want to write more
+
+
+110
+00:03:36,236 --> 00:03:38,266
+code in order to adopt all the
+
+
+111
+00:03:38,266 --> 00:03:39,586
+cloud vendors that are already
+
+
+112
+00:03:39,586 --> 00:03:40,386
+part of the system.
+
+
+113
+00:03:41,656 --> 00:03:42,816
+And you want to have deeper
+
+
+114
+00:03:42,816 --> 00:03:46,096
+integration of your custom
+
+
+115
+00:03:46,096 --> 00:03:47,996
+content types throughout system.
+
+
+116
+00:03:48,986 --> 00:03:51,016
+Well today we are going to view
+
+
+117
+00:03:51,016 --> 00:03:51,886
+some new API.
+
+
+118
+00:03:51,946 --> 00:03:54,636
+I will tell later how we've done
+
+
+119
+00:03:54,726 --> 00:03:56,416
+so far with those requests.
+
+
+120
+00:03:57,166 --> 00:03:59,936
+First, I would like to talk
+
+
+121
+00:03:59,936 --> 00:04:05,696
+about the new document browser
+
+
+122
+00:04:05,696 --> 00:04:06,186
+API.
+
+
+123
+00:04:06,296 --> 00:04:07,606
+This year there's a new class,
+
+
+124
+00:04:07,686 --> 00:04:09,046
+the UI Document Browser View
+
+
+125
+00:04:09,046 --> 00:04:09,446
+Controller.
+
+
+126
+00:04:09,566 --> 00:04:11,396
+I know it's a mouthful, so from
+
+
+127
+00:04:11,396 --> 00:04:12,396
+now on I will call it the
+
+
+128
+00:04:12,396 --> 00:04:13,746
+Browser VC.
+
+
+129
+00:04:14,556 --> 00:04:15,796
+Together with this, there's a
+
+
+130
+00:04:15,796 --> 00:04:17,766
+new Xcode template that will let
+
+
+131
+00:04:17,766 --> 00:04:19,776
+you create a new document-based
+
+
+132
+00:04:19,776 --> 00:04:20,886
+application from scratch.
+
+
+133
+00:04:22,146 --> 00:04:24,316
+And also the UI Document Picker
+
+
+134
+00:04:24,486 --> 00:04:25,926
+will get some of the features of
+
+
+135
+00:04:25,926 --> 00:04:27,386
+the Browser VC.
+
+
+136
+00:04:28,756 --> 00:04:30,356
+So now let's first talk about
+
+
+137
+00:04:30,356 --> 00:04:31,286
+the Browser View Controller.
+
+
+138
+00:04:32,356 --> 00:04:33,256
+This view controller will
+
+
+139
+00:04:33,256 --> 00:04:34,466
+provide your app the same
+
+
+140
+00:04:34,606 --> 00:04:36,786
+feature set as Files app.
+
+
+141
+00:04:36,786 --> 00:04:38,316
+In fact, Files is just a very
+
+
+142
+00:04:38,316 --> 00:04:39,616
+thin layer on top of this
+
+
+143
+00:04:39,616 --> 00:04:40,456
+Browser View Controller.
+
+
+144
+00:04:43,426 --> 00:04:44,796
+With this view controller, you
+
+
+145
+00:04:45,006 --> 00:04:47,096
+won't have to write more code in
+
+
+146
+00:04:47,096 --> 00:04:48,586
+order to integrate any cloud
+
+
+147
+00:04:48,586 --> 00:04:50,266
+storage provider that supports
+
+
+148
+00:04:50,266 --> 00:04:52,506
+File Provider.
+
+
+149
+00:04:53,976 --> 00:04:55,466
+Also it will support appearance
+
+
+150
+00:04:55,466 --> 00:04:57,236
+customization to make it look
+
+
+151
+00:04:57,236 --> 00:04:58,076
+like your app.
+
+
+152
+00:04:59,286 --> 00:05:01,036
+And by using this view
+
+
+153
+00:05:01,036 --> 00:05:02,986
+controller, your app will get
+
+
+154
+00:05:02,986 --> 00:05:04,536
+the Recents Popover that we saw
+
+
+155
+00:05:04,816 --> 00:05:05,176
+before.
+
+
+156
+00:05:05,846 --> 00:05:09,966
+Spotlight plays a key role in
+
+
+157
+00:05:09,966 --> 00:05:10,616
+this Browser VC.
+
+
+158
+00:05:11,536 --> 00:05:12,726
+By using this view controller,
+
+
+159
+00:05:13,556 --> 00:05:14,536
+all the metadata of your
+
+
+160
+00:05:14,536 --> 00:05:15,876
+document will automatically be
+
+
+161
+00:05:15,876 --> 00:05:16,666
+indexed in Spotlight.
+
+
+162
+00:05:16,666 --> 00:05:18,436
+If you need to have further
+
+
+163
+00:05:18,436 --> 00:05:19,826
+integration, you will have to
+
+
+164
+00:05:19,826 --> 00:05:21,626
+register your own CS Searchable
+
+
+165
+00:05:21,706 --> 00:05:21,976
+Items.
+
+
+166
+00:05:22,116 --> 00:05:24,426
+Now there will be two CS
+
+
+167
+00:05:24,426 --> 00:05:26,586
+Searchable Item in the system as
+
+
+168
+00:05:26,586 --> 00:05:28,266
+in order to duplicate them, the
+
+
+169
+00:05:28,266 --> 00:05:30,306
+Browser VC will use a content
+
+
+170
+00:05:30,356 --> 00:05:32,336
+URL of this CS Searchable Items.
+
+
+171
+00:05:32,676 --> 00:05:33,836
+So you have to set it properly.
+
+
+172
+00:05:34,256 --> 00:05:35,566
+If you want to know more about
+
+
+173
+00:05:35,566 --> 00:05:36,926
+Core Spotlight, there's a
+
+
+174
+00:05:36,926 --> 00:05:38,816
+session at 4:10 p.m. today.
+
+
+175
+00:05:42,736 --> 00:05:45,156
+At Apple, we deeply care about
+
+
+176
+00:05:45,156 --> 00:05:46,146
+our user's privacy.
+
+
+177
+00:05:46,616 --> 00:05:48,516
+Because of that, we built the
+
+
+178
+00:05:48,516 --> 00:05:50,156
+Browser View Controller with
+
+
+179
+00:05:50,286 --> 00:05:52,106
+privacy in mind since the very
+
+
+180
+00:05:52,106 --> 00:05:52,936
+beginning.
+
+
+181
+00:05:53,806 --> 00:05:55,856
+When the user installs your app,
+
+
+182
+00:05:55,856 --> 00:05:57,146
+you will only have access to all
+
+
+183
+00:05:57,146 --> 00:05:59,586
+the documents inside the app
+
+
+184
+00:06:00,176 --> 00:06:00,406
+container.
+
+
+185
+00:06:00,506 --> 00:06:02,106
+You will be able to import and
+
+
+186
+00:06:02,106 --> 00:06:03,876
+create new documents but only
+
+
+187
+00:06:03,876 --> 00:06:05,816
+the default safe location which
+
+
+188
+00:06:05,816 --> 00:06:06,846
+will be a [inaudible] for you.
+
+
+189
+00:06:08,436 --> 00:06:10,486
+So how are you going to access
+
+
+190
+00:06:10,486 --> 00:06:12,796
+to a file in any other place in
+
+
+191
+00:06:12,796 --> 00:06:13,236
+the system?
+
+
+192
+00:06:13,876 --> 00:06:15,436
+Well, you will do it via user
+
+
+193
+00:06:15,436 --> 00:06:16,126
+interaction.
+
+
+194
+00:06:16,646 --> 00:06:18,166
+The Browser VC is running in a
+
+
+195
+00:06:18,166 --> 00:06:18,976
+different process.
+
+
+196
+00:06:18,976 --> 00:06:20,766
+And once the user taps on a
+
+
+197
+00:06:20,766 --> 00:06:22,736
+document, the Browser VC will
+
+
+198
+00:06:22,826 --> 00:06:24,706
+forward to your app the access
+
+
+199
+00:06:24,706 --> 00:06:25,396
+of that document.
+
+
+200
+00:06:25,396 --> 00:06:28,396
+And now, let's take a look at
+
+
+201
+00:06:28,396 --> 00:06:29,926
+the UI Document Picker View
+
+
+202
+00:06:29,926 --> 00:06:30,326
+Controller.
+
+
+203
+00:06:30,406 --> 00:06:32,546
+As I said before, we'll get some
+
+
+204
+00:06:32,546 --> 00:06:34,366
+of the features of the Browser
+
+
+205
+00:06:34,366 --> 00:06:34,646
+VC.
+
+
+206
+00:06:34,876 --> 00:06:36,916
+For example, the Browse View and
+
+
+207
+00:06:36,966 --> 00:06:38,736
+the Recents View.
+
+
+208
+00:06:38,946 --> 00:06:40,676
+Also, it will support opening
+
+
+209
+00:06:40,676 --> 00:06:42,166
+and importing multiple documents
+
+
+210
+00:06:42,166 --> 00:06:42,746
+at the same time.
+
+
+211
+00:06:43,526 --> 00:06:44,666
+If you want to support it, you
+
+
+212
+00:06:44,666 --> 00:06:46,256
+need to set the allows Multiple
+
+
+213
+00:06:46,256 --> 00:06:47,026
+Selection to true.
+
+
+214
+00:06:48,106 --> 00:06:49,166
+In order to support multiple
+
+
+215
+00:06:49,166 --> 00:06:50,846
+documents, we are deprecating
+
+
+216
+00:06:51,126 --> 00:06:53,546
+the document picker with Pick
+
+
+217
+00:06:53,546 --> 00:06:55,136
+Document At URL delegate method
+
+
+218
+00:06:55,436 --> 00:06:56,766
+in favor of a delegate method
+
+
+219
+00:06:56,766 --> 00:06:58,556
+that support multiple URLs at
+
+
+220
+00:06:58,556 --> 00:07:00,066
+the same time.
+
+
+221
+00:07:01,276 --> 00:07:02,286
+Also this year, we are
+
+
+222
+00:07:02,286 --> 00:07:03,856
+deprecating the UI Document Menu
+
+
+223
+00:07:03,856 --> 00:07:05,616
+View Controller in favor of the
+
+
+224
+00:07:05,616 --> 00:07:06,796
+UI Document Browser View
+
+
+225
+00:07:06,796 --> 00:07:07,196
+Controller.
+
+
+226
+00:07:07,196 --> 00:07:12,206
+And now, we've seen an overview
+
+
+227
+00:07:12,206 --> 00:07:13,456
+of the browser APIs.
+
+
+228
+00:07:13,456 --> 00:07:14,986
+Let's take a look at how to make
+
+
+229
+00:07:14,986 --> 00:07:16,986
+use of this UI Document Browser
+
+
+230
+00:07:16,986 --> 00:07:18,596
+View Controller in your app.
+
+
+231
+00:07:19,766 --> 00:07:20,726
+So first things first.
+
+
+232
+00:07:21,486 --> 00:07:22,676
+You will have to configure the
+
+
+233
+00:07:22,676 --> 00:07:23,236
+Info.plist.
+
+
+234
+00:07:23,856 --> 00:07:25,686
+Here, you need to set the UI
+
+
+235
+00:07:25,686 --> 00:07:27,806
+Supports Document Browser key to
+
+
+236
+00:07:27,806 --> 00:07:28,066
+yes.
+
+
+237
+00:07:28,936 --> 00:07:30,656
+This will tell the system that
+
+
+238
+00:07:30,736 --> 00:07:32,326
+your app is a UI Document Brower
+
+
+239
+00:07:32,326 --> 00:07:33,076
+based application.
+
+
+240
+00:07:34,316 --> 00:07:35,936
+Then you will need to declare
+
+
+241
+00:07:36,076 --> 00:07:37,176
+the content types that are
+
+
+242
+00:07:37,176 --> 00:07:38,846
+supported by your app.
+
+
+243
+00:07:38,846 --> 00:07:39,986
+And this is important because
+
+
+244
+00:07:39,986 --> 00:07:42,196
+the Browser VC will use this
+
+
+245
+00:07:42,196 --> 00:07:43,686
+content type in order to know
+
+
+246
+00:07:43,686 --> 00:07:45,046
+what files to display in your
+
+
+247
+00:07:45,046 --> 00:07:45,536
+application.
+
+
+248
+00:07:46,176 --> 00:07:49,276
+It's important to note that the
+
+
+249
+00:07:49,276 --> 00:07:50,246
+UI Document Browser View
+
+
+250
+00:07:50,246 --> 00:07:52,176
+Controller needs to be the root
+
+
+251
+00:07:52,176 --> 00:07:53,906
+View Controller of your app.
+
+
+252
+00:07:53,906 --> 00:07:54,936
+It won't work otherwise.
+
+
+253
+00:07:55,756 --> 00:07:59,236
+As I said before, the Browser VC
+
+
+254
+00:07:59,236 --> 00:08:00,046
+supports appearance
+
+
+255
+00:08:00,046 --> 00:08:00,746
+customization.
+
+
+256
+00:08:01,246 --> 00:08:02,576
+By default, it will look like
+
+
+257
+00:08:02,576 --> 00:08:04,376
+this with a white background and
+
+
+258
+00:08:04,376 --> 00:08:05,016
+a blue tint color.
+
+
+259
+00:08:06,176 --> 00:08:07,756
+There are two properties that
+
+
+260
+00:08:07,756 --> 00:08:08,806
+you can use in order to
+
+
+261
+00:08:08,876 --> 00:08:09,746
+customize it further.
+
+
+262
+00:08:10,476 --> 00:08:12,076
+The browser Interface Style
+
+
+263
+00:08:12,076 --> 00:08:14,106
+which has three modes, dark,
+
+
+264
+00:08:14,106 --> 00:08:15,976
+white, and light, and tint
+
+
+265
+00:08:15,976 --> 00:08:16,266
+color.
+
+
+266
+00:08:16,326 --> 00:08:19,326
+If you use a dark style and an
+
+
+267
+00:08:19,326 --> 00:08:21,086
+orange tint color, your app will
+
+
+268
+00:08:21,086 --> 00:08:24,246
+look like this.
+
+
+269
+00:08:24,496 --> 00:08:26,176
+So now that we configured the
+
+
+270
+00:08:26,176 --> 00:08:28,266
+Browser VC, the first thing your
+
+
+271
+00:08:28,266 --> 00:08:29,676
+app will have to support is
+
+
+272
+00:08:29,676 --> 00:08:30,476
+Opening Documents.
+
+
+273
+00:08:31,686 --> 00:08:32,635
+So let's take a look at how it
+
+
+274
+00:08:32,635 --> 00:08:32,966
+works.
+
+
+275
+00:08:33,926 --> 00:08:36,486
+First, the user will tap on one
+
+
+276
+00:08:36,486 --> 00:08:37,196
+of these documents.
+
+
+277
+00:08:38,606 --> 00:08:40,686
+Here, the Browser VC will fetch
+
+
+278
+00:08:40,686 --> 00:08:42,135
+and download the information of
+
+
+279
+00:08:42,135 --> 00:08:42,676
+the document.
+
+
+280
+00:08:42,676 --> 00:08:44,606
+And once the document is ready,
+
+
+281
+00:08:44,676 --> 00:08:46,996
+it will forward the access to
+
+
+282
+00:08:46,996 --> 00:08:48,716
+your application and call the
+
+
+283
+00:08:48,716 --> 00:08:50,046
+did Pick Delegate method.
+
+
+284
+00:08:50,756 --> 00:08:53,066
+Here, you just need to load and
+
+
+285
+00:08:53,066 --> 00:08:56,416
+present the document.
+
+
+286
+00:08:56,416 --> 00:08:57,606
+When opening documents, the
+
+
+287
+00:08:57,606 --> 00:09:00,176
+Browser VC will give your app
+
+
+288
+00:09:00,176 --> 00:09:01,626
+persistent access to that URL.
+
+
+289
+00:09:02,996 --> 00:09:04,776
+Now, if you want to restore it,
+
+
+290
+00:09:04,776 --> 00:09:06,646
+it's not enough to store the
+
+
+291
+00:09:06,646 --> 00:09:06,716
+URL.
+
+
+292
+00:09:06,956 --> 00:09:08,256
+You need to store the bookmark
+
+
+293
+00:09:08,256 --> 00:09:10,176
+data associated to this URL
+
+
+294
+00:09:10,176 --> 00:09:11,596
+because this is the piece of
+
+
+295
+00:09:11,646 --> 00:09:13,866
+information that keeps track of
+
+
+296
+00:09:14,146 --> 00:09:15,126
+the URL access.
+
+
+297
+00:09:15,696 --> 00:09:18,856
+The code to Opening Document
+
+
+298
+00:09:18,986 --> 00:09:19,466
+looks like this.
+
+
+299
+00:09:19,606 --> 00:09:20,946
+You just need to implement the
+
+
+300
+00:09:20,946 --> 00:09:22,366
+document Browser did Pick
+
+
+301
+00:09:22,366 --> 00:09:24,936
+Document URLs and present the
+
+
+302
+00:09:24,936 --> 00:09:25,856
+view controller for the
+
+
+303
+00:09:25,856 --> 00:09:26,266
+document.
+
+
+304
+00:09:26,826 --> 00:09:30,156
+Like the UI Document Picker, the
+
+
+305
+00:09:30,156 --> 00:09:31,726
+Browser VC supports opening
+
+
+306
+00:09:31,726 --> 00:09:32,896
+multiple documents at the same
+
+
+307
+00:09:32,896 --> 00:09:33,096
+time.
+
+
+308
+00:09:33,856 --> 00:09:35,466
+If you want your app to support
+
+
+309
+00:09:35,466 --> 00:09:36,956
+this, you need to set the allows
+
+
+310
+00:09:36,956 --> 00:09:41,396
+Picking Multiple Items to true.
+
+
+311
+00:09:41,616 --> 00:09:42,886
+Now that your app is able to
+
+
+312
+00:09:42,886 --> 00:09:45,626
+open any file in the system, the
+
+
+313
+00:09:45,626 --> 00:09:46,866
+next thing is to be able to
+
+
+314
+00:09:46,866 --> 00:09:47,846
+create new documents.
+
+
+315
+00:09:48,466 --> 00:09:49,816
+There are two places where you
+
+
+316
+00:09:49,816 --> 00:09:50,926
+can create new documents.
+
+
+317
+00:09:51,616 --> 00:09:52,686
+The first one is the Recents
+
+
+318
+00:09:52,686 --> 00:09:52,846
+View.
+
+
+319
+00:09:53,566 --> 00:09:54,726
+If the user taps the Create
+
+
+320
+00:09:54,726 --> 00:09:56,926
+button here, it will create a
+
+
+321
+00:09:57,146 --> 00:09:59,186
+new document in the default safe
+
+
+322
+00:09:59,186 --> 00:10:01,386
+location of your app.
+
+
+323
+00:10:01,386 --> 00:10:02,676
+If you tap the Create button in
+
+
+324
+00:10:02,676 --> 00:10:04,216
+the Browse View, it will create
+
+
+325
+00:10:04,216 --> 00:10:05,106
+a new document in the current
+
+
+326
+00:10:05,106 --> 00:10:05,966
+location of the Browse View.
+
+
+327
+00:10:06,056 --> 00:10:08,836
+Now let's take a look at the
+
+
+328
+00:10:08,836 --> 00:10:09,256
+workflow.
+
+
+329
+00:10:10,246 --> 00:10:11,666
+Once the user taps on one of
+
+
+330
+00:10:11,666 --> 00:10:13,346
+these Create buttons, your app
+
+
+331
+00:10:13,896 --> 00:10:15,646
+will receive an import handler.
+
+
+332
+00:10:16,346 --> 00:10:17,446
+Now if you already have the
+
+
+333
+00:10:17,446 --> 00:10:18,996
+source URL, you can call the
+
+
+334
+00:10:18,996 --> 00:10:19,606
+import handler.
+
+
+335
+00:10:20,496 --> 00:10:22,476
+If not, if your app needs to
+
+
+336
+00:10:22,476 --> 00:10:24,076
+show some template chooser in
+
+
+337
+00:10:24,076 --> 00:10:26,136
+order to know what source URL to
+
+
+338
+00:10:26,136 --> 00:10:27,816
+choose, now is the moment.
+
+
+339
+00:10:28,376 --> 00:10:29,506
+You present a template chooser
+
+
+340
+00:10:29,656 --> 00:10:30,966
+and call the import handler.
+
+
+341
+00:10:31,586 --> 00:10:34,066
+The import handler will move
+
+
+342
+00:10:34,066 --> 00:10:35,186
+that file to the provider.
+
+
+343
+00:10:35,256 --> 00:10:37,036
+And once the file is in the
+
+
+344
+00:10:37,036 --> 00:10:38,706
+provider, it will call you back
+
+
+345
+00:10:38,876 --> 00:10:40,366
+with a succeed delegate method.
+
+
+346
+00:10:41,086 --> 00:10:43,306
+Here, as for the open case, you
+
+
+347
+00:10:43,306 --> 00:10:44,646
+just need to load and present
+
+
+348
+00:10:44,776 --> 00:10:45,306
+the document.
+
+
+349
+00:10:46,066 --> 00:10:48,876
+Now the import operation can
+
+
+350
+00:10:48,936 --> 00:10:50,616
+fail for many reasons.
+
+
+351
+00:10:50,886 --> 00:10:51,936
+And if that is the case, you
+
+
+352
+00:10:52,126 --> 00:10:53,566
+need to handle the error and
+
+
+353
+00:10:53,566 --> 00:10:54,716
+present some UI to the user.
+
+
+354
+00:10:55,836 --> 00:10:58,246
+Now let's take a look at how to
+
+
+355
+00:10:58,356 --> 00:10:58,806
+code this.
+
+
+356
+00:10:59,566 --> 00:11:01,046
+First you need to implement the
+
+
+357
+00:11:01,046 --> 00:11:02,456
+document Browser did Request
+
+
+358
+00:11:02,456 --> 00:11:03,246
+Document Creation.
+
+
+359
+00:11:03,976 --> 00:11:05,686
+Here, as I said before, you can
+
+
+360
+00:11:05,686 --> 00:11:06,906
+optionally present a Template
+
+
+361
+00:11:06,906 --> 00:11:07,416
+Chooser.
+
+
+362
+00:11:08,056 --> 00:11:09,676
+Now in this example, the present
+
+
+363
+00:11:09,676 --> 00:11:11,396
+Template Chooser will call us
+
+
+364
+00:11:11,396 --> 00:11:14,516
+back with the URL that the user
+
+
+365
+00:11:14,896 --> 00:11:15,866
+picked for the template.
+
+
+366
+00:11:15,866 --> 00:11:17,746
+And it will tell us if the user
+
+
+367
+00:11:17,746 --> 00:11:19,356
+canceled the document creation.
+
+
+368
+00:11:20,016 --> 00:11:22,266
+Once we get the URL, we just
+
+
+369
+00:11:22,266 --> 00:11:24,426
+need to call the import handler
+
+
+370
+00:11:24,426 --> 00:11:25,096
+with a mode.
+
+
+371
+00:11:25,446 --> 00:11:26,566
+There are two different modes:
+
+
+372
+00:11:26,866 --> 00:11:27,956
+copy and move.
+
+
+373
+00:11:28,436 --> 00:11:29,776
+If the user canceled the
+
+
+374
+00:11:29,776 --> 00:11:31,396
+document creation, we still need
+
+
+375
+00:11:31,396 --> 00:11:33,176
+to call the import handler with
+
+
+376
+00:11:33,176 --> 00:11:34,676
+nil as the URL and none as the
+
+
+377
+00:11:34,676 --> 00:11:34,936
+mode.
+
+
+378
+00:11:35,616 --> 00:11:36,386
+This is important.
+
+
+379
+00:11:36,816 --> 00:11:38,146
+This will tell the Browser VC
+
+
+380
+00:11:38,766 --> 00:11:40,156
+that the creation operation is
+
+
+381
+00:11:40,156 --> 00:11:40,486
+over.
+
+
+382
+00:11:41,176 --> 00:11:44,716
+Once the document is fully
+
+
+383
+00:11:44,716 --> 00:11:46,326
+imported, the document Browser
+
+
+384
+00:11:46,326 --> 00:11:47,946
+did Import Document At source
+
+
+385
+00:11:47,946 --> 00:11:49,876
+URL to Destination URL will be
+
+
+386
+00:11:49,876 --> 00:11:50,116
+called.
+
+
+387
+00:11:50,696 --> 00:11:52,606
+Here, you just need to load and
+
+
+388
+00:11:52,606 --> 00:11:54,466
+present the UI for the document.
+
+
+389
+00:11:54,886 --> 00:11:56,576
+As I said before, the import
+
+
+390
+00:11:56,576 --> 00:11:57,376
+operation can fail.
+
+
+391
+00:11:57,436 --> 00:12:00,036
+And if that is the case, the
+
+
+392
+00:12:00,036 --> 00:12:01,306
+Document Browser failed To
+
+
+393
+00:12:01,306 --> 00:12:03,196
+Import Document URL will be
+
+
+394
+00:12:03,196 --> 00:12:03,426
+called.
+
+
+395
+00:12:03,746 --> 00:12:04,936
+Here, you need to handle the
+
+
+396
+00:12:04,936 --> 00:12:06,296
+error and present some UI to the
+
+
+397
+00:12:06,296 --> 00:12:06,566
+user.
+
+
+398
+00:12:09,186 --> 00:12:10,976
+Now we are dealing with
+
+
+399
+00:12:10,976 --> 00:12:12,556
+documents that are operated by
+
+
+400
+00:12:12,556 --> 00:12:14,516
+different processes, different
+
+
+401
+00:12:14,516 --> 00:12:16,456
+apps, and different devices at
+
+
+402
+00:12:16,456 --> 00:12:16,976
+the same time.
+
+
+403
+00:12:18,376 --> 00:12:19,206
+And because of that, it's
+
+
+404
+00:12:19,206 --> 00:12:20,516
+important to use NS File
+
+
+405
+00:12:20,516 --> 00:12:22,026
+Coordination and NS File
+
+
+406
+00:12:22,026 --> 00:12:24,976
+Presenter in order to avoid risk
+
+
+407
+00:12:24,976 --> 00:12:25,946
+conditions between these
+
+
+408
+00:12:25,976 --> 00:12:26,406
+processes.
+
+
+409
+00:12:27,616 --> 00:12:29,746
+Now because the document is
+
+
+410
+00:12:29,746 --> 00:12:31,846
+outside your app container, the
+
+
+411
+00:12:31,846 --> 00:12:32,896
+Browser VC is using
+
+
+412
+00:12:32,896 --> 00:12:34,786
+Security-scoped URLs, which
+
+
+413
+00:12:34,786 --> 00:12:36,506
+means you have to start and stop
+
+
+414
+00:12:36,506 --> 00:12:38,456
+accessing that URL in order to
+
+
+415
+00:12:38,456 --> 00:12:40,656
+have the right to write and read
+
+
+416
+00:12:40,696 --> 00:12:41,146
+the URL.
+
+
+417
+00:12:42,126 --> 00:12:43,316
+We highly encourage you to use
+
+
+418
+00:12:43,316 --> 00:12:43,856
+UI Document.
+
+
+419
+00:12:44,706 --> 00:12:46,796
+By using it, you will get File
+
+
+420
+00:12:46,796 --> 00:12:48,416
+Coordination, File Presenter,
+
+
+421
+00:12:48,416 --> 00:12:50,216
+and Security-scoped URL support
+
+
+422
+00:12:50,286 --> 00:12:51,796
+for free, as well as other
+
+
+423
+00:12:51,796 --> 00:12:52,846
+features like Autosave.
+
+
+424
+00:12:53,536 --> 00:12:55,326
+If you want to know more about
+
+
+425
+00:12:55,326 --> 00:12:57,206
+UI Document, please take a look
+
+
+426
+00:12:57,206 --> 00:12:58,456
+at the Building Document-Based
+
+
+427
+00:12:58,456 --> 00:13:01,406
+Apps session from WWDC 2015.
+
+
+428
+00:13:02,626 --> 00:13:03,596
+And now I would like to
+
+
+429
+00:13:03,596 --> 00:13:04,776
+introduce my colleague Raffeal
+
+
+430
+00:13:05,126 --> 00:13:06,606
+to give you a demo on how to use
+
+
+431
+00:13:06,736 --> 00:13:07,836
+the UI Document Browser View
+
+
+432
+00:13:07,836 --> 00:13:09,156
+Controller in your app.
+
+
+433
+00:13:09,676 --> 00:13:09,946
+Raffael
+
+
+434
+00:13:10,016 --> 00:13:11,816
+[ Applause ]
+
+
+435
+00:13:11,816 --> 00:13:13,616
+.
+
+
+436
+00:13:13,616 --> 00:13:14,136
+>> Thanks, Pau.
+
+
+437
+00:13:15,266 --> 00:13:16,026
+Good morning, everyone.
+
+
+438
+00:13:17,456 --> 00:13:18,646
+So now that you've got to know
+
+
+439
+00:13:18,646 --> 00:13:20,386
+the API of the new UI Document
+
+
+440
+00:13:20,386 --> 00:13:21,786
+Browser View Controller, I would
+
+
+441
+00:13:21,786 --> 00:13:22,766
+like to walk you through and
+
+
+442
+00:13:22,766 --> 00:13:24,756
+show a demo of how easy it is to
+
+
+443
+00:13:24,756 --> 00:13:26,366
+build a great document-based app
+
+
+444
+00:13:26,626 --> 00:13:27,486
+for iOS 11.
+
+
+445
+00:13:28,056 --> 00:13:30,466
+We're going to build a very
+
+
+446
+00:13:30,466 --> 00:13:32,066
+simple particle editor with a
+
+
+447
+00:13:32,066 --> 00:13:34,096
+particle system on the left and
+
+
+448
+00:13:34,096 --> 00:13:35,346
+an inspect on the right side
+
+
+449
+00:13:35,346 --> 00:13:36,486
+that allows you to customize
+
+
+450
+00:13:36,486 --> 00:13:37,636
+some properties of the particle
+
+
+451
+00:13:37,636 --> 00:13:38,016
+system.
+
+
+452
+00:13:38,966 --> 00:13:40,706
+Now each particle system comes
+
+
+453
+00:13:40,706 --> 00:13:42,176
+within one document and,
+
+
+454
+00:13:42,176 --> 00:13:43,806
+therefore, using the UI Document
+
+
+455
+00:13:43,806 --> 00:13:45,156
+Browser View Controller is a
+
+
+456
+00:13:45,156 --> 00:13:46,406
+perfect choice for our
+
+
+457
+00:13:46,406 --> 00:13:46,936
+applications.
+
+
+458
+00:13:47,686 --> 00:13:48,746
+So now let's just switch to
+
+
+459
+00:13:48,746 --> 00:13:48,976
+Xcode.
+
+
+460
+00:13:59,016 --> 00:14:00,796
+Xcode 11 comes with a new
+
+
+461
+00:14:00,796 --> 00:14:02,216
+template for document-based
+
+
+462
+00:14:02,216 --> 00:14:02,886
+applications.
+
+
+463
+00:14:03,296 --> 00:14:03,936
+Let's try it out.
+
+
+464
+00:14:09,156 --> 00:14:11,096
+Going to call it particles and
+
+
+465
+00:14:11,096 --> 00:14:12,616
+create the new application.
+
+
+466
+00:14:14,236 --> 00:14:16,596
+Now once instantiated, this
+
+
+467
+00:14:16,636 --> 00:14:17,946
+template comes with everything
+
+
+468
+00:14:17,946 --> 00:14:18,886
+you need to build a
+
+
+469
+00:14:18,886 --> 00:14:20,326
+document-based application from
+
+
+470
+00:14:20,326 --> 00:14:20,816
+scratch.
+
+
+471
+00:14:21,656 --> 00:14:23,356
+First of all, the Info.plist of
+
+
+472
+00:14:23,356 --> 00:14:25,256
+our target is already set up the
+
+
+473
+00:14:25,256 --> 00:14:26,626
+way Pau mentioned it earlier
+
+
+474
+00:14:26,626 --> 00:14:27,516
+with the right key.
+
+
+475
+00:14:28,216 --> 00:14:30,336
+Next, we have a Document Browser
+
+
+476
+00:14:30,336 --> 00:14:32,066
+View Controller subclass that
+
+
+477
+00:14:32,066 --> 00:14:33,486
+has all the code already in
+
+
+478
+00:14:33,486 --> 00:14:34,756
+place that you might want to
+
+
+479
+00:14:34,756 --> 00:14:35,556
+customize later.
+
+
+480
+00:14:36,626 --> 00:14:38,306
+It also comes with a view
+
+
+481
+00:14:38,306 --> 00:14:39,716
+controller subclass, the
+
+
+482
+00:14:39,716 --> 00:14:41,396
+Document View Controller which
+
+
+483
+00:14:41,396 --> 00:14:42,786
+will be in charge of presenting
+
+
+484
+00:14:42,786 --> 00:14:46,386
+the contents of our files.
+
+
+485
+00:14:46,576 --> 00:14:48,686
+Next, as Pau mentioned also
+
+
+486
+00:14:48,686 --> 00:14:50,546
+earlier, we have the subclass of
+
+
+487
+00:14:50,546 --> 00:14:52,256
+UI Document that acts as the
+
+
+488
+00:14:52,256 --> 00:14:53,786
+model of our documents at
+
+
+489
+00:14:53,786 --> 00:14:54,106
+runtime.
+
+
+490
+00:14:55,506 --> 00:14:56,786
+And last but not least, our
+
+
+491
+00:14:56,786 --> 00:14:58,666
+storyboard is set up to have the
+
+
+492
+00:14:58,666 --> 00:15:00,246
+Document Browser View Controller
+
+
+493
+00:15:00,306 --> 00:15:01,396
+as the root View Controller
+
+
+494
+00:15:01,396 --> 00:15:03,546
+already set up and the Document
+
+
+495
+00:15:03,546 --> 00:15:04,826
+View Controller ready to be
+
+
+496
+00:15:04,826 --> 00:15:06,556
+instantiated when we create new
+
+
+497
+00:15:06,556 --> 00:15:08,296
+files or open existing files.
+
+
+498
+00:15:09,446 --> 00:15:10,536
+So let's just take a look at
+
+
+499
+00:15:10,536 --> 00:15:11,826
+what we get just by launching
+
+
+500
+00:15:11,826 --> 00:15:12,976
+this template in our simulator.
+
+
+501
+00:15:24,026 --> 00:15:26,506
+Now once started, we see the new
+
+
+502
+00:15:26,506 --> 00:15:28,566
+Recents view with your recent
+
+
+503
+00:15:28,566 --> 00:15:29,826
+documents that you might have
+
+
+504
+00:15:29,856 --> 00:15:30,616
+created before.
+
+
+505
+00:15:30,976 --> 00:15:32,056
+Of course, we haven't created
+
+
+506
+00:15:32,056 --> 00:15:33,616
+any files yet, so let's switch
+
+
+507
+00:15:33,616 --> 00:15:34,336
+to the Browse view.
+
+
+508
+00:15:34,876 --> 00:15:39,896
+We see our Cloud storage vendors
+
+
+509
+00:15:39,896 --> 00:15:41,106
+on the left side in the slide
+
+
+510
+00:15:41,166 --> 00:15:42,876
+bar next to the new On My iPad
+
+
+511
+00:15:42,876 --> 00:15:43,566
+storage.
+
+
+512
+00:15:44,226 --> 00:15:46,266
+We also see the Favorites and
+
+
+513
+00:15:46,336 --> 00:15:48,686
+our Tags that are synchronized
+
+
+514
+00:15:48,976 --> 00:15:50,356
+across all your devices.
+
+
+515
+00:15:51,236 --> 00:15:52,306
+In the middle of the screen, we
+
+
+516
+00:15:52,306 --> 00:15:53,796
+see a large Create Document
+
+
+517
+00:15:53,796 --> 00:15:55,766
+button that allows you to create
+
+
+518
+00:15:55,766 --> 00:15:56,556
+new documents.
+
+
+519
+00:15:56,596 --> 00:15:57,296
+So let's click it.
+
+
+520
+00:15:58,776 --> 00:16:00,316
+Well, nothing really happens yet
+
+
+521
+00:16:00,396 --> 00:16:01,346
+and that's expected.
+
+
+522
+00:16:01,426 --> 00:16:02,536
+That's because we haven't told
+
+
+523
+00:16:02,536 --> 00:16:03,746
+the UI Document Browser View
+
+
+524
+00:16:03,746 --> 00:16:05,626
+Controller yet what it means to
+
+
+525
+00:16:05,626 --> 00:16:06,946
+create new files in our
+
+
+526
+00:16:06,946 --> 00:16:07,516
+application.
+
+
+527
+00:16:08,126 --> 00:16:09,506
+So let's fix this.
+
+
+528
+00:16:10,356 --> 00:16:12,046
+Therefore, we switch back to our
+
+
+529
+00:16:12,046 --> 00:16:13,166
+UI Document Browser View
+
+
+530
+00:16:13,166 --> 00:16:14,266
+Controller subclass.
+
+
+531
+00:16:15,236 --> 00:16:16,436
+And as Pau mentioned earlier,
+
+
+532
+00:16:16,436 --> 00:16:18,186
+when the user tapes the Create
+
+
+533
+00:16:18,186 --> 00:16:19,776
+Document button, we'll get a
+
+
+534
+00:16:19,776 --> 00:16:21,326
+call back to the Document
+
+
+535
+00:16:21,326 --> 00:16:22,776
+Browser View Controller Delegate
+
+
+536
+00:16:22,776 --> 00:16:25,516
+function did Request Document
+
+
+537
+00:16:25,726 --> 00:16:26,726
+Creation With Handler.
+
+
+538
+00:16:27,816 --> 00:16:29,406
+Now what we have to do here is
+
+
+539
+00:16:30,006 --> 00:16:32,326
+we have to give back a URL of
+
+
+540
+00:16:32,366 --> 00:16:33,936
+the newly created file to the
+
+
+541
+00:16:33,936 --> 00:16:34,836
+Document Browser View
+
+
+542
+00:16:34,836 --> 00:16:35,296
+Controller.
+
+
+543
+00:16:36,846 --> 00:16:39,126
+Now in our situation, let me add
+
+
+544
+00:16:39,486 --> 00:16:41,936
+a new particles file to our
+
+
+545
+00:16:42,446 --> 00:16:42,666
+target.
+
+
+546
+00:16:43,556 --> 00:16:45,136
+We make sure that it's added to
+
+
+547
+00:16:45,136 --> 00:16:47,486
+our target and finish.
+
+
+548
+00:16:48,086 --> 00:16:53,126
+Now at runtime, we just go ahead
+
+
+549
+00:16:53,236 --> 00:16:55,736
+and obtain the URL of this added
+
+
+550
+00:16:55,846 --> 00:16:58,436
+document via our NS main bundle.
+
+
+551
+00:16:59,346 --> 00:17:01,576
+Once we get the URL, we pass it
+
+
+552
+00:17:01,576 --> 00:17:03,036
+to the input handler that we get
+
+
+553
+00:17:03,036 --> 00:17:04,636
+from our delegate function.
+
+
+554
+00:17:05,175 --> 00:17:07,106
+And we perform a copy operation
+
+
+555
+00:17:07,146 --> 00:17:07,576
+on the URL.
+
+
+556
+00:17:07,576 --> 00:17:11,016
+Now the UI Document Browser View
+
+
+557
+00:17:11,016 --> 00:17:13,165
+Controller will get this URL and
+
+
+558
+00:17:13,165 --> 00:17:14,376
+will do all the heavy lifting
+
+
+559
+00:17:14,376 --> 00:17:16,286
+for you in the background like
+
+
+560
+00:17:16,396 --> 00:17:17,465
+moving the file to the right
+
+
+561
+00:17:17,465 --> 00:17:19,316
+location and processing the URL.
+
+
+562
+00:17:20,326 --> 00:17:21,806
+Once it's done, it will give us
+
+
+563
+00:17:21,806 --> 00:17:25,266
+a call back to either did Import
+
+
+564
+00:17:25,266 --> 00:17:28,215
+Document At source URL or failed
+
+
+565
+00:17:28,215 --> 00:17:29,886
+To Import Document At URL.
+
+
+566
+00:17:30,666 --> 00:17:32,196
+Now if we fail to import the
+
+
+567
+00:17:32,196 --> 00:17:34,086
+newly created file, since we
+
+
+568
+00:17:34,086 --> 00:17:35,686
+want to be a good developer we
+
+
+569
+00:17:35,686 --> 00:17:37,136
+should go ahead and implement
+
+
+570
+00:17:37,216 --> 00:17:38,286
+proper error handling, for
+
+
+571
+00:17:38,286 --> 00:17:39,866
+example, by presenting an error
+
+
+572
+00:17:39,866 --> 00:17:40,646
+to the user.
+
+
+573
+00:17:41,706 --> 00:17:43,386
+However, if we succeeded, we can
+
+
+574
+00:17:43,386 --> 00:17:44,726
+go ahead and present the
+
+
+575
+00:17:44,726 --> 00:17:45,826
+document that we've just
+
+
+576
+00:17:45,826 --> 00:17:46,226
+created.
+
+
+577
+00:17:48,686 --> 00:17:50,436
+Now let's say the user has
+
+
+578
+00:17:50,486 --> 00:17:52,386
+picked an existing file, in that
+
+
+579
+00:17:52,386 --> 00:17:53,756
+situation, we're going to get a
+
+
+580
+00:17:53,756 --> 00:17:55,546
+call back to the did Pick
+
+
+581
+00:17:55,626 --> 00:17:57,056
+Document URLs function.
+
+
+582
+00:17:58,396 --> 00:18:00,546
+Same here, we just go ahead take
+
+
+583
+00:18:00,546 --> 00:18:02,086
+for example the first of our
+
+
+584
+00:18:02,086 --> 00:18:04,236
+document URLs that we get and
+
+
+585
+00:18:04,236 --> 00:18:04,766
+present it.
+
+
+586
+00:18:05,646 --> 00:18:07,586
+Now presenting a document in our
+
+
+587
+00:18:07,586 --> 00:18:10,036
+app means instantiating one of
+
+
+588
+00:18:10,066 --> 00:18:11,726
+these Document View Controllers
+
+
+589
+00:18:12,516 --> 00:18:15,136
+giving it a document that we
+
+
+590
+00:18:15,136 --> 00:18:16,726
+initialize with document URL
+
+
+591
+00:18:16,726 --> 00:18:18,596
+that we want to open and then we
+
+
+592
+00:18:18,596 --> 00:18:19,896
+just go ahead and present the
+
+
+593
+00:18:19,896 --> 00:18:20,866
+Document View Controller.
+
+
+594
+00:18:21,266 --> 00:18:22,276
+Now let's take a look at the
+
+
+595
+00:18:22,276 --> 00:18:22,976
+simulator again.
+
+
+596
+00:18:31,276 --> 00:18:32,956
+The app launches again.
+
+
+597
+00:18:33,016 --> 00:18:34,836
+We're in the Browse view and we
+
+
+598
+00:18:34,836 --> 00:18:36,086
+can tap the Create Document
+
+
+599
+00:18:36,086 --> 00:18:36,476
+button.
+
+
+600
+00:18:36,846 --> 00:18:38,046
+And the Document View Controller
+
+
+601
+00:18:38,046 --> 00:18:39,976
+appears with details about the
+
+
+602
+00:18:39,976 --> 00:18:41,156
+file that we've just created.
+
+
+603
+00:18:42,026 --> 00:18:43,296
+Once we are done, we can close
+
+
+604
+00:18:43,296 --> 00:18:44,356
+the Document View Controller
+
+
+605
+00:18:44,356 --> 00:18:46,396
+again to return to the root View
+
+
+606
+00:18:46,396 --> 00:18:48,226
+Controller or Document Browser
+
+
+607
+00:18:48,226 --> 00:18:48,846
+View Controller.
+
+
+608
+00:18:50,456 --> 00:18:52,416
+Now let me switch to a more
+
+
+609
+00:18:52,416 --> 00:18:54,126
+advanced version of this project
+
+
+610
+00:18:54,306 --> 00:18:55,656
+which has already all the code
+
+
+611
+00:18:55,696 --> 00:18:57,646
+pieces in place to render a
+
+
+612
+00:18:57,646 --> 00:18:59,546
+particle system on the left and
+
+
+613
+00:18:59,546 --> 00:19:01,216
+an editor on the right side so
+
+
+614
+00:19:01,216 --> 00:19:02,166
+that we can focus on the
+
+
+615
+00:19:02,166 --> 00:19:03,446
+Document Browser View Controller
+
+
+616
+00:19:03,446 --> 00:19:03,966
+related code parts.
+
+
+617
+00:19:11,586 --> 00:19:12,736
+Before I'm going to remove the
+
+
+618
+00:19:12,736 --> 00:19:14,646
+app that we've just created to
+
+
+619
+00:19:14,646 --> 00:19:15,976
+avoid any further conflicts.
+
+
+620
+00:19:25,056 --> 00:19:27,426
+Now this is still the same, it's
+
+
+621
+00:19:27,426 --> 00:19:28,306
+still the same project.
+
+
+622
+00:19:28,306 --> 00:19:30,326
+It's based on the template that
+
+
+623
+00:19:30,326 --> 00:19:31,986
+we've instantiated in the
+
+
+624
+00:19:31,986 --> 00:19:32,456
+beginning.
+
+
+625
+00:19:33,046 --> 00:19:34,206
+Let me show you some additions
+
+
+626
+00:19:34,206 --> 00:19:37,016
+that we made to our Particle app
+
+
+627
+00:19:37,216 --> 00:19:38,026
+Info.plist.
+
+
+628
+00:19:38,776 --> 00:19:41,746
+First, again, the key to
+
+
+629
+00:19:41,746 --> 00:19:42,976
+Document Browser View Controller
+
+
+630
+00:19:42,976 --> 00:19:44,646
+is still set to yes, just the
+
+
+631
+00:19:44,646 --> 00:19:45,886
+way Pau explained earlier.
+
+
+632
+00:19:47,116 --> 00:19:48,326
+But more than that, in the
+
+
+633
+00:19:48,326 --> 00:19:51,116
+Exported UTIs section, we are
+
+
+634
+00:19:51,116 --> 00:19:53,336
+creating a new UTI type for our
+
+
+635
+00:19:53,336 --> 00:19:54,456
+Particles files.
+
+
+636
+00:19:55,336 --> 00:19:56,286
+We're going to give it a
+
+
+637
+00:19:56,286 --> 00:19:57,406
+description particles.
+
+
+638
+00:19:58,356 --> 00:20:00,636
+We give it an identifier and we
+
+
+639
+00:20:00,636 --> 00:20:02,566
+let it conform to the UTI types
+
+
+640
+00:20:02,626 --> 00:20:04,746
+public data and public content.
+
+
+641
+00:20:06,166 --> 00:20:08,046
+That means our Particle files
+
+
+642
+00:20:08,176 --> 00:20:10,636
+are a stream of data and they
+
+
+643
+00:20:10,636 --> 00:20:12,536
+have a semantic of document
+
+
+644
+00:20:12,536 --> 00:20:12,846
+files.
+
+
+645
+00:20:14,476 --> 00:20:15,826
+Now in the additional exported
+
+
+646
+00:20:15,826 --> 00:20:18,956
+UTI properties, we defined that
+
+
+647
+00:20:18,956 --> 00:20:21,686
+our files should have, whoops,
+
+
+648
+00:20:23,076 --> 00:20:28,426
+sorry, should have the particles
+
+
+649
+00:20:28,426 --> 00:20:28,956
+extension.
+
+
+650
+00:20:29,086 --> 00:20:30,716
+That means that any file in the
+
+
+651
+00:20:30,716 --> 00:20:32,736
+system that has the .particles
+
+
+652
+00:20:32,736 --> 00:20:35,066
+extension will be recognized as
+
+
+653
+00:20:35,066 --> 00:20:36,896
+a file of our newly created UTI
+
+
+654
+00:20:36,896 --> 00:20:37,076
+type.
+
+
+655
+00:20:37,076 --> 00:20:40,466
+So now that the UTI type is
+
+
+656
+00:20:40,466 --> 00:20:41,976
+done, we can go ahead and tell
+
+
+657
+00:20:41,976 --> 00:20:43,276
+our application that we're
+
+
+658
+00:20:43,276 --> 00:20:44,176
+actually supported.
+
+
+659
+00:20:44,686 --> 00:20:46,526
+So in the Document Types, we
+
+
+660
+00:20:46,526 --> 00:20:47,756
+just mentioned our particles
+
+
+661
+00:20:47,756 --> 00:20:48,726
+file format again.
+
+
+662
+00:20:49,066 --> 00:20:52,606
+We identified the identifier and
+
+
+663
+00:20:52,606 --> 00:20:53,966
+any additional document type
+
+
+664
+00:20:53,966 --> 00:20:54,716
+properties.
+
+
+665
+00:20:55,326 --> 00:20:57,326
+We define our CF Bundle Type
+
+
+666
+00:20:57,326 --> 00:20:59,756
+Role to be editor and the LS
+
+
+667
+00:20:59,756 --> 00:21:01,166
+Handler Rank to be owner.
+
+
+668
+00:21:01,936 --> 00:21:02,966
+If you want to learn more about
+
+
+669
+00:21:02,966 --> 00:21:04,546
+this, check the documentation.
+
+
+670
+00:21:05,106 --> 00:21:08,546
+So now the UTI types are
+
+
+671
+00:21:08,546 --> 00:21:10,946
+properly set and that means that
+
+
+672
+00:21:10,946 --> 00:21:12,016
+the Document Browser View
+
+
+673
+00:21:12,016 --> 00:21:13,246
+Controller will make sure that
+
+
+674
+00:21:13,336 --> 00:21:15,056
+users are only allowed to pick
+
+
+675
+00:21:15,056 --> 00:21:16,766
+documents of our new file type.
+
+
+676
+00:21:17,646 --> 00:21:18,886
+It also makes sure that when you
+
+
+677
+00:21:18,886 --> 00:21:20,546
+search inside the Document
+
+
+678
+00:21:20,546 --> 00:21:22,076
+Browser View Controller, you
+
+
+679
+00:21:22,076 --> 00:21:23,626
+will only see search results
+
+
+680
+00:21:23,706 --> 00:21:24,936
+that make this UI type.
+
+
+681
+00:21:24,936 --> 00:21:27,976
+And last but not least, in any
+
+
+682
+00:21:27,976 --> 00:21:29,676
+kind of UI document interaction
+
+
+683
+00:21:29,676 --> 00:21:30,976
+control in a different
+
+
+684
+00:21:30,976 --> 00:21:32,986
+application for Particle files,
+
+
+685
+00:21:33,226 --> 00:21:34,606
+you'll see the action to open
+
+
+686
+00:21:34,606 --> 00:21:36,406
+the file in our app.
+
+
+687
+00:21:37,636 --> 00:21:39,406
+So now let's take a look at our
+
+
+688
+00:21:39,406 --> 00:21:40,406
+actual documents.
+
+
+689
+00:21:40,526 --> 00:21:41,886
+We switch to our UI Document
+
+
+690
+00:21:41,886 --> 00:21:42,556
+subclass.
+
+
+691
+00:21:43,366 --> 00:21:44,676
+Now UI Document is quite
+
+
+692
+00:21:44,676 --> 00:21:46,426
+powerful and we highly encourage
+
+
+693
+00:21:46,426 --> 00:21:47,306
+you to make user of it.
+
+
+694
+00:21:47,996 --> 00:21:49,216
+As Pau mentioned earlier, it
+
+
+695
+00:21:49,216 --> 00:21:50,216
+comes with a lot of great
+
+
+696
+00:21:50,216 --> 00:21:52,136
+benefits such as autosaving,
+
+
+697
+00:21:52,136 --> 00:21:54,056
+file coordination and NS File
+
+
+698
+00:21:54,056 --> 00:21:56,326
+Presenter, Versioning, and much
+
+
+699
+00:21:56,326 --> 00:21:58,356
+more and, therefore, the UI
+
+
+700
+00:21:58,356 --> 00:21:59,766
+Document and the UI Document
+
+
+701
+00:21:59,766 --> 00:22:00,916
+Browser View Controller are
+
+
+702
+00:22:00,916 --> 00:22:02,136
+literally made for each other.
+
+
+703
+00:22:02,606 --> 00:22:04,016
+So let's take a look at what we
+
+
+704
+00:22:04,016 --> 00:22:04,376
+are doing here.
+
+
+705
+00:22:04,976 --> 00:22:09,146
+Now the document represents the
+
+
+706
+00:22:09,146 --> 00:22:10,316
+document at runtime.
+
+
+707
+00:22:10,656 --> 00:22:12,406
+So obviously since we are
+
+
+708
+00:22:12,406 --> 00:22:13,956
+talking about Particle systems,
+
+
+709
+00:22:14,196 --> 00:22:15,736
+it should have a reference to
+
+
+710
+00:22:15,736 --> 00:22:17,076
+SCN Particle System.
+
+
+711
+00:22:17,666 --> 00:22:20,916
+Now the next thing we are doing
+
+
+712
+00:22:20,916 --> 00:22:23,276
+is we're implementing saving and
+
+
+713
+00:22:23,276 --> 00:22:24,096
+loading files.
+
+
+714
+00:22:24,666 --> 00:22:26,126
+Therefore, we have to overwrite
+
+
+715
+00:22:26,126 --> 00:22:28,246
+the function's content for type
+
+
+716
+00:22:29,396 --> 00:22:30,716
+and load from contents.
+
+
+717
+00:22:31,166 --> 00:22:32,706
+Now all we really have to do
+
+
+718
+00:22:32,706 --> 00:22:35,396
+here is archiving [inaudible] an
+
+
+719
+00:22:35,506 --> 00:22:37,706
+existing Particle system and
+
+
+720
+00:22:37,706 --> 00:22:39,086
+that works because our SCN
+
+
+721
+00:22:39,086 --> 00:22:40,376
+Particle System already
+
+
+722
+00:22:40,376 --> 00:22:41,716
+conformed to NS coding.
+
+
+723
+00:22:42,456 --> 00:22:43,486
+So we don't really have to do a
+
+
+724
+00:22:43,486 --> 00:22:43,926
+lot here.
+
+
+725
+00:22:44,106 --> 00:22:45,586
+We use a Keyed Archiver to
+
+
+726
+00:22:45,586 --> 00:22:47,986
+archive the data or we use NS
+
+
+727
+00:22:48,296 --> 00:22:50,836
+Keyed Unarchiver to unarchive an
+
+
+728
+00:22:50,836 --> 00:22:51,766
+existing one again.
+
+
+729
+00:22:52,406 --> 00:22:54,976
+Now that's all you have to do
+
+
+730
+00:22:54,976 --> 00:22:55,826
+about the document.
+
+
+731
+00:22:56,006 --> 00:22:56,786
+Let's take a look at the
+
+
+732
+00:22:56,786 --> 00:22:57,886
+Document View Controller.
+
+
+733
+00:22:59,036 --> 00:23:00,256
+Again, that's the one that is in
+
+
+734
+00:23:00,256 --> 00:23:01,536
+charge of presenting the
+
+
+735
+00:23:01,536 --> 00:23:03,376
+contents of a document.
+
+
+736
+00:23:03,856 --> 00:23:05,316
+So obviously, before we present
+
+
+737
+00:23:05,316 --> 00:23:06,866
+a Document View Controller, we
+
+
+738
+00:23:06,866 --> 00:23:08,656
+should [inaudible] reference to
+
+
+739
+00:23:08,656 --> 00:23:09,206
+a document.
+
+
+740
+00:23:13,296 --> 00:23:15,656
+Now to set document function in
+
+
+741
+00:23:15,656 --> 00:23:17,416
+our case is asynchronous and
+
+
+742
+00:23:17,416 --> 00:23:19,136
+that's because loading a
+
+
+743
+00:23:19,136 --> 00:23:21,066
+document should be asynchronous
+
+
+744
+00:23:21,126 --> 00:23:22,206
+because file [inaudible] is
+
+
+745
+00:23:22,206 --> 00:23:22,606
+involved.
+
+
+746
+00:23:23,166 --> 00:23:24,376
+We're reading from the disk and
+
+
+747
+00:23:24,376 --> 00:23:25,306
+you shouldn't do this on the
+
+
+748
+00:23:25,306 --> 00:23:25,786
+main thread.
+
+
+749
+00:23:26,836 --> 00:23:27,836
+So let's take a look at how we
+
+
+750
+00:23:27,836 --> 00:23:31,996
+should implement this.
+
+
+751
+00:23:32,196 --> 00:23:33,386
+First, we simply keep a
+
+
+752
+00:23:33,386 --> 00:23:34,686
+reference to our document.
+
+
+753
+00:23:35,476 --> 00:23:36,776
+We then go ahead and load our
+
+
+754
+00:23:36,776 --> 00:23:39,166
+view controller and then we call
+
+
+755
+00:23:39,166 --> 00:23:40,516
+the open function on our
+
+
+756
+00:23:40,516 --> 00:23:41,046
+document.
+
+
+757
+00:23:41,736 --> 00:23:43,256
+Now this will do all the work in
+
+
+758
+00:23:43,256 --> 00:23:44,676
+the background and will give us
+
+
+759
+00:23:44,676 --> 00:23:48,296
+a call back once it's back.
+
+
+760
+00:23:48,466 --> 00:23:49,776
+Now if anything went wrong
+
+
+761
+00:23:49,776 --> 00:23:50,646
+during the loading of the
+
+
+762
+00:23:50,646 --> 00:23:52,196
+document, we're going to get a
+
+
+763
+00:23:52,196 --> 00:23:54,006
+call to handle error user
+
+
+764
+00:23:54,006 --> 00:23:55,636
+interaction permitted on the UI
+
+
+765
+00:23:55,636 --> 00:23:56,726
+document subclass.
+
+
+766
+00:23:57,136 --> 00:23:57,896
+Since we want to be good
+
+
+767
+00:23:57,896 --> 00:24:00,086
+developers, we have to implement
+
+
+768
+00:24:00,086 --> 00:24:00,616
+this function.
+
+
+769
+00:24:01,336 --> 00:24:03,296
+If we succeeded, we can go ahead
+
+
+770
+00:24:03,366 --> 00:24:04,736
+and take the document and pass
+
+
+771
+00:24:04,736 --> 00:24:05,706
+it to our particle View
+
+
+772
+00:24:05,706 --> 00:24:07,496
+Controller and our editor View
+
+
+773
+00:24:07,496 --> 00:24:07,956
+Controller.
+
+
+774
+00:24:07,956 --> 00:24:10,156
+Now the Document View Controller
+
+
+775
+00:24:10,156 --> 00:24:11,606
+really is just a container view
+
+
+776
+00:24:11,606 --> 00:24:12,636
+controller with a particle
+
+
+777
+00:24:12,636 --> 00:24:14,076
+system on the left and the
+
+
+778
+00:24:14,076 --> 00:24:14,676
+editor on the right.
+
+
+779
+00:24:15,936 --> 00:24:17,766
+Now in any case, we have to call
+
+
+780
+00:24:17,766 --> 00:24:19,526
+the completion handler to
+
+
+781
+00:24:19,526 --> 00:24:20,736
+indicate that we're done with
+
+
+782
+00:24:20,926 --> 00:24:21,796
+setting the document.
+
+
+783
+00:24:22,316 --> 00:24:25,166
+Now that's about opening a
+
+
+784
+00:24:25,166 --> 00:24:25,636
+document.
+
+
+785
+00:24:25,636 --> 00:24:27,056
+But of course we also want to
+
+
+786
+00:24:27,056 --> 00:24:28,386
+dismiss our Document View
+
+
+787
+00:24:28,386 --> 00:24:29,386
+Controller at some point.
+
+
+788
+00:24:29,886 --> 00:24:32,336
+Same thing.
+
+
+789
+00:24:32,396 --> 00:24:34,036
+Instead of calling the open
+
+
+790
+00:24:34,036 --> 00:24:35,676
+function, this time we call
+
+
+791
+00:24:35,676 --> 00:24:37,116
+obviously the close function.
+
+
+792
+00:24:37,916 --> 00:24:39,196
+This is asynchronous again
+
+
+793
+00:24:39,196 --> 00:24:40,446
+because we are saving the
+
+
+794
+00:24:40,446 --> 00:24:41,596
+document if required.
+
+
+795
+00:24:41,596 --> 00:24:44,296
+And the completion Handler, we
+
+
+796
+00:24:44,296 --> 00:24:45,596
+just dismiss the Document View
+
+
+797
+00:24:45,596 --> 00:24:46,036
+Controller.
+
+
+798
+00:24:47,046 --> 00:24:48,486
+Now the Document View Controller
+
+
+799
+00:24:48,486 --> 00:24:49,426
+is pretty much done at this
+
+
+800
+00:24:49,426 --> 00:24:49,736
+point.
+
+
+801
+00:24:50,186 --> 00:24:51,236
+So we can go ahead and take a
+
+
+802
+00:24:51,236 --> 00:24:52,946
+look again at the Document
+
+
+803
+00:24:52,946 --> 00:24:53,866
+Browser View Controller.
+
+
+804
+00:24:54,806 --> 00:24:55,726
+This is the one that is in
+
+
+805
+00:24:55,726 --> 00:24:56,816
+charge of presenting our
+
+
+806
+00:24:56,816 --> 00:24:58,066
+document view controllers,
+
+
+807
+00:24:58,296 --> 00:24:59,696
+either when we create a new file
+
+
+808
+00:24:59,996 --> 00:25:01,506
+or when we open an existing
+
+
+809
+00:25:01,506 --> 00:25:01,816
+file.
+
+
+810
+00:25:02,366 --> 00:25:04,586
+Let's take a look at this again.
+
+
+811
+00:25:05,186 --> 00:25:08,586
+So when we create a new file, we
+
+
+812
+00:25:08,586 --> 00:25:09,996
+get a call back to did Request
+
+
+813
+00:25:09,996 --> 00:25:11,236
+Document Creation With Handler.
+
+
+814
+00:25:11,806 --> 00:25:13,386
+We obtained the URL from our NS
+
+
+815
+00:25:13,386 --> 00:25:15,266
+main Bundle and passed it back
+
+
+816
+00:25:15,266 --> 00:25:16,706
+via the import handler and a
+
+
+817
+00:25:16,706 --> 00:25:17,516
+copy operation.
+
+
+818
+00:25:18,626 --> 00:25:20,186
+We'll either get a call back to
+
+
+819
+00:25:20,306 --> 00:25:22,146
+did Import Document At URL or
+
+
+820
+00:25:22,146 --> 00:25:23,566
+failed To Import Document at
+
+
+821
+00:25:23,566 --> 00:25:23,766
+URL.
+
+
+822
+00:25:25,316 --> 00:25:26,846
+If we succeeded, we go ahead and
+
+
+823
+00:25:26,846 --> 00:25:28,256
+present the document, which is
+
+
+824
+00:25:28,256 --> 00:25:30,076
+just the same as when we open a
+
+
+825
+00:25:30,076 --> 00:25:31,556
+file that already existed
+
+
+826
+00:25:31,556 --> 00:25:31,926
+before.
+
+
+827
+00:25:33,586 --> 00:25:34,526
+Now when we want to present a
+
+
+828
+00:25:34,526 --> 00:25:35,876
+document, we instantiate the
+
+
+829
+00:25:35,876 --> 00:25:37,046
+Document View Controller from
+
+
+830
+00:25:37,046 --> 00:25:38,996
+the storyboard and we pass the
+
+
+831
+00:25:39,316 --> 00:25:41,176
+document via our function that
+
+
+832
+00:25:41,176 --> 00:25:42,536
+we've just completed, set
+
+
+833
+00:25:42,566 --> 00:25:44,506
+Document with a reference to a
+
+
+834
+00:25:44,506 --> 00:25:46,126
+newly created document instance.
+
+
+835
+00:25:47,066 --> 00:25:48,506
+Once that is done, we just go
+
+
+836
+00:25:48,506 --> 00:25:49,696
+ahead and present the Document
+
+
+837
+00:25:49,696 --> 00:25:50,276
+View Controller.
+
+
+838
+00:25:50,966 --> 00:25:52,486
+Let's take a look at this in the
+
+
+839
+00:25:52,486 --> 00:25:52,936
+simulator.
+
+
+840
+00:26:06,596 --> 00:26:08,056
+Switch back to the Browse view
+
+
+841
+00:26:08,826 --> 00:26:09,886
+and hit the Create Document
+
+
+842
+00:26:09,886 --> 00:26:10,226
+button.
+
+
+843
+00:26:10,926 --> 00:26:11,946
+A new file is created.
+
+
+844
+00:26:12,516 --> 00:26:13,246
+And there we go.
+
+
+845
+00:26:13,246 --> 00:26:16,226
+Our beautiful particles with an
+
+
+846
+00:26:16,256 --> 00:26:17,386
+inspector on the right side.
+
+
+847
+00:26:17,976 --> 00:26:19,186
+We can change the values a bit,
+
+
+848
+00:26:19,996 --> 00:26:21,706
+change the size, change the
+
+
+849
+00:26:21,706 --> 00:26:22,016
+color.
+
+
+850
+00:26:23,116 --> 00:26:24,496
+And once we are done with it, we
+
+
+851
+00:26:24,496 --> 00:26:25,996
+just close the document again by
+
+
+852
+00:26:25,996 --> 00:26:29,376
+pressing the Done button.
+
+
+853
+00:26:29,536 --> 00:26:31,516
+Great. So creating documents and
+
+
+854
+00:26:31,516 --> 00:26:33,056
+opening documents works like a
+
+
+855
+00:26:33,056 --> 00:26:33,496
+charm.
+
+
+856
+00:26:33,766 --> 00:26:35,006
+But there is one thing that I
+
+
+857
+00:26:35,006 --> 00:26:36,486
+don't really like yet, which is
+
+
+858
+00:26:37,066 --> 00:26:38,016
+the Document Browser View
+
+
+859
+00:26:38,016 --> 00:26:39,886
+Controller here has this white
+
+
+860
+00:26:39,886 --> 00:26:41,646
+appearance whereas the particle
+
+
+861
+00:26:41,646 --> 00:26:42,846
+View Controller has a really
+
+
+862
+00:26:42,846 --> 00:26:43,816
+dark appearance.
+
+
+863
+00:26:44,386 --> 00:26:45,256
+So let's fix this.
+
+
+864
+00:26:46,176 --> 00:26:47,536
+As Pau mentioned earlier, there
+
+
+865
+00:26:47,536 --> 00:26:48,936
+are three browser use interface
+
+
+866
+00:26:48,936 --> 00:26:50,226
+styles that you can choose from.
+
+
+867
+00:26:50,866 --> 00:26:53,736
+First, dark, light, and white.
+
+
+868
+00:26:54,356 --> 00:26:56,026
+Now obviously, dark seems like a
+
+
+869
+00:26:56,026 --> 00:26:57,976
+great choice for our situation
+
+
+870
+00:26:57,976 --> 00:26:58,136
+here.
+
+
+871
+00:26:59,316 --> 00:27:00,636
+So let's switch back to the
+
+
+872
+00:27:00,636 --> 00:27:01,886
+Document Browser View Controller
+
+
+873
+00:27:01,886 --> 00:27:02,596
+subclass.
+
+
+874
+00:27:03,126 --> 00:27:05,926
+Now the view Did Load method of
+
+
+875
+00:27:05,926 --> 00:27:08,066
+the subclass is a great moment
+
+
+876
+00:27:08,066 --> 00:27:09,146
+to configure the document
+
+
+877
+00:27:09,146 --> 00:27:09,486
+browser.
+
+
+878
+00:27:10,556 --> 00:27:12,536
+In this situation, what we can
+
+
+879
+00:27:12,536 --> 00:27:16,006
+do is set the browser User
+
+
+880
+00:27:16,006 --> 00:27:18,376
+Interface Style to dark and we
+
+
+881
+00:27:18,376 --> 00:27:21,186
+can also modify the tint Color
+
+
+882
+00:27:21,186 --> 00:27:22,306
+of the view of the Document
+
+
+883
+00:27:22,306 --> 00:27:23,146
+Browser View Controller.
+
+
+884
+00:27:23,656 --> 00:27:25,816
+Now in this situation, using a
+
+
+885
+00:27:25,816 --> 00:27:27,476
+bright orange probably will look
+
+
+886
+00:27:27,476 --> 00:27:29,036
+great with our fire particles.
+
+
+887
+00:27:29,796 --> 00:27:30,476
+So let's take a look.
+
+
+888
+00:27:39,016 --> 00:27:39,786
+There we go.
+
+
+889
+00:27:40,056 --> 00:27:41,526
+This is the same Document
+
+
+890
+00:27:41,526 --> 00:27:43,336
+Browser View Controller but in a
+
+
+891
+00:27:43,336 --> 00:27:44,706
+dark appearance which should
+
+
+892
+00:27:44,706 --> 00:27:46,276
+look much better than the one
+
+
+893
+00:27:46,276 --> 00:27:49,386
+before once we open the Document
+
+
+894
+00:27:49,386 --> 00:27:50,036
+View Controller.
+
+
+895
+00:27:50,876 --> 00:27:53,086
+Even the control URI now has the
+
+
+896
+00:27:53,086 --> 00:27:54,076
+updated appearance.
+
+
+897
+00:27:55,016 --> 00:27:59,516
+Let's create a new folder, call
+
+
+898
+00:27:59,516 --> 00:27:59,976
+it fire,
+
+
+899
+00:28:04,516 --> 00:28:05,866
+and open a new document.
+
+
+900
+00:28:06,296 --> 00:28:08,506
+Now the transition between the
+
+
+901
+00:28:08,506 --> 00:28:10,126
+two view controllers is much
+
+
+902
+00:28:10,126 --> 00:28:11,646
+smoother and looks much better.
+
+
+903
+00:28:12,596 --> 00:28:13,926
+So that's pretty much all I have
+
+
+904
+00:28:13,926 --> 00:28:15,506
+to tell you about the first
+
+
+905
+00:28:15,506 --> 00:28:15,836
+demo.
+
+
+906
+00:28:16,716 --> 00:28:18,666
+And to get an overview of what
+
+
+907
+00:28:18,666 --> 00:28:20,206
+we learned so far, I would like
+
+
+908
+00:28:20,206 --> 00:28:21,156
+to hand it back to Pau
+
+
+909
+00:28:22,516 --> 00:28:25,500
+[ Applause ]
+
+
+910
+00:28:34,856 --> 00:28:36,656
+>> So let's take a look at what
+
+
+911
+00:28:36,656 --> 00:28:37,696
+we've seen in the demo.
+
+
+912
+00:28:38,956 --> 00:28:40,806
+First, we saw how to create a
+
+
+913
+00:28:40,806 --> 00:28:42,216
+new document-based application
+
+
+914
+00:28:42,516 --> 00:28:43,426
+from the Xcode template.
+
+
+915
+00:28:44,276 --> 00:28:46,216
+Then, we saw how to create new
+
+
+916
+00:28:46,216 --> 00:28:48,026
+documents and how to open them.
+
+
+917
+00:28:48,656 --> 00:28:50,886
+And finally, we saw how to
+
+
+918
+00:28:50,886 --> 00:28:52,436
+customize the appearance of the
+
+
+919
+00:28:52,436 --> 00:28:54,386
+Browser VC to make it look like
+
+
+920
+00:28:54,386 --> 00:28:55,596
+the rest of our app.
+
+
+921
+00:28:56,646 --> 00:28:59,246
+And now that we have the basics
+
+
+922
+00:28:59,286 --> 00:29:01,586
+of this Browser VC, let's take a
+
+
+923
+00:29:01,646 --> 00:29:04,176
+look at how to get and provide a
+
+
+924
+00:29:04,176 --> 00:29:06,556
+great experience for our users.
+
+
+925
+00:29:07,956 --> 00:29:09,316
+In this section, I would like to
+
+
+926
+00:29:09,316 --> 00:29:10,906
+talk about three different
+
+
+927
+00:29:10,906 --> 00:29:13,086
+topics: open-in-place, how to
+
+
+928
+00:29:13,086 --> 00:29:15,166
+provide custom actions in the
+
+
+929
+00:29:15,166 --> 00:29:17,106
+Browser VC, and how to create a
+
+
+930
+00:29:17,106 --> 00:29:18,706
+great opening experience.
+
+
+931
+00:29:18,706 --> 00:29:21,606
+So first, let's talk about
+
+
+932
+00:29:21,606 --> 00:29:22,416
+open-in-place.
+
+
+933
+00:29:23,016 --> 00:29:24,536
+Open-in-place is a great feature
+
+
+934
+00:29:24,846 --> 00:29:26,056
+that came with iOS 9.
+
+
+935
+00:29:26,826 --> 00:29:28,516
+It allows apps to share files
+
+
+936
+00:29:28,516 --> 00:29:29,786
+between them without the need of
+
+
+937
+00:29:29,846 --> 00:29:32,106
+copying them.
+
+
+938
+00:29:32,306 --> 00:29:33,786
+Also because of this, you have
+
+
+939
+00:29:33,826 --> 00:29:35,856
+to be careful when accessing
+
+
+940
+00:29:35,856 --> 00:29:37,766
+those documents because other
+
+
+941
+00:29:37,766 --> 00:29:38,976
+apps might be already accessing
+
+
+942
+00:29:38,976 --> 00:29:39,176
+them.
+
+
+943
+00:29:40,686 --> 00:29:42,406
+Now the Browser VC makes use of
+
+
+944
+00:29:42,406 --> 00:29:44,606
+this feature in order to open
+
+
+945
+00:29:44,606 --> 00:29:45,526
+the files from the Recents
+
+
+946
+00:29:45,526 --> 00:29:48,506
+Popover, so if you're using the
+
+
+947
+00:29:48,506 --> 00:29:49,796
+Browser VC in your app, you
+
+
+948
+00:29:49,796 --> 00:29:51,236
+really need to make use of
+
+
+949
+00:29:51,236 --> 00:29:51,846
+open-in-place.
+
+
+950
+00:29:51,976 --> 00:29:53,366
+If you're starting from the
+
+
+951
+00:29:53,366 --> 00:29:54,756
+Xcode template, it's real easy.
+
+
+952
+00:29:54,946 --> 00:29:55,916
+You don't have to do anything.
+
+
+953
+00:29:56,346 --> 00:29:57,846
+If not, you will have to
+
+
+954
+00:29:57,846 --> 00:29:59,496
+implement support open-in-place.
+
+
+955
+00:30:00,086 --> 00:30:02,126
+So let's take a look at the
+
+
+956
+00:30:02,126 --> 00:30:02,306
+code.
+
+
+957
+00:30:02,306 --> 00:30:03,406
+First, we have to implement the
+
+
+958
+00:30:03,406 --> 00:30:05,086
+application open input URL
+
+
+959
+00:30:05,086 --> 00:30:05,686
+delegate method.
+
+
+960
+00:30:06,726 --> 00:30:08,556
+Here, first thing is to check if
+
+
+961
+00:30:08,556 --> 00:30:10,136
+the input URL is a file URL.
+
+
+962
+00:30:10,246 --> 00:30:12,226
+And if so, we can call the
+
+
+963
+00:30:12,226 --> 00:30:14,026
+Reveal Document method from the
+
+
+964
+00:30:14,026 --> 00:30:14,476
+Browser VC.
+
+
+965
+00:30:14,476 --> 00:30:16,706
+This method will reveal the
+
+
+966
+00:30:16,706 --> 00:30:18,066
+document in the Recents View and
+
+
+967
+00:30:18,066 --> 00:30:18,916
+call us back when it's ready.
+
+
+968
+00:30:19,046 --> 00:30:22,406
+Now we can load and present the
+
+
+969
+00:30:22,406 --> 00:30:24,176
+document as we did for open and
+
+
+970
+00:30:24,176 --> 00:30:24,546
+creation.
+
+
+971
+00:30:25,176 --> 00:30:26,436
+If it fails, we need to handle
+
+
+972
+00:30:26,436 --> 00:30:28,756
+the error and present some UI to
+
+
+973
+00:30:30,336 --> 00:30:31,006
+the user.
+
+
+974
+00:30:31,006 --> 00:30:32,266
+Now let's take a look at how to
+
+
+975
+00:30:32,266 --> 00:30:33,766
+add custom actions into this
+
+
+976
+00:30:33,766 --> 00:30:34,326
+Browser VC.
+
+
+977
+00:30:35,596 --> 00:30:36,756
+There are three different ways
+
+
+978
+00:30:36,756 --> 00:30:37,826
+of add custom actions.
+
+
+979
+00:30:38,116 --> 00:30:39,686
+The first one is the UI Document
+
+
+980
+00:30:39,686 --> 00:30:40,366
+Browser Action.
+
+
+981
+00:30:40,926 --> 00:30:42,336
+You can add these actions when
+
+
+982
+00:30:42,336 --> 00:30:43,866
+the user performs long press on
+
+
+983
+00:30:43,866 --> 00:30:45,606
+a document and when the user
+
+
+984
+00:30:45,656 --> 00:30:46,646
+enters selection mode.
+
+
+985
+00:30:48,296 --> 00:30:49,396
+In order to create them, you
+
+
+986
+00:30:49,396 --> 00:30:51,646
+need to give an identifier
+
+
+987
+00:30:51,646 --> 00:30:54,546
+localized Title and availability
+
+
+988
+00:30:54,646 --> 00:30:55,306
+in the handler.
+
+
+989
+00:30:55,576 --> 00:30:57,256
+The availability has two values:
+
+
+990
+00:30:57,416 --> 00:30:58,546
+menu and navigation bar.
+
+
+991
+00:30:59,076 --> 00:31:01,246
+Menu will make the action appear
+
+
+992
+00:31:01,246 --> 00:31:02,426
+when the user performs a long
+
+
+993
+00:31:02,426 --> 00:31:03,996
+press and the navigation bar
+
+
+994
+00:31:03,996 --> 00:31:05,756
+will make the action appear when
+
+
+995
+00:31:05,756 --> 00:31:07,506
+the user enters selection mode.
+
+
+996
+00:31:08,336 --> 00:31:09,876
+The handler will give you the
+
+
+997
+00:31:09,876 --> 00:31:11,976
+array of URLs that the user
+
+
+998
+00:31:11,976 --> 00:31:13,316
+wants to use for the action.
+
+
+999
+00:31:14,346 --> 00:31:16,686
+Now unlike the Open URL, this
+
+
+1000
+00:31:16,686 --> 00:31:19,206
+method you will only have access
+
+
+1001
+00:31:19,206 --> 00:31:20,646
+to these URLs until your
+
+
+1002
+00:31:20,646 --> 00:31:21,906
+application gets killed.
+
+
+1003
+00:31:22,646 --> 00:31:24,216
+Now that we have our action, you
+
+
+1004
+00:31:24,216 --> 00:31:25,276
+need to set the supported
+
+
+1005
+00:31:25,276 --> 00:31:26,116
+content types.
+
+
+1006
+00:31:26,116 --> 00:31:27,536
+The Browser VC will use the
+
+
+1007
+00:31:27,536 --> 00:31:29,296
+content types to know when to
+
+
+1008
+00:31:29,296 --> 00:31:30,046
+display your action.
+
+
+1009
+00:31:30,926 --> 00:31:32,206
+Then, you need to set the
+
+
+1010
+00:31:32,206 --> 00:31:34,206
+supports multiple items to
+
+
+1011
+00:31:34,206 --> 00:31:35,726
+specify if you can support
+
+
+1012
+00:31:35,726 --> 00:31:37,136
+multiple items at once.
+
+
+1013
+00:31:37,536 --> 00:31:38,856
+And you just need to set the
+
+
+1014
+00:31:38,916 --> 00:31:40,186
+custom actions that you created
+
+
+1015
+00:31:40,296 --> 00:31:41,926
+into the custom action array of
+
+
+1016
+00:31:41,926 --> 00:31:43,286
+the Browser VC.
+
+
+1017
+00:31:44,196 --> 00:31:46,136
+The second type of actions are
+
+
+1018
+00:31:46,136 --> 00:31:47,656
+the UI Bar Button Items.
+
+
+1019
+00:31:48,346 --> 00:31:49,796
+You can add these actions in the
+
+
+1020
+00:31:49,796 --> 00:31:52,096
+navigation bar of the Recents VC
+
+
+1021
+00:31:52,326 --> 00:31:54,106
+and the browse, sorry, the
+
+
+1022
+00:31:54,106 --> 00:31:55,206
+Recents View and the Browser
+
+
+1023
+00:31:55,206 --> 00:31:56,726
+View and you can add them in the
+
+
+1024
+00:31:56,726 --> 00:31:58,446
+trailing or leading sides of the
+
+
+1025
+00:31:58,446 --> 00:31:59,036
+navigation bar.
+
+
+1026
+00:32:01,816 --> 00:32:03,796
+The third type of actions are
+
+
+1027
+00:32:03,796 --> 00:32:05,536
+the ones that you can add in the
+
+
+1028
+00:32:05,536 --> 00:32:06,906
+UI Activity View Controller.
+
+
+1029
+00:32:08,006 --> 00:32:09,886
+The Browser VC will show this
+
+
+1030
+00:32:09,886 --> 00:32:11,656
+view controller when the user
+
+
+1031
+00:32:11,716 --> 00:32:13,786
+performs the share action.
+
+
+1032
+00:32:14,376 --> 00:32:16,226
+The Browser VC will let you have
+
+
+1033
+00:32:16,226 --> 00:32:17,666
+control of this activity view
+
+
+1034
+00:32:17,666 --> 00:32:18,786
+controller before it gets
+
+
+1035
+00:32:18,826 --> 00:32:19,306
+presented.
+
+
+1036
+00:32:19,526 --> 00:32:21,186
+And also, it will let you add
+
+
+1037
+00:32:21,186 --> 00:32:22,446
+custom actions when it's
+
+
+1038
+00:32:22,446 --> 00:32:24,096
+creating this UI Activity View
+
+
+1039
+00:32:24,096 --> 00:32:24,466
+Controller.
+
+
+1040
+00:32:24,556 --> 00:32:26,046
+So let's take a look at the
+
+
+1041
+00:32:26,046 --> 00:32:26,276
+code.
+
+
+1042
+00:32:26,436 --> 00:32:28,796
+If you want to add additional
+
+
+1043
+00:32:28,796 --> 00:32:30,496
+actions, you need to implement
+
+
+1044
+00:32:30,496 --> 00:32:31,916
+the document Brower application
+
+
+1045
+00:32:31,916 --> 00:32:33,236
+activities for document URL
+
+
+1046
+00:32:33,296 --> 00:32:34,126
+delegate method.
+
+
+1047
+00:32:35,406 --> 00:32:36,986
+If you want to have access to
+
+
+1048
+00:32:36,986 --> 00:32:38,576
+this Activity View Controller,
+
+
+1049
+00:32:38,856 --> 00:32:40,506
+you need to implement the
+
+
+1050
+00:32:40,506 --> 00:32:42,026
+Document Browser will Present
+
+
+1051
+00:32:42,636 --> 00:32:43,736
+activity View Controller.
+
+
+1052
+00:32:45,466 --> 00:32:47,126
+And that's all for the actions.
+
+
+1053
+00:32:47,916 --> 00:32:49,996
+Now as you've seen already in
+
+
+1054
+00:32:49,996 --> 00:32:51,976
+Files, there's a great opening
+
+
+1055
+00:32:51,976 --> 00:32:53,386
+transition that goes from the
+
+
+1056
+00:32:53,386 --> 00:32:54,826
+thumbnail to the full screen.
+
+
+1057
+00:32:56,126 --> 00:32:58,566
+And Files app is able to do this
+
+
+1058
+00:32:58,776 --> 00:33:00,276
+thanks to the new UI Document
+
+
+1059
+00:33:00,276 --> 00:33:01,476
+Browser Transition Controller.
+
+
+1060
+00:33:02,206 --> 00:33:04,936
+This class will let you set
+
+
+1061
+00:33:05,506 --> 00:33:07,806
+display loading progress on top
+
+
+1062
+00:33:07,806 --> 00:33:09,536
+of the thumbnail while you are
+
+
+1063
+00:33:09,536 --> 00:33:11,246
+loading the document.
+
+
+1064
+00:33:11,346 --> 00:33:14,036
+And it will also let you animate
+
+
+1065
+00:33:14,036 --> 00:33:15,766
+with Zoom transition when you're
+
+
+1066
+00:33:15,766 --> 00:33:17,446
+presenting the Document View
+
+
+1067
+00:33:17,746 --> 00:33:19,926
+Controller for the document.
+
+
+1068
+00:33:20,486 --> 00:33:21,986
+So now, let's take a look at the
+
+
+1069
+00:33:21,986 --> 00:33:22,486
+workflow.
+
+
+1070
+00:33:23,246 --> 00:33:26,106
+First, you will have to get the
+
+
+1071
+00:33:26,106 --> 00:33:27,466
+URL that the user just picked.
+
+
+1072
+00:33:28,486 --> 00:33:29,986
+Here, you will start loading the
+
+
+1073
+00:33:29,986 --> 00:33:30,906
+content of the document.
+
+
+1074
+00:33:30,906 --> 00:33:32,976
+And while loading it, you will
+
+
+1075
+00:33:32,976 --> 00:33:34,216
+have to update the Transition
+
+
+1076
+00:33:34,216 --> 00:33:34,626
+Controller.
+
+
+1077
+00:33:35,316 --> 00:33:37,526
+Once the document is fully
+
+
+1078
+00:33:37,526 --> 00:33:39,326
+loaded, you just need to present
+
+
+1079
+00:33:39,326 --> 00:33:40,856
+the document and use the
+
+
+1080
+00:33:40,856 --> 00:33:42,636
+Transition Controller to drive
+
+
+1081
+00:33:42,636 --> 00:33:44,016
+the animation for the
+
+
+1082
+00:33:44,016 --> 00:33:44,596
+presentation.
+
+
+1083
+00:33:44,786 --> 00:33:48,346
+So now, let's take a look at how
+
+
+1084
+00:33:48,346 --> 00:33:48,816
+it works.
+
+
+1085
+00:33:49,606 --> 00:33:51,796
+First, once you have the URL
+
+
+1086
+00:33:51,916 --> 00:33:54,596
+that the user picked, you need
+
+
+1087
+00:33:54,596 --> 00:33:55,736
+to create the progress object
+
+
+1088
+00:33:55,736 --> 00:33:57,606
+that will track the loading of
+
+
+1089
+00:33:57,606 --> 00:33:58,156
+the document.
+
+
+1090
+00:33:59,046 --> 00:34:00,466
+Here, you create also the
+
+
+1091
+00:34:00,466 --> 00:34:02,736
+transition Controller that will
+
+
+1092
+00:34:02,736 --> 00:34:04,306
+track the loading and that will
+
+
+1093
+00:34:04,306 --> 00:34:05,806
+drive the animation from the
+
+
+1094
+00:34:05,806 --> 00:34:06,906
+thumbnail to the full screen.
+
+
+1095
+00:34:07,406 --> 00:34:08,696
+Now you just need to set the
+
+
+1096
+00:34:08,696 --> 00:34:09,966
+progress onto the transition
+
+
+1097
+00:34:09,966 --> 00:34:10,335
+Controller.
+
+
+1098
+00:34:11,196 --> 00:34:12,815
+Here, we are ready to load the
+
+
+1099
+00:34:12,815 --> 00:34:13,196
+document.
+
+
+1100
+00:34:13,735 --> 00:34:14,706
+In our example, the load
+
+
+1101
+00:34:14,706 --> 00:34:16,156
+Document method will load the
+
+
+1102
+00:34:16,156 --> 00:34:17,826
+document while updating the
+
+
+1103
+00:34:17,826 --> 00:34:19,036
+progress that we created before.
+
+
+1104
+00:34:19,036 --> 00:34:21,346
+And when the document is fully
+
+
+1105
+00:34:21,346 --> 00:34:23,266
+loaded, it will call us back.
+
+
+1106
+00:34:23,266 --> 00:34:24,416
+Here, we just need to present
+
+
+1107
+00:34:24,496 --> 00:34:25,585
+the Document View Controller.
+
+
+1108
+00:34:26,386 --> 00:34:27,956
+Now, if we stop here, we will
+
+
+1109
+00:34:27,956 --> 00:34:29,286
+get the [inaudible] from UIKit
+
+
+1110
+00:34:29,406 --> 00:34:30,666
+which is a slide from the bottom
+
+
+1111
+00:34:30,666 --> 00:34:32,786
+but we want to have this nice
+
+
+1112
+00:34:32,786 --> 00:34:33,676
+zoom transition.
+
+
+1113
+00:34:34,096 --> 00:34:35,235
+And for that, we need to
+
+
+1114
+00:34:35,235 --> 00:34:36,476
+implement the transitioning
+
+
+1115
+00:34:36,476 --> 00:34:37,735
+delegate of the presented View
+
+
+1116
+00:34:37,735 --> 00:34:38,186
+Controller.
+
+
+1117
+00:34:38,266 --> 00:34:40,876
+The transitioning delegate needs
+
+
+1118
+00:34:40,906 --> 00:34:42,025
+to implement the UI View
+
+
+1119
+00:34:42,025 --> 00:34:43,166
+Controller Transitioning
+
+
+1120
+00:34:43,166 --> 00:34:43,926
+Delegate protocol.
+
+
+1121
+00:34:44,085 --> 00:34:46,106
+In this protocol, you need to
+
+
+1122
+00:34:46,106 --> 00:34:47,876
+implement two main methods: the
+
+
+1123
+00:34:47,876 --> 00:34:48,866
+animation controller for
+
+
+1124
+00:34:48,866 --> 00:34:49,906
+presented view controller and
+
+
+1125
+00:34:49,906 --> 00:34:51,806
+the animation controller for the
+
+
+1126
+00:34:51,806 --> 00:34:52,606
+dismissed view controller.
+
+
+1127
+00:34:52,706 --> 00:34:54,835
+Here, you just need to return
+
+
+1128
+00:34:54,906 --> 00:34:56,295
+the transition controller that
+
+
+1129
+00:34:56,295 --> 00:34:57,236
+we created before.
+
+
+1130
+00:34:58,546 --> 00:35:00,236
+And now I will like to hand back
+
+
+1131
+00:35:00,236 --> 00:35:01,406
+to Raffael to show you how to
+
+
+1132
+00:35:01,406 --> 00:35:02,446
+implement all these advanced
+
+
+1133
+00:35:02,446 --> 00:35:02,776
+features.
+
+
+1134
+00:35:03,256 --> 00:35:03,506
+Raffael
+
+
+1135
+00:35:04,016 --> 00:35:05,531
+[ Applause ]
+
+
+1136
+00:35:05,531 --> 00:35:07,046
+.
+
+
+1137
+00:35:07,046 --> 00:35:07,516
+>> Thanks, Pau.
+
+
+1138
+00:35:08,756 --> 00:35:10,206
+So in this second demo, I'd like
+
+
+1139
+00:35:10,206 --> 00:35:11,736
+to show you three cool things.
+
+
+1140
+00:35:12,106 --> 00:35:13,846
+First, we're going to take a
+
+
+1141
+00:35:13,846 --> 00:35:15,736
+look at open-in-place and how
+
+
+1142
+00:35:15,736 --> 00:35:18,236
+easy it is to adopt it with your
+
+
+1143
+00:35:18,236 --> 00:35:19,516
+Document Browser View Controller
+
+
+1144
+00:35:19,516 --> 00:35:20,096
+application.
+
+
+1145
+00:35:20,876 --> 00:35:22,036
+Next, we're going to take a look
+
+
+1146
+00:35:22,036 --> 00:35:23,246
+at custom actions.
+
+
+1147
+00:35:23,716 --> 00:35:24,866
+We're going to add a new action
+
+
+1148
+00:35:24,866 --> 00:35:26,286
+that shows up in the long press
+
+
+1149
+00:35:26,286 --> 00:35:28,016
+menu when you tap and hold a
+
+
+1150
+00:35:28,016 --> 00:35:28,546
+document.
+
+
+1151
+00:35:29,066 --> 00:35:30,366
+And last but not least, we're
+
+
+1152
+00:35:30,366 --> 00:35:31,756
+going to implement a custom view
+
+
+1153
+00:35:31,756 --> 00:35:33,546
+controller transition to improve
+
+
+1154
+00:35:33,546 --> 00:35:35,356
+the user experience when we open
+
+
+1155
+00:35:35,356 --> 00:35:37,126
+an existing file or create a new
+
+
+1156
+00:35:37,126 --> 00:35:37,356
+one.
+
+
+1157
+00:35:37,866 --> 00:35:39,076
+So let's just jump back right
+
+
+1158
+00:35:39,076 --> 00:35:39,956
+into our project.
+
+
+1159
+00:35:48,746 --> 00:35:49,596
+Now let's talk about
+
+
+1160
+00:35:49,596 --> 00:35:50,396
+open-in-place.
+
+
+1161
+00:35:50,936 --> 00:35:53,556
+Open-in-place is a great feature
+
+
+1162
+00:35:53,556 --> 00:35:55,196
+that has been introduced with
+
+
+1163
+00:35:55,296 --> 00:35:57,096
+iOS 9 and it allows you to work
+
+
+1164
+00:35:57,096 --> 00:35:58,426
+on the file that the user has
+
+
+1165
+00:35:58,426 --> 00:36:00,106
+chosen instead of on a copy of
+
+
+1166
+00:36:00,106 --> 00:36:00,256
+it.
+
+
+1167
+00:36:01,376 --> 00:36:03,516
+Now adopting it is super easy.
+
+
+1168
+00:36:03,626 --> 00:36:05,116
+And, in fact, if you come from
+
+
+1169
+00:36:05,116 --> 00:36:06,316
+the document based apps
+
+
+1170
+00:36:06,316 --> 00:36:07,856
+template, you have literally
+
+
+1171
+00:36:07,856 --> 00:36:09,136
+nothing to do.
+
+
+1172
+00:36:09,626 --> 00:36:11,876
+The way it works is when the
+
+
+1173
+00:36:11,876 --> 00:36:13,636
+user taps the document outside
+
+
+1174
+00:36:13,636 --> 00:36:15,556
+of your app, iOS will make a
+
+
+1175
+00:36:15,556 --> 00:36:17,056
+call to your app delegate to
+
+
+1176
+00:36:17,466 --> 00:36:18,466
+open the URL with options.
+
+
+1177
+00:36:18,466 --> 00:36:19,606
+So let's take a look.
+
+
+1178
+00:36:25,696 --> 00:36:28,066
+Now in this function, what we do
+
+
+1179
+00:36:28,066 --> 00:36:30,006
+is first we make sure that the
+
+
+1180
+00:36:30,006 --> 00:36:31,296
+URL that we get from iOS
+
+
+1181
+00:36:31,396 --> 00:36:33,106
+actually is a file URL.
+
+
+1182
+00:36:33,556 --> 00:36:35,286
+If it's not, we should probably
+
+
+1183
+00:36:35,286 --> 00:36:36,486
+return because we are not in the
+
+
+1184
+00:36:36,486 --> 00:36:37,656
+situation that we expect.
+
+
+1185
+00:36:38,746 --> 00:36:41,076
+Once we pass that test, we get
+
+
+1186
+00:36:41,076 --> 00:36:42,196
+our document Browser View
+
+
+1187
+00:36:42,196 --> 00:36:43,766
+Controller which is the root
+
+
+1188
+00:36:43,766 --> 00:36:44,616
+View Controller of our
+
+
+1189
+00:36:44,616 --> 00:36:45,256
+application.
+
+
+1190
+00:36:45,926 --> 00:36:48,006
+And we take the URL and pass it
+
+
+1191
+00:36:48,006 --> 00:36:49,486
+to the reveal Document function.
+
+
+1192
+00:36:50,106 --> 00:36:52,896
+Now the Document Browser View
+
+
+1193
+00:36:52,896 --> 00:36:54,476
+Controller again will do all the
+
+
+1194
+00:36:54,476 --> 00:36:55,596
+heavy lifting for you in the
+
+
+1195
+00:36:55,596 --> 00:36:56,126
+background.
+
+
+1196
+00:36:56,756 --> 00:36:59,036
+It will process the URL, move it
+
+
+1197
+00:36:59,036 --> 00:37:01,066
+if required, and once it's done,
+
+
+1198
+00:37:01,646 --> 00:37:02,866
+we're going to get a call back
+
+
+1199
+00:37:02,976 --> 00:37:04,416
+with our completion handler.
+
+
+1200
+00:37:05,296 --> 00:37:06,466
+Now again, if we get an error,
+
+
+1201
+00:37:06,706 --> 00:37:07,586
+since we want to be good
+
+
+1202
+00:37:07,626 --> 00:37:09,016
+developers, we're going to
+
+
+1203
+00:37:09,146 --> 00:37:10,626
+handle the error appropriately
+
+
+1204
+00:37:10,676 --> 00:37:12,286
+for example by showing an alert
+
+
+1205
+00:37:12,356 --> 00:37:13,206
+view to the user.
+
+
+1206
+00:37:14,656 --> 00:37:17,366
+If everything went right, we
+
+
+1207
+00:37:17,366 --> 00:37:18,706
+just go ahead and present the
+
+
+1208
+00:37:18,706 --> 00:37:20,976
+document with that new reveal
+
+
+1209
+00:37:20,976 --> 00:37:21,936
+Document URL.
+
+
+1210
+00:37:23,006 --> 00:37:24,416
+That's literally all you have to
+
+
+1211
+00:37:24,416 --> 00:37:26,436
+do to support open-in-place in
+
+
+1212
+00:37:26,436 --> 00:37:27,836
+your document-based application.
+
+
+1213
+00:37:29,906 --> 00:37:31,446
+Now let's take a look at custom
+
+
+1214
+00:37:31,446 --> 00:37:32,036
+actions.
+
+
+1215
+00:37:33,226 --> 00:37:34,796
+So our particle systems are
+
+
+1216
+00:37:34,796 --> 00:37:36,146
+really beautiful, right, and we
+
+
+1217
+00:37:36,146 --> 00:37:37,326
+might want to share them with
+
+
+1218
+00:37:37,326 --> 00:37:37,856
+our friends.
+
+
+1219
+00:37:38,916 --> 00:37:40,476
+So I'm going to add a new action
+
+
+1220
+00:37:40,476 --> 00:37:41,496
+that shows up when you long
+
+
+1221
+00:37:41,496 --> 00:37:43,606
+press a document to export this
+
+
+1222
+00:37:43,606 --> 00:37:46,266
+particle system as a GIF file or
+
+
+1223
+00:37:46,266 --> 00:37:46,766
+a GIF file.
+
+
+1224
+00:37:48,006 --> 00:37:49,016
+Now let's take a look at the
+
+
+1225
+00:37:49,016 --> 00:37:50,336
+Document Browser View Controller
+
+
+1226
+00:37:51,116 --> 00:37:51,236
+again.
+
+
+1227
+00:37:51,996 --> 00:37:53,876
+The view did load method is a
+
+
+1228
+00:37:53,876 --> 00:37:55,426
+great moment to configure these
+
+
+1229
+00:37:55,426 --> 00:37:55,866
+actions.
+
+
+1230
+00:38:02,976 --> 00:38:05,216
+So, therefore, I'm instantiating
+
+
+1231
+00:38:05,216 --> 00:38:06,566
+a new UI Document Browser
+
+
+1232
+00:38:06,566 --> 00:38:07,026
+Action.
+
+
+1233
+00:38:07,506 --> 00:38:09,376
+I give it an identifier that is
+
+
+1234
+00:38:09,376 --> 00:38:11,376
+unique throughout the app, a
+
+
+1235
+00:38:11,376 --> 00:38:13,646
+localized Title, and I set the
+
+
+1236
+00:38:13,646 --> 00:38:15,526
+availability to menu only.
+
+
+1237
+00:38:15,986 --> 00:38:17,836
+So this will make sure that this
+
+
+1238
+00:38:17,836 --> 00:38:19,436
+action only shows up when you
+
+
+1239
+00:38:19,436 --> 00:38:21,316
+long press a document inside
+
+
+1240
+00:38:21,316 --> 00:38:22,236
+your Document Browser View
+
+
+1241
+00:38:22,236 --> 00:38:22,916
+Controller grid.
+
+
+1242
+00:38:24,556 --> 00:38:25,846
+We also have to give it a
+
+
+1243
+00:38:25,846 --> 00:38:27,176
+handler which is the one that
+
+
+1244
+00:38:27,176 --> 00:38:28,766
+will be executed whenever the
+
+
+1245
+00:38:28,766 --> 00:38:30,066
+user taps our action.
+
+
+1246
+00:38:30,696 --> 00:38:32,366
+In this situation, we just go
+
+
+1247
+00:38:32,366 --> 00:38:34,986
+ahead and log [inaudible]to the
+
+
+1248
+00:38:34,986 --> 00:38:35,436
+consol.
+
+
+1249
+00:38:35,906 --> 00:38:39,306
+Next, we define the action
+
+
+1250
+00:38:39,886 --> 00:38:41,646
+supported Content Types to be
+
+
+1251
+00:38:41,816 --> 00:38:43,816
+com.example.particles with just
+
+
+1252
+00:38:43,816 --> 00:38:45,656
+the UTI type we defined earlier.
+
+
+1253
+00:38:46,336 --> 00:38:47,816
+So just make sure that only our
+
+
+1254
+00:38:47,816 --> 00:38:50,126
+own files will get this action
+
+
+1255
+00:38:50,266 --> 00:38:50,876
+in the menu.
+
+
+1256
+00:38:51,296 --> 00:38:53,446
+And last but not least, all we
+
+
+1257
+00:38:53,446 --> 00:38:55,996
+have to do is define the custom
+
+
+1258
+00:38:55,996 --> 00:38:57,526
+actions of our Document Browser
+
+
+1259
+00:38:57,526 --> 00:38:59,226
+View Controller to be array
+
+
+1260
+00:38:59,396 --> 00:39:00,726
+containing this newly created
+
+
+1261
+00:39:00,726 --> 00:39:01,056
+action.
+
+
+1262
+00:39:02,356 --> 00:39:03,316
+Let's try it out in the
+
+
+1263
+00:39:03,316 --> 00:39:03,736
+simulator.
+
+
+1264
+00:39:10,866 --> 00:39:12,966
+Now on our existing file, we
+
+
+1265
+00:39:12,966 --> 00:39:15,106
+perform a long press and we see
+
+
+1266
+00:39:15,106 --> 00:39:15,996
+that there's a new action
+
+
+1267
+00:39:15,996 --> 00:39:17,706
+showing up here, export as GIF.
+
+
+1268
+00:39:18,866 --> 00:39:20,456
+Once tapped, we see that in the
+
+
+1269
+00:39:20,456 --> 00:39:22,266
+console the handler of the
+
+
+1270
+00:39:22,266 --> 00:39:23,926
+action has been executed.
+
+
+1271
+00:39:25,776 --> 00:39:26,746
+That was pretty easy.
+
+
+1272
+00:39:27,156 --> 00:39:28,746
+Now let's move to the third and
+
+
+1273
+00:39:28,746 --> 00:39:30,566
+the coolest things, the coolest
+
+
+1274
+00:39:30,566 --> 00:39:31,666
+thing that I wanted to show you,
+
+
+1275
+00:39:31,666 --> 00:39:33,036
+which is custom view controller
+
+
+1276
+00:39:33,036 --> 00:39:33,586
+transitions.
+
+
+1277
+00:39:34,936 --> 00:39:36,246
+Right now when we present our
+
+
+1278
+00:39:36,246 --> 00:39:37,856
+Document View Controller, we get
+
+
+1279
+00:39:37,856 --> 00:39:39,926
+a simple slide up amination that
+
+
+1280
+00:39:39,926 --> 00:39:42,396
+is provided by UIKit and that's
+
+
+1281
+00:39:42,396 --> 00:39:44,166
+already pretty cool but it's not
+
+
+1282
+00:39:44,166 --> 00:39:45,136
+really the way it should look
+
+
+1283
+00:39:45,136 --> 00:39:45,406
+like.
+
+
+1284
+00:39:45,936 --> 00:39:47,426
+Instead, the way it really
+
+
+1285
+00:39:47,426 --> 00:39:49,136
+should look like is the user
+
+
+1286
+00:39:49,136 --> 00:39:51,156
+taps the document thumbnail and
+
+
+1287
+00:39:51,156 --> 00:39:52,476
+the thumbnail grows into the
+
+
+1288
+00:39:52,476 --> 00:39:54,376
+particle system on the left side
+
+
+1289
+00:39:54,376 --> 00:39:55,686
+of our Document View Controller.
+
+
+1290
+00:39:56,576 --> 00:39:57,546
+So let's take a look at how we
+
+
+1291
+00:39:57,546 --> 00:39:57,976
+can make this work.
+
+
+1292
+00:40:02,196 --> 00:40:04,746
+Therefore, we switch back to the
+
+
+1293
+00:40:04,746 --> 00:40:08,116
+present document function that
+
+
+1294
+00:40:08,116 --> 00:40:09,006
+we created earlier.
+
+
+1295
+00:40:09,936 --> 00:40:11,016
+Now the way custom View
+
+
+1296
+00:40:11,016 --> 00:40:12,826
+Controller transitions work is
+
+
+1297
+00:40:13,086 --> 00:40:14,426
+you register yourself as the
+
+
+1298
+00:40:14,426 --> 00:40:15,926
+transitioning delegate of the
+
+
+1299
+00:40:15,926 --> 00:40:17,196
+view controller that is about to
+
+
+1300
+00:40:17,196 --> 00:40:17,906
+be presented.
+
+
+1301
+00:40:19,036 --> 00:40:20,896
+Before it is presented, UIKit
+
+
+1302
+00:40:20,896 --> 00:40:22,506
+will call us and ask for the
+
+
+1303
+00:40:22,506 --> 00:40:23,756
+transitioning controller.
+
+
+1304
+00:40:24,646 --> 00:40:25,846
+We give back the transitioning
+
+
+1305
+00:40:25,846 --> 00:40:27,646
+controller and that object will
+
+
+1306
+00:40:27,646 --> 00:40:28,936
+be in charge of driving the
+
+
+1307
+00:40:28,936 --> 00:40:30,396
+animation from view controller A
+
+
+1308
+00:40:30,396 --> 00:40:31,926
+to view controller B.
+
+
+1309
+00:40:32,976 --> 00:40:34,316
+View controller A in our
+
+
+1310
+00:40:34,316 --> 00:40:35,516
+situation is the Document
+
+
+1311
+00:40:35,516 --> 00:40:36,496
+Browser View Controller.
+
+
+1312
+00:40:37,066 --> 00:40:38,216
+View controller B is the
+
+
+1313
+00:40:38,216 --> 00:40:39,216
+Document View Controller.
+
+
+1314
+00:40:40,606 --> 00:40:41,786
+Now Pau mentioned that earlier
+
+
+1315
+00:40:41,786 --> 00:40:43,196
+the Document Browser View
+
+
+1316
+00:40:43,196 --> 00:40:44,866
+Controller already gives us this
+
+
+1317
+00:40:44,866 --> 00:40:46,666
+transitioning controller for us.
+
+
+1318
+00:40:47,026 --> 00:40:48,816
+We just have to keep a reference
+
+
+1319
+00:40:49,036 --> 00:40:50,446
+and pass it back to the function
+
+
+1320
+00:40:50,446 --> 00:40:50,896
+that UIKit will call.
+
+
+1321
+00:40:57,306 --> 00:40:59,366
+So first, we register ourselves
+
+
+1322
+00:40:59,576 --> 00:41:01,076
+as the transitioning delegate of
+
+
+1323
+00:41:01,116 --> 00:41:02,186
+the document View Controller
+
+
+1324
+00:41:02,186 --> 00:41:03,506
+that is about to be presented.
+
+
+1325
+00:41:03,936 --> 00:41:09,156
+Next, we obtain a new
+
+
+1326
+00:41:09,156 --> 00:41:10,676
+transitioning Controller by
+
+
+1327
+00:41:10,676 --> 00:41:12,136
+calling the transition
+
+
+1328
+00:41:12,136 --> 00:41:14,426
+Controller for Document URL on
+
+
+1329
+00:41:14,426 --> 00:41:15,726
+our UI Document Browser View
+
+
+1330
+00:41:15,726 --> 00:41:16,206
+Controller.
+
+
+1331
+00:41:17,286 --> 00:41:19,006
+Now this object doesn't really
+
+
+1332
+00:41:19,006 --> 00:41:20,656
+need a lot of configuration.
+
+
+1333
+00:41:21,046 --> 00:41:22,246
+The only thing it really needs
+
+
+1334
+00:41:22,386 --> 00:41:23,276
+is the target View.
+
+
+1335
+00:41:24,196 --> 00:41:25,376
+The target View is the one that
+
+
+1336
+00:41:25,376 --> 00:41:26,616
+we're going to animate to.
+
+
+1337
+00:41:26,786 --> 00:41:28,326
+And in our situation, that's the
+
+
+1338
+00:41:28,326 --> 00:41:29,596
+particle system on the left.
+
+
+1339
+00:41:31,586 --> 00:41:33,256
+We keep a reference to the
+
+
+1340
+00:41:33,256 --> 00:41:34,436
+transitioning controller that
+
+
+1341
+00:41:34,436 --> 00:41:36,336
+we've just obtained via our
+
+
+1342
+00:41:36,336 --> 00:41:36,866
+variable.
+
+
+1343
+00:41:37,446 --> 00:41:40,246
+Now the last thing we really
+
+
+1344
+00:41:40,246 --> 00:41:42,756
+have to do is implementing the
+
+
+1345
+00:41:42,756 --> 00:41:44,276
+UI View Controller Transitioning
+
+
+1346
+00:41:44,276 --> 00:41:45,246
+Delegate protocol.
+
+
+1347
+00:41:53,436 --> 00:41:54,816
+Now, therefore, we implement the
+
+
+1348
+00:41:54,816 --> 00:41:56,186
+two functions: animation
+
+
+1349
+00:41:56,186 --> 00:41:57,566
+Controller for Presented View
+
+
+1350
+00:41:57,566 --> 00:41:59,796
+Controller and also, because we
+
+
+1351
+00:41:59,796 --> 00:42:00,686
+want to support closing
+
+
+1352
+00:42:00,686 --> 00:42:02,356
+documents, animation Controller
+
+
+1353
+00:42:02,356 --> 00:42:03,746
+for dismissed view controller.
+
+
+1354
+00:42:04,736 --> 00:42:06,026
+In both functions, all we have
+
+
+1355
+00:42:06,076 --> 00:42:06,966
+to do is return the
+
+
+1356
+00:42:06,966 --> 00:42:08,156
+transitioning controller that
+
+
+1357
+00:42:08,156 --> 00:42:08,986
+we've just obtained.
+
+
+1358
+00:42:10,016 --> 00:42:10,696
+Let's try it out in the
+
+
+1359
+00:42:10,696 --> 00:42:10,966
+simulator.
+
+
+1360
+00:42:23,146 --> 00:42:24,036
+Beautiful, isn't it?
+
+
+1361
+00:42:24,106 --> 00:42:25,606
+We get a nice transition from
+
+
+1362
+00:42:25,606 --> 00:42:27,126
+the thumbnail to our particle
+
+
+1363
+00:42:27,126 --> 00:42:27,606
+system.
+
+
+1364
+00:42:28,166 --> 00:42:29,566
+And when we're done with the
+
+
+1365
+00:42:29,566 --> 00:42:31,396
+file modifications, we tap the
+
+
+1366
+00:42:31,396 --> 00:42:33,216
+Done button to close the file
+
+
+1367
+00:42:33,216 --> 00:42:34,366
+again and we transition
+
+
+1368
+00:42:34,366 --> 00:42:35,746
+beautifully back to our UI
+
+
+1369
+00:42:35,746 --> 00:42:36,596
+Document Browser View
+
+
+1370
+00:42:36,596 --> 00:42:37,056
+Controller.
+
+
+1371
+00:42:37,616 --> 00:42:40,156
+So that's pretty much it for the
+
+
+1372
+00:42:40,156 --> 00:42:40,846
+second demo.
+
+
+1373
+00:42:41,166 --> 00:42:42,246
+Let's take a look at what we've
+
+
+1374
+00:42:42,246 --> 00:42:42,926
+learned so far.
+
+
+1375
+00:42:47,616 --> 00:42:49,726
+First, we've taken a look at how
+
+
+1376
+00:42:49,726 --> 00:42:50,956
+easy it is to support
+
+
+1377
+00:42:50,956 --> 00:42:52,126
+open-in-place in your
+
+
+1378
+00:42:52,126 --> 00:42:52,756
+application.
+
+
+1379
+00:42:53,166 --> 00:42:54,326
+The UI Document Browser View
+
+
+1380
+00:42:54,326 --> 00:42:55,706
+Controller really does all the
+
+
+1381
+00:42:55,706 --> 00:42:56,716
+heavy lifting for you.
+
+
+1382
+00:42:58,516 --> 00:43:00,516
+Next, we've implemented a custom
+
+
+1383
+00:43:00,516 --> 00:43:02,436
+action that shows up only when
+
+
+1384
+00:43:02,436 --> 00:43:04,026
+you long press a document in the
+
+
+1385
+00:43:04,026 --> 00:43:04,916
+Document Browser View
+
+
+1386
+00:43:04,916 --> 00:43:05,416
+Controller.
+
+
+1387
+00:43:05,986 --> 00:43:09,366
+And last but not least, we've
+
+
+1388
+00:43:09,566 --> 00:43:11,016
+improved the user experience a
+
+
+1389
+00:43:11,016 --> 00:43:12,686
+lot when opening and closing
+
+
+1390
+00:43:12,686 --> 00:43:14,256
+documents by implementing a
+
+
+1391
+00:43:14,256 --> 00:43:15,196
+custom view controller
+
+
+1392
+00:43:15,196 --> 00:43:17,096
+transition using the UI Document
+
+
+1393
+00:43:17,096 --> 00:43:18,276
+Browser Transition Controller.
+
+
+1394
+00:43:18,276 --> 00:43:21,086
+Now that's pretty much it for
+
+
+1395
+00:43:21,086 --> 00:43:21,886
+the second demo.
+
+
+1396
+00:43:22,296 --> 00:43:24,346
+And to tell us what's new on the
+
+
+1397
+00:43:24,346 --> 00:43:25,736
+Quick Look side, I would like to
+
+
+1398
+00:43:25,736 --> 00:43:27,216
+hand it over to my colleague and
+
+
+1399
+00:43:27,216 --> 00:43:28,046
+friend Maxime.
+
+
+1400
+00:43:28,686 --> 00:43:28,906
+Maxime
+
+
+1401
+00:43:29,016 --> 00:43:29,083
+[ Applause ]
+
+
+1402
+00:43:29,083 --> 00:43:29,150
+.
+
+
+1403
+00:43:29,150 --> 00:43:32,666
+>> Thank you, Raffael.
+
+
+1404
+00:43:34,296 --> 00:43:34,976
+Good afternoon, everyone.
+
+
+1405
+00:43:39,956 --> 00:43:41,346
+I'm sure you have all seen the
+
+
+1406
+00:43:41,346 --> 00:43:42,836
+great thumbnails of the files
+
+
+1407
+00:43:42,836 --> 00:43:46,286
+app and I'm sure you wish your
+
+
+1408
+00:43:46,286 --> 00:43:47,916
+own thumbnails could show up in
+
+
+1409
+00:43:47,996 --> 00:43:51,046
+any document browser based app.
+
+
+1410
+00:43:51,046 --> 00:43:52,376
+You are now going to see how
+
+
+1411
+00:43:52,486 --> 00:43:56,326
+this is possible thanks to the
+
+
+1412
+00:43:56,326 --> 00:43:57,526
+new thumbnail extension.
+
+
+1413
+00:43:57,526 --> 00:43:58,256
+Currently, [inaudible] particles
+
+
+1414
+00:43:58,296 --> 00:43:59,436
+app that we're building
+
+
+1415
+00:43:59,436 --> 00:44:01,336
+throughout this session, all we
+
+
+1416
+00:44:01,336 --> 00:44:02,606
+can are generic icons.
+
+
+1417
+00:44:03,796 --> 00:44:05,216
+We could highly improve the user
+
+
+1418
+00:44:05,216 --> 00:44:07,286
+experience by displaying instead
+
+
+1419
+00:44:07,706 --> 00:44:09,186
+representative thumbnails that
+
+
+1420
+00:44:09,386 --> 00:44:11,336
+indicate to the user the content
+
+
+1421
+00:44:11,496 --> 00:44:13,326
+of the files.
+
+
+1422
+00:44:13,486 --> 00:44:14,276
+So how can you provide
+
+
+1423
+00:44:14,316 --> 00:44:15,696
+thumbnails of files that have
+
+
+1424
+00:44:15,696 --> 00:44:16,826
+been downloaded and are
+
+
+1425
+00:44:16,826 --> 00:44:20,706
+available on the device?
+
+
+1426
+00:44:21,886 --> 00:44:23,226
+This was already possible before
+
+
+1427
+00:44:23,226 --> 00:44:25,096
+iOS 11 through UI Document.
+
+
+1428
+00:44:25,746 --> 00:44:28,536
+What you have to do is create a
+
+
+1429
+00:44:28,536 --> 00:44:30,006
+subclass of UI Document and
+
+
+1430
+00:44:30,216 --> 00:44:31,476
+return the thumbnail from your
+
+
+1431
+00:44:31,516 --> 00:44:32,686
+subclass.
+
+
+1432
+00:44:33,376 --> 00:44:35,016
+This only works for files
+
+
+1433
+00:44:35,056 --> 00:44:36,526
+created by your application and
+
+
+1434
+00:44:37,276 --> 00:44:38,366
+this has good performance
+
+
+1435
+00:44:38,366 --> 00:44:39,986
+because when iOS will ask your
+
+
+1436
+00:44:39,986 --> 00:44:42,576
+subclass of the thumbnails, the
+
+
+1437
+00:44:42,576 --> 00:44:43,876
+file will be already loaded.
+
+
+1438
+00:44:44,686 --> 00:44:45,906
+Let's take a quick look at the
+
+
+1439
+00:44:45,906 --> 00:44:46,076
+code.
+
+
+1440
+00:44:47,186 --> 00:44:50,126
+What we have to do is implement
+
+
+1441
+00:44:50,126 --> 00:44:52,356
+the file Attributes To Write to
+
+
+1442
+00:44:52,356 --> 00:44:55,306
+URL for save Operation method in
+
+
+1443
+00:44:55,306 --> 00:44:57,136
+your UI document subclass and
+
+
+1444
+00:44:57,136 --> 00:44:59,446
+return a dictionary of
+
+
+1445
+00:44:59,696 --> 00:45:03,186
+thumbnails from this function.
+
+
+1446
+00:45:03,286 --> 00:45:05,596
+So this is nice but this again
+
+
+1447
+00:45:05,596 --> 00:45:07,166
+works only for files created by
+
+
+1448
+00:45:07,166 --> 00:45:07,976
+your application.
+
+
+1449
+00:45:08,356 --> 00:45:09,266
+So how can you provide
+
+
+1450
+00:45:09,266 --> 00:45:10,926
+thumbnails for files created by
+
+
+1451
+00:45:10,926 --> 00:45:12,386
+[inaudible] applications and by
+
+
+1452
+00:45:12,386 --> 00:45:13,416
+other applications?
+
+
+1453
+00:45:13,986 --> 00:45:16,896
+For this we are providing you
+
+
+1454
+00:45:16,896 --> 00:45:18,196
+with a new thumbnail extension
+
+
+1455
+00:45:18,336 --> 00:45:19,286
+which is system wide.
+
+
+1456
+00:45:19,286 --> 00:45:23,616
+It means that this extension,
+
+
+1457
+00:45:24,476 --> 00:45:26,146
+means that any thumbnails
+
+
+1458
+00:45:26,146 --> 00:45:27,326
+generated by [inaudible]
+
+
+1459
+00:45:27,326 --> 00:45:30,866
+extension will be displayed in
+
+
+1460
+00:45:30,866 --> 00:45:32,556
+any document files based app
+
+
+1461
+00:45:32,556 --> 00:45:35,276
+that displays files that your
+
+
+1462
+00:45:35,276 --> 00:45:36,446
+extension can provide thumbnails
+
+
+1463
+00:45:36,446 --> 00:45:36,686
+for.
+
+
+1464
+00:45:38,546 --> 00:45:39,746
+This extension works with all
+
+
+1465
+00:45:39,746 --> 00:45:42,476
+cloud vendors and is part of the
+
+
+1466
+00:45:42,476 --> 00:45:43,186
+Quick Look framework.
+
+
+1467
+00:45:43,666 --> 00:45:46,186
+Let's see how this works.
+
+
+1468
+00:45:46,936 --> 00:45:48,856
+First, your document
+
+
+1469
+00:45:48,856 --> 00:45:51,096
+browser-based app is displaying
+
+
+1470
+00:45:51,096 --> 00:45:52,416
+-- Let's say that the document
+
+
+1471
+00:45:52,416 --> 00:45:53,866
+browser based app is displaying
+
+
+1472
+00:45:53,866 --> 00:45:54,496
+a set of files.
+
+
+1473
+00:45:54,596 --> 00:45:56,116
+And if we want to display
+
+
+1474
+00:45:56,116 --> 00:45:57,236
+thumbnails for these files to
+
+
+1475
+00:45:57,236 --> 00:45:58,276
+have a good user experience,
+
+
+1476
+00:45:58,886 --> 00:46:00,396
+it's going to Quick Look for
+
+
+1477
+00:46:00,396 --> 00:46:00,816
+thumbnails.
+
+
+1478
+00:46:01,956 --> 00:46:03,966
+Quick Look, we notice that for
+
+
+1479
+00:46:04,046 --> 00:46:05,326
+some of these files, [inaudible]
+
+
+1480
+00:46:05,326 --> 00:46:06,836
+extension is the one that can
+
+
+1481
+00:46:07,066 --> 00:46:07,976
+provide thumbnails, so it's
+
+
+1482
+00:46:07,976 --> 00:46:10,076
+going to forward the request to
+
+
+1483
+00:46:10,076 --> 00:46:10,706
+your extension.
+
+
+1484
+00:46:11,306 --> 00:46:13,776
+Your extension will generate
+
+
+1485
+00:46:13,776 --> 00:46:16,676
+thumbnails, return them back to
+
+
+1486
+00:46:16,676 --> 00:46:18,816
+Quick Look which will finally
+
+
+1487
+00:46:18,816 --> 00:46:20,476
+forward them back to the app
+
+
+1488
+00:46:20,476 --> 00:46:21,886
+that asked for the thumbnails,
+
+
+1489
+00:46:22,606 --> 00:46:24,746
+which will be able to display
+
+
+1490
+00:46:25,336 --> 00:46:25,436
+them.
+
+
+1491
+00:46:25,646 --> 00:46:26,416
+Let's see how you can get
+
+
+1492
+00:46:26,456 --> 00:46:26,856
+started.
+
+
+1493
+00:46:27,466 --> 00:46:30,826
+This is actually pretty simple
+
+
+1494
+00:46:30,996 --> 00:46:32,776
+because we added a new template
+
+
+1495
+00:46:32,776 --> 00:46:34,496
+in Xcode that contains some
+
+
+1496
+00:46:34,496 --> 00:46:35,886
+sample code for you as well as
+
+
+1497
+00:46:35,886 --> 00:46:36,666
+an Info.plist.
+
+
+1498
+00:46:38,086 --> 00:46:39,906
+After creating your extension,
+
+
+1499
+00:46:40,356 --> 00:46:41,186
+you will want to head to the
+
+
+1500
+00:46:41,186 --> 00:46:42,586
+Info.plist file and edit it.
+
+
+1501
+00:46:42,586 --> 00:46:44,476
+So first thing you will have to
+
+
+1502
+00:46:44,476 --> 00:46:46,536
+do is add all the UTIs you can
+
+
+1503
+00:46:46,536 --> 00:46:47,386
+[inaudible] to QL Supported
+
+
+1504
+00:46:47,466 --> 00:46:48,796
+Content Types array.
+
+
+1505
+00:46:48,796 --> 00:46:51,786
+Please note that you can only
+
+
+1506
+00:46:51,786 --> 00:46:54,016
+provide thumbnails for UTIs you
+
+
+1507
+00:46:54,016 --> 00:46:56,856
+own and export and that iOS will
+
+
+1508
+00:46:56,856 --> 00:46:58,466
+check for UTI equality and not
+
+
+1509
+00:46:58,466 --> 00:46:59,306
+UTI conformance.
+
+
+1510
+00:46:59,396 --> 00:47:00,496
+So we'll have to make sure to
+
+
+1511
+00:47:01,016 --> 00:47:03,916
+list all the UTIs inside
+
+
+1512
+00:47:03,916 --> 00:47:06,156
+[inaudible] of the plist.
+
+
+1513
+00:47:06,316 --> 00:47:07,746
+Now how can you actually provide
+
+
+1514
+00:47:07,746 --> 00:47:08,826
+thumbnails for files?
+
+
+1515
+00:47:09,056 --> 00:47:09,716
+There are two ways.
+
+
+1516
+00:47:10,576 --> 00:47:11,456
+You can either draw the
+
+
+1517
+00:47:11,456 --> 00:47:13,486
+thumbnail or return the image
+
+
+1518
+00:47:13,486 --> 00:47:13,996
+file URL.
+
+
+1519
+00:47:14,486 --> 00:47:15,916
+So the most preferred one is of
+
+
+1520
+00:47:15,916 --> 00:47:17,376
+course the first one, drawing
+
+
+1521
+00:47:17,376 --> 00:47:18,536
+the thumbnail, because it's the
+
+
+1522
+00:47:18,536 --> 00:47:19,356
+most flexible one.
+
+
+1523
+00:47:19,926 --> 00:47:23,806
+Let's see how it works.
+
+
+1524
+00:47:24,016 --> 00:47:25,266
+So any method you will have to
+
+
+1525
+00:47:25,266 --> 00:47:27,286
+implement in this extension will
+
+
+1526
+00:47:27,286 --> 00:47:30,326
+receive a parameter of class QL
+
+
+1527
+00:47:30,326 --> 00:47:32,166
+File Thumbnail Request which
+
+
+1528
+00:47:32,166 --> 00:47:32,966
+contains three [inaudible].
+
+
+1529
+00:47:32,966 --> 00:47:36,346
+The file URL, the URL of the
+
+
+1530
+00:47:36,346 --> 00:47:38,296
+file we want to send a file, the
+
+
+1531
+00:47:38,296 --> 00:47:40,176
+maximum size of the thumbnail
+
+
+1532
+00:47:40,176 --> 00:47:41,816
+which is requested, as well as
+
+
+1533
+00:47:41,816 --> 00:47:42,236
+the scale.
+
+
+1534
+00:47:43,036 --> 00:47:46,456
+What do we have to return is a
+
+
+1535
+00:47:46,456 --> 00:47:48,066
+QL Thumbnail Reply object
+
+
+1536
+00:47:48,106 --> 00:47:50,566
+containing the Drawing Block and
+
+
+1537
+00:47:50,566 --> 00:47:51,206
+context Size.
+
+
+1538
+00:47:51,206 --> 00:47:53,146
+Let's see why you need to return
+
+
+1539
+00:47:53,146 --> 00:47:55,006
+the context Size.
+
+
+1540
+00:47:55,596 --> 00:47:57,856
+The maximum size parameter of
+
+
+1541
+00:47:57,856 --> 00:48:00,176
+the request indicates to you the
+
+
+1542
+00:48:00,176 --> 00:48:02,186
+maximum size of the CG Context
+
+
+1543
+00:48:02,186 --> 00:48:03,496
+you can draw your thumbnail
+
+
+1544
+00:48:03,496 --> 00:48:03,846
+into.
+
+
+1545
+00:48:05,316 --> 00:48:06,896
+Now let's say that we want to
+
+
+1546
+00:48:06,896 --> 00:48:09,106
+draw this image into our
+
+
+1547
+00:48:09,106 --> 00:48:09,526
+context.
+
+
+1548
+00:48:09,576 --> 00:48:11,016
+As you can see at full scale,
+
+
+1549
+00:48:11,016 --> 00:48:12,616
+it's bigger than the maximum
+
+
+1550
+00:48:12,666 --> 00:48:13,526
+size of the Context.
+
+
+1551
+00:48:13,636 --> 00:48:16,456
+So what we'll have to do is
+
+
+1552
+00:48:16,456 --> 00:48:19,046
+downscale it to make sure that
+
+
+1553
+00:48:19,046 --> 00:48:20,786
+it can fit within the CG
+
+
+1554
+00:48:20,786 --> 00:48:21,206
+Context.
+
+
+1555
+00:48:21,206 --> 00:48:23,146
+But if we load this image into
+
+
+1556
+00:48:23,146 --> 00:48:26,656
+the context we have on the left,
+
+
+1557
+00:48:26,976 --> 00:48:28,906
+we'll end up returning a
+
+
+1558
+00:48:28,906 --> 00:48:31,296
+thumbnail with unused
+
+
+1559
+00:48:31,526 --> 00:48:32,296
+[inaudible], meaning a floating
+
+
+1560
+00:48:32,346 --> 00:48:33,656
+thumbnail, which is not what we
+
+
+1561
+00:48:33,656 --> 00:48:33,786
+want.
+
+
+1562
+00:48:33,786 --> 00:48:36,316
+So we'll have to determine the
+
+
+1563
+00:48:36,316 --> 00:48:37,706
+correct context size in which we
+
+
+1564
+00:48:37,706 --> 00:48:40,136
+want to draw and pass it to the
+
+
+1565
+00:48:40,136 --> 00:48:41,046
+QL Thumbnail Reply.
+
+
+1566
+00:48:42,066 --> 00:48:44,136
+Thanks to that, our Drawing
+
+
+1567
+00:48:44,136 --> 00:48:46,696
+Block will receive CG Context
+
+
+1568
+00:48:47,826 --> 00:48:49,536
+correctly set with the requested
+
+
+1569
+00:48:49,616 --> 00:48:52,236
+size, the context Size, and
+
+
+1570
+00:48:52,236 --> 00:48:55,346
+we'll be able to draw the
+
+
+1571
+00:48:56,476 --> 00:48:56,716
+thumbnail [inaudible].
+
+
+1572
+00:48:57,076 --> 00:48:58,496
+Now if you don't want to draw a
+
+
+1573
+00:48:58,496 --> 00:49:00,436
+thumbnail and you prefer
+
+
+1574
+00:49:00,436 --> 00:49:03,006
+returning an image file URL
+
+
+1575
+00:49:03,006 --> 00:49:04,976
+instead, this is quite simple.
+
+
+1576
+00:49:05,306 --> 00:49:07,976
+You will receive the same QL
+
+
+1577
+00:49:07,976 --> 00:49:10,386
+File Thumbnail Request and all
+
+
+1578
+00:49:10,386 --> 00:49:11,886
+you have to return is a QL
+
+
+1579
+00:49:11,886 --> 00:49:12,996
+Thumbnail Reply containing an
+
+
+1580
+00:49:12,996 --> 00:49:13,796
+image file URL.
+
+
+1581
+00:49:14,346 --> 00:49:16,626
+In this case, Quick Look will be
+
+
+1582
+00:49:16,626 --> 00:49:18,606
+the one that will take care of
+
+
+1583
+00:49:18,606 --> 00:49:19,986
+downscaling or upscaling of
+
+
+1584
+00:49:19,986 --> 00:49:20,756
+thumbnail.
+
+
+1585
+00:49:20,896 --> 00:49:22,176
+It will keep the aspect ratio of
+
+
+1586
+00:49:22,176 --> 00:49:24,566
+your file so that the thumbnail
+
+
+1587
+00:49:24,566 --> 00:49:24,926
+will [inaudible].
+
+
+1588
+00:49:25,666 --> 00:49:29,296
+Let's now take a look at how
+
+
+1589
+00:49:29,296 --> 00:49:30,076
+this works in code.
+
+
+1590
+00:49:31,076 --> 00:49:32,026
+The only method you have to
+
+
+1591
+00:49:32,026 --> 00:49:34,476
+implement is called provide
+
+
+1592
+00:49:34,516 --> 00:49:37,156
+Thumbnail for request handler.
+
+
+1593
+00:49:37,226 --> 00:49:42,186
+The first thing we do in this
+
+
+1594
+00:49:42,186 --> 00:49:44,136
+example is extracting all the
+
+
+1595
+00:49:44,136 --> 00:49:45,186
+parameters of the QL File
+
+
+1596
+00:49:45,486 --> 00:49:46,936
+Thumbnail Request.
+
+
+1597
+00:49:47,396 --> 00:49:49,156
+This means the file URL, the
+
+
+1598
+00:49:49,156 --> 00:49:51,746
+maximum size, and the scale.
+
+
+1599
+00:49:52,726 --> 00:49:55,296
+Out of these parameters, we
+
+
+1600
+00:49:55,296 --> 00:49:57,106
+determine the context Size in
+
+
+1601
+00:49:57,106 --> 00:49:58,056
+which we want to do our
+
+
+1602
+00:49:58,056 --> 00:49:59,066
+thumbnail, just like in the
+
+
+1603
+00:49:59,066 --> 00:50:00,696
+example we saw before.
+
+
+1604
+00:50:02,986 --> 00:50:06,466
+After that, as we said, we need
+
+
+1605
+00:50:06,466 --> 00:50:08,266
+to provide a drawing Block.
+
+
+1606
+00:50:09,136 --> 00:50:11,236
+So here we create it and this is
+
+
+1607
+00:50:11,236 --> 00:50:12,276
+[inaudible] that we'll have to
+
+
+1608
+00:50:12,946 --> 00:50:13,786
+draw a thumbnail.
+
+
+1609
+00:50:14,236 --> 00:50:16,456
+So drawing Block has to return a
+
+
+1610
+00:50:16,456 --> 00:50:18,446
+success value to indicate Quick
+
+
+1611
+00:50:18,446 --> 00:50:20,816
+Look [inaudible] it was actually
+
+
+1612
+00:50:20,816 --> 00:50:21,776
+able to provide a thumbnail.
+
+
+1613
+00:50:23,226 --> 00:50:24,356
+Finally, we create the QL
+
+
+1614
+00:50:24,356 --> 00:50:25,466
+Thumbnail Reply out of the
+
+
+1615
+00:50:25,466 --> 00:50:27,466
+context Size and the drawing
+
+
+1616
+00:50:27,466 --> 00:50:31,176
+Block and we call the completion
+
+
+1617
+00:50:31,176 --> 00:50:34,506
+handler with our reply as well
+
+
+1618
+00:50:34,506 --> 00:50:34,676
+as [inaudible].
+
+
+1619
+00:50:35,366 --> 00:50:36,386
+Here we [inaudible] nil because
+
+
+1620
+00:50:36,386 --> 00:50:37,396
+we always want to provide a
+
+
+1621
+00:50:37,396 --> 00:50:39,556
+thumbnail but if for some reason
+
+
+1622
+00:50:39,746 --> 00:50:41,746
+you don't want to always return
+
+
+1623
+00:50:41,746 --> 00:50:42,466
+a thumbnail for all the
+
+
+1624
+00:50:42,466 --> 00:50:46,126
+requests, you will have to
+
+
+1625
+00:50:46,126 --> 00:50:46,676
+provide an [inaudible] to
+
+
+1626
+00:50:46,726 --> 00:50:48,256
+indicate quickly that you don't
+
+
+1627
+00:50:48,286 --> 00:50:51,706
+want to provide a thumbnail for
+
+
+1628
+00:50:51,736 --> 00:50:52,586
+this request.
+
+
+1629
+00:50:52,586 --> 00:50:54,486
+If you'd like to return an image
+
+
+1630
+00:50:54,546 --> 00:50:56,736
+file URL instead of drawing a
+
+
+1631
+00:50:56,796 --> 00:50:58,946
+thumbnail file request, you
+
+
+1632
+00:50:58,946 --> 00:51:00,276
+implement the same method but
+
+
+1633
+00:51:00,276 --> 00:51:02,006
+you call the completion handler
+
+
+1634
+00:51:02,006 --> 00:51:03,116
+with a QL Thumbnail Reply
+
+
+1635
+00:51:03,246 --> 00:51:05,146
+containing the image file URL.
+
+
+1636
+00:51:05,656 --> 00:51:07,116
+In this simple example, we just
+
+
+1637
+00:51:07,116 --> 00:51:09,016
+return an image from our main
+
+
+1638
+00:51:09,766 --> 00:51:09,916
+vendor.
+
+
+1639
+00:51:10,386 --> 00:51:14,456
+After creating your extension,
+
+
+1640
+00:51:14,826 --> 00:51:16,746
+you will of course want to see
+
+
+1641
+00:51:16,876 --> 00:51:18,026
+your beautiful new thumbnails.
+
+
+1642
+00:51:18,926 --> 00:51:20,746
+You can see them in any document
+
+
+1643
+00:51:20,746 --> 00:51:22,736
+browser based app that displays
+
+
+1644
+00:51:22,736 --> 00:51:23,626
+your files.
+
+
+1645
+00:51:23,846 --> 00:51:25,796
+So here, what we can see on the
+
+
+1646
+00:51:25,796 --> 00:51:27,546
+screenshot are thumbnails that
+
+
+1647
+00:51:27,546 --> 00:51:29,956
+come from the extension of
+
+
+1648
+00:51:30,116 --> 00:51:35,346
+Particles app but we are inside
+
+
+1649
+00:51:35,416 --> 00:51:37,056
+the Recents [inaudible] Files
+
+
+1650
+00:51:37,056 --> 00:51:40,626
+app but still we see them.
+
+
+1651
+00:51:42,146 --> 00:51:44,836
+You now know how to build great
+
+
+1652
+00:51:44,836 --> 00:51:46,286
+document-based applications
+
+
+1653
+00:51:46,286 --> 00:51:47,846
+thanks to the UI Document
+
+
+1654
+00:51:47,846 --> 00:51:49,666
+Browser View Controller and the
+
+
+1655
+00:51:49,666 --> 00:51:50,486
+thumbnail extension.
+
+
+1656
+00:51:51,166 --> 00:51:55,256
+So how can you improve the user
+
+
+1657
+00:51:55,346 --> 00:51:56,686
+experience even further?
+
+
+1658
+00:51:57,176 --> 00:51:58,056
+[Inaudible] UTIs, you will
+
+
+1659
+00:51:58,056 --> 00:51:59,086
+likely want to be able to
+
+
+1660
+00:51:59,086 --> 00:52:00,856
+provide previews that iOS can
+
+
+1661
+00:52:00,856 --> 00:52:04,086
+display in any application.
+
+
+1662
+00:52:04,326 --> 00:52:06,836
+We are now going to see how this
+
+
+1663
+00:52:06,866 --> 00:52:09,036
+is possible thanks to the new
+
+
+1664
+00:52:09,036 --> 00:52:14,486
+Quick Look Preview extension.
+
+
+1665
+00:52:15,116 --> 00:52:16,736
+By default, Quick Look
+
+
+1666
+00:52:17,116 --> 00:52:17,896
+[inaudible] set of file types.
+
+
+1667
+00:52:18,536 --> 00:52:19,586
+This means that Quick Look by
+
+
+1668
+00:52:19,586 --> 00:52:22,186
+default cannot preview your
+
+
+1669
+00:52:22,426 --> 00:52:23,196
+custom file types.
+
+
+1670
+00:52:24,096 --> 00:52:27,296
+But I have good news because
+
+
+1671
+00:52:27,496 --> 00:52:30,656
+starting with iOS 11, you will
+
+
+1672
+00:52:30,656 --> 00:52:31,796
+be able to provide previews to
+
+
+1673
+00:52:31,796 --> 00:52:34,866
+Quick Look and extend the
+
+
+1674
+00:52:34,866 --> 00:52:36,066
+capabilities of Quick Look
+
+
+1675
+00:52:36,866 --> 00:52:38,106
+because we are opening Quick
+
+
+1676
+00:52:38,106 --> 00:52:39,336
+Look to [inaudible].
+
+
+1677
+00:52:40,436 --> 00:52:42,306
+We are opening QuickLook
+
+
+1678
+00:52:42,916 --> 00:52:45,206
+[inaudible] so when you preview
+
+
+1679
+00:52:45,206 --> 00:52:47,416
+extension which is system-wide,
+
+
+1680
+00:52:47,796 --> 00:52:49,926
+this means that again any
+
+
+1681
+00:52:49,926 --> 00:52:51,206
+application that uses Quick Look
+
+
+1682
+00:52:51,206 --> 00:52:52,556
+will be able to display your
+
+
+1683
+00:52:52,556 --> 00:52:55,066
+previews and you can also decide
+
+
+1684
+00:52:55,066 --> 00:52:56,566
+to provide previews for
+
+
+1685
+00:52:56,566 --> 00:52:58,036
+Spotlight items [inaudible] by
+
+
+1686
+00:52:58,036 --> 00:52:58,736
+your application.
+
+
+1687
+00:52:59,246 --> 00:53:00,426
+These previews will be visible
+
+
+1688
+00:53:01,226 --> 00:53:03,156
+when peeking on Spotlight
+
+
+1689
+00:53:03,156 --> 00:53:03,223
+[inaudible].
+
+
+1690
+00:53:03,223 --> 00:53:04,486
+On the iPhone, that's
+
+
+1691
+00:53:04,486 --> 00:53:04,553
+[inaudible].
+
+
+1692
+00:53:04,553 --> 00:53:06,736
+Your previews will be
+
+
+1693
+00:53:07,076 --> 00:53:08,036
+[inaudible] in Quick Look.
+
+
+1694
+00:53:08,036 --> 00:53:11,186
+They will benefit from the full
+
+
+1695
+00:53:11,856 --> 00:53:14,976
+Quick Look experience and the
+
+
+1696
+00:53:14,976 --> 00:53:17,026
+previewed as part of QL Preview
+
+
+1697
+00:53:17,026 --> 00:53:19,036
+Controller just like any other
+
+
+1698
+00:53:19,076 --> 00:53:19,396
+[inaudible] preview.
+
+
+1699
+00:53:20,566 --> 00:53:21,626
+Quick Look will take care of
+
+
+1700
+00:53:21,626 --> 00:53:22,616
+displaying a loading spinner
+
+
+1701
+00:53:22,616 --> 00:53:24,336
+while waiting for your extension
+
+
+1702
+00:53:24,336 --> 00:53:25,146
+to return the preview.
+
+
+1703
+00:53:25,776 --> 00:53:26,776
+Let's see the flow.
+
+
+1704
+00:53:27,386 --> 00:53:29,826
+First, Quick Look notices that
+
+
+1705
+00:53:29,826 --> 00:53:33,596
+it can't preview file by itself
+
+
+1706
+00:53:33,596 --> 00:53:34,746
+but will ask for extension for
+
+
+1707
+00:53:34,746 --> 00:53:35,126
+preview.
+
+
+1708
+00:53:35,956 --> 00:53:37,326
+Your extension will take some
+
+
+1709
+00:53:37,326 --> 00:53:38,366
+time to generate a preview.
+
+
+1710
+00:53:39,786 --> 00:53:41,176
+Meanwhile, Quick Look displays a
+
+
+1711
+00:53:41,176 --> 00:53:41,756
+loading spinner.
+
+
+1712
+00:53:42,446 --> 00:53:43,526
+You don't have to take care of
+
+
+1713
+00:53:43,526 --> 00:53:43,716
+this.
+
+
+1714
+00:53:44,866 --> 00:53:47,386
+And when your extension is ready
+
+
+1715
+00:53:47,386 --> 00:53:48,626
+to display the preview, you will
+
+
+1716
+00:53:48,626 --> 00:53:49,586
+have to call the completion
+
+
+1717
+00:53:49,586 --> 00:53:51,286
+handler in your code to notify
+
+
+1718
+00:53:51,286 --> 00:53:53,706
+Quick Look that it can actually
+
+
+1719
+00:53:53,706 --> 00:53:54,836
+display your preview.
+
+
+1720
+00:53:55,396 --> 00:53:57,196
+Just like [inaudible] extension,
+
+
+1721
+00:53:57,196 --> 00:53:59,166
+you can get started pretty
+
+
+1722
+00:53:59,166 --> 00:54:01,046
+easily because, again, we have a
+
+
+1723
+00:54:01,046 --> 00:54:02,336
+new template ready for you that
+
+
+1724
+00:54:02,336 --> 00:54:04,036
+contains some sample code, a
+
+
+1725
+00:54:04,036 --> 00:54:05,826
+storybook, and an Info.plist.
+
+
+1726
+00:54:08,216 --> 00:54:09,516
+After creating your extension,
+
+
+1727
+00:54:09,516 --> 00:54:11,286
+again you will want to head to
+
+
+1728
+00:54:11,286 --> 00:54:13,106
+this Info.plist and edit it, add
+
+
+1729
+00:54:13,696 --> 00:54:14,936
+edit it, add all the UTIs
+
+
+1730
+00:54:14,936 --> 00:54:17,486
+[inaudible], sorry, all the UTIs
+
+
+1731
+00:54:17,486 --> 00:54:18,786
+[inaudible] to the QL Supported
+
+
+1732
+00:54:18,786 --> 00:54:19,366
+Content Types array.
+
+
+1733
+00:54:19,366 --> 00:54:22,736
+Just like for the thumbnail
+
+
+1734
+00:54:22,736 --> 00:54:24,376
+extension that you can only
+
+
+1735
+00:54:24,376 --> 00:54:25,936
+provide previews for images you
+
+
+1736
+00:54:25,936 --> 00:54:28,936
+own and export and that again,
+
+
+1737
+00:54:28,936 --> 00:54:30,466
+iOS will check for UTI equality
+
+
+1738
+00:54:30,466 --> 00:54:31,526
+and not UTI conformance.
+
+
+1739
+00:54:32,716 --> 00:54:35,816
+If you wish to provide previews
+
+
+1740
+00:54:35,946 --> 00:54:37,756
+for Spotlight items indicated by
+
+
+1741
+00:54:37,756 --> 00:54:39,136
+your application, you will have
+
+
+1742
+00:54:39,186 --> 00:54:40,206
+to set the QL Supports
+
+
+1743
+00:54:40,206 --> 00:54:42,206
+Searchable Items key to yes.
+
+
+1744
+00:54:42,376 --> 00:54:45,836
+Now let's take a quick look at
+
+
+1745
+00:54:46,656 --> 00:54:48,046
+how we can [inaudible].
+
+
+1746
+00:54:48,316 --> 00:54:49,346
+If you want to provide previews
+
+
+1747
+00:54:49,346 --> 00:54:51,416
+for file, you will have to
+
+
+1748
+00:54:51,516 --> 00:54:53,656
+implement the prepare Preview of
+
+
+1749
+00:54:53,706 --> 00:54:55,806
+File at URL completion handle
+
+
+1750
+00:54:55,806 --> 00:54:57,416
+[inaudible].
+
+
+1751
+00:54:57,416 --> 00:54:59,366
+And all you have to do here is
+
+
+1752
+00:54:59,366 --> 00:55:00,596
+load the file and call the
+
+
+1753
+00:55:00,596 --> 00:55:02,566
+completion handler so that Quick
+
+
+1754
+00:55:02,596 --> 00:55:03,956
+Look displays your preview.
+
+
+1755
+00:55:04,996 --> 00:55:05,986
+You can call the completion
+
+
+1756
+00:55:05,986 --> 00:55:07,546
+handler asynchronously which is
+
+
+1757
+00:55:07,726 --> 00:55:09,566
+the case in this example.
+
+
+1758
+00:55:10,396 --> 00:55:12,076
+If you wish to provide Spotlight
+
+
+1759
+00:55:12,076 --> 00:55:14,196
+previews, you will have to
+
+
+1760
+00:55:14,196 --> 00:55:15,866
+implement the prepare Preview of
+
+
+1761
+00:55:15,866 --> 00:55:17,806
+Searchable Items identifier
+
+
+1762
+00:55:17,866 --> 00:55:19,486
+query String, completion Handler
+
+
+1763
+00:55:19,486 --> 00:55:19,746
+method.
+
+
+1764
+00:55:20,546 --> 00:55:22,306
+The query String parameter can
+
+
+1765
+00:55:22,306 --> 00:55:24,236
+be used to highlight any part of
+
+
+1766
+00:55:24,236 --> 00:55:25,296
+the preview for the user.
+
+
+1767
+00:55:25,886 --> 00:55:27,706
+This is the query String that
+
+
+1768
+00:55:27,706 --> 00:55:28,446
+the user [inaudible] in
+
+
+1769
+00:55:28,446 --> 00:55:30,396
+Spotlight before interacting
+
+
+1770
+00:55:30,506 --> 00:55:32,666
+[inaudible] that you index with
+
+
+1771
+00:55:32,666 --> 00:55:33,846
+your application.
+
+
+1772
+00:55:35,246 --> 00:55:39,976
+Just like with file example, all
+
+
+1773
+00:55:39,976 --> 00:55:41,756
+you have to do is prepare your
+
+
+1774
+00:55:41,756 --> 00:55:42,636
+controller and call the
+
+
+1775
+00:55:42,636 --> 00:55:43,336
+completion handler.
+
+
+1776
+00:55:44,076 --> 00:55:48,356
+You can test your preview in any
+
+
+1777
+00:55:48,356 --> 00:55:49,756
+application that uses Quick
+
+
+1778
+00:55:49,756 --> 00:55:51,966
+Look, for example mail or
+
+
+1779
+00:55:51,966 --> 00:55:55,016
+messages or in Spotlight if
+
+
+1780
+00:55:55,626 --> 00:55:56,376
+[inaudible] which is the case in
+
+
+1781
+00:55:56,376 --> 00:55:57,286
+this example.
+
+
+1782
+00:55:57,536 --> 00:55:58,426
+We are here peeking on the
+
+
+1783
+00:55:58,426 --> 00:55:59,806
+result index by the particles
+
+
+1784
+00:55:59,806 --> 00:55:59,976
+app.
+
+
+1785
+00:56:05,706 --> 00:56:07,046
+I'd like to finish this
+
+
+1786
+00:56:07,046 --> 00:56:08,186
+extension tour with a few
+
+
+1787
+00:56:08,186 --> 00:56:09,306
+performance recommendations.
+
+
+1788
+00:56:09,946 --> 00:56:11,276
+When dealing with extension, you
+
+
+1789
+00:56:11,276 --> 00:56:12,296
+always have to make sure to be
+
+
+1790
+00:56:12,296 --> 00:56:14,086
+fast and in this case it's very
+
+
+1791
+00:56:14,086 --> 00:56:14,576
+important.
+
+
+1792
+00:56:14,576 --> 00:56:16,836
+You will have to load the
+
+
+1793
+00:56:16,836 --> 00:56:18,016
+thumbnail quickly especially
+
+
+1794
+00:56:18,016 --> 00:56:21,446
+think of a case for instance of
+
+
+1795
+00:56:21,446 --> 00:56:25,836
+the user calling in the document
+
+
+1796
+00:56:25,836 --> 00:56:27,686
+browser you want your thumbnails
+
+
+1797
+00:56:27,686 --> 00:56:29,096
+to be there as fast as possible
+
+
+1798
+00:56:29,096 --> 00:56:29,926
+for a good user experience.
+
+
+1799
+00:56:31,026 --> 00:56:32,736
+For the Quick Look previews, you
+
+
+1800
+00:56:32,736 --> 00:56:34,646
+will also have to make sure to
+
+
+1801
+00:56:34,646 --> 00:56:36,256
+load your previews fast because
+
+
+1802
+00:56:36,256 --> 00:56:37,456
+Quick Look is expected to be
+
+
+1803
+00:56:37,796 --> 00:56:38,036
+quick.
+
+
+1804
+00:56:39,846 --> 00:56:42,036
+Also not that you shouldn't have
+
+
+1805
+00:56:42,036 --> 00:56:43,626
+any background job after calling
+
+
+1806
+00:56:43,626 --> 00:56:44,446
+the completion handler.
+
+
+1807
+00:56:45,146 --> 00:56:47,936
+Keep in mind that with extension
+
+
+1808
+00:56:47,936 --> 00:56:51,216
+memory is very limited, so avoid
+
+
+1809
+00:56:51,216 --> 00:56:52,186
+linking against two large
+
+
+1810
+00:56:52,186 --> 00:56:54,256
+libraries and check for leaks.
+
+
+1811
+00:56:55,656 --> 00:56:56,886
+Let's now recap quickly
+
+
+1812
+00:56:56,886 --> 00:56:57,996
+everything we talked about
+
+
+1813
+00:56:57,996 --> 00:56:58,346
+today.
+
+
+1814
+00:56:59,776 --> 00:57:02,576
+First, we talked about some
+
+
+1815
+00:57:02,576 --> 00:57:04,606
+document browser APIs.
+
+
+1816
+00:57:04,606 --> 00:57:06,796
+We mainly talked about UI
+
+
+1817
+00:57:06,796 --> 00:57:08,246
+Document Browser View Controller
+
+
+1818
+00:57:08,246 --> 00:57:09,466
+and how you can make use of it
+
+
+1819
+00:57:10,486 --> 00:57:12,826
+to create a great document-based
+
+
+1820
+00:57:12,826 --> 00:57:13,406
+application.
+
+
+1821
+00:57:13,976 --> 00:57:15,646
+You learned about its basic and
+
+
+1822
+00:57:15,646 --> 00:57:16,296
+advanced features.
+
+
+1823
+00:57:17,526 --> 00:57:19,216
+We then saw how you could make
+
+
+1824
+00:57:19,866 --> 00:57:21,556
+your custom file tags
+
+
+1825
+00:57:21,626 --> 00:57:24,306
+[inaudible] on iOS 11 thanks to
+
+
+1826
+00:57:24,306 --> 00:57:26,016
+the new thumbnail and Quick Look
+
+
+1827
+00:57:26,016 --> 00:57:27,016
+preview extensions.
+
+
+1828
+00:57:27,016 --> 00:57:30,696
+Now let's take another look at
+
+
+1829
+00:57:30,696 --> 00:57:33,376
+the requests we have received
+
+
+1830
+00:57:33,596 --> 00:57:34,616
+from you in the past two years
+
+
+1831
+00:57:34,616 --> 00:57:36,446
+and see how we addressed them,
+
+
+1832
+00:57:37,106 --> 00:57:38,346
+so everything we talked about
+
+
+1833
+00:57:38,346 --> 00:57:38,576
+today.
+
+
+1834
+00:57:40,716 --> 00:57:41,666
+UI Document Browser View
+
+
+1835
+00:57:41,666 --> 00:57:43,426
+Controller provides you with a
+
+
+1836
+00:57:43,426 --> 00:57:44,786
+unified UI for file browsing.
+
+
+1837
+00:57:46,056 --> 00:57:48,466
+The new local storage and other
+
+
+1838
+00:57:48,466 --> 00:57:50,176
+cloud providers give you access
+
+
+1839
+00:57:50,216 --> 00:57:52,866
+to files from other applications
+
+
+1840
+00:57:52,866 --> 00:57:53,236
+in [inaudible].
+
+
+1841
+00:57:55,856 --> 00:57:57,296
+The new file provider extension
+
+
+1842
+00:57:57,406 --> 00:57:58,526
+allows you to have seamless
+
+
+1843
+00:57:58,526 --> 00:58:01,986
+access to other Cloud Providers.
+
+
+1844
+00:58:01,986 --> 00:58:03,376
+And iOS now has a deep
+
+
+1845
+00:58:03,376 --> 00:58:06,036
+integration of custom file
+
+
+1846
+00:58:07,876 --> 00:58:08,016
+types.
+
+
+1847
+00:58:08,206 --> 00:58:09,986
+As usual, if you wish to have
+
+
+1848
+00:58:09,986 --> 00:58:11,046
+more information about our
+
+
+1849
+00:58:11,076 --> 00:58:13,316
+session, you can visit Apple's
+
+
+1850
+00:58:13,316 --> 00:58:14,156
+website.
+
+
+1851
+00:58:15,466 --> 00:58:16,736
+We invite you to check out these
+
+
+1852
+00:58:16,736 --> 00:58:18,466
+related sessions, the Drag and
+
+
+1853
+00:58:18,466 --> 00:58:21,346
+Drop session that was earlier
+
+
+1854
+00:58:21,346 --> 00:58:23,326
+this week and the upcoming
+
+
+1855
+00:58:23,696 --> 00:58:24,926
+What's new in Core Spotlight for
+
+
+1856
+00:58:24,926 --> 00:58:26,816
+iOS and macOS and File Provider
+
+
+1857
+00:58:26,816 --> 00:58:27,736
+Enhancement sessions.
+
+
+1858
+00:58:27,736 --> 00:58:30,516
+You can also check out previews
+
+
+1859
+00:58:30,816 --> 00:58:33,276
+Building Document-Based Apps
+
+
+1860
+00:58:33,276 --> 00:58:34,386
+from 2017.
+
+
+1861
+00:58:35,696 --> 00:58:36,606
+Thank you all for your
+
+
+1862
+00:58:36,696 --> 00:58:39,016
+attention.
+
+
+1863
+00:58:39,016 --> 00:58:39,456
+[Inaudible].
+
+
+1864
+00:58:39,456 --> 00:58:39,686
+Bye.
+
+
+1865
+00:58:40,516 --> 00:58:43,500
+[ Applause ]
+

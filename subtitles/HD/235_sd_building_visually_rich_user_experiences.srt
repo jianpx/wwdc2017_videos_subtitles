@@ -1,0 +1,7899 @@
+1
+00:00:24,516 --> 00:00:30,716
+[ Applause ]
+
+
+2
+00:00:31,216 --> 00:00:31,816
+>> Good afternoon.
+
+
+3
+00:00:32,375 --> 00:00:33,046
+Thank you for coming.
+
+
+4
+00:00:33,106 --> 00:00:34,556
+I'm Noah. I'm here with my
+
+
+5
+00:00:34,556 --> 00:00:36,156
+colleague Warren and we're going
+
+
+6
+00:00:36,156 --> 00:00:37,386
+to talk to you about building
+
+
+7
+00:00:37,386 --> 00:00:39,346
+visually-rich user experiences.
+
+
+8
+00:00:39,666 --> 00:00:41,526
+So, there's three main areas
+
+
+9
+00:00:41,526 --> 00:00:43,286
+that we're going to cover today.
+
+
+10
+00:00:44,016 --> 00:00:45,686
+The first is a platform
+
+
+11
+00:00:45,686 --> 00:00:46,126
+overview.
+
+
+12
+00:00:46,126 --> 00:00:48,436
+Kind of a quick tour, kind of
+
+
+13
+00:00:48,436 --> 00:00:50,446
+the lay of the land of what the
+
+
+14
+00:00:50,446 --> 00:00:51,576
+graphics frameworks are on our
+
+
+15
+00:00:51,576 --> 00:00:53,096
+platforms, what they can do, how
+
+
+16
+00:00:53,096 --> 00:00:55,136
+you kind of fit them together.
+
+
+17
+00:00:55,526 --> 00:00:56,866
+Next, we're going to kind of
+
+
+18
+00:00:56,866 --> 00:00:59,046
+dive deep into one of the more
+
+
+19
+00:00:59,046 --> 00:01:01,386
+essential parts of the graphics
+
+
+20
+00:01:01,936 --> 00:01:04,706
+platform coordination and some
+
+
+21
+00:01:04,706 --> 00:01:06,826
+best practices that you can use
+
+
+22
+00:01:06,826 --> 00:01:08,166
+to kind of avoid common pitfalls
+
+
+23
+00:01:08,166 --> 00:01:10,346
+that people run into a lot with
+
+
+24
+00:01:10,406 --> 00:01:10,476
+CA.
+
+
+25
+00:01:10,476 --> 00:01:12,176
+And, finally, we're going to
+
+
+26
+00:01:12,176 --> 00:01:14,236
+spend a little more time on some
+
+
+27
+00:01:14,236 --> 00:01:14,816
+tips and tricks.
+
+
+28
+00:01:14,816 --> 00:01:17,696
+Some kind of small, fun, like,
+
+
+29
+00:01:17,696 --> 00:01:18,996
+useful things you can do to
+
+
+30
+00:01:18,996 --> 00:01:20,306
+really add some cool visual
+
+
+31
+00:01:20,306 --> 00:01:22,596
+flair to your apps.
+
+
+32
+00:01:23,486 --> 00:01:25,976
+So, if you spend any time
+
+
+33
+00:01:26,126 --> 00:01:26,556
+digging through the
+
+
+34
+00:01:26,556 --> 00:01:28,056
+documentation or just reading
+
+
+35
+00:01:28,056 --> 00:01:29,016
+just like overflow or anything,
+
+
+36
+00:01:29,016 --> 00:01:30,996
+you've probably seen a lot of
+
+
+37
+00:01:30,996 --> 00:01:32,636
+concepts kind of come up.
+
+
+38
+00:01:33,006 --> 00:01:35,116
+And there are a lot of them and
+
+
+39
+00:01:35,116 --> 00:01:36,256
+it would be great to have time
+
+
+40
+00:01:36,256 --> 00:01:37,386
+to kind of go into every single
+
+
+41
+00:01:37,386 --> 00:01:40,036
+one of these and just basically
+
+
+42
+00:01:40,036 --> 00:01:41,126
+spend all day here, but we
+
+
+43
+00:01:41,126 --> 00:01:41,846
+aren't really allowed to do
+
+
+44
+00:01:41,846 --> 00:01:42,066
+that.
+
+
+45
+00:01:42,096 --> 00:01:43,496
+So, instead, we're going to keep
+
+
+46
+00:01:43,496 --> 00:01:44,346
+it pretty high level.
+
+
+47
+00:01:44,886 --> 00:01:47,356
+Let's talk about what we have on
+
+
+48
+00:01:47,356 --> 00:01:49,326
+iOS, macOS, and tvOS.
+
+
+49
+00:01:49,326 --> 00:01:51,356
+First off, some of you are
+
+
+50
+00:01:52,086 --> 00:01:53,346
+probably already familiar with
+
+
+51
+00:01:53,476 --> 00:01:55,076
+UIKit and AppKit are the
+
+
+52
+00:01:55,076 --> 00:01:56,546
+frameworks with which you build
+
+
+53
+00:01:57,086 --> 00:01:58,356
+the UIs on most of your
+
+
+54
+00:01:58,356 --> 00:01:59,566
+applications.
+
+
+55
+00:01:59,566 --> 00:02:00,436
+They kind of provide you a
+
+
+56
+00:02:00,436 --> 00:02:01,976
+standard set of system controls.
+
+
+57
+00:02:01,976 --> 00:02:03,516
+They're customizable to a
+
+
+58
+00:02:03,516 --> 00:02:05,286
+degree, so you can make our
+
+
+59
+00:02:05,286 --> 00:02:06,376
+sliders look way cooler than
+
+
+60
+00:02:06,376 --> 00:02:06,936
+usual ones.
+
+
+61
+00:02:07,306 --> 00:02:09,096
+And they also come with some
+
+
+62
+00:02:09,096 --> 00:02:11,156
+really useful kind of built-in
+
+
+63
+00:02:11,156 --> 00:02:11,646
+behaviors.
+
+
+64
+00:02:11,646 --> 00:02:12,286
+You get these standard
+
+
+65
+00:02:12,286 --> 00:02:14,226
+appearances and transition
+
+
+66
+00:02:14,226 --> 00:02:15,116
+animations and that kind of
+
+
+67
+00:02:15,116 --> 00:02:16,456
+thing, but you also get support
+
+
+68
+00:02:16,456 --> 00:02:17,846
+for accessibility features and
+
+
+69
+00:02:17,846 --> 00:02:18,816
+dynamic type right out of the
+
+
+70
+00:02:18,816 --> 00:02:19,236
+box.
+
+
+71
+00:02:19,716 --> 00:02:22,296
+So, I said that these let you
+
+
+72
+00:02:22,296 --> 00:02:23,636
+customize things to some degree,
+
+
+73
+00:02:23,846 --> 00:02:24,706
+but as soon as you want to kind
+
+
+74
+00:02:24,706 --> 00:02:26,776
+of go beyond just setting a tint
+
+
+75
+00:02:26,776 --> 00:02:28,786
+color or an image override on
+
+
+76
+00:02:28,786 --> 00:02:30,846
+something, you might have to
+
+
+77
+00:02:30,846 --> 00:02:31,586
+start dropping down into
+
+
+78
+00:02:31,586 --> 00:02:32,756
+something like Core Animation.
+
+
+79
+00:02:33,686 --> 00:02:35,306
+And, as you might already be
+
+
+80
+00:02:35,306 --> 00:02:37,596
+aware, Core Animation underlies
+
+
+81
+00:02:37,596 --> 00:02:39,526
+UIKit on iOS and is also pretty
+
+
+82
+00:02:39,526 --> 00:02:41,496
+heavily integrated into AppKit
+
+
+83
+00:02:41,496 --> 00:02:43,176
+on the Mac.
+
+
+84
+00:02:43,176 --> 00:02:44,746
+And so, a view on iOS is
+
+
+85
+00:02:44,746 --> 00:02:46,546
+composed of a-- like has a layer
+
+
+86
+00:02:46,546 --> 00:02:48,856
+and the stuff that appears in
+
+
+87
+00:02:48,856 --> 00:02:51,176
+your application is this
+
+
+88
+00:02:51,176 --> 00:02:52,316
+hierarchy of layers kind of all
+
+
+89
+00:02:52,316 --> 00:02:52,756
+appearing together.
+
+
+90
+00:02:52,756 --> 00:02:55,276
+And that's what CA is good for.
+
+
+91
+00:02:55,276 --> 00:02:57,376
+It's kind of-- it's a thing to
+
+
+92
+00:02:57,556 --> 00:02:58,876
+take existing content, put it
+
+
+93
+00:02:58,876 --> 00:03:00,656
+together, display it in this
+
+
+94
+00:03:00,656 --> 00:03:02,136
+hierarchy that can move around
+
+
+95
+00:03:02,136 --> 00:03:03,306
+and animate and so on so forth
+
+
+96
+00:03:03,306 --> 00:03:05,336
+and finally composite it all
+
+
+97
+00:03:05,336 --> 00:03:06,756
+together and get it onscreen.
+
+
+98
+00:03:08,666 --> 00:03:12,356
+So, beyond that, there are a
+
+
+99
+00:03:12,356 --> 00:03:14,266
+couple other frameworks that we
+
+
+100
+00:03:14,266 --> 00:03:15,286
+have for some kind of more
+
+
+101
+00:03:15,286 --> 00:03:16,636
+specialized purposes.
+
+
+102
+00:03:16,866 --> 00:03:20,566
+Core Graphics is one that you
+
+
+103
+00:03:20,616 --> 00:03:21,726
+also might have encountered.
+
+
+104
+00:03:21,726 --> 00:03:24,116
+It lets you do kind of really
+
+
+105
+00:03:24,596 --> 00:03:26,286
+elaborate customizable 2D
+
+
+106
+00:03:26,286 --> 00:03:26,786
+drawings.
+
+
+107
+00:03:26,786 --> 00:03:29,256
+So, you can take a path and some
+
+
+108
+00:03:29,256 --> 00:03:30,316
+colors and turn them into these
+
+
+109
+00:03:30,316 --> 00:03:31,996
+kind of nice message bubbles
+
+
+110
+00:03:31,996 --> 00:03:33,076
+over here.
+
+
+111
+00:03:33,686 --> 00:03:35,096
+And Core Graphics is what you
+
+
+112
+00:03:35,096 --> 00:03:36,586
+use when you need to build
+
+
+113
+00:03:36,586 --> 00:03:37,516
+images at runtime.
+
+
+114
+00:03:37,716 --> 00:03:39,056
+For something-- for building it,
+
+
+115
+00:03:39,056 --> 00:03:40,376
+like beforehand, you probably
+
+
+116
+00:03:40,376 --> 00:03:41,426
+use something like Photoshop or
+
+
+117
+00:03:41,426 --> 00:03:43,336
+Sketch or Illustrator, but Core
+
+
+118
+00:03:43,336 --> 00:03:44,576
+Graphics lets you do that on the
+
+
+119
+00:03:44,576 --> 00:03:46,586
+device, you know, as your code
+
+
+120
+00:03:46,586 --> 00:03:46,996
+is running.
+
+
+121
+00:03:47,766 --> 00:03:50,316
+Which is really useful.
+
+
+122
+00:03:50,316 --> 00:03:53,136
+So, Core Graphics is useful for
+
+
+123
+00:03:53,136 --> 00:03:54,086
+drawing things, but there's
+
+
+124
+00:03:54,086 --> 00:03:54,916
+another framework that we have
+
+
+125
+00:03:54,916 --> 00:03:55,976
+for working with images that you
+
+
+126
+00:03:55,976 --> 00:03:57,786
+already have and that is
+
+
+127
+00:03:57,786 --> 00:03:59,076
+appropriately named Core Image.
+
+
+128
+00:03:59,926 --> 00:04:01,836
+And what that does is apply
+
+
+129
+00:04:01,836 --> 00:04:02,756
+filters to things.
+
+
+130
+00:04:02,756 --> 00:04:04,686
+You provide some set of input
+
+
+131
+00:04:05,016 --> 00:04:07,596
+images, you hand that to Core
+
+
+132
+00:04:07,596 --> 00:04:10,126
+Image, get a-- and get a filter
+
+
+133
+00:04:10,126 --> 00:04:12,736
+that does some thing, and it
+
+
+134
+00:04:12,786 --> 00:04:14,466
+produces the final rendered
+
+
+135
+00:04:14,466 --> 00:04:16,446
+output of the thing-- of the
+
+
+136
+00:04:16,446 --> 00:04:17,586
+filter, rather.
+
+
+137
+00:04:17,736 --> 00:04:19,486
+So, you have obviously simple
+
+
+138
+00:04:19,486 --> 00:04:20,555
+color transformation effects,
+
+
+139
+00:04:20,555 --> 00:04:23,786
+like this kind of nice sepia--
+
+
+140
+00:04:23,786 --> 00:04:25,556
+that's not sepia-- I don't know
+
+
+141
+00:04:25,556 --> 00:04:26,246
+what to call that.
+
+
+142
+00:04:26,246 --> 00:04:27,796
+Don't worry about it.
+
+
+143
+00:04:28,226 --> 00:04:29,426
+But you can also do kind of
+
+
+144
+00:04:29,426 --> 00:04:30,816
+interesting stylization effects,
+
+
+145
+00:04:31,206 --> 00:04:33,316
+like this cartoon drawing kind
+
+
+146
+00:04:33,996 --> 00:04:34,616
+of thing.
+
+
+147
+00:04:34,616 --> 00:04:36,096
+And what's neat about Core Image
+
+
+148
+00:04:36,146 --> 00:04:38,576
+is that it's really heavily
+
+
+149
+00:04:38,576 --> 00:04:40,096
+optimized and we kind of do a
+
+
+150
+00:04:40,096 --> 00:04:41,056
+lot of the work for you.
+
+
+151
+00:04:41,056 --> 00:04:43,156
+So, when you're doing something
+
+
+152
+00:04:43,156 --> 00:04:44,456
+more complicated like chaining
+
+
+153
+00:04:44,456 --> 00:04:46,296
+multiple filters together, we
+
+
+154
+00:04:46,296 --> 00:04:47,556
+kind of can optimize that for
+
+
+155
+00:04:47,556 --> 00:04:49,186
+you and instead of having to
+
+
+156
+00:04:49,186 --> 00:04:51,406
+kind of go through this process
+
+
+157
+00:04:51,406 --> 00:04:52,656
+over and over again on your
+
+
+158
+00:04:52,656 --> 00:04:54,596
+images for each filter, we can
+
+
+159
+00:04:54,726 --> 00:04:55,626
+kind of pipeline that.
+
+
+160
+00:04:55,626 --> 00:04:58,346
+And what's even better is that
+
+
+161
+00:04:58,966 --> 00:05:00,116
+all of this stuff can run on
+
+
+162
+00:05:00,116 --> 00:05:01,066
+basically whatever
+
+
+163
+00:05:01,066 --> 00:05:02,736
+parallelization hardware your
+
+
+164
+00:05:02,736 --> 00:05:03,346
+device has.
+
+
+165
+00:05:03,726 --> 00:05:05,806
+If you don't have much GPU
+
+
+166
+00:05:05,806 --> 00:05:06,826
+resources available, it runs on
+
+
+167
+00:05:06,826 --> 00:05:08,426
+the CPU and makes use of Grand
+
+
+168
+00:05:08,426 --> 00:05:09,676
+Central Dispatch and all that.
+
+
+169
+00:05:09,676 --> 00:05:10,896
+Completely under the hood,
+
+
+170
+00:05:10,896 --> 00:05:11,556
+transparent to you.
+
+
+171
+00:05:11,986 --> 00:05:14,496
+If it has Metal available, then
+
+
+172
+00:05:14,496 --> 00:05:16,096
+it can run using that.
+
+
+173
+00:05:16,426 --> 00:05:18,996
+So, that's pretty cool.
+
+
+174
+00:05:20,596 --> 00:05:21,976
+There are a couple other kinds
+
+
+175
+00:05:21,976 --> 00:05:22,806
+of contents you might want to
+
+
+176
+00:05:22,806 --> 00:05:23,876
+get into your apps that we have
+
+
+177
+00:05:23,876 --> 00:05:26,076
+some really useful frameworks
+
+
+178
+00:05:26,076 --> 00:05:26,616
+for.
+
+
+179
+00:05:27,306 --> 00:05:29,486
+And for 3D content, we have this
+
+
+180
+00:05:29,486 --> 00:05:31,496
+thing called SceneKit which
+
+
+181
+00:05:31,606 --> 00:05:33,616
+basically lets you get your 3D
+
+
+182
+00:05:33,616 --> 00:05:34,686
+content into your app and has
+
+
+183
+00:05:34,686 --> 00:05:36,246
+some really nicely integrated
+
+
+184
+00:05:36,246 --> 00:05:37,796
+tools in Xcode that let you kind
+
+
+185
+00:05:37,796 --> 00:05:39,416
+of manipulate it, set up scenes,
+
+
+186
+00:05:39,826 --> 00:05:40,366
+do all this.
+
+
+187
+00:05:40,366 --> 00:05:41,586
+And you'll see a little bit of
+
+
+188
+00:05:41,586 --> 00:05:42,596
+what that looks like a bit later
+
+
+189
+00:05:42,596 --> 00:05:42,806
+on.
+
+
+190
+00:05:44,306 --> 00:05:46,286
+SpriteKit is another framework
+
+
+191
+00:05:46,286 --> 00:05:47,876
+that's kind of built heavily for
+
+
+192
+00:05:47,876 --> 00:05:48,416
+games.
+
+
+193
+00:05:48,416 --> 00:05:50,186
+It gives you a lot of animation
+
+
+194
+00:05:50,186 --> 00:05:50,976
+primitives and that kind of
+
+
+195
+00:05:50,976 --> 00:05:53,706
+thing for having things, you
+
+
+196
+00:05:53,706 --> 00:05:54,726
+know, move around and interact
+
+
+197
+00:05:54,726 --> 00:05:55,626
+with each other onscreen.
+
+
+198
+00:05:56,586 --> 00:05:59,476
+So, there's one more framework
+
+
+199
+00:05:59,476 --> 00:06:00,776
+that I'd like to talk about
+
+
+200
+00:06:00,776 --> 00:06:02,806
+before we move on and that is
+
+
+201
+00:06:02,806 --> 00:06:04,536
+one you've probably heard of
+
+
+202
+00:06:05,126 --> 00:06:05,556
+called Metal.
+
+
+203
+00:06:06,346 --> 00:06:08,686
+And what Metal is is kind of the
+
+
+204
+00:06:08,686 --> 00:06:11,236
+fundamental graphics API on our
+
+
+205
+00:06:11,236 --> 00:06:11,896
+platforms.
+
+
+206
+00:06:12,136 --> 00:06:12,876
+It's what all of these other
+
+
+207
+00:06:12,876 --> 00:06:13,906
+things are built on top of.
+
+
+208
+00:06:13,906 --> 00:06:14,946
+I mentioned that Core Image can
+
+
+209
+00:06:14,946 --> 00:06:16,966
+use Metal, but SceneKit draws
+
+
+210
+00:06:16,966 --> 00:06:18,006
+using Metal on devices that
+
+
+211
+00:06:18,006 --> 00:06:19,016
+support it, SpriteKit does the
+
+
+212
+00:06:19,016 --> 00:06:20,976
+same, and Core Animation itself
+
+
+213
+00:06:21,846 --> 00:06:23,386
+is using Metal as well.
+
+
+214
+00:06:24,216 --> 00:06:26,556
+And so, Metal is-- it's kind of
+
+
+215
+00:06:26,556 --> 00:06:28,536
+hard to describe exactly what
+
+
+216
+00:06:28,536 --> 00:06:29,736
+you use it for because you can
+
+
+217
+00:06:29,736 --> 00:06:31,656
+do basically anything with it if
+
+
+218
+00:06:31,656 --> 00:06:32,806
+you are willing to put the work
+
+
+219
+00:06:32,806 --> 00:06:33,036
+in.
+
+
+220
+00:06:34,426 --> 00:06:36,966
+But what it lets you do is just
+
+
+221
+00:06:36,966 --> 00:06:38,426
+kind of get the fastest possible
+
+
+222
+00:06:38,426 --> 00:06:40,356
+access to the lowest level of
+
+
+223
+00:06:40,356 --> 00:06:41,576
+the graphics hardware we have
+
+
+224
+00:06:41,576 --> 00:06:42,136
+available.
+
+
+225
+00:06:42,756 --> 00:06:44,206
+And so, a lot of the times
+
+
+226
+00:06:44,206 --> 00:06:45,316
+you're not using Metal directly,
+
+
+227
+00:06:45,316 --> 00:06:46,006
+you're using it through one of
+
+
+228
+00:06:46,006 --> 00:06:47,126
+these other frameworks, but if
+
+
+229
+00:06:47,126 --> 00:06:48,236
+you need to build something
+
+
+230
+00:06:48,236 --> 00:06:49,996
+custom, something that isn't
+
+
+231
+00:06:49,996 --> 00:06:50,746
+really supported by any of
+
+
+232
+00:06:50,746 --> 00:06:51,956
+these, that's what you're using
+
+
+233
+00:06:51,956 --> 00:06:52,246
+it for.
+
+
+234
+00:06:52,816 --> 00:06:55,576
+As an example, on the iPhone 7--
+
+
+235
+00:06:55,916 --> 00:06:58,266
+sorry, the 7 Plus-- we have this
+
+
+236
+00:06:58,266 --> 00:06:59,416
+kind of neat depth of field
+
+
+237
+00:06:59,416 --> 00:07:02,526
+effect in the camera and that
+
+
+238
+00:07:02,776 --> 00:07:03,916
+basically takes the camera
+
+
+239
+00:07:03,916 --> 00:07:05,816
+image, does some kind of depth
+
+
+240
+00:07:05,816 --> 00:07:08,026
+reconstruction stuff on it, some
+
+
+241
+00:07:08,126 --> 00:07:10,526
+math that is way beyond me, and
+
+
+242
+00:07:11,386 --> 00:07:12,886
+can figure out kind of the depth
+
+
+243
+00:07:12,886 --> 00:07:14,346
+of the pixels in each-- at each
+
+
+244
+00:07:14,386 --> 00:07:15,496
+point in the scene and then
+
+
+245
+00:07:15,526 --> 00:07:16,446
+apply an intelligent kind of
+
+
+246
+00:07:16,446 --> 00:07:17,506
+blur filter to them so you get
+
+
+247
+00:07:17,506 --> 00:07:19,076
+this nice soft background.
+
+
+248
+00:07:19,686 --> 00:07:21,466
+And that doesn't sound like any
+
+
+249
+00:07:21,466 --> 00:07:22,256
+of the other frameworks that I
+
+
+250
+00:07:22,256 --> 00:07:22,866
+told you about, right?
+
+
+251
+00:07:22,946 --> 00:07:25,756
+So, that was built for iOS 10
+
+
+252
+00:07:26,166 --> 00:07:27,526
+and rebuilt for iOS 11.
+
+
+253
+00:07:27,526 --> 00:07:28,206
+I don't know if you've noticed
+
+
+254
+00:07:28,206 --> 00:07:29,486
+that the effects just got better
+
+
+255
+00:07:29,606 --> 00:07:33,256
+in the betas on top of Metal.
+
+
+256
+00:07:34,026 --> 00:07:36,236
+So, that was kind of a quick
+
+
+257
+00:07:36,236 --> 00:07:36,456
+tour.
+
+
+258
+00:07:36,456 --> 00:07:37,436
+We just went down through all
+
+
+259
+00:07:37,436 --> 00:07:39,406
+these layers and the idea here
+
+
+260
+00:07:39,406 --> 00:07:40,976
+is not to kind of give you an
+
+
+261
+00:07:40,976 --> 00:07:42,316
+exhaustive explanation of what
+
+
+262
+00:07:42,316 --> 00:07:43,346
+each one does, but I just want
+
+
+263
+00:07:43,346 --> 00:07:45,116
+to kind of have you know where
+
+
+264
+00:07:45,116 --> 00:07:45,646
+things are.
+
+
+265
+00:07:45,646 --> 00:07:47,246
+So, if you have some problem
+
+
+266
+00:07:47,246 --> 00:07:48,066
+that you want to solve in your
+
+
+267
+00:07:48,066 --> 00:07:49,716
+app, you can kind of look back
+
+
+268
+00:07:49,716 --> 00:07:51,526
+and be like I think I heard that
+
+
+269
+00:07:51,526 --> 00:07:52,396
+there's a firmware that does
+
+
+270
+00:07:52,396 --> 00:07:52,676
+that.
+
+
+271
+00:07:52,676 --> 00:07:54,896
+Let me check that out.
+
+
+272
+00:07:55,296 --> 00:07:56,836
+So, to give you a little bit
+
+
+273
+00:07:56,836 --> 00:07:58,766
+more of an idea of how you use
+
+
+274
+00:07:58,806 --> 00:08:00,816
+these and how they work, I'd
+
+
+275
+00:08:00,816 --> 00:08:01,546
+like to bring up my colleague,
+
+
+276
+00:08:01,546 --> 00:08:02,646
+Warren, for a demo.
+
+
+277
+00:08:03,516 --> 00:08:08,186
+[ Applause ]
+
+
+278
+00:08:08,686 --> 00:08:09,086
+>> Thanks, Noah.
+
+
+279
+00:08:17,516 --> 00:08:18,826
+So, with this series of demos,
+
+
+280
+00:08:18,826 --> 00:08:19,916
+I'm going to walk you through
+
+
+281
+00:08:19,966 --> 00:08:21,126
+some of the frameworks that Noah
+
+
+282
+00:08:21,126 --> 00:08:22,506
+just introduced and we'll start
+
+
+283
+00:08:22,506 --> 00:08:23,406
+right at the beginning with
+
+
+284
+00:08:23,436 --> 00:08:24,676
+UIKit customization.
+
+
+285
+00:08:25,106 --> 00:08:25,996
+I want to say right from the
+
+
+286
+00:08:25,996 --> 00:08:27,466
+start that it's not important
+
+
+287
+00:08:27,466 --> 00:08:28,346
+for you to pay attention to
+
+
+288
+00:08:28,346 --> 00:08:29,576
+every single line that I
+
+
+289
+00:08:29,676 --> 00:08:30,926
+highlight or talk about.
+
+
+290
+00:08:31,316 --> 00:08:32,706
+The sample is already available
+
+
+291
+00:08:32,706 --> 00:08:33,895
+online and you can definitely
+
+
+292
+00:08:33,895 --> 00:08:35,716
+pull it down and follow along on
+
+
+293
+00:08:35,716 --> 00:08:36,336
+your own time.
+
+
+294
+00:08:36,626 --> 00:08:37,976
+But, over the course of the next
+
+
+295
+00:08:37,976 --> 00:08:39,025
+several minutes, I'll walk
+
+
+296
+00:08:39,025 --> 00:08:40,066
+through some of the platform
+
+
+297
+00:08:40,066 --> 00:08:41,385
+features that we have and how
+
+
+298
+00:08:41,385 --> 00:08:42,515
+you can use them to enhance the
+
+
+299
+00:08:42,515 --> 00:08:43,356
+user experience of your
+
+
+300
+00:08:43,356 --> 00:08:43,895
+application.
+
+
+301
+00:08:44,546 --> 00:08:49,536
+So, to start, I'll just go ahead
+
+
+302
+00:08:49,536 --> 00:08:50,686
+show you what this particular
+
+
+303
+00:08:50,686 --> 00:08:52,126
+UIKit customization example
+
+
+304
+00:08:52,126 --> 00:08:52,626
+does.
+
+
+305
+00:08:53,986 --> 00:08:57,856
+I have here a screen, perhaps
+
+
+306
+00:08:57,856 --> 00:08:59,016
+it's from a video-editing
+
+
+307
+00:08:59,016 --> 00:09:00,436
+application that allows me to
+
+
+308
+00:09:00,436 --> 00:09:01,816
+control the white balance of a
+
+
+309
+00:09:01,816 --> 00:09:02,796
+photograph.
+
+
+310
+00:09:02,986 --> 00:09:04,166
+As you can see, I've already
+
+
+311
+00:09:04,166 --> 00:09:05,896
+customized the UI sliders at the
+
+
+312
+00:09:05,896 --> 00:09:08,096
+bottom of this screen with track
+
+
+313
+00:09:08,226 --> 00:09:10,036
+tint colors to signify the
+
+
+314
+00:09:10,036 --> 00:09:11,246
+purpose of each slider.
+
+
+315
+00:09:11,666 --> 00:09:13,186
+So, the slider on top will
+
+
+316
+00:09:13,186 --> 00:09:14,526
+control the color temperature
+
+
+317
+00:09:14,866 --> 00:09:15,916
+while the slider on bottom will
+
+
+318
+00:09:15,916 --> 00:09:17,036
+control the color tint.
+
+
+319
+00:09:17,586 --> 00:09:18,596
+And the combined effect of these
+
+
+320
+00:09:18,596 --> 00:09:19,966
+sliders will allow us to control
+
+
+321
+00:09:19,966 --> 00:09:21,876
+the white point of the
+
+
+322
+00:09:21,876 --> 00:09:23,066
+photograph.
+
+
+323
+00:09:24,816 --> 00:09:26,226
+But, I might actually want to
+
+
+324
+00:09:26,226 --> 00:09:27,356
+punch this up a little bit more
+
+
+325
+00:09:27,516 --> 00:09:28,686
+by adding a track image.
+
+
+326
+00:09:29,056 --> 00:09:30,126
+I'll go ahead and do that now
+
+
+327
+00:09:30,126 --> 00:09:31,396
+and show you the effect.
+
+
+328
+00:09:39,316 --> 00:09:40,796
+So, as you can see, I've added a
+
+
+329
+00:09:40,796 --> 00:09:41,846
+gradient image to each of these
+
+
+330
+00:09:41,846 --> 00:09:43,246
+sliders with rounded end caps.
+
+
+331
+00:09:43,686 --> 00:09:45,006
+And this actually creates a much
+
+
+332
+00:09:45,006 --> 00:09:47,576
+nicer visual appearance and also
+
+
+333
+00:09:47,576 --> 00:09:48,556
+hints a little bit further at
+
+
+334
+00:09:48,556 --> 00:09:49,666
+what these sliders actually are
+
+
+335
+00:09:49,666 --> 00:09:50,016
+for.
+
+
+336
+00:09:50,646 --> 00:09:51,866
+Now, if I adjust these sliders
+
+
+337
+00:09:51,866 --> 00:09:52,906
+right now, you'll notice that
+
+
+338
+00:09:52,906 --> 00:09:54,286
+the image itself doesn't change.
+
+
+339
+00:09:54,736 --> 00:09:55,976
+But, in the next sample, I'll
+
+
+340
+00:09:55,976 --> 00:09:57,676
+show you how to actually
+
+
+341
+00:09:57,676 --> 00:09:58,956
+implement the effect of
+
+
+342
+00:09:58,956 --> 00:09:59,806
+modifying the image.
+
+
+343
+00:09:59,976 --> 00:10:01,606
+In the meantime, I'll walk
+
+
+344
+00:10:01,786 --> 00:10:03,556
+through this particular example
+
+
+345
+00:10:03,616 --> 00:10:04,626
+in a little bit more detail.
+
+
+346
+00:10:05,286 --> 00:10:07,396
+So, I instantiate a UI image and
+
+
+347
+00:10:11,216 --> 00:10:12,626
+then I-- and then make it
+
+
+348
+00:10:12,626 --> 00:10:16,426
+resizable by using one of the
+
+
+349
+00:10:16,656 --> 00:10:18,126
+APIs on UI image.
+
+
+350
+00:10:18,536 --> 00:10:20,806
+And then I can actually set each
+
+
+351
+00:10:21,646 --> 00:10:23,636
+of the images on the sliders.
+
+
+352
+00:10:24,016 --> 00:10:25,536
+The minimum track image and then
+
+
+353
+00:10:25,536 --> 00:10:26,486
+maximum track image.
+
+
+354
+00:10:26,916 --> 00:10:28,146
+And, as I move the slider, it
+
+
+355
+00:10:28,146 --> 00:10:29,696
+will be redrawn and use the
+
+
+356
+00:10:29,696 --> 00:10:31,096
+appropriate image to draw the
+
+
+357
+00:10:31,096 --> 00:10:32,106
+portion of the track to which it
+
+
+358
+00:10:32,106 --> 00:10:32,566
+applies.
+
+
+359
+00:10:35,076 --> 00:10:36,096
+So, I mentioned that I'd show
+
+
+360
+00:10:36,096 --> 00:10:37,126
+you how to actually implement
+
+
+361
+00:10:37,126 --> 00:10:38,016
+this effect and that's what I'd
+
+
+362
+00:10:38,016 --> 00:10:38,646
+like to do now.
+
+
+363
+00:10:39,426 --> 00:10:41,476
+So-- and I'll do that with Core
+
+
+364
+00:10:41,476 --> 00:10:41,806
+Image.
+
+
+365
+00:10:42,906 --> 00:10:43,876
+So, as you can see, this is the
+
+
+366
+00:10:43,876 --> 00:10:46,116
+exact same UI, but now when I
+
+
+367
+00:10:46,116 --> 00:10:47,986
+adjust the sliders, which I
+
+
+368
+00:10:47,986 --> 00:10:49,266
+might do because this image was
+
+
+369
+00:10:49,266 --> 00:10:50,286
+shot underwater and I want to
+
+
+370
+00:10:50,286 --> 00:10:51,666
+make it a little bit warmer and
+
+
+371
+00:10:51,666 --> 00:10:52,696
+remove some of that green tint
+
+
+372
+00:10:52,696 --> 00:10:53,146
+from the algae.
+
+
+373
+00:10:53,146 --> 00:10:56,126
+You can see that the image
+
+
+374
+00:10:56,126 --> 00:10:57,396
+actually updates in real time.
+
+
+375
+00:10:57,936 --> 00:10:59,066
+Let's talk about how we actually
+
+
+376
+00:10:59,066 --> 00:10:59,906
+do that.
+
+
+377
+00:11:06,496 --> 00:11:08,106
+So, Noah mentioned that Core
+
+
+378
+00:11:08,106 --> 00:11:09,596
+Image has numerous different
+
+
+379
+00:11:09,626 --> 00:11:11,136
+filters available and the filter
+
+
+380
+00:11:11,136 --> 00:11:11,846
+that we'll be using
+
+
+381
+00:11:11,946 --> 00:11:13,736
+appropriately enough is the CI
+
+
+382
+00:11:13,736 --> 00:11:14,896
+temperature and tint filter.
+
+
+383
+00:11:15,856 --> 00:11:17,876
+Now, it bears a mention that CI
+
+
+384
+00:11:17,876 --> 00:11:18,966
+filters don't actually do the
+
+
+385
+00:11:18,966 --> 00:11:20,486
+hard work of image filtering in
+
+
+386
+00:11:20,486 --> 00:11:21,036
+Core Image.
+
+
+387
+00:11:21,496 --> 00:11:22,426
+Rather, what does most of the
+
+
+388
+00:11:22,426 --> 00:11:23,996
+work is an object called a CI
+
+
+389
+00:11:24,056 --> 00:11:24,656
+context.
+
+
+390
+00:11:24,656 --> 00:11:26,426
+The CI context is basically the
+
+
+391
+00:11:26,426 --> 00:11:27,806
+interface to the underlying
+
+
+392
+00:11:27,806 --> 00:11:29,406
+hardware that actually performs
+
+
+393
+00:11:29,966 --> 00:11:30,896
+the image filtering.
+
+
+394
+00:11:31,066 --> 00:11:31,956
+So, I've already created one of
+
+
+395
+00:11:31,956 --> 00:11:34,236
+those and I'll be using it in
+
+
+396
+00:11:34,236 --> 00:11:36,626
+this function, but first what I
+
+
+397
+00:11:36,626 --> 00:11:38,236
+want to do is instantiate a CI
+
+
+398
+00:11:38,286 --> 00:11:40,336
+image that's based on the image
+
+
+399
+00:11:40,376 --> 00:11:41,506
+that's currently being displayed
+
+
+400
+00:11:41,666 --> 00:11:43,886
+by the UI image view in my
+
+
+401
+00:11:44,216 --> 00:11:44,656
+screen.
+
+
+402
+00:11:46,266 --> 00:11:47,726
+Now, CI temperature and tint
+
+
+403
+00:11:47,726 --> 00:11:49,096
+filter has a couple of different
+
+
+404
+00:11:49,096 --> 00:11:50,036
+parameters that allow me to
+
+
+405
+00:11:50,036 --> 00:11:51,606
+control the white point and in
+
+
+406
+00:11:51,606 --> 00:11:52,976
+particular the-- these
+
+
+407
+00:11:53,206 --> 00:11:54,746
+parameters are called the
+
+
+408
+00:11:54,746 --> 00:11:56,146
+neutral and target neutral
+
+
+409
+00:11:56,146 --> 00:11:56,646
+vectors.
+
+
+410
+00:11:57,206 --> 00:11:58,736
+And each of these represents a
+
+
+411
+00:11:58,736 --> 00:12:00,546
+particular color temperature and
+
+
+412
+00:12:00,546 --> 00:12:01,136
+a color tint.
+
+
+413
+00:12:01,996 --> 00:12:04,206
+And so, I know that the
+
+
+414
+00:12:04,556 --> 00:12:05,726
+temperature and tint that I'm
+
+
+415
+00:12:05,726 --> 00:12:08,146
+shooting for are 6500 degrees
+
+
+416
+00:12:08,146 --> 00:12:10,006
+Kelvin and a perfectly neutral
+
+
+417
+00:12:10,406 --> 00:12:12,656
+0, neither too magenta nor too
+
+
+418
+00:12:12,656 --> 00:12:13,036
+green.
+
+
+419
+00:12:13,416 --> 00:12:15,076
+So, I construct a vector with
+
+
+420
+00:12:15,076 --> 00:12:16,446
+those parameters and then I
+
+
+421
+00:12:16,446 --> 00:12:19,366
+construct another vector with
+
+
+422
+00:12:19,366 --> 00:12:20,526
+the parameters that come from
+
+
+423
+00:12:20,526 --> 00:12:21,556
+the values of my slider.
+
+
+424
+00:12:22,376 --> 00:12:23,726
+I then construct a dictionary
+
+
+425
+00:12:24,386 --> 00:12:25,116
+that holds all of these
+
+
+426
+00:12:25,116 --> 00:12:26,226
+parameters, including the input
+
+
+427
+00:12:26,226 --> 00:12:28,456
+image, and ask CI to create a
+
+
+428
+00:12:28,456 --> 00:12:31,016
+filter for me based on the name
+
+
+429
+00:12:31,146 --> 00:12:32,766
+CI temperature and tint.
+
+
+430
+00:12:33,316 --> 00:12:34,516
+Then, in order to actually
+
+
+431
+00:12:34,516 --> 00:12:36,886
+perform the filtering, I'm going
+
+
+432
+00:12:36,886 --> 00:12:37,816
+to use a little bit of Grand
+
+
+433
+00:12:37,816 --> 00:12:39,036
+Central Dispatch to get off the
+
+
+434
+00:12:39,036 --> 00:12:40,926
+main thread because image
+
+
+435
+00:12:40,926 --> 00:12:42,306
+processing is a fairly intensive
+
+
+436
+00:12:42,306 --> 00:12:42,896
+operation.
+
+
+437
+00:12:43,706 --> 00:12:45,156
+So, I'll dispatch to a queue
+
+
+438
+00:12:45,156 --> 00:12:47,056
+that I created previously and
+
+
+439
+00:12:47,056 --> 00:12:48,966
+then ask my context to create a
+
+
+440
+00:12:48,966 --> 00:12:50,876
+CG image based on the output
+
+
+441
+00:12:50,876 --> 00:12:52,076
+image of the filter that I just
+
+
+442
+00:12:52,076 --> 00:12:53,536
+created, which will have the
+
+
+443
+00:12:53,536 --> 00:12:54,616
+effect of pulling the filtered
+
+
+444
+00:12:54,616 --> 00:12:56,156
+image through the filter,
+
+
+445
+00:12:56,376 --> 00:12:57,096
+applying the effect.
+
+
+446
+00:12:58,426 --> 00:12:59,756
+Once that's done, I'll then
+
+
+447
+00:12:59,756 --> 00:13:00,976
+dispatch asynchronously back to
+
+
+448
+00:13:00,976 --> 00:13:02,626
+the main queue and set the
+
+
+449
+00:13:02,626 --> 00:13:04,926
+resulting image on my UI image
+
+
+450
+00:13:04,926 --> 00:13:05,546
+view once more.
+
+
+451
+00:13:07,956 --> 00:13:10,916
+Now, sometimes using UIKit or
+
+
+452
+00:13:10,916 --> 00:13:12,366
+Core Image or many of these
+
+
+453
+00:13:12,366 --> 00:13:13,396
+other high-level frameworks is
+
+
+454
+00:13:13,396 --> 00:13:14,316
+not quite enough and you
+
+
+455
+00:13:14,316 --> 00:13:16,516
+actually want to draw user
+
+
+456
+00:13:16,516 --> 00:13:17,906
+interface elements on the fly.
+
+
+457
+00:13:18,536 --> 00:13:19,596
+Well, like Noah mentioned, you
+
+
+458
+00:13:19,596 --> 00:13:21,206
+can actually use Core Graphics
+
+
+459
+00:13:21,206 --> 00:13:21,646
+to do that.
+
+
+460
+00:13:22,316 --> 00:13:23,656
+This is a very simple
+
+
+461
+00:13:23,656 --> 00:13:25,006
+application of Core Graphics,
+
+
+462
+00:13:25,106 --> 00:13:26,616
+but let's say I want to draw a
+
+
+463
+00:13:26,616 --> 00:13:27,406
+star polygon.
+
+
+464
+00:13:29,176 --> 00:13:32,216
+Now, in order to do that, I'll
+
+
+465
+00:13:32,216 --> 00:13:33,656
+actually use an API that was
+
+
+466
+00:13:33,656 --> 00:13:35,756
+introduced in iOS 10 called UI
+
+
+467
+00:13:35,756 --> 00:13:37,046
+Graphics Image Renderer.
+
+
+468
+00:13:38,616 --> 00:13:40,116
+This actually gives me much
+
+
+469
+00:13:40,116 --> 00:13:42,036
+easier access to a Core Graphics
+
+
+470
+00:13:42,036 --> 00:13:43,576
+context that I can issue drawing
+
+
+471
+00:13:43,576 --> 00:13:45,876
+commands into than in the past.
+
+
+472
+00:13:46,206 --> 00:13:47,646
+So, in order to use it, I'll
+
+
+473
+00:13:47,646 --> 00:13:50,626
+basically determine where I want
+
+
+474
+00:13:50,626 --> 00:13:51,656
+to draw the star.
+
+
+475
+00:13:52,296 --> 00:13:54,446
+In this case, in the center of
+
+
+476
+00:13:54,446 --> 00:13:54,816
+my view.
+
+
+477
+00:13:56,356 --> 00:13:57,846
+Create a UI graphics image
+
+
+478
+00:13:57,846 --> 00:13:59,326
+renderer at a particular size,
+
+
+479
+00:14:00,036 --> 00:14:01,166
+and then call the image method,
+
+
+480
+00:14:01,386 --> 00:14:03,836
+which takes a closure in which
+
+
+481
+00:14:03,836 --> 00:14:05,356
+I'll actually issue the drawing
+
+
+482
+00:14:05,356 --> 00:14:05,806
+commands.
+
+
+483
+00:14:06,436 --> 00:14:07,616
+So, it passes me in this render
+
+
+484
+00:14:07,616 --> 00:14:09,396
+context and from that I can
+
+
+485
+00:14:09,396 --> 00:14:11,546
+retrieve a CG context which
+
+
+486
+00:14:11,546 --> 00:14:13,266
+actually has a huge bevy of
+
+
+487
+00:14:13,266 --> 00:14:14,706
+methods that allow me to do
+
+
+488
+00:14:14,706 --> 00:14:16,396
+things like draw paths, draw
+
+
+489
+00:14:16,396 --> 00:14:19,136
+text, draw images, and fill and
+
+
+490
+00:14:19,136 --> 00:14:19,856
+stroke paths.
+
+
+491
+00:14:21,256 --> 00:14:22,646
+Now, the math here is not all
+
+
+492
+00:14:22,646 --> 00:14:23,146
+important.
+
+
+493
+00:14:23,146 --> 00:14:24,666
+What is most important is the
+
+
+494
+00:14:24,666 --> 00:14:24,946
+API.
+
+
+495
+00:14:25,896 --> 00:14:27,816
+So, on that context, I'll set
+
+
+496
+00:14:27,886 --> 00:14:29,586
+the fill color, which in this
+
+
+497
+00:14:29,586 --> 00:14:32,096
+case is yellow because stars are
+
+
+498
+00:14:32,096 --> 00:14:34,156
+yellow, and then I'll go ahead
+
+
+499
+00:14:34,156 --> 00:14:35,496
+and position the current point
+
+
+500
+00:14:35,496 --> 00:14:36,756
+of the context at the top of the
+
+
+501
+00:14:36,756 --> 00:14:39,046
+star with the move method.
+
+
+502
+00:14:39,616 --> 00:14:40,376
+Move to method.
+
+
+503
+00:14:40,896 --> 00:14:43,536
+And then in a loop I'll go ahead
+
+
+504
+00:14:43,586 --> 00:14:46,116
+and add lines between the inner
+
+
+505
+00:14:46,116 --> 00:14:47,496
+and outer points of my polygon
+
+
+506
+00:14:48,116 --> 00:14:50,036
+and once I'm done I can actually
+
+
+507
+00:14:50,036 --> 00:14:51,196
+fill that path, which has the
+
+
+508
+00:14:51,196 --> 00:14:52,336
+effect of filling in the star
+
+
+509
+00:14:52,336 --> 00:14:53,656
+outline and creating the image
+
+
+510
+00:14:53,656 --> 00:14:54,116
+that you saw.
+
+
+511
+00:14:55,436 --> 00:14:56,656
+But, of course, nobody wants to
+
+
+512
+00:14:56,656 --> 00:14:57,846
+actually just have a gigantic
+
+
+513
+00:14:57,846 --> 00:14:59,106
+star sitting in the middle of
+
+
+514
+00:14:59,106 --> 00:15:00,766
+their application, so let's go
+
+
+515
+00:15:00,766 --> 00:15:01,796
+one step further and talk about
+
+
+516
+00:15:01,796 --> 00:15:03,226
+how you can actually use this as
+
+
+517
+00:15:03,226 --> 00:15:05,586
+a user interface element in your
+
+
+518
+00:15:05,586 --> 00:15:07,766
+own app.
+
+
+519
+00:15:08,036 --> 00:15:08,626
+We'll do that with Core
+
+
+520
+00:15:08,626 --> 00:15:09,106
+Animation.
+
+
+521
+00:15:09,946 --> 00:15:10,946
+Core Animation happens to be
+
+
+522
+00:15:10,946 --> 00:15:12,966
+really good at presenting bitmap
+
+
+523
+00:15:13,236 --> 00:15:13,746
+content.
+
+
+524
+00:15:14,496 --> 00:15:15,326
+So, we can actually use the
+
+
+525
+00:15:15,326 --> 00:15:16,676
+image that we just generated as
+
+
+526
+00:15:16,676 --> 00:15:17,906
+the contents of a CALayer.
+
+
+527
+00:15:18,616 --> 00:15:20,056
+Just to show you the effect that
+
+
+528
+00:15:20,056 --> 00:15:21,546
+we're after, I have this button
+
+
+529
+00:15:21,546 --> 00:15:24,886
+here and UI buttons are, you
+
+
+530
+00:15:24,886 --> 00:15:27,526
+know, very common and their
+
+
+531
+00:15:27,526 --> 00:15:29,586
+usage-- their usage varies
+
+
+532
+00:15:29,586 --> 00:15:30,926
+depending on the context, but if
+
+
+533
+00:15:31,016 --> 00:15:32,426
+I want to add a little bit of
+
+
+534
+00:15:32,426 --> 00:15:33,826
+pizazz to this particular UI
+
+
+535
+00:15:33,826 --> 00:15:35,986
+button, then I can go for an
+
+
+536
+00:15:36,046 --> 00:15:38,016
+effect like this.
+
+
+537
+00:15:38,176 --> 00:15:39,616
+Let me show you that one more
+
+
+538
+00:15:39,616 --> 00:15:39,936
+time.
+
+
+539
+00:15:41,516 --> 00:15:44,396
+Kind of cute, right?
+
+
+540
+00:15:44,686 --> 00:15:45,586
+Now, this is a little bit
+
+
+541
+00:15:45,586 --> 00:15:46,556
+ostentatious and you probably
+
+
+542
+00:15:46,556 --> 00:15:47,526
+wouldn't want to do exactly this
+
+
+543
+00:15:47,526 --> 00:15:48,346
+in your app, but this is
+
+
+544
+00:15:48,346 --> 00:15:49,496
+strictly for illustrative
+
+
+545
+00:15:49,496 --> 00:15:49,966
+purposes.
+
+
+546
+00:15:50,586 --> 00:15:51,426
+Let's talk about how to achieve
+
+
+547
+00:15:51,576 --> 00:15:54,906
+that effect.
+
+
+548
+00:15:55,496 --> 00:15:56,946
+So, I'll configure some
+
+
+549
+00:15:56,946 --> 00:15:58,156
+parameters for the stars that I
+
+
+550
+00:15:58,156 --> 00:16:00,556
+want to display and then I'll
+
+
+551
+00:16:00,556 --> 00:16:02,076
+add an action to my button to
+
+
+552
+00:16:02,076 --> 00:16:03,786
+actually call this play star
+
+
+553
+00:16:03,786 --> 00:16:04,606
+animation method.
+
+
+554
+00:16:05,176 --> 00:16:08,296
+In there, I'll create a loop
+
+
+555
+00:16:08,486 --> 00:16:09,396
+that actually loops over the
+
+
+556
+00:16:09,396 --> 00:16:10,256
+number of stars that I want to
+
+
+557
+00:16:10,256 --> 00:16:11,136
+create and for each of them I'll
+
+
+558
+00:16:11,136 --> 00:16:12,226
+create a CALayer.
+
+
+559
+00:16:12,626 --> 00:16:14,146
+CALayer is the workhorse of Core
+
+
+560
+00:16:14,146 --> 00:16:15,496
+Animation and it's the thing
+
+
+561
+00:16:15,496 --> 00:16:18,386
+that actually has a position on
+
+
+562
+00:16:18,386 --> 00:16:19,536
+the screen and can be animated,
+
+
+563
+00:16:19,536 --> 00:16:20,426
+moved around, and have its
+
+
+564
+00:16:20,486 --> 00:16:21,706
+contents set.
+
+
+565
+00:16:22,576 --> 00:16:23,716
+So, I'll actually set its
+
+
+566
+00:16:23,716 --> 00:16:25,936
+contents to a CG image that
+
+
+567
+00:16:25,936 --> 00:16:27,116
+represents one of the stars that
+
+
+568
+00:16:27,116 --> 00:16:28,836
+I just rendered using the class
+
+
+569
+00:16:28,836 --> 00:16:29,936
+that I introduced previously.
+
+
+570
+00:16:30,186 --> 00:16:33,126
+I'll set the initial position of
+
+
+571
+00:16:33,126 --> 00:16:35,666
+each star in a circle around the
+
+
+572
+00:16:36,646 --> 00:16:37,876
+button and also set its balance
+
+
+573
+00:16:37,876 --> 00:16:38,806
+to some initial size.
+
+
+574
+00:16:38,866 --> 00:16:41,106
+In order to actually get it to
+
+
+575
+00:16:41,106 --> 00:16:42,126
+show up on the screen, I need to
+
+
+576
+00:16:42,176 --> 00:16:43,816
+add it as a sublayer of the
+
+
+577
+00:16:43,816 --> 00:16:44,456
+button's layer.
+
+
+578
+00:16:47,016 --> 00:16:47,946
+Now, you'll notice that of
+
+
+579
+00:16:47,946 --> 00:16:49,396
+course the star is animated from
+
+
+580
+00:16:49,396 --> 00:16:50,556
+their initial positions to a
+
+
+581
+00:16:50,556 --> 00:16:51,636
+position that's further out
+
+
+582
+00:16:52,046 --> 00:16:53,336
+along a ray from the center of
+
+
+583
+00:16:53,336 --> 00:16:53,826
+the button.
+
+
+584
+00:16:54,466 --> 00:16:55,346
+So, I can do a little bit more
+
+
+585
+00:16:55,346 --> 00:16:56,416
+math to calculate the final
+
+
+586
+00:16:56,416 --> 00:16:58,926
+position of the star, then I can
+
+
+587
+00:16:58,926 --> 00:17:01,146
+construct a transform that will
+
+
+588
+00:17:01,296 --> 00:17:04,086
+simultaneously rotate, scale,
+
+
+589
+00:17:04,086 --> 00:17:05,496
+and translate the layer to its
+
+
+590
+00:17:05,496 --> 00:17:06,185
+final position.
+
+
+591
+00:17:07,165 --> 00:17:08,915
+I'll use CA basic animation to
+
+
+592
+00:17:08,915 --> 00:17:10,266
+interpolate between the initial
+
+
+593
+00:17:10,266 --> 00:17:11,695
+position of the CALayer and its
+
+
+594
+00:17:11,695 --> 00:17:12,366
+destination.
+
+
+595
+00:17:13,156 --> 00:17:14,665
+I could use a more sophisticated
+
+
+596
+00:17:14,665 --> 00:17:15,826
+animation like a key frame
+
+
+597
+00:17:15,826 --> 00:17:17,106
+animation if I wanted to, for
+
+
+598
+00:17:17,106 --> 00:17:18,086
+example, make it move along a
+
+
+599
+00:17:18,086 --> 00:17:18,205
+path.
+
+
+600
+00:17:19,396 --> 00:17:20,506
+I'll set the from value to the
+
+
+601
+00:17:20,506 --> 00:17:21,516
+current transformation of the
+
+
+602
+00:17:21,516 --> 00:17:22,945
+layer and the to value to the
+
+
+603
+00:17:22,945 --> 00:17:23,846
+transformation that I just
+
+
+604
+00:17:23,846 --> 00:17:24,445
+constructed.
+
+
+605
+00:17:25,036 --> 00:17:26,516
+And I'll also use a custom
+
+
+606
+00:17:26,516 --> 00:17:28,205
+duration because the default
+
+
+607
+00:17:28,205 --> 00:17:29,696
+duration of 0.25 seconds is a
+
+
+608
+00:17:29,696 --> 00:17:31,206
+little bit-- little bit fast for
+
+
+609
+00:17:31,206 --> 00:17:32,006
+the effect that I'm after.
+
+
+610
+00:17:32,786 --> 00:17:33,946
+And I'll apply an ease out
+
+
+611
+00:17:33,946 --> 00:17:36,566
+function so that as the star
+
+
+612
+00:17:36,566 --> 00:17:39,516
+approaches its target position
+
+
+613
+00:17:39,516 --> 00:17:40,496
+it will slow down.
+
+
+614
+00:17:40,496 --> 00:17:45,836
+And just to be a good citizen so
+
+
+615
+00:17:45,836 --> 00:17:46,786
+I don't have a bunch of layers
+
+
+616
+00:17:46,786 --> 00:17:48,276
+laying around, after several
+
+
+617
+00:17:48,276 --> 00:17:49,386
+seconds I'll go ahead and remove
+
+
+618
+00:17:49,386 --> 00:17:50,466
+that layer from its super view
+
+
+619
+00:17:50,466 --> 00:17:51,496
+when the animation completes.
+
+
+620
+00:17:55,916 --> 00:17:57,006
+Well, that's all well and good,
+
+
+621
+00:17:57,166 --> 00:17:58,276
+but sometimes you actually want
+
+
+622
+00:17:58,276 --> 00:17:59,556
+to have even more elements
+
+
+623
+00:17:59,556 --> 00:18:01,276
+flying around the screen and for
+
+
+624
+00:18:01,276 --> 00:18:03,106
+that you might want to use one
+
+
+625
+00:18:03,106 --> 00:18:05,576
+of these high-level graphics
+
+
+626
+00:18:05,576 --> 00:18:06,826
+frameworks that are intended for
+
+
+627
+00:18:06,826 --> 00:18:08,506
+games, but there's no reason you
+
+
+628
+00:18:08,506 --> 00:18:10,076
+can't use them in your own apps.
+
+
+629
+00:18:10,646 --> 00:18:11,866
+So, let's take a quick look at
+
+
+630
+00:18:11,866 --> 00:18:12,436
+SpriteKit.
+
+
+631
+00:18:13,706 --> 00:18:15,016
+Well, here's a similar-- here's
+
+
+632
+00:18:15,016 --> 00:18:16,716
+a particle effect that I created
+
+
+633
+00:18:16,716 --> 00:18:19,846
+in SpriteKit and this could
+
+
+634
+00:18:19,846 --> 00:18:21,096
+easily be overlaid in your own
+
+
+635
+00:18:21,096 --> 00:18:22,226
+app's contents.
+
+
+636
+00:18:22,556 --> 00:18:23,536
+So, let's take a look at how you
+
+
+637
+00:18:23,536 --> 00:18:25,146
+can incorporate SpriteKit very
+
+
+638
+00:18:25,146 --> 00:18:29,086
+easily into your own app.
+
+
+639
+00:18:29,736 --> 00:18:31,376
+That's literally the entire--
+
+
+640
+00:18:31,616 --> 00:18:32,406
+the entire code.
+
+
+641
+00:18:32,566 --> 00:18:34,106
+And what makes it easy for us to
+
+
+642
+00:18:34,106 --> 00:18:36,056
+do this tersely is that we're
+
+
+643
+00:18:36,056 --> 00:18:38,076
+actually relying on this SKS
+
+
+644
+00:18:38,076 --> 00:18:39,156
+file that I've created
+
+
+645
+00:18:39,156 --> 00:18:39,666
+previously.
+
+
+646
+00:18:40,916 --> 00:18:42,156
+And Xcode has a really nice
+
+
+647
+00:18:42,156 --> 00:18:43,376
+visual editor for particle
+
+
+648
+00:18:43,376 --> 00:18:43,806
+systems.
+
+
+649
+00:18:44,346 --> 00:18:46,296
+Now, you're not seeing the
+
+
+650
+00:18:46,296 --> 00:18:47,616
+texture here because I created
+
+
+651
+00:18:47,616 --> 00:18:48,986
+it programmatically, but you'll
+
+
+652
+00:18:48,986 --> 00:18:50,006
+notice that if I open up this
+
+
+653
+00:18:50,006 --> 00:18:51,786
+inspector in Xcode, I can
+
+
+654
+00:18:51,786 --> 00:18:53,946
+actually control many different
+
+
+655
+00:18:53,946 --> 00:18:55,736
+parameters of this particular
+
+
+656
+00:18:55,736 --> 00:18:58,256
+particle system, including
+
+
+657
+00:18:58,256 --> 00:18:59,386
+things like its opacity over
+
+
+658
+00:18:59,386 --> 00:19:01,396
+life, initial velocity, and the
+
+
+659
+00:19:01,396 --> 00:19:03,206
+distribution parameters for its
+
+
+660
+00:19:03,206 --> 00:19:04,356
+velocity and so on.
+
+
+661
+00:19:04,766 --> 00:19:06,976
+So, that allows me to very-- to
+
+
+662
+00:19:06,976 --> 00:19:08,716
+verify visually the effect that
+
+
+663
+00:19:08,716 --> 00:19:09,796
+I'm after with this particle
+
+
+664
+00:19:09,796 --> 00:19:11,356
+system and what's great is that
+
+
+665
+00:19:11,356 --> 00:19:12,316
+once I'm done with that I don't
+
+
+666
+00:19:12,316 --> 00:19:13,326
+have to write any code to
+
+
+667
+00:19:13,326 --> 00:19:14,036
+achieve that effect.
+
+
+668
+00:19:14,636 --> 00:19:16,046
+It's actually already persisted
+
+
+669
+00:19:16,106 --> 00:19:17,076
+in its SKS file.
+
+
+670
+00:19:17,686 --> 00:19:20,196
+Let's take one step back and
+
+
+671
+00:19:20,226 --> 00:19:21,286
+talk about how to actually
+
+
+672
+00:19:21,286 --> 00:19:23,356
+integrate scene-- SpriteKit into
+
+
+673
+00:19:23,356 --> 00:19:24,066
+your application.
+
+
+674
+00:19:24,576 --> 00:19:25,766
+So, in order for anything to
+
+
+675
+00:19:25,766 --> 00:19:26,996
+show up whatsoever, I need to
+
+
+676
+00:19:26,996 --> 00:19:28,226
+create an SKScene.
+
+
+677
+00:19:28,856 --> 00:19:30,286
+And the SKScene is really just
+
+
+678
+00:19:30,286 --> 00:19:31,296
+the stage on which all of your
+
+
+679
+00:19:31,296 --> 00:19:32,006
+objects live.
+
+
+680
+00:19:32,616 --> 00:19:34,356
+And an SKScene is presented in
+
+
+681
+00:19:34,356 --> 00:19:36,086
+your application within SKView.
+
+
+682
+00:19:36,586 --> 00:19:37,826
+So, I've created an SKScene
+
+
+683
+00:19:37,826 --> 00:19:39,536
+that's the same size as the view
+
+
+684
+00:19:39,536 --> 00:19:40,436
+that it's going to be presented
+
+
+685
+00:19:40,436 --> 00:19:41,976
+in and I present the scene on
+
+
+686
+00:19:41,976 --> 00:19:42,356
+the view.
+
+
+687
+00:19:43,346 --> 00:19:45,116
+I then create an SKEmitterNode
+
+
+688
+00:19:45,116 --> 00:19:47,336
+that actually loads the particle
+
+
+689
+00:19:47,336 --> 00:19:50,486
+system parameters and then will
+
+
+690
+00:19:50,486 --> 00:19:51,286
+actually be the thing that
+
+
+691
+00:19:51,286 --> 00:19:53,246
+drives the particle animation as
+
+
+692
+00:19:53,246 --> 00:19:53,996
+it's running.
+
+
+693
+00:19:54,876 --> 00:19:55,756
+I'll go ahead and create one
+
+
+694
+00:19:55,756 --> 00:19:57,406
+more of those famous star images
+
+
+695
+00:19:57,646 --> 00:19:58,836
+and set it as the texture on my
+
+
+696
+00:19:58,836 --> 00:20:00,216
+emitter so that each particle
+
+
+697
+00:20:00,216 --> 00:20:01,336
+has that star shape.
+
+
+698
+00:20:02,376 --> 00:20:03,206
+And I'll position it in the
+
+
+699
+00:20:03,206 --> 00:20:03,896
+middle of the screen.
+
+
+700
+00:20:04,526 --> 00:20:05,496
+I'll then go ahead and add the
+
+
+701
+00:20:05,496 --> 00:20:07,356
+emitter as a child of that scene
+
+
+702
+00:20:07,356 --> 00:20:08,596
+and that's really all there is
+
+
+703
+00:20:08,596 --> 00:20:08,906
+to it.
+
+
+704
+00:20:08,906 --> 00:20:10,036
+I don't have to start animating.
+
+
+705
+00:20:10,486 --> 00:20:12,476
+It just-- SpriteKit takes over
+
+
+706
+00:20:12,476 --> 00:20:13,396
+from there and just runs the
+
+
+707
+00:20:13,396 --> 00:20:13,906
+animation.
+
+
+708
+00:20:15,336 --> 00:20:16,886
+So, 2D is great, but you know
+
+
+709
+00:20:16,886 --> 00:20:18,296
+what's really cool, 3D.
+
+
+710
+00:20:18,886 --> 00:20:20,116
+So, let's-- as our final
+
+
+711
+00:20:20,116 --> 00:20:22,126
+sample-- talk about the basics
+
+
+712
+00:20:22,176 --> 00:20:22,726
+of SceneKit.
+
+
+713
+00:20:24,146 --> 00:20:25,466
+Well, here's a similar demo,
+
+
+714
+00:20:25,496 --> 00:20:26,456
+except that you can see the
+
+
+715
+00:20:26,456 --> 00:20:27,806
+stars are flying all over the
+
+
+716
+00:20:27,806 --> 00:20:28,896
+place, bouncing off of each
+
+
+717
+00:20:28,896 --> 00:20:30,356
+other, and most importantly
+
+
+718
+00:20:30,426 --> 00:20:31,806
+they're in 3D and they're lit
+
+
+719
+00:20:31,806 --> 00:20:32,376
+realistically.
+
+
+720
+00:20:32,686 --> 00:20:34,196
+So, let's walk through the
+
+
+721
+00:20:34,196 --> 00:20:36,146
+basics of SceneKit.
+
+
+722
+00:20:36,576 --> 00:20:38,906
+Well, there's a similar idea in
+
+
+723
+00:20:38,906 --> 00:20:40,856
+SceneKit to the SKScene and it's
+
+
+724
+00:20:40,856 --> 00:20:43,456
+called the S-- in SceneKit to--
+
+
+725
+00:20:45,306 --> 00:20:47,816
+there's an analogous class in
+
+
+726
+00:20:47,816 --> 00:20:51,136
+SceneKit to the SKScene in
+
+
+727
+00:20:51,136 --> 00:20:55,776
+SpriteKit which is SC-- which is
+
+
+728
+00:20:55,776 --> 00:20:58,826
+SCNScene and, exactly as before,
+
+
+729
+00:20:58,826 --> 00:20:59,786
+this is the thing that contains
+
+
+730
+00:20:59,786 --> 00:21:00,526
+all of your-- all of your
+
+
+731
+00:21:00,526 --> 00:21:01,626
+various objects in your scene.
+
+
+732
+00:21:02,016 --> 00:21:02,846
+I'll go ahead and set it to a
+
+
+733
+00:21:02,846 --> 00:21:04,106
+nice starfield text-- its
+
+
+734
+00:21:04,106 --> 00:21:05,166
+background to a nice starfield
+
+
+735
+00:21:05,166 --> 00:21:06,616
+texture, but in order to
+
+
+736
+00:21:06,616 --> 00:21:08,506
+actually see anything, we'll go
+
+
+737
+00:21:08,506 --> 00:21:09,666
+ahead and also create a node
+
+
+738
+00:21:09,906 --> 00:21:11,046
+that represents our vantage
+
+
+739
+00:21:11,046 --> 00:21:12,336
+point in SCNCamera.
+
+
+740
+00:21:13,066 --> 00:21:14,356
+I can set numerous properties on
+
+
+741
+00:21:14,356 --> 00:21:15,736
+this camera, but all I really
+
+
+742
+00:21:15,736 --> 00:21:16,726
+care about right now is its
+
+
+743
+00:21:16,776 --> 00:21:17,226
+position.
+
+
+744
+00:21:17,626 --> 00:21:18,626
+I'll go ahead and position it a
+
+
+745
+00:21:18,626 --> 00:21:20,336
+few units back from the origin
+
+
+746
+00:21:21,156 --> 00:21:23,496
+so that it's pointing to the
+
+
+747
+00:21:23,496 --> 00:21:25,416
+star particle system.
+
+
+748
+00:21:26,206 --> 00:21:27,106
+Then I go ahead and add it as a
+
+
+749
+00:21:27,106 --> 00:21:28,836
+child node to the scene's root
+
+
+750
+00:21:28,896 --> 00:21:29,016
+node.
+
+
+751
+00:21:29,906 --> 00:21:31,666
+Now, I don't actually have any
+
+
+752
+00:21:31,666 --> 00:21:32,896
+content to display on the screen
+
+
+753
+00:21:32,896 --> 00:21:35,406
+yet, so I can go ahead and use
+
+
+754
+00:21:35,406 --> 00:21:36,686
+this framework called Model I/O
+
+
+755
+00:21:36,686 --> 00:21:37,936
+and Model I/O has a lot of
+
+
+756
+00:21:37,936 --> 00:21:39,386
+different facilities for working
+
+
+757
+00:21:39,386 --> 00:21:40,526
+with 3D data.
+
+
+758
+00:21:41,356 --> 00:21:42,686
+In this case, I'm just going to
+
+
+759
+00:21:42,686 --> 00:21:43,956
+go ahead and load a 3D model
+
+
+760
+00:21:43,956 --> 00:21:45,896
+that I created previously in the
+
+
+761
+00:21:45,896 --> 00:21:47,176
+form of an MDLAsset.
+
+
+762
+00:21:48,186 --> 00:21:49,466
+There's a lot of interoperation
+
+
+763
+00:21:49,466 --> 00:21:51,926
+between SceneKit and Model I/O,
+
+
+764
+00:21:52,296 --> 00:21:55,136
+so I can extract an SCNGeometry,
+
+
+765
+00:21:55,436 --> 00:21:57,606
+which is SceneKit's notion of a
+
+
+766
+00:21:57,606 --> 00:21:59,616
+3D mesh, from the MDL mesh that
+
+
+767
+00:21:59,616 --> 00:22:00,136
+I just loaded.
+
+
+768
+00:22:00,136 --> 00:22:03,336
+Now, that particular model
+
+
+769
+00:22:03,336 --> 00:22:04,446
+didn't have any material
+
+
+770
+00:22:04,636 --> 00:22:05,876
+information associated with it,
+
+
+771
+00:22:06,266 --> 00:22:07,436
+so I can programmatically create
+
+
+772
+00:22:07,436 --> 00:22:09,146
+an SCNMaterial object and set
+
+
+773
+00:22:09,146 --> 00:22:10,646
+the diffuse color to yellow as
+
+
+774
+00:22:10,646 --> 00:22:12,506
+before in the previous demos.
+
+
+775
+00:22:13,536 --> 00:22:14,886
+Finally, in order to actually
+
+
+776
+00:22:14,886 --> 00:22:16,696
+light my objects, I'll create an
+
+
+777
+00:22:17,076 --> 00:22:18,706
+SCNLight and associate it with a
+
+
+778
+00:22:18,706 --> 00:22:20,876
+node and provide some properties
+
+
+779
+00:22:20,876 --> 00:22:22,396
+there, including the position
+
+
+780
+00:22:22,676 --> 00:22:24,266
+and the type of light.
+
+
+781
+00:22:24,406 --> 00:22:25,606
+SceneKit has a lot of different
+
+
+782
+00:22:25,926 --> 00:22:26,896
+types of lights, including
+
+
+783
+00:22:26,896 --> 00:22:27,926
+directional, point, and spot,
+
+
+784
+00:22:28,466 --> 00:22:29,486
+and you can select the one
+
+
+785
+00:22:29,486 --> 00:22:30,816
+that's appropriate for your use.
+
+
+786
+00:22:30,946 --> 00:22:33,446
+And I'll go ahead and kickoff
+
+
+787
+00:22:33,446 --> 00:22:35,436
+the actual animation by calling
+
+
+788
+00:22:35,436 --> 00:22:36,556
+this method start star emitter.
+
+
+789
+00:22:37,566 --> 00:22:39,226
+Well, this just creates a timer.
+
+
+790
+00:22:39,666 --> 00:22:42,586
+A timer that runs numerous times
+
+
+791
+00:22:42,586 --> 00:22:44,246
+per second and actually creates
+
+
+792
+00:22:44,636 --> 00:22:46,566
+an SCNNode that has an instance
+
+
+793
+00:22:46,646 --> 00:22:48,226
+of this geometry that I just
+
+
+794
+00:22:48,226 --> 00:22:48,506
+loaded.
+
+
+795
+00:22:48,866 --> 00:22:50,256
+I'll go ahead and add each of
+
+
+796
+00:22:50,256 --> 00:22:51,786
+these, as I introduced them to
+
+
+797
+00:22:51,786 --> 00:22:53,586
+the scene, to the root node, and
+
+
+798
+00:22:53,586 --> 00:22:54,966
+also associate with each one a
+
+
+799
+00:22:54,966 --> 00:22:56,426
+physics body so that it gets
+
+
+800
+00:22:56,426 --> 00:22:58,596
+physically plausible physical
+
+
+801
+00:22:58,596 --> 00:23:00,436
+animation pretty much for free.
+
+
+802
+00:23:00,966 --> 00:23:02,286
+I'll also go ahead and create a
+
+
+803
+00:23:02,286 --> 00:23:03,746
+random upward velocity just so
+
+
+804
+00:23:03,746 --> 00:23:04,456
+that there's a little bit of
+
+
+805
+00:23:04,456 --> 00:23:04,946
+variety.
+
+
+806
+00:23:05,646 --> 00:23:07,226
+And, finally, I'll remove it--
+
+
+807
+00:23:07,416 --> 00:23:09,146
+each star from its parent node
+
+
+808
+00:23:09,436 --> 00:23:10,676
+after some number of seconds
+
+
+809
+00:23:10,676 --> 00:23:11,946
+just to clean up memory.
+
+
+810
+00:23:12,606 --> 00:23:14,976
+So, the purpose of these demos
+
+
+811
+00:23:14,976 --> 00:23:16,436
+has been to walk you through the
+
+
+812
+00:23:16,436 --> 00:23:18,166
+basic capabilities of the
+
+
+813
+00:23:18,166 --> 00:23:19,346
+graphical frameworks that are on
+
+
+814
+00:23:19,346 --> 00:23:21,266
+our system and now I'd like to
+
+
+815
+00:23:21,266 --> 00:23:23,966
+bring back Noah to talk in-depth
+
+
+816
+00:23:23,966 --> 00:23:24,866
+about Core Animation.
+
+
+817
+00:23:26,516 --> 00:23:31,746
+[ Applause ]
+
+
+818
+00:23:32,246 --> 00:23:32,726
+>> Thanks, Warren.
+
+
+819
+00:23:33,326 --> 00:23:38,526
+So, how many of you have used
+
+
+820
+00:23:38,526 --> 00:23:39,406
+Core Animation for something?
+
+
+821
+00:23:40,676 --> 00:23:41,796
+Good. Glad to hear it.
+
+
+822
+00:23:42,236 --> 00:23:43,606
+How many of you have run into
+
+
+823
+00:23:43,606 --> 00:23:45,186
+something weird or unexpected
+
+
+824
+00:23:45,186 --> 00:23:45,766
+while using it?
+
+
+825
+00:23:46,936 --> 00:23:50,496
+Yeah. So, there's a couple of
+
+
+826
+00:23:50,496 --> 00:23:52,216
+kind of key concepts to CA,
+
+
+827
+00:23:52,216 --> 00:23:53,886
+which are sometimes not entirely
+
+
+828
+00:23:53,886 --> 00:23:56,076
+intuitive at first and it's
+
+
+829
+00:23:56,156 --> 00:23:57,166
+really easy to get tripped up on
+
+
+830
+00:23:57,166 --> 00:23:57,376
+them.
+
+
+831
+00:23:57,376 --> 00:23:58,156
+So, I want to take you through
+
+
+832
+00:23:58,156 --> 00:24:00,436
+some of those and explain kind
+
+
+833
+00:24:01,016 --> 00:24:02,756
+of both what's going on and why
+
+
+834
+00:24:02,756 --> 00:24:03,386
+it's happening.
+
+
+835
+00:24:03,706 --> 00:24:04,876
+I could just kind of give you
+
+
+836
+00:24:04,876 --> 00:24:05,226
+the answer.
+
+
+837
+00:24:05,226 --> 00:24:06,216
+In a lot of these cases, the
+
+
+838
+00:24:06,216 --> 00:24:07,156
+answer is going to be something
+
+
+839
+00:24:07,156 --> 00:24:09,026
+really simple, but I think it's
+
+
+840
+00:24:09,026 --> 00:24:10,516
+important to kind of know why
+
+
+841
+00:24:10,516 --> 00:24:11,526
+something is happening before
+
+
+842
+00:24:11,526 --> 00:24:14,996
+you start dealing with it.
+
+
+843
+00:24:14,996 --> 00:24:17,076
+So, let's start out by talking
+
+
+844
+00:24:17,076 --> 00:24:19,236
+about animations, which are
+
+
+845
+00:24:19,236 --> 00:24:21,856
+pretty core to the-- wow, I did
+
+
+846
+00:24:21,856 --> 00:24:23,486
+not intend to say that.
+
+
+847
+00:24:23,926 --> 00:24:26,516
+Moving on.
+
+
+848
+00:24:27,056 --> 00:24:29,116
+So, there's a behavior that
+
+
+849
+00:24:29,116 --> 00:24:30,346
+you'll see pretty often when
+
+
+850
+00:24:30,346 --> 00:24:31,296
+you're first starting to play
+
+
+851
+00:24:31,296 --> 00:24:32,816
+around with CA animations.
+
+
+852
+00:24:33,376 --> 00:24:34,786
+You'll create an animation,
+
+
+853
+00:24:34,786 --> 00:24:36,396
+you'll add it to your layer, and
+
+
+854
+00:24:36,396 --> 00:24:37,906
+you'll see the layer animate say
+
+
+855
+00:24:37,906 --> 00:24:39,656
+from point A to point B and then
+
+
+856
+00:24:39,656 --> 00:24:41,446
+it'll jump back and you go
+
+
+857
+00:24:41,446 --> 00:24:41,916
+that's weird.
+
+
+858
+00:24:42,826 --> 00:24:45,376
+And the reason for this has to
+
+
+859
+00:24:45,376 --> 00:24:47,806
+do with what's called the model
+
+
+860
+00:24:47,806 --> 00:24:48,946
+and the presentation layers.
+
+
+861
+00:24:48,946 --> 00:24:50,486
+There's these kind of two things
+
+
+862
+00:24:50,486 --> 00:24:53,566
+that exist at once and knowing
+
+
+863
+00:24:53,566 --> 00:24:54,306
+the distinction between them is
+
+
+864
+00:24:54,306 --> 00:24:55,696
+kind of crucial to getting why
+
+
+865
+00:24:55,696 --> 00:24:56,206
+that's happening.
+
+
+866
+00:24:56,866 --> 00:24:58,566
+So, the layout that you're
+
+
+867
+00:24:58,566 --> 00:25:00,296
+mostly interacting with, the one
+
+
+868
+00:25:00,296 --> 00:25:01,186
+that you're setting properties
+
+
+869
+00:25:01,186 --> 00:25:02,456
+on and adding animations to and
+
+
+870
+00:25:02,456 --> 00:25:04,076
+so on, is the model layer.
+
+
+871
+00:25:04,756 --> 00:25:06,146
+The one that's actually onscreen
+
+
+872
+00:25:06,146 --> 00:25:07,436
+is the presentation layer.
+
+
+873
+00:25:07,576 --> 00:25:09,066
+And the presentation layer is
+
+
+874
+00:25:09,066 --> 00:25:10,146
+sort of a clone of the model
+
+
+875
+00:25:10,146 --> 00:25:11,316
+layer that's calculated each
+
+
+876
+00:25:11,316 --> 00:25:12,906
+frame from the state of the
+
+
+877
+00:25:12,906 --> 00:25:14,906
+model layer and any animations
+
+
+878
+00:25:14,946 --> 00:25:16,356
+that are on the model layer at
+
+
+879
+00:25:17,276 --> 00:25:17,766
+that time.
+
+
+880
+00:25:17,766 --> 00:25:19,716
+So, what's happening in this
+
+
+881
+00:25:19,716 --> 00:25:21,176
+previous example is that you
+
+
+882
+00:25:21,176 --> 00:25:22,616
+have the animation added at this
+
+
+883
+00:25:22,616 --> 00:25:26,646
+time and you can see that, like,
+
+
+884
+00:25:27,496 --> 00:25:29,166
+the presentation layer follows
+
+
+885
+00:25:29,166 --> 00:25:30,266
+the animation, but once it's
+
+
+886
+00:25:30,266 --> 00:25:31,736
+over the animation's gone and so
+
+
+887
+00:25:31,736 --> 00:25:32,596
+it goes back to what the model
+
+
+888
+00:25:32,596 --> 00:25:33,266
+layer was showing.
+
+
+889
+00:25:34,006 --> 00:25:36,836
+And-- so, when you look on the
+
+
+890
+00:25:36,836 --> 00:25:37,866
+internet, there will be a
+
+
+891
+00:25:37,866 --> 00:25:39,266
+million people telling you to do
+
+
+892
+00:25:39,266 --> 00:25:40,646
+exactly the wrong thing here.
+
+
+893
+00:25:42,196 --> 00:25:44,066
+What they will say is set the
+
+
+894
+00:25:44,066 --> 00:25:45,396
+animation to not be removed on
+
+
+895
+00:25:45,396 --> 00:25:45,976
+completion.
+
+
+896
+00:25:46,316 --> 00:25:47,666
+Set its film mode to forwards
+
+
+897
+00:25:47,666 --> 00:25:49,416
+and forget about it.
+
+
+898
+00:25:50,196 --> 00:25:51,556
+And the problem with this comes
+
+
+899
+00:25:51,556 --> 00:25:53,726
+from the inconsistency this
+
+
+900
+00:25:53,726 --> 00:25:55,186
+introduces because after your
+
+
+901
+00:25:55,186 --> 00:25:56,726
+animation is over, the model
+
+
+902
+00:25:56,726 --> 00:25:58,036
+layer still has its starting
+
+
+903
+00:25:58,036 --> 00:25:58,386
+value.
+
+
+904
+00:25:59,126 --> 00:26:01,496
+So, this looks right, but if you
+
+
+905
+00:26:01,496 --> 00:26:02,166
+look at the value of the
+
+
+906
+00:26:02,166 --> 00:26:03,836
+property on these two graphs,
+
+
+907
+00:26:04,306 --> 00:26:05,316
+the presentation layer is
+
+
+908
+00:26:05,316 --> 00:26:06,326
+showing something different than
+
+
+909
+00:26:06,326 --> 00:26:07,666
+the model layer.
+
+
+910
+00:26:07,826 --> 00:26:09,046
+And where that becomes a problem
+
+
+911
+00:26:09,436 --> 00:26:10,516
+is when for instance you're
+
+
+912
+00:26:10,516 --> 00:26:12,366
+trying to align something to a
+
+
+913
+00:26:12,366 --> 00:26:13,166
+layer that you've previously
+
+
+914
+00:26:13,166 --> 00:26:14,246
+animated and you set it to the
+
+
+915
+00:26:14,246 --> 00:26:15,596
+layer's position and it's the
+
+
+916
+00:26:15,596 --> 00:26:16,556
+position that it had like two
+
+
+917
+00:26:16,556 --> 00:26:18,676
+minutes ago, which is weird.
+
+
+918
+00:26:18,676 --> 00:26:20,136
+Pretty unintuitive, right?
+
+
+919
+00:26:21,186 --> 00:26:23,896
+So, the solution to this is
+
+
+920
+00:26:23,896 --> 00:26:25,206
+fortunately dead simple.
+
+
+921
+00:26:25,206 --> 00:26:26,606
+You can mostly forget about the
+
+
+922
+00:26:26,606 --> 00:26:28,066
+entire conceptual stuff that I
+
+
+923
+00:26:28,066 --> 00:26:28,736
+just explained there.
+
+
+924
+00:26:29,476 --> 00:26:31,516
+All you have to do is when
+
+
+925
+00:26:31,516 --> 00:26:32,726
+you're adding your animations to
+
+
+926
+00:26:32,726 --> 00:26:35,016
+a layer, set the layer's model
+
+
+927
+00:26:35,016 --> 00:26:36,216
+property at the same time.
+
+
+928
+00:26:37,276 --> 00:26:39,166
+So, in that case, at the
+
+
+929
+00:26:39,166 --> 00:26:40,286
+beginning of the animation, the
+
+
+930
+00:26:40,286 --> 00:26:41,746
+model layer jumps to its final
+
+
+931
+00:26:41,746 --> 00:26:43,816
+state and the presentation layer
+
+
+932
+00:26:43,816 --> 00:26:45,646
+animates smoothly and afterwards
+
+
+933
+00:26:46,366 --> 00:26:47,116
+they're consistent.
+
+
+934
+00:26:47,616 --> 00:26:49,076
+And, better yet, there isn't
+
+
+935
+00:26:49,076 --> 00:26:49,946
+still an animation sitting
+
+
+936
+00:26:49,946 --> 00:26:51,476
+around on your model layer,
+
+
+937
+00:26:51,906 --> 00:26:53,856
+confusing the state of affairs
+
+
+938
+00:26:53,856 --> 00:26:55,686
+and kind of setting you up to be
+
+
+939
+00:26:55,686 --> 00:26:56,256
+tripped up later.
+
+
+940
+00:26:57,746 --> 00:26:59,066
+So, what that looks like in code
+
+
+941
+00:27:00,006 --> 00:27:01,486
+is just this.
+
+
+942
+00:27:01,656 --> 00:27:02,646
+You have your animation.
+
+
+943
+00:27:03,286 --> 00:27:04,856
+You set your duration, your from
+
+
+944
+00:27:04,856 --> 00:27:06,136
+value, your to value, and then
+
+
+945
+00:27:06,136 --> 00:27:07,276
+at the same time as you add it
+
+
+946
+00:27:07,276 --> 00:27:09,136
+to the layer, you set the value
+
+
+947
+00:27:09,136 --> 00:27:10,676
+of the actual property on it.
+
+
+948
+00:27:11,036 --> 00:27:12,116
+It's that simple.
+
+
+949
+00:27:12,636 --> 00:27:14,886
+Be aware of the model
+
+
+950
+00:27:14,886 --> 00:27:17,036
+presentation layer dichotomy and
+
+
+951
+00:27:17,036 --> 00:27:18,536
+apply the final state to your
+
+
+952
+00:27:18,536 --> 00:27:19,276
+layers when you're adding
+
+
+953
+00:27:19,276 --> 00:27:21,816
+animations to them.
+
+
+954
+00:27:22,846 --> 00:27:24,576
+So, next, I'd like to talk about
+
+
+955
+00:27:24,576 --> 00:27:27,036
+something that I have run into
+
+
+956
+00:27:27,036 --> 00:27:28,066
+more times than I would like to
+
+
+957
+00:27:28,066 --> 00:27:30,236
+admit, which is the intersection
+
+
+958
+00:27:30,236 --> 00:27:32,496
+between transforms and frames.
+
+
+959
+00:27:32,496 --> 00:27:34,826
+So, you're pretty familiar with
+
+
+960
+00:27:34,826 --> 00:27:35,546
+the idea of the frame.
+
+
+961
+00:27:35,546 --> 00:27:36,786
+You set this rectangle that
+
+
+962
+00:27:36,786 --> 00:27:37,926
+defines where your layer is and
+
+
+963
+00:27:37,926 --> 00:27:39,776
+how big it is.
+
+
+964
+00:27:40,046 --> 00:27:41,936
+And so, you have your layer set
+
+
+965
+00:27:41,936 --> 00:27:43,786
+up and you decide you want to
+
+
+966
+00:27:43,786 --> 00:27:45,666
+scale it down at a transform
+
+
+967
+00:27:45,666 --> 00:27:49,396
+that scales it to 25 percent.
+
+
+968
+00:27:49,396 --> 00:27:51,216
+Then later on, somewhere else in
+
+
+969
+00:27:51,216 --> 00:27:52,586
+your code, you set the frame
+
+
+970
+00:27:52,586 --> 00:27:54,736
+back and your layer goes back to
+
+
+971
+00:27:54,736 --> 00:27:55,936
+the size that it's supposed to
+
+
+972
+00:27:56,936 --> 00:27:57,006
+be.
+
+
+973
+00:27:58,006 --> 00:27:59,376
+And all seems well and good,
+
+
+974
+00:27:59,376 --> 00:27:59,636
+right?
+
+
+975
+00:28:00,786 --> 00:28:03,156
+Well, the problem arises when
+
+
+976
+00:28:03,156 --> 00:28:05,146
+you set another transform on the
+
+
+977
+00:28:05,146 --> 00:28:05,316
+layer.
+
+
+978
+00:28:05,316 --> 00:28:06,366
+In other words, you remove the
+
+
+979
+00:28:06,366 --> 00:28:07,476
+transform that's already there
+
+
+980
+00:28:07,476 --> 00:28:08,666
+and set something new.
+
+
+981
+00:28:09,376 --> 00:28:10,396
+So, say you want to rotate this
+
+
+982
+00:28:10,396 --> 00:28:12,566
+layer, you know, keeping it
+
+
+983
+00:28:13,066 --> 00:28:14,366
+otherwise the same size and what
+
+
+984
+00:28:14,366 --> 00:28:14,556
+not.
+
+
+985
+00:28:15,096 --> 00:28:16,226
+So, you set up a
+
+
+986
+00:28:16,416 --> 00:28:19,126
+CGAffineTransform and give it a
+
+
+987
+00:28:19,126 --> 00:28:21,746
+rotation angle and your lay does
+
+
+988
+00:28:21,746 --> 00:28:22,496
+that.
+
+
+989
+00:28:23,066 --> 00:28:24,826
+Which is not right.
+
+
+990
+00:28:25,496 --> 00:28:27,306
+So, why is this happening?
+
+
+991
+00:28:28,406 --> 00:28:30,806
+Well, the thing to know is that
+
+
+992
+00:28:31,626 --> 00:28:33,496
+the frame is the layer's size
+
+
+993
+00:28:33,496 --> 00:28:35,516
+from outside, the bounds are the
+
+
+994
+00:28:35,516 --> 00:28:37,396
+layer's size from inside, and
+
+
+995
+00:28:37,846 --> 00:28:39,776
+the-- if you ask the layer where
+
+
+996
+00:28:39,776 --> 00:28:41,056
+it's frame is, it's calculated
+
+
+997
+00:28:41,056 --> 00:28:41,876
+form the bounds and the
+
+
+998
+00:28:41,876 --> 00:28:42,436
+transform.
+
+
+999
+00:28:43,396 --> 00:28:45,146
+So, in other words, when your
+
+
+1000
+00:28:45,146 --> 00:28:46,506
+layer had come back to its
+
+
+1001
+00:28:46,506 --> 00:28:49,126
+original size, it was actually
+
+
+1002
+00:28:49,316 --> 00:28:50,326
+four times the size because it
+
+
+1003
+00:28:50,326 --> 00:28:51,626
+still had that scale transform
+
+
+1004
+00:28:51,626 --> 00:28:51,796
+on it.
+
+
+1005
+00:28:52,156 --> 00:28:53,606
+So, you told it onscreen I want
+
+
+1006
+00:28:53,606 --> 00:28:55,146
+you to be this size and it was
+
+
+1007
+00:28:55,216 --> 00:28:56,976
+scaled down by four times and so
+
+
+1008
+00:28:57,076 --> 00:28:58,516
+it's well, like, OK, I need to
+
+
+1009
+00:28:58,516 --> 00:28:59,526
+be four times bigger than that.
+
+
+1010
+00:29:00,026 --> 00:29:01,706
+And that seemed fine because you
+
+
+1011
+00:29:01,706 --> 00:29:02,656
+did-- it looked the same size
+
+
+1012
+00:29:02,656 --> 00:29:03,826
+onscreen, but then when you
+
+
+1013
+00:29:03,826 --> 00:29:05,306
+unset that transform, it went
+
+
+1014
+00:29:05,306 --> 00:29:07,306
+back to its original magnificent
+
+
+1015
+00:29:07,306 --> 00:29:07,716
+size there.
+
+
+1016
+00:29:08,926 --> 00:29:11,486
+So, the long and short of this
+
+
+1017
+00:29:11,486 --> 00:29:13,176
+is-- if you're using transforms,
+
+
+1018
+00:29:13,176 --> 00:29:14,566
+be really careful about using
+
+
+1019
+00:29:14,566 --> 00:29:15,226
+the frame property.
+
+
+1020
+00:29:15,226 --> 00:29:17,766
+It's generally better not to
+
+
+1021
+00:29:17,836 --> 00:29:18,736
+just set the frame.
+
+
+1022
+00:29:19,206 --> 00:29:22,326
+Instead, figure out the size and
+
+
+1023
+00:29:22,326 --> 00:29:23,126
+position that you want the layer
+
+
+1024
+00:29:23,126 --> 00:29:24,676
+to be at, in other words, in
+
+
+1025
+00:29:24,676 --> 00:29:26,806
+this case the width and height
+
+
+1026
+00:29:26,806 --> 00:29:28,876
+of the frame that you wanted and
+
+
+1027
+00:29:28,876 --> 00:29:29,936
+then the position would be the
+
+
+1028
+00:29:29,936 --> 00:29:30,876
+center of the frame.
+
+
+1029
+00:29:32,026 --> 00:29:34,096
+So, it's pretty much just that.
+
+
+1030
+00:29:34,096 --> 00:29:35,596
+The frame is affected by the
+
+
+1031
+00:29:35,596 --> 00:29:36,596
+transform, it will interact with
+
+
+1032
+00:29:36,596 --> 00:29:37,246
+it in weird ways.
+
+
+1033
+00:29:37,246 --> 00:29:38,676
+If you combine them, you're
+
+
+1034
+00:29:38,676 --> 00:29:39,456
+probably going to have a bad
+
+
+1035
+00:29:39,456 --> 00:29:41,626
+time, so just set bounds and
+
+
+1036
+00:29:41,626 --> 00:29:41,846
+position.
+
+
+1037
+00:29:41,846 --> 00:29:42,826
+You will save yourself a lot of
+
+
+1038
+00:29:42,826 --> 00:29:43,166
+headache.
+
+
+1039
+00:29:43,726 --> 00:29:46,966
+So, for the next couple of
+
+
+1040
+00:29:46,966 --> 00:29:48,756
+these, I'd like to look at them
+
+
+1041
+00:29:48,756 --> 00:29:50,286
+in the context of an app.
+
+
+1042
+00:29:51,626 --> 00:29:54,266
+We have this shiny little app
+
+
+1043
+00:29:54,266 --> 00:29:56,066
+here that lets you take emoji
+
+
+1044
+00:29:56,066 --> 00:29:56,796
+and put them all over your
+
+
+1045
+00:29:56,796 --> 00:29:57,286
+pictures.
+
+
+1046
+00:29:57,286 --> 00:29:58,146
+It's very original.
+
+
+1047
+00:29:58,146 --> 00:29:59,726
+I thought of it over a long
+
+
+1048
+00:29:59,726 --> 00:30:01,016
+period of time.
+
+
+1049
+00:30:01,776 --> 00:30:02,996
+And there's two things here that
+
+
+1050
+00:30:02,996 --> 00:30:03,876
+are kind of contributing to the
+
+
+1051
+00:30:03,876 --> 00:30:04,686
+look of this.
+
+
+1052
+00:30:05,246 --> 00:30:06,976
+The first is the mask that's
+
+
+1053
+00:30:06,976 --> 00:30:08,376
+sort of cutting out the edges of
+
+
+1054
+00:30:08,376 --> 00:30:08,846
+this layer.
+
+
+1055
+00:30:08,896 --> 00:30:11,416
+And the second is the shadow
+
+
+1056
+00:30:11,466 --> 00:30:13,056
+underneath it.
+
+
+1057
+00:30:13,276 --> 00:30:14,146
+First, let's talk about the
+
+
+1058
+00:30:15,176 --> 00:30:15,296
+mask.
+
+
+1059
+00:30:16,266 --> 00:30:18,666
+So, what's going on here is that
+
+
+1060
+00:30:18,666 --> 00:30:20,126
+we have this kind of custom
+
+
+1061
+00:30:20,126 --> 00:30:21,256
+rounded shape that's clipping
+
+
+1062
+00:30:21,256 --> 00:30:23,026
+the edges of the emoji.
+
+
+1063
+00:30:23,416 --> 00:30:25,276
+And the way this works is you
+
+
+1064
+00:30:25,276 --> 00:30:27,076
+give CA another layer that has
+
+
+1065
+00:30:27,076 --> 00:30:28,366
+whatever shape you want to be--
+
+
+1066
+00:30:28,546 --> 00:30:31,746
+to take-- to affect the opacity
+
+
+1067
+00:30:31,746 --> 00:30:34,606
+of your main layer and-- there
+
+
+1068
+00:30:34,916 --> 00:30:36,166
+we go.
+
+
+1069
+00:30:36,416 --> 00:30:39,266
+And CA will take the opacity of
+
+
+1070
+00:30:39,266 --> 00:30:40,736
+that and use it to cut out the
+
+
+1071
+00:30:40,736 --> 00:30:42,216
+shape of the layer.
+
+
+1072
+00:30:42,216 --> 00:30:45,396
+And you can do some kind of cool
+
+
+1073
+00:30:45,396 --> 00:30:46,216
+interesting things with this.
+
+
+1074
+00:30:46,216 --> 00:30:47,096
+In a lot of cases, people will
+
+
+1075
+00:30:47,096 --> 00:30:48,086
+just use a simple shape and you
+
+
+1076
+00:30:48,086 --> 00:30:49,316
+can kind of fade them out, you
+
+
+1077
+00:30:49,316 --> 00:30:50,236
+can cut holes in them-- it lets
+
+
+1078
+00:30:50,236 --> 00:30:51,856
+you do all kinds of interesting
+
+
+1079
+00:30:51,856 --> 00:30:53,006
+things with your layers.
+
+
+1080
+00:30:54,326 --> 00:30:57,836
+And so, if you want to achieve
+
+
+1081
+00:30:57,836 --> 00:30:59,206
+an affect like this where the
+
+
+1082
+00:30:59,206 --> 00:31:01,776
+emoji are kind of fading out at
+
+
+1083
+00:31:01,776 --> 00:31:02,726
+the bottom as well as being
+
+
+1084
+00:31:02,726 --> 00:31:04,026
+clipped by the thing, you might
+
+
+1085
+00:31:04,026 --> 00:31:05,576
+think, well, OK, I can use a
+
+
+1086
+00:31:05,576 --> 00:31:07,696
+mask to fade-- to, like, set the
+
+
+1087
+00:31:07,696 --> 00:31:08,426
+opacity of things.
+
+
+1088
+00:31:08,476 --> 00:31:09,806
+I can just use two masks here,
+
+
+1089
+00:31:09,806 --> 00:31:10,046
+right?
+
+
+1090
+00:31:11,046 --> 00:31:13,486
+Well, you can, but that's not
+
+
+1091
+00:31:13,486 --> 00:31:14,856
+going to go very well and the
+
+
+1092
+00:31:14,856 --> 00:31:15,826
+reason is performance.
+
+
+1093
+00:31:16,506 --> 00:31:18,386
+Each mask has a cost.
+
+
+1094
+00:31:18,846 --> 00:31:20,296
+So, when you have multiple masks
+
+
+1095
+00:31:20,296 --> 00:31:21,896
+in a layer, CA has to combine
+
+
+1096
+00:31:21,896 --> 00:31:24,446
+each one in sequence to produce
+
+
+1097
+00:31:24,446 --> 00:31:25,516
+the final image that ends up on
+
+
+1098
+00:31:25,516 --> 00:31:25,856
+screen.
+
+
+1099
+00:31:25,956 --> 00:31:27,996
+So, you have your emoji layer
+
+
+1100
+00:31:28,336 --> 00:31:29,776
+here, the kind of fade out mask,
+
+
+1101
+00:31:30,236 --> 00:31:31,366
+those get combined into the
+
+
+1102
+00:31:31,366 --> 00:31:32,946
+fading out emoji, then you have
+
+
+1103
+00:31:32,946 --> 00:31:34,066
+your other layer that is
+
+
+1104
+00:31:34,066 --> 00:31:35,726
+containing the emoji and that is
+
+
+1105
+00:31:35,726 --> 00:31:38,066
+getting masked by this other
+
+
+1106
+00:31:38,486 --> 00:31:41,516
+shape thing and so, like, this
+
+
+1107
+00:31:41,516 --> 00:31:43,416
+works, but it's suboptimal.
+
+
+1108
+00:31:43,416 --> 00:31:44,896
+You can see like how much time
+
+
+1109
+00:31:44,896 --> 00:31:46,086
+could be being spent here just
+
+
+1110
+00:31:46,086 --> 00:31:47,186
+drawing pixels and figuring out
+
+
+1111
+00:31:47,186 --> 00:31:48,106
+where things are opaque and so
+
+
+1112
+00:31:48,106 --> 00:31:49,806
+on and so forth.
+
+
+1113
+00:31:49,806 --> 00:31:52,616
+So, the problem that this
+
+
+1114
+00:31:52,616 --> 00:31:54,376
+causes-- because CA has to draw
+
+
+1115
+00:31:54,376 --> 00:31:55,276
+this stuff offscreen.
+
+
+1116
+00:31:55,426 --> 00:31:56,896
+Basically, in your normal
+
+
+1117
+00:31:56,896 --> 00:31:58,116
+drawing path, CA can just like
+
+
+1118
+00:31:58,156 --> 00:31:59,236
+take the contents of one thing,
+
+
+1119
+00:31:59,236 --> 00:32:00,616
+put it into the final image, its
+
+
+1120
+00:32:00,616 --> 00:32:00,906
+composite.
+
+
+1121
+00:32:00,906 --> 00:32:01,616
+And take the contents of another
+
+
+1122
+00:32:01,616 --> 00:32:02,406
+and put it in, so on and so
+
+
+1123
+00:32:02,406 --> 00:32:02,696
+forth.
+
+
+1124
+00:32:03,236 --> 00:32:04,706
+But, in this case, it's having
+
+
+1125
+00:32:04,706 --> 00:32:06,776
+to take a-- create a separate
+
+
+1126
+00:32:06,776 --> 00:32:07,846
+context to draw all this stuff
+
+
+1127
+00:32:07,846 --> 00:32:09,876
+in and then put it onto the
+
+
+1128
+00:32:09,876 --> 00:32:10,206
+screen.
+
+
+1129
+00:32:10,536 --> 00:32:11,986
+And the more of these you have
+
+
+1130
+00:32:11,986 --> 00:32:13,406
+on there, the more that effect
+
+
+1131
+00:32:13,406 --> 00:32:15,066
+stacks up.
+
+
+1132
+00:32:15,496 --> 00:32:18,566
+So, if you want to still achieve
+
+
+1133
+00:32:18,566 --> 00:32:21,366
+this effect, the best thing to
+
+
+1134
+00:32:21,366 --> 00:32:22,926
+do is to cheat.
+
+
+1135
+00:32:23,836 --> 00:32:26,096
+Basically, just to fake the-- at
+
+
+1136
+00:32:26,096 --> 00:32:27,086
+least one of the masks that
+
+
+1137
+00:32:27,086 --> 00:32:27,516
+you're using.
+
+
+1138
+00:32:27,966 --> 00:32:29,436
+In this case, you could get away
+
+
+1139
+00:32:29,436 --> 00:32:30,566
+with just putting a gradient
+
+
+1140
+00:32:30,566 --> 00:32:32,586
+overlay on top of this layer and
+
+
+1141
+00:32:32,586 --> 00:32:33,996
+then including that in the
+
+
+1142
+00:32:33,996 --> 00:32:35,496
+overall masked thing.
+
+
+1143
+00:32:35,496 --> 00:32:38,156
+Obviously, there are some cases
+
+
+1144
+00:32:38,156 --> 00:32:39,746
+in which this won't work.
+
+
+1145
+00:32:39,786 --> 00:32:40,786
+If your background is not a
+
+
+1146
+00:32:40,786 --> 00:32:41,876
+solid color, then you can't use
+
+
+1147
+00:32:41,876 --> 00:32:43,356
+a solid color gradient, but you
+
+
+1148
+00:32:43,356 --> 00:32:44,726
+can do some other things such as
+
+
+1149
+00:32:44,726 --> 00:32:47,276
+using-- take-- basically drawing
+
+
+1150
+00:32:47,276 --> 00:32:50,076
+your background into another
+
+
+1151
+00:32:50,076 --> 00:32:52,216
+image and then fading that out
+
+
+1152
+00:32:52,216 --> 00:32:52,996
+and then using that as an
+
+
+1153
+00:32:52,996 --> 00:32:53,386
+overlay.
+
+
+1154
+00:32:53,386 --> 00:32:54,446
+And that's-- it's faster to do
+
+
+1155
+00:32:54,446 --> 00:32:55,456
+that once than to have to make
+
+
+1156
+00:32:55,496 --> 00:32:56,386
+CA do it every frame.
+
+
+1157
+00:32:58,416 --> 00:33:01,776
+So, long and short of this is
+
+
+1158
+00:33:02,496 --> 00:33:03,786
+each mask has a cost.
+
+
+1159
+00:33:03,856 --> 00:33:05,246
+They are fun and useful, but
+
+
+1160
+00:33:05,246 --> 00:33:06,816
+kind of expensive.
+
+
+1161
+00:33:07,196 --> 00:33:08,616
+The size of your layers matters
+
+
+1162
+00:33:08,616 --> 00:33:09,826
+significantly when you're
+
+
+1163
+00:33:09,826 --> 00:33:10,596
+masking things.
+
+
+1164
+00:33:10,596 --> 00:33:11,756
+If you have a really large layer
+
+
+1165
+00:33:11,756 --> 00:33:12,976
+and you have tiny corner masks
+
+
+1166
+00:33:12,976 --> 00:33:13,996
+on it, CA is still having to
+
+
+1167
+00:33:13,996 --> 00:33:15,526
+draw that entire thing, which is
+
+
+1168
+00:33:15,526 --> 00:33:16,026
+not ideal.
+
+
+1169
+00:33:16,656 --> 00:33:18,646
+So, wherever you can, use
+
+
+1170
+00:33:18,646 --> 00:33:19,106
+shortcuts.
+
+
+1171
+00:33:19,596 --> 00:33:21,436
+That's about it.
+
+
+1172
+00:33:22,196 --> 00:33:24,686
+Next up, let's talk about
+
+
+1173
+00:33:25,376 --> 00:33:25,576
+shadows.
+
+
+1174
+00:33:26,096 --> 00:33:28,706
+So, you're probably familiar
+
+
+1175
+00:33:28,786 --> 00:33:30,436
+with the CA shadow properties,
+
+
+1176
+00:33:30,436 --> 00:33:32,046
+shadow opacity, offset, radius,
+
+
+1177
+00:33:32,046 --> 00:33:33,416
+so on and so forth.
+
+
+1178
+00:33:33,416 --> 00:33:34,586
+And if you use them, you know,
+
+
+1179
+00:33:34,846 --> 00:33:35,956
+your shadow shows up, everything
+
+
+1180
+00:33:35,956 --> 00:33:37,766
+seems to be fine, but if you're
+
+
+1181
+00:33:37,766 --> 00:33:39,356
+in an app that has a lot of
+
+
+1182
+00:33:39,536 --> 00:33:40,606
+views that have shadows on them,
+
+
+1183
+00:33:40,606 --> 00:33:41,286
+you might notice that your
+
+
+1184
+00:33:41,286 --> 00:33:42,476
+performance starts taking a hit.
+
+
+1185
+00:33:42,476 --> 00:33:44,276
+And the reason for that is that
+
+
+1186
+00:33:44,346 --> 00:33:45,956
+CA has to draw the shadow for
+
+
+1187
+00:33:45,956 --> 00:33:47,366
+each of these individually and
+
+
+1188
+00:33:47,366 --> 00:33:48,586
+it has to draw it including the
+
+
+1189
+00:33:48,586 --> 00:33:51,036
+entire hierarchy of layers that
+
+
+1190
+00:33:51,036 --> 00:33:51,856
+each view contains.
+
+
+1191
+00:33:52,946 --> 00:33:55,456
+So, what I mean by that is when
+
+
+1192
+00:33:55,456 --> 00:33:56,536
+you have that layer being
+
+
+1193
+00:33:56,536 --> 00:33:58,646
+shadowed, CA has to first draw
+
+
+1194
+00:33:58,646 --> 00:34:00,366
+its background, then draw every
+
+
+1195
+00:34:00,366 --> 00:34:03,886
+single sublayer-- wait for it--
+
+
+1196
+00:34:05,626 --> 00:34:07,436
+and then figure out the opacity
+
+
+1197
+00:34:07,436 --> 00:34:07,716
+of that.
+
+
+1198
+00:34:07,716 --> 00:34:09,545
+And the result of that is just
+
+
+1199
+00:34:10,065 --> 00:34:10,466
+this.
+
+
+1200
+00:34:10,996 --> 00:34:11,985
+So, like, that seems like wasted
+
+
+1201
+00:34:11,985 --> 00:34:12,446
+time, right?
+
+
+1202
+00:34:12,446 --> 00:34:13,246
+We just spent all this time
+
+
+1203
+00:34:13,246 --> 00:34:14,226
+drawing these lovely emoji, but
+
+
+1204
+00:34:14,226 --> 00:34:16,116
+we're only seeing their opacity.
+
+
+1205
+00:34:17,226 --> 00:34:19,726
+So, basically when the contents
+
+
+1206
+00:34:19,726 --> 00:34:20,795
+of the sublayers don't matter,
+
+
+1207
+00:34:20,795 --> 00:34:23,545
+using the regular shadow system
+
+
+1208
+00:34:23,545 --> 00:34:25,516
+is kind of a waste of time.
+
+
+1209
+00:34:25,646 --> 00:34:27,335
+What you want to use instead is
+
+
+1210
+00:34:27,335 --> 00:34:28,565
+the shadow path property.
+
+
+1211
+00:34:29,496 --> 00:34:30,996
+And we mentioned earlier that
+
+
+1212
+00:34:30,996 --> 00:34:33,176
+you can use Core Graphics to
+
+
+1213
+00:34:33,476 --> 00:34:35,386
+draw paths that have, you know,
+
+
+1214
+00:34:35,536 --> 00:34:36,946
+varying shapes and then do
+
+
+1215
+00:34:36,946 --> 00:34:37,866
+things with them.
+
+
+1216
+00:34:37,866 --> 00:34:40,306
+CG paths are also used elsewhere
+
+
+1217
+00:34:40,306 --> 00:34:41,306
+in the system for doing path
+
+
+1218
+00:34:41,366 --> 00:34:43,446
+stuff and, in this case, you
+
+
+1219
+00:34:43,446 --> 00:34:44,866
+just basically make a path that
+
+
+1220
+00:34:44,866 --> 00:34:46,716
+is the shape of your layer, hand
+
+
+1221
+00:34:46,876 --> 00:34:49,126
+that to CA, and it can draw that
+
+
+1222
+00:34:49,126 --> 00:34:50,206
+and blur it and basically
+
+
+1223
+00:34:50,206 --> 00:34:51,406
+produce your shadow much faster
+
+
+1224
+00:34:51,406 --> 00:34:52,606
+than it can by drawing the layer
+
+
+1225
+00:34:52,606 --> 00:34:53,476
+and all of its sublayers.
+
+
+1226
+00:34:55,126 --> 00:34:58,156
+So, that's the main performance
+
+
+1227
+00:34:58,156 --> 00:34:59,116
+advantage of these.
+
+
+1228
+00:34:59,116 --> 00:34:59,976
+The other is that if you have a
+
+
+1229
+00:34:59,976 --> 00:35:01,056
+lot of layers using the same
+
+
+1230
+00:35:01,056 --> 00:35:03,026
+shadow path instance, then CA
+
+
+1231
+00:35:03,586 --> 00:35:05,096
+doesn't have to redraw the
+
+
+1232
+00:35:05,096 --> 00:35:05,746
+shadow at all.
+
+
+1233
+00:35:05,746 --> 00:35:06,506
+It can just reuse them
+
+
+1234
+00:35:06,506 --> 00:35:07,326
+everywhere and that's a huge
+
+
+1235
+00:35:07,376 --> 00:35:08,796
+performance boost.
+
+
+1236
+00:35:09,036 --> 00:35:10,556
+So, when you're working with
+
+
+1237
+00:35:10,556 --> 00:35:14,006
+layer shadows, be aware that the
+
+
+1238
+00:35:14,006 --> 00:35:15,386
+blending of the layer and all
+
+
+1239
+00:35:15,386 --> 00:35:16,146
+its sublayers is really
+
+
+1240
+00:35:16,146 --> 00:35:16,676
+expensive.
+
+
+1241
+00:35:16,816 --> 00:35:17,966
+You want to avoid it where you
+
+
+1242
+00:35:17,966 --> 00:35:20,106
+can, so use shadow paths.
+
+
+1243
+00:35:20,616 --> 00:35:21,826
+Pretty simple, right?
+
+
+1244
+00:35:23,606 --> 00:35:25,226
+So, we just took you through
+
+
+1245
+00:35:25,226 --> 00:35:27,566
+kind of a bunch of CA best
+
+
+1246
+00:35:27,566 --> 00:35:28,116
+practices.
+
+
+1247
+00:35:28,116 --> 00:35:29,736
+Some good-- some ways to use the
+
+
+1248
+00:35:29,736 --> 00:35:30,916
+stuff that you're already using
+
+
+1249
+00:35:31,236 --> 00:35:32,116
+more effectively.
+
+
+1250
+00:35:32,816 --> 00:35:33,966
+Let's look at some tips and
+
+
+1251
+00:35:33,966 --> 00:35:34,286
+tricks.
+
+
+1252
+00:35:34,286 --> 00:35:35,266
+Let's look at some things that
+
+
+1253
+00:35:35,266 --> 00:35:37,446
+you might not be using already.
+
+
+1254
+00:35:38,936 --> 00:35:43,316
+So, CA has a CALayer subclass
+
+
+1255
+00:35:43,316 --> 00:35:45,706
+called CAShapeLayer and what
+
+
+1256
+00:35:45,706 --> 00:35:46,866
+that does is take a Core
+
+
+1257
+00:35:46,866 --> 00:35:48,106
+Graphics path, like the ones I
+
+
+1258
+00:35:48,106 --> 00:35:49,416
+was mentioning earlier, you give
+
+
+1259
+00:35:49,416 --> 00:35:50,396
+it a stroke color and a fill
+
+
+1260
+00:35:50,396 --> 00:35:52,126
+color and it draws your thing.
+
+
+1261
+00:35:52,126 --> 00:35:52,836
+You may have encountered this
+
+
+1262
+00:35:52,836 --> 00:35:55,446
+before, but one of the cool
+
+
+1263
+00:35:55,446 --> 00:35:56,776
+things about CA is that a ton of
+
+
+1264
+00:35:56,776 --> 00:35:58,036
+the properties that you have on
+
+
+1265
+00:35:58,036 --> 00:35:59,476
+layers are animatable.
+
+
+1266
+00:36:00,056 --> 00:36:01,676
+You can change-- you can set up
+
+
+1267
+00:36:01,676 --> 00:36:02,546
+an animation with pretty much
+
+
+1268
+00:36:02,546 --> 00:36:03,996
+any of these properties and CA
+
+
+1269
+00:36:03,996 --> 00:36:05,416
+will do the right thing and
+
+
+1270
+00:36:05,416 --> 00:36:06,906
+interpolate it over time and
+
+
+1271
+00:36:06,906 --> 00:36:08,156
+give you an animated layer.
+
+
+1272
+00:36:08,156 --> 00:36:10,056
+And there are some cool things
+
+
+1273
+00:36:10,056 --> 00:36:10,696
+you can do with that.
+
+
+1274
+00:36:11,216 --> 00:36:12,016
+Obviously, you could, you know,
+
+
+1275
+00:36:12,016 --> 00:36:13,416
+put an animation on the stroke
+
+
+1276
+00:36:13,416 --> 00:36:14,156
+color or fill color, but
+
+
+1277
+00:36:14,156 --> 00:36:15,756
+that's-- seems pretty obvious,
+
+
+1278
+00:36:15,756 --> 00:36:15,936
+right?
+
+
+1279
+00:36:16,696 --> 00:36:17,986
+What else can we do?
+
+
+1280
+00:36:18,556 --> 00:36:21,156
+Well, CAShapeLayer has a couple
+
+
+1281
+00:36:21,156 --> 00:36:22,546
+of properties called strokeStart
+
+
+1282
+00:36:22,546 --> 00:36:24,766
+and strokeEnd, which let you
+
+
+1283
+00:36:24,766 --> 00:36:26,486
+create an effect where the layer
+
+
+1284
+00:36:26,486 --> 00:36:28,266
+draws itself along the length of
+
+
+1285
+00:36:28,266 --> 00:36:30,356
+the path or undraws itself or
+
+
+1286
+00:36:30,356 --> 00:36:30,996
+draws itself again.
+
+
+1287
+00:36:32,306 --> 00:36:33,866
+And that's kind of fun.
+
+
+1288
+00:36:34,036 --> 00:36:35,116
+You can use that for various
+
+
+1289
+00:36:35,116 --> 00:36:36,736
+effects in your UI where, you
+
+
+1290
+00:36:36,736 --> 00:36:38,316
+know, a logo might draw itself
+
+
+1291
+00:36:38,316 --> 00:36:39,806
+into being and then fill in or
+
+
+1292
+00:36:39,806 --> 00:36:41,296
+something like that.
+
+
+1293
+00:36:41,496 --> 00:36:43,266
+You can also do something like
+
+
+1294
+00:36:43,266 --> 00:36:45,446
+of fun with the line dash mode
+
+
+1295
+00:36:45,446 --> 00:36:46,556
+property and specifically
+
+
+1296
+00:36:46,646 --> 00:36:48,356
+animating the lineDashPhase.
+
+
+1297
+00:36:48,356 --> 00:36:50,696
+If you have layer who-- that's
+
+
+1298
+00:36:50,696 --> 00:36:51,746
+set to draw its stroke with a
+
+
+1299
+00:36:51,746 --> 00:36:54,016
+dash pattern, then you can just
+
+
+1300
+00:36:54,386 --> 00:36:55,986
+animate the lineDashPhase from,
+
+
+1301
+00:36:55,986 --> 00:36:57,606
+you know, some pixel value to
+
+
+1302
+00:36:57,606 --> 00:36:58,856
+some other pixel value and it
+
+
+1303
+00:36:58,856 --> 00:37:00,096
+will shift along the edges of
+
+
+1304
+00:37:00,096 --> 00:37:01,466
+the shape so you can get this
+
+
+1305
+00:37:01,466 --> 00:37:03,246
+kind of cool marching antsy sort
+
+
+1306
+00:37:03,246 --> 00:37:03,596
+of effect.
+
+
+1307
+00:37:04,106 --> 00:37:06,186
+So, that's shape layers.
+
+
+1308
+00:37:06,296 --> 00:37:08,036
+Let's talk about gradient
+
+
+1309
+00:37:08,036 --> 00:37:08,386
+layers.
+
+
+1310
+00:37:09,406 --> 00:37:10,286
+Again, you might have used these
+
+
+1311
+00:37:10,286 --> 00:37:11,946
+before, but I would guess you
+
+
+1312
+00:37:11,946 --> 00:37:13,336
+might not have tried animating
+
+
+1313
+00:37:13,336 --> 00:37:13,566
+one.
+
+
+1314
+00:37:14,096 --> 00:37:15,116
+And, again, all these properties
+
+
+1315
+00:37:15,116 --> 00:37:16,176
+are animatable, so you can just
+
+
+1316
+00:37:16,176 --> 00:37:17,216
+kind of mess with them and see
+
+
+1317
+00:37:17,216 --> 00:37:18,326
+what you get.
+
+
+1318
+00:37:18,646 --> 00:37:20,616
+You might for instance have a
+
+
+1319
+00:37:20,616 --> 00:37:22,146
+layer that's a gradient layer
+
+
+1320
+00:37:22,146 --> 00:37:23,246
+that's masked with this star
+
+
+1321
+00:37:23,246 --> 00:37:23,516
+shape.
+
+
+1322
+00:37:23,866 --> 00:37:24,846
+And if you animate the start
+
+
+1323
+00:37:24,846 --> 00:37:25,946
+point and end point from
+
+
+1324
+00:37:25,946 --> 00:37:26,976
+somewhere off to one side of the
+
+
+1325
+00:37:26,976 --> 00:37:28,066
+thing to somewhere off on the
+
+
+1326
+00:37:28,066 --> 00:37:29,566
+other, you get this kind of
+
+
+1327
+00:37:29,816 --> 00:37:31,686
+shiny, like, metal effect.
+
+
+1328
+00:37:32,086 --> 00:37:32,756
+Kind of neat, right?
+
+
+1329
+00:37:33,666 --> 00:37:34,546
+We've actually used that
+
+
+1330
+00:37:34,546 --> 00:37:37,296
+elsewhere in the iOS UI for--
+
+
+1331
+00:37:37,296 --> 00:37:38,446
+well, sorry, the watch UI.
+
+
+1332
+00:37:38,956 --> 00:37:40,046
+If you've used Apple Pay, the
+
+
+1333
+00:37:40,046 --> 00:37:41,376
+little kind of card swoopy in
+
+
+1334
+00:37:41,376 --> 00:37:42,426
+thing, that was a gradient
+
+
+1335
+00:37:42,426 --> 00:37:42,646
+layer.
+
+
+1336
+00:37:43,366 --> 00:37:46,126
+So, yeah. The last thing that I
+
+
+1337
+00:37:46,126 --> 00:37:47,666
+want to talk about is layer
+
+
+1338
+00:37:47,666 --> 00:37:48,176
+speed.
+
+
+1339
+00:37:49,136 --> 00:37:50,556
+And this one's a kind of fun
+
+
+1340
+00:37:50,556 --> 00:37:50,746
+trick.
+
+
+1341
+00:37:50,746 --> 00:37:51,756
+It can be a little bit hard to
+
+
+1342
+00:37:51,756 --> 00:37:52,766
+use, but you can get some really
+
+
+1343
+00:37:52,766 --> 00:37:55,846
+cool effects out of it.
+
+
+1344
+00:37:57,056 --> 00:37:58,696
+So, there's no kind of idea of a
+
+
+1345
+00:37:58,696 --> 00:38:00,386
+global time in CA.
+
+
+1346
+00:38:00,386 --> 00:38:02,066
+There's only kind of relative
+
+
+1347
+00:38:02,066 --> 00:38:03,446
+times from one-- from one layer
+
+
+1348
+00:38:03,446 --> 00:38:05,516
+to its sublayers and its
+
+
+1349
+00:38:05,516 --> 00:38:07,716
+sublayers below that.
+
+
+1350
+00:38:07,716 --> 00:38:09,166
+And so, a layer can have a
+
+
+1351
+00:38:09,166 --> 00:38:10,646
+different time scale where like
+
+
+1352
+00:38:10,646 --> 00:38:12,296
+if one second passes in its
+
+
+1353
+00:38:12,296 --> 00:38:13,696
+super layer, two seconds pass in
+
+
+1354
+00:38:13,696 --> 00:38:14,176
+the sublayer.
+
+
+1355
+00:38:15,106 --> 00:38:16,936
+And-- so, the result of that is
+
+
+1356
+00:38:16,936 --> 00:38:19,086
+that an animation that is added
+
+
+1357
+00:38:19,086 --> 00:38:20,486
+to one of these layers, if it's
+
+
+1358
+00:38:20,486 --> 00:38:21,716
+on a layer with speed of two, it
+
+
+1359
+00:38:21,716 --> 00:38:22,856
+happens twice as fast.
+
+
+1360
+00:38:22,856 --> 00:38:25,876
+If it's on a layer speed of 0.5,
+
+
+1361
+00:38:25,876 --> 00:38:28,256
+it happens half as fast.
+
+
+1362
+00:38:28,346 --> 00:38:30,596
+And what this lets you do,
+
+
+1363
+00:38:30,596 --> 00:38:31,556
+obviously, is run your
+
+
+1364
+00:38:31,556 --> 00:38:32,816
+animations more or less slowly,
+
+
+1365
+00:38:32,816 --> 00:38:33,966
+but that seems kind of
+
+
+1366
+00:38:33,966 --> 00:38:34,436
+superfluous.
+
+
+1367
+00:38:34,436 --> 00:38:37,006
+You could just set them to be
+
+
+1368
+00:38:37,006 --> 00:38:37,866
+that duration in the first
+
+
+1369
+00:38:37,866 --> 00:38:38,246
+place, right?
+
+
+1370
+00:38:38,316 --> 00:38:40,826
+But the cool thing happens when
+
+
+1371
+00:38:40,826 --> 00:38:42,066
+you set the layer speed to zero.
+
+
+1372
+00:38:42,066 --> 00:38:44,746
+And what happens there is that
+
+
+1373
+00:38:44,806 --> 00:38:46,216
+the animations don't move.
+
+
+1374
+00:38:47,166 --> 00:38:48,416
+The animations pause.
+
+
+1375
+00:38:49,186 --> 00:38:50,156
+And that, again, might not seem
+
+
+1376
+00:38:50,156 --> 00:38:51,466
+very useful for a thing called
+
+
+1377
+00:38:51,466 --> 00:38:53,096
+Core Animation, but the thing is
+
+
+1378
+00:38:53,096 --> 00:38:54,736
+that it gives you control over
+
+
+1379
+00:38:54,736 --> 00:38:55,966
+the animation's progress through
+
+
+1380
+00:38:55,966 --> 00:38:57,296
+time with a property called
+
+
+1381
+00:38:57,296 --> 00:38:57,876
+timeOffset.
+
+
+1382
+00:38:58,816 --> 00:39:01,556
+So, what that lets you do is let
+
+
+1383
+00:39:01,556 --> 00:39:03,606
+the user or any other process in
+
+
+1384
+00:39:03,606 --> 00:39:04,466
+your app scrub through an
+
+
+1385
+00:39:04,466 --> 00:39:05,616
+animation interactively.
+
+
+1386
+00:39:05,616 --> 00:39:07,066
+You can have an arbitrarily
+
+
+1387
+00:39:07,066 --> 00:39:08,646
+complex animation or series of
+
+
+1388
+00:39:08,646 --> 00:39:11,356
+subanimations and setting the
+
+
+1389
+00:39:11,356 --> 00:39:12,776
+timeOffset on one layer will
+
+
+1390
+00:39:12,776 --> 00:39:13,696
+have all of them progress
+
+
+1391
+00:39:13,696 --> 00:39:15,306
+through according to the--
+
+
+1392
+00:39:15,306 --> 00:39:17,746
+according to where one-- the
+
+
+1393
+00:39:17,746 --> 00:39:19,266
+super layer is in its animation.
+
+
+1394
+00:39:19,856 --> 00:39:22,316
+So, what that lets you do is an
+
+
+1395
+00:39:22,316 --> 00:39:23,266
+effect something like this
+
+
+1396
+00:39:24,536 --> 00:39:25,826
+where, as the user drags up and
+
+
+1397
+00:39:25,826 --> 00:39:27,166
+down, the layer progressively
+
+
+1398
+00:39:27,166 --> 00:39:29,096
+reveals itself and these things
+
+
+1399
+00:39:29,096 --> 00:39:31,756
+kind of animate in and out with
+
+
+1400
+00:39:31,756 --> 00:39:32,346
+that progress.
+
+
+1401
+00:39:33,526 --> 00:39:35,826
+And-- so, that's kind of cool,
+
+
+1402
+00:39:35,826 --> 00:39:36,766
+but, like, I could just be
+
+
+1403
+00:39:36,766 --> 00:39:37,446
+making this up, right?
+
+
+1404
+00:39:37,446 --> 00:39:38,306
+This could just be a key frame
+
+
+1405
+00:39:38,306 --> 00:39:38,776
+animation.
+
+
+1406
+00:39:39,206 --> 00:39:42,386
+So, let's go on and look at this
+
+
+1407
+00:39:42,386 --> 00:39:43,016
+as a demo.
+
+
+1408
+00:39:43,796 --> 00:39:48,536
+OK. So, here we have the simple
+
+
+1409
+00:39:48,726 --> 00:39:49,466
+test app set up.
+
+
+1410
+00:39:49,656 --> 00:39:52,126
+It's got a basic view subclass
+
+
+1411
+00:39:52,126 --> 00:39:54,186
+that sets up all these emoji,
+
+
+1412
+00:39:54,186 --> 00:39:54,786
+lays them out.
+
+
+1413
+00:39:55,906 --> 00:39:56,806
+Nothing too fancy here.
+
+
+1414
+00:39:57,246 --> 00:39:59,146
+The key thing about it is that
+
+
+1415
+00:39:59,146 --> 00:40:01,086
+it vends a list of its-- of the
+
+
+1416
+00:40:01,086 --> 00:40:02,356
+emoji layers in it so that we
+
+
+1417
+00:40:02,356 --> 00:40:03,606
+can grab them and animate them
+
+
+1418
+00:40:03,606 --> 00:40:03,986
+later on.
+
+
+1419
+00:40:04,726 --> 00:40:06,206
+So, if you look at our view
+
+
+1420
+00:40:06,206 --> 00:40:07,766
+controller code, there's, again,
+
+
+1421
+00:40:07,766 --> 00:40:08,696
+not too much going on here.
+
+
+1422
+00:40:09,386 --> 00:40:11,066
+So, let's change that.
+
+
+1423
+00:40:12,656 --> 00:40:15,746
+We're first going to just build
+
+
+1424
+00:40:15,746 --> 00:40:18,306
+the set of animations that make
+
+
+1425
+00:40:18,586 --> 00:40:21,746
+the panel layer kind of show up
+
+
+1426
+00:40:22,266 --> 00:40:27,436
+and-- one second-- so, we have a
+
+
+1427
+00:40:27,436 --> 00:40:28,626
+pair of basic animations here.
+
+
+1428
+00:40:29,216 --> 00:40:30,426
+One affecting the bound's width,
+
+
+1429
+00:40:30,526 --> 00:40:32,106
+one affecting the height.
+
+
+1430
+00:40:32,106 --> 00:40:32,806
+You'll notice that I set the
+
+
+1431
+00:40:32,806 --> 00:40:34,966
+duration of the first animation
+
+
+1432
+00:40:34,966 --> 00:40:36,506
+to one because that's kind of
+
+
+1433
+00:40:36,506 --> 00:40:38,046
+the longest animation that-- in
+
+
+1434
+00:40:38,046 --> 00:40:40,356
+this sequence and it makes it
+
+
+1435
+00:40:40,356 --> 00:40:41,556
+really easy to do the math for
+
+
+1436
+00:40:41,556 --> 00:40:42,636
+like how far in the animation
+
+
+1437
+00:40:42,636 --> 00:40:43,966
+you are, zero seconds to one
+
+
+1438
+00:40:43,966 --> 00:40:45,456
+second, zero to one, zero
+
+
+1439
+00:40:45,456 --> 00:40:47,396
+percent to 100 percent.
+
+
+1440
+00:40:48,256 --> 00:40:49,956
+So, add these two things to the
+
+
+1441
+00:40:49,956 --> 00:40:53,196
+layer and when we run this we
+
+
+1442
+00:40:53,976 --> 00:40:58,006
+see the animation.
+
+
+1443
+00:40:58,326 --> 00:40:59,306
+And we see it once.
+
+
+1444
+00:40:59,306 --> 00:41:00,176
+Nothing much happens, right?
+
+
+1445
+00:41:00,436 --> 00:41:01,796
+And we also notice that the
+
+
+1446
+00:41:01,796 --> 00:41:03,276
+emoji aren't animating in, which
+
+
+1447
+00:41:03,276 --> 00:41:05,486
+is no fun at all.
+
+
+1448
+00:41:06,036 --> 00:41:08,966
+So, change this up a little bit
+
+
+1449
+00:41:08,966 --> 00:41:09,186
+more.
+
+
+1450
+00:41:15,976 --> 00:41:19,816
+So, this is pretty
+
+
+1451
+00:41:19,816 --> 00:41:20,626
+straightforward.
+
+
+1452
+00:41:20,626 --> 00:41:21,576
+Basically what we're doing is
+
+
+1453
+00:41:21,576 --> 00:41:22,436
+just setting up a series of
+
+
+1454
+00:41:22,436 --> 00:41:23,776
+animations, one on each layer,
+
+
+1455
+00:41:24,126 --> 00:41:25,576
+and giving each one a slightly
+
+
+1456
+00:41:25,576 --> 00:41:26,516
+later begin time.
+
+
+1457
+00:41:27,136 --> 00:41:29,006
+And you'll notice that I can't
+
+
+1458
+00:41:29,006 --> 00:41:30,536
+just set a begin time of, you
+
+
+1459
+00:41:30,536 --> 00:41:32,216
+know, some number in the future.
+
+
+1460
+00:41:32,216 --> 00:41:33,576
+I have to actually figure out
+
+
+1461
+00:41:33,576 --> 00:41:34,446
+the starting time.
+
+
+1462
+00:41:34,556 --> 00:41:36,306
+The time that the parent layer
+
+
+1463
+00:41:36,306 --> 00:41:38,426
+thinks that it is to add to
+
+
+1464
+00:41:38,426 --> 00:41:38,726
+that.
+
+
+1465
+00:41:38,836 --> 00:41:40,106
+If I just set it to, you know,
+
+
+1466
+00:41:40,106 --> 00:41:42,236
+zero plus this number, then the
+
+
+1467
+00:41:42,236 --> 00:41:43,736
+animation started it somewhere
+
+
+1468
+00:41:43,736 --> 00:41:44,686
+in the past and so everything
+
+
+1469
+00:41:44,686 --> 00:41:45,856
+will already appear to be done.
+
+
+1470
+00:41:47,636 --> 00:41:51,666
+So, if we run this again, we now
+
+
+1471
+00:41:51,666 --> 00:41:53,906
+see that the view animates in,
+
+
+1472
+00:41:53,906 --> 00:41:55,886
+all the emoji are moving, but
+
+
+1473
+00:41:55,886 --> 00:41:57,566
+again this is still not
+
+
+1474
+00:41:57,566 --> 00:41:58,066
+interactive.
+
+
+1475
+00:41:58,696 --> 00:42:00,626
+Let's fix that.
+
+
+1476
+00:42:02,206 --> 00:42:06,086
+So, going to set up a variable
+
+
+1477
+00:42:06,086 --> 00:42:08,116
+here to keep track of how much
+
+
+1478
+00:42:08,246 --> 00:42:09,826
+the container panel thing is
+
+
+1479
+00:42:09,826 --> 00:42:11,976
+expanded and then we're going to
+
+
+1480
+00:42:11,976 --> 00:42:13,406
+set up a simple gesture
+
+
+1481
+00:42:13,406 --> 00:42:16,316
+recognizer on the view to
+
+
+1482
+00:42:16,896 --> 00:42:18,446
+control it.
+
+
+1483
+00:42:19,826 --> 00:42:25,566
+So, what's happening here is
+
+
+1484
+00:42:25,566 --> 00:42:27,536
+when this pen gesture recognizer
+
+
+1485
+00:42:27,536 --> 00:42:29,246
+moves in the view, we get the
+
+
+1486
+00:42:29,246 --> 00:42:30,246
+distance that it's moved since
+
+
+1487
+00:42:30,246 --> 00:42:31,196
+the last time something
+
+
+1488
+00:42:31,196 --> 00:42:31,656
+happened.
+
+
+1489
+00:42:32,786 --> 00:42:34,566
+We scale that from, you know,
+
+
+1490
+00:42:34,566 --> 00:42:36,676
+some pixel point on the screen
+
+
+1491
+00:42:36,936 --> 00:42:39,386
+to just a zero to one value and
+
+
+1492
+00:42:39,866 --> 00:42:40,956
+then we set that value on the
+
+
+1493
+00:42:40,956 --> 00:42:42,316
+current container expansion.
+
+
+1494
+00:42:42,916 --> 00:42:43,946
+And, finally, so that we don't
+
+
+1495
+00:42:43,946 --> 00:42:45,416
+have to keep track of where the
+
+
+1496
+00:42:45,416 --> 00:42:47,176
+recognizer started, we just set
+
+
+1497
+00:42:47,176 --> 00:42:48,476
+its translation back to zero.
+
+
+1498
+00:42:48,756 --> 00:42:49,976
+So, the next time it calls in,
+
+
+1499
+00:42:49,976 --> 00:42:50,966
+it'll say this is how I-- this
+
+
+1500
+00:42:51,146 --> 00:42:52,436
+is how far I've moved since you
+
+
+1501
+00:42:52,436 --> 00:42:54,416
+last set me to zero.
+
+
+1502
+00:42:56,756 --> 00:43:00,956
+So, that's pretty close to it.
+
+
+1503
+00:43:01,006 --> 00:43:03,476
+You pretty much from here just
+
+
+1504
+00:43:03,476 --> 00:43:04,876
+set the container-- the kind of
+
+
+1505
+00:43:04,956 --> 00:43:08,016
+key final piece-- setting the
+
+
+1506
+00:43:08,146 --> 00:43:09,606
+container layer speed to zero.
+
+
+1507
+00:43:11,806 --> 00:43:18,246
+And-- wait for it-- and there
+
+
+1508
+00:43:18,326 --> 00:43:19,506
+you have it.
+
+
+1509
+00:43:19,506 --> 00:43:21,256
+I start dragging, it appears.
+
+
+1510
+00:43:21,906 --> 00:43:23,136
+I drag up; it disappears.
+
+
+1511
+00:43:23,866 --> 00:43:25,506
+Down, up, down.
+
+
+1512
+00:43:26,226 --> 00:43:26,976
+Pretty simple, right?
+
+
+1513
+00:43:27,516 --> 00:43:34,296
+[ Applause ]
+
+
+1514
+00:43:34,796 --> 00:43:36,816
+So, those were some quick tips
+
+
+1515
+00:43:36,816 --> 00:43:39,076
+and tricks that you can use with
+
+
+1516
+00:43:39,076 --> 00:43:39,146
+CA.
+
+
+1517
+00:43:39,446 --> 00:43:40,186
+Some things you can use in your
+
+
+1518
+00:43:40,186 --> 00:43:41,256
+applications to make them kind
+
+
+1519
+00:43:41,256 --> 00:43:43,876
+of more engaging, more visually
+
+
+1520
+00:43:43,876 --> 00:43:45,866
+rich as one might say.
+
+
+1521
+00:43:46,276 --> 00:43:49,636
+So, to kind of sum all this up,
+
+
+1522
+00:43:50,286 --> 00:43:53,506
+first off, broaden your tool
+
+
+1523
+00:43:53,506 --> 00:43:53,766
+set.
+
+
+1524
+00:43:53,766 --> 00:43:55,166
+Look through the APIs and kind
+
+
+1525
+00:43:55,166 --> 00:43:56,746
+of get an idea of where things
+
+
+1526
+00:43:56,746 --> 00:43:57,756
+are, what you might be able to
+
+
+1527
+00:43:57,756 --> 00:43:58,826
+use to solve different types of
+
+
+1528
+00:43:58,826 --> 00:43:59,286
+problems.
+
+
+1529
+00:43:59,286 --> 00:44:00,706
+If you need 3D, you now know,
+
+
+1530
+00:44:00,706 --> 00:44:01,796
+oh, I can use SceneKit for that.
+
+
+1531
+00:44:02,276 --> 00:44:03,526
+You need to filter a bunch of
+
+
+1532
+00:44:03,526 --> 00:44:04,996
+images, Core Image.
+
+
+1533
+00:44:06,386 --> 00:44:08,626
+Know the best practices.
+
+
+1534
+00:44:08,776 --> 00:44:10,106
+It's not essential, but it will
+
+
+1535
+00:44:10,106 --> 00:44:11,306
+save you so much time and so
+
+
+1536
+00:44:11,306 --> 00:44:13,196
+much headache and like when
+
+
+1537
+00:44:13,196 --> 00:44:14,266
+somebody else on your team comes
+
+
+1538
+00:44:14,266 --> 00:44:15,466
+and says what is this ridiculous
+
+
+1539
+00:44:15,466 --> 00:44:16,676
+animation thing doing, you'll be
+
+
+1540
+00:44:16,676 --> 00:44:17,376
+like I know that.
+
+
+1541
+00:44:18,216 --> 00:44:19,486
+So, pretty useful.
+
+
+1542
+00:44:20,636 --> 00:44:23,226
+And, finally, experiment with
+
+
+1543
+00:44:23,226 --> 00:44:23,606
+the API.
+
+
+1544
+00:44:23,606 --> 00:44:24,986
+I mentioned that like every CA
+
+
+1545
+00:44:25,026 --> 00:44:26,506
+layer property more or less is
+
+
+1546
+00:44:26,506 --> 00:44:28,356
+animatable and we only covered
+
+
+1547
+00:44:28,426 --> 00:44:29,166
+like five of them.
+
+
+1548
+00:44:29,456 --> 00:44:30,286
+There is so much in there.
+
+
+1549
+00:44:30,286 --> 00:44:31,406
+There are so many cool effects
+
+
+1550
+00:44:31,406 --> 00:44:33,016
+you can make if you just kind of
+
+
+1551
+00:44:33,056 --> 00:44:34,406
+combine things and play with
+
+
+1552
+00:44:34,406 --> 00:44:35,596
+them and just see what happens
+
+
+1553
+00:44:35,966 --> 00:44:36,866
+when you put things together.
+
+
+1554
+00:44:37,706 --> 00:44:39,556
+We have some great sample code
+
+
+1555
+00:44:39,556 --> 00:44:40,566
+for all of these things that
+
+
+1556
+00:44:40,566 --> 00:44:42,096
+goes into a lot more detail than
+
+
+1557
+00:44:42,096 --> 00:44:43,016
+we've been able to here.
+
+
+1558
+00:44:44,136 --> 00:44:47,216
+So, first off, grab the sample
+
+
+1559
+00:44:47,216 --> 00:44:48,076
+code from this session.
+
+
+1560
+00:44:48,646 --> 00:44:49,336
+Take a look at it.
+
+
+1561
+00:44:49,336 --> 00:44:51,496
+Unfortunately, the-- that demo
+
+
+1562
+00:44:51,496 --> 00:44:52,846
+is not up there yet, but we will
+
+
+1563
+00:44:52,846 --> 00:44:53,776
+get it up as soon as possible.
+
+
+1564
+00:44:54,836 --> 00:44:56,146
+There's a bunch of sessions that
+
+
+1565
+00:44:56,146 --> 00:44:57,916
+you have unfortunately already
+
+
+1566
+00:44:58,686 --> 00:45:00,386
+missed, but I highly recommend
+
+
+1567
+00:45:00,386 --> 00:45:01,316
+going back to look at the videos
+
+
+1568
+00:45:01,316 --> 00:45:01,576
+for them.
+
+
+1569
+00:45:01,576 --> 00:45:02,526
+There's some really cool stuff
+
+
+1570
+00:45:02,526 --> 00:45:04,726
+this year, particularly in UIKit
+
+
+1571
+00:45:04,726 --> 00:45:05,266
+and SceneKit.
+
+
+1572
+00:45:06,576 --> 00:45:08,096
+And there is a SpriteKit one
+
+
+1573
+00:45:08,096 --> 00:45:09,236
+tomorrow if you feel like being
+
+
+1574
+00:45:09,236 --> 00:45:09,646
+up that early.
+
+
+1575
+00:45:10,216 --> 00:45:10,846
+I'm not sure I will be.
+
+
+1576
+00:45:11,466 --> 00:45:14,586
+And that's about it.
+
+
+1577
+00:45:14,586 --> 00:45:15,616
+I hope to see you all at the
+
+
+1578
+00:45:15,616 --> 00:45:15,846
+bash.
+
+
+1579
+00:45:15,846 --> 00:45:16,266
+Thank you.
+
+
+1580
+00:45:17,516 --> 00:45:21,500
+[ Applause ]
+

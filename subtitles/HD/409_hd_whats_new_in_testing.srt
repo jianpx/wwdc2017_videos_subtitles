@@ -1,0 +1,6209 @@
+1
+00:00:20,516 --> 00:00:24,546
+[ Applause ]
+
+
+2
+00:00:25,046 --> 00:00:27,656
+>> Good afternoon and welcome to
+
+
+3
+00:00:27,656 --> 00:00:28,826
+what's new in testing.
+
+
+4
+00:00:29,656 --> 00:00:31,196
+My name is Wil and I work on
+
+
+5
+00:00:31,236 --> 00:00:33,066
+Xcode and on XCTest.
+
+
+6
+00:00:34,166 --> 00:00:36,456
+So, what is new in testing?
+
+
+7
+00:00:37,206 --> 00:00:38,376
+The answer is a lot.
+
+
+8
+00:00:38,956 --> 00:00:40,316
+In fact, so much that we don't
+
+
+9
+00:00:40,316 --> 00:00:41,176
+have time to do all of the
+
+
+10
+00:00:41,176 --> 00:00:44,076
+justice here today, so let's get
+
+
+11
+00:00:44,076 --> 00:00:44,466
+started.
+
+
+12
+00:00:45,656 --> 00:00:47,656
+First off, we have a bunch of
+
+
+13
+00:00:47,656 --> 00:00:50,066
+enhancements in both Xcode 8.3
+
+
+14
+00:00:50,396 --> 00:00:51,446
+and Xcode 9.
+
+
+15
+00:00:51,646 --> 00:00:53,566
+I'm going to just call these out
+
+
+16
+00:00:53,566 --> 00:00:54,646
+and then I'm going to let you
+
+
+17
+00:00:54,646 --> 00:00:56,036
+read up on them in the reference
+
+
+18
+00:00:56,036 --> 00:00:58,196
+documentation for XCTest which
+
+
+19
+00:00:58,196 --> 00:00:59,456
+has just gotten a major
+
+
+20
+00:00:59,456 --> 00:00:59,916
+overhaul.
+
+
+21
+00:01:01,016 --> 00:01:03,016
+Then we'll take a look at new
+
+
+22
+00:01:03,096 --> 00:01:05,006
+APIs for asynchronous testing
+
+
+23
+00:01:05,626 --> 00:01:08,126
+followed by multi-app testing
+
+
+24
+00:01:09,296 --> 00:01:10,626
+and some great performance
+
+
+25
+00:01:10,626 --> 00:01:12,016
+improvements in UI testing.
+
+
+26
+00:01:12,806 --> 00:01:15,056
+Finally, we'll wrap things up
+
+
+27
+00:01:15,056 --> 00:01:16,326
+with a group of technologies
+
+
+28
+00:01:16,326 --> 00:01:18,416
+called activities, attachments,
+
+
+29
+00:01:18,706 --> 00:01:19,586
+and screenshots.
+
+
+30
+00:01:21,076 --> 00:01:22,426
+Let's look at those
+
+
+31
+00:01:22,426 --> 00:01:23,226
+enhancements.
+
+
+32
+00:01:24,516 --> 00:01:27,826
+So, in Xcode 8.3, we added UI
+
+
+33
+00:01:27,826 --> 00:01:30,066
+testing for Siri intents with
+
+
+34
+00:01:30,066 --> 00:01:32,566
+the new XCUISiriService.
+
+
+35
+00:01:33,366 --> 00:01:35,576
+We also introduced UI testing
+
+
+36
+00:01:35,576 --> 00:01:38,216
+support for the Touch Bar on
+
+
+37
+00:01:38,216 --> 00:01:38,946
+macOS.
+
+
+38
+00:01:39,576 --> 00:01:44,526
+In XCTest for Xcode 9 we have
+
+
+39
+00:01:44,556 --> 00:01:46,146
+refined the framework Swift
+
+
+40
+00:01:46,146 --> 00:01:47,946
+interface as part of the Swift 4
+
+
+41
+00:01:48,106 --> 00:01:50,356
+effort and we've also added a
+
+
+42
+00:01:50,356 --> 00:01:52,766
+new block-based teardown API
+
+
+43
+00:01:53,066 --> 00:01:55,266
+that lets you structure context
+
+
+44
+00:01:55,266 --> 00:01:57,526
+specific teardown in your test
+
+
+45
+00:01:57,526 --> 00:01:59,526
+methods without additional state
+
+
+46
+00:01:59,866 --> 00:02:01,176
+or properties in your test
+
+
+47
+00:02:01,176 --> 00:02:01,726
+classes.
+
+
+48
+00:02:03,136 --> 00:02:05,406
+In UI testing we've introduced a
+
+
+49
+00:02:05,406 --> 00:02:07,426
+new element type for the macOS
+
+
+50
+00:02:07,456 --> 00:02:08,455
+menu bar items.
+
+
+51
+00:02:09,526 --> 00:02:11,266
+In addition, there's new API on
+
+
+52
+00:02:11,386 --> 00:02:13,676
+XCUI element that waits on the
+
+
+53
+00:02:13,676 --> 00:02:15,706
+existence of an element reducing
+
+
+54
+00:02:15,706 --> 00:02:17,336
+the need for sleep or other
+
+
+55
+00:02:17,336 --> 00:02:19,576
+artificial delays in your tests.
+
+
+56
+00:02:20,516 --> 00:02:24,546
+[ Applause ]
+
+
+57
+00:02:25,046 --> 00:02:27,296
+Xcodebuild now launches tests
+
+
+58
+00:02:27,296 --> 00:02:29,426
+directly via core simulator so
+
+
+59
+00:02:29,426 --> 00:02:30,276
+you'll no longer see the
+
+
+60
+00:02:30,276 --> 00:02:31,726
+simulator app launch when
+
+
+61
+00:02:31,726 --> 00:02:33,096
+running tests from the command
+
+
+62
+00:02:33,096 --> 00:02:33,296
+line.
+
+
+63
+00:02:33,536 --> 00:02:35,646
+We're also very excited to
+
+
+64
+00:02:35,646 --> 00:02:37,586
+announce Xcodebuild now supports
+
+
+65
+00:02:37,846 --> 00:02:39,566
+parallel device testing.
+
+
+66
+00:02:40,516 --> 00:02:44,546
+[ Applause ]
+
+
+67
+00:02:45,046 --> 00:02:46,426
+This means if you pass multiple
+
+
+68
+00:02:46,426 --> 00:02:48,126
+destination specifiers to
+
+
+69
+00:02:48,126 --> 00:02:50,236
+Xcodebuild it will build once
+
+
+70
+00:02:50,686 --> 00:02:52,266
+for all specifiers sharing the
+
+
+71
+00:02:52,266 --> 00:02:54,466
+same platform and then run the
+
+
+72
+00:02:54,466 --> 00:02:55,876
+test for those destinations
+
+
+73
+00:02:55,876 --> 00:02:56,826
+simultaneously.
+
+
+74
+00:02:57,286 --> 00:02:58,676
+This should give a huge speedup
+
+
+75
+00:02:59,036 --> 00:03:00,586
+to many continuous integration
+
+
+76
+00:03:00,586 --> 00:03:01,316
+scenarios.
+
+
+77
+00:03:02,476 --> 00:03:05,106
+On the localization side, in
+
+
+78
+00:03:05,106 --> 00:03:06,916
+Xcode 9 you can set the language
+
+
+79
+00:03:06,916 --> 00:03:08,436
+and region for your test to run
+
+
+80
+00:03:08,436 --> 00:03:08,686
+in.
+
+
+81
+00:03:09,366 --> 00:03:11,256
+This scheme option allows you to
+
+
+82
+00:03:11,256 --> 00:03:12,836
+easily test many different
+
+
+83
+00:03:12,836 --> 00:03:14,936
+localizations for your projects.
+
+
+84
+00:03:16,176 --> 00:03:18,346
+I also want to take a moment to
+
+
+85
+00:03:18,466 --> 00:03:19,686
+call your attention to some
+
+
+86
+00:03:19,946 --> 00:03:21,586
+improvements in Xcode Server.
+
+
+87
+00:03:22,536 --> 00:03:25,386
+So first of all, as of Xcode 9
+
+
+88
+00:03:25,386 --> 00:03:27,326
+you no longer need macOS server,
+
+
+89
+00:03:28,266 --> 00:03:30,346
+you can turn on Xcode Server for
+
+
+90
+00:03:30,346 --> 00:03:31,756
+your team with just the flick of
+
+
+91
+00:03:31,756 --> 00:03:33,596
+a switch by going to the new
+
+
+92
+00:03:33,596 --> 00:03:35,296
+preferences pane directly in
+
+
+93
+00:03:35,326 --> 00:03:35,766
+Xcode.
+
+
+94
+00:03:37,376 --> 00:03:39,176
+Xcode Server also has an
+
+
+95
+00:03:39,176 --> 00:03:40,756
+improved provisioning workflow
+
+
+96
+00:03:41,356 --> 00:03:43,106
+and adopts the Xcodebuild
+
+
+97
+00:03:43,106 --> 00:03:44,756
+improvements for CoreSimulator
+
+
+98
+00:03:45,186 --> 00:03:46,116
+and parallel testing.
+
+
+99
+00:03:46,826 --> 00:03:47,966
+And those per scheme
+
+
+100
+00:03:47,966 --> 00:03:49,116
+localization support
+
+
+101
+00:03:49,356 --> 00:03:50,946
+automatically extends to all of
+
+
+102
+00:03:50,946 --> 00:03:51,536
+your bots.
+
+
+103
+00:03:52,086 --> 00:03:55,546
+So that is our whirlwind tour of
+
+
+104
+00:03:55,546 --> 00:03:56,516
+the most exciting new
+
+
+105
+00:03:56,516 --> 00:03:57,246
+enhancements.
+
+
+106
+00:03:57,576 --> 00:03:59,656
+Now let's slow down a bit and
+
+
+107
+00:03:59,656 --> 00:04:01,066
+take a closer look at
+
+
+108
+00:04:01,186 --> 00:04:02,196
+asynchronous testing.
+
+
+109
+00:04:03,566 --> 00:04:05,836
+Async testing allows you to
+
+
+110
+00:04:05,836 --> 00:04:07,206
+validate code which doesn't
+
+
+111
+00:04:07,206 --> 00:04:09,206
+finish immediately, but instead
+
+
+112
+00:04:09,546 --> 00:04:11,346
+calls back later with closures,
+
+
+113
+00:04:11,566 --> 00:04:13,136
+delegate methods or other
+
+
+114
+00:04:13,136 --> 00:04:14,266
+delayed completions.
+
+
+115
+00:04:15,126 --> 00:04:17,016
+This includes tasks like opening
+
+
+116
+00:04:17,016 --> 00:04:18,815
+documents, work done on
+
+
+117
+00:04:18,815 --> 00:04:19,926
+background threads,
+
+
+118
+00:04:20,366 --> 00:04:21,435
+communicating with other
+
+
+119
+00:04:21,435 --> 00:04:23,876
+processes, network activity,
+
+
+120
+00:04:24,026 --> 00:04:26,246
+animations, and a range of UI
+
+
+121
+00:04:26,246 --> 00:04:27,316
+testing scenarios.
+
+
+122
+00:04:27,896 --> 00:04:31,056
+We introduced APIs for async
+
+
+123
+00:04:31,056 --> 00:04:33,596
+testing in Xcode 6 several years
+
+
+124
+00:04:33,596 --> 00:04:34,036
+ago now.
+
+
+125
+00:04:34,826 --> 00:04:36,986
+These methods on XCTestCase let
+
+
+126
+00:04:36,986 --> 00:04:38,636
+you define conditions or
+
+
+127
+00:04:38,676 --> 00:04:40,726
+expectations as we call them and
+
+
+128
+00:04:40,726 --> 00:04:41,916
+then have your test wait for
+
+
+129
+00:04:41,916 --> 00:04:43,186
+them to complete or be
+
+
+130
+00:04:43,186 --> 00:04:43,726
+fulfilled.
+
+
+131
+00:04:45,356 --> 00:04:47,756
+So, here's a simple example.
+
+
+132
+00:04:48,236 --> 00:04:50,226
+This fragment of test code opens
+
+
+133
+00:04:50,226 --> 00:04:51,606
+a document, waits for it to
+
+
+134
+00:04:51,606 --> 00:04:53,336
+finish, and asserts that it was
+
+
+135
+00:04:53,336 --> 00:04:53,866
+successful.
+
+
+136
+00:04:54,586 --> 00:04:55,966
+The expectation object is
+
+
+137
+00:04:55,966 --> 00:04:57,596
+created before the document is
+
+
+138
+00:04:57,596 --> 00:04:57,966
+opened.
+
+
+139
+00:04:58,566 --> 00:05:00,436
+The test waits for it below the
+
+
+140
+00:05:00,436 --> 00:05:02,406
+call to open and fulfills it
+
+
+141
+00:05:02,496 --> 00:05:04,546
+inside the closure which allows
+
+
+142
+00:05:04,546 --> 00:05:06,186
+the test to then continue on and
+
+
+143
+00:05:06,186 --> 00:05:08,106
+execute the test code after the
+
+
+144
+00:05:08,106 --> 00:05:08,686
+call to wait.
+
+
+145
+00:05:09,396 --> 00:05:10,736
+But this is the original API
+
+
+146
+00:05:10,736 --> 00:05:12,416
+that we had in Xcode 6.
+
+
+147
+00:05:13,436 --> 00:05:14,686
+It works well enough, but it has
+
+
+148
+00:05:14,686 --> 00:05:15,576
+some limitations.
+
+
+149
+00:05:16,286 --> 00:05:18,106
+First, timeout string waiting
+
+
+150
+00:05:18,106 --> 00:05:19,216
+are always treated as test
+
+
+151
+00:05:19,216 --> 00:05:19,796
+failures.
+
+
+152
+00:05:20,346 --> 00:05:22,486
+Second, waiting requires the
+
+
+153
+00:05:22,486 --> 00:05:24,426
+test object itself which makes
+
+
+154
+00:05:24,426 --> 00:05:26,096
+it hard to factor out into any
+
+
+155
+00:05:26,096 --> 00:05:27,876
+kind of test library or support
+
+
+156
+00:05:27,916 --> 00:05:28,156
+code.
+
+
+157
+00:05:29,186 --> 00:05:31,076
+It's also not possible to have
+
+
+158
+00:05:31,076 --> 00:05:32,606
+what we call nested waiting.
+
+
+159
+00:05:33,076 --> 00:05:34,256
+Nested waiting involves
+
+
+160
+00:05:34,256 --> 00:05:35,256
+additional groups of
+
+
+161
+00:05:35,256 --> 00:05:37,526
+expectations that get waited on
+
+
+162
+00:05:37,916 --> 00:05:39,966
+inside an outer weight context.
+
+
+163
+00:05:40,776 --> 00:05:42,866
+To solve these problems, we've
+
+
+164
+00:05:42,866 --> 00:05:44,166
+introduced a new class
+
+
+165
+00:05:44,446 --> 00:05:45,426
+XCTWaiter.
+
+
+166
+00:05:46,236 --> 00:05:48,126
+This class extracts the logic of
+
+
+167
+00:05:48,126 --> 00:05:49,076
+waiting that used to be
+
+
+168
+00:05:49,076 --> 00:05:51,296
+contained in XCTestCase and
+
+
+169
+00:05:51,296 --> 00:05:53,156
+allows you to explicitly declare
+
+
+170
+00:05:53,156 --> 00:05:54,556
+the expectations you're waiting
+
+
+171
+00:05:54,556 --> 00:05:54,716
+on.
+
+
+172
+00:05:55,586 --> 00:05:57,536
+Timeouts and other events are
+
+
+173
+00:05:57,606 --> 00:05:59,056
+handled through a delegate API
+
+
+174
+00:05:59,056 --> 00:06:01,066
+and are also returned from the
+
+
+175
+00:06:01,066 --> 00:06:03,466
+wait API as a result value.
+
+
+176
+00:06:04,456 --> 00:06:06,316
+This provides considerably more
+
+
+177
+00:06:06,316 --> 00:06:07,596
+flexibility in how you can
+
+
+178
+00:06:07,596 --> 00:06:09,096
+structure your asynchronous
+
+
+179
+00:06:09,096 --> 00:06:09,656
+tests.
+
+
+180
+00:06:10,206 --> 00:06:12,726
+If we return to the previous
+
+
+181
+00:06:12,726 --> 00:06:14,526
+example, let's take a look at
+
+
+182
+00:06:14,526 --> 00:06:16,006
+what the options are now for
+
+
+183
+00:06:16,006 --> 00:06:16,406
+waiting.
+
+
+184
+00:06:17,766 --> 00:06:20,416
+In the original code, note that
+
+
+185
+00:06:20,416 --> 00:06:22,076
+no expectations are mentioned.
+
+
+186
+00:06:22,446 --> 00:06:23,146
+This is because the
+
+
+187
+00:06:23,146 --> 00:06:25,386
+implementation is implicit, it
+
+
+188
+00:06:25,386 --> 00:06:27,706
+waits on all active expectations
+
+
+189
+00:06:27,736 --> 00:06:29,336
+the test object has created.
+
+
+190
+00:06:30,026 --> 00:06:32,846
+With just a small change now the
+
+
+191
+00:06:32,846 --> 00:06:34,916
+test is waiting explicitly on
+
+
+192
+00:06:34,916 --> 00:06:36,396
+the document expectation.
+
+
+193
+00:06:37,426 --> 00:06:38,976
+Now another equivalent way of
+
+
+194
+00:06:38,976 --> 00:06:41,356
+constructing this is to create
+
+
+195
+00:06:41,356 --> 00:06:43,496
+an instance of XCTWaiter with a
+
+
+196
+00:06:43,496 --> 00:06:45,066
+test case as delegate.
+
+
+197
+00:06:46,376 --> 00:06:49,636
+And yet another option is to
+
+
+198
+00:06:49,696 --> 00:06:51,486
+wait using a class method on
+
+
+199
+00:06:51,486 --> 00:06:53,176
+XCTWaiter and then handle the
+
+
+200
+00:06:53,176 --> 00:06:53,916
+result value.
+
+
+201
+00:06:54,916 --> 00:06:56,726
+This flexibility makes it really
+
+
+202
+00:06:56,726 --> 00:06:58,826
+easy to use XCTWaiter in helper
+
+
+203
+00:06:58,826 --> 00:07:01,516
+method, nested contexts or in
+
+
+204
+00:07:01,516 --> 00:07:02,776
+test library code that's
+
+
+205
+00:07:02,776 --> 00:07:04,366
+completely decoupled from your
+
+
+206
+00:07:04,366 --> 00:07:05,216
+test cases.
+
+
+207
+00:07:06,676 --> 00:07:09,046
+Now in addition, to creating
+
+
+208
+00:07:09,046 --> 00:07:10,996
+XCTWaiter we've also expanded
+
+
+209
+00:07:10,996 --> 00:07:13,076
+the API for XCTTestExpectation.
+
+
+210
+00:07:13,586 --> 00:07:15,876
+The initializer is now public
+
+
+211
+00:07:15,876 --> 00:07:17,886
+API which also decouples the
+
+
+212
+00:07:17,886 --> 00:07:19,656
+creation of expectations from
+
+
+213
+00:07:19,706 --> 00:07:20,676
+XCTestCase.
+
+
+214
+00:07:21,486 --> 00:07:22,696
+We've also introduced an
+
+
+215
+00:07:22,696 --> 00:07:24,456
+expected fulfillment count
+
+
+216
+00:07:24,546 --> 00:07:25,846
+property, this is where
+
+
+217
+00:07:25,846 --> 00:07:27,296
+expectations representing
+
+
+218
+00:07:27,296 --> 00:07:29,206
+conditions which occur multiple
+
+
+219
+00:07:29,206 --> 00:07:29,716
+times.
+
+
+220
+00:07:30,706 --> 00:07:31,976
+Now for conditions which should
+
+
+221
+00:07:31,976 --> 00:07:33,956
+not occur at all there's an
+
+
+222
+00:07:33,956 --> 00:07:36,806
+inverted API for expectations
+
+
+223
+00:07:37,116 --> 00:07:38,346
+which will cause the waiter to
+
+
+224
+00:07:38,346 --> 00:07:39,826
+raise a failure only if the
+
+
+225
+00:07:39,826 --> 00:07:41,726
+expectation is fulfilled before
+
+
+226
+00:07:41,726 --> 00:07:43,026
+the timeout collapses.
+
+
+227
+00:07:43,876 --> 00:07:46,596
+Finally, XCTWaiter allows you to
+
+
+228
+00:07:46,596 --> 00:07:48,206
+enforce the order in which
+
+
+229
+00:07:48,206 --> 00:07:50,356
+expectations are fulfilled using
+
+
+230
+00:07:50,356 --> 00:07:52,706
+an optional flag with the wait
+
+
+231
+00:07:53,506 --> 00:07:53,706
+APIs.
+
+
+232
+00:07:54,236 --> 00:07:56,596
+So, those are the updates to
+
+
+233
+00:07:56,596 --> 00:07:59,176
+asynchronous testing, XCTWaiter,
+
+
+234
+00:07:59,636 --> 00:08:01,456
+our new API for managing
+
+
+235
+00:08:01,456 --> 00:08:03,566
+expectations and a bunch of
+
+
+236
+00:08:03,566 --> 00:08:04,856
+improvements to XCTest
+
+
+237
+00:08:04,856 --> 00:08:05,546
+expectation.
+
+
+238
+00:08:06,376 --> 00:08:08,036
+Both of these classes are fully
+
+
+239
+00:08:08,036 --> 00:08:10,486
+decoupled from XCTestCase giving
+
+
+240
+00:08:10,486 --> 00:08:11,996
+you a much easier and more
+
+
+241
+00:08:12,086 --> 00:08:13,766
+powerful system to use.
+
+
+242
+00:08:14,326 --> 00:08:17,596
+Now I'd like to talk about UI
+
+
+243
+00:08:17,596 --> 00:08:19,876
+testing and in particular, UI
+
+
+244
+00:08:19,876 --> 00:08:21,006
+testing with multiple
+
+
+245
+00:08:21,006 --> 00:08:21,876
+applications.
+
+
+246
+00:08:23,216 --> 00:08:25,056
+The starting point of almost
+
+
+247
+00:08:25,136 --> 00:08:26,916
+every UI test is an
+
+
+248
+00:08:27,016 --> 00:08:28,976
+XCUIApplication instance.
+
+
+249
+00:08:29,476 --> 00:08:32,035
+This class lets you launch and
+
+
+250
+00:08:32,155 --> 00:08:33,066
+terminate the app you're
+
+
+251
+00:08:33,066 --> 00:08:34,736
+testing, as well as create
+
+
+252
+00:08:34,736 --> 00:08:36,726
+queries for finding the user
+
+
+253
+00:08:36,726 --> 00:08:38,306
+interface elements which you
+
+
+254
+00:08:38,306 --> 00:08:39,645
+then automate by sending
+
+
+255
+00:08:39,645 --> 00:08:40,616
+synthetic events.
+
+
+256
+00:08:42,176 --> 00:08:43,986
+UI testing has a target
+
+
+257
+00:08:43,986 --> 00:08:46,066
+application concept which is the
+
+
+258
+00:08:46,066 --> 00:08:47,376
+application your tests are
+
+
+259
+00:08:47,376 --> 00:08:48,526
+primarily testing.
+
+
+260
+00:08:48,526 --> 00:08:50,356
+In your project settings for
+
+
+261
+00:08:50,356 --> 00:08:52,356
+your tests you designate an app
+
+
+262
+00:08:52,406 --> 00:08:54,426
+in the same project as being the
+
+
+263
+00:08:54,466 --> 00:08:55,666
+target application.
+
+
+264
+00:08:56,506 --> 00:08:57,786
+This enables you to call the
+
+
+265
+00:08:57,786 --> 00:08:59,336
+default initializer for
+
+
+266
+00:08:59,336 --> 00:09:01,776
+XCUIApplication and the instance
+
+
+267
+00:09:01,776 --> 00:09:02,616
+will be created with the
+
+
+268
+00:09:02,616 --> 00:09:04,406
+information for installing,
+
+
+269
+00:09:04,566 --> 00:09:06,336
+launching and interacting with
+
+
+270
+00:09:06,386 --> 00:09:07,376
+that application.
+
+
+271
+00:09:08,866 --> 00:09:09,916
+This mechanism is very
+
+
+272
+00:09:09,916 --> 00:09:11,196
+convenient, but it doesn't give
+
+
+273
+00:09:11,196 --> 00:09:12,366
+you a way to test other
+
+
+274
+00:09:12,366 --> 00:09:13,206
+applications.
+
+
+275
+00:09:13,966 --> 00:09:15,306
+Some examples of what we would
+
+
+276
+00:09:15,306 --> 00:09:17,476
+call multi-app scenarios include
+
+
+277
+00:09:17,476 --> 00:09:19,466
+app groups where you have more
+
+
+278
+00:09:19,466 --> 00:09:20,516
+than one application in your
+
+
+279
+00:09:20,516 --> 00:09:21,906
+project and they somehow
+
+
+280
+00:09:21,906 --> 00:09:23,406
+interact together and pass data
+
+
+281
+00:09:23,406 --> 00:09:24,226
+back and forth.
+
+
+282
+00:09:25,196 --> 00:09:26,366
+Another example would be
+
+
+283
+00:09:26,366 --> 00:09:28,166
+settings if you need to automate
+
+
+284
+00:09:28,246 --> 00:09:30,116
+the settings for your app and
+
+
+285
+00:09:30,116 --> 00:09:31,636
+change preferences for different
+
+
+286
+00:09:31,636 --> 00:09:32,516
+test scenarios.
+
+
+287
+00:09:33,246 --> 00:09:34,856
+And yet another example, our app
+
+
+288
+00:09:34,856 --> 00:09:35,696
+extensions.
+
+
+289
+00:09:36,646 --> 00:09:39,036
+All of these require more than a
+
+
+290
+00:09:39,036 --> 00:09:40,716
+single target application.
+
+
+291
+00:09:42,016 --> 00:09:43,766
+To solve this, we've added some
+
+
+292
+00:09:43,766 --> 00:09:46,166
+new APIs to XCUIApplication.
+
+
+293
+00:09:47,076 --> 00:09:48,836
+First, there are initializers
+
+
+294
+00:09:49,206 --> 00:09:50,686
+that allow you to specify an app
+
+
+295
+00:09:50,866 --> 00:09:52,766
+by its bundle ID or
+
+
+296
+00:09:52,766 --> 00:09:54,916
+alternatively on macOS you can
+
+
+297
+00:09:54,916 --> 00:09:58,056
+also use a file URL to designate
+
+
+298
+00:09:58,056 --> 00:09:59,766
+the location of the app on disk.
+
+
+299
+00:10:00,626 --> 00:10:02,686
+Second, we've added an activate
+
+
+300
+00:10:02,686 --> 00:10:04,156
+method that will bring the app
+
+
+301
+00:10:04,186 --> 00:10:05,256
+from the background to the
+
+
+302
+00:10:05,256 --> 00:10:06,696
+foreground if it's already
+
+
+303
+00:10:06,696 --> 00:10:08,296
+running and launch a new
+
+
+304
+00:10:08,296 --> 00:10:09,526
+instance if it's not.
+
+
+305
+00:10:10,336 --> 00:10:12,226
+But launch API would terminate
+
+
+306
+00:10:12,226 --> 00:10:14,556
+any previous running instance
+
+
+307
+00:10:14,556 --> 00:10:16,306
+first, so you always have a
+
+
+308
+00:10:16,386 --> 00:10:17,586
+cleaner slate when you start
+
+
+309
+00:10:17,586 --> 00:10:18,166
+your test.
+
+
+310
+00:10:18,616 --> 00:10:20,026
+Activate is useful for those
+
+
+311
+00:10:20,026 --> 00:10:21,576
+scenarios when you're not
+
+
+312
+00:10:21,576 --> 00:10:22,786
+interested in wiping out
+
+
+313
+00:10:22,786 --> 00:10:24,276
+previous state, but you actually
+
+
+314
+00:10:24,276 --> 00:10:26,056
+want to resume from some earlier
+
+
+315
+00:10:26,056 --> 00:10:26,986
+point in the test.
+
+
+316
+00:10:28,086 --> 00:10:29,706
+Finally, there's a new state
+
+
+317
+00:10:29,706 --> 00:10:30,996
+property that you can use to
+
+
+318
+00:10:30,996 --> 00:10:32,416
+monitor changes in the
+
+
+319
+00:10:32,416 --> 00:10:33,666
+applications you're testing.
+
+
+320
+00:10:34,586 --> 00:10:36,686
+So, here's some example of using
+
+
+321
+00:10:36,686 --> 00:10:37,466
+these APIs.
+
+
+322
+00:10:38,166 --> 00:10:39,416
+This code creates two
+
+
+323
+00:10:39,416 --> 00:10:41,736
+XCUIApplication instances with
+
+
+324
+00:10:41,776 --> 00:10:42,546
+bundle IDs.
+
+
+325
+00:10:42,896 --> 00:10:44,916
+This is a pair of apps perhaps
+
+
+326
+00:10:44,916 --> 00:10:45,796
+in an app group.
+
+
+327
+00:10:46,576 --> 00:10:48,856
+After launching and interacting
+
+
+328
+00:10:49,016 --> 00:10:51,126
+the readerApp the test then
+
+
+329
+00:10:51,126 --> 00:10:53,186
+launches the writerApp and
+
+
+330
+00:10:53,186 --> 00:10:54,116
+finally, after some more
+
+
+331
+00:10:54,116 --> 00:10:55,886
+interaction it uses the activate
+
+
+332
+00:10:55,886 --> 00:10:58,286
+API to bring the readerApp back
+
+
+333
+00:10:58,286 --> 00:11:00,596
+to the foreground without
+
+
+334
+00:11:00,596 --> 00:11:01,596
+terminating it first.
+
+
+335
+00:11:02,176 --> 00:11:04,636
+So now let's see that in action,
+
+
+336
+00:11:04,866 --> 00:11:06,736
+here's Warren Ma with a demo of
+
+
+337
+00:11:06,736 --> 00:11:07,976
+multi-app UI testing.
+
+
+338
+00:11:08,516 --> 00:11:15,556
+[ Applause ]
+
+
+339
+00:11:16,056 --> 00:11:16,756
+>> Thanks Wil.
+
+
+340
+00:11:16,996 --> 00:11:19,016
+So as Wil just described, now in
+
+
+341
+00:11:19,016 --> 00:11:21,126
+Xcode 9 you can write UI tests
+
+
+342
+00:11:21,126 --> 00:11:21,946
+that involve multiple
+
+
+343
+00:11:21,946 --> 00:11:23,536
+applications and I'm excited to
+
+
+344
+00:11:23,536 --> 00:11:24,776
+show you guys how you might
+
+
+345
+00:11:24,776 --> 00:11:26,206
+incorporate the new APIs into
+
+
+346
+00:11:26,206 --> 00:11:27,026
+your own test suites.
+
+
+347
+00:11:27,866 --> 00:11:32,676
+So, let me go ahead and start by
+
+
+348
+00:11:32,676 --> 00:11:33,816
+showing you these two related
+
+
+349
+00:11:33,816 --> 00:11:34,666
+apps that I have here.
+
+
+350
+00:11:35,436 --> 00:11:36,206
+I'm running them on a
+
+
+351
+00:11:36,206 --> 00:11:37,576
+development device and I'm using
+
+
+352
+00:11:37,576 --> 00:11:38,886
+QuickTime to show you what's on
+
+
+353
+00:11:38,886 --> 00:11:39,306
+the screen.
+
+
+354
+00:11:40,136 --> 00:11:41,816
+The first one is a message
+
+
+355
+00:11:41,816 --> 00:11:43,636
+posting app, the writerApp.
+
+
+356
+00:11:44,946 --> 00:11:47,086
+Here we have a username, we have
+
+
+357
+00:11:47,086 --> 00:11:48,556
+a text view that we can tap
+
+
+358
+00:11:48,556 --> 00:11:51,826
+into, we can type out a test
+
+
+359
+00:11:51,826 --> 00:11:54,996
+message, tap return on the
+
+
+360
+00:11:54,996 --> 00:11:56,846
+keyboard and post it to the
+
+
+361
+00:11:56,846 --> 00:11:58,196
+server by tapping on the Send
+
+
+362
+00:11:58,196 --> 00:11:58,546
+button.
+
+
+363
+00:11:59,736 --> 00:12:00,776
+Great, so it's been posted.
+
+
+364
+00:12:01,436 --> 00:12:02,176
+Now how do we view these
+
+
+365
+00:12:02,176 --> 00:12:02,646
+messages?
+
+
+366
+00:12:03,466 --> 00:12:04,996
+Well that's the purpose of our
+
+
+367
+00:12:04,996 --> 00:12:06,336
+second app the readerApp.
+
+
+368
+00:12:08,316 --> 00:12:10,086
+Here is a list of all messages
+
+
+369
+00:12:10,086 --> 00:12:10,986
+that have been posted to the
+
+
+370
+00:12:10,986 --> 00:12:12,876
+server and at the very top is
+
+
+371
+00:12:12,876 --> 00:12:14,736
+the most recent message posted
+
+
+372
+00:12:14,736 --> 00:12:16,426
+the one I just sent and we can
+
+
+373
+00:12:16,426 --> 00:12:17,926
+tap into that to view it in
+
+
+374
+00:12:17,926 --> 00:12:18,356
+detail.
+
+
+375
+00:12:18,356 --> 00:12:20,406
+And then we can return to that
+
+
+376
+00:12:20,406 --> 00:12:21,626
+list of messages using the
+
+
+377
+00:12:21,706 --> 00:12:23,426
+button at the top left All
+
+
+378
+00:12:23,426 --> 00:12:23,836
+Messages.
+
+
+379
+00:12:24,776 --> 00:12:26,736
+So, let's say you want to test
+
+
+380
+00:12:26,736 --> 00:12:28,536
+this process of typing out a
+
+
+381
+00:12:28,536 --> 00:12:29,746
+test message in the writerApp,
+
+
+382
+00:12:30,146 --> 00:12:31,776
+posing it to the server and then
+
+
+383
+00:12:31,776 --> 00:12:33,096
+verifying that it appears at the
+
+
+384
+00:12:33,096 --> 00:12:34,546
+top of the list of messages from
+
+
+385
+00:12:34,546 --> 00:12:35,516
+the second application.
+
+
+386
+00:12:36,076 --> 00:12:37,796
+Well before Xcode 9 you would
+
+
+387
+00:12:37,796 --> 00:12:39,206
+have to write separate UI tests
+
+
+388
+00:12:39,306 --> 00:12:41,026
+for each application and even
+
+
+389
+00:12:41,026 --> 00:12:42,446
+then, you wouldn't really have a
+
+
+390
+00:12:42,446 --> 00:12:43,996
+way of verifying the behavior
+
+
+391
+00:12:43,996 --> 00:12:44,756
+between both.
+
+
+392
+00:12:45,406 --> 00:12:47,186
+But now with multi-app testing
+
+
+393
+00:12:47,416 --> 00:12:49,556
+in Xcode 9, multi-UI testing in
+
+
+394
+00:12:49,556 --> 00:12:51,526
+Xcode 9 we can easily test
+
+
+395
+00:12:51,526 --> 00:12:53,096
+real-world scenarios between
+
+
+396
+00:12:53,096 --> 00:12:54,086
+multiple applications.
+
+
+397
+00:12:54,496 --> 00:12:56,356
+To show you how that looks let's
+
+
+398
+00:12:56,356 --> 00:12:58,256
+write a quick UI test to
+
+
+399
+00:12:58,456 --> 00:12:59,626
+automate the workflow I just
+
+
+400
+00:12:59,626 --> 00:13:00,176
+demonstrated.
+
+
+401
+00:13:01,266 --> 00:13:05,046
+All right, the first step in our
+
+
+402
+00:13:05,046 --> 00:13:08,946
+test is to launch our Reader
+
+
+403
+00:13:08,946 --> 00:13:09,536
+application.
+
+
+404
+00:13:10,506 --> 00:13:12,366
+In order to do that we're going
+
+
+405
+00:13:12,366 --> 00:13:13,636
+to initialize it using its
+
+
+406
+00:13:13,676 --> 00:13:14,496
+bundle ID.
+
+
+407
+00:13:15,516 --> 00:13:16,786
+Afterwards we can go ahead and
+
+
+408
+00:13:16,786 --> 00:13:20,116
+launch it from a clean state.
+
+
+409
+00:13:20,306 --> 00:13:21,346
+Once our readerApp has been
+
+
+410
+00:13:21,346 --> 00:13:23,066
+launched we're just going to go
+
+
+411
+00:13:23,066 --> 00:13:24,236
+ahead and verify the first
+
+
+412
+00:13:24,236 --> 00:13:25,226
+message in that list of
+
+
+413
+00:13:25,226 --> 00:13:25,726
+messages.
+
+
+414
+00:13:26,456 --> 00:13:28,466
+To do that we'll tap into the
+
+
+415
+00:13:28,796 --> 00:13:31,266
+first message in the list, we'll
+
+
+416
+00:13:31,266 --> 00:13:32,656
+verify that its contents are
+
+
+417
+00:13:32,656 --> 00:13:34,996
+what we expect and finally,
+
+
+418
+00:13:34,996 --> 00:13:36,186
+we'll return to the list of
+
+
+419
+00:13:36,186 --> 00:13:37,466
+messages using that button at
+
+
+420
+00:13:37,466 --> 00:13:38,126
+the top left.
+
+
+421
+00:13:39,596 --> 00:13:40,646
+Once we verified the first
+
+
+422
+00:13:40,646 --> 00:13:42,036
+message in the list we want to
+
+
+423
+00:13:42,036 --> 00:13:43,196
+type out our test message and
+
+
+424
+00:13:43,196 --> 00:13:44,326
+post it to the server into the
+
+
+425
+00:13:44,326 --> 00:13:44,766
+writerApp.
+
+
+426
+00:13:45,616 --> 00:13:48,566
+To do that the first step once
+
+
+427
+00:13:48,566 --> 00:13:50,616
+again is to initialize the
+
+
+428
+00:13:50,616 --> 00:13:52,456
+writerApp using its bundle ID,
+
+
+429
+00:13:52,456 --> 00:13:54,066
+in this case it's
+
+
+430
+00:13:54,066 --> 00:13:55,596
+com.mycompany.Writer.
+
+
+431
+00:13:56,506 --> 00:13:58,116
+Afterwards, it's as easy as just
+
+
+432
+00:13:58,116 --> 00:13:58,816
+calling Activate.
+
+
+433
+00:13:59,396 --> 00:14:01,186
+Now Activate also waits for the
+
+
+434
+00:14:01,186 --> 00:14:02,496
+application state to become
+
+
+435
+00:14:02,496 --> 00:14:03,556
+running foreground before
+
+
+436
+00:14:03,556 --> 00:14:05,136
+returning, so we don't need to
+
+
+437
+00:14:05,136 --> 00:14:07,276
+do any sort of manual waiting on
+
+
+438
+00:14:07,276 --> 00:14:08,186
+the application state.
+
+
+439
+00:14:08,776 --> 00:14:10,236
+Once Activate has returned we
+
+
+440
+00:14:10,236 --> 00:14:11,446
+know that the test is good to
+
+
+441
+00:14:11,446 --> 00:14:11,856
+continue.
+
+
+442
+00:14:12,296 --> 00:14:15,006
+Once the writerApp is running
+
+
+443
+00:14:15,006 --> 00:14:16,706
+foreground we can go ahead and
+
+
+444
+00:14:16,706 --> 00:14:18,206
+compose our test message and
+
+
+445
+00:14:18,206 --> 00:14:19,016
+post it to the server.
+
+
+446
+00:14:19,746 --> 00:14:21,616
+To do that we'll tap into the
+
+
+447
+00:14:21,616 --> 00:14:23,736
+text field, we'll type out our
+
+
+448
+00:14:23,736 --> 00:14:26,116
+test message, we'll tap on the
+
+
+449
+00:14:26,116 --> 00:14:27,536
+return button on the keyboard,
+
+
+450
+00:14:28,356 --> 00:14:29,606
+and then we'll tap on the send
+
+
+451
+00:14:29,606 --> 00:14:30,936
+button to post it to the server.
+
+
+452
+00:14:32,826 --> 00:14:33,956
+Now we want to make sure that it
+
+
+453
+00:14:33,956 --> 00:14:35,236
+appears on the top of the list
+
+
+454
+00:14:35,446 --> 00:14:36,416
+of the messages in the
+
+
+455
+00:14:36,416 --> 00:14:36,836
+readerApp.
+
+
+456
+00:14:38,006 --> 00:14:39,176
+Earlier we used Activate to
+
+
+457
+00:14:39,176 --> 00:14:40,046
+switch between the two
+
+
+458
+00:14:40,046 --> 00:14:41,586
+applications, but in this case,
+
+
+459
+00:14:41,846 --> 00:14:43,086
+let's make use of that back to
+
+
+460
+00:14:43,086 --> 00:14:44,466
+app button that's built into iOS
+
+
+461
+00:14:44,946 --> 00:14:45,946
+which appears at the top left
+
+
+462
+00:14:45,946 --> 00:14:46,636
+corner of the screen.
+
+
+463
+00:14:47,246 --> 00:14:50,276
+So, to do that we're going to
+
+
+464
+00:14:50,276 --> 00:14:52,726
+tap on the back to app button.
+
+
+465
+00:14:52,966 --> 00:14:54,356
+However, in this case because
+
+
+466
+00:14:54,356 --> 00:14:55,826
+we're not using Activate we do
+
+
+467
+00:14:55,826 --> 00:14:58,036
+need to manually wait on the
+
+
+468
+00:14:58,106 --> 00:14:59,716
+application state to become
+
+
+469
+00:14:59,716 --> 00:15:00,756
+running foreground before
+
+
+470
+00:15:00,756 --> 00:15:01,936
+continuing with the test.
+
+
+471
+00:15:02,726 --> 00:15:04,016
+So, to do that let's make use of
+
+
+472
+00:15:04,016 --> 00:15:05,146
+the new predicate based
+
+
+473
+00:15:05,146 --> 00:15:06,146
+expectation API.
+
+
+474
+00:15:08,596 --> 00:15:10,866
+So, we want to make sure that
+
+
+475
+00:15:10,866 --> 00:15:13,716
+the Reader app state has become
+
+
+476
+00:15:13,716 --> 00:15:14,766
+running foreground before
+
+
+477
+00:15:14,766 --> 00:15:15,286
+returning.
+
+
+478
+00:15:16,636 --> 00:15:18,066
+After we've defined our
+
+
+479
+00:15:18,066 --> 00:15:20,186
+expectation we'll go ahead and
+
+
+480
+00:15:20,186 --> 00:15:21,416
+wait for that expectation to
+
+
+481
+00:15:21,416 --> 00:15:23,246
+become true with a timeout of 10
+
+
+482
+00:15:23,246 --> 00:15:24,346
+seconds which should be more
+
+
+483
+00:15:24,346 --> 00:15:24,986
+than sufficient.
+
+
+484
+00:15:25,456 --> 00:15:28,076
+Once the Reader app has become
+
+
+485
+00:15:28,076 --> 00:15:30,056
+running foreground we can go
+
+
+486
+00:15:30,056 --> 00:15:31,536
+ahead and continue with the
+
+
+487
+00:15:31,536 --> 00:15:33,386
+final step of our test which is
+
+
+488
+00:15:33,386 --> 00:15:34,666
+to verify that the message
+
+
+489
+00:15:34,666 --> 00:15:36,226
+appears at the top of the list.
+
+
+490
+00:15:36,686 --> 00:15:37,886
+Similar to what we did before,
+
+
+491
+00:15:38,396 --> 00:15:39,236
+we'll tape into the first
+
+
+492
+00:15:39,236 --> 00:15:41,246
+message in the list, we'll
+
+
+493
+00:15:41,246 --> 00:15:42,596
+verify that its contents are the
+
+
+494
+00:15:42,596 --> 00:15:45,056
+message that we just posted, and
+
+
+495
+00:15:45,146 --> 00:15:46,306
+then we'll return to the list of
+
+
+496
+00:15:46,306 --> 00:15:46,766
+messages.
+
+
+497
+00:15:47,786 --> 00:15:48,966
+So, let's go ahead and run the
+
+
+498
+00:15:48,966 --> 00:15:50,336
+test to see it in action.
+
+
+499
+00:15:50,886 --> 00:15:52,426
+To do that I'll click on the
+
+
+500
+00:15:52,426 --> 00:15:53,756
+test diamond in the left-hand
+
+
+501
+00:15:53,756 --> 00:15:53,976
+gutter.
+
+
+502
+00:15:59,046 --> 00:16:00,716
+So, when you run UI tests in
+
+
+503
+00:16:00,716 --> 00:16:02,186
+general it has to install what
+
+
+504
+00:16:02,186 --> 00:16:03,366
+is called the UI test runner and
+
+
+505
+00:16:03,716 --> 00:16:04,986
+that is the test process in
+
+
+506
+00:16:04,986 --> 00:16:07,046
+which UI tests run in addition
+
+
+507
+00:16:07,046 --> 00:16:07,646
+to installing the app.
+
+
+508
+00:16:07,866 --> 00:16:09,386
+So, it just takes a bit of time
+
+
+509
+00:16:09,386 --> 00:16:10,166
+for that to launch.
+
+
+510
+00:16:10,636 --> 00:16:13,256
+Once it's launched the test can
+
+
+511
+00:16:13,256 --> 00:16:14,466
+go ahead and continue to run.
+
+
+512
+00:16:16,836 --> 00:16:18,306
+So once again, the first step of
+
+
+513
+00:16:18,306 --> 00:16:19,656
+our test was to launch the
+
+
+514
+00:16:19,656 --> 00:16:21,806
+Reader app and verify the first
+
+
+515
+00:16:21,806 --> 00:16:23,466
+message in the list of messages.
+
+
+516
+00:16:25,296 --> 00:16:27,516
+Then we use Activate to open the
+
+
+517
+00:16:27,516 --> 00:16:29,196
+Writer app, type out our test
+
+
+518
+00:16:29,196 --> 00:16:30,936
+message and post it to the
+
+
+519
+00:16:30,936 --> 00:16:31,346
+server.
+
+
+520
+00:16:32,156 --> 00:16:33,106
+And we use the back to app
+
+
+521
+00:16:33,106 --> 00:16:34,206
+button to switch back to the
+
+
+522
+00:16:34,206 --> 00:16:35,296
+Reader app and verify that the
+
+
+523
+00:16:35,296 --> 00:16:36,426
+message appeared at the top the
+
+
+524
+00:16:36,426 --> 00:16:36,846
+list.
+
+
+525
+00:16:37,456 --> 00:16:39,336
+So [inaudible] how easy it is to
+
+
+526
+00:16:39,336 --> 00:16:40,706
+make use of the awesome new
+
+
+527
+00:16:40,946 --> 00:16:43,006
+multi-UI testing APIs available
+
+
+528
+00:16:43,006 --> 00:16:44,736
+in Xcode 9 to test multiple
+
+
+529
+00:16:44,736 --> 00:16:45,356
+applications.
+
+
+530
+00:16:45,626 --> 00:16:46,496
+And with that I'd like to hand
+
+
+531
+00:16:46,496 --> 00:16:46,936
+it back to Wil.
+
+
+532
+00:16:47,516 --> 00:16:51,546
+[ Applause ]
+
+
+533
+00:16:52,046 --> 00:16:53,546
+>> Thanks Warren, that's really
+
+
+534
+00:16:53,546 --> 00:16:54,136
+great stuff.
+
+
+535
+00:16:54,746 --> 00:16:56,696
+With just a few additions the
+
+
+536
+00:16:56,696 --> 00:16:57,796
+realm of UI testing
+
+
+537
+00:16:57,796 --> 00:16:59,186
+possibilities has gotten much
+
+
+538
+00:16:59,316 --> 00:16:59,806
+broader.
+
+
+539
+00:17:00,606 --> 00:17:01,856
+The new initializers let you
+
+
+540
+00:17:01,856 --> 00:17:03,626
+test any application and the
+
+
+541
+00:17:03,626 --> 00:17:04,955
+Activate API means you can
+
+
+542
+00:17:04,955 --> 00:17:06,086
+switch between multiple
+
+
+543
+00:17:06,086 --> 00:17:08,236
+applications without restarting
+
+
+544
+00:17:08,236 --> 00:17:10,596
+them, multi-app UI testing.
+
+
+545
+00:17:11,616 --> 00:17:14,126
+So, let's switch gears and talk
+
+
+546
+00:17:14,126 --> 00:17:16,226
+about performance in UI testing.
+
+
+547
+00:17:17,656 --> 00:17:20,096
+At the heart of UI testing are
+
+
+548
+00:17:20,096 --> 00:17:21,756
+the user interface elements that
+
+
+549
+00:17:21,756 --> 00:17:23,195
+your test will want to interact
+
+
+550
+00:17:24,036 --> 00:17:24,296
+with.
+
+
+551
+00:17:24,296 --> 00:17:26,236
+These are the buttons, labels,
+
+
+552
+00:17:26,236 --> 00:17:27,346
+table views, etcetera.
+
+
+553
+00:17:27,935 --> 00:17:30,026
+The UI tests create queries to
+
+
+554
+00:17:30,026 --> 00:17:32,206
+describe how elements are found.
+
+
+555
+00:17:32,816 --> 00:17:35,466
+For example, here a button
+
+
+556
+00:17:35,466 --> 00:17:37,126
+element has the query
+
+
+557
+00:17:38,076 --> 00:17:40,696
+app.navigationBars.buttons with
+
+
+558
+00:17:40,696 --> 00:17:41,896
+the subscript of done.
+
+
+559
+00:17:42,646 --> 00:17:43,886
+That means that the element has
+
+
+560
+00:17:43,936 --> 00:17:46,506
+the type of a button, the label
+
+
+561
+00:17:46,506 --> 00:17:48,556
+or title of done and can be
+
+
+562
+00:17:48,556 --> 00:17:50,406
+found in a navigation bar.
+
+
+563
+00:17:51,206 --> 00:17:53,116
+So how do these queries work?
+
+
+564
+00:17:54,486 --> 00:17:56,476
+Queries use accessibility data,
+
+
+565
+00:17:56,946 --> 00:17:58,996
+the same semantic information
+
+
+566
+00:17:59,116 --> 00:18:00,876
+used by VoiceOver technologies
+
+
+567
+00:18:01,376 --> 00:18:02,446
+as a kind of searchable
+
+
+568
+00:18:02,446 --> 00:18:03,916
+structure for the application.
+
+
+569
+00:18:05,136 --> 00:18:07,126
+To evaluate a query the test
+
+
+570
+00:18:07,166 --> 00:18:09,616
+process requests what we call a
+
+
+571
+00:18:09,616 --> 00:18:11,556
+snapshot of the current data.
+
+
+572
+00:18:12,186 --> 00:18:14,086
+This request is sent from the
+
+
+573
+00:18:14,086 --> 00:18:15,816
+test process to the application
+
+
+574
+00:18:15,816 --> 00:18:17,466
+so these are separate processes,
+
+
+575
+00:18:17,466 --> 00:18:18,706
+we're using interprocess
+
+
+576
+00:18:18,706 --> 00:18:19,536
+communication here.
+
+
+577
+00:18:20,676 --> 00:18:21,806
+The request is sent from the
+
+
+578
+00:18:21,806 --> 00:18:23,356
+test process to the application,
+
+
+579
+00:18:23,356 --> 00:18:25,036
+now the application captures the
+
+
+580
+00:18:25,036 --> 00:18:28,176
+snapshot data, serializes it and
+
+
+581
+00:18:28,176 --> 00:18:30,326
+transmits it back to the test
+
+
+582
+00:18:30,376 --> 00:18:30,986
+process.
+
+
+583
+00:18:31,596 --> 00:18:32,856
+Once the test process has
+
+
+584
+00:18:32,856 --> 00:18:34,606
+unpacked the data it can
+
+
+585
+00:18:34,606 --> 00:18:36,546
+evaluate the query by searching
+
+
+586
+00:18:36,546 --> 00:18:37,576
+through the snapshot.
+
+
+587
+00:18:38,356 --> 00:18:40,386
+Snapshotting works and because
+
+
+588
+00:18:40,606 --> 00:18:42,526
+of how it works it takes a
+
+
+589
+00:18:42,526 --> 00:18:45,026
+single atomic representation of
+
+
+590
+00:18:45,026 --> 00:18:46,956
+the state of the UI at that
+
+
+591
+00:18:46,956 --> 00:18:48,906
+moment, but it introduces some
+
+
+592
+00:18:48,906 --> 00:18:50,306
+performance challenges.
+
+
+593
+00:18:50,866 --> 00:18:52,616
+If we consider two axes of
+
+
+594
+00:18:52,616 --> 00:18:54,656
+performance, time on one hand
+
+
+595
+00:18:54,656 --> 00:18:55,806
+and memory on the other,
+
+
+596
+00:18:56,556 --> 00:18:58,496
+snapshots have potential
+
+
+597
+00:18:58,496 --> 00:18:59,896
+problems with both.
+
+
+598
+00:19:00,836 --> 00:19:02,546
+Snapshots that take too long for
+
+
+599
+00:19:02,546 --> 00:19:04,626
+apps that have many UI elements,
+
+
+600
+00:19:04,626 --> 00:19:06,086
+for example tables with
+
+
+601
+00:19:06,086 --> 00:19:07,866
+thousands of rows, large
+
+
+602
+00:19:07,866 --> 00:19:09,436
+collection views these will
+
+
+603
+00:19:09,436 --> 00:19:11,436
+cause timeouts that in turn
+
+
+604
+00:19:11,436 --> 00:19:12,586
+trigger test failures.
+
+
+605
+00:19:13,396 --> 00:19:15,426
+If the snapshot data is too
+
+
+606
+00:19:15,426 --> 00:19:16,986
+large memory pressure on the
+
+
+607
+00:19:16,986 --> 00:19:19,386
+system may also result in
+
+
+608
+00:19:19,386 --> 00:19:20,836
+processes being terminated.
+
+
+609
+00:19:21,656 --> 00:19:23,056
+So, these challenges led us to
+
+
+610
+00:19:23,056 --> 00:19:25,076
+the question of how can we
+
+
+611
+00:19:25,076 --> 00:19:26,976
+improve snapshot performance.
+
+
+612
+00:19:27,466 --> 00:19:28,896
+And we came up with several
+
+
+613
+00:19:28,896 --> 00:19:29,426
+approaches.
+
+
+614
+00:19:30,636 --> 00:19:32,416
+First of all, we wanted to cut
+
+
+615
+00:19:32,416 --> 00:19:33,536
+down on the overhead of
+
+
+616
+00:19:33,606 --> 00:19:35,116
+transporting all this data
+
+
+617
+00:19:35,116 --> 00:19:36,336
+between processes.
+
+
+618
+00:19:37,006 --> 00:19:38,406
+To do that we implemented what
+
+
+619
+00:19:38,406 --> 00:19:40,156
+we are calling remote queries.
+
+
+620
+00:19:40,836 --> 00:19:42,656
+With remote queries, instead of
+
+
+621
+00:19:42,656 --> 00:19:44,596
+the test process requesting the
+
+
+622
+00:19:44,596 --> 00:19:47,076
+snapshot it actually transmits
+
+
+623
+00:19:47,106 --> 00:19:48,286
+the query itself, which is a
+
+
+624
+00:19:48,286 --> 00:19:49,586
+very small amount of data.
+
+
+625
+00:19:50,466 --> 00:19:51,616
+The app will still create a
+
+
+626
+00:19:51,616 --> 00:19:53,306
+snapshot, but instead of
+
+
+627
+00:19:53,306 --> 00:19:55,226
+transporting it anywhere it
+
+
+628
+00:19:55,256 --> 00:19:56,996
+simply evaluates the query right
+
+
+629
+00:19:56,996 --> 00:19:58,076
+there in process.
+
+
+630
+00:19:58,576 --> 00:20:00,146
+And at the end, it sends back
+
+
+631
+00:20:00,146 --> 00:20:02,376
+just the results, again a tiny
+
+
+632
+00:20:02,376 --> 00:20:04,966
+amount of data, to test process.
+
+
+633
+00:20:06,106 --> 00:20:09,516
+So how does all this perform?
+
+
+634
+00:20:09,516 --> 00:20:11,876
+Well remote query performance
+
+
+635
+00:20:11,876 --> 00:20:13,736
+turned out to speed things up by
+
+
+636
+00:20:13,736 --> 00:20:16,116
+as much as 20% and reduce memory
+
+
+637
+00:20:16,116 --> 00:20:18,426
+spiking by about 30%.
+
+
+638
+00:20:18,936 --> 00:20:20,416
+Now this was a good start, but
+
+
+639
+00:20:20,526 --> 00:20:22,146
+it was nowhere near what we had
+
+
+640
+00:20:22,146 --> 00:20:23,106
+in mind to achieve.
+
+
+641
+00:20:23,106 --> 00:20:25,286
+So that brought us to our second
+
+
+642
+00:20:25,626 --> 00:20:27,116
+optimization which is query
+
+
+643
+00:20:27,116 --> 00:20:27,846
+analysis.
+
+
+644
+00:20:28,286 --> 00:20:30,306
+Our goal here was to reduce the
+
+
+645
+00:20:30,306 --> 00:20:32,226
+size of the snapshot itself, to
+
+
+646
+00:20:32,226 --> 00:20:34,256
+simply collect less data.
+
+
+647
+00:20:35,256 --> 00:20:37,406
+Snapshot uses a fixed set of
+
+
+648
+00:20:37,406 --> 00:20:39,366
+accessibility attributes, but we
+
+
+649
+00:20:39,366 --> 00:20:41,046
+determined by analyzing your
+
+
+650
+00:20:41,046 --> 00:20:43,746
+queries we could identify a
+
+
+651
+00:20:43,746 --> 00:20:45,446
+minimal set of attributes,
+
+
+652
+00:20:45,736 --> 00:20:47,286
+roughly half the full set for
+
+
+653
+00:20:47,286 --> 00:20:49,446
+many common queries, greatly
+
+
+654
+00:20:49,446 --> 00:20:50,796
+reducing the amount of data
+
+
+655
+00:20:50,796 --> 00:20:51,366
+collected.
+
+
+656
+00:20:52,126 --> 00:20:53,746
+Other properties that you might
+
+
+657
+00:20:53,746 --> 00:20:56,106
+need for assertions afterwards
+
+
+658
+00:20:56,146 --> 00:20:57,806
+could still be fetched on demand
+
+
+659
+00:20:57,806 --> 00:21:00,266
+for specific elements, but the
+
+
+660
+00:21:00,266 --> 00:21:02,686
+snapshot itself will now be much
+
+
+661
+00:21:02,686 --> 00:21:03,386
+slimmer.
+
+
+662
+00:21:04,686 --> 00:21:06,066
+So, query analysis turned out to
+
+
+663
+00:21:06,066 --> 00:21:07,616
+be an even better performance
+
+
+664
+00:21:07,676 --> 00:21:10,846
+optimization, roughly 50% faster
+
+
+665
+00:21:11,126 --> 00:21:12,836
+in the common cases and having a
+
+
+666
+00:21:12,836 --> 00:21:15,896
+memory high watermark around 35%
+
+
+667
+00:21:15,986 --> 00:21:16,346
+lower.
+
+
+668
+00:21:17,136 --> 00:21:18,996
+So things are looking pretty
+
+
+669
+00:21:18,996 --> 00:21:21,016
+good, but we wanted to step back
+
+
+670
+00:21:21,016 --> 00:21:22,936
+and see if by really getting
+
+
+671
+00:21:22,936 --> 00:21:24,876
+outside the box we could
+
+
+672
+00:21:25,016 --> 00:21:26,726
+reimagine the system in a way
+
+
+673
+00:21:26,726 --> 00:21:28,226
+that would transform things.
+
+
+674
+00:21:28,536 --> 00:21:30,866
+That brought us to the idea of
+
+
+675
+00:21:30,866 --> 00:21:33,336
+eliminating snapshots entirely.
+
+
+676
+00:21:33,776 --> 00:21:35,196
+So how could we do that,
+
+
+677
+00:21:35,246 --> 00:21:37,366
+snapshots gave us this guarantee
+
+
+678
+00:21:37,706 --> 00:21:39,916
+of an atomic representation of
+
+
+679
+00:21:39,916 --> 00:21:40,646
+the state of the UI?
+
+
+680
+00:21:41,216 --> 00:21:42,956
+Well it turns out because of the
+
+
+681
+00:21:42,956 --> 00:21:45,036
+remote query infrastructure we
+
+
+682
+00:21:45,036 --> 00:21:46,966
+now have that just because we
+
+
+683
+00:21:46,966 --> 00:21:48,796
+were already running our query
+
+
+684
+00:21:48,796 --> 00:21:49,786
+in the process of the
+
+
+685
+00:21:49,786 --> 00:21:50,456
+application.
+
+
+686
+00:21:51,146 --> 00:21:53,636
+So, where traditional queries
+
+
+687
+00:21:53,636 --> 00:21:55,686
+work by examining the snapshot
+
+
+688
+00:21:55,686 --> 00:21:58,556
+data exhaustively we have
+
+
+689
+00:21:58,716 --> 00:22:01,006
+introduced an API called first
+
+
+690
+00:22:01,006 --> 00:22:03,526
+match that tells the query stop
+
+
+691
+00:22:03,526 --> 00:22:05,536
+as soon as you find the first
+
+
+692
+00:22:05,536 --> 00:22:07,526
+thing that matches because many
+
+
+693
+00:22:07,526 --> 00:22:09,186
+times it's excessive to search
+
+
+694
+00:22:09,276 --> 00:22:10,886
+all through the data to find
+
+
+695
+00:22:10,886 --> 00:22:12,876
+every possible match because you
+
+
+696
+00:22:12,876 --> 00:22:14,656
+can specify elements with
+
+
+697
+00:22:14,756 --> 00:22:17,236
+precision that really makes them
+
+
+698
+00:22:17,236 --> 00:22:17,686
+unique.
+
+
+699
+00:22:18,656 --> 00:22:21,796
+So, first match causes the query
+
+
+700
+00:22:21,796 --> 00:22:23,836
+to return early and you can add
+
+
+701
+00:22:23,836 --> 00:22:25,196
+it to any query that you already
+
+
+702
+00:22:26,516 --> 00:22:26,606
+have.
+
+
+703
+00:22:27,186 --> 00:22:28,336
+Here's an example where first
+
+
+704
+00:22:28,336 --> 00:22:29,786
+match has been added to a query
+
+
+705
+00:22:29,786 --> 00:22:30,646
+we looked at earlier.
+
+
+706
+00:22:31,456 --> 00:22:33,586
+And if you imagine that the app
+
+
+707
+00:22:33,636 --> 00:22:35,536
+we were testing was one with a
+
+
+708
+00:22:35,536 --> 00:22:37,566
+navigation bar and a table view
+
+
+709
+00:22:37,936 --> 00:22:39,606
+and the table had thousands of
+
+
+710
+00:22:39,606 --> 00:22:41,846
+rows in it, traditional
+
+
+711
+00:22:41,846 --> 00:22:43,496
+evaluation would've examined
+
+
+712
+00:22:43,556 --> 00:22:45,166
+every single row in the table
+
+
+713
+00:22:45,166 --> 00:22:46,046
+even though we're looking for a
+
+
+714
+00:22:46,046 --> 00:22:47,696
+button in the navigation bar.
+
+
+715
+00:22:48,166 --> 00:22:50,316
+But first match allows us to
+
+
+716
+00:22:50,316 --> 00:22:51,846
+stop as soon as we find that
+
+
+717
+00:22:51,846 --> 00:22:53,566
+button and we never look at a
+
+
+718
+00:22:53,566 --> 00:22:56,576
+single row in that table.
+
+
+719
+00:22:56,746 --> 00:22:59,156
+So how does first match perform?
+
+
+720
+00:22:59,916 --> 00:23:01,056
+Well it's safe to say first
+
+
+721
+00:23:01,056 --> 00:23:02,316
+match is a game changer.
+
+
+722
+00:23:02,796 --> 00:23:04,306
+For many queries, it's as much
+
+
+723
+00:23:04,306 --> 00:23:06,306
+as an order of magnitude faster
+
+
+724
+00:23:06,776 --> 00:23:08,686
+and eliminates memory spiking
+
+
+725
+00:23:08,826 --> 00:23:09,606
+entirely.
+
+
+726
+00:23:10,516 --> 00:23:16,546
+[ Applause ]
+
+
+727
+00:23:17,046 --> 00:23:18,696
+Now the performance improvements
+
+
+728
+00:23:18,696 --> 00:23:20,396
+in first match are fantastic,
+
+
+729
+00:23:20,396 --> 00:23:22,226
+but it is important to notice
+
+
+730
+00:23:22,226 --> 00:23:23,466
+the difference between
+
+
+731
+00:23:23,466 --> 00:23:25,516
+traditional queries and not
+
+
+732
+00:23:25,516 --> 00:23:27,766
+simply litter first match
+
+
+733
+00:23:27,766 --> 00:23:29,206
+throughout your code without
+
+
+734
+00:23:29,206 --> 00:23:30,166
+some consideration.
+
+
+735
+00:23:30,906 --> 00:23:32,486
+Traditional query evaluation
+
+
+736
+00:23:32,486 --> 00:23:34,586
+finds all matches, this helps
+
+
+737
+00:23:34,636 --> 00:23:37,106
+detect ambiguous queries because
+
+
+738
+00:23:37,106 --> 00:23:38,526
+will raise a failure if you
+
+
+739
+00:23:38,526 --> 00:23:39,716
+attempt to interact with an
+
+
+740
+00:23:39,716 --> 00:23:41,376
+element that has multiple
+
+
+741
+00:23:41,376 --> 00:23:41,946
+matches.
+
+
+742
+00:23:42,836 --> 00:23:44,286
+First match is removing that
+
+
+743
+00:23:44,316 --> 00:23:45,756
+protection, your test will get
+
+
+744
+00:23:45,756 --> 00:23:46,586
+the first match.
+
+
+745
+00:23:47,146 --> 00:23:48,416
+And if something in your app's
+
+
+746
+00:23:48,416 --> 00:23:50,916
+UI has changed so that query is
+
+
+747
+00:23:50,916 --> 00:23:53,576
+actually not particularly
+
+
+748
+00:23:53,726 --> 00:23:55,646
+precise and results would be a
+
+
+749
+00:23:55,646 --> 00:23:58,506
+non-unique result first match
+
+
+750
+00:23:58,676 --> 00:23:59,866
+won't protect you and the
+
+
+751
+00:23:59,866 --> 00:24:01,546
+results could be surprising.
+
+
+752
+00:24:02,096 --> 00:24:03,936
+So, let's take a look at some
+
+
+753
+00:24:04,046 --> 00:24:05,526
+example queries and consider
+
+
+754
+00:24:05,526 --> 00:24:07,086
+whether they're good candidates
+
+
+755
+00:24:07,086 --> 00:24:07,946
+for first match.
+
+
+756
+00:24:08,726 --> 00:24:13,486
+So app.buttons.firstMatch is not
+
+
+757
+00:24:13,486 --> 00:24:15,626
+a good idea, this is like going
+
+
+758
+00:24:15,626 --> 00:24:16,846
+into the grocery store and just
+
+
+759
+00:24:16,846 --> 00:24:18,296
+saying I want food.
+
+
+760
+00:24:18,976 --> 00:24:20,726
+You might get a frozen chicken
+
+
+761
+00:24:20,726 --> 00:24:21,816
+or a piece of bubblegum or
+
+
+762
+00:24:21,816 --> 00:24:23,316
+banana there's no telling right.
+
+
+763
+00:24:23,816 --> 00:24:26,136
+So, this kind of query is simply
+
+
+764
+00:24:26,136 --> 00:24:27,886
+not precise enough for first
+
+
+765
+00:24:27,886 --> 00:24:28,306
+match.
+
+
+766
+00:24:29,306 --> 00:24:30,756
+Now this is a little better
+
+
+767
+00:24:30,756 --> 00:24:32,536
+because we've added an
+
+
+768
+00:24:32,536 --> 00:24:34,236
+identifying string to it as
+
+
+769
+00:24:34,236 --> 00:24:34,536
+well.
+
+
+770
+00:24:34,536 --> 00:24:36,456
+So many apps this might be
+
+
+771
+00:24:36,456 --> 00:24:37,536
+sufficient right there.
+
+
+772
+00:24:38,026 --> 00:24:40,936
+But taking it a step further and
+
+
+773
+00:24:41,146 --> 00:24:43,156
+adding more precision, more
+
+
+774
+00:24:43,156 --> 00:24:44,526
+level of detail to the query
+
+
+775
+00:24:44,756 --> 00:24:46,156
+makes it a better candidate for
+
+
+776
+00:24:46,156 --> 00:24:48,116
+first match and more likely to
+
+
+777
+00:24:48,116 --> 00:24:50,146
+just be robust everywhere while
+
+
+778
+00:24:50,146 --> 00:24:51,576
+still giving you the performance
+
+
+779
+00:24:51,576 --> 00:24:53,176
+improvements that come with
+
+
+780
+00:24:53,176 --> 00:24:53,866
+first match.
+
+
+781
+00:24:55,966 --> 00:24:58,266
+So while talking about all these
+
+
+782
+00:24:58,266 --> 00:25:00,336
+optimizations we need to tell
+
+
+783
+00:25:00,336 --> 00:25:01,666
+you a little bit about
+
+
+784
+00:25:01,906 --> 00:25:03,876
+block-based NSPredicates and
+
+
+785
+00:25:03,876 --> 00:25:05,116
+using them in your queries.
+
+
+786
+00:25:07,136 --> 00:25:09,306
+Unfortunately, they are at odds
+
+
+787
+00:25:09,306 --> 00:25:11,956
+with these optimizations, they
+
+
+788
+00:25:11,956 --> 00:25:13,476
+effectively inhibit them.
+
+
+789
+00:25:13,526 --> 00:25:15,136
+That is because first of all,
+
+
+790
+00:25:15,136 --> 00:25:16,866
+blocks can't be serialized, you
+
+
+791
+00:25:17,096 --> 00:25:18,356
+can't pass them around between
+
+
+792
+00:25:18,356 --> 00:25:21,136
+processes so that means no
+
+
+793
+00:25:21,136 --> 00:25:23,256
+remote query and no first match.
+
+
+794
+00:25:23,966 --> 00:25:25,196
+The other problem is that we
+
+
+795
+00:25:25,196 --> 00:25:26,856
+can't introspect, we can't look
+
+
+796
+00:25:26,856 --> 00:25:29,386
+into a block at runtime and no
+
+
+797
+00:25:29,516 --> 00:25:30,896
+which attributes your query
+
+
+798
+00:25:30,896 --> 00:25:31,896
+actually needs.
+
+
+799
+00:25:32,326 --> 00:25:33,576
+So that means the reduced
+
+
+800
+00:25:33,576 --> 00:25:34,856
+snapshot performance
+
+
+801
+00:25:34,856 --> 00:25:36,396
+improvements are also off the
+
+
+802
+00:25:36,396 --> 00:25:38,116
+table when you're using
+
+
+803
+00:25:38,116 --> 00:25:39,656
+block-based NSPredicates.
+
+
+804
+00:25:40,346 --> 00:25:42,256
+Fortunately, the use of
+
+
+805
+00:25:42,256 --> 00:25:44,096
+block-based NSPredicates in UI
+
+
+806
+00:25:44,096 --> 00:25:45,796
+testing queries is relatively
+
+
+807
+00:25:45,796 --> 00:25:48,066
+rare and can almost always be
+
+
+808
+00:25:48,066 --> 00:25:50,366
+replaced with a format string or
+
+
+809
+00:25:50,366 --> 00:25:52,106
+an NSExpression based predicate
+
+
+810
+00:25:52,106 --> 00:25:52,616
+instead.
+
+
+811
+00:25:53,496 --> 00:25:55,366
+Now if you find yourself with a
+
+
+812
+00:25:55,366 --> 00:25:57,566
+case that does require a
+
+
+813
+00:25:57,566 --> 00:25:58,946
+block-based predicate, I mean
+
+
+814
+00:25:58,946 --> 00:25:59,936
+they're still supported, they
+
+
+815
+00:25:59,936 --> 00:26:02,216
+still work or even something
+
+
+816
+00:26:02,216 --> 00:26:03,796
+where it's much more convenient
+
+
+817
+00:26:03,796 --> 00:26:05,226
+to use one.
+
+
+818
+00:26:05,386 --> 00:26:06,916
+We'd like to know about it, we'd
+
+
+819
+00:26:06,916 --> 00:26:08,496
+like you to file a bug so that
+
+
+820
+00:26:08,496 --> 00:26:11,196
+we can give you an API that does
+
+
+821
+00:26:11,246 --> 00:26:13,466
+the same thing, but in a way
+
+
+822
+00:26:13,466 --> 00:26:15,086
+that works well with the query
+
+
+823
+00:26:15,086 --> 00:26:15,826
+optimization.
+
+
+824
+00:26:15,826 --> 00:26:17,216
+So, we'd like to hear from you
+
+
+825
+00:26:17,706 --> 00:26:19,596
+if you feel you have cases where
+
+
+826
+00:26:19,596 --> 00:26:20,826
+you need a block-based
+
+
+827
+00:26:20,826 --> 00:26:21,196
+predicate.
+
+
+828
+00:26:21,706 --> 00:26:24,926
+That wraps up our discussion of
+
+
+829
+00:26:24,926 --> 00:26:26,086
+UI testing performance
+
+
+830
+00:26:26,086 --> 00:26:26,756
+improvements.
+
+
+831
+00:26:27,336 --> 00:26:29,236
+Queries should be all around
+
+
+832
+00:26:29,236 --> 00:26:30,766
+faster in Xcode 9.
+
+
+833
+00:26:31,266 --> 00:26:32,546
+Some of the improvements, the
+
+
+834
+00:26:32,546 --> 00:26:35,126
+remote query and first match do
+
+
+835
+00:26:35,126 --> 00:26:36,996
+also require the newest OS as
+
+
+836
+00:26:36,996 --> 00:26:39,326
+the newest macOS, iOS and tvOS.
+
+
+837
+00:26:40,006 --> 00:26:42,686
+But the query analysis benefits
+
+
+838
+00:26:42,686 --> 00:26:45,126
+should work even on older OS's.
+
+
+839
+00:26:45,546 --> 00:26:47,076
+So, UI testing performance we've
+
+
+840
+00:26:47,076 --> 00:26:49,036
+done a lot of work here and we
+
+
+841
+00:26:49,036 --> 00:26:50,416
+look forward to seeing your
+
+
+842
+00:26:50,416 --> 00:26:51,386
+tests running faster.
+
+
+843
+00:26:51,896 --> 00:26:54,146
+So finally, I'd like to share
+
+
+844
+00:26:54,146 --> 00:26:55,646
+with you a new group of
+
+
+845
+00:26:55,646 --> 00:26:57,816
+technologists called activities,
+
+
+846
+00:26:57,816 --> 00:26:59,636
+attachments and screenshots.
+
+
+847
+00:27:00,596 --> 00:27:01,976
+So, let's start with activities
+
+
+848
+00:27:01,976 --> 00:27:03,716
+which are a new way to create
+
+
+849
+00:27:03,716 --> 00:27:05,666
+additional structure and longer
+
+
+850
+00:27:05,666 --> 00:27:07,666
+running UI and integration
+
+
+851
+00:27:07,666 --> 00:27:08,246
+tests.
+
+
+852
+00:27:09,166 --> 00:27:11,216
+There's a single API that lets
+
+
+853
+00:27:11,216 --> 00:27:12,706
+you group together sections of
+
+
+854
+00:27:12,736 --> 00:27:14,006
+code by wrapping them in
+
+
+855
+00:27:14,006 --> 00:27:16,156
+closures passed to a new class
+
+
+856
+00:27:16,456 --> 00:27:17,646
+XCTContext.
+
+
+857
+00:27:18,186 --> 00:27:20,696
+Now here's part of the test
+
+
+858
+00:27:20,696 --> 00:27:22,636
+report from Warren's demo
+
+
+859
+00:27:22,636 --> 00:27:23,636
+earlier, which we didn't get a
+
+
+860
+00:27:23,636 --> 00:27:25,196
+chance to look at, but here it
+
+
+861
+00:27:25,196 --> 00:27:25,646
+is now.
+
+
+862
+00:27:25,776 --> 00:27:26,996
+And that test wasn't
+
+
+863
+00:27:26,996 --> 00:27:28,966
+particularly long or complex,
+
+
+864
+00:27:28,966 --> 00:27:30,416
+but you can see there's quite a
+
+
+865
+00:27:30,416 --> 00:27:31,176
+lot going on here.
+
+
+866
+00:27:31,766 --> 00:27:33,396
+So, consider these four actions.
+
+
+867
+00:27:34,156 --> 00:27:35,376
+Let's look at the code that
+
+
+868
+00:27:35,376 --> 00:27:35,916
+caused them.
+
+
+869
+00:27:37,146 --> 00:27:38,666
+We have a query to find the
+
+
+870
+00:27:38,666 --> 00:27:40,406
+view, we tap on it, type some
+
+
+871
+00:27:40,406 --> 00:27:42,196
+text and interact with a few
+
+
+872
+00:27:42,196 --> 00:27:42,636
+buttons.
+
+
+873
+00:27:43,316 --> 00:27:44,966
+This code makes a good logical
+
+
+874
+00:27:44,966 --> 00:27:46,176
+grouping, it's the code that
+
+
+875
+00:27:46,176 --> 00:27:48,276
+composes the any good coffee
+
+
+876
+00:27:48,276 --> 00:27:49,616
+places message.
+
+
+877
+00:27:50,076 --> 00:27:52,286
+So, creating an XCTActivity for
+
+
+878
+00:27:52,286 --> 00:27:54,166
+this code is very simple.
+
+
+879
+00:27:54,556 --> 00:27:56,486
+We simply wrap it in this run
+
+
+880
+00:27:56,486 --> 00:27:58,456
+activity call, we give it a nice
+
+
+881
+00:27:58,456 --> 00:27:59,776
+label because that's what we'll
+
+
+882
+00:27:59,776 --> 00:28:01,236
+show in the test report.
+
+
+883
+00:28:01,816 --> 00:28:02,846
+Now let's look at how that
+
+
+884
+00:28:02,846 --> 00:28:03,956
+changes the test report.
+
+
+885
+00:28:04,776 --> 00:28:06,436
+We have the original four
+
+
+886
+00:28:06,436 --> 00:28:08,576
+activities now enclosed in this
+
+
+887
+00:28:08,576 --> 00:28:10,756
+new activity compose coffee
+
+
+888
+00:28:10,756 --> 00:28:12,596
+message and you can expand it
+
+
+889
+00:28:12,596 --> 00:28:14,406
+still and see the original, more
+
+
+890
+00:28:14,406 --> 00:28:16,236
+granular details underneath.
+
+
+891
+00:28:16,776 --> 00:28:18,566
+But for the high level first
+
+
+892
+00:28:18,566 --> 00:28:19,586
+pass when you're looking at your
+
+
+893
+00:28:19,586 --> 00:28:21,366
+test report things will now be
+
+
+894
+00:28:21,366 --> 00:28:22,946
+more concise and semantically
+
+
+895
+00:28:22,946 --> 00:28:23,616
+meaningful.
+
+
+896
+00:28:24,556 --> 00:28:26,056
+Using this API throughout your
+
+
+897
+00:28:26,056 --> 00:28:27,466
+longer running tests and in
+
+
+898
+00:28:27,466 --> 00:28:29,266
+helper methods will just make
+
+
+899
+00:28:29,316 --> 00:28:31,086
+the test reports much easier to
+
+
+900
+00:28:31,086 --> 00:28:31,586
+explore.
+
+
+901
+00:28:32,466 --> 00:28:35,206
+Now along with activities we've
+
+
+902
+00:28:35,206 --> 00:28:36,686
+introduced something called
+
+
+903
+00:28:36,866 --> 00:28:37,646
+attachments.
+
+
+904
+00:28:38,086 --> 00:28:39,796
+For a long time now we've wanted
+
+
+905
+00:28:39,796 --> 00:28:41,596
+the ability to attach richer
+
+
+906
+00:28:41,596 --> 00:28:43,096
+data to test reports.
+
+
+907
+00:28:43,686 --> 00:28:45,526
+The primary motivation is to
+
+
+908
+00:28:45,526 --> 00:28:46,876
+make it easier to triage
+
+
+909
+00:28:46,876 --> 00:28:49,046
+failures with additional logs or
+
+
+910
+00:28:49,046 --> 00:28:50,506
+other data that give insight
+
+
+911
+00:28:50,626 --> 00:28:51,966
+into the conditions at the time
+
+
+912
+00:28:51,966 --> 00:28:52,436
+of failure.
+
+
+913
+00:28:53,496 --> 00:28:54,856
+In addition, this could be used
+
+
+914
+00:28:54,856 --> 00:28:55,876
+to support various
+
+
+915
+00:28:55,936 --> 00:28:57,556
+postprocessing workflows.
+
+
+916
+00:28:57,596 --> 00:28:59,156
+For example, sitting down with
+
+
+917
+00:28:59,156 --> 00:29:00,346
+your designers and looking at
+
+
+918
+00:29:00,346 --> 00:29:01,406
+screenshots together.
+
+
+919
+00:29:02,846 --> 00:29:04,576
+Now attachment support any kind
+
+
+920
+00:29:04,576 --> 00:29:07,096
+of binary data with convenience
+
+
+921
+00:29:07,096 --> 00:29:09,226
+APIs for strings, property
+
+
+922
+00:29:09,226 --> 00:29:11,996
+lists, codable objects, files
+
+
+923
+00:29:12,586 --> 00:29:13,536
+and images.
+
+
+924
+00:29:14,106 --> 00:29:15,856
+Any of these types can easily be
+
+
+925
+00:29:16,096 --> 00:29:17,806
+attached to your test so when
+
+
+926
+00:29:17,806 --> 00:29:18,866
+you look at the test report
+
+
+927
+00:29:18,866 --> 00:29:19,966
+there that data is.
+
+
+928
+00:29:20,496 --> 00:29:22,206
+And that brings us to the third
+
+
+929
+00:29:22,206 --> 00:29:23,516
+edition in our group of
+
+
+930
+00:29:23,556 --> 00:29:24,766
+technologies which are
+
+
+931
+00:29:24,766 --> 00:29:25,626
+screenshots.
+
+
+932
+00:29:26,506 --> 00:29:27,916
+Many of you have been asking us
+
+
+933
+00:29:27,916 --> 00:29:29,716
+over the years for an API to
+
+
+934
+00:29:29,716 --> 00:29:31,676
+explicitly capture screenshots
+
+
+935
+00:29:31,816 --> 00:29:32,626
+on demand.
+
+
+936
+00:29:32,836 --> 00:29:34,406
+Well we're happy to say that
+
+
+937
+00:29:34,406 --> 00:29:35,896
+here it is, we hope you enjoy
+
+
+938
+00:29:35,896 --> 00:29:35,963
+it.
+
+
+939
+00:29:36,516 --> 00:29:41,876
+[ Applause ]
+
+
+940
+00:29:42,376 --> 00:29:44,416
+This new XCUI screenshot
+
+
+941
+00:29:44,416 --> 00:29:45,596
+providing protocol is
+
+
+942
+00:29:45,596 --> 00:29:48,196
+implemented by both XCUIElement
+
+
+943
+00:29:48,576 --> 00:29:50,976
+and a new class XCUIScreen.
+
+
+944
+00:29:51,456 --> 00:29:52,966
+So, when you use an element and
+
+
+945
+00:29:52,966 --> 00:29:54,366
+you capture a screenshot it'll
+
+
+946
+00:29:54,366 --> 00:29:56,246
+be clipped to just the frame of
+
+
+947
+00:29:56,246 --> 00:29:56,946
+that element.
+
+
+948
+00:29:56,946 --> 00:29:58,136
+So, a button, you'll just see
+
+
+949
+00:29:58,136 --> 00:29:59,886
+the button, a window you'll see
+
+
+950
+00:29:59,886 --> 00:30:00,976
+the full window and so forth.
+
+
+951
+00:30:01,076 --> 00:30:03,176
+And if you use the screen API
+
+
+952
+00:30:03,636 --> 00:30:04,686
+you'll get the full screen
+
+
+953
+00:30:04,916 --> 00:30:06,386
+regardless of what application
+
+
+954
+00:30:06,386 --> 00:30:08,216
+or applications are present on
+
+
+955
+00:30:09,516 --> 00:30:09,596
+it.
+
+
+956
+00:30:09,966 --> 00:30:11,496
+Now with attachments and
+
+
+957
+00:30:11,496 --> 00:30:13,396
+screenshots, some of you may be
+
+
+958
+00:30:13,396 --> 00:30:16,096
+wondering how quickly will this
+
+
+959
+00:30:16,096 --> 00:30:17,476
+fill up my hard drive.
+
+
+960
+00:30:18,996 --> 00:30:20,876
+Well the default policies for
+
+
+961
+00:30:20,876 --> 00:30:22,186
+attachments and also for
+
+
+962
+00:30:22,186 --> 00:30:23,686
+screenshots that are captured
+
+
+963
+00:30:23,686 --> 00:30:25,406
+automatically during UI testing
+
+
+964
+00:30:25,846 --> 00:30:27,916
+is that if your test passes we
+
+
+965
+00:30:27,916 --> 00:30:28,926
+delete these for you.
+
+
+966
+00:30:29,546 --> 00:30:30,916
+The assumption is in the common
+
+
+967
+00:30:30,916 --> 00:30:33,286
+case you don't need them, but if
+
+
+968
+00:30:33,286 --> 00:30:34,806
+your test fails they're present
+
+
+969
+00:30:34,806 --> 00:30:35,196
+for you.
+
+
+970
+00:30:35,966 --> 00:30:38,056
+Now you can override this policy
+
+
+971
+00:30:38,406 --> 00:30:39,196
+in your scheme.
+
+
+972
+00:30:39,196 --> 00:30:40,756
+In the same part of the UI where
+
+
+973
+00:30:40,756 --> 00:30:42,946
+that localization control exists
+
+
+974
+00:30:43,026 --> 00:30:44,816
+you can tell us whether you want
+
+
+975
+00:30:44,816 --> 00:30:46,976
+screenshots captured at all
+
+
+976
+00:30:47,276 --> 00:30:48,936
+automatically and whether to
+
+
+977
+00:30:48,936 --> 00:30:50,856
+delete these and attachments
+
+
+978
+00:30:50,856 --> 00:30:52,376
+when tests succeed or not.
+
+
+979
+00:30:53,156 --> 00:30:54,996
+There is also API on the
+
+
+980
+00:30:54,996 --> 00:30:57,066
+attachment class that lets you
+
+
+981
+00:30:57,066 --> 00:30:59,576
+on a per instance basis say keep
+
+
+982
+00:30:59,576 --> 00:31:01,066
+this, don't keep that, and that
+
+
+983
+00:31:01,066 --> 00:31:01,596
+sort of thing.
+
+
+984
+00:31:02,186 --> 00:31:04,116
+So, you'll see that in the next
+
+
+985
+00:31:04,116 --> 00:31:06,576
+demo with attachments and
+
+
+986
+00:31:06,576 --> 00:31:08,156
+activities and screenshots in
+
+
+987
+00:31:08,156 --> 00:31:08,586
+action.
+
+
+988
+00:31:08,916 --> 00:31:10,796
+Please welcome Honza Dvorsky to
+
+
+989
+00:31:10,796 --> 00:31:10,976
+the stage.
+
+
+990
+00:31:11,516 --> 00:31:17,566
+[ Applause ]
+
+
+991
+00:31:18,066 --> 00:31:18,646
+>> Thank you Wil.
+
+
+992
+00:31:19,316 --> 00:31:21,616
+Good afternoon, my name is Honza
+
+
+993
+00:31:21,716 --> 00:31:23,546
+and today I'd like to show you
+
+
+994
+00:31:26,636 --> 00:31:29,836
+how we can organize your tests
+
+
+995
+00:31:29,836 --> 00:31:33,036
+using activities, then how to
+
+
+996
+00:31:33,036 --> 00:31:35,016
+screenshot your UI with the new
+
+
+997
+00:31:35,016 --> 00:31:37,696
+screenshot API, and finally how
+
+
+998
+00:31:37,696 --> 00:31:39,536
+to attach arbitrary data with
+
+
+999
+00:31:39,536 --> 00:31:40,286
+your tests.
+
+
+1000
+00:31:40,996 --> 00:31:42,656
+So, we'll start by looking at
+
+
+1001
+00:31:43,156 --> 00:31:44,606
+the test report of Warren's
+
+
+1002
+00:31:44,606 --> 00:31:44,926
+test.
+
+
+1003
+00:31:45,986 --> 00:31:46,816
+We can do that by
+
+
+1004
+00:31:46,816 --> 00:31:48,116
+Control-clicking on the test
+
+
+1005
+00:31:48,116 --> 00:31:49,796
+diamond and selecting
+
+
+1006
+00:31:49,896 --> 00:31:50,696
+[inaudible] the report.
+
+
+1007
+00:31:53,636 --> 00:31:55,506
+When we disclose the test, we
+
+
+1008
+00:31:55,506 --> 00:31:56,946
+reveal the test to transcript.
+
+
+1009
+00:31:57,486 --> 00:31:59,396
+The test transcript contains all
+
+
+1010
+00:31:59,396 --> 00:32:01,756
+the details about our test, but
+
+
+1011
+00:32:01,756 --> 00:32:03,166
+when it gets longer it can be
+
+
+1012
+00:32:03,166 --> 00:32:04,166
+difficult to navigate.
+
+
+1013
+00:32:07,076 --> 00:32:08,826
+In addition, what we see here
+
+
+1014
+00:32:08,826 --> 00:32:10,726
+are these leveled steps like
+
+
+1015
+00:32:10,726 --> 00:32:12,596
+these tabs and swipes, but it
+
+
+1016
+00:32:12,596 --> 00:32:14,266
+would help us to organize our
+
+
+1017
+00:32:14,266 --> 00:32:15,776
+test around these higher-level
+
+
+1018
+00:32:15,776 --> 00:32:18,586
+tasks like launch the app or
+
+
+1019
+00:32:18,586 --> 00:32:19,876
+compose in send a new message.
+
+
+1020
+00:32:20,956 --> 00:32:23,356
+So, we'll use activities to do
+
+
+1021
+00:32:23,356 --> 00:32:25,436
+just that.
+
+
+1022
+00:32:27,096 --> 00:32:28,236
+We'll jump back to the source
+
+
+1023
+00:32:28,606 --> 00:32:30,366
+and look for good candidates to
+
+
+1024
+00:32:30,366 --> 00:32:31,376
+wrap in our first activity.
+
+
+1025
+00:32:32,006 --> 00:32:33,366
+For example, this piece of code,
+
+
+1026
+00:32:33,606 --> 00:32:34,976
+compose and send a new message
+
+
+1027
+00:32:35,326 --> 00:32:36,016
+takes care of that.
+
+
+1028
+00:32:36,406 --> 00:32:39,916
+So, we wrap it in an activity by
+
+
+1029
+00:32:39,916 --> 00:32:42,316
+calling XCTContext.runActivity.
+
+
+1030
+00:32:43,006 --> 00:32:44,356
+It takes two parameters, the
+
+
+1031
+00:32:44,356 --> 00:32:45,406
+first is the name of the
+
+
+1032
+00:32:45,406 --> 00:32:47,536
+activity, compose and send a new
+
+
+1033
+00:32:47,536 --> 00:32:49,356
+message in our case, and the
+
+
+1034
+00:32:49,356 --> 00:32:51,246
+second is the block, the block
+
+
+1035
+00:32:51,246 --> 00:32:52,466
+represents the scope of the
+
+
+1036
+00:32:52,466 --> 00:32:52,906
+activity.
+
+
+1037
+00:32:53,786 --> 00:32:56,006
+But we'll close it down here and
+
+
+1038
+00:32:57,216 --> 00:32:59,036
+that's it, that's all you need
+
+
+1039
+00:32:59,036 --> 00:33:00,736
+to do to wrap a piece of code in
+
+
+1040
+00:33:00,736 --> 00:33:01,226
+an activity.
+
+
+1041
+00:33:02,776 --> 00:33:04,276
+Now I'll sprinkle more
+
+
+1042
+00:33:04,276 --> 00:33:09,066
+activities around this test.
+
+
+1043
+00:33:09,066 --> 00:33:10,826
+And we'll rerun the test to see
+
+
+1044
+00:33:10,826 --> 00:33:12,126
+how the test report changed.
+
+
+1045
+00:33:12,736 --> 00:33:16,736
+You can see that I wrapped the
+
+
+1046
+00:33:16,736 --> 00:33:18,986
+launching of the Reader app, the
+
+
+1047
+00:33:18,986 --> 00:33:20,006
+verification of the first
+
+
+1048
+00:33:20,006 --> 00:33:22,446
+message, the activation of the
+
+
+1049
+00:33:22,446 --> 00:33:24,306
+Writer app, the composing and
+
+
+1050
+00:33:24,306 --> 00:33:25,886
+sending a new message and so on.
+
+
+1051
+00:33:26,886 --> 00:33:29,066
+Now this is the same exact test
+
+
+1052
+00:33:29,166 --> 00:33:31,446
+that Warren wrote here, but this
+
+
+1053
+00:33:31,486 --> 00:33:33,246
+time the activities and the
+
+
+1054
+00:33:33,246 --> 00:33:35,206
+names we give them are getting
+
+
+1055
+00:33:35,206 --> 00:33:37,766
+included in the output as
+
+
+1056
+00:33:37,766 --> 00:33:38,916
+first-class citizens.
+
+
+1057
+00:33:39,586 --> 00:33:43,936
+So, we send our message, verify
+
+
+1058
+00:33:43,936 --> 00:33:45,866
+that it's the right one, and
+
+
+1059
+00:33:47,936 --> 00:33:48,816
+we're done.
+
+
+1060
+00:33:49,016 --> 00:33:50,516
+So, let's go back to the test
+
+
+1061
+00:33:50,516 --> 00:33:50,976
+report now.
+
+
+1062
+00:33:55,176 --> 00:33:56,876
+When we reveal the transcript
+
+
+1063
+00:33:56,876 --> 00:33:58,566
+now we can see it's much shorter
+
+
+1064
+00:33:59,086 --> 00:34:00,206
+and in addition, it better
+
+
+1065
+00:34:00,206 --> 00:34:02,106
+describes what our test does.
+
+
+1066
+00:34:02,466 --> 00:34:04,026
+It launches the Reader app,
+
+
+1067
+00:34:04,536 --> 00:34:06,006
+verifies the first message,
+
+
+1068
+00:34:06,386 --> 00:34:07,656
+activates the Writer app,
+
+
+1069
+00:34:07,806 --> 00:34:09,306
+composes and sends a new message
+
+
+1070
+00:34:09,306 --> 00:34:09,766
+and so on.
+
+
+1071
+00:34:10,485 --> 00:34:11,656
+But if you still need to know
+
+
+1072
+00:34:11,656 --> 00:34:13,166
+all the details about that
+
+
+1073
+00:34:13,166 --> 00:34:15,156
+activity all the sub activities
+
+
+1074
+00:34:15,226 --> 00:34:16,755
+are hidden one level deeper.
+
+
+1075
+00:34:17,726 --> 00:34:19,556
+So, activities are a great way
+
+
+1076
+00:34:19,556 --> 00:34:23,226
+to organize your tests.
+
+
+1077
+00:34:23,275 --> 00:34:25,166
+Now let's switch gears a little
+
+
+1078
+00:34:25,536 --> 00:34:25,676
+bit.
+
+
+1079
+00:34:25,676 --> 00:34:27,926
+Our designers that helped us
+
+
+1080
+00:34:27,926 --> 00:34:30,676
+with our app wanted to make sure
+
+
+1081
+00:34:30,676 --> 00:34:32,255
+that our message cells here
+
+
+1082
+00:34:32,746 --> 00:34:33,866
+follow their beautiful
+
+
+1083
+00:34:33,866 --> 00:34:35,216
+specification exactly.
+
+
+1084
+00:34:35,956 --> 00:34:37,565
+So, what we'll do is write a UI
+
+
+1085
+00:34:37,565 --> 00:34:39,795
+test which captures the visual
+
+
+1086
+00:34:39,795 --> 00:34:42,315
+state of the app and then we'll
+
+
+1087
+00:34:42,315 --> 00:34:44,076
+run this test every night on our
+
+
+1088
+00:34:44,076 --> 00:34:44,456
+bots.
+
+
+1089
+00:34:44,906 --> 00:34:46,346
+This way, our designers can come
+
+
+1090
+00:34:46,346 --> 00:34:47,926
+in and see what the app looks
+
+
+1091
+00:34:47,956 --> 00:34:49,036
+like anytime they want.
+
+
+1092
+00:34:49,696 --> 00:34:53,426
+So, this is a new class visual
+
+
+1093
+00:34:53,426 --> 00:34:54,315
+validation tests.
+
+
+1094
+00:34:54,315 --> 00:34:56,806
+I already have the code to
+
+
+1095
+00:34:56,876 --> 00:34:58,186
+launch the app in the state I
+
+
+1096
+00:34:58,186 --> 00:35:00,196
+want it in and I also have this
+
+
+1097
+00:35:00,196 --> 00:35:01,376
+empty activity gather
+
+
+1098
+00:35:01,376 --> 00:35:03,156
+screenshots and this is where
+
+
+1099
+00:35:03,156 --> 00:35:04,546
+we'll place our screenshots now.
+
+
+1100
+00:35:05,386 --> 00:35:06,746
+We'll capture two screenshots,
+
+
+1101
+00:35:06,746 --> 00:35:08,436
+the first of the full-screen of
+
+
+1102
+00:35:08,436 --> 00:35:11,056
+the app and one of just the
+
+
+1103
+00:35:11,056 --> 00:35:11,986
+first message cell.
+
+
+1104
+00:35:12,516 --> 00:35:16,076
+So, to capture the full screen
+
+
+1105
+00:35:16,366 --> 00:35:18,566
+we use the new XCUIScreen API to
+
+
+1106
+00:35:18,566 --> 00:35:20,416
+get a handle to the main screen.
+
+
+1107
+00:35:21,546 --> 00:35:23,456
+Now as Wil mentioned, XCUIScreen
+
+
+1108
+00:35:23,456 --> 00:35:25,336
+conforms to XCUI screenshot
+
+
+1109
+00:35:25,336 --> 00:35:27,216
+providing so we can just simply
+
+
+1110
+00:35:27,216 --> 00:35:29,006
+ask it for a screenshot of
+
+
+1111
+00:35:29,006 --> 00:35:29,396
+itself.
+
+
+1112
+00:35:29,426 --> 00:35:32,676
+Now we have the screenshot in
+
+
+1113
+00:35:32,676 --> 00:35:34,106
+memory and we somehow want to
+
+
+1114
+00:35:34,186 --> 00:35:36,476
+persist it with our test and
+
+
+1115
+00:35:36,476 --> 00:35:37,726
+this is where attachments come
+
+
+1116
+00:35:37,726 --> 00:35:37,926
+in.
+
+
+1117
+00:35:38,256 --> 00:35:41,766
+Attachments can hold any data
+
+
+1118
+00:35:42,086 --> 00:35:43,666
+and XCTAttachment provides
+
+
+1119
+00:35:43,666 --> 00:35:45,096
+convenience initializers for
+
+
+1120
+00:35:45,096 --> 00:35:46,846
+types like strings, files,
+
+
+1121
+00:35:46,846 --> 00:35:48,056
+images and screenshots.
+
+
+1122
+00:35:48,446 --> 00:35:50,986
+So, we'll create a new
+
+
+1123
+00:35:50,986 --> 00:35:52,156
+attachment to hold our
+
+
+1124
+00:35:52,156 --> 00:35:52,786
+screenshots.
+
+
+1125
+00:35:54,276 --> 00:35:56,936
+Now as Wil mentioned, the
+
+
+1126
+00:35:56,936 --> 00:35:58,686
+attachments get deleted whenever
+
+
+1127
+00:35:58,686 --> 00:36:00,146
+the test passes, it's a default
+
+
+1128
+00:36:00,146 --> 00:36:00,596
+behavior.
+
+
+1129
+00:36:01,606 --> 00:36:02,946
+But in our case here we want to
+
+
+1130
+00:36:02,946 --> 00:36:04,266
+persist these attachments
+
+
+1131
+00:36:04,316 --> 00:36:05,876
+regardless of the test result.
+
+
+1132
+00:36:06,416 --> 00:36:07,926
+We can do a separate attachment
+
+
+1133
+00:36:08,396 --> 00:36:10,936
+by customizing its lifetime to
+
+
+1134
+00:36:10,936 --> 00:36:11,906
+keep always.
+
+
+1135
+00:36:13,176 --> 00:36:14,496
+And finally, we add this
+
+
+1136
+00:36:14,496 --> 00:36:16,526
+attachment to an activity, we'll
+
+
+1137
+00:36:16,526 --> 00:36:18,386
+add it to this activity that
+
+
+1138
+00:36:18,386 --> 00:36:19,366
+represents our gather
+
+
+1139
+00:36:19,366 --> 00:36:19,976
+screenshots.
+
+
+1140
+00:36:24,286 --> 00:36:25,676
+Now we captured the full screen,
+
+
+1141
+00:36:25,676 --> 00:36:27,276
+we also wanted to capture just
+
+
+1142
+00:36:27,276 --> 00:36:28,416
+the first message cell.
+
+
+1143
+00:36:28,506 --> 00:36:31,586
+So, we first used the existing
+
+
+1144
+00:36:31,936 --> 00:36:33,696
+UI testing API to get an
+
+
+1145
+00:36:33,696 --> 00:36:35,266
+XCUIElement for the cell.
+
+
+1146
+00:36:36,166 --> 00:36:38,036
+An XCUIElement also conforms to
+
+
+1147
+00:36:38,036 --> 00:36:40,156
+XCUI screenshot providing so we
+
+
+1148
+00:36:40,156 --> 00:36:41,576
+can just follow the same steps
+
+
+1149
+00:36:41,576 --> 00:36:41,806
+here.
+
+
+1150
+00:36:42,306 --> 00:36:44,336
+We ask the cell for a screenshot
+
+
+1151
+00:36:44,336 --> 00:36:46,056
+of itself, we create an
+
+
+1152
+00:36:46,056 --> 00:36:47,556
+attachment for it, customize its
+
+
+1153
+00:36:47,556 --> 00:36:49,426
+lifetime and add the attachment
+
+
+1154
+00:36:49,426 --> 00:36:50,036
+to the activity.
+
+
+1155
+00:36:51,416 --> 00:36:52,986
+So, let's run the test now and
+
+
+1156
+00:36:52,986 --> 00:36:53,576
+see what we get.
+
+
+1157
+00:36:59,046 --> 00:37:01,136
+This is a simple test that just
+
+
+1158
+00:37:01,136 --> 00:37:03,956
+launches our app and captures
+
+
+1159
+00:37:03,956 --> 00:37:06,516
+the two screenshots, adds those
+
+
+1160
+00:37:06,516 --> 00:37:08,176
+two screenshots as attachments
+
+
+1161
+00:37:08,176 --> 00:37:08,976
+and finishes.
+
+
+1162
+00:37:14,186 --> 00:37:14,536
+That's it.
+
+
+1163
+00:37:14,856 --> 00:37:16,636
+So, we go to the test report.
+
+
+1164
+00:37:17,176 --> 00:37:23,076
+Now when we reveal the test we
+
+
+1165
+00:37:23,076 --> 00:37:25,096
+see our gather screenshots
+
+
+1166
+00:37:25,096 --> 00:37:28,246
+activity and it contains our two
+
+
+1167
+00:37:28,246 --> 00:37:29,086
+attachments and [inaudible]
+
+
+1168
+00:37:29,086 --> 00:37:29,816
+activity.
+
+
+1169
+00:37:30,226 --> 00:37:32,086
+So, this is the attachment that
+
+
+1170
+00:37:32,086 --> 00:37:34,416
+represents the first main screen
+
+
+1171
+00:37:34,416 --> 00:37:36,496
+screenshot and this represents
+
+
+1172
+00:37:36,496 --> 00:37:37,616
+the screenshot of just the
+
+
+1173
+00:37:37,616 --> 00:37:38,196
+message cell.
+
+
+1174
+00:37:38,986 --> 00:37:41,146
+We could use this QuickLook icon
+
+
+1175
+00:37:41,146 --> 00:37:43,226
+here to get a preview window for
+
+
+1176
+00:37:43,226 --> 00:37:45,296
+it, but in fact I want to use
+
+
+1177
+00:37:45,296 --> 00:37:47,486
+this the Assistant Editor to do
+
+
+1178
+00:37:47,486 --> 00:37:47,766
+that.
+
+
+1179
+00:37:52,046 --> 00:37:53,476
+So, we just select the right
+
+
+1180
+00:37:53,736 --> 00:37:56,286
+screenshot and this is our
+
+
+1181
+00:37:56,386 --> 00:37:59,426
+full-screen screenshot and this
+
+
+1182
+00:37:59,426 --> 00:38:00,626
+is the screenshot of just the
+
+
+1183
+00:38:00,626 --> 00:38:01,516
+first message cell.
+
+
+1184
+00:38:02,446 --> 00:38:04,226
+So, now you can see how super
+
+
+1185
+00:38:04,226 --> 00:38:06,146
+easy it is to capture, oh
+
+
+1186
+00:38:06,146 --> 00:38:06,396
+thanks.
+
+
+1187
+00:38:07,516 --> 00:38:12,546
+[ Applause ]
+
+
+1188
+00:38:13,046 --> 00:38:14,216
+Now you can see how easy it is
+
+
+1189
+00:38:14,216 --> 00:38:15,946
+to really capture any screen or
+
+
+1190
+00:38:15,946 --> 00:38:17,036
+element you have in your app
+
+
+1191
+00:38:17,526 --> 00:38:19,236
+with the new screenshot API and
+
+
+1192
+00:38:19,616 --> 00:38:21,276
+attach it to the test with the
+
+
+1193
+00:38:21,276 --> 00:38:22,376
+new attachments API.
+
+
+1194
+00:38:22,376 --> 00:38:25,806
+I really hope you give it a try.
+
+
+1195
+00:38:25,976 --> 00:38:27,516
+Okay and with that I would like
+
+
+1196
+00:38:27,516 --> 00:38:28,826
+to invite Wil back to wrap
+
+
+1197
+00:38:28,826 --> 00:38:29,536
+things up for us.
+
+
+1198
+00:38:29,806 --> 00:38:29,976
+Wil.
+
+
+1199
+00:38:30,516 --> 00:38:36,686
+[ Applause ]
+
+
+1200
+00:38:37,186 --> 00:38:38,866
+>> Thanks Honza, that is pretty
+
+
+1201
+00:38:38,866 --> 00:38:40,396
+awesome stuff, you can see just
+
+
+1202
+00:38:40,396 --> 00:38:41,956
+how easy activities make it to
+
+
+1203
+00:38:41,956 --> 00:38:43,956
+improve the test structure and
+
+
+1204
+00:38:43,956 --> 00:38:45,176
+capturing rich data with
+
+
+1205
+00:38:45,176 --> 00:38:46,956
+attachments will make fixing
+
+
+1206
+00:38:46,956 --> 00:38:48,346
+your test failures simpler than
+
+
+1207
+00:38:48,346 --> 00:38:50,596
+ever and screenshots, I mean who
+
+
+1208
+00:38:50,596 --> 00:38:51,606
+doesn't love screenshots.
+
+
+1209
+00:38:52,216 --> 00:38:53,436
+Activities, attachments and
+
+
+1210
+00:38:53,436 --> 00:38:54,926
+screenshots it's a great new set
+
+
+1211
+00:38:54,926 --> 00:38:56,606
+of technologies for use in your
+
+
+1212
+00:38:56,606 --> 00:38:57,126
+tests.
+
+
+1213
+00:38:57,626 --> 00:39:00,346
+So, we started off with what's
+
+
+1214
+00:39:00,346 --> 00:39:01,636
+new in testing and as you can
+
+
+1215
+00:39:01,636 --> 00:39:02,396
+see, quite a lot.
+
+
+1216
+00:39:03,156 --> 00:39:04,996
+We have many new APIs for you to
+
+
+1217
+00:39:04,996 --> 00:39:06,476
+use and we didn't even touch on
+
+
+1218
+00:39:06,476 --> 00:39:07,416
+all of them here today.
+
+
+1219
+00:39:08,236 --> 00:39:11,656
+So, we have lots of new APIs and
+
+
+1220
+00:39:12,086 --> 00:39:14,376
+we have the new workflow and
+
+
+1221
+00:39:14,376 --> 00:39:15,896
+continuous integration features
+
+
+1222
+00:39:15,986 --> 00:39:18,216
+in Xcode, Xcodebuild and Xcode
+
+
+1223
+00:39:18,216 --> 00:39:20,346
+Server and we have those great
+
+
+1224
+00:39:20,346 --> 00:39:21,986
+performance improvements in UI
+
+
+1225
+00:39:21,986 --> 00:39:22,406
+testing.
+
+
+1226
+00:39:22,486 --> 00:39:25,676
+So, thanks for coming today.
+
+
+1227
+00:39:26,066 --> 00:39:27,876
+The session, page session of
+
+
+1228
+00:39:27,906 --> 00:39:30,346
+that link above has all the
+
+
+1229
+00:39:30,346 --> 00:39:31,746
+related resources and
+
+
+1230
+00:39:31,746 --> 00:39:33,076
+documentation, everything you're
+
+
+1231
+00:39:33,076 --> 00:39:33,626
+looking for.
+
+
+1232
+00:39:34,376 --> 00:39:36,036
+And of course, we have lots of
+
+
+1233
+00:39:36,036 --> 00:39:38,076
+sessions in the past and one
+
+
+1234
+00:39:38,076 --> 00:39:39,156
+tomorrow that I encourage you to
+
+
+1235
+00:39:39,156 --> 00:39:39,686
+check out.
+
+
+1236
+00:39:40,286 --> 00:39:42,196
+Also, the previous years'
+
+
+1237
+00:39:42,196 --> 00:39:43,646
+sessions have some really great
+
+
+1238
+00:39:43,646 --> 00:39:45,206
+information about other parts of
+
+
+1239
+00:39:45,206 --> 00:39:47,426
+testing in Xcode that we didn't
+
+
+1240
+00:39:47,426 --> 00:39:48,656
+really take a close look at
+
+
+1241
+00:39:48,746 --> 00:39:49,016
+today.
+
+
+1242
+00:39:49,516 --> 00:39:49,846
+Thanks.
+

@@ -1,0 +1,7299 @@
+1
+00:00:18,516 --> 00:00:22,066
+[ Applause ]
+
+
+2
+00:00:22,566 --> 00:00:23,626
+>> Good morning.
+
+
+3
+00:00:24,006 --> 00:00:25,986
+Welcome to Drag and Drop with
+
+
+4
+00:00:25,986 --> 00:00:27,436
+collection and table view.
+
+
+5
+00:00:28,096 --> 00:00:29,016
+I'm Tyler Fox.
+
+
+6
+00:00:29,016 --> 00:00:30,106
+I'll later be joined by my
+
+
+7
+00:00:30,106 --> 00:00:31,536
+colleague Mohammed Jisrawi.
+
+
+8
+00:00:32,165 --> 00:00:32,996
+And unfortunately our
+
+
+9
+00:00:32,996 --> 00:00:34,506
+co-presenter Steve Breen had a
+
+
+10
+00:00:34,506 --> 00:00:36,116
+last minute medical emergency
+
+
+11
+00:00:36,446 --> 00:00:38,686
+earlier this week, so he's been
+
+
+12
+00:00:38,686 --> 00:00:40,216
+an amazing trooper and has been
+
+
+13
+00:00:40,216 --> 00:00:41,786
+recovering quickly but
+
+
+14
+00:00:41,786 --> 00:00:42,776
+unfortunately can't join us on
+
+
+15
+00:00:42,776 --> 00:00:43,366
+stage today.
+
+
+16
+00:00:43,756 --> 00:00:44,576
+So just a quick round of
+
+
+17
+00:00:44,576 --> 00:00:45,586
+applause, because he contributed
+
+
+18
+00:00:45,586 --> 00:00:46,666
+a lot to the stuff we're going
+
+
+19
+00:00:46,666 --> 00:00:48,956
+to talk about today.
+
+
+20
+00:00:50,076 --> 00:00:52,876
+So with that, let's talk about
+
+
+21
+00:00:52,876 --> 00:00:54,446
+Drag and Drop in collection and
+
+
+22
+00:00:54,446 --> 00:00:55,306
+table views.
+
+
+23
+00:00:56,156 --> 00:00:58,466
+We built a nice little app to
+
+
+24
+00:00:58,466 --> 00:01:00,006
+showcase some of the ways that
+
+
+25
+00:01:00,006 --> 00:01:01,506
+you can use Drag and Drop in
+
+
+26
+00:01:01,506 --> 00:01:02,576
+collection and table view.
+
+
+27
+00:01:03,226 --> 00:01:04,706
+In this app, it's a nice photo
+
+
+28
+00:01:04,706 --> 00:01:06,276
+library where we have albums and
+
+
+29
+00:01:06,276 --> 00:01:07,546
+photos in each of those albums,
+
+
+30
+00:01:07,776 --> 00:01:09,146
+and you can drag photos around
+
+
+31
+00:01:09,146 --> 00:01:10,416
+from one album to another.
+
+
+32
+00:01:10,846 --> 00:01:12,736
+You can even actually drop them
+
+
+33
+00:01:12,736 --> 00:01:14,396
+directly into that table view of
+
+
+34
+00:01:14,396 --> 00:01:15,416
+each of the albums.
+
+
+35
+00:01:15,826 --> 00:01:17,436
+And you can reorder photos
+
+
+36
+00:01:17,506 --> 00:01:19,026
+within the actual collection
+
+
+37
+00:01:19,026 --> 00:01:19,396
+views.
+
+
+38
+00:01:19,686 --> 00:01:21,066
+So we're going to show you how
+
+
+39
+00:01:21,066 --> 00:01:22,546
+you can actually use our new
+
+
+40
+00:01:22,546 --> 00:01:24,886
+APIs and iOS 11 to add Drag and
+
+
+41
+00:01:24,886 --> 00:01:25,976
+Drop to collection and table
+
+
+42
+00:01:25,976 --> 00:01:28,446
+views in all of your apps.
+
+
+43
+00:01:28,916 --> 00:01:30,476
+Now, you've probably been to
+
+
+44
+00:01:30,476 --> 00:01:31,686
+some of the sessions earlier
+
+
+45
+00:01:31,686 --> 00:01:33,876
+this week about all of this new
+
+
+46
+00:01:33,876 --> 00:01:35,706
+great API that we have in UIKit
+
+
+47
+00:01:35,706 --> 00:01:36,486
+for Drag and Drop.
+
+
+48
+00:01:37,306 --> 00:01:38,966
+So we have this great new drag
+
+
+49
+00:01:38,966 --> 00:01:40,576
+interaction and drop interaction
+
+
+50
+00:01:40,576 --> 00:01:41,506
+API layer.
+
+
+51
+00:01:41,856 --> 00:01:43,296
+We have new enhancements to NS
+
+
+52
+00:01:43,296 --> 00:01:45,796
+item provider in iOS 11, but
+
+
+53
+00:01:45,796 --> 00:01:47,236
+today, we're going to focus on
+
+
+54
+00:01:47,236 --> 00:01:48,216
+UICollectionView and
+
+
+55
+00:01:48,216 --> 00:01:49,526
+UITtableView, of course.
+
+
+56
+00:01:49,876 --> 00:01:51,446
+And we have new higher level
+
+
+57
+00:01:51,446 --> 00:01:53,666
+APIs specific for those classes.
+
+
+58
+00:01:53,666 --> 00:01:56,226
+So you might be wondering why do
+
+
+59
+00:01:56,226 --> 00:01:57,916
+we need new APIs just for
+
+
+60
+00:01:57,916 --> 00:01:59,166
+collection and table view?
+
+
+61
+00:01:59,546 --> 00:02:00,516
+It's a great question.
+
+
+62
+00:02:01,356 --> 00:02:03,446
+We wanted to build some specific
+
+
+63
+00:02:03,446 --> 00:02:05,246
+APIs that are focused around
+
+
+64
+00:02:05,376 --> 00:02:06,996
+cells and index paths.
+
+
+65
+00:02:06,996 --> 00:02:08,216
+As you know, collection and
+
+
+66
+00:02:08,216 --> 00:02:10,045
+table view are composite views
+
+
+67
+00:02:10,045 --> 00:02:11,826
+that build up a lot of smaller
+
+
+68
+00:02:11,826 --> 00:02:13,276
+cells to display on screen.
+
+
+69
+00:02:14,226 --> 00:02:15,556
+And so we realized we can help
+
+
+70
+00:02:15,556 --> 00:02:16,936
+you out a lot by speaking in
+
+
+71
+00:02:16,936 --> 00:02:18,616
+those native cell and index path
+
+
+72
+00:02:18,716 --> 00:02:19,956
+terms that you're familiar with.
+
+
+73
+00:02:20,956 --> 00:02:22,756
+We also wanted to make it easy
+
+
+74
+00:02:22,756 --> 00:02:24,456
+to build fluid animations and
+
+
+75
+00:02:24,456 --> 00:02:25,656
+get consistent behavior with
+
+
+76
+00:02:25,656 --> 00:02:26,886
+your collection and table views
+
+
+77
+00:02:26,886 --> 00:02:27,836
+across the system.
+
+
+78
+00:02:29,036 --> 00:02:30,396
+And we also recognized there are
+
+
+79
+00:02:30,396 --> 00:02:32,006
+some specific challenges with
+
+
+80
+00:02:32,006 --> 00:02:33,456
+collection and table view to
+
+
+81
+00:02:33,456 --> 00:02:34,716
+handle a synchronous data
+
+
+82
+00:02:34,716 --> 00:02:35,106
+loading.
+
+
+83
+00:02:35,106 --> 00:02:36,396
+We have some really cool new
+
+
+84
+00:02:36,396 --> 00:02:37,516
+stuff that we're really excited
+
+
+85
+00:02:37,516 --> 00:02:38,456
+to share with you later in the
+
+
+86
+00:02:38,456 --> 00:02:38,916
+session.
+
+
+87
+00:02:39,936 --> 00:02:41,876
+Finally I'd like to make a note
+
+
+88
+00:02:41,876 --> 00:02:42,936
+that throughout this talk we're
+
+
+89
+00:02:42,936 --> 00:02:44,536
+going to be showing examples of
+
+
+90
+00:02:44,536 --> 00:02:45,826
+collection view and table view
+
+
+91
+00:02:45,826 --> 00:02:47,976
+code but you should know that we
+
+
+92
+00:02:47,976 --> 00:02:49,796
+have a consistent API for both
+
+
+93
+00:02:49,796 --> 00:02:51,056
+of these classes, so sometimes
+
+
+94
+00:02:51,056 --> 00:02:52,046
+we're going to show one or the
+
+
+95
+00:02:52,046 --> 00:02:53,696
+other and you should know that
+
+
+96
+00:02:53,696 --> 00:02:54,746
+[inaudible] some small naming
+
+
+97
+00:02:54,746 --> 00:02:56,146
+differences, everything applies
+
+
+98
+00:02:56,146 --> 00:02:57,006
+equally to both.
+
+
+99
+00:02:57,006 --> 00:02:58,306
+We'll call out the differences
+
+
+100
+00:02:58,306 --> 00:02:58,986
+when there are some.
+
+
+101
+00:02:59,266 --> 00:03:00,716
+With that, let's go through our
+
+
+102
+00:03:00,716 --> 00:03:01,436
+agenda for today.
+
+
+103
+00:03:01,436 --> 00:03:03,476
+We're going to start by covering
+
+
+104
+00:03:03,556 --> 00:03:04,376
+the basics.
+
+
+105
+00:03:04,486 --> 00:03:05,846
+How you can very quickly just
+
+
+106
+00:03:05,846 --> 00:03:07,116
+get Drag and Drop up and running
+
+
+107
+00:03:07,116 --> 00:03:08,406
+in collection and table views.
+
+
+108
+00:03:08,876 --> 00:03:10,716
+And then we're going to focus on
+
+
+109
+00:03:10,906 --> 00:03:12,106
+perfecting drops.
+
+
+110
+00:03:12,466 --> 00:03:13,666
+With just a little bit more
+
+
+111
+00:03:13,666 --> 00:03:15,816
+work, you can make your Drag and
+
+
+112
+00:03:15,816 --> 00:03:17,296
+Drop experience in collection
+
+
+113
+00:03:17,296 --> 00:03:18,356
+and table view just look
+
+
+114
+00:03:18,466 --> 00:03:18,966
+awesome.
+
+
+115
+00:03:18,966 --> 00:03:19,806
+And we'll show you some really
+
+
+116
+00:03:19,806 --> 00:03:21,606
+cool animations you can add and
+
+
+117
+00:03:21,606 --> 00:03:22,556
+a whole bunch of great stuff.
+
+
+118
+00:03:23,166 --> 00:03:24,386
+And finally we'll talk about
+
+
+119
+00:03:24,386 --> 00:03:26,486
+final touches, some really nice
+
+
+120
+00:03:26,756 --> 00:03:28,136
+customizations and additional
+
+
+121
+00:03:28,136 --> 00:03:28,926
+things that you can take
+
+
+122
+00:03:28,926 --> 00:03:30,346
+advantage of to make that
+
+
+123
+00:03:30,346 --> 00:03:31,636
+experience really shine.
+
+
+124
+00:03:32,426 --> 00:03:33,606
+To start, I'd like to bring up
+
+
+125
+00:03:33,606 --> 00:03:35,286
+Mohammed to tell you all about
+
+
+126
+00:03:35,286 --> 00:03:36,636
+the basics of getting Drag and
+
+
+127
+00:03:36,636 --> 00:03:37,806
+Drop in your collection and
+
+
+128
+00:03:37,806 --> 00:03:38,426
+table views.
+
+
+129
+00:03:38,466 --> 00:03:38,976
+Mohammed.
+
+
+130
+00:03:39,516 --> 00:03:44,636
+[ Applause ]
+
+
+131
+00:03:45,136 --> 00:03:45,746
+>> Thanks Tyler.
+
+
+132
+00:03:47,066 --> 00:03:48,576
+We wanted to make adopting Drag
+
+
+133
+00:03:48,576 --> 00:03:50,176
+and Drop in your apps with
+
+
+134
+00:03:50,176 --> 00:03:51,206
+collection and table view as
+
+
+135
+00:03:51,266 --> 00:03:52,256
+easy as possible.
+
+
+136
+00:03:52,456 --> 00:03:54,336
+So to help you do that we're
+
+
+137
+00:03:54,336 --> 00:03:56,446
+introducing two new delegates on
+
+
+138
+00:03:56,446 --> 00:03:58,166
+both collection and table view.
+
+
+139
+00:03:59,036 --> 00:04:00,946
+The first is the dragDelegate,
+
+
+140
+00:04:01,416 --> 00:04:04,566
+which has methods for initiating
+
+
+141
+00:04:04,566 --> 00:04:05,926
+and customizing drags.
+
+
+142
+00:04:06,656 --> 00:04:08,596
+And second is the dropDelegate,
+
+
+143
+00:04:08,986 --> 00:04:11,286
+which has methods for completing
+
+
+144
+00:04:11,286 --> 00:04:11,596
+drags.
+
+
+145
+00:04:11,596 --> 00:04:13,416
+So basically data transfer,
+
+
+146
+00:04:13,786 --> 00:04:15,826
+customizing drop animations,
+
+
+147
+00:04:15,886 --> 00:04:17,125
+things like that.
+
+
+148
+00:04:17,986 --> 00:04:19,966
+It's important to note that
+
+
+149
+00:04:19,966 --> 00:04:21,116
+these two protocols are
+
+
+150
+00:04:21,116 --> 00:04:22,586
+completely independent.
+
+
+151
+00:04:22,986 --> 00:04:25,176
+You can use one or the other, if
+
+
+152
+00:04:25,176 --> 00:04:26,276
+you want one-half of the
+
+
+153
+00:04:26,276 --> 00:04:29,916
+experience or you can use both
+
+
+154
+00:04:30,016 --> 00:04:31,736
+to have both Drag and Drop.
+
+
+155
+00:04:32,016 --> 00:04:33,706
+Using both also unlocks
+
+
+156
+00:04:33,706 --> 00:04:35,136
+additional functionality like
+
+
+157
+00:04:35,136 --> 00:04:36,846
+reordering within your
+
+
+158
+00:04:36,846 --> 00:04:38,096
+collection or table view.
+
+
+159
+00:04:39,386 --> 00:04:40,906
+Implementing drags is pretty
+
+
+160
+00:04:40,906 --> 00:04:41,566
+straightforward.
+
+
+161
+00:04:41,846 --> 00:04:45,156
+You conform to dragDelegate and
+
+
+162
+00:04:45,156 --> 00:04:49,196
+implement one required method.
+
+
+163
+00:04:49,226 --> 00:04:50,956
+Items for beginning session at
+
+
+164
+00:04:50,956 --> 00:04:52,866
+index paths is called when the
+
+
+165
+00:04:52,866 --> 00:04:54,676
+user initiates a drag out of
+
+
+166
+00:04:54,676 --> 00:04:55,516
+your collection view, so
+
+
+167
+00:04:55,516 --> 00:04:56,346
+basically when they start
+
+
+168
+00:04:56,346 --> 00:04:57,376
+dragging a cell.
+
+
+169
+00:04:57,976 --> 00:05:01,116
+It's the app's responsibility to
+
+
+170
+00:05:01,266 --> 00:05:03,706
+use the input session and index
+
+
+171
+00:05:03,706 --> 00:05:06,716
+path to figure out how to handle
+
+
+172
+00:05:06,716 --> 00:05:07,486
+that drag.
+
+
+173
+00:05:08,446 --> 00:05:11,236
+So returning an array of
+
+
+174
+00:05:11,236 --> 00:05:13,346
+UIDragItems initiates the drag,
+
+
+175
+00:05:13,856 --> 00:05:16,046
+whereas returning an empty array
+
+
+176
+00:05:16,046 --> 00:05:16,976
+causes the drag to be ignored.
+
+
+177
+00:05:20,386 --> 00:05:22,396
+You might remember that tapping
+
+
+178
+00:05:22,466 --> 00:05:24,256
+other items, or other views, in
+
+
+179
+00:05:24,256 --> 00:05:26,116
+your app to add them to a drag
+
+
+180
+00:05:26,116 --> 00:05:27,246
+that's already in progress is a
+
+
+181
+00:05:27,246 --> 00:05:28,956
+key experience of Drag and Drop
+
+
+182
+00:05:28,956 --> 00:05:29,606
+on iOS.
+
+
+183
+00:05:29,726 --> 00:05:32,776
+Opting into this behavior in
+
+
+184
+00:05:32,776 --> 00:05:34,146
+collection and table view is
+
+
+185
+00:05:34,146 --> 00:05:35,166
+really easy.
+
+
+186
+00:05:36,206 --> 00:05:37,786
+There's an optional method on
+
+
+187
+00:05:37,786 --> 00:05:39,676
+dragDelegate that's called
+
+
+188
+00:05:39,676 --> 00:05:41,846
+whenever you tap a cell in the
+
+
+189
+00:05:41,846 --> 00:05:44,226
+collection view while a drag
+
+
+190
+00:05:44,226 --> 00:05:45,486
+session's already in progress.
+
+
+191
+00:05:46,466 --> 00:05:48,096
+Items for adding to session at
+
+
+192
+00:05:48,096 --> 00:05:49,966
+index path point gives you the
+
+
+193
+00:05:49,966 --> 00:05:52,656
+opportunity to return drag items
+
+
+194
+00:05:52,936 --> 00:05:55,206
+to add to your in-progress drag.
+
+
+195
+00:05:56,076 --> 00:05:58,296
+Returning an empty array from
+
+
+196
+00:05:58,296 --> 00:05:59,786
+this method causes the tap to be
+
+
+197
+00:05:59,786 --> 00:06:00,646
+handled normally.
+
+
+198
+00:06:00,646 --> 00:06:02,476
+So it could be interpreted as a
+
+
+199
+00:06:02,476 --> 00:06:03,976
+cell selection, for example.
+
+
+200
+00:06:07,996 --> 00:06:10,496
+Accepting a drop is equally
+
+
+201
+00:06:10,496 --> 00:06:10,816
+easy.
+
+
+202
+00:06:10,906 --> 00:06:13,256
+Similar to the dragDelegate,
+
+
+203
+00:06:13,256 --> 00:06:14,776
+there's a single required method
+
+
+204
+00:06:15,226 --> 00:06:15,976
+to get you started.
+
+
+205
+00:06:17,326 --> 00:06:19,206
+Perform drop with coordinator
+
+
+206
+00:06:19,246 --> 00:06:21,686
+gets called when the user lifts
+
+
+207
+00:06:21,686 --> 00:06:23,056
+their finger over your
+
+
+208
+00:06:23,056 --> 00:06:24,386
+collection view releasing the
+
+
+209
+00:06:24,386 --> 00:06:25,316
+dragged items.
+
+
+210
+00:06:25,566 --> 00:06:28,726
+This method gives you the
+
+
+211
+00:06:28,726 --> 00:06:31,206
+opportunity to handle the drop
+
+
+212
+00:06:31,206 --> 00:06:33,446
+using the drop coordinator.
+
+
+213
+00:06:33,796 --> 00:06:35,386
+The drop coordinator provides a
+
+
+214
+00:06:35,386 --> 00:06:36,906
+lot of convenience methods for
+
+
+215
+00:06:36,906 --> 00:06:38,486
+you for doing things like
+
+
+216
+00:06:39,026 --> 00:06:41,086
+accessing the dropped items so
+
+
+217
+00:06:41,086 --> 00:06:42,196
+you can actually perform the
+
+
+218
+00:06:42,196 --> 00:06:43,126
+data transfer.
+
+
+219
+00:06:44,426 --> 00:06:46,216
+It gives you some really great
+
+
+220
+00:06:46,216 --> 00:06:47,916
+convenience methods for updating
+
+
+221
+00:06:47,916 --> 00:06:49,616
+your collection and table view.
+
+
+222
+00:06:49,966 --> 00:06:54,716
+And finally it gives you some
+
+
+223
+00:06:54,806 --> 00:06:57,366
+ways to specify some default
+
+
+224
+00:06:57,366 --> 00:06:59,166
+system animations for your drop.
+
+
+225
+00:06:59,726 --> 00:07:02,736
+So now that we've talked about
+
+
+226
+00:07:02,736 --> 00:07:04,126
+how easy it is to adopt Drag and
+
+
+227
+00:07:04,126 --> 00:07:05,386
+Drop in your collection table
+
+
+228
+00:07:05,386 --> 00:07:06,626
+views, let's take a look at it
+
+
+229
+00:07:06,626 --> 00:07:06,976
+with a demo.
+
+
+230
+00:07:17,096 --> 00:07:18,706
+So I'm going to start out with a
+
+
+231
+00:07:18,706 --> 00:07:20,586
+basic gallery application that
+
+
+232
+00:07:20,586 --> 00:07:21,836
+uses a collection view to
+
+
+233
+00:07:21,836 --> 00:07:23,436
+display a grid of photos.
+
+
+234
+00:07:23,756 --> 00:07:24,456
+And we're going to add the
+
+
+235
+00:07:24,456 --> 00:07:26,186
+ability to drag images out of
+
+
+236
+00:07:26,186 --> 00:07:27,486
+the collection view and to
+
+
+237
+00:07:27,516 --> 00:07:29,226
+import images back in by
+
+
+238
+00:07:29,226 --> 00:07:32,036
+dropping them from other apps.
+
+
+239
+00:07:32,036 --> 00:07:33,326
+So, as you see, I've already
+
+
+240
+00:07:33,326 --> 00:07:35,106
+started with kind of a stub
+
+
+241
+00:07:35,106 --> 00:07:35,966
+implementation of
+
+
+242
+00:07:35,966 --> 00:07:37,486
+itemsForBeginning Session at
+
+
+243
+00:07:37,486 --> 00:07:38,726
+IndexPath.
+
+
+244
+00:07:39,066 --> 00:07:41,936
+And I'm just going to add some
+
+
+245
+00:07:41,936 --> 00:07:45,266
+basic code that goes to our data
+
+
+246
+00:07:45,266 --> 00:07:48,916
+source, retrieves a photo model
+
+
+247
+00:07:48,916 --> 00:07:51,466
+object, and then pulls out a UI
+
+
+248
+00:07:51,466 --> 00:07:53,666
+image from this photo using our
+
+
+249
+00:07:54,016 --> 00:07:54,796
+image property.
+
+
+250
+00:07:55,546 --> 00:07:57,106
+Since UI image already conforms
+
+
+251
+00:07:57,106 --> 00:07:59,356
+to NSItemProvider writing, we
+
+
+252
+00:07:59,356 --> 00:08:00,906
+can just use it to create an
+
+
+253
+00:08:00,906 --> 00:08:01,816
+NSItemProvider.
+
+
+254
+00:08:02,516 --> 00:08:04,026
+For your own model object, if
+
+
+255
+00:08:04,026 --> 00:08:04,806
+you're dragging something other
+
+
+256
+00:08:04,806 --> 00:08:06,806
+than images, you'll have to make
+
+
+257
+00:08:06,806 --> 00:08:07,976
+sure that those objects conform
+
+
+258
+00:08:07,976 --> 00:08:09,046
+to NSItemProvider writing.
+
+
+259
+00:08:09,046 --> 00:08:10,016
+There's a great session about
+
+
+260
+00:08:10,016 --> 00:08:11,016
+that just after this.
+
+
+261
+00:08:12,356 --> 00:08:13,856
+Once we have the NSItemProvider,
+
+
+262
+00:08:13,856 --> 00:08:15,026
+we can use it to create a
+
+
+263
+00:08:15,026 --> 00:08:17,036
+UIDragItem which will return to
+
+
+264
+00:08:17,036 --> 00:08:18,626
+the system to start the drag.
+
+
+265
+00:08:19,316 --> 00:08:20,136
+So I'm good to go to start
+
+
+266
+00:08:20,136 --> 00:08:21,576
+dragging things, but I also want
+
+
+267
+00:08:21,576 --> 00:08:23,076
+to add the ability to flock
+
+
+268
+00:08:23,076 --> 00:08:24,876
+things to my in progress drag,
+
+
+269
+00:08:24,876 --> 00:08:26,676
+so I'm going to add an
+
+
+270
+00:08:26,676 --> 00:08:28,436
+implementation of items for
+
+
+271
+00:08:28,436 --> 00:08:30,506
+adding to session at IndexPath,
+
+
+272
+00:08:30,616 --> 00:08:30,976
+point.
+
+
+273
+00:08:30,976 --> 00:08:32,106
+And I'm just going to do the
+
+
+274
+00:08:32,106 --> 00:08:33,356
+same thing that I did in my
+
+
+275
+00:08:33,446 --> 00:08:35,126
+itemsForBeginning Session method
+
+
+276
+00:08:35,356 --> 00:08:37,806
+to just return a bunch of drag
+
+
+277
+00:08:37,806 --> 00:08:38,246
+items.
+
+
+278
+00:08:38,296 --> 00:08:40,265
+So let's build this real quick
+
+
+279
+00:08:40,265 --> 00:08:40,976
+and see what it looks like.
+
+
+280
+00:08:48,176 --> 00:08:49,616
+So I'm going to pull up the
+
+
+281
+00:08:49,616 --> 00:08:52,626
+photos app and pin it next to my
+
+
+282
+00:08:52,626 --> 00:08:53,866
+gallery app.
+
+
+283
+00:08:54,966 --> 00:08:55,936
+You'll see that I can now start
+
+
+284
+00:08:55,936 --> 00:08:57,036
+dragging things out of my
+
+
+285
+00:08:57,036 --> 00:08:59,306
+collection view, and, if I tap
+
+
+286
+00:08:59,586 --> 00:09:01,086
+some of these other cells, they
+
+
+287
+00:09:01,086 --> 00:09:02,686
+flock over to my in-progress
+
+
+288
+00:09:02,686 --> 00:09:04,186
+drag, and I can carry them over
+
+
+289
+00:09:04,186 --> 00:09:09,486
+to photos and let go to drop.
+
+
+290
+00:09:09,656 --> 00:09:11,286
+So now that we have dragging
+
+
+291
+00:09:11,286 --> 00:09:12,546
+items, let's look at adding --
+
+
+292
+00:09:12,726 --> 00:09:13,746
+accepting drops.
+
+
+293
+00:09:13,896 --> 00:09:16,656
+So, as we discussed earlier,
+
+
+294
+00:09:16,656 --> 00:09:17,866
+we'll have to implement the one
+
+
+295
+00:09:17,866 --> 00:09:19,396
+required method on collection
+
+
+296
+00:09:19,396 --> 00:09:20,236
+view dropDelegate,
+
+
+297
+00:09:20,706 --> 00:09:22,446
+performDropWith Coordinator.
+
+
+298
+00:09:23,886 --> 00:09:24,966
+Here we're going to take
+
+
+299
+00:09:24,966 --> 00:09:26,366
+advantage of the coordinator's
+
+
+300
+00:09:26,436 --> 00:09:28,156
+convenience methods to get some
+
+
+301
+00:09:28,156 --> 00:09:29,716
+information about the drop and
+
+
+302
+00:09:29,776 --> 00:09:30,866
+then actually perform it.
+
+
+303
+00:09:31,236 --> 00:09:32,906
+The first thing we'll want to do
+
+
+304
+00:09:32,906 --> 00:09:34,656
+is ask the coordinator for the
+
+
+305
+00:09:34,656 --> 00:09:36,206
+destination index path.
+
+
+306
+00:09:36,946 --> 00:09:39,446
+This IndexPath is derived from
+
+
+307
+00:09:39,446 --> 00:09:40,626
+the point at which the user
+
+
+308
+00:09:40,676 --> 00:09:42,346
+releases the dragged items.
+
+
+309
+00:09:42,956 --> 00:09:44,616
+Since that point could be over a
+
+
+310
+00:09:44,616 --> 00:09:45,756
+region of the collection or
+
+
+311
+00:09:45,756 --> 00:09:47,166
+table view that's completely
+
+
+312
+00:09:47,166 --> 00:09:48,686
+empty, it could be nil.
+
+
+313
+00:09:48,796 --> 00:09:50,386
+So we'll just handle that case
+
+
+314
+00:09:50,386 --> 00:09:53,076
+here by returning a zero zero
+
+
+315
+00:09:53,076 --> 00:09:53,866
+and inserting it at the --
+
+
+316
+00:09:53,956 --> 00:09:55,356
+inserting it at the beginning of
+
+
+317
+00:09:55,356 --> 00:09:56,296
+our collection view.
+
+
+318
+00:09:58,896 --> 00:10:01,306
+Next, we're going to take
+
+
+319
+00:10:01,306 --> 00:10:02,446
+advantage of a convenience
+
+
+320
+00:10:02,446 --> 00:10:04,546
+method on the drop session to
+
+
+321
+00:10:04,546 --> 00:10:06,146
+load all objects of a specific
+
+
+322
+00:10:06,146 --> 00:10:07,896
+class in the scenario UI image.
+
+
+323
+00:10:07,896 --> 00:10:08,816
+That's what we're interested in.
+
+
+324
+00:10:08,816 --> 00:10:11,126
+And then in load objects'
+
+
+325
+00:10:11,126 --> 00:10:13,966
+completion closure we'll update
+
+
+326
+00:10:13,966 --> 00:10:14,976
+our collection view, like we
+
+
+327
+00:10:14,976 --> 00:10:16,116
+normally would, by calling
+
+
+328
+00:10:16,116 --> 00:10:18,666
+perform match updates with some
+
+
+329
+00:10:18,666 --> 00:10:19,926
+data source updates using a
+
+
+330
+00:10:19,926 --> 00:10:21,836
+convenience method that we've
+
+
+331
+00:10:21,836 --> 00:10:23,136
+written in the past.
+
+
+332
+00:10:23,626 --> 00:10:25,096
+And we'll ask the collection
+
+
+333
+00:10:25,096 --> 00:10:26,596
+view to reload the first
+
+
+334
+00:10:26,596 --> 00:10:27,196
+section.
+
+
+335
+00:10:27,626 --> 00:10:28,976
+So let's give that a quick try.
+
+
+336
+00:10:38,226 --> 00:10:39,886
+So now I'm going to pick up a
+
+
+337
+00:10:40,326 --> 00:10:41,576
+couple of these photos from the
+
+
+338
+00:10:41,576 --> 00:10:43,326
+photo's app and I'm going to
+
+
+339
+00:10:43,326 --> 00:10:45,356
+just drop them over my
+
+
+340
+00:10:45,356 --> 00:10:48,066
+collection view to accept the
+
+
+341
+00:10:48,066 --> 00:10:48,406
+drop.
+
+
+342
+00:10:49,746 --> 00:10:53,266
+So I can pick up some items from
+
+
+343
+00:10:53,266 --> 00:10:54,746
+photos actually this time.
+
+
+344
+00:10:55,576 --> 00:10:57,596
+Go back over to my app and let
+
+
+345
+00:10:57,596 --> 00:10:58,716
+go to accept the drop.
+
+
+346
+00:11:02,016 --> 00:11:03,866
+[ Applause ]
+
+
+347
+00:11:03,866 --> 00:11:06,346
+Thank you.
+
+
+348
+00:11:07,036 --> 00:11:08,376
+So now that we've actually seen
+
+
+349
+00:11:08,376 --> 00:11:09,336
+what it looks like [laughter],
+
+
+350
+00:11:09,876 --> 00:11:12,076
+just by adding a couple of
+
+
+351
+00:11:12,076 --> 00:11:13,306
+methods, it was easy to get
+
+
+352
+00:11:13,306 --> 00:11:13,686
+started.
+
+
+353
+00:11:13,686 --> 00:11:15,586
+Now Tyler is going to talk about
+
+
+354
+00:11:16,006 --> 00:11:17,256
+how we can build some really
+
+
+355
+00:11:17,256 --> 00:11:18,596
+awesome drop animations.
+
+
+356
+00:11:19,646 --> 00:11:20,676
+>> Thank you.
+
+
+357
+00:11:21,516 --> 00:11:24,286
+[ Applause ]
+
+
+358
+00:11:24,786 --> 00:11:25,486
+Thanks Mohammed.
+
+
+359
+00:11:25,986 --> 00:11:26,486
+All right.
+
+
+360
+00:11:26,676 --> 00:11:27,926
+So let's turn our attention to
+
+
+361
+00:11:27,926 --> 00:11:29,276
+really focus in now on
+
+
+362
+00:11:29,456 --> 00:11:31,016
+perfecting these drops.
+
+
+363
+00:11:31,576 --> 00:11:33,866
+And I'll start by talking about
+
+
+364
+00:11:33,866 --> 00:11:34,596
+something called a drop
+
+
+365
+00:11:34,596 --> 00:11:35,066
+proposal.
+
+
+366
+00:11:35,386 --> 00:11:36,736
+So if you've been to some of the
+
+
+367
+00:11:36,736 --> 00:11:38,326
+earlier sessions on the other
+
+
+368
+00:11:38,326 --> 00:11:39,256
+APIs that are available in
+
+
+369
+00:11:39,256 --> 00:11:40,416
+UIKit, this might be familiar.
+
+
+370
+00:11:40,416 --> 00:11:42,576
+But a drop proposal is your way
+
+
+371
+00:11:42,736 --> 00:11:44,376
+to communicate to the system how
+
+
+372
+00:11:44,376 --> 00:11:45,616
+you'd like to handle the drop
+
+
+373
+00:11:45,616 --> 00:11:47,186
+session before the user actually
+
+
+374
+00:11:47,186 --> 00:11:48,786
+releases their touch to perform
+
+
+375
+00:11:48,786 --> 00:11:49,416
+the drop.
+
+
+376
+00:11:49,726 --> 00:11:51,046
+The system is going to ask you
+
+
+377
+00:11:51,046 --> 00:11:52,676
+to create and return a drop
+
+
+378
+00:11:52,676 --> 00:11:54,526
+proposal multiple times while
+
+
+379
+00:11:54,526 --> 00:11:55,966
+the user is dragging over the
+
+
+380
+00:11:55,966 --> 00:11:56,866
+collection or table view.
+
+
+381
+00:11:57,646 --> 00:11:59,066
+Now collection and table view,
+
+
+382
+00:11:59,116 --> 00:12:00,836
+each have subclasses of
+
+
+383
+00:12:00,836 --> 00:12:02,716
+UIDropProposal, and, as a
+
+
+384
+00:12:02,716 --> 00:12:03,786
+result, that means they each
+
+
+385
+00:12:03,786 --> 00:12:05,176
+have that same property that
+
+
+386
+00:12:05,176 --> 00:12:06,726
+comes from UIDropProposal, which
+
+
+387
+00:12:06,726 --> 00:12:07,536
+is an operation.
+
+
+388
+00:12:08,116 --> 00:12:10,176
+So this is a value like copy,
+
+
+389
+00:12:10,416 --> 00:12:12,906
+move, cancel, or forbidden, and
+
+
+390
+00:12:12,906 --> 00:12:14,376
+generally indicates whether or
+
+
+391
+00:12:14,376 --> 00:12:15,866
+not you're interested in this
+
+
+392
+00:12:15,866 --> 00:12:17,906
+particular drop session and how
+
+
+393
+00:12:17,906 --> 00:12:19,306
+you intend to handle the actual
+
+
+394
+00:12:19,306 --> 00:12:20,876
+data inside of that drop
+
+
+395
+00:12:20,876 --> 00:12:21,246
+session.
+
+
+396
+00:12:22,266 --> 00:12:23,516
+But collection and table view
+
+
+397
+00:12:23,646 --> 00:12:25,146
+drop proposals don't stop there.
+
+
+398
+00:12:25,246 --> 00:12:26,576
+They also have an additional
+
+
+399
+00:12:26,576 --> 00:12:28,706
+value, which is a drop intent.
+
+
+400
+00:12:29,306 --> 00:12:30,026
+What is this?
+
+
+401
+00:12:30,896 --> 00:12:31,816
+This is some additional
+
+
+402
+00:12:31,816 --> 00:12:33,136
+information that your app can
+
+
+403
+00:12:33,136 --> 00:12:34,506
+provide to the collection or
+
+
+404
+00:12:34,506 --> 00:12:36,346
+table view which will let the
+
+
+405
+00:12:36,346 --> 00:12:37,246
+collection or table view
+
+
+406
+00:12:37,246 --> 00:12:38,866
+actually update their appearance
+
+
+407
+00:12:38,866 --> 00:12:40,546
+during the drop session to
+
+
+408
+00:12:40,546 --> 00:12:43,296
+reflect what you intend to do.
+
+
+409
+00:12:43,936 --> 00:12:44,886
+So let's look at some of the
+
+
+410
+00:12:44,886 --> 00:12:46,366
+actual values for this drop
+
+
+411
+00:12:46,366 --> 00:12:47,926
+intent to understand it better.
+
+
+412
+00:12:48,396 --> 00:12:49,886
+We will start with the default
+
+
+413
+00:12:49,886 --> 00:12:51,826
+one, which is the drop intent
+
+
+414
+00:12:51,826 --> 00:12:52,646
+unspecified.
+
+
+415
+00:12:53,336 --> 00:12:55,156
+With this drop intent,
+
+
+416
+00:12:55,416 --> 00:12:56,706
+collection or table view won't
+
+
+417
+00:12:56,706 --> 00:12:58,246
+actually change their appearance
+
+
+418
+00:12:58,246 --> 00:12:59,726
+at all during the drop session.
+
+
+419
+00:13:00,076 --> 00:13:00,996
+As you can see here, when the
+
+
+420
+00:13:00,996 --> 00:13:02,426
+user's dragging around over it,
+
+
+421
+00:13:02,716 --> 00:13:04,266
+there's just a nice little badge
+
+
+422
+00:13:04,266 --> 00:13:06,016
+next to the drag preview and
+
+
+423
+00:13:06,016 --> 00:13:06,586
+that's it.
+
+
+424
+00:13:06,956 --> 00:13:07,976
+You might choose this drop
+
+
+425
+00:13:07,976 --> 00:13:09,356
+intent if you don't yet know,
+
+
+426
+00:13:09,356 --> 00:13:10,686
+for example, where the items
+
+
+427
+00:13:10,686 --> 00:13:11,906
+will end up when the user
+
+
+428
+00:13:11,906 --> 00:13:13,056
+actually realizes their finger
+
+
+429
+00:13:13,056 --> 00:13:13,886
+to perform the drop.
+
+
+430
+00:13:14,386 --> 00:13:15,866
+Or perhaps the drag session
+
+
+431
+00:13:15,866 --> 00:13:17,626
+contains a mix of items, where
+
+
+432
+00:13:17,626 --> 00:13:18,676
+they're going to end up in
+
+
+433
+00:13:18,676 --> 00:13:20,036
+different locations when the
+
+
+434
+00:13:20,036 --> 00:13:21,076
+actual drop occurs.
+
+
+435
+00:13:21,686 --> 00:13:23,266
+So that's the first drop intent.
+
+
+436
+00:13:23,266 --> 00:13:23,986
+Unspecified.
+
+
+437
+00:13:24,476 --> 00:13:25,936
+The second drop intent is
+
+
+438
+00:13:25,976 --> 00:13:28,026
+insertAtDestinationIndexPath.
+
+
+439
+00:13:28,826 --> 00:13:30,406
+With this drop intent, it means
+
+
+440
+00:13:30,406 --> 00:13:32,016
+that you intend to insert a new
+
+
+441
+00:13:32,016 --> 00:13:33,496
+item or row into the collection
+
+
+442
+00:13:33,496 --> 00:13:35,076
+or table view at the destination
+
+
+443
+00:13:35,076 --> 00:13:35,956
+index path.
+
+
+444
+00:13:36,206 --> 00:13:37,676
+And, as you can see, collection
+
+
+445
+00:13:37,676 --> 00:13:38,656
+and table view will actually
+
+
+446
+00:13:38,656 --> 00:13:40,776
+open up a gap at this location
+
+
+447
+00:13:40,956 --> 00:13:42,136
+to let the user know that's the
+
+
+448
+00:13:42,136 --> 00:13:43,336
+location where their drop will
+
+
+449
+00:13:43,336 --> 00:13:43,966
+be accepted.
+
+
+450
+00:13:44,976 --> 00:13:47,176
+The third drop intent is
+
+
+451
+00:13:47,246 --> 00:13:49,386
+insertIntoDestinationIndexPath.
+
+
+452
+00:13:50,356 --> 00:13:52,476
+This is something that you want
+
+
+453
+00:13:52,476 --> 00:13:54,256
+to use when the user is dragging
+
+
+454
+00:13:54,256 --> 00:13:56,426
+over a cell that represents some
+
+
+455
+00:13:56,426 --> 00:13:58,176
+sort of container of items.
+
+
+456
+00:13:58,176 --> 00:14:00,266
+For example, here we have photo
+
+
+457
+00:14:00,266 --> 00:14:02,396
+albums, containers of photos, or
+
+
+458
+00:14:02,396 --> 00:14:04,026
+maybe you have a folder cell or
+
+
+459
+00:14:04,026 --> 00:14:04,866
+a list cell.
+
+
+460
+00:14:05,646 --> 00:14:06,856
+In this case, you intend to
+
+
+461
+00:14:06,856 --> 00:14:09,016
+insert the dropped items inside
+
+
+462
+00:14:09,016 --> 00:14:09,796
+of that container.
+
+
+463
+00:14:10,236 --> 00:14:11,776
+And so, table view, for example,
+
+
+464
+00:14:11,776 --> 00:14:13,276
+is going to highlight the row at
+
+
+465
+00:14:13,276 --> 00:14:14,546
+the destination index path so
+
+
+466
+00:14:14,546 --> 00:14:15,986
+the user knows that the drop
+
+
+467
+00:14:15,986 --> 00:14:17,356
+will be accepted inside that
+
+
+468
+00:14:17,356 --> 00:14:17,616
+row.
+
+
+469
+00:14:18,246 --> 00:14:20,926
+Now there's one more drop intent
+
+
+470
+00:14:20,926 --> 00:14:22,426
+value which is specific to
+
+
+471
+00:14:22,426 --> 00:14:24,186
+UITableView and that's the
+
+
+472
+00:14:24,236 --> 00:14:25,746
+automatic drop intent.
+
+
+473
+00:14:26,796 --> 00:14:27,656
+This is something that you
+
+
+474
+00:14:27,656 --> 00:14:28,986
+should use instead of
+
+
+475
+00:14:29,136 --> 00:14:31,306
+insertIntoDestinationIndexPath.
+
+
+476
+00:14:31,626 --> 00:14:33,246
+And this drop intent means that
+
+
+477
+00:14:33,246 --> 00:14:34,996
+you can either drop into an
+
+
+478
+00:14:34,996 --> 00:14:37,006
+existing container row at that
+
+
+479
+00:14:37,006 --> 00:14:38,996
+index path or you could move the
+
+
+480
+00:14:38,996 --> 00:14:40,046
+container row down out of the
+
+
+481
+00:14:40,046 --> 00:14:41,876
+way and insert a new row into
+
+
+482
+00:14:41,876 --> 00:14:43,276
+the table view at the same index
+
+
+483
+00:14:43,276 --> 00:14:43,706
+path.
+
+
+484
+00:14:44,106 --> 00:14:45,056
+And table view is going to
+
+
+485
+00:14:45,056 --> 00:14:46,866
+automatically tell you, when the
+
+
+486
+00:14:46,866 --> 00:14:48,536
+drop occurs, which one it is.
+
+
+487
+00:14:48,536 --> 00:14:49,386
+It'll pick between
+
+
+488
+00:14:49,386 --> 00:14:51,616
+insertAtDestinationIndexPath and
+
+
+489
+00:14:51,616 --> 00:14:53,316
+insertIntoDestinationIndexPath
+
+
+490
+00:14:53,316 --> 00:14:53,786
+for you.
+
+
+491
+00:14:54,586 --> 00:14:56,626
+So let's look at an example of
+
+
+492
+00:14:56,626 --> 00:14:57,736
+how you can provide a drop
+
+
+493
+00:14:57,736 --> 00:14:58,676
+proposal in code.
+
+
+494
+00:14:59,286 --> 00:15:00,756
+It starts by implementing this
+
+
+495
+00:15:00,756 --> 00:15:01,536
+optional method,
+
+
+496
+00:15:01,836 --> 00:15:02,886
+dropSessionDidUpdate,
+
+
+497
+00:15:02,886 --> 00:15:04,286
+withDestinationIndexPath.
+
+
+498
+00:15:05,086 --> 00:15:06,426
+Here this will be called
+
+
+499
+00:15:06,876 --> 00:15:08,126
+whenever the table view or
+
+
+500
+00:15:08,126 --> 00:15:09,406
+collection view detects that
+
+
+501
+00:15:09,406 --> 00:15:10,496
+there's a drop session moving
+
+
+502
+00:15:10,496 --> 00:15:11,436
+over it.
+
+
+503
+00:15:11,796 --> 00:15:12,926
+Now this method is optional, but
+
+
+504
+00:15:12,926 --> 00:15:14,196
+we strongly recommend that you
+
+
+505
+00:15:14,196 --> 00:15:15,396
+implement it because this is how
+
+
+506
+00:15:15,396 --> 00:15:16,786
+you provide your drop proposal.
+
+
+507
+00:15:17,746 --> 00:15:19,326
+Now because this is called all
+
+
+508
+00:15:19,326 --> 00:15:20,486
+the time when the collection or
+
+
+509
+00:15:20,486 --> 00:15:21,876
+table view sees a drop session
+
+
+510
+00:15:21,876 --> 00:15:22,986
+over it and whenever that drop
+
+
+511
+00:15:22,986 --> 00:15:24,446
+session moves, it's going to be
+
+
+512
+00:15:24,446 --> 00:15:25,316
+called very frequently.
+
+
+513
+00:15:25,536 --> 00:15:27,036
+And so your implementation needs
+
+
+514
+00:15:27,036 --> 00:15:28,316
+to be very efficient and return
+
+
+515
+00:15:28,316 --> 00:15:30,276
+quickly to avoid hanging the
+
+
+516
+00:15:30,276 --> 00:15:32,036
+main thread.
+
+
+517
+00:15:32,376 --> 00:15:33,576
+Now I'd like to call your
+
+
+518
+00:15:33,576 --> 00:15:34,306
+attention to this
+
+
+519
+00:15:34,306 --> 00:15:35,556
+destinationIndexPath that's
+
+
+520
+00:15:35,556 --> 00:15:36,126
+passed in.
+
+
+521
+00:15:36,446 --> 00:15:37,906
+Once again, this is our proposal
+
+
+522
+00:15:37,906 --> 00:15:39,376
+of where we think that you would
+
+
+523
+00:15:39,376 --> 00:15:41,426
+like to insert any items into
+
+
+524
+00:15:41,426 --> 00:15:42,346
+the collection or table view.
+
+
+525
+00:15:43,196 --> 00:15:45,086
+Now this destinationIndexPath
+
+
+526
+00:15:45,136 --> 00:15:46,856
+will be nil in some cases.
+
+
+527
+00:15:46,856 --> 00:15:48,536
+In particular, when the user's
+
+
+528
+00:15:48,536 --> 00:15:50,096
+dragging over a region of the
+
+
+529
+00:15:50,096 --> 00:15:51,066
+collection or table view where
+
+
+530
+00:15:51,066 --> 00:15:52,216
+there are no cells.
+
+
+531
+00:15:52,676 --> 00:15:54,656
+And another very important point
+
+
+532
+00:15:54,656 --> 00:15:56,086
+about this that might trip you
+
+
+533
+00:15:56,086 --> 00:15:57,176
+up, so be careful.
+
+
+534
+00:15:57,676 --> 00:15:59,306
+When the user drags over the end
+
+
+535
+00:15:59,306 --> 00:16:00,926
+of an existing section in the
+
+
+536
+00:16:00,926 --> 00:16:01,846
+collection or table view.
+
+
+537
+00:16:02,356 --> 00:16:04,026
+This index path might be equal
+
+
+538
+00:16:04,026 --> 00:16:05,606
+to the count of the number of
+
+
+539
+00:16:05,606 --> 00:16:07,116
+items in that section, which
+
+
+540
+00:16:07,116 --> 00:16:08,846
+means it may not correspond to
+
+
+541
+00:16:08,846 --> 00:16:10,096
+an existing item in that
+
+
+542
+00:16:10,096 --> 00:16:10,576
+section.
+
+
+543
+00:16:10,966 --> 00:16:12,146
+So be careful because that's an
+
+
+544
+00:16:12,146 --> 00:16:13,406
+insert at the very end of the
+
+
+545
+00:16:13,406 --> 00:16:13,816
+section.
+
+
+546
+00:16:14,626 --> 00:16:16,326
+So let's look at a quick example
+
+
+547
+00:16:16,326 --> 00:16:17,396
+of how you could implement this.
+
+
+548
+00:16:17,626 --> 00:16:18,846
+In this example, we'll look at
+
+
+549
+00:16:18,876 --> 00:16:20,696
+the local drag session property
+
+
+550
+00:16:20,936 --> 00:16:22,436
+on the drop session to see if
+
+
+551
+00:16:22,436 --> 00:16:24,146
+the drag originated from our app
+
+
+552
+00:16:24,146 --> 00:16:24,576
+or not.
+
+
+553
+00:16:24,986 --> 00:16:26,226
+If it's from our app, we can use
+
+
+554
+00:16:26,226 --> 00:16:28,066
+a drop operation of move and
+
+
+555
+00:16:28,406 --> 00:16:29,436
+otherwise we'll use a drop
+
+
+556
+00:16:29,436 --> 00:16:30,466
+operation of copy.
+
+
+557
+00:16:30,926 --> 00:16:31,986
+Both cases here we're going to
+
+
+558
+00:16:31,986 --> 00:16:33,046
+insert a new item into the
+
+
+559
+00:16:33,046 --> 00:16:34,156
+collection view, so we'll use
+
+
+560
+00:16:34,156 --> 00:16:36,456
+insertAtDestinationIndexPath as
+
+
+561
+00:16:36,876 --> 00:16:38,076
+our intent.
+
+
+562
+00:16:38,076 --> 00:16:40,156
+Okay. So that's drop proposals
+
+
+563
+00:16:40,156 --> 00:16:41,406
+which you provide while the
+
+
+564
+00:16:41,406 --> 00:16:42,816
+user's still dragging over the
+
+
+565
+00:16:42,816 --> 00:16:43,676
+collection or table view.
+
+
+566
+00:16:44,336 --> 00:16:45,576
+Let's switch gears now to talk
+
+
+567
+00:16:45,576 --> 00:16:47,056
+about dropping when the user
+
+
+568
+00:16:47,056 --> 00:16:48,466
+actually releases their touch
+
+
+569
+00:16:48,636 --> 00:16:49,556
+and you need to perform the
+
+
+570
+00:16:49,556 --> 00:16:49,856
+drop.
+
+
+571
+00:16:51,226 --> 00:16:52,846
+To set up some great animations,
+
+
+572
+00:16:53,076 --> 00:16:54,496
+you can use the drop coordinator
+
+
+573
+00:16:54,496 --> 00:16:56,016
+that we pass in to perform drop
+
+
+574
+00:16:56,016 --> 00:16:56,686
+with coordinator.
+
+
+575
+00:16:57,496 --> 00:16:58,966
+Collection and table view will
+
+
+576
+00:16:58,966 --> 00:17:00,486
+provide some basic animations by
+
+
+577
+00:17:00,486 --> 00:17:01,466
+default if you do nothing.
+
+
+578
+00:17:01,996 --> 00:17:03,676
+But for the best effects, you
+
+
+579
+00:17:03,676 --> 00:17:04,915
+can use the drop coordinator to
+
+
+580
+00:17:04,915 --> 00:17:06,986
+set up specific animations for
+
+
+581
+00:17:06,986 --> 00:17:08,886
+each item independently in the
+
+
+582
+00:17:08,886 --> 00:17:09,576
+drop session.
+
+
+583
+00:17:10,496 --> 00:17:11,306
+Let's look at some of the
+
+
+584
+00:17:11,306 --> 00:17:12,056
+methods that we've made
+
+
+585
+00:17:12,056 --> 00:17:13,746
+available for you to do that.
+
+
+586
+00:17:14,415 --> 00:17:16,965
+The first one is dropping to an
+
+
+587
+00:17:17,026 --> 00:17:17,736
+item or row.
+
+
+588
+00:17:18,425 --> 00:17:20,465
+This is a drop animation that
+
+
+589
+00:17:20,465 --> 00:17:21,836
+you'll use with the intent
+
+
+590
+00:17:21,935 --> 00:17:23,756
+insertAtDestinationIndexPath.
+
+
+591
+00:17:24,546 --> 00:17:25,846
+And you want to use this when
+
+
+592
+00:17:25,846 --> 00:17:27,256
+you've already performed an
+
+
+593
+00:17:27,286 --> 00:17:29,386
+update to insert a new item or
+
+
+594
+00:17:29,386 --> 00:17:30,606
+row into the collection or table
+
+
+595
+00:17:30,606 --> 00:17:30,826
+view.
+
+
+596
+00:17:31,206 --> 00:17:32,676
+So let's look at an example in
+
+
+597
+00:17:32,676 --> 00:17:33,786
+code to see how we can implement
+
+
+598
+00:17:33,786 --> 00:17:33,976
+this.
+
+
+599
+00:17:38,016 --> 00:17:39,206
+Inside of performDropWith
+
+
+600
+00:17:39,206 --> 00:17:40,696
+coordinator, we need to start by
+
+
+601
+00:17:40,696 --> 00:17:41,786
+gathering up a few local
+
+
+602
+00:17:41,786 --> 00:17:42,856
+variables that we need.
+
+
+603
+00:17:42,856 --> 00:17:44,026
+In particular, we'll need our
+
+
+604
+00:17:44,026 --> 00:17:46,046
+destinationIndexPath, and we'll
+
+
+605
+00:17:46,046 --> 00:17:47,736
+also use the local object
+
+
+606
+00:17:47,736 --> 00:17:49,476
+property on the drag item to
+
+
+607
+00:17:49,476 --> 00:17:51,326
+actually get at the underlying
+
+
+608
+00:17:51,326 --> 00:17:52,306
+data synchronously.
+
+
+609
+00:17:52,306 --> 00:17:53,166
+This is something that you can
+
+
+610
+00:17:53,166 --> 00:17:54,806
+do when the drag session starts
+
+
+611
+00:17:54,806 --> 00:17:56,426
+from your own app.
+
+
+612
+00:17:57,046 --> 00:17:58,666
+Next, because we have that data
+
+
+613
+00:17:58,666 --> 00:17:59,926
+right away we can perform an
+
+
+614
+00:17:59,926 --> 00:18:01,326
+immediate insertion into our
+
+
+615
+00:18:01,326 --> 00:18:02,436
+collection view, so we'll call
+
+
+616
+00:18:02,436 --> 00:18:03,526
+performBatchUpdates.
+
+
+617
+00:18:03,756 --> 00:18:04,986
+And inside, of course, we'll do
+
+
+618
+00:18:04,986 --> 00:18:06,616
+the usual update of our data
+
+
+619
+00:18:06,616 --> 00:18:07,846
+source incorporating that new
+
+
+620
+00:18:07,846 --> 00:18:08,316
+image.
+
+
+621
+00:18:08,636 --> 00:18:09,806
+And we'll insert an item in the
+
+
+622
+00:18:09,806 --> 00:18:10,366
+collection view.
+
+
+623
+00:18:10,886 --> 00:18:12,386
+And now, because we've actually
+
+
+624
+00:18:12,386 --> 00:18:14,166
+already inserted that cell, we
+
+
+625
+00:18:14,166 --> 00:18:15,886
+can tell the drop coordinator to
+
+
+626
+00:18:15,886 --> 00:18:18,356
+drop the item to that specific
+
+
+627
+00:18:18,426 --> 00:18:19,766
+cell at that index path.
+
+
+628
+00:18:20,076 --> 00:18:20,916
+This is going to set up that
+
+
+629
+00:18:20,916 --> 00:18:22,246
+nice animation you saw where the
+
+
+630
+00:18:22,246 --> 00:18:23,856
+drag preview morphs right to the
+
+
+631
+00:18:23,856 --> 00:18:25,086
+final cell that we inserted.
+
+
+632
+00:18:25,946 --> 00:18:27,336
+All right.
+
+
+633
+00:18:27,666 --> 00:18:29,416
+The next drop animation is
+
+
+634
+00:18:29,416 --> 00:18:31,306
+dropping into an item or row.
+
+
+635
+00:18:32,116 --> 00:18:33,136
+As you might imagine, this is
+
+
+636
+00:18:33,136 --> 00:18:34,536
+generally used with the intent
+
+
+637
+00:18:34,536 --> 00:18:36,656
+insertIntoDestinationIndexPath.
+
+
+638
+00:18:37,316 --> 00:18:38,536
+In this case, we're inserting
+
+
+639
+00:18:38,536 --> 00:18:40,146
+the item inside of a container
+
+
+640
+00:18:40,396 --> 00:18:40,846
+cell.
+
+
+641
+00:18:41,436 --> 00:18:43,326
+And so the item is going -- we
+
+
+642
+00:18:43,326 --> 00:18:44,206
+want the animation to kind of
+
+
+643
+00:18:44,206 --> 00:18:46,146
+scale down with this nice
+
+
+644
+00:18:46,146 --> 00:18:47,626
+animation right to some region
+
+
+645
+00:18:47,626 --> 00:18:48,856
+inside of that cell to show the
+
+
+646
+00:18:48,856 --> 00:18:50,186
+user where this drop was
+
+
+647
+00:18:50,366 --> 00:18:50,846
+accepted.
+
+
+648
+00:18:51,716 --> 00:18:52,626
+So let's look at an example of
+
+
+649
+00:18:52,626 --> 00:18:54,006
+how we could set this one up in
+
+
+650
+00:18:54,006 --> 00:18:54,516
+some code.
+
+
+651
+00:18:55,366 --> 00:18:56,856
+Once again, we're back in our
+
+
+652
+00:18:57,226 --> 00:18:59,676
+performDropWith coordinator and
+
+
+653
+00:18:59,896 --> 00:19:01,246
+we have basically the same code
+
+
+654
+00:19:01,246 --> 00:19:01,986
+here that you saw from the
+
+
+655
+00:19:01,986 --> 00:19:02,886
+previous example.
+
+
+656
+00:19:03,256 --> 00:19:04,606
+So just gathering up our
+
+
+657
+00:19:04,606 --> 00:19:05,906
+destinationIndexPath and the
+
+
+658
+00:19:05,906 --> 00:19:07,526
+image that actually was in the
+
+
+659
+00:19:07,526 --> 00:19:08,236
+drag session.
+
+
+660
+00:19:09,346 --> 00:19:10,496
+Now there's one additional check
+
+
+661
+00:19:10,496 --> 00:19:11,756
+that we do want to do, in this
+
+
+662
+00:19:11,756 --> 00:19:13,206
+case, which is to make sure that
+
+
+663
+00:19:13,206 --> 00:19:14,646
+that destinationIndexPath
+
+
+664
+00:19:14,736 --> 00:19:16,606
+corresponds to an actual row in
+
+
+665
+00:19:16,606 --> 00:19:17,216
+our table view.
+
+
+666
+00:19:17,506 --> 00:19:18,796
+Otherwise, we can't drop into
+
+
+667
+00:19:18,796 --> 00:19:20,096
+anything in that album.
+
+
+668
+00:19:20,766 --> 00:19:21,946
+If it does, we can actually
+
+
+669
+00:19:21,946 --> 00:19:23,726
+incorporate the data inside the
+
+
+670
+00:19:23,726 --> 00:19:25,056
+underlying data structure for
+
+
+671
+00:19:25,056 --> 00:19:25,846
+that photo album.
+
+
+672
+00:19:26,566 --> 00:19:27,816
+And then we're ready to set up
+
+
+673
+00:19:27,816 --> 00:19:28,506
+our animation.
+
+
+674
+00:19:28,906 --> 00:19:30,436
+So, in this case, we'll get the
+
+
+675
+00:19:30,436 --> 00:19:32,756
+cell for that particular row and
+
+
+676
+00:19:32,756 --> 00:19:33,556
+we're going to animate to the
+
+
+677
+00:19:33,556 --> 00:19:34,406
+image view in that cell.
+
+
+678
+00:19:34,406 --> 00:19:35,396
+So we'll get the image view.
+
+
+679
+00:19:35,776 --> 00:19:37,416
+Then we call coordinator drop
+
+
+680
+00:19:37,416 --> 00:19:40,006
+item IntoRowAt index path rect.
+
+
+681
+00:19:40,496 --> 00:19:41,586
+We're passing a rect that it's
+
+
+682
+00:19:41,586 --> 00:19:42,816
+in the coordinate space of the
+
+
+683
+00:19:42,816 --> 00:19:44,636
+cell, so we translate that image
+
+
+684
+00:19:44,636 --> 00:19:46,746
+view's bounds up to the cell's
+
+
+685
+00:19:46,746 --> 00:19:48,376
+coordinate space.
+
+
+686
+00:19:48,976 --> 00:19:49,856
+So to recap.
+
+
+687
+00:19:49,856 --> 00:19:51,086
+Now, we've talked about two drop
+
+
+688
+00:19:51,086 --> 00:19:51,546
+animations.
+
+
+689
+00:19:51,546 --> 00:19:52,816
+We have dropping to a newly
+
+
+690
+00:19:52,816 --> 00:19:53,546
+inserted cell.
+
+
+691
+00:19:54,226 --> 00:19:55,866
+We have dropping to a rect
+
+
+692
+00:19:55,866 --> 00:19:57,066
+inside a container cell.
+
+
+693
+00:19:57,796 --> 00:19:59,076
+There's a third drop animation
+
+
+694
+00:19:59,076 --> 00:20:00,656
+method available which is
+
+
+695
+00:20:00,656 --> 00:20:01,746
+dropping to a target.
+
+
+696
+00:20:02,386 --> 00:20:03,516
+This is how you can perform
+
+
+697
+00:20:03,586 --> 00:20:04,976
+completely custom animations.
+
+
+698
+00:20:04,976 --> 00:20:06,446
+For example, animating to a
+
+
+699
+00:20:06,446 --> 00:20:08,096
+location anywhere in your app
+
+
+700
+00:20:08,206 --> 00:20:09,366
+with an optional transform.
+
+
+701
+00:20:09,766 --> 00:20:11,116
+So maybe you want to animate to
+
+
+702
+00:20:11,116 --> 00:20:12,686
+a tab bar or bar button item or
+
+
+703
+00:20:12,686 --> 00:20:13,386
+something like that.
+
+
+704
+00:20:14,526 --> 00:20:15,636
+Those are the three basic drop
+
+
+705
+00:20:15,636 --> 00:20:16,326
+animations.
+
+
+706
+00:20:16,466 --> 00:20:19,006
+But I'd like to step back to the
+
+
+707
+00:20:19,006 --> 00:20:20,206
+first one that we talked about
+
+
+708
+00:20:20,526 --> 00:20:21,676
+and revisit that just for a
+
+
+709
+00:20:21,676 --> 00:20:21,936
+second.
+
+
+710
+00:20:21,986 --> 00:20:23,376
+Dropping to a newly inserted
+
+
+711
+00:20:23,376 --> 00:20:24,016
+item or row.
+
+
+712
+00:20:24,886 --> 00:20:26,306
+As we've discussed, you actually
+
+
+713
+00:20:26,306 --> 00:20:27,746
+need to already have performed
+
+
+714
+00:20:27,746 --> 00:20:28,826
+the update on the collection or
+
+
+715
+00:20:28,826 --> 00:20:30,176
+table view to insert that new
+
+
+716
+00:20:30,176 --> 00:20:31,576
+cell before you can use this
+
+
+717
+00:20:31,576 --> 00:20:31,936
+method.
+
+
+718
+00:20:32,596 --> 00:20:33,576
+But what if the data hasn't
+
+
+719
+00:20:33,576 --> 00:20:34,076
+loaded yet?
+
+
+720
+00:20:36,456 --> 00:20:37,846
+If you're dragging between
+
+
+721
+00:20:37,846 --> 00:20:40,416
+applications on iOS, we always
+
+
+722
+00:20:40,416 --> 00:20:42,086
+have an asynchronous data load.
+
+
+723
+00:20:42,766 --> 00:20:44,676
+But these animations need to be
+
+
+724
+00:20:44,676 --> 00:20:47,016
+specified immediately before you
+
+
+725
+00:20:47,016 --> 00:20:48,296
+return from performDropWith
+
+
+726
+00:20:48,296 --> 00:20:48,796
+coordinator.
+
+
+727
+00:20:49,286 --> 00:20:51,366
+So to solve for that, that would
+
+
+728
+00:20:51,366 --> 00:20:52,456
+mean you'd have to do some
+
+
+729
+00:20:52,456 --> 00:20:53,616
+pretty difficult bookkeeping,
+
+
+730
+00:20:53,836 --> 00:20:54,696
+because you're going to have to
+
+
+731
+00:20:54,696 --> 00:20:56,196
+do temporary insertions in the
+
+
+732
+00:20:56,196 --> 00:20:57,556
+collection or table view, just
+
+
+733
+00:20:57,556 --> 00:20:58,856
+to set up these animations.
+
+
+734
+00:20:59,126 --> 00:20:59,916
+Which, of course, would mean
+
+
+735
+00:20:59,916 --> 00:21:01,046
+updating your data source with
+
+
+736
+00:21:01,046 --> 00:21:02,796
+temporary model objects, and
+
+
+737
+00:21:02,796 --> 00:21:03,816
+that's not going to be easy.
+
+
+738
+00:21:04,356 --> 00:21:05,526
+Remember these asynchronous
+
+
+739
+00:21:05,526 --> 00:21:06,846
+loads can even come in out of
+
+
+740
+00:21:06,846 --> 00:21:07,246
+order.
+
+
+741
+00:21:08,726 --> 00:21:10,256
+We know this is a big challenge,
+
+
+742
+00:21:10,456 --> 00:21:12,366
+and we are extremely excited to
+
+
+743
+00:21:12,366 --> 00:21:13,596
+tell you about brand new
+
+
+744
+00:21:13,596 --> 00:21:15,566
+technology in iOS 11 for
+
+
+745
+00:21:15,566 --> 00:21:16,606
+collection and table view,
+
+
+746
+00:21:16,726 --> 00:21:17,996
+specifically designed for this
+
+
+747
+00:21:17,996 --> 00:21:18,556
+problem.
+
+
+748
+00:21:18,806 --> 00:21:19,636
+I'd like to introduce
+
+
+749
+00:21:19,636 --> 00:21:19,976
+placeholders.
+
+
+750
+00:21:20,516 --> 00:21:25,086
+[ Applause ]
+
+
+751
+00:21:25,586 --> 00:21:27,046
+Okay. What are placeholders?
+
+
+752
+00:21:27,326 --> 00:21:28,506
+So, as the name suggests, these
+
+
+753
+00:21:28,506 --> 00:21:29,946
+are temporary items or rows that
+
+
+754
+00:21:29,946 --> 00:21:31,156
+you insert into your collection
+
+
+755
+00:21:31,156 --> 00:21:31,776
+or table view.
+
+
+756
+00:21:32,336 --> 00:21:33,816
+And the key thing about them is
+
+
+757
+00:21:33,816 --> 00:21:35,506
+that you can defer updating your
+
+
+758
+00:21:35,506 --> 00:21:36,966
+data source until the data
+
+
+759
+00:21:36,966 --> 00:21:38,656
+finishes loading when you insert
+
+
+760
+00:21:38,656 --> 00:21:39,376
+placeholders.
+
+
+761
+00:21:40,226 --> 00:21:41,866
+So for placeholders, you can use
+
+
+762
+00:21:41,866 --> 00:21:42,976
+any cell that you want.
+
+
+763
+00:21:43,316 --> 00:21:44,376
+You can provide it to us.
+
+
+764
+00:21:44,376 --> 00:21:45,656
+We'll do all the difficult
+
+
+765
+00:21:45,656 --> 00:21:47,376
+bookkeeping on the back end
+
+
+766
+00:21:47,446 --> 00:21:48,466
+until your data finishes
+
+
+767
+00:21:48,466 --> 00:21:48,796
+loading.
+
+
+768
+00:21:49,956 --> 00:21:50,806
+The way this works is that
+
+
+769
+00:21:50,806 --> 00:21:51,936
+collection and table view will
+
+
+770
+00:21:51,936 --> 00:21:53,656
+never actually call out to ask
+
+
+771
+00:21:53,656 --> 00:21:54,886
+your delegate or data source
+
+
+772
+00:21:54,976 --> 00:21:56,706
+about placeholders, so your
+
+
+773
+00:21:56,706 --> 00:21:58,246
+delegates can remain blissfully
+
+
+774
+00:21:58,246 --> 00:21:59,726
+unaware that they even exist.
+
+
+775
+00:22:00,786 --> 00:22:01,756
+You can insert as many
+
+
+776
+00:22:01,756 --> 00:22:02,956
+placeholders as you want,
+
+
+777
+00:22:02,956 --> 00:22:03,806
+anywhere you want in the
+
+
+778
+00:22:03,806 --> 00:22:05,126
+collection or table view, and
+
+
+779
+00:22:05,126 --> 00:22:06,866
+you can even perform incremental
+
+
+780
+00:22:06,866 --> 00:22:08,806
+updates while placeholders exist
+
+
+781
+00:22:08,806 --> 00:22:10,956
+to put new rows or items in the
+
+
+782
+00:22:10,956 --> 00:22:12,006
+collection view, table view, or
+
+
+783
+00:22:12,006 --> 00:22:13,076
+move some existing one.
+
+
+784
+00:22:13,406 --> 00:22:14,176
+Anything like that.
+
+
+785
+00:22:14,676 --> 00:22:15,766
+So this provides users with a
+
+
+786
+00:22:15,766 --> 00:22:17,156
+great experience while their
+
+
+787
+00:22:17,156 --> 00:22:18,496
+data is loading across
+
+
+788
+00:22:18,496 --> 00:22:19,986
+applications, because you can
+
+
+789
+00:22:19,986 --> 00:22:21,526
+keep your user interface live
+
+
+790
+00:22:21,526 --> 00:22:23,096
+and responsive during these data
+
+
+791
+00:22:23,096 --> 00:22:23,616
+transfers.
+
+
+792
+00:22:23,616 --> 00:22:25,036
+So how do you create
+
+
+793
+00:22:25,036 --> 00:22:25,736
+placeholders?
+
+
+794
+00:22:26,336 --> 00:22:27,616
+Well, you're creating them using
+
+
+795
+00:22:27,616 --> 00:22:28,936
+the drop coordinator, of course.
+
+
+796
+00:22:29,546 --> 00:22:31,056
+To insert and animate it to a
+
+
+797
+00:22:31,056 --> 00:22:31,586
+placeholder.
+
+
+798
+00:22:31,826 --> 00:22:32,946
+Let's dive into some code and
+
+
+799
+00:22:32,946 --> 00:22:33,516
+see how it's done.
+
+
+800
+00:22:34,116 --> 00:22:35,496
+So we're back in our
+
+
+801
+00:22:35,496 --> 00:22:36,646
+performDropWith coordinator
+
+
+802
+00:22:36,646 --> 00:22:37,096
+method.
+
+
+803
+00:22:37,616 --> 00:22:38,266
+Again, we'll need a
+
+
+804
+00:22:38,266 --> 00:22:39,686
+destinationIndexPath that we're
+
+
+805
+00:22:39,686 --> 00:22:40,926
+actually going to drop to.
+
+
+806
+00:22:41,566 --> 00:22:42,986
+And now here we do things a
+
+
+807
+00:22:42,986 --> 00:22:43,796
+little bit differently.
+
+
+808
+00:22:44,346 --> 00:22:45,536
+Now we're going to iterate over
+
+
+809
+00:22:45,606 --> 00:22:46,856
+each of the items in the drop
+
+
+810
+00:22:46,856 --> 00:22:48,886
+session independently and for
+
+
+811
+00:22:48,886 --> 00:22:50,676
+each item, we're going to insert
+
+
+812
+00:22:50,676 --> 00:22:51,226
+a placeholder.
+
+
+813
+00:22:51,796 --> 00:22:53,736
+So we call coordinator drop item
+
+
+814
+00:22:53,736 --> 00:22:55,316
+toPlaceholderInsertedAt index
+
+
+815
+00:22:55,316 --> 00:22:56,696
+path withReuseIdentifier.
+
+
+816
+00:22:57,846 --> 00:22:58,716
+This will actually insert a
+
+
+817
+00:22:58,716 --> 00:22:59,516
+placeholder at the
+
+
+818
+00:22:59,516 --> 00:23:01,096
+destinationIndexPath for this
+
+
+819
+00:23:01,096 --> 00:23:01,886
+particular item.
+
+
+820
+00:23:02,396 --> 00:23:03,576
+You'll notice we pass over use
+
+
+821
+00:23:03,576 --> 00:23:04,096
+identifier.
+
+
+822
+00:23:04,096 --> 00:23:05,066
+This is something that you've
+
+
+823
+00:23:05,066 --> 00:23:06,356
+already registered with the
+
+
+824
+00:23:06,356 --> 00:23:07,796
+collection or table view and
+
+
+825
+00:23:07,796 --> 00:23:08,786
+we're going to use that to
+
+
+826
+00:23:08,786 --> 00:23:10,056
+dequeue a cell for this
+
+
+827
+00:23:10,086 --> 00:23:10,586
+placeholder.
+
+
+828
+00:23:11,696 --> 00:23:12,986
+You'll also notice, of course,
+
+
+829
+00:23:12,986 --> 00:23:13,856
+that there's a closure at the
+
+
+830
+00:23:13,856 --> 00:23:15,446
+end and that there's a comment
+
+
+831
+00:23:15,446 --> 00:23:16,596
+configure your placeholder cell
+
+
+832
+00:23:16,596 --> 00:23:16,826
+here.
+
+
+833
+00:23:17,366 --> 00:23:19,296
+Well, as you recall, collection
+
+
+834
+00:23:19,296 --> 00:23:20,606
+and table view, they're not
+
+
+835
+00:23:20,606 --> 00:23:21,706
+going to call out to your
+
+
+836
+00:23:21,706 --> 00:23:22,966
+delegate or data source about
+
+
+837
+00:23:22,966 --> 00:23:23,586
+placeholders.
+
+
+838
+00:23:23,916 --> 00:23:24,816
+That mean you're not going to
+
+
+839
+00:23:24,816 --> 00:23:26,326
+get a call for cell for row or
+
+
+840
+00:23:26,326 --> 00:23:28,106
+cell for item in index path for
+
+
+841
+00:23:28,106 --> 00:23:29,856
+placeholders, so this closure
+
+
+842
+00:23:30,176 --> 00:23:31,936
+serves as your replacement for
+
+
+843
+00:23:31,936 --> 00:23:33,026
+the configuration that you might
+
+
+844
+00:23:33,026 --> 00:23:34,666
+normally do in cell for row at
+
+
+845
+00:23:34,666 --> 00:23:35,866
+index path or cell for item in
+
+
+846
+00:23:35,866 --> 00:23:36,536
+index path.
+
+
+847
+00:23:37,536 --> 00:23:38,936
+Okay. There's one more thing.
+
+
+848
+00:23:39,476 --> 00:23:40,166
+Once you've inserted the
+
+
+849
+00:23:40,166 --> 00:23:42,666
+placeholder, it actually returns
+
+
+850
+00:23:42,666 --> 00:23:44,086
+something back to you, and
+
+
+851
+00:23:44,086 --> 00:23:45,656
+that's this placeholderContext.
+
+
+852
+00:23:46,026 --> 00:23:46,646
+What is this?
+
+
+853
+00:23:47,316 --> 00:23:48,496
+The placeholderContext is
+
+
+854
+00:23:48,496 --> 00:23:49,646
+returned for each placeholder
+
+
+855
+00:23:49,646 --> 00:23:50,286
+independently.
+
+
+856
+00:23:50,746 --> 00:23:52,426
+And this is how you're actually
+
+
+857
+00:23:52,426 --> 00:23:53,786
+going to commit the insertion of
+
+
+858
+00:23:53,786 --> 00:23:55,236
+the placeholder to exchange it
+
+
+859
+00:23:55,236 --> 00:23:56,426
+for the final cell once your
+
+
+860
+00:23:56,426 --> 00:23:57,416
+data finishes loading.
+
+
+861
+00:23:58,146 --> 00:24:00,276
+Or, if the data transfer failed.
+
+
+862
+00:24:00,526 --> 00:24:01,596
+Or maybe it was cancelled by the
+
+
+863
+00:24:01,596 --> 00:24:02,006
+user.
+
+
+864
+00:24:02,366 --> 00:24:02,956
+You can use the
+
+
+865
+00:24:02,956 --> 00:24:04,426
+placeholderContex to actually
+
+
+866
+00:24:04,426 --> 00:24:05,416
+delete the placeholder because
+
+
+867
+00:24:05,416 --> 00:24:06,906
+it'll no longer be needed.
+
+
+868
+00:24:07,946 --> 00:24:09,466
+So let's jump back to our code
+
+
+869
+00:24:09,466 --> 00:24:10,346
+and see how we use this
+
+
+870
+00:24:10,346 --> 00:24:11,206
+placeholderContext.
+
+
+871
+00:24:11,556 --> 00:24:12,596
+We're picking up right where we
+
+
+872
+00:24:12,596 --> 00:24:13,206
+left off.
+
+
+873
+00:24:13,206 --> 00:24:14,326
+We inserted our placeholder.
+
+
+874
+00:24:14,596 --> 00:24:15,766
+We got the placeholderContext
+
+
+875
+00:24:15,766 --> 00:24:16,106
+back.
+
+
+876
+00:24:16,586 --> 00:24:18,506
+Now we can actually go and load
+
+
+877
+00:24:18,506 --> 00:24:18,806
+the data.
+
+
+878
+00:24:19,596 --> 00:24:20,916
+Again, this is asynchronous, so
+
+
+879
+00:24:20,916 --> 00:24:22,556
+we use this load object of class
+
+
+880
+00:24:22,556 --> 00:24:23,506
+method to do that.
+
+
+881
+00:24:24,056 --> 00:24:25,266
+When the closure completion
+
+
+882
+00:24:25,266 --> 00:24:27,046
+handler runs, that'll be called
+
+
+883
+00:24:27,046 --> 00:24:27,926
+on a background queue.
+
+
+884
+00:24:27,926 --> 00:24:29,136
+So we make sure to transition
+
+
+885
+00:24:29,136 --> 00:24:30,596
+back onto the main queue before
+
+
+886
+00:24:30,596 --> 00:24:31,296
+we update our UI.
+
+
+887
+00:24:32,686 --> 00:24:34,036
+And now we can check did we
+
+
+888
+00:24:34,036 --> 00:24:35,566
+actually get any data loaded?
+
+
+889
+00:24:36,096 --> 00:24:37,436
+If we did, we'll have an image
+
+
+890
+00:24:37,436 --> 00:24:38,596
+in this local variable here.
+
+
+891
+00:24:38,966 --> 00:24:40,676
+And now we call commitInsertion
+
+
+892
+00:24:40,716 --> 00:24:42,036
+on the placeholder context,
+
+
+893
+00:24:42,366 --> 00:24:44,056
+which again, we'll swap out that
+
+
+894
+00:24:44,056 --> 00:24:45,506
+placeholder cell and insert the
+
+
+895
+00:24:45,506 --> 00:24:47,476
+real cell at this particular
+
+
+896
+00:24:47,476 --> 00:24:47,956
+location.
+
+
+897
+00:24:48,816 --> 00:24:50,036
+Now you pass a closure to
+
+
+898
+00:24:50,036 --> 00:24:50,816
+commitInsertion.
+
+
+899
+00:24:51,146 --> 00:24:52,296
+Inside of that closure, it's
+
+
+900
+00:24:52,296 --> 00:24:53,916
+your responsibility to update
+
+
+901
+00:24:53,916 --> 00:24:55,446
+your data source to incorporate
+
+
+902
+00:24:55,446 --> 00:24:57,376
+the new data for the actual row
+
+
+903
+00:24:57,376 --> 00:24:57,586
+here.
+
+
+904
+00:24:58,156 --> 00:25:00,426
+Or item in the collection view.
+
+
+905
+00:25:00,786 --> 00:25:02,326
+Now one other important thing.
+
+
+906
+00:25:02,546 --> 00:25:03,996
+Take a look at that index path
+
+
+907
+00:25:03,996 --> 00:25:05,196
+that's being passed inside that
+
+
+908
+00:25:05,196 --> 00:25:06,906
+closure, the insertionIndexPath.
+
+
+909
+00:25:07,576 --> 00:25:08,796
+You need to be very careful to
+
+
+910
+00:25:08,796 --> 00:25:10,496
+actually use that one and not
+
+
+911
+00:25:10,496 --> 00:25:11,096
+the original
+
+
+912
+00:25:11,096 --> 00:25:12,946
+destinationIndexPath that you
+
+
+913
+00:25:12,946 --> 00:25:13,646
+originally inserted the
+
+
+914
+00:25:13,646 --> 00:25:14,376
+placeholder at.
+
+
+915
+00:25:14,686 --> 00:25:16,546
+This is because between the time
+
+
+916
+00:25:16,546 --> 00:25:17,086
+when you inserted the
+
+
+917
+00:25:17,086 --> 00:25:18,226
+placeholder and when the data
+
+
+918
+00:25:18,226 --> 00:25:19,736
+finished loading, if other
+
+
+919
+00:25:19,736 --> 00:25:20,936
+updates happen in the collection
+
+
+920
+00:25:20,936 --> 00:25:22,016
+or table view, the placeholder
+
+
+921
+00:25:22,016 --> 00:25:22,866
+might have moved.
+
+
+922
+00:25:23,286 --> 00:25:24,886
+And so you use this index path,
+
+
+923
+00:25:24,886 --> 00:25:26,496
+which we provide to you, to tell
+
+
+924
+00:25:26,496 --> 00:25:28,266
+you the final location when the
+
+
+925
+00:25:28,266 --> 00:25:29,366
+placeholder insertion is
+
+
+926
+00:25:29,366 --> 00:25:29,946
+committed.
+
+
+927
+00:25:30,896 --> 00:25:31,936
+Okay, one other thing.
+
+
+928
+00:25:31,936 --> 00:25:33,716
+Of course, if our data transfer
+
+
+929
+00:25:33,716 --> 00:25:35,276
+didn't work for some reason, or
+
+
+930
+00:25:35,276 --> 00:25:36,996
+maybe it was cancelled, we can
+
+
+931
+00:25:36,996 --> 00:25:38,126
+just delete the placeholder
+
+
+932
+00:25:38,276 --> 00:25:39,896
+because we no longer need it.
+
+
+933
+00:25:40,486 --> 00:25:41,976
+Now one quick note about working
+
+
+934
+00:25:41,976 --> 00:25:42,746
+with placeholders.
+
+
+935
+00:25:42,986 --> 00:25:43,976
+It's very important that you
+
+
+936
+00:25:43,976 --> 00:25:45,606
+avoid calling reload data on the
+
+
+937
+00:25:45,606 --> 00:25:46,786
+collection or table view when
+
+
+938
+00:25:46,786 --> 00:25:47,616
+you have placeholders.
+
+
+939
+00:25:47,906 --> 00:25:49,426
+Instead, you should use
+
+
+940
+00:25:49,476 --> 00:25:50,796
+performBatchUpdates.
+
+
+941
+00:25:51,416 --> 00:25:52,386
+This is so you can perform
+
+
+942
+00:25:52,386 --> 00:25:53,626
+incremental updates on the
+
+
+943
+00:25:53,626 --> 00:25:54,676
+collection or table view.
+
+
+944
+00:25:55,306 --> 00:25:56,516
+And the reason why you want to
+
+
+945
+00:25:56,516 --> 00:25:57,896
+avoid reload data is because
+
+
+946
+00:25:57,896 --> 00:25:59,566
+that just resets everything in
+
+
+947
+00:25:59,566 --> 00:26:00,546
+the collection or table view.
+
+
+948
+00:26:00,546 --> 00:26:01,876
+And, as a result, it's going to
+
+
+949
+00:26:01,876 --> 00:26:03,166
+strip out any existing
+
+
+950
+00:26:03,166 --> 00:26:04,226
+placeholders that you still
+
+
+951
+00:26:04,226 --> 00:26:04,586
+have.
+
+
+952
+00:26:05,396 --> 00:26:06,866
+If you use performBatchUpdates,
+
+
+953
+00:26:07,066 --> 00:26:08,426
+you'll be performing incremental
+
+
+954
+00:26:08,426 --> 00:26:10,306
+insertions and deletions, and we
+
+
+955
+00:26:10,306 --> 00:26:11,496
+can keep those placeholders
+
+
+956
+00:26:11,496 --> 00:26:13,146
+alive while you update your
+
+
+957
+00:26:13,146 --> 00:26:14,326
+collection view in real time.
+
+
+958
+00:26:14,606 --> 00:26:17,016
+You can use the new property
+
+
+959
+00:26:17,016 --> 00:26:18,486
+hasUncommittedUpdates on
+
+
+960
+00:26:18,486 --> 00:26:19,776
+collection and table view, if
+
+
+961
+00:26:19,776 --> 00:26:20,686
+you would like to check if it
+
+
+962
+00:26:20,686 --> 00:26:22,236
+has placeholders still around.
+
+
+963
+00:26:23,036 --> 00:26:23,986
+With that, I'd like to hand it
+
+
+964
+00:26:23,986 --> 00:26:25,446
+back to Mohammed to show you an
+
+
+965
+00:26:25,446 --> 00:26:26,826
+amazing demo of all this
+
+
+966
+00:26:26,826 --> 00:26:28,326
+placeholder goodness in action.
+
+
+967
+00:26:28,696 --> 00:26:28,976
+Mohammed.
+
+
+968
+00:26:29,516 --> 00:26:31,796
+[ Applause ]
+
+
+969
+00:26:32,296 --> 00:26:32,776
+Yeah. I can hold it.
+
+
+970
+00:26:35,036 --> 00:26:35,646
+>> Thanks Tyler.
+
+
+971
+00:26:36,056 --> 00:26:37,636
+Wow. Placeholders sound amazing,
+
+
+972
+00:26:37,636 --> 00:26:38,016
+don't they?
+
+
+973
+00:26:38,486 --> 00:26:40,266
+I can't wait to actually build
+
+
+974
+00:26:40,266 --> 00:26:41,176
+them in our app and build a
+
+
+975
+00:26:41,176 --> 00:26:42,616
+really awesome drop animation.
+
+
+976
+00:26:43,366 --> 00:26:43,976
+Let's get started.
+
+
+977
+00:26:47,596 --> 00:26:49,256
+So the first thing we'll want to
+
+
+978
+00:26:49,256 --> 00:26:50,786
+do is implement another optional
+
+
+979
+00:26:50,786 --> 00:26:53,256
+method on the drop delegate to
+
+
+980
+00:26:53,256 --> 00:26:56,266
+indicate to the collection view
+
+
+981
+00:26:56,266 --> 00:26:58,086
+that we'd like to animate our
+
+
+982
+00:26:58,086 --> 00:27:00,666
+dropped items to the drop point.
+
+
+983
+00:27:00,936 --> 00:27:03,846
+So let's add an implementation
+
+
+984
+00:27:03,846 --> 00:27:06,056
+for dropSessionDidUpdate
+
+
+985
+00:27:06,056 --> 00:27:07,676
+withDestinationIndexPath.
+
+
+986
+00:27:08,436 --> 00:27:10,076
+And we'll start returning a
+
+
+987
+00:27:10,076 --> 00:27:11,596
+collection view drop proposal
+
+
+988
+00:27:11,596 --> 00:27:14,446
+with a drop operation of copy
+
+
+989
+00:27:14,446 --> 00:27:15,626
+and an intent of
+
+
+990
+00:27:15,626 --> 00:27:17,826
+insertAtDestinationIndexPath.
+
+
+991
+00:27:18,926 --> 00:27:20,746
+Next, we'll head back to our
+
+
+992
+00:27:21,856 --> 00:27:23,066
+performDropWith coordinator
+
+
+993
+00:27:23,066 --> 00:27:24,466
+method and we're going to remove
+
+
+994
+00:27:24,466 --> 00:27:26,006
+our existing coordinator code
+
+
+995
+00:27:26,006 --> 00:27:26,946
+because we're going to do
+
+
+996
+00:27:26,946 --> 00:27:27,846
+something a little different.
+
+
+997
+00:27:28,536 --> 00:27:29,966
+The first thing we'll want to do
+
+
+998
+00:27:29,966 --> 00:27:31,586
+is iterate the coordinator's
+
+
+999
+00:27:31,586 --> 00:27:33,266
+drop items or self, and we're
+
+
+1000
+00:27:33,266 --> 00:27:35,966
+going to check if each drop
+
+
+1001
+00:27:35,966 --> 00:27:38,196
+item, drag item item provider
+
+
+1002
+00:27:38,196 --> 00:27:40,196
+can be used to load an object of
+
+
+1003
+00:27:40,196 --> 00:27:40,956
+class image.
+
+
+1004
+00:27:41,186 --> 00:27:42,736
+If it can, then we'll do a
+
+
+1005
+00:27:42,736 --> 00:27:43,416
+couple of things.
+
+
+1006
+00:27:43,856 --> 00:27:47,106
+First, we'll ask the coordinator
+
+
+1007
+00:27:47,106 --> 00:27:50,186
+to drop a placeholder at the
+
+
+1008
+00:27:50,186 --> 00:27:51,506
+destinationIndexPath.
+
+
+1009
+00:27:52,196 --> 00:27:53,596
+And we'll pass it a reuse
+
+
+1010
+00:27:53,596 --> 00:27:55,306
+identifier for a placeholder
+
+
+1011
+00:27:55,306 --> 00:27:56,536
+cell that we've registered with
+
+
+1012
+00:27:56,536 --> 00:27:57,996
+the collection view previously.
+
+
+1013
+00:27:58,756 --> 00:27:59,676
+We're going to hang onto the
+
+
+1014
+00:27:59,676 --> 00:28:01,026
+placeholder context, because
+
+
+1015
+00:28:01,026 --> 00:28:02,106
+we're going to need it to update
+
+
+1016
+00:28:02,106 --> 00:28:04,256
+the collection view later on.
+
+
+1017
+00:28:05,716 --> 00:28:08,046
+Next, we'll actually trigger the
+
+
+1018
+00:28:08,046 --> 00:28:09,776
+data load by calling load object
+
+
+1019
+00:28:09,776 --> 00:28:11,296
+on the item provider and
+
+
+1020
+00:28:11,956 --> 00:28:13,276
+loadObjects is completion
+
+
+1021
+00:28:13,276 --> 00:28:13,696
+handler.
+
+
+1022
+00:28:13,986 --> 00:28:15,946
+We'll go ahead and handle the
+
+
+1023
+00:28:15,946 --> 00:28:16,306
+drop.
+
+
+1024
+00:28:17,256 --> 00:28:18,646
+Note that I'm dispatching back
+
+
+1025
+00:28:18,646 --> 00:28:20,756
+to the main queue here, since
+
+
+1026
+00:28:20,756 --> 00:28:21,996
+loadObjects is completion
+
+
+1027
+00:28:21,996 --> 00:28:23,176
+handler is called on a
+
+
+1028
+00:28:23,176 --> 00:28:24,286
+background queue, and we're
+
+
+1029
+00:28:24,286 --> 00:28:25,826
+going to be updating our UI.
+
+
+1030
+00:28:26,206 --> 00:28:29,066
+If the data transfer succeeded,
+
+
+1031
+00:28:29,526 --> 00:28:31,746
+we'll finalize the drop by
+
+
+1032
+00:28:31,746 --> 00:28:33,086
+calling commitInsertion on the
+
+
+1033
+00:28:33,086 --> 00:28:34,236
+placeholderContext.
+
+
+1034
+00:28:34,236 --> 00:28:36,826
+And we'll pass it a set of data
+
+
+1035
+00:28:36,826 --> 00:28:39,456
+source updates that use the
+
+
+1036
+00:28:39,456 --> 00:28:42,776
+insertionIndexPath to insert our
+
+
+1037
+00:28:42,776 --> 00:28:44,006
+new image in our [inaudible].
+
+
+1038
+00:28:44,006 --> 00:28:49,776
+Then if the data transfer failed
+
+
+1039
+00:28:49,776 --> 00:28:51,336
+for some reason, we'll make sure
+
+
+1040
+00:28:51,336 --> 00:28:52,606
+to clean things up by calling
+
+
+1041
+00:28:52,606 --> 00:28:54,326
+deletePlaceholder on a context.
+
+
+1042
+00:28:55,106 --> 00:28:56,046
+There's one more thing we should
+
+
+1043
+00:28:56,046 --> 00:28:57,666
+do here and that's to disable
+
+
+1044
+00:28:57,666 --> 00:29:00,106
+the default system progress UI
+
+
+1045
+00:29:00,106 --> 00:29:01,536
+for long-running data transfers,
+
+
+1046
+00:29:01,806 --> 00:29:03,366
+because we have our own inline
+
+
+1047
+00:29:03,366 --> 00:29:04,066
+one now.
+
+
+1048
+00:29:04,776 --> 00:29:07,016
+So we'll go ahead and do that by
+
+
+1049
+00:29:07,446 --> 00:29:09,026
+setting the drop session's
+
+
+1050
+00:29:09,026 --> 00:29:10,456
+progress indicator style to
+
+
+1051
+00:29:10,456 --> 00:29:10,886
+none.
+
+
+1052
+00:29:11,886 --> 00:29:12,516
+That's it.
+
+
+1053
+00:29:12,516 --> 00:29:14,186
+Let's see what it looks like on
+
+
+1054
+00:29:14,186 --> 00:29:14,976
+our device.
+
+
+1055
+00:29:18,156 --> 00:29:20,646
+So to get the full effect of
+
+
+1056
+00:29:20,646 --> 00:29:21,986
+what we've just done, I'm going
+
+
+1057
+00:29:22,106 --> 00:29:23,736
+to -- instead of dragging out a
+
+
+1058
+00:29:23,736 --> 00:29:25,236
+photo, I'm going to switch over
+
+
+1059
+00:29:25,236 --> 00:29:27,246
+to a different app, which I've
+
+
+1060
+00:29:27,246 --> 00:29:29,326
+called Slow Photos, which
+
+
+1061
+00:29:29,326 --> 00:29:31,486
+intentionally slows down data
+
+
+1062
+00:29:31,486 --> 00:29:32,246
+transfers.
+
+
+1063
+00:29:33,276 --> 00:29:35,326
+I'm going to pick up a few of
+
+
+1064
+00:29:35,326 --> 00:29:36,916
+these images here and I'm going
+
+
+1065
+00:29:36,916 --> 00:29:37,866
+to head back to my collection
+
+
+1066
+00:29:37,866 --> 00:29:38,196
+view.
+
+
+1067
+00:29:39,066 --> 00:29:39,836
+Notice the first thing you'll
+
+
+1068
+00:29:39,836 --> 00:29:41,376
+notice here is that when I hover
+
+
+1069
+00:29:41,376 --> 00:29:43,016
+over the collection view, the
+
+
+1070
+00:29:43,016 --> 00:29:44,886
+cells start moving apart and we
+
+
+1071
+00:29:44,886 --> 00:29:46,086
+get this cool kind of
+
+
+1072
+00:29:46,766 --> 00:29:48,736
+springboard-like reordering
+
+
+1073
+00:29:48,976 --> 00:29:49,726
+look.
+
+
+1074
+00:29:50,556 --> 00:29:52,426
+This is because we started
+
+
+1075
+00:29:52,426 --> 00:29:53,116
+returning the
+
+
+1076
+00:29:53,116 --> 00:29:55,186
+insertAtDestinationIndexPath
+
+
+1077
+00:29:55,786 --> 00:29:56,456
+intent.
+
+
+1078
+00:29:57,806 --> 00:29:59,696
+If I let go of the dropped items
+
+
+1079
+00:29:59,936 --> 00:30:01,606
+-- oh, I love that animation
+
+
+1080
+00:30:01,606 --> 00:30:02,906
+[laughter].
+
+
+1081
+00:30:02,906 --> 00:30:05,596
+So note that the first thing we
+
+
+1082
+00:30:05,596 --> 00:30:06,946
+get are the placeholder cells
+
+
+1083
+00:30:06,946 --> 00:30:08,526
+with this inline progress UI.
+
+
+1084
+00:30:08,806 --> 00:30:10,166
+And a few seconds later, when
+
+
+1085
+00:30:10,166 --> 00:30:12,076
+the data transfer completes, we
+
+
+1086
+00:30:12,076 --> 00:30:14,086
+actually have the cells, the
+
+
+1087
+00:30:14,086 --> 00:30:15,806
+real cells with the real images
+
+
+1088
+00:30:15,806 --> 00:30:15,976
+loaded.
+
+
+1089
+00:30:16,516 --> 00:30:21,776
+[ Applause ]
+
+
+1090
+00:30:22,276 --> 00:30:23,366
+So now I'm going to hand it back
+
+
+1091
+00:30:23,366 --> 00:30:24,686
+to Tyler who's going to talk
+
+
+1092
+00:30:24,686 --> 00:30:26,576
+about some final touches that
+
+
+1093
+00:30:26,576 --> 00:30:27,616
+can really help you make the
+
+
+1094
+00:30:27,616 --> 00:30:28,976
+drag and drop experience in our
+
+
+1095
+00:30:28,976 --> 00:30:29,976
+app uniquely awesome.
+
+
+1096
+00:30:34,306 --> 00:30:35,486
+>> Okay. Thanks Mohammed.
+
+
+1097
+00:30:36,126 --> 00:30:37,606
+So let's wrap up by quickly
+
+
+1098
+00:30:37,606 --> 00:30:38,726
+jumping through some of the
+
+
+1099
+00:30:39,056 --> 00:30:41,176
+final touches that you can adopt
+
+
+1100
+00:30:41,176 --> 00:30:42,606
+using our wonderful APIs here.
+
+
+1101
+00:30:43,126 --> 00:30:44,436
+The first one that might be very
+
+
+1102
+00:30:44,436 --> 00:30:45,836
+interesting to you is supporting
+
+
+1103
+00:30:45,866 --> 00:30:46,426
+reordering.
+
+
+1104
+00:30:47,356 --> 00:30:48,206
+So now that we have Drag and
+
+
+1105
+00:30:48,206 --> 00:30:49,856
+Drop, it might be obvious that
+
+
+1106
+00:30:49,926 --> 00:30:50,786
+you might want to use that for
+
+
+1107
+00:30:50,786 --> 00:30:51,316
+reordering.
+
+
+1108
+00:30:51,526 --> 00:30:52,836
+Well you can of course do that
+
+
+1109
+00:30:53,126 --> 00:30:54,086
+and it's really easy.
+
+
+1110
+00:30:54,796 --> 00:30:55,936
+You start by implementing the
+
+
+1111
+00:30:55,936 --> 00:30:56,886
+dropDelegate method,
+
+
+1112
+00:30:56,986 --> 00:30:57,946
+dropSessionDidUpdate
+
+
+1113
+00:30:57,946 --> 00:30:59,416
+withDestinationIndexPath.
+
+
+1114
+00:30:59,806 --> 00:31:00,776
+The reason why, of course,
+
+
+1115
+00:31:00,776 --> 00:31:01,966
+that's how you provide your drop
+
+
+1116
+00:31:01,966 --> 00:31:03,116
+proposal to the system.
+
+
+1117
+00:31:03,536 --> 00:31:04,966
+And, in particular, you need a
+
+
+1118
+00:31:04,966 --> 00:31:06,386
+very specific drop proposal if
+
+
+1119
+00:31:06,386 --> 00:31:08,196
+you like reorder, which is the
+
+
+1120
+00:31:08,196 --> 00:31:09,636
+drop proposal with an operation
+
+
+1121
+00:31:09,636 --> 00:31:11,646
+of move and an intent of
+
+
+1122
+00:31:11,676 --> 00:31:13,426
+insertAtDestinationIndexPath.
+
+
+1123
+00:31:13,856 --> 00:31:15,246
+That serves as a signal to the
+
+
+1124
+00:31:15,246 --> 00:31:16,516
+collection or table view that
+
+
+1125
+00:31:16,516 --> 00:31:17,796
+you're interested in supporting
+
+
+1126
+00:31:17,796 --> 00:31:19,566
+reordering, when the item that's
+
+
+1127
+00:31:19,566 --> 00:31:20,616
+being dragged comes from the
+
+
+1128
+00:31:20,616 --> 00:31:21,626
+same source view.
+
+
+1129
+00:31:22,936 --> 00:31:23,906
+Now here's where things get a
+
+
+1130
+00:31:23,906 --> 00:31:24,936
+little bit different for table
+
+
+1131
+00:31:24,936 --> 00:31:25,676
+view and collection view.
+
+
+1132
+00:31:25,676 --> 00:31:26,496
+We'll start with table view.
+
+
+1133
+00:31:27,146 --> 00:31:29,256
+With table view, table view has
+
+
+1134
+00:31:29,346 --> 00:31:30,596
+already supported reordering for
+
+
+1135
+00:31:30,596 --> 00:31:31,896
+a very long time and you're
+
+
+1136
+00:31:31,896 --> 00:31:33,136
+familiar with this very
+
+
+1137
+00:31:33,666 --> 00:31:36,046
+longstanding data source method.
+
+
+1138
+00:31:36,456 --> 00:31:38,356
+Table view moveRowAt IndexPath
+
+
+1139
+00:31:38,356 --> 00:31:39,186
+to IndexPath.
+
+
+1140
+00:31:39,696 --> 00:31:40,956
+You can continue to implement
+
+
+1141
+00:31:40,956 --> 00:31:42,176
+this, if you like, to support
+
+
+1142
+00:31:42,176 --> 00:31:43,486
+reordering, using Drag and Drop.
+
+
+1143
+00:31:43,846 --> 00:31:44,926
+Because table view is actually
+
+
+1144
+00:31:44,926 --> 00:31:46,336
+going to call this instead of
+
+
+1145
+00:31:46,336 --> 00:31:47,486
+calling through perform drop
+
+
+1146
+00:31:47,486 --> 00:31:48,796
+with coordinator, if you've
+
+
+1147
+00:31:48,796 --> 00:31:49,856
+returned that magic drop
+
+
+1148
+00:31:49,856 --> 00:31:51,376
+proposal and a single row is
+
+
+1149
+00:31:51,376 --> 00:31:52,296
+actually being reordered.
+
+
+1150
+00:31:52,926 --> 00:31:53,856
+This makes it really easy,
+
+
+1151
+00:31:53,856 --> 00:31:54,836
+because you can use the same
+
+
+1152
+00:31:54,836 --> 00:31:56,836
+code to ship on an iPhone.
+
+
+1153
+00:31:56,836 --> 00:31:57,806
+For example, maybe where you
+
+
+1154
+00:31:57,806 --> 00:31:59,546
+don't have Drag and Drop using
+
+
+1155
+00:31:59,546 --> 00:32:00,936
+the existing style of
+
+
+1156
+00:32:00,936 --> 00:32:01,506
+reordering.
+
+
+1157
+00:32:01,616 --> 00:32:03,556
+And, if you are on an iPad, you
+
+
+1158
+00:32:03,556 --> 00:32:04,556
+can use the new style of
+
+
+1159
+00:32:04,556 --> 00:32:05,186
+reordering here.
+
+
+1160
+00:32:06,096 --> 00:32:07,486
+So that's table view.
+
+
+1161
+00:32:07,776 --> 00:32:08,546
+Pretty straightforward.
+
+
+1162
+00:32:08,816 --> 00:32:10,246
+Collection view is also equally
+
+
+1163
+00:32:10,246 --> 00:32:10,946
+easy, though.
+
+
+1164
+00:32:11,216 --> 00:32:11,966
+Collection view.
+
+
+1165
+00:32:12,006 --> 00:32:12,866
+You just need to make sure
+
+
+1166
+00:32:12,866 --> 00:32:14,286
+you're implementing both a drag
+
+
+1167
+00:32:14,286 --> 00:32:15,216
+and drop delegate.
+
+
+1168
+00:32:15,216 --> 00:32:16,036
+So both sides.
+
+
+1169
+00:32:16,996 --> 00:32:18,666
+And inside of perform drop with
+
+
+1170
+00:32:18,666 --> 00:32:22,036
+coordinator, you'll actually
+
+
+1171
+00:32:22,036 --> 00:32:24,226
+look at the drop items that we
+
+
+1172
+00:32:24,226 --> 00:32:25,206
+passed to you in that
+
+
+1173
+00:32:25,206 --> 00:32:25,836
+coordinator.
+
+
+1174
+00:32:26,126 --> 00:32:27,426
+We actually are providing a
+
+
+1175
+00:32:27,426 --> 00:32:28,986
+sourceIndexPath for each of
+
+
+1176
+00:32:28,986 --> 00:32:30,096
+those items, which will be
+
+
+1177
+00:32:30,096 --> 00:32:32,476
+non-nil, if the item represents
+
+
+1178
+00:32:32,776 --> 00:32:34,246
+a particular item in the
+
+
+1179
+00:32:34,246 --> 00:32:35,256
+collection view that it came
+
+
+1180
+00:32:35,256 --> 00:32:35,556
+from.
+
+
+1181
+00:32:35,926 --> 00:32:37,926
+So you can delete the item at
+
+
+1182
+00:32:37,926 --> 00:32:39,886
+that sourceIndexPath and insert
+
+
+1183
+00:32:40,276 --> 00:32:41,286
+a new item at the
+
+
+1184
+00:32:41,286 --> 00:32:42,676
+destinationIndexPath.
+
+
+1185
+00:32:42,676 --> 00:32:44,366
+And that's going to affect the
+
+
+1186
+00:32:44,366 --> 00:32:45,166
+actual reorder.
+
+
+1187
+00:32:45,466 --> 00:32:46,876
+So you'll have that cell move
+
+
+1188
+00:32:46,986 --> 00:32:48,216
+seamlessly from the start to the
+
+
+1189
+00:32:48,216 --> 00:32:48,786
+destination.
+
+
+1190
+00:32:49,606 --> 00:32:51,456
+Now collection view has some
+
+
+1191
+00:32:51,456 --> 00:32:52,656
+extra functionality for
+
+
+1192
+00:32:52,656 --> 00:32:54,356
+reordering, though, and that's
+
+
+1193
+00:32:54,356 --> 00:32:56,056
+this new concept of reordering
+
+
+1194
+00:32:56,056 --> 00:32:56,626
+cadence.
+
+
+1195
+00:32:58,096 --> 00:32:59,136
+As you know, collection views
+
+
+1196
+00:32:59,136 --> 00:33:00,726
+often have these two-dimensional
+
+
+1197
+00:33:00,726 --> 00:33:01,836
+grid-like layouts.
+
+
+1198
+00:33:01,836 --> 00:33:02,936
+For example, the flow layout you
+
+
+1199
+00:33:02,936 --> 00:33:03,606
+see behind me.
+
+
+1200
+00:33:04,256 --> 00:33:05,876
+And when you're reordering,
+
+
+1201
+00:33:06,006 --> 00:33:08,336
+sometimes you can get the kind
+
+
+1202
+00:33:08,336 --> 00:33:09,666
+of behavior where the items are
+
+
+1203
+00:33:09,666 --> 00:33:11,096
+reflowing out as you're moving
+
+
+1204
+00:33:11,096 --> 00:33:11,616
+your finger.
+
+
+1205
+00:33:11,616 --> 00:33:12,696
+And that's great when you're
+
+
+1206
+00:33:12,696 --> 00:33:13,666
+actually trying to reorder.
+
+
+1207
+00:33:13,996 --> 00:33:15,436
+But you don't always want that
+
+
+1208
+00:33:15,436 --> 00:33:15,856
+behavior.
+
+
+1209
+00:33:15,856 --> 00:33:16,826
+Maybe if you're trying to just
+
+
+1210
+00:33:16,826 --> 00:33:18,096
+drag to a different location
+
+
+1211
+00:33:18,096 --> 00:33:19,206
+outside of the collection view
+
+
+1212
+00:33:19,276 --> 00:33:20,336
+and it happens to support
+
+
+1213
+00:33:20,336 --> 00:33:20,776
+reordering.
+
+
+1214
+00:33:21,366 --> 00:33:22,496
+So the reordering cadence has
+
+
+1215
+00:33:22,556 --> 00:33:23,586
+three different values to help
+
+
+1216
+00:33:23,586 --> 00:33:25,066
+you tune how responsive the
+
+
+1217
+00:33:25,066 --> 00:33:26,296
+collection view is going to be
+
+
+1218
+00:33:26,536 --> 00:33:27,986
+when it shuffles and reflows its
+
+
+1219
+00:33:27,986 --> 00:33:28,386
+layout.
+
+
+1220
+00:33:28,736 --> 00:33:30,176
+So the default, of course, is
+
+
+1221
+00:33:30,176 --> 00:33:31,516
+immediate, which you've seen in
+
+
+1222
+00:33:31,516 --> 00:33:32,376
+the demos so far.
+
+
+1223
+00:33:32,616 --> 00:33:33,506
+Where once you start moving
+
+
+1224
+00:33:33,506 --> 00:33:34,856
+around, it immediately is going
+
+
+1225
+00:33:34,856 --> 00:33:35,996
+to reflow the collection view
+
+
+1226
+00:33:35,996 --> 00:33:37,556
+layout as you're -- you know,
+
+
+1227
+00:33:37,556 --> 00:33:38,846
+almost in real time reordering.
+
+
+1228
+00:33:39,386 --> 00:33:40,606
+If you'd like to add a little
+
+
+1229
+00:33:40,606 --> 00:33:42,446
+bit more deliberance here, you
+
+
+1230
+00:33:42,446 --> 00:33:44,826
+can switch to the fast mode.
+
+
+1231
+00:33:45,476 --> 00:33:47,516
+Where, if you move very quickly,
+
+
+1232
+00:33:47,556 --> 00:33:48,886
+it won't actually immediately
+
+
+1233
+00:33:48,886 --> 00:33:50,606
+reshuffle all the layout around.
+
+
+1234
+00:33:50,606 --> 00:33:51,796
+And so you can see you have to
+
+
+1235
+00:33:51,796 --> 00:33:53,326
+pause just a little bit longer.
+
+
+1236
+00:33:53,746 --> 00:33:55,996
+And then for slow, it
+
+
+1237
+00:33:55,996 --> 00:33:57,246
+exaggerates that even further.
+
+
+1238
+00:33:57,246 --> 00:33:58,276
+So the user really has to be
+
+
+1239
+00:33:58,276 --> 00:33:59,786
+deliberate about wanting to stop
+
+
+1240
+00:33:59,786 --> 00:34:00,776
+and reorder to a specific
+
+
+1241
+00:34:00,776 --> 00:34:01,286
+location.
+
+
+1242
+00:34:01,576 --> 00:34:02,456
+This is how you're going to get
+
+
+1243
+00:34:02,456 --> 00:34:03,816
+behavior very consistent with
+
+
+1244
+00:34:04,096 --> 00:34:05,576
+the behavior you see on the iOS
+
+
+1245
+00:34:05,576 --> 00:34:06,886
+Home screen when reordering app
+
+
+1246
+00:34:06,886 --> 00:34:07,786
+icons, for example.
+
+
+1247
+00:34:08,356 --> 00:34:09,786
+So that's reordering.
+
+
+1248
+00:34:09,916 --> 00:34:11,235
+Let's talk about spring loading.
+
+
+1249
+00:34:11,956 --> 00:34:13,206
+Spring loading, as you probably
+
+
+1250
+00:34:13,206 --> 00:34:14,795
+know by now, is a way to
+
+
+1251
+00:34:14,795 --> 00:34:16,266
+actually navigate and activate
+
+
+1252
+00:34:16,266 --> 00:34:17,536
+controls throughout the system
+
+
+1253
+00:34:17,536 --> 00:34:18,366
+while you're in the middle of a
+
+
+1254
+00:34:18,366 --> 00:34:19,056
+drag session.
+
+
+1255
+00:34:19,326 --> 00:34:20,166
+You just hover over the
+
+
+1256
+00:34:20,166 --> 00:34:20,755
+controls.
+
+
+1257
+00:34:20,826 --> 00:34:22,216
+It starts highlighting and then
+
+
+1258
+00:34:22,216 --> 00:34:23,016
+it's going to activate.
+
+
+1259
+00:34:23,636 --> 00:34:24,735
+So, in collection and table
+
+
+1260
+00:34:24,735 --> 00:34:26,346
+view, it's dropped at easy to
+
+
+1261
+00:34:26,346 --> 00:34:27,815
+adopt spring loading and that's
+
+
+1262
+00:34:27,815 --> 00:34:29,866
+because both of them conform to
+
+
+1263
+00:34:29,866 --> 00:34:32,025
+the protocol UISpringLoaded
+
+
+1264
+00:34:32,025 --> 00:34:32,985
+InteractionSupporting.
+
+
+1265
+00:34:33,505 --> 00:34:34,646
+Basically that just means they
+
+
+1266
+00:34:34,646 --> 00:34:35,616
+each have a property
+
+
+1267
+00:34:35,616 --> 00:34:37,176
+isSpringLoaded, which you set to
+
+
+1268
+00:34:37,176 --> 00:34:38,946
+true, and spring loading works.
+
+
+1269
+00:34:39,646 --> 00:34:41,235
+When users spring load on a
+
+
+1270
+00:34:41,235 --> 00:34:42,356
+particular cell, we're going to
+
+
+1271
+00:34:42,356 --> 00:34:43,346
+call -- we're going to select
+
+
+1272
+00:34:43,456 --> 00:34:44,505
+that item or row in the
+
+
+1273
+00:34:44,505 --> 00:34:45,366
+collection or table view.
+
+
+1274
+00:34:46,166 --> 00:34:47,266
+And you can customize spring
+
+
+1275
+00:34:47,266 --> 00:34:48,556
+loading using a new delegate
+
+
+1276
+00:34:48,556 --> 00:34:50,516
+method shouldSpringLoadItemAt
+
+
+1277
+00:34:50,516 --> 00:34:51,735
+IndexPath with context.
+
+
+1278
+00:34:51,866 --> 00:34:53,176
+This is how you can opt out
+
+
+1279
+00:34:53,176 --> 00:34:54,565
+specific rows of spring loading.
+
+
+1280
+00:34:54,946 --> 00:34:56,976
+Or you can even customize spring
+
+
+1281
+00:34:56,976 --> 00:34:58,716
+loading effects a bit using that
+
+
+1282
+00:34:58,716 --> 00:34:59,126
+context.
+
+
+1283
+00:34:59,126 --> 00:35:00,476
+For example, you can change the
+
+
+1284
+00:35:00,476 --> 00:35:01,846
+view that actually flashes
+
+
+1285
+00:35:01,846 --> 00:35:02,536
+during the spring load
+
+
+1286
+00:35:02,536 --> 00:35:03,096
+interaction.
+
+
+1287
+00:35:04,086 --> 00:35:06,786
+So next, let's talk a little bit
+
+
+1288
+00:35:06,786 --> 00:35:08,416
+about customizing appearance.
+
+
+1289
+00:35:09,326 --> 00:35:10,776
+We have some new ways that you
+
+
+1290
+00:35:10,776 --> 00:35:12,096
+can customize the appearance of
+
+
+1291
+00:35:12,096 --> 00:35:13,776
+cells that are participating in
+
+
+1292
+00:35:13,836 --> 00:35:14,636
+drag sessions.
+
+
+1293
+00:35:15,306 --> 00:35:17,096
+So cells start -- they have a
+
+
+1294
+00:35:17,096 --> 00:35:18,376
+new notion of a drag state, and
+
+
+1295
+00:35:18,376 --> 00:35:19,686
+they all start in the none
+
+
+1296
+00:35:19,806 --> 00:35:21,186
+state, and that's before
+
+
+1297
+00:35:21,186 --> 00:35:21,946
+anything's happened.
+
+
+1298
+00:35:22,276 --> 00:35:23,266
+But when the user actually puts
+
+
+1299
+00:35:23,266 --> 00:35:24,306
+their finger on the glass and
+
+
+1300
+00:35:24,306 --> 00:35:25,296
+starts lifting one of those
+
+
+1301
+00:35:25,296 --> 00:35:26,746
+cells, we're going to transition
+
+
+1302
+00:35:26,746 --> 00:35:28,086
+the cell to the lifting state.
+
+
+1303
+00:35:28,406 --> 00:35:29,696
+And, as you can see here, in
+
+
+1304
+00:35:29,696 --> 00:35:31,036
+this example, we have a little
+
+
+1305
+00:35:31,036 --> 00:35:32,226
+banner showing on each of the
+
+
+1306
+00:35:32,226 --> 00:35:32,666
+cells.
+
+
+1307
+00:35:32,666 --> 00:35:33,846
+And we'd rather not actually
+
+
+1308
+00:35:33,846 --> 00:35:35,176
+show that banner when the user's
+
+
+1309
+00:35:35,176 --> 00:35:36,776
+dragging the cell all around
+
+
+1310
+00:35:36,776 --> 00:35:37,506
+across the system.
+
+
+1311
+00:35:37,886 --> 00:35:39,606
+So we can use this transition of
+
+
+1312
+00:35:39,606 --> 00:35:41,136
+the state to the lifting state
+
+
+1313
+00:35:41,446 --> 00:35:43,106
+to actually hide that banner.
+
+
+1314
+00:35:44,386 --> 00:35:45,676
+When the user actually moves
+
+
+1315
+00:35:45,676 --> 00:35:46,986
+their finger to actually begin
+
+
+1316
+00:35:46,986 --> 00:35:48,696
+the drag session, once the cell
+
+
+1317
+00:35:48,696 --> 00:35:50,236
+finishes the lift, we'll
+
+
+1318
+00:35:50,236 --> 00:35:52,016
+transition the cell that remains
+
+
+1319
+00:35:52,016 --> 00:35:53,096
+behind in the collection or
+
+
+1320
+00:35:53,096 --> 00:35:54,396
+table view to the dragging
+
+
+1321
+00:35:54,396 --> 00:35:54,786
+state.
+
+
+1322
+00:35:55,186 --> 00:35:56,606
+And by default, this is going to
+
+
+1323
+00:35:56,606 --> 00:35:58,396
+result in a faded appearance,
+
+
+1324
+00:35:58,396 --> 00:36:00,066
+where we'll reduce the alpha of
+
+
+1325
+00:36:00,066 --> 00:36:00,636
+that cell.
+
+
+1326
+00:36:01,376 --> 00:36:03,566
+Now you can respond to these
+
+
+1327
+00:36:03,566 --> 00:36:05,156
+state transitions by overriding
+
+
+1328
+00:36:05,156 --> 00:36:06,916
+the method on your cell class,
+
+
+1329
+00:36:07,036 --> 00:36:09,476
+subclass, dragStateDidChange.
+
+
+1330
+00:36:09,826 --> 00:36:10,856
+Just use the new state that's
+
+
+1331
+00:36:10,856 --> 00:36:11,566
+being passed in.
+
+
+1332
+00:36:11,566 --> 00:36:13,326
+You can optionally call super to
+
+
+1333
+00:36:13,326 --> 00:36:14,596
+get the default appearance and
+
+
+1334
+00:36:14,596 --> 00:36:14,956
+behavior.
+
+
+1335
+00:36:15,226 --> 00:36:16,326
+Or you can just choose to
+
+
+1336
+00:36:16,326 --> 00:36:17,756
+override it and provide your own
+
+
+1337
+00:36:17,756 --> 00:36:18,766
+behavior and implementation.
+
+
+1338
+00:36:18,766 --> 00:36:20,636
+We will even make sure to call
+
+
+1339
+00:36:20,636 --> 00:36:22,096
+these state transitions inside
+
+
+1340
+00:36:22,096 --> 00:36:23,926
+and alongside animation closure
+
+
+1341
+00:36:24,356 --> 00:36:25,826
+with the actual lift animations,
+
+
+1342
+00:36:25,826 --> 00:36:26,286
+for example.
+
+
+1343
+00:36:26,286 --> 00:36:28,056
+So if you make changes here,
+
+
+1344
+00:36:28,056 --> 00:36:28,896
+they're going to be animated
+
+
+1345
+00:36:28,896 --> 00:36:30,216
+running forwards and backwards
+
+
+1346
+00:36:30,216 --> 00:36:30,936
+with those lifts.
+
+
+1347
+00:36:31,526 --> 00:36:33,116
+So that's how we customize the
+
+
+1348
+00:36:33,116 --> 00:36:35,386
+actual cell that is in the
+
+
+1349
+00:36:35,386 --> 00:36:36,456
+collection or table view, but
+
+
+1350
+00:36:36,716 --> 00:36:37,656
+what about the actual drag
+
+
+1351
+00:36:37,656 --> 00:36:39,126
+preview that you drag around?
+
+
+1352
+00:36:39,526 --> 00:36:41,166
+As you see here, in this
+
+
+1353
+00:36:41,266 --> 00:36:44,006
+example, we have a cell that is
+
+
+1354
+00:36:44,006 --> 00:36:45,076
+basically a square shape.
+
+
+1355
+00:36:45,366 --> 00:36:46,416
+But, if the content that's
+
+
+1356
+00:36:46,416 --> 00:36:48,726
+visible is a wider aspect ratio,
+
+
+1357
+00:36:49,116 --> 00:36:50,736
+it's showing a nice image and so
+
+
+1358
+00:36:50,736 --> 00:36:51,946
+we result in, you know, these
+
+
+1359
+00:36:52,346 --> 00:36:54,316
+not very pretty white bars at
+
+
+1360
+00:36:54,316 --> 00:36:55,036
+the top and bottom.
+
+
+1361
+00:36:55,036 --> 00:36:56,246
+Probably don't really want this
+
+
+1362
+00:36:56,246 --> 00:36:57,106
+appearance while the user's
+
+
+1363
+00:36:57,106 --> 00:36:58,396
+dragging this, you know, photo
+
+
+1364
+00:36:58,396 --> 00:36:58,996
+around the system.
+
+
+1365
+00:36:59,286 --> 00:37:00,216
+So how can we fix that?
+
+
+1366
+00:37:00,986 --> 00:37:03,356
+Well, by default, it's happening
+
+
+1367
+00:37:03,356 --> 00:37:04,906
+because we use the entire cell
+
+
+1368
+00:37:04,906 --> 00:37:05,866
+as the drag preview.
+
+
+1369
+00:37:06,146 --> 00:37:07,436
+But, of course, you can change
+
+
+1370
+00:37:07,436 --> 00:37:07,656
+that.
+
+
+1371
+00:37:08,236 --> 00:37:09,636
+And so you can provide drag
+
+
+1372
+00:37:09,636 --> 00:37:10,816
+preview parameters by
+
+
+1373
+00:37:10,816 --> 00:37:12,156
+implementing an optional method
+
+
+1374
+00:37:12,156 --> 00:37:13,086
+on the dragDelegate,
+
+
+1375
+00:37:13,486 --> 00:37:14,886
+dragPreviewParametersForItemAt
+
+
+1376
+00:37:14,886 --> 00:37:15,476
+IndexPath.
+
+
+1377
+00:37:15,576 --> 00:37:16,916
+And, if you provide these,
+
+
+1378
+00:37:17,246 --> 00:37:18,116
+there's, for example, an
+
+
+1379
+00:37:18,116 --> 00:37:19,456
+opportunity for you to provide a
+
+
+1380
+00:37:19,456 --> 00:37:21,136
+bezier path, which will clip to
+
+
+1381
+00:37:21,136 --> 00:37:22,356
+a specific region within the
+
+
+1382
+00:37:22,356 --> 00:37:22,726
+cell.
+
+
+1383
+00:37:23,046 --> 00:37:24,476
+So if we look back at our
+
+
+1384
+00:37:24,476 --> 00:37:26,246
+example, if we return a bezier
+
+
+1385
+00:37:26,246 --> 00:37:27,796
+path that clips to the actual
+
+
+1386
+00:37:27,796 --> 00:37:29,266
+rect where there's a visible
+
+
+1387
+00:37:29,266 --> 00:37:30,966
+photo, we can just lift just
+
+
+1388
+00:37:30,966 --> 00:37:32,466
+that photo off the screen even
+
+
+1389
+00:37:32,466 --> 00:37:33,796
+though the cell is still a
+
+
+1390
+00:37:33,796 --> 00:37:34,766
+square in this example.
+
+
+1391
+00:37:35,516 --> 00:37:38,196
+[ Applause ]
+
+
+1392
+00:37:38,696 --> 00:37:39,376
+Okay. Wow.
+
+
+1393
+00:37:39,406 --> 00:37:40,716
+We've covered a lot today.
+
+
+1394
+00:37:41,066 --> 00:37:42,246
+So what are the next steps for
+
+
+1395
+00:37:42,246 --> 00:37:42,386
+you?
+
+
+1396
+00:37:43,636 --> 00:37:45,486
+Well, first of all, we hope when
+
+
+1397
+00:37:45,486 --> 00:37:46,756
+you leave here you go and add
+
+
+1398
+00:37:46,756 --> 00:37:47,666
+Drag and Drop to all the
+
+
+1399
+00:37:47,666 --> 00:37:48,776
+collection and table views in
+
+
+1400
+00:37:48,776 --> 00:37:49,686
+your applications.
+
+
+1401
+00:37:49,686 --> 00:37:50,876
+You saw how easy it is just to
+
+
+1402
+00:37:50,876 --> 00:37:52,306
+get the basics up and running
+
+
+1403
+00:37:52,566 --> 00:37:53,176
+very quickly.
+
+
+1404
+00:37:53,736 --> 00:37:54,896
+And users are going to expect
+
+
+1405
+00:37:54,896 --> 00:37:56,126
+that your apps support Drag and
+
+
+1406
+00:37:56,126 --> 00:37:57,276
+Drop in iOS 11.
+
+
+1407
+00:37:58,176 --> 00:37:59,196
+Now you should definitely
+
+
+1408
+00:37:59,196 --> 00:38:00,326
+consider providing a drop
+
+
+1409
+00:38:00,326 --> 00:38:02,116
+proposal and setting up those
+
+
+1410
+00:38:02,116 --> 00:38:03,506
+great animations, because we
+
+
+1411
+00:38:03,506 --> 00:38:04,966
+made it really easy to do so.
+
+
+1412
+00:38:05,306 --> 00:38:06,876
+And it will provide the best
+
+
+1413
+00:38:06,876 --> 00:38:08,286
+look and feel for your users.
+
+
+1414
+00:38:08,676 --> 00:38:10,946
+And, of course, don't forget
+
+
+1415
+00:38:10,946 --> 00:38:11,746
+about placeholders.
+
+
+1416
+00:38:12,116 --> 00:38:13,076
+When your data is loading
+
+
+1417
+00:38:13,076 --> 00:38:14,746
+asynchronously, use placeholders
+
+
+1418
+00:38:14,746 --> 00:38:16,636
+to very easily manage that
+
+
+1419
+00:38:16,756 --> 00:38:18,756
+asynchronous data load and keep
+
+
+1420
+00:38:18,756 --> 00:38:20,496
+the UI completely responsive and
+
+
+1421
+00:38:20,496 --> 00:38:21,776
+interactive during any
+
+
+1422
+00:38:21,776 --> 00:38:22,816
+long-running transfers.
+
+
+1423
+00:38:23,396 --> 00:38:24,966
+And finally, don't forget to
+
+
+1424
+00:38:24,966 --> 00:38:25,836
+polish the details.
+
+
+1425
+00:38:26,426 --> 00:38:27,696
+We can't wait to see what you
+
+
+1426
+00:38:27,696 --> 00:38:29,136
+will do with all of these really
+
+
+1427
+00:38:29,136 --> 00:38:31,306
+awesome APIs, and we're going to
+
+
+1428
+00:38:31,496 --> 00:38:32,866
+be super excited to see the
+
+
+1429
+00:38:32,866 --> 00:38:33,396
+results.
+
+
+1430
+00:38:33,936 --> 00:38:35,826
+For more information and to
+
+
+1431
+00:38:35,826 --> 00:38:36,986
+download the sample app that
+
+
+1432
+00:38:36,986 --> 00:38:38,086
+we've been showing you today,
+
+
+1433
+00:38:38,086 --> 00:38:39,646
+which has fleshed-out examples
+
+
+1434
+00:38:39,646 --> 00:38:41,096
+of all sorts of great Drag and
+
+
+1435
+00:38:41,096 --> 00:38:41,956
+Drop with collection view and
+
+
+1436
+00:38:41,956 --> 00:38:42,766
+table view code.
+
+
+1437
+00:38:43,276 --> 00:38:45,166
+Go to this URL, it's really
+
+
+1438
+00:38:45,166 --> 00:38:45,446
+great.
+
+
+1439
+00:38:46,306 --> 00:38:47,826
+There's a session immediately
+
+
+1440
+00:38:47,826 --> 00:38:49,576
+following this one, in this room
+
+
+1441
+00:38:49,576 --> 00:38:50,696
+right here, so you can just stay
+
+
+1442
+00:38:50,696 --> 00:38:51,106
+seated.
+
+
+1443
+00:38:51,366 --> 00:38:52,526
+Data delivery with Drag and
+
+
+1444
+00:38:52,526 --> 00:38:53,796
+Drop, which is going to go into
+
+
+1445
+00:38:53,796 --> 00:38:55,376
+some more details about loading
+
+
+1446
+00:38:55,376 --> 00:38:56,756
+and transferring the actual data
+
+
+1447
+00:38:56,756 --> 00:38:57,816
+and item providers.
+
+
+1448
+00:38:58,276 --> 00:38:58,826
+Really cool.
+
+
+1449
+00:38:59,216 --> 00:38:59,956
+Stick around for that.
+
+
+1450
+00:39:00,176 --> 00:39:00,946
+And, of course, we had some
+
+
+1451
+00:39:00,946 --> 00:39:02,216
+other sessions earlier this week
+
+
+1452
+00:39:02,216 --> 00:39:03,566
+on Drag and Drop, introducing
+
+
+1453
+00:39:03,566 --> 00:39:04,556
+Drag and Drop, and mastering
+
+
+1454
+00:39:04,556 --> 00:39:05,076
+Drag and Drop.
+
+
+1455
+00:39:05,326 --> 00:39:06,916
+Check those out on video to
+
+
+1456
+00:39:06,916 --> 00:39:07,366
+learn more.
+
+
+1457
+00:39:08,016 --> 00:39:09,586
+Finally, we hope you've enjoyed
+
+
+1458
+00:39:09,586 --> 00:39:10,506
+the presentation and have a
+
+
+1459
+00:39:10,506 --> 00:39:11,756
+great WWDC.
+
+
+1460
+00:39:12,516 --> 00:39:15,500
+[ Applause ]
+

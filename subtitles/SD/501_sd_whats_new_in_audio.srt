@@ -1,0 +1,8384 @@
+1
+00:00:29,716 --> 00:00:30,086
+>> Thank you.
+
+
+2
+00:00:30,856 --> 00:00:31,806
+Good afternoon, everyone.
+
+
+3
+00:00:32,546 --> 00:00:34,146
+Welcome to the session "What's
+
+
+4
+00:00:34,146 --> 00:00:35,166
+New in Audio?"
+
+
+5
+00:00:36,156 --> 00:00:37,486
+I'm Akshatha Nagesh, from the
+
+
+6
+00:00:37,486 --> 00:00:39,786
+Audio Team, and today, I would
+
+
+7
+00:00:39,786 --> 00:00:41,626
+like to share with you all the
+
+
+8
+00:00:41,626 --> 00:00:43,706
+new, exciting features we have
+
+
+9
+00:00:43,706 --> 00:00:45,606
+in audio in this year's OS
+
+
+10
+00:00:45,606 --> 00:00:45,996
+releases.
+
+
+11
+00:00:46,636 --> 00:00:49,906
+I'll begin with a quick overview
+
+
+12
+00:00:50,076 --> 00:00:50,956
+of the audio stack.
+
+
+13
+00:00:52,216 --> 00:00:54,126
+Audio frameworks offer a wide
+
+
+14
+00:00:54,276 --> 00:00:56,426
+variety of APIs, and our main
+
+
+15
+00:00:56,426 --> 00:00:58,556
+goal is to help you deliver an
+
+
+16
+00:00:58,556 --> 00:01:00,436
+exceptional audio experience to
+
+
+17
+00:01:00,436 --> 00:01:01,826
+the end user, through your apps.
+
+
+18
+00:01:03,326 --> 00:01:04,946
+At the top, we have the AV
+
+
+19
+00:01:04,946 --> 00:01:06,826
+foundation framework, with APIs
+
+
+20
+00:01:06,826 --> 00:01:09,576
+like AVAudioSession, Engine,
+
+
+21
+00:01:09,826 --> 00:01:11,756
+Player, Recorder, etcetera.
+
+
+22
+00:01:12,736 --> 00:01:14,486
+And these APIs cater to the
+
+
+23
+00:01:14,486 --> 00:01:16,086
+needs of most of the apps.
+
+
+24
+00:01:17,216 --> 00:01:18,426
+But if you wanted to further
+
+
+25
+00:01:18,426 --> 00:01:20,496
+customize the experience, you
+
+
+26
+00:01:20,496 --> 00:01:22,196
+could use our other frameworks
+
+
+27
+00:01:22,196 --> 00:01:24,546
+and APIs like AUAudioUnits,
+
+
+28
+00:01:24,756 --> 00:01:26,696
+Audio Codecs, in Audio Toolbox
+
+
+29
+00:01:26,696 --> 00:01:28,926
+framework, Code Mini framework,
+
+
+30
+00:01:29,396 --> 00:01:31,366
+AudioHAL framework, etcetera.
+
+
+31
+00:01:32,786 --> 00:01:34,266
+In our last year's talk here at
+
+
+32
+00:01:34,266 --> 00:01:36,676
+WWDC, we did a walkthrough of
+
+
+33
+00:01:36,726 --> 00:01:38,526
+all these APIs and more,
+
+
+34
+00:01:38,776 --> 00:01:39,626
+throughout the stack.
+
+
+35
+00:01:40,106 --> 00:01:41,856
+And I highly encourage you to
+
+
+36
+00:01:41,886 --> 00:01:43,086
+check that out.
+
+
+37
+00:01:43,796 --> 00:01:45,496
+Now, let's see what's on the
+
+
+38
+00:01:45,496 --> 00:01:46,486
+agenda for today.
+
+
+39
+00:01:47,076 --> 00:01:49,526
+We will see the new features
+
+
+40
+00:01:49,526 --> 00:01:51,396
+we've added in some of these
+
+
+41
+00:01:51,396 --> 00:01:53,646
+APIs, starting with the ones in
+
+
+42
+00:01:53,646 --> 00:01:54,806
+AVFoundation framework.
+
+
+43
+00:01:55,506 --> 00:01:56,596
+And that includes,
+
+
+44
+00:01:56,596 --> 00:01:58,846
+AVAudioEngine, AVAudioSession,
+
+
+45
+00:01:59,206 --> 00:02:00,776
+and the enhancements we have in
+
+
+46
+00:02:00,776 --> 00:02:02,876
+AVFoundation on watchOS 4.
+
+
+47
+00:02:04,236 --> 00:02:06,276
+Later on, we'll move over to the
+
+
+48
+00:02:06,276 --> 00:02:08,175
+Audio Toolbox world, and see the
+
+
+49
+00:02:08,175 --> 00:02:10,786
+enhancements in AUAudioUnits and
+
+
+50
+00:02:10,786 --> 00:02:11,636
+Audio Formats.
+
+
+51
+00:02:12,376 --> 00:02:13,966
+And finally, we'll wrap up
+
+
+52
+00:02:14,056 --> 00:02:15,786
+today's session with an update
+
+
+53
+00:02:15,946 --> 00:02:17,336
+on Inter-Device Audio Mode.
+
+
+54
+00:02:18,776 --> 00:02:20,906
+We also have a few demos along
+
+
+55
+00:02:20,906 --> 00:02:22,876
+the way, to show you many of
+
+
+56
+00:02:22,876 --> 00:02:25,126
+these new features in action.
+
+
+57
+00:02:25,996 --> 00:02:27,266
+So, let's begin with
+
+
+58
+00:02:27,306 --> 00:02:28,446
+AVAudioEngine.
+
+
+59
+00:02:29,896 --> 00:02:31,746
+And here's a quick recap of the
+
+
+60
+00:02:31,746 --> 00:02:32,106
+API.
+
+
+61
+00:02:33,246 --> 00:02:35,436
+AVAudioEngine is a powerful
+
+
+62
+00:02:35,436 --> 00:02:37,926
+Objective-C and Swift based API
+
+
+63
+00:02:37,926 --> 00:02:38,186
+set.
+
+
+64
+00:02:38,946 --> 00:02:40,676
+And the main goal of this API,
+
+
+65
+00:02:41,046 --> 00:02:42,996
+is to simplify dealing with real
+
+
+66
+00:02:42,996 --> 00:02:45,306
+time audio, and to make it
+
+
+67
+00:02:45,306 --> 00:02:46,816
+really easy for you to write
+
+
+68
+00:02:46,936 --> 00:02:49,336
+code to perform various audio
+
+
+69
+00:02:49,336 --> 00:02:50,906
+tasks, ranging from simple
+
+
+70
+00:02:50,906 --> 00:02:53,026
+playback, to recording, to even
+
+
+71
+00:02:53,056 --> 00:02:54,596
+complex tasks like audio
+
+
+72
+00:02:54,596 --> 00:02:56,956
+processing, mixing, and even 3D
+
+
+73
+00:02:56,956 --> 00:02:57,996
+audio specialization.
+
+
+74
+00:02:59,136 --> 00:03:00,626
+And again, in our previous
+
+
+75
+00:03:00,626 --> 00:03:03,866
+year's talk here at WWDC, we
+
+
+76
+00:03:03,866 --> 00:03:05,956
+have covered this API in detail.
+
+
+77
+00:03:06,306 --> 00:03:08,046
+So, please check those out if
+
+
+78
+00:03:08,046 --> 00:03:09,876
+you're not familiar with this
+
+
+79
+00:03:10,416 --> 00:03:10,516
+API.
+
+
+80
+00:03:11,376 --> 00:03:13,566
+The Engine manages a graph of
+
+
+81
+00:03:13,626 --> 00:03:15,736
+nodes, and a node is the basic
+
+
+82
+00:03:15,736 --> 00:03:17,126
+building block of the Engine.
+
+
+83
+00:03:18,076 --> 00:03:19,826
+So, here's a sample Engine setup
+
+
+84
+00:03:20,116 --> 00:03:21,636
+and this is a classic karaoke
+
+
+85
+00:03:21,636 --> 00:03:22,186
+example.
+
+
+86
+00:03:22,186 --> 00:03:24,286
+As you can see, there are
+
+
+87
+00:03:24,286 --> 00:03:25,896
+various nodes connected
+
+
+88
+00:03:25,896 --> 00:03:27,496
+together, to form the processing
+
+
+89
+00:03:27,496 --> 00:03:27,816
+graph.
+
+
+90
+00:03:28,986 --> 00:03:31,346
+We have the InputNode that is
+
+
+91
+00:03:31,346 --> 00:03:33,146
+implicitly connected to the
+
+
+92
+00:03:33,496 --> 00:03:34,866
+[inaudible] and is capturing
+
+
+93
+00:03:35,006 --> 00:03:35,776
+user's voice.
+
+
+94
+00:03:36,726 --> 00:03:38,286
+This is being processed through
+
+
+95
+00:03:38,286 --> 00:03:39,856
+an EffectNode which could be for
+
+
+96
+00:03:39,856 --> 00:03:42,326
+example, an EQ.
+
+
+97
+00:03:42,326 --> 00:03:43,926
+We also have something called a
+
+
+98
+00:03:44,086 --> 00:03:45,296
+[inaudible] on the InputNode
+
+
+99
+00:03:45,686 --> 00:03:47,026
+through which we could be
+
+
+100
+00:03:47,106 --> 00:03:48,826
+analyzing user's voice to see
+
+
+101
+00:03:48,826 --> 00:03:50,646
+how he's performing, and based
+
+
+102
+00:03:50,646 --> 00:03:52,296
+on that, we could be playing out
+
+
+103
+00:03:52,296 --> 00:03:53,366
+some cues to the user through a
+
+
+104
+00:03:53,576 --> 00:03:54,416
+PlayerNode.
+
+
+105
+00:03:55,796 --> 00:03:57,206
+And we have another PlayerNode
+
+
+106
+00:03:57,356 --> 00:03:58,716
+that is playing the backing
+
+
+107
+00:03:58,716 --> 00:04:00,406
+track as the user is singing.
+
+
+108
+00:04:00,736 --> 00:04:03,456
+All of these signals are mixed
+
+
+109
+00:04:03,456 --> 00:04:05,536
+together, in a MixerNode and
+
+
+110
+00:04:05,536 --> 00:04:07,386
+finally, given to the OutputNode
+
+
+111
+00:04:07,666 --> 00:04:09,066
+which plays it out through the
+
+
+112
+00:04:09,066 --> 00:04:09,786
+output hardware.
+
+
+113
+00:04:10,896 --> 00:04:13,386
+This is a simple example of the
+
+
+114
+00:04:13,386 --> 00:04:15,466
+engine setup, but with all the
+
+
+115
+00:04:15,466 --> 00:04:16,866
+nodes and the features the
+
+
+116
+00:04:16,866 --> 00:04:18,606
+Engine actually offers, you
+
+
+117
+00:04:18,606 --> 00:04:20,326
+could build a lot more complex
+
+
+118
+00:04:20,396 --> 00:04:21,856
+processing graph, based on your
+
+
+119
+00:04:21,976 --> 00:04:22,676
+app's needs.
+
+
+120
+00:04:23,446 --> 00:04:25,656
+So, that was a recap of the
+
+
+121
+00:04:25,656 --> 00:04:26,206
+Engine.
+
+
+122
+00:04:26,336 --> 00:04:27,976
+Now, let's see what's new in the
+
+
+123
+00:04:27,976 --> 00:04:29,006
+Engine this year.
+
+
+124
+00:04:30,356 --> 00:04:31,956
+We have a couple of new modes,
+
+
+125
+00:04:32,316 --> 00:04:34,226
+namely the Manual Rendering Mode
+
+
+126
+00:04:34,436 --> 00:04:36,546
+and Auto Shutdown Mode, and
+
+
+127
+00:04:36,546 --> 00:04:38,146
+also, we have some enhancements
+
+
+128
+00:04:38,146 --> 00:04:40,326
+in AVAudioPlayerNode, related to
+
+
+129
+00:04:40,326 --> 00:04:41,636
+the file and buffer completion
+
+
+130
+00:04:41,636 --> 00:04:42,216
+callbacks.
+
+
+131
+00:04:43,246 --> 00:04:44,916
+We'll see each of these, one by
+
+
+132
+00:04:44,916 --> 00:04:46,896
+one, starting with the Manual
+
+
+133
+00:04:47,156 --> 00:04:48,406
+Rendering Mode.
+
+
+134
+00:04:50,656 --> 00:04:52,506
+So, this is the karaoke example
+
+
+135
+00:04:52,506 --> 00:04:53,356
+that we just saw.
+
+
+136
+00:04:54,486 --> 00:04:56,536
+And as you can see, the Input
+
+
+137
+00:04:56,536 --> 00:04:58,136
+and the OutputNodes here, are
+
+
+138
+00:04:58,206 --> 00:05:00,226
+connected to the audio hardware,
+
+
+139
+00:05:00,676 --> 00:05:02,056
+and hence, the Engine
+
+
+140
+00:05:02,246 --> 00:05:03,816
+automatically renders in real
+
+
+141
+00:05:03,816 --> 00:05:03,936
+time.
+
+
+142
+00:05:03,936 --> 00:05:07,406
+The IO here is driven by the
+
+
+143
+00:05:07,406 --> 00:05:07,886
+hardware.
+
+
+144
+00:05:08,846 --> 00:05:10,956
+But what if you wanted the
+
+
+145
+00:05:10,956 --> 00:05:12,676
+Engine to render, not to the
+
+
+146
+00:05:12,676 --> 00:05:13,846
+device, but to the app?
+
+
+147
+00:05:14,626 --> 00:05:16,626
+And say, at the rate faster than
+
+
+148
+00:05:16,626 --> 00:05:16,886
+real time?
+
+
+149
+00:05:18,496 --> 00:05:19,946
+So, here is Manual Rendering
+
+
+150
+00:05:19,946 --> 00:05:21,606
+Mode which enables you to do
+
+
+151
+00:05:21,606 --> 00:05:21,886
+that.
+
+
+152
+00:05:23,236 --> 00:05:24,986
+And as you can see, under this
+
+
+153
+00:05:24,986 --> 00:05:26,466
+mode, the Input and the
+
+
+154
+00:05:26,466 --> 00:05:27,836
+OutputNodes, will not be
+
+
+155
+00:05:27,836 --> 00:05:29,666
+connected to any audio device,
+
+
+156
+00:05:30,436 --> 00:05:32,546
+and the app will be responsible
+
+
+157
+00:05:32,546 --> 00:05:33,826
+for pulling the Engine for
+
+
+158
+00:05:33,906 --> 00:05:36,436
+Output and to provide the Input
+
+
+159
+00:05:36,666 --> 00:05:38,146
+to the Engine which will be
+
+
+160
+00:05:38,216 --> 00:05:39,776
+optionally through the InputNode
+
+
+161
+00:05:40,286 --> 00:05:41,846
+or PlayerNode, etcetera.
+
+
+162
+00:05:43,046 --> 00:05:45,526
+So, the app drives the IO in
+
+
+163
+00:05:45,526 --> 00:05:46,556
+Manual Rendering Mode.
+
+
+164
+00:05:47,056 --> 00:05:50,476
+We have two variants under
+
+
+165
+00:05:50,476 --> 00:05:51,336
+Manual Rendering.
+
+
+166
+00:05:51,826 --> 00:05:53,796
+That is the Offline and Real
+
+
+167
+00:05:53,796 --> 00:05:55,546
+Time Manual Rendering Modes.
+
+
+168
+00:05:56,086 --> 00:05:57,356
+And again, we'll see each of
+
+
+169
+00:05:57,356 --> 00:05:59,756
+these in detail and also, later
+
+
+170
+00:05:59,756 --> 00:06:01,416
+in this section, I'll show you a
+
+
+171
+00:06:01,416 --> 00:06:03,366
+demo of the Offline Manual
+
+
+172
+00:06:03,366 --> 00:06:04,056
+Rendering Mode.
+
+
+173
+00:06:04,476 --> 00:06:09,266
+Under the Offline Manual
+
+
+174
+00:06:09,266 --> 00:06:11,586
+Rendering Mode, the Engine and
+
+
+175
+00:06:11,676 --> 00:06:13,396
+all the nodes in your processing
+
+
+176
+00:06:13,396 --> 00:06:15,266
+graph, operate under no
+
+
+177
+00:06:15,266 --> 00:06:16,426
+deadlines or real-time
+
+
+178
+00:06:16,426 --> 00:06:17,106
+constraints.
+
+
+179
+00:06:18,126 --> 00:06:19,866
+And because of this flexibility,
+
+
+180
+00:06:20,186 --> 00:06:22,476
+a node may choose to say use a
+
+
+181
+00:06:22,476 --> 00:06:24,346
+more expensive signal processing
+
+
+182
+00:06:24,346 --> 00:06:26,816
+algorithm when it's offline, or
+
+
+183
+00:06:27,156 --> 00:06:28,826
+a node for example, a player
+
+
+184
+00:06:28,826 --> 00:06:30,826
+node, may choose to block on the
+
+
+185
+00:06:30,826 --> 00:06:32,806
+render thread, until all the
+
+
+186
+00:06:32,806 --> 00:06:34,446
+data that it needs as input,
+
+
+187
+00:06:34,676 --> 00:06:35,366
+becomes ready.
+
+
+188
+00:06:36,586 --> 00:06:38,306
+But these things may not -- will
+
+
+189
+00:06:38,306 --> 00:06:40,106
+not happen with the nodes are
+
+
+190
+00:06:40,106 --> 00:06:41,696
+actually rendering in real time,
+
+
+191
+00:06:42,066 --> 00:06:43,026
+as we'll see soon.
+
+
+192
+00:06:43,276 --> 00:06:46,406
+So, let's consider a simple
+
+
+193
+00:06:46,406 --> 00:06:48,576
+example where we could use the
+
+
+194
+00:06:48,576 --> 00:06:49,926
+offline mode.
+
+
+195
+00:06:51,236 --> 00:06:53,906
+So, here's an example where an
+
+
+196
+00:06:53,906 --> 00:06:55,986
+app wants to process the audio
+
+
+197
+00:06:55,986 --> 00:06:57,216
+data in a source file.
+
+
+198
+00:06:57,216 --> 00:06:59,396
+I'll place some effects onto
+
+
+199
+00:06:59,396 --> 00:07:01,256
+that data, and dump the process
+
+
+200
+00:07:01,286 --> 00:07:03,056
+output to a destination file.
+
+
+201
+00:07:03,586 --> 00:07:05,886
+As you can see, there is no
+
+
+202
+00:07:05,886 --> 00:07:07,616
+rendering to the device involved
+
+
+203
+00:07:07,696 --> 00:07:07,886
+here.
+
+
+204
+00:07:08,226 --> 00:07:10,276
+And hence, the app can now use
+
+
+205
+00:07:10,276 --> 00:07:12,586
+the Engine in the offline mode.
+
+
+206
+00:07:13,516 --> 00:07:15,006
+So, it could set up a very
+
+
+207
+00:07:15,006 --> 00:07:17,056
+simple graph in the Engine, like
+
+
+208
+00:07:17,056 --> 00:07:17,416
+this.
+
+
+209
+00:07:18,056 --> 00:07:20,126
+It could use the PlayerNode to
+
+
+210
+00:07:20,126 --> 00:07:21,376
+read the data from the source
+
+
+211
+00:07:21,376 --> 00:07:23,576
+file, process it through an
+
+
+212
+00:07:23,576 --> 00:07:24,816
+EffectNode, which could be for
+
+
+213
+00:07:24,816 --> 00:07:26,856
+example a [inaudible], and then,
+
+
+214
+00:07:27,106 --> 00:07:28,236
+pull the data out of the
+
+
+215
+00:07:28,236 --> 00:07:30,166
+OutputNode and drive the process
+
+
+216
+00:07:30,166 --> 00:07:31,726
+data into a destination file.
+
+
+217
+00:07:32,916 --> 00:07:34,736
+And we will soon see a demo of
+
+
+218
+00:07:34,736 --> 00:07:36,926
+this exact setup in a couple of
+
+
+219
+00:07:36,926 --> 00:07:38,016
+slides.
+
+
+220
+00:07:38,886 --> 00:07:42,096
+There are many more applications
+
+
+221
+00:07:42,266 --> 00:07:43,536
+where you can use the offline
+
+
+222
+00:07:43,536 --> 00:07:43,766
+mode.
+
+
+223
+00:07:44,416 --> 00:07:45,536
+And some of these are listed
+
+
+224
+00:07:45,596 --> 00:07:45,746
+here.
+
+
+225
+00:07:46,586 --> 00:07:48,436
+Apart from post-processing of
+
+
+226
+00:07:48,476 --> 00:07:49,696
+audio files that I just
+
+
+227
+00:07:49,696 --> 00:07:51,666
+mentioned, you could also use
+
+
+228
+00:07:51,666 --> 00:07:54,086
+offline mode to say mix audio
+
+
+229
+00:07:54,086 --> 00:07:54,476
+files.
+
+
+230
+00:07:55,556 --> 00:07:57,686
+You could use it for offline
+
+
+231
+00:07:57,686 --> 00:07:59,646
+processing using a very CPU
+
+
+232
+00:07:59,646 --> 00:08:01,246
+intensive or a higher quality
+
+
+233
+00:08:01,346 --> 00:08:02,806
+algorithm, which may not be
+
+
+234
+00:08:02,806 --> 00:08:04,346
+feasible to use in real time.
+
+
+235
+00:08:05,386 --> 00:08:06,936
+Or simply, you could use the
+
+
+236
+00:08:06,936 --> 00:08:09,496
+offline mode, to test, debug, or
+
+
+237
+00:08:09,636 --> 00:08:11,756
+tune your live Engine setup.
+
+
+238
+00:08:12,306 --> 00:08:15,766
+So, that concludes the offline
+
+
+239
+00:08:15,766 --> 00:08:17,486
+mode and as promised, I'll show
+
+
+240
+00:08:17,486 --> 00:08:20,936
+you a demo of this in action.
+
+
+241
+00:08:21,886 --> 00:08:27,056
+Alright so, what I have here is
+
+
+242
+00:08:27,056 --> 00:08:28,126
+an [inaudible] Playground.
+
+
+243
+00:08:29,136 --> 00:08:31,776
+And this is the example where we
+
+
+244
+00:08:31,776 --> 00:08:33,486
+will post-process the audio data
+
+
+245
+00:08:33,596 --> 00:08:36,126
+in a source file, apply a
+
+
+246
+00:08:36,366 --> 00:08:37,226
+[inaudible] effect on the data,
+
+
+247
+00:08:37,635 --> 00:08:39,186
+and dump the output into a
+
+
+248
+00:08:39,186 --> 00:08:40,076
+destination file.
+
+
+249
+00:08:40,645 --> 00:08:42,876
+I have some code snippets here
+
+
+250
+00:08:42,876 --> 00:08:43,936
+and [inaudible] on [inaudible].
+
+
+251
+00:08:44,076 --> 00:08:47,326
+So, the first thing I do here,
+
+
+252
+00:08:48,466 --> 00:08:51,716
+is set up the Engine to render
+
+
+253
+00:08:51,956 --> 00:08:53,706
+in a live mode to the device,
+
+
+254
+00:08:53,706 --> 00:08:55,976
+just to see how the source file
+
+
+255
+00:08:55,976 --> 00:08:58,536
+sounds without having added any
+
+
+256
+00:08:58,536 --> 00:08:59,826
+effect to it.
+
+
+257
+00:09:01,516 --> 00:09:04,506
+So, I'm first opening up the
+
+
+258
+00:09:04,506 --> 00:09:06,176
+source file, which I want to
+
+
+259
+00:09:06,226 --> 00:09:06,486
+read.
+
+
+260
+00:09:07,116 --> 00:09:10,706
+And then, I'm creating and
+
+
+261
+00:09:10,706 --> 00:09:11,816
+configuring my Engine.
+
+
+262
+00:09:12,506 --> 00:09:14,546
+So, I have an Engine and a
+
+
+263
+00:09:14,706 --> 00:09:15,536
+PlayerNode.
+
+
+264
+00:09:16,486 --> 00:09:17,836
+And I'm going to take the player
+
+
+265
+00:09:18,296 --> 00:09:19,676
+to the main mixer node of the
+
+
+266
+00:09:19,676 --> 00:09:21,406
+Engine, which is implicitly
+
+
+267
+00:09:21,436 --> 00:09:24,206
+connected to the OutputNode of
+
+
+268
+00:09:25,356 --> 00:09:25,726
+the Engine.
+
+
+269
+00:09:25,726 --> 00:09:27,006
+Then I'm scheduling the source
+
+
+270
+00:09:27,006 --> 00:09:28,766
+file that I have on the player
+
+
+271
+00:09:28,976 --> 00:09:30,176
+so that it can read the data
+
+
+272
+00:09:30,176 --> 00:09:30,976
+from the source file.
+
+
+273
+00:09:31,686 --> 00:09:34,116
+And then I'm starting the Engine
+
+
+274
+00:09:34,116 --> 00:09:34,996
+and starting the player.
+
+
+275
+00:09:35,866 --> 00:09:37,216
+So, as I mentioned, the Engine
+
+
+276
+00:09:37,216 --> 00:09:38,966
+is now in a live mode, and this
+
+
+277
+00:09:38,966 --> 00:09:41,256
+will render to the device.
+
+
+278
+00:09:41,636 --> 00:09:43,476
+So, let's see how the source
+
+
+279
+00:09:43,476 --> 00:09:45,416
+file sounds without any effects.
+
+
+280
+00:09:46,516 --> 00:09:54,716
+[ Music ]
+
+
+281
+00:09:55,216 --> 00:09:56,776
+Okay, so that's how the source
+
+
+282
+00:09:56,776 --> 00:09:59,146
+file sounds like.
+
+
+283
+00:09:59,236 --> 00:10:01,586
+So, now what I'll do is, add a
+
+
+284
+00:10:01,586 --> 00:10:04,096
+reverb effect to process the
+
+
+285
+00:10:04,096 --> 00:10:04,366
+data.
+
+
+286
+00:10:05,516 --> 00:10:07,156
+So, I'll remove the player to
+
+
+287
+00:10:07,156 --> 00:10:09,406
+main mixer connection, and I'll
+
+
+288
+00:10:09,506 --> 00:10:10,736
+insert the reverb.
+
+
+289
+00:10:11,806 --> 00:10:13,406
+So, here I've created a reverb
+
+
+290
+00:10:14,196 --> 00:10:16,026
+and I'm setting the parameters
+
+
+291
+00:10:16,026 --> 00:10:16,596
+of the reverb.
+
+
+292
+00:10:16,796 --> 00:10:18,926
+And in this example, I'm using a
+
+
+293
+00:10:18,926 --> 00:10:22,096
+factory preset and wetDryMix of
+
+
+294
+00:10:22,396 --> 00:10:23,206
+70%.
+
+
+295
+00:10:24,106 --> 00:10:25,176
+And then I'm inserting the
+
+
+296
+00:10:25,176 --> 00:10:27,436
+reverb in the playback part in
+
+
+297
+00:10:27,436 --> 00:10:28,816
+between the player and the main
+
+
+298
+00:10:28,816 --> 00:10:29,196
+mixer.
+
+
+299
+00:10:30,386 --> 00:10:32,786
+So, now if I run the example, we
+
+
+300
+00:10:32,786 --> 00:10:34,886
+can see how the processed output
+
+
+301
+00:10:34,976 --> 00:10:36,426
+will sound like.
+
+
+302
+00:10:37,516 --> 00:10:45,816
+[ Music ]
+
+
+303
+00:10:46,316 --> 00:10:48,776
+Okay, so now at this point, if I
+
+
+304
+00:10:48,776 --> 00:10:50,386
+want, I could go ahead and tune
+
+
+305
+00:10:50,386 --> 00:10:51,916
+my reverb parameter so that it
+
+
+306
+00:10:51,916 --> 00:10:53,326
+sounds exactly as I want.
+
+
+307
+00:10:53,786 --> 00:10:55,026
+So, suppose I'm happy with all
+
+
+308
+00:10:55,026 --> 00:10:56,736
+the parameters and then now I
+
+
+309
+00:10:56,736 --> 00:10:58,136
+want to completely export my
+
+
+310
+00:10:58,136 --> 00:10:59,686
+source file into a destination
+
+
+311
+00:10:59,686 --> 00:10:59,906
+file.
+
+
+312
+00:11:00,306 --> 00:11:01,546
+And this is where the offline
+
+
+313
+00:11:01,546 --> 00:11:02,526
+mode comes into picture.
+
+
+314
+00:11:03,876 --> 00:11:07,246
+So, what I'll first do is, I'll
+
+
+315
+00:11:07,246 --> 00:11:08,806
+enable -- I'll switch the Engine
+
+
+316
+00:11:08,806 --> 00:11:10,026
+from the live mode to the
+
+
+317
+00:11:10,026 --> 00:11:10,646
+offline mode.
+
+
+318
+00:11:10,646 --> 00:11:17,816
+So, what I've done here is I'm
+
+
+319
+00:11:18,076 --> 00:11:22,126
+calling an Enable Manual
+
+
+320
+00:11:22,416 --> 00:11:24,466
+Rendering Mode API, and I'm
+
+
+321
+00:11:24,466 --> 00:11:26,056
+saying, "It needs to be the
+
+
+322
+00:11:26,056 --> 00:11:27,236
+offline variant of it."
+
+
+323
+00:11:28,256 --> 00:11:30,156
+I'm specifying a format of the
+
+
+324
+00:11:30,216 --> 00:11:31,956
+output which I want the Engine
+
+
+325
+00:11:32,086 --> 00:11:32,706
+to give me.
+
+
+326
+00:11:33,236 --> 00:11:34,696
+And this is, in this example,
+
+
+327
+00:11:34,696 --> 00:11:36,256
+same as the format of the input.
+
+
+328
+00:11:36,716 --> 00:11:39,056
+And then I'm specifying a
+
+
+329
+00:11:39,056 --> 00:11:40,336
+certain maximum number of
+
+
+330
+00:11:40,336 --> 00:11:42,526
+frames, which is the maximum
+
+
+331
+00:11:42,666 --> 00:11:43,836
+number of frames that you will
+
+
+332
+00:11:43,836 --> 00:11:45,786
+ever ask the Engine to render in
+
+
+333
+00:11:45,786 --> 00:11:47,056
+a single rendered call.
+
+
+334
+00:11:47,696 --> 00:11:49,476
+And in this example, the value's
+
+
+335
+00:11:49,476 --> 00:11:50,536
+4096.
+
+
+336
+00:11:50,756 --> 00:11:52,556
+But you can configure this as
+
+
+337
+00:11:52,556 --> 00:11:52,966
+you wish.
+
+
+338
+00:11:53,516 --> 00:11:57,576
+So, now if I go ahead and run
+
+
+339
+00:11:58,086 --> 00:11:59,836
+this example, nothing will
+
+
+340
+00:11:59,836 --> 00:12:01,536
+happen because the Engine is now
+
+
+341
+00:12:01,536 --> 00:12:03,186
+in the offline mode, and it's
+
+
+342
+00:12:03,186 --> 00:12:04,066
+ready to render.
+
+
+343
+00:12:04,356 --> 00:12:05,586
+But of course, it's waiting for
+
+
+344
+00:12:05,586 --> 00:12:08,016
+the app to pull the Engine for
+
+
+345
+00:12:08,016 --> 00:12:08,466
+output.
+
+
+346
+00:12:09,556 --> 00:12:11,816
+So, what we'll do next is to
+
+
+347
+00:12:11,816 --> 00:12:13,296
+actually pull the Engine for
+
+
+348
+00:12:13,296 --> 00:12:13,776
+output.
+
+
+349
+00:12:16,636 --> 00:12:18,466
+So, here I'm creating an output
+
+
+350
+00:12:18,466 --> 00:12:21,586
+file to which I want to dump the
+
+
+351
+00:12:21,586 --> 00:12:22,296
+process data.
+
+
+352
+00:12:22,956 --> 00:12:26,326
+And I'm creating an output
+
+
+353
+00:12:26,326 --> 00:12:28,706
+buffer to which I'll ask the
+
+
+354
+00:12:28,706 --> 00:12:30,666
+Engine to render sequentially in
+
+
+355
+00:12:30,706 --> 00:12:31,696
+every rendered call.
+
+
+356
+00:12:32,676 --> 00:12:34,326
+And the format of this buffer is
+
+
+357
+00:12:34,326 --> 00:12:35,766
+the same format that as I
+
+
+358
+00:12:35,766 --> 00:12:37,616
+mentioned, when enabling the
+
+
+359
+00:12:37,616 --> 00:12:38,536
+offline mode.
+
+
+360
+00:12:39,046 --> 00:12:42,206
+And then comes the rendered loop
+
+
+361
+00:12:42,396 --> 00:12:44,236
+where I'll [inaudible] pull the
+
+
+362
+00:12:44,236 --> 00:12:45,496
+engine for output.
+
+
+363
+00:12:46,216 --> 00:12:47,676
+Now, in this example, I have a
+
+
+364
+00:12:47,676 --> 00:12:49,006
+source file which is about three
+
+
+365
+00:12:49,006 --> 00:12:49,816
+minutes long.
+
+
+366
+00:12:50,556 --> 00:12:52,026
+So, I really don't want to
+
+
+367
+00:12:52,026 --> 00:12:54,076
+allocate a huge output buffer
+
+
+368
+00:12:54,246 --> 00:12:55,846
+and ask the Engine to render the
+
+
+369
+00:12:55,846 --> 00:12:57,516
+entire three minutes of data in
+
+
+370
+00:12:57,516 --> 00:12:58,486
+a single rendered call.
+
+
+371
+00:12:58,996 --> 00:13:00,596
+And that's why what I'm doing is
+
+
+372
+00:13:00,676 --> 00:13:02,756
+allocating an output buffer of a
+
+
+373
+00:13:02,756 --> 00:13:05,206
+very reasonable size, but
+
+
+374
+00:13:05,206 --> 00:13:05,986
+[inaudible] pulling the Engine
+
+
+375
+00:13:05,986 --> 00:13:07,836
+for output into the same buffer,
+
+
+376
+00:13:07,836 --> 00:13:09,266
+and then dumping the output to
+
+
+377
+00:13:09,266 --> 00:13:10,186
+the destination file.
+
+
+378
+00:13:10,676 --> 00:13:13,786
+So, in every iteration, I'll
+
+
+379
+00:13:13,786 --> 00:13:16,216
+decide the number of frames to
+
+
+380
+00:13:16,216 --> 00:13:17,336
+render in this particular
+
+
+381
+00:13:17,366 --> 00:13:17,906
+rendered call.
+
+
+382
+00:13:18,566 --> 00:13:20,266
+And I call the rendered offline
+
+
+383
+00:13:20,416 --> 00:13:21,176
+[inaudible] around the Engine,
+
+
+384
+00:13:21,326 --> 00:13:23,076
+asking it to render those many
+
+
+385
+00:13:23,076 --> 00:13:24,636
+number of frames, and giving it
+
+
+386
+00:13:24,636 --> 00:13:26,456
+the output buffer that we just
+
+
+387
+00:13:26,456 --> 00:13:26,986
+allocated.
+
+
+388
+00:13:27,916 --> 00:13:29,466
+And depending on the status, if
+
+
+389
+00:13:29,466 --> 00:13:32,086
+it rendered success, the data
+
+
+390
+00:13:32,086 --> 00:13:33,706
+was rendered successfully and I
+
+
+391
+00:13:33,706 --> 00:13:35,506
+can go ahead and drag the data
+
+
+392
+00:13:35,616 --> 00:13:37,896
+into my output file, and in case
+
+
+393
+00:13:37,896 --> 00:13:39,146
+it rendered an error, then
+
+
+394
+00:13:39,146 --> 00:13:40,496
+something went wrong, so you can
+
+
+395
+00:13:40,496 --> 00:13:42,886
+check the error code for more
+
+
+396
+00:13:42,886 --> 00:13:43,456
+information.
+
+
+397
+00:13:44,636 --> 00:13:45,686
+So, finally, when the
+
+
+398
+00:13:45,686 --> 00:13:47,316
+rendering's done, I'll stop the
+
+
+399
+00:13:47,316 --> 00:13:49,276
+player and I'll stop the Engine.
+
+
+400
+00:13:50,146 --> 00:13:51,476
+So, now if I go ahead and run
+
+
+401
+00:13:51,476 --> 00:13:53,536
+this example, the entire source
+
+
+402
+00:13:53,536 --> 00:13:55,066
+file will get exported and the
+
+
+403
+00:13:55,066 --> 00:13:56,376
+data will be dumped into the
+
+
+404
+00:13:56,376 --> 00:13:57,196
+destination file.
+
+
+405
+00:13:57,876 --> 00:14:02,596
+So, let's do that.
+
+
+406
+00:14:02,816 --> 00:14:04,366
+Okay, so as you may have
+
+
+407
+00:14:04,366 --> 00:14:06,736
+observed, the three-minute
+
+
+408
+00:14:07,036 --> 00:14:09,566
+length long source file got
+
+
+409
+00:14:09,566 --> 00:14:11,266
+rendered into an output file,
+
+
+410
+00:14:11,746 --> 00:14:13,106
+way faster than real time.
+
+
+411
+00:14:13,486 --> 00:14:14,646
+And that is one of the main
+
+
+412
+00:14:14,646 --> 00:14:15,866
+applications of the offline
+
+
+413
+00:14:15,866 --> 00:14:16,416
+rendering mode.
+
+
+414
+00:14:17,416 --> 00:14:19,796
+So, what we'll do next is again,
+
+
+415
+00:14:19,796 --> 00:14:21,916
+listen to the source file, and
+
+
+416
+00:14:23,046 --> 00:14:25,396
+the destination file, and make
+
+
+417
+00:14:25,396 --> 00:14:28,946
+sure that the data was indeed
+
+
+418
+00:14:29,006 --> 00:14:29,396
+processed.
+
+
+419
+00:14:30,116 --> 00:14:31,636
+So, that is my source file.
+
+
+420
+00:14:33,146 --> 00:14:35,216
+And this is my destination file.
+
+
+421
+00:14:35,796 --> 00:14:40,636
+So, first we'll listen to the
+
+
+422
+00:14:40,636 --> 00:14:41,866
+source file.
+
+
+423
+00:14:42,516 --> 00:14:48,766
+[ Music ]
+
+
+424
+00:14:49,266 --> 00:14:51,786
+So, as you saw, it is pretty
+
+
+425
+00:14:51,786 --> 00:14:52,156
+dry.
+
+
+426
+00:14:53,096 --> 00:14:54,946
+And now, the processed file.
+
+
+427
+00:14:55,516 --> 00:15:03,746
+[ Music ]
+
+
+428
+00:15:04,246 --> 00:15:06,156
+Okay, so as expected, the
+
+
+429
+00:15:06,186 --> 00:15:07,876
+processed data has reverb effect
+
+
+430
+00:15:07,876 --> 00:15:08,426
+added to it.
+
+
+431
+00:15:09,746 --> 00:15:12,066
+So, that concludes the offline
+
+
+432
+00:15:12,066 --> 00:15:13,446
+rendering demo.
+
+
+433
+00:15:13,616 --> 00:15:15,316
+And I'll switch back to the
+
+
+434
+00:15:16,086 --> 00:15:16,246
+slides.
+
+
+435
+00:15:19,516 --> 00:15:24,666
+[ Applause ]
+
+
+436
+00:15:25,166 --> 00:15:26,136
+So, as I mentioned, there are
+
+
+437
+00:15:26,136 --> 00:15:27,606
+many more applications to the
+
+
+438
+00:15:27,756 --> 00:15:28,526
+rendering mode.
+
+
+439
+00:15:28,976 --> 00:15:31,446
+And I'm also happy to announce
+
+
+440
+00:15:31,506 --> 00:15:33,856
+that the sample code for this
+
+
+441
+00:15:33,906 --> 00:15:35,676
+example, is already available on
+
+
+442
+00:15:35,676 --> 00:15:37,316
+our Sessions Homepage, and we'll
+
+
+443
+00:15:37,316 --> 00:15:39,336
+show you a link to that homepage
+
+
+444
+00:15:39,336 --> 00:15:40,426
+at the end of presentation.
+
+
+445
+00:15:42,436 --> 00:15:44,356
+Now, going to the second variant
+
+
+446
+00:15:44,356 --> 00:15:45,606
+of the Manual Rendering Mode.
+
+
+447
+00:15:46,396 --> 00:15:47,746
+The real time Manual Entering
+
+
+448
+00:15:47,746 --> 00:15:47,916
+Mode.
+
+
+449
+00:15:48,696 --> 00:15:50,516
+As the name itself suggests,
+
+
+450
+00:15:50,626 --> 00:15:52,556
+under this mode, the Engine and
+
+
+451
+00:15:52,556 --> 00:15:53,966
+all the nodes in your processing
+
+
+452
+00:15:53,966 --> 00:15:55,836
+graph, assume that they are
+
+
+453
+00:15:55,886 --> 00:15:57,276
+rendering under a real-time
+
+
+454
+00:15:57,346 --> 00:15:57,886
+context.
+
+
+455
+00:15:58,376 --> 00:15:59,736
+And hence, the they honor the
+
+
+456
+00:15:59,776 --> 00:16:01,026
+real-time constraints.
+
+
+457
+00:16:01,766 --> 00:16:03,756
+That is, they will not make any
+
+
+458
+00:16:03,756 --> 00:16:05,776
+kind of a blocking calls on the
+
+
+459
+00:16:05,806 --> 00:16:06,396
+render thread.
+
+
+460
+00:16:07,046 --> 00:16:08,556
+For example, they will not call
+
+
+461
+00:16:08,556 --> 00:16:09,556
+any libdispatch.
+
+
+462
+00:16:10,146 --> 00:16:12,036
+They will not allocate memory or
+
+
+463
+00:16:12,076 --> 00:16:13,416
+wait to block on a mutex.
+
+
+464
+00:16:14,346 --> 00:16:15,836
+And because of this constraint,
+
+
+465
+00:16:16,106 --> 00:16:17,916
+suppose the input data for node
+
+
+466
+00:16:18,046 --> 00:16:19,396
+is not ready in time.
+
+
+467
+00:16:20,016 --> 00:16:22,046
+A node has no other choice, but
+
+
+468
+00:16:22,046 --> 00:16:23,756
+the say, "Drop the data for that
+
+
+469
+00:16:23,796 --> 00:16:25,516
+particular render cycle, or
+
+
+470
+00:16:25,746 --> 00:16:27,406
+assume zeros and proceed."
+
+
+471
+00:16:29,696 --> 00:16:31,486
+Now, let's see where you would
+
+
+472
+00:16:31,486 --> 00:16:32,826
+use the Engine in the real-time
+
+
+473
+00:16:32,826 --> 00:16:34,546
+Manual Rendering Mode.
+
+
+474
+00:16:35,236 --> 00:16:37,436
+Suppose you have a custom AU
+
+
+475
+00:16:37,436 --> 00:16:38,086
+audio unit.
+
+
+476
+00:16:38,986 --> 00:16:41,286
+That is, in the live playback
+
+
+477
+00:16:41,376 --> 00:16:43,456
+part, and within the internal
+
+
+478
+00:16:43,456 --> 00:16:45,116
+render block of your audio unit,
+
+
+479
+00:16:45,416 --> 00:16:46,836
+you would like to process the
+
+
+480
+00:16:46,836 --> 00:16:48,386
+data that is going through,
+
+
+481
+00:16:48,736 --> 00:16:50,746
+using some other audio unit or
+
+
+482
+00:16:50,796 --> 00:16:52,066
+audio units.
+
+
+483
+00:16:52,906 --> 00:16:54,996
+In that case, you can set up the
+
+
+484
+00:16:54,996 --> 00:16:57,316
+Engine to use those other audio
+
+
+485
+00:16:57,316 --> 00:16:59,716
+units and process the data in
+
+
+486
+00:16:59,716 --> 00:17:01,186
+the real-time Manual Rendering
+
+
+487
+00:17:01,726 --> 00:17:01,826
+Mode.
+
+
+488
+00:17:02,596 --> 00:17:04,236
+The second example would be,
+
+
+489
+00:17:04,366 --> 00:17:05,746
+suppose you wanted to process
+
+
+490
+00:17:05,746 --> 00:17:07,415
+the audio data that belongs to a
+
+
+491
+00:17:07,415 --> 00:17:09,286
+movie or video, as it is
+
+
+492
+00:17:09,286 --> 00:17:10,636
+streaming or playing back.
+
+
+493
+00:17:11,526 --> 00:17:12,516
+Because this happens in the
+
+
+494
+00:17:12,516 --> 00:17:14,016
+real-time, you could use the
+
+
+495
+00:17:14,016 --> 00:17:15,656
+Engine in real-time Manual
+
+
+496
+00:17:15,656 --> 00:17:17,306
+Rendering Mode, to do that audio
+
+
+497
+00:17:17,306 --> 00:17:17,846
+processing.
+
+
+498
+00:17:18,516 --> 00:17:19,986
+And now, let's consider the
+
+
+499
+00:17:19,986 --> 00:17:22,386
+second use case and see how to
+
+
+500
+00:17:22,386 --> 00:17:24,756
+set up and use the Engine both
+
+
+501
+00:17:24,756 --> 00:17:26,445
+as an example an in code.
+
+
+502
+00:17:27,106 --> 00:17:30,926
+So, here's the app that's
+
+
+503
+00:17:30,926 --> 00:17:33,416
+receiving input movie stream,
+
+
+504
+00:17:33,596 --> 00:17:35,236
+and displaying back in
+
+
+505
+00:17:35,236 --> 00:17:37,046
+real-time, say to a TV.
+
+
+506
+00:17:37,656 --> 00:17:39,016
+But what it wants to do is
+
+
+507
+00:17:39,236 --> 00:17:42,406
+process the audio data as it in
+
+
+508
+00:17:42,406 --> 00:17:44,046
+the input, before it goes to the
+
+
+509
+00:17:44,046 --> 00:17:44,466
+output.
+
+
+510
+00:17:45,776 --> 00:17:47,736
+So, now it can use the Engine in
+
+
+511
+00:17:47,736 --> 00:17:49,456
+the real-time Manual Rendering
+
+
+512
+00:17:49,456 --> 00:17:49,796
+Mode.
+
+
+513
+00:17:50,766 --> 00:17:52,586
+So, it could set up a processing
+
+
+514
+00:17:52,586 --> 00:17:53,896
+graph like this.
+
+
+515
+00:17:53,896 --> 00:17:55,656
+It can provide the input through
+
+
+516
+00:17:55,856 --> 00:17:58,016
+the input node, process it
+
+
+517
+00:17:58,186 --> 00:17:59,836
+through an effect node, and then
+
+
+518
+00:17:59,886 --> 00:18:01,306
+pull the data from the output
+
+
+519
+00:18:01,356 --> 00:18:04,626
+node and then play it back to
+
+
+520
+00:18:05,356 --> 00:18:07,116
+the device.
+
+
+521
+00:18:07,246 --> 00:18:09,156
+Now, let's see a code example on
+
+
+522
+00:18:09,156 --> 00:18:11,396
+how to set up and use the Engine
+
+
+523
+00:18:11,436 --> 00:18:11,956
+in this mode.
+
+
+524
+00:18:16,336 --> 00:18:17,616
+So, here's the code.
+
+
+525
+00:18:17,996 --> 00:18:20,246
+And note that the setting up the
+
+
+526
+00:18:20,246 --> 00:18:22,136
+Engine itself, happens from a
+
+
+527
+00:18:22,136 --> 00:18:23,626
+non-real-time context.
+
+
+528
+00:18:23,946 --> 00:18:25,886
+And it's only rendering part
+
+
+529
+00:18:26,026 --> 00:18:27,276
+that actually happens from a
+
+
+530
+00:18:27,276 --> 00:18:28,286
+real-time context.
+
+
+531
+00:18:28,836 --> 00:18:30,596
+So, here's the setup code, where
+
+
+532
+00:18:30,596 --> 00:18:32,706
+you first cleared the Engine,
+
+
+533
+00:18:33,186 --> 00:18:36,306
+and by default, on creation, the
+
+
+534
+00:18:36,306 --> 00:18:38,036
+Engine will be ready to render
+
+
+535
+00:18:38,206 --> 00:18:40,026
+to the device until you switch
+
+
+536
+00:18:40,026 --> 00:18:41,536
+it over to the Manual Rendering
+
+
+537
+00:18:41,536 --> 00:18:41,746
+Mode.
+
+
+538
+00:18:42,846 --> 00:18:44,376
+So, you cleared the Engine, make
+
+
+539
+00:18:44,376 --> 00:18:45,946
+your required connections, and
+
+
+540
+00:18:45,946 --> 00:18:47,796
+then switch it over to the
+
+
+541
+00:18:47,796 --> 00:18:48,796
+Manual Rendering Mode.
+
+
+542
+00:18:49,636 --> 00:18:51,116
+So, this is the same API that we
+
+
+543
+00:18:51,116 --> 00:18:52,876
+saw in the demo, except that we
+
+
+544
+00:18:52,876 --> 00:18:55,536
+are now saying -- now asking the
+
+
+545
+00:18:55,536 --> 00:18:57,106
+Engine to operate under
+
+
+546
+00:18:57,106 --> 00:18:58,556
+real-time Manual Rendering Mode.
+
+
+547
+00:18:59,326 --> 00:19:01,296
+And specifying the format for
+
+
+548
+00:19:01,296 --> 00:19:03,076
+the output and maximum number of
+
+
+549
+00:19:03,076 --> 00:19:03,556
+frames.
+
+
+550
+00:19:04,546 --> 00:19:07,946
+The next thing you do is session
+
+
+551
+00:19:08,056 --> 00:19:09,566
+cache, something called a
+
+
+552
+00:19:09,566 --> 00:19:10,396
+surrender block.
+
+
+553
+00:19:10,926 --> 00:19:12,546
+Now, because the rendering of
+
+
+554
+00:19:12,626 --> 00:19:13,966
+the Engine happens from a
+
+
+555
+00:19:13,966 --> 00:19:16,076
+real-time context, you will not
+
+
+556
+00:19:16,116 --> 00:19:17,496
+be able to use the render
+
+
+557
+00:19:17,596 --> 00:19:19,496
+offline Objective-C or Swift
+
+
+558
+00:19:19,496 --> 00:19:20,966
+meta that we saw in the demo.
+
+
+559
+00:19:21,346 --> 00:19:23,076
+And that is because, it is not
+
+
+560
+00:19:23,146 --> 00:19:25,226
+safe to use Objective-C or Swift
+
+
+561
+00:19:25,226 --> 00:19:26,286
+runtime from a real-time
+
+
+562
+00:19:26,286 --> 00:19:26,896
+context.
+
+
+563
+00:19:27,436 --> 00:19:28,976
+So, instead, the engine itself
+
+
+564
+00:19:28,976 --> 00:19:30,826
+provides you a render block that
+
+
+565
+00:19:30,826 --> 00:19:32,506
+you can search and cache, and
+
+
+566
+00:19:32,506 --> 00:19:34,086
+then later use this render block
+
+
+567
+00:19:34,286 --> 00:19:35,626
+to render the engine from the
+
+
+568
+00:19:35,626 --> 00:19:36,686
+real-time context.
+
+
+569
+00:19:38,256 --> 00:19:40,456
+The next thing is -- to do, is
+
+
+570
+00:19:40,456 --> 00:19:42,016
+to set up your input node so
+
+
+571
+00:19:42,016 --> 00:19:43,386
+that you can provide your input
+
+
+572
+00:19:43,386 --> 00:19:44,646
+data to the Engine.
+
+
+573
+00:19:45,416 --> 00:19:48,156
+And here, you specify the format
+
+
+574
+00:19:48,156 --> 00:19:49,786
+of the input that you will
+
+
+575
+00:19:49,786 --> 00:19:51,536
+provide, and this can be a
+
+
+576
+00:19:51,536 --> 00:19:52,586
+different format than the
+
+
+577
+00:19:52,626 --> 00:19:53,046
+output.
+
+
+578
+00:19:54,016 --> 00:19:55,916
+And you also provide a block
+
+
+579
+00:19:55,916 --> 00:19:57,396
+which the Engine will call,
+
+
+580
+00:19:57,546 --> 00:19:59,076
+whenever it needs the input
+
+
+581
+00:19:59,186 --> 00:19:59,546
+data.
+
+
+582
+00:20:01,696 --> 00:20:03,716
+And when this block gets called,
+
+
+583
+00:20:03,716 --> 00:20:05,476
+the Engine will let you know how
+
+
+584
+00:20:05,476 --> 00:20:07,136
+many number of input frames it
+
+
+585
+00:20:07,136 --> 00:20:07,936
+actually needs.
+
+
+586
+00:20:08,606 --> 00:20:10,616
+And at that point, if you have
+
+
+587
+00:20:10,616 --> 00:20:12,986
+the data, you'll fill up an
+
+
+588
+00:20:12,986 --> 00:20:14,646
+input audio buffer list and
+
+
+589
+00:20:14,646 --> 00:20:15,986
+return it to the engine.
+
+
+590
+00:20:16,846 --> 00:20:18,416
+But if you don't have data, you
+
+
+591
+00:20:18,416 --> 00:20:20,096
+can return nil at this point.
+
+
+592
+00:20:21,446 --> 00:20:22,876
+Now note that the input node can
+
+
+593
+00:20:22,876 --> 00:20:25,156
+be used both in the offline and
+
+
+594
+00:20:25,276 --> 00:20:26,696
+real-time Manual Rendering Mode.
+
+
+595
+00:20:27,246 --> 00:20:28,886
+But when you're using it in the
+
+
+596
+00:20:28,886 --> 00:20:30,316
+real-time Manual Rendering Mode,
+
+
+597
+00:20:30,686 --> 00:20:32,576
+this input block also gets
+
+
+598
+00:20:32,576 --> 00:20:34,366
+called from a real-time context,
+
+
+599
+00:20:34,746 --> 00:20:36,146
+which means that you need to
+
+
+600
+00:20:36,146 --> 00:20:38,096
+take care not to make any kind
+
+
+601
+00:20:38,096 --> 00:20:39,936
+of blocking calls within this
+
+
+602
+00:20:40,556 --> 00:20:42,026
+input block.
+
+
+603
+00:20:43,356 --> 00:20:45,236
+The next part of the setup is to
+
+
+604
+00:20:45,236 --> 00:20:47,586
+clear your output buffer, and
+
+
+605
+00:20:47,586 --> 00:20:49,386
+the difference here is you will
+
+
+606
+00:20:49,386 --> 00:20:51,956
+create an AVAudioPCMBuffer and
+
+
+607
+00:20:51,956 --> 00:20:53,806
+fetch its audio buffer list
+
+
+608
+00:20:54,006 --> 00:20:55,726
+which is what you'll use in the
+
+
+609
+00:20:55,726 --> 00:20:57,206
+real-time render logic.
+
+
+610
+00:20:57,726 --> 00:21:00,206
+And finally, you'll go ahead and
+
+
+611
+00:21:00,206 --> 00:21:00,976
+start the Engine.
+
+
+612
+00:21:01,546 --> 00:21:03,286
+So, now the Engine is all set up
+
+
+613
+00:21:03,286 --> 00:21:04,646
+and ready to render, and is
+
+
+614
+00:21:04,646 --> 00:21:06,706
+waiting for the app to pull for
+
+
+615
+00:21:06,776 --> 00:21:08,076
+the output data.
+
+
+616
+00:21:08,616 --> 00:21:12,846
+Now here comes the actual render
+
+
+617
+00:21:12,886 --> 00:21:13,346
+logic.
+
+
+618
+00:21:13,916 --> 00:21:15,626
+And note that this part of the
+
+
+619
+00:21:15,666 --> 00:21:17,836
+chord is written in C++, and
+
+
+620
+00:21:17,836 --> 00:21:19,516
+that is because as I mentioned,
+
+
+621
+00:21:19,716 --> 00:21:21,546
+we are -- it's not safe to use
+
+
+622
+00:21:21,546 --> 00:21:24,046
+Objective-C or Swift runtime
+
+
+623
+00:21:24,096 --> 00:21:25,386
+from a real-time context.
+
+
+624
+00:21:26,546 --> 00:21:28,166
+So, what we're doing first is
+
+
+625
+00:21:28,716 --> 00:21:30,156
+calling the render block that we
+
+
+626
+00:21:30,246 --> 00:21:32,516
+cached earlier, and asking the
+
+
+627
+00:21:32,516 --> 00:21:33,626
+Engine to render a certain
+
+
+628
+00:21:33,626 --> 00:21:35,296
+number or frames, and giving it
+
+
+629
+00:21:35,296 --> 00:21:36,606
+the outputBufferList that we
+
+
+630
+00:21:36,606 --> 00:21:37,076
+created.
+
+
+631
+00:21:38,086 --> 00:21:39,606
+And finally, depending on the
+
+
+632
+00:21:39,606 --> 00:21:41,856
+status, if you get a success, it
+
+
+633
+00:21:41,856 --> 00:21:43,426
+means everything went fine and
+
+
+634
+00:21:43,426 --> 00:21:44,726
+the data was rendered to the
+
+
+635
+00:21:44,726 --> 00:21:45,416
+output buffer.
+
+
+636
+00:21:46,216 --> 00:21:47,976
+But you could also get an
+
+
+637
+00:21:47,976 --> 00:21:49,736
+insufficient data from input
+
+
+638
+00:21:49,736 --> 00:21:51,776
+note as a status, which means
+
+
+639
+00:21:51,776 --> 00:21:54,846
+that when your input block was
+
+
+640
+00:21:54,896 --> 00:21:56,526
+called by the Engine for input
+
+
+641
+00:21:56,526 --> 00:21:58,386
+data, you did not have enough
+
+
+642
+00:21:58,386 --> 00:22:00,276
+data in your written nil from
+
+
+643
+00:22:00,276 --> 00:22:01,056
+that input block.
+
+
+644
+00:22:01,946 --> 00:22:03,816
+And note that in this case, in
+
+
+645
+00:22:03,816 --> 00:22:05,696
+case you have other sources in
+
+
+646
+00:22:05,696 --> 00:22:07,116
+your processing graph, for
+
+
+647
+00:22:07,116 --> 00:22:08,576
+example, you have some of the
+
+
+648
+00:22:08,606 --> 00:22:08,946
+[inaudible] notes.
+
+
+649
+00:22:09,396 --> 00:22:10,666
+Those notes could have still
+
+
+650
+00:22:10,666 --> 00:22:12,446
+rendered the input data, so you
+
+
+651
+00:22:12,446 --> 00:22:14,176
+may still have some output in
+
+
+652
+00:22:14,176 --> 00:22:15,096
+your output buffer.
+
+
+653
+00:22:15,446 --> 00:22:17,256
+So, you can check the sizes of
+
+
+654
+00:22:17,306 --> 00:22:19,076
+your output buffer, to determine
+
+
+655
+00:22:19,136 --> 00:22:20,876
+whether or not it has any data.
+
+
+656
+00:22:22,276 --> 00:22:23,936
+And of course, you handle the
+
+
+657
+00:22:23,936 --> 00:22:26,326
+other status which includes the
+
+
+658
+00:22:26,326 --> 00:22:28,196
+error, and that is pretty much
+
+
+659
+00:22:28,196 --> 00:22:30,246
+the render logic in real-time
+
+
+660
+00:22:30,246 --> 00:22:31,866
+Manual Rendering Mode.
+
+
+661
+00:22:33,896 --> 00:22:37,106
+Now, lastly a note on the render
+
+
+662
+00:22:37,176 --> 00:22:37,546
+cause.
+
+
+663
+00:22:38,276 --> 00:22:39,396
+In the offline mode, because
+
+
+664
+00:22:39,396 --> 00:22:40,456
+there are no deadlines or
+
+
+665
+00:22:40,506 --> 00:22:42,056
+real-time constraints, you can
+
+
+666
+00:22:42,056 --> 00:22:43,796
+use either the Objective-C or
+
+
+667
+00:22:43,796 --> 00:22:45,606
+the Swift render of line method,
+
+
+668
+00:22:45,966 --> 00:22:47,666
+or you could use the render
+
+
+669
+00:22:47,666 --> 00:22:49,246
+block based render call in order
+
+
+670
+00:22:49,246 --> 00:22:50,176
+to render the Engine.
+
+
+671
+00:22:50,776 --> 00:22:52,116
+But in real-time Manual
+
+
+672
+00:22:52,116 --> 00:22:53,956
+Rendering Mode, you must use the
+
+
+673
+00:22:53,956 --> 00:22:55,276
+block based render call.
+
+
+674
+00:22:55,946 --> 00:22:58,646
+So, that brings us to the end of
+
+
+675
+00:22:58,706 --> 00:22:59,866
+Manual Rendering Mode.
+
+
+676
+00:23:00,196 --> 00:23:03,836
+Now let's now see the next new
+
+
+677
+00:23:03,836 --> 00:23:05,356
+mode we have in the Engine,
+
+
+678
+00:23:05,356 --> 00:23:07,306
+which is the Auto Shutdown Mode.
+
+
+679
+00:23:09,046 --> 00:23:10,476
+Now, normally it is the
+
+
+680
+00:23:10,476 --> 00:23:12,496
+responsibility of the app to
+
+
+681
+00:23:12,576 --> 00:23:14,576
+pause or stop the Engine when it
+
+
+682
+00:23:14,576 --> 00:23:16,306
+is not in use in order to
+
+
+683
+00:23:16,306 --> 00:23:16,976
+conserve power.
+
+
+684
+00:23:16,976 --> 00:23:19,766
+For example, say we have a music
+
+
+685
+00:23:19,766 --> 00:23:21,236
+app that is using one of the
+
+
+686
+00:23:21,276 --> 00:23:22,906
+player nodes for playing back
+
+
+687
+00:23:23,626 --> 00:23:26,106
+some file, and say the user
+
+
+688
+00:23:26,106 --> 00:23:27,346
+stops the playback.
+
+
+689
+00:23:28,156 --> 00:23:29,986
+Now the app, should not only
+
+
+690
+00:23:30,126 --> 00:23:32,316
+pause or stop the player node,
+
+
+691
+00:23:32,596 --> 00:23:34,356
+but it should also pause or stop
+
+
+692
+00:23:34,356 --> 00:23:36,246
+the Engine in order to prevent
+
+
+693
+00:23:36,246 --> 00:23:37,436
+it from running idle.
+
+
+694
+00:23:38,496 --> 00:23:39,836
+But in the past, we have seen
+
+
+695
+00:23:39,836 --> 00:23:41,726
+that not all the apps actually
+
+
+696
+00:23:41,726 --> 00:23:43,846
+do this, and especially that's
+
+
+697
+00:23:43,846 --> 00:23:44,646
+true on watchOS.
+
+
+698
+00:23:45,396 --> 00:23:47,166
+And hence, we are now adding the
+
+
+699
+00:23:47,166 --> 00:23:49,546
+safety net in order to conserve
+
+
+700
+00:23:49,806 --> 00:23:51,486
+power with this auto shutdown
+
+
+701
+00:23:51,486 --> 00:23:51,716
+mode.
+
+
+702
+00:23:52,866 --> 00:23:54,136
+When the Engine is operating
+
+
+703
+00:23:54,136 --> 00:23:56,246
+under this mode, it will
+
+
+704
+00:23:56,246 --> 00:23:58,076
+continuously monitor and if it
+
+
+705
+00:23:58,076 --> 00:24:00,276
+detects that the Engine is
+
+
+706
+00:24:00,276 --> 00:24:01,826
+running idle for a certain
+
+
+707
+00:24:01,826 --> 00:24:03,656
+duration, it will go ahead and
+
+
+708
+00:24:03,656 --> 00:24:05,176
+stop the audio hardware and
+
+
+709
+00:24:05,176 --> 00:24:05,506
+delete.
+
+
+710
+00:24:06,286 --> 00:24:07,966
+And later on, suppose any of the
+
+
+711
+00:24:07,966 --> 00:24:09,796
+sources become active again, it
+
+
+712
+00:24:09,796 --> 00:24:11,166
+will start the audio hardware
+
+
+713
+00:24:11,166 --> 00:24:11,786
+dynamically.
+
+
+714
+00:24:12,376 --> 00:24:13,666
+And all of this happens under
+
+
+715
+00:24:13,666 --> 00:24:13,966
+the hood.
+
+
+716
+00:24:15,196 --> 00:24:16,266
+And this is the enforced
+
+
+717
+00:24:16,266 --> 00:24:18,436
+behavior on watchOS, but it can
+
+
+718
+00:24:18,436 --> 00:24:20,186
+also be optionally enabled on
+
+
+719
+00:24:20,186 --> 00:24:20,986
+other platforms.
+
+
+720
+00:24:23,316 --> 00:24:26,106
+Now, next onto the enhancements
+
+
+721
+00:24:26,106 --> 00:24:27,326
+in AV Audio Player Node.
+
+
+722
+00:24:27,946 --> 00:24:31,196
+AV Audio Player Node is one of
+
+
+723
+00:24:31,196 --> 00:24:32,726
+the source nodes in the Engine,
+
+
+724
+00:24:33,066 --> 00:24:34,536
+through which you could schedule
+
+
+725
+00:24:34,536 --> 00:24:36,466
+a buffer or file for playback.
+
+
+726
+00:24:36,966 --> 00:24:39,696
+And the existing [inaudible]
+
+
+727
+00:24:39,696 --> 00:24:41,396
+methods, take a completion
+
+
+728
+00:24:41,436 --> 00:24:42,956
+handler and they call the
+
+
+729
+00:24:42,956 --> 00:24:44,806
+completion handler when the data
+
+
+730
+00:24:44,806 --> 00:24:46,246
+that you have provided has been
+
+
+731
+00:24:46,246 --> 00:24:47,546
+consumed by the player.
+
+
+732
+00:24:49,056 --> 00:24:50,996
+We are now adding new completion
+
+
+733
+00:24:50,996 --> 00:24:52,436
+handler and new types of
+
+
+734
+00:24:52,526 --> 00:24:54,526
+callbacks, in order for you to
+
+
+735
+00:24:54,666 --> 00:24:56,516
+know various stages of
+
+
+736
+00:24:56,556 --> 00:24:57,236
+completion.
+
+
+737
+00:24:57,776 --> 00:25:01,836
+The first new callback type is
+
+
+738
+00:25:01,836 --> 00:25:03,196
+the data consumed type.
+
+
+739
+00:25:03,686 --> 00:25:05,396
+And this is exactly same as the
+
+
+740
+00:25:05,396 --> 00:25:06,776
+existing completion handler.
+
+
+741
+00:25:07,246 --> 00:25:09,536
+That is, when the completion
+
+
+742
+00:25:09,536 --> 00:25:11,326
+handler gets called, it means
+
+
+743
+00:25:11,326 --> 00:25:12,786
+the data has been consumed by
+
+
+744
+00:25:12,786 --> 00:25:13,236
+the player.
+
+
+745
+00:25:13,236 --> 00:25:15,386
+So, at that point, if you
+
+
+746
+00:25:15,446 --> 00:25:17,106
+wanted, you could recycle that
+
+
+747
+00:25:17,106 --> 00:25:19,606
+buffer, or if you have more data
+
+
+748
+00:25:19,866 --> 00:25:21,376
+to schedule on the player, you
+
+
+749
+00:25:21,416 --> 00:25:21,936
+could do that.
+
+
+750
+00:25:22,796 --> 00:25:24,746
+The second type of callback is
+
+
+751
+00:25:24,746 --> 00:25:26,076
+the data rendered callback.
+
+
+752
+00:25:26,466 --> 00:25:27,896
+And that means that the data
+
+
+753
+00:25:28,256 --> 00:25:29,726
+that you provided, has been
+
+
+754
+00:25:29,906 --> 00:25:31,316
+rendered when the completion
+
+
+755
+00:25:31,316 --> 00:25:32,196
+handler gets called.
+
+
+756
+00:25:33,136 --> 00:25:34,446
+And this does not account for
+
+
+757
+00:25:34,446 --> 00:25:36,226
+any downstream signal processing
+
+
+758
+00:25:36,226 --> 00:25:38,776
+latencies in your processing
+
+
+759
+00:25:39,516 --> 00:25:39,666
+graph.
+
+
+760
+00:25:40,236 --> 00:25:42,496
+The last type is the data played
+
+
+761
+00:25:42,496 --> 00:25:44,016
+back type, which is the most
+
+
+762
+00:25:44,016 --> 00:25:44,786
+interesting one.
+
+
+763
+00:25:45,286 --> 00:25:46,736
+And this means that when your
+
+
+764
+00:25:46,786 --> 00:25:48,226
+completion handler gets called,
+
+
+765
+00:25:48,526 --> 00:25:50,176
+the buffer or the file that you
+
+
+766
+00:25:50,176 --> 00:25:52,146
+scheduled, has actually finished
+
+
+767
+00:25:52,246 --> 00:25:53,476
+playing from the listener's
+
+
+768
+00:25:53,516 --> 00:25:54,186
+perspective.
+
+
+769
+00:25:55,016 --> 00:25:56,626
+And this is applicable only when
+
+
+770
+00:25:56,626 --> 00:25:57,906
+the Engine is rendering to the
+
+
+771
+00:25:57,906 --> 00:25:58,396
+device.
+
+
+772
+00:25:59,086 --> 00:26:00,546
+And this accounts for all the
+
+
+773
+00:26:00,546 --> 00:26:02,026
+signal processing latencies,
+
+
+774
+00:26:02,236 --> 00:26:03,846
+downstream of the player in your
+
+
+775
+00:26:03,876 --> 00:26:06,246
+processing graph, as well as any
+
+
+776
+00:26:06,246 --> 00:26:07,826
+latency in the audio playback
+
+
+777
+00:26:07,886 --> 00:26:08,326
+device.
+
+
+778
+00:26:09,506 --> 00:26:12,216
+So, as a code example, let's see
+
+
+779
+00:26:12,646 --> 00:26:14,416
+a scheduled file method through
+
+
+780
+00:26:14,416 --> 00:26:15,666
+which you can schedule a file
+
+
+781
+00:26:15,666 --> 00:26:16,386
+for playback.
+
+
+782
+00:26:17,266 --> 00:26:19,066
+So, here, I'm scheduling a file
+
+
+783
+00:26:19,066 --> 00:26:20,816
+for playback and indicating that
+
+
+784
+00:26:20,816 --> 00:26:22,186
+I'm interested to know when the
+
+
+785
+00:26:22,186 --> 00:26:23,856
+data has played back.
+
+
+786
+00:26:25,186 --> 00:26:26,566
+That me -- and I'm providing a
+
+
+787
+00:26:26,566 --> 00:26:27,406
+completion handler.
+
+
+788
+00:26:28,076 --> 00:26:29,336
+So, when the completion handler
+
+
+789
+00:26:29,336 --> 00:26:31,056
+gets called, it means that my
+
+
+790
+00:26:31,056 --> 00:26:32,756
+file has finished playing, and
+
+
+791
+00:26:32,756 --> 00:26:33,966
+at this point, I can say,
+
+
+792
+00:26:33,966 --> 00:26:35,846
+"Notify my UI thread to update
+
+
+793
+00:26:35,846 --> 00:26:38,326
+the UI," or I can notify my main
+
+
+794
+00:26:38,326 --> 00:26:39,676
+thread to go ahead and stop the
+
+
+795
+00:26:39,676 --> 00:26:40,836
+Engine, if that's applicable.
+
+
+796
+00:26:41,446 --> 00:26:45,566
+So, that brings us to the end of
+
+
+797
+00:26:45,616 --> 00:26:47,086
+the enhancements we have in AV
+
+
+798
+00:26:47,086 --> 00:26:47,726
+Audio Engine.
+
+
+799
+00:26:48,376 --> 00:26:49,916
+At this point, I would also like
+
+
+800
+00:26:49,966 --> 00:26:52,026
+to mention that we will soon be
+
+
+801
+00:26:52,026 --> 00:26:54,726
+deprecating the AU Graph API in
+
+
+802
+00:26:54,726 --> 00:26:56,076
+the Audio Toolbox framework, in
+
+
+803
+00:26:56,146 --> 00:26:59,256
+2018, so please move over to
+
+
+804
+00:26:59,256 --> 00:27:01,076
+using AV Audio Engine instead of
+
+
+805
+00:27:01,126 --> 00:27:02,916
+AU Graph if you've not already
+
+
+806
+00:27:02,916 --> 00:27:03,926
+done that.
+
+
+807
+00:27:06,456 --> 00:27:08,466
+Now let's go to the second set
+
+
+808
+00:27:08,466 --> 00:27:10,016
+of API in the AV Foundation
+
+
+809
+00:27:10,016 --> 00:27:11,666
+framework, AV Audio Session.
+
+
+810
+00:27:12,076 --> 00:27:15,866
+AirPlay 2 is a brand-new
+
+
+811
+00:27:15,866 --> 00:27:17,946
+technology in this year's iOS,
+
+
+812
+00:27:17,946 --> 00:27:19,396
+tvOS, and macOS [inaudible].
+
+
+813
+00:27:19,396 --> 00:27:22,486
+And this lets you do multi-room
+
+
+814
+00:27:22,646 --> 00:27:24,546
+audio with AirPlay 2 capable
+
+
+815
+00:27:24,546 --> 00:27:26,336
+devices, which is for example,
+
+
+816
+00:27:26,336 --> 00:27:26,886
+the Homepod.
+
+
+817
+00:27:27,466 --> 00:27:30,036
+So, there is a separate
+
+
+818
+00:27:30,036 --> 00:27:31,676
+dedicated session called
+
+
+819
+00:27:31,676 --> 00:27:32,946
+"Interviews in AirPlay 2,"
+
+
+820
+00:27:33,036 --> 00:27:34,906
+happening this Thursday at 4:10
+
+
+821
+00:27:34,956 --> 00:27:37,826
+p.m. to go over all the features
+
+
+822
+00:27:37,826 --> 00:27:39,216
+of this technology.
+
+
+823
+00:27:39,446 --> 00:27:40,646
+So, you can catch that if you're
+
+
+824
+00:27:40,646 --> 00:27:42,826
+interested in knowing more
+
+
+825
+00:27:44,096 --> 00:27:44,286
+details.
+
+
+826
+00:27:44,406 --> 00:27:45,946
+Also seated with AirPlay 2 is
+
+
+827
+00:27:45,946 --> 00:27:47,406
+something called Long-Form
+
+
+828
+00:27:47,406 --> 00:27:47,746
+audio.
+
+
+829
+00:27:48,486 --> 00:27:49,876
+And this is a category of
+
+
+830
+00:27:49,996 --> 00:27:52,536
+content, for example music or
+
+
+831
+00:27:52,666 --> 00:27:55,246
+podcast, which is typically more
+
+
+832
+00:27:55,246 --> 00:27:57,426
+than a few minutes long, and
+
+
+833
+00:27:57,426 --> 00:27:59,116
+whose playback can be shared
+
+
+834
+00:27:59,286 --> 00:27:59,776
+with others.
+
+
+835
+00:28:01,046 --> 00:28:02,316
+For example, say you have a
+
+
+836
+00:28:02,316 --> 00:28:04,036
+party at home, and you are
+
+
+837
+00:28:04,036 --> 00:28:05,566
+playing back a music playlist
+
+
+838
+00:28:05,566 --> 00:28:07,236
+through an AirPlay device.
+
+
+839
+00:28:07,546 --> 00:28:09,656
+Now that is categorized as --
+
+
+840
+00:28:09,656 --> 00:28:10,976
+that can be categorized as a
+
+
+841
+00:28:10,976 --> 00:28:12,276
+long-form audio content.
+
+
+842
+00:28:13,376 --> 00:28:15,856
+Now with AirPlay 2 and long-form
+
+
+843
+00:28:15,856 --> 00:28:18,616
+audio, we now get a separate
+
+
+844
+00:28:18,616 --> 00:28:20,966
+shared route for the long-form
+
+
+845
+00:28:20,966 --> 00:28:22,806
+audio apps to the AirPlay 2
+
+
+846
+00:28:22,806 --> 00:28:23,306
+devices.
+
+
+847
+00:28:23,896 --> 00:28:26,426
+And I'll explain about that in a
+
+
+848
+00:28:26,426 --> 00:28:27,696
+little more detail.
+
+
+849
+00:28:28,986 --> 00:28:30,766
+And right -- and now, we have
+
+
+850
+00:28:30,766 --> 00:28:33,216
+new API in AV Audio Session, for
+
+
+851
+00:28:33,216 --> 00:28:35,496
+an app to identify itself as
+
+
+852
+00:28:35,496 --> 00:28:37,056
+being long-form and take
+
+
+853
+00:28:37,056 --> 00:28:38,736
+advantage of this separate
+
+
+854
+00:28:39,516 --> 00:28:41,146
+shared audio route.
+
+
+855
+00:28:42,416 --> 00:28:45,046
+So, let's consider the example I
+
+
+856
+00:28:45,046 --> 00:28:45,766
+just mentioned.
+
+
+857
+00:28:45,766 --> 00:28:47,626
+So, say you have a party at
+
+
+858
+00:28:47,626 --> 00:28:49,056
+home, and you're playing back
+
+
+859
+00:28:49,056 --> 00:28:50,776
+music to an AirPlay device.
+
+
+860
+00:28:51,476 --> 00:28:52,666
+We'll contrast the current
+
+
+861
+00:28:52,666 --> 00:28:54,546
+behavior and see how the
+
+
+862
+00:28:54,546 --> 00:28:56,436
+behavior changes with long-form
+
+
+863
+00:28:56,436 --> 00:28:57,066
+audio routing.
+
+
+864
+00:28:57,456 --> 00:28:58,636
+So, here is the current
+
+
+865
+00:28:58,636 --> 00:28:59,076
+behavior.
+
+
+866
+00:28:59,606 --> 00:29:01,206
+So, you -- the music is now
+
+
+867
+00:29:01,206 --> 00:29:03,476
+playing back through the AirPlay
+
+
+868
+00:29:03,476 --> 00:29:05,826
+device, and suppose you now get
+
+
+869
+00:29:05,826 --> 00:29:07,896
+a phone call.
+
+
+870
+00:29:08,116 --> 00:29:10,586
+What happens is, at this point,
+
+
+871
+00:29:10,586 --> 00:29:11,926
+your music playback gets
+
+
+872
+00:29:11,926 --> 00:29:13,786
+interrupted and it stops.
+
+
+873
+00:29:14,416 --> 00:29:16,286
+And the phone call gets routed
+
+
+874
+00:29:16,476 --> 00:29:17,856
+to the system audio which could
+
+
+875
+00:29:17,856 --> 00:29:18,586
+be receiver or [inaudible]
+
+
+876
+00:29:18,586 --> 00:29:19,186
+speaker.
+
+
+877
+00:29:20,236 --> 00:29:21,826
+And only when the phone call
+
+
+878
+00:29:21,826 --> 00:29:23,706
+ends, is when the music gets a
+
+
+879
+00:29:23,736 --> 00:29:25,936
+resumable [inaudible] and it
+
+
+880
+00:29:25,936 --> 00:29:27,026
+resumes the playback.
+
+
+881
+00:29:28,186 --> 00:29:30,166
+So, as you can see, a phone call
+
+
+882
+00:29:30,166 --> 00:29:32,106
+interrupting your party music is
+
+
+883
+00:29:32,106 --> 00:29:34,396
+not really an ideal scenario.
+
+
+884
+00:29:35,126 --> 00:29:36,546
+So, we'll now see how the
+
+
+885
+00:29:36,546 --> 00:29:38,956
+behavior changes with long-form
+
+
+886
+00:29:38,956 --> 00:29:39,566
+audio routing.
+
+
+887
+00:29:41,256 --> 00:29:43,586
+So lets see the same example.
+
+
+888
+00:29:43,586 --> 00:29:45,536
+So, now that we have music
+
+
+889
+00:29:45,756 --> 00:29:47,196
+playing back through an AirPlay
+
+
+890
+00:29:47,266 --> 00:29:48,546
+2 capable device.
+
+
+891
+00:29:49,416 --> 00:29:51,966
+And then, a phone call comes in.
+
+
+892
+00:29:52,706 --> 00:29:54,316
+Now because the phone call is
+
+
+893
+00:29:54,316 --> 00:29:56,776
+not a long-form audio, it does
+
+
+894
+00:29:56,776 --> 00:29:58,316
+not interrupt your music
+
+
+895
+00:29:58,316 --> 00:30:00,256
+playback, and it gets routed
+
+
+896
+00:30:00,256 --> 00:30:02,136
+independently to the system
+
+
+897
+00:30:02,136 --> 00:30:03,976
+audio without any issues.
+
+
+898
+00:30:04,526 --> 00:30:06,216
+So, with long-form audio
+
+
+899
+00:30:06,246 --> 00:30:08,636
+routing, two of the sessions can
+
+
+900
+00:30:08,636 --> 00:30:10,696
+coexist without interrupting
+
+
+901
+00:30:10,956 --> 00:30:12,826
+each other, and as you can see,
+
+
+902
+00:30:12,876 --> 00:30:14,666
+this is definitely an enhanced
+
+
+903
+00:30:14,786 --> 00:30:15,756
+user experience.
+
+
+904
+00:30:16,856 --> 00:30:16,946
+So,-- .
+
+
+905
+00:30:18,516 --> 00:30:22,746
+[ Applause ]
+
+
+906
+00:30:23,246 --> 00:30:25,206
+So, to summarize, with long-form
+
+
+907
+00:30:25,206 --> 00:30:27,606
+audio routing, all the apps that
+
+
+908
+00:30:27,606 --> 00:30:29,396
+identified themselves as being
+
+
+909
+00:30:29,396 --> 00:30:31,136
+long-form, which is for example,
+
+
+910
+00:30:31,276 --> 00:30:33,876
+music, podcast, or any other
+
+
+911
+00:30:33,876 --> 00:30:36,396
+music streaming app, they get
+
+
+912
+00:30:36,396 --> 00:30:38,126
+the dedicated -- they get a
+
+
+913
+00:30:38,126 --> 00:30:39,656
+separate shared route to the
+
+
+914
+00:30:39,656 --> 00:30:41,196
+AirPlay 2 capable device.
+
+
+915
+00:30:42,006 --> 00:30:43,046
+Now, note that there is a
+
+
+916
+00:30:43,046 --> 00:30:44,746
+session arbitrated in between.
+
+
+917
+00:30:45,146 --> 00:30:48,036
+And that ensures that only one
+
+
+918
+00:30:48,086 --> 00:30:50,006
+of these apps is playing to the
+
+
+919
+00:30:50,006 --> 00:30:51,436
+AirPlay device at the time.
+
+
+920
+00:30:51,646 --> 00:30:53,776
+So, these apps cannot mix with
+
+
+921
+00:30:53,776 --> 00:30:54,546
+each other.
+
+
+922
+00:30:55,056 --> 00:30:57,226
+And all the other apps that use
+
+
+923
+00:30:57,226 --> 00:30:58,486
+the system route, which are
+
+
+924
+00:30:58,486 --> 00:31:00,486
+non-long-form, can either
+
+
+925
+00:31:00,616 --> 00:31:02,276
+interrupt each other or mix with
+
+
+926
+00:31:02,276 --> 00:31:04,466
+each other, and they get routed
+
+
+927
+00:31:04,606 --> 00:31:06,446
+to the system audio without
+
+
+928
+00:31:06,446 --> 00:31:07,956
+interrupting your long-form
+
+
+929
+00:31:07,956 --> 00:31:08,606
+audio playback.
+
+
+930
+00:31:10,336 --> 00:31:13,886
+Now, let's see how an app can
+
+
+931
+00:31:13,946 --> 00:31:15,496
+identify itself as being
+
+
+932
+00:31:15,496 --> 00:31:17,136
+long-form and take advantage of
+
+
+933
+00:31:17,186 --> 00:31:17,796
+this routing.
+
+
+934
+00:31:19,176 --> 00:31:21,956
+So, on iOS and tvOS, the code is
+
+
+935
+00:31:21,956 --> 00:31:22,646
+really simple.
+
+
+936
+00:31:23,006 --> 00:31:24,926
+You get shared instance of your
+
+
+937
+00:31:25,026 --> 00:31:26,996
+AVAudio session, and you use
+
+
+938
+00:31:27,046 --> 00:31:28,806
+this new API to set your
+
+
+939
+00:31:28,806 --> 00:31:31,206
+category as playback and route
+
+
+940
+00:31:31,206 --> 00:31:36,096
+sharing policy as long-form.
+
+
+941
+00:31:36,276 --> 00:31:38,496
+Now, moving over to the macOS,
+
+
+942
+00:31:39,216 --> 00:31:41,726
+the routing is very similar to
+
+
+943
+00:31:41,726 --> 00:31:43,026
+the iOS and tvOS.
+
+
+944
+00:31:43,376 --> 00:31:45,236
+All the long-form audio apps,
+
+
+945
+00:31:45,236 --> 00:31:47,386
+for example your iTunes and any
+
+
+946
+00:31:47,386 --> 00:31:49,966
+other music streaming app, gets
+
+
+947
+00:31:50,176 --> 00:31:52,216
+routed to the AirPlay 2 capable
+
+
+948
+00:31:52,216 --> 00:31:54,506
+device, and of course, there is
+
+
+949
+00:31:54,506 --> 00:31:55,856
+an arbitrator in between.
+
+
+950
+00:31:57,046 --> 00:31:59,566
+And the other system apps like
+
+
+951
+00:31:59,926 --> 00:32:02,626
+GarageBand, Safari, or Game App,
+
+
+952
+00:32:02,626 --> 00:32:04,476
+do not interrupt your long-form
+
+
+953
+00:32:04,476 --> 00:32:06,506
+audio apps, and they always mix
+
+
+954
+00:32:06,506 --> 00:32:08,216
+with each other and get routed
+
+
+955
+00:32:08,396 --> 00:32:09,686
+to the default device.
+
+
+956
+00:32:10,836 --> 00:32:12,576
+And to enable the support of
+
+
+957
+00:32:12,576 --> 00:32:13,926
+long-form audio routing on
+
+
+958
+00:32:13,926 --> 00:32:15,696
+macOS, we are now bringing a
+
+
+959
+00:32:15,696 --> 00:32:17,596
+very small subset of AVAudio
+
+
+960
+00:32:17,596 --> 00:32:19,066
+Session to macOS.
+
+
+961
+00:32:19,666 --> 00:32:21,496
+So, as an app, in order to
+
+
+962
+00:32:21,496 --> 00:32:23,056
+identify yourself as being
+
+
+963
+00:32:23,056 --> 00:32:25,056
+long-form, you again get the
+
+
+964
+00:32:25,056 --> 00:32:27,066
+shared and sense of your AVAudio
+
+
+965
+00:32:27,066 --> 00:32:28,576
+Session, and set the route
+
+
+966
+00:32:28,576 --> 00:32:30,116
+sharing policy as being
+
+
+967
+00:32:30,116 --> 00:32:30,636
+long-form.
+
+
+968
+00:32:31,166 --> 00:32:34,586
+So, that is the end of AVAudio
+
+
+969
+00:32:34,586 --> 00:32:36,476
+Session enhancements, and let's
+
+
+970
+00:32:36,476 --> 00:32:38,226
+now see the last section in the
+
+
+971
+00:32:38,226 --> 00:32:39,736
+AV Foundation framework, that is
+
+
+972
+00:32:39,736 --> 00:32:40,986
+the enhancement on watchOS.
+
+
+973
+00:32:41,606 --> 00:32:45,936
+So, we introduced the AV -- we
+
+
+974
+00:32:45,936 --> 00:32:47,936
+made AVAudio Player API
+
+
+975
+00:32:48,016 --> 00:32:50,336
+available in watchOS 3.1SDK.
+
+
+976
+00:32:50,926 --> 00:32:51,786
+And this is the first time we
+
+
+977
+00:32:51,786 --> 00:32:53,546
+get to mention it at WWDC.
+
+
+978
+00:32:54,116 --> 00:32:55,366
+And the nice thing about using
+
+
+979
+00:32:55,366 --> 00:32:57,256
+the AVAudio Player for playback
+
+
+980
+00:32:57,536 --> 00:32:59,266
+is that it comes associated with
+
+
+981
+00:32:59,266 --> 00:33:01,026
+its AVAudio Session, so you
+
+
+982
+00:33:01,026 --> 00:33:02,766
+could use the session category
+
+
+983
+00:33:02,766 --> 00:33:04,326
+options like [inaudible] or mix
+
+
+984
+00:33:04,376 --> 00:33:06,816
+with others, to describe your
+
+
+985
+00:33:06,816 --> 00:33:07,646
+app's behavior.
+
+
+986
+00:33:08,396 --> 00:33:10,836
+Now starting watchOS 4, we are
+
+
+987
+00:33:11,466 --> 00:33:13,476
+exposing more APIs in order to
+
+
+988
+00:33:13,476 --> 00:33:14,896
+do recording.
+
+
+989
+00:33:15,176 --> 00:33:17,066
+That is, we are making AVAudio
+
+
+990
+00:33:17,096 --> 00:33:19,576
+Recorder and AVAudio Input Node
+
+
+991
+00:33:19,576 --> 00:33:21,386
+and AVAudio Engine, available.
+
+
+992
+00:33:22,836 --> 00:33:24,186
+And with these, comes the
+
+
+993
+00:33:24,186 --> 00:33:25,646
+AVAudio recording permissions,
+
+
+994
+00:33:25,816 --> 00:33:27,146
+through which an app can
+
+
+995
+00:33:27,146 --> 00:33:28,786
+[inaudible] the user permission
+
+
+996
+00:33:28,786 --> 00:33:29,286
+to record.
+
+
+997
+00:33:30,126 --> 00:33:31,656
+Now, [inaudible] to this you
+
+
+998
+00:33:31,656 --> 00:33:33,136
+could use the watch [inaudible]
+
+
+999
+00:33:33,396 --> 00:33:35,186
+framework to do the recording,
+
+
+1000
+00:33:35,436 --> 00:33:37,106
+using the Apple UI.
+
+
+1001
+00:33:37,296 --> 00:33:39,786
+But now, with these APIs, you
+
+
+1002
+00:33:39,786 --> 00:33:42,406
+could do the recording with your
+
+
+1003
+00:33:42,406 --> 00:33:43,226
+own UI.
+
+
+1004
+00:33:44,306 --> 00:33:45,946
+With AVAudio Recorder, you could
+
+
+1005
+00:33:45,946 --> 00:33:47,656
+record to a file, or if you
+
+
+1006
+00:33:47,656 --> 00:33:49,046
+wanted to get access to the
+
+
+1007
+00:33:49,046 --> 00:33:50,256
+microphone [inaudible] directly,
+
+
+1008
+00:33:50,436 --> 00:33:51,996
+you could use the AVAudio Input
+
+
+1009
+00:33:51,996 --> 00:33:53,916
+Node, and also optionally, write
+
+
+1010
+00:33:53,916 --> 00:33:54,506
+it to a file.
+
+
+1011
+00:33:55,546 --> 00:33:57,056
+And here are the formats that
+
+
+1012
+00:33:57,056 --> 00:33:58,976
+are supported on watchOS, both
+
+
+1013
+00:33:58,976 --> 00:34:00,376
+for playback and recording.
+
+
+1014
+00:34:01,576 --> 00:34:03,816
+A last note on the recording
+
+
+1015
+00:34:03,816 --> 00:34:04,346
+policies.
+
+
+1016
+00:34:05,276 --> 00:34:06,966
+The recording can start only
+
+
+1017
+00:34:06,966 --> 00:34:08,255
+when the app is in foreground.
+
+
+1018
+00:34:08,846 --> 00:34:10,246
+But it is allowed to continue
+
+
+1019
+00:34:10,246 --> 00:34:12,326
+recording in the background, but
+
+
+1020
+00:34:12,326 --> 00:34:13,946
+-- and the right microphone icon
+
+
+1021
+00:34:13,996 --> 00:34:15,676
+will be displayed at the top so
+
+
+1022
+00:34:15,676 --> 00:34:17,076
+that the user is aware of it.
+
+
+1023
+00:34:18,366 --> 00:34:20,255
+And recording in background is
+
+
+1024
+00:34:20,525 --> 00:34:22,275
+CPU limited, similar to the
+
+
+1025
+00:34:22,856 --> 00:34:23,936
+[inaudible] sessions and you can
+
+
+1026
+00:34:23,936 --> 00:34:25,696
+refer to this URL for more
+
+
+1027
+00:34:25,696 --> 00:34:26,136
+details.
+
+
+1028
+00:34:28,005 --> 00:34:29,476
+Now, let's move over to the
+
+
+1029
+00:34:29,476 --> 00:34:31,246
+Audio Toolbox world and look at
+
+
+1030
+00:34:31,246 --> 00:34:33,085
+the enhancements in AUAudio Unit
+
+
+1031
+00:34:33,315 --> 00:34:34,706
+and audio formats.
+
+
+1032
+00:34:35,235 --> 00:34:38,516
+We have two main enhancements in
+
+
+1033
+00:34:38,516 --> 00:34:39,246
+AUAudio Unit.
+
+
+1034
+00:34:40,126 --> 00:34:41,466
+And at the end of this section,
+
+
+1035
+00:34:41,496 --> 00:34:42,996
+we will also show you a demo
+
+
+1036
+00:34:43,196 --> 00:34:44,726
+with those two new features in
+
+
+1037
+00:34:47,826 --> 00:34:47,985
+action.
+
+
+1038
+00:34:48,166 --> 00:34:49,956
+Now, Audio Unit host
+
+
+1039
+00:34:49,956 --> 00:34:51,646
+applications choose various
+
+
+1040
+00:34:51,646 --> 00:34:53,656
+strategies in order to recommend
+
+
+1041
+00:34:53,766 --> 00:34:56,116
+how to display the UI for AU.
+
+
+1042
+00:34:56,426 --> 00:34:58,816
+They can decide to say embed the
+
+
+1043
+00:34:58,816 --> 00:35:01,696
+AU's UI in their own UI, or they
+
+
+1044
+00:35:01,696 --> 00:35:03,076
+could present a full screen
+
+
+1045
+00:35:03,076 --> 00:35:05,146
+separate UI for the AU.
+
+
+1046
+00:35:06,106 --> 00:35:07,596
+Now, this presents mainly a
+
+
+1047
+00:35:07,626 --> 00:35:08,726
+challenge on the [inaudible]
+
+
+1048
+00:35:08,806 --> 00:35:10,706
+devices because currently, the
+
+
+1049
+00:35:10,706 --> 00:35:13,006
+view sizes are not defined, and
+
+
+1050
+00:35:13,006 --> 00:35:14,716
+the audio unit is expected to
+
+
+1051
+00:35:14,716 --> 00:35:17,036
+adapt to any UI size that the
+
+
+1052
+00:35:17,036 --> 00:35:18,656
+host has actually chosen.
+
+
+1053
+00:35:19,856 --> 00:35:21,056
+In order to overcome this
+
+
+1054
+00:35:21,056 --> 00:35:23,126
+limitation, we're now adding a
+
+
+1055
+00:35:23,156 --> 00:35:25,506
+way in which the host and the AU
+
+
+1056
+00:35:25,656 --> 00:35:27,076
+can negotiate with each other
+
+
+1057
+00:35:27,506 --> 00:35:29,556
+and the AU can inform the host
+
+
+1058
+00:35:29,846 --> 00:35:30,766
+about all the view
+
+
+1059
+00:35:30,766 --> 00:35:32,186
+configurations that it actually
+
+
+1060
+00:35:32,186 --> 00:35:32,746
+supports.
+
+
+1061
+00:35:33,096 --> 00:35:34,906
+Now, let's see how this
+
+
+1062
+00:35:35,256 --> 00:35:38,196
+negotiation can take place.
+
+
+1063
+00:35:38,366 --> 00:35:41,336
+The host first compiles a list
+
+
+1064
+00:35:41,336 --> 00:35:43,126
+of all the available view
+
+
+1065
+00:35:43,126 --> 00:35:45,986
+configurations for the AU, and
+
+
+1066
+00:35:45,986 --> 00:35:49,536
+then hands the audio over to the
+
+
+1067
+00:35:49,536 --> 00:35:49,603
+AU.
+
+
+1068
+00:35:50,006 --> 00:35:51,206
+The AU can then [inaudible]
+
+
+1069
+00:35:51,206 --> 00:35:52,616
+through all these available
+
+
+1070
+00:35:52,616 --> 00:35:54,376
+configurations, and then let the
+
+
+1071
+00:35:54,376 --> 00:35:56,576
+host know about the
+
+
+1072
+00:35:57,006 --> 00:35:58,326
+configuration that it actually
+
+
+1073
+00:35:58,326 --> 00:35:58,876
+supports.
+
+
+1074
+00:35:59,696 --> 00:36:01,466
+And then, the host can choose
+
+
+1075
+00:36:01,466 --> 00:36:02,556
+one of the supported
+
+
+1076
+00:36:02,596 --> 00:36:04,276
+configurations and then it will
+
+
+1077
+00:36:04,276 --> 00:36:06,086
+let the AU know about the final
+
+
+1078
+00:36:06,086 --> 00:36:07,266
+selected configuration.
+
+
+1079
+00:36:08,416 --> 00:36:10,456
+Now, let's see a code example on
+
+
+1080
+00:36:10,456 --> 00:36:12,216
+how this negotiation takes
+
+
+1081
+00:36:12,216 --> 00:36:12,546
+place.
+
+
+1082
+00:36:13,006 --> 00:36:14,616
+We'll first look at the audio
+
+
+1083
+00:36:14,616 --> 00:36:15,996
+unit extension site.
+
+
+1084
+00:36:16,596 --> 00:36:19,566
+The first thing the AU has to do
+
+
+1085
+00:36:20,356 --> 00:36:22,236
+is to override the supported
+
+
+1086
+00:36:22,236 --> 00:36:24,186
+view configuration method from
+
+
+1087
+00:36:24,186 --> 00:36:24,846
+the base class.
+
+
+1088
+00:36:25,516 --> 00:36:27,156
+And this is called by the host
+
+
+1089
+00:36:27,446 --> 00:36:28,986
+with the list of all the
+
+
+1090
+00:36:28,986 --> 00:36:31,016
+available configurations.
+
+
+1091
+00:36:32,276 --> 00:36:34,526
+Then, the AU can iterate through
+
+
+1092
+00:36:34,566 --> 00:36:36,566
+each of these configurations and
+
+
+1093
+00:36:36,566 --> 00:36:38,426
+decide which ones it actually
+
+
+1094
+00:36:38,426 --> 00:36:38,966
+supports.
+
+
+1095
+00:36:39,466 --> 00:36:41,696
+Now, the configuration itself,
+
+
+1096
+00:36:41,876 --> 00:36:43,806
+contains a width and a height,
+
+
+1097
+00:36:44,066 --> 00:36:46,846
+which recommends the view size.
+
+
+1098
+00:36:47,186 --> 00:36:48,906
+And also, it has a host test
+
+
+1099
+00:36:48,906 --> 00:36:49,736
+controller flag.
+
+
+1100
+00:36:50,636 --> 00:36:52,576
+And that flag indicates whether
+
+
+1101
+00:36:52,576 --> 00:36:54,886
+or not the host is presenting
+
+
+1102
+00:36:54,886 --> 00:36:56,716
+its own controller in this
+
+
+1103
+00:36:56,716 --> 00:36:58,496
+particular view configuration.
+
+
+1104
+00:36:59,006 --> 00:37:00,696
+So, depending on all these
+
+
+1105
+00:37:00,696 --> 00:37:03,166
+factors, an AU can choose
+
+
+1106
+00:37:03,246 --> 00:37:04,396
+whether it supports that
+
+
+1107
+00:37:04,466 --> 00:37:05,536
+particular configuration.
+
+
+1108
+00:37:06,826 --> 00:37:08,366
+Note that there is a wild card
+
+
+1109
+00:37:08,366 --> 00:37:11,466
+configuration which is 0x0, and
+
+
+1110
+00:37:11,466 --> 00:37:12,586
+that means -- and that
+
+
+1111
+00:37:12,586 --> 00:37:14,976
+represents a full default size
+
+
+1112
+00:37:15,296 --> 00:37:17,056
+that the AU can support.
+
+
+1113
+00:37:17,696 --> 00:37:19,946
+And on macOS, this actually
+
+
+1114
+00:37:19,946 --> 00:37:21,756
+translates to a separate,
+
+
+1115
+00:37:21,916 --> 00:37:23,766
+resizable window -- full size,
+
+
+1116
+00:37:23,766 --> 00:37:26,996
+resizable window, for the AU's
+
+
+1117
+00:37:27,036 --> 00:37:27,296
+UI.
+
+
+1118
+00:37:28,156 --> 00:37:31,576
+So, the AU has its own logic to
+
+
+1119
+00:37:31,576 --> 00:37:32,966
+decide which configuration it
+
+
+1120
+00:37:32,966 --> 00:37:34,796
+supports, and then finally, it
+
+
+1121
+00:37:34,906 --> 00:37:36,656
+compares a list of the indices
+
+
+1122
+00:37:37,036 --> 00:37:39,466
+corresponding to the ones that
+
+
+1123
+00:37:39,466 --> 00:37:40,846
+it supports, and [inaudible]
+
+
+1124
+00:37:40,876 --> 00:37:43,746
+this index set back to the host.
+
+
+1125
+00:37:44,966 --> 00:37:46,866
+The last thing that the AU has
+
+
+1126
+00:37:46,946 --> 00:37:49,266
+to do, is to override select
+
+
+1127
+00:37:49,416 --> 00:37:51,116
+method, which is called by the
+
+
+1128
+00:37:51,116 --> 00:37:53,086
+host with the configuration that
+
+
+1129
+00:37:53,086 --> 00:37:55,206
+it has finally selected, and
+
+
+1130
+00:37:55,206 --> 00:37:57,596
+then, the AU can let its view
+
+
+1131
+00:37:57,596 --> 00:37:59,346
+controller know about the final
+
+
+1132
+00:37:59,346 --> 00:38:00,566
+selected configuration.
+
+
+1133
+00:38:02,166 --> 00:38:03,886
+Now, let's go to the host site
+
+
+1134
+00:38:04,086 --> 00:38:06,266
+and see how the code looks like.
+
+
+1135
+00:38:07,296 --> 00:38:10,566
+The host has to compile the list
+
+
+1136
+00:38:10,566 --> 00:38:12,226
+of available configurations, and
+
+
+1137
+00:38:12,226 --> 00:38:13,706
+in this example, it is saying
+
+
+1138
+00:38:13,926 --> 00:38:15,826
+that it has a large and a small
+
+
+1139
+00:38:15,826 --> 00:38:17,096
+configuration available.
+
+
+1140
+00:38:17,716 --> 00:38:19,606
+And in the last configuration,
+
+
+1141
+00:38:19,796 --> 00:38:21,316
+the host is saying it's not
+
+
+1142
+00:38:21,506 --> 00:38:23,586
+presenting its controller, so
+
+
+1143
+00:38:23,586 --> 00:38:25,246
+the host has controller flag as
+
+
+1144
+00:38:25,346 --> 00:38:25,676
+false.
+
+
+1145
+00:38:26,016 --> 00:38:27,326
+And in the small configuration,
+
+
+1146
+00:38:27,536 --> 00:38:29,356
+the host does present its
+
+
+1147
+00:38:29,356 --> 00:38:30,866
+controller, so the flag is true.
+
+
+1148
+00:38:32,096 --> 00:38:34,526
+The host then calls the
+
+
+1149
+00:38:34,526 --> 00:38:36,066
+supported view configurations
+
+
+1150
+00:38:36,066 --> 00:38:38,626
+method on the AU, and provides
+
+
+1151
+00:38:38,626 --> 00:38:40,496
+this list of configurations.
+
+
+1152
+00:38:40,976 --> 00:38:42,556
+And depending on the return set
+
+
+1153
+00:38:42,556 --> 00:38:44,556
+of indices, it goes ahead and
+
+
+1154
+00:38:44,556 --> 00:38:45,596
+selects one of the
+
+
+1155
+00:38:45,596 --> 00:38:46,416
+configurations.
+
+
+1156
+00:38:46,656 --> 00:38:48,196
+And in this particular example,
+
+
+1157
+00:38:48,396 --> 00:38:49,726
+the host is just toggling
+
+
+1158
+00:38:49,866 --> 00:38:51,306
+between the large and the small
+
+
+1159
+00:38:51,306 --> 00:38:51,986
+configuration.
+
+
+1160
+00:38:52,456 --> 00:38:55,576
+So, that is end of the preferred
+
+
+1161
+00:38:55,726 --> 00:38:57,286
+view configuration negotiation.
+
+
+1162
+00:38:57,706 --> 00:38:59,086
+Now, let's see the second main
+
+
+1163
+00:38:59,216 --> 00:39:01,596
+new feature we have, which is
+
+
+1164
+00:39:01,596 --> 00:39:03,486
+the support for MIDI output in
+
+
+1165
+00:39:03,486 --> 00:39:04,626
+an audio unit extension.
+
+
+1166
+00:39:05,916 --> 00:39:07,966
+We have now support for an AU to
+
+
+1167
+00:39:07,966 --> 00:39:10,186
+emit MIDI output synchronized
+
+
+1168
+00:39:10,306 --> 00:39:11,376
+with its audio output.
+
+
+1169
+00:39:12,056 --> 00:39:13,906
+And this mainly useful if the
+
+
+1170
+00:39:13,906 --> 00:39:16,146
+host wants to record and edit
+
+
+1171
+00:39:16,306 --> 00:39:17,926
+both the MIDI performance, as
+
+
+1172
+00:39:17,926 --> 00:39:19,616
+well as the audio output, from
+
+
+1173
+00:39:19,766 --> 00:39:20,686
+the AU.
+
+
+1174
+00:39:20,996 --> 00:39:23,366
+So, the host installs a MIDI
+
+
+1175
+00:39:23,366 --> 00:39:25,176
+output event block on the AU,
+
+
+1176
+00:39:25,406 --> 00:39:26,876
+and the AU should call this
+
+
+1177
+00:39:26,926 --> 00:39:29,326
+block every render cycle and
+
+
+1178
+00:39:29,326 --> 00:39:31,176
+provide the MIDI output for that
+
+
+1179
+00:39:31,236 --> 00:39:32,286
+particular render cycle.
+
+
+1180
+00:39:34,596 --> 00:39:36,796
+We also have a couple of other
+
+
+1181
+00:39:36,796 --> 00:39:37,896
+enhancements in the Audio
+
+
+1182
+00:39:37,896 --> 00:39:38,836
+Toolbox framework.
+
+
+1183
+00:39:39,136 --> 00:39:40,516
+The first one is related to a
+
+
+1184
+00:39:40,516 --> 00:39:42,366
+privacy enhancement.
+
+
+1185
+00:39:43,136 --> 00:39:46,346
+So, starting iOS 11 SDK, all the
+
+
+1186
+00:39:46,346 --> 00:39:48,166
+audio unit extension host apps
+
+
+1187
+00:39:48,746 --> 00:39:50,436
+will need the inter-app-audio
+
+
+1188
+00:39:50,436 --> 00:39:51,966
+entitlement to be able to
+
+
+1189
+00:39:51,966 --> 00:39:53,626
+communicate with the audio unit
+
+
+1190
+00:39:53,626 --> 00:39:54,206
+extensions.
+
+
+1191
+00:39:55,166 --> 00:39:57,546
+And we also have a new API for
+
+
+1192
+00:39:57,936 --> 00:40:00,926
+an AU to publish a very
+
+
+1193
+00:40:00,926 --> 00:40:03,076
+meaningful short name so that
+
+
+1194
+00:40:03,076 --> 00:40:05,676
+the host say, can use this short
+
+
+1195
+00:40:05,676 --> 00:40:07,356
+name if it has to display the
+
+
+1196
+00:40:07,356 --> 00:40:10,286
+list of AU names in a space
+
+
+1197
+00:40:10,286 --> 00:40:12,466
+constraint list.
+
+
+1198
+00:40:13,826 --> 00:40:17,086
+So, that brings us to the end of
+
+
+1199
+00:40:17,086 --> 00:40:18,386
+all the enhancements in Audio
+
+
+1200
+00:40:18,386 --> 00:40:19,856
+Toolbox framework, and as
+
+
+1201
+00:40:19,946 --> 00:40:23,116
+promised, we have a demo to show
+
+
+1202
+00:40:23,116 --> 00:40:24,526
+these new features in action.
+
+
+1203
+00:40:24,526 --> 00:40:26,286
+And I call upon Bela for that.
+
+
+1204
+00:40:27,516 --> 00:40:33,076
+[ Applause ]
+
+
+1205
+00:40:33,576 --> 00:40:38,106
+>> Thank you, Akshatha and good
+
+
+1206
+00:40:38,106 --> 00:40:39,006
+afternoon everyone.
+
+
+1207
+00:40:39,006 --> 00:40:40,716
+My name is Bela Balazs and I am
+
+
+1208
+00:40:40,716 --> 00:40:43,746
+an engineer on the Core Audio
+
+
+1209
+00:40:43,746 --> 00:40:44,436
+Team.
+
+
+1210
+00:40:44,436 --> 00:40:47,086
+Today, we would like to show you
+
+
+1211
+00:40:47,086 --> 00:40:48,956
+an application of our newly
+
+
+1212
+00:40:48,956 --> 00:40:50,656
+introduced APIs.
+
+
+1213
+00:40:51,116 --> 00:40:52,476
+For this purpose, we have
+
+
+1214
+00:40:52,476 --> 00:40:54,226
+developed an example audio unit,
+
+
+1215
+00:40:54,316 --> 00:40:55,276
+which has the following
+
+
+1216
+00:40:55,276 --> 00:40:56,126
+capabilities.
+
+
+1217
+00:40:57,156 --> 00:40:58,986
+It supports its preferred view
+
+
+1218
+00:40:58,986 --> 00:41:00,346
+configuration with the Audio
+
+
+1219
+00:41:00,346 --> 00:41:01,696
+Unit host application.
+
+
+1220
+00:41:02,556 --> 00:41:03,836
+It supports multiple view
+
+
+1221
+00:41:03,836 --> 00:41:05,806
+configurations, and it uses the
+
+
+1222
+00:41:05,806 --> 00:41:09,286
+newly bridged MIDI output API in
+
+
+1223
+00:41:09,286 --> 00:41:11,526
+order to pass on MIDI data to
+
+
+1224
+00:41:11,526 --> 00:41:13,266
+the Audio Unit host application
+
+
+1225
+00:41:13,266 --> 00:41:14,496
+for recording purposes.
+
+
+1226
+00:41:15,746 --> 00:41:17,306
+So, here I have an upcoming
+
+
+1227
+00:41:17,306 --> 00:41:18,506
+version of GarageBand.
+
+
+1228
+00:41:19,286 --> 00:41:20,926
+And I have loaded my example
+
+
+1229
+00:41:20,926 --> 00:41:22,106
+audio unit to a track.
+
+
+1230
+00:41:22,756 --> 00:41:24,986
+Here you can see the custom view
+
+
+1231
+00:41:24,986 --> 00:41:27,146
+of my audio unit, together with
+
+
+1232
+00:41:27,146 --> 00:41:28,256
+the GarageBand keyboard.
+
+
+1233
+00:41:28,676 --> 00:41:31,196
+In this reconfiguration, I rely
+
+
+1234
+00:41:31,196 --> 00:41:32,576
+on the GarageBand keyboard to
+
+
+1235
+00:41:32,576 --> 00:41:33,446
+play my instrument.
+
+
+1236
+00:41:34,236 --> 00:41:35,776
+I have mapped out three drum
+
+
+1237
+00:41:35,776 --> 00:41:36,936
+samples on the keyboard.
+
+
+1238
+00:41:37,166 --> 00:41:39,296
+I have a kick, I have a snare,
+
+
+1239
+00:41:39,826 --> 00:41:40,706
+and I have a high hat.
+
+
+1240
+00:41:41,486 --> 00:41:43,236
+In addition to these, on the
+
+
+1241
+00:41:43,236 --> 00:41:45,206
+view of my audio unit, I also
+
+
+1242
+00:41:45,206 --> 00:41:46,796
+have a volume slider to control
+
+
+1243
+00:41:46,796 --> 00:41:48,926
+the volume of these samples.
+
+
+1244
+00:41:51,476 --> 00:41:53,756
+However, my audio unit also has
+
+
+1245
+00:41:53,756 --> 00:41:55,526
+a different view configuration,
+
+
+1246
+00:41:55,576 --> 00:41:57,246
+and I can switch to it using
+
+
+1247
+00:41:57,246 --> 00:41:58,816
+this newly added button on the
+
+
+1248
+00:41:58,816 --> 00:42:00,966
+right -- lower, right section of
+
+
+1249
+00:42:00,966 --> 00:42:01,496
+the screen.
+
+
+1250
+00:42:02,106 --> 00:42:04,086
+When I activate that button, I
+
+
+1251
+00:42:04,086 --> 00:42:05,766
+get taken to the large view of
+
+
+1252
+00:42:05,766 --> 00:42:07,556
+my audio unit and the GarageBand
+
+
+1253
+00:42:07,556 --> 00:42:08,516
+keyboard disappears.
+
+
+1254
+00:42:09,336 --> 00:42:11,226
+When I activate it again, I get
+
+
+1255
+00:42:11,286 --> 00:42:12,786
+taken back to the small view of
+
+
+1256
+00:42:12,786 --> 00:42:13,536
+my audio unit.
+
+
+1257
+00:42:14,086 --> 00:42:15,416
+This is made possible by
+
+
+1258
+00:42:15,416 --> 00:42:18,576
+GarageBand's publishing all the
+
+
+1259
+00:42:18,576 --> 00:42:20,216
+available view configurations to
+
+
+1260
+00:42:20,216 --> 00:42:22,706
+my audio unit, and my audio unit
+
+
+1261
+00:42:22,706 --> 00:42:24,226
+goes through that list and marks
+
+
+1262
+00:42:24,226 --> 00:42:25,846
+each of them as supported or
+
+
+1263
+00:42:25,846 --> 00:42:27,786
+unsupported, and at the end of
+
+
+1264
+00:42:27,786 --> 00:42:29,356
+this process, GarageBand knows
+
+
+1265
+00:42:29,356 --> 00:42:30,936
+that my audio unit supports two
+
+
+1266
+00:42:30,936 --> 00:42:33,076
+view configurations and it can
+
+
+1267
+00:42:33,076 --> 00:42:34,096
+toggle between them.
+
+
+1268
+00:42:35,176 --> 00:42:36,806
+In case my audio unit only
+
+
+1269
+00:42:36,806 --> 00:42:37,766
+supported one view
+
+
+1270
+00:42:37,766 --> 00:42:39,956
+configuration, then this button
+
+
+1271
+00:42:39,956 --> 00:42:41,396
+could be hidden by GarageBand,
+
+
+1272
+00:42:41,396 --> 00:42:42,846
+but my audio unit could still
+
+
+1273
+00:42:42,846 --> 00:42:44,036
+take full advantage of the
+
+
+1274
+00:42:44,036 --> 00:42:46,396
+negotiation process to negotiate
+
+
+1275
+00:42:46,396 --> 00:42:48,446
+the preferred view configuration
+
+
+1276
+00:42:48,446 --> 00:42:49,416
+for that one view.
+
+
+1277
+00:42:50,226 --> 00:42:53,446
+In this small view, the host has
+
+
+1278
+00:42:53,446 --> 00:42:55,276
+controller flag as set to true,
+
+
+1279
+00:42:56,026 --> 00:42:57,286
+and that is why the GarageBand
+
+
+1280
+00:42:57,286 --> 00:42:58,266
+keyboard is visible.
+
+
+1281
+00:42:58,566 --> 00:42:59,596
+In the larger view
+
+
+1282
+00:42:59,596 --> 00:43:01,056
+configuration, the GarageBand
+
+
+1283
+00:43:01,056 --> 00:43:03,286
+keyboard is hidden because that
+
+
+1284
+00:43:03,286 --> 00:43:04,636
+flag is set to false.
+
+
+1285
+00:43:05,246 --> 00:43:06,696
+In this view configuration, my
+
+
+1286
+00:43:06,696 --> 00:43:08,986
+audio unit has its own playing
+
+
+1287
+00:43:08,986 --> 00:43:11,046
+surface, which I can use to play
+
+
+1288
+00:43:11,046 --> 00:43:11,726
+my instrument.
+
+
+1289
+00:43:12,066 --> 00:43:14,346
+I have a kick, a snare, and a
+
+
+1290
+00:43:14,346 --> 00:43:14,826
+high hat.
+
+
+1291
+00:43:15,986 --> 00:43:17,486
+And in addition to these three
+
+
+1292
+00:43:17,486 --> 00:43:21,086
+buttons, I also have a new
+
+
+1293
+00:43:21,086 --> 00:43:22,496
+button on the right-hand side
+
+
+1294
+00:43:22,556 --> 00:43:23,716
+called Repeat Note.
+
+
+1295
+00:43:23,986 --> 00:43:25,496
+And this allows me to repeat
+
+
+1296
+00:43:25,496 --> 00:43:27,996
+each sample at the certain rate.
+
+
+1297
+00:43:28,606 --> 00:43:30,126
+And I can set those rates
+
+
+1298
+00:43:30,186 --> 00:43:31,516
+independently from each other
+
+
+1299
+00:43:31,516 --> 00:43:32,486
+using the sliders.
+
+
+1300
+00:43:33,436 --> 00:43:38,436
+And I can toggle each sample in
+
+
+1301
+00:43:38,436 --> 00:43:39,556
+and out of the drum loop.
+
+
+1302
+00:43:40,516 --> 00:43:50,776
+[ Drums playing ]
+
+
+1303
+00:43:51,276 --> 00:43:52,976
+This allows me to easily
+
+
+1304
+00:43:52,976 --> 00:43:54,326
+construct drum loops that
+
+
+1305
+00:43:54,526 --> 00:43:56,306
+respect the tempo of my track.
+
+
+1306
+00:43:57,726 --> 00:43:59,696
+So, let's use the MIDI output
+
+
+1307
+00:43:59,696 --> 00:44:01,976
+API to record the output of this
+
+
+1308
+00:44:01,976 --> 00:44:03,316
+audio unit extension.
+
+
+1309
+00:44:04,046 --> 00:44:05,436
+I have the synchronized rates
+
+
+1310
+00:44:05,436 --> 00:44:07,516
+button here, which sets my rates
+
+
+1311
+00:44:07,516 --> 00:44:09,766
+to 110 BPM.
+
+
+1312
+00:44:09,766 --> 00:44:11,806
+And first, I will record a kick,
+
+
+1313
+00:44:11,936 --> 00:44:13,396
+snare drum loop.
+
+
+1314
+00:44:13,396 --> 00:44:14,636
+And then when the recording
+
+
+1315
+00:44:14,636 --> 00:44:16,406
+wraps around, I will add my high
+
+
+1316
+00:44:16,406 --> 00:44:16,806
+hats.
+
+
+1317
+00:44:17,236 --> 00:44:18,606
+This is made possible by
+
+
+1318
+00:44:18,606 --> 00:44:20,376
+GarageBand's merge recording
+
+
+1319
+00:44:20,376 --> 00:44:20,876
+feature.
+
+
+1320
+00:44:21,656 --> 00:44:22,826
+So, let's do just that.
+
+
+1321
+00:44:23,516 --> 00:44:26,556
+[ Drums playing ]
+
+
+1322
+00:44:27,056 --> 00:44:28,686
+I will just record four bars of
+
+
+1323
+00:44:28,866 --> 00:44:29,996
+that.
+
+
+1324
+00:44:30,476 --> 00:44:36,626
+And then add my high hats.
+
+
+1325
+00:44:37,516 --> 00:44:44,176
+[ Drums playing ]
+
+
+1326
+00:44:44,676 --> 00:44:46,636
+My high hats have been added to
+
+
+1327
+00:44:46,636 --> 00:44:47,326
+the recording.
+
+
+1328
+00:44:47,906 --> 00:44:50,876
+And now we can go to the track
+
+
+1329
+00:44:50,876 --> 00:44:52,086
+view and take a look at our
+
+
+1330
+00:44:52,086 --> 00:44:53,236
+recorded media output.
+
+
+1331
+00:44:54,136 --> 00:44:58,826
+And I can quantize the track.
+
+
+1332
+00:44:59,516 --> 00:45:05,086
+And then we can play it back.
+
+
+1333
+00:45:05,546 --> 00:45:09,076
+And we have the full MIDI
+
+
+1334
+00:45:09,076 --> 00:45:10,426
+editing capabilities of
+
+
+1335
+00:45:10,426 --> 00:45:12,096
+GarageBand at our disposal to
+
+
+1336
+00:45:12,096 --> 00:45:13,476
+construct our drum track.
+
+
+1337
+00:45:14,366 --> 00:45:15,716
+And this concludes my demo.
+
+
+1338
+00:45:15,766 --> 00:45:16,656
+Thank you very much for your
+
+
+1339
+00:45:16,656 --> 00:45:17,066
+attention.
+
+
+1340
+00:45:17,066 --> 00:45:18,176
+And I would like to hand it back
+
+
+1341
+00:45:18,176 --> 00:45:19,276
+to my colleague, Akshatha.
+
+
+1342
+00:45:19,846 --> 00:45:20,156
+Thank you.
+
+
+1343
+00:45:21,516 --> 00:45:25,516
+[ Applause ]
+
+
+1344
+00:45:26,016 --> 00:45:29,696
+>> Thank you, Bela.
+
+
+1345
+00:45:29,886 --> 00:45:31,596
+So, now, onto the last set of
+
+
+1346
+00:45:31,726 --> 00:45:32,686
+enhancements in the Audio
+
+
+1347
+00:45:32,686 --> 00:45:34,246
+Toolbox framework, related to
+
+
+1348
+00:45:34,246 --> 00:45:35,206
+the audio formats.
+
+
+1349
+00:45:36,626 --> 00:45:38,396
+We now have support for two of
+
+
+1350
+00:45:38,656 --> 00:45:40,286
+the popular formats, namely the
+
+
+1351
+00:45:40,286 --> 00:45:42,056
+FLAC and the Opus format.
+
+
+1352
+00:45:42,056 --> 00:45:44,706
+On the FLAC side, we have the
+
+
+1353
+00:45:44,756 --> 00:45:46,566
+codec, file, and the streaming
+
+
+1354
+00:45:46,566 --> 00:45:48,496
+support, and for Opus, we have
+
+
+1355
+00:45:48,496 --> 00:45:49,976
+the codec, and the file I/O
+
+
+1356
+00:45:49,976 --> 00:45:51,416
+support using the code audio
+
+
+1357
+00:45:51,416 --> 00:45:52,266
+format container.
+
+
+1358
+00:45:54,376 --> 00:45:56,336
+From audio formats to spatial
+
+
+1359
+00:45:56,336 --> 00:45:58,346
+audio formats, those of you who
+
+
+1360
+00:45:58,346 --> 00:45:59,326
+are interested in [inaudible]
+
+
+1361
+00:45:59,326 --> 00:46:02,096
+audio, AR, and VR applications,
+
+
+1362
+00:46:02,416 --> 00:46:04,026
+you may be happy to know that we
+
+
+1363
+00:46:04,026 --> 00:46:05,456
+now support ambisonics.
+
+
+1364
+00:46:06,106 --> 00:46:07,886
+And for those of you who may not
+
+
+1365
+00:46:07,886 --> 00:46:09,016
+be really familiar with
+
+
+1366
+00:46:09,016 --> 00:46:11,586
+ambisonics like me, ambisonics
+
+
+1367
+00:46:11,686 --> 00:46:14,006
+is also a multichannel format,
+
+
+1368
+00:46:14,536 --> 00:46:16,256
+but the difference is that the
+
+
+1369
+00:46:16,256 --> 00:46:18,006
+traditional surround formats
+
+
+1370
+00:46:18,006 --> 00:46:20,306
+that we know of, for example 5.1
+
+
+1371
+00:46:20,466 --> 00:46:22,946
+or 7.1, have the signals that
+
+
+1372
+00:46:23,086 --> 00:46:24,606
+actually represent the speaker
+
+
+1373
+00:46:24,606 --> 00:46:24,986
+layout.
+
+
+1374
+00:46:25,596 --> 00:46:28,466
+Whereas ambisonics provide a
+
+
+1375
+00:46:28,606 --> 00:46:29,696
+speaker independent
+
+
+1376
+00:46:29,696 --> 00:46:31,176
+representation of the sound
+
+
+1377
+00:46:32,226 --> 00:46:32,536
+feed.
+
+
+1378
+00:46:32,536 --> 00:46:34,236
+So, they are by nature,
+
+
+1379
+00:46:34,346 --> 00:46:35,036
+[inaudible] from the playback
+
+
+1380
+00:46:35,036 --> 00:46:35,486
+system.
+
+
+1381
+00:46:36,156 --> 00:46:38,256
+And at the time of rendering, is
+
+
+1382
+00:46:38,256 --> 00:46:40,076
+when they can be decoded to the
+
+
+1383
+00:46:40,076 --> 00:46:41,686
+listener's speaker setup.
+
+
+1384
+00:46:42,326 --> 00:46:43,306
+And this provides more
+
+
+1385
+00:46:43,306 --> 00:46:44,746
+flexibility for the content
+
+
+1386
+00:46:44,746 --> 00:46:45,256
+producers.
+
+
+1387
+00:46:46,436 --> 00:46:48,166
+We now support the first order
+
+
+1388
+00:46:48,166 --> 00:46:49,856
+ambisonics which is called the
+
+
+1389
+00:46:49,856 --> 00:46:52,646
+B-format and higher ordered
+
+
+1390
+00:46:52,646 --> 00:46:55,416
+ambisonics with the Order N, can
+
+
+1391
+00:46:55,416 --> 00:46:57,696
+range from 1 through 254.
+
+
+1392
+00:46:58,076 --> 00:46:59,896
+And depending on the order, the
+
+
+1393
+00:47:00,036 --> 00:47:02,276
+channels itself can go from zero
+
+
+1394
+00:47:02,516 --> 00:47:03,966
+-- the ambisonic channel number
+
+
+1395
+00:47:04,046 --> 00:47:06,986
+can go from zero to 65,024.
+
+
+1396
+00:47:07,826 --> 00:47:09,266
+And we support two of the
+
+
+1397
+00:47:09,526 --> 00:47:11,576
+popular normalized streams,
+
+
+1398
+00:47:12,066 --> 00:47:13,966
+namely the SN3D and the N3D
+
+
+1399
+00:47:13,966 --> 00:47:16,336
+streams, and we support decoding
+
+
+1400
+00:47:16,336 --> 00:47:19,716
+ambisonics to any arbitrary
+
+
+1401
+00:47:19,876 --> 00:47:21,576
+speaker layout, and conversion
+
+
+1402
+00:47:21,576 --> 00:47:23,276
+between the B-format and these
+
+
+1403
+00:47:23,276 --> 00:47:24,076
+normalized streams.
+
+
+1404
+00:47:24,696 --> 00:47:28,906
+The last enhancement is on the
+
+
+1405
+00:47:28,906 --> 00:47:30,146
+AU Spatial Mixer side.
+
+
+1406
+00:47:30,516 --> 00:47:32,306
+So, this is an Apple built-in
+
+
+1407
+00:47:32,556 --> 00:47:34,716
+spatial mixer, which is used for
+
+
+1408
+00:47:34,716 --> 00:47:36,236
+3D audio spatialization.
+
+
+1409
+00:47:37,006 --> 00:47:39,216
+And the AVAudio Environment
+
+
+1410
+00:47:39,216 --> 00:47:40,636
+Node, which is a node in the
+
+
+1411
+00:47:40,636 --> 00:47:42,656
+AVAudio Engine, also uses the
+
+
+1412
+00:47:42,656 --> 00:47:44,266
+Spatial Mixer underneath.
+
+
+1413
+00:47:44,856 --> 00:47:47,046
+And we now have a new rendering
+
+
+1414
+00:47:47,046 --> 00:47:48,826
+algorithm in this Spatial Mixer,
+
+
+1415
+00:47:49,086 --> 00:47:52,136
+called HRTFHQ, high quality.
+
+
+1416
+00:47:52,546 --> 00:47:54,236
+And this differs from the
+
+
+1417
+00:47:54,236 --> 00:47:56,946
+current existing HRTF algorithm
+
+
+1418
+00:47:57,176 --> 00:47:58,256
+in the sense that it has a
+
+
+1419
+00:47:58,256 --> 00:47:59,996
+better frequency response and
+
+
+1420
+00:47:59,996 --> 00:48:01,646
+better localization of sources
+
+
+1421
+00:48:01,646 --> 00:48:02,566
+in the 3D space.
+
+
+1422
+00:48:03,816 --> 00:48:05,056
+So, that concludes all the
+
+
+1423
+00:48:05,056 --> 00:48:06,366
+enhancements in the Audio
+
+
+1424
+00:48:06,366 --> 00:48:08,266
+Toolbox framework and now, I
+
+
+1425
+00:48:08,266 --> 00:48:09,996
+hand it over to Torrey to take
+
+
+1426
+00:48:09,996 --> 00:48:11,666
+it away from here, and give you
+
+
+1427
+00:48:11,666 --> 00:48:14,016
+an update on inter-device audio
+
+
+1428
+00:48:14,386 --> 00:48:14,646
+mode.
+
+
+1429
+00:48:15,516 --> 00:48:20,066
+[ Applause ]
+
+
+1430
+00:48:20,566 --> 00:48:21,396
+>> Thank you, Akshatha.
+
+
+1431
+00:48:21,496 --> 00:48:23,236
+I am Torrey Holbrook Walker, and
+
+
+1432
+00:48:23,236 --> 00:48:24,456
+I'm going to take you home today
+
+
+1433
+00:48:24,456 --> 00:48:26,236
+with inter-device audio mode, or
+
+
+1434
+00:48:26,236 --> 00:48:27,326
+if you want to be cool, you can
+
+
+1435
+00:48:27,326 --> 00:48:28,776
+just say IDAM for short.
+
+
+1436
+00:48:29,236 --> 00:48:30,386
+And you remember IDAM.
+
+
+1437
+00:48:30,596 --> 00:48:32,356
+You take your iOS device.
+
+
+1438
+00:48:32,356 --> 00:48:33,326
+You plug it into your Mac.
+
+
+1439
+00:48:33,326 --> 00:48:35,006
+You open up Audio MIDI setup and
+
+
+1440
+00:48:35,006 --> 00:48:36,216
+then it shows right up there in
+
+
+1441
+00:48:36,216 --> 00:48:38,096
+the Audio Device Window, you can
+
+
+1442
+00:48:38,136 --> 00:48:38,986
+-- there's a button next to it
+
+
+1443
+00:48:38,986 --> 00:48:39,656
+that says Enable.
+
+
+1444
+00:48:39,656 --> 00:48:41,076
+And if you click it, boom,
+
+
+1445
+00:48:41,266 --> 00:48:42,526
+you've immediately got the
+
+
+1446
+00:48:42,526 --> 00:48:44,176
+capability to record audio
+
+
+1447
+00:48:44,176 --> 00:48:46,056
+digitally over the USB lightning
+
+
+1448
+00:48:46,056 --> 00:48:47,226
+cable that came with the device,
+
+
+1449
+00:48:47,636 --> 00:48:49,586
+and it looks just like a USB
+
+
+1450
+00:48:49,586 --> 00:48:51,576
+audio input to the Mac host.
+
+
+1451
+00:48:51,576 --> 00:48:53,316
+So, it uses the same driver, the
+
+
+1452
+00:48:53,316 --> 00:48:54,466
+same low latency driver, that's
+
+
+1453
+00:48:54,466 --> 00:48:56,506
+used on MacOS 4, class-compliant
+
+
+1454
+00:48:56,506 --> 00:48:57,266
+audio devices.
+
+
+1455
+00:48:57,586 --> 00:48:58,936
+And you've been able to do this
+
+
+1456
+00:48:58,936 --> 00:49:01,566
+since El Capitan and iOS 9.
+
+
+1457
+00:49:01,956 --> 00:49:03,476
+Well, today we would like to
+
+
+1458
+00:49:03,476 --> 00:49:06,046
+wave a fond farewell to IDAM.
+
+
+1459
+00:49:06,106 --> 00:49:07,936
+So, wave goodbye IDAM.
+
+
+1460
+00:49:07,936 --> 00:49:08,966
+Goodbye IDAM.
+
+
+1461
+00:49:09,436 --> 00:49:10,736
+And while you're waving, say
+
+
+1462
+00:49:10,736 --> 00:49:12,676
+hello to IDAM, Inter Device
+
+
+1463
+00:49:12,676 --> 00:49:13,646
+Audio and MIDI.
+
+
+1464
+00:49:14,386 --> 00:49:15,936
+So, this year, we are adding
+
+
+1465
+00:49:16,046 --> 00:49:18,366
+MIDI to IDAM configuration, and
+
+
+1466
+00:49:18,366 --> 00:49:19,956
+that will allow you to send and
+
+
+1467
+00:49:19,956 --> 00:49:21,936
+receive your musical instrument
+
+
+1468
+00:49:21,936 --> 00:49:23,986
+data to your iOS device using
+
+
+1469
+00:49:23,986 --> 00:49:25,296
+the same cable that came with
+
+
+1470
+00:49:25,296 --> 00:49:25,846
+the device.
+
+
+1471
+00:49:26,206 --> 00:49:28,016
+It's class-compliant once again,
+
+
+1472
+00:49:28,276 --> 00:49:31,266
+so on the iOS side, you will see
+
+
+1473
+00:49:31,386 --> 00:49:33,086
+a MIDI source and destination
+
+
+1474
+00:49:33,086 --> 00:49:34,046
+representing the Mac.
+
+
+1475
+00:49:34,046 --> 00:49:35,266
+On the Mac, you will see a
+
+
+1476
+00:49:35,266 --> 00:49:36,216
+source and destination
+
+
+1477
+00:49:36,216 --> 00:49:37,766
+representing your iOS device.
+
+
+1478
+00:49:38,436 --> 00:49:40,806
+Now, this will require iOS 11,
+
+
+1479
+00:49:40,806 --> 00:49:42,706
+but you can do it as far back as
+
+
+1480
+00:49:42,706 --> 00:49:44,466
+MacOS El Capitan or later,
+
+
+1481
+00:49:44,506 --> 00:49:45,616
+because it's a class-compliant
+
+
+1482
+00:49:45,616 --> 00:49:46,316
+implementation.
+
+
+1483
+00:49:46,846 --> 00:49:47,546
+And you don't have to do
+
+
+1484
+00:49:47,546 --> 00:49:48,746
+anything special to get MIDI.
+
+
+1485
+00:49:48,746 --> 00:49:49,446
+You're going to get it
+
+
+1486
+00:49:49,446 --> 00:49:51,106
+automatically anytime you enter
+
+
+1487
+00:49:51,106 --> 00:49:52,286
+the item configuration by
+
+
+1488
+00:49:52,286 --> 00:49:53,036
+clicking Enable.
+
+
+1489
+00:49:53,036 --> 00:49:54,466
+Do you need to do anything to
+
+
+1490
+00:49:54,466 --> 00:49:55,986
+your app to support that?
+
+
+1491
+00:49:55,986 --> 00:49:57,256
+No. It will just work if it
+
+
+1492
+00:49:57,256 --> 00:49:58,076
+works with MIDI.
+
+
+1493
+00:49:59,006 --> 00:50:00,376
+So, while you're in the IDAM
+
+
+1494
+00:50:00,376 --> 00:50:01,786
+configuration, your device will
+
+
+1495
+00:50:01,786 --> 00:50:03,526
+be able to charge and sync, but
+
+
+1496
+00:50:03,526 --> 00:50:04,916
+you will temporarily lose the
+
+
+1497
+00:50:04,916 --> 00:50:06,536
+ability to photo import and
+
+
+1498
+00:50:06,536 --> 00:50:06,836
+tether.
+
+
+1499
+00:50:07,076 --> 00:50:07,986
+You can get that back by
+
+
+1500
+00:50:07,986 --> 00:50:09,276
+clicking the Disable button or
+
+
+1501
+00:50:09,276 --> 00:50:12,006
+hot plugging the device on your
+
+
+1502
+00:50:12,006 --> 00:50:12,356
+Mac.
+
+
+1503
+00:50:12,356 --> 00:50:13,796
+The input, the audio input, side
+
+
+1504
+00:50:13,796 --> 00:50:15,066
+of this can be aggregated, so if
+
+
+1505
+00:50:15,066 --> 00:50:16,616
+you've got multiple iOS devices,
+
+
+1506
+00:50:16,616 --> 00:50:18,776
+like I do, say, your iPhone and
+
+
+1507
+00:50:18,776 --> 00:50:20,286
+your iPad and your kid's iPad,
+
+
+1508
+00:50:20,606 --> 00:50:22,946
+you could say enable IDAM
+
+
+1509
+00:50:22,946 --> 00:50:23,966
+configuration on all three of
+
+
+1510
+00:50:23,966 --> 00:50:25,256
+these and aggregate them into a
+
+
+1511
+00:50:25,256 --> 00:50:27,156
+single, six-channel audio input
+
+
+1512
+00:50:27,156 --> 00:50:28,386
+device that your digital audio
+
+
+1513
+00:50:28,386 --> 00:50:28,976
+workstation can see.
+
+
+1514
+00:50:29,106 --> 00:50:30,996
+And because the MIDI
+
+
+1515
+00:50:30,996 --> 00:50:32,336
+communication is bidirectional,
+
+
+1516
+00:50:32,626 --> 00:50:34,636
+you can use it as -- you could
+
+
+1517
+00:50:34,636 --> 00:50:37,636
+say for example, "Send MIDI to a
+
+
+1518
+00:50:37,636 --> 00:50:39,796
+synthesizer application," and
+
+
+1519
+00:50:39,796 --> 00:50:41,136
+record the audio back from it.
+
+
+1520
+00:50:41,456 --> 00:50:43,056
+Or you could just design a MIDI
+
+
+1521
+00:50:43,056 --> 00:50:44,476
+controller application for an
+
+
+1522
+00:50:44,476 --> 00:50:45,626
+iPad, that magical piece of
+
+
+1523
+00:50:45,626 --> 00:50:47,176
+glass, and you could use that to
+
+
+1524
+00:50:47,176 --> 00:50:47,926
+control your [inaudible].
+
+
+1525
+00:50:48,396 --> 00:50:50,106
+But talk is cheap, and demos pay
+
+
+1526
+00:50:50,106 --> 00:50:50,566
+the bills.
+
+
+1527
+00:50:50,856 --> 00:50:53,906
+So, let's see this in action.
+
+
+1528
+00:50:54,496 --> 00:50:56,186
+So, before I actually bring up
+
+
+1529
+00:50:56,186 --> 00:50:57,816
+my demo machine here, I want to
+
+
+1530
+00:50:57,816 --> 00:51:00,006
+show you the application that
+
+
+1531
+00:51:00,006 --> 00:51:00,946
+I'm going to use here.
+
+
+1532
+00:51:02,306 --> 00:51:04,576
+And it is called Feud Machine.
+
+
+1533
+00:51:05,066 --> 00:51:07,296
+So, I've got Feud Machine open
+
+
+1534
+00:51:07,296 --> 00:51:07,516
+here.
+
+
+1535
+00:51:07,626 --> 00:51:10,156
+And on Feud Machine, this is a
+
+
+1536
+00:51:10,156 --> 00:51:12,026
+multi-playhead MIDI sequencer.
+
+
+1537
+00:51:12,376 --> 00:51:13,416
+So, that means that you can
+
+
+1538
+00:51:13,416 --> 00:51:15,726
+actually use one MIDI sequence
+
+
+1539
+00:51:15,766 --> 00:51:17,216
+and use different playheads,
+
+
+1540
+00:51:17,506 --> 00:51:18,596
+perhaps moving at different
+
+
+1541
+00:51:18,596 --> 00:51:20,646
+times, in different directions,
+
+
+1542
+00:51:21,046 --> 00:51:23,136
+and use that to create a complex
+
+
+1543
+00:51:23,266 --> 00:51:26,026
+arpeggio using phasing and a
+
+
+1544
+00:51:26,026 --> 00:51:26,886
+timing relationship.
+
+
+1545
+00:51:27,286 --> 00:51:28,886
+So, I'm just going to play this
+
+
+1546
+00:51:28,886 --> 00:51:29,506
+pattern here.
+
+
+1547
+00:51:29,606 --> 00:51:31,516
+And there are a lot of
+
+
+1548
+00:51:31,516 --> 00:51:33,816
+playheads.
+
+
+1549
+00:51:33,816 --> 00:51:36,026
+I'll just stop some of them.
+
+
+1550
+00:51:36,026 --> 00:51:40,206
+So, this is just one.
+
+
+1551
+00:51:40,206 --> 00:51:43,126
+I'll add another.
+
+
+1552
+00:51:43,126 --> 00:51:44,666
+Add another.
+
+
+1553
+00:51:44,666 --> 00:51:45,096
+Add another.
+
+
+1554
+00:51:45,366 --> 00:51:46,366
+As you see, we can create
+
+
+1555
+00:51:46,366 --> 00:51:48,086
+arpeggios very easily this way.
+
+
+1556
+00:51:48,646 --> 00:51:49,556
+So, there are other patterns
+
+
+1557
+00:51:49,556 --> 00:51:50,456
+that I could use.
+
+
+1558
+00:51:50,646 --> 00:51:52,186
+For example, this one's called
+
+
+1559
+00:51:52,186 --> 00:51:52,436
+"Dotted".
+
+
+1560
+00:51:52,436 --> 00:51:56,206
+This one's "Triplet."
+
+
+1561
+00:51:56,206 --> 00:51:59,156
+But we'll still with this one,
+
+
+1562
+00:51:59,156 --> 00:52:00,666
+and we're going to use this
+
+
+1563
+00:52:00,776 --> 00:52:02,756
+actually to control a project
+
+
+1564
+00:52:02,756 --> 00:52:04,016
+that we're working on in Logic.
+
+
+1565
+00:52:04,366 --> 00:52:05,356
+So, now, I'll move over to my
+
+
+1566
+00:52:05,356 --> 00:52:06,056
+demo machine.
+
+
+1567
+00:52:06,786 --> 00:52:08,036
+I'm going to click Enable here.
+
+
+1568
+00:52:08,856 --> 00:52:11,136
+And I'll see it come up as a USB
+
+
+1569
+00:52:11,136 --> 00:52:12,386
+audio input, and if I look at
+
+
+1570
+00:52:12,386 --> 00:52:14,186
+the MIDI studio window, I'll
+
+
+1571
+00:52:14,186 --> 00:52:16,116
+also see that it shows up here
+
+
+1572
+00:52:16,116 --> 00:52:17,556
+as a MIDI source and destination
+
+
+1573
+00:52:17,556 --> 00:52:18,516
+that I can use in Logic.
+
+
+1574
+00:52:18,946 --> 00:52:20,136
+So, if I launch a project that
+
+
+1575
+00:52:20,136 --> 00:52:21,846
+I've been working on here -- now
+
+
+1576
+00:52:26,156 --> 00:52:28,016
+this is a short, four-bar loop
+
+
+1577
+00:52:28,016 --> 00:52:29,436
+that I'm working on for a gaming
+
+
+1578
+00:52:29,436 --> 00:52:30,246
+scoring screen.
+
+
+1579
+00:52:30,246 --> 00:52:32,706
+So, after this video game level
+
+
+1580
+00:52:32,706 --> 00:52:34,386
+is completed, the player can
+
+
+1581
+00:52:34,386 --> 00:52:35,576
+look at their results and they
+
+
+1582
+00:52:35,576 --> 00:52:36,626
+will be listening to this loop.
+
+
+1583
+00:52:37,296 --> 00:52:39,496
+And the loop right now, before
+
+
+1584
+00:52:39,496 --> 00:52:40,426
+I've added anything to it,
+
+
+1585
+00:52:40,426 --> 00:52:40,976
+sounds like this.
+
+
+1586
+00:52:41,516 --> 00:52:51,546
+[ Music ]
+
+
+1587
+00:52:52,046 --> 00:52:54,316
+Now, I want to add the arpeggio
+
+
+1588
+00:52:54,316 --> 00:52:55,286
+part over this.
+
+
+1589
+00:52:55,596 --> 00:52:56,566
+So, what I'm going to do is I'm
+
+
+1590
+00:52:56,566 --> 00:52:57,526
+just going to double-click here
+
+
+1591
+00:52:57,526 --> 00:52:58,466
+to add another track.
+
+
+1592
+00:52:58,466 --> 00:53:00,796
+I'm going to choose an arpeggio,
+
+
+1593
+00:53:01,686 --> 00:53:03,296
+maybe something like a square.
+
+
+1594
+00:53:06,356 --> 00:53:07,126
+There we go.
+
+
+1595
+00:53:07,526 --> 00:53:09,236
+I'll do percussive squares here.
+
+
+1596
+00:53:09,316 --> 00:53:10,456
+And in the channel strip, you
+
+
+1597
+00:53:10,456 --> 00:53:11,696
+can actually see an arpeggiator.
+
+
+1598
+00:53:11,696 --> 00:53:12,646
+I'm not going to need that
+
+
+1599
+00:53:12,646 --> 00:53:13,676
+because I'm going to play this
+
+
+1600
+00:53:13,676 --> 00:53:14,466
+with Feud Machine.
+
+
+1601
+00:53:14,936 --> 00:53:17,596
+So, if I record enable this, and
+
+
+1602
+00:53:17,596 --> 00:53:20,276
+I arm my sequence here, I'll be
+
+
+1603
+00:53:20,276 --> 00:53:23,096
+able to hear Feud Machine play
+
+
+1604
+00:53:23,206 --> 00:53:25,296
+the soft synth here in Logic.
+
+
+1605
+00:53:26,026 --> 00:53:29,856
+So, I'll solo that.
+
+
+1606
+00:53:29,976 --> 00:53:31,516
+This is all four playheads
+
+
+1607
+00:53:31,516 --> 00:53:33,016
+moving at the same time.
+
+
+1608
+00:53:33,016 --> 00:53:34,136
+I could turn them off.
+
+
+1609
+00:53:34,196 --> 00:53:35,616
+I could just have one playhead
+
+
+1610
+00:53:35,616 --> 00:53:37,526
+if I wanted to.
+
+
+1611
+00:53:37,606 --> 00:53:39,156
+Or as many as all four.
+
+
+1612
+00:53:39,156 --> 00:53:40,636
+So, I'm going to record this
+
+
+1613
+00:53:40,636 --> 00:53:42,676
+into my track, and we'll see
+
+
+1614
+00:53:42,676 --> 00:53:44,276
+what that sounds like in
+
+
+1615
+00:53:44,276 --> 00:53:45,056
+context.
+
+
+1616
+00:53:45,596 --> 00:53:52,796
+Oops, sorry about that.
+
+
+1617
+00:53:52,796 --> 00:53:55,946
+I have to record arm here and
+
+
+1618
+00:53:56,636 --> 00:53:56,866
+play.
+
+
+1619
+00:53:57,516 --> 00:54:06,546
+[ Music ]
+
+
+1620
+00:54:07,046 --> 00:54:11,286
+Okay, so I've recorded my
+
+
+1621
+00:54:11,286 --> 00:54:14,266
+automation here, and I can use
+
+
+1622
+00:54:14,266 --> 00:54:15,846
+this automation and I can
+
+
+1623
+00:54:16,006 --> 00:54:19,246
+playback from the iPad here.
+
+
+1624
+00:54:19,246 --> 00:54:20,096
+So, if I listen to this in
+
+
+1625
+00:54:20,096 --> 00:54:21,336
+context, it sounds like this.
+
+
+1626
+00:54:21,406 --> 00:54:26,466
+So, now I've got MIDI going -- a
+
+
+1627
+00:54:26,466 --> 00:54:28,136
+MIDI start command going to Feud
+
+
+1628
+00:54:28,136 --> 00:54:28,576
+Machine.
+
+
+1629
+00:54:28,576 --> 00:54:30,136
+Feud Machine's playing our soft
+
+
+1630
+00:54:30,136 --> 00:54:30,926
+synth here.
+
+
+1631
+00:54:30,996 --> 00:54:32,506
+And I've got some automation
+
+
+1632
+00:54:32,506 --> 00:54:34,446
+here for the recording.
+
+
+1633
+00:54:34,446 --> 00:54:37,116
+And that concludes my demo for
+
+
+1634
+00:54:37,116 --> 00:54:39,546
+MIDI over IDAM configuration.
+
+
+1635
+00:54:40,666 --> 00:54:41,886
+Let's head back to the slides.
+
+
+1636
+00:54:42,516 --> 00:54:46,216
+[ Applause ]
+
+
+1637
+00:54:46,716 --> 00:54:47,736
+Okay, we've talked about a lot
+
+
+1638
+00:54:47,736 --> 00:54:48,356
+of things today.
+
+
+1639
+00:54:48,356 --> 00:54:49,806
+We've talked about enhancements
+
+
+1640
+00:54:49,806 --> 00:54:51,046
+to AVAudio Engine, including
+
+
+1641
+00:54:51,046 --> 00:54:52,226
+Manual Rendering which you can
+
+
+1642
+00:54:52,226 --> 00:54:53,706
+now do offline, or you can do
+
+
+1643
+00:54:53,706 --> 00:54:54,246
+real-time.
+
+
+1644
+00:54:54,726 --> 00:54:55,866
+There's AirPlay 2 support.
+
+
+1645
+00:54:55,866 --> 00:54:57,096
+There'll be an entirely other
+
+
+1646
+00:54:57,096 --> 00:54:58,876
+session on AirPlay 2 down the
+
+
+1647
+00:54:58,876 --> 00:55:00,226
+road in the conference.
+
+
+1648
+00:55:00,226 --> 00:55:01,306
+Please make sure to check that
+
+
+1649
+00:55:01,306 --> 00:55:02,176
+out if you're interested.
+
+
+1650
+00:55:02,376 --> 00:55:04,506
+Watch OS 4, you can now record.
+
+
+1651
+00:55:04,506 --> 00:55:05,236
+We've talked about the
+
+
+1652
+00:55:05,236 --> 00:55:07,036
+capabilities and the limitations
+
+
+1653
+00:55:07,036 --> 00:55:08,506
+and policies regarding that.
+
+
+1654
+00:55:08,506 --> 00:55:09,956
+For AUAudio Units, you can now
+
+
+1655
+00:55:09,956 --> 00:55:10,786
+negotiate your view
+
+
+1656
+00:55:10,786 --> 00:55:12,076
+configurations and you can also
+
+
+1657
+00:55:12,076 --> 00:55:13,576
+synchronize your MIDI output
+
+
+1658
+00:55:13,576 --> 00:55:15,186
+with your audio output for your
+
+
+1659
+00:55:15,186 --> 00:55:15,253
+AU.
+
+
+1660
+00:55:15,253 --> 00:55:16,396
+We've talked about some other
+
+
+1661
+00:55:16,396 --> 00:55:18,996
+audio enhancements including new
+
+
+1662
+00:55:18,996 --> 00:55:20,906
+supported formats, ambisonics,
+
+
+1663
+00:55:20,906 --> 00:55:22,496
+head related transfer functions,
+
+
+1664
+00:55:22,826 --> 00:55:24,136
+and we wrapped up with talking
+
+
+1665
+00:55:24,136 --> 00:55:25,816
+about IDAM, which now stands for
+
+
+1666
+00:55:25,816 --> 00:55:27,176
+Inter Device Audio and MIDI.
+
+
+1667
+00:55:27,746 --> 00:55:29,536
+The central URL for information
+
+
+1668
+00:55:29,536 --> 00:55:31,646
+regarding this particular talk
+
+
+1669
+00:55:31,646 --> 00:55:32,146
+is here.
+
+
+1670
+00:55:32,726 --> 00:55:34,696
+And if you're interested in
+
+
+1671
+00:55:34,696 --> 00:55:37,206
+audio, you may also be
+
+
+1672
+00:55:37,206 --> 00:55:40,006
+interested in these related
+
+
+1673
+00:55:40,006 --> 00:55:41,586
+sessions later on in the week.
+
+
+1674
+00:55:42,116 --> 00:55:44,636
+We thank you very much for your
+
+
+1675
+00:55:44,636 --> 00:55:45,806
+time and attention, and have a
+
+
+1676
+00:55:45,806 --> 00:55:46,976
+fantastic conference.
+
+
+1677
+00:55:47,516 --> 00:55:51,500
+[ Applause ]
+

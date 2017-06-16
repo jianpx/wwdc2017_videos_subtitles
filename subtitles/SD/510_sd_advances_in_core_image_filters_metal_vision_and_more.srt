@@ -1,0 +1,8649 @@
+1
+00:00:22,736 --> 00:00:23,106
+>> All right.
+
+
+2
+00:00:25,106 --> 00:00:27,386
+Now -- thank you very much and
+
+
+3
+00:00:27,546 --> 00:00:27,986
+welcome.
+
+
+4
+00:00:28,066 --> 00:00:29,446
+And my name is David Hayward,
+
+
+5
+00:00:29,446 --> 00:00:30,736
+and I'm really excited to talk
+
+
+6
+00:00:30,736 --> 00:00:32,046
+to you today about all the great
+
+
+7
+00:00:32,046 --> 00:00:33,826
+new features and functionality
+
+
+8
+00:00:33,826 --> 00:00:35,556
+we've added to Core Image on
+
+
+9
+00:00:35,756 --> 00:00:37,786
+iOS, macOS, and tvOS.
+
+
+10
+00:00:39,926 --> 00:00:41,936
+We have a great agenda today.
+
+
+11
+00:00:42,036 --> 00:00:43,496
+I'll be giving a brief overview
+
+
+12
+00:00:43,496 --> 00:00:45,546
+of Core Image and a summary of
+
+
+13
+00:00:45,546 --> 00:00:46,906
+the highlights of what we've
+
+
+14
+00:00:46,906 --> 00:00:47,586
+added this year.
+
+
+15
+00:00:48,376 --> 00:00:49,496
+Then after that we'll spend the
+
+
+16
+00:00:49,496 --> 00:00:51,266
+rest of the hour going into deep
+
+
+17
+00:00:51,266 --> 00:00:53,286
+details on all our new APIs and
+
+
+18
+00:00:53,496 --> 00:00:54,096
+new features.
+
+
+19
+00:00:54,986 --> 00:00:56,196
+So, with that in mind, let's
+
+
+20
+00:00:56,466 --> 00:00:57,086
+start going in.
+
+
+21
+00:00:58,986 --> 00:01:00,336
+So a brief overview of Core
+
+
+22
+00:01:00,336 --> 00:01:00,666
+Image.
+
+
+23
+00:01:01,546 --> 00:01:02,886
+In a nutshell, Core Image
+
+
+24
+00:01:02,886 --> 00:01:03,966
+provides a simple
+
+
+25
+00:01:03,966 --> 00:01:05,926
+high-performance API to apply
+
+
+26
+00:01:06,006 --> 00:01:06,986
+filters to images.
+
+
+27
+00:01:07,436 --> 00:01:09,026
+These images can be used to
+
+
+28
+00:01:09,526 --> 00:01:10,906
+adjust the color, adjust the
+
+
+29
+00:01:10,906 --> 00:01:12,916
+geometry, or perform complex
+
+
+30
+00:01:12,996 --> 00:01:14,516
+reductions or convolutions.
+
+
+31
+00:01:16,116 --> 00:01:18,406
+There are several tricks that
+
+
+32
+00:01:18,546 --> 00:01:19,916
+Core Image uses to get the best
+
+
+33
+00:01:19,956 --> 00:01:21,876
+performance out of this because
+
+
+34
+00:01:21,876 --> 00:01:24,696
+these filters can be combined in
+
+
+35
+00:01:24,696 --> 00:01:25,966
+either simple chains like this
+
+
+36
+00:01:25,966 --> 00:01:27,696
+example here or in complex
+
+
+37
+00:01:27,696 --> 00:01:28,176
+graphs.
+
+
+38
+00:01:28,716 --> 00:01:32,476
+One of the tricks Core Image
+
+
+39
+00:01:32,556 --> 00:01:34,106
+does to get great performance is
+
+
+40
+00:01:34,106 --> 00:01:36,186
+to support automatic tiling, and
+
+
+41
+00:01:36,416 --> 00:01:38,646
+this allows us to -- if an image
+
+
+42
+00:01:38,646 --> 00:01:40,356
+is too big or there's too much
+
+
+43
+00:01:40,356 --> 00:01:41,136
+memory that's going to be
+
+
+44
+00:01:41,136 --> 00:01:42,406
+required to render a render
+
+
+45
+00:01:42,406 --> 00:01:44,556
+graph, we can reduce our memory
+
+
+46
+00:01:44,616 --> 00:01:44,976
+footprint.
+
+
+47
+00:01:48,846 --> 00:01:50,326
+Another feature of this tiling,
+
+
+48
+00:01:50,356 --> 00:01:51,976
+which it means that if we're
+
+
+49
+00:01:51,976 --> 00:01:53,336
+only rendering part of an image
+
+
+50
+00:01:53,776 --> 00:01:54,996
+we can be very efficient and
+
+
+51
+00:01:54,996 --> 00:01:56,926
+only load the portion of the
+
+
+52
+00:01:56,926 --> 00:01:58,046
+input image that's needed.
+
+
+53
+00:01:58,946 --> 00:02:00,216
+So these are great performance
+
+
+54
+00:02:00,216 --> 00:02:01,506
+things that you get for free by
+
+
+55
+00:02:01,506 --> 00:02:02,336
+using Core Image.
+
+
+56
+00:02:02,896 --> 00:02:03,866
+Also when you're writing your
+
+
+57
+00:02:03,866 --> 00:02:06,286
+own kernels in Core Image, our
+
+
+58
+00:02:06,286 --> 00:02:08,086
+language extensions provide you
+
+
+59
+00:02:08,086 --> 00:02:09,136
+the ability to get this
+
+
+60
+00:02:09,136 --> 00:02:10,455
+functionality for free with very
+
+
+61
+00:02:10,455 --> 00:02:12,146
+little difficulty.
+
+
+62
+00:02:12,646 --> 00:02:15,976
+Another thing to keep in mind is
+
+
+63
+00:02:15,976 --> 00:02:17,136
+that all the filters in Core
+
+
+64
+00:02:17,136 --> 00:02:19,566
+Image may be based on one or
+
+
+65
+00:02:20,456 --> 00:02:21,546
+more kernels, either our
+
+
+66
+00:02:21,546 --> 00:02:22,826
+built-in kernels or custom
+
+
+67
+00:02:22,826 --> 00:02:23,326
+kernels.
+
+
+68
+00:02:23,956 --> 00:02:25,166
+And another trick Core Image
+
+
+69
+00:02:25,166 --> 00:02:27,356
+uses to get great performance is
+
+
+70
+00:02:27,356 --> 00:02:29,656
+to concatenate these kernels
+
+
+71
+00:02:29,686 --> 00:02:30,516
+into programs.
+
+
+72
+00:02:30,916 --> 00:02:32,316
+This allows Core Image to reduce
+
+
+73
+00:02:32,356 --> 00:02:33,286
+the number of intermediate
+
+
+74
+00:02:33,286 --> 00:02:35,066
+buffers, which allows us to
+
+
+75
+00:02:35,066 --> 00:02:36,526
+reduce our memory requirements
+
+
+76
+00:02:36,526 --> 00:02:37,966
+and also improves image quality.
+
+
+77
+00:02:41,216 --> 00:02:42,426
+So with that introduction
+
+
+78
+00:02:42,426 --> 00:02:43,826
+underway, I'm going to give a
+
+
+79
+00:02:43,826 --> 00:02:45,106
+brief description of what we've
+
+
+80
+00:02:45,106 --> 00:02:46,366
+added to Core Image this year.
+
+
+81
+00:02:46,626 --> 00:02:47,566
+It falls into three main
+
+
+82
+00:02:47,566 --> 00:02:48,216
+categories.
+
+
+83
+00:02:48,626 --> 00:02:49,506
+First, of course, is
+
+
+84
+00:02:49,506 --> 00:02:50,096
+performance.
+
+
+85
+00:02:50,146 --> 00:02:51,136
+As always, this is something
+
+
+86
+00:02:51,136 --> 00:02:52,116
+that's very important to Core
+
+
+87
+00:02:52,116 --> 00:02:53,446
+Image, and we've added some
+
+
+88
+00:02:53,576 --> 00:02:55,756
+enhancements in this area to
+
+
+89
+00:02:55,756 --> 00:02:57,086
+give your application the best
+
+
+90
+00:02:57,086 --> 00:02:57,626
+performance.
+
+
+91
+00:02:58,196 --> 00:03:00,926
+Specifically -- the next thing
+
+
+92
+00:03:00,926 --> 00:03:01,766
+I'd like to mention is that
+
+
+93
+00:03:01,766 --> 00:03:04,146
+we've also spent a lot of time
+
+
+94
+00:03:04,146 --> 00:03:06,976
+this year enhancing Core Image
+
+
+95
+00:03:06,976 --> 00:03:08,026
+to give you, the developer,
+
+
+96
+00:03:08,026 --> 00:03:09,396
+better information about how
+
+
+97
+00:03:09,396 --> 00:03:10,636
+Core Image works internally.
+
+
+98
+00:03:11,166 --> 00:03:13,086
+All of these optimizations we do
+
+
+99
+00:03:13,086 --> 00:03:14,336
+internally that I alluded to in
+
+
+100
+00:03:14,336 --> 00:03:15,896
+the previous slides, you can now
+
+
+101
+00:03:15,896 --> 00:03:17,996
+see what we're doing to achieve
+
+
+102
+00:03:17,996 --> 00:03:18,306
+these.
+
+
+103
+00:03:20,156 --> 00:03:21,676
+Thirdly, we've added a lot of
+
+
+104
+00:03:21,676 --> 00:03:23,186
+functionality, and this is to
+
+
+105
+00:03:23,186 --> 00:03:24,686
+allow your applications to get
+
+
+106
+00:03:24,856 --> 00:03:26,016
+the best access to all the new
+
+
+107
+00:03:26,016 --> 00:03:27,116
+features on our platform.
+
+
+108
+00:03:28,856 --> 00:03:30,386
+So a little bit more detail on
+
+
+109
+00:03:30,386 --> 00:03:30,616
+these.
+
+
+110
+00:03:30,616 --> 00:03:32,336
+In the area of performance, Core
+
+
+111
+00:03:32,336 --> 00:03:33,856
+Image now allows you to write CI
+
+
+112
+00:03:33,966 --> 00:03:35,116
+kernels directly in Metal.
+
+
+113
+00:03:35,116 --> 00:03:38,086
+And we also have a new API to
+
+
+114
+00:03:38,086 --> 00:03:39,696
+allow you to better render to
+
+
+115
+00:03:39,696 --> 00:03:40,516
+destinations.
+
+
+116
+00:03:40,596 --> 00:03:41,616
+We'll be talking about this in
+
+
+117
+00:03:41,616 --> 00:03:42,886
+much more detail later on in the
+
+
+118
+00:03:42,886 --> 00:03:43,566
+presentation.
+
+
+119
+00:03:44,596 --> 00:03:46,856
+In the area of information, we
+
+
+120
+00:03:46,856 --> 00:03:48,086
+have a new API that allows you
+
+
+121
+00:03:48,086 --> 00:03:50,116
+to get information about what
+
+
+122
+00:03:50,116 --> 00:03:51,196
+Core Image did for a given
+
+
+123
+00:03:51,196 --> 00:03:51,556
+render.
+
+
+124
+00:03:52,106 --> 00:03:53,556
+And also, we have some great new
+
+
+125
+00:03:53,556 --> 00:03:54,956
+Xcode Quick Look support, which
+
+
+126
+00:03:54,956 --> 00:03:55,496
+we'll show you.
+
+
+127
+00:03:56,866 --> 00:03:57,606
+And in the area of
+
+
+128
+00:03:57,606 --> 00:03:58,676
+functionality, we have some
+
+
+129
+00:03:58,676 --> 00:03:59,676
+great new stuff as well.
+
+
+130
+00:03:59,676 --> 00:04:00,766
+We have a new collection of
+
+
+131
+00:04:00,816 --> 00:04:02,766
+filters, new barcode support,
+
+
+132
+00:04:03,066 --> 00:04:05,746
+and also support for editing
+
+
+133
+00:04:05,746 --> 00:04:05,966
+depth.
+
+
+134
+00:04:06,606 --> 00:04:08,576
+I want to call out the session
+
+
+135
+00:04:08,576 --> 00:04:10,286
+that occurred earlier today on
+
+
+136
+00:04:10,426 --> 00:04:11,496
+image editing with depth.
+
+
+137
+00:04:11,496 --> 00:04:12,886
+If you didn't see it, you should
+
+
+138
+00:04:12,886 --> 00:04:14,006
+definitely go back and watch it.
+
+
+139
+00:04:14,006 --> 00:04:15,846
+It goes into great detail about
+
+
+140
+00:04:15,846 --> 00:04:16,856
+how to use Core Image to edit
+
+
+141
+00:04:16,856 --> 00:04:16,976
+depth.
+
+
+142
+00:04:20,726 --> 00:04:22,116
+So now let me talk in more
+
+
+143
+00:04:22,116 --> 00:04:23,306
+detail about the new filters
+
+
+144
+00:04:23,306 --> 00:04:24,476
+that we've added this release.
+
+
+145
+00:04:25,236 --> 00:04:27,686
+We now have 196 built-in
+
+
+146
+00:04:27,686 --> 00:04:30,456
+filters, and we've added some
+
+
+147
+00:04:30,456 --> 00:04:32,606
+that have been -- are great new
+
+
+148
+00:04:32,606 --> 00:04:33,196
+additions.
+
+
+149
+00:04:33,626 --> 00:04:34,816
+For example, some of these are
+
+
+150
+00:04:34,816 --> 00:04:36,586
+very useful when you're working
+
+
+151
+00:04:36,586 --> 00:04:37,256
+with depth data.
+
+
+152
+00:04:37,736 --> 00:04:39,036
+For example, we have convenience
+
+
+153
+00:04:39,036 --> 00:04:40,366
+filters for converting between
+
+
+154
+00:04:40,366 --> 00:04:41,356
+depth and disparity.
+
+
+155
+00:04:41,946 --> 00:04:43,366
+We also have morphological
+
+
+156
+00:04:43,366 --> 00:04:44,966
+operations, which allows you to
+
+
+157
+00:04:45,306 --> 00:04:46,986
+erode and dilate an image, which
+
+
+158
+00:04:46,986 --> 00:04:48,936
+is useful for manipulating depth
+
+
+159
+00:04:48,936 --> 00:04:49,606
+masks.
+
+
+160
+00:04:50,266 --> 00:04:52,116
+We also have convenience filters
+
+
+161
+00:04:52,116 --> 00:04:53,376
+that allow you to combine an
+
+
+162
+00:04:53,376 --> 00:04:54,806
+image with two different color
+
+
+163
+00:04:54,806 --> 00:04:56,186
+cubes based on the depth of an
+
+
+164
+00:04:56,186 --> 00:04:56,526
+image.
+
+
+165
+00:04:58,036 --> 00:04:59,396
+I also want to call out a great
+
+
+166
+00:04:59,396 --> 00:05:00,706
+new filter which we talk about
+
+
+167
+00:05:00,706 --> 00:05:01,876
+in the previous -- in the
+
+
+168
+00:05:01,876 --> 00:05:03,166
+editing session called
+
+
+169
+00:05:03,166 --> 00:05:04,846
+CIDepthBlurEffect, which allows
+
+
+170
+00:05:04,846 --> 00:05:06,436
+your application to get access
+
+
+171
+00:05:06,436 --> 00:05:08,516
+to the great depth blur effect
+
+
+172
+00:05:08,566 --> 00:05:10,286
+that we have in our camera and
+
+
+173
+00:05:10,286 --> 00:05:11,176
+photos application.
+
+
+174
+00:05:13,016 --> 00:05:14,976
+Again, I highly recommend you
+
+
+175
+00:05:14,976 --> 00:05:16,836
+watch the image editing and
+
+
+176
+00:05:16,836 --> 00:05:18,416
+depth session that was recorded
+
+
+177
+00:05:18,416 --> 00:05:19,696
+earlier today.
+
+
+178
+00:05:21,336 --> 00:05:23,226
+We also have several other new
+
+
+179
+00:05:23,226 --> 00:05:24,736
+filters based on popular
+
+
+180
+00:05:24,736 --> 00:05:25,286
+requests.
+
+
+181
+00:05:25,506 --> 00:05:26,826
+We have a filter now that allows
+
+
+182
+00:05:26,826 --> 00:05:28,026
+you to generate an image from
+
+
+183
+00:05:28,026 --> 00:05:29,016
+text, which is great for
+
+
+184
+00:05:29,016 --> 00:05:30,506
+allowing you to add watermarks
+
+
+185
+00:05:30,506 --> 00:05:32,446
+to video or other textual
+
+
+186
+00:05:32,446 --> 00:05:32,906
+overlays.
+
+
+187
+00:05:33,546 --> 00:05:34,886
+We have a filter that allows you
+
+
+188
+00:05:34,886 --> 00:05:36,136
+to compare two images in
+
+
+189
+00:05:36,136 --> 00:05:37,946
+LabDeltaE space, which is great
+
+
+190
+00:05:38,006 --> 00:05:39,666
+for seeing if your results are
+
+
+191
+00:05:39,666 --> 00:05:41,146
+what you expect or to give a
+
+
+192
+00:05:41,146 --> 00:05:42,486
+user information about how much
+
+
+193
+00:05:42,486 --> 00:05:43,536
+an image might have changed.
+
+
+194
+00:05:44,666 --> 00:05:47,576
+We also have a new bicubic
+
+
+195
+00:05:47,576 --> 00:05:49,216
+upsample, or downsample filter,
+
+
+196
+00:05:49,646 --> 00:05:51,666
+which is great for a variety of
+
+
+197
+00:05:51,666 --> 00:05:52,196
+purposes.
+
+
+198
+00:05:53,006 --> 00:05:54,126
+We also have a new way of
+
+
+199
+00:05:54,126 --> 00:05:55,306
+generating barcodes, which we'll
+
+
+200
+00:05:55,306 --> 00:05:56,586
+talk about in more detail later
+
+
+201
+00:05:56,586 --> 00:05:57,336
+in the presentation.
+
+
+202
+00:05:59,416 --> 00:06:00,676
+Lastly, in the area of filters,
+
+
+203
+00:06:00,676 --> 00:06:01,716
+we have some filters that have
+
+
+204
+00:06:02,196 --> 00:06:03,376
+been improved since our last
+
+
+205
+00:06:03,376 --> 00:06:03,696
+release.
+
+
+206
+00:06:03,696 --> 00:06:04,756
+We have several of the blend
+
+
+207
+00:06:04,876 --> 00:06:06,396
+mode filters -- now behave more
+
+
+208
+00:06:06,836 --> 00:06:07,946
+like expectations.
+
+
+209
+00:06:07,946 --> 00:06:10,166
+And we've also improved greatly
+
+
+210
+00:06:10,346 --> 00:06:11,876
+the quality of our demosaic and
+
+
+211
+00:06:11,876 --> 00:06:12,986
+noise reduction filters that are
+
+
+212
+00:06:12,986 --> 00:06:14,276
+part of our RAW pipeline.
+
+
+213
+00:06:14,686 --> 00:06:17,056
+So, as we release new cameras,
+
+
+214
+00:06:17,056 --> 00:06:17,926
+we'll be getting -- or support
+
+
+215
+00:06:17,926 --> 00:06:18,816
+for new cameras, you'll see the
+
+
+216
+00:06:18,816 --> 00:06:19,976
+improvements of that.
+
+
+217
+00:06:24,506 --> 00:06:26,446
+So that's new filters.
+
+
+218
+00:06:26,516 --> 00:06:28,836
+I'd like to bring Tony up to the
+
+
+219
+00:06:28,836 --> 00:06:29,976
+stage who'll be talking in
+
+
+220
+00:06:29,976 --> 00:06:32,156
+detail about how to write
+
+
+221
+00:06:32,336 --> 00:06:33,456
+kernels directly in Metal, which
+
+
+222
+00:06:33,456 --> 00:06:33,976
+is a great new feature.
+
+
+223
+00:06:34,516 --> 00:06:39,416
+[ Applause ]
+
+
+224
+00:06:39,916 --> 00:06:40,246
+>> All right.
+
+
+225
+00:06:40,246 --> 00:06:41,506
+Thank you David.
+
+
+226
+00:06:42,036 --> 00:06:42,856
+Good afternoon everyone.
+
+
+227
+00:06:43,006 --> 00:06:44,446
+My name is Tony, and I'm really
+
+
+228
+00:06:44,446 --> 00:06:45,636
+excited to tell you about this
+
+
+229
+00:06:45,636 --> 00:06:46,936
+great new feature we've added to
+
+
+230
+00:06:46,936 --> 00:06:47,436
+Core Image.
+
+
+231
+00:06:48,036 --> 00:06:49,426
+So let's get right to it.
+
+
+232
+00:06:50,036 --> 00:06:51,176
+So first, let's put this in a
+
+
+233
+00:06:51,176 --> 00:06:52,316
+little bit of context.
+
+
+234
+00:06:52,456 --> 00:06:54,006
+If you refer back to this simple
+
+
+235
+00:06:54,006 --> 00:06:55,106
+filter graph that you saw
+
+
+236
+00:06:55,106 --> 00:06:55,556
+earlier.
+
+
+237
+00:06:55,556 --> 00:06:57,226
+What we're talking about now are
+
+
+238
+00:06:57,226 --> 00:06:58,636
+these kernels that you see here
+
+
+239
+00:06:58,636 --> 00:07:00,356
+at the bottom, which allow you
+
+
+240
+00:07:00,356 --> 00:07:01,566
+to implement your very own
+
+
+241
+00:07:01,566 --> 00:07:03,116
+custom code that will describe
+
+
+242
+00:07:03,116 --> 00:07:04,536
+exactly how you want the pixel
+
+
+243
+00:07:04,536 --> 00:07:06,006
+to be processed on the GPU.
+
+
+244
+00:07:06,606 --> 00:07:09,546
+So previously these kernels were
+
+
+245
+00:07:09,546 --> 00:07:10,566
+written in the CIKernel
+
+
+246
+00:07:10,566 --> 00:07:12,496
+Language, which was the shading
+
+
+247
+00:07:12,496 --> 00:07:14,946
+language based on GLSL, but it
+
+
+248
+00:07:14,946 --> 00:07:16,586
+also provided some extensions
+
+
+249
+00:07:16,906 --> 00:07:18,466
+that allows Core Image to enable
+
+
+250
+00:07:18,466 --> 00:07:20,206
+automatic tiling and subregion
+
+
+251
+00:07:20,206 --> 00:07:20,586
+rendering.
+
+
+252
+00:07:22,046 --> 00:07:23,176
+For example, we had a function
+
+
+253
+00:07:23,176 --> 00:07:24,286
+called destCoord that lets you
+
+
+254
+00:07:24,286 --> 00:07:25,456
+access the coordinate of the
+
+
+255
+00:07:25,526 --> 00:07:26,486
+destination that you are about
+
+
+256
+00:07:26,486 --> 00:07:28,066
+to render to regardless of
+
+
+257
+00:07:28,066 --> 00:07:28,986
+whether you're just rendering a
+
+
+258
+00:07:28,986 --> 00:07:30,486
+subportion of the output or if
+
+
+259
+00:07:30,486 --> 00:07:31,566
+the output image is tiled.
+
+
+260
+00:07:33,026 --> 00:07:34,276
+We also have a couple of
+
+
+261
+00:07:34,276 --> 00:07:34,866
+functions called
+
+
+262
+00:07:34,866 --> 00:07:37,196
+samplerTransform and sample that
+
+
+263
+00:07:37,196 --> 00:07:38,346
+let you sample from an input
+
+
+264
+00:07:38,346 --> 00:07:40,036
+image regardless of whether the
+
+
+265
+00:07:40,036 --> 00:07:41,066
+input image is tiled.
+
+
+266
+00:07:41,536 --> 00:07:43,436
+So again, as David mentioned
+
+
+267
+00:07:43,436 --> 00:07:44,556
+earlier, this provides a nice
+
+
+268
+00:07:44,556 --> 00:07:46,086
+abstraction to tiling so that
+
+
+269
+00:07:46,086 --> 00:07:46,926
+you don't have to worry about
+
+
+270
+00:07:46,926 --> 00:07:48,346
+that when writing your kernels.
+
+
+271
+00:07:50,696 --> 00:07:52,056
+So once these kernels are
+
+
+272
+00:07:52,056 --> 00:07:53,006
+written, they are then
+
+
+273
+00:07:53,006 --> 00:07:54,786
+translated, concatenated
+
+
+274
+00:07:54,786 --> 00:07:55,946
+together as much as possible
+
+
+275
+00:07:55,946 --> 00:07:57,476
+with other kernels, and then
+
+
+276
+00:07:57,476 --> 00:07:59,216
+compiled at runtime to either
+
+
+277
+00:07:59,216 --> 00:08:00,456
+Metal or GLSL.
+
+
+278
+00:08:01,686 --> 00:08:03,576
+Now for a rich language like
+
+
+279
+00:08:03,576 --> 00:08:05,786
+Metal, the compilation phase can
+
+
+280
+00:08:05,786 --> 00:08:07,146
+actually take quite a long time
+
+
+281
+00:08:07,146 --> 00:08:07,576
+at runtime.
+
+
+282
+00:08:07,576 --> 00:08:09,356
+And, in fact, in the worst case,
+
+
+283
+00:08:09,356 --> 00:08:10,446
+if you're just rendering a very
+
+
+284
+00:08:10,446 --> 00:08:12,086
+small input image - sorry,
+
+
+285
+00:08:12,086 --> 00:08:13,456
+rendering a very small image or
+
+
+286
+00:08:13,456 --> 00:08:14,546
+a relatively simple filter
+
+
+287
+00:08:14,546 --> 00:08:16,236
+graph, most of that time could
+
+
+288
+00:08:16,236 --> 00:08:17,656
+actually be spent compiling
+
+
+289
+00:08:17,656 --> 00:08:18,776
+versus the actual rendering.
+
+
+290
+00:08:19,386 --> 00:08:21,646
+So to show you an example of
+
+
+291
+00:08:21,646 --> 00:08:23,786
+that, here's a case where on the
+
+
+292
+00:08:23,786 --> 00:08:25,206
+very first render before any of
+
+
+293
+00:08:25,206 --> 00:08:26,606
+the compilation has been cached,
+
+
+294
+00:08:27,146 --> 00:08:28,116
+you can see there's a lot of
+
+
+295
+00:08:28,116 --> 00:08:29,376
+time spent compiling versus
+
+
+296
+00:08:29,376 --> 00:08:29,796
+rendering.
+
+
+297
+00:08:29,946 --> 00:08:31,606
+So if we step through these
+
+
+298
+00:08:32,155 --> 00:08:33,706
+stage by stage, the first step
+
+
+299
+00:08:33,706 --> 00:08:35,126
+is to translate the CIKernels
+
+
+300
+00:08:35,126 --> 00:08:35,996
+shown in blue.
+
+
+301
+00:08:36,535 --> 00:08:37,476
+And the second stage is to
+
+
+302
+00:08:37,476 --> 00:08:38,726
+concatenate the CIKernels.
+
+
+303
+00:08:39,035 --> 00:08:40,796
+And then we go through a phase
+
+
+304
+00:08:40,796 --> 00:08:42,346
+to compile the CIKernels to an
+
+
+305
+00:08:42,346 --> 00:08:43,616
+intermediate representation,
+
+
+306
+00:08:43,756 --> 00:08:45,046
+which is independent of the
+
+
+307
+00:08:45,046 --> 00:08:45,416
+device.
+
+
+308
+00:08:45,486 --> 00:08:47,026
+And then there's a final stage
+
+
+309
+00:08:47,026 --> 00:08:50,956
+to actually compile that IR to
+
+
+310
+00:08:50,956 --> 00:08:53,386
+GPU code to be executed on the
+
+
+311
+00:08:53,386 --> 00:08:53,906
+GPU.
+
+
+312
+00:08:55,216 --> 00:08:56,646
+So the problem here is that
+
+
+313
+00:08:56,646 --> 00:08:59,246
+concatenating CIKernels is
+
+
+314
+00:08:59,246 --> 00:09:00,276
+something that has been done
+
+
+315
+00:09:00,276 --> 00:09:04,366
+dynamically at runtime, so what
+
+
+316
+00:09:04,366 --> 00:09:06,166
+if we were to allow that stage
+
+
+317
+00:09:06,166 --> 00:09:07,936
+to happen after the compilation?
+
+
+318
+00:09:08,876 --> 00:09:10,686
+So what that allows us to do is
+
+
+319
+00:09:10,686 --> 00:09:12,076
+hoist up that really expensive
+
+
+320
+00:09:12,076 --> 00:09:14,196
+compilation at build-time and
+
+
+321
+00:09:14,196 --> 00:09:15,676
+therefore leaving behind only
+
+
+322
+00:09:15,676 --> 00:09:17,136
+the work that needs to be done
+
+
+323
+00:09:17,486 --> 00:09:18,176
+at runtime.
+
+
+324
+00:09:18,806 --> 00:09:20,166
+So, as you can see, this is now
+
+
+325
+00:09:20,166 --> 00:09:21,666
+a much more efficient use of the
+
+
+326
+00:09:21,666 --> 00:09:23,876
+CPU, not to mention lower power
+
+
+327
+00:09:23,876 --> 00:09:24,426
+consumption.
+
+
+328
+00:09:24,996 --> 00:09:27,216
+So I'm pleased to say that this
+
+
+329
+00:09:27,216 --> 00:09:29,256
+is now possible in Core Image
+
+
+330
+00:09:29,256 --> 00:09:30,536
+and that's by writing CIKernels
+
+
+331
+00:09:30,536 --> 00:09:31,416
+directly in Metal.
+
+
+332
+00:09:31,916 --> 00:09:34,146
+And to make this happen required
+
+
+333
+00:09:34,146 --> 00:09:35,496
+some really close collaboration
+
+
+334
+00:09:35,496 --> 00:09:36,656
+with both the Metal Framework
+
+
+335
+00:09:36,656 --> 00:09:37,866
+Team and the Metal Compiler
+
+
+336
+00:09:37,866 --> 00:09:38,026
+Team.
+
+
+337
+00:09:38,026 --> 00:09:39,386
+And we think this is going to
+
+
+338
+00:09:39,386 --> 00:09:40,696
+open up doors to some really
+
+
+339
+00:09:40,696 --> 00:09:41,716
+exciting new opportunities.
+
+
+340
+00:09:43,326 --> 00:09:44,256
+But first, let me just highlight
+
+
+341
+00:09:44,256 --> 00:09:45,546
+some of the key benefits that
+
+
+342
+00:09:45,546 --> 00:09:47,176
+you're already getting today.
+
+
+343
+00:09:48,276 --> 00:09:51,056
+So, as you saw earlier, now the
+
+
+344
+00:09:51,056 --> 00:09:52,466
+CIKernels can be precompiled
+
+
+345
+00:09:52,466 --> 00:09:54,526
+offline at build-time.
+
+
+346
+00:09:54,666 --> 00:09:55,956
+And along with that, you can get
+
+
+347
+00:09:55,956 --> 00:09:57,056
+some really nice error
+
+
+348
+00:09:57,056 --> 00:09:57,836
+diagnostics.
+
+
+349
+00:09:58,156 --> 00:09:59,266
+So if you had some typo or a
+
+
+350
+00:09:59,266 --> 00:10:00,376
+mistake in your kernel, you can
+
+
+351
+00:10:00,376 --> 00:10:01,816
+see that directly in Xcode,
+
+
+352
+00:10:02,236 --> 00:10:03,636
+without having to wait for the
+
+
+353
+00:10:03,636 --> 00:10:05,336
+runtime to detect them.
+
+
+354
+00:10:06,316 --> 00:10:08,236
+Second is now you have access to
+
+
+355
+00:10:08,236 --> 00:10:09,596
+much more modern language
+
+
+356
+00:10:09,596 --> 00:10:11,456
+features since Metal is a
+
+
+357
+00:10:11,456 --> 00:10:12,796
+relatively new language that was
+
+
+358
+00:10:12,796 --> 00:10:13,766
+based on C++.
+
+
+359
+00:10:13,836 --> 00:10:17,536
+And I want to stress that with
+
+
+360
+00:10:17,736 --> 00:10:19,106
+writing CIKernels in Metal, you
+
+
+361
+00:10:19,316 --> 00:10:20,976
+still get all the benefits such
+
+
+362
+00:10:20,976 --> 00:10:22,496
+as concatenation and tiling,
+
+
+363
+00:10:22,596 --> 00:10:23,646
+which has been the cornerstone
+
+
+364
+00:10:23,646 --> 00:10:24,836
+of our Core Image framework for
+
+
+365
+00:10:24,836 --> 00:10:25,246
+many years.
+
+
+366
+00:10:25,586 --> 00:10:26,776
+So nothing is compromised by
+
+
+367
+00:10:26,776 --> 00:10:28,356
+writing CIKernels in this new
+
+
+368
+00:10:28,356 --> 00:10:28,606
+way.
+
+
+369
+00:10:29,166 --> 00:10:31,346
+And furthermore, these new
+
+
+370
+00:10:31,346 --> 00:10:33,796
+CIKernels in Metal can also be
+
+
+371
+00:10:33,796 --> 00:10:34,756
+mixed with traditional
+
+
+372
+00:10:34,756 --> 00:10:35,386
+CIKernels.
+
+
+373
+00:10:35,686 --> 00:10:37,496
+So [inaudible] can contain
+
+
+374
+00:10:37,496 --> 00:10:39,656
+either traditional kernels or
+
+
+375
+00:10:39,656 --> 00:10:40,616
+kernels written in Metal.
+
+
+376
+00:10:40,876 --> 00:10:42,466
+And that allows this feature to
+
+
+377
+00:10:42,766 --> 00:10:45,436
+be maximally compatible with
+
+
+378
+00:10:45,566 --> 00:10:46,766
+your existing application.
+
+
+379
+00:10:47,336 --> 00:10:50,036
+And, as you would expect, this
+
+
+380
+00:10:50,196 --> 00:10:51,316
+feature is supported in a wide
+
+
+381
+00:10:51,316 --> 00:10:52,896
+variety of platforms, namely iOS
+
+
+382
+00:10:52,896 --> 00:10:56,066
+for A8 or newer devices, as well
+
+
+383
+00:10:56,066 --> 00:10:59,506
+as macOS and tvOS.
+
+
+384
+00:10:59,686 --> 00:11:01,136
+So now let's take a look at how
+
+
+385
+00:11:01,136 --> 00:11:02,516
+we go about creating these Metal
+
+
+386
+00:11:02,516 --> 00:11:03,136
+CIKernels.
+
+
+387
+00:11:03,656 --> 00:11:05,886
+The first step is to write your
+
+
+388
+00:11:05,886 --> 00:11:07,466
+CIKernel in a Metal shader file.
+
+
+389
+00:11:09,316 --> 00:11:11,366
+Then once you have that CIKernel
+
+
+390
+00:11:11,366 --> 00:11:12,946
+implemented, the second step is
+
+
+391
+00:11:12,976 --> 00:11:14,236
+to compile and link the Metal
+
+
+392
+00:11:14,236 --> 00:11:16,296
+shader file in order to generate
+
+
+393
+00:11:16,296 --> 00:11:17,616
+a Metal library that can then be
+
+
+394
+00:11:17,616 --> 00:11:18,656
+loaded at runtime.
+
+
+395
+00:11:19,236 --> 00:11:21,696
+And then a final step is to just
+
+
+396
+00:11:22,266 --> 00:11:23,996
+initialize the CIKernel with any
+
+
+397
+00:11:23,996 --> 00:11:25,066
+function from that Metal
+
+
+398
+00:11:25,066 --> 00:11:25,446
+library.
+
+
+399
+00:11:25,446 --> 00:11:28,926
+So let's take a closer look at
+
+
+400
+00:11:28,926 --> 00:11:29,916
+the first step, writing a
+
+
+401
+00:11:29,916 --> 00:11:32,466
+CIKernel in Metal.
+
+
+402
+00:11:33,216 --> 00:11:34,286
+So to do that, I'd like to
+
+
+403
+00:11:34,286 --> 00:11:35,266
+introduce you to our new
+
+
+404
+00:11:35,266 --> 00:11:36,586
+CIKernal Metal library.
+
+
+405
+00:11:37,086 --> 00:11:38,346
+And what that is is basically a
+
+
+406
+00:11:38,346 --> 00:11:40,046
+header file that contains our
+
+
+407
+00:11:40,046 --> 00:11:41,806
+CIKernel extensions to the Metal
+
+
+408
+00:11:41,806 --> 00:11:42,616
+shading language.
+
+
+409
+00:11:42,936 --> 00:11:44,876
+So namely we have some new data
+
+
+410
+00:11:44,876 --> 00:11:47,536
+types, such as destination,
+
+
+411
+00:11:47,636 --> 00:11:48,906
+sampler, and sample.
+
+
+412
+00:11:49,536 --> 00:11:51,216
+Destination lets you access all
+
+
+413
+00:11:51,216 --> 00:11:52,386
+the information that you need
+
+
+414
+00:11:52,706 --> 00:11:54,506
+that pertains to the output.
+
+
+415
+00:11:55,046 --> 00:11:56,506
+And sampler lets you access all
+
+
+416
+00:11:56,506 --> 00:11:57,846
+the information that pertains to
+
+
+417
+00:11:57,846 --> 00:11:58,556
+the input image.
+
+
+418
+00:11:59,136 --> 00:12:00,916
+And sample is a representation
+
+
+419
+00:12:00,916 --> 00:12:02,866
+of a single-color sample from an
+
+
+420
+00:12:02,866 --> 00:12:03,476
+input image.
+
+
+421
+00:12:04,766 --> 00:12:05,856
+And along with these types we
+
+
+422
+00:12:05,856 --> 00:12:07,136
+also have some convenience
+
+
+423
+00:12:07,136 --> 00:12:08,336
+functions that are very useful
+
+
+424
+00:12:08,336 --> 00:12:09,256
+for image processing.
+
+
+425
+00:12:10,666 --> 00:12:11,776
+For example, you can do
+
+
+426
+00:12:11,776 --> 00:12:13,846
+premulitply and unpremultiply,
+
+
+427
+00:12:13,926 --> 00:12:14,986
+as well as some color
+
+
+428
+00:12:14,986 --> 00:12:16,316
+conversions between different
+
+
+429
+00:12:16,466 --> 00:12:17,196
+color spaces.
+
+
+430
+00:12:17,616 --> 00:12:19,816
+So these new extensions are
+
+
+431
+00:12:20,196 --> 00:12:21,366
+semantically the same as they
+
+
+432
+00:12:21,366 --> 00:12:22,586
+used to be in the CIKernel
+
+
+433
+00:12:22,586 --> 00:12:23,056
+language.
+
+
+434
+00:12:23,536 --> 00:12:25,686
+There's just some slight syntax
+
+
+435
+00:12:25,876 --> 00:12:27,496
+differences that pertains to the
+
+
+436
+00:12:27,496 --> 00:12:29,116
+destination and sampler types,
+
+
+437
+00:12:29,836 --> 00:12:30,566
+so let me show you that in a
+
+
+438
+00:12:30,566 --> 00:12:31,346
+little bit more detail.
+
+
+439
+00:12:32,096 --> 00:12:34,426
+So here's a snippet of what our
+
+
+440
+00:12:34,556 --> 00:12:35,786
+CIKernel Metal library looks
+
+
+441
+00:12:35,786 --> 00:12:35,976
+like.
+
+
+442
+00:12:36,596 --> 00:12:38,706
+It is called CIKernelMetalLib.h,
+
+
+443
+00:12:39,276 --> 00:12:40,686
+and all our extensions are
+
+
+444
+00:12:40,806 --> 00:12:42,316
+declared inside a namespace
+
+
+445
+00:12:42,316 --> 00:12:43,906
+called coreimage to avoid any
+
+
+446
+00:12:43,906 --> 00:12:44,746
+conflicts with Metal.
+
+
+447
+00:12:45,326 --> 00:12:47,386
+So the first step that we have
+
+
+448
+00:12:47,386 --> 00:12:48,796
+defined is called a destination
+
+
+449
+00:12:48,916 --> 00:12:50,196
+and it has a method that lets
+
+
+450
+00:12:50,196 --> 00:12:51,456
+you access the coordinate of the
+
+
+451
+00:12:51,456 --> 00:12:52,106
+destination.
+
+
+452
+00:12:53,076 --> 00:12:54,126
+Previously, if you were writing
+
+
+453
+00:12:54,176 --> 00:12:55,676
+CIKernels in the CIKernel
+
+
+454
+00:12:55,676 --> 00:12:57,776
+language, you would have done
+
+
+455
+00:12:57,776 --> 00:12:59,496
+that via a global function
+
+
+456
+00:12:59,496 --> 00:13:00,276
+called destCoord.
+
+
+457
+00:13:00,606 --> 00:13:01,346
+But now, if you're writing
+
+
+458
+00:13:01,346 --> 00:13:02,926
+kernels in Metal, you need to
+
+
+459
+00:13:02,926 --> 00:13:04,616
+declare this type as an argument
+
+
+460
+00:13:04,616 --> 00:13:05,646
+to your kernel in order to
+
+
+461
+00:13:05,646 --> 00:13:06,506
+access that method.
+
+
+462
+00:13:07,046 --> 00:13:09,396
+And then the second type we have
+
+
+463
+00:13:09,396 --> 00:13:10,636
+to find is the sampler.
+
+
+464
+00:13:11,136 --> 00:13:12,226
+And this has all the same
+
+
+465
+00:13:12,226 --> 00:13:13,866
+methods that used to exist as
+
+
+466
+00:13:13,866 --> 00:13:15,326
+global functions, but they are
+
+
+467
+00:13:15,326 --> 00:13:17,326
+now implemented as member
+
+
+468
+00:13:17,326 --> 00:13:18,656
+functions on the sampler type.
+
+
+469
+00:13:19,226 --> 00:13:22,436
+So to give you a nice summary of
+
+
+470
+00:13:22,436 --> 00:13:23,986
+all that, here's a table that
+
+
+471
+00:13:23,986 --> 00:13:25,496
+shows you the syntax that used
+
+
+472
+00:13:25,496 --> 00:13:28,166
+to exist in CIKernel language
+
+
+473
+00:13:28,166 --> 00:13:29,796
+versus the syntax that is now
+
+
+474
+00:13:29,796 --> 00:13:30,996
+available in Metal.
+
+
+475
+00:13:31,596 --> 00:13:32,416
+And, as you can see, in the
+
+
+476
+00:13:32,416 --> 00:13:34,446
+CIKernel language, those are all
+
+
+477
+00:13:34,446 --> 00:13:35,636
+implemented as global functions,
+
+
+478
+00:13:35,756 --> 00:13:37,176
+but now with Metal, those are
+
+
+479
+00:13:37,176 --> 00:13:38,616
+all member functions on their
+
+
+480
+00:13:38,616 --> 00:13:39,466
+appropriate types.
+
+
+481
+00:13:40,046 --> 00:13:40,886
+So we think that with the new
+
+
+482
+00:13:40,886 --> 00:13:41,846
+syntax they'll allow you to
+
+
+483
+00:13:41,846 --> 00:13:43,326
+write your code to be more
+
+
+484
+00:13:43,476 --> 00:13:44,816
+concise and easier to read.
+
+
+485
+00:13:46,766 --> 00:13:47,996
+But for sake of portability, we
+
+
+486
+00:13:47,996 --> 00:13:49,546
+did include the global sampler
+
+
+487
+00:13:49,546 --> 00:13:51,336
+functions in our header, which
+
+
+488
+00:13:51,336 --> 00:13:52,886
+are merely just wrappers to the
+
+
+489
+00:13:52,886 --> 00:13:53,506
+new syntax.
+
+
+490
+00:13:53,586 --> 00:13:54,746
+So that'll help minimize the
+
+
+491
+00:13:54,746 --> 00:13:55,856
+amount of code changes that you
+
+
+492
+00:13:55,856 --> 00:13:57,016
+need to make if you're importing
+
+
+493
+00:13:57,016 --> 00:13:58,326
+from existing kernels to Metal.
+
+
+494
+00:13:58,926 --> 00:14:01,786
+So now let's take a look at some
+
+
+495
+00:14:01,786 --> 00:14:03,226
+examples of CIKernels in Metal.
+
+
+496
+00:14:03,316 --> 00:14:04,896
+The first one we're going to
+
+
+497
+00:14:04,966 --> 00:14:06,456
+look at is a warp kernel.
+
+
+498
+00:14:06,626 --> 00:14:08,456
+And as with all Metal shaders,
+
+
+499
+00:14:08,456 --> 00:14:09,156
+the first thing you need to
+
+
+500
+00:14:09,156 --> 00:14:10,756
+include is the metal underscore
+
+
+501
+00:14:10,756 --> 00:14:12,776
+stdlib, but for CIKernels you
+
+
+502
+00:14:12,776 --> 00:14:14,266
+need to include our Metal kernel
+
+
+503
+00:14:14,266 --> 00:14:15,896
+library, and that can be done by
+
+
+504
+00:14:15,896 --> 00:14:17,046
+just including an umbrella
+
+
+505
+00:14:17,096 --> 00:14:20,166
+header CoreImage.h. Then the
+
+
+506
+00:14:20,406 --> 00:14:22,686
+next step is to implement all
+
+
+507
+00:14:22,686 --> 00:14:25,076
+your kernels inside the extern C
+
+
+508
+00:14:25,076 --> 00:14:29,226
+enclosure, and what that allows
+
+
+509
+00:14:29,226 --> 00:14:30,276
+is for the kernel to be
+
+
+510
+00:14:30,276 --> 00:14:31,886
+accessible at runtime by name.
+
+
+511
+00:14:32,956 --> 00:14:35,326
+So here we have a simple kernel
+
+
+512
+00:14:35,326 --> 00:14:36,396
+called myWarp.
+
+
+513
+00:14:36,616 --> 00:14:37,966
+And all it takes is a single
+
+
+514
+00:14:37,966 --> 00:14:39,606
+argument, a destination type,
+
+
+515
+00:14:40,086 --> 00:14:41,246
+and from that destination you
+
+
+516
+00:14:41,246 --> 00:14:42,436
+can access the coordinate that
+
+
+517
+00:14:42,436 --> 00:14:43,936
+you're about to render to and
+
+
+518
+00:14:43,936 --> 00:14:45,206
+apply various geometric
+
+
+519
+00:14:45,206 --> 00:14:46,346
+transformations that you want to
+
+
+520
+00:14:46,346 --> 00:14:46,496
+it.
+
+
+521
+00:14:46,756 --> 00:14:47,906
+And then return the result.
+
+
+522
+00:14:47,906 --> 00:14:50,036
+And for sake of comparison,
+
+
+523
+00:14:50,166 --> 00:14:51,456
+here's that same warp kernel
+
+
+524
+00:14:51,456 --> 00:14:52,586
+that was implemented in the
+
+
+525
+00:14:52,586 --> 00:14:53,546
+CIKernel language.
+
+
+526
+00:14:54,126 --> 00:14:56,276
+So you can see they're almost
+
+
+527
+00:14:56,276 --> 00:14:58,166
+identical minus some minor
+
+
+528
+00:14:58,526 --> 00:14:59,506
+syntax differences.
+
+
+529
+00:14:59,896 --> 00:15:00,886
+But semantically they are the
+
+
+530
+00:15:00,886 --> 00:15:02,306
+same, and at the end of the day
+
+
+531
+00:15:02,306 --> 00:15:04,156
+compiled to the exact same GPU
+
+
+532
+00:15:04,746 --> 00:15:04,846
+code.
+
+
+533
+00:15:06,036 --> 00:15:07,586
+The second example here is a
+
+
+534
+00:15:07,586 --> 00:15:08,246
+color kernel.
+
+
+535
+00:15:08,696 --> 00:15:09,926
+And for the most part it looks
+
+
+536
+00:15:09,926 --> 00:15:11,376
+very similar, the only
+
+
+537
+00:15:11,376 --> 00:15:12,396
+difference is now we have a
+
+
+538
+00:15:12,396 --> 00:15:14,616
+kernel called myColor, and what
+
+
+539
+00:15:14,616 --> 00:15:16,066
+it takes is a single sample as
+
+
+540
+00:15:16,066 --> 00:15:16,436
+input.
+
+
+541
+00:15:16,546 --> 00:15:18,406
+From that sample, you can apply
+
+
+542
+00:15:18,406 --> 00:15:19,836
+various color transformations
+
+
+543
+00:15:19,836 --> 00:15:21,286
+that you want on it and again
+
+
+544
+00:15:21,286 --> 00:15:22,076
+return the result.
+
+
+545
+00:15:23,616 --> 00:15:25,336
+Here again is that same color
+
+
+546
+00:15:25,336 --> 00:15:26,636
+kernel implemented in the
+
+
+547
+00:15:26,696 --> 00:15:27,686
+CIKernel language.
+
+
+548
+00:15:28,226 --> 00:15:31,146
+And then the last example I want
+
+
+549
+00:15:31,146 --> 00:15:32,916
+to show you is a general kernel,
+
+
+550
+00:15:33,466 --> 00:15:35,026
+which you can do if you can't
+
+
+551
+00:15:35,026 --> 00:15:36,286
+implement your kernel as either
+
+
+552
+00:15:36,286 --> 00:15:37,246
+a warp or a color.
+
+
+553
+00:15:37,936 --> 00:15:39,096
+And so here we have a kernel
+
+
+554
+00:15:39,096 --> 00:15:39,906
+called myKernel.
+
+
+555
+00:15:39,906 --> 00:15:41,756
+And it takes a single input,
+
+
+556
+00:15:42,046 --> 00:15:44,006
+which is a sampler type, and
+
+
+557
+00:15:44,006 --> 00:15:44,996
+from that sampler, you can
+
+
+558
+00:15:44,996 --> 00:15:46,516
+sample anywhere in the input
+
+
+559
+00:15:46,516 --> 00:15:48,176
+image and take as many samples
+
+
+560
+00:15:48,176 --> 00:15:48,696
+as you need.
+
+
+561
+00:15:49,256 --> 00:15:50,016
+And again, do something
+
+
+562
+00:15:50,016 --> 00:15:51,306
+interesting with it and return
+
+
+563
+00:15:51,306 --> 00:15:51,776
+the result.
+
+
+564
+00:15:52,946 --> 00:15:54,256
+And one more time, here is that
+
+
+565
+00:15:54,296 --> 00:15:56,686
+same CIKernel written in the old
+
+
+566
+00:15:56,686 --> 00:15:57,636
+CIKernal language.
+
+
+567
+00:15:58,226 --> 00:16:01,776
+So now that you have a CIKernel
+
+
+568
+00:16:01,776 --> 00:16:02,736
+implemented in Metal shader
+
+
+569
+00:16:02,736 --> 00:16:04,306
+file, the next step is to
+
+
+570
+00:16:04,306 --> 00:16:05,556
+compile and link the Metal
+
+
+571
+00:16:05,556 --> 00:16:05,876
+shader.
+
+
+572
+00:16:07,856 --> 00:16:08,726
+So, for those who have
+
+
+573
+00:16:08,726 --> 00:16:10,076
+experience writing Metal
+
+
+574
+00:16:10,076 --> 00:16:11,416
+shaders, this build pipeline
+
+
+575
+00:16:11,416 --> 00:16:13,296
+should look very familiar.
+
+
+576
+00:16:13,726 --> 00:16:14,776
+It's basically a two-stage
+
+
+577
+00:16:14,776 --> 00:16:15,206
+process.
+
+
+578
+00:16:15,536 --> 00:16:17,646
+The first one is compiling a
+
+
+579
+00:16:17,646 --> 00:16:20,086
+.metal to a .air file, and then
+
+
+580
+00:16:20,086 --> 00:16:21,796
+the second stage is to link the
+
+
+581
+00:16:21,796 --> 00:16:23,446
+.air file, and package it up in
+
+
+582
+00:16:23,446 --> 00:16:24,486
+a .metallib file.
+
+
+583
+00:16:25,946 --> 00:16:27,506
+The only additional thing you
+
+
+584
+00:16:27,506 --> 00:16:29,086
+need to do here for CIKernels is
+
+
+585
+00:16:29,086 --> 00:16:30,256
+specify some new options.
+
+
+586
+00:16:31,306 --> 00:16:32,626
+The first option you need to
+
+
+587
+00:16:32,626 --> 00:16:33,926
+specify is for the compiler.
+
+
+588
+00:16:34,116 --> 00:16:35,746
+It is called -fcikernel.
+
+
+589
+00:16:35,776 --> 00:16:38,346
+And then the second option is
+
+
+590
+00:16:38,346 --> 00:16:39,796
+for the linker and it's called
+
+
+591
+00:16:40,366 --> 00:16:40,946
+-cikernel.
+
+
+592
+00:16:40,946 --> 00:16:42,496
+Note that there's no f on that
+
+
+593
+00:16:42,496 --> 00:16:42,876
+option.
+
+
+594
+00:16:43,736 --> 00:16:44,946
+And you can do that directly in
+
+
+595
+00:16:44,986 --> 00:16:47,446
+Xcode, and let me show you that
+
+
+596
+00:16:47,446 --> 00:16:48,836
+with a short little video clip
+
+
+597
+00:16:48,836 --> 00:16:50,086
+that illustrates how that can be
+
+
+598
+00:16:50,086 --> 00:16:50,346
+done.
+
+
+599
+00:16:51,536 --> 00:16:53,876
+So for the compiler option, you
+
+
+600
+00:16:53,876 --> 00:16:54,886
+could just look up the Metal
+
+
+601
+00:16:54,886 --> 00:16:56,386
+compiler build options and
+
+
+602
+00:16:56,386 --> 00:16:59,656
+specify -fcikernel directly in
+
+
+603
+00:16:59,656 --> 00:17:00,976
+the other Metal compiler flags.
+
+
+604
+00:17:01,556 --> 00:17:03,346
+And because we don't have a UI
+
+
+605
+00:17:03,346 --> 00:17:05,326
+for linker options to specify
+
+
+606
+00:17:05,326 --> 00:17:06,246
+that, you have to add a
+
+
+607
+00:17:06,246 --> 00:17:07,336
+user-to-find setting.
+
+
+608
+00:17:08,036 --> 00:17:09,726
+And give that setting a key
+
+
+609
+00:17:09,776 --> 00:17:12,576
+called MTLLINKER underscore
+
+
+610
+00:17:12,576 --> 00:17:15,086
+FLAGS and then the value that
+
+
+611
+00:17:15,086 --> 00:17:16,955
+you specify is -cikernel.
+
+
+612
+00:17:17,036 --> 00:17:19,096
+So you just need to set this up
+
+
+613
+00:17:19,096 --> 00:17:20,126
+once for your project.
+
+
+614
+00:17:20,126 --> 00:17:21,306
+And then all the Metal shaders
+
+
+615
+00:17:21,306 --> 00:17:22,536
+that you have in there will be
+
+
+616
+00:17:22,756 --> 00:17:23,906
+automatically compiled with
+
+
+617
+00:17:23,906 --> 00:17:24,506
+these options.
+
+
+618
+00:17:25,156 --> 00:17:27,226
+But if you prefer to do things
+
+
+619
+00:17:27,306 --> 00:17:28,256
+on [inaudible] or in a custom
+
+
+620
+00:17:28,256 --> 00:17:30,196
+scrip, you can also invoke those
+
+
+621
+00:17:30,226 --> 00:17:32,696
+two compiler and linker tools,
+
+
+622
+00:17:32,796 --> 00:17:32,956
+like so.
+
+
+623
+00:17:36,496 --> 00:17:38,216
+So now the last and probably the
+
+
+624
+00:17:38,216 --> 00:17:40,246
+easiest step is to initialize a
+
+
+625
+00:17:40,326 --> 00:17:42,166
+CIKernel with a given function
+
+
+626
+00:17:42,166 --> 00:17:43,036
+from the Metal library.
+
+
+627
+00:17:43,596 --> 00:17:46,046
+And so to do that we have some
+
+
+628
+00:17:46,046 --> 00:17:47,876
+new API on our CIKernel class,
+
+
+629
+00:17:48,006 --> 00:17:50,416
+and they allow you to initialize
+
+
+630
+00:17:50,416 --> 00:17:51,906
+the CIKernel with a given
+
+
+631
+00:17:51,906 --> 00:17:53,876
+function by name as well as a
+
+
+632
+00:17:53,876 --> 00:17:55,306
+Metal library that you can load
+
+
+633
+00:17:55,526 --> 00:17:56,536
+at runtime.
+
+
+634
+00:17:57,046 --> 00:17:58,156
+There's also a variant on this
+
+
+635
+00:17:58,156 --> 00:17:59,826
+API that lets you specify an
+
+
+636
+00:17:59,826 --> 00:18:01,696
+output pixel format for your
+
+
+637
+00:18:01,696 --> 00:18:02,146
+kernel.
+
+
+638
+00:18:02,206 --> 00:18:04,146
+So if your kernel is just going
+
+
+639
+00:18:04,176 --> 00:18:05,566
+to output some single shadow
+
+
+640
+00:18:05,566 --> 00:18:07,296
+data, you can specify a single
+
+
+641
+00:18:07,296 --> 00:18:08,916
+shadow format for that kernel.
+
+
+642
+00:18:09,646 --> 00:18:13,166
+So here's an example of how to
+
+
+643
+00:18:13,166 --> 00:18:14,356
+initialize the CIKernel.
+
+
+644
+00:18:14,806 --> 00:18:15,786
+All it takes is those three
+
+
+645
+00:18:15,786 --> 00:18:16,406
+simple lines.
+
+
+646
+00:18:17,396 --> 00:18:19,356
+The first two is for loading the
+
+
+647
+00:18:19,356 --> 00:18:21,706
+Metal library, which, by
+
+
+648
+00:18:21,706 --> 00:18:22,736
+default, if it was built in
+
+
+649
+00:18:22,736 --> 00:18:23,776
+Xcode, will be called
+
+
+650
+00:18:23,776 --> 00:18:24,646
+default.metallib.
+
+
+651
+00:18:24,816 --> 00:18:26,796
+And then once you have that data
+
+
+652
+00:18:26,796 --> 00:18:28,116
+loaded, you can initialize the
+
+
+653
+00:18:28,116 --> 00:18:30,566
+CIKernel with a given function
+
+
+654
+00:18:30,566 --> 00:18:31,516
+name from that library.
+
+
+655
+00:18:33,336 --> 00:18:35,096
+Similarly, for warp and color
+
+
+656
+00:18:35,096 --> 00:18:36,756
+kernels they can be initialized
+
+
+657
+00:18:36,756 --> 00:18:38,066
+with the exactly the same API.
+
+
+658
+00:18:39,746 --> 00:18:40,816
+So once you have that kernel
+
+
+659
+00:18:41,146 --> 00:18:42,466
+initialized you can apply that
+
+
+660
+00:18:42,466 --> 00:18:43,886
+however you like to produce the
+
+
+661
+00:18:43,886 --> 00:18:45,156
+filter graph that you desire.
+
+
+662
+00:18:46,246 --> 00:18:47,136
+So that's all there is to
+
+
+663
+00:18:47,136 --> 00:18:49,326
+writing CIKernels in Metal and
+
+
+664
+00:18:49,326 --> 00:18:50,186
+we think this is going to be a
+
+
+665
+00:18:50,186 --> 00:18:51,226
+great new workflow for
+
+
+666
+00:18:51,226 --> 00:18:53,876
+developers so we look forward to
+
+
+667
+00:18:54,396 --> 00:18:55,496
+seeing some amazing things that
+
+
+668
+00:18:55,496 --> 00:18:56,376
+you can do with this new
+
+
+669
+00:18:56,376 --> 00:18:57,036
+capability.
+
+
+670
+00:18:59,296 --> 00:18:59,906
+All right.
+
+
+671
+00:19:00,176 --> 00:19:01,346
+So now the next topic I'd like
+
+
+672
+00:19:01,346 --> 00:19:03,496
+to talk about is a new API that
+
+
+673
+00:19:03,496 --> 00:19:05,106
+we have for rendering to
+
+
+674
+00:19:05,106 --> 00:19:05,786
+destinations.
+
+
+675
+00:19:06,456 --> 00:19:10,016
+And this is a new consistent API
+
+
+676
+00:19:10,286 --> 00:19:11,676
+across all the different
+
+
+677
+00:19:11,846 --> 00:19:12,876
+destination types that we
+
+
+678
+00:19:12,876 --> 00:19:13,336
+support.
+
+
+679
+00:19:13,856 --> 00:19:15,776
+Namely IOSurfaces, which, by the
+
+
+680
+00:19:15,776 --> 00:19:17,306
+way, is now public API on iOS.
+
+
+681
+00:19:18,226 --> 00:19:19,906
+And we also support rendering to
+
+
+682
+00:19:19,906 --> 00:19:21,976
+CVPixelBuffers, as well as Metal
+
+
+683
+00:19:21,976 --> 00:19:22,926
+and OpenGL Textures.
+
+
+684
+00:19:23,896 --> 00:19:25,066
+Or even just some raw bitmap
+
+
+685
+00:19:25,066 --> 00:19:26,176
+data that you have in memory.
+
+
+686
+00:19:26,736 --> 00:19:29,136
+And one of the first things
+
+
+687
+00:19:29,136 --> 00:19:30,256
+you'll notice with this new API
+
+
+688
+00:19:30,676 --> 00:19:32,386
+is that it will now return
+
+
+689
+00:19:32,386 --> 00:19:33,616
+immediately, if it detects a
+
+
+690
+00:19:33,616 --> 00:19:35,136
+render failure, and give you
+
+
+691
+00:19:35,136 --> 00:19:36,626
+back an error indicating why it
+
+
+692
+00:19:36,626 --> 00:19:37,006
+failed.
+
+
+693
+00:19:37,496 --> 00:19:39,156
+So now you can actually detect
+
+
+694
+00:19:39,156 --> 00:19:40,236
+that programmatically in the
+
+
+695
+00:19:40,236 --> 00:19:41,916
+application and fails gracefully
+
+
+696
+00:19:42,196 --> 00:19:43,386
+if an error is detected.
+
+
+697
+00:19:43,906 --> 00:19:47,706
+With this API, you can also set
+
+
+698
+00:19:47,766 --> 00:19:49,376
+some common properties for the
+
+
+699
+00:19:49,376 --> 00:19:51,426
+destination object, such as an
+
+
+700
+00:19:51,426 --> 00:19:52,776
+alpha mode or a clamping mode
+
+
+701
+00:19:52,776 --> 00:19:54,736
+behavior, or even a colorspace
+
+
+702
+00:19:54,776 --> 00:19:55,656
+that you want to render the
+
+
+703
+00:19:55,656 --> 00:19:56,246
+output to.
+
+
+704
+00:19:57,266 --> 00:19:58,936
+Previously, with our existing
+
+
+705
+00:19:58,936 --> 00:20:00,756
+API, the alpha mode and clamping
+
+
+706
+00:20:00,756 --> 00:20:02,126
+mode was something that would be
+
+
+707
+00:20:02,126 --> 00:20:03,686
+determined implicitly, based on
+
+
+708
+00:20:03,686 --> 00:20:05,076
+the format of your destination.
+
+
+709
+00:20:05,626 --> 00:20:06,866
+But now, you can actually
+
+
+710
+00:20:06,866 --> 00:20:08,526
+explicitly override that with
+
+
+711
+00:20:08,526 --> 00:20:09,586
+the behavior that you want.
+
+
+712
+00:20:11,986 --> 00:20:12,956
+In addition to these common
+
+
+713
+00:20:12,956 --> 00:20:14,226
+properties, we have some new
+
+
+714
+00:20:14,226 --> 00:20:15,416
+advanced properties that you can
+
+
+715
+00:20:15,466 --> 00:20:16,976
+set on the destination, such as
+
+
+716
+00:20:17,036 --> 00:20:18,016
+dithering and blending.
+
+
+717
+00:20:18,736 --> 00:20:19,866
+So, for example, if you have an
+
+
+718
+00:20:19,866 --> 00:20:22,126
+8-bit output buffer that you
+
+
+719
+00:20:22,126 --> 00:20:23,476
+want to render to, you can just
+
+
+720
+00:20:23,476 --> 00:20:25,176
+simply enable dithering to get
+
+
+721
+00:20:25,336 --> 00:20:26,586
+some -- a greater perceived
+
+
+722
+00:20:26,586 --> 00:20:28,426
+color depth in order to reduce
+
+
+723
+00:20:28,426 --> 00:20:30,806
+some banding artifacts that you
+
+
+724
+00:20:30,806 --> 00:20:31,866
+may see in certain parts of the
+
+
+725
+00:20:31,866 --> 00:20:32,336
+image.
+
+
+726
+00:20:32,866 --> 00:20:36,546
+And a nice thing about these
+
+
+727
+00:20:36,546 --> 00:20:38,226
+properties is now they
+
+
+728
+00:20:38,336 --> 00:20:40,016
+effectively reduce the need for
+
+
+729
+00:20:40,016 --> 00:20:41,766
+having to create multiple
+
+
+730
+00:20:41,766 --> 00:20:42,546
+CIContexts.
+
+
+731
+00:20:42,546 --> 00:20:44,746
+And that's because some of these
+
+
+732
+00:20:44,746 --> 00:20:46,546
+properties used to be tied to
+
+
+733
+00:20:46,546 --> 00:20:47,456
+the CIContexts.
+
+
+734
+00:20:47,456 --> 00:20:48,566
+So, if you had multiple
+
+
+735
+00:20:48,566 --> 00:20:49,676
+configuration of different
+
+
+736
+00:20:49,676 --> 00:20:51,356
+destinations, you would have had
+
+
+737
+00:20:51,356 --> 00:20:52,946
+to create a CIContext for every
+
+
+738
+00:20:52,946 --> 00:20:53,486
+single one.
+
+
+739
+00:20:54,096 --> 00:20:55,346
+So now that these properties are
+
+
+740
+00:20:55,346 --> 00:20:57,716
+nicely decoupled, you can, for
+
+
+741
+00:20:57,716 --> 00:20:58,966
+the most part, just have one
+
+
+742
+00:20:58,966 --> 00:21:00,876
+CIContext that can render to
+
+
+743
+00:21:00,876 --> 00:21:02,336
+various different destinations.
+
+
+744
+00:21:03,836 --> 00:21:06,096
+But along with all these
+
+
+745
+00:21:06,166 --> 00:21:07,396
+functionality that this API
+
+
+746
+00:21:07,396 --> 00:21:09,206
+provides, there are some really
+
+
+747
+00:21:09,206 --> 00:21:11,376
+great performance enhancements
+
+
+748
+00:21:11,616 --> 00:21:13,296
+that can be realized with this
+
+
+749
+00:21:13,296 --> 00:21:13,686
+new API.
+
+
+750
+00:21:14,946 --> 00:21:16,866
+For example, our CIContext API
+
+
+751
+00:21:16,976 --> 00:21:18,816
+for rendering to IOSurfaces or
+
+
+752
+00:21:18,816 --> 00:21:19,726
+CVPixelBuffers.
+
+
+753
+00:21:20,426 --> 00:21:22,486
+They used to return after all
+
+
+754
+00:21:22,486 --> 00:21:24,656
+the render on the GPU is
+
+
+755
+00:21:24,736 --> 00:21:25,286
+completed.
+
+
+756
+00:21:26,236 --> 00:21:28,866
+But now with this new API, it
+
+
+757
+00:21:28,866 --> 00:21:30,746
+will return as soon as the CPU
+
+
+758
+00:21:30,746 --> 00:21:32,016
+has finished issuing all the
+
+
+759
+00:21:32,016 --> 00:21:33,026
+work for the GPU.
+
+
+760
+00:21:33,556 --> 00:21:34,886
+And without having to wait for
+
+
+761
+00:21:34,886 --> 00:21:36,026
+the GPU work to finish.
+
+
+762
+00:21:37,166 --> 00:21:38,666
+So we think this new flexibility
+
+
+763
+00:21:38,666 --> 00:21:40,406
+will now allow you to pipeline
+
+
+764
+00:21:40,466 --> 00:21:42,136
+all your CPU and GPU work much
+
+
+765
+00:21:42,136 --> 00:21:42,786
+more efficiently.
+
+
+766
+00:21:44,116 --> 00:21:45,646
+So let me show you an example of
+
+
+767
+00:21:46,346 --> 00:21:46,906
+that use case.
+
+
+768
+00:21:47,736 --> 00:21:49,266
+So here we have a simple render
+
+
+769
+00:21:49,266 --> 00:21:52,236
+routine that is going to clear a
+
+
+770
+00:21:52,236 --> 00:21:53,866
+destination surface and then
+
+
+771
+00:21:53,866 --> 00:21:55,986
+render a foreground image over
+
+
+772
+00:21:55,986 --> 00:21:57,206
+top of a background image.
+
+
+773
+00:21:58,326 --> 00:21:59,856
+So the first thing we do is
+
+
+774
+00:21:59,856 --> 00:22:01,936
+initialize a CIRenderDestination
+
+
+775
+00:22:01,936 --> 00:22:03,816
+object given in ioSurface.
+
+
+776
+00:22:04,406 --> 00:22:07,076
+And then the first thing we want
+
+
+777
+00:22:07,496 --> 00:22:09,866
+is to get a CIContext and start
+
+
+778
+00:22:09,866 --> 00:22:11,426
+a render task to clear the
+
+
+779
+00:22:11,426 --> 00:22:12,086
+destination.
+
+
+780
+00:22:13,606 --> 00:22:15,466
+But before waiting for that task
+
+
+781
+00:22:15,466 --> 00:22:16,786
+to actually finish, we can now
+
+
+782
+00:22:16,786 --> 00:22:18,756
+start another task to render the
+
+
+783
+00:22:18,756 --> 00:22:19,506
+background image to the
+
+
+784
+00:22:19,506 --> 00:22:19,966
+destination.
+
+
+785
+00:22:23,176 --> 00:22:24,806
+And then, now before we start
+
+
+786
+00:22:24,806 --> 00:22:26,136
+the final task, we can set a
+
+
+787
+00:22:26,136 --> 00:22:27,776
+blend kernel on this destination
+
+
+788
+00:22:27,776 --> 00:22:29,866
+object, which can be anyone of
+
+
+789
+00:22:29,866 --> 00:22:32,086
+our 37 built-in blend kernels.
+
+
+790
+00:22:32,606 --> 00:22:33,786
+In this case, we've chosen a
+
+
+791
+00:22:33,786 --> 00:22:34,686
+sourceOver blend.
+
+
+792
+00:22:35,196 --> 00:22:37,176
+But you can even create your own
+
+
+793
+00:22:37,176 --> 00:22:39,066
+custom blend kernel by using our
+
+
+794
+00:22:39,066 --> 00:22:40,616
+new CIBlendKernel API.
+
+
+795
+00:22:40,616 --> 00:22:44,376
+So once we have the blend kernel
+
+
+796
+00:22:44,526 --> 00:22:47,476
+that we want, we then call
+
+
+797
+00:22:47,476 --> 00:22:49,056
+CIContext to start the final
+
+
+798
+00:22:49,056 --> 00:22:50,346
+render task to render the
+
+
+799
+00:22:50,346 --> 00:22:52,086
+foreground image over top of
+
+
+800
+00:22:52,406 --> 00:22:53,566
+whatever is already in that
+
+
+801
+00:22:53,566 --> 00:22:54,216
+destination.
+
+
+802
+00:22:54,936 --> 00:22:56,276
+And only then do you need to
+
+
+803
+00:22:56,276 --> 00:22:58,456
+call waitUntilCompleted, if you
+
+
+804
+00:22:58,456 --> 00:23:00,446
+need to access the contents on
+
+
+805
+00:23:00,446 --> 00:23:01,066
+the CPU.
+
+
+806
+00:23:01,706 --> 00:23:03,506
+So with this new setup, this
+
+
+807
+00:23:03,506 --> 00:23:05,266
+will now minimize the latency of
+
+
+808
+00:23:05,266 --> 00:23:06,856
+getting your results without
+
+
+809
+00:23:06,856 --> 00:23:08,746
+having to do any unnecessary
+
+
+810
+00:23:08,746 --> 00:23:09,956
+synchronization with the GPU.
+
+
+811
+00:23:13,456 --> 00:23:14,696
+The next use case I'd like to
+
+
+812
+00:23:14,856 --> 00:23:16,716
+illustrate is one that will
+
+
+813
+00:23:17,256 --> 00:23:18,656
+highlight a much more subtle
+
+
+814
+00:23:18,656 --> 00:23:21,066
+performance benefit, but it can
+
+
+815
+00:23:21,066 --> 00:23:22,046
+have a huge impact in your
+
+
+816
+00:23:22,046 --> 00:23:22,586
+application.
+
+
+817
+00:23:22,636 --> 00:23:23,966
+And that's rendering to Metal
+
+
+818
+00:23:23,966 --> 00:23:24,906
+drawable textures.
+
+
+819
+00:23:25,156 --> 00:23:27,356
+So you can do that very simply
+
+
+820
+00:23:27,356 --> 00:23:29,746
+by getting a currentDrawable
+
+
+821
+00:23:29,746 --> 00:23:30,536
+from, let's say Metal
+
+
+822
+00:23:30,616 --> 00:23:30,966
+[inaudible] view.
+
+
+823
+00:23:31,226 --> 00:23:32,776
+And then from that, you can
+
+
+824
+00:23:32,776 --> 00:23:34,806
+initialize a CIRenderDestination
+
+
+825
+00:23:35,196 --> 00:23:36,346
+with the texture from that
+
+
+826
+00:23:36,346 --> 00:23:36,786
+drawable.
+
+
+827
+00:23:36,786 --> 00:23:40,556
+So this will work just fine, but
+
+
+828
+00:23:40,626 --> 00:23:41,876
+if you were to do this in a
+
+
+829
+00:23:41,876 --> 00:23:44,476
+per-frame render loop, there's a
+
+
+830
+00:23:44,866 --> 00:23:46,066
+potential for a performance
+
+
+831
+00:23:46,066 --> 00:23:47,236
+bottleneck here that may not be
+
+
+832
+00:23:47,236 --> 00:23:48,026
+so obvious.
+
+
+833
+00:23:48,376 --> 00:23:51,036
+So let me try to describe that
+
+
+834
+00:23:51,686 --> 00:23:52,896
+or explain that in a little bit
+
+
+835
+00:23:52,896 --> 00:23:54,436
+more detail with a timeline view
+
+
+836
+00:23:54,436 --> 00:23:54,706
+here.
+
+
+837
+00:23:55,646 --> 00:23:56,786
+And please bear with me because
+
+
+838
+00:23:56,786 --> 00:23:58,316
+there could be a lot of steps
+
+
+839
+00:23:58,316 --> 00:23:58,676
+involved.
+
+
+840
+00:23:59,376 --> 00:24:01,606
+So here we have a timeline that
+
+
+841
+00:24:01,606 --> 00:24:03,296
+has two tracks, the CPU at the
+
+
+842
+00:24:03,296 --> 00:24:04,736
+top and the GPU at the bottom.
+
+
+843
+00:24:05,506 --> 00:24:06,466
+Technically there's actually a
+
+
+844
+00:24:06,466 --> 00:24:07,346
+third component in play here,
+
+
+845
+00:24:07,346 --> 00:24:08,406
+which is to display.
+
+
+846
+00:24:08,406 --> 00:24:10,436
+But for the sake of simplicity,
+
+
+847
+00:24:10,686 --> 00:24:11,696
+we'll just treat that as part of
+
+
+848
+00:24:11,696 --> 00:24:12,096
+the GPU.
+
+
+849
+00:24:12,756 --> 00:24:14,746
+So in the very first frame, your
+
+
+850
+00:24:14,746 --> 00:24:16,496
+app will try to get a drawable
+
+
+851
+00:24:16,496 --> 00:24:17,046
+from the view.
+
+
+852
+00:24:17,576 --> 00:24:19,926
+And then from that drawable you
+
+
+853
+00:24:19,926 --> 00:24:22,386
+can get a texture and then start
+
+
+854
+00:24:22,386 --> 00:24:24,736
+a task to render to that
+
+
+855
+00:24:24,906 --> 00:24:25,386
+texture.
+
+
+856
+00:24:26,796 --> 00:24:28,566
+So once the CI gets that call,
+
+
+857
+00:24:28,566 --> 00:24:29,656
+we will start encoding the
+
+
+858
+00:24:29,656 --> 00:24:32,336
+commands on the CPU for the work
+
+
+859
+00:24:32,336 --> 00:24:33,576
+to be done on the GPU.
+
+
+860
+00:24:34,286 --> 00:24:35,616
+And in this particular case,
+
+
+861
+00:24:35,616 --> 00:24:37,576
+we're illustrating a filter
+
+
+862
+00:24:37,576 --> 00:24:38,866
+graph that actually has multiple
+
+
+863
+00:24:38,866 --> 00:24:40,126
+render passes, namely two
+
+
+864
+00:24:40,126 --> 00:24:41,866
+intermediate passes and a final
+
+
+865
+00:24:41,866 --> 00:24:43,506
+destination pass.
+
+
+866
+00:24:44,756 --> 00:24:45,796
+Once Core Image has finished
+
+
+867
+00:24:45,796 --> 00:24:47,236
+encoding all the work, the call
+
+
+868
+00:24:47,236 --> 00:24:48,326
+to startTask will return.
+
+
+869
+00:24:48,756 --> 00:24:50,876
+And then from then, that point
+
+
+870
+00:24:50,876 --> 00:24:52,446
+on the GPU will happily schedule
+
+
+871
+00:24:52,446 --> 00:24:53,816
+that work to be done at some
+
+
+872
+00:24:53,816 --> 00:24:55,966
+appropriate time.
+
+
+873
+00:24:56,176 --> 00:24:58,756
+But, if the work on the GPU is
+
+
+874
+00:24:58,756 --> 00:25:01,026
+going to take a long time, your
+
+
+875
+00:25:01,026 --> 00:25:02,946
+app could get called to render
+
+
+876
+00:25:02,946 --> 00:25:05,666
+another frame before the work is
+
+
+877
+00:25:05,666 --> 00:25:06,036
+done.
+
+
+878
+00:25:06,906 --> 00:25:08,136
+And at that point, if you try to
+
+
+879
+00:25:08,136 --> 00:25:10,596
+get a drawable, that call to get
+
+
+880
+00:25:10,596 --> 00:25:12,746
+drawable will stall until it is
+
+
+881
+00:25:12,746 --> 00:25:14,166
+ready to be vended back to your
+
+
+882
+00:25:14,166 --> 00:25:14,816
+application.
+
+
+883
+00:25:15,066 --> 00:25:18,096
+And then only then can you get
+
+
+884
+00:25:18,096 --> 00:25:19,756
+the texture from it and start
+
+
+885
+00:25:19,756 --> 00:25:21,796
+another task to render to it and
+
+
+886
+00:25:22,586 --> 00:25:24,176
+then so on for all subsequent
+
+
+887
+00:25:24,176 --> 00:25:24,506
+frames.
+
+
+888
+00:25:24,506 --> 00:25:27,096
+So, as you can see here, this is
+
+
+889
+00:25:27,096 --> 00:25:28,496
+not a very efficient use of both
+
+
+890
+00:25:28,496 --> 00:25:29,996
+the CPU and the GPU because
+
+
+891
+00:25:29,996 --> 00:25:31,436
+there's a lot of idle times on
+
+
+892
+00:25:31,436 --> 00:25:32,206
+both processors.
+
+
+893
+00:25:32,776 --> 00:25:35,286
+But, if you look closely here,
+
+
+894
+00:25:35,286 --> 00:25:37,676
+the drawable texture that we're
+
+
+895
+00:25:37,676 --> 00:25:39,456
+about to render to is actually
+
+
+896
+00:25:39,456 --> 00:25:41,336
+not needed until the very last
+
+
+897
+00:25:41,336 --> 00:25:41,956
+render pass.
+
+
+898
+00:25:43,016 --> 00:25:44,276
+So let's look at how we can
+
+
+899
+00:25:44,276 --> 00:25:45,816
+actually improve this scenario.
+
+
+900
+00:25:48,716 --> 00:25:49,646
+So, with our new
+
+
+901
+00:25:49,646 --> 00:25:52,346
+CIRenderDestination API, you can
+
+
+902
+00:25:52,346 --> 00:25:54,416
+now initialize it, not with the
+
+
+903
+00:25:54,416 --> 00:25:56,936
+texture, per se, but rather, all
+
+
+904
+00:25:56,936 --> 00:25:58,306
+the properties of the textures,
+
+
+905
+00:25:58,536 --> 00:26:00,716
+such as the width and height and
+
+
+906
+00:26:00,716 --> 00:26:02,156
+the pixel format of the texture.
+
+
+907
+00:26:02,676 --> 00:26:04,666
+And then you can provide that
+
+
+908
+00:26:04,666 --> 00:26:06,626
+texture via call back, which
+
+
+909
+00:26:06,626 --> 00:26:08,496
+will be called lazily at the
+
+
+910
+00:26:08,496 --> 00:26:10,196
+latest possible time for when
+
+
+911
+00:26:10,196 --> 00:26:11,726
+that texture is actually needed.
+
+
+912
+00:26:12,356 --> 00:26:15,216
+And so now, with the destination
+
+
+913
+00:26:15,216 --> 00:26:17,126
+object initialized immediately,
+
+
+914
+00:26:17,126 --> 00:26:18,506
+you can start a task and render
+
+
+915
+00:26:18,506 --> 00:26:20,496
+to it much sooner, and this will
+
+
+916
+00:26:20,496 --> 00:26:22,006
+effectively defer that
+
+
+917
+00:26:22,136 --> 00:26:23,316
+potentially blocking call to
+
+
+918
+00:26:23,316 --> 00:26:24,866
+currentDrawable to a much later
+
+
+919
+00:26:24,866 --> 00:26:25,506
+point in time.
+
+
+920
+00:26:25,546 --> 00:26:28,306
+So now, if we look at this
+
+
+921
+00:26:28,306 --> 00:26:32,096
+example, the work now on the CPU
+
+
+922
+00:26:32,096 --> 00:26:33,706
+and GPU can be pipelined much
+
+
+923
+00:26:33,706 --> 00:26:34,346
+more efficiently.
+
+
+924
+00:26:35,476 --> 00:26:36,806
+So if you're rendering to Metal
+
+
+925
+00:26:36,806 --> 00:26:38,386
+drawable textures, we strongly
+
+
+926
+00:26:38,386 --> 00:26:39,696
+encourage you to use this new
+
+
+927
+00:26:39,696 --> 00:26:39,876
+API.
+
+
+928
+00:26:39,876 --> 00:26:41,726
+Because this could greatly
+
+
+929
+00:26:41,726 --> 00:26:43,056
+improve the frame rate of your
+
+
+930
+00:26:43,056 --> 00:26:43,586
+application.
+
+
+931
+00:26:44,116 --> 00:26:45,336
+In fact, we have seen cases
+
+
+932
+00:26:45,336 --> 00:26:46,616
+where the frame rate literally
+
+
+933
+00:26:46,616 --> 00:26:48,426
+doubled just by simply employing
+
+
+934
+00:26:48,426 --> 00:26:48,996
+this technique.
+
+
+935
+00:26:48,996 --> 00:26:49,626
+All right.
+
+
+936
+00:26:51,856 --> 00:26:55,676
+So now I'd like to hand it back
+
+
+937
+00:26:55,676 --> 00:26:57,126
+to David who will tell you about
+
+
+938
+00:26:57,126 --> 00:26:58,426
+some really cool stuff that lets
+
+
+939
+00:26:58,426 --> 00:26:59,866
+you look under the hood inside
+
+
+940
+00:26:59,866 --> 00:27:00,586
+the Core Image framework.
+
+
+941
+00:27:00,796 --> 00:27:00,976
+Thank you.
+
+
+942
+00:27:01,516 --> 00:27:05,956
+[ Applause ]
+
+
+943
+00:27:06,456 --> 00:27:07,396
+>> Thank you so much Tony.
+
+
+944
+00:27:07,396 --> 00:27:08,206
+That's great stuff.
+
+
+945
+00:27:09,376 --> 00:27:10,146
+As I mentioned in my
+
+
+946
+00:27:10,146 --> 00:27:11,876
+introduction, Core Image has a
+
+
+947
+00:27:11,876 --> 00:27:13,286
+lot of great tricks it uses to
+
+
+948
+00:27:13,286 --> 00:27:14,456
+get the best performance.
+
+
+949
+00:27:14,986 --> 00:27:16,286
+And one of our goals this year
+
+
+950
+00:27:16,286 --> 00:27:17,576
+was to make it clearer to you,
+
+
+951
+00:27:17,576 --> 00:27:19,376
+the developer, how those tricks
+
+
+952
+00:27:19,376 --> 00:27:20,616
+are occurring so that you can
+
+
+953
+00:27:20,616 --> 00:27:22,686
+get a better understanding of
+
+
+954
+00:27:22,686 --> 00:27:23,716
+how to use Core Image
+
+
+955
+00:27:23,716 --> 00:27:24,256
+efficiently.
+
+
+956
+00:27:25,546 --> 00:27:27,076
+And we've done that in a couple
+
+
+957
+00:27:27,076 --> 00:27:27,876
+of interesting ways.
+
+
+958
+00:27:28,216 --> 00:27:29,766
+First of all, in our new APIs,
+
+
+959
+00:27:29,866 --> 00:27:30,776
+we have some new ways of
+
+
+960
+00:27:30,776 --> 00:27:32,606
+returning you information about
+
+
+961
+00:27:32,646 --> 00:27:33,076
+the render.
+
+
+962
+00:27:34,216 --> 00:27:36,046
+After you've issued a task to
+
+
+963
+00:27:36,046 --> 00:27:37,976
+render, you can now, after when
+
+
+964
+00:27:37,976 --> 00:27:39,026
+you wait for that task to
+
+
+965
+00:27:39,026 --> 00:27:40,266
+complete, it will return a
+
+
+966
+00:27:40,266 --> 00:27:42,476
+CIRenderInfo object.
+
+
+967
+00:27:42,856 --> 00:27:44,346
+And this object will return to
+
+
+968
+00:27:44,346 --> 00:27:45,276
+you an object with a few
+
+
+969
+00:27:45,276 --> 00:27:46,866
+properties on it, including the
+
+
+970
+00:27:46,866 --> 00:27:48,396
+number of passes that Core Image
+
+
+971
+00:27:48,616 --> 00:27:50,056
+needed to use to perform that
+
+
+972
+00:27:50,186 --> 00:27:50,576
+render.
+
+
+973
+00:27:50,916 --> 00:27:52,236
+As well as the total amount of
+
+
+974
+00:27:52,236 --> 00:27:54,016
+time spent executing kernels on
+
+
+975
+00:27:54,016 --> 00:27:55,706
+the device and also the total
+
+
+976
+00:27:55,706 --> 00:27:57,086
+number of pixels processed.
+
+
+977
+00:27:57,426 --> 00:27:58,936
+So that's just a great piece of
+
+
+978
+00:27:58,936 --> 00:28:00,076
+information that you can get
+
+
+979
+00:28:00,246 --> 00:28:01,536
+when we return information to
+
+
+980
+00:28:01,536 --> 00:28:01,666
+you.
+
+
+981
+00:28:02,766 --> 00:28:04,766
+But perhaps what is even cooler
+
+
+982
+00:28:05,066 --> 00:28:06,716
+is the awesome new editions
+
+
+983
+00:28:06,716 --> 00:28:07,986
+we've made to Core Image to
+
+
+984
+00:28:07,986 --> 00:28:09,446
+provide better Quick Looks in
+
+
+985
+00:28:09,506 --> 00:28:09,896
+Xcode.
+
+
+986
+00:28:11,856 --> 00:28:14,636
+Notably, we now have a great
+
+
+987
+00:28:14,766 --> 00:28:16,566
+Quick Look support for CIImages.
+
+
+988
+00:28:16,836 --> 00:28:17,946
+In addition to just showing the
+
+
+989
+00:28:17,986 --> 00:28:19,216
+pixels, we now show you the
+
+
+990
+00:28:19,246 --> 00:28:20,606
+image graph that you constructed
+
+
+991
+00:28:20,606 --> 00:28:21,536
+to produce that image.
+
+
+992
+00:28:22,686 --> 00:28:23,766
+If you do a Quick Look on a
+
+
+993
+00:28:23,766 --> 00:28:26,416
+CIRenderTask, it'll show you the
+
+
+994
+00:28:26,416 --> 00:28:28,036
+optimized graph that Core Image
+
+
+995
+00:28:28,196 --> 00:28:29,626
+converted your image graph into.
+
+
+996
+00:28:30,516 --> 00:28:31,886
+And, if you wait for the render
+
+
+997
+00:28:31,886 --> 00:28:33,486
+info to be returned to you, if
+
+
+998
+00:28:33,486 --> 00:28:34,496
+you do a Quick Look on that,
+
+
+999
+00:28:34,776 --> 00:28:35,936
+it'll show you all the
+
+
+1000
+00:28:35,936 --> 00:28:37,536
+concatenation, timing, and
+
+
+1001
+00:28:37,536 --> 00:28:38,766
+caching information that Core
+
+
+1002
+00:28:38,766 --> 00:28:39,686
+Image did internally.
+
+
+1003
+00:28:40,056 --> 00:28:41,616
+So to give you an idea, we're
+
+
+1004
+00:28:41,616 --> 00:28:42,426
+going to show you this in a very
+
+
+1005
+00:28:42,426 --> 00:28:43,036
+visual way.
+
+
+1006
+00:28:43,466 --> 00:28:44,206
+Here's some code.
+
+
+1007
+00:28:44,266 --> 00:28:45,476
+Let's pretend we're stepping
+
+
+1008
+00:28:45,476 --> 00:28:46,366
+through this in Xcode.
+
+
+1009
+00:28:47,116 --> 00:28:49,456
+Here's an example of a image
+
+
+1010
+00:28:49,456 --> 00:28:50,116
+graph that we're going to
+
+
+1011
+00:28:50,116 --> 00:28:50,706
+construct.
+
+
+1012
+00:28:51,026 --> 00:28:52,106
+In this case, we're creating a
+
+
+1013
+00:28:52,106 --> 00:28:54,456
+CIImage from a URL, and we have
+
+
+1014
+00:28:54,456 --> 00:28:55,236
+a new option that we're
+
+
+1015
+00:28:55,236 --> 00:28:57,346
+specifying on this image, which
+
+
+1016
+00:28:57,346 --> 00:28:57,516
+is
+
+
+1017
+00:28:57,696 --> 00:29:01,286
+kCIApplyImageOrientationProperty
+
+
+1018
+00:29:02,256 --> 00:29:03,686
+to true.
+
+
+1019
+00:29:03,896 --> 00:29:05,266
+And what this will do is
+
+
+1020
+00:29:05,266 --> 00:29:06,596
+automatically make the image
+
+
+1021
+00:29:06,596 --> 00:29:08,656
+upright for you, which is a nice
+
+
+1022
+00:29:08,656 --> 00:29:09,176
+convenience.
+
+
+1023
+00:29:10,066 --> 00:29:11,056
+The next thing we're going to do
+
+
+1024
+00:29:11,056 --> 00:29:12,216
+is we're going to add onto that
+
+
+1025
+00:29:12,216 --> 00:29:13,226
+image an additional
+
+
+1026
+00:29:13,226 --> 00:29:14,616
+AffineTransform which scales it
+
+
+1027
+00:29:14,616 --> 00:29:16,896
+down by .5.
+
+
+1028
+00:29:16,896 --> 00:29:18,606
+Now imagine we're in Xcode, and
+
+
+1029
+00:29:18,606 --> 00:29:20,186
+we hover over the image object.
+
+
+1030
+00:29:20,576 --> 00:29:22,346
+And, if you click on the little
+
+
+1031
+00:29:22,346 --> 00:29:24,516
+eye icon, it'll now pick up an
+
+
+1032
+00:29:24,516 --> 00:29:25,336
+image like this.
+
+
+1033
+00:29:25,746 --> 00:29:27,046
+In addition to the image showing
+
+
+1034
+00:29:27,046 --> 00:29:28,116
+you what the image looks like
+
+
+1035
+00:29:28,116 --> 00:29:29,486
+and it's nice and upright, it
+
+
+1036
+00:29:29,486 --> 00:29:31,426
+also shows you the graph to
+
+
+1037
+00:29:31,426 --> 00:29:32,806
+create that image below it.
+
+
+1038
+00:29:33,246 --> 00:29:35,346
+If we zoom in, we can see all
+
+
+1039
+00:29:35,346 --> 00:29:36,086
+sorts of interesting
+
+
+1040
+00:29:36,086 --> 00:29:36,716
+information.
+
+
+1041
+00:29:37,266 --> 00:29:39,426
+We can see, at the input of the
+
+
+1042
+00:29:39,426 --> 00:29:41,036
+image graph, we have our
+
+
+1043
+00:29:41,036 --> 00:29:41,846
+IOSurface.
+
+
+1044
+00:29:41,976 --> 00:29:43,536
+This is, I can tell by looking
+
+
+1045
+00:29:43,536 --> 00:29:44,726
+at it it's a YCC image.
+
+
+1046
+00:29:44,726 --> 00:29:45,706
+It means it probably came from a
+
+
+1047
+00:29:45,706 --> 00:29:47,666
+JPEG, and you can see the size
+
+
+1048
+00:29:48,606 --> 00:29:51,366
+of that surface, as well as that
+
+
+1049
+00:29:51,366 --> 00:29:51,876
+it's opaque.
+
+
+1050
+00:29:52,476 --> 00:29:54,986
+You can then see the next step
+
+
+1051
+00:29:54,986 --> 00:29:56,586
+above that in the graph is a
+
+
+1052
+00:29:56,586 --> 00:29:57,846
+color-matching operation.
+
+
+1053
+00:29:57,846 --> 00:29:59,066
+So we were able to determine
+
+
+1054
+00:29:59,066 --> 00:29:59,996
+automatically what the
+
+
+1055
+00:30:00,226 --> 00:30:01,416
+colorspace of the input image
+
+
+1056
+00:30:01,416 --> 00:30:01,756
+was.
+
+
+1057
+00:30:02,026 --> 00:30:03,316
+And we've inserted it in the
+
+
+1058
+00:30:03,316 --> 00:30:05,266
+render graph and operation to
+
+
+1059
+00:30:05,466 --> 00:30:06,816
+convert from the display P3
+
+
+1060
+00:30:06,816 --> 00:30:08,256
+colorspace to Core Image's
+
+
+1061
+00:30:08,256 --> 00:30:08,956
+workingspace.
+
+
+1062
+00:30:10,986 --> 00:30:12,896
+And lastly, you can see three
+
+
+1063
+00:30:12,896 --> 00:30:13,946
+affine matrices.
+
+
+1064
+00:30:14,076 --> 00:30:15,366
+The first one, as we're counting
+
+
+1065
+00:30:15,366 --> 00:30:16,886
+from the bottom, is the matrix
+
+
+1066
+00:30:16,886 --> 00:30:17,856
+that converts from the image
+
+
+1067
+00:30:17,856 --> 00:30:18,976
+coordinate system to the
+
+
+1068
+00:30:18,976 --> 00:30:20,256
+Cartesian coordinate system that
+
+
+1069
+00:30:20,256 --> 00:30:21,086
+Core Image uses.
+
+
+1070
+00:30:21,946 --> 00:30:23,416
+Then we have the affine to make
+
+
+1071
+00:30:23,416 --> 00:30:24,826
+the image upright, and then the
+
+
+1072
+00:30:24,826 --> 00:30:27,116
+image affine to scale it down by
+
+
+1073
+00:30:27,116 --> 00:30:27,706
+.5.
+
+
+1074
+00:30:28,466 --> 00:30:29,656
+So now you can really look at an
+
+
+1075
+00:30:29,656 --> 00:30:30,706
+image and see everything that's
+
+
+1076
+00:30:30,746 --> 00:30:33,486
+being asked of it.
+
+
+1077
+00:30:33,766 --> 00:30:35,276
+Now let's do something slightly
+
+
+1078
+00:30:35,276 --> 00:30:35,986
+different this time.
+
+
+1079
+00:30:35,986 --> 00:30:37,716
+Now we're going to ask for an
+
+
+1080
+00:30:37,716 --> 00:30:38,686
+image, but we're going to ask
+
+
+1081
+00:30:38,686 --> 00:30:40,766
+for the auxiliary disparity
+
+
+1082
+00:30:40,766 --> 00:30:41,126
+image.
+
+
+1083
+00:30:41,266 --> 00:30:42,466
+And this is a new option that we
+
+
+1084
+00:30:42,466 --> 00:30:44,396
+have as well, and this, if your
+
+
+1085
+00:30:44,396 --> 00:30:46,176
+image has depth information in
+
+
+1086
+00:30:46,176 --> 00:30:49,156
+it, it will return that as a
+
+
+1087
+00:30:49,156 --> 00:30:50,176
+monochrome image.
+
+
+1088
+00:30:51,816 --> 00:30:53,276
+After we ask for that image,
+
+
+1089
+00:30:53,666 --> 00:30:55,086
+we're going to apply a filter on
+
+
+1090
+00:30:55,086 --> 00:30:55,196
+it.
+
+
+1091
+00:30:55,306 --> 00:30:56,266
+In this case, we're going to
+
+
+1092
+00:30:56,266 --> 00:30:58,176
+apply a bicubic scale transform
+
+
+1093
+00:30:58,456 --> 00:30:59,526
+to adjust its size.
+
+
+1094
+00:31:01,206 --> 00:31:03,206
+Now, if we were to hover over
+
+
+1095
+00:31:03,206 --> 00:31:04,246
+this object while we're
+
+
+1096
+00:31:04,246 --> 00:31:06,226
+debugging in Xcode, we will now
+
+
+1097
+00:31:06,736 --> 00:31:07,816
+be able to get this image.
+
+
+1098
+00:31:08,246 --> 00:31:09,266
+And now you can actually see the
+
+
+1099
+00:31:09,266 --> 00:31:11,726
+disparity image where white is
+
+
+1100
+00:31:11,726 --> 00:31:13,756
+in the foreground and darker is
+
+
+1101
+00:31:14,146 --> 00:31:15,146
+further in the background, but
+
+
+1102
+00:31:15,456 --> 00:31:17,716
+we can also see the graph that
+
+
+1103
+00:31:17,716 --> 00:31:19,066
+was used to generate this image.
+
+
+1104
+00:31:19,796 --> 00:31:21,596
+Here we see that the leaf or
+
+
+1105
+00:31:21,596 --> 00:31:23,926
+input image is an IOSurface that
+
+
+1106
+00:31:23,926 --> 00:31:25,576
+is a format luminance half
+
+
+1107
+00:31:25,576 --> 00:31:27,976
+float, and you can also see that
+
+
+1108
+00:31:27,976 --> 00:31:29,016
+the dimensions of the image are
+
+
+1109
+00:31:29,016 --> 00:31:30,456
+smaller than the original image.
+
+
+1110
+00:31:31,916 --> 00:31:33,306
+You can also see at the top of
+
+
+1111
+00:31:33,306 --> 00:31:36,456
+this graph the cubic upsampling
+
+
+1112
+00:31:36,456 --> 00:31:37,386
+filter that we've applied.
+
+
+1113
+00:31:38,816 --> 00:31:40,016
+There's actually some method to
+
+
+1114
+00:31:40,016 --> 00:31:41,286
+our colors that we chose here.
+
+
+1115
+00:31:41,556 --> 00:31:42,726
+One thing you'll notice is all
+
+
+1116
+00:31:42,726 --> 00:31:44,296
+of the inputs to our graphs are
+
+
+1117
+00:31:44,336 --> 00:31:44,666
+purple.
+
+
+1118
+00:31:45,256 --> 00:31:46,556
+Anything that affects the color
+
+
+1119
+00:31:46,556 --> 00:31:48,646
+of an image, i.e., CIColorKernel
+
+
+1120
+00:31:49,036 --> 00:31:49,536
+is red.
+
+
+1121
+00:31:49,626 --> 00:31:50,876
+Anything that affects the
+
+
+1122
+00:31:50,876 --> 00:31:52,176
+geometry, in other words, a
+
+
+1123
+00:31:52,176 --> 00:31:53,676
+CIWarpKernel, is green.
+
+
+1124
+00:31:54,076 --> 00:31:55,646
+And the rest of the kernels are
+
+
+1125
+00:31:55,646 --> 00:31:56,976
+in a blue color.
+
+
+1126
+00:32:00,846 --> 00:32:02,586
+So now let's get even more
+
+
+1127
+00:32:02,586 --> 00:32:03,026
+interesting.
+
+
+1128
+00:32:03,026 --> 00:32:04,786
+We're going to take the primary
+
+
+1129
+00:32:04,786 --> 00:32:05,796
+image and we're going to apply
+
+
+1130
+00:32:05,796 --> 00:32:07,906
+two different color cubes to it.
+
+
+1131
+00:32:08,256 --> 00:32:09,716
+We're going to take those two
+
+
+1132
+00:32:09,716 --> 00:32:10,966
+resulting images and then we're
+
+
+1133
+00:32:10,966 --> 00:32:12,216
+going to combine them with the
+
+
+1134
+00:32:12,276 --> 00:32:13,766
+CIBlendWithMask filter.
+
+
+1135
+00:32:14,416 --> 00:32:16,476
+And, if we look at this in Quick
+
+
+1136
+00:32:16,476 --> 00:32:18,356
+Looks, we now see the final
+
+
+1137
+00:32:18,356 --> 00:32:19,796
+image where it's been
+
+
+1138
+00:32:19,956 --> 00:32:21,206
+beautifully filtered with two
+
+
+1139
+00:32:21,206 --> 00:32:22,276
+different effects, based on
+
+
+1140
+00:32:22,316 --> 00:32:23,246
+foreground and background.
+
+
+1141
+00:32:23,536 --> 00:32:25,986
+But also, we see detailed
+
+
+1142
+00:32:25,986 --> 00:32:27,516
+information about the graph that
+
+
+1143
+00:32:27,516 --> 00:32:28,476
+was used to produce it.
+
+
+1144
+00:32:29,286 --> 00:32:30,726
+You can see here, on the
+
+
+1145
+00:32:30,776 --> 00:32:32,286
+left-hand side, the portion of
+
+
+1146
+00:32:32,286 --> 00:32:33,656
+the subgraph where we took the
+
+
+1147
+00:32:33,656 --> 00:32:36,346
+input image, got the color cube
+
+
+1148
+00:32:36,346 --> 00:32:40,056
+data, which is a 32 by 24 image,
+
+
+1149
+00:32:40,486 --> 00:32:41,906
+and then apply that color cube
+
+
+1150
+00:32:41,906 --> 00:32:42,186
+to it.
+
+
+1151
+00:32:42,806 --> 00:32:44,986
+On the middle graph, we're doing
+
+
+1152
+00:32:44,986 --> 00:32:45,786
+the same thing for the
+
+
+1153
+00:32:45,786 --> 00:32:46,666
+background image.
+
+
+1154
+00:32:47,416 --> 00:32:49,076
+All of these, plus the mask
+
+
+1155
+00:32:49,076 --> 00:32:50,556
+image, are used to combine with
+
+
+1156
+00:32:50,556 --> 00:32:51,586
+the blendWithMask kernel.
+
+
+1157
+00:32:52,186 --> 00:32:55,206
+So we're hoping that gives you
+
+
+1158
+00:32:55,206 --> 00:32:57,196
+great insight on how your
+
+
+1159
+00:32:57,196 --> 00:32:58,806
+application creates CIImages.
+
+
+1160
+00:32:59,076 --> 00:33:00,406
+But what happens when it comes
+
+
+1161
+00:33:00,406 --> 00:33:00,946
+time to render?
+
+
+1162
+00:33:00,946 --> 00:33:01,766
+And this is where things get
+
+
+1163
+00:33:01,766 --> 00:33:02,496
+really interesting.
+
+
+1164
+00:33:03,296 --> 00:33:04,926
+Once you tell a CIContext to
+
+
+1165
+00:33:04,926 --> 00:33:06,566
+start a task, that'll return a
+
+
+1166
+00:33:06,566 --> 00:33:07,916
+CIRenderedTask object.
+
+
+1167
+00:33:08,186 --> 00:33:10,066
+This also supports Quick Looks.
+
+
+1168
+00:33:10,606 --> 00:33:12,156
+And, if we look at this, we see
+
+
+1169
+00:33:12,156 --> 00:33:13,286
+now an even more elaborate
+
+
+1170
+00:33:13,286 --> 00:33:13,676
+graph.
+
+
+1171
+00:33:14,156 --> 00:33:16,996
+Again, the color coding is the
+
+
+1172
+00:33:16,996 --> 00:33:18,596
+same and we can see some of the
+
+
+1173
+00:33:18,596 --> 00:33:21,726
+same operations but now, what we
+
+
+1174
+00:33:21,726 --> 00:33:23,126
+saw before as a color matching
+
+
+1175
+00:33:23,126 --> 00:33:24,466
+operation has been converted
+
+
+1176
+00:33:24,466 --> 00:33:25,426
+into the primitives that are
+
+
+1177
+00:33:25,426 --> 00:33:26,596
+needed to do the color
+
+
+1178
+00:33:26,596 --> 00:33:27,046
+management.
+
+
+1179
+00:33:27,276 --> 00:33:28,416
+So we can see that we needed to
+
+
+1180
+00:33:28,416 --> 00:33:30,506
+apply this gamma function and
+
+
+1181
+00:33:30,506 --> 00:33:31,856
+this color matrix to convert
+
+
+1182
+00:33:31,856 --> 00:33:33,566
+from P3 to our workingspace.
+
+
+1183
+00:33:34,726 --> 00:33:35,936
+Another thing you can see is,
+
+
+1184
+00:33:35,936 --> 00:33:37,226
+while the original image had
+
+
+1185
+00:33:37,226 --> 00:33:39,136
+three affine transforms, Core
+
+
+1186
+00:33:39,136 --> 00:33:41,086
+Image has concatenated those all
+
+
+1187
+00:33:41,086 --> 00:33:41,516
+into one.
+
+
+1188
+00:33:42,046 --> 00:33:45,636
+Another thing you can notice is
+
+
+1189
+00:33:45,696 --> 00:33:47,376
+at the end of the graph, we now
+
+
+1190
+00:33:47,376 --> 00:33:48,456
+know what the destination
+
+
+1191
+00:33:48,456 --> 00:33:49,286
+colorspace is.
+
+
+1192
+00:33:49,396 --> 00:33:50,986
+So those operations have been
+
+
+1193
+00:33:50,986 --> 00:33:52,236
+applied to the image as well,
+
+
+1194
+00:33:53,416 --> 00:33:57,236
+both applying the colorspace as
+
+
+1195
+00:33:57,236 --> 00:33:58,366
+well as the coordinate system
+
+
+1196
+00:33:58,366 --> 00:33:59,396
+transform for the final
+
+
+1197
+00:33:59,396 --> 00:33:59,976
+destination.
+
+
+1198
+00:33:59,976 --> 00:34:01,996
+You can also see it associated
+
+
+1199
+00:34:01,996 --> 00:34:03,056
+with all these objects or all
+
+
+1200
+00:34:03,056 --> 00:34:04,326
+the dimensions of all the images
+
+
+1201
+00:34:04,326 --> 00:34:05,506
+that are involved at each stage
+
+
+1202
+00:34:05,506 --> 00:34:09,206
+of the render graph.
+
+
+1203
+00:34:09,275 --> 00:34:10,606
+Now, if you wait for your task
+
+
+1204
+00:34:10,606 --> 00:34:12,456
+to be completed, now there's a
+
+
+1205
+00:34:12,456 --> 00:34:13,156
+new object.
+
+
+1206
+00:34:13,156 --> 00:34:14,746
+And associated with this object
+
+
+1207
+00:34:15,835 --> 00:34:17,596
+is detailed information about
+
+
+1208
+00:34:17,596 --> 00:34:18,906
+how Core Image was able to
+
+
+1209
+00:34:18,906 --> 00:34:20,235
+concatenate and what the
+
+
+1210
+00:34:20,235 --> 00:34:21,735
+performance of that render was.
+
+
+1211
+00:34:22,386 --> 00:34:23,286
+You'll see now there's much
+
+
+1212
+00:34:23,286 --> 00:34:25,025
+fewer objects in the tree
+
+
+1213
+00:34:25,025 --> 00:34:26,186
+because of concatenation.
+
+
+1214
+00:34:26,525 --> 00:34:27,525
+If we look at one of the lower
+
+
+1215
+00:34:27,525 --> 00:34:29,636
+ones here, we can see that this
+
+
+1216
+00:34:29,696 --> 00:34:31,676
+particular program is the result
+
+
+1217
+00:34:31,676 --> 00:34:33,565
+of concatenating a few steps
+
+
+1218
+00:34:33,565 --> 00:34:36,815
+into one program, and we can
+
+
+1219
+00:34:36,815 --> 00:34:38,326
+also see associated with this
+
+
+1220
+00:34:38,556 --> 00:34:39,496
+the amount of time that was
+
+
+1221
+00:34:39,496 --> 00:34:41,126
+spent on that program in
+
+
+1222
+00:34:41,126 --> 00:34:41,815
+milliseconds.
+
+
+1223
+00:34:42,556 --> 00:34:43,835
+One great feature of Core Image
+
+
+1224
+00:34:43,835 --> 00:34:44,795
+is, if you then render this
+
+
+1225
+00:34:44,795 --> 00:34:47,085
+image again later and a portion
+
+
+1226
+00:34:47,085 --> 00:34:48,545
+of the graph is the same, then
+
+
+1227
+00:34:48,545 --> 00:34:50,516
+Core Image may be able to obtain
+
+
+1228
+00:34:50,516 --> 00:34:51,656
+the previous results from a
+
+
+1229
+00:34:51,656 --> 00:34:52,146
+cache.
+
+
+1230
+00:34:52,676 --> 00:34:54,016
+If that happens, then you'll see
+
+
+1231
+00:34:54,016 --> 00:34:55,266
+the time go to zero in those
+
+
+1232
+00:34:55,266 --> 00:34:55,735
+cases.
+
+
+1233
+00:34:56,216 --> 00:34:57,816
+So this also provides a way for
+
+
+1234
+00:34:57,816 --> 00:34:59,566
+your application to know how
+
+
+1235
+00:34:59,566 --> 00:35:00,906
+efficiently Core Image is able
+
+
+1236
+00:35:00,906 --> 00:35:02,776
+to render and cache your
+
+
+1237
+00:35:02,776 --> 00:35:05,416
+results, given memory limits.
+
+
+1238
+00:35:05,986 --> 00:35:09,136
+So we hope you find this really
+
+
+1239
+00:35:09,136 --> 00:35:10,886
+informative and instructional on
+
+
+1240
+00:35:10,886 --> 00:35:12,226
+how Core Image works internally.
+
+
+1241
+00:35:13,896 --> 00:35:14,846
+The next subject I'd like to
+
+
+1242
+00:35:14,846 --> 00:35:17,006
+talk a little bit about today is
+
+
+1243
+00:35:17,536 --> 00:35:18,926
+barcodes, specifically the
+
+
+1244
+00:35:18,926 --> 00:35:20,446
+CIBarcodeDescriptor API.
+
+
+1245
+00:35:21,696 --> 00:35:23,376
+We now have great broad support
+
+
+1246
+00:35:23,416 --> 00:35:24,886
+for barcodes on our platform.
+
+
+1247
+00:35:25,336 --> 00:35:26,796
+Barcodes of various different
+
+
+1248
+00:35:26,796 --> 00:35:29,006
+types from Aztec to Code128 to
+
+
+1249
+00:35:29,006 --> 00:35:31,036
+QRCode and PDF417.
+
+
+1250
+00:35:32,466 --> 00:35:33,816
+We also have support for
+
+
+1251
+00:35:33,816 --> 00:35:35,726
+barcodes across a broad variety
+
+
+1252
+00:35:35,726 --> 00:35:37,406
+of frameworks, and those
+
+
+1253
+00:35:37,406 --> 00:35:38,596
+frameworks use barcodes in
+
+
+1254
+00:35:38,596 --> 00:35:39,976
+different ways for good reasons.
+
+
+1255
+00:35:40,596 --> 00:35:43,316
+For example, oops, sorry.
+
+
+1256
+00:35:43,316 --> 00:35:46,046
+AVFoundation is the framework to
+
+
+1257
+00:35:46,046 --> 00:35:47,496
+use if you want to detect
+
+
+1258
+00:35:47,576 --> 00:35:49,046
+barcodes when you're capturing
+
+
+1259
+00:35:49,296 --> 00:35:50,406
+video from the camera.
+
+
+1260
+00:35:51,506 --> 00:35:53,636
+If you want to detect barcodes
+
+
+1261
+00:35:53,896 --> 00:35:55,656
+from either still images or from
+
+
+1262
+00:35:55,656 --> 00:35:57,756
+a video post-capture, the Vision
+
+
+1263
+00:35:57,756 --> 00:35:58,936
+framework is a great way of
+
+
+1264
+00:35:59,036 --> 00:36:00,066
+using it.
+
+
+1265
+00:36:00,256 --> 00:36:01,516
+And lastly, you can use Core
+
+
+1266
+00:36:01,516 --> 00:36:04,176
+Image to render barcodes into
+
+
+1267
+00:36:04,176 --> 00:36:05,256
+actual image files.
+
+
+1268
+00:36:06,596 --> 00:36:08,116
+Given this broad support across
+
+
+1269
+00:36:08,116 --> 00:36:09,816
+frameworks, we wanted to have a
+
+
+1270
+00:36:09,816 --> 00:36:11,216
+new data type that would allow
+
+
+1271
+00:36:11,826 --> 00:36:14,016
+the barcode information to be
+
+
+1272
+00:36:14,016 --> 00:36:15,206
+transported between these
+
+
+1273
+00:36:15,246 --> 00:36:17,206
+frameworks in a lossless way.
+
+
+1274
+00:36:19,106 --> 00:36:21,136
+And that is the reason for the
+
+
+1275
+00:36:21,136 --> 00:36:23,786
+new CIBarcodeDescription API.
+
+
+1276
+00:36:25,036 --> 00:36:27,546
+There's one key property of this
+
+
+1277
+00:36:27,546 --> 00:36:28,926
+object, and that is the
+
+
+1278
+00:36:28,926 --> 00:36:30,096
+errorCorrectedPayload.
+
+
+1279
+00:36:30,856 --> 00:36:32,756
+This is not just the textural
+
+
+1280
+00:36:32,756 --> 00:36:34,786
+message of a barcode.
+
+
+1281
+00:36:34,786 --> 00:36:36,036
+It's actually the raw data,
+
+
+1282
+00:36:36,346 --> 00:36:38,366
+which allows you to use barcodes
+
+
+1283
+00:36:38,366 --> 00:36:39,896
+and get information out of them
+
+
+1284
+00:36:40,096 --> 00:36:41,716
+in ways that are more than just
+
+
+1285
+00:36:41,716 --> 00:36:42,676
+textural information.
+
+
+1286
+00:36:43,016 --> 00:36:45,046
+So, with this raw
+
+
+1287
+00:36:45,796 --> 00:36:47,246
+errorCorrectedPayload and
+
+
+1288
+00:36:47,246 --> 00:36:48,876
+understanding of each barcode's
+
+
+1289
+00:36:49,046 --> 00:36:50,416
+formatting, you can do
+
+
+1290
+00:36:50,896 --> 00:36:53,036
+interesting properties and build
+
+
+1291
+00:36:53,036 --> 00:36:53,806
+interesting vertical
+
+
+1292
+00:36:53,806 --> 00:36:55,306
+applications based on barcodes.
+
+
+1293
+00:36:56,296 --> 00:36:58,056
+Also there are properties that
+
+
+1294
+00:36:58,056 --> 00:36:59,426
+are unique to each particular
+
+
+1295
+00:36:59,426 --> 00:36:59,936
+barcode.
+
+
+1296
+00:37:00,426 --> 00:37:01,746
+For example, in the case of the
+
+
+1297
+00:37:01,746 --> 00:37:04,266
+Aztec barcode, you can know how
+
+
+1298
+00:37:04,536 --> 00:37:06,446
+many layers were involved in
+
+
+1299
+00:37:06,446 --> 00:37:06,896
+that code.
+
+
+1300
+00:37:07,296 --> 00:37:08,966
+Or, in the case of the QRCode
+
+
+1301
+00:37:09,216 --> 00:37:10,766
+barcode, what the maskPattern
+
+
+1302
+00:37:10,766 --> 00:37:11,756
+that was used on this.
+
+
+1303
+00:37:12,876 --> 00:37:14,926
+So let me give you an example of
+
+
+1304
+00:37:14,926 --> 00:37:16,606
+how this type can be used across
+
+
+1305
+00:37:16,646 --> 00:37:17,776
+these three frameworks.
+
+
+1306
+00:37:18,236 --> 00:37:20,506
+So firstly, in the area of
+
+
+1307
+00:37:20,566 --> 00:37:23,426
+AVFoundation, it is possible to
+
+
+1308
+00:37:23,666 --> 00:37:24,466
+register for a
+
+
+1309
+00:37:24,466 --> 00:37:26,606
+metadataOutputObjectDelegate
+
+
+1310
+00:37:26,916 --> 00:37:29,126
+that will see barcodes, as they
+
+
+1311
+00:37:29,126 --> 00:37:31,846
+are appeared in a video feed.
+
+
+1312
+00:37:33,066 --> 00:37:35,446
+In your code, all you have to do
+
+
+1313
+00:37:35,446 --> 00:37:36,446
+is setup this object.
+
+
+1314
+00:37:36,746 --> 00:37:38,696
+And, in your response for when
+
+
+1315
+00:37:38,696 --> 00:37:41,246
+that object is detected, you can
+
+
+1316
+00:37:41,426 --> 00:37:44,106
+ask for the object as a
+
+
+1317
+00:37:44,106 --> 00:37:45,816
+AVMetadataMachine
+
+
+1318
+00:37:45,816 --> 00:37:47,276
+ReadableCodeObject.
+
+
+1319
+00:37:47,906 --> 00:37:49,366
+From that object, you can get
+
+
+1320
+00:37:49,456 --> 00:37:51,006
+the descriptor property, and
+
+
+1321
+00:37:51,006 --> 00:37:52,116
+that will return one of the
+
+
+1322
+00:37:52,116 --> 00:37:53,976
+CIBarcodeDescriptor objects.
+
+
+1323
+00:37:57,156 --> 00:37:58,606
+Second if you want to use the
+
+
+1324
+00:37:58,606 --> 00:37:59,776
+Vision framework to detect
+
+
+1325
+00:37:59,846 --> 00:38:00,996
+barcodes, the code is really
+
+
+1326
+00:38:00,996 --> 00:38:01,766
+simple as well.
+
+
+1327
+00:38:02,256 --> 00:38:03,346
+Basically, we're going to use
+
+
+1328
+00:38:03,346 --> 00:38:05,216
+Vision to both create a request
+
+
+1329
+00:38:05,216 --> 00:38:06,956
+handler as well as a request.
+
+
+1330
+00:38:07,626 --> 00:38:09,216
+Then we're going to issue that
+
+
+1331
+00:38:09,216 --> 00:38:10,836
+request to the handler to detect
+
+
+1332
+00:38:10,886 --> 00:38:11,436
+the barcode.
+
+
+1333
+00:38:11,996 --> 00:38:13,936
+Once we get the request results
+
+
+1334
+00:38:13,936 --> 00:38:15,776
+back, we can then get the
+
+
+1335
+00:38:15,776 --> 00:38:17,456
+barcodeDescriptor object from
+
+
+1336
+00:38:17,456 --> 00:38:18,216
+that result.
+
+
+1337
+00:38:19,006 --> 00:38:19,556
+Very simple.
+
+
+1338
+00:38:20,666 --> 00:38:23,086
+And lastly, simplest of all, is
+
+
+1339
+00:38:23,086 --> 00:38:24,526
+using Core Image to generate a
+
+
+1340
+00:38:24,526 --> 00:38:26,336
+barcode image from a descriptor.
+
+
+1341
+00:38:26,976 --> 00:38:28,056
+So, in this case, it's very
+
+
+1342
+00:38:28,056 --> 00:38:28,426
+easy.
+
+
+1343
+00:38:28,426 --> 00:38:29,556
+We just create an instance of a
+
+
+1344
+00:38:29,556 --> 00:38:31,416
+CIFilter of type
+
+
+1345
+00:38:31,476 --> 00:38:32,386
+BarcodeGenerator.
+
+
+1346
+00:38:33,166 --> 00:38:34,966
+We then give that filter the
+
+
+1347
+00:38:34,966 --> 00:38:36,726
+input of the descriptor object
+
+
+1348
+00:38:36,786 --> 00:38:38,466
+for the inputBarcodeDescriptor.
+
+
+1349
+00:38:39,136 --> 00:38:40,146
+And then we're going ask for the
+
+
+1350
+00:38:40,146 --> 00:38:40,816
+output image.
+
+
+1351
+00:38:42,176 --> 00:38:43,946
+And these combined allow us to
+
+
+1352
+00:38:43,946 --> 00:38:45,716
+do some interesting stuff with
+
+
+1353
+00:38:46,096 --> 00:38:47,636
+both detection and generation of
+
+
+1354
+00:38:47,636 --> 00:38:48,226
+barcodes.
+
+
+1355
+00:38:48,626 --> 00:38:50,626
+And so, as a brief prerecorded
+
+
+1356
+00:38:50,626 --> 00:38:52,056
+demo of this, let me show you a
+
+
+1357
+00:38:52,056 --> 00:38:53,056
+sample app that we wrote.
+
+
+1358
+00:38:53,816 --> 00:38:55,856
+And what this does is look for
+
+
+1359
+00:38:56,096 --> 00:38:57,626
+frames of video, pulls the
+
+
+1360
+00:38:57,626 --> 00:38:59,306
+barcode, and actually renders
+
+
+1361
+00:38:59,536 --> 00:39:01,076
+the barcode back over the
+
+
+1362
+00:39:01,246 --> 00:39:03,976
+barcode as a -- kind of a
+
+
+1363
+00:39:03,976 --> 00:39:05,336
+augmented image over it.
+
+
+1364
+00:39:05,836 --> 00:39:06,696
+And you can see that we were
+
+
+1365
+00:39:06,696 --> 00:39:08,606
+able to perfectly reproduce the
+
+
+1366
+00:39:08,606 --> 00:39:10,116
+detected barcode and re-render
+
+
+1367
+00:39:10,116 --> 00:39:10,726
+it on top of it.
+
+
+1368
+00:39:11,206 --> 00:39:12,496
+If we just see that again real
+
+
+1369
+00:39:12,496 --> 00:39:13,986
+quickly, we can actually even
+
+
+1370
+00:39:13,986 --> 00:39:15,156
+see that it's being render
+
+
+1371
+00:39:15,156 --> 00:39:17,526
+because overlapping my thumb in
+
+
+1372
+00:39:17,526 --> 00:39:18,016
+the image.
+
+
+1373
+00:39:19,456 --> 00:39:19,746
+So --
+
+
+1374
+00:39:20,516 --> 00:39:25,856
+[ Applause ]
+
+
+1375
+00:39:26,356 --> 00:39:26,726
+All right.
+
+
+1376
+00:39:26,726 --> 00:39:28,596
+So for our last section of our
+
+
+1377
+00:39:28,596 --> 00:39:30,416
+talk today, I'm really excited
+
+
+1378
+00:39:30,416 --> 00:39:32,036
+to talk about how to use Core
+
+
+1379
+00:39:32,036 --> 00:39:33,466
+Image and Vision together.
+
+
+1380
+00:39:33,976 --> 00:39:35,416
+These are two great frameworks.
+
+
+1381
+00:39:35,596 --> 00:39:36,926
+Core Image is a great easy to
+
+
+1382
+00:39:36,926 --> 00:39:38,196
+use framework for applying image
+
+
+1383
+00:39:38,256 --> 00:39:39,366
+processing to images.
+
+
+1384
+00:39:39,686 --> 00:39:41,296
+Vision is a great framework for
+
+
+1385
+00:39:41,486 --> 00:39:42,736
+finding information about
+
+
+1386
+00:39:42,736 --> 00:39:43,166
+images.
+
+
+1387
+00:39:43,166 --> 00:39:44,926
+And you can use those together
+
+
+1388
+00:39:44,926 --> 00:39:46,616
+in great and novel ways.
+
+
+1389
+00:39:48,346 --> 00:39:50,636
+For example, you can use Core
+
+
+1390
+00:39:50,636 --> 00:39:52,136
+Image as a way of preparing
+
+
+1391
+00:39:52,136 --> 00:39:53,866
+images before passing them to
+
+
+1392
+00:39:53,866 --> 00:39:54,256
+Vision.
+
+
+1393
+00:39:54,746 --> 00:39:56,096
+For example, you might want to
+
+
+1394
+00:39:56,096 --> 00:39:57,626
+crop the image to an area of
+
+
+1395
+00:39:57,626 --> 00:39:58,146
+interest.
+
+
+1396
+00:39:58,146 --> 00:39:59,936
+Or correctly make the image
+
+
+1397
+00:39:59,936 --> 00:40:00,466
+upright.
+
+
+1398
+00:40:00,746 --> 00:40:02,326
+Or convert to grayscale before
+
+
+1399
+00:40:02,356 --> 00:40:03,166
+passing division.
+
+
+1400
+00:40:04,976 --> 00:40:06,396
+Also, once you've called Vision,
+
+
+1401
+00:40:06,666 --> 00:40:07,936
+once you have information about
+
+
+1402
+00:40:07,936 --> 00:40:09,276
+the image, you might be able to
+
+
+1403
+00:40:09,276 --> 00:40:10,716
+use that as a way of guiding how
+
+
+1404
+00:40:10,716 --> 00:40:12,446
+you want to adjust the look of
+
+
+1405
+00:40:12,446 --> 00:40:12,976
+your image.
+
+
+1406
+00:40:13,256 --> 00:40:14,566
+So, for example, if a feature is
+
+
+1407
+00:40:14,566 --> 00:40:16,156
+detected in an image, you might
+
+
+1408
+00:40:16,156 --> 00:40:17,896
+choose different ways to apply
+
+
+1409
+00:40:18,396 --> 00:40:19,636
+image processing to it.
+
+
+1410
+00:40:20,986 --> 00:40:22,276
+And, of course, these two can be
+
+
+1411
+00:40:22,276 --> 00:40:23,026
+combined together.
+
+
+1412
+00:40:23,906 --> 00:40:25,426
+But to go into a little bit more
+
+
+1413
+00:40:25,496 --> 00:40:26,526
+detail about this.
+
+
+1414
+00:40:26,526 --> 00:40:28,026
+We have a interesting demo we'd
+
+
+1415
+00:40:28,026 --> 00:40:29,756
+like to talk about today, where
+
+
+1416
+00:40:29,756 --> 00:40:31,526
+we're going to try to generate a
+
+
+1417
+00:40:31,526 --> 00:40:34,066
+photo from several frames of the
+
+
+1418
+00:40:34,066 --> 00:40:34,516
+video.
+
+
+1419
+00:40:34,786 --> 00:40:36,676
+Where the unwanted objects have
+
+
+1420
+00:40:36,676 --> 00:40:38,446
+been removed from that.
+
+
+1421
+00:40:38,846 --> 00:40:39,896
+And this demo is going to
+
+
+1422
+00:40:39,896 --> 00:40:41,506
+involve using three frameworks
+
+
+1423
+00:40:41,506 --> 00:40:42,346
+and four steps.
+
+
+1424
+00:40:42,826 --> 00:40:44,156
+The first step is going to be
+
+
+1425
+00:40:44,156 --> 00:40:45,526
+using AVFoundation to get the
+
+
+1426
+00:40:45,526 --> 00:40:46,556
+frames out of the video.
+
+
+1427
+00:40:47,506 --> 00:40:49,216
+And that's very simple to do.
+
+
+1428
+00:40:50,056 --> 00:40:51,376
+Then we're going to use Vision
+
+
+1429
+00:40:51,546 --> 00:40:53,206
+to determine what the homography
+
+
+1430
+00:40:53,206 --> 00:40:55,286
+matrices are needed to align
+
+
+1431
+00:40:55,286 --> 00:40:57,026
+each of these frames to a common
+
+
+1432
+00:40:57,026 --> 00:40:57,546
+reference.
+
+
+1433
+00:40:58,666 --> 00:40:59,806
+Inevitably there's some camera
+
+
+1434
+00:40:59,806 --> 00:41:00,596
+shake, so a little bit of
+
+
+1435
+00:41:00,596 --> 00:41:01,836
+correction goes a long way.
+
+
+1436
+00:41:02,956 --> 00:41:04,446
+So that will allow us to get
+
+
+1437
+00:41:04,446 --> 00:41:06,486
+these homography matrices
+
+
+1438
+00:41:06,486 --> 00:41:07,486
+represented here as these
+
+
+1439
+00:41:07,696 --> 00:41:09,636
+slightly moving arrows for each
+
+
+1440
+00:41:09,636 --> 00:41:10,436
+frame in the image.
+
+
+1441
+00:41:11,896 --> 00:41:13,736
+The third step is to use Core
+
+
+1442
+00:41:13,736 --> 00:41:15,486
+Image to align all these frames
+
+
+1443
+00:41:15,486 --> 00:41:15,966
+to each other.
+
+
+1444
+00:41:16,746 --> 00:41:17,936
+And that's very easy to do, as
+
+
+1445
+00:41:17,936 --> 00:41:18,106
+well.
+
+
+1446
+00:41:19,106 --> 00:41:20,796
+And lastly, we're going to use a
+
+
+1447
+00:41:20,796 --> 00:41:22,566
+median technique to create a
+
+
+1448
+00:41:22,566 --> 00:41:24,496
+single photo from all the frames
+
+
+1449
+00:41:24,496 --> 00:41:26,926
+in the video in a way that
+
+
+1450
+00:41:27,046 --> 00:41:29,106
+produces an optimal image.
+
+
+1451
+00:41:29,886 --> 00:41:31,416
+The technique here is to produce
+
+
+1452
+00:41:31,416 --> 00:41:33,166
+an output image where, at each
+
+
+1453
+00:41:33,166 --> 00:41:34,316
+location of the output, we're
+
+
+1454
+00:41:34,496 --> 00:41:36,266
+going to look at locations in
+
+
+1455
+00:41:36,266 --> 00:41:37,066
+the input frames.
+
+
+1456
+00:41:37,456 --> 00:41:38,776
+And we're going to use the
+
+
+1457
+00:41:38,776 --> 00:41:41,236
+median value at each location.
+
+
+1458
+00:41:41,486 --> 00:41:42,856
+If you look in this example
+
+
+1459
+00:41:42,856 --> 00:41:44,966
+here, the first four images are
+
+
+1460
+00:41:45,736 --> 00:41:47,496
+that little spot is over the
+
+
+1461
+00:41:47,496 --> 00:41:49,206
+concrete pavement, but the fifth
+
+
+1462
+00:41:49,206 --> 00:41:52,046
+one is over the legs.
+
+
+1463
+00:41:52,666 --> 00:41:54,016
+Now, if we take the median of
+
+
+1464
+00:41:54,126 --> 00:41:55,656
+these five values, we're going
+
+
+1465
+00:41:55,656 --> 00:41:56,726
+to get a value that looks like
+
+
+1466
+00:41:56,876 --> 00:41:57,676
+just the concrete.
+
+
+1467
+00:41:58,236 --> 00:41:59,066
+If we do the same thing at
+
+
+1468
+00:41:59,066 --> 00:42:00,436
+another portion of the image,
+
+
+1469
+00:42:00,626 --> 00:42:02,276
+again, we're here underneath the
+
+
+1470
+00:42:02,276 --> 00:42:02,706
+tree.
+
+
+1471
+00:42:02,946 --> 00:42:04,876
+Three of the five frames are
+
+
+1472
+00:42:04,876 --> 00:42:05,216
+good.
+
+
+1473
+00:42:05,266 --> 00:42:07,716
+The other two are less good.
+
+
+1474
+00:42:07,916 --> 00:42:08,926
+So we're going to use the median
+
+
+1475
+00:42:08,926 --> 00:42:10,426
+of those, and if you do that for
+
+
+1476
+00:42:10,426 --> 00:42:12,336
+every pixel of an image, you get
+
+
+1477
+00:42:12,516 --> 00:42:13,296
+a great result.
+
+
+1478
+00:42:13,296 --> 00:42:14,536
+Where objects that are
+
+
+1479
+00:42:14,536 --> 00:42:16,176
+transitory in the video are
+
+
+1480
+00:42:16,176 --> 00:42:17,066
+magically removed.
+
+
+1481
+00:42:17,526 --> 00:42:20,006
+Let me talk a little bit about
+
+
+1482
+00:42:20,006 --> 00:42:21,336
+the code, and I promise we'll
+
+
+1483
+00:42:21,336 --> 00:42:22,226
+get to the demo at the end.
+
+
+1484
+00:42:22,986 --> 00:42:24,576
+The first step here is we're
+
+
+1485
+00:42:24,576 --> 00:42:26,086
+going to use Vision to determine
+
+
+1486
+00:42:26,086 --> 00:42:27,866
+the homographic registration for
+
+
+1487
+00:42:27,866 --> 00:42:28,356
+each frame.
+
+
+1488
+00:42:28,716 --> 00:42:29,906
+Again, this is quite easy.
+
+
+1489
+00:42:30,096 --> 00:42:31,066
+We're going to use Vision to
+
+
+1490
+00:42:31,066 --> 00:42:32,836
+create a request and a request
+
+
+1491
+00:42:32,836 --> 00:42:35,386
+handler to produce that
+
+
+1492
+00:42:35,386 --> 00:42:36,086
+information.
+
+
+1493
+00:42:36,536 --> 00:42:38,226
+We're going to tell Vision to
+
+
+1494
+00:42:38,226 --> 00:42:39,276
+perform that request.
+
+
+1495
+00:42:40,416 --> 00:42:41,826
+And then once we get the result,
+
+
+1496
+00:42:41,826 --> 00:42:43,326
+we'll ask for the result and
+
+
+1497
+00:42:43,696 --> 00:42:45,076
+make sure it is an object of
+
+
+1498
+00:42:45,126 --> 00:42:47,836
+type VNImageHomographic
+
+
+1499
+00:42:48,776 --> 00:42:49,896
+AlignmentObservation.
+
+
+1500
+00:42:49,896 --> 00:42:50,606
+Wow, that's a mouthful.
+
+
+1501
+00:42:51,046 --> 00:42:52,556
+And then we'll return that.
+
+
+1502
+00:42:52,616 --> 00:42:54,906
+That object is basically a 3 by
+
+
+1503
+00:42:54,906 --> 00:42:55,616
+3 matrix.
+
+
+1504
+00:42:56,136 --> 00:42:59,156
+Once we've returned that, we can
+
+
+1505
+00:42:59,156 --> 00:43:01,076
+then use Core Image to align the
+
+
+1506
+00:43:01,076 --> 00:43:02,786
+images based on this 3 by 3
+
+
+1507
+00:43:02,786 --> 00:43:03,276
+matrix.
+
+
+1508
+00:43:03,586 --> 00:43:04,576
+This is a little tricky, but
+
+
+1509
+00:43:04,576 --> 00:43:05,956
+it's actually very easy to do
+
+
+1510
+00:43:06,216 --> 00:43:07,946
+using a custom warp kernel
+
+
+1511
+00:43:07,946 --> 00:43:08,576
+written in Metal.
+
+
+1512
+00:43:09,866 --> 00:43:11,356
+You can see here in this kernel
+
+
+1513
+00:43:11,686 --> 00:43:13,026
+we now have a parameter which is
+
+
+1514
+00:43:13,026 --> 00:43:14,056
+a float3 by 3.
+
+
+1515
+00:43:14,056 --> 00:43:15,026
+This is something that's new to
+
+
+1516
+00:43:15,026 --> 00:43:15,916
+Core Image this year.
+
+
+1517
+00:43:16,656 --> 00:43:17,696
+And what we're going to do is
+
+
+1518
+00:43:17,696 --> 00:43:18,746
+we're going to get destCoord,
+
+
+1519
+00:43:18,966 --> 00:43:20,396
+convert that to a homogenous
+
+
+1520
+00:43:20,396 --> 00:43:21,926
+destCoord by adding a 1 to the
+
+
+1521
+00:43:21,926 --> 00:43:22,096
+end.
+
+
+1522
+00:43:22,846 --> 00:43:24,096
+We're then going to multiply
+
+
+1523
+00:43:24,096 --> 00:43:26,956
+that vector by the matrix and
+
+
+1524
+00:43:26,956 --> 00:43:27,856
+that gives us our
+
+
+1525
+00:43:27,856 --> 00:43:29,696
+homogenousSrcCoord.
+
+
+1526
+00:43:29,696 --> 00:43:31,246
+Then we're going to do a
+
+
+1527
+00:43:31,246 --> 00:43:33,326
+perspective divide to get us the
+
+
+1528
+00:43:33,326 --> 00:43:34,356
+source coordinate that we're
+
+
+1529
+00:43:34,356 --> 00:43:35,076
+going to sample from.
+
+
+1530
+00:43:35,986 --> 00:43:37,246
+And that's all there is to it.
+
+
+1531
+00:43:39,086 --> 00:43:40,566
+The last step is to apply the
+
+
+1532
+00:43:40,566 --> 00:43:41,936
+median filter in Core Image,
+
+
+1533
+00:43:41,976 --> 00:43:43,896
+and, in this example here, I'm
+
+
+1534
+00:43:43,896 --> 00:43:45,196
+illustrating the code that we
+
+
+1535
+00:43:45,256 --> 00:43:47,406
+use for a 5-image median.
+
+
+1536
+00:43:48,046 --> 00:43:49,446
+In fact, sometimes you have many
+
+
+1537
+00:43:49,446 --> 00:43:50,516
+more and we'll go into that
+
+
+1538
+00:43:50,516 --> 00:43:51,126
+during the demo.
+
+
+1539
+00:43:51,636 --> 00:43:52,636
+But, in this case, we're going
+
+
+1540
+00:43:52,636 --> 00:43:54,506
+to use a sorting network to
+
+
+1541
+00:43:55,076 --> 00:43:56,716
+determine what the median value
+
+
+1542
+00:43:56,716 --> 00:43:58,366
+of the five pixel samples are.
+
+
+1543
+00:43:59,166 --> 00:44:00,336
+Again, if we look here, this is
+
+
+1544
+00:44:00,336 --> 00:44:02,076
+a great example where writing
+
+
+1545
+00:44:02,076 --> 00:44:03,616
+this kernel in Metal was
+
+
+1546
+00:44:03,616 --> 00:44:05,596
+actually very convenient and
+
+
+1547
+00:44:05,596 --> 00:44:07,116
+easy, because now we can
+
+
+1548
+00:44:07,116 --> 00:44:08,526
+actually pass the values into
+
+
+1549
+00:44:08,526 --> 00:44:11,076
+this swap function by reference
+
+
+1550
+00:44:11,136 --> 00:44:11,856
+rather than value.
+
+
+1551
+00:44:12,566 --> 00:44:15,016
+So now for the fun part.
+
+
+1552
+00:44:15,016 --> 00:44:16,956
+I'm going to invite Sky up to
+
+
+1553
+00:44:16,956 --> 00:44:17,416
+the stage.
+
+
+1554
+00:44:17,416 --> 00:44:18,326
+He'll be showing you more about
+
+
+1555
+00:44:18,326 --> 00:44:19,826
+this and showing how this filter
+
+
+1556
+00:44:19,826 --> 00:44:19,966
+works.
+
+
+1557
+00:44:22,516 --> 00:44:26,966
+[ Applause ]
+
+
+1558
+00:44:27,466 --> 00:44:27,736
+>> All right.
+
+
+1559
+00:44:27,736 --> 00:44:28,256
+Thank you, David.
+
+
+1560
+00:44:28,806 --> 00:44:30,566
+Hi, my name is Sky and it's a
+
+
+1561
+00:44:30,566 --> 00:44:31,586
+pleasure for me to bring to you
+
+
+1562
+00:44:31,586 --> 00:44:33,356
+today this demo.
+
+
+1563
+00:44:33,356 --> 00:44:34,716
+As we can see here on the top,
+
+
+1564
+00:44:34,716 --> 00:44:36,276
+this is our input in video.
+
+
+1565
+00:44:36,476 --> 00:44:38,446
+And, if I scrub around on the
+
+
+1566
+00:44:38,446 --> 00:44:40,506
+slider, we can see that there's
+
+
+1567
+00:44:40,506 --> 00:44:41,686
+no point in time during the
+
+
+1568
+00:44:41,686 --> 00:44:43,286
+whole duration of the video that
+
+
+1569
+00:44:43,286 --> 00:44:44,906
+there's a clear image that we
+
+
+1570
+00:44:44,906 --> 00:44:46,196
+can take of the landmark.
+
+
+1571
+00:44:46,766 --> 00:44:48,146
+So, for example, at the
+
+
+1572
+00:44:48,146 --> 00:44:49,376
+beginning, we're obstructed by
+
+
+1573
+00:44:49,376 --> 00:44:50,466
+the shadow here.
+
+
+1574
+00:44:50,506 --> 00:44:52,026
+And then we have people passing
+
+
+1575
+00:44:52,026 --> 00:44:52,376
+by.
+
+
+1576
+00:44:52,996 --> 00:44:54,186
+So there's really just no point
+
+
+1577
+00:44:54,186 --> 00:44:55,536
+during the entire video where we
+
+
+1578
+00:44:55,536 --> 00:44:56,446
+can get a clean shot.
+
+
+1579
+00:44:57,206 --> 00:45:00,576
+And actually, if we zoom in on
+
+
+1580
+00:45:00,576 --> 00:45:01,836
+one of the corners, we can see
+
+
+1581
+00:45:01,836 --> 00:45:03,056
+that it's constantly shifting
+
+
+1582
+00:45:03,286 --> 00:45:04,876
+across the entire duration.
+
+
+1583
+00:45:05,606 --> 00:45:06,806
+So before we run the reduction
+
+
+1584
+00:45:06,806 --> 00:45:08,386
+kernel, we need to first align
+
+
+1585
+00:45:08,386 --> 00:45:09,136
+these frames.
+
+
+1586
+00:45:09,246 --> 00:45:10,526
+And the way we do that is using
+
+
+1587
+00:45:10,526 --> 00:45:11,746
+Vision, as David just mentioned.
+
+
+1588
+00:45:12,546 --> 00:45:14,516
+Now Vision offers two
+
+
+1589
+00:45:14,546 --> 00:45:17,346
+registration APIs, as shown here
+
+
+1590
+00:45:17,346 --> 00:45:17,976
+in the slider.
+
+
+1591
+00:45:18,526 --> 00:45:20,736
+We have a homographic line, and
+
+
+1592
+00:45:20,736 --> 00:45:21,666
+which David just mentioned, but
+
+
+1593
+00:45:21,666 --> 00:45:22,776
+Vision also offers a
+
+
+1594
+00:45:22,776 --> 00:45:24,466
+translational alignment which,
+
+
+1595
+00:45:24,466 --> 00:45:25,556
+in this case, doesn't work
+
+
+1596
+00:45:25,556 --> 00:45:26,366
+extremely well.
+
+
+1597
+00:45:26,366 --> 00:45:27,666
+It's because our camera movement
+
+
+1598
+00:45:27,666 --> 00:45:29,376
+is not restricted to one plane
+
+
+1599
+00:45:29,376 --> 00:45:30,446
+that is parallel to the image
+
+
+1600
+00:45:31,346 --> 00:45:31,736
+plane.
+
+
+1601
+00:45:31,986 --> 00:45:33,356
+So the way we're doing the
+
+
+1602
+00:45:33,356 --> 00:45:34,406
+stabilization is we're
+
+
+1603
+00:45:34,406 --> 00:45:35,896
+registering every frame during
+
+
+1604
+00:45:35,896 --> 00:45:37,686
+the video onto the middle frame.
+
+
+1605
+00:45:38,076 --> 00:45:39,316
+And so you can expect a pretty
+
+
+1606
+00:45:39,316 --> 00:45:41,306
+dramatic camera movement between
+
+
+1607
+00:45:41,306 --> 00:45:42,566
+the first frame and middle
+
+
+1608
+00:45:42,566 --> 00:45:43,716
+frame, which is why the
+
+
+1609
+00:45:43,716 --> 00:45:45,226
+homographic registration is
+
+
+1610
+00:45:45,226 --> 00:45:46,156
+going to work better for us in
+
+
+1611
+00:45:46,156 --> 00:45:46,526
+this case.
+
+
+1612
+00:45:46,526 --> 00:45:48,886
+So let's just go with that.
+
+
+1613
+00:45:48,886 --> 00:45:50,486
+So with that turned on, if I
+
+
+1614
+00:45:50,486 --> 00:45:52,306
+zoom in on this corner here
+
+
+1615
+00:45:52,306 --> 00:45:54,586
+again and scrub through, you can
+
+
+1616
+00:45:54,636 --> 00:45:56,396
+see that the point is barely
+
+
+1617
+00:45:56,396 --> 00:45:58,806
+moving across the entire frame.
+
+
+1618
+00:45:59,496 --> 00:46:01,276
+And if we go back and scrub
+
+
+1619
+00:46:01,276 --> 00:46:02,936
+through, the video becomes
+
+
+1620
+00:46:02,936 --> 00:46:04,206
+extremely stabilized.
+
+
+1621
+00:46:05,266 --> 00:46:06,716
+And so this gives you an idea,
+
+
+1622
+00:46:06,756 --> 00:46:08,376
+if you're like writing an image
+
+
+1623
+00:46:08,376 --> 00:46:10,856
+stabilization application, then
+
+
+1624
+00:46:10,996 --> 00:46:12,136
+you could easily do that with
+
+
+1625
+00:46:12,136 --> 00:46:13,216
+Core Image and Vision.
+
+
+1626
+00:46:14,326 --> 00:46:15,786
+So now let me jump into the
+
+
+1627
+00:46:15,786 --> 00:46:16,566
+reduction part.
+
+
+1628
+00:46:17,146 --> 00:46:18,326
+And the first thing I'd like to
+
+
+1629
+00:46:18,326 --> 00:46:20,566
+point out is doing a median
+
+
+1630
+00:46:20,566 --> 00:46:23,286
+reduction over what we have here
+
+
+1631
+00:46:23,286 --> 00:46:24,866
+is 148 frames.
+
+
+1632
+00:46:25,046 --> 00:46:26,316
+It's not really that practical
+
+
+1633
+00:46:26,316 --> 00:46:27,416
+because we need to hold all
+
+
+1634
+00:46:27,416 --> 00:46:28,376
+those frames in memory when
+
+
+1635
+00:46:28,376 --> 00:46:29,116
+we're sorting them.
+
+
+1636
+00:46:29,786 --> 00:46:31,306
+So what we do here instead is we
+
+
+1637
+00:46:31,306 --> 00:46:33,276
+take the median of median as an
+
+
+1638
+00:46:33,276 --> 00:46:34,046
+approximation.
+
+
+1639
+00:46:34,466 --> 00:46:35,586
+So the first thing we do is
+
+
+1640
+00:46:35,586 --> 00:46:37,376
+we're dividing entire frames,
+
+
+1641
+00:46:37,516 --> 00:46:39,986
+the 148 frames, into several
+
+
+1642
+00:46:39,986 --> 00:46:40,356
+groups.
+
+
+1643
+00:46:40,896 --> 00:46:41,806
+And for each one of those
+
+
+1644
+00:46:41,806 --> 00:46:43,386
+groups, we compute a local group
+
+
+1645
+00:46:43,386 --> 00:46:43,796
+median.
+
+
+1646
+00:46:44,276 --> 00:46:45,626
+And on the second pass, we run
+
+
+1647
+00:46:45,626 --> 00:46:46,936
+our reduction kernel again on
+
+
+1648
+00:46:46,936 --> 00:46:48,306
+the local medians to compute the
+
+
+1649
+00:46:48,306 --> 00:46:50,196
+final approximation results.
+
+
+1650
+00:46:50,696 --> 00:46:51,766
+Which is why we have this
+
+
+1651
+00:46:51,766 --> 00:46:53,986
+control here on the bottom, and
+
+
+1652
+00:46:54,236 --> 00:46:56,526
+these ticks here that shows you
+
+
+1653
+00:46:56,526 --> 00:46:58,806
+how the frames are grouped.
+
+
+1654
+00:46:59,526 --> 00:47:01,476
+And so, if I change this group
+
+
+1655
+00:47:01,476 --> 00:47:03,466
+count here, we can see that the
+
+
+1656
+00:47:03,466 --> 00:47:04,486
+indicators are changing.
+
+
+1657
+00:47:04,486 --> 00:47:05,876
+So, if we have a group count of
+
+
+1658
+00:47:05,876 --> 00:47:07,136
+three, that means we're dividing
+
+
+1659
+00:47:07,136 --> 00:47:08,306
+the entire video range into
+
+
+1660
+00:47:08,306 --> 00:47:08,866
+three groups.
+
+
+1661
+00:47:09,416 --> 00:47:10,606
+And for each one of those
+
+
+1662
+00:47:10,606 --> 00:47:11,606
+groups, I can change the group
+
+
+1663
+00:47:11,606 --> 00:47:14,236
+size, which indicates how many
+
+
+1664
+00:47:14,236 --> 00:47:15,736
+evenly distributed tasks we're
+
+
+1665
+00:47:15,916 --> 00:47:17,716
+taking out of the frames to use
+
+
+1666
+00:47:17,716 --> 00:47:18,426
+for our group median
+
+
+1667
+00:47:18,426 --> 00:47:18,996
+computation.
+
+
+1668
+00:47:19,826 --> 00:47:21,066
+So, with that in mind, let's try
+
+
+1669
+00:47:21,066 --> 00:47:23,376
+something with a group count of
+
+
+1670
+00:47:23,616 --> 00:47:26,456
+five and group size of seven,
+
+
+1671
+00:47:26,606 --> 00:47:27,196
+let's say.
+
+
+1672
+00:47:28,166 --> 00:47:29,116
+And let's just see what that
+
+
+1673
+00:47:29,116 --> 00:47:29,646
+gets us.
+
+
+1674
+00:47:30,176 --> 00:47:32,596
+It's going to take a little bit
+
+
+1675
+00:47:32,596 --> 00:47:33,876
+of time to run because Vision
+
+
+1676
+00:47:33,876 --> 00:47:35,206
+needs to do all the registration
+
+
+1677
+00:47:35,206 --> 00:47:37,056
+and we need to warp the images.
+
+
+1678
+00:47:37,546 --> 00:47:39,226
+And so, as we see here in the
+
+
+1679
+00:47:39,226 --> 00:47:41,256
+output, none of the moving
+
+
+1680
+00:47:41,256 --> 00:47:42,726
+transient objects were actually
+
+
+1681
+00:47:42,726 --> 00:47:45,446
+in our final reduced image, and
+
+
+1682
+00:47:45,446 --> 00:47:47,326
+we have a very clean shot of our
+
+
+1683
+00:47:47,326 --> 00:47:48,946
+landmark, which is exactly what
+
+
+1684
+00:47:48,946 --> 00:47:49,256
+we wanted.
+
+
+1685
+00:47:49,726 --> 00:47:51,826
+And, if we switch back between
+
+
+1686
+00:47:51,906 --> 00:47:53,816
+the input and the output, we can
+
+
+1687
+00:47:53,816 --> 00:47:55,346
+see that all textual details are
+
+
+1688
+00:47:55,346 --> 00:47:57,146
+very well preserved, which gives
+
+
+1689
+00:47:57,146 --> 00:47:58,656
+you an idea of how well Vision
+
+
+1690
+00:47:58,656 --> 00:47:59,546
+is doing the alignment.
+
+
+1691
+00:48:00,176 --> 00:48:02,236
+And so I hope this gives you a
+
+
+1692
+00:48:02,236 --> 00:48:03,546
+sense of like the interesting
+
+
+1693
+00:48:03,546 --> 00:48:04,806
+applications you can build with
+
+
+1694
+00:48:04,806 --> 00:48:06,056
+this nice synergy between Core
+
+
+1695
+00:48:06,056 --> 00:48:07,146
+Image and Vision.
+
+
+1696
+00:48:08,026 --> 00:48:09,666
+And with that, I'd like to
+
+
+1697
+00:48:09,816 --> 00:48:11,516
+invite David back onstage and to
+
+
+1698
+00:48:11,516 --> 00:48:11,976
+give you a recap.
+
+
+1699
+00:48:12,516 --> 00:48:18,176
+[ Applause ]
+
+
+1700
+00:48:18,676 --> 00:48:19,046
+>> All right.
+
+
+1701
+00:48:19,046 --> 00:48:20,276
+Well, thank you all so much.
+
+
+1702
+00:48:20,806 --> 00:48:22,286
+Let me just give just a summary
+
+
+1703
+00:48:22,286 --> 00:48:23,536
+of what we talked about today.
+
+
+1704
+00:48:23,606 --> 00:48:25,046
+Again, our primary goals for
+
+
+1705
+00:48:25,046 --> 00:48:26,446
+this release was to give your
+
+
+1706
+00:48:26,446 --> 00:48:27,936
+applications better performance,
+
+
+1707
+00:48:28,596 --> 00:48:29,776
+better information about how
+
+
+1708
+00:48:29,826 --> 00:48:32,196
+Core Image works, and great new
+
+
+1709
+00:48:32,196 --> 00:48:32,986
+functionality.
+
+
+1710
+00:48:33,326 --> 00:48:34,626
+And we really look forward to
+
+
+1711
+00:48:34,626 --> 00:48:36,226
+seeing how your applications can
+
+
+1712
+00:48:36,776 --> 00:48:39,196
+grow this year based on this new
+
+
+1713
+00:48:39,426 --> 00:48:40,196
+functionality.
+
+
+1714
+00:48:40,696 --> 00:48:43,266
+So we look forward to you coming
+
+
+1715
+00:48:43,516 --> 00:48:45,316
+to some of our related sessions.
+
+
+1716
+00:48:45,616 --> 00:48:46,986
+If you look -- need more
+
+
+1717
+00:48:46,986 --> 00:48:48,036
+information, please go to
+
+
+1718
+00:48:48,036 --> 00:48:50,346
+developer.apple.com website.
+
+
+1719
+00:48:50,986 --> 00:48:52,246
+There are some related sessions
+
+
+1720
+00:48:52,246 --> 00:48:53,326
+that are definitely worth
+
+
+1721
+00:48:53,326 --> 00:48:53,776
+watching.
+
+
+1722
+00:48:53,776 --> 00:48:54,886
+There was a session earlier
+
+
+1723
+00:48:54,886 --> 00:48:57,196
+today called image editing with
+
+
+1724
+00:48:57,276 --> 00:48:59,646
+depth, as well as sessions on
+
+
+1725
+00:48:59,646 --> 00:49:02,576
+Vision framework and sessions on
+
+
+1726
+00:49:02,576 --> 00:49:04,816
+capturing data with depth.
+
+
+1727
+00:49:05,026 --> 00:49:06,266
+Thank you so much for coming and
+
+
+1728
+00:49:06,266 --> 00:49:07,716
+have a great rest of your show.
+
+
+1729
+00:49:07,716 --> 00:49:07,966
+Thanks.
+
+
+1730
+00:49:08,508 --> 00:49:10,508
+[ Applause ]
+

@@ -1,0 +1,1264 @@
+1
+00:00:21,096 --> 00:00:22,596
+>> So, designing for iOS used to
+
+
+2
+00:00:22,596 --> 00:00:24,226
+be a lot more simple.
+
+
+3
+00:00:24,556 --> 00:00:25,706
+There was only one phone.
+
+
+4
+00:00:26,976 --> 00:00:28,396
+We now have three different
+
+
+5
+00:00:28,396 --> 00:00:31,036
+screen sizes for iPhone and
+
+
+6
+00:00:31,036 --> 00:00:33,826
+three iPad sizes, with different
+
+
+7
+00:00:33,826 --> 00:00:36,806
+orientations, and split screens,
+
+
+8
+00:00:36,806 --> 00:00:38,206
+and multitasking screens.
+
+
+9
+00:00:39,346 --> 00:00:41,196
+And that might seem like a lot
+
+
+10
+00:00:41,196 --> 00:00:42,326
+of different screen sizes to
+
+
+11
+00:00:42,326 --> 00:00:44,016
+consider, but there's a basic
+
+
+12
+00:00:44,126 --> 00:00:45,746
+framework for designing and
+
+
+13
+00:00:45,746 --> 00:00:46,976
+building your app that
+
+
+14
+00:00:47,026 --> 00:00:48,076
+simplifies the process.
+
+
+15
+00:00:49,126 --> 00:00:51,566
+This will save you time and your
+
+
+16
+00:00:51,656 --> 00:00:53,726
+app will look great regardless
+
+
+17
+00:00:53,726 --> 00:00:55,546
+of what device people are using.
+
+
+18
+00:00:56,816 --> 00:00:58,826
+The key things to consider are
+
+
+19
+00:00:58,826 --> 00:01:00,836
+organizing your screens into
+
+
+20
+00:01:00,896 --> 00:01:03,276
+size classes, using Dynamic
+
+
+21
+00:01:03,336 --> 00:01:06,006
+Type, and taking advantage of
+
+
+22
+00:01:06,126 --> 00:01:07,386
+standard UI elements.
+
+
+23
+00:01:08,156 --> 00:01:09,786
+And all of these things are
+
+
+24
+00:01:09,786 --> 00:01:10,956
+meant to make it easier for you
+
+
+25
+00:01:10,956 --> 00:01:12,436
+to design and build your app.
+
+
+26
+00:01:13,446 --> 00:01:15,086
+So, first let's take a look at
+
+
+27
+00:01:15,086 --> 00:01:15,596
+size classes.
+
+
+28
+00:01:16,876 --> 00:01:18,466
+All screen sizes -- all iOS
+
+
+29
+00:01:18,626 --> 00:01:20,836
+screen dimensions fall under one
+
+
+30
+00:01:20,836 --> 00:01:23,516
+of two size classes, compact or
+
+
+31
+00:01:23,516 --> 00:01:24,006
+regular.
+
+
+32
+00:01:24,906 --> 00:01:26,226
+And an easy way to think about
+
+
+33
+00:01:26,276 --> 00:01:27,786
+this is that the narrower screen
+
+
+34
+00:01:27,786 --> 00:01:29,946
+widths are compact size, like an
+
+
+35
+00:01:30,116 --> 00:01:30,916
+iPhone layout.
+
+
+36
+00:01:31,406 --> 00:01:33,116
+And a wider screen widths are
+
+
+37
+00:01:33,116 --> 00:01:34,786
+regular like the width of an
+
+
+38
+00:01:34,966 --> 00:01:35,316
+iPad.
+
+
+39
+00:01:36,276 --> 00:01:37,866
+If you stack all of the screens
+
+
+40
+00:01:37,866 --> 00:01:39,886
+on top of each other, in both
+
+
+41
+00:01:39,986 --> 00:01:42,446
+portrait and in landscape
+
+
+42
+00:01:42,446 --> 00:01:44,356
+orientations you can see that
+
+
+43
+00:01:44,416 --> 00:01:46,366
+size class applies to both width
+
+
+44
+00:01:46,436 --> 00:01:46,936
+and height.
+
+
+45
+00:01:47,936 --> 00:01:49,446
+The goal of creating these two
+
+
+46
+00:01:49,446 --> 00:01:51,706
+size classes is so that layouts
+
+
+47
+00:01:51,756 --> 00:01:54,456
+will be flexible and elements
+
+
+48
+00:01:54,456 --> 00:01:56,006
+will adapt relative to their
+
+
+49
+00:01:56,006 --> 00:01:56,776
+screen size.
+
+
+50
+00:01:58,256 --> 00:01:59,256
+So let me give you a couple
+
+
+51
+00:01:59,256 --> 00:02:01,136
+examples of what that might
+
+
+52
+00:02:01,196 --> 00:02:02,376
+potentially mean for your
+
+
+53
+00:02:02,376 --> 00:02:02,766
+layout.
+
+
+54
+00:02:04,256 --> 00:02:07,156
+The iPhone 7 Plus in landscape,
+
+
+55
+00:02:07,156 --> 00:02:09,966
+falls under regular width, which
+
+
+56
+00:02:09,966 --> 00:02:11,616
+allows it to use Split Views
+
+
+57
+00:02:11,746 --> 00:02:12,776
+like all of the iPads.
+
+
+58
+00:02:12,776 --> 00:02:15,936
+And the two smaller phones in
+
+
+59
+00:02:15,936 --> 00:02:18,096
+landscape are compact in both
+
+
+60
+00:02:18,096 --> 00:02:18,946
+width and height.
+
+
+61
+00:02:18,946 --> 00:02:21,786
+This means they will get shorter
+
+
+62
+00:02:21,786 --> 00:02:24,106
+landscape bar heights than the
+
+
+63
+00:02:24,226 --> 00:02:25,506
+standard height that you see in
+
+
+64
+00:02:25,546 --> 00:02:25,976
+portrait.
+
+
+65
+00:02:28,066 --> 00:02:29,866
+Screen widths also define UIKit
+
+
+66
+00:02:29,866 --> 00:02:32,616
+margins and margin, the margin
+
+
+67
+00:02:32,616 --> 00:02:34,986
+widths can either be standard or
+
+
+68
+00:02:34,986 --> 00:02:37,096
+like this iPad generous for
+
+
+69
+00:02:37,096 --> 00:02:37,816
+wider screens.
+
+
+70
+00:02:39,066 --> 00:02:40,746
+But in this example and a lot of
+
+
+71
+00:02:40,746 --> 00:02:44,036
+other cases, text, if text went
+
+
+72
+00:02:44,036 --> 00:02:45,586
+edge to edge with the UIKit
+
+
+73
+00:02:45,586 --> 00:02:47,516
+margins then the lines of text
+
+
+74
+00:02:47,516 --> 00:02:49,626
+would be too long making it hard
+
+
+75
+00:02:49,626 --> 00:02:51,136
+for the eye to jump down when
+
+
+76
+00:02:51,136 --> 00:02:53,166
+you get to the end of a line.
+
+
+77
+00:02:54,926 --> 00:02:56,436
+So, we use readability margins
+
+
+78
+00:02:56,846 --> 00:02:58,346
+to restrict the line lengths on
+
+
+79
+00:02:58,346 --> 00:02:59,216
+larger devices.
+
+
+80
+00:03:00,066 --> 00:03:01,546
+These margins are flexible
+
+
+81
+00:03:01,546 --> 00:03:02,776
+because they can vary with the
+
+
+82
+00:03:02,776 --> 00:03:03,476
+text size.
+
+
+83
+00:03:04,746 --> 00:03:06,286
+And smaller text needs more
+
+
+84
+00:03:06,286 --> 00:03:08,616
+narrow readability lengths, and
+
+
+85
+00:03:08,616 --> 00:03:10,116
+larger text can have longer
+
+
+86
+00:03:10,116 --> 00:03:10,546
+lengths.
+
+
+87
+00:03:11,466 --> 00:03:13,156
+And if you're using Dynamic Type
+
+
+88
+00:03:13,306 --> 00:03:14,986
+with readability margins, then
+
+
+89
+00:03:14,986 --> 00:03:16,226
+people using your app will have
+
+
+90
+00:03:16,226 --> 00:03:17,636
+a much more comfortable reading
+
+
+91
+00:03:17,636 --> 00:03:18,166
+experience.
+
+
+92
+00:03:19,806 --> 00:03:20,926
+So, let's talk more about
+
+
+93
+00:03:21,016 --> 00:03:23,676
+Dynamic Type, what it is and how
+
+
+94
+00:03:23,676 --> 00:03:26,656
+it can help people use your app.
+
+
+95
+00:03:27,046 --> 00:03:29,286
+Dynamic Type are predefined text
+
+
+96
+00:03:29,286 --> 00:03:31,786
+styles that can be scaled on a
+
+
+97
+00:03:31,786 --> 00:03:33,826
+device so that people can see
+
+
+98
+00:03:33,826 --> 00:03:35,316
+text at a size that is most
+
+
+99
+00:03:35,316 --> 00:03:36,206
+comfortable for them.
+
+
+100
+00:03:36,206 --> 00:03:38,176
+And there are a lot of people
+
+
+101
+00:03:38,176 --> 00:03:40,416
+who find text in their apps to
+
+
+102
+00:03:40,416 --> 00:03:41,926
+be way too small to read.
+
+
+103
+00:03:42,436 --> 00:03:44,806
+So, using Dynamic Type will
+
+
+104
+00:03:44,806 --> 00:03:46,486
+automatically allow text to
+
+
+105
+00:03:46,656 --> 00:03:48,566
+scale up or down without
+
+
+106
+00:03:48,566 --> 00:03:49,746
+compromising your layout.
+
+
+107
+00:03:49,746 --> 00:03:52,646
+And it also makes opting in
+
+
+108
+00:03:52,646 --> 00:03:54,446
+Accessibility Settings for even
+
+
+109
+00:03:54,446 --> 00:03:56,336
+larger type, much easier.
+
+
+110
+00:03:58,116 --> 00:03:59,586
+It also makes localizing your
+
+
+111
+00:03:59,586 --> 00:04:00,286
+app seamless.
+
+
+112
+00:04:00,796 --> 00:04:01,816
+Your text will adjust the
+
+
+113
+00:04:01,816 --> 00:04:03,826
+lettering, or line height based
+
+
+114
+00:04:03,826 --> 00:04:05,066
+on the height of the characters.
+
+
+115
+00:04:05,466 --> 00:04:06,836
+So using these features will
+
+
+116
+00:04:06,836 --> 00:04:08,096
+only make it easier for more
+
+
+117
+00:04:08,096 --> 00:04:10,316
+people to use your app.
+
+
+118
+00:04:11,546 --> 00:04:12,866
+So, this is our Dynamic Type
+
+
+119
+00:04:12,956 --> 00:04:13,316
+chart.
+
+
+120
+00:04:14,026 --> 00:04:15,366
+And this year, we've made some
+
+
+121
+00:04:15,366 --> 00:04:17,086
+adjustments to our existing text
+
+
+122
+00:04:17,086 --> 00:04:18,986
+styles by increasing the weight
+
+
+123
+00:04:18,986 --> 00:04:20,926
+of Title sizes from light to
+
+
+124
+00:04:21,156 --> 00:04:21,805
+regular.
+
+
+125
+00:04:22,426 --> 00:04:24,586
+In most cases, we recommend
+
+
+126
+00:04:24,586 --> 00:04:26,876
+using two to three of these text
+
+
+127
+00:04:26,876 --> 00:04:28,376
+styles per screen.
+
+
+128
+00:04:29,026 --> 00:04:30,306
+But with ten different text
+
+
+129
+00:04:30,306 --> 00:04:32,316
+styles to choose from, there are
+
+
+130
+00:04:32,316 --> 00:04:33,806
+countless combinations and a lot
+
+
+131
+00:04:33,806 --> 00:04:35,486
+of flexibility when you're
+
+
+132
+00:04:35,486 --> 00:04:37,956
+designing your app.
+
+
+133
+00:04:38,276 --> 00:04:39,686
+The names of the text styles are
+
+
+134
+00:04:39,686 --> 00:04:40,756
+meant to be descriptive,
+
+
+135
+00:04:41,346 --> 00:04:43,606
+suggesting where certain styles
+
+
+136
+00:04:43,636 --> 00:04:45,066
+are most appropriately used.
+
+
+137
+00:04:45,996 --> 00:04:47,926
+So for instance, Body is
+
+
+138
+00:04:47,926 --> 00:04:49,986
+intended to be used in places
+
+
+139
+00:04:49,986 --> 00:04:51,576
+where large bodies of text are
+
+
+140
+00:04:51,576 --> 00:04:51,916
+needed.
+
+
+141
+00:04:52,416 --> 00:04:53,716
+And Body is also the default
+
+
+142
+00:04:53,716 --> 00:04:54,806
+that we use throughout the
+
+
+143
+00:04:54,876 --> 00:04:55,326
+system.
+
+
+144
+00:04:56,596 --> 00:04:58,216
+And from there, we can introduce
+
+
+145
+00:04:58,486 --> 00:05:00,776
+smaller and larger styles, or in
+
+
+146
+00:05:00,776 --> 00:05:03,366
+this case bolder, to create
+
+
+147
+00:05:03,366 --> 00:05:03,776
+hierarchy.
+
+
+148
+00:05:05,566 --> 00:05:06,546
+But what if you're using a
+
+
+149
+00:05:06,656 --> 00:05:07,996
+custom font in your design?
+
+
+150
+00:05:09,136 --> 00:05:11,486
+So, this year, with our new API
+
+
+151
+00:05:11,876 --> 00:05:13,536
+we have, we can make custom
+
+
+152
+00:05:13,536 --> 00:05:15,216
+fonts Dynamic as well, which is
+
+
+153
+00:05:15,216 --> 00:05:15,616
+great.
+
+
+154
+00:05:16,106 --> 00:05:17,576
+Keep in mind that you may have
+
+
+155
+00:05:17,576 --> 00:05:19,406
+to design -- assign different
+
+
+156
+00:05:19,446 --> 00:05:21,236
+point sizes for each text style
+
+
+157
+00:05:21,676 --> 00:05:23,196
+because not all fonts have the
+
+
+158
+00:05:23,266 --> 00:05:24,106
+same proportions.
+
+
+159
+00:05:24,106 --> 00:05:26,396
+And this is important for
+
+
+160
+00:05:26,396 --> 00:05:27,886
+keeping your text optically the
+
+
+161
+00:05:27,886 --> 00:05:28,536
+same size.
+
+
+162
+00:05:30,346 --> 00:05:32,046
+Etsy is a good example of an app
+
+
+163
+00:05:32,246 --> 00:05:33,456
+that uses Dynamic Type.
+
+
+164
+00:05:33,996 --> 00:05:35,616
+Here it is at its default size,
+
+
+165
+00:05:36,996 --> 00:05:38,686
+and here it is at a much larger
+
+
+166
+00:05:38,686 --> 00:05:40,466
+size, and it looks great.
+
+
+167
+00:05:41,776 --> 00:05:43,906
+So, last but not least, let's
+
+
+168
+00:05:43,946 --> 00:05:45,536
+discuss UIKit Elements.
+
+
+169
+00:05:47,216 --> 00:05:49,106
+Rather than focusing effort on
+
+
+170
+00:05:49,106 --> 00:05:50,706
+designing a task or function
+
+
+171
+00:05:51,116 --> 00:05:52,526
+that people are already familiar
+
+
+172
+00:05:52,526 --> 00:05:54,296
+with, we want you to be able to
+
+
+173
+00:05:54,296 --> 00:05:55,966
+focus your time designing what
+
+
+174
+00:05:55,966 --> 00:05:57,326
+makes your app unique.
+
+
+175
+00:05:58,286 --> 00:05:59,636
+We have a bunch of standard UI
+
+
+176
+00:05:59,726 --> 00:06:01,076
+elements that you can use in
+
+
+177
+00:06:01,076 --> 00:06:02,716
+your app that will automatically
+
+
+178
+00:06:02,816 --> 00:06:04,476
+adapt on all screen sizes.
+
+
+179
+00:06:05,206 --> 00:06:06,306
+So, this includes things like
+
+
+180
+00:06:06,306 --> 00:06:08,236
+TableViews which not only scale
+
+
+181
+00:06:08,236 --> 00:06:10,216
+nicely with Dynamic Type, it
+
+
+182
+00:06:10,216 --> 00:06:11,556
+also inherits readability
+
+
+183
+00:06:11,556 --> 00:06:12,856
+margins and standard
+
+
+184
+00:06:12,856 --> 00:06:14,286
+interactions, like swipe
+
+
+185
+00:06:14,286 --> 00:06:15,656
+actions, and edit mode.
+
+
+186
+00:06:17,136 --> 00:06:18,116
+And there are a lot of other
+
+
+187
+00:06:18,116 --> 00:06:20,186
+resources that will help enforce
+
+
+188
+00:06:20,306 --> 00:06:22,536
+consistency and adapt seamlessly
+
+
+189
+00:06:22,536 --> 00:06:23,556
+across devices.
+
+
+190
+00:06:24,806 --> 00:06:26,526
+It's important to note that all
+
+
+191
+00:06:26,526 --> 00:06:28,066
+of these components are scaled
+
+
+192
+00:06:28,116 --> 00:06:31,266
+for iOS 7, which is the size
+
+
+193
+00:06:31,266 --> 00:06:32,666
+that we recommend you start a
+
+
+194
+00:06:32,666 --> 00:06:33,436
+new design.
+
+
+195
+00:06:34,786 --> 00:06:36,376
+Once you have an iPhone design
+
+
+196
+00:06:36,836 --> 00:06:38,016
+we have a couple tips for
+
+
+197
+00:06:38,016 --> 00:06:39,266
+adapting it to iPad.
+
+
+198
+00:06:41,066 --> 00:06:42,776
+So, going back for a minute, we
+
+
+199
+00:06:42,906 --> 00:06:44,546
+now know that regular size
+
+
+200
+00:06:44,686 --> 00:06:47,256
+classes or iPads can use Split
+
+
+201
+00:06:47,256 --> 00:06:49,676
+Views and to maintain content
+
+
+202
+00:06:49,736 --> 00:06:51,476
+hierarchy between iPhone and
+
+
+203
+00:06:51,596 --> 00:06:53,696
+iPad consider how your app will
+
+
+204
+00:06:53,696 --> 00:06:54,366
+relay out.
+
+
+205
+00:06:55,866 --> 00:06:57,186
+The left side of the Split View
+
+
+206
+00:06:57,326 --> 00:06:59,266
+can be referred to as the Master
+
+
+207
+00:06:59,266 --> 00:06:59,596
+View.
+
+
+208
+00:07:00,666 --> 00:07:02,236
+And on the right is the Detail
+
+
+209
+00:07:02,236 --> 00:07:02,416
+View.
+
+
+210
+00:07:02,416 --> 00:07:05,126
+And the Detail View on an iPhone
+
+
+211
+00:07:05,876 --> 00:07:06,916
+would be the page you have to
+
+
+212
+00:07:06,916 --> 00:07:08,586
+drill down further to see.
+
+
+213
+00:07:10,206 --> 00:07:11,716
+Remember, an iPad will share
+
+
+214
+00:07:11,716 --> 00:07:14,836
+both iPad and iPhone specific
+
+
+215
+00:07:14,836 --> 00:07:17,326
+layouts and iPad layouts should
+
+
+216
+00:07:17,326 --> 00:07:18,486
+maintain the same level of
+
+
+217
+00:07:18,596 --> 00:07:20,586
+hierarchy as the iPhone layout
+
+
+218
+00:07:20,856 --> 00:07:22,516
+including standard navigation,
+
+
+219
+00:07:22,906 --> 00:07:24,066
+toolbars, and tab bars.
+
+
+220
+00:07:25,286 --> 00:07:26,376
+If your app has enabled
+
+
+221
+00:07:26,376 --> 00:07:28,316
+multitasking, this will create
+
+
+222
+00:07:28,316 --> 00:07:30,116
+consistency when your app has to
+
+
+223
+00:07:30,116 --> 00:07:32,866
+coexist with another app.
+
+
+224
+00:07:33,246 --> 00:07:34,966
+And while in multitasking your
+
+
+225
+00:07:34,966 --> 00:07:36,296
+app will transition back and
+
+
+226
+00:07:36,376 --> 00:07:39,226
+forth between the iPhone layout
+
+
+227
+00:07:39,226 --> 00:07:41,856
+or compact, and back to regular
+
+
+228
+00:07:41,856 --> 00:07:43,836
+size classes depending on its
+
+
+229
+00:07:44,136 --> 00:07:45,186
+current screen width.
+
+
+230
+00:07:46,906 --> 00:07:47,976
+Okay, so to recap.
+
+
+231
+00:07:48,896 --> 00:07:50,546
+When designing for iOS, it's
+
+
+232
+00:07:50,546 --> 00:07:51,706
+important to keep these three
+
+
+233
+00:07:51,706 --> 00:07:52,526
+things in mind.
+
+
+234
+00:07:53,846 --> 00:07:55,876
+Considering size class will make
+
+
+235
+00:07:55,876 --> 00:07:58,156
+your app look amazing regardless
+
+
+236
+00:07:58,386 --> 00:08:00,036
+of what device people are using.
+
+
+237
+00:08:01,016 --> 00:08:03,086
+Using Dynamic Type will make it
+
+
+238
+00:08:03,086 --> 00:08:05,936
+easy for your text to scale and
+
+
+239
+00:08:06,026 --> 00:08:06,946
+translate to different
+
+
+240
+00:08:06,946 --> 00:08:08,946
+languages, and this will enable
+
+
+241
+00:08:09,096 --> 00:08:11,446
+more people to use your app.
+
+
+242
+00:08:12,176 --> 00:08:13,906
+And taking advantage of existing
+
+
+243
+00:08:13,906 --> 00:08:15,766
+UI elements will free you up
+
+
+244
+00:08:15,866 --> 00:08:17,566
+from redesigning and rebuilding
+
+
+245
+00:08:17,566 --> 00:08:19,346
+features that people might
+
+
+246
+00:08:19,346 --> 00:08:20,416
+already be familiar with.
+
+
+247
+00:08:21,986 --> 00:08:22,896
+We encourage you to take
+
+
+248
+00:08:22,896 --> 00:08:24,476
+advantage of these tools, not
+
+
+249
+00:08:24,476 --> 00:08:26,336
+only to save you time, but so
+
+
+250
+00:08:26,336 --> 00:08:28,246
+that regardless of what iOS app
+
+
+251
+00:08:29,156 --> 00:08:30,466
+people are using, your app
+
+
+252
+00:08:30,596 --> 00:08:32,086
+experience will be seamless.
+
+
+253
+00:08:33,046 --> 00:08:33,796
+Thank you.
+

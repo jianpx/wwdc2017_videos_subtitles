@@ -102,8 +102,8 @@ async.waterfall([
                                 webvttFilesLines = webvttFilesLines.concat(lines);
                                 callback(null, webvttFilesLines);
                             } else {
-                                videoInfo.errorMessage = errorMessage;
-                                callback(errorMessage, null);
+                                videoInfo.errorMessage = err;
+                                callback(err, null);
                             }
                         });
                     }, function (err, webvttFilesLines) {

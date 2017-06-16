@@ -1,0 +1,9084 @@
+1
+00:00:19,496 --> 00:00:20,056
+>> Hi everyone.
+
+
+2
+00:00:24,186 --> 00:00:26,896
+Hi, and welcome to finding bugs
+
+
+3
+00:00:27,086 --> 00:00:29,146
+using Xcode Runtime tools.
+
+
+4
+00:00:29,896 --> 00:00:31,736
+My name is Kuba, I am an
+
+
+5
+00:00:31,736 --> 00:00:33,256
+engineer on the program, another
+
+
+6
+00:00:33,256 --> 00:00:35,016
+system inside developer tools.
+
+
+7
+00:00:35,596 --> 00:00:37,236
+And today we will be talking
+
+
+8
+00:00:37,236 --> 00:00:39,106
+about finding bugs at the
+
+
+9
+00:00:39,176 --> 00:00:41,246
+program runtime and the tools
+
+
+10
+00:00:41,246 --> 00:00:41,966
+for that.
+
+
+11
+00:00:42,166 --> 00:00:44,536
+So, let's jump in.
+
+
+12
+00:00:44,736 --> 00:00:46,846
+Xcode already has several ways
+
+
+13
+00:00:46,846 --> 00:00:47,936
+of telling you that you have
+
+
+14
+00:00:47,936 --> 00:00:49,036
+some bug in your program.
+
+
+15
+00:00:49,326 --> 00:00:50,936
+For example, with compiler
+
+
+16
+00:00:50,936 --> 00:00:51,556
+errors.
+
+
+17
+00:00:52,066 --> 00:00:52,976
+Compiler warnings.
+
+
+18
+00:00:53,696 --> 00:00:54,656
+Analyzer warnings.
+
+
+19
+00:00:55,296 --> 00:00:56,046
+Or test failures.
+
+
+20
+00:00:57,196 --> 00:00:59,006
+Last year in Xcode 8 we have
+
+
+21
+00:00:59,046 --> 00:01:00,416
+added a whole new category
+
+
+22
+00:01:01,046 --> 00:01:02,336
+called Runtime Issues.
+
+
+23
+00:01:03,436 --> 00:01:05,245
+Those issues are found at the
+
+
+24
+00:01:05,245 --> 00:01:07,386
+program runtime by several
+
+
+25
+00:01:08,006 --> 00:01:09,116
+different tools.
+
+
+26
+00:01:09,296 --> 00:01:10,496
+When you run and debug your
+
+
+27
+00:01:10,496 --> 00:01:12,276
+applications as you are used to,
+
+
+28
+00:01:12,446 --> 00:01:14,626
+these tools find and detect bugs
+
+
+29
+00:01:14,626 --> 00:01:16,376
+at runtime and they display them
+
+
+30
+00:01:16,876 --> 00:01:18,326
+in the Runtime Issues Navigator
+
+
+31
+00:01:18,376 --> 00:01:19,136
+in Xcode.
+
+
+32
+00:01:20,316 --> 00:01:22,486
+If you are not actively watching
+
+
+33
+00:01:22,566 --> 00:01:24,926
+this navigator, Xcode also
+
+
+34
+00:01:24,926 --> 00:01:26,296
+indicates that it found some
+
+
+35
+00:01:26,296 --> 00:01:28,516
+runtime issue by showing this
+
+
+36
+00:01:28,516 --> 00:01:30,636
+purple warning icon.
+
+
+37
+00:01:31,246 --> 00:01:34,446
+You can click any of these
+
+
+38
+00:01:34,446 --> 00:01:36,816
+issues in the Navigator and the
+
+
+39
+00:01:36,956 --> 00:01:38,816
+editor will tell you which line
+
+
+40
+00:01:38,816 --> 00:01:40,746
+of code contains the bug.
+
+
+41
+00:01:42,066 --> 00:01:43,836
+The source of this bug can vary
+
+
+42
+00:01:43,836 --> 00:01:45,276
+because different tools report
+
+
+43
+00:01:45,276 --> 00:01:47,406
+different types of bugs but all
+
+
+44
+00:01:47,406 --> 00:01:48,346
+these tools that we're going to
+
+
+45
+00:01:48,346 --> 00:01:50,296
+talk today in this session, you
+
+
+46
+00:01:50,296 --> 00:01:51,846
+can find in the diagnostic step
+
+
+47
+00:01:51,976 --> 00:01:52,806
+in the scheme editor.
+
+
+48
+00:01:53,516 --> 00:01:55,486
+And in Xcode 9, it now contains
+
+
+49
+00:01:55,486 --> 00:01:56,196
+some new features.
+
+
+50
+00:01:56,786 --> 00:01:58,496
+So, you'll see that it now has
+
+
+51
+00:01:58,636 --> 00:02:00,086
+address sanitizer, threat
+
+
+52
+00:02:00,086 --> 00:02:02,586
+sanitizer, undefined behavior
+
+
+53
+00:02:02,586 --> 00:02:04,686
+sanitizer and also main thread
+
+
+54
+00:02:04,686 --> 00:02:05,046
+checker.
+
+
+55
+00:02:05,736 --> 00:02:07,756
+So, these tools, which all find
+
+
+56
+00:02:07,756 --> 00:02:09,786
+bugs at program runtime, are
+
+
+57
+00:02:10,126 --> 00:02:11,456
+what we're going to talk today
+
+
+58
+00:02:11,636 --> 00:02:12,336
+in this session.
+
+
+59
+00:02:13,096 --> 00:02:14,896
+So, first I will introduce main
+
+
+60
+00:02:14,896 --> 00:02:16,296
+thread checker, a completely new
+
+
+61
+00:02:16,296 --> 00:02:17,436
+tool in Xcode 9.
+
+
+62
+00:02:18,756 --> 00:02:20,576
+Then I will talk about address
+
+
+63
+00:02:20,576 --> 00:02:22,166
+sanitizer and thread sanitizer
+
+
+64
+00:02:22,336 --> 00:02:23,716
+and the improvement that we have
+
+
+65
+00:02:23,716 --> 00:02:25,356
+made to these tools this year.
+
+
+66
+00:02:26,536 --> 00:02:27,936
+We will introduce another
+
+
+67
+00:02:27,936 --> 00:02:29,606
+completely new tool, undefined
+
+
+68
+00:02:29,606 --> 00:02:30,706
+behavior sanitizer.
+
+
+69
+00:02:30,706 --> 00:02:33,276
+And finally we will provide tips
+
+
+70
+00:02:33,316 --> 00:02:35,386
+and best practices, how you
+
+
+71
+00:02:35,386 --> 00:02:36,386
+should be using those tools
+
+
+72
+00:02:36,386 --> 00:02:36,986
+effectively.
+
+
+73
+00:02:37,856 --> 00:02:39,556
+So, let's jump in.
+
+
+74
+00:02:40,636 --> 00:02:42,736
+The main thread checker is a
+
+
+75
+00:02:42,736 --> 00:02:44,426
+completely new tool in Xcode 9
+
+
+76
+00:02:44,496 --> 00:02:46,496
+and it detects violations of
+
+
+77
+00:02:46,496 --> 00:02:47,736
+some commonly used APIs.
+
+
+78
+00:02:47,736 --> 00:02:50,836
+And specifically it focuses on
+
+
+79
+00:02:50,836 --> 00:02:52,596
+UI updates and multithreading.
+
+
+80
+00:02:53,756 --> 00:02:56,336
+Some APIs require that you only
+
+
+81
+00:02:56,336 --> 00:02:58,166
+use them from the main thread.
+
+
+82
+00:02:58,756 --> 00:03:00,586
+For example, that's the case for
+
+
+83
+00:03:00,586 --> 00:03:02,266
+many APIs from the AppKit and
+
+
+84
+00:03:02,266 --> 00:03:03,256
+UIKit frameworks.
+
+
+85
+00:03:04,086 --> 00:03:05,276
+And they are used by most
+
+
+86
+00:03:05,276 --> 00:03:06,736
+graphical macOS and iOS
+
+
+87
+00:03:06,736 --> 00:03:07,426
+applications.
+
+
+88
+00:03:07,746 --> 00:03:08,866
+And I assume that if you are
+
+
+89
+00:03:08,866 --> 00:03:10,626
+using those frameworks, you
+
+
+90
+00:03:10,626 --> 00:03:11,686
+already know about this
+
+
+91
+00:03:11,686 --> 00:03:13,196
+restriction that you have to
+
+
+92
+00:03:13,196 --> 00:03:14,526
+call those APIs from the main
+
+
+93
+00:03:14,526 --> 00:03:14,736
+thread.
+
+
+94
+00:03:14,736 --> 00:03:16,826
+And that's easy to do.
+
+
+95
+00:03:16,896 --> 00:03:18,126
+We just make sure that we will
+
+
+96
+00:03:18,186 --> 00:03:19,516
+call those APIs on the main
+
+
+97
+00:03:19,516 --> 00:03:20,036
+thread only.
+
+
+98
+00:03:21,516 --> 00:03:23,156
+But there are tasks that you
+
+
+99
+00:03:23,156 --> 00:03:24,616
+don't want to be executed on the
+
+
+100
+00:03:24,616 --> 00:03:26,516
+main thread, like file downloads
+
+
+101
+00:03:26,516 --> 00:03:27,716
+where you need to wait for some
+
+
+102
+00:03:27,716 --> 00:03:29,756
+data or image processing, which
+
+
+103
+00:03:29,916 --> 00:03:31,066
+usually involves some, like,
+
+
+104
+00:03:31,066 --> 00:03:32,126
+heavy computations.
+
+
+105
+00:03:33,256 --> 00:03:34,976
+So, these tasks need to be moved
+
+
+106
+00:03:35,146 --> 00:03:36,746
+off the main thread so that the
+
+
+107
+00:03:36,746 --> 00:03:39,406
+UI is still responsive and your
+
+
+108
+00:03:39,406 --> 00:03:40,656
+user interaction is not blocked
+
+
+109
+00:03:40,656 --> 00:03:41,136
+in your app.
+
+
+110
+00:03:42,056 --> 00:03:44,126
+However, these tasks also need
+
+
+111
+00:03:44,126 --> 00:03:45,676
+to trigger UI updates.
+
+
+112
+00:03:46,756 --> 00:03:48,826
+And if those UI updates involve
+
+
+113
+00:03:48,826 --> 00:03:50,936
+calling AppKit or UI kit APIs,
+
+
+114
+00:03:51,356 --> 00:03:52,896
+that update needs to happen from
+
+
+115
+00:03:52,896 --> 00:03:53,376
+the main thread.
+
+
+116
+00:03:53,566 --> 00:03:55,026
+And it's very easy to make a
+
+
+117
+00:03:55,026 --> 00:03:56,616
+mistake, to accidently call this
+
+
+118
+00:03:56,616 --> 00:03:58,246
+UI update from the wrong thread.
+
+
+119
+00:03:59,146 --> 00:04:00,056
+And it can have serious
+
+
+120
+00:04:00,056 --> 00:04:01,986
+consequences such as missed UI
+
+
+121
+00:04:01,986 --> 00:04:03,696
+updates where the UI just does
+
+
+122
+00:04:03,696 --> 00:04:05,616
+not update at all or other
+
+
+123
+00:04:05,616 --> 00:04:06,336
+visual defects.
+
+
+124
+00:04:06,916 --> 00:04:08,006
+But even more serious things
+
+
+125
+00:04:08,006 --> 00:04:09,286
+like data corruptions or
+
+
+126
+00:04:09,286 --> 00:04:09,656
+crashes.
+
+
+127
+00:04:10,086 --> 00:04:12,206
+So, to avoid this problem we
+
+
+128
+00:04:12,206 --> 00:04:13,356
+need to make sure that this UI
+
+
+129
+00:04:13,356 --> 00:04:15,036
+update only happens from the
+
+
+130
+00:04:15,036 --> 00:04:15,436
+main thread.
+
+
+131
+00:04:16,625 --> 00:04:18,386
+So, with that, I'd like to
+
+
+132
+00:04:18,386 --> 00:04:19,476
+introduce Main Thread Checker
+
+
+133
+00:04:19,476 --> 00:04:21,000
+and show it to you right now.
+
+
+134
+00:04:30,436 --> 00:04:31,956
+So, what I have here is a very
+
+
+135
+00:04:31,956 --> 00:04:33,126
+simple application which
+
+
+136
+00:04:33,126 --> 00:04:34,386
+downloads some data from the
+
+
+137
+00:04:34,386 --> 00:04:34,816
+internet.
+
+
+138
+00:04:35,386 --> 00:04:36,736
+It's actually downloading a file
+
+
+139
+00:04:36,736 --> 00:04:38,866
+from this long URL which is
+
+
+140
+00:04:38,906 --> 00:04:39,446
+present on the
+
+
+141
+00:04:39,446 --> 00:04:40,856
+developer.apple.com website.
+
+
+142
+00:04:41,296 --> 00:04:42,736
+It's some sample code that Apple
+
+
+143
+00:04:42,736 --> 00:04:44,496
+has published in 2013.
+
+
+144
+00:04:45,036 --> 00:04:46,176
+And it's a zip file.
+
+
+145
+00:04:46,176 --> 00:04:48,356
+It's several megabytes large and
+
+
+146
+00:04:48,356 --> 00:04:49,696
+it will serve as an example file
+
+
+147
+00:04:49,696 --> 00:04:50,516
+if you want to download.
+
+
+148
+00:04:51,706 --> 00:04:53,216
+To download this file, I'm using
+
+
+149
+00:04:53,216 --> 00:04:56,036
+a class called URLSession that's
+
+
+150
+00:04:56,036 --> 00:04:57,496
+provided by Foundation and it's
+
+
+151
+00:04:57,496 --> 00:04:58,586
+a very convenient way of
+
+
+152
+00:04:58,616 --> 00:04:59,396
+downloading files.
+
+
+153
+00:05:01,776 --> 00:05:03,736
+The UI of my application is very
+
+
+154
+00:05:03,736 --> 00:05:04,446
+simple.
+
+
+155
+00:05:05,276 --> 00:05:05,946
+Let's take a look.
+
+
+156
+00:05:05,946 --> 00:05:07,806
+It contains a single button and
+
+
+157
+00:05:07,806 --> 00:05:08,596
+a progress bar.
+
+
+158
+00:05:08,596 --> 00:05:10,576
+So, I have actually implemented
+
+
+159
+00:05:10,576 --> 00:05:12,086
+the progress callback of
+
+
+160
+00:05:12,086 --> 00:05:12,776
+URLSession.
+
+
+161
+00:05:12,776 --> 00:05:14,116
+And from this callback I am
+
+
+162
+00:05:14,116 --> 00:05:15,386
+updating the value on this
+
+
+163
+00:05:15,426 --> 00:05:16,026
+progress bar.
+
+
+164
+00:05:16,366 --> 00:05:17,876
+So, let's run the application
+
+
+165
+00:05:18,156 --> 00:05:20,506
+and see if it shows the progress
+
+
+166
+00:05:20,506 --> 00:05:22,206
+of the download as it's supposed
+
+
+167
+00:05:22,206 --> 00:05:22,416
+to.
+
+
+168
+00:05:22,896 --> 00:05:24,706
+Let me now click the button to
+
+
+169
+00:05:24,706 --> 00:05:25,736
+start the download.
+
+
+170
+00:05:26,126 --> 00:05:26,976
+And you might see that
+
+
+171
+00:05:27,006 --> 00:05:28,296
+something's not quite right,
+
+
+172
+00:05:28,446 --> 00:05:30,036
+because the progress bar is just
+
+
+173
+00:05:30,036 --> 00:05:31,076
+stuck at the beginning.
+
+
+174
+00:05:31,616 --> 00:05:33,596
+And now it has for some reason
+
+
+175
+00:05:33,596 --> 00:05:34,786
+jumped straight to the end.
+
+
+176
+00:05:35,956 --> 00:05:37,366
+So, now I might be wondering
+
+
+177
+00:05:37,366 --> 00:05:38,576
+that there's some bug in my
+
+
+178
+00:05:38,576 --> 00:05:40,486
+application or URLSession may
+
+
+179
+00:05:40,486 --> 00:05:41,666
+not be working correctly.
+
+
+180
+00:05:42,546 --> 00:05:43,416
+So, the best thing about this
+
+
+181
+00:05:43,416 --> 00:05:44,496
+feature is that I don't need to
+
+
+182
+00:05:44,496 --> 00:05:46,476
+guess what wrong - Xcode has
+
+
+183
+00:05:46,476 --> 00:05:47,496
+already found the problem.
+
+
+184
+00:05:48,196 --> 00:05:49,806
+If we take a look back into
+
+
+185
+00:05:49,806 --> 00:05:51,166
+Xcode, we'll see that it's
+
+
+186
+00:05:51,166 --> 00:05:53,826
+informing us that it has found a
+
+
+187
+00:05:53,826 --> 00:05:54,516
+Runtime issue.
+
+
+188
+00:05:55,596 --> 00:05:57,096
+Let me click this Runtime issue
+
+
+189
+00:05:57,226 --> 00:05:58,706
+to get some details, and you'll
+
+
+190
+00:05:58,706 --> 00:05:59,846
+see that the navigator has now
+
+
+191
+00:05:59,936 --> 00:06:01,466
+switched to the Runtime Issues
+
+
+192
+00:06:01,466 --> 00:06:02,076
+navigator.
+
+
+193
+00:06:02,616 --> 00:06:04,406
+And it's informing me that I'm
+
+
+194
+00:06:04,406 --> 00:06:06,656
+calling some UI API from a
+
+
+195
+00:06:06,656 --> 00:06:07,286
+background thread.
+
+
+196
+00:06:08,756 --> 00:06:11,086
+I'll click this issue to go to
+
+
+197
+00:06:11,176 --> 00:06:12,656
+the code which contains the
+
+
+198
+00:06:12,656 --> 00:06:13,786
+invalid API code.
+
+
+199
+00:06:14,436 --> 00:06:16,356
+And in this case we can see that
+
+
+200
+00:06:16,356 --> 00:06:18,116
+we are actually setting a new
+
+
+201
+00:06:18,116 --> 00:06:19,996
+value on the progress indicator
+
+
+202
+00:06:20,256 --> 00:06:21,796
+from a background thread and
+
+
+203
+00:06:21,796 --> 00:06:23,706
+that has to be done only from
+
+
+204
+00:06:23,706 --> 00:06:25,646
+the main thread.
+
+
+205
+00:06:25,776 --> 00:06:26,916
+So, that's a bit unexpected
+
+
+206
+00:06:26,916 --> 00:06:28,456
+because I'm not trying to run
+
+
+207
+00:06:28,456 --> 00:06:29,726
+this code on a background
+
+
+208
+00:06:29,726 --> 00:06:29,926
+thread.
+
+
+209
+00:06:30,316 --> 00:06:31,306
+I'm actually not doing any
+
+
+210
+00:06:31,306 --> 00:06:32,726
+threading in my code at all.
+
+
+211
+00:06:32,726 --> 00:06:35,636
+So, the real problem is that I
+
+
+212
+00:06:35,636 --> 00:06:36,866
+actually made a mistake when I
+
+
+213
+00:06:36,866 --> 00:06:39,216
+was grading my URLSession class,
+
+
+214
+00:06:39,456 --> 00:06:40,076
+sorry, object.
+
+
+215
+00:06:40,656 --> 00:06:42,306
+On this line, where I'm creating
+
+
+216
+00:06:42,306 --> 00:06:44,476
+the URLSession, I'm supposed to
+
+
+217
+00:06:44,476 --> 00:06:46,776
+specify which view should be
+
+
+218
+00:06:46,776 --> 00:06:48,466
+used for the callbacks for both
+
+
+219
+00:06:48,466 --> 00:06:49,766
+the progress and download
+
+
+220
+00:06:49,766 --> 00:06:50,906
+finished callback.
+
+
+221
+00:06:51,086 --> 00:06:52,656
+Instead of providing a queue, I
+
+
+222
+00:06:52,916 --> 00:06:53,906
+just said nil.
+
+
+223
+00:06:53,906 --> 00:06:54,896
+That means I don't care.
+
+
+224
+00:06:54,896 --> 00:06:56,856
+And URLSession will probably
+
+
+225
+00:06:57,286 --> 00:06:59,506
+involve those callbacks from a
+
+
+226
+00:06:59,896 --> 00:07:01,566
+background queue.
+
+
+227
+00:07:01,736 --> 00:07:04,066
+So, now we know why these
+
+
+228
+00:07:04,066 --> 00:07:05,216
+callbacks are called from a
+
+
+229
+00:07:05,216 --> 00:07:05,826
+background thread.
+
+
+230
+00:07:06,346 --> 00:07:08,226
+To fix this, I could either use
+
+
+231
+00:07:08,306 --> 00:07:10,626
+GCD and dispatch the UIUpdates
+
+
+232
+00:07:10,626 --> 00:07:11,466
+back to the main thread.
+
+
+233
+00:07:12,156 --> 00:07:13,926
+Or in this simple case I could
+
+
+234
+00:07:13,926 --> 00:07:15,946
+just ask URLSession to directly
+
+
+235
+00:07:16,316 --> 00:07:17,786
+call my callbacks on the main
+
+
+236
+00:07:17,786 --> 00:07:18,026
+queue.
+
+
+237
+00:07:18,026 --> 00:07:19,146
+So, let's do that instead.
+
+
+238
+00:07:20,516 --> 00:07:23,086
+I'll just ask it to call my
+
+
+239
+00:07:23,086 --> 00:07:24,756
+callbacks on the main queue and
+
+
+240
+00:07:25,036 --> 00:07:26,246
+let's run the application one
+
+
+241
+00:07:26,246 --> 00:07:27,786
+more time to see if that fixed
+
+
+242
+00:07:27,786 --> 00:07:28,376
+our problem.
+
+
+243
+00:07:29,596 --> 00:07:31,166
+If I click the button this time,
+
+
+244
+00:07:31,546 --> 00:07:32,756
+we'll see that the progress bar
+
+
+245
+00:07:32,756 --> 00:07:33,916
+now animates smoothly and it
+
+
+246
+00:07:34,156 --> 00:07:35,406
+indicates the progress of our
+
+
+247
+00:07:35,406 --> 00:07:35,846
+download.
+
+
+248
+00:07:39,516 --> 00:07:43,046
+[ Applause ]
+
+
+249
+00:07:43,546 --> 00:07:44,466
+Sorry, I need to switch back to
+
+
+250
+00:07:44,466 --> 00:07:44,886
+my slide.
+
+
+251
+00:07:45,246 --> 00:07:49,496
+There we go.
+
+
+252
+00:07:51,596 --> 00:07:55,026
+So, we've seen an example of how
+
+
+253
+00:07:55,026 --> 00:07:56,256
+Main Thread Checker helps us
+
+
+254
+00:07:56,446 --> 00:07:58,536
+find and fix a bug where we're
+
+
+255
+00:07:58,536 --> 00:07:59,916
+calling some API from the wrong
+
+
+256
+00:07:59,916 --> 00:08:00,096
+thread.
+
+
+257
+00:08:00,886 --> 00:08:02,906
+Notice, that I didn't need to
+
+
+258
+00:08:02,956 --> 00:08:04,576
+turn these two on because it's
+
+
+259
+00:08:04,576 --> 00:08:06,066
+actually enabled by default
+
+
+260
+00:08:06,266 --> 00:08:07,636
+whenever you are using the Xcode
+
+
+261
+00:08:07,636 --> 00:08:08,016
+debugger.
+
+
+262
+00:08:08,726 --> 00:08:11,736
+But if you want to find this
+
+
+263
+00:08:11,736 --> 00:08:13,796
+code in Xcode, you'll see that
+
+
+264
+00:08:13,796 --> 00:08:15,706
+it's available in the diagnostic
+
+
+265
+00:08:15,706 --> 00:08:17,536
+step again and you'll notice
+
+
+266
+00:08:17,536 --> 00:08:19,696
+that now in Xcode 9 we have this
+
+
+267
+00:08:19,746 --> 00:08:21,366
+checkbox called Main Thread
+
+
+268
+00:08:21,366 --> 00:08:21,716
+Checker.
+
+
+269
+00:08:22,606 --> 00:08:23,616
+So, this is the place where you
+
+
+270
+00:08:23,616 --> 00:08:25,056
+can turn the two on or off.
+
+
+271
+00:08:26,296 --> 00:08:27,806
+If you want to make the debugger
+
+
+272
+00:08:28,066 --> 00:08:29,786
+stop on a violation of this
+
+
+273
+00:08:29,786 --> 00:08:31,726
+rule, you can use the pause on
+
+
+274
+00:08:31,726 --> 00:08:34,006
+issues checkbox and with that,
+
+
+275
+00:08:34,006 --> 00:08:35,196
+the debugger will stop when it
+
+
+276
+00:08:35,196 --> 00:08:37,046
+detects an issue and you can
+
+
+277
+00:08:37,046 --> 00:08:38,316
+inspect your current program
+
+
+278
+00:08:38,316 --> 00:08:40,096
+state and to figure out what
+
+
+279
+00:08:40,096 --> 00:08:40,546
+went wrong.
+
+
+280
+00:08:40,546 --> 00:08:44,526
+Now, let's talk about some
+
+
+281
+00:08:44,526 --> 00:08:47,056
+common mistakes that leap to the
+
+
+282
+00:08:47,056 --> 00:08:48,216
+bugs that Main Thread Checker
+
+
+283
+00:08:48,216 --> 00:08:48,626
+detects.
+
+
+284
+00:08:49,486 --> 00:08:50,646
+So, as you saw in the demo,
+
+
+285
+00:08:51,046 --> 00:08:52,356
+networking callbacks is one
+
+
+286
+00:08:52,356 --> 00:08:55,446
+place where we, is a place which
+
+
+287
+00:08:55,496 --> 00:08:56,696
+often happens from the main
+
+
+288
+00:08:56,696 --> 00:08:57,636
+threads, sorry, from the
+
+
+289
+00:08:57,636 --> 00:08:58,196
+background thread.
+
+
+290
+00:08:59,246 --> 00:09:00,266
+So, you need to be careful and
+
+
+291
+00:09:00,266 --> 00:09:01,806
+you need to dispatch your
+
+
+292
+00:09:01,806 --> 00:09:03,316
+UIUpdates back to the main
+
+
+293
+00:09:03,316 --> 00:09:03,586
+threads.
+
+
+294
+00:09:04,636 --> 00:09:05,566
+Another common place for
+
+
+295
+00:09:05,566 --> 00:09:06,396
+mistakes is when you are
+
+
+296
+00:09:06,396 --> 00:09:08,276
+creating and destroying NSView
+
+
+297
+00:09:08,276 --> 00:09:09,336
+or UIView objects.
+
+
+298
+00:09:09,336 --> 00:09:11,046
+This also needs to happen only
+
+
+299
+00:09:11,046 --> 00:09:12,426
+from the main thread.
+
+
+300
+00:09:13,296 --> 00:09:15,886
+If you are writing libraries or
+
+
+301
+00:09:15,886 --> 00:09:17,516
+frameworks and you are providing
+
+
+302
+00:09:17,576 --> 00:09:18,866
+some asynchronous API.
+
+
+303
+00:09:19,656 --> 00:09:20,816
+You should be very careful when
+
+
+304
+00:09:20,816 --> 00:09:21,846
+designing those APIs.
+
+
+305
+00:09:22,506 --> 00:09:23,376
+Let's take a look.
+
+
+306
+00:09:23,786 --> 00:09:27,196
+Let's say that we want to have
+
+
+307
+00:09:27,196 --> 00:09:29,366
+an API that performs some long
+
+
+308
+00:09:29,366 --> 00:09:30,496
+and heavy computation.
+
+
+309
+00:09:30,496 --> 00:09:31,996
+So, it does that in an
+
+
+310
+00:09:32,036 --> 00:09:33,046
+asynchronous fashion.
+
+
+311
+00:09:34,566 --> 00:09:36,146
+Here the caller of the API needs
+
+
+312
+00:09:36,146 --> 00:09:38,646
+to provide a closure to the API
+
+
+313
+00:09:38,646 --> 00:09:40,436
+and the closure will be used as
+
+
+314
+00:09:40,436 --> 00:09:41,396
+a completion handler.
+
+
+315
+00:09:41,526 --> 00:09:42,956
+So, when the task is completed,
+
+
+316
+00:09:43,626 --> 00:09:45,576
+you, the API will call the
+
+
+317
+00:09:45,576 --> 00:09:46,336
+provided closure.
+
+
+318
+00:09:47,266 --> 00:09:48,636
+However, in this code sample,
+
+
+319
+00:09:48,636 --> 00:09:50,756
+it's not obvious which queue or
+
+
+320
+00:09:50,756 --> 00:09:51,936
+thread will be used for this
+
+
+321
+00:09:51,936 --> 00:09:52,326
+closure.
+
+
+322
+00:09:53,236 --> 00:09:54,796
+And it can easily lead to a
+
+
+323
+00:09:54,796 --> 00:09:56,156
+mistake where some code is
+
+
+324
+00:09:56,156 --> 00:09:57,516
+executed from the wrong thread.
+
+
+325
+00:10:01,216 --> 00:10:03,996
+Good APIs let or even force
+
+
+326
+00:10:03,996 --> 00:10:05,986
+their users to specify which
+
+
+327
+00:10:06,086 --> 00:10:07,736
+view should be used for the
+
+
+328
+00:10:07,736 --> 00:10:08,506
+completion handle.
+
+
+329
+00:10:08,556 --> 00:10:09,836
+So, if you read this code
+
+
+330
+00:10:09,836 --> 00:10:11,936
+example, it's obvious that the
+
+
+331
+00:10:11,936 --> 00:10:13,366
+closure will be called on the
+
+
+332
+00:10:13,366 --> 00:10:14,766
+provided queue and you don't
+
+
+333
+00:10:14,766 --> 00:10:15,726
+even need to read the
+
+
+334
+00:10:15,726 --> 00:10:19,936
+documentation for the API to
+
+
+335
+00:10:20,196 --> 00:10:20,556
+learn that.
+
+
+336
+00:10:20,556 --> 00:10:21,786
+So, as I said, Main Thread
+
+
+337
+00:10:21,786 --> 00:10:23,336
+Checker detects violations of
+
+
+338
+00:10:23,336 --> 00:10:24,406
+API threading rules.
+
+
+339
+00:10:25,256 --> 00:10:27,536
+It supports AppKit, UIKit and
+
+
+340
+00:10:27,536 --> 00:10:28,986
+WebKit which are three very
+
+
+341
+00:10:28,986 --> 00:10:30,456
+commonly used frameworks and
+
+
+342
+00:10:30,456 --> 00:10:32,536
+they all have the same main
+
+
+343
+00:10:32,536 --> 00:10:34,636
+thread only requirement on a lot
+
+
+344
+00:10:34,636 --> 00:10:35,136
+of their APIs.
+
+
+345
+00:10:35,136 --> 00:10:38,506
+The tool supports both Swift and
+
+
+346
+00:10:38,566 --> 00:10:39,256
+C languages.
+
+
+347
+00:10:39,776 --> 00:10:41,086
+And in contrast to the other
+
+
+348
+00:10:41,086 --> 00:10:42,436
+tools that we are going to talk
+
+
+349
+00:10:42,436 --> 00:10:44,546
+about today, it does not require
+
+
+350
+00:10:44,546 --> 00:10:45,336
+recompilation.
+
+
+351
+00:10:46,006 --> 00:10:46,956
+So, you can even use it on
+
+
+352
+00:10:46,956 --> 00:10:47,956
+existing binaries.
+
+
+353
+00:10:48,536 --> 00:10:51,016
+The best part is that is
+
+
+354
+00:10:51,016 --> 00:10:52,576
+actually enabled by default.
+
+
+355
+00:10:52,576 --> 00:10:53,676
+So, you don't need to do
+
+
+356
+00:10:53,676 --> 00:10:54,996
+anything to start getting these
+
+
+357
+00:10:54,996 --> 00:10:55,926
+warnings from the tool.
+
+
+358
+00:10:55,926 --> 00:10:57,016
+It's actually enabled whenever
+
+
+359
+00:10:57,016 --> 00:10:58,396
+you're using the Xcode debugger.
+
+
+360
+00:10:59,656 --> 00:11:00,726
+So, that was Main Thread
+
+
+361
+00:11:00,726 --> 00:11:02,886
+Checker, a completely new tool
+
+
+362
+00:11:03,716 --> 00:11:04,716
+in Xcode 9.
+
+
+363
+00:11:06,516 --> 00:11:11,576
+[ Applause ]
+
+
+364
+00:11:12,076 --> 00:11:13,836
+Now let's talk about another
+
+
+365
+00:11:13,876 --> 00:11:15,886
+large source of problems -
+
+
+366
+00:11:16,196 --> 00:11:16,856
+memory issues.
+
+
+367
+00:11:17,286 --> 00:11:18,476
+And let's talk about Address
+
+
+368
+00:11:18,476 --> 00:11:20,386
+Sanitizer, which finds those
+
+
+369
+00:11:20,436 --> 00:11:20,806
+issues.
+
+
+370
+00:11:22,196 --> 00:11:24,106
+Address Sanitizer has been
+
+
+371
+00:11:24,106 --> 00:11:25,966
+introduced in Xcode 7, two years
+
+
+372
+00:11:25,966 --> 00:11:26,346
+ago.
+
+
+373
+00:11:26,346 --> 00:11:28,096
+And it's proven to be a great
+
+
+374
+00:11:28,096 --> 00:11:29,046
+tool because it finds
+
+
+375
+00:11:29,356 --> 00:11:30,566
+security-critical issues.
+
+
+376
+00:11:30,676 --> 00:11:32,146
+For example, use after free bugs
+
+
+377
+00:11:32,606 --> 00:11:33,466
+and buffer overflows.
+
+
+378
+00:11:34,706 --> 00:11:36,226
+It's also very helpful when
+
+
+379
+00:11:36,346 --> 00:11:37,706
+trying to diagnose hard to
+
+
+380
+00:11:37,706 --> 00:11:38,566
+reproduce crashes.
+
+
+381
+00:11:38,566 --> 00:11:39,996
+Because it often makes those
+
+
+382
+00:11:39,996 --> 00:11:42,456
+crashes deterministic and it
+
+
+383
+00:11:42,456 --> 00:11:44,216
+finds memory corruptions when
+
+
+384
+00:11:44,216 --> 00:11:45,406
+they actually happen and not
+
+
+385
+00:11:45,456 --> 00:11:46,656
+some time later when the
+
+
+386
+00:11:46,706 --> 00:11:47,676
+corruption affects some
+
+
+387
+00:11:47,676 --> 00:11:48,516
+unrelated code.
+
+
+388
+00:11:49,416 --> 00:11:51,066
+If you'd like to know about how
+
+
+389
+00:11:51,066 --> 00:11:52,756
+this tool works and which exact
+
+
+390
+00:11:52,856 --> 00:11:54,266
+bugs can it find, I recommend
+
+
+391
+00:11:54,266 --> 00:11:56,196
+that you watch a WWDC from two
+
+
+392
+00:11:56,196 --> 00:11:57,796
+years ago called advanced
+
+
+393
+00:11:57,836 --> 00:11:59,796
+debugging and Address Sanitizer.
+
+
+394
+00:12:00,666 --> 00:12:01,596
+In that session, we have
+
+
+395
+00:12:01,656 --> 00:12:02,896
+introduced the tool and we have
+
+
+396
+00:12:02,896 --> 00:12:04,656
+also talked about how it works
+
+
+397
+00:12:04,656 --> 00:12:05,806
+under the hood.
+
+
+398
+00:12:06,646 --> 00:12:08,246
+Address Sanitizer is also
+
+
+399
+00:12:08,246 --> 00:12:10,416
+integrated into Xcode UI and
+
+
+400
+00:12:10,416 --> 00:12:11,136
+into Debugger.
+
+
+401
+00:12:11,136 --> 00:12:12,446
+Let's take a look.
+
+
+402
+00:12:12,506 --> 00:12:13,816
+If you want to use Address
+
+
+403
+00:12:13,816 --> 00:12:15,356
+Sanitizer, all you have to do is
+
+
+404
+00:12:15,436 --> 00:12:16,646
+again go to the scheme editor
+
+
+405
+00:12:16,646 --> 00:12:18,146
+and you'll find that there's a
+
+
+406
+00:12:18,146 --> 00:12:19,156
+checkbox called Address
+
+
+407
+00:12:19,156 --> 00:12:20,966
+Sanitizer which can be used to
+
+
+408
+00:12:20,966 --> 00:12:21,716
+enable this tool.
+
+
+409
+00:12:22,816 --> 00:12:24,586
+In Xcode 9 we have added another
+
+
+410
+00:12:24,736 --> 00:12:26,426
+checkbox that turns on an
+
+
+411
+00:12:26,426 --> 00:12:28,556
+optional check of use of stack
+
+
+412
+00:12:28,556 --> 00:12:30,046
+after return, and I will
+
+
+413
+00:12:30,046 --> 00:12:31,046
+describe this feature later.
+
+
+414
+00:12:31,946 --> 00:12:33,686
+But you can also notice that we
+
+
+415
+00:12:33,686 --> 00:12:35,016
+have now added compatibility
+
+
+416
+00:12:35,016 --> 00:12:35,856
+with Malloc Scribble.
+
+
+417
+00:12:35,856 --> 00:12:38,146
+So, you can enable both of these
+
+
+418
+00:12:38,146 --> 00:12:41,106
+tools at the same time.
+
+
+419
+00:12:41,106 --> 00:12:42,856
+You can then run and debug your
+
+
+420
+00:12:42,856 --> 00:12:44,566
+application as you are used to.
+
+
+421
+00:12:45,166 --> 00:12:47,776
+And if your program doesn't have
+
+
+422
+00:12:47,776 --> 00:12:49,046
+any memory issues and if it's
+
+
+423
+00:12:49,046 --> 00:12:50,246
+not touching any memory that
+
+
+424
+00:12:50,246 --> 00:12:52,716
+it's not supposed to, then good.
+
+
+425
+00:12:52,716 --> 00:12:53,816
+Address Sanitizer will not
+
+
+426
+00:12:53,816 --> 00:12:55,116
+interrupt your work flow.
+
+
+427
+00:12:55,466 --> 00:12:57,606
+But if it finds a problem, it
+
+
+428
+00:12:57,606 --> 00:12:59,006
+will stop the program and it
+
+
+429
+00:12:59,006 --> 00:13:00,246
+will describe what the issue is.
+
+
+430
+00:13:00,356 --> 00:13:02,196
+So, in this case we are
+
+
+431
+00:13:02,196 --> 00:13:03,346
+accidently using some
+
+
+432
+00:13:03,346 --> 00:13:04,416
+deallocated memory.
+
+
+433
+00:13:04,456 --> 00:13:06,456
+And that's a serious bug.
+
+
+434
+00:13:07,056 --> 00:13:08,466
+And when Address Sanitizer finds
+
+
+435
+00:13:08,466 --> 00:13:10,316
+this bug, it will also display
+
+
+436
+00:13:10,616 --> 00:13:12,016
+some additional information
+
+
+437
+00:13:12,186 --> 00:13:13,336
+about that memory that we're
+
+
+438
+00:13:13,336 --> 00:13:13,866
+accessing.
+
+
+439
+00:13:14,446 --> 00:13:15,806
+And we'll get not just its
+
+
+440
+00:13:15,806 --> 00:13:17,816
+address but we'll also get some
+
+
+441
+00:13:17,816 --> 00:13:18,856
+description of it.
+
+
+442
+00:13:18,856 --> 00:13:21,236
+How large the heap region is and
+
+
+443
+00:13:21,236 --> 00:13:22,486
+which byte out of it are we
+
+
+444
+00:13:22,486 --> 00:13:23,046
+accessing.
+
+
+445
+00:13:23,696 --> 00:13:25,506
+And we also get the allocation
+
+
+446
+00:13:25,506 --> 00:13:27,586
+and deallocation backtrace of
+
+
+447
+00:13:27,586 --> 00:13:29,226
+how that memory was allocated.
+
+
+448
+00:13:29,226 --> 00:13:31,476
+So, this is super useful
+
+
+449
+00:13:31,476 --> 00:13:32,556
+information when you're dealing
+
+
+450
+00:13:32,556 --> 00:13:33,936
+with use after free bugs,
+
+
+451
+00:13:34,526 --> 00:13:35,966
+because this really helps to
+
+
+452
+00:13:35,966 --> 00:13:37,826
+diagnose them, right?
+
+
+453
+00:13:39,456 --> 00:13:41,726
+So, we've seen what Address
+
+
+454
+00:13:41,726 --> 00:13:43,026
+Sanitizer is but now let's talk
+
+
+455
+00:13:43,026 --> 00:13:44,206
+about some new features that we
+
+
+456
+00:13:44,206 --> 00:13:45,166
+have added this year.
+
+
+457
+00:13:45,546 --> 00:13:47,346
+It now detects two new classes
+
+
+458
+00:13:47,346 --> 00:13:48,156
+of bugs.
+
+
+459
+00:13:48,156 --> 00:13:49,806
+Use after scope and use after
+
+
+460
+00:13:49,806 --> 00:13:50,236
+return.
+
+
+461
+00:13:50,236 --> 00:13:51,946
+And it's also now compatible
+
+
+462
+00:13:51,946 --> 00:13:52,726
+with Malloc Scribble.
+
+
+463
+00:13:52,956 --> 00:13:53,736
+Let's take a look at some
+
+
+464
+00:13:53,736 --> 00:13:54,256
+examples.
+
+
+465
+00:13:54,916 --> 00:13:58,916
+In this code sample, let's say
+
+
+466
+00:13:58,916 --> 00:14:00,486
+we have a variable that is
+
+
+467
+00:14:00,606 --> 00:14:02,386
+defined inside the body of an if
+
+
+468
+00:14:02,386 --> 00:14:02,856
+statement.
+
+
+469
+00:14:04,476 --> 00:14:06,466
+We take a pointer to this
+
+
+470
+00:14:06,466 --> 00:14:09,576
+variable and then later outside
+
+
+471
+00:14:09,776 --> 00:14:11,806
+that if statement, we are using
+
+
+472
+00:14:11,806 --> 00:14:12,956
+that pointer to save a new
+
+
+473
+00:14:12,956 --> 00:14:13,456
+value.
+
+
+474
+00:14:14,226 --> 00:14:15,386
+So, this is any value because we
+
+
+475
+00:14:15,386 --> 00:14:16,796
+are, the pointer is no longer
+
+
+476
+00:14:16,796 --> 00:14:17,376
+valid here.
+
+
+477
+00:14:17,666 --> 00:14:19,036
+And address sanitizer is now
+
+
+478
+00:14:19,036 --> 00:14:20,696
+able to detect and describe the
+
+
+479
+00:14:20,696 --> 00:14:21,306
+issue for you.
+
+
+480
+00:14:21,786 --> 00:14:26,546
+Another type of bug happens when
+
+
+481
+00:14:26,546 --> 00:14:28,536
+you're returning, when you're
+
+
+482
+00:14:28,536 --> 00:14:30,476
+using a pointer out, after
+
+
+483
+00:14:30,476 --> 00:14:31,836
+returning from a function.
+
+
+484
+00:14:31,836 --> 00:14:33,476
+So, in this case the function
+
+
+485
+00:14:33,476 --> 00:14:34,986
+returns a pointer to its local
+
+
+486
+00:14:34,986 --> 00:14:37,446
+variable which means that once
+
+
+487
+00:14:37,446 --> 00:14:38,966
+the function returns, that
+
+
+488
+00:14:38,966 --> 00:14:40,216
+pointer is no longer valid.
+
+
+489
+00:14:40,216 --> 00:14:42,696
+And if we try to use it, we are
+
+
+490
+00:14:42,696 --> 00:14:44,046
+again accessing garbage memory
+
+
+491
+00:14:44,046 --> 00:14:45,426
+and the Address Sanitizer is
+
+
+492
+00:14:45,426 --> 00:14:47,306
+able to detect that and describe
+
+
+493
+00:14:47,306 --> 00:14:48,136
+that issue for you.
+
+
+494
+00:14:48,796 --> 00:14:50,546
+However, this check is not
+
+
+495
+00:14:50,546 --> 00:14:52,386
+enabled by default and because
+
+
+496
+00:14:52,386 --> 00:14:53,676
+it has some extra overhead and
+
+
+497
+00:14:53,676 --> 00:14:54,596
+you have to opt into it.
+
+
+498
+00:14:55,006 --> 00:14:56,746
+To do so, you can use that extra
+
+
+499
+00:14:56,746 --> 00:14:58,226
+checkbox in the scheme editor
+
+
+500
+00:14:58,286 --> 00:14:59,496
+that I mentioned and showed
+
+
+501
+00:14:59,496 --> 00:14:59,846
+earlier.
+
+
+502
+00:15:04,026 --> 00:15:05,936
+Now, if your projects are
+
+
+503
+00:15:05,936 --> 00:15:07,846
+written in Swift, you might be
+
+
+504
+00:15:07,846 --> 00:15:09,606
+wondering why should I care
+
+
+505
+00:15:09,606 --> 00:15:10,686
+about Address Sanitizer?
+
+
+506
+00:15:11,286 --> 00:15:13,726
+Swift is a much safer language
+
+
+507
+00:15:13,806 --> 00:15:15,136
+but the reality is that a lot of
+
+
+508
+00:15:15,136 --> 00:15:16,556
+projects are still mixed and
+
+
+509
+00:15:16,556 --> 00:15:18,136
+they have bugs written in C and
+
+
+510
+00:15:18,136 --> 00:15:18,786
+Objective C.
+
+
+511
+00:15:19,036 --> 00:15:20,756
+And for those parts that are
+
+
+512
+00:15:20,756 --> 00:15:21,956
+written in C and Objective C,
+
+
+513
+00:15:22,266 --> 00:15:23,506
+address sanitizer is still a
+
+
+514
+00:15:23,506 --> 00:15:24,866
+very effective tool and it will
+
+
+515
+00:15:24,866 --> 00:15:26,426
+find memory issues in that, in
+
+
+516
+00:15:26,426 --> 00:15:29,026
+these parts of your project.
+
+
+517
+00:15:29,096 --> 00:15:30,646
+Some of you might also be using
+
+
+518
+00:15:30,646 --> 00:15:32,906
+unsafe pointer types which, as
+
+
+519
+00:15:32,906 --> 00:15:35,226
+their name suggests, are not
+
+
+520
+00:15:35,226 --> 00:15:36,286
+memory safe and you have to be
+
+
+521
+00:15:36,346 --> 00:15:37,386
+careful when using those.
+
+
+522
+00:15:37,726 --> 00:15:38,516
+So, let's take code as an
+
+
+523
+00:15:38,516 --> 00:15:39,006
+example.
+
+
+524
+00:15:40,446 --> 00:15:42,416
+In this code, I have a string,
+
+
+525
+00:15:42,416 --> 00:15:43,156
+Hello, World.
+
+
+526
+00:15:43,156 --> 00:15:45,126
+And I am trying to convert it
+
+
+527
+00:15:45,156 --> 00:15:47,886
+into a C-style string using
+
+
+528
+00:15:47,886 --> 00:15:48,536
+unsafe windows.
+
+
+529
+00:15:49,896 --> 00:15:51,276
+So what I'll do is that I will
+
+
+530
+00:15:51,276 --> 00:15:53,246
+call this API called with C
+
+
+531
+00:15:53,316 --> 00:15:55,276
+string and it will create an
+
+
+532
+00:15:55,276 --> 00:15:56,286
+unsafe pointer for me.
+
+
+533
+00:15:56,836 --> 00:15:59,016
+And this will provide this
+
+
+534
+00:15:59,016 --> 00:16:00,416
+unsafe pointer to me in this
+
+
+535
+00:16:00,476 --> 00:16:01,826
+closure that I am passing
+
+
+536
+00:16:01,826 --> 00:16:02,086
+through it.
+
+
+537
+00:16:03,306 --> 00:16:05,536
+If I store this pointer outside
+
+
+538
+00:16:05,536 --> 00:16:07,596
+of the closure, I am violating
+
+
+539
+00:16:07,596 --> 00:16:08,776
+the rules of the C string.
+
+
+540
+00:16:08,776 --> 00:16:10,366
+And that means that when I try
+
+
+541
+00:16:10,366 --> 00:16:13,006
+to use this leak unsafe pointer
+
+
+542
+00:16:13,406 --> 00:16:15,106
+later, I am again accessing
+
+
+543
+00:16:15,106 --> 00:16:15,856
+invalid memory.
+
+
+544
+00:16:15,986 --> 00:16:17,696
+And Address Sanitizer is able to
+
+
+545
+00:16:17,696 --> 00:16:19,386
+detect invalid uses of unsafe
+
+
+546
+00:16:19,386 --> 00:16:20,616
+pointers like this, even in
+
+
+547
+00:16:20,616 --> 00:16:21,116
+Swift code.
+
+
+548
+00:16:24,776 --> 00:16:26,346
+To fix this, we need to make
+
+
+549
+00:16:26,346 --> 00:16:27,656
+sure that we only use that
+
+
+550
+00:16:27,756 --> 00:16:30,086
+provided unsafe pointer within
+
+
+551
+00:16:30,086 --> 00:16:31,316
+the closure that we are passing
+
+
+552
+00:16:31,406 --> 00:16:32,076
+with C string.
+
+
+553
+00:16:32,116 --> 00:16:34,286
+So, if we move the code into the
+
+
+554
+00:16:34,286 --> 00:16:35,896
+closure like this, that fixes
+
+
+555
+00:16:35,896 --> 00:16:36,516
+the problem.
+
+
+556
+00:16:36,516 --> 00:16:38,226
+And in this case, we can
+
+
+557
+00:16:38,286 --> 00:16:39,796
+simplify the code even further
+
+
+558
+00:16:39,796 --> 00:16:41,136
+and just remove that local
+
+
+559
+00:16:41,136 --> 00:16:42,086
+variable completely.
+
+
+560
+00:16:42,566 --> 00:16:44,126
+It is generally a good idea
+
+
+561
+00:16:44,736 --> 00:16:46,486
+never to store unsafe pointers
+
+
+562
+00:16:46,486 --> 00:16:47,786
+into local variables or
+
+
+563
+00:16:47,786 --> 00:16:48,486
+properties.
+
+
+564
+00:16:49,886 --> 00:16:51,476
+So, if you are using unsafe
+
+
+565
+00:16:51,476 --> 00:16:52,906
+pointers in your Swift projects,
+
+
+566
+00:16:53,366 --> 00:16:54,626
+I definitely will recommend that
+
+
+567
+00:16:54,626 --> 00:16:56,096
+you turn Address Sanitizer on in
+
+
+568
+00:16:56,096 --> 00:16:57,616
+your projects just to make sure
+
+
+569
+00:16:57,616 --> 00:16:58,676
+that you are not accidently
+
+
+570
+00:16:58,676 --> 00:16:59,996
+using unsafe pointers wrong.
+
+
+571
+00:17:03,116 --> 00:17:05,156
+So we've seen how Address
+
+
+572
+00:17:05,156 --> 00:17:07,626
+Sanitizer helps you find and fix
+
+
+573
+00:17:07,626 --> 00:17:07,935
+bugs.
+
+
+574
+00:17:07,935 --> 00:17:09,566
+But it can also be a very
+
+
+575
+00:17:09,566 --> 00:17:11,026
+helpful tool for general
+
+
+576
+00:17:11,026 --> 00:17:12,185
+debugging as well.
+
+
+577
+00:17:13,205 --> 00:17:15,226
+Because have, if you, when you
+
+
+578
+00:17:15,226 --> 00:17:16,465
+are debugging your projects,
+
+
+579
+00:17:16,465 --> 00:17:18,986
+have you ever wondered where was
+
+
+580
+00:17:18,986 --> 00:17:20,056
+this memory allocated?
+
+
+581
+00:17:20,866 --> 00:17:21,856
+Well, I have some good news for
+
+
+582
+00:17:21,856 --> 00:17:22,195
+you.
+
+
+583
+00:17:22,406 --> 00:17:23,476
+If you are running with Address
+
+
+584
+00:17:23,476 --> 00:17:26,215
+Sanitizer, it's actually enabled
+
+
+585
+00:17:26,215 --> 00:17:27,546
+to tell you the allocation
+
+
+586
+00:17:27,586 --> 00:17:28,756
+backtraces of any memory that
+
+
+587
+00:17:28,756 --> 00:17:29,236
+you ask it.
+
+
+588
+00:17:30,126 --> 00:17:31,256
+And it can also provide the
+
+
+589
+00:17:31,256 --> 00:17:32,766
+deallocation backtraces for
+
+
+590
+00:17:32,766 --> 00:17:33,766
+memory that's already
+
+
+591
+00:17:33,766 --> 00:17:34,356
+deallocated.
+
+
+592
+00:17:35,246 --> 00:17:36,436
+And furthermore, it can show you
+
+
+593
+00:17:36,436 --> 00:17:38,076
+which bytes of memory are valid
+
+
+594
+00:17:38,076 --> 00:17:38,686
+and invalid.
+
+
+595
+00:17:38,746 --> 00:17:40,946
+So, let's take a look.
+
+
+596
+00:17:41,326 --> 00:17:43,146
+This time we are not
+
+
+597
+00:17:43,146 --> 00:17:44,246
+investigating a crash.
+
+
+598
+00:17:44,496 --> 00:17:46,476
+This is just a regular debugging
+
+
+599
+00:17:46,526 --> 00:17:48,216
+session where I'm stepping over
+
+
+600
+00:17:48,216 --> 00:17:49,276
+the lines in a function.
+
+
+601
+00:17:49,846 --> 00:17:52,826
+I can control click any variable
+
+
+602
+00:17:52,826 --> 00:17:53,696
+in the variable view.
+
+
+603
+00:17:53,696 --> 00:17:55,596
+And if that variable is a
+
+
+604
+00:17:55,596 --> 00:17:58,226
+pointer, I can select view
+
+
+605
+00:17:58,226 --> 00:17:59,526
+memory of.
+
+
+606
+00:18:00,816 --> 00:18:02,536
+Normally this would just give me
+
+
+607
+00:18:02,536 --> 00:18:04,866
+the view of, into the bytes of
+
+
+608
+00:18:04,866 --> 00:18:05,646
+that memory object.
+
+
+609
+00:18:06,676 --> 00:18:07,506
+But if you are running with
+
+
+610
+00:18:07,506 --> 00:18:09,206
+Address Sanitizer enabled, you
+
+
+611
+00:18:09,206 --> 00:18:11,336
+can expand the memory item in
+
+
+612
+00:18:11,336 --> 00:18:13,146
+that navigator and it will
+
+
+613
+00:18:13,146 --> 00:18:14,216
+display the allocation and
+
+
+614
+00:18:14,216 --> 00:18:15,606
+deallocation backtrace for that
+
+
+615
+00:18:15,606 --> 00:18:15,996
+memory.
+
+
+616
+00:18:16,586 --> 00:18:19,756
+You can also notice that some of
+
+
+617
+00:18:19,756 --> 00:18:21,246
+the bytes in this memory view
+
+
+618
+00:18:21,246 --> 00:18:22,976
+are grey and some are displayed
+
+
+619
+00:18:22,976 --> 00:18:23,836
+in black.
+
+
+620
+00:18:24,596 --> 00:18:26,316
+The greyed-out bytes indicate
+
+
+621
+00:18:26,456 --> 00:18:28,206
+invalid memory and, or as we
+
+
+622
+00:18:28,206 --> 00:18:29,656
+say, poisoned memory.
+
+
+623
+00:18:30,086 --> 00:18:30,846
+Which means that your
+
+
+624
+00:18:30,846 --> 00:18:31,926
+application must not be
+
+
+625
+00:18:31,926 --> 00:18:33,456
+accessing those bytes and if it
+
+
+626
+00:18:33,456 --> 00:18:34,656
+does so, that is a bug.
+
+
+627
+00:18:34,656 --> 00:18:36,206
+And Address Sanitizer will find
+
+
+628
+00:18:36,206 --> 00:18:37,486
+it and detect it.
+
+
+629
+00:18:38,876 --> 00:18:40,826
+You can also access the
+
+
+630
+00:18:40,826 --> 00:18:42,316
+information about the allocation
+
+
+631
+00:18:42,316 --> 00:18:43,596
+and deallocation of memory
+
+
+632
+00:18:43,596 --> 00:18:45,136
+objects in the [inaudible] text
+
+
+633
+00:18:45,136 --> 00:18:45,666
+console.
+
+
+634
+00:18:45,936 --> 00:18:47,266
+We can use this command called
+
+
+635
+00:18:47,266 --> 00:18:49,466
+memory history and pass it any
+
+
+636
+00:18:49,466 --> 00:18:50,816
+expression that evaluates to a
+
+
+637
+00:18:50,816 --> 00:18:51,236
+pointer.
+
+
+638
+00:18:52,636 --> 00:18:54,346
+So, let's use the pointer value
+
+
+639
+00:18:54,346 --> 00:18:56,066
+directly in this example and the
+
+
+640
+00:18:56,066 --> 00:18:57,996
+text console will print out to
+
+
+641
+00:18:57,996 --> 00:18:59,276
+allocation and deallocation
+
+
+642
+00:18:59,336 --> 00:19:00,516
+backtraces in text output.
+
+
+643
+00:19:00,516 --> 00:19:05,316
+So, I hope that I have convinced
+
+
+644
+00:19:05,366 --> 00:19:06,516
+you that Address Sanitizer is
+
+
+645
+00:19:06,516 --> 00:19:08,586
+great tool and that it's useful
+
+
+646
+00:19:08,586 --> 00:19:10,366
+for both C languages and also
+
+
+647
+00:19:10,366 --> 00:19:10,706
+Swift.
+
+
+648
+00:19:10,706 --> 00:19:12,596
+And that it helps with memory
+
+
+649
+00:19:12,596 --> 00:19:13,596
+corruptions and crashes.
+
+
+650
+00:19:14,246 --> 00:19:15,856
+But also that it's a very useful
+
+
+651
+00:19:15,856 --> 00:19:17,216
+tool for general debugging as
+
+
+652
+00:19:17,216 --> 00:19:17,716
+well.
+
+
+653
+00:19:18,636 --> 00:19:19,996
+But now let's talk, let's take a
+
+
+654
+00:19:19,996 --> 00:19:22,616
+look at another large source of
+
+
+655
+00:19:22,616 --> 00:19:24,226
+crashes and mysterious memory
+
+
+656
+00:19:24,226 --> 00:19:25,196
+corruptions, which is
+
+
+657
+00:19:25,196 --> 00:19:25,796
+multithreading.
+
+
+658
+00:19:26,456 --> 00:19:27,866
+And let's talk about Thread
+
+
+659
+00:19:27,866 --> 00:19:29,226
+Sanitizer which detects those
+
+
+660
+00:19:29,266 --> 00:19:29,646
+issues.
+
+
+661
+00:19:30,126 --> 00:19:33,586
+So, as I said, Thread Sanitizer
+
+
+662
+00:19:33,586 --> 00:19:35,506
+is able to find multithreading
+
+
+663
+00:19:35,506 --> 00:19:35,856
+issues.
+
+
+664
+00:19:35,956 --> 00:19:37,336
+For example, data races.
+
+
+665
+00:19:38,606 --> 00:19:39,996
+However, these issues,
+
+
+666
+00:19:39,996 --> 00:19:41,826
+multithreading issues, are
+
+
+667
+00:19:42,266 --> 00:19:43,556
+usually very sensitive to
+
+
+668
+00:19:43,556 --> 00:19:44,106
+timing.
+
+
+669
+00:19:44,616 --> 00:19:46,846
+Which means that they are very
+
+
+670
+00:19:46,846 --> 00:19:47,826
+hard to reproduce.
+
+
+671
+00:19:48,326 --> 00:19:50,716
+So, Thread Sanitizer is not only
+
+
+672
+00:19:50,716 --> 00:19:52,676
+able to find races where the two
+
+
+673
+00:19:52,676 --> 00:19:53,776
+memory accesses actually
+
+
+674
+00:19:53,776 --> 00:19:55,416
+collide, but it can also find
+
+
+675
+00:19:55,416 --> 00:19:57,846
+races that did not manifest
+
+
+676
+00:19:57,846 --> 00:19:59,336
+during that particular program
+
+
+677
+00:19:59,336 --> 00:19:59,546
+run.
+
+
+678
+00:20:00,106 --> 00:20:02,986
+Even if the racing memory
+
+
+679
+00:20:02,986 --> 00:20:04,546
+accesses happened at different
+
+
+680
+00:20:04,546 --> 00:20:05,716
+times but there's no
+
+
+681
+00:20:05,716 --> 00:20:06,966
+synchronization between them,
+
+
+682
+00:20:07,346 --> 00:20:08,406
+that is still a race.
+
+
+683
+00:20:08,576 --> 00:20:10,056
+And Thread Sanitizer is able to
+
+
+684
+00:20:10,056 --> 00:20:10,476
+find it.
+
+
+685
+00:20:11,496 --> 00:20:13,446
+That's because the next time you
+
+
+686
+00:20:13,446 --> 00:20:15,806
+run your application, the timing
+
+
+687
+00:20:15,806 --> 00:20:17,276
+will be different and it might
+
+
+688
+00:20:17,276 --> 00:20:18,826
+be just right to trigger a
+
+
+689
+00:20:18,826 --> 00:20:19,586
+memory corruption.
+
+
+690
+00:20:20,196 --> 00:20:21,386
+So, Thread Sanitizer is able to
+
+
+691
+00:20:21,386 --> 00:20:22,756
+find races even when they do not
+
+
+692
+00:20:22,756 --> 00:20:23,206
+manifest.
+
+
+693
+00:20:23,756 --> 00:20:27,666
+The tool works on 64-bit macOS
+
+
+694
+00:20:27,666 --> 00:20:29,086
+and 64-bit simulators.
+
+
+695
+00:20:29,086 --> 00:20:30,356
+And if you want to learn more
+
+
+696
+00:20:30,356 --> 00:20:31,756
+about the underlying technology,
+
+
+697
+00:20:31,756 --> 00:20:34,066
+I recommend that you watch a
+
+
+698
+00:20:34,066 --> 00:20:36,296
+WWDC from last year called
+
+
+699
+00:20:36,296 --> 00:20:37,546
+Thread Sanitizer and static
+
+
+700
+00:20:37,546 --> 00:20:38,026
+analysis.
+
+
+701
+00:20:40,816 --> 00:20:42,346
+So, I mentioned data races.
+
+
+702
+00:20:42,906 --> 00:20:43,896
+But let's see what they are.
+
+
+703
+00:20:45,796 --> 00:20:48,426
+Any shared data, any mutable
+
+
+704
+00:20:48,426 --> 00:20:49,646
+data that is shared between
+
+
+705
+00:20:49,646 --> 00:20:51,386
+multiple threads needs access
+
+
+706
+00:20:51,386 --> 00:20:52,076
+synchronization.
+
+
+707
+00:20:52,856 --> 00:20:53,546
+If you are missing
+
+
+708
+00:20:53,546 --> 00:20:54,926
+synchronization on your shared
+
+
+709
+00:20:55,076 --> 00:20:57,016
+mutable variables, that means
+
+
+710
+00:20:57,016 --> 00:20:57,766
+you have data races.
+
+
+711
+00:20:57,996 --> 00:20:59,366
+And data races are undefined
+
+
+712
+00:20:59,366 --> 00:20:59,866
+behavior.
+
+
+713
+00:21:01,326 --> 00:21:02,916
+And in presence of data races,
+
+
+714
+00:21:02,916 --> 00:21:04,156
+our programs can have memory
+
+
+715
+00:21:04,156 --> 00:21:05,956
+corruptions and crashes and all
+
+
+716
+00:21:05,956 --> 00:21:07,416
+of these problems apply to C
+
+
+717
+00:21:07,416 --> 00:21:08,956
+languages but also to SWF code
+
+
+718
+00:21:08,956 --> 00:21:09,356
+as well.
+
+
+719
+00:21:09,356 --> 00:21:10,856
+So, let's take a look at an
+
+
+720
+00:21:10,856 --> 00:21:13,916
+example in Swift.
+
+
+721
+00:21:14,066 --> 00:21:16,046
+So, in this case we have a class
+
+
+722
+00:21:16,046 --> 00:21:18,456
+called event log which just has
+
+
+723
+00:21:18,456 --> 00:21:20,946
+a simple function called log
+
+
+724
+00:21:21,316 --> 00:21:22,466
+that prints out some text
+
+
+725
+00:21:22,466 --> 00:21:23,596
+message to the output.
+
+
+726
+00:21:24,496 --> 00:21:27,066
+But it also tracks which was the
+
+
+727
+00:21:27,066 --> 00:21:28,666
+last event source that called
+
+
+728
+00:21:28,666 --> 00:21:29,346
+that log.
+
+
+729
+00:21:30,036 --> 00:21:31,446
+And it saves that information
+
+
+730
+00:21:31,696 --> 00:21:33,556
+into a stored property called
+
+
+731
+00:21:33,556 --> 00:21:35,896
+last event stores which is an
+
+
+732
+00:21:35,896 --> 00:21:38,476
+optional and at the beginning
+
+
+733
+00:21:38,476 --> 00:21:39,976
+it's nil but as soon as someone
+
+
+734
+00:21:39,976 --> 00:21:42,606
+calls log, it will be perfectly
+
+
+735
+00:21:42,606 --> 00:21:43,936
+will be populated with that
+
+
+736
+00:21:43,936 --> 00:21:45,136
+particular log source.
+
+
+737
+00:21:45,996 --> 00:21:46,866
+And now let's say that we have
+
+
+738
+00:21:46,946 --> 00:21:48,556
+two threads which are both
+
+
+739
+00:21:48,626 --> 00:21:50,476
+trying to call that log at the
+
+
+740
+00:21:50,536 --> 00:21:51,046
+same time.
+
+
+741
+00:21:51,376 --> 00:21:53,216
+Let's say that thread one is our
+
+
+742
+00:21:53,216 --> 00:21:54,526
+networking subsystem and it's
+
+
+743
+00:21:54,526 --> 00:21:55,656
+logging that some download has
+
+
+744
+00:21:55,716 --> 00:21:56,046
+finished.
+
+
+745
+00:21:56,736 --> 00:21:58,376
+While the second thread, which
+
+
+746
+00:21:58,376 --> 00:21:59,416
+represents our database
+
+
+747
+00:21:59,416 --> 00:22:01,276
+subsystem, is logging that query
+
+
+748
+00:22:01,276 --> 00:22:01,886
+is completed.
+
+
+749
+00:22:03,276 --> 00:22:04,316
+That is a data race.
+
+
+750
+00:22:05,366 --> 00:22:06,816
+Because we're accessing the same
+
+
+751
+00:22:06,816 --> 00:22:08,366
+memory location at the same
+
+
+752
+00:22:08,366 --> 00:22:08,676
+time.
+
+
+753
+00:22:09,966 --> 00:22:11,596
+And Thread Sanitizer will warn
+
+
+754
+00:22:12,316 --> 00:22:13,326
+about this.
+
+
+755
+00:22:13,526 --> 00:22:15,676
+So, to fix this we need to
+
+
+756
+00:22:15,886 --> 00:22:17,326
+introduce synchronization.
+
+
+757
+00:22:17,506 --> 00:22:18,696
+And the easiest way to do that
+
+
+758
+00:22:19,146 --> 00:22:20,766
+is by using a serial dispatch
+
+
+759
+00:22:20,796 --> 00:22:21,006
+queue.
+
+
+760
+00:22:21,816 --> 00:22:22,886
+Now, because this queue is
+
+
+761
+00:22:23,136 --> 00:22:25,526
+serial, it will only execute one
+
+
+762
+00:22:25,526 --> 00:22:26,836
+work item at a time.
+
+
+763
+00:22:27,936 --> 00:22:31,056
+So, if we wrap the body of the
+
+
+764
+00:22:31,056 --> 00:22:33,276
+log function into queue.asynch,
+
+
+765
+00:22:34,276 --> 00:22:35,296
+this will provide the correct
+
+
+766
+00:22:35,296 --> 00:22:36,046
+synchronization.
+
+
+767
+00:22:36,416 --> 00:22:38,166
+And note that I am using asynch
+
+
+768
+00:22:38,166 --> 00:22:39,756
+here because we don't need to
+
+
+769
+00:22:39,756 --> 00:22:41,306
+wait for the result of this
+
+
+770
+00:22:41,306 --> 00:22:42,196
+function to complete.
+
+
+771
+00:22:42,196 --> 00:22:43,986
+Because this function does not
+
+
+772
+00:22:43,986 --> 00:22:45,136
+provide any results so it
+
+
+773
+00:22:45,136 --> 00:22:46,146
+doesn't make sense to wait for
+
+
+774
+00:22:46,146 --> 00:22:46,216
+it.
+
+
+775
+00:22:46,756 --> 00:22:48,276
+So, this not only fixes that
+
+
+776
+00:22:48,276 --> 00:22:49,776
+race but it also improves
+
+
+777
+00:22:50,886 --> 00:22:52,036
+[inaudible] because now whoever
+
+
+778
+00:22:52,036 --> 00:22:54,146
+calls log will no longer need to
+
+
+779
+00:22:54,146 --> 00:22:55,336
+wait for this printing to
+
+
+780
+00:22:55,336 --> 00:22:55,756
+finish.
+
+
+781
+00:22:56,296 --> 00:22:59,856
+And this way this whole class is
+
+
+782
+00:22:59,856 --> 00:23:01,186
+now thread safe and we can use,
+
+
+783
+00:23:01,386 --> 00:23:02,966
+we can call log from multiple
+
+
+784
+00:23:04,996 --> 00:23:05,516
+threads.
+
+
+785
+00:23:05,516 --> 00:23:06,546
+Dispatch queues, which are
+
+
+786
+00:23:06,546 --> 00:23:08,156
+provided by Grand Central
+
+
+787
+00:23:08,156 --> 00:23:10,896
+Dispatch or GCD for short, are
+
+
+788
+00:23:10,896 --> 00:23:12,136
+readily available in Swift and
+
+
+789
+00:23:12,136 --> 00:23:13,326
+they should be your first choice
+
+
+790
+00:23:13,326 --> 00:23:14,186
+of synchronization.
+
+
+791
+00:23:14,836 --> 00:23:16,096
+Even though there's other
+
+
+792
+00:23:16,096 --> 00:23:17,656
+mechanisms of providing
+
+
+793
+00:23:17,686 --> 00:23:19,436
+synchronization, GCD is very
+
+
+794
+00:23:19,436 --> 00:23:20,986
+lightweight and it's very easy
+
+
+795
+00:23:20,986 --> 00:23:21,766
+to use from Swift.
+
+
+796
+00:23:22,786 --> 00:23:24,416
+A good idea is to associate your
+
+
+797
+00:23:24,416 --> 00:23:26,236
+data with serial dispatch
+
+
+798
+00:23:26,276 --> 00:23:26,616
+queues.
+
+
+799
+00:23:26,966 --> 00:23:28,506
+And only accessing the data from
+
+
+800
+00:23:28,506 --> 00:23:30,206
+those queues, which will
+
+
+801
+00:23:30,206 --> 00:23:32,136
+guarantee that you're only using
+
+
+802
+00:23:32,166 --> 00:23:33,806
+your data in a synchronized way.
+
+
+803
+00:23:34,336 --> 00:23:35,706
+And if you'd like to learn more
+
+
+804
+00:23:35,706 --> 00:23:37,626
+about how to use concurrency
+
+
+805
+00:23:37,626 --> 00:23:39,786
+with GCD, I recommend that you
+
+
+806
+00:23:39,786 --> 00:23:41,816
+watch another WWDC from last
+
+
+807
+00:23:41,816 --> 00:23:42,806
+year called concurrent
+
+
+808
+00:23:42,846 --> 00:23:44,206
+programming with GCD and Swift
+
+
+809
+00:23:44,266 --> 00:23:44,506
+3.
+
+
+810
+00:23:45,046 --> 00:23:48,046
+But now let's take a look at
+
+
+811
+00:23:48,046 --> 00:23:49,146
+some new features that we have
+
+
+812
+00:23:49,146 --> 00:23:50,796
+added to Thread Sanitizer in
+
+
+813
+00:23:50,826 --> 00:23:51,476
+Xcode 9.
+
+
+814
+00:23:52,146 --> 00:23:53,886
+It's now able to detect races on
+
+
+815
+00:23:53,886 --> 00:23:57,586
+collections and also a whole new
+
+
+816
+00:23:57,586 --> 00:23:59,706
+class of bugs that is specific
+
+
+817
+00:23:59,796 --> 00:24:02,206
+to Swift code.
+
+
+818
+00:24:02,406 --> 00:24:04,336
+Previously Thread Sanitizer was
+
+
+819
+00:24:04,416 --> 00:24:06,476
+only able to find races on the
+
+
+820
+00:24:06,476 --> 00:24:08,346
+raw memory accesses like we saw
+
+
+821
+00:24:08,346 --> 00:24:09,606
+in the previous example where we
+
+
+822
+00:24:09,606 --> 00:24:10,826
+were just directly accessing
+
+
+823
+00:24:11,076 --> 00:24:12,146
+some stored property.
+
+
+824
+00:24:13,436 --> 00:24:14,616
+But synchronization is often
+
+
+825
+00:24:14,616 --> 00:24:15,976
+needed even for larger data
+
+
+826
+00:24:16,036 --> 00:24:16,466
+structures.
+
+
+827
+00:24:16,466 --> 00:24:17,506
+For example, collections.
+
+
+828
+00:24:18,236 --> 00:24:19,996
+Consider this code example where
+
+
+829
+00:24:20,666 --> 00:24:22,256
+in Objective C we are using an
+
+
+830
+00:24:22,256 --> 00:24:23,886
+instance of an NS mutable
+
+
+831
+00:24:23,886 --> 00:24:24,346
+dictionary.
+
+
+832
+00:24:25,066 --> 00:24:26,526
+And two threads are using the
+
+
+833
+00:24:26,526 --> 00:24:27,226
+same instance.
+
+
+834
+00:24:27,296 --> 00:24:28,986
+Let's say thread one is looking
+
+
+835
+00:24:28,986 --> 00:24:30,316
+up a value in the dictionary
+
+
+836
+00:24:30,596 --> 00:24:31,636
+while the second thread is
+
+
+837
+00:24:31,676 --> 00:24:32,816
+trying to write into it.
+
+
+838
+00:24:33,706 --> 00:24:35,426
+So, it is a problem and newly in
+
+
+839
+00:24:35,426 --> 00:24:36,896
+Xcode 9 we are now able to
+
+
+840
+00:24:36,896 --> 00:24:38,146
+detect this race.
+
+
+841
+00:24:41,196 --> 00:24:42,986
+Races in collection are a very
+
+
+842
+00:24:42,986 --> 00:24:43,736
+common mistake.
+
+
+843
+00:24:44,896 --> 00:24:46,866
+So, in Xcode 9 we are now able
+
+
+844
+00:24:46,866 --> 00:24:48,516
+to detect them in both Objective
+
+
+845
+00:24:48,616 --> 00:24:49,686
+C and Swift.
+
+
+846
+00:24:50,306 --> 00:24:51,696
+Note that this requires that you
+
+
+847
+00:24:51,696 --> 00:24:53,506
+are using macOS, High Sierra and
+
+
+848
+00:24:53,506 --> 00:24:54,166
+iOS 11.
+
+
+849
+00:24:54,456 --> 00:24:55,806
+But we are able to detect races
+
+
+850
+00:24:55,806 --> 00:24:57,466
+on NS mutable array and NS
+
+
+851
+00:24:57,506 --> 00:24:59,286
+mutable dictionary and also on
+
+
+852
+00:24:59,286 --> 00:25:00,156
+Swift array and Swift
+
+
+853
+00:25:00,156 --> 00:25:00,636
+dictionary.
+
+
+854
+00:25:01,666 --> 00:25:02,966
+And with that, I'd like to show
+
+
+855
+00:25:02,966 --> 00:25:05,000
+you how this works in practice.
+
+
+856
+00:25:20,176 --> 00:25:22,326
+So, I was able to get the source
+
+
+857
+00:25:22,386 --> 00:25:25,246
+code of a very old version of
+
+
+858
+00:25:25,246 --> 00:25:27,636
+the WWDC app before it adopted
+
+
+859
+00:25:27,716 --> 00:25:28,266
+Swift code.
+
+
+860
+00:25:28,396 --> 00:25:30,376
+So, this version that I have is
+
+
+861
+00:25:30,376 --> 00:25:31,416
+still completely written in
+
+
+862
+00:25:31,416 --> 00:25:33,066
+Objective C, as you can tell
+
+
+863
+00:25:33,066 --> 00:25:34,686
+from this copyright header.
+
+
+864
+00:25:34,686 --> 00:25:38,316
+It was mostly written in 2011.
+
+
+865
+00:25:38,396 --> 00:25:39,556
+So, because it was written
+
+
+866
+00:25:40,386 --> 00:25:41,776
+several years ago, it's using
+
+
+867
+00:25:41,816 --> 00:25:43,486
+some outdated concepts like an
+
+
+868
+00:25:43,486 --> 00:25:44,596
+explicit threat for
+
+
+869
+00:25:44,596 --> 00:25:46,126
+synchronization instead of GCD.
+
+
+870
+00:25:46,436 --> 00:25:47,346
+But I'd like to show you that
+
+
+871
+00:25:47,696 --> 00:25:49,236
+thread sanitizer works just fine
+
+
+872
+00:25:49,236 --> 00:25:50,806
+even with other synchronization
+
+
+873
+00:25:50,806 --> 00:25:51,356
+mechanisms.
+
+
+874
+00:25:52,026 --> 00:25:54,946
+So, this file that I'm showing
+
+
+875
+00:25:54,946 --> 00:25:56,956
+to you is implementing a class
+
+
+876
+00:25:56,956 --> 00:25:59,236
+called WWDC URLConnection, which
+
+
+877
+00:25:59,236 --> 00:26:01,206
+serves as a base class for all
+
+
+878
+00:26:01,206 --> 00:26:02,466
+networking done from this
+
+
+879
+00:26:02,466 --> 00:26:03,086
+application.
+
+
+880
+00:26:03,536 --> 00:26:04,996
+And what I did is that I have
+
+
+881
+00:26:05,336 --> 00:26:07,356
+planted a multithreading bug in
+
+
+882
+00:26:07,356 --> 00:26:07,826
+this code.
+
+
+883
+00:26:08,356 --> 00:26:09,306
+And let's see if the Thread
+
+
+884
+00:26:09,386 --> 00:26:10,816
+Sanitizer can find this bug.
+
+
+885
+00:26:12,006 --> 00:26:13,406
+So, first let me make sure that
+
+
+886
+00:26:13,406 --> 00:26:14,616
+I have Thread Sanitizer enabled
+
+
+887
+00:26:14,676 --> 00:26:17,186
+by going to product scheme, edit
+
+
+888
+00:26:17,186 --> 00:26:17,636
+scheme.
+
+
+889
+00:26:18,356 --> 00:26:20,746
+Which brings out, brings the
+
+
+890
+00:26:20,846 --> 00:26:21,446
+scheme editor.
+
+
+891
+00:26:21,566 --> 00:26:23,046
+And you'll see that I have
+
+
+892
+00:26:23,116 --> 00:26:24,166
+Thread Sanitizer enabled.
+
+
+893
+00:26:24,656 --> 00:26:26,666
+So, let's now run this app in
+
+
+894
+00:26:26,666 --> 00:26:27,326
+the simulator.
+
+
+895
+00:26:27,886 --> 00:26:31,926
+And as soon as the app launches
+
+
+896
+00:26:31,926 --> 00:26:33,056
+in the simulator, it will
+
+
+897
+00:26:33,056 --> 00:26:35,076
+already initiate several network
+
+
+898
+00:26:35,076 --> 00:26:35,586
+connections.
+
+
+899
+00:26:37,006 --> 00:26:38,596
+So, it should already exercise
+
+
+900
+00:26:38,886 --> 00:26:40,236
+this file that I'm showing you.
+
+
+901
+00:26:41,116 --> 00:26:42,826
+And you can notice that Xcode is
+
+
+902
+00:26:42,826 --> 00:26:45,666
+already reporting a race in the
+
+
+903
+00:26:45,666 --> 00:26:46,426
+issue navigator.
+
+
+904
+00:26:47,026 --> 00:26:49,306
+So, this issue is reporting that
+
+
+905
+00:26:49,306 --> 00:26:49,996
+we have a race.
+
+
+906
+00:26:49,996 --> 00:26:51,346
+So, let me click it so we can
+
+
+907
+00:26:51,346 --> 00:26:52,826
+get to the line of code that
+
+
+908
+00:26:52,886 --> 00:26:54,206
+contains this race.
+
+
+909
+00:26:54,466 --> 00:26:55,636
+So, in this case we see that we
+
+
+910
+00:26:55,636 --> 00:26:58,126
+are adding some object into a
+
+
+911
+00:26:58,126 --> 00:26:58,806
+mutable array.
+
+
+912
+00:27:00,296 --> 00:27:01,996
+The purpose of this code is to
+
+
+913
+00:27:01,996 --> 00:27:03,416
+maintain a list of active,
+
+
+914
+00:27:03,466 --> 00:27:04,696
+currently active connections.
+
+
+915
+00:27:04,696 --> 00:27:06,286
+So, we are tracking that for
+
+
+916
+00:27:06,286 --> 00:27:07,186
+debugging purposes.
+
+
+917
+00:27:08,626 --> 00:27:10,266
+So, as soon as we're creating
+
+
+918
+00:27:10,266 --> 00:27:11,886
+some new URL connection, we will
+
+
+919
+00:27:11,886 --> 00:27:12,876
+add it to this list.
+
+
+920
+00:27:14,056 --> 00:27:15,166
+But this can happen from any
+
+
+921
+00:27:15,166 --> 00:27:15,376
+thread.
+
+
+922
+00:27:15,686 --> 00:27:17,616
+Any thread can create a new URL
+
+
+923
+00:27:17,616 --> 00:27:18,116
+connection.
+
+
+924
+00:27:18,836 --> 00:27:19,806
+And if we take a look at the
+
+
+925
+00:27:19,806 --> 00:27:21,016
+details of the issue one more
+
+
+926
+00:27:21,016 --> 00:27:22,536
+time in the navigator, we will
+
+
+927
+00:27:22,606 --> 00:27:23,676
+see that that is the case.
+
+
+928
+00:27:23,726 --> 00:27:25,236
+Because there's thread three
+
+
+929
+00:27:25,486 --> 00:27:26,926
+trying to call add object.
+
+
+930
+00:27:27,496 --> 00:27:29,166
+And thread five, also trying to
+
+
+931
+00:27:29,166 --> 00:27:31,246
+call add object into the same
+
+
+932
+00:27:31,636 --> 00:27:32,306
+mutable array.
+
+
+933
+00:27:33,256 --> 00:27:34,266
+And if we take a look at the
+
+
+934
+00:27:34,336 --> 00:27:36,496
+callers of that API, we will see
+
+
+935
+00:27:36,496 --> 00:27:39,196
+that they all both point to the
+
+
+936
+00:27:39,196 --> 00:27:40,086
+same line of code.
+
+
+937
+00:27:41,076 --> 00:27:42,026
+So, that is a problem.
+
+
+938
+00:27:42,026 --> 00:27:44,076
+We are accessing this mutable
+
+
+939
+00:27:44,076 --> 00:27:45,596
+array from multiple threads
+
+
+940
+00:27:45,596 --> 00:27:46,776
+without any synchronization.
+
+
+941
+00:27:47,856 --> 00:27:49,316
+And to fix it, I can actually
+
+
+942
+00:27:49,686 --> 00:27:50,616
+fix it very easily.
+
+
+943
+00:27:50,676 --> 00:27:52,816
+Because I have noticed that the
+
+
+944
+00:27:52,866 --> 00:27:54,456
+code right after this line is
+
+
+945
+00:27:54,456 --> 00:27:55,286
+already doing some
+
+
+946
+00:27:55,286 --> 00:27:56,076
+synchronization.
+
+
+947
+00:27:56,156 --> 00:27:57,626
+It's using this API called
+
+
+948
+00:27:57,696 --> 00:27:59,756
+perform block that dispatches
+
+
+949
+00:27:59,756 --> 00:28:01,336
+some work onto a specific
+
+
+950
+00:28:01,376 --> 00:28:01,626
+thread.
+
+
+951
+00:28:01,846 --> 00:28:02,816
+In this case, it's called
+
+
+952
+00:28:03,056 --> 00:28:03,716
+connection thread.
+
+
+953
+00:28:04,366 --> 00:28:05,716
+So, which is an explicit thread
+
+
+954
+00:28:05,756 --> 00:28:06,536
+that is used for
+
+
+955
+00:28:06,536 --> 00:28:07,326
+synchronization.
+
+
+956
+00:28:07,856 --> 00:28:09,546
+And since it's a single thread,
+
+
+957
+00:28:09,596 --> 00:28:11,926
+it will provide synchronization
+
+
+958
+00:28:11,926 --> 00:28:13,416
+exactly with the work serially
+
+
+959
+00:28:13,796 --> 00:28:14,896
+simply because it's a single
+
+
+960
+00:28:14,896 --> 00:28:15,756
+thread and there's no
+
+
+961
+00:28:16,106 --> 00:28:16,586
+[inaudible] going on.
+
+
+962
+00:28:17,316 --> 00:28:18,986
+So, to fix this I can just move
+
+
+963
+00:28:19,586 --> 00:28:22,356
+this call to add object into
+
+
+964
+00:28:22,356 --> 00:28:24,016
+that synchronized block like
+
+
+965
+00:28:24,016 --> 00:28:26,006
+this and that should fix our
+
+
+966
+00:28:26,006 --> 00:28:26,286
+race.
+
+
+967
+00:28:26,286 --> 00:28:28,456
+Because now we will also only be
+
+
+968
+00:28:28,456 --> 00:28:30,006
+accessing the active connection
+
+
+969
+00:28:30,266 --> 00:28:31,926
+array within the synchronized
+
+
+970
+00:28:31,926 --> 00:28:33,626
+block which is only executed
+
+
+971
+00:28:33,626 --> 00:28:34,096
+serially.
+
+
+972
+00:28:34,316 --> 00:28:35,826
+So, now let's run the app in the
+
+
+973
+00:28:35,826 --> 00:28:37,746
+simulator one more time to see
+
+
+974
+00:28:37,746 --> 00:28:39,276
+if that fixes our race.
+
+
+975
+00:28:40,876 --> 00:28:41,866
+And again, once the app
+
+
+976
+00:28:41,866 --> 00:28:43,996
+launches, it already triggers
+
+
+977
+00:28:43,996 --> 00:28:45,206
+several network connections.
+
+
+978
+00:28:45,626 --> 00:28:47,156
+So now when it's up and running
+
+
+979
+00:28:47,756 --> 00:28:49,236
+we'll see that Xcode is no
+
+
+980
+00:28:49,236 --> 00:28:51,326
+longer reporting any Runtime
+
+
+981
+00:28:54,576 --> 00:28:54,766
+issues.
+
+
+982
+00:28:56,516 --> 00:29:01,016
+[ Applause ]
+
+
+983
+00:29:01,516 --> 00:29:03,016
+So, you've seen how Thread
+
+
+984
+00:29:03,016 --> 00:29:04,816
+Sanitizer finds a race in
+
+
+985
+00:29:04,816 --> 00:29:05,646
+Objective C code.
+
+
+986
+00:29:06,456 --> 00:29:07,056
+What about Swift?
+
+
+987
+00:29:08,476 --> 00:29:09,656
+The same detection works in
+
+
+988
+00:29:09,656 --> 00:29:10,696
+Swift code as well.
+
+
+989
+00:29:11,006 --> 00:29:12,306
+So, in this case if we have an
+
+
+990
+00:29:12,406 --> 00:29:14,626
+array of strings and we have two
+
+
+991
+00:29:14,626 --> 00:29:16,046
+threads, let's say one thread is
+
+
+992
+00:29:16,046 --> 00:29:17,246
+looking up the value from this
+
+
+993
+00:29:17,466 --> 00:29:19,496
+array while some other thread is
+
+
+994
+00:29:19,496 --> 00:29:20,056
+writing to it.
+
+
+995
+00:29:20,946 --> 00:29:22,116
+We'll detect this race and
+
+
+996
+00:29:22,116 --> 00:29:23,756
+Thread Sanitizer will find this.
+
+
+997
+00:29:25,266 --> 00:29:26,936
+Fixing this again can involve
+
+
+998
+00:29:26,976 --> 00:29:28,706
+using a serial dispatch queue
+
+
+999
+00:29:29,236 --> 00:29:30,696
+and then making sure that the
+
+
+1000
+00:29:30,696 --> 00:29:33,766
+only access that array within
+
+
+1001
+00:29:33,846 --> 00:29:34,746
+some synchronized blocks.
+
+
+1002
+00:29:34,886 --> 00:29:36,536
+So, in this case thread one,
+
+
+1003
+00:29:36,646 --> 00:29:39,886
+we'll be using queue.synch which
+
+
+1004
+00:29:40,666 --> 00:29:41,836
+is necessary in this case
+
+
+1005
+00:29:41,836 --> 00:29:44,516
+because we need the output value
+
+
+1006
+00:29:44,516 --> 00:29:45,536
+from this computation to
+
+
+1007
+00:29:45,536 --> 00:29:46,026
+continue.
+
+
+1008
+00:29:46,026 --> 00:29:47,526
+We need that lookup in the
+
+
+1009
+00:29:47,526 --> 00:29:49,126
+dictionary to give us an answer.
+
+
+1010
+00:29:49,126 --> 00:29:50,336
+So, we need to wait for the
+
+
+1011
+00:29:50,336 --> 00:29:50,716
+result.
+
+
+1012
+00:29:50,786 --> 00:29:52,266
+So, I'm using queue.synch here.
+
+
+1013
+00:29:52,656 --> 00:29:54,196
+But for the second thread, I can
+
+
+1014
+00:29:54,196 --> 00:29:56,136
+use queue.asynch because that
+
+
+1015
+00:29:56,136 --> 00:29:58,046
+block is not providing any
+
+
+1016
+00:29:58,046 --> 00:29:59,516
+output so we don't need to wait
+
+
+1017
+00:29:59,516 --> 00:30:01,996
+for it to finish.
+
+
+1018
+00:30:03,316 --> 00:30:04,466
+So, you might have noticed that
+
+
+1019
+00:30:04,466 --> 00:30:06,086
+in the previous example I did
+
+
+1020
+00:30:06,086 --> 00:30:07,636
+not call the problem a data
+
+
+1021
+00:30:07,636 --> 00:30:07,866
+race.
+
+
+1022
+00:30:08,496 --> 00:30:10,336
+Instead, the warning said it's a
+
+
+1023
+00:30:10,426 --> 00:30:11,436
+Swift access race.
+
+
+1024
+00:30:13,026 --> 00:30:14,846
+Swift access races are
+
+
+1025
+00:30:14,846 --> 00:30:16,286
+violations of a more general
+
+
+1026
+00:30:16,286 --> 00:30:18,336
+rule which applies to all
+
+
+1027
+00:30:18,336 --> 00:30:20,176
+structs, not just arrays and
+
+
+1028
+00:30:20,176 --> 00:30:21,616
+dictionaries but all structs.
+
+
+1029
+00:30:21,616 --> 00:30:22,836
+Even the ones that you define.
+
+
+1030
+00:30:23,636 --> 00:30:24,926
+So, this is a new rule that is
+
+
+1031
+00:30:25,216 --> 00:30:26,396
+now present in Swift 4.
+
+
+1032
+00:30:27,256 --> 00:30:29,226
+And part of it states that
+
+
+1033
+00:30:29,276 --> 00:30:31,096
+mutating methods on structs
+
+
+1034
+00:30:31,636 --> 00:30:33,026
+require that you have exclusive
+
+
+1035
+00:30:33,076 --> 00:30:34,276
+access to the whole struct.
+
+
+1036
+00:30:35,766 --> 00:30:37,036
+This does not apply to classes
+
+
+1037
+00:30:37,036 --> 00:30:38,196
+because classes don't have
+
+
+1038
+00:30:38,196 --> 00:30:39,046
+mutating methods.
+
+
+1039
+00:30:39,416 --> 00:30:40,996
+And any methods on a class can
+
+
+1040
+00:30:41,366 --> 00:30:43,106
+change any property and it only
+
+
+1041
+00:30:43,106 --> 00:30:45,536
+needs to have exclusive access
+
+
+1042
+00:30:45,576 --> 00:30:47,136
+to the properties that the
+
+
+1043
+00:30:47,136 --> 00:30:47,836
+method changes.
+
+
+1044
+00:30:48,346 --> 00:30:51,566
+So, this new rule that's applied
+
+
+1045
+00:30:51,566 --> 00:30:54,116
+to structs is now being even
+
+
+1046
+00:30:54,116 --> 00:30:55,546
+enforced by the compiler, both
+
+
+1047
+00:30:55,606 --> 00:30:57,196
+statically at compile time and
+
+
+1048
+00:30:57,196 --> 00:30:58,506
+dynamically at run time.
+
+
+1049
+00:30:59,656 --> 00:31:00,926
+But this enforcement mostly
+
+
+1050
+00:31:00,926 --> 00:31:02,016
+applies to single-threaded
+
+
+1051
+00:31:02,016 --> 00:31:02,656
+violations.
+
+
+1052
+00:31:02,996 --> 00:31:04,256
+And Thread Sanitizer is here to
+
+
+1053
+00:31:04,256 --> 00:31:05,556
+help you with the multithreaded
+
+
+1054
+00:31:05,556 --> 00:31:05,946
+cases.
+
+
+1055
+00:31:06,256 --> 00:31:07,656
+And if you'd like to learn more
+
+
+1056
+00:31:07,656 --> 00:31:08,866
+about these new rules in Swift
+
+
+1057
+00:31:08,976 --> 00:31:10,446
+4, I recommend that you watch
+
+
+1058
+00:31:10,876 --> 00:31:12,286
+the What's New in Swift session.
+
+
+1059
+00:31:13,236 --> 00:31:15,376
+And explicitly a session that
+
+
+1060
+00:31:15,376 --> 00:31:16,696
+was called Exclusive Access to
+
+
+1061
+00:31:16,696 --> 00:31:18,056
+Memory which describes what the
+
+
+1062
+00:31:18,056 --> 00:31:18,926
+new rules are.
+
+
+1063
+00:31:18,926 --> 00:31:21,086
+And it also talks about what is
+
+
+1064
+00:31:21,086 --> 00:31:21,586
+enforced.
+
+
+1065
+00:31:22,716 --> 00:31:23,706
+But let's take a look at one
+
+
+1066
+00:31:23,706 --> 00:31:24,346
+more example.
+
+
+1067
+00:31:25,626 --> 00:31:26,836
+Let's say that a friend has
+
+
+1068
+00:31:26,836 --> 00:31:28,746
+asked me to write some software
+
+
+1069
+00:31:28,746 --> 00:31:29,576
+for his spaceship.
+
+
+1070
+00:31:30,616 --> 00:31:32,016
+So, we'll have this struct which
+
+
+1071
+00:31:32,066 --> 00:31:33,286
+describes the location of this
+
+
+1072
+00:31:33,356 --> 00:31:33,866
+spaceship.
+
+
+1073
+00:31:34,396 --> 00:31:35,446
+So, it will have some stored
+
+
+1074
+00:31:35,446 --> 00:31:36,896
+properties to describe the
+
+
+1075
+00:31:36,896 --> 00:31:39,116
+coordinates in both space and
+
+
+1076
+00:31:39,146 --> 00:31:39,926
+time of course.
+
+
+1077
+00:31:40,736 --> 00:31:41,916
+And will have some methods on
+
+
+1078
+00:31:41,916 --> 00:31:43,396
+this struct as well.
+
+
+1079
+00:31:43,886 --> 00:31:45,106
+Because the spaceship can
+
+
+1080
+00:31:45,106 --> 00:31:46,376
+teleport to a different planet.
+
+
+1081
+00:31:46,656 --> 00:31:47,986
+It can also fly to a different
+
+
+1082
+00:31:47,986 --> 00:31:48,966
+city on the same planet.
+
+
+1083
+00:31:49,696 --> 00:31:51,656
+And of course it can travel in
+
+
+1084
+00:31:52,796 --> 00:31:52,916
+time.
+
+
+1085
+00:31:53,126 --> 00:31:54,416
+And since these methods are
+
+
+1086
+00:31:54,416 --> 00:31:56,006
+changing the coordinates, they
+
+
+1087
+00:31:56,006 --> 00:31:57,246
+need to be mutating methods.
+
+
+1088
+00:31:57,756 --> 00:31:58,676
+And that also means that the
+
+
+1089
+00:31:58,676 --> 00:31:59,856
+rules that I just mentioned
+
+
+1090
+00:31:59,856 --> 00:32:00,826
+apply to these methods.
+
+
+1091
+00:32:01,486 --> 00:32:02,586
+So, if you have two threads,
+
+
+1092
+00:32:02,586 --> 00:32:04,946
+which are both trying to change
+
+
+1093
+00:32:04,946 --> 00:32:06,246
+the location of our spaceship.
+
+
+1094
+00:32:06,246 --> 00:32:07,436
+Let's say thread one is trying
+
+
+1095
+00:32:07,436 --> 00:32:09,216
+to teleport it to a different
+
+
+1096
+00:32:09,216 --> 00:32:11,196
+planet while the second thread
+
+
+1097
+00:32:11,196 --> 00:32:12,546
+is trying to move it in time.
+
+
+1098
+00:32:13,226 --> 00:32:15,686
+That is a Swift access race.
+
+
+1099
+00:32:16,286 --> 00:32:18,626
+And notice that it doesn't
+
+
+1100
+00:32:18,626 --> 00:32:20,496
+matter which stored properties
+
+
+1101
+00:32:20,546 --> 00:32:22,556
+are these functions, these
+
+
+1102
+00:32:22,556 --> 00:32:24,596
+methods accessing or changing.
+
+
+1103
+00:32:25,246 --> 00:32:27,176
+Even if teleport only changes X,
+
+
+1104
+00:32:27,176 --> 00:32:29,226
+Y and Z while the other method
+
+
+1105
+00:32:29,226 --> 00:32:31,756
+only changes time, it's still a
+
+
+1106
+00:32:31,756 --> 00:32:32,586
+Swift access race.
+
+
+1107
+00:32:33,236 --> 00:32:35,066
+The rules simply state that you
+
+
+1108
+00:32:35,066 --> 00:32:36,896
+need to have exclusive access to
+
+
+1109
+00:32:36,896 --> 00:32:38,026
+the whole object when you are
+
+
+1110
+00:32:38,026 --> 00:32:39,496
+calling a mutating function,
+
+
+1111
+00:32:39,496 --> 00:32:41,066
+sorry, to the whole struct.
+
+
+1112
+00:32:42,906 --> 00:32:44,076
+It's also important to
+
+
+1113
+00:32:44,076 --> 00:32:46,106
+understand that if we try to fix
+
+
+1114
+00:32:46,106 --> 00:32:48,426
+this problem by introducing some
+
+
+1115
+00:32:48,426 --> 00:32:50,076
+synchronization into that
+
+
+1116
+00:32:50,176 --> 00:32:50,466
+struct.
+
+
+1117
+00:32:50,746 --> 00:32:51,846
+Let's say that we will try to
+
+
+1118
+00:32:52,266 --> 00:32:53,586
+use a dispatch queue inside of
+
+
+1119
+00:32:53,586 --> 00:32:54,836
+that struct and protecting the
+
+
+1120
+00:32:54,836 --> 00:32:57,526
+bodies of the mutating functions
+
+
+1121
+00:32:57,526 --> 00:32:59,546
+inside them, that's not enough.
+
+
+1122
+00:32:59,976 --> 00:33:02,116
+That's not a correct fix and
+
+
+1123
+00:33:02,116 --> 00:33:03,646
+it's still a violation and still
+
+
+1124
+00:33:03,646 --> 00:33:04,856
+a Swift access race.
+
+
+1125
+00:33:05,236 --> 00:33:06,456
+Because we need to have that
+
+
+1126
+00:33:06,456 --> 00:33:07,836
+exclusive access to the struct
+
+
+1127
+00:33:08,516 --> 00:33:10,056
+in order to call that mutating
+
+
+1128
+00:33:10,056 --> 00:33:10,526
+function.
+
+
+1129
+00:33:10,646 --> 00:33:11,816
+And it's not enough to try to
+
+
+1130
+00:33:11,816 --> 00:33:13,126
+introduce the synchronization
+
+
+1131
+00:33:13,216 --> 00:33:14,306
+inside that function.
+
+
+1132
+00:33:14,936 --> 00:33:18,986
+The correct fix is to move the
+
+
+1133
+00:33:18,986 --> 00:33:21,156
+synchronization to the caller of
+
+
+1134
+00:33:21,156 --> 00:33:22,166
+those mutating methods.
+
+
+1135
+00:33:23,036 --> 00:33:24,026
+So, let's say that we have a
+
+
+1136
+00:33:24,086 --> 00:33:25,976
+class that describes the whole
+
+
+1137
+00:33:26,036 --> 00:33:26,486
+spaceship.
+
+
+1138
+00:33:27,786 --> 00:33:28,816
+And it's a good idea to use a
+
+
+1139
+00:33:28,816 --> 00:33:30,646
+class here because this
+
+
+1140
+00:33:30,646 --> 00:33:32,596
+spaceship has some identity.
+
+
+1141
+00:33:32,596 --> 00:33:33,516
+It doesn't make sense to make
+
+
+1142
+00:33:33,516 --> 00:33:34,086
+copies of it.
+
+
+1143
+00:33:34,806 --> 00:33:36,466
+So, in this case the spaceship
+
+
+1144
+00:33:36,466 --> 00:33:39,046
+can protect the location stored
+
+
+1145
+00:33:39,076 --> 00:33:40,256
+property with a queue.
+
+
+1146
+00:33:40,696 --> 00:33:42,066
+And if we make sure that the
+
+
+1147
+00:33:42,066 --> 00:33:44,356
+methods are only accessing that
+
+
+1148
+00:33:44,456 --> 00:33:46,156
+struct within synchronized
+
+
+1149
+00:33:46,156 --> 00:33:48,146
+blocks such as queue.synch here.
+
+
+1150
+00:33:48,416 --> 00:33:50,106
+That will make the whole class
+
+
+1151
+00:33:50,856 --> 00:33:53,256
+thread safe.
+
+
+1152
+00:33:53,456 --> 00:33:55,146
+So, we've learned that you need
+
+
+1153
+00:33:55,146 --> 00:33:57,026
+to synchronize access to your
+
+
+1154
+00:33:57,086 --> 00:33:58,166
+shared mutable variable.
+
+
+1155
+00:33:58,656 --> 00:33:59,976
+And you can use GCD for that
+
+
+1156
+00:34:00,016 --> 00:34:01,996
+task and it's often as simple as
+
+
+1157
+00:34:01,996 --> 00:34:03,456
+just associating your data with
+
+
+1158
+00:34:03,736 --> 00:34:05,386
+some serial queue and then only
+
+
+1159
+00:34:05,386 --> 00:34:06,956
+accessing the data from that
+
+
+1160
+00:34:07,006 --> 00:34:07,246
+queue.
+
+
+1161
+00:34:08,505 --> 00:34:09,996
+Thread Sanitizer is an amazing
+
+
+1162
+00:34:10,045 --> 00:34:11,426
+tool that helps find you the
+
+
+1163
+00:34:11,426 --> 00:34:12,755
+places where you are missing the
+
+
+1164
+00:34:12,755 --> 00:34:13,556
+synchronization.
+
+
+1165
+00:34:14,166 --> 00:34:15,646
+Which is, you know, a problem
+
+
+1166
+00:34:15,646 --> 00:34:18,406
+that is very easy to make.
+
+
+1167
+00:34:18,616 --> 00:34:20,335
+And with that, I'm very excited
+
+
+1168
+00:34:20,335 --> 00:34:21,826
+to tell you that we're, this
+
+
+1169
+00:34:21,826 --> 00:34:22,956
+year, introducing another
+
+
+1170
+00:34:22,956 --> 00:34:24,746
+sanitizer to help you catch even
+
+
+1171
+00:34:24,746 --> 00:34:25,636
+more types of bugs.
+
+
+1172
+00:34:25,735 --> 00:34:27,116
+And here's Verdant to tell you
+
+
+1173
+00:34:27,116 --> 00:34:28,346
+about it.
+
+
+1174
+00:34:29,516 --> 00:34:32,976
+[ Applause ]
+
+
+1175
+00:34:33,476 --> 00:34:34,000
+It's all yours.
+
+
+1176
+00:34:37,376 --> 00:34:38,235
+>> All right.
+
+
+1177
+00:34:39,016 --> 00:34:41,016
+Hello. My name is Verdant and I
+
+
+1178
+00:34:41,016 --> 00:34:42,096
+work on compilers.
+
+
+1179
+00:34:42,096 --> 00:34:43,676
+And I'm really happy to tell you
+
+
+1180
+00:34:44,065 --> 00:34:45,985
+that this year in Xcode 9 we're
+
+
+1181
+00:34:45,985 --> 00:34:48,085
+releasing a new tool, Undefined
+
+
+1182
+00:34:48,085 --> 00:34:49,196
+Behavior Sanitizer.
+
+
+1183
+00:34:49,406 --> 00:34:50,826
+And I'm sure it's going to help
+
+
+1184
+00:34:50,826 --> 00:34:54,266
+you catch lots more bugs.
+
+
+1185
+00:34:55,525 --> 00:34:57,156
+Okay. What is Undefined Behavior
+
+
+1186
+00:34:57,156 --> 00:34:57,816
+Sanitizer?
+
+
+1187
+00:34:58,626 --> 00:34:59,916
+Well, just like the other
+
+
+1188
+00:34:59,916 --> 00:35:01,386
+Runtime tools you've seen so far
+
+
+1189
+00:35:01,386 --> 00:35:03,126
+in this talk, it's a Runtime bug
+
+
+1190
+00:35:03,126 --> 00:35:03,766
+finder.
+
+
+1191
+00:35:04,396 --> 00:35:06,656
+Now, as the name suggests,
+
+
+1192
+00:35:06,686 --> 00:35:08,366
+Undefined Behavior Sanitizer
+
+
+1193
+00:35:08,366 --> 00:35:10,436
+detects undefined behavior for
+
+
+1194
+00:35:10,436 --> 00:35:10,736
+you.
+
+
+1195
+00:35:11,366 --> 00:35:13,436
+But so does Address Sanitizer
+
+
+1196
+00:35:13,676 --> 00:35:15,896
+and so does a Thread Sanitizer.
+
+
+1197
+00:35:17,136 --> 00:35:18,746
+What's special about Undefined
+
+
+1198
+00:35:18,746 --> 00:35:20,526
+Behavior Sanitizer is that it
+
+
+1199
+00:35:20,526 --> 00:35:22,556
+specializes in checking unsafe
+
+
+1200
+00:35:22,556 --> 00:35:24,036
+constructs in the C language
+
+
+1201
+00:35:24,036 --> 00:35:24,526
+family.
+
+
+1202
+00:35:25,116 --> 00:35:27,506
+It's compatible with other
+
+
+1203
+00:35:27,506 --> 00:35:28,366
+Runtime tools.
+
+
+1204
+00:35:28,476 --> 00:35:29,926
+It works on all of our devices
+
+
+1205
+00:35:29,926 --> 00:35:30,666
+and platforms.
+
+
+1206
+00:35:31,326 --> 00:35:32,706
+And if you're interested in
+
+
+1207
+00:35:32,706 --> 00:35:34,186
+learning more about undefined
+
+
+1208
+00:35:34,186 --> 00:35:36,066
+behavior, I highly recommend
+
+
+1209
+00:35:36,206 --> 00:35:37,326
+that you check out tomorrow
+
+
+1210
+00:35:37,326 --> 00:35:38,786
+morning's talk about
+
+
+1211
+00:35:38,876 --> 00:35:40,256
+understanding undefined
+
+
+1212
+00:35:40,256 --> 00:35:42,216
+behavior, 9 am.
+
+
+1213
+00:35:42,546 --> 00:35:44,156
+That talk will go over what
+
+
+1214
+00:35:44,156 --> 00:35:45,816
+undefined behavior is.
+
+
+1215
+00:35:46,626 --> 00:35:47,716
+Why it exists.
+
+
+1216
+00:35:47,716 --> 00:35:48,696
+And how it can affect your
+
+
+1217
+00:35:48,696 --> 00:35:49,546
+applications.
+
+
+1218
+00:35:49,606 --> 00:35:54,186
+Now, I've got some good news for
+
+
+1219
+00:35:57,276 --> 00:35:57,386
+you.
+
+
+1220
+00:35:57,596 --> 00:35:59,296
+Undefined Behavior Sanitizer can
+
+
+1221
+00:35:59,296 --> 00:36:01,746
+detect over 15 different kinds
+
+
+1222
+00:36:01,746 --> 00:36:02,546
+of new issues.
+
+
+1223
+00:36:03,476 --> 00:36:05,356
+Now, this is going to be great
+
+
+1224
+00:36:05,356 --> 00:36:07,046
+for productivity but for this
+
+
+1225
+00:36:07,046 --> 00:36:08,826
+talk, just to give you a taste
+
+
+1226
+00:36:08,876 --> 00:36:09,996
+for what Undefined Behavior
+
+
+1227
+00:36:09,996 --> 00:36:12,426
+Sanitizer can actually catch and
+
+
+1228
+00:36:12,426 --> 00:36:13,576
+how it works, we're just going
+
+
+1229
+00:36:13,576 --> 00:36:15,026
+to focus on three issues.
+
+
+1230
+00:36:15,336 --> 00:36:17,086
+Integer overflow, alignment
+
+
+1231
+00:36:17,086 --> 00:36:19,076
+violations and the nonnull
+
+
+1232
+00:36:19,076 --> 00:36:20,346
+return value violation.
+
+
+1233
+00:36:20,886 --> 00:36:23,406
+Let's start with integer
+
+
+1234
+00:36:23,406 --> 00:36:23,876
+overflow.
+
+
+1235
+00:36:25,626 --> 00:36:27,336
+Integer overflow occurs when
+
+
+1236
+00:36:27,336 --> 00:36:28,266
+you've got an arithmetic
+
+
+1237
+00:36:28,266 --> 00:36:30,506
+expression and its result is too
+
+
+1238
+00:36:30,506 --> 00:36:32,036
+big to fit in a variable.
+
+
+1239
+00:36:32,956 --> 00:36:34,916
+Now, if this sort of bug occurs
+
+
+1240
+00:36:34,916 --> 00:36:36,986
+in an indexing expression, such
+
+
+1241
+00:36:36,986 --> 00:36:38,336
+as, like, if you're indexing
+
+
+1242
+00:36:38,336 --> 00:36:40,226
+into a buffer or in an
+
+
+1243
+00:36:40,226 --> 00:36:41,556
+expression used to compute the
+
+
+1244
+00:36:41,556 --> 00:36:43,246
+size of the buffer, it can
+
+
+1245
+00:36:43,246 --> 00:36:45,166
+actually be a serious security
+
+
+1246
+00:36:45,166 --> 00:36:46,776
+hole and it can be exploited.
+
+
+1247
+00:36:48,316 --> 00:36:50,206
+Integer overflow can also just
+
+
+1248
+00:36:50,206 --> 00:36:51,356
+sometimes lead to surprising
+
+
+1249
+00:36:51,356 --> 00:36:51,976
+results.
+
+
+1250
+00:36:52,316 --> 00:36:53,676
+Like, for example there
+
+
+1251
+00:36:54,506 --> 00:36:56,856
+additions you can perform that,
+
+
+1252
+00:36:57,566 --> 00:36:58,696
+well, take a look.
+
+
+1253
+00:36:59,196 --> 00:37:00,696
+If you've got int max and you
+
+
+1254
+00:37:00,696 --> 00:37:02,876
+add 1 to it, you actually don't
+
+
+1255
+00:37:02,926 --> 00:37:04,966
+get a number that's bigger than
+
+
+1256
+00:37:04,966 --> 00:37:06,026
+what you started out with, which
+
+
+1257
+00:37:06,026 --> 00:37:06,966
+can be really confusing.
+
+
+1258
+00:37:07,486 --> 00:37:10,446
+Now, not all kinds of integer
+
+
+1259
+00:37:10,446 --> 00:37:12,336
+overflow are undefined behavior.
+
+
+1260
+00:37:12,336 --> 00:37:14,506
+In fact, some kinds of overflow
+
+
+1261
+00:37:14,506 --> 00:37:16,286
+actually have defined semantics,
+
+
+1262
+00:37:16,286 --> 00:37:17,826
+which is unsigned integer
+
+
+1263
+00:37:17,826 --> 00:37:18,366
+overflow.
+
+
+1264
+00:37:19,466 --> 00:37:21,346
+However, unsigned integer
+
+
+1265
+00:37:21,346 --> 00:37:22,626
+overflow can still be really
+
+
+1266
+00:37:22,626 --> 00:37:23,306
+surprising.
+
+
+1267
+00:37:23,396 --> 00:37:25,116
+So, we really recommend that you
+
+
+1268
+00:37:25,156 --> 00:37:27,196
+opt into this check.
+
+
+1269
+00:37:27,386 --> 00:37:28,366
+I'll show you how to do that at
+
+
+1270
+00:37:28,366 --> 00:37:31,126
+the tail end of this topic.
+
+
+1271
+00:37:31,276 --> 00:37:33,456
+But with that, let's go ahead
+
+
+1272
+00:37:33,456 --> 00:37:34,446
+and jump into a demo.
+
+
+1273
+00:37:35,186 --> 00:37:37,216
+All right, now what I've got up
+
+
+1274
+00:37:37,216 --> 00:37:38,766
+here is a function that all of
+
+
+1275
+00:37:38,766 --> 00:37:40,006
+us have probably written really
+
+
+1276
+00:37:40,006 --> 00:37:40,736
+often.
+
+
+1277
+00:37:40,776 --> 00:37:41,886
+It's an average function.
+
+
+1278
+00:37:42,276 --> 00:37:43,986
+So, it takes in an array of
+
+
+1279
+00:37:43,986 --> 00:37:45,426
+integers and a length.
+
+
+1280
+00:37:45,846 --> 00:37:47,016
+It sets up an accumulator.
+
+
+1281
+00:37:47,296 --> 00:37:48,796
+It iterates through your array,
+
+
+1282
+00:37:49,196 --> 00:37:50,556
+adds everything up and divides.
+
+
+1283
+00:37:50,986 --> 00:37:51,816
+So, it should give you an
+
+
+1284
+00:37:51,816 --> 00:37:52,276
+average.
+
+
+1285
+00:37:53,216 --> 00:37:54,226
+Now, we're interested in writing
+
+
+1286
+00:37:54,226 --> 00:37:55,916
+a test for this so that we know
+
+
+1287
+00:37:55,916 --> 00:37:57,076
+that it behaves correctly.
+
+
+1288
+00:37:58,126 --> 00:37:58,946
+So, here we go.
+
+
+1289
+00:37:59,066 --> 00:37:59,966
+Let's take a look at the test
+
+
+1290
+00:37:59,966 --> 00:38:00,446
+that we've got.
+
+
+1291
+00:38:01,366 --> 00:38:03,046
+Test nonnegative average.
+
+
+1292
+00:38:04,206 --> 00:38:05,076
+The test is really simple.
+
+
+1293
+00:38:05,306 --> 00:38:06,576
+So, we're going to create an
+
+
+1294
+00:38:06,576 --> 00:38:08,236
+array of 10,000 integers.
+
+
+1295
+00:38:09,056 --> 00:38:10,186
+We're going to populate the
+
+
+1296
+00:38:10,186 --> 00:38:11,946
+array with pseudo random
+
+
+1297
+00:38:12,016 --> 00:38:14,156
+nonnegative integers and just
+
+
+1298
+00:38:14,156 --> 00:38:15,976
+check, just do a simple sanity
+
+
+1299
+00:38:15,976 --> 00:38:16,166
+check.
+
+
+1300
+00:38:16,706 --> 00:38:18,056
+Just check that the average that
+
+
+1301
+00:38:18,056 --> 00:38:19,896
+we get back is also nonnegative.
+
+
+1302
+00:38:20,136 --> 00:38:21,546
+That's this assertion right
+
+
+1303
+00:38:21,676 --> 00:38:21,856
+here.
+
+
+1304
+00:38:23,266 --> 00:38:24,996
+All right, so let's go ahead and
+
+
+1305
+00:38:24,996 --> 00:38:25,566
+run our test.
+
+
+1306
+00:38:25,936 --> 00:38:27,936
+Let's go up to here.
+
+
+1307
+00:38:28,026 --> 00:38:30,296
+Hit play. Build succeeded.
+
+
+1308
+00:38:31,586 --> 00:38:33,686
+And nothing really happened.
+
+
+1309
+00:38:33,686 --> 00:38:34,536
+We just finished running our
+
+
+1310
+00:38:34,536 --> 00:38:36,106
+program, the assertion passed.
+
+
+1311
+00:38:36,346 --> 00:38:37,316
+Everything seems great.
+
+
+1312
+00:38:38,356 --> 00:38:40,566
+Now, let's just change one small
+
+
+1313
+00:38:40,646 --> 00:38:41,036
+thing.
+
+
+1314
+00:38:41,326 --> 00:38:42,766
+And this is going to illustrate
+
+
+1315
+00:38:42,766 --> 00:38:43,956
+why undefined behavior and
+
+
+1316
+00:38:43,956 --> 00:38:45,166
+integer overflow in particular
+
+
+1317
+00:38:45,166 --> 00:38:45,966
+can be really tricky.
+
+
+1318
+00:38:46,406 --> 00:38:47,776
+Let's change the array length
+
+
+1319
+00:38:48,126 --> 00:38:50,636
+from 10,000 to 10,0001.
+
+
+1320
+00:38:51,256 --> 00:38:53,526
+Save it. Go back.
+
+
+1321
+00:38:54,936 --> 00:38:55,936
+And run our program.
+
+
+1322
+00:38:56,806 --> 00:39:00,636
+Uh oh. Insertion5 failure.
+
+
+1323
+00:39:01,296 --> 00:39:03,976
+Now, this is really confusing.
+
+
+1324
+00:39:03,976 --> 00:39:04,996
+So, you know, I've got
+
+
+1325
+00:39:04,996 --> 00:39:06,306
+non-negative integers.
+
+
+1326
+00:39:06,816 --> 00:39:08,596
+I wrote a really sort of
+
+
+1327
+00:39:08,596 --> 00:39:10,316
+straightforward function that
+
+
+1328
+00:39:10,676 --> 00:39:11,666
+sums them up.
+
+
+1329
+00:39:11,786 --> 00:39:13,116
+But all of a sudden I'm getting
+
+
+1330
+00:39:13,116 --> 00:39:14,516
+this weird failure, this really
+
+
+1331
+00:39:14,586 --> 00:39:15,716
+basic test that it isn't
+
+
+1332
+00:39:15,716 --> 00:39:16,166
+passing.
+
+
+1333
+00:39:17,416 --> 00:39:19,116
+Undefined Behavior Sanitizer can
+
+
+1334
+00:39:19,116 --> 00:39:20,036
+be really useful in these
+
+
+1335
+00:39:20,036 --> 00:39:21,546
+situations and clarify what the
+
+
+1336
+00:39:21,546 --> 00:39:22,506
+actual issue is.
+
+
+1337
+00:39:22,506 --> 00:39:24,216
+So, we're going to turn it on
+
+
+1338
+00:39:24,396 --> 00:39:25,426
+just like Kuba has shown you.
+
+
+1339
+00:39:25,676 --> 00:39:27,596
+We go into the scheme editor
+
+
+1340
+00:39:27,596 --> 00:39:29,286
+next to it, the diagnostics tab.
+
+
+1341
+00:39:30,936 --> 00:39:32,126
+Click the right check box.
+
+
+1342
+00:39:32,666 --> 00:39:34,136
+And we're good to go.
+
+
+1343
+00:39:35,206 --> 00:39:37,516
+We can hit run again, rebuild
+
+
+1344
+00:39:37,516 --> 00:39:39,006
+but Undefined Behavior Sanitizer
+
+
+1345
+00:39:39,006 --> 00:39:39,626
+turned on.
+
+
+1346
+00:39:40,176 --> 00:39:41,586
+And here we are.
+
+
+1347
+00:39:42,596 --> 00:39:45,246
+So, Undefined Behavior Sanitizer
+
+
+1348
+00:39:45,346 --> 00:39:47,576
+has zoomed in on the exact cause
+
+
+1349
+00:39:47,576 --> 00:39:49,256
+of the issue for us and it's
+
+
+1350
+00:39:49,286 --> 00:39:50,386
+done so in a relatively
+
+
+1351
+00:39:50,386 --> 00:39:51,026
+drama-free way.
+
+
+1352
+00:39:51,326 --> 00:39:53,206
+It tells us what happened.
+
+
+1353
+00:39:53,576 --> 00:39:54,726
+Assigned integer overflow.
+
+
+1354
+00:39:55,126 --> 00:39:56,296
+And it tells us the values
+
+
+1355
+00:39:56,296 --> 00:39:57,456
+involved in the overflow.
+
+
+1356
+00:39:57,596 --> 00:39:59,776
+As we can see, they're gigantic.
+
+
+1357
+00:39:59,836 --> 00:40:01,246
+There's no way that these two
+
+
+1358
+00:40:01,246 --> 00:40:02,926
+values or the sum of them can
+
+
+1359
+00:40:02,926 --> 00:40:04,666
+fit inside of a 32-bit integer.
+
+
+1360
+00:40:04,666 --> 00:40:06,656
+And what ended up happening was
+
+
+1361
+00:40:06,656 --> 00:40:08,146
+that whatever garbled result we
+
+
+1362
+00:40:08,146 --> 00:40:11,166
+got ended up being, you know, in
+
+
+1363
+00:40:11,166 --> 00:40:12,816
+two complement representation a
+
+
+1364
+00:40:12,816 --> 00:40:13,756
+negative number.
+
+
+1365
+00:40:15,176 --> 00:40:17,506
+So, you can fix this problem in
+
+
+1366
+00:40:17,506 --> 00:40:18,236
+a couple different ways.
+
+
+1367
+00:40:18,746 --> 00:40:21,156
+The two I would recommend is to
+
+
+1368
+00:40:21,226 --> 00:40:22,646
+either use a different algorithm
+
+
+1369
+00:40:22,646 --> 00:40:24,416
+for computing your average or if
+
+
+1370
+00:40:24,416 --> 00:40:25,246
+you're in a pinch, just
+
+
+1371
+00:40:25,336 --> 00:40:26,966
+constrain the set of inputs into
+
+
+1372
+00:40:26,966 --> 00:40:28,856
+your average function so that
+
+
+1373
+00:40:28,856 --> 00:40:30,446
+you don't end up with this
+
+
+1374
+00:40:31,336 --> 00:40:31,586
+problem.
+
+
+1375
+00:40:31,656 --> 00:40:31,956
+All right.
+
+
+1376
+00:40:32,476 --> 00:40:35,076
+So, with that said, let's go
+
+
+1377
+00:40:35,076 --> 00:40:35,996
+back to the slides.
+
+
+1378
+00:40:36,046 --> 00:40:37,856
+I hope that you've seen that
+
+
+1379
+00:40:37,856 --> 00:40:39,396
+Undefined Behavior Sanitizer can
+
+
+1380
+00:40:39,396 --> 00:40:41,746
+make it really easy for you to
+
+
+1381
+00:40:41,746 --> 00:40:44,386
+find the source of tricky issues
+
+
+1382
+00:40:44,386 --> 00:40:45,716
+that cause weird failures at
+
+
+1383
+00:40:45,716 --> 00:40:46,066
+Runtime.
+
+
+1384
+00:40:46,136 --> 00:40:46,746
+All right.
+
+
+1385
+00:40:47,416 --> 00:40:51,406
+With that out of the way, let's
+
+
+1386
+00:40:51,406 --> 00:40:52,696
+talk about the second kind of
+
+
+1387
+00:40:52,726 --> 00:40:54,966
+issue that we're going to focus
+
+
+1388
+00:40:54,966 --> 00:40:55,186
+on.
+
+
+1389
+00:40:55,186 --> 00:40:56,666
+And those are memory alignment
+
+
+1390
+00:40:56,666 --> 00:40:57,586
+violations.
+
+
+1391
+00:40:58,896 --> 00:41:01,756
+Now, every type in C has a size
+
+
+1392
+00:41:01,966 --> 00:41:03,316
+but it also has a required
+
+
+1393
+00:41:03,496 --> 00:41:04,076
+alignment.
+
+
+1394
+00:41:05,356 --> 00:41:07,146
+A memory alignment violation
+
+
+1395
+00:41:07,146 --> 00:41:08,606
+occurs in your program when
+
+
+1396
+00:41:08,606 --> 00:41:10,406
+there is an unaligned load or
+
+
+1397
+00:41:10,406 --> 00:41:12,746
+store to a piece of memory.
+
+
+1398
+00:41:14,036 --> 00:41:15,436
+Now, this can actually be a
+
+
+1399
+00:41:15,436 --> 00:41:18,376
+really subtle bug to find.
+
+
+1400
+00:41:18,526 --> 00:41:21,976
+And there's a good chance that
+
+
+1401
+00:41:21,976 --> 00:41:23,706
+you may never even see it during
+
+
+1402
+00:41:23,706 --> 00:41:24,816
+your day to day development.
+
+
+1403
+00:41:25,086 --> 00:41:27,106
+I'm assuming most of you develop
+
+
+1404
+00:41:27,106 --> 00:41:28,726
+your apps in frameworks and the
+
+
+1405
+00:41:28,726 --> 00:41:30,466
+debug configuration in Xcode.
+
+
+1406
+00:41:30,996 --> 00:41:32,266
+And when you're ready to finally
+
+
+1407
+00:41:32,266 --> 00:41:33,956
+ship your app, you'll, you know,
+
+
+1408
+00:41:33,956 --> 00:41:34,676
+ship it in the release
+
+
+1409
+00:41:34,676 --> 00:41:35,456
+configuration.
+
+
+1410
+00:41:35,976 --> 00:41:37,446
+The problem is because the
+
+
+1411
+00:41:37,446 --> 00:41:39,726
+compiler really expects you to
+
+
+1412
+00:41:39,966 --> 00:41:41,716
+not violate alignment
+
+
+1413
+00:41:41,716 --> 00:41:44,326
+assumptions, the optimizer can
+
+
+1414
+00:41:44,446 --> 00:41:46,526
+often do things with your code
+
+
+1415
+00:41:46,716 --> 00:41:48,086
+which cause your program to
+
+
+1416
+00:41:48,196 --> 00:41:50,106
+crash at Runtime in the release
+
+
+1417
+00:41:50,106 --> 00:41:51,266
+configuration when these
+
+
+1418
+00:41:51,266 --> 00:41:52,486
+optimizations are enabled.
+
+
+1419
+00:41:54,046 --> 00:41:55,616
+Undefined Behavior Sanitizer can
+
+
+1420
+00:41:55,616 --> 00:41:57,476
+help you catch these issues even
+
+
+1421
+00:41:57,476 --> 00:41:59,256
+in the debug configuration ahead
+
+
+1422
+00:41:59,256 --> 00:42:00,686
+of time so you don't end up with
+
+
+1423
+00:42:00,686 --> 00:42:02,426
+hard to debug failures later
+
+
+1424
+00:42:02,606 --> 00:42:03,056
+down the road.
+
+
+1425
+00:42:04,416 --> 00:42:05,926
+Now, this type of failure is
+
+
+1426
+00:42:05,926 --> 00:42:07,506
+especially common in code that
+
+
+1427
+00:42:07,506 --> 00:42:09,086
+deals with serializing or
+
+
+1428
+00:42:09,206 --> 00:42:10,406
+deserializing data from
+
+
+1429
+00:42:10,406 --> 00:42:11,626
+persistent storage.
+
+
+1430
+00:42:12,196 --> 00:42:14,546
+So, let's take a closer look at
+
+
+1431
+00:42:14,546 --> 00:42:15,966
+an example that does exactly
+
+
+1432
+00:42:16,726 --> 00:42:16,826
+that.
+
+
+1433
+00:42:18,706 --> 00:42:21,286
+Okay, so in this example, I'm
+
+
+1434
+00:42:21,286 --> 00:42:23,506
+interested in writing a custom
+
+
+1435
+00:42:23,506 --> 00:42:24,786
+network protocol for a chat
+
+
+1436
+00:42:24,786 --> 00:42:26,066
+application that I'm developing.
+
+
+1437
+00:42:26,586 --> 00:42:28,856
+And one really basic thing that
+
+
+1438
+00:42:28,856 --> 00:42:30,466
+I've got in my network protocol
+
+
+1439
+00:42:30,726 --> 00:42:32,416
+is a definition of a packet
+
+
+1440
+00:42:32,416 --> 00:42:32,956
+structure.
+
+
+1441
+00:42:34,206 --> 00:42:35,406
+The packet structure contains
+
+
+1442
+00:42:35,406 --> 00:42:36,206
+three things.
+
+
+1443
+00:42:36,846 --> 00:42:38,636
+A magic field to identify the
+
+
+1444
+00:42:38,636 --> 00:42:39,886
+protocol that we're speaking in.
+
+
+1445
+00:42:41,286 --> 00:42:43,746
+A payload length that tells you
+
+
+1446
+00:42:43,746 --> 00:42:45,156
+how long the message inside of
+
+
+1447
+00:42:45,156 --> 00:42:45,986
+the packet is.
+
+
+1448
+00:42:46,556 --> 00:42:48,176
+And the payload itself.
+
+
+1449
+00:42:48,886 --> 00:42:50,226
+For the purposes of this
+
+
+1450
+00:42:50,226 --> 00:42:51,286
+example, I'm just going to
+
+
+1451
+00:42:51,286 --> 00:42:53,116
+assume that int is a four-byte
+
+
+1452
+00:42:53,226 --> 00:42:53,586
+integer.
+
+
+1453
+00:42:54,156 --> 00:42:55,506
+Okay, now with that out of the
+
+
+1454
+00:42:55,506 --> 00:42:58,036
+way, we've got two things that
+
+
+1455
+00:42:58,036 --> 00:42:59,346
+we need to focus on in order to
+
+
+1456
+00:42:59,346 --> 00:43:01,566
+make custom network protocol
+
+
+1457
+00:43:01,566 --> 00:43:02,296
+work for us.
+
+
+1458
+00:43:02,606 --> 00:43:04,196
+Sender and a receiver.
+
+
+1459
+00:43:04,536 --> 00:43:06,406
+We'll get to the sender first.
+
+
+1460
+00:43:07,166 --> 00:43:08,716
+Now, the sender's got a network
+
+
+1461
+00:43:08,786 --> 00:43:09,206
+buffer.
+
+
+1462
+00:43:09,416 --> 00:43:10,556
+This is where it's going to
+
+
+1463
+00:43:10,556 --> 00:43:13,076
+assemble its packets, get them
+
+
+1464
+00:43:13,076 --> 00:43:13,556
+all ready.
+
+
+1465
+00:43:13,836 --> 00:43:14,816
+Get your payload ready.
+
+
+1466
+00:43:15,296 --> 00:43:16,626
+And then shoot them down the
+
+
+1467
+00:43:16,626 --> 00:43:18,066
+network so that the receiver can
+
+
+1468
+00:43:18,066 --> 00:43:18,316
+get it.
+
+
+1469
+00:43:19,216 --> 00:43:22,006
+Now, for illustrative purposes,
+
+
+1470
+00:43:22,446 --> 00:43:24,466
+I've broken up the memory inside
+
+
+1471
+00:43:24,466 --> 00:43:25,556
+of our network buffer into
+
+
+1472
+00:43:25,556 --> 00:43:27,426
+four-byte chunks and hopefully
+
+
+1473
+00:43:27,546 --> 00:43:29,686
+you'll see why soon.
+
+
+1474
+00:43:29,886 --> 00:43:31,876
+Okay, now I really miss Kuba
+
+
+1475
+00:43:31,876 --> 00:43:34,186
+already just because, you know,
+
+
+1476
+00:43:34,186 --> 00:43:36,086
+he's been offstage for so long.
+
+
+1477
+00:43:36,646 --> 00:43:37,836
+So, the first message that I
+
+
+1478
+00:43:37,836 --> 00:43:39,636
+want to send to Kuba is Hey
+
+
+1479
+00:43:39,636 --> 00:43:39,886
+Kuba.
+
+
+1480
+00:43:40,756 --> 00:43:42,016
+So, in order to do that I'm
+
+
+1481
+00:43:42,016 --> 00:43:43,526
+going to start with a magic
+
+
+1482
+00:43:43,526 --> 00:43:43,886
+value.
+
+
+1483
+00:43:44,386 --> 00:43:48,206
+Next I'm going to specify the
+
+
+1484
+00:43:48,206 --> 00:43:49,306
+length of my message.
+
+
+1485
+00:43:49,496 --> 00:43:50,706
+It's got nine characters in it.
+
+
+1486
+00:43:51,156 --> 00:43:54,026
+So, there we go.
+
+
+1487
+00:43:54,226 --> 00:43:56,736
+Finally I'm going to specify my
+
+
+1488
+00:43:56,736 --> 00:43:58,756
+message itself which is Hey
+
+
+1489
+00:43:58,756 --> 00:43:59,016
+Kuba.
+
+
+1490
+00:44:00,496 --> 00:44:02,006
+Now we're ready to take a look
+
+
+1491
+00:44:02,006 --> 00:44:03,486
+at what the receiver does.
+
+
+1492
+00:44:04,036 --> 00:44:07,356
+It's going to take a pointer to
+
+
+1493
+00:44:07,356 --> 00:44:08,826
+the network byte stream's buffer
+
+
+1494
+00:44:09,376 --> 00:44:11,356
+and cast it to a pointer to a
+
+
+1495
+00:44:11,436 --> 00:44:12,266
+packet structure.
+
+
+1496
+00:44:13,856 --> 00:44:16,766
+Then it's going to look inside
+
+
+1497
+00:44:16,766 --> 00:44:18,696
+the packet, figure out what the
+
+
+1498
+00:44:18,696 --> 00:44:20,436
+magic field is, make sure it's
+
+
+1499
+00:44:20,436 --> 00:44:21,666
+the correct values so that we're
+
+
+1500
+00:44:21,666 --> 00:44:22,806
+speaking the right protocol.
+
+
+1501
+00:44:23,346 --> 00:44:24,996
+And then look at the payload.
+
+
+1502
+00:44:25,056 --> 00:44:27,386
+All right, so that's the first
+
+
+1503
+00:44:27,386 --> 00:44:27,976
+packet out of the way.
+
+
+1504
+00:44:28,256 --> 00:44:29,226
+No issues so far.
+
+
+1505
+00:44:30,276 --> 00:44:31,006
+Let's send another.
+
+
+1506
+00:44:32,336 --> 00:44:33,746
+The second message is going to
+
+
+1507
+00:44:33,746 --> 00:44:35,516
+be how's it going?
+
+
+1508
+00:44:36,036 --> 00:44:38,856
+So, we'll do the same thing.
+
+
+1509
+00:44:39,076 --> 00:44:40,836
+Toss in a magic value, the same
+
+
+1510
+00:44:40,836 --> 00:44:41,446
+one as before.
+
+
+1511
+00:44:42,696 --> 00:44:44,166
+Toss down the length of the
+
+
+1512
+00:44:44,166 --> 00:44:46,976
+message, 15 characters, and then
+
+
+1513
+00:44:46,976 --> 00:44:47,996
+the message itself.
+
+
+1514
+00:44:49,296 --> 00:44:50,686
+Switching back over to the
+
+
+1515
+00:44:50,686 --> 00:44:52,486
+receiver end, we're going to see
+
+
+1516
+00:44:52,746 --> 00:44:54,136
+that the problem manifests here.
+
+
+1517
+00:44:54,966 --> 00:44:57,586
+This time we're looking at index
+
+
+1518
+00:44:57,586 --> 00:44:59,676
+17 into the network byte stream.
+
+
+1519
+00:45:00,536 --> 00:45:03,136
+And as soon as we look at the
+
+
+1520
+00:45:03,136 --> 00:45:04,506
+magic value inside of that
+
+
+1521
+00:45:04,606 --> 00:45:06,976
+packet structure, we get a
+
+
+1522
+00:45:06,976 --> 00:45:08,406
+memory alignment violation.
+
+
+1523
+00:45:08,866 --> 00:45:12,676
+Now, as you can see here, the
+
+
+1524
+00:45:12,796 --> 00:45:14,796
+magic field of the second packet
+
+
+1525
+00:45:14,996 --> 00:45:16,436
+isn't aligned to a four-byte
+
+
+1526
+00:45:16,476 --> 00:45:17,016
+boundary.
+
+
+1527
+00:45:17,436 --> 00:45:19,546
+So, dereferencing it directly
+
+
+1528
+00:45:19,546 --> 00:45:20,866
+from the network byte stream is
+
+
+1529
+00:45:20,866 --> 00:45:21,996
+an alignment violation,
+
+
+1530
+00:45:22,286 --> 00:45:23,316
+something that undefined
+
+
+1531
+00:45:23,316 --> 00:45:25,016
+behavior sanitizer can very
+
+
+1532
+00:45:25,016 --> 00:45:26,416
+precisely diagnose for you.
+
+
+1533
+00:45:30,376 --> 00:45:31,596
+How do you fix this?
+
+
+1534
+00:45:31,966 --> 00:45:32,876
+Well, we're going to talk about
+
+
+1535
+00:45:32,876 --> 00:45:34,166
+two different ways to do it.
+
+
+1536
+00:45:34,396 --> 00:45:36,026
+The first is to use the packed
+
+
+1537
+00:45:36,306 --> 00:45:38,326
+attribute in your network packet
+
+
+1538
+00:45:38,326 --> 00:45:39,926
+structure definition or any
+
+
+1539
+00:45:39,926 --> 00:45:40,916
+structure that you've got that
+
+
+1540
+00:45:40,916 --> 00:45:41,666
+you're serializing.
+
+
+1541
+00:45:42,696 --> 00:45:43,646
+Okay, so let's take a look at
+
+
+1542
+00:45:43,646 --> 00:45:44,276
+how this works.
+
+
+1543
+00:45:44,776 --> 00:45:47,476
+You add the packed attribute and
+
+
+1544
+00:45:47,476 --> 00:45:49,286
+that changes all of the field
+
+
+1545
+00:45:49,286 --> 00:45:50,186
+alignments inside of your
+
+
+1546
+00:45:50,186 --> 00:45:51,716
+structure from whatever they
+
+
+1547
+00:45:51,716 --> 00:45:53,476
+were originally to one byte
+
+
+1548
+00:45:53,476 --> 00:45:53,856
+aligned.
+
+
+1549
+00:45:54,486 --> 00:45:55,916
+That's the lowest possible
+
+
+1550
+00:45:55,916 --> 00:45:57,376
+alignment that you can have
+
+
+1551
+00:45:57,376 --> 00:45:59,006
+which means that any subsequent
+
+
+1552
+00:45:59,006 --> 00:46:01,656
+load or store from that field is
+
+
+1553
+00:46:01,656 --> 00:46:02,716
+always going to be aligned.
+
+
+1554
+00:46:03,586 --> 00:46:04,866
+Aha, so you may be thinking to
+
+
+1555
+00:46:04,866 --> 00:46:06,146
+yourself this sounds super
+
+
+1556
+00:46:06,146 --> 00:46:06,626
+convenient.
+
+
+1557
+00:46:06,626 --> 00:46:07,966
+I'm just going to toss packed on
+
+
+1558
+00:46:07,966 --> 00:46:08,536
+everything.
+
+
+1559
+00:46:09,176 --> 00:46:10,606
+Well, you've got to be careful.
+
+
+1560
+00:46:11,076 --> 00:46:12,706
+So, using the packed attribute
+
+
+1561
+00:46:12,746 --> 00:46:14,116
+can actually change the layout
+
+
+1562
+00:46:14,116 --> 00:46:14,916
+of your structure.
+
+
+1563
+00:46:15,396 --> 00:46:17,436
+In many cases, it can remove
+
+
+1564
+00:46:17,496 --> 00:46:18,766
+padding that the compiler has
+
+
+1565
+00:46:18,766 --> 00:46:20,216
+automatically inserted into your
+
+
+1566
+00:46:20,216 --> 00:46:22,716
+structure and it can also
+
+
+1567
+00:46:22,716 --> 00:46:24,486
+degrade your app's performance.
+
+
+1568
+00:46:25,446 --> 00:46:28,016
+Now, if you find that you're not
+
+
+1569
+00:46:28,016 --> 00:46:29,766
+in a situation where packed
+
+
+1570
+00:46:29,766 --> 00:46:30,986
+attribute would work for you,
+
+
+1571
+00:46:31,366 --> 00:46:32,406
+there is another option.
+
+
+1572
+00:46:33,046 --> 00:46:36,846
+You can use the mem copy
+
+
+1573
+00:46:36,846 --> 00:46:39,506
+function to perform an unaligned
+
+
+1574
+00:46:39,506 --> 00:46:41,606
+copy from the network byte
+
+
+1575
+00:46:41,606 --> 00:46:42,926
+stream or wherever you're
+
+
+1576
+00:46:42,926 --> 00:46:43,966
+deserializing from.
+
+
+1577
+00:46:44,856 --> 00:46:47,796
+Into a aligned variable which
+
+
+1578
+00:46:47,796 --> 00:46:48,886
+can either be in the stack or
+
+
+1579
+00:46:48,886 --> 00:46:49,236
+the heap.
+
+
+1580
+00:46:49,996 --> 00:46:52,546
+This mem copy is safe and the
+
+
+1581
+00:46:52,546 --> 00:46:54,316
+compiler in many instances can
+
+
+1582
+00:46:54,656 --> 00:46:57,096
+optimize it so that it's just as
+
+
+1583
+00:46:57,096 --> 00:46:58,966
+fast as the unaligned access,
+
+
+1584
+00:46:59,426 --> 00:47:00,676
+the original unaligned access
+
+
+1585
+00:47:00,676 --> 00:47:01,156
+would've been.
+
+
+1586
+00:47:01,746 --> 00:47:05,116
+So, that's alignment violation
+
+
+1587
+00:47:05,116 --> 00:47:06,366
+detection with Undefined
+
+
+1588
+00:47:06,366 --> 00:47:07,296
+Behavior Sanitizer.
+
+
+1589
+00:47:07,826 --> 00:47:11,316
+Let's move on and talk about the
+
+
+1590
+00:47:11,316 --> 00:47:12,916
+third kind of bug.
+
+
+1591
+00:47:13,146 --> 00:47:14,586
+The nonnull return value
+
+
+1592
+00:47:14,586 --> 00:47:15,266
+violation.
+
+
+1593
+00:47:15,766 --> 00:47:19,196
+This kind of issue occurs when
+
+
+1594
+00:47:19,196 --> 00:47:20,436
+you've got a function whose
+
+
+1595
+00:47:20,436 --> 00:47:22,236
+return value is annotated with
+
+
+1596
+00:47:22,236 --> 00:47:23,496
+the nonnull attribute.
+
+
+1597
+00:47:24,526 --> 00:47:25,686
+Annotation, excuse me.
+
+
+1598
+00:47:26,876 --> 00:47:30,496
+However, the function breaks the
+
+
+1599
+00:47:30,496 --> 00:47:32,896
+contract imposed by the nonnull
+
+
+1600
+00:47:32,896 --> 00:47:34,686
+annotation and returns a nil
+
+
+1601
+00:47:34,686 --> 00:47:35,896
+value anyway.
+
+
+1602
+00:47:36,656 --> 00:47:38,706
+Now, this can cause crashes if
+
+
+1603
+00:47:38,706 --> 00:47:40,496
+you're using Objective C APIs
+
+
+1604
+00:47:40,496 --> 00:47:41,916
+which, you know, violate the
+
+
+1605
+00:47:41,916 --> 00:47:44,356
+return value annotation from SWF
+
+
+1606
+00:47:44,356 --> 00:47:44,746
+code.
+
+
+1607
+00:47:45,476 --> 00:47:46,916
+And it can also cause other
+
+
+1608
+00:47:46,916 --> 00:47:47,986
+problems if you're using
+
+
+1609
+00:47:47,986 --> 00:47:50,236
+Objective C APIs which rely on
+
+
+1610
+00:47:50,236 --> 00:47:51,316
+nullability connection
+
+
+1611
+00:47:51,576 --> 00:47:55,236
+correctness more stringently.
+
+
+1612
+00:47:56,566 --> 00:47:57,746
+That's why we recommend that you
+
+
+1613
+00:47:57,746 --> 00:47:59,206
+opt into this check if your
+
+
+1614
+00:47:59,206 --> 00:48:00,396
+application makes use of
+
+
+1615
+00:48:00,436 --> 00:48:01,736
+nullability annotations.
+
+
+1616
+00:48:03,296 --> 00:48:04,636
+Let's take a look at an example
+
+
+1617
+00:48:05,176 --> 00:48:08,106
+of the return value, the nonnull
+
+
+1618
+00:48:08,106 --> 00:48:09,156
+return value violation.
+
+
+1619
+00:48:10,476 --> 00:48:13,286
+Okay, so in this example I'm a
+
+
+1620
+00:48:13,286 --> 00:48:15,026
+budding astronomer and I've got
+
+
+1621
+00:48:15,026 --> 00:48:16,346
+a model of the solar system.
+
+
+1622
+00:48:16,796 --> 00:48:18,366
+The first thing that I'm
+
+
+1623
+00:48:18,366 --> 00:48:20,546
+interested in modelling are the
+
+
+1624
+00:48:20,646 --> 00:48:22,006
+moons in my solar system.
+
+
+1625
+00:48:22,006 --> 00:48:23,076
+So, here we go.
+
+
+1626
+00:48:23,076 --> 00:48:25,746
+We've got planet earth and the
+
+
+1627
+00:48:25,746 --> 00:48:26,826
+biggest moon on earth is the
+
+
+1628
+00:48:26,826 --> 00:48:28,196
+moon so let's stick that in.
+
+
+1629
+00:48:28,196 --> 00:48:30,776
+We've got Mars and we're going
+
+
+1630
+00:48:30,776 --> 00:48:32,766
+to sort these lists by diameter
+
+
+1631
+00:48:32,866 --> 00:48:33,806
+in decreasing order.
+
+
+1632
+00:48:33,806 --> 00:48:35,746
+So, Phobos is the largest moon
+
+
+1633
+00:48:35,746 --> 00:48:36,406
+of Mars.
+
+
+1634
+00:48:36,406 --> 00:48:37,726
+Amos is the second largest.
+
+
+1635
+00:48:37,726 --> 00:48:40,116
+Great, but, uh oh.
+
+
+1636
+00:48:41,336 --> 00:48:42,856
+It looks like we've got an entry
+
+
+1637
+00:48:42,856 --> 00:48:44,246
+that snuck in here which
+
+
+1638
+00:48:44,246 --> 00:48:45,406
+shouldn't be around anymore.
+
+
+1639
+00:48:47,026 --> 00:48:49,246
+So, this is embarrassing.
+
+
+1640
+00:48:49,646 --> 00:48:50,956
+Better get rid of it.
+
+
+1641
+00:48:50,956 --> 00:48:52,276
+All right, that's a lot better.
+
+
+1642
+00:48:52,776 --> 00:48:55,176
+Okay. So, I got rid of some
+
+
+1643
+00:48:55,176 --> 00:48:56,476
+legacy code from my example.
+
+
+1644
+00:48:56,596 --> 00:48:59,146
+Now my list is looking better.
+
+
+1645
+00:49:00,556 --> 00:49:01,106
+Let's move on.
+
+
+1646
+00:49:01,106 --> 00:49:01,646
+Let's move on.
+
+
+1647
+00:49:02,006 --> 00:49:05,156
+Okay, so what I'm really
+
+
+1648
+00:49:05,156 --> 00:49:07,296
+interested in figuring out are,
+
+
+1649
+00:49:07,446 --> 00:49:09,566
+is, I want a list of the biggest
+
+
+1650
+00:49:09,566 --> 00:49:10,776
+moons for all of the planets in
+
+
+1651
+00:49:10,776 --> 00:49:11,516
+the solar system.
+
+
+1652
+00:49:11,726 --> 00:49:14,316
+So, I'm going to do that by
+
+
+1653
+00:49:14,836 --> 00:49:16,766
+constructing an NS mutable array
+
+
+1654
+00:49:17,676 --> 00:49:19,776
+and then adding the biggest
+
+
+1655
+00:49:19,776 --> 00:49:21,056
+moons for each planet that I've
+
+
+1656
+00:49:21,096 --> 00:49:21,476
+looked up.
+
+
+1657
+00:49:22,296 --> 00:49:23,746
+Now, the problem here is that
+
+
+1658
+00:49:23,746 --> 00:49:25,126
+I've looked up the biggest moons
+
+
+1659
+00:49:25,126 --> 00:49:27,596
+for Pluto and that's not an
+
+
+1660
+00:49:27,596 --> 00:49:29,326
+entry in the NS dictionary I set
+
+
+1661
+00:49:29,326 --> 00:49:29,466
+up.
+
+
+1662
+00:49:29,566 --> 00:49:30,506
+So, I get back nil.
+
+
+1663
+00:49:31,366 --> 00:49:33,886
+Undefined Behavior Sanitizer can
+
+
+1664
+00:49:33,886 --> 00:49:35,046
+diagnose this issue for you.
+
+
+1665
+00:49:35,576 --> 00:49:40,096
+Okay, so that's a look at what
+
+
+1666
+00:49:40,236 --> 00:49:41,546
+kinds of issues Undefined
+
+
+1667
+00:49:41,546 --> 00:49:43,106
+Behavior Sanitizer can find for
+
+
+1668
+00:49:43,106 --> 00:49:44,816
+you and how the tool works.
+
+
+1669
+00:49:45,576 --> 00:49:46,966
+I want to wrap up the section of
+
+
+1670
+00:49:46,966 --> 00:49:48,676
+the talk by showing you how you
+
+
+1671
+00:49:48,676 --> 00:49:50,436
+can enable the opt-in check set
+
+
+1672
+00:49:50,436 --> 00:49:50,946
+I mentioned.
+
+
+1673
+00:49:51,946 --> 00:49:52,856
+This is the project build
+
+
+1674
+00:49:52,856 --> 00:49:53,566
+settings editor.
+
+
+1675
+00:49:54,216 --> 00:49:55,686
+Here's where you can go to turn
+
+
+1676
+00:49:55,686 --> 00:49:57,296
+on unsigned integer overflow
+
+
+1677
+00:49:57,296 --> 00:49:59,626
+detection and also your
+
+
+1678
+00:49:59,626 --> 00:50:01,086
+nullability annotation checks.
+
+
+1679
+00:50:01,706 --> 00:50:03,846
+So, that's Undefined Behavior
+
+
+1680
+00:50:03,846 --> 00:50:07,576
+Sanitizer, new in Xcode 9.
+
+
+1681
+00:50:08,516 --> 00:50:13,500
+[ Applause ]
+
+
+1682
+00:50:16,646 --> 00:50:18,016
+We've taken a look at a lot of
+
+
+1683
+00:50:18,096 --> 00:50:19,156
+different Runtime tools in
+
+
+1684
+00:50:19,206 --> 00:50:21,176
+Xcode, some new, some improved.
+
+
+1685
+00:50:21,336 --> 00:50:22,566
+But it's worth taking a step
+
+
+1686
+00:50:22,566 --> 00:50:24,686
+back and thinking about software
+
+
+1687
+00:50:24,686 --> 00:50:25,656
+quality itself.
+
+
+1688
+00:50:25,886 --> 00:50:27,256
+How do you use these Runtime
+
+
+1689
+00:50:27,256 --> 00:50:28,466
+tools effectively?
+
+
+1690
+00:50:28,976 --> 00:50:32,486
+There's two main parts to it.
+
+
+1691
+00:50:33,516 --> 00:50:35,536
+You've got to exercise more code
+
+
+1692
+00:50:35,536 --> 00:50:36,706
+with these tools turned on and
+
+
+1693
+00:50:37,436 --> 00:50:38,566
+you've got to use these tools
+
+
+1694
+00:50:38,566 --> 00:50:38,946
+together.
+
+
+1695
+00:50:40,146 --> 00:50:44,166
+Let's take a look.
+
+
+1696
+00:50:44,426 --> 00:50:46,936
+Runtime tools can only catch
+
+
+1697
+00:50:47,196 --> 00:50:49,166
+bugs for you when you run the
+
+
+1698
+00:50:49,166 --> 00:50:50,766
+code that contains the bugs.
+
+
+1699
+00:50:51,296 --> 00:50:52,146
+Maybe the [inaudible] is not the
+
+
+1700
+00:50:52,146 --> 00:50:55,666
+best way but you've got to
+
+
+1701
+00:50:55,666 --> 00:50:57,926
+actually run the line of code
+
+
+1702
+00:50:57,926 --> 00:50:59,566
+that contains the issue for, in
+
+
+1703
+00:50:59,566 --> 00:51:00,756
+order to get any sort of useful
+
+
+1704
+00:51:00,756 --> 00:51:01,976
+diagnostic about the bug.
+
+
+1705
+00:51:01,976 --> 00:51:02,636
+All right?
+
+
+1706
+00:51:03,046 --> 00:51:05,396
+So, in order to exercise as much
+
+
+1707
+00:51:05,396 --> 00:51:06,696
+code as possible and find as
+
+
+1708
+00:51:06,696 --> 00:51:08,546
+many issues as possible, we
+
+
+1709
+00:51:09,216 --> 00:51:10,766
+really recommend that you use
+
+
+1710
+00:51:10,766 --> 00:51:11,876
+Runtime tools for daily
+
+
+1711
+00:51:11,876 --> 00:51:12,506
+development.
+
+
+1712
+00:51:13,576 --> 00:51:14,826
+We also recommend that you turn
+
+
+1713
+00:51:14,826 --> 00:51:16,346
+these tools on at least once
+
+
+1714
+00:51:16,376 --> 00:51:18,426
+before every software release so
+
+
+1715
+00:51:18,426 --> 00:51:19,486
+that you can avoid spreading
+
+
+1716
+00:51:19,486 --> 00:51:21,186
+bugs and possibly security
+
+
+1717
+00:51:21,186 --> 00:51:25,256
+vulnerabilities to your users.
+
+
+1718
+00:51:25,396 --> 00:51:27,396
+Using continuous integration can
+
+
+1719
+00:51:27,396 --> 00:51:29,276
+make using Runtime tools much
+
+
+1720
+00:51:29,306 --> 00:51:31,506
+easier and it can also really
+
+
+1721
+00:51:31,506 --> 00:51:33,126
+simplify the process of
+
+
+1722
+00:51:33,126 --> 00:51:34,326
+exercising as much code as
+
+
+1723
+00:51:34,326 --> 00:51:35,536
+possible with these tools turned
+
+
+1724
+00:51:35,536 --> 00:51:35,846
+on.
+
+
+1725
+00:51:37,006 --> 00:51:38,526
+It can ensure that these bugs,
+
+
+1726
+00:51:38,876 --> 00:51:39,986
+that bugs in your program are
+
+
+1727
+00:51:39,986 --> 00:51:41,576
+caught as quickly as possible as
+
+
+1728
+00:51:41,576 --> 00:51:42,646
+soon as you check in code.
+
+
+1729
+00:51:42,746 --> 00:51:45,256
+And it can also help you track
+
+
+1730
+00:51:45,316 --> 00:51:46,106
+code coverage in your
+
+
+1731
+00:51:46,106 --> 00:51:47,406
+application so you can see
+
+
+1732
+00:51:47,406 --> 00:51:48,876
+exactly how much code is being
+
+
+1733
+00:51:48,876 --> 00:51:51,496
+exercised every time your CI
+
+
+1734
+00:51:51,606 --> 00:51:52,136
+runs.
+
+
+1735
+00:51:53,116 --> 00:51:54,296
+If you'd like to learn more
+
+
+1736
+00:51:54,386 --> 00:51:55,836
+about how continuous integration
+
+
+1737
+00:51:55,836 --> 00:51:57,506
+and code coverage work in Xcode,
+
+
+1738
+00:51:57,506 --> 00:51:59,106
+I recommend that you check out
+
+
+1739
+00:51:59,106 --> 00:52:03,686
+the WWDC 2015 talk about that.
+
+
+1740
+00:52:05,516 --> 00:52:07,266
+The second component to using
+
+
+1741
+00:52:07,266 --> 00:52:08,756
+Runtime tools effectively is to
+
+
+1742
+00:52:08,926 --> 00:52:09,776
+use them together.
+
+
+1743
+00:52:10,506 --> 00:52:11,626
+The more of these tools you turn
+
+
+1744
+00:52:11,626 --> 00:52:13,536
+on, the more issues you can
+
+
+1745
+00:52:14,566 --> 00:52:14,746
+find.
+
+
+1746
+00:52:14,926 --> 00:52:15,766
+There's one exception.
+
+
+1747
+00:52:15,766 --> 00:52:17,636
+So, Address Sanitizer and Thread
+
+
+1748
+00:52:17,636 --> 00:52:19,056
+Sanitizer are not mutually
+
+
+1749
+00:52:19,056 --> 00:52:19,696
+compatible.
+
+
+1750
+00:52:19,806 --> 00:52:20,996
+You won't be able to turn these
+
+
+1751
+00:52:20,996 --> 00:52:22,696
+two on together but the rest of
+
+
+1752
+00:52:22,696 --> 00:52:23,306
+the tools you can.
+
+
+1753
+00:52:24,476 --> 00:52:26,486
+And as we've seen already, all
+
+
+1754
+00:52:26,486 --> 00:52:27,916
+of these tools can be turned on
+
+
+1755
+00:52:27,966 --> 00:52:30,166
+by going into the scheme editor
+
+
+1756
+00:52:30,166 --> 00:52:31,686
+in Xcode and clicking at the
+
+
+1757
+00:52:31,686 --> 00:52:32,396
+diagnostics tab.
+
+
+1758
+00:52:33,876 --> 00:52:35,536
+Now, you may be wondering, This
+
+
+1759
+00:52:35,536 --> 00:52:36,736
+sounds like a lot of overhead,
+
+
+1760
+00:52:36,736 --> 00:52:36,986
+right?
+
+
+1761
+00:52:37,626 --> 00:52:40,256
+I'm here to tell you that that's
+
+
+1762
+00:52:40,486 --> 00:52:42,186
+not really true, in my
+
+
+1763
+00:52:42,186 --> 00:52:42,996
+experience at least.
+
+
+1764
+00:52:42,996 --> 00:52:45,446
+So, we've got some numbers for
+
+
+1765
+00:52:45,446 --> 00:52:46,496
+you about the execution and
+
+
+1766
+00:52:46,496 --> 00:52:47,936
+memory overheads of these tools.
+
+
+1767
+00:52:48,816 --> 00:52:49,926
+And what I've found that, at
+
+
+1768
+00:52:49,926 --> 00:52:52,336
+least in my own experience, I'm
+
+
+1769
+00:52:52,336 --> 00:52:53,726
+able to turn multiple Runtime
+
+
+1770
+00:52:53,726 --> 00:52:55,476
+tools on simultaneously while
+
+
+1771
+00:52:55,476 --> 00:52:57,196
+debugging the entire Xcode app
+
+
+1772
+00:52:57,196 --> 00:52:58,786
+and the UI still feels
+
+
+1773
+00:52:58,786 --> 00:52:59,956
+responsive.
+
+
+1774
+00:53:00,226 --> 00:53:01,786
+Hopefully this information can
+
+
+1775
+00:53:01,786 --> 00:53:03,186
+help you make the best decisions
+
+
+1776
+00:53:03,186 --> 00:53:04,826
+about which tools to turn on in
+
+
+1777
+00:53:04,826 --> 00:53:06,146
+your local setups versus in
+
+
+1778
+00:53:06,146 --> 00:53:07,186
+continuous integration.
+
+
+1779
+00:53:07,976 --> 00:53:09,866
+But I hope that the takeaway
+
+
+1780
+00:53:09,866 --> 00:53:11,726
+here for you is that all of
+
+
+1781
+00:53:11,726 --> 00:53:13,106
+these tools re incredibly
+
+
+1782
+00:53:13,106 --> 00:53:13,686
+valuable.
+
+
+1783
+00:53:13,946 --> 00:53:15,576
+They all catch different sets of
+
+
+1784
+00:53:15,576 --> 00:53:17,596
+bugs for you and they're all
+
+
+1785
+00:53:17,596 --> 00:53:19,226
+really worth turning on in some
+
+
+1786
+00:53:19,226 --> 00:53:22,996
+form or the other.
+
+
+1787
+00:53:23,226 --> 00:53:24,356
+So, to wrap it up.
+
+
+1788
+00:53:24,606 --> 00:53:26,106
+Xcode 9 is going to help you
+
+
+1789
+00:53:26,106 --> 00:53:27,966
+catch more critical bugs in your
+
+
+1790
+00:53:27,966 --> 00:53:29,096
+apps and programs than ever
+
+
+1791
+00:53:29,096 --> 00:53:31,226
+before with new and improved
+
+
+1792
+00:53:31,226 --> 00:53:31,796
+Runtime Tools.
+
+
+1793
+00:53:32,736 --> 00:53:34,426
+I really hope that you use them
+
+
+1794
+00:53:34,426 --> 00:53:36,376
+early and often to save time
+
+
+1795
+00:53:36,376 --> 00:53:38,006
+while debugging and to keep your
+
+
+1796
+00:53:38,006 --> 00:53:38,686
+users safe.
+
+
+1797
+00:53:38,846 --> 00:53:40,476
+And with that, I hope that you
+
+
+1798
+00:53:40,476 --> 00:53:41,646
+go out and squash some bugs.
+
+
+1799
+00:53:41,756 --> 00:53:43,016
+If you want to find some more
+
+
+1800
+00:53:43,016 --> 00:53:44,156
+information about this talk,
+
+
+1801
+00:53:44,636 --> 00:53:46,106
+we've got a website set up for
+
+
+1802
+00:53:46,106 --> 00:53:47,556
+you with a lot of helpful links.
+
+
+1803
+00:53:48,346 --> 00:53:49,366
+There are also some related
+
+
+1804
+00:53:49,366 --> 00:53:50,226
+sessions coming up.
+
+
+1805
+00:53:50,576 --> 00:53:51,796
+So, what's new in SWF.
+
+
+1806
+00:53:52,136 --> 00:53:53,496
+Debugging with Xcode 9.
+
+
+1807
+00:53:54,066 --> 00:53:57,216
+There's a talk about DCD.
+
+
+1808
+00:53:57,566 --> 00:53:59,716
+And there's also a talk about
+
+
+1809
+00:53:59,716 --> 00:54:01,226
+what's new in LDM for those of
+
+
+1810
+00:54:01,286 --> 00:54:02,226
+you who are interested in the
+
+
+1811
+00:54:02,226 --> 00:54:03,996
+underlying sanitizer technology
+
+
+1812
+00:54:04,416 --> 00:54:06,846
+that powers Runtime tools.
+
+
+1813
+00:54:07,986 --> 00:54:10,176
+So, with that, thank you for
+
+
+1814
+00:54:10,176 --> 00:54:10,536
+coming.
+
+
+1815
+00:54:10,926 --> 00:54:12,026
+I hope you have a great
+
+
+1816
+00:54:12,026 --> 00:54:12,976
+conference.
+
+
+1817
+00:54:13,516 --> 00:54:17,506
+[ Applause ]
+

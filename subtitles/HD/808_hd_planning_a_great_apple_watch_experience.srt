@@ -1,0 +1,8579 @@
+1
+00:00:22,516 --> 00:00:26,646
+[ Applause ]
+
+
+2
+00:00:27,146 --> 00:00:28,096
+>> Good afternoon.
+
+
+3
+00:00:30,106 --> 00:00:31,256
+I'm Doug LeMoine.
+
+
+4
+00:00:31,256 --> 00:00:33,246
+And I'm a design evangelist here
+
+
+5
+00:00:33,246 --> 00:00:33,826
+at Apple.
+
+
+6
+00:00:33,896 --> 00:00:35,436
+I'll be joined in a bit by Jake
+
+
+7
+00:00:35,436 --> 00:00:35,916
+Behrens.
+
+
+8
+00:00:36,396 --> 00:00:37,896
+He and I have teamed up to work
+
+
+9
+00:00:37,896 --> 00:00:39,316
+with Apple Watch developers
+
+
+10
+00:00:39,316 --> 00:00:40,766
+around the world over the past
+
+
+11
+00:00:40,766 --> 00:00:41,156
+year.
+
+
+12
+00:00:41,566 --> 00:00:42,826
+Helping them make their Apple
+
+
+13
+00:00:42,826 --> 00:00:44,386
+Watch apps as awesome as
+
+
+14
+00:00:44,386 --> 00:00:44,976
+possible.
+
+
+15
+00:00:45,026 --> 00:00:46,576
+And we're here today to share
+
+
+16
+00:00:46,576 --> 00:00:47,536
+what we've learned.
+
+
+17
+00:00:49,046 --> 00:00:51,056
+You might be here because you've
+
+
+18
+00:00:51,056 --> 00:00:52,716
+been developing for Apple Watch
+
+
+19
+00:00:52,866 --> 00:00:53,916
+and you're looking for some
+
+
+20
+00:00:54,086 --> 00:00:55,716
+inspiration and ways to improve
+
+
+21
+00:00:55,716 --> 00:00:56,126
+your app.
+
+
+22
+00:00:56,636 --> 00:00:58,276
+Or you might be here because
+
+
+23
+00:00:58,276 --> 00:00:59,286
+you're new to the platform.
+
+
+24
+00:00:59,426 --> 00:01:01,296
+Welcome. You saw Monday's
+
+
+25
+00:01:01,296 --> 00:01:02,536
+keynote, you heard about the
+
+
+26
+00:01:02,536 --> 00:01:04,025
+improvements, and now you're
+
+
+27
+00:01:04,025 --> 00:01:05,146
+ready to get started.
+
+
+28
+00:01:05,325 --> 00:01:07,316
+We've got tips, ideas and advice
+
+
+29
+00:01:07,416 --> 00:01:08,826
+that will be useful to you all.
+
+
+30
+00:01:08,826 --> 00:01:12,076
+I'm going to begin by talking
+
+
+31
+00:01:12,076 --> 00:01:14,026
+about planning, where to start.
+
+
+32
+00:01:14,026 --> 00:01:15,556
+Or, if you've already got an app
+
+
+33
+00:01:15,796 --> 00:01:17,456
+where to go next with your next
+
+
+34
+00:01:17,456 --> 00:01:17,966
+release.
+
+
+35
+00:01:18,186 --> 00:01:19,756
+I'm going to show practical
+
+
+36
+00:01:19,756 --> 00:01:21,266
+methods that you can use to
+
+
+37
+00:01:21,266 --> 00:01:23,426
+define a great Watch app.
+
+
+38
+00:01:23,926 --> 00:01:26,316
+And then Jake is going to talk
+
+
+39
+00:01:26,316 --> 00:01:28,036
+about the implementation of a
+
+
+40
+00:01:28,036 --> 00:01:29,386
+app on Apple Watch.
+
+
+41
+00:01:30,556 --> 00:01:32,046
+But what he's really going to
+
+
+42
+00:01:32,046 --> 00:01:33,906
+focus on is how you can learn
+
+
+43
+00:01:33,906 --> 00:01:34,786
+from building.
+
+
+44
+00:01:35,346 --> 00:01:36,766
+He's going to talk about how we
+
+
+45
+00:01:36,766 --> 00:01:38,536
+tested ideas and learned from
+
+
+46
+00:01:38,536 --> 00:01:40,686
+the people who use our app since
+
+
+47
+00:01:40,686 --> 00:01:41,886
+the initial launch of Apple
+
+
+48
+00:01:41,886 --> 00:01:42,346
+Watch.
+
+
+49
+00:01:43,206 --> 00:01:44,886
+OK, let's dive in.
+
+
+50
+00:01:45,766 --> 00:01:48,076
+So, believe it or not, it was
+
+
+51
+00:01:48,076 --> 00:01:49,406
+only 2 years ago that Apple
+
+
+52
+00:01:49,406 --> 00:01:50,836
+Watch was unveiled to the world
+
+
+53
+00:01:50,956 --> 00:01:53,036
+and since then capabilities have
+
+
+54
+00:01:53,036 --> 00:01:54,546
+increased with each hardware and
+
+
+55
+00:01:54,546 --> 00:01:55,516
+software release.
+
+
+56
+00:01:55,936 --> 00:01:57,576
+In the past year alone, the
+
+
+57
+00:01:57,576 --> 00:01:58,746
+power and performance have
+
+
+58
+00:01:58,746 --> 00:01:59,266
+doubled.
+
+
+59
+00:01:59,696 --> 00:02:01,836
+And Apple Watch Series 2 extends
+
+
+60
+00:02:01,836 --> 00:02:03,116
+what you can do with the watch
+
+
+61
+00:02:03,116 --> 00:02:04,816
+with built-in GPS and water
+
+
+62
+00:02:04,816 --> 00:02:06,356
+resistance up to 50 meters.
+
+
+63
+00:02:07,066 --> 00:02:08,466
+This means it Watch apps can
+
+
+64
+00:02:08,466 --> 00:02:10,376
+track your workouts, when you go
+
+
+65
+00:02:10,376 --> 00:02:12,006
+for a bike, ride, or a swim, or
+
+
+66
+00:02:12,006 --> 00:02:12,466
+a run.
+
+
+67
+00:02:12,956 --> 00:02:14,496
+And some health and fitness apps
+
+
+68
+00:02:14,646 --> 00:02:16,096
+provide inspiration for the
+
+
+69
+00:02:16,096 --> 00:02:17,126
+platform as a whole.
+
+
+70
+00:02:17,126 --> 00:02:18,066
+So, I want to walk through a
+
+
+71
+00:02:18,066 --> 00:02:18,916
+couple of those.
+
+
+72
+00:02:20,336 --> 00:02:22,886
+Sweat, an app from Australia can
+
+
+73
+00:02:22,886 --> 00:02:24,376
+guide you through a variety of
+
+
+74
+00:02:24,376 --> 00:02:25,556
+different exercises.
+
+
+75
+00:02:26,026 --> 00:02:28,606
+So, these are 28-minute workouts
+
+
+76
+00:02:28,676 --> 00:02:30,046
+with literally dozens of
+
+
+77
+00:02:30,046 --> 00:02:30,726
+movements.
+
+
+78
+00:02:30,776 --> 00:02:32,246
+And each of them has a helpful
+
+
+79
+00:02:32,246 --> 00:02:33,786
+animation on the watch.
+
+
+80
+00:02:34,556 --> 00:02:35,716
+If you're not sure how to do a
+
+
+81
+00:02:35,716 --> 00:02:37,066
+particular movement, you can get
+
+
+82
+00:02:37,066 --> 00:02:38,476
+visual guidance right there.
+
+
+83
+00:02:39,886 --> 00:02:42,456
+Zepp helps you improve your
+
+
+84
+00:02:42,456 --> 00:02:44,146
+tennis swing by using a sensor
+
+
+85
+00:02:44,146 --> 00:02:45,296
+mounted on the racket.
+
+
+86
+00:02:45,296 --> 00:02:46,106
+You might've seen this in
+
+
+87
+00:02:46,106 --> 00:02:47,006
+Monday's keynote.
+
+
+88
+00:02:47,006 --> 00:02:48,556
+But it gives you immediate
+
+
+89
+00:02:48,556 --> 00:02:50,346
+feedback on your last serve in
+
+
+90
+00:02:50,346 --> 00:02:52,376
+this case so you can adjust for
+
+
+91
+00:02:52,376 --> 00:02:53,066
+the next one.
+
+
+92
+00:02:53,346 --> 00:02:54,886
+So, you can make a serve, look
+
+
+93
+00:02:54,886 --> 00:02:56,326
+at your wrist, you can see how
+
+
+94
+00:02:56,326 --> 00:02:56,826
+you did.
+
+
+95
+00:02:57,266 --> 00:02:57,806
+Pretty cool.
+
+
+96
+00:02:59,336 --> 00:03:01,496
+RunGo from Vancouver can give
+
+
+97
+00:03:01,496 --> 00:03:03,516
+you turn by turn directions on a
+
+
+98
+00:03:03,516 --> 00:03:04,916
+road or a trail run.
+
+
+99
+00:03:05,316 --> 00:03:06,686
+You simply load the route that
+
+
+100
+00:03:06,686 --> 00:03:07,786
+you want and go.
+
+
+101
+00:03:08,926 --> 00:03:11,866
+So, this is voiceover, which is
+
+
+102
+00:03:11,866 --> 00:03:13,186
+an accessibility feature.
+
+
+103
+00:03:13,186 --> 00:03:14,726
+And the audio can play through
+
+
+104
+00:03:14,726 --> 00:03:16,306
+the Watch speaker, or through
+
+
+105
+00:03:16,306 --> 00:03:17,526
+Bluetooth headphones that you
+
+
+106
+00:03:17,526 --> 00:03:18,686
+can connect directly to the
+
+
+107
+00:03:18,686 --> 00:03:19,216
+Watch.
+
+
+108
+00:03:20,266 --> 00:03:21,766
+So, what can we learn from the
+
+
+109
+00:03:21,766 --> 00:03:23,676
+success of apps like these?
+
+
+110
+00:03:24,566 --> 00:03:25,926
+Like I said, in the past year,
+
+
+111
+00:03:26,276 --> 00:03:27,636
+we've traveled around the world.
+
+
+112
+00:03:27,886 --> 00:03:29,546
+And we've seen successful watch
+
+
+113
+00:03:29,546 --> 00:03:31,566
+apps, we've seen that successful
+
+
+114
+00:03:31,566 --> 00:03:33,696
+watch app development begins
+
+
+115
+00:03:34,186 --> 00:03:34,686
+with planning.
+
+
+116
+00:03:35,276 --> 00:03:37,536
+Which sounds obvious I imagine.
+
+
+117
+00:03:37,836 --> 00:03:39,286
+But for Watch, the best way to
+
+
+118
+00:03:39,286 --> 00:03:41,376
+begin planning is to be ruthless
+
+
+119
+00:03:41,416 --> 00:03:44,166
+and focusing and to identify a
+
+
+120
+00:03:44,166 --> 00:03:45,126
+single feature.
+
+
+121
+00:03:46,046 --> 00:03:48,206
+A single job to do on Apple
+
+
+122
+00:03:48,206 --> 00:03:48,606
+Watch.
+
+
+123
+00:03:48,606 --> 00:03:50,316
+A single task to complete.
+
+
+124
+00:03:50,806 --> 00:03:52,246
+A single goal to achieve.
+
+
+125
+00:03:52,616 --> 00:03:53,836
+So, this could be an existing
+
+
+126
+00:03:53,836 --> 00:03:56,186
+feature from your iOS app, or it
+
+
+127
+00:03:56,186 --> 00:03:57,766
+could be something new that
+
+
+128
+00:03:57,766 --> 00:03:59,876
+makes sense on the wrist and
+
+
+129
+00:03:59,876 --> 00:04:01,856
+that supplements what you do on
+
+
+130
+00:04:01,966 --> 00:04:02,216
+iOS.
+
+
+131
+00:04:03,996 --> 00:04:05,296
+So, this is an app called Night
+
+
+132
+00:04:05,296 --> 00:04:06,466
+Sky, from the UK.
+
+
+133
+00:04:06,466 --> 00:04:08,456
+If I see something up in the
+
+
+134
+00:04:08,456 --> 00:04:10,586
+sky, I can use the Night Sky app
+
+
+135
+00:04:10,626 --> 00:04:12,006
+on Apple Watch to figure out
+
+
+136
+00:04:12,006 --> 00:04:12,576
+what it is.
+
+
+137
+00:04:13,216 --> 00:04:15,236
+In this case, it actually starts
+
+
+138
+00:04:15,236 --> 00:04:17,526
+with a notification that points
+
+
+139
+00:04:17,685 --> 00:04:19,076
+my way to the International
+
+
+140
+00:04:19,076 --> 00:04:19,935
+Space Station.
+
+
+141
+00:04:21,196 --> 00:04:22,346
+So, that's what the arrow is
+
+
+142
+00:04:22,426 --> 00:04:22,766
+there.
+
+
+143
+00:04:23,086 --> 00:04:24,716
+So, a simple feature like this
+
+
+144
+00:04:24,826 --> 00:04:27,146
+can provide a small, or even big
+
+
+145
+00:04:27,146 --> 00:04:28,266
+moment of delight.
+
+
+146
+00:04:29,696 --> 00:04:32,606
+Speaking of delight, I can also
+
+
+147
+00:04:33,016 --> 00:04:35,296
+see if a new cat toy has brought
+
+
+148
+00:04:35,296 --> 00:04:36,726
+any new cats to my yard.
+
+
+149
+00:04:37,786 --> 00:04:39,916
+This is Neko Atsume from Japan.
+
+
+150
+00:04:40,476 --> 00:04:41,546
+Let's see, are there any new
+
+
+151
+00:04:41,546 --> 00:04:42,126
+cats?
+
+
+152
+00:04:42,896 --> 00:04:44,996
+Oh, yeah. Look at that little
+
+
+153
+00:04:44,996 --> 00:04:45,236
+guy.
+
+
+154
+00:04:46,216 --> 00:04:50,246
+But to be honest I'm more of a
+
+
+155
+00:04:50,246 --> 00:04:50,876
+dog person.
+
+
+156
+00:04:51,146 --> 00:04:52,836
+But this is an awesome app.
+
+
+157
+00:04:54,176 --> 00:04:55,976
+So, what do these apps do well?
+
+
+158
+00:04:56,116 --> 00:04:57,016
+They focus.
+
+
+159
+00:04:57,146 --> 00:04:58,686
+They reduce the scope of what
+
+
+160
+00:04:58,686 --> 00:05:00,696
+they try to do down to one thing
+
+
+161
+00:05:00,696 --> 00:05:02,036
+that makes sense on the wrist.
+
+
+162
+00:05:02,786 --> 00:05:04,806
+Night Sky offers a way to answer
+
+
+163
+00:05:04,806 --> 00:05:07,636
+one question, what is that?
+
+
+164
+00:05:07,636 --> 00:05:09,386
+That's it.
+
+
+165
+00:05:09,656 --> 00:05:11,706
+Night Sky's iOS app does much,
+
+
+166
+00:05:11,706 --> 00:05:12,346
+much more.
+
+
+167
+00:05:12,606 --> 00:05:13,636
+Check out all the things you can
+
+
+168
+00:05:13,636 --> 00:05:14,146
+do here.
+
+
+169
+00:05:14,286 --> 00:05:15,916
+You can find constellations.
+
+
+170
+00:05:15,916 --> 00:05:17,276
+You can learn about stars.
+
+
+171
+00:05:17,666 --> 00:05:18,796
+You can spend minutes or even
+
+
+172
+00:05:18,796 --> 00:05:20,296
+hours in here exploring.
+
+
+173
+00:05:21,736 --> 00:05:23,496
+There are no menus in the watch
+
+
+174
+00:05:23,496 --> 00:05:23,786
+app.
+
+
+175
+00:05:23,786 --> 00:05:25,106
+There's no navigation at all,
+
+
+176
+00:05:25,106 --> 00:05:25,446
+really.
+
+
+177
+00:05:25,826 --> 00:05:27,526
+Other than the cosmic navigation
+
+
+178
+00:05:27,526 --> 00:05:28,946
+of course, that the app allows
+
+
+179
+00:05:28,946 --> 00:05:29,556
+you to do.
+
+
+180
+00:05:30,376 --> 00:05:32,346
+It's things like this, in my
+
+
+181
+00:05:32,346 --> 00:05:33,576
+opinion, that really show what
+
+
+182
+00:05:33,576 --> 00:05:34,726
+the platform can do.
+
+
+183
+00:05:35,176 --> 00:05:36,896
+So, once you have your feature
+
+
+184
+00:05:37,186 --> 00:05:39,496
+what do you do next?
+
+
+185
+00:05:39,586 --> 00:05:41,046
+We've got some guidelines for
+
+
+186
+00:05:41,046 --> 00:05:43,146
+extending the UI and the UX of
+
+
+187
+00:05:43,146 --> 00:05:45,056
+your app on the Watch platform.
+
+
+188
+00:05:45,546 --> 00:05:50,226
+All right, so the UI's of great
+
+
+189
+00:05:50,226 --> 00:05:51,926
+Apple Watch experiences, have
+
+
+190
+00:05:52,066 --> 00:05:53,676
+three characteristics or
+
+
+191
+00:05:53,676 --> 00:05:54,466
+qualities.
+
+
+192
+00:05:54,596 --> 00:05:56,306
+First, they're legible.
+
+
+193
+00:05:57,146 --> 00:05:58,686
+Meaning the text on the screen
+
+
+194
+00:05:58,686 --> 00:06:00,226
+is readable with sufficient
+
+
+195
+00:06:00,226 --> 00:06:00,916
+contrast.
+
+
+196
+00:06:02,486 --> 00:06:03,666
+I'm saying this like it's
+
+
+197
+00:06:03,996 --> 00:06:06,126
+revolutionary, but it's actually
+
+
+198
+00:06:06,166 --> 00:06:07,746
+really simple and it's really
+
+
+199
+00:06:07,746 --> 00:06:08,196
+key.
+
+
+200
+00:06:08,536 --> 00:06:09,826
+That's why it comes first.
+
+
+201
+00:06:11,096 --> 00:06:13,866
+The Watch comp that you design
+
+
+202
+00:06:14,176 --> 00:06:16,156
+might look awesome on your 5K
+
+
+203
+00:06:16,296 --> 00:06:18,096
+iMac, but you need to see how it
+
+
+204
+00:06:18,096 --> 00:06:19,886
+performs on the small screen of
+
+
+205
+00:06:19,886 --> 00:06:21,036
+the device itself.
+
+
+206
+00:06:21,036 --> 00:06:21,766
+Is it legible?
+
+
+207
+00:06:22,196 --> 00:06:23,486
+Can you read it in a glance?
+
+
+208
+00:06:24,036 --> 00:06:25,016
+In bright sunlight?
+
+
+209
+00:06:25,556 --> 00:06:27,546
+Great experiences, as we all
+
+
+210
+00:06:27,546 --> 00:06:29,326
+know, start with getting the
+
+
+211
+00:06:29,326 --> 00:06:30,316
+little things right.
+
+
+212
+00:06:30,986 --> 00:06:32,536
+So, make sure that the text and
+
+
+213
+00:06:32,536 --> 00:06:34,596
+graphics on your Watch face are
+
+
+214
+00:06:34,596 --> 00:06:36,046
+readable in the specific
+
+
+215
+00:06:36,176 --> 00:06:37,586
+conditions of watch use.
+
+
+216
+00:06:38,856 --> 00:06:40,596
+So, number 2, they're concise.
+
+
+217
+00:06:40,856 --> 00:06:41,556
+To the point.
+
+
+218
+00:06:42,416 --> 00:06:43,556
+Only the information that
+
+
+219
+00:06:43,556 --> 00:06:45,376
+matters, only the actions that
+
+
+220
+00:06:45,376 --> 00:06:45,826
+matter.
+
+
+221
+00:06:46,476 --> 00:06:48,216
+Watch experiences can be truly
+
+
+222
+00:06:48,216 --> 00:06:51,506
+powerful when the Watch app has
+
+
+223
+00:06:51,736 --> 00:06:53,406
+tightly defined what it's trying
+
+
+224
+00:06:53,406 --> 00:06:55,356
+to do, and then delivers it in a
+
+
+225
+00:06:55,356 --> 00:06:57,186
+form that the user can grasp in
+
+
+226
+00:06:57,186 --> 00:06:57,806
+a glance.
+
+
+227
+00:06:59,196 --> 00:07:01,366
+And finally, they're timely.
+
+
+228
+00:07:02,026 --> 00:07:03,586
+Get it?
+
+
+229
+00:07:03,586 --> 00:07:04,716
+[ Chuckles ]
+
+
+230
+00:07:04,716 --> 00:07:08,476
+Oh, man, I have to wait for
+
+
+231
+00:07:08,476 --> 00:07:10,136
+groans and uncomfortable coughs
+
+
+232
+00:07:10,136 --> 00:07:10,596
+to end.
+
+
+233
+00:07:11,116 --> 00:07:13,136
+In all seriousness, timely is
+
+
+234
+00:07:13,136 --> 00:07:14,526
+actually just the most direct
+
+
+235
+00:07:14,526 --> 00:07:16,446
+way of describing the Watch
+
+
+236
+00:07:16,446 --> 00:07:18,216
+being relevant in the moment.
+
+
+237
+00:07:18,216 --> 00:07:19,956
+Both in a temporal sense and in
+
+
+238
+00:07:19,956 --> 00:07:21,126
+a situational sense.
+
+
+239
+00:07:21,196 --> 00:07:23,766
+So, we're going to use this as a
+
+
+240
+00:07:23,766 --> 00:07:25,236
+checklist as we look through
+
+
+241
+00:07:25,236 --> 00:07:26,846
+some Apple Watch experiences.
+
+
+242
+00:07:27,226 --> 00:07:28,496
+And I'd encourage you to do the
+
+
+243
+00:07:28,496 --> 00:07:31,226
+same when you plan and design
+
+
+244
+00:07:31,226 --> 00:07:31,906
+your apps.
+
+
+245
+00:07:32,196 --> 00:07:33,126
+All right, let's look at an
+
+
+246
+00:07:33,126 --> 00:07:33,726
+example.
+
+
+247
+00:07:35,696 --> 00:07:36,836
+This is Lift.
+
+
+248
+00:07:37,266 --> 00:07:39,736
+It displays 3 simple elements on
+
+
+249
+00:07:39,736 --> 00:07:40,296
+the screen.
+
+
+250
+00:07:41,656 --> 00:07:43,396
+The type is big with good
+
+
+251
+00:07:43,396 --> 00:07:44,336
+contrast right.
+
+
+252
+00:07:44,596 --> 00:07:46,976
+Legible. The elements are
+
+
+253
+00:07:46,976 --> 00:07:49,316
+informative, action oriented and
+
+
+254
+00:07:49,366 --> 00:07:51,786
+optimized for one thing; request
+
+
+255
+00:07:51,786 --> 00:07:52,166
+lift.
+
+
+256
+00:07:53,166 --> 00:07:57,216
+Concise. Also, the relationship
+
+
+257
+00:07:57,216 --> 00:07:58,676
+between the elements is clear.
+
+
+258
+00:07:58,816 --> 00:08:00,006
+It's got my location.
+
+
+259
+00:08:00,656 --> 00:08:02,706
+There's a 1 minute waiting time.
+
+
+260
+00:08:03,506 --> 00:08:04,276
+It's timely.
+
+
+261
+00:08:04,586 --> 00:08:05,906
+And notice that Lift is keeping
+
+
+262
+00:08:05,906 --> 00:08:07,596
+the location area simple and
+
+
+263
+00:08:07,596 --> 00:08:08,236
+glanceable.
+
+
+264
+00:08:08,696 --> 00:08:09,916
+They're also doing things behind
+
+
+265
+00:08:09,916 --> 00:08:11,696
+the scenes to populate it with
+
+
+266
+00:08:11,696 --> 00:08:12,836
+things that users might
+
+
+267
+00:08:12,836 --> 00:08:13,486
+recognize.
+
+
+268
+00:08:13,616 --> 00:08:15,676
+Favorites, previous places, or
+
+
+269
+00:08:15,676 --> 00:08:16,916
+just well-known places.
+
+
+270
+00:08:18,216 --> 00:08:19,526
+Okay let's look at another
+
+
+271
+00:08:19,526 --> 00:08:20,006
+example.
+
+
+272
+00:08:20,006 --> 00:08:21,586
+This is Major League Baseball.
+
+
+273
+00:08:22,036 --> 00:08:23,676
+The team names are big, really
+
+
+274
+00:08:23,676 --> 00:08:24,046
+big.
+
+
+275
+00:08:24,506 --> 00:08:26,316
+For the most part legibility is
+
+
+276
+00:08:26,316 --> 00:08:28,126
+about size on Apple Watch.
+
+
+277
+00:08:28,166 --> 00:08:29,546
+If you wonder whether your type
+
+
+278
+00:08:29,606 --> 00:08:31,026
+is big enough, it probably
+
+
+279
+00:08:31,026 --> 00:08:31,376
+isn't.
+
+
+280
+00:08:32,606 --> 00:08:34,206
+When the primary information is
+
+
+281
+00:08:34,206 --> 00:08:36,216
+undeniably primary, you're
+
+
+282
+00:08:36,216 --> 00:08:37,376
+heading in the right direction.
+
+
+283
+00:08:39,216 --> 00:08:41,356
+The relevant details with Major
+
+
+284
+00:08:41,356 --> 00:08:43,035
+League Baseball are concise.
+
+
+285
+00:08:43,236 --> 00:08:44,506
+Today's pitchers and their
+
+
+286
+00:08:44,506 --> 00:08:45,056
+records.
+
+
+287
+00:08:45,236 --> 00:08:46,366
+And finally, it's showing me
+
+
+288
+00:08:46,416 --> 00:08:47,656
+only today's game.
+
+
+289
+00:08:48,746 --> 00:08:52,176
+Timely. All right, now I want to
+
+
+290
+00:08:52,176 --> 00:08:53,546
+talk about concise.
+
+
+291
+00:08:53,896 --> 00:08:55,146
+This is CBS News.
+
+
+292
+00:08:55,546 --> 00:08:57,076
+We're at the home view, which
+
+
+293
+00:08:57,076 --> 00:08:58,386
+shows headlines.
+
+
+294
+00:08:58,806 --> 00:09:00,376
+I can simply scroll through and
+
+
+295
+00:09:00,376 --> 00:09:01,976
+get caught up in a few seconds.
+
+
+296
+00:09:02,396 --> 00:09:03,926
+How many headlines does it show?
+
+
+297
+00:09:04,316 --> 00:09:05,636
+Usually around 8 to 10.
+
+
+298
+00:09:06,086 --> 00:09:07,086
+It seems like enough.
+
+
+299
+00:09:07,326 --> 00:09:08,976
+All right, let's drill in.
+
+
+300
+00:09:09,856 --> 00:09:11,796
+So, now we're in the article
+
+
+301
+00:09:11,796 --> 00:09:12,146
+view.
+
+
+302
+00:09:12,246 --> 00:09:13,826
+And once we get here, we can
+
+
+303
+00:09:13,826 --> 00:09:15,066
+quickly scan down through the
+
+
+304
+00:09:15,066 --> 00:09:16,626
+article using the digital crown.
+
+
+305
+00:09:17,146 --> 00:09:19,446
+And pretty quickly I get to the
+
+
+306
+00:09:19,446 --> 00:09:20,146
+bottom.
+
+
+307
+00:09:20,146 --> 00:09:21,476
+So, this is actually just a
+
+
+308
+00:09:21,476 --> 00:09:22,336
+synopsis.
+
+
+309
+00:09:22,656 --> 00:09:24,016
+And I can continue reading on my
+
+
+310
+00:09:24,186 --> 00:09:24,596
+iPhone.
+
+
+311
+00:09:24,596 --> 00:09:26,586
+Either by using Handoff or by
+
+
+312
+00:09:26,586 --> 00:09:28,136
+bookmarking it and saving it for
+
+
+313
+00:09:28,136 --> 00:09:28,516
+later.
+
+
+314
+00:09:29,316 --> 00:09:30,956
+All right, let's talk about what
+
+
+315
+00:09:30,956 --> 00:09:31,846
+they did well here.
+
+
+316
+00:09:32,426 --> 00:09:33,646
+Big, bright text.
+
+
+317
+00:09:35,336 --> 00:09:37,666
+Concise. It doesn't necessarily
+
+
+318
+00:09:37,666 --> 00:09:39,096
+mean fits on one screen.
+
+
+319
+00:09:39,096 --> 00:09:41,236
+It can simply mean one thing
+
+
+320
+00:09:41,236 --> 00:09:42,556
+that a person cares about.
+
+
+321
+00:09:42,906 --> 00:09:44,236
+So, even though this experience
+
+
+322
+00:09:44,236 --> 00:09:46,106
+involves scrolling headlines and
+
+
+323
+00:09:46,106 --> 00:09:47,806
+text it feels simple.
+
+
+324
+00:09:49,076 --> 00:09:50,506
+And finally, timely.
+
+
+325
+00:09:50,576 --> 00:09:52,426
+I have access to the latest news
+
+
+326
+00:09:52,426 --> 00:09:53,976
+in a super accessible form.
+
+
+327
+00:09:55,186 --> 00:09:57,786
+Okay, now that we talked about
+
+
+328
+00:09:57,786 --> 00:10:00,076
+the UI of apps, I want to talk
+
+
+329
+00:10:00,076 --> 00:10:01,196
+about the other side of the
+
+
+330
+00:10:01,196 --> 00:10:01,976
+experience.
+
+
+331
+00:10:02,576 --> 00:10:04,566
+The person using your app.
+
+
+332
+00:10:05,186 --> 00:10:05,856
+And I'm going to get
+
+
+333
+00:10:05,856 --> 00:10:07,806
+aspirational about the kind of
+
+
+334
+00:10:07,806 --> 00:10:10,486
+experience that can be created
+
+
+335
+00:10:10,486 --> 00:10:11,486
+on Apple Watch.
+
+
+336
+00:10:12,016 --> 00:10:16,246
+On iPhone, we all know that apps
+
+
+337
+00:10:16,376 --> 00:10:18,346
+can help people get things done,
+
+
+338
+00:10:18,346 --> 00:10:19,796
+answer questions and achieve
+
+
+339
+00:10:19,796 --> 00:10:20,346
+goals.
+
+
+340
+00:10:20,756 --> 00:10:22,716
+The Watch, the goals are the
+
+
+341
+00:10:22,716 --> 00:10:24,566
+same, but the parameters of the
+
+
+342
+00:10:24,566 --> 00:10:25,756
+experience are different.
+
+
+343
+00:10:25,946 --> 00:10:27,366
+The screen is small.
+
+
+344
+00:10:27,846 --> 00:10:29,696
+So, the information needs to be
+
+
+345
+00:10:29,696 --> 00:10:31,636
+distributed in small chunks.
+
+
+346
+00:10:31,866 --> 00:10:32,716
+Just in time.
+
+
+347
+00:10:33,646 --> 00:10:35,606
+Great Watch experiences involve
+
+
+348
+00:10:35,606 --> 00:10:37,996
+apps doing work on behalf of
+
+
+349
+00:10:38,076 --> 00:10:38,526
+people.
+
+
+350
+00:10:38,936 --> 00:10:40,456
+Working in the background and
+
+
+351
+00:10:40,456 --> 00:10:42,726
+emerging at the right time to be
+
+
+352
+00:10:42,726 --> 00:10:43,276
+helpful.
+
+
+353
+00:10:44,226 --> 00:10:45,766
+Sort of like an expert.
+
+
+354
+00:10:46,316 --> 00:10:48,266
+Someone who's smart about stuff
+
+
+355
+00:10:48,266 --> 00:10:50,256
+that I care about and leaps in
+
+
+356
+00:10:50,256 --> 00:10:51,786
+to offer help when necessary.
+
+
+357
+00:10:51,936 --> 00:10:54,306
+Like an engineer or a scientist,
+
+
+358
+00:10:54,506 --> 00:10:56,316
+like mission control who helps
+
+
+359
+00:10:56,316 --> 00:10:59,066
+an astronaut navigate space, who
+
+
+360
+00:10:59,856 --> 00:11:01,966
+informs the astronaut when
+
+
+361
+00:11:01,966 --> 00:11:03,846
+decisions need to be made or
+
+
+362
+00:11:03,846 --> 00:11:04,936
+when new information is
+
+
+363
+00:11:04,936 --> 00:11:05,516
+available.
+
+
+364
+00:11:05,936 --> 00:11:06,846
+Information that helps
+
+
+365
+00:11:06,846 --> 00:11:07,676
+navigation.
+
+
+366
+00:11:08,146 --> 00:11:09,586
+The status of the spacecraft,
+
+
+367
+00:11:09,816 --> 00:11:11,206
+are the pod bay doors open.
+
+
+368
+00:11:11,836 --> 00:11:13,056
+Is it time to jump to hyper
+
+
+369
+00:11:13,056 --> 00:11:13,506
+speed.
+
+
+370
+00:11:14,096 --> 00:11:17,216
+This is how engineers behind the
+
+
+371
+00:11:17,216 --> 00:11:19,416
+scenes assist astronauts.
+
+
+372
+00:11:20,226 --> 00:11:22,116
+The scientist manages the flow
+
+
+373
+00:11:22,116 --> 00:11:24,056
+of information to the astronaut
+
+
+374
+00:11:24,296 --> 00:11:25,866
+and gets her the information she
+
+
+375
+00:11:25,866 --> 00:11:28,066
+needs just in time in a concise
+
+
+376
+00:11:28,066 --> 00:11:28,936
+and timely way.
+
+
+377
+00:11:29,576 --> 00:11:33,696
+So, the good news is being
+
+
+378
+00:11:33,696 --> 00:11:36,276
+helpful in this way is not
+
+
+379
+00:11:36,276 --> 00:11:37,256
+rocket science.
+
+
+380
+00:11:38,896 --> 00:11:40,086
+Sorry, about that.
+
+
+381
+00:11:41,086 --> 00:11:41,966
+Terrible joke.
+
+
+382
+00:11:43,066 --> 00:11:45,356
+Let's take WWDC as an example.
+
+
+383
+00:11:45,976 --> 00:11:47,436
+You spent the last 3 days,
+
+
+384
+00:11:47,436 --> 00:11:49,276
+surrounded by life forms.
+
+
+385
+00:11:49,446 --> 00:11:50,686
+You may know some of them.
+
+
+386
+00:11:50,906 --> 00:11:52,296
+Some of them may know you.
+
+
+387
+00:11:52,726 --> 00:11:54,186
+You may have connections that
+
+
+388
+00:11:54,186 --> 00:11:55,546
+neither of you even knew about.
+
+
+389
+00:11:56,586 --> 00:11:57,756
+The iPhone helps.
+
+
+390
+00:11:57,906 --> 00:11:59,146
+There are various ways of
+
+
+391
+00:11:59,146 --> 00:12:00,776
+organizing your life on iPhone;
+
+
+392
+00:12:01,086 --> 00:12:03,076
+contacts apps, social networks
+
+
+393
+00:12:03,076 --> 00:12:03,776
+and so on.
+
+
+394
+00:12:03,886 --> 00:12:04,956
+All of which are useful.
+
+
+395
+00:12:05,196 --> 00:12:07,036
+Apps like these typically
+
+
+396
+00:12:07,036 --> 00:12:09,456
+provide places that help people
+
+
+397
+00:12:09,456 --> 00:12:11,986
+begin looking for information.
+
+
+398
+00:12:13,196 --> 00:12:14,436
+Sometimes you want the
+
+
+399
+00:12:14,436 --> 00:12:16,256
+information to come to you.
+
+
+400
+00:12:16,566 --> 00:12:17,696
+You want these apps to be
+
+
+401
+00:12:17,696 --> 00:12:19,456
+proactive or predictive.
+
+
+402
+00:12:19,836 --> 00:12:21,316
+You want help remembering a
+
+
+403
+00:12:21,316 --> 00:12:21,846
+name.
+
+
+404
+00:12:22,486 --> 00:12:24,166
+Or help revealing a connection
+
+
+405
+00:12:24,166 --> 00:12:25,286
+or a common interest that you
+
+
+406
+00:12:25,286 --> 00:12:25,926
+might have.
+
+
+407
+00:12:27,136 --> 00:12:29,576
+My point here is that the magic
+
+
+408
+00:12:29,576 --> 00:12:31,316
+and delight of Apple Watch
+
+
+409
+00:12:31,316 --> 00:12:33,606
+happens when your apps work on
+
+
+410
+00:12:33,606 --> 00:12:36,316
+behalf of your users to get them
+
+
+411
+00:12:36,316 --> 00:12:37,796
+the information they need in the
+
+
+412
+00:12:37,796 --> 00:12:38,216
+moment.
+
+
+413
+00:12:38,216 --> 00:12:40,556
+And by doing this and still
+
+
+414
+00:12:40,556 --> 00:12:42,086
+trust that they will continue to
+
+
+415
+00:12:42,086 --> 00:12:43,286
+do so in the future.
+
+
+416
+00:12:45,156 --> 00:12:47,476
+So, when your app is legible,
+
+
+417
+00:12:47,476 --> 00:12:50,026
+concise and timely your users
+
+
+418
+00:12:50,026 --> 00:12:51,996
+will feel a personal connection.
+
+
+419
+00:12:51,996 --> 00:12:53,266
+So, we're going to add a fourth
+
+
+420
+00:12:53,266 --> 00:12:55,356
+quality of great Apple Watch
+
+
+421
+00:12:55,356 --> 00:12:57,506
+experiences, personal.
+
+
+422
+00:12:58,256 --> 00:12:59,596
+Being legible, concise and
+
+
+423
+00:12:59,596 --> 00:13:02,066
+timely establishes that personal
+
+
+424
+00:13:02,066 --> 00:13:03,966
+connection with each individual
+
+
+425
+00:13:03,966 --> 00:13:04,996
+who uses your app.
+
+
+426
+00:13:05,526 --> 00:13:06,526
+Knowing that they'll get the
+
+
+427
+00:13:06,526 --> 00:13:08,566
+information they need when they
+
+
+428
+00:13:09,046 --> 00:13:10,006
+need it.
+
+
+429
+00:13:10,266 --> 00:13:12,006
+Like an astronaut trust people
+
+
+430
+00:13:12,006 --> 00:13:14,206
+at mission control to pass along
+
+
+431
+00:13:14,206 --> 00:13:15,636
+the right information at the
+
+
+432
+00:13:15,636 --> 00:13:17,426
+right time, so that they can
+
+
+433
+00:13:17,426 --> 00:13:18,786
+stay focused on the mission.
+
+
+434
+00:13:20,166 --> 00:13:22,046
+OK, we're going to travel back
+
+
+435
+00:13:22,046 --> 00:13:22,676
+down to earth.
+
+
+436
+00:13:23,486 --> 00:13:24,466
+We're going to look at a quick
+
+
+437
+00:13:24,466 --> 00:13:25,116
+example.
+
+
+438
+00:13:25,986 --> 00:13:28,376
+Calendar. This is mission
+
+
+439
+00:13:28,376 --> 00:13:29,406
+control, right.
+
+
+440
+00:13:29,916 --> 00:13:32,336
+it's the big canvas.
+
+
+441
+00:13:32,606 --> 00:13:34,326
+Where you can survey the future,
+
+
+442
+00:13:34,326 --> 00:13:35,696
+see what's going on for the next
+
+
+443
+00:13:35,696 --> 00:13:36,406
+week or month.
+
+
+444
+00:13:36,786 --> 00:13:38,276
+Here you've got all the dials
+
+
+445
+00:13:38,276 --> 00:13:38,856
+and levers.
+
+
+446
+00:13:38,976 --> 00:13:41,616
+You can create calendars, create
+
+
+447
+00:13:41,616 --> 00:13:43,386
+meetings, move stuff around,
+
+
+448
+00:13:43,476 --> 00:13:45,096
+tons of real estate, and tons of
+
+
+449
+00:13:45,096 --> 00:13:45,726
+tools.
+
+
+450
+00:13:46,956 --> 00:13:48,206
+As you move on the iPhone, the
+
+
+451
+00:13:48,206 --> 00:13:49,056
+view narrows.
+
+
+452
+00:13:49,056 --> 00:13:49,956
+It's just today.
+
+
+453
+00:13:50,386 --> 00:13:52,016
+Why? Well because this
+
+
+454
+00:13:52,016 --> 00:13:54,056
+accurately reflects the scope of
+
+
+455
+00:13:54,056 --> 00:13:55,446
+what you typically care about on
+
+
+456
+00:13:55,446 --> 00:13:56,286
+a mobile device.
+
+
+457
+00:13:56,366 --> 00:13:57,556
+You can still navigate through
+
+
+458
+00:13:57,556 --> 00:13:58,586
+weeks and months, but you're
+
+
+459
+00:13:58,586 --> 00:13:59,996
+focused on the near future.
+
+
+460
+00:14:00,966 --> 00:14:02,316
+Zooming in further, to the
+
+
+461
+00:14:02,316 --> 00:14:02,766
+wrist.
+
+
+462
+00:14:03,356 --> 00:14:04,716
+Apple Watch shows you the next
+
+
+463
+00:14:04,716 --> 00:14:05,106
+event.
+
+
+464
+00:14:05,826 --> 00:14:07,006
+You can scroll through events
+
+
+465
+00:14:07,006 --> 00:14:08,606
+over the day and into subsequent
+
+
+466
+00:14:08,606 --> 00:14:08,986
+days.
+
+
+467
+00:14:09,036 --> 00:14:11,046
+It's optimized for the next
+
+
+468
+00:14:12,516 --> 00:14:12,616
+thing.
+
+
+469
+00:14:12,816 --> 00:14:13,836
+Finally, the calendar
+
+
+470
+00:14:13,836 --> 00:14:14,756
+complication.
+
+
+471
+00:14:15,416 --> 00:14:16,726
+So, I can keep track of where I
+
+
+472
+00:14:16,726 --> 00:14:18,476
+need to be by simply glancing at
+
+
+473
+00:14:18,476 --> 00:14:19,816
+my wrist and seeing it right
+
+
+474
+00:14:19,816 --> 00:14:20,926
+there in the middle of my watch
+
+
+475
+00:14:20,926 --> 00:14:21,346
+face.
+
+
+476
+00:14:21,346 --> 00:14:22,316
+So, we've gone from mission
+
+
+477
+00:14:22,316 --> 00:14:24,186
+control to the mission.
+
+
+478
+00:14:25,426 --> 00:14:25,836
+All right.
+
+
+479
+00:14:26,196 --> 00:14:27,176
+So, I've shown some different
+
+
+480
+00:14:27,176 --> 00:14:28,756
+components of Apple Watch, now
+
+
+481
+00:14:28,756 --> 00:14:30,356
+let's walk through each one
+
+
+482
+00:14:30,586 --> 00:14:31,016
+quickly.
+
+
+483
+00:14:31,466 --> 00:14:34,216
+Each of these can be used to
+
+
+484
+00:14:34,526 --> 00:14:35,856
+deliver information to your
+
+
+485
+00:14:35,856 --> 00:14:37,236
+users on Apple Watch.
+
+
+486
+00:14:38,006 --> 00:14:39,526
+The three components of every
+
+
+487
+00:14:39,526 --> 00:14:40,666
+Watch experience.
+
+
+488
+00:14:40,746 --> 00:14:41,806
+And like they're shown here,
+
+
+489
+00:14:41,806 --> 00:14:43,036
+they're equally important.
+
+
+490
+00:14:43,316 --> 00:14:45,876
+Unlike other platforms, the app
+
+
+491
+00:14:45,876 --> 00:14:47,986
+is not necessarily the center of
+
+
+492
+00:14:47,986 --> 00:14:49,586
+an experience on Apple Watch.
+
+
+493
+00:14:50,426 --> 00:14:51,916
+There are complications which
+
+
+494
+00:14:51,916 --> 00:14:53,876
+are persistently displayed on
+
+
+495
+00:14:53,876 --> 00:14:54,716
+the Watch face.
+
+
+496
+00:14:55,096 --> 00:14:56,516
+They're a way for you to provide
+
+
+497
+00:14:56,516 --> 00:14:58,326
+ambient information or access to
+
+
+498
+00:14:58,326 --> 00:14:58,866
+your app.
+
+
+499
+00:15:00,106 --> 00:15:01,266
+Notifications, which you're
+
+
+500
+00:15:01,396 --> 00:15:02,716
+probably already using on iOS,
+
+
+501
+00:15:02,716 --> 00:15:04,016
+and we'll talk about what's
+
+
+502
+00:15:04,016 --> 00:15:05,376
+different on Apple Watch.
+
+
+503
+00:15:06,666 --> 00:15:08,306
+And finally, the app itself.
+
+
+504
+00:15:08,486 --> 00:15:10,576
+Important of course, but not
+
+
+505
+00:15:10,576 --> 00:15:12,386
+necessarily more so than others.
+
+
+506
+00:15:12,846 --> 00:15:13,786
+So, let's start with the most
+
+
+507
+00:15:13,786 --> 00:15:14,976
+persistent element of the
+
+
+508
+00:15:14,976 --> 00:15:15,746
+experience.
+
+
+509
+00:15:15,746 --> 00:15:16,746
+The complication.
+
+
+510
+00:15:17,086 --> 00:15:19,116
+Information from your app on the
+
+
+511
+00:15:19,116 --> 00:15:19,966
+Watch face.
+
+
+512
+00:15:21,116 --> 00:15:23,166
+Complications are helpful when
+
+
+513
+00:15:23,166 --> 00:15:24,876
+they're continuously providing
+
+
+514
+00:15:24,876 --> 00:15:26,926
+value to users.
+
+
+515
+00:15:27,576 --> 00:15:30,246
+So, what persistently provides
+
+
+516
+00:15:30,626 --> 00:15:31,176
+value?
+
+
+517
+00:15:32,086 --> 00:15:33,326
+Well, being relevant.
+
+
+518
+00:15:34,526 --> 00:15:36,036
+Being predictive, offering a
+
+
+519
+00:15:36,036 --> 00:15:37,186
+peek into the future.
+
+
+520
+00:15:38,466 --> 00:15:39,666
+Showing progress.
+
+
+521
+00:15:40,776 --> 00:15:42,416
+Or, simply providing a launch
+
+
+522
+00:15:42,456 --> 00:15:44,026
+button for your app.
+
+
+523
+00:15:45,196 --> 00:15:47,146
+There are examples of each of
+
+
+524
+00:15:47,146 --> 00:15:48,696
+these on the Watch face.
+
+
+525
+00:15:49,916 --> 00:15:52,006
+CARROT weather is immediately
+
+
+526
+00:15:52,006 --> 00:15:53,636
+relevant to both here and now.
+
+
+527
+00:15:53,636 --> 00:15:55,076
+It shows me the temperature and
+
+
+528
+00:15:55,116 --> 00:15:56,776
+current atmospheric conditions.
+
+
+529
+00:15:57,916 --> 00:15:59,646
+Night Sky shows me that Neptune
+
+
+530
+00:15:59,646 --> 00:16:00,186
+is setting.
+
+
+531
+00:16:00,636 --> 00:16:01,966
+This is an upcoming thing that I
+
+
+532
+00:16:01,966 --> 00:16:02,566
+care about.
+
+
+533
+00:16:02,566 --> 00:16:03,966
+And then there's the calendar
+
+
+534
+00:16:03,966 --> 00:16:05,596
+complication, letting me know
+
+
+535
+00:16:05,596 --> 00:16:07,846
+what I've got coming up.
+
+
+536
+00:16:08,076 --> 00:16:09,866
+Finally, Nike Run Club shows me
+
+
+537
+00:16:09,866 --> 00:16:10,856
+the miles I've logged.
+
+
+538
+00:16:11,076 --> 00:16:12,306
+Incremental progress.
+
+
+539
+00:16:13,486 --> 00:16:14,976
+Now, as you saw on Monday, the
+
+
+540
+00:16:14,976 --> 00:16:17,396
+Siri face on watchOS4 brings
+
+
+541
+00:16:17,396 --> 00:16:18,976
+timely information to you from a
+
+
+542
+00:16:18,976 --> 00:16:20,116
+variety of places.
+
+
+543
+00:16:20,396 --> 00:16:22,566
+So, this face adapts, delivering
+
+
+544
+00:16:22,566 --> 00:16:24,846
+timely, concise information
+
+
+545
+00:16:24,846 --> 00:16:26,586
+rather than requiring people to
+
+
+546
+00:16:26,586 --> 00:16:28,256
+go and find it.
+
+
+547
+00:16:28,466 --> 00:16:30,386
+OK, so those are complications.
+
+
+548
+00:16:31,016 --> 00:16:32,686
+Let's talk about notifications.
+
+
+549
+00:16:33,506 --> 00:16:35,636
+On Apple Watch, notifications
+
+
+550
+00:16:35,636 --> 00:16:37,086
+briefly take over the UI
+
+
+551
+00:16:37,656 --> 00:16:39,576
+allowing people to fully engage
+
+
+552
+00:16:39,576 --> 00:16:40,026
+with them.
+
+
+553
+00:16:40,696 --> 00:16:42,276
+This means that from the point
+
+
+554
+00:16:42,276 --> 00:16:43,946
+of view of the person using your
+
+
+555
+00:16:43,946 --> 00:16:45,996
+app a notification from your app
+
+
+556
+00:16:46,206 --> 00:16:48,866
+is essentially your app.
+
+
+557
+00:16:50,596 --> 00:16:52,616
+This notification can be styled
+
+
+558
+00:16:52,616 --> 00:16:54,716
+to look like you're app and it
+
+
+559
+00:16:54,716 --> 00:16:55,956
+can deliver information and
+
+
+560
+00:16:55,956 --> 00:16:57,386
+provide timey actions.
+
+
+561
+00:16:58,316 --> 00:16:59,596
+So, let's look at an example.
+
+
+562
+00:17:01,116 --> 00:17:02,736
+Organizing a soccer game can be
+
+
+563
+00:17:02,736 --> 00:17:03,486
+complicated.
+
+
+564
+00:17:04,415 --> 00:17:05,665
+You've got to find a field.
+
+
+565
+00:17:05,665 --> 00:17:06,876
+It takes that a big open space
+
+
+566
+00:17:06,876 --> 00:17:07,816
+to play soccer.
+
+
+567
+00:17:08,246 --> 00:17:09,215
+You've got to find a time to
+
+
+568
+00:17:09,215 --> 00:17:11,205
+play, coordinating schedules can
+
+
+569
+00:17:11,205 --> 00:17:12,205
+be complicated.
+
+
+570
+00:17:12,205 --> 00:17:14,165
+You've got to find players.
+
+
+571
+00:17:14,576 --> 00:17:15,695
+If you want the game to be fun,
+
+
+572
+00:17:15,695 --> 00:17:16,576
+the players need to be of
+
+
+573
+00:17:16,576 --> 00:17:18,156
+roughly the same skill level.
+
+
+574
+00:17:19,506 --> 00:17:21,165
+And finally, you need to collect
+
+
+575
+00:17:21,165 --> 00:17:23,306
+fees, sometimes for the field or
+
+
+576
+00:17:23,306 --> 00:17:23,945
+facility.
+
+
+577
+00:17:24,516 --> 00:17:26,726
+So, this is an app called
+
+
+578
+00:17:26,726 --> 00:17:27,566
+Apitador.
+
+
+579
+00:17:27,986 --> 00:17:28,816
+It's from Brazil.
+
+
+580
+00:17:29,086 --> 00:17:31,106
+It answers the question where
+
+
+581
+00:17:31,106 --> 00:17:32,876
+and when can I play a pickup
+
+
+582
+00:17:32,876 --> 00:17:33,546
+soccer game.
+
+
+583
+00:17:34,106 --> 00:17:34,896
+So, it shows me a map.
+
+
+584
+00:17:36,196 --> 00:17:37,386
+Let's say I'm at the Apple
+
+
+585
+00:17:37,386 --> 00:17:38,576
+office in São Paulo.
+
+
+586
+00:17:38,796 --> 00:17:40,296
+There tons of games going on
+
+
+587
+00:17:40,296 --> 00:17:40,796
+around me.
+
+
+588
+00:17:41,876 --> 00:17:43,246
+So, I can create a profile for
+
+
+589
+00:17:43,246 --> 00:17:45,196
+myself in iOS, including the way
+
+
+590
+00:17:45,196 --> 00:17:46,046
+that I like to play.
+
+
+591
+00:17:46,806 --> 00:17:48,116
+So, let's be honest, I have no
+
+
+592
+00:17:48,116 --> 00:17:49,676
+place in a pickup soccer game in
+
+
+593
+00:17:49,676 --> 00:17:50,136
+Brazil.
+
+
+594
+00:17:50,466 --> 00:17:51,696
+But let's go ahead and create a
+
+
+595
+00:17:51,696 --> 00:17:52,536
+profile anyway.
+
+
+596
+00:17:53,006 --> 00:17:54,556
+As I start playing games, other
+
+
+597
+00:17:54,556 --> 00:17:55,606
+players can rate me.
+
+
+598
+00:17:55,756 --> 00:17:56,826
+Am I a good player?
+
+
+599
+00:17:57,126 --> 00:17:58,406
+Did I show up on time?
+
+
+600
+00:17:58,816 --> 00:17:59,596
+Was I friendly?
+
+
+601
+00:18:00,906 --> 00:18:02,486
+People who are organizing games,
+
+
+602
+00:18:02,566 --> 00:18:04,006
+can see that and they can invite
+
+
+603
+00:18:04,006 --> 00:18:05,706
+me when they need a player like
+
+
+604
+00:18:06,466 --> 00:18:07,056
+me.
+
+
+605
+00:18:07,486 --> 00:18:10,516
+A "attacking midfielder" which
+
+
+606
+00:18:10,516 --> 00:18:11,816
+is I guess what I am.
+
+
+607
+00:18:12,186 --> 00:18:13,566
+So, when someone invites me to a
+
+
+608
+00:18:13,566 --> 00:18:15,846
+game, I can see this invitation
+
+
+609
+00:18:16,216 --> 00:18:17,836
+appear as a notification.
+
+
+610
+00:18:18,096 --> 00:18:19,456
+In this case, a person who is
+
+
+611
+00:18:19,456 --> 00:18:20,906
+organizing a game has reached
+
+
+612
+00:18:20,906 --> 00:18:21,446
+out to me.
+
+
+613
+00:18:21,816 --> 00:18:23,766
+There's a game on Friday at 7pm.
+
+
+614
+00:18:24,206 --> 00:18:25,276
+So, I can swipe down in the
+
+
+615
+00:18:25,276 --> 00:18:27,466
+notification and see a quick map
+
+
+616
+00:18:27,466 --> 00:18:29,006
+of where the game is, not far
+
+
+617
+00:18:29,006 --> 00:18:29,826
+from the office.
+
+
+618
+00:18:31,106 --> 00:18:33,186
+And super helpful actions that I
+
+
+619
+00:18:33,186 --> 00:18:33,666
+can tap.
+
+
+620
+00:18:34,286 --> 00:18:36,266
+So, I can say, I'm in, or out,
+
+
+621
+00:18:36,456 --> 00:18:38,286
+or dismiss it.
+
+
+622
+00:18:38,936 --> 00:18:40,896
+So, let's quickly evaluate this.
+
+
+623
+00:18:41,836 --> 00:18:44,066
+Super readable, uses their brand
+
+
+624
+00:18:44,066 --> 00:18:45,546
+shade of green really well.
+
+
+625
+00:18:46,446 --> 00:18:47,816
+That's soccer green.
+
+
+626
+00:18:49,246 --> 00:18:50,156
+Very legible.
+
+
+627
+00:18:51,926 --> 00:18:53,746
+Super concise as well, all the
+
+
+628
+00:18:53,746 --> 00:18:55,336
+information is there in a swipe.
+
+
+629
+00:18:57,056 --> 00:18:58,776
+This is pickup soccer, which can
+
+
+630
+00:18:58,776 --> 00:18:59,956
+be pretty spontaneous.
+
+
+631
+00:18:59,956 --> 00:19:02,156
+So, getting a notification about
+
+
+632
+00:19:02,156 --> 00:19:03,786
+a game that might happen soon is
+
+
+633
+00:19:03,786 --> 00:19:04,796
+also really helpful.
+
+
+634
+00:19:05,146 --> 00:19:06,196
+The fact that I can take
+
+
+635
+00:19:06,196 --> 00:19:08,166
+appropriate action directly from
+
+
+636
+00:19:08,166 --> 00:19:10,456
+the notification is pretty cool.
+
+
+637
+00:19:13,936 --> 00:19:15,656
+And receiving simple,
+
+
+638
+00:19:15,786 --> 00:19:17,536
+informative notifications from
+
+
+639
+00:19:17,536 --> 00:19:19,306
+an app that I trust about
+
+
+640
+00:19:19,306 --> 00:19:21,026
+something that I love doing
+
+
+641
+00:19:21,786 --> 00:19:23,076
+makes me feel pretty great.
+
+
+642
+00:19:23,076 --> 00:19:24,946
+It's pretty amazing to be able
+
+
+643
+00:19:24,946 --> 00:19:26,536
+to act immediately without
+
+
+644
+00:19:26,536 --> 00:19:28,216
+reaching into my pocket and
+
+
+645
+00:19:28,216 --> 00:19:30,326
+pulling out my phone to respond.
+
+
+646
+00:19:31,176 --> 00:19:32,796
+Pretty personal.
+
+
+647
+00:19:35,176 --> 00:19:36,856
+So, what I've really liked about
+
+
+648
+00:19:36,856 --> 00:19:38,316
+this is that they extended their
+
+
+649
+00:19:38,316 --> 00:19:40,896
+app to the wrist in a helpful
+
+
+650
+00:19:40,896 --> 00:19:42,836
+delightful way that made sense
+
+
+651
+00:19:43,076 --> 00:19:44,576
+for what they do, organize
+
+
+652
+00:19:44,576 --> 00:19:45,366
+soccer games.
+
+
+653
+00:19:47,306 --> 00:19:51,886
+I'm much more likely to continue
+
+
+654
+00:19:51,886 --> 00:19:53,896
+to engage with apps like this
+
+
+655
+00:19:53,996 --> 00:19:55,086
+when they reach out to me with
+
+
+656
+00:19:55,086 --> 00:19:56,846
+valuable information and give me
+
+
+657
+00:19:56,846 --> 00:19:58,626
+easy ways to take action or make
+
+
+658
+00:19:58,626 --> 00:19:59,366
+decisions.
+
+
+659
+00:20:00,326 --> 00:20:02,106
+Okay, that's notifications.
+
+
+660
+00:20:02,516 --> 00:20:04,266
+Let's talk about apps.
+
+
+661
+00:20:04,266 --> 00:20:05,536
+So, the app as I said, isn't
+
+
+662
+00:20:05,536 --> 00:20:06,786
+necessarily the center of the
+
+
+663
+00:20:06,786 --> 00:20:08,656
+experience on Apple Watch, but
+
+
+664
+00:20:08,656 --> 00:20:09,856
+obviously, it's important to
+
+
+665
+00:20:09,856 --> 00:20:11,756
+consider what kind of experience
+
+
+666
+00:20:11,756 --> 00:20:13,366
+you can provide in it.
+
+
+667
+00:20:14,166 --> 00:20:15,906
+Notifications and complications
+
+
+668
+00:20:15,906 --> 00:20:17,456
+can feel proactive and
+
+
+669
+00:20:17,456 --> 00:20:18,146
+predictive.
+
+
+670
+00:20:18,456 --> 00:20:20,016
+Apps on the other hand are best
+
+
+671
+00:20:20,016 --> 00:20:21,316
+when they provide simple and
+
+
+672
+00:20:21,316 --> 00:20:23,656
+direct actions, or tools, or
+
+
+673
+00:20:23,656 --> 00:20:24,436
+information.
+
+
+674
+00:20:25,296 --> 00:20:27,076
+This is an app called Elk, it's
+
+
+675
+00:20:27,076 --> 00:20:27,816
+from Singapore.
+
+
+676
+00:20:28,466 --> 00:20:29,866
+It's a currency converter that
+
+
+677
+00:20:30,136 --> 00:20:31,706
+uses simple gestures in the
+
+
+678
+00:20:31,706 --> 00:20:33,406
+digital crown to quickly figure
+
+
+679
+00:20:33,406 --> 00:20:35,086
+out how expensive a thing is.
+
+
+680
+00:20:35,546 --> 00:20:37,446
+So, to be clear, the question
+
+
+681
+00:20:37,446 --> 00:20:39,286
+they're answering this how much
+
+
+682
+00:20:39,286 --> 00:20:40,016
+is this thing.
+
+
+683
+00:20:40,556 --> 00:20:43,346
+So, in this case, I'm in Canada,
+
+
+684
+00:20:44,296 --> 00:20:46,636
+I'm buying something, maple
+
+
+685
+00:20:46,636 --> 00:20:47,046
+syrup.
+
+
+686
+00:20:47,906 --> 00:20:51,796
+With a couple of swipes, there
+
+
+687
+00:20:51,796 --> 00:20:53,666
+we go, we can swipe out some
+
+
+688
+00:20:53,666 --> 00:20:55,766
+decimal places and a couple of
+
+
+689
+00:20:55,766 --> 00:20:56,796
+digital crowns.
+
+
+690
+00:20:56,996 --> 00:20:58,146
+I can have increment it.
+
+
+691
+00:20:59,056 --> 00:21:00,886
+All right, one last tweak.
+
+
+692
+00:21:01,536 --> 00:21:04,126
+Is that right?
+
+
+693
+00:21:04,126 --> 00:21:06,636
+It seems kind of expensive for
+
+
+694
+00:21:06,636 --> 00:21:07,456
+maple syrup.
+
+
+695
+00:21:08,256 --> 00:21:09,776
+So, what did they do well?
+
+
+696
+00:21:10,456 --> 00:21:11,356
+Well, they've allowed me to
+
+
+697
+00:21:11,356 --> 00:21:13,096
+quickly calculate a price, and
+
+
+698
+00:21:13,096 --> 00:21:14,796
+they've also kept it discrete,
+
+
+699
+00:21:15,096 --> 00:21:17,556
+it saves me the embarrassment of
+
+
+700
+00:21:17,686 --> 00:21:19,066
+not knowing that this is how
+
+
+701
+00:21:19,066 --> 00:21:19,906
+much it costs.
+
+
+702
+00:21:19,986 --> 00:21:21,656
+It's very simple to do this with
+
+
+703
+00:21:21,656 --> 00:21:23,286
+a couple of gestures, and
+
+
+704
+00:21:23,286 --> 00:21:24,196
+they've also saved me some
+
+
+705
+00:21:24,196 --> 00:21:24,536
+money.
+
+
+706
+00:21:25,916 --> 00:21:26,646
+All right.
+
+
+707
+00:21:26,646 --> 00:21:27,606
+Let's evaluate it.
+
+
+708
+00:21:28,306 --> 00:21:30,016
+Big type, legible.
+
+
+709
+00:21:31,316 --> 00:21:33,676
+All on one screen, concise.
+
+
+710
+00:21:34,256 --> 00:21:37,496
+Helpful and discrete, timely.
+
+
+711
+00:21:38,466 --> 00:21:40,236
+Totally trustworthy and helps me
+
+
+712
+00:21:40,236 --> 00:21:42,016
+solve a real-world problem.
+
+
+713
+00:21:43,416 --> 00:21:46,546
+Awesome. OK before I turn it
+
+
+714
+00:21:46,546 --> 00:21:48,266
+over to Jake, I'm going to take
+
+
+715
+00:21:48,266 --> 00:21:50,226
+you through a quick app planning
+
+
+716
+00:21:50,226 --> 00:21:52,266
+exercise where we will put to
+
+
+717
+00:21:52,266 --> 00:21:53,936
+use the things that we just saw.
+
+
+718
+00:21:54,246 --> 00:21:55,496
+So, we're going to plan an app,
+
+
+719
+00:21:56,416 --> 00:21:58,006
+from start to finish in just a
+
+
+720
+00:21:58,006 --> 00:21:58,896
+couple of minutes.
+
+
+721
+00:22:00,446 --> 00:22:03,016
+Let's say Jake and I work for a
+
+
+722
+00:22:03,016 --> 00:22:05,076
+company called SailBoss.
+
+
+723
+00:22:06,546 --> 00:22:08,056
+Now, that Apple Watch Series 2
+
+
+724
+00:22:08,056 --> 00:22:09,696
+is water resistant with onboard
+
+
+725
+00:22:09,696 --> 00:22:12,056
+GPS, it seems like it's time to
+
+
+726
+00:22:12,056 --> 00:22:14,056
+bring our iOS app to Apple
+
+
+727
+00:22:14,056 --> 00:22:14,606
+Watch.
+
+
+728
+00:22:15,456 --> 00:22:17,256
+So, I open up Sketch and I grab
+
+
+729
+00:22:17,256 --> 00:22:17,936
+an art board.
+
+
+730
+00:22:18,236 --> 00:22:19,476
+Start thinking about what we
+
+
+731
+00:22:19,476 --> 00:22:20,296
+could bring over.
+
+
+732
+00:22:20,836 --> 00:22:22,286
+We worked on some cool graphs
+
+
+733
+00:22:22,286 --> 00:22:24,036
+and visualizations for the iOS
+
+
+734
+00:22:24,036 --> 00:22:24,316
+app.
+
+
+735
+00:22:25,276 --> 00:22:27,256
+It would really be a shame to
+
+
+736
+00:22:27,256 --> 00:22:28,956
+not bring them over to Watch.
+
+
+737
+00:22:30,016 --> 00:22:31,566
+This one shows wind with an
+
+
+738
+00:22:31,566 --> 00:22:32,646
+animated arrow.
+
+
+739
+00:22:32,806 --> 00:22:33,846
+It's pretty cool, right?
+
+
+740
+00:22:34,956 --> 00:22:36,356
+And this one shows swell.
+
+
+741
+00:22:36,536 --> 00:22:37,806
+This helps people understand
+
+
+742
+00:22:37,806 --> 00:22:38,926
+whether the conditions on the
+
+
+743
+00:22:38,926 --> 00:22:40,296
+water will be in their comfort
+
+
+744
+00:22:40,296 --> 00:22:40,696
+zone.
+
+
+745
+00:22:41,986 --> 00:22:43,356
+Finally, there's the temperature
+
+
+746
+00:22:43,356 --> 00:22:44,276
+of the air and water.
+
+
+747
+00:22:45,136 --> 00:22:46,196
+Obviously, there are plenty of
+
+
+748
+00:22:46,196 --> 00:22:47,926
+other metrics that determine
+
+
+749
+00:22:47,926 --> 00:22:49,756
+good sailing conditions; tides,
+
+
+750
+00:22:49,756 --> 00:22:51,756
+and seasons, and whether Neptune
+
+
+751
+00:22:51,756 --> 00:22:53,676
+is rising and setting, and so
+
+
+752
+00:22:53,676 --> 00:22:53,916
+on.
+
+
+753
+00:22:54,156 --> 00:22:55,946
+But at SailBoss we focused on
+
+
+754
+00:22:55,946 --> 00:22:56,396
+these.
+
+
+755
+00:22:56,796 --> 00:22:57,246
+All right.
+
+
+756
+00:22:57,246 --> 00:22:58,396
+So, now we want to take these
+
+
+757
+00:22:58,396 --> 00:23:00,826
+graphs into a Watch UI.
+
+
+758
+00:23:01,066 --> 00:23:02,386
+So, back to Sketch.
+
+
+759
+00:23:02,576 --> 00:23:03,886
+Let's see if we can represent
+
+
+760
+00:23:03,926 --> 00:23:05,516
+all the metrics that matter to
+
+
+761
+00:23:05,516 --> 00:23:06,346
+our users.
+
+
+762
+00:23:07,036 --> 00:23:08,236
+All right I need to adapt the
+
+
+763
+00:23:08,236 --> 00:23:09,846
+wind graphic a little bit to fit
+
+
+764
+00:23:09,846 --> 00:23:10,286
+it in.
+
+
+765
+00:23:10,746 --> 00:23:11,876
+So, I've strung it across the
+
+
+766
+00:23:11,876 --> 00:23:13,076
+top, because it's the most
+
+
+767
+00:23:13,076 --> 00:23:13,666
+important.
+
+
+768
+00:23:14,696 --> 00:23:15,936
+And here's the swell.
+
+
+769
+00:23:17,136 --> 00:23:18,376
+Wow, that's pretty small.
+
+
+770
+00:23:19,746 --> 00:23:20,526
+Then we'll put the air
+
+
+771
+00:23:20,526 --> 00:23:22,056
+temperature down at the bottom.
+
+
+772
+00:23:22,466 --> 00:23:23,586
+Can't really fit in the water
+
+
+773
+00:23:23,586 --> 00:23:24,196
+temperature.
+
+
+774
+00:23:25,656 --> 00:23:26,916
+Let's see how we did.
+
+
+775
+00:23:28,156 --> 00:23:31,466
+So, it's like an iOS app but
+
+
+776
+00:23:31,466 --> 00:23:32,496
+miniaturized.
+
+
+777
+00:23:34,246 --> 00:23:34,786
+All right.
+
+
+778
+00:23:35,646 --> 00:23:36,876
+I'm going to evaluate this
+
+
+779
+00:23:36,876 --> 00:23:38,256
+against the four qualities.
+
+
+780
+00:23:38,486 --> 00:23:40,016
+First of all, is it readable?
+
+
+781
+00:23:40,776 --> 00:23:42,626
+I guess it's actually possible
+
+
+782
+00:23:42,626 --> 00:23:43,976
+that it is readable in this room
+
+
+783
+00:23:43,976 --> 00:23:45,116
+on this massive screen.
+
+
+784
+00:23:45,596 --> 00:23:47,806
+But on the wrist, no way.
+
+
+785
+00:23:48,416 --> 00:23:49,316
+Not readable.
+
+
+786
+00:23:49,316 --> 00:23:51,166
+We tried. It's just not readable
+
+
+787
+00:23:51,166 --> 00:23:51,786
+on Watch.
+
+
+788
+00:23:52,536 --> 00:23:54,046
+Is it direct in answering the
+
+
+789
+00:23:54,046 --> 00:23:55,876
+question should I go sailing
+
+
+790
+00:23:55,876 --> 00:23:56,306
+today?
+
+
+791
+00:23:56,726 --> 00:23:58,736
+Graphs are nice and there's lots
+
+
+792
+00:23:58,736 --> 00:24:00,456
+of information, but there's no
+
+
+793
+00:24:00,456 --> 00:24:02,006
+way to glance at this and answer
+
+
+794
+00:24:02,006 --> 00:24:02,746
+the question.
+
+
+795
+00:24:03,146 --> 00:24:05,846
+So, no. Is it timely?
+
+
+796
+00:24:06,416 --> 00:24:07,826
+I mean technically, I have the
+
+
+797
+00:24:07,826 --> 00:24:09,546
+times listed across the top,
+
+
+798
+00:24:09,976 --> 00:24:10,836
+that doesn't count.
+
+
+799
+00:24:11,096 --> 00:24:12,756
+It doesn't make the information
+
+
+800
+00:24:12,756 --> 00:24:13,956
+itself timely.
+
+
+801
+00:24:14,506 --> 00:24:16,956
+And finally, personal.
+
+
+802
+00:24:17,726 --> 00:24:19,686
+In our little scenario, Jake and
+
+
+803
+00:24:19,686 --> 00:24:21,606
+I know a lot of information
+
+
+804
+00:24:21,606 --> 00:24:24,446
+about the users who use our app.
+
+
+805
+00:24:25,106 --> 00:24:26,406
+We know what their preferences
+
+
+806
+00:24:26,406 --> 00:24:27,356
+are for their sailing
+
+
+807
+00:24:27,356 --> 00:24:29,016
+conditions, but the UI is not
+
+
+808
+00:24:29,016 --> 00:24:30,656
+really making this clear at all.
+
+
+809
+00:24:32,596 --> 00:24:34,586
+Ok, back to the drawing board.
+
+
+810
+00:24:35,206 --> 00:24:36,946
+We could just allow a chart or
+
+
+811
+00:24:36,946 --> 00:24:38,696
+graph to take over the entire
+
+
+812
+00:24:38,696 --> 00:24:39,356
+screen.
+
+
+813
+00:24:40,106 --> 00:24:41,876
+The wind seems like the primary
+
+
+814
+00:24:41,876 --> 00:24:42,236
+thing.
+
+
+815
+00:24:42,236 --> 00:24:43,366
+So, let's start there.
+
+
+816
+00:24:43,416 --> 00:24:46,046
+We can even add the title up in
+
+
+817
+00:24:46,046 --> 00:24:48,176
+the status bar, that would help
+
+
+818
+00:24:48,176 --> 00:24:49,466
+with overall clarity.
+
+
+819
+00:24:49,776 --> 00:24:51,016
+Okay, let's test this out on a
+
+
+820
+00:24:51,016 --> 00:24:51,776
+Watch screen.
+
+
+821
+00:24:52,556 --> 00:24:53,836
+Definitely more legible.
+
+
+822
+00:24:54,256 --> 00:24:55,306
+Also, concise.
+
+
+823
+00:24:55,546 --> 00:24:56,706
+Seems like it could be pretty
+
+
+824
+00:24:56,706 --> 00:24:58,016
+helpful to have on the wrist.
+
+
+825
+00:24:58,326 --> 00:24:59,496
+You launch the app and see the
+
+
+826
+00:24:59,496 --> 00:25:00,736
+current wind conditions.
+
+
+827
+00:25:01,966 --> 00:25:03,746
+Actually, this gives me an idea.
+
+
+828
+00:25:04,526 --> 00:25:06,116
+This could be helpful on the
+
+
+829
+00:25:06,286 --> 00:25:07,616
+face of the Watch.
+
+
+830
+00:25:07,716 --> 00:25:10,096
+A sailing complication.
+
+
+831
+00:25:10,146 --> 00:25:11,746
+It'd be a nice way to glance at
+
+
+832
+00:25:11,746 --> 00:25:13,716
+the current wind conditions.
+
+
+833
+00:25:14,196 --> 00:25:15,056
+So, it's relevant.
+
+
+834
+00:25:15,586 --> 00:25:16,916
+It's information about the here
+
+
+835
+00:25:16,916 --> 00:25:17,316
+and now.
+
+
+836
+00:25:17,956 --> 00:25:19,546
+Persistent information that's
+
+
+837
+00:25:19,546 --> 00:25:20,136
+useful.
+
+
+838
+00:25:20,896 --> 00:25:21,936
+Now we're getting somewhere.
+
+
+839
+00:25:22,706 --> 00:25:24,796
+Now, not all apps have something
+
+
+840
+00:25:24,796 --> 00:25:26,556
+like this, but I think this one
+
+
+841
+00:25:26,556 --> 00:25:26,986
+does.
+
+
+842
+00:25:27,486 --> 00:25:28,616
+All right let's go back into the
+
+
+843
+00:25:28,616 --> 00:25:28,926
+app.
+
+
+844
+00:25:29,716 --> 00:25:32,186
+We could include other graphs as
+
+
+845
+00:25:32,186 --> 00:25:34,936
+additional pages, we can put
+
+
+846
+00:25:34,936 --> 00:25:36,136
+some page dots in there.
+
+
+847
+00:25:36,136 --> 00:25:37,916
+And then bring the other graphs
+
+
+848
+00:25:38,066 --> 00:25:38,226
+in.
+
+
+849
+00:25:38,756 --> 00:25:40,596
+With watchOS4, you can even
+
+
+850
+00:25:40,596 --> 00:25:42,236
+launch the app on the second
+
+
+851
+00:25:42,236 --> 00:25:44,526
+page, put the wind there and
+
+
+852
+00:25:44,526 --> 00:25:46,126
+that would mean temperature and
+
+
+853
+00:25:46,126 --> 00:25:48,266
+swell are both just one page
+
+
+854
+00:25:48,266 --> 00:25:49,536
+away from the most important
+
+
+855
+00:25:49,536 --> 00:25:50,266
+information.
+
+
+856
+00:25:50,266 --> 00:25:51,556
+I'll have to ask Jake about that
+
+
+857
+00:25:51,556 --> 00:25:52,996
+one, but I kind of like that
+
+
+858
+00:25:52,996 --> 00:25:53,396
+idea.
+
+
+859
+00:25:55,616 --> 00:25:57,406
+Still, it's complete, but it's
+
+
+860
+00:25:57,406 --> 00:25:58,486
+not concise.
+
+
+861
+00:25:58,546 --> 00:26:00,016
+It would take much longer than a
+
+
+862
+00:26:00,016 --> 00:26:01,856
+glance to see whether conditions
+
+
+863
+00:26:01,856 --> 00:26:02,676
+were favorable.
+
+
+864
+00:26:02,896 --> 00:26:03,936
+And you'd have to be swiping
+
+
+865
+00:26:03,936 --> 00:26:05,926
+back and forth, and tracking the
+
+
+866
+00:26:05,926 --> 00:26:06,526
+time.
+
+
+867
+00:26:06,966 --> 00:26:08,666
+We could highlight the type
+
+
+868
+00:26:08,666 --> 00:26:09,796
+range when conditions are
+
+
+869
+00:26:09,796 --> 00:26:10,886
+favorable, right?
+
+
+870
+00:26:12,356 --> 00:26:13,966
+So, let's imagine that this is a
+
+
+871
+00:26:13,966 --> 00:26:16,996
+user's preferences announced as
+
+
+872
+00:26:16,996 --> 00:26:18,766
+a primary visual element in the
+
+
+873
+00:26:18,766 --> 00:26:19,366
+graphs.
+
+
+874
+00:26:20,226 --> 00:26:21,176
+It seems like it's getting
+
+
+875
+00:26:21,176 --> 00:26:23,146
+closer to being personal, but
+
+
+876
+00:26:23,146 --> 00:26:24,156
+it's still not great.
+
+
+877
+00:26:24,496 --> 00:26:25,506
+You still have to do too much
+
+
+878
+00:26:25,506 --> 00:26:26,806
+swiping back and forth and
+
+
+879
+00:26:26,806 --> 00:26:27,966
+figuring out whether those
+
+
+880
+00:26:28,376 --> 00:26:30,546
+highlighted areas are going to
+
+
+881
+00:26:30,546 --> 00:26:31,746
+match up.
+
+
+882
+00:26:32,756 --> 00:26:34,236
+So, let's think about another
+
+
+883
+00:26:34,236 --> 00:26:35,976
+element of the Watch platform,
+
+
+884
+00:26:35,976 --> 00:26:36,986
+notifications.
+
+
+885
+00:26:36,986 --> 00:26:37,936
+I think they could actually be
+
+
+886
+00:26:37,936 --> 00:26:38,986
+pretty helpful here.
+
+
+887
+00:26:39,376 --> 00:26:41,596
+I think we could actually create
+
+
+888
+00:26:41,596 --> 00:26:43,116
+a pretty awesome experience with
+
+
+889
+00:26:43,116 --> 00:26:44,846
+these given that we know about
+
+
+890
+00:26:44,846 --> 00:26:45,976
+the conditions that people
+
+
+891
+00:26:45,976 --> 00:26:46,566
+prefer.
+
+
+892
+00:26:47,206 --> 00:26:49,186
+We could fire off a notification
+
+
+893
+00:26:49,456 --> 00:26:51,436
+when the wind, and temperature
+
+
+894
+00:26:51,436 --> 00:26:53,346
+and swell all got into the
+
+
+895
+00:26:53,346 --> 00:26:55,516
+comfort zone of a person using
+
+
+896
+00:26:55,516 --> 00:26:55,916
+our app.
+
+
+897
+00:26:56,336 --> 00:26:57,996
+No need to launch the Watch app
+
+
+898
+00:26:57,996 --> 00:26:59,636
+and swipe from page to page.
+
+
+899
+00:26:59,966 --> 00:27:02,376
+People can trust that SailBoss
+
+
+900
+00:27:02,426 --> 00:27:03,496
+will let them know when
+
+
+901
+00:27:03,496 --> 00:27:04,636
+conditions are awesome.
+
+
+902
+00:27:05,766 --> 00:27:07,056
+In fact, we could even include
+
+
+903
+00:27:07,056 --> 00:27:08,366
+some graphics to show that the
+
+
+904
+00:27:08,366 --> 00:27:09,806
+wind is in their comfort zone,
+
+
+905
+00:27:10,036 --> 00:27:12,856
+highlighted and vivid SailBoss
+
+
+906
+00:27:12,916 --> 00:27:13,366
+green.
+
+
+907
+00:27:14,026 --> 00:27:15,986
+And we could provide actions.
+
+
+908
+00:27:16,186 --> 00:27:17,706
+Simple stuff that could help us
+
+
+909
+00:27:17,746 --> 00:27:19,486
+tune future notifications.
+
+
+910
+00:27:19,926 --> 00:27:21,026
+This would help us learn more
+
+
+911
+00:27:21,026 --> 00:27:23,206
+about each person who taps each
+
+
+912
+00:27:23,206 --> 00:27:24,846
+one of these actions, and
+
+
+913
+00:27:25,046 --> 00:27:26,926
+therefore provide even more
+
+
+914
+00:27:26,926 --> 00:27:28,456
+personalized information to them
+
+
+915
+00:27:28,456 --> 00:27:29,086
+in the future.
+
+
+916
+00:27:29,656 --> 00:27:35,106
+Ok. In this example, we focused
+
+
+917
+00:27:35,186 --> 00:27:36,336
+on a single feature.
+
+
+918
+00:27:36,456 --> 00:27:37,436
+A single question.
+
+
+919
+00:27:37,436 --> 00:27:39,026
+And we've arrived at what I
+
+
+920
+00:27:39,026 --> 00:27:40,776
+think is a decent hypothesis for
+
+
+921
+00:27:40,776 --> 00:27:41,666
+what we should build.
+
+
+922
+00:27:42,936 --> 00:27:44,486
+This is what I mean by planning
+
+
+923
+00:27:44,486 --> 00:27:45,726
+for Apple Watch, clearly
+
+
+924
+00:27:45,726 --> 00:27:48,036
+defining how your app will take
+
+
+925
+00:27:48,036 --> 00:27:49,886
+advantage of the small screen,
+
+
+926
+00:27:50,366 --> 00:27:52,276
+the context of use, and the
+
+
+927
+00:27:52,276 --> 00:27:54,266
+Apple Watch platform components.
+
+
+928
+00:27:54,996 --> 00:27:57,376
+But, too much of anything is
+
+
+929
+00:27:57,376 --> 00:27:58,006
+unhealthy.
+
+
+930
+00:27:59,296 --> 00:28:00,936
+You need to know how this lands
+
+
+931
+00:28:01,346 --> 00:28:02,396
+with the people who you're your
+
+
+932
+00:28:02,396 --> 00:28:02,636
+app.
+
+
+933
+00:28:03,036 --> 00:28:04,886
+You need to see how people use,
+
+
+934
+00:28:05,116 --> 00:28:06,966
+or don't use your feature.
+
+
+935
+00:28:07,116 --> 00:28:08,006
+What they love and what they
+
+
+936
+00:28:08,006 --> 00:28:08,356
+don't.
+
+
+937
+00:28:08,706 --> 00:28:10,096
+So, I'm going to turn it over to
+
+
+938
+00:28:10,096 --> 00:28:11,906
+Jake to walk you through a
+
+
+939
+00:28:11,906 --> 00:28:14,036
+real-life example of what we've
+
+
+940
+00:28:14,036 --> 00:28:15,196
+learned over the past three
+
+
+941
+00:28:15,196 --> 00:28:17,456
+versions of the WWDC app.
+
+
+942
+00:28:18,516 --> 00:28:25,166
+[ Applause ]
+
+
+943
+00:28:25,666 --> 00:28:26,326
+>> Thank you, Doug.
+
+
+944
+00:28:27,606 --> 00:28:29,386
+My name is Jake Behrens, and I'm
+
+
+945
+00:28:29,386 --> 00:28:30,836
+the Apple Watch Technologies
+
+
+946
+00:28:30,836 --> 00:28:31,606
+Evangelist.
+
+
+947
+00:28:32,336 --> 00:28:33,736
+Now, as well as being an
+
+
+948
+00:28:33,736 --> 00:28:36,126
+evangelist, I'm also an engineer
+
+
+949
+00:28:36,126 --> 00:28:38,566
+on the WWDC App.
+
+
+950
+00:28:39,476 --> 00:28:41,636
+At Apple we're pretty secretive
+
+
+951
+00:28:41,636 --> 00:28:43,536
+about our development process.
+
+
+952
+00:28:43,796 --> 00:28:46,126
+But today I want to do something
+
+
+953
+00:28:46,126 --> 00:28:46,616
+different.
+
+
+954
+00:28:47,196 --> 00:28:49,496
+I want to pull back that curtain
+
+
+955
+00:28:49,746 --> 00:28:51,036
+and I want to give you a
+
+
+956
+00:28:51,036 --> 00:28:53,506
+behind-the-scenes look at how we
+
+
+957
+00:28:53,506 --> 00:28:56,226
+developed the WWDC app on
+
+
+958
+00:28:56,226 --> 00:28:57,076
+watchOS.
+
+
+959
+00:28:57,426 --> 00:28:59,516
+Version by version, over the
+
+
+960
+00:28:59,516 --> 00:29:01,246
+last three years.
+
+
+961
+00:29:01,806 --> 00:29:03,736
+Now, I want to share with you
+
+
+962
+00:29:03,736 --> 00:29:06,656
+our experiences and our missteps
+
+
+963
+00:29:06,656 --> 00:29:07,466
+along the way.
+
+
+964
+00:29:08,466 --> 00:29:10,376
+In doing this, I'm hoping to
+
+
+965
+00:29:10,376 --> 00:29:12,536
+impart some things for you to
+
+
+966
+00:29:12,536 --> 00:29:15,016
+gain insight on and areas for
+
+
+967
+00:29:15,016 --> 00:29:17,306
+you to stay mindful of as you
+
+
+968
+00:29:17,306 --> 00:29:19,606
+develop your own Watch apps.
+
+
+969
+00:29:20,096 --> 00:29:21,806
+Maybe you have a great app
+
+
+970
+00:29:21,806 --> 00:29:23,206
+that's doing well in the store.
+
+
+971
+00:29:23,606 --> 00:29:25,216
+Or maybe you're just starting to
+
+
+972
+00:29:25,216 --> 00:29:26,466
+think of creating one.
+
+
+973
+00:29:27,066 --> 00:29:29,016
+Either way, I think you'll come
+
+
+974
+00:29:29,016 --> 00:29:29,916
+away with something.
+
+
+975
+00:29:31,296 --> 00:29:34,646
+So, our current app is optimized
+
+
+976
+00:29:34,646 --> 00:29:37,986
+for watchOS 3.2, but to give you
+
+
+977
+00:29:37,986 --> 00:29:39,866
+the full scope of where we've
+
+
+978
+00:29:39,946 --> 00:29:42,366
+been and how we got here, we
+
+
+979
+00:29:42,366 --> 00:29:43,856
+need to step all the way back.
+
+
+980
+00:29:44,476 --> 00:29:46,756
+All the way back to watchOS 1.
+
+
+981
+00:29:46,986 --> 00:29:48,916
+And the app that we created for
+
+
+982
+00:29:49,396 --> 00:29:49,463
+it.
+
+
+983
+00:29:49,926 --> 00:29:52,626
+Now, when watchOS 1 was
+
+
+984
+00:29:52,626 --> 00:29:56,846
+released, well WWDC 2015 was
+
+
+985
+00:29:56,846 --> 00:29:57,976
+right around the corner.
+
+
+986
+00:29:58,466 --> 00:30:00,636
+And we were already preparing
+
+
+987
+00:30:00,636 --> 00:30:02,586
+the iOS app for that year.
+
+
+988
+00:30:03,496 --> 00:30:04,836
+Now, this app would let you
+
+
+989
+00:30:04,836 --> 00:30:06,946
+browse the schedule, add
+
+
+990
+00:30:06,946 --> 00:30:08,286
+favorite sessions.
+
+
+991
+00:30:09,026 --> 00:30:10,686
+Look at the maps to the venue,
+
+
+992
+00:30:11,236 --> 00:30:12,936
+read news throughout the week,
+
+
+993
+00:30:13,396 --> 00:30:16,146
+and view streaming videos, or
+
+
+994
+00:30:16,146 --> 00:30:17,926
+videos from previous years.
+
+
+995
+00:30:18,846 --> 00:30:20,586
+But, now it was time for us to
+
+
+996
+00:30:20,586 --> 00:30:22,496
+decide what contextually made
+
+
+997
+00:30:22,496 --> 00:30:23,576
+sense for the wrist.
+
+
+998
+00:30:24,896 --> 00:30:27,536
+So, we had these 4 areas.
+
+
+999
+00:30:28,236 --> 00:30:30,706
+First we had schedule, and the
+
+
+1000
+00:30:30,706 --> 00:30:32,126
+schedule was a no-brainer.
+
+
+1001
+00:30:32,326 --> 00:30:34,146
+That was the most crucial piece
+
+
+1002
+00:30:34,146 --> 00:30:35,386
+of information that we could
+
+
+1003
+00:30:35,386 --> 00:30:37,806
+provide at a glance to somebody
+
+
+1004
+00:30:37,806 --> 00:30:38,776
+on the go.
+
+
+1005
+00:30:39,736 --> 00:30:42,726
+Next, we had maps.
+
+
+1006
+00:30:42,726 --> 00:30:43,926
+Maps not so much.
+
+
+1007
+00:30:44,416 --> 00:30:45,706
+When you're at the actual
+
+
+1008
+00:30:45,706 --> 00:30:47,236
+conference, the venue is
+
+
+1009
+00:30:47,236 --> 00:30:49,666
+typically one building with
+
+
+1010
+00:30:49,666 --> 00:30:51,286
+multiple floors and different
+
+
+1011
+00:30:51,286 --> 00:30:52,266
+rooms everywhere.
+
+
+1012
+00:30:52,616 --> 00:30:54,146
+And to get through that
+
+
+1013
+00:30:54,146 --> 00:30:56,306
+experience on Apple Watch, well
+
+
+1014
+00:30:56,306 --> 00:30:57,396
+we felt that that was best
+
+
+1015
+00:30:57,396 --> 00:30:59,036
+served through the iOS app.
+
+
+1016
+00:30:59,356 --> 00:31:00,666
+And really, honestly, if you're
+
+
+1017
+00:31:00,926 --> 00:31:02,456
+staring that iOS app at the
+
+
+1018
+00:31:02,456 --> 00:31:04,176
+conference, you could also look
+
+
+1019
+00:31:04,176 --> 00:31:06,016
+up into the real world and see
+
+
+1020
+00:31:06,016 --> 00:31:07,046
+the signs around you.
+
+
+1021
+00:31:07,506 --> 00:31:08,556
+I know it's farfetched.
+
+
+1022
+00:31:09,376 --> 00:31:10,206
+But you can.
+
+
+1023
+00:31:11,356 --> 00:31:13,306
+Then, we had news.
+
+
+1024
+00:31:13,616 --> 00:31:15,426
+And for the time being we
+
+
+1025
+00:31:15,426 --> 00:31:16,916
+thought that news made sense.
+
+
+1026
+00:31:17,176 --> 00:31:18,846
+We have critical information
+
+
+1027
+00:31:18,846 --> 00:31:19,746
+that we shared throughout the
+
+
+1028
+00:31:19,746 --> 00:31:21,626
+week, and so we wanted to make
+
+
+1029
+00:31:21,626 --> 00:31:23,236
+sure that somebody had access to
+
+
+1030
+00:31:23,236 --> 00:31:23,986
+that quickly.
+
+
+1031
+00:31:24,836 --> 00:31:26,556
+More on that in a bit.
+
+
+1032
+00:31:27,006 --> 00:31:28,696
+Finally, we had videos.
+
+
+1033
+00:31:28,966 --> 00:31:31,206
+And videos, we cut right away.
+
+
+1034
+00:31:31,806 --> 00:31:33,086
+It just didn't seem to make
+
+
+1035
+00:31:33,146 --> 00:31:34,876
+sense to have that long form
+
+
+1036
+00:31:34,876 --> 00:31:36,296
+video on your wrist.
+
+
+1037
+00:31:36,676 --> 00:31:38,116
+Could you imagine holding your
+
+
+1038
+00:31:38,116 --> 00:31:39,856
+wrist for 40 to 60 minutes.
+
+
+1039
+00:31:40,636 --> 00:31:42,326
+The arm gets a lot more beefier
+
+
+1040
+00:31:42,326 --> 00:31:42,936
+than the other.
+
+
+1041
+00:31:43,966 --> 00:31:46,806
+So, we have these key areas.
+
+
+1042
+00:31:47,216 --> 00:31:48,726
+So, let's look at the original
+
+
+1043
+00:31:48,726 --> 00:31:50,926
+Photoshop mockup that we made
+
+
+1044
+00:31:51,096 --> 00:31:52,166
+for Watch app.
+
+
+1045
+00:31:52,756 --> 00:31:53,856
+You can see here that we
+
+
+1046
+00:31:53,856 --> 00:31:55,276
+actually took the schedule and
+
+
+1047
+00:31:55,276 --> 00:31:56,896
+we broke it down into three
+
+
+1048
+00:31:56,896 --> 00:31:57,856
+distinct areas.
+
+
+1049
+00:31:58,256 --> 00:32:00,246
+We had sessions, labs and
+
+
+1050
+00:32:00,246 --> 00:32:00,966
+favorites.
+
+
+1051
+00:32:01,616 --> 00:32:03,446
+And we also had the news.
+
+
+1052
+00:32:04,156 --> 00:32:05,456
+Now, why did we break the
+
+
+1053
+00:32:05,456 --> 00:32:06,366
+schedule part?
+
+
+1054
+00:32:06,796 --> 00:32:08,486
+Well, there was a lot of
+
+
+1055
+00:32:08,486 --> 00:32:10,056
+information to get across.
+
+
+1056
+00:32:10,476 --> 00:32:11,576
+I mean at the beginning of the
+
+
+1057
+00:32:11,576 --> 00:32:13,726
+week, you'd have over 100
+
+
+1058
+00:32:13,726 --> 00:32:16,166
+sessions, and over 100 labs.
+
+
+1059
+00:32:16,456 --> 00:32:17,886
+And we wanted to make sure that
+
+
+1060
+00:32:17,886 --> 00:32:19,126
+someone could get around
+
+
+1061
+00:32:19,126 --> 00:32:20,896
+exploring all of that content
+
+
+1062
+00:32:20,896 --> 00:32:22,216
+really easily and quickly.
+
+
+1063
+00:32:23,356 --> 00:32:25,736
+Now, full disclosure here.
+
+
+1064
+00:32:26,226 --> 00:32:28,266
+This should've sent up huge red
+
+
+1065
+00:32:28,266 --> 00:32:30,206
+flags that we were putting way
+
+
+1066
+00:32:30,206 --> 00:32:31,596
+too much information into the
+
+
+1067
+00:32:31,596 --> 00:32:32,946
+Watch app experience.
+
+
+1068
+00:32:33,446 --> 00:32:34,916
+We were trying to break apart
+
+
+1069
+00:32:34,916 --> 00:32:36,646
+all this content so that you
+
+
+1070
+00:32:36,646 --> 00:32:38,206
+could get in and out.
+
+
+1071
+00:32:39,006 --> 00:32:40,686
+Well we'll talk more about this.
+
+
+1072
+00:32:41,226 --> 00:32:42,396
+I mean, I can definitely
+
+
+1073
+00:32:42,396 --> 00:32:44,396
+sympathize that when you first
+
+
+1074
+00:32:44,396 --> 00:32:46,576
+start creating apps for watchOS,
+
+
+1075
+00:32:47,006 --> 00:32:48,686
+it's a whole different ballgame.
+
+
+1076
+00:32:49,026 --> 00:32:50,236
+You're used to creating these
+
+
+1077
+00:32:50,306 --> 00:32:52,496
+deep, reach experiences for iOS
+
+
+1078
+00:32:53,166 --> 00:32:54,636
+and you start stripping things
+
+
+1079
+00:32:54,636 --> 00:32:56,306
+away for a great Watch app
+
+
+1080
+00:32:56,306 --> 00:32:58,066
+experience, but then you start
+
+
+1081
+00:32:58,066 --> 00:32:59,676
+feeling like you're stripping
+
+
+1082
+00:32:59,676 --> 00:33:00,606
+too much away.
+
+
+1083
+00:33:00,746 --> 00:33:02,266
+And it's getting too minimal.
+
+
+1084
+00:33:02,796 --> 00:33:04,886
+And you start feeling that maybe
+
+
+1085
+00:33:04,886 --> 00:33:06,996
+you should add more features to
+
+
+1086
+00:33:06,996 --> 00:33:10,066
+add "value" to that experience.
+
+
+1087
+00:33:10,426 --> 00:33:11,716
+And we've learned over time that
+
+
+1088
+00:33:11,716 --> 00:33:13,196
+that's just not the case.
+
+
+1089
+00:33:13,376 --> 00:33:15,086
+But when you first start out,
+
+
+1090
+00:33:15,086 --> 00:33:17,096
+that's a tricky scenario to get
+
+
+1091
+00:33:17,096 --> 00:33:17,546
+into.
+
+
+1092
+00:33:18,766 --> 00:33:20,766
+So, we also had news.
+
+
+1093
+00:33:21,036 --> 00:33:22,116
+Let's talk about that.
+
+
+1094
+00:33:23,036 --> 00:33:25,676
+With news, we found taking that
+
+
+1095
+00:33:25,676 --> 00:33:27,826
+plan and actually implementing
+
+
+1096
+00:33:27,826 --> 00:33:30,196
+it and walking around for a week
+
+
+1097
+00:33:30,196 --> 00:33:32,366
+with it on our wrist, that you
+
+
+1098
+00:33:32,366 --> 00:33:34,426
+had these news items, but the
+
+
+1099
+00:33:34,426 --> 00:33:35,806
+items were a bit long.
+
+
+1100
+00:33:35,806 --> 00:33:37,066
+So, we couldn't have just one
+
+
+1101
+00:33:37,066 --> 00:33:38,426
+gigantic list of them.
+
+
+1102
+00:33:38,756 --> 00:33:40,496
+So, we actually needed to tap on
+
+
+1103
+00:33:40,496 --> 00:33:42,306
+news, get to a list of news
+
+
+1104
+00:33:42,306 --> 00:33:44,276
+items, then you tap on one, and
+
+
+1105
+00:33:44,276 --> 00:33:46,456
+go into the details, where then
+
+
+1106
+00:33:46,456 --> 00:33:47,626
+you had all this text that you
+
+
+1107
+00:33:47,626 --> 00:33:48,546
+would scroll through.
+
+
+1108
+00:33:48,826 --> 00:33:50,206
+And just the whole process of
+
+
+1109
+00:33:50,206 --> 00:33:51,726
+going in that navigation
+
+
+1110
+00:33:51,726 --> 00:33:53,546
+structure and back out to get to
+
+
+1111
+00:33:53,546 --> 00:33:54,796
+your sessions, it was just
+
+
+1112
+00:33:54,796 --> 00:33:55,796
+taking too long.
+
+
+1113
+00:33:56,206 --> 00:33:58,126
+So, we actually decided before
+
+
+1114
+00:33:58,126 --> 00:33:59,626
+release to even cut that out.
+
+
+1115
+00:34:01,736 --> 00:34:03,636
+So, here's what we actually
+
+
+1116
+00:34:03,966 --> 00:34:06,086
+shipped for watchOS 1.
+
+
+1117
+00:34:06,656 --> 00:34:08,755
+We shipped the sessions, labs
+
+
+1118
+00:34:08,886 --> 00:34:09,746
+and favorites.
+
+
+1119
+00:34:10,426 --> 00:34:13,186
+Now if I were Doug right now I
+
+
+1120
+00:34:13,186 --> 00:34:15,255
+would say is this legible?
+
+
+1121
+00:34:15,496 --> 00:34:17,766
+Yes. Is it concise?
+
+
+1122
+00:34:17,766 --> 00:34:20,426
+Well, it wasn't as concise as it
+
+
+1123
+00:34:20,466 --> 00:34:21,156
+could have been.
+
+
+1124
+00:34:21,896 --> 00:34:23,266
+So, we needed to learn from that
+
+
+1125
+00:34:23,266 --> 00:34:24,016
+experience.
+
+
+1126
+00:34:24,896 --> 00:34:26,516
+Now, we had some built-in
+
+
+1127
+00:34:26,516 --> 00:34:28,996
+analytics to see where people
+
+
+1128
+00:34:28,996 --> 00:34:31,045
+were landing and what area of
+
+
+1129
+00:34:31,045 --> 00:34:32,646
+the app that they really valued
+
+
+1130
+00:34:32,906 --> 00:34:34,636
+to make it really personal for
+
+
+1131
+00:34:34,636 --> 00:34:34,746
+them.
+
+
+1132
+00:34:34,746 --> 00:34:36,916
+And we found that they loved
+
+
+1133
+00:34:36,916 --> 00:34:38,356
+this list of favorites.
+
+
+1134
+00:34:39,106 --> 00:34:41,045
+Even from this list, we had
+
+
+1135
+00:34:41,116 --> 00:34:42,315
+where you could tap on one of
+
+
+1136
+00:34:42,315 --> 00:34:43,996
+these favorites and then it
+
+
+1137
+00:34:43,996 --> 00:34:45,096
+would give you more detailed
+
+
+1138
+00:34:45,096 --> 00:34:46,786
+information; like the session
+
+
+1139
+00:34:46,786 --> 00:34:47,485
+description.
+
+
+1140
+00:34:48,045 --> 00:34:49,315
+And you could use the force
+
+
+1141
+00:34:49,315 --> 00:34:50,826
+touch menu to favorite or
+
+
+1142
+00:34:50,826 --> 00:34:52,085
+unfavorite a session.
+
+
+1143
+00:34:52,545 --> 00:34:55,585
+But, what we found was that that
+
+
+1144
+00:34:55,585 --> 00:34:58,286
+process was taking too long, and
+
+
+1145
+00:34:58,606 --> 00:35:00,136
+not a lot of people were using
+
+
+1146
+00:35:00,136 --> 00:35:00,376
+this.
+
+
+1147
+00:35:00,836 --> 00:35:02,616
+They were all using that list
+
+
+1148
+00:35:02,616 --> 00:35:04,056
+right in the middle, because it
+
+
+1149
+00:35:04,056 --> 00:35:05,706
+was the things they cared about
+
+
+1150
+00:35:05,706 --> 00:35:07,156
+and it was really quick to
+
+
+1151
+00:35:07,156 --> 00:35:07,886
+glance at.
+
+
+1152
+00:35:07,936 --> 00:35:11,256
+I mean we now know, as of
+
+
+1153
+00:35:11,306 --> 00:35:13,996
+watchOS 3 that really great
+
+
+1154
+00:35:14,146 --> 00:35:16,926
+tasks on Apple Watch take about
+
+
+1155
+00:35:16,926 --> 00:35:18,046
+2 seconds.
+
+
+1156
+00:35:18,596 --> 00:35:20,766
+And for a non-nervous,
+
+
+1157
+00:35:20,766 --> 00:35:22,516
+non-jittery person it takes
+
+
+1158
+00:35:22,516 --> 00:35:24,966
+about 2 seconds to say 2
+
+
+1159
+00:35:24,966 --> 00:35:25,726
+seconds.
+
+
+1160
+00:35:27,256 --> 00:35:29,416
+But, this whole process of going
+
+
+1161
+00:35:29,416 --> 00:35:30,936
+down the navigation stack and
+
+
+1162
+00:35:30,936 --> 00:35:33,156
+coming back up, it was actually
+
+
+1163
+00:35:33,156 --> 00:35:35,156
+taking more like 5 seconds.
+
+
+1164
+00:35:35,306 --> 00:35:36,756
+And that was just too long of an
+
+
+1165
+00:35:36,756 --> 00:35:37,576
+experience.
+
+
+1166
+00:35:37,576 --> 00:35:41,176
+So, what did we learn?
+
+
+1167
+00:35:42,016 --> 00:35:43,836
+Well, watchOS 1 taught us that
+
+
+1168
+00:35:44,006 --> 00:35:45,816
+we really needed to identify
+
+
+1169
+00:35:45,816 --> 00:35:47,286
+what was most essential.
+
+
+1170
+00:35:47,446 --> 00:35:49,676
+Find that single feature.
+
+
+1171
+00:35:49,756 --> 00:35:51,246
+That one thing that you can
+
+
+1172
+00:35:51,246 --> 00:35:54,176
+provide for the person.
+
+
+1173
+00:35:54,716 --> 00:35:56,176
+All right.
+
+
+1174
+00:35:56,416 --> 00:35:59,386
+So, we moved from watchOS 1 and
+
+
+1175
+00:35:59,386 --> 00:35:59,956
+we learned.
+
+
+1176
+00:36:00,236 --> 00:36:01,646
+And we went to watchOS 2 the
+
+
+1177
+00:36:01,646 --> 00:36:02,326
+next year.
+
+
+1178
+00:36:02,566 --> 00:36:05,086
+And we needed to do one key
+
+
+1179
+00:36:05,086 --> 00:36:06,496
+thing in watchOS 2.
+
+
+1180
+00:36:06,496 --> 00:36:08,706
+We needed to focus.
+
+
+1181
+00:36:09,436 --> 00:36:10,146
+Seriously.
+
+
+1182
+00:36:10,836 --> 00:36:12,736
+We really needed to focus on the
+
+
+1183
+00:36:12,736 --> 00:36:13,636
+feature set.
+
+
+1184
+00:36:13,936 --> 00:36:16,366
+We needed to focus on the person
+
+
+1185
+00:36:16,576 --> 00:36:17,636
+and what they wanted.
+
+
+1186
+00:36:18,976 --> 00:36:20,426
+We needed to hone in on those
+
+
+1187
+00:36:20,426 --> 00:36:22,226
+principles that Doug has spoken
+
+
+1188
+00:36:22,226 --> 00:36:22,616
+about.
+
+
+1189
+00:36:23,176 --> 00:36:24,366
+And we needed to re-ask
+
+
+1190
+00:36:24,366 --> 00:36:26,636
+ourselves, what do people really
+
+
+1191
+00:36:26,636 --> 00:36:28,716
+want on their wrist.
+
+
+1192
+00:36:29,436 --> 00:36:30,916
+But not just anyone.
+
+
+1193
+00:36:31,436 --> 00:36:33,616
+What do people really want from
+
+
+1194
+00:36:33,616 --> 00:36:36,086
+the WWDC app on their wrist.
+
+
+1195
+00:36:36,386 --> 00:36:37,986
+What is the one thing?
+
+
+1196
+00:36:37,986 --> 00:36:39,576
+That one piece of information
+
+
+1197
+00:36:39,576 --> 00:36:40,786
+that we can provide them?
+
+
+1198
+00:36:41,816 --> 00:36:45,026
+Well, we knew from feedback that
+
+
+1199
+00:36:45,026 --> 00:36:46,966
+they really loved the glance in
+
+
+1200
+00:36:46,966 --> 00:36:49,156
+watchOS 1 because it showed them
+
+
+1201
+00:36:49,156 --> 00:36:52,056
+this concise view of what was
+
+
+1202
+00:36:52,056 --> 00:36:52,836
+right now.
+
+
+1203
+00:36:52,836 --> 00:36:54,546
+What was upcoming.
+
+
+1204
+00:36:54,966 --> 00:36:57,326
+And they really liked that.
+
+
+1205
+00:36:57,606 --> 00:36:59,696
+So, we knew that we needed to
+
+
+1206
+00:36:59,696 --> 00:37:01,346
+provide the schedule in some
+
+
+1207
+00:37:01,346 --> 00:37:02,796
+sort of way, right.
+
+
+1208
+00:37:03,646 --> 00:37:04,836
+So, we looked at what we were
+
+
+1209
+00:37:04,836 --> 00:37:05,626
+offering here.
+
+
+1210
+00:37:05,716 --> 00:37:06,826
+We had sessions.
+
+
+1211
+00:37:07,206 --> 00:37:08,576
+We had labs, and we had
+
+
+1212
+00:37:08,576 --> 00:37:09,306
+favorites.
+
+
+1213
+00:37:09,596 --> 00:37:12,126
+Well, as I said it was a lot of
+
+
+1214
+00:37:12,126 --> 00:37:13,806
+content if you wanted to
+
+
+1215
+00:37:13,806 --> 00:37:14,666
+explore.
+
+
+1216
+00:37:15,046 --> 00:37:17,816
+So, we decided maybe we should
+
+
+1217
+00:37:17,816 --> 00:37:19,736
+just take sessions and labs out.
+
+
+1218
+00:37:20,556 --> 00:37:22,446
+Maybe we should go all the way
+
+
+1219
+00:37:22,746 --> 00:37:25,066
+and just make it very, very
+
+
+1220
+00:37:25,066 --> 00:37:27,226
+personal of an experience and
+
+
+1221
+00:37:27,226 --> 00:37:28,946
+really focus on favorites.
+
+
+1222
+00:37:30,566 --> 00:37:32,106
+We had this master detail
+
+
+1223
+00:37:32,106 --> 00:37:34,666
+navigation structure and so we
+
+
+1224
+00:37:34,666 --> 00:37:36,566
+looked at it spread out, and we
+
+
+1225
+00:37:36,566 --> 00:37:38,056
+just said, well this seems
+
+
+1226
+00:37:38,566 --> 00:37:39,856
+pretty straightforward.
+
+
+1227
+00:37:40,056 --> 00:37:40,936
+We're going to take this
+
+
+1228
+00:37:40,936 --> 00:37:42,506
+navigation structure and just
+
+
+1229
+00:37:42,546 --> 00:37:43,596
+condense it down.
+
+
+1230
+00:37:44,276 --> 00:37:46,516
+Get that list of favorites that
+
+
+1231
+00:37:46,516 --> 00:37:47,396
+everyone wanted.
+
+
+1232
+00:37:48,796 --> 00:37:50,116
+So, this is what we shipped for
+
+
+1233
+00:37:50,116 --> 00:37:50,996
+watchOS 2.
+
+
+1234
+00:37:51,456 --> 00:37:54,446
+We went down to only favorites.
+
+
+1235
+00:37:54,696 --> 00:37:56,846
+And now, not only did we go down
+
+
+1236
+00:37:56,846 --> 00:37:57,626
+to favorites.
+
+
+1237
+00:37:57,886 --> 00:37:59,906
+We also made it so that it was
+
+
+1238
+00:37:59,906 --> 00:38:02,556
+only favorites from now until
+
+
+1239
+00:38:02,556 --> 00:38:03,766
+the end of the conference.
+
+
+1240
+00:38:04,136 --> 00:38:05,676
+So, this was something that we
+
+
+1241
+00:38:05,676 --> 00:38:07,886
+don't even provide in the iOS
+
+
+1242
+00:38:07,886 --> 00:38:08,116
+app.
+
+
+1243
+00:38:08,346 --> 00:38:10,666
+This is a feature that is only
+
+
+1244
+00:38:10,666 --> 00:38:12,206
+on Apple Watch, right.
+
+
+1245
+00:38:12,206 --> 00:38:14,276
+On iOS you can actually look at
+
+
+1246
+00:38:14,276 --> 00:38:15,716
+your previous favorites from the
+
+
+1247
+00:38:15,716 --> 00:38:17,276
+week, because you can get that
+
+
+1248
+00:38:17,276 --> 00:38:18,236
+rich experience.
+
+
+1249
+00:38:18,236 --> 00:38:19,286
+You can explore.
+
+
+1250
+00:38:19,846 --> 00:38:21,666
+But on the Watch, it really
+
+
+1251
+00:38:21,666 --> 00:38:23,666
+makes more sense to just have
+
+
+1252
+00:38:24,166 --> 00:38:26,056
+what's now and what's coming.
+
+
+1253
+00:38:28,156 --> 00:38:30,326
+Another thing to note here is a
+
+
+1254
+00:38:30,326 --> 00:38:31,206
+small detail.
+
+
+1255
+00:38:32,056 --> 00:38:34,086
+In watchOS 1, our table section
+
+
+1256
+00:38:34,086 --> 00:38:35,926
+headers above sessions, were
+
+
+1257
+00:38:35,926 --> 00:38:37,636
+dates, and time ranges.
+
+
+1258
+00:38:38,096 --> 00:38:39,386
+Not very glanceable.
+
+
+1259
+00:38:39,816 --> 00:38:42,126
+So, what we did was we actually
+
+
+1260
+00:38:42,216 --> 00:38:44,076
+made this more legible.
+
+
+1261
+00:38:44,226 --> 00:38:47,136
+It's amazing what one word, the
+
+
+1262
+00:38:47,296 --> 00:38:49,536
+placement of one word can do for
+
+
+1263
+00:38:49,536 --> 00:38:50,886
+your apps experience.
+
+
+1264
+00:38:51,316 --> 00:38:53,446
+You can see here that we used
+
+
+1265
+00:38:53,446 --> 00:38:56,466
+words like now and upcoming to
+
+
+1266
+00:38:56,466 --> 00:38:58,976
+show you what was actually going
+
+
+1267
+00:38:58,976 --> 00:38:59,416
+on.
+
+
+1268
+00:38:59,416 --> 00:39:00,856
+You could quickly glance at the
+
+
+1269
+00:39:00,856 --> 00:39:04,006
+app and know, oh okay, I can't
+
+
+1270
+00:39:04,006 --> 00:39:05,696
+go for coffee right now because
+
+
+1271
+00:39:05,696 --> 00:39:06,696
+I'm actually supposed to be in
+
+
+1272
+00:39:06,696 --> 00:39:07,656
+this other session.
+
+
+1273
+00:39:07,946 --> 00:39:09,796
+Later, I don't have one upcoming
+
+
+1274
+00:39:09,796 --> 00:39:11,866
+until further out, so I can go.
+
+
+1275
+00:39:12,956 --> 00:39:14,816
+It's these small details that
+
+
+1276
+00:39:14,816 --> 00:39:16,626
+add to that personal experience.
+
+
+1277
+00:39:18,576 --> 00:39:21,636
+Now, in watchOS 2, we took full
+
+
+1278
+00:39:21,636 --> 00:39:23,386
+advantage of complications,
+
+
+1279
+00:39:23,386 --> 00:39:24,986
+which were introduced in watchOS
+
+
+1280
+00:39:24,986 --> 00:39:25,256
+2.
+
+
+1281
+00:39:25,626 --> 00:39:26,816
+That timeliness.
+
+
+1282
+00:39:27,506 --> 00:39:29,616
+And if people wanted to have
+
+
+1283
+00:39:29,616 --> 00:39:30,876
+their favorites on their Watch
+
+
+1284
+00:39:30,876 --> 00:39:32,776
+face, they could enable the
+
+
+1285
+00:39:32,776 --> 00:39:34,706
+large slot on the modular Watch
+
+
+1286
+00:39:34,706 --> 00:39:36,396
+face and take advantage of that.
+
+
+1287
+00:39:37,036 --> 00:39:38,686
+But we also wanted them to be
+
+
+1288
+00:39:38,686 --> 00:39:40,596
+able to get to our content no
+
+
+1289
+00:39:40,596 --> 00:39:42,446
+matter what kind of Watch face
+
+
+1290
+00:39:42,446 --> 00:39:43,036
+they used.
+
+
+1291
+00:39:43,526 --> 00:39:45,736
+And we went through a lot of
+
+
+1292
+00:39:45,736 --> 00:39:48,356
+struggle of like, do we provide
+
+
+1293
+00:39:48,546 --> 00:39:49,876
+something that just launches
+
+
+1294
+00:39:49,876 --> 00:39:51,726
+them to our app, or what can we
+
+
+1295
+00:39:51,726 --> 00:39:53,456
+provide in these smaller areas.
+
+
+1296
+00:39:53,486 --> 00:39:55,146
+And really when it came down to
+
+
+1297
+00:39:55,146 --> 00:39:56,856
+it, we found that with the
+
+
+1298
+00:39:56,856 --> 00:39:58,046
+information that we had, there
+
+
+1299
+00:39:58,046 --> 00:39:59,186
+wasn't anything that was
+
+
+1300
+00:39:59,186 --> 00:40:00,766
+amazingly valuable in that
+
+
+1301
+00:40:00,766 --> 00:40:02,616
+constrained, confined amount of
+
+
+1302
+00:40:02,616 --> 00:40:02,976
+space.
+
+
+1303
+00:40:03,676 --> 00:40:05,356
+And so, we actually went ahead
+
+
+1304
+00:40:05,356 --> 00:40:06,886
+and used launchers.
+
+
+1305
+00:40:07,166 --> 00:40:08,606
+But we made some custom ones for
+
+
+1306
+00:40:08,606 --> 00:40:10,316
+the different slot styles, so
+
+
+1307
+00:40:10,546 --> 00:40:12,366
+that you know it blended in a
+
+
+1308
+00:40:12,366 --> 00:40:13,676
+little bit more nicely with the
+
+
+1309
+00:40:13,676 --> 00:40:16,186
+experience, and we did this for
+
+
+1310
+00:40:16,186 --> 00:40:17,126
+two reasons.
+
+
+1311
+00:40:17,266 --> 00:40:18,846
+The first reason I spoke about
+
+
+1312
+00:40:18,846 --> 00:40:20,446
+was that preference factor,
+
+
+1313
+00:40:20,716 --> 00:40:21,606
+right.
+
+
+1314
+00:40:21,606 --> 00:40:22,986
+What if they use a different
+
+
+1315
+00:40:22,986 --> 00:40:24,026
+kind of watch face?
+
+
+1316
+00:40:24,026 --> 00:40:26,436
+We want to allow them to do that
+
+
+1317
+00:40:26,436 --> 00:40:28,146
+and still have quick access to
+
+
+1318
+00:40:28,146 --> 00:40:28,866
+the content.
+
+
+1319
+00:40:29,676 --> 00:40:31,416
+But, we did this for a second
+
+
+1320
+00:40:31,416 --> 00:40:32,386
+reason as well.
+
+
+1321
+00:40:33,296 --> 00:40:34,556
+App discovery.
+
+
+1322
+00:40:35,476 --> 00:40:38,596
+If you only support one or a few
+
+
+1323
+00:40:38,596 --> 00:40:40,656
+type of complication styles,
+
+
+1324
+00:40:41,276 --> 00:40:43,326
+then if they use a different
+
+
+1325
+00:40:43,326 --> 00:40:45,226
+type of Watch face, say utility,
+
+
+1326
+00:40:45,226 --> 00:40:47,436
+and we don't supply any of those
+
+
+1327
+00:40:47,436 --> 00:40:49,876
+types of utility slots of
+
+
+1328
+00:40:49,876 --> 00:40:51,536
+complications, when they go to
+
+
+1329
+00:40:51,536 --> 00:40:53,376
+configure their Watch face, they
+
+
+1330
+00:40:53,376 --> 00:40:55,036
+won't even see our app name.
+
+
+1331
+00:40:55,086 --> 00:40:57,326
+And so, they may think, well I
+
+
+1332
+00:40:57,326 --> 00:40:58,246
+guess they just don't have a
+
+
+1333
+00:40:58,246 --> 00:40:59,136
+complication.
+
+
+1334
+00:40:59,396 --> 00:41:00,396
+So, we wanted to be
+
+
+1335
+00:41:00,396 --> 00:41:01,286
+discoverable.
+
+
+1336
+00:41:01,556 --> 00:41:03,556
+And fit in to how they use Apple
+
+
+1337
+00:41:03,556 --> 00:41:04,166
+Watch.
+
+
+1338
+00:41:05,346 --> 00:41:07,666
+So, as I said, we provided
+
+
+1339
+00:41:07,666 --> 00:41:09,386
+launchers because this really is
+
+
+1340
+00:41:09,386 --> 00:41:10,106
+constrained.
+
+
+1341
+00:41:10,176 --> 00:41:12,826
+You want to talk constrained, 36
+
+
+1342
+00:41:12,826 --> 00:41:14,876
+x 36 pixels for this one.
+
+
+1343
+00:41:15,306 --> 00:41:16,576
+Right? If you want to sound
+
+
+1344
+00:41:16,576 --> 00:41:18,526
+super fancy, you can say 18
+
+
+1345
+00:41:18,526 --> 00:41:20,286
+points by 18 points at 2x,
+
+
+1346
+00:41:20,346 --> 00:41:21,626
+because it's a retina screen,
+
+
+1347
+00:41:22,506 --> 00:41:22,886
+but.
+
+
+1348
+00:41:24,316 --> 00:41:26,696
+Here for watchOS 2 what did we
+
+
+1349
+00:41:26,696 --> 00:41:27,066
+learn?
+
+
+1350
+00:41:27,786 --> 00:41:29,556
+Well, we learned that you really
+
+
+1351
+00:41:29,556 --> 00:41:30,886
+need to focus your feature set.
+
+
+1352
+00:41:31,276 --> 00:41:32,366
+Really look at what you're
+
+
+1353
+00:41:32,366 --> 00:41:35,736
+providing and hone in on what
+
+
+1354
+00:41:35,736 --> 00:41:36,756
+means the most.
+
+
+1355
+00:41:37,226 --> 00:41:39,346
+What's that one thing?
+
+
+1356
+00:41:40,706 --> 00:41:43,616
+Okay, so now we go to watchOS 2
+
+
+1357
+00:41:44,186 --> 00:41:46,446
+to watchOS 3, and where our app
+
+
+1358
+00:41:46,446 --> 00:41:47,306
+currently is.
+
+
+1359
+00:41:48,596 --> 00:41:50,106
+So, if you look at the current
+
+
+1360
+00:41:50,106 --> 00:41:51,736
+app, you may even have it right
+
+
+1361
+00:41:51,736 --> 00:41:54,386
+now, it doesn't look a whole lot
+
+
+1362
+00:41:54,386 --> 00:41:54,836
+different.
+
+
+1363
+00:41:54,836 --> 00:41:56,216
+Actually, if you look at it side
+
+
+1364
+00:41:56,216 --> 00:41:58,396
+by side with watchOS 2, you'll
+
+
+1365
+00:41:58,396 --> 00:42:00,016
+notice we didn't change the
+
+
+1366
+00:42:00,016 --> 00:42:00,856
+design at all.
+
+
+1367
+00:42:01,456 --> 00:42:02,716
+And that's because we found
+
+
+1368
+00:42:02,716 --> 00:42:04,026
+something that was working
+
+
+1369
+00:42:04,026 --> 00:42:06,356
+really well, that was applying
+
+
+1370
+00:42:06,356 --> 00:42:07,386
+these principles.
+
+
+1371
+00:42:08,306 --> 00:42:09,666
+But that doesn't mean that we
+
+
+1372
+00:42:09,666 --> 00:42:10,556
+just left it.
+
+
+1373
+00:42:11,176 --> 00:42:12,796
+We moved it to the current
+
+
+1374
+00:42:12,796 --> 00:42:14,306
+version of the OS so that we
+
+
+1375
+00:42:14,306 --> 00:42:16,446
+could take advantage of what
+
+
+1376
+00:42:16,446 --> 00:42:17,816
+that offers.
+
+
+1377
+00:42:18,526 --> 00:42:20,086
+Staying current and staying
+
+
+1378
+00:42:20,086 --> 00:42:21,826
+state-of-the-art, is just as
+
+
+1379
+00:42:21,826 --> 00:42:23,636
+important as adding new
+
+
+1380
+00:42:23,636 --> 00:42:24,326
+features.
+
+
+1381
+00:42:24,906 --> 00:42:25,996
+You don't need to add new
+
+
+1382
+00:42:25,996 --> 00:42:27,816
+features just to add them.
+
+
+1383
+00:42:28,186 --> 00:42:30,526
+So, what we did was, we added
+
+
+1384
+00:42:30,526 --> 00:42:32,036
+support for the extra-large
+
+
+1385
+00:42:32,036 --> 00:42:33,376
+complication that was now
+
+
+1386
+00:42:33,376 --> 00:42:34,826
+offered in watchOS 3.
+
+
+1387
+00:42:35,376 --> 00:42:37,246
+And it's funny, when I put this
+
+
+1388
+00:42:37,246 --> 00:42:38,786
+in the build, there was a person
+
+
+1389
+00:42:38,786 --> 00:42:40,776
+in my team, and they first saw
+
+
+1390
+00:42:40,776 --> 00:42:41,746
+it and they're like oh, this is
+
+
+1391
+00:42:41,746 --> 00:42:42,656
+really cool.
+
+
+1392
+00:42:42,766 --> 00:42:43,806
+And they were really excited and
+
+
+1393
+00:42:43,806 --> 00:42:45,526
+they're like yeah, WWDC is
+
+
+1394
+00:42:45,526 --> 00:42:47,106
+coming up I can put it all on my
+
+
+1395
+00:42:47,106 --> 00:42:47,956
+Watch face.
+
+
+1396
+00:42:48,326 --> 00:42:49,516
+I was like great.
+
+
+1397
+00:42:50,606 --> 00:42:51,126
+That was me.
+
+
+1398
+00:42:51,476 --> 00:42:55,846
+But the point is that it adhered
+
+
+1399
+00:42:55,846 --> 00:42:57,866
+to whatever your preference is.
+
+
+1400
+00:42:57,866 --> 00:42:59,226
+Whatever you want that
+
+
+1401
+00:42:59,226 --> 00:43:00,786
+experience to be, you can still
+
+
+1402
+00:43:00,786 --> 00:43:02,636
+get into that content quickly
+
+
+1403
+00:43:02,636 --> 00:43:03,416
+and easily.
+
+
+1404
+00:43:04,396 --> 00:43:06,016
+Another thing that we did was,
+
+
+1405
+00:43:06,016 --> 00:43:08,316
+we made use of background app
+
+
+1406
+00:43:08,316 --> 00:43:10,046
+refresh, which was introduced in
+
+
+1407
+00:43:10,046 --> 00:43:10,916
+watchOS 3.
+
+
+1408
+00:43:11,226 --> 00:43:13,076
+So, that if you added our app
+
+
+1409
+00:43:13,076 --> 00:43:14,966
+into the dock, or if you had it
+
+
+1410
+00:43:14,966 --> 00:43:17,396
+set as an active complication on
+
+
+1411
+00:43:17,396 --> 00:43:19,226
+your active Watch face, it would
+
+
+1412
+00:43:19,226 --> 00:43:20,916
+follow you through the day,
+
+
+1413
+00:43:21,136 --> 00:43:22,626
+updating the schedule and the
+
+
+1414
+00:43:22,686 --> 00:43:24,286
+time, so that when you went to
+
+
+1415
+00:43:24,286 --> 00:43:25,746
+the app for more information, it
+
+
+1416
+00:43:25,746 --> 00:43:27,176
+was already up to date.
+
+
+1417
+00:43:27,176 --> 00:43:29,136
+And it already should be.
+
+
+1418
+00:43:30,326 --> 00:43:34,436
+Timely. So, even though we've
+
+
+1419
+00:43:34,436 --> 00:43:37,396
+only had the app out for about
+
+
+1420
+00:43:37,396 --> 00:43:39,626
+two weeks, we've already learned
+
+
+1421
+00:43:39,896 --> 00:43:41,996
+that keeping what works is
+
+
+1422
+00:43:41,996 --> 00:43:42,916
+really important.
+
+
+1423
+00:43:43,156 --> 00:43:44,306
+It's very valuable.
+
+
+1424
+00:43:44,306 --> 00:43:45,976
+Like I said just moving to the
+
+
+1425
+00:43:45,976 --> 00:43:49,386
+current platform in OS and
+
+
+1426
+00:43:49,386 --> 00:43:51,386
+taking advantage of it is just
+
+
+1427
+00:43:51,386 --> 00:43:52,106
+as important.
+
+
+1428
+00:43:53,506 --> 00:43:55,356
+Now, you may think that this is
+
+
+1429
+00:43:55,356 --> 00:43:56,766
+where we end, right?
+
+
+1430
+00:43:56,766 --> 00:43:57,646
+This is our journey.
+
+
+1431
+00:43:57,746 --> 00:43:59,716
+We're on watchOS 3, we're done.
+
+
+1432
+00:44:00,386 --> 00:44:02,506
+But, as I said I want to do
+
+
+1433
+00:44:02,506 --> 00:44:03,716
+something different, and I want
+
+
+1434
+00:44:03,716 --> 00:44:05,136
+to go through this planning
+
+
+1435
+00:44:05,136 --> 00:44:06,976
+exercise and this thought.
+
+
+1436
+00:44:07,436 --> 00:44:09,356
+So, let's actually look into the
+
+
+1437
+00:44:09,356 --> 00:44:09,966
+future.
+
+
+1438
+00:44:10,546 --> 00:44:12,116
+With the announcement this week
+
+
+1439
+00:44:12,116 --> 00:44:14,246
+of watchOS 4, we're excited as
+
+
+1440
+00:44:14,246 --> 00:44:15,536
+well to use some of the new
+
+
+1441
+00:44:15,536 --> 00:44:16,326
+enhancements.
+
+
+1442
+00:44:16,836 --> 00:44:18,126
+But, we really need to answer
+
+
+1443
+00:44:18,126 --> 00:44:20,326
+that question can we make this
+
+
+1444
+00:44:20,376 --> 00:44:20,756
+better?
+
+
+1445
+00:44:20,756 --> 00:44:22,526
+Can we make the app experience
+
+
+1446
+00:44:22,606 --> 00:44:24,686
+even more concise, or even more
+
+
+1447
+00:44:24,686 --> 00:44:26,196
+legible than before.
+
+
+1448
+00:44:26,566 --> 00:44:28,366
+And I actually think we can.
+
+
+1449
+00:44:28,556 --> 00:44:29,716
+I've been kicking around some
+
+
+1450
+00:44:29,716 --> 00:44:30,256
+ideas.
+
+
+1451
+00:44:30,666 --> 00:44:32,756
+Doug hasn't really paid too much
+
+
+1452
+00:44:32,756 --> 00:44:34,786
+attention to them, but we'll get
+
+
+1453
+00:44:34,826 --> 00:44:35,226
+there.
+
+
+1454
+00:44:35,896 --> 00:44:37,366
+So, this is our current app on
+
+
+1455
+00:44:37,366 --> 00:44:38,326
+watchOS 3.
+
+
+1456
+00:44:38,716 --> 00:44:40,416
+And one thing that I'd like to
+
+
+1457
+00:44:40,416 --> 00:44:42,576
+do is sometimes when you have a
+
+
+1458
+00:44:42,576 --> 00:44:43,986
+session title that's pretty
+
+
+1459
+00:44:43,986 --> 00:44:46,576
+long, it actually almost takes
+
+
+1460
+00:44:46,576 --> 00:44:48,036
+up the entire screen.
+
+
+1461
+00:44:48,216 --> 00:44:50,326
+Well, what if we just used the
+
+
+1462
+00:44:50,326 --> 00:44:52,196
+entire screen per session.
+
+
+1463
+00:44:52,536 --> 00:44:53,946
+What if we were able to bump up
+
+
+1464
+00:44:53,946 --> 00:44:55,356
+the text size to make it more
+
+
+1465
+00:44:55,356 --> 00:44:55,976
+legible.
+
+
+1466
+00:44:56,166 --> 00:44:57,596
+Make it more concise so that it
+
+
+1467
+00:44:57,596 --> 00:44:59,736
+is only one session at a time.
+
+
+1468
+00:45:00,846 --> 00:45:02,736
+So, this is kind of what I put
+
+
+1469
+00:45:02,736 --> 00:45:03,986
+together so far.
+
+
+1470
+00:45:04,286 --> 00:45:06,296
+And I found that we can actually
+
+
+1471
+00:45:06,296 --> 00:45:07,666
+make use of the new vertical
+
+
+1472
+00:45:07,666 --> 00:45:10,046
+pagination introduced in watchOS
+
+
+1473
+00:45:10,046 --> 00:45:10,476
+4.
+
+
+1474
+00:45:10,906 --> 00:45:12,346
+And in the new vertical
+
+
+1475
+00:45:12,346 --> 00:45:14,426
+pagination, you don't have to
+
+
+1476
+00:45:14,426 --> 00:45:16,366
+have a master detail navigation
+
+
+1477
+00:45:16,366 --> 00:45:16,946
+structure.
+
+
+1478
+00:45:17,236 --> 00:45:19,176
+You can actually just have those
+
+
+1479
+00:45:19,176 --> 00:45:21,256
+pages as the core part of your
+
+
+1480
+00:45:21,946 --> 00:45:22,026
+app.
+
+
+1481
+00:45:22,026 --> 00:45:24,386
+And so, by doing this, we can
+
+
+1482
+00:45:24,456 --> 00:45:26,606
+increase the text size, so that
+
+
+1483
+00:45:26,606 --> 00:45:28,986
+we can use the full screen per
+
+
+1484
+00:45:28,986 --> 00:45:29,676
+session.
+
+
+1485
+00:45:30,036 --> 00:45:31,396
+And allow the design to breathe
+
+
+1486
+00:45:31,396 --> 00:45:32,256
+a little bit.
+
+
+1487
+00:45:32,256 --> 00:45:34,216
+Also, we can add in the track
+
+
+1488
+00:45:34,216 --> 00:45:34,596
+name.
+
+
+1489
+00:45:35,276 --> 00:45:37,496
+And then, we can take those
+
+
+1490
+00:45:37,496 --> 00:45:39,436
+table session headers and we can
+
+
+1491
+00:45:39,436 --> 00:45:41,396
+move those up into the status
+
+
+1492
+00:45:41,466 --> 00:45:41,766
+bar.
+
+
+1493
+00:45:42,106 --> 00:45:43,656
+And so, we can still have that
+
+
+1494
+00:45:43,656 --> 00:45:46,956
+experience of now, upcoming,
+
+
+1495
+00:45:47,416 --> 00:45:48,256
+tomorrow.
+
+
+1496
+00:45:48,256 --> 00:45:51,316
+I think that this is something
+
+
+1497
+00:45:51,316 --> 00:45:52,526
+that could actually work.
+
+
+1498
+00:45:54,696 --> 00:45:57,756
+So, this also gives us something
+
+
+1499
+00:45:57,756 --> 00:45:58,166
+else.
+
+
+1500
+00:45:59,066 --> 00:46:01,356
+By going to this, we can improve
+
+
+1501
+00:46:01,496 --> 00:46:02,316
+Handoff.
+
+
+1502
+00:46:02,846 --> 00:46:04,596
+We currently support Handoff,
+
+
+1503
+00:46:04,866 --> 00:46:06,636
+but as the current app is a list
+
+
+1504
+00:46:06,636 --> 00:46:08,196
+of favorites, when you use
+
+
+1505
+00:46:08,196 --> 00:46:10,006
+Handoff, you arrive in an iOS
+
+
+1506
+00:46:10,006 --> 00:46:12,196
+app at the list of favorites.
+
+
+1507
+00:46:12,536 --> 00:46:14,616
+And that's pretty good, but I
+
+
+1508
+00:46:14,616 --> 00:46:15,856
+think that we can now take that
+
+
+1509
+00:46:15,856 --> 00:46:18,476
+a step further by focusing on
+
+
+1510
+00:46:18,476 --> 00:46:20,626
+one session per page, we can
+
+
+1511
+00:46:20,626 --> 00:46:23,466
+actually change the information
+
+
+1512
+00:46:23,466 --> 00:46:26,066
+per page that handoff uses and
+
+
+1513
+00:46:26,066 --> 00:46:27,666
+get you directly into the
+
+
+1514
+00:46:27,666 --> 00:46:28,296
+session.
+
+
+1515
+00:46:28,566 --> 00:46:30,106
+So, that right when you swipe up
+
+
+1516
+00:46:30,106 --> 00:46:31,796
+from your lock screen, you can
+
+
+1517
+00:46:31,796 --> 00:46:33,396
+get into the app, you can tap
+
+
+1518
+00:46:33,396 --> 00:46:35,206
+the play button, and bam, you're
+
+
+1519
+00:46:35,206 --> 00:46:36,136
+right in the video.
+
+
+1520
+00:46:36,436 --> 00:46:37,396
+I think that would be a lot
+
+
+1521
+00:46:37,396 --> 00:46:38,626
+smoother of a process.
+
+
+1522
+00:46:39,416 --> 00:46:41,706
+So, like I said, we'll have to
+
+
+1523
+00:46:41,706 --> 00:46:42,066
+see.
+
+
+1524
+00:46:42,236 --> 00:46:43,416
+We're going to keep looking at
+
+
+1525
+00:46:43,416 --> 00:46:44,536
+things and iterating.
+
+
+1526
+00:46:44,906 --> 00:46:46,866
+It's funny because even when we
+
+
+1527
+00:46:46,866 --> 00:46:49,266
+were planning this session, Doug
+
+
+1528
+00:46:49,716 --> 00:46:51,276
+and I, we were texting back and
+
+
+1529
+00:46:51,276 --> 00:46:52,676
+forth, and we were saying, you
+
+
+1530
+00:46:52,676 --> 00:46:54,806
+know, do we actually need the
+
+
+1531
+00:46:54,806 --> 00:46:55,976
+favorites for tomorrow.
+
+
+1532
+00:46:55,976 --> 00:46:57,546
+Does that really make sense?
+
+
+1533
+00:46:57,666 --> 00:46:59,256
+And we have kind of gone back
+
+
+1534
+00:46:59,256 --> 00:47:00,796
+and forth on it of like how
+
+
+1535
+00:47:00,796 --> 00:47:01,926
+valuable that would be.
+
+
+1536
+00:47:01,926 --> 00:47:02,976
+Or if it should be like a
+
+
+1537
+00:47:02,976 --> 00:47:05,106
+rolling 24-hour window or
+
+
+1538
+00:47:05,106 --> 00:47:05,976
+something like that.
+
+
+1539
+00:47:05,976 --> 00:47:08,226
+I mean we're still continuing to
+
+
+1540
+00:47:08,256 --> 00:47:09,576
+iterate, just like you do on
+
+
+1541
+00:47:09,576 --> 00:47:10,216
+your apps.
+
+
+1542
+00:47:10,706 --> 00:47:12,866
+So, you know, we'll see where we
+
+
+1543
+00:47:12,866 --> 00:47:14,116
+land for next year.
+
+
+1544
+00:47:15,946 --> 00:47:18,286
+Now, we went version by version,
+
+
+1545
+00:47:18,336 --> 00:47:19,816
+but there are somethings that
+
+
+1546
+00:47:19,816 --> 00:47:22,046
+are evergreen on Apple Watch.
+
+
+1547
+00:47:23,316 --> 00:47:25,086
+Take for instance, notification.
+
+
+1548
+00:47:25,616 --> 00:47:27,626
+Notifications are one of the
+
+
+1549
+00:47:27,626 --> 00:47:30,486
+greatest pieces of Apple Watch.
+
+
+1550
+00:47:30,486 --> 00:47:32,146
+I mean definitely for me when
+
+
+1551
+00:47:32,146 --> 00:47:33,956
+people ask me why I love Apple
+
+
+1552
+00:47:33,956 --> 00:47:35,716
+Watch so much, that's usually
+
+
+1553
+00:47:35,716 --> 00:47:37,706
+the one thing that I rave about.
+
+
+1554
+00:47:37,956 --> 00:47:39,396
+It's like you get these
+
+
+1555
+00:47:39,396 --> 00:47:41,646
+notifications, and they're
+
+
+1556
+00:47:41,646 --> 00:47:43,216
+information coming to you.
+
+
+1557
+00:47:43,216 --> 00:47:44,306
+It's personal.
+
+
+1558
+00:47:44,616 --> 00:47:45,796
+It's relevant.
+
+
+1559
+00:47:45,886 --> 00:47:46,896
+It's contextual.
+
+
+1560
+00:47:47,186 --> 00:47:48,066
+It's amazing.
+
+
+1561
+00:47:49,076 --> 00:47:51,916
+So, we have notifications like
+
+
+1562
+00:47:51,976 --> 00:47:52,326
+these.
+
+
+1563
+00:47:52,326 --> 00:47:54,066
+Take for instance CARROT weather
+
+
+1564
+00:47:54,066 --> 00:47:54,926
+in the US.
+
+
+1565
+00:47:55,556 --> 00:47:57,626
+I set up in the app to get
+
+
+1566
+00:47:57,916 --> 00:47:59,956
+tomorrow's forecast every night
+
+
+1567
+00:47:59,956 --> 00:48:01,036
+at 9 PM.
+
+
+1568
+00:48:01,496 --> 00:48:03,616
+And what I get is the app sends
+
+
+1569
+00:48:03,616 --> 00:48:05,206
+a notification based on my
+
+
+1570
+00:48:05,206 --> 00:48:07,256
+location and it takes over the
+
+
+1571
+00:48:07,256 --> 00:48:10,156
+screen and shows me in a very
+
+
+1572
+00:48:10,326 --> 00:48:12,846
+beautiful format the high, the
+
+
+1573
+00:48:12,846 --> 00:48:15,086
+low, possible precipitation for
+
+
+1574
+00:48:15,086 --> 00:48:15,676
+tomorrow.
+
+
+1575
+00:48:15,916 --> 00:48:17,786
+And all I have to do is glance
+
+
+1576
+00:48:17,786 --> 00:48:19,596
+at that, and then I know when I
+
+
+1577
+00:48:19,596 --> 00:48:21,066
+wake up the next morning how I
+
+
+1578
+00:48:21,066 --> 00:48:21,776
+need to dress.
+
+
+1579
+00:48:21,776 --> 00:48:23,046
+How I need to prepare for my
+
+
+1580
+00:48:23,046 --> 00:48:23,376
+day.
+
+
+1581
+00:48:23,586 --> 00:48:24,886
+This is just coming to me.
+
+
+1582
+00:48:25,176 --> 00:48:26,656
+It's wonderful.
+
+
+1583
+00:48:27,636 --> 00:48:29,816
+Now, a lot of notifications that
+
+
+1584
+00:48:29,816 --> 00:48:31,986
+I get, they look like this.
+
+
+1585
+00:48:32,426 --> 00:48:35,326
+This is the default.
+
+
+1586
+00:48:36,036 --> 00:48:37,386
+Now the default looks nice and
+
+
+1587
+00:48:37,386 --> 00:48:39,866
+all but also look at this text.
+
+
+1588
+00:48:40,196 --> 00:48:41,646
+It says check out the latest
+
+
+1589
+00:48:41,646 --> 00:48:42,356
+news update.
+
+
+1590
+00:48:42,946 --> 00:48:44,336
+Well, that's not very helpful.
+
+
+1591
+00:48:44,526 --> 00:48:45,976
+Now I have to go to the app and
+
+
+1592
+00:48:46,246 --> 00:48:47,436
+check out the news update.
+
+
+1593
+00:48:47,696 --> 00:48:49,676
+OK is it relevant to me, I don't
+
+
+1594
+00:48:49,676 --> 00:48:50,086
+know.
+
+
+1595
+00:48:50,086 --> 00:48:53,466
+I guess. But with only about
+
+
+1596
+00:48:53,466 --> 00:48:55,976
+four minutes worth of work, what
+
+
+1597
+00:48:55,976 --> 00:48:57,456
+you can do is you can open your
+
+
+1598
+00:48:57,456 --> 00:48:59,266
+storyboard in your project.
+
+
+1599
+00:48:59,556 --> 00:49:01,946
+You can use the colors of your
+
+
+1600
+00:49:02,466 --> 00:49:03,656
+app and apply those.
+
+
+1601
+00:49:04,176 --> 00:49:06,236
+And you can apply them like this
+
+
+1602
+00:49:06,536 --> 00:49:09,456
+to your apps name, to the sash,
+
+
+1603
+00:49:10,196 --> 00:49:11,246
+to the background.
+
+
+1604
+00:49:11,416 --> 00:49:14,056
+You can use spacing, textiles.
+
+
+1605
+00:49:14,366 --> 00:49:15,626
+Make it more legible.
+
+
+1606
+00:49:15,716 --> 00:49:16,746
+Make it more visually
+
+
+1607
+00:49:16,746 --> 00:49:17,546
+interesting.
+
+
+1608
+00:49:18,126 --> 00:49:19,286
+You'll also notice here that
+
+
+1609
+00:49:19,286 --> 00:49:20,276
+there's more text.
+
+
+1610
+00:49:20,276 --> 00:49:21,466
+So that right when I get the
+
+
+1611
+00:49:21,466 --> 00:49:24,006
+notification, I know what it's
+
+
+1612
+00:49:24,006 --> 00:49:24,536
+about.
+
+
+1613
+00:49:25,246 --> 00:49:27,816
+Now, pay attention here, because
+
+
+1614
+00:49:27,816 --> 00:49:29,806
+this text for the notification
+
+
+1615
+00:49:30,006 --> 00:49:31,736
+is actually custom written for
+
+
+1616
+00:49:31,736 --> 00:49:32,836
+the notifications.
+
+
+1617
+00:49:33,126 --> 00:49:34,326
+Just for the notification
+
+
+1618
+00:49:34,326 --> 00:49:34,856
+payload.
+
+
+1619
+00:49:35,276 --> 00:49:37,056
+Now, the news in the app could
+
+
+1620
+00:49:37,056 --> 00:49:38,936
+be longer, include more detail.
+
+
+1621
+00:49:39,106 --> 00:49:40,096
+But this is the gist.
+
+
+1622
+00:49:40,456 --> 00:49:42,306
+This is the important piece of
+
+
+1623
+00:49:42,306 --> 00:49:43,686
+relevant information that we
+
+
+1624
+00:49:43,686 --> 00:49:44,856
+want you to see.
+
+
+1625
+00:49:46,126 --> 00:49:46,886
+Four minutes.
+
+
+1626
+00:49:47,336 --> 00:49:48,066
+I'm telling you.
+
+
+1627
+00:49:49,266 --> 00:49:51,216
+If we work our way backwards, we
+
+
+1628
+00:49:51,216 --> 00:49:52,396
+can see the short look
+
+
+1629
+00:49:52,396 --> 00:49:53,306
+notification.
+
+
+1630
+00:49:53,406 --> 00:49:55,366
+Now, this is what displays on
+
+
+1631
+00:49:55,366 --> 00:49:57,036
+Apple Watch, right when you feel
+
+
+1632
+00:49:57,036 --> 00:49:58,376
+that haptic and raise your
+
+
+1633
+00:49:58,376 --> 00:49:59,656
+wrist, when a notification
+
+
+1634
+00:49:59,656 --> 00:50:00,286
+arrives.
+
+
+1635
+00:50:00,916 --> 00:50:02,656
+It has your app icon, bit and
+
+
+1636
+00:50:02,656 --> 00:50:02,976
+beautiful.
+
+
+1637
+00:50:03,046 --> 00:50:04,946
+And it has your app name.
+
+
+1638
+00:50:05,416 --> 00:50:06,926
+Now, notice the app name is in
+
+
+1639
+00:50:06,926 --> 00:50:07,176
+white.
+
+
+1640
+00:50:08,306 --> 00:50:10,146
+Again, this is the default.
+
+
+1641
+00:50:10,486 --> 00:50:12,996
+But with one line of code in
+
+
+1642
+00:50:12,996 --> 00:50:15,056
+your payload, you can use the
+
+
+1643
+00:50:15,056 --> 00:50:17,566
+title key value pair and what
+
+
+1644
+00:50:17,566 --> 00:50:19,396
+this allows you to do is provide
+
+
+1645
+00:50:19,396 --> 00:50:21,146
+some more context as to what
+
+
+1646
+00:50:21,146 --> 00:50:23,296
+this notification is about.
+
+
+1647
+00:50:24,206 --> 00:50:26,106
+And so, what happens is this is
+
+
+1648
+00:50:26,106 --> 00:50:27,166
+what it will look like.
+
+
+1649
+00:50:27,376 --> 00:50:28,716
+When it arrives on your wrist,
+
+
+1650
+00:50:28,716 --> 00:50:30,246
+it will have your beautiful
+
+
+1651
+00:50:30,246 --> 00:50:33,176
+icon, but it will also have that
+
+
+1652
+00:50:33,276 --> 00:50:35,446
+title string between the icon
+
+
+1653
+00:50:35,546 --> 00:50:36,606
+and your app's name.
+
+
+1654
+00:50:37,206 --> 00:50:39,836
+And so, immediately, I can see
+
+
+1655
+00:50:39,836 --> 00:50:40,956
+is this relevant to my
+
+
+1656
+00:50:40,956 --> 00:50:41,776
+interests.
+
+
+1657
+00:50:41,986 --> 00:50:43,596
+Can I look at this later?
+
+
+1658
+00:50:43,696 --> 00:50:45,186
+Maybe I'm playing with my kids,
+
+
+1659
+00:50:45,186 --> 00:50:46,816
+or I'm in a meeting, right?
+
+
+1660
+00:50:47,566 --> 00:50:48,786
+And the other thing that you'll
+
+
+1661
+00:50:48,786 --> 00:50:50,886
+notice is that the app name is
+
+
+1662
+00:50:50,886 --> 00:50:52,836
+in the primary tint color for
+
+
+1663
+00:50:52,836 --> 00:50:53,386
+the app.
+
+
+1664
+00:50:53,776 --> 00:50:56,086
+So, it takes on more visual
+
+
+1665
+00:50:56,306 --> 00:50:59,566
+sensibilities of your app.
+
+
+1666
+00:50:59,806 --> 00:51:02,786
+So, truly four minutes and one
+
+
+1667
+00:51:02,786 --> 00:51:05,046
+line of additional text, can
+
+
+1668
+00:51:05,046 --> 00:51:06,536
+take you from default
+
+
+1669
+00:51:06,536 --> 00:51:09,776
+notifications, to much more
+
+
+1670
+00:51:10,466 --> 00:51:13,166
+relevant, contextual, visually
+
+
+1671
+00:51:13,166 --> 00:51:15,016
+interesting notifications.
+
+
+1672
+00:51:16,926 --> 00:51:19,646
+OK, so we've spoken about a lot
+
+
+1673
+00:51:19,646 --> 00:51:22,206
+today and planning is key.
+
+
+1674
+00:51:22,806 --> 00:51:24,476
+Really think about that process
+
+
+1675
+00:51:24,476 --> 00:51:26,376
+of planning and designing your
+
+
+1676
+00:51:26,376 --> 00:51:27,206
+Watch apps.
+
+
+1677
+00:51:27,556 --> 00:51:29,616
+I'm telling you this process
+
+
+1678
+00:51:29,616 --> 00:51:31,666
+should actually be the majority
+
+
+1679
+00:51:31,956 --> 00:51:34,386
+of the entire development cycle
+
+
+1680
+00:51:34,386 --> 00:51:35,386
+for your Watch app.
+
+
+1681
+00:51:35,746 --> 00:51:37,876
+The implementation will be a lot
+
+
+1682
+00:51:37,876 --> 00:51:39,416
+smaller timeframe.
+
+
+1683
+00:51:39,596 --> 00:51:41,386
+Then all the planning and design
+
+
+1684
+00:51:41,386 --> 00:51:42,536
+to really make a great
+
+
+1685
+00:51:42,536 --> 00:51:43,336
+experience.
+
+
+1686
+00:51:44,696 --> 00:51:47,036
+Also. try to start simple.
+
+
+1687
+00:51:47,276 --> 00:51:48,996
+You can see, even we made that
+
+
+1688
+00:51:48,996 --> 00:51:49,566
+mistake.
+
+
+1689
+00:51:49,726 --> 00:51:50,836
+We thought we were starting
+
+
+1690
+00:51:50,836 --> 00:51:53,206
+simple, but we still had more
+
+
+1691
+00:51:53,206 --> 00:51:54,756
+that we could do to make it
+
+
+1692
+00:51:54,756 --> 00:51:56,226
+concise, to make it more
+
+
+1693
+00:51:56,226 --> 00:51:56,906
+personal.
+
+
+1694
+00:51:57,186 --> 00:51:58,286
+Think about that in your own
+
+
+1695
+00:51:59,226 --> 00:51:59,366
+apps.
+
+
+1696
+00:52:00,236 --> 00:52:03,516
+Finally, iterate, refine.
+
+
+1697
+00:52:03,896 --> 00:52:06,506
+When the OS moves up to another
+
+
+1698
+00:52:06,506 --> 00:52:08,616
+version, take advantage of what
+
+
+1699
+00:52:08,616 --> 00:52:10,616
+you can, but don't feel like you
+
+
+1700
+00:52:10,616 --> 00:52:12,576
+need to completely reinvent your
+
+
+1701
+00:52:12,576 --> 00:52:14,696
+app just because it's the next
+
+
+1702
+00:52:14,696 --> 00:52:15,296
+version.
+
+
+1703
+00:52:17,886 --> 00:52:20,136
+For more information please
+
+
+1704
+00:52:20,136 --> 00:52:21,116
+check out this link.
+
+
+1705
+00:52:21,116 --> 00:52:22,556
+We've got links to our
+
+
+1706
+00:52:22,556 --> 00:52:24,236
+resources, the watchOS human
+
+
+1707
+00:52:24,236 --> 00:52:26,176
+interface guidelines and much
+
+
+1708
+00:52:26,176 --> 00:52:26,556
+more.
+
+
+1709
+00:52:27,566 --> 00:52:28,576
+There are also some related
+
+
+1710
+00:52:28,576 --> 00:52:30,036
+sessions you should definitely
+
+
+1711
+00:52:30,036 --> 00:52:31,826
+check out if you haven't, such
+
+
+1712
+00:52:31,826 --> 00:52:33,426
+as "What's New in watchOS," you
+
+
+1713
+00:52:33,426 --> 00:52:34,696
+can see what you can take
+
+
+1714
+00:52:34,696 --> 00:52:36,526
+advantage of in watchOS 4.
+
+
+1715
+00:52:37,296 --> 00:52:39,126
+With that, thank you very much.
+
+
+1716
+00:52:40,516 --> 00:52:44,500
+[ Applause ]
+

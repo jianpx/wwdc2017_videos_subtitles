@@ -1,0 +1,6134 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Cheers ]
+
+
+2
+00:00:23,516 --> 00:00:25,636
+[ Applause ]
+
+
+3
+00:00:26,136 --> 00:00:28,046
+>> Hello, welcome to Session
+
+
+4
+00:00:28,046 --> 00:00:29,726
+2010, What's New in Core Data.
+
+
+5
+00:00:30,396 --> 00:00:31,336
+I'm Melissa.
+
+
+6
+00:00:31,436 --> 00:00:32,176
+I'm one of the Core Data
+
+
+7
+00:00:32,176 --> 00:00:32,976
+engineers.
+
+
+8
+00:00:33,056 --> 00:00:34,476
+And I will be joined on stage
+
+
+9
+00:00:34,476 --> 00:00:35,816
+later by Rishi, one of my
+
+
+10
+00:00:35,816 --> 00:00:36,436
+co-workers.
+
+
+11
+00:00:37,136 --> 00:00:39,006
+And we're here to talk about all
+
+
+12
+00:00:39,006 --> 00:00:40,196
+of the stuff that we've been
+
+
+13
+00:00:40,196 --> 00:00:41,486
+working on for the last year
+
+
+14
+00:00:41,616 --> 00:00:43,056
+because it's been fun for us.
+
+
+15
+00:00:43,056 --> 00:00:44,056
+And we're hoping that you'll
+
+
+16
+00:00:44,056 --> 00:00:46,076
+find it fun and useful to work
+
+
+17
+00:00:46,076 --> 00:00:47,346
+with in your applications.
+
+
+18
+00:00:48,166 --> 00:00:49,256
+And we will hope all of the
+
+
+19
+00:00:49,256 --> 00:00:50,286
+technical problems for this
+
+
+20
+00:00:50,286 --> 00:00:51,256
+presentation have already
+
+
+21
+00:00:51,256 --> 00:00:51,676
+happened.
+
+
+22
+00:00:52,946 --> 00:00:56,126
+So what have we been up to?
+
+
+23
+00:00:56,126 --> 00:00:57,046
+We've been doing some Core
+
+
+24
+00:00:57,046 --> 00:00:58,026
+Spotlight Integration.
+
+
+25
+00:00:58,336 --> 00:00:59,886
+We've added a bunch of new
+
+
+26
+00:00:59,886 --> 00:01:00,966
+indexing APIs.
+
+
+27
+00:01:00,966 --> 00:01:02,176
+And we've added a big new
+
+
+28
+00:01:02,176 --> 00:01:03,186
+feature called Persistent
+
+
+29
+00:01:03,186 --> 00:01:03,886
+history tracking.
+
+
+30
+00:01:03,886 --> 00:01:04,936
+That is what Rishi's going to
+
+
+31
+00:01:04,936 --> 00:01:05,446
+talk about.
+
+
+32
+00:01:05,936 --> 00:01:07,256
+And it's really cool and I'm
+
+
+33
+00:01:07,256 --> 00:01:08,226
+really excited to see it
+
+
+34
+00:01:08,226 --> 00:01:08,836
+presented here.
+
+
+35
+00:01:09,896 --> 00:01:11,046
+But first Alphonse says "Hi".
+
+
+36
+00:01:11,206 --> 00:01:11,946
+He's my mascot.
+
+
+37
+00:01:11,946 --> 00:01:14,316
+I couldn't do this without him.
+
+
+38
+00:01:14,536 --> 00:01:15,356
+So CoreSpotlight.
+
+
+39
+00:01:16,346 --> 00:01:17,486
+What is Core Spotlight?
+
+
+40
+00:01:17,636 --> 00:01:19,236
+Before I talk about Core
+
+
+41
+00:01:19,236 --> 00:01:20,096
+Spotlight I want to talk a
+
+
+42
+00:01:20,096 --> 00:01:21,236
+little bit about Spotlight.
+
+
+43
+00:01:21,496 --> 00:01:22,866
+Spotlight was the original
+
+
+44
+00:01:22,866 --> 00:01:23,986
+search API, and search
+
+
+45
+00:01:23,986 --> 00:01:25,446
+technology on Mac OS 10.
+
+
+46
+00:01:25,446 --> 00:01:26,966
+It was very document centric,
+
+
+47
+00:01:27,496 --> 00:01:29,046
+which meant that the search
+
+
+48
+00:01:29,046 --> 00:01:30,166
+results that you would get back
+
+
+49
+00:01:30,496 --> 00:01:33,486
+from a customer doing a search
+
+
+50
+00:01:33,486 --> 00:01:34,916
+in the Spotlight menu would
+
+
+51
+00:01:34,916 --> 00:01:37,256
+identify the document that had
+
+
+52
+00:01:37,256 --> 00:01:38,586
+been retrieved by Spotlight, but
+
+
+53
+00:01:38,586 --> 00:01:39,816
+wouldn't actually tell you where
+
+
+54
+00:01:39,816 --> 00:01:40,976
+in the document that hit came
+
+
+55
+00:01:40,976 --> 00:01:41,226
+from.
+
+
+56
+00:01:42,056 --> 00:01:43,316
+And it was not really ideal for
+
+
+57
+00:01:43,316 --> 00:01:44,596
+databases, which as we know can
+
+
+58
+00:01:44,596 --> 00:01:45,966
+have lots and lots of records in
+
+
+59
+00:01:46,576 --> 00:01:46,666
+them.
+
+
+60
+00:01:47,596 --> 00:01:48,386
+Which brings us to Core
+
+
+61
+00:01:48,386 --> 00:01:48,876
+Spotlight.
+
+
+62
+00:01:49,396 --> 00:01:50,786
+Core Spotlight was the original
+
+
+63
+00:01:50,786 --> 00:01:52,116
+search technology on iOS.
+
+
+64
+00:01:52,516 --> 00:01:53,666
+And it was much more
+
+
+65
+00:01:53,666 --> 00:01:54,366
+database-friendly.
+
+
+66
+00:01:54,836 --> 00:01:56,486
+It would return not only the
+
+
+67
+00:01:56,486 --> 00:01:58,746
+application and the document
+
+
+68
+00:01:58,996 --> 00:02:00,566
+that the user had selected, but
+
+
+69
+00:02:00,816 --> 00:02:02,016
+it would also tell you where in
+
+
+70
+00:02:02,016 --> 00:02:02,676
+that document.
+
+
+71
+00:02:03,176 --> 00:02:04,406
+It allowed for deep linking into
+
+
+72
+00:02:04,446 --> 00:02:05,596
+your application so you could
+
+
+73
+00:02:05,596 --> 00:02:07,266
+bring up exactly the results
+
+
+74
+00:02:07,516 --> 00:02:09,246
+that your user was interested in
+
+
+75
+00:02:09,246 --> 00:02:09,515
+seeing.
+
+
+76
+00:02:09,746 --> 00:02:11,506
+Now it ships on Mac OS, as well
+
+
+77
+00:02:11,506 --> 00:02:11,996
+as on iOS.
+
+
+78
+00:02:11,996 --> 00:02:13,286
+And we thought this is a great
+
+
+79
+00:02:13,286 --> 00:02:14,606
+time to integrate with it in
+
+
+80
+00:02:14,606 --> 00:02:14,976
+Core Data.
+
+
+81
+00:02:16,536 --> 00:02:17,846
+So how does Core Spotlight work?
+
+
+82
+00:02:18,076 --> 00:02:19,196
+Well it's a lot like Spotlight.
+
+
+83
+00:02:19,606 --> 00:02:20,636
+You've got an application.
+
+
+84
+00:02:20,876 --> 00:02:21,856
+It has a bunch of data in it.
+
+
+85
+00:02:22,636 --> 00:02:24,246
+The user goes into the Spotlight
+
+
+86
+00:02:24,246 --> 00:02:25,596
+menu and looks for something
+
+
+87
+00:02:25,596 --> 00:02:26,316
+that's going to be in your
+
+
+88
+00:02:26,316 --> 00:02:26,996
+application.
+
+
+89
+00:02:27,206 --> 00:02:29,106
+For example, you know, photo
+
+
+90
+00:02:29,206 --> 00:02:29,656
+from India.
+
+
+91
+00:02:30,466 --> 00:02:33,546
+And Spotlight launch services
+
+
+92
+00:02:33,546 --> 00:02:35,006
+launches your application and
+
+
+93
+00:02:35,006 --> 00:02:36,446
+you're given a user activity
+
+
+94
+00:02:36,626 --> 00:02:39,846
+that you can use to retrieve the
+
+
+95
+00:02:39,846 --> 00:02:41,666
+information about what the user
+
+
+96
+00:02:41,666 --> 00:02:42,316
+was searching for.
+
+
+97
+00:02:43,046 --> 00:02:44,516
+Popup, you know, that specific
+
+
+98
+00:02:44,516 --> 00:02:47,256
+view so your user could see it.
+
+
+99
+00:02:47,876 --> 00:02:49,226
+As I said, it's now shipping on
+
+
+100
+00:02:49,226 --> 00:02:51,396
+Mac OS as well as iOS.
+
+
+101
+00:02:51,516 --> 00:02:52,596
+And at this point the Core
+
+
+102
+00:02:52,596 --> 00:02:53,856
+Spotlight team wants me to tell
+
+
+103
+00:02:53,856 --> 00:02:55,356
+you that you can also use the
+
+
+104
+00:02:55,356 --> 00:02:56,856
+Core Spotlight API's to access
+
+
+105
+00:02:56,856 --> 00:02:58,146
+the Spotlight search indexes
+
+
+106
+00:02:58,226 --> 00:02:59,886
+from your application, which is
+
+
+107
+00:02:59,886 --> 00:03:00,146
+cool.
+
+
+108
+00:03:00,996 --> 00:03:02,666
+And it does all of this without
+
+
+109
+00:03:02,666 --> 00:03:03,976
+scattering zero-length files all
+
+
+110
+00:03:03,976 --> 00:03:04,716
+over the file system.
+
+
+111
+00:03:05,126 --> 00:03:06,086
+And I'm really hoping that at
+
+
+112
+00:03:06,086 --> 00:03:07,216
+least some of you are mentally
+
+
+113
+00:03:07,216 --> 00:03:08,536
+cheering about this because I
+
+
+114
+00:03:08,536 --> 00:03:09,016
+sure was.
+
+
+115
+00:03:09,726 --> 00:03:12,546
+So how does it work?
+
+
+116
+00:03:12,546 --> 00:03:13,986
+There's three basic components
+
+
+117
+00:03:13,986 --> 00:03:14,726
+to the Core Spotlight
+
+
+118
+00:03:14,726 --> 00:03:15,226
+integration.
+
+
+119
+00:03:15,226 --> 00:03:17,486
+First there's -- we've
+
+
+120
+00:03:17,486 --> 00:03:18,756
+repurposed the index by
+
+
+121
+00:03:18,756 --> 00:03:20,056
+Spotlight property on NS
+
+
+122
+00:03:20,056 --> 00:03:21,576
+Property Description to indicate
+
+
+123
+00:03:21,576 --> 00:03:22,786
+that a property should be pushed
+
+
+124
+00:03:22,786 --> 00:03:23,936
+into Core Spotlight.
+
+
+125
+00:03:24,046 --> 00:03:26,506
+But we need a way to specify
+
+
+126
+00:03:26,506 --> 00:03:27,626
+what should be showing up in the
+
+
+127
+00:03:27,626 --> 00:03:28,756
+Spotlight results menu.
+
+
+128
+00:03:29,016 --> 00:03:30,416
+And that is NS Entity
+
+
+129
+00:03:30,416 --> 00:03:31,606
+Description Core Spotlight
+
+
+130
+00:03:31,606 --> 00:03:32,606
+Display Name Expression.
+
+
+131
+00:03:33,016 --> 00:03:34,156
+And of course there's an
+
+
+132
+00:03:34,206 --> 00:03:34,726
+Exporter.
+
+
+133
+00:03:34,726 --> 00:03:35,876
+That whenever you do save in
+
+
+134
+00:03:35,876 --> 00:03:37,826
+your application pushes whatever
+
+
+135
+00:03:37,826 --> 00:03:39,266
+change the user has made into
+
+
+136
+00:03:39,336 --> 00:03:41,106
+the Core Spotlight Index.
+
+
+137
+00:03:41,656 --> 00:03:43,146
+Core Spotlight Display Name
+
+
+138
+00:03:43,146 --> 00:03:45,006
+Expression is kind of the
+
+
+139
+00:03:45,006 --> 00:03:45,876
+trickiest piece of this to
+
+
+140
+00:03:45,876 --> 00:03:46,486
+understand.
+
+
+141
+00:03:46,486 --> 00:03:47,676
+It's actually an instance of NS
+
+
+142
+00:03:47,676 --> 00:03:49,256
+Expression that you set as a
+
+
+143
+00:03:49,256 --> 00:03:50,936
+property on NS Entity
+
+
+144
+00:03:50,936 --> 00:03:51,426
+Description.
+
+
+145
+00:03:52,006 --> 00:03:53,956
+And it's evaluated during the
+
+
+146
+00:03:53,956 --> 00:03:55,366
+Core Spotlight index update.
+
+
+147
+00:03:55,996 --> 00:03:57,476
+With the object -- the managed
+
+
+148
+00:03:57,476 --> 00:03:59,106
+object that's being updated as
+
+
+149
+00:03:59,106 --> 00:04:00,416
+the evaluated object parameter.
+
+
+150
+00:04:00,946 --> 00:04:01,966
+And this allows you to return
+
+
+151
+00:04:01,966 --> 00:04:03,436
+anything that can be pushed in
+
+
+152
+00:04:03,436 --> 00:04:04,216
+to Core Spotlight.
+
+
+153
+00:04:04,216 --> 00:04:05,346
+Even something that's not one of
+
+
+154
+00:04:05,346 --> 00:04:06,396
+the base Core Data types.
+
+
+155
+00:04:06,526 --> 00:04:08,126
+Like for example an instance of
+
+
+156
+00:04:08,166 --> 00:04:09,046
+CS Localized String.
+
+
+157
+00:04:09,726 --> 00:04:11,216
+By and large, these expressions
+
+
+158
+00:04:11,216 --> 00:04:12,566
+are going to evaluate Keypaths
+
+
+159
+00:04:12,566 --> 00:04:13,516
+but they could be, you know,
+
+
+160
+00:04:13,516 --> 00:04:14,436
+much more interesting.
+
+
+161
+00:04:14,436 --> 00:04:15,276
+They could be built in
+
+
+162
+00:04:15,276 --> 00:04:17,216
+functions, lowercase, uppercase,
+
+
+163
+00:04:17,216 --> 00:04:17,976
+stuff like that.
+
+
+164
+00:04:18,406 --> 00:04:19,935
+Or if you're somebody like me
+
+
+165
+00:04:19,935 --> 00:04:21,146
+they could be completely random
+
+
+166
+00:04:21,146 --> 00:04:23,196
+functions that go often dig
+
+
+167
+00:04:23,196 --> 00:04:24,576
+around in your runtime to find
+
+
+168
+00:04:24,686 --> 00:04:26,516
+instances of classes and call
+
+
+169
+00:04:26,516 --> 00:04:27,976
+just random methods on them to
+
+
+170
+00:04:27,976 --> 00:04:28,606
+get their stuff back.
+
+
+171
+00:04:28,816 --> 00:04:30,536
+I think that's cool too.
+
+
+172
+00:04:31,326 --> 00:04:33,536
+And of course, there's the NS
+
+
+173
+00:04:33,536 --> 00:04:34,566
+Core Data Spotlight Delegate,
+
+
+174
+00:04:34,566 --> 00:04:35,676
+which is like the big and
+
+
+175
+00:04:35,676 --> 00:04:36,906
+complicated piece that we wrote
+
+
+176
+00:04:36,906 --> 00:04:37,716
+that does all the work.
+
+
+177
+00:04:38,086 --> 00:04:40,636
+It implements CS Searchable
+
+
+178
+00:04:40,636 --> 00:04:41,326
+Index Delegate.
+
+
+179
+00:04:41,416 --> 00:04:42,386
+It provides default
+
+
+180
+00:04:42,386 --> 00:04:44,086
+implementation of all methods,
+
+
+181
+00:04:44,086 --> 00:04:45,086
+so you can use it straight out
+
+
+182
+00:04:45,086 --> 00:04:46,626
+of the box.
+
+
+183
+00:04:46,626 --> 00:04:47,806
+It uses separate store on a
+
+
+184
+00:04:47,806 --> 00:04:48,936
+background thread so you don't
+
+
+185
+00:04:48,936 --> 00:04:49,926
+need to worry about any of the
+
+
+186
+00:04:49,926 --> 00:04:51,226
+work that's being done by the
+
+
+187
+00:04:51,226 --> 00:04:52,976
+Spotlight Exporter blocking your
+
+
+188
+00:04:52,976 --> 00:04:54,926
+main view context from getting
+
+
+189
+00:04:54,926 --> 00:04:55,596
+its work done.
+
+
+190
+00:04:56,516 --> 00:04:57,686
+You initialize it with a NS
+
+
+191
+00:04:57,686 --> 00:04:59,406
+Persistent Store Description and
+
+
+192
+00:04:59,406 --> 00:05:00,676
+a model since it needs to know
+
+
+193
+00:05:00,676 --> 00:05:02,976
+what it's working with.
+
+
+194
+00:05:02,976 --> 00:05:04,336
+And basically you tell a
+
+
+195
+00:05:04,336 --> 00:05:05,956
+Persistent Store that it should
+
+
+196
+00:05:05,956 --> 00:05:08,606
+be exporting its data to Core
+
+
+197
+00:05:08,606 --> 00:05:10,586
+Spotlight by setting the
+
+
+198
+00:05:10,586 --> 00:05:12,826
+exporter as an option when in
+
+
+199
+00:05:12,826 --> 00:05:13,616
+when you're calling NS
+
+
+200
+00:05:13,616 --> 00:05:15,656
+Persistent Store with type on
+
+
+201
+00:05:15,656 --> 00:05:16,246
+the Persistent Store
+
+
+202
+00:05:16,246 --> 00:05:16,706
+Coordinator.
+
+
+203
+00:05:17,516 --> 00:05:19,256
+The override point on the
+
+
+204
+00:05:19,256 --> 00:05:20,246
+delegate if you don't like the
+
+
+205
+00:05:20,246 --> 00:05:22,956
+default behavior is NS Data Core
+
+
+206
+00:05:22,956 --> 00:05:25,236
+Spotlight delegate attribute set
+
+
+207
+00:05:25,236 --> 00:05:25,826
+for object.
+
+
+208
+00:05:26,236 --> 00:05:27,676
+And an override might look
+
+
+209
+00:05:27,676 --> 00:05:28,936
+something like this.
+
+
+210
+00:05:28,966 --> 00:05:30,146
+Here we've got a basic method
+
+
+211
+00:05:30,146 --> 00:05:31,816
+that goes through and gets the
+
+
+212
+00:05:31,816 --> 00:05:32,806
+attribute set return by the
+
+
+213
+00:05:32,806 --> 00:05:33,546
+super class.
+
+
+214
+00:05:34,686 --> 00:05:36,096
+It looks at the object, realizes
+
+
+215
+00:05:36,096 --> 00:05:37,006
+that this is an instance of a
+
+
+216
+00:05:37,006 --> 00:05:38,446
+photo because I've got like the
+
+
+217
+00:05:38,446 --> 00:05:40,046
+photo app and those photos have
+
+
+218
+00:05:40,046 --> 00:05:40,716
+tags.
+
+
+219
+00:05:40,796 --> 00:05:42,316
+And when somebody searches for
+
+
+220
+00:05:42,316 --> 00:05:44,366
+something-- when the user
+
+
+221
+00:05:44,366 --> 00:05:45,306
+searches for something, that
+
+
+222
+00:05:45,306 --> 00:05:46,606
+returns a hit on one of those
+
+
+223
+00:05:46,606 --> 00:05:47,896
+tags, I actually want to return
+
+
+224
+00:05:47,896 --> 00:05:49,186
+the photo that has that tag
+
+
+225
+00:05:49,186 --> 00:05:50,676
+because the tag itself is not
+
+
+226
+00:05:50,676 --> 00:05:51,396
+terribly interesting.
+
+
+227
+00:05:51,516 --> 00:05:53,206
+So I go and collapse all of the
+
+
+228
+00:05:53,206 --> 00:05:54,746
+tag information on to the photo
+
+
+229
+00:05:54,746 --> 00:05:56,516
+objects itself so that the photo
+
+
+230
+00:05:56,516 --> 00:05:58,186
+will be returned when there's a
+
+
+231
+00:05:58,186 --> 00:05:59,236
+match in Spotlight.
+
+
+232
+00:05:59,236 --> 00:06:01,446
+And then I just return the
+
+
+233
+00:06:01,446 --> 00:06:01,956
+attribute set.
+
+
+234
+00:06:01,956 --> 00:06:04,016
+And that's as much code as we
+
+
+235
+00:06:04,016 --> 00:06:05,166
+expect most of you to ever have
+
+
+236
+00:06:05,166 --> 00:06:05,926
+to write for this.
+
+
+237
+00:06:06,396 --> 00:06:08,986
+So now I'm going to do a demo.
+
+
+238
+00:06:16,446 --> 00:06:17,206
+And I've got a little
+
+
+239
+00:06:17,206 --> 00:06:17,926
+application here.
+
+
+240
+00:06:19,116 --> 00:06:21,326
+Please ignore the x Code in the
+
+
+241
+00:06:21,326 --> 00:06:23,156
+background, we'll get there.
+
+
+242
+00:06:23,956 --> 00:06:25,446
+It displays photos.
+
+
+243
+00:06:26,206 --> 00:06:28,326
+If you scroll around, look at
+
+
+244
+00:06:29,256 --> 00:06:31,976
+stuff, click on things to see,
+
+
+245
+00:06:32,226 --> 00:06:32,436
+you know?
+
+
+246
+00:06:33,816 --> 00:06:34,736
+Photos of people enjoying
+
+
+247
+00:06:34,736 --> 00:06:35,636
+themselves with a little bit of
+
+
+248
+00:06:35,636 --> 00:06:36,666
+meta data information.
+
+
+249
+00:06:37,086 --> 00:06:38,246
+But here's the interesting part.
+
+
+250
+00:06:38,856 --> 00:06:40,026
+I can now come up to Spotlight
+
+
+251
+00:06:40,966 --> 00:06:44,916
+and type in for example,
+
+
+252
+00:06:45,476 --> 00:06:47,336
+something that I know is in
+
+
+253
+00:06:48,246 --> 00:06:50,386
+Spotlight and it automatically
+
+
+254
+00:06:50,456 --> 00:06:52,166
+activates my application and
+
+
+255
+00:06:52,546 --> 00:06:54,166
+calls the application continue
+
+
+256
+00:06:54,166 --> 00:06:56,126
+user activity method with an NS
+
+
+257
+00:06:56,126 --> 00:06:56,826
+user activity.
+
+
+258
+00:06:57,386 --> 00:06:59,006
+And here I've broken in that
+
+
+259
+00:06:59,006 --> 00:07:00,366
+method so let's see what's going
+
+
+260
+00:07:00,366 --> 00:07:00,606
+on.
+
+
+261
+00:07:00,766 --> 00:07:03,536
+Well, somebody opened something
+
+
+262
+00:07:03,746 --> 00:07:04,756
+and I'm going to go dig around
+
+
+263
+00:07:04,756 --> 00:07:07,106
+in that user activities user
+
+
+264
+00:07:07,106 --> 00:07:08,086
+info because that's where all
+
+
+265
+00:07:08,086 --> 00:07:10,916
+the interesting stuff is and dig
+
+
+266
+00:07:10,916 --> 00:07:11,686
+out the identifier.
+
+
+267
+00:07:11,686 --> 00:07:13,746
+And if I print that identifier
+
+
+268
+00:07:13,746 --> 00:07:15,206
+we can see that well, the
+
+
+269
+00:07:15,206 --> 00:07:16,826
+identifier and the user info is
+
+
+270
+00:07:16,826 --> 00:07:18,416
+something that looks an awful
+
+
+271
+00:07:18,416 --> 00:07:19,796
+lot like a managed object ID
+
+
+272
+00:07:19,796 --> 00:07:21,076
+string representation.
+
+
+273
+00:07:21,546 --> 00:07:23,156
+So I'm going to turn that into a
+
+
+274
+00:07:23,516 --> 00:07:25,766
+URI and ask the persistent store
+
+
+275
+00:07:25,766 --> 00:07:27,386
+coordinator to turn that into a
+
+
+276
+00:07:27,386 --> 00:07:28,316
+managed object ID.
+
+
+277
+00:07:28,866 --> 00:07:31,606
+And then I'm just going to
+
+
+278
+00:07:31,606 --> 00:07:36,856
+continue and hey wow, I've
+
+
+279
+00:07:36,856 --> 00:07:39,726
+opened the photo that my user
+
+
+280
+00:07:39,766 --> 00:07:41,236
+requested.
+
+
+281
+00:07:42,636 --> 00:07:43,836
+Lovely, relaxing view.
+
+
+282
+00:07:44,516 --> 00:07:48,346
+And that sort of how the Core
+
+
+283
+00:07:48,346 --> 00:07:49,846
+Spotlight Integration works.
+
+
+284
+00:07:49,936 --> 00:07:51,326
+We do most of the work, you need
+
+
+285
+00:07:51,326 --> 00:07:54,936
+to implement a method that does
+
+
+286
+00:07:55,146 --> 00:07:56,196
+stuff.
+
+
+287
+00:07:57,046 --> 00:07:57,766
+So that's the Core Spotlight
+
+
+288
+00:07:57,766 --> 00:07:58,276
+Integration.
+
+
+289
+00:07:59,026 --> 00:08:02,696
+Some totally non-sharp corners,
+
+
+290
+00:08:02,696 --> 00:08:03,986
+stuff we've made easy for you.
+
+
+291
+00:08:03,986 --> 00:08:05,516
+If you decide that you want to
+
+
+292
+00:08:05,516 --> 00:08:06,356
+enable the Core Spotlight
+
+
+293
+00:08:06,356 --> 00:08:08,726
+Integration and pass an exporter
+
+
+294
+00:08:08,766 --> 00:08:10,316
+to as one of the options when
+
+
+295
+00:08:10,316 --> 00:08:11,316
+you add your store to the
+
+
+296
+00:08:11,316 --> 00:08:12,266
+persistent store coordinator.
+
+
+297
+00:08:12,266 --> 00:08:14,046
+We will automatically start
+
+
+298
+00:08:14,046 --> 00:08:15,326
+exporting to Core Spotlight on
+
+
+299
+00:08:15,326 --> 00:08:16,636
+your application's first launch.
+
+
+300
+00:08:16,846 --> 00:08:18,116
+And we will continue exporting
+
+
+301
+00:08:18,116 --> 00:08:19,486
+until we have exported all of
+
+
+302
+00:08:19,486 --> 00:08:20,516
+the data even if your
+
+
+303
+00:08:20,516 --> 00:08:22,216
+application is exited, if the
+
+
+304
+00:08:22,216 --> 00:08:23,346
+user exits your application in
+
+
+305
+00:08:23,346 --> 00:08:23,836
+the meantime.
+
+
+306
+00:08:24,276 --> 00:08:25,296
+We use the Persistent History
+
+
+307
+00:08:25,296 --> 00:08:26,456
+Tracking feature to ensure that
+
+
+308
+00:08:26,456 --> 00:08:27,576
+all of the data is pushed.
+
+
+309
+00:08:28,116 --> 00:08:28,946
+Even if your application
+
+
+310
+00:08:28,946 --> 00:08:31,256
+crashes, exits, whatever that
+
+
+311
+00:08:31,316 --> 00:08:32,206
+doesn't quite work in the seed
+
+
+312
+00:08:32,206 --> 00:08:33,106
+but it will eventually.
+
+
+313
+00:08:33,816 --> 00:08:37,885
+Some slightly sharper corners,
+
+
+314
+00:08:37,946 --> 00:08:39,226
+the Core Spotlight and Spotlight
+
+
+315
+00:08:39,226 --> 00:08:40,446
+integration aren't mutually
+
+
+316
+00:08:40,446 --> 00:08:41,866
+exclusive, you can't do both.
+
+
+317
+00:08:41,866 --> 00:08:43,226
+If you try setting both entities
+
+
+318
+00:08:43,226 --> 00:08:44,956
+to Core Spotlight, Display Name
+
+
+319
+00:08:44,956 --> 00:08:47,266
+Expression, and the property is
+
+
+320
+00:08:47,266 --> 00:08:49,776
+stored in External Record, the
+
+
+321
+00:08:49,776 --> 00:08:50,736
+model compiler is going to
+
+
+322
+00:08:50,736 --> 00:08:51,586
+complain at you.
+
+
+323
+00:08:52,156 --> 00:08:53,436
+And we don't currently track the
+
+
+324
+00:08:53,436 --> 00:08:54,626
+results of batch operations.
+
+
+325
+00:08:56,496 --> 00:08:58,106
+Some slightly sharp corners.
+
+
+326
+00:08:58,346 --> 00:08:59,406
+This first one is something I
+
+
+327
+00:08:59,406 --> 00:09:00,446
+discovered while debugging
+
+
+328
+00:09:00,446 --> 00:09:02,086
+because I built all of my unit
+
+
+329
+00:09:02,086 --> 00:09:03,326
+tests in a separate framework,
+
+
+330
+00:09:03,396 --> 00:09:05,676
+which is run by XCTest, which
+
+
+331
+00:09:05,676 --> 00:09:06,876
+doesn't have this entitlement,
+
+
+332
+00:09:06,876 --> 00:09:08,356
+which made it very confusing as
+
+
+333
+00:09:08,356 --> 00:09:09,056
+to why I couldn't talk to
+
+
+334
+00:09:09,056 --> 00:09:09,486
+Spotlight.
+
+
+335
+00:09:10,346 --> 00:09:12,136
+Whatever application is trying
+
+
+336
+00:09:12,136 --> 00:09:13,156
+to talk to Spotlight, needs to
+
+
+337
+00:09:13,156 --> 00:09:13,486
+have the
+
+
+338
+00:09:13,486 --> 00:09:15,686
+com.apple.application-identifier
+
+
+339
+00:09:16,246 --> 00:09:16,776
+entitlement.
+
+
+340
+00:09:16,776 --> 00:09:17,896
+Most of you are going to get
+
+
+341
+00:09:17,896 --> 00:09:19,096
+this by default, but if you're
+
+
+342
+00:09:19,096 --> 00:09:20,486
+writing your unit tests, which
+
+
+343
+00:09:20,516 --> 00:09:22,826
+are run by XCTtest be aware of
+
+
+344
+00:09:22,826 --> 00:09:23,416
+this.
+
+
+345
+00:09:23,526 --> 00:09:24,486
+And of course you're going to
+
+
+346
+00:09:24,486 --> 00:09:25,316
+need to handle the search
+
+
+347
+00:09:25,316 --> 00:09:26,696
+result.
+
+
+348
+00:09:26,996 --> 00:09:27,986
+You need to implement
+
+
+349
+00:09:27,986 --> 00:09:30,926
+Application, Continue User
+
+
+350
+00:09:30,926 --> 00:09:32,216
+Activity on your application
+
+
+351
+00:09:32,216 --> 00:09:33,796
+delegate and you know, put
+
+
+352
+00:09:33,796 --> 00:09:35,406
+whatever you'd like in there.
+
+
+353
+00:09:35,406 --> 00:09:37,736
+We saw this on screen or the
+
+
+354
+00:09:37,736 --> 00:09:38,976
+demo, but I'm just walk through
+
+
+355
+00:09:38,976 --> 00:09:39,436
+it here.
+
+
+356
+00:09:39,916 --> 00:09:40,786
+This is the method you'd be
+
+
+357
+00:09:40,786 --> 00:09:41,406
+implementing.
+
+
+358
+00:09:41,756 --> 00:09:43,266
+Pretty simple, grab the User
+
+
+359
+00:09:43,266 --> 00:09:44,496
+Activity user info.
+
+
+360
+00:09:45,366 --> 00:09:47,766
+The identifier manage object ID
+
+
+361
+00:09:47,766 --> 00:09:49,486
+is stashed in there under KCS
+
+
+362
+00:09:49,486 --> 00:09:50,636
+Searchable Item Activity
+
+
+363
+00:09:50,636 --> 00:09:51,266
+Identifier.
+
+
+364
+00:09:51,266 --> 00:09:53,296
+Just turn that into a managed
+
+
+365
+00:09:53,296 --> 00:09:55,246
+object ID and then you can do
+
+
+366
+00:09:55,246 --> 00:09:56,036
+whatever you'd like.
+
+
+367
+00:09:57,046 --> 00:09:59,516
+Watch a new window, zoom to the
+
+
+368
+00:09:59,516 --> 00:10:00,696
+correct view, whatever.
+
+
+369
+00:10:01,996 --> 00:10:03,956
+There are however some really
+
+
+370
+00:10:03,956 --> 00:10:04,896
+sharp corners involved.
+
+
+371
+00:10:05,186 --> 00:10:06,276
+Which is that if you were using
+
+
+372
+00:10:06,276 --> 00:10:07,666
+the old Spotlight integration,
+
+
+373
+00:10:07,666 --> 00:10:09,646
+it's going to be up to you to
+
+
+374
+00:10:09,646 --> 00:10:12,136
+delete your old reference files
+
+
+375
+00:10:12,136 --> 00:10:13,236
+if you had them on disc, because
+
+
+376
+00:10:13,236 --> 00:10:14,056
+we can't know if there was
+
+
+377
+00:10:14,056 --> 00:10:15,206
+semantic meaning to those.
+
+
+378
+00:10:15,206 --> 00:10:18,506
+And the Core Spotlight API's are
+
+
+379
+00:10:18,676 --> 00:10:20,156
+x86 only, which means that this
+
+
+380
+00:10:20,156 --> 00:10:21,886
+feature is x86 only.
+
+
+381
+00:10:21,886 --> 00:10:22,976
+So it's time to upgrade your
+
+
+382
+00:10:22,976 --> 00:10:23,706
+applications people.
+
+
+383
+00:10:25,276 --> 00:10:27,966
+And that's Core Spotlight.
+
+
+384
+00:10:28,296 --> 00:10:30,626
+We've also added a New Indexing
+
+
+385
+00:10:30,626 --> 00:10:30,866
+API.
+
+
+386
+00:10:32,886 --> 00:10:33,786
+So what is indexing?
+
+
+387
+00:10:34,036 --> 00:10:35,266
+Indexing is a way that allows
+
+
+388
+00:10:35,266 --> 00:10:36,516
+you to configure your database
+
+
+389
+00:10:36,516 --> 00:10:37,426
+to do faster searching.
+
+
+390
+00:10:38,456 --> 00:10:40,276
+You can have multiple indexes,
+
+
+391
+00:10:40,676 --> 00:10:41,706
+each of which can have multiple
+
+
+392
+00:10:41,706 --> 00:10:42,776
+columns, and a column can
+
+
+393
+00:10:42,776 --> 00:10:43,856
+actually belong to multiple
+
+
+394
+00:10:43,856 --> 00:10:44,426
+indexes.
+
+
+395
+00:10:44,426 --> 00:10:45,726
+So this allows you to set up a
+
+
+396
+00:10:45,726 --> 00:10:47,506
+lot of indexes that the database
+
+
+397
+00:10:47,506 --> 00:10:49,116
+can use to choose the most
+
+
+398
+00:10:49,116 --> 00:10:50,636
+efficient index for whatever
+
+
+399
+00:10:50,636 --> 00:10:52,346
+query it's trying to execute.
+
+
+400
+00:10:52,346 --> 00:10:53,336
+It will basically look at the
+
+
+401
+00:10:53,336 --> 00:10:54,716
+aware clause and say, oh I'm
+
+
+402
+00:10:54,716 --> 00:10:55,706
+trying to use these columns I'll
+
+
+403
+00:10:55,706 --> 00:10:56,896
+use this index.
+
+
+404
+00:10:56,896 --> 00:11:00,066
+And now I'm going to do a little
+
+
+405
+00:11:00,066 --> 00:11:01,366
+bit of a digression on indexing
+
+
+406
+00:11:01,366 --> 00:11:02,416
+for those of you, you know,
+
+
+407
+00:11:02,416 --> 00:11:03,256
+aren't database heads.
+
+
+408
+00:11:04,136 --> 00:11:05,826
+The basic form of indexing that
+
+
+409
+00:11:05,826 --> 00:11:06,766
+supported everywhere by
+
+
+410
+00:11:06,766 --> 00:11:08,986
+everything is a Binary Index.
+
+
+411
+00:11:09,046 --> 00:11:11,176
+But these are very strict
+
+
+412
+00:11:11,176 --> 00:11:11,926
+comparison only.
+
+
+413
+00:11:11,926 --> 00:11:13,046
+They basically look at the bits
+
+
+414
+00:11:13,046 --> 00:11:14,126
+and say are these bits the same?
+
+
+415
+00:11:14,126 --> 00:11:16,116
+And if not, you know, it's not
+
+
+416
+00:11:16,116 --> 00:11:17,996
+an index head.
+
+
+417
+00:11:18,196 --> 00:11:20,596
+But over time more types of
+
+
+418
+00:11:20,596 --> 00:11:22,186
+indexes have become popular and
+
+
+419
+00:11:22,186 --> 00:11:22,966
+something that's really
+
+
+420
+00:11:22,966 --> 00:11:25,206
+especially nowadays is super
+
+
+421
+00:11:25,206 --> 00:11:27,226
+useful is an RTree Index, which
+
+
+422
+00:11:27,226 --> 00:11:28,736
+is a type of index that's
+
+
+423
+00:11:28,736 --> 00:11:30,216
+optimized for doing range base
+
+
+424
+00:11:30,216 --> 00:11:30,596
+searching.
+
+
+425
+00:11:30,776 --> 00:11:32,626
+So a binary index sort of looks
+
+
+426
+00:11:32,626 --> 00:11:33,046
+like this.
+
+
+427
+00:11:33,046 --> 00:11:33,886
+This is the kind of data you
+
+
+428
+00:11:33,886 --> 00:11:34,976
+might have, a bunch of -- you
+
+
+429
+00:11:34,976 --> 00:11:36,886
+know, unit dimensional stuff.
+
+
+430
+00:11:36,886 --> 00:11:38,166
+And if you build a BTree on it
+
+
+431
+00:11:38,166 --> 00:11:39,046
+you end up with something that
+
+
+432
+00:11:39,046 --> 00:11:40,696
+looks a lot like this.
+
+
+433
+00:11:41,526 --> 00:11:43,266
+You know for every node that all
+
+
+434
+00:11:43,266 --> 00:11:44,656
+of the nodes -- child nodes to
+
+
+435
+00:11:44,656 --> 00:11:47,496
+the left are smaller valued than
+
+
+436
+00:11:47,686 --> 00:11:49,556
+the parent node and all the
+
+
+437
+00:11:49,856 --> 00:11:51,056
+nodes to the right are larger
+
+
+438
+00:11:51,056 --> 00:11:52,346
+valued and you just navigate
+
+
+439
+00:11:52,346 --> 00:11:53,286
+down very, very simply.
+
+
+440
+00:11:54,056 --> 00:11:55,456
+But RTree Data often looks a lot
+
+
+441
+00:11:55,456 --> 00:11:56,326
+more like this.
+
+
+442
+00:11:56,326 --> 00:11:57,686
+You end up having lots of, you
+
+
+443
+00:11:57,686 --> 00:11:59,366
+know, odd shapes,
+
+
+444
+00:11:59,366 --> 00:12:00,696
+multidimensional things.
+
+
+445
+00:12:00,906 --> 00:12:02,546
+They're often overlapping in
+
+
+446
+00:12:02,546 --> 00:12:03,706
+weird and odd ways.
+
+
+447
+00:12:04,096 --> 00:12:05,736
+And there's no really great way
+
+
+448
+00:12:05,736 --> 00:12:07,756
+to organize those in a unit
+
+
+449
+00:12:07,756 --> 00:12:09,296
+directional linear Binary tree.
+
+
+450
+00:12:09,776 --> 00:12:11,716
+And RTree Data often is stored
+
+
+451
+00:12:11,716 --> 00:12:12,406
+more like this.
+
+
+452
+00:12:12,406 --> 00:12:14,016
+You have a range zero, which is
+
+
+453
+00:12:14,016 --> 00:12:15,216
+the minimum bounding blocks
+
+
+454
+00:12:15,216 --> 00:12:17,376
+around all of its subcomponents
+
+
+455
+00:12:17,456 --> 00:12:19,066
+or its set elements.
+
+
+456
+00:12:19,396 --> 00:12:21,106
+For example range element fully
+
+
+457
+00:12:21,106 --> 00:12:23,596
+contains the ranges R6 and R10.
+
+
+458
+00:12:23,796 --> 00:12:26,506
+And R6 in turn has a single
+
+
+459
+00:12:26,506 --> 00:12:28,346
+child R7, which has more
+
+
+460
+00:12:28,346 --> 00:12:28,706
+children.
+
+
+461
+00:12:28,706 --> 00:12:30,056
+This is actually a slightly
+
+
+462
+00:12:30,056 --> 00:12:31,516
+unbalanced RTree but oh well,
+
+
+463
+00:12:31,546 --> 00:12:33,676
+we'll live with it.
+
+
+464
+00:12:34,516 --> 00:12:36,616
+The current indexing APIs, well
+
+
+465
+00:12:36,616 --> 00:12:37,416
+we have two of them.
+
+
+466
+00:12:38,046 --> 00:12:40,236
+You can create a single property
+
+
+467
+00:12:40,236 --> 00:12:42,486
+index by calling an NS Attribute
+
+
+468
+00:12:42,486 --> 00:12:44,016
+Description is Indexed.
+
+
+469
+00:12:44,266 --> 00:12:45,646
+Set that property and we'll
+
+
+470
+00:12:45,676 --> 00:12:46,606
+create an index on it.
+
+
+471
+00:12:46,706 --> 00:12:48,136
+If you want to do a multi column
+
+
+472
+00:12:48,136 --> 00:12:49,846
+index you'll call NS Entity
+
+
+473
+00:12:49,846 --> 00:12:51,196
+Description compound Indexes.
+
+
+474
+00:12:51,566 --> 00:12:52,726
+And that allows you to create an
+
+
+475
+00:12:52,726 --> 00:12:53,826
+index that has, you know, three,
+
+
+476
+00:12:53,826 --> 00:12:55,016
+four, five columns in it.
+
+
+477
+00:12:55,576 --> 00:12:56,786
+But both of these API's
+
+
+478
+00:12:56,816 --> 00:12:58,886
+automatically and only create a
+
+
+479
+00:12:58,886 --> 00:13:01,536
+Binary Index in ascending order.
+
+
+480
+00:13:02,106 --> 00:13:04,376
+And we kind of wanted to evolve
+
+
+481
+00:13:04,506 --> 00:13:05,696
+the Core Data APIs, make them
+
+
+482
+00:13:05,696 --> 00:13:07,236
+ore powerful, a lot of them
+
+
+483
+00:13:07,236 --> 00:13:08,406
+specifying new and interesting
+
+
+484
+00:13:08,406 --> 00:13:10,376
+things, more configurable.
+
+
+485
+00:13:10,666 --> 00:13:12,396
+So we've added a bunch of new
+
+
+486
+00:13:12,396 --> 00:13:13,306
+model classes.
+
+
+487
+00:13:14,296 --> 00:13:15,856
+First is NS Fetch Index
+
+
+488
+00:13:15,856 --> 00:13:17,916
+Description, NS Fetch Element
+
+
+489
+00:13:17,916 --> 00:13:19,516
+Description, and we've added a
+
+
+490
+00:13:19,516 --> 00:13:20,756
+new method on NS Entity
+
+
+491
+00:13:20,756 --> 00:13:22,646
+Description indexes which takes
+
+
+492
+00:13:22,806 --> 00:13:24,386
+a Fetch Index Description as
+
+
+493
+00:13:24,386 --> 00:13:26,726
+it's -- an array of Fetch index
+
+
+494
+00:13:26,726 --> 00:13:27,916
+descriptions as its parameter.
+
+
+495
+00:13:28,766 --> 00:13:29,876
+And we've added some functions
+
+
+496
+00:13:29,876 --> 00:13:31,396
+to control whether the database
+
+
+497
+00:13:31,396 --> 00:13:32,566
+should or should not use a
+
+
+498
+00:13:32,566 --> 00:13:34,316
+specific index when its
+
+
+499
+00:13:34,316 --> 00:13:35,576
+evaluating a given query.
+
+
+500
+00:13:35,616 --> 00:13:37,766
+And we've added index by, which
+
+
+501
+00:13:37,766 --> 00:13:39,086
+allows you to say, hey really
+
+
+502
+00:13:39,086 --> 00:13:39,946
+use this index.
+
+
+503
+00:13:40,526 --> 00:13:42,406
+And no index has existed for
+
+
+504
+00:13:42,406 --> 00:13:43,416
+awhile and it's a way of saying
+
+
+505
+00:13:43,916 --> 00:13:45,016
+I know better than you and I
+
+
+506
+00:13:45,016 --> 00:13:45,846
+know better than your query
+
+
+507
+00:13:45,846 --> 00:13:47,146
+optimizer, don't use an index
+
+
+508
+00:13:47,146 --> 00:13:49,346
+for this specific component of
+
+
+509
+00:13:49,346 --> 00:13:50,076
+the where clause.
+
+
+510
+00:13:50,656 --> 00:13:54,056
+NS Fetch Index Element
+
+
+511
+00:13:54,056 --> 00:13:55,456
+Description is sort of the basic
+
+
+512
+00:13:55,456 --> 00:13:55,956
+component.
+
+
+513
+00:13:55,956 --> 00:13:57,576
+It allows you to specify an
+
+
+514
+00:13:58,136 --> 00:13:59,406
+Index Element, basically a
+
+
+515
+00:13:59,406 --> 00:14:00,096
+single property.
+
+
+516
+00:14:01,006 --> 00:14:02,236
+You can specify the type of
+
+
+517
+00:14:02,236 --> 00:14:03,396
+index that should be created on
+
+
+518
+00:14:03,396 --> 00:14:04,296
+that property, whether it's
+
+
+519
+00:14:04,296 --> 00:14:06,406
+going to be Binary or an RTree.
+
+
+520
+00:14:07,066 --> 00:14:08,426
+And if it's Binary index it also
+
+
+521
+00:14:08,426 --> 00:14:09,626
+has you specify a direction,
+
+
+522
+00:14:09,776 --> 00:14:10,746
+ascending or descending.
+
+
+523
+00:14:10,746 --> 00:14:12,656
+And this can be important if
+
+
+524
+00:14:12,656 --> 00:14:13,526
+you're doing certain types of
+
+
+525
+00:14:13,526 --> 00:14:13,996
+searches.
+
+
+526
+00:14:13,996 --> 00:14:14,866
+For example if you're doing a
+
+
+527
+00:14:14,866 --> 00:14:16,336
+male search you want to start
+
+
+528
+00:14:16,336 --> 00:14:17,716
+with the most recent data first,
+
+
+529
+00:14:17,996 --> 00:14:19,146
+instead of the oldest data
+
+
+530
+00:14:19,146 --> 00:14:19,596
+first.
+
+
+531
+00:14:19,596 --> 00:14:21,636
+So direction changes the order
+
+
+532
+00:14:21,636 --> 00:14:24,616
+in which the database will look
+
+
+533
+00:14:24,616 --> 00:14:25,866
+at the contents of the index.
+
+
+534
+00:14:26,446 --> 00:14:30,436
+A Fetch Index Description allows
+
+
+535
+00:14:30,436 --> 00:14:32,066
+you to combine a bunch of Fetch
+
+
+536
+00:14:32,066 --> 00:14:33,786
+Index Elements into a single
+
+
+537
+00:14:33,786 --> 00:14:35,516
+index, which you'll give a name
+
+
+538
+00:14:36,346 --> 00:14:37,956
+and optionally you can set a
+
+
+539
+00:14:37,956 --> 00:14:40,486
+predicate that says only put
+
+
+540
+00:14:40,486 --> 00:14:41,846
+rows matching this predicate
+
+
+541
+00:14:41,846 --> 00:14:42,506
+into the index.
+
+
+542
+00:14:43,646 --> 00:14:44,826
+It also does some validation of
+
+
+543
+00:14:44,826 --> 00:14:45,956
+the index composition to make
+
+
+544
+00:14:45,956 --> 00:14:48,266
+sure the index you've created is
+
+
+545
+00:14:48,576 --> 00:14:49,106
+reasonable.
+
+
+546
+00:14:49,566 --> 00:14:52,046
+Some Sharp Corners here, you
+
+
+547
+00:14:52,046 --> 00:14:53,176
+can't mix and match element
+
+
+548
+00:14:53,176 --> 00:14:54,776
+types right now.
+
+
+549
+00:14:55,146 --> 00:14:56,376
+It's either going to be an RTree
+
+
+550
+00:14:56,556 --> 00:14:57,766
+or a Binary index.
+
+
+551
+00:14:58,496 --> 00:15:00,146
+Range indexes can only be
+
+
+552
+00:15:00,146 --> 00:15:01,866
+created on numeric properties
+
+
+553
+00:15:01,866 --> 00:15:03,406
+less than or equal to 32 bit.
+
+
+554
+00:15:03,406 --> 00:15:04,666
+That's a restriction of the
+
+
+555
+00:15:04,666 --> 00:15:06,646
+underlying SQLite database.
+
+
+556
+00:15:06,866 --> 00:15:08,306
+If you're creating your own
+
+
+557
+00:15:08,306 --> 00:15:10,606
+incremental store and that's a
+
+
+558
+00:15:10,606 --> 00:15:12,026
+restriction -- that's a problem
+
+
+559
+00:15:12,026 --> 00:15:13,006
+for you, let us know and we'll
+
+
+560
+00:15:13,006 --> 00:15:13,926
+see what we can do about it.
+
+
+561
+00:15:14,416 --> 00:15:17,126
+But Range -- properties that are
+
+
+562
+00:15:17,126 --> 00:15:19,306
+being put in a Ranged Index also
+
+
+563
+00:15:19,306 --> 00:15:20,026
+can't be optional.
+
+
+564
+00:15:20,656 --> 00:15:21,666
+Range of null is a little bit
+
+
+565
+00:15:21,666 --> 00:15:23,146
+undefined right now.
+
+
+566
+00:15:23,706 --> 00:15:24,676
+And if you're building your
+
+
+567
+00:15:24,676 --> 00:15:26,596
+model in code and we know some
+
+
+568
+00:15:26,596 --> 00:15:27,496
+of you do it, and I've helped
+
+
+569
+00:15:27,496 --> 00:15:29,086
+some of you at previous WWDC's.
+
+
+570
+00:15:29,086 --> 00:15:31,636
+If you change your entities
+
+
+571
+00:15:31,636 --> 00:15:33,106
+structurally after you've set
+
+
+572
+00:15:33,106 --> 00:15:35,136
+indexes, then we're just going
+
+
+573
+00:15:35,136 --> 00:15:35,916
+to drop the index.
+
+
+574
+00:15:36,126 --> 00:15:37,236
+And that actually applies for
+
+
+575
+00:15:37,236 --> 00:15:38,296
+the entire entity hierarchy.
+
+
+576
+00:15:38,376 --> 00:15:40,076
+If you add or remove an entity
+
+
+577
+00:15:40,076 --> 00:15:41,466
+in the hierarchy or add or
+
+
+578
+00:15:41,466 --> 00:15:42,636
+remove properties on any of
+
+
+579
+00:15:42,636 --> 00:15:44,276
+those entities, we can no longer
+
+
+580
+00:15:44,276 --> 00:15:45,556
+be sure the index is valid so
+
+
+581
+00:15:45,556 --> 00:15:46,926
+we're just going to drop it.
+
+
+582
+00:15:46,956 --> 00:15:47,526
+Do it last.
+
+
+583
+00:15:50,856 --> 00:15:52,536
+As you may know from previous
+
+
+584
+00:15:52,666 --> 00:15:55,126
+versions, changing the indexes
+
+
+585
+00:15:55,176 --> 00:15:57,406
+on an entity doesn't actually
+
+
+586
+00:15:57,406 --> 00:15:58,386
+change the entities version
+
+
+587
+00:15:58,386 --> 00:16:00,206
+Hash, which means that there's
+
+
+588
+00:16:00,206 --> 00:16:01,986
+not going to be migration when
+
+
+589
+00:16:02,606 --> 00:16:05,456
+the user first launches your new
+
+
+590
+00:16:05,456 --> 00:16:06,936
+version of your application with
+
+
+591
+00:16:07,106 --> 00:16:07,946
+the new indexes.
+
+
+592
+00:16:08,436 --> 00:16:09,116
+So there's not going to be a
+
+
+593
+00:16:09,116 --> 00:16:09,676
+performance head.
+
+
+594
+00:16:09,766 --> 00:16:11,216
+On the other side it's not going
+
+
+595
+00:16:11,216 --> 00:16:12,896
+to cause a migration so they're
+
+
+596
+00:16:12,896 --> 00:16:13,656
+not going to get updated
+
+
+597
+00:16:13,656 --> 00:16:14,076
+indexes.
+
+
+598
+00:16:14,076 --> 00:16:16,126
+If you want to cause the index
+
+
+599
+00:16:16,186 --> 00:16:17,406
+of migration to happen and for
+
+
+600
+00:16:17,406 --> 00:16:18,486
+the indexes to be updated,
+
+
+601
+00:16:18,486 --> 00:16:19,726
+you'll need to call the --
+
+
+602
+00:16:19,826 --> 00:16:21,236
+Update the model's version Hash
+
+
+603
+00:16:21,236 --> 00:16:22,836
+Identifier and that will trigger
+
+
+604
+00:16:22,836 --> 00:16:23,406
+a migration.
+
+
+605
+00:16:23,446 --> 00:16:25,926
+The SQL store is going to ignore
+
+
+606
+00:16:25,926 --> 00:16:26,926
+any indexes it doesn't
+
+
+607
+00:16:26,926 --> 00:16:27,506
+understand.
+
+
+608
+00:16:27,596 --> 00:16:29,686
+So what that means is that if
+
+
+609
+00:16:29,686 --> 00:16:31,006
+you open your database after you
+
+
+610
+00:16:31,006 --> 00:16:32,486
+think you've added indexes and
+
+
+611
+00:16:32,486 --> 00:16:34,006
+don't see them, go look at the
+
+
+612
+00:16:34,006 --> 00:16:35,496
+application console, it probably
+
+
+613
+00:16:35,496 --> 00:16:36,486
+told you why you're not seeing
+
+
+614
+00:16:36,486 --> 00:16:36,626
+them.
+
+
+615
+00:16:37,156 --> 00:16:39,706
+And I'm going to do another demo
+
+
+616
+00:16:39,706 --> 00:16:39,956
+here.
+
+
+617
+00:16:41,086 --> 00:16:42,036
+I have a model here.
+
+
+618
+00:16:42,866 --> 00:16:43,826
+And I'm actually not going to
+
+
+619
+00:16:43,826 --> 00:16:46,316
+work with my live model because
+
+
+620
+00:16:46,316 --> 00:16:48,126
+this is a demo and I will
+
+
+621
+00:16:48,476 --> 00:16:51,306
+inevitably typo something, but
+
+
+622
+00:16:51,586 --> 00:16:54,456
+adding a new index in the new
+
+
+623
+00:16:54,666 --> 00:16:55,616
+modeling tools is actually
+
+
+624
+00:16:55,616 --> 00:16:56,126
+pretty simple.
+
+
+625
+00:16:56,246 --> 00:16:57,776
+You select the entity that you
+
+
+626
+00:16:57,776 --> 00:16:59,976
+want to add an index to and just
+
+
+627
+00:16:59,976 --> 00:17:01,946
+come down here to add entity and
+
+
+628
+00:17:01,946 --> 00:17:03,786
+you can now see that it has an
+
+
+629
+00:17:03,846 --> 00:17:05,786
+Add Fetch Index option.
+
+
+630
+00:17:06,306 --> 00:17:07,836
+And you just add one, call it by
+
+
+631
+00:17:07,836 --> 00:17:11,856
+Location, and I can add a couple
+
+
+632
+00:17:11,856 --> 00:17:14,336
+of properties to it here -- the
+
+
+633
+00:17:14,576 --> 00:17:16,406
+latitude and longitude
+
+
+634
+00:17:16,406 --> 00:17:17,006
+properties.
+
+
+635
+00:17:18,116 --> 00:17:19,566
+And if come over here and select
+
+
+636
+00:17:19,606 --> 00:17:22,286
+the photo, you'd come in here
+
+
+637
+00:17:22,286 --> 00:17:23,435
+and change the Version Hash
+
+
+638
+00:17:23,556 --> 00:17:24,046
+Modifier.
+
+
+639
+00:17:27,046 --> 00:17:29,686
+And now the next time a user
+
+
+640
+00:17:29,686 --> 00:17:30,776
+launches an application that
+
+
+641
+00:17:30,776 --> 00:17:32,256
+uses this version of the model,
+
+
+642
+00:17:32,766 --> 00:17:34,786
+they're going to be using the
+
+
+643
+00:17:34,786 --> 00:17:35,696
+new RTree index.
+
+
+644
+00:17:35,826 --> 00:17:37,636
+Of course I am going to just
+
+
+645
+00:17:37,636 --> 00:17:39,426
+going to run my demo application
+
+
+646
+00:17:39,736 --> 00:17:42,726
+which already had that built in.
+
+
+647
+00:17:44,616 --> 00:17:44,716
+And --
+
+
+648
+00:17:48,586 --> 00:17:49,966
+-- I'm going to come down here
+
+
+649
+00:17:50,706 --> 00:17:52,606
+and grab the Predicate that I
+
+
+650
+00:17:52,606 --> 00:17:56,956
+have carefully set aside -- oh I
+
+
+651
+00:17:56,956 --> 00:17:57,656
+forgot one thing.
+
+
+652
+00:17:58,106 --> 00:18:01,556
+I'm going to come up here and
+
+
+653
+00:18:01,556 --> 00:18:03,186
+edit the scheme, because we want
+
+
+654
+00:18:03,186 --> 00:18:04,616
+to see what Core Data is sending
+
+
+655
+00:18:04,616 --> 00:18:05,916
+to the database.
+
+
+656
+00:18:06,126 --> 00:18:07,836
+And I've got the Com Apple SQL
+
+
+657
+00:18:07,836 --> 00:18:10,066
+Debug Argument Set.
+
+
+658
+00:18:10,066 --> 00:18:10,946
+And you'll notice -- for those
+
+
+659
+00:18:10,946 --> 00:18:12,486
+of you who are familiar with SQL
+
+
+660
+00:18:12,486 --> 00:18:14,796
+Debug as a feature in Core Data,
+
+
+661
+00:18:15,446 --> 00:18:16,406
+you're probably most familiar
+
+
+662
+00:18:16,406 --> 00:18:19,076
+with 1 and 2 as the numbers --
+
+
+663
+00:18:19,176 --> 00:18:20,206
+the levels you're going to be
+
+
+664
+00:18:20,206 --> 00:18:20,536
+setting.
+
+
+665
+00:18:20,966 --> 00:18:23,066
+We've added a new level 4, which
+
+
+666
+00:18:23,066 --> 00:18:24,376
+will actually print the query
+
+
+667
+00:18:24,376 --> 00:18:26,536
+plan that SQLite is using as
+
+
+668
+00:18:26,536 --> 00:18:27,886
+well as all of the statements
+
+
+669
+00:18:28,666 --> 00:18:30,226
+that Core Data is sending to the
+
+
+670
+00:18:30,226 --> 00:18:30,816
+database.
+
+
+671
+00:18:30,936 --> 00:18:31,886
+So I'm going to run my
+
+
+672
+00:18:31,886 --> 00:18:35,206
+application with that version
+
+
+673
+00:18:35,206 --> 00:18:35,696
+set to 4.
+
+
+674
+00:18:36,956 --> 00:18:42,676
+Come back, reset that predicate,
+
+
+675
+00:18:44,416 --> 00:18:45,596
+and run the search.
+
+
+676
+00:18:46,216 --> 00:18:49,646
+And now we can come and we see
+
+
+677
+00:18:49,736 --> 00:18:50,656
+the last search.
+
+
+678
+00:18:51,036 --> 00:18:54,296
+It's actually kind of more
+
+
+679
+00:18:54,296 --> 00:18:55,086
+interesting and I'm going to
+
+
+680
+00:18:55,086 --> 00:18:57,236
+come over here and I've actually
+
+
+681
+00:18:57,366 --> 00:18:58,516
+copied and pasted an earlier
+
+
+682
+00:18:58,516 --> 00:19:00,626
+version into Text Edit, because
+
+
+683
+00:19:00,626 --> 00:19:01,746
+I could enlarge the text there.
+
+
+684
+00:19:03,836 --> 00:19:05,386
+But you can see I'm now doing a
+
+
+685
+00:19:05,386 --> 00:19:07,226
+sub Select against a separate
+
+
+686
+00:19:07,226 --> 00:19:10,156
+table, Z Photo by Location.
+
+
+687
+00:19:10,996 --> 00:19:12,836
+And if I look down in the query
+
+
+688
+00:19:12,836 --> 00:19:14,226
+plan, you can see that this is a
+
+
+689
+00:19:14,226 --> 00:19:15,406
+virtual table index.
+
+
+690
+00:19:15,846 --> 00:19:17,426
+So that's basically routing the
+
+
+691
+00:19:17,426 --> 00:19:19,666
+location query, the latitude
+
+
+692
+00:19:19,666 --> 00:19:21,586
+query down onto a separate RTree
+
+
+693
+00:19:21,586 --> 00:19:21,926
+table.
+
+
+694
+00:19:22,926 --> 00:19:24,276
+And well, we can see up here
+
+
+695
+00:19:24,276 --> 00:19:26,426
+that it says it took 0.056
+
+
+696
+00:19:26,426 --> 00:19:27,836
+seconds for 16 rows.
+
+
+697
+00:19:27,916 --> 00:19:29,476
+And if I go compare this to the
+
+
+698
+00:19:29,476 --> 00:19:31,866
+version without the RTree, well
+
+
+699
+00:19:31,866 --> 00:19:33,546
+there's the query we were
+
+
+700
+00:19:33,546 --> 00:19:34,926
+originally doing, Z Longitude
+
+
+701
+00:19:34,926 --> 00:19:36,276
+between this and this.
+
+
+702
+00:19:37,196 --> 00:19:38,766
+And we can see that it took
+
+
+703
+00:19:38,956 --> 00:19:41,906
+0.062 seconds for 16 rows.
+
+
+704
+00:19:41,906 --> 00:19:42,926
+So you got to do about a 10
+
+
+705
+00:19:42,926 --> 00:19:44,176
+percent performance improvement
+
+
+706
+00:19:44,216 --> 00:19:47,096
+on a laptop with an SSD Fast
+
+
+707
+00:19:47,096 --> 00:19:48,606
+Cash, all that kind of stuff.
+
+
+708
+00:19:48,606 --> 00:19:49,386
+So it's about a 10 percent
+
+
+709
+00:19:49,386 --> 00:19:50,706
+improvement your devices are
+
+
+710
+00:19:50,706 --> 00:19:51,756
+actually going to -- and it's
+
+
+711
+00:19:51,756 --> 00:19:52,926
+also a very small data set.
+
+
+712
+00:19:53,206 --> 00:19:54,486
+Your devices with a larger data
+
+
+713
+00:19:54,486 --> 00:19:55,356
+set are really going to
+
+
+714
+00:19:55,356 --> 00:19:57,296
+appreciate having RTree's to
+
+
+715
+00:19:57,296 --> 00:19:58,566
+search against instead of
+
+
+716
+00:19:58,726 --> 00:19:59,976
+regular Binary Indexes.
+
+
+717
+00:20:01,096 --> 00:20:01,756
+And --
+
+
+718
+00:20:04,116 --> 00:20:05,326
+I think I'm done here.
+
+
+719
+00:20:06,786 --> 00:20:11,696
+So that is RTree searching.
+
+
+720
+00:20:12,816 --> 00:20:14,236
+I have one more slide before I
+
+
+721
+00:20:14,236 --> 00:20:15,296
+hand you over to Rishi.
+
+
+722
+00:20:15,886 --> 00:20:16,656
+We've also added some
+
+
+723
+00:20:16,656 --> 00:20:17,856
+miscellaneous new stuff.
+
+
+724
+00:20:19,756 --> 00:20:21,536
+Basically new attribute types.
+
+
+725
+00:20:21,536 --> 00:20:23,816
+We've added NSUUIDA Attribute
+
+
+726
+00:20:23,816 --> 00:20:25,806
+Type and a NSURL Attribute type
+
+
+727
+00:20:25,806 --> 00:20:28,096
+backed by the UUID and URL value
+
+
+728
+00:20:28,096 --> 00:20:28,976
+classes respectively.
+
+
+729
+00:20:29,516 --> 00:20:33,546
+[ Applause ]
+
+
+730
+00:20:34,046 --> 00:20:35,086
+You appreciate the work we do.
+
+
+731
+00:20:35,546 --> 00:20:36,196
+That makes us feel good.
+
+
+732
+00:20:36,196 --> 00:20:37,836
+And now I'm going to hand you
+
+
+733
+00:20:37,836 --> 00:20:38,126
+over --
+
+
+734
+00:20:41,226 --> 00:20:41,836
+>> Thank you.
+
+
+735
+00:20:42,516 --> 00:20:47,036
+[ Applause ]
+
+
+736
+00:20:47,536 --> 00:20:49,046
+>> Hi everybody I'm Rishi Verma
+
+
+737
+00:20:49,046 --> 00:20:49,856
+and I'll be showing you
+
+
+738
+00:20:49,896 --> 00:20:51,026
+Persistent History Tracking.
+
+
+739
+00:20:52,626 --> 00:20:53,936
+So let's talk a little bit about
+
+
+740
+00:20:53,936 --> 00:20:54,316
+your app.
+
+
+741
+00:20:54,946 --> 00:20:55,776
+So you've developed these
+
+
+742
+00:20:55,776 --> 00:20:57,336
+amazing apps and hopefully
+
+
+743
+00:20:57,336 --> 00:20:58,706
+you've adopted the NS Persistent
+
+
+744
+00:20:58,706 --> 00:20:59,996
+Container we introduced last
+
+
+745
+00:20:59,996 --> 00:21:00,306
+release.
+
+
+746
+00:21:00,526 --> 00:21:01,826
+So you've got a View Context set
+
+
+747
+00:21:01,826 --> 00:21:03,446
+up and a Background Context.
+
+
+748
+00:21:04,236 --> 00:21:05,756
+And you've got a Shared
+
+
+749
+00:21:05,756 --> 00:21:07,136
+Container where you've set up
+
+
+750
+00:21:07,136 --> 00:21:07,906
+your Persistent Store.
+
+
+751
+00:21:09,116 --> 00:21:10,416
+Now your view context is one
+
+
+752
+00:21:10,416 --> 00:21:11,696
+connection and your background
+
+
+753
+00:21:11,696 --> 00:21:12,636
+context is another.
+
+
+754
+00:21:13,146 --> 00:21:14,336
+And maybe you've got your
+
+
+755
+00:21:14,336 --> 00:21:16,556
+background context downloading
+
+
+756
+00:21:16,556 --> 00:21:18,336
+contend from the remote site
+
+
+757
+00:21:18,336 --> 00:21:19,096
+that you have set up.
+
+
+758
+00:21:20,636 --> 00:21:22,046
+Now you're a very diligent
+
+
+759
+00:21:22,046 --> 00:21:23,316
+developer and you've gone out
+
+
+760
+00:21:23,316 --> 00:21:24,716
+and created a Document
+
+
+761
+00:21:24,716 --> 00:21:26,686
+Extension, a Shared Extension,
+
+
+762
+00:21:27,086 --> 00:21:28,366
+and a Photo Editing Extension.
+
+
+763
+00:21:28,716 --> 00:21:30,026
+Now all of these connections to
+
+
+764
+00:21:30,026 --> 00:21:31,596
+your persistent store could be
+
+
+765
+00:21:31,596 --> 00:21:34,066
+running in any process since
+
+
+766
+00:21:34,066 --> 00:21:35,456
+they're extensions, or they
+
+
+767
+00:21:35,456 --> 00:21:36,506
+could be coming from our app
+
+
+768
+00:21:36,506 --> 00:21:37,526
+from various context.
+
+
+769
+00:21:37,916 --> 00:21:39,146
+And you may not know exactly
+
+
+770
+00:21:39,146 --> 00:21:40,396
+where this data is coming from.
+
+
+771
+00:21:40,576 --> 00:21:42,306
+Well, let's break it down a
+
+
+772
+00:21:42,306 --> 00:21:44,626
+little bit and see what happens.
+
+
+773
+00:21:45,866 --> 00:21:49,956
+So sorry, so here we are in your
+
+
+774
+00:21:49,956 --> 00:21:53,426
+app and the user is looking at
+
+
+775
+00:21:53,426 --> 00:21:55,096
+your view context and in the
+
+
+776
+00:21:55,096 --> 00:21:56,576
+meantime your background context
+
+
+777
+00:21:56,576 --> 00:21:58,416
+is downloading info from some
+
+
+778
+00:21:58,416 --> 00:21:59,056
+remote source.
+
+
+779
+00:21:59,676 --> 00:22:01,406
+Unfortunately a common thing
+
+
+780
+00:22:01,406 --> 00:22:02,406
+that we've seen is that your
+
+
+781
+00:22:02,406 --> 00:22:03,616
+Background Context may be
+
+
+782
+00:22:03,616 --> 00:22:05,686
+ingesting and your View Context
+
+
+783
+00:22:06,066 --> 00:22:07,046
+may not know about these
+
+
+784
+00:22:07,046 --> 00:22:09,136
+objects, or it may not even care
+
+
+785
+00:22:09,136 --> 00:22:09,936
+about these objects.
+
+
+786
+00:22:10,416 --> 00:22:11,766
+But as your Save Notifications
+
+
+787
+00:22:11,766 --> 00:22:13,266
+come in, you're ingesting them
+
+
+788
+00:22:13,266 --> 00:22:13,716
+anyways.
+
+
+789
+00:22:14,496 --> 00:22:16,756
+And so you're going to be
+
+
+790
+00:22:16,756 --> 00:22:18,086
+missing some changes, if you
+
+
+791
+00:22:18,086 --> 00:22:19,316
+missed out new Background
+
+
+792
+00:22:19,316 --> 00:22:20,666
+Context, because they're really
+
+
+793
+00:22:20,666 --> 00:22:21,736
+easy to generate at this time
+
+
+794
+00:22:22,146 --> 00:22:23,516
+but you may miss out on Batch
+
+
+795
+00:22:23,516 --> 00:22:25,296
+Updates, Batch Deletes, which
+
+
+796
+00:22:25,296 --> 00:22:26,176
+don't generate a Save
+
+
+797
+00:22:26,176 --> 00:22:26,826
+notification.
+
+
+798
+00:22:27,636 --> 00:22:30,626
+Now the user's gone into Safari
+
+
+799
+00:22:31,086 --> 00:22:32,426
+and decided to share something.
+
+
+800
+00:22:33,146 --> 00:22:35,356
+This writes to the database and
+
+
+801
+00:22:35,356 --> 00:22:36,596
+when you're developer comes back
+
+
+802
+00:22:36,596 --> 00:22:38,306
+to the app -- or when you're
+
+
+803
+00:22:38,306 --> 00:22:39,556
+user comes back to the app, you
+
+
+804
+00:22:39,556 --> 00:22:41,076
+don't know what's changed.
+
+
+805
+00:22:41,646 --> 00:22:42,786
+You know something's changed,
+
+
+806
+00:22:42,786 --> 00:22:44,726
+but what exactly you don't know.
+
+
+807
+00:22:45,116 --> 00:22:46,266
+And so you have to rescan the
+
+
+808
+00:22:46,266 --> 00:22:48,016
+entire database and see what has
+
+
+809
+00:22:48,106 --> 00:22:49,126
+changed since you last were
+
+
+810
+00:22:49,126 --> 00:22:49,306
+there.
+
+
+811
+00:22:50,646 --> 00:22:52,426
+And unfortunately sometimes our
+
+
+812
+00:22:52,426 --> 00:22:52,986
+apps crash.
+
+
+813
+00:22:53,126 --> 00:22:55,506
+It may be due to the user
+
+
+814
+00:22:56,116 --> 00:22:57,516
+quitting your app while a
+
+
+815
+00:22:57,516 --> 00:22:58,886
+Background Contact was going.
+
+
+816
+00:22:59,306 --> 00:23:00,536
+And when your app comes back up,
+
+
+817
+00:23:00,986 --> 00:23:02,466
+your Background Context doesn't
+
+
+818
+00:23:02,466 --> 00:23:03,776
+know necessarily where it left
+
+
+819
+00:23:03,776 --> 00:23:05,176
+off, scanning your local
+
+
+820
+00:23:05,176 --> 00:23:05,616
+database.
+
+
+821
+00:23:05,786 --> 00:23:07,126
+So it'll have to check with
+
+
+822
+00:23:07,126 --> 00:23:08,696
+remote content and rescan the
+
+
+823
+00:23:08,696 --> 00:23:10,476
+entire local database to see
+
+
+824
+00:23:10,476 --> 00:23:11,696
+where it needs to be picked up
+
+
+825
+00:23:11,696 --> 00:23:12,046
+again.
+
+
+826
+00:23:12,586 --> 00:23:15,166
+Let's break this example down
+
+
+827
+00:23:15,166 --> 00:23:15,916
+just a little bit more.
+
+
+828
+00:23:16,646 --> 00:23:18,316
+So we have an app, and it
+
+
+829
+00:23:18,316 --> 00:23:19,546
+decides to load some data.
+
+
+830
+00:23:19,986 --> 00:23:21,236
+So the Background Context loads
+
+
+831
+00:23:21,236 --> 00:23:23,056
+some data and the View Context
+
+
+832
+00:23:23,586 --> 00:23:24,206
+gets updated.
+
+
+833
+00:23:24,966 --> 00:23:26,176
+Now when the user suspends the
+
+
+834
+00:23:26,176 --> 00:23:28,206
+app, and the document extension
+
+
+835
+00:23:28,206 --> 00:23:30,506
+comes up, we'll see that data
+
+
+836
+00:23:30,506 --> 00:23:31,816
+inserts two new objects.
+
+
+837
+00:23:33,066 --> 00:23:34,456
+And then my Share Extension
+
+
+838
+00:23:34,456 --> 00:23:36,606
+comes along, updates an object
+
+
+839
+00:23:36,606 --> 00:23:37,556
+and inserts another one.
+
+
+840
+00:23:38,096 --> 00:23:39,836
+And so does my Photos Extension.
+
+
+841
+00:23:41,046 --> 00:23:43,466
+Once all of these are done I'll
+
+
+842
+00:23:43,466 --> 00:23:45,606
+come back to my app and notice
+
+
+843
+00:23:45,716 --> 00:23:49,566
+that some of the data is stale.
+
+
+844
+00:23:50,446 --> 00:23:53,866
+So our app here only knows about
+
+
+845
+00:23:53,866 --> 00:23:55,026
+these original six objects.
+
+
+846
+00:23:55,476 --> 00:23:56,636
+The rest of the database is
+
+
+847
+00:23:56,636 --> 00:23:58,926
+actually modified or it actually
+
+
+848
+00:23:58,926 --> 00:23:59,656
+doesn't know about these
+
+
+849
+00:23:59,656 --> 00:24:00,106
+objects.
+
+
+850
+00:24:00,936 --> 00:24:02,516
+So it has to go through and scan
+
+
+851
+00:24:02,516 --> 00:24:03,556
+everything and see what's
+
+
+852
+00:24:03,556 --> 00:24:05,786
+relevant to that View Context or
+
+
+853
+00:24:05,786 --> 00:24:07,656
+that Background Context.
+
+
+854
+00:24:09,676 --> 00:24:11,086
+Now we've introduced NS
+
+
+855
+00:24:11,196 --> 00:24:12,046
+Persistent History.
+
+
+856
+00:24:12,046 --> 00:24:13,476
+It's rather simple.
+
+
+857
+00:24:14,846 --> 00:24:16,996
+Grab your Container, grab your
+
+
+858
+00:24:16,996 --> 00:24:21,196
+Store Description and voila.
+
+
+859
+00:24:22,856 --> 00:24:24,336
+Set the option NS Persistent
+
+
+860
+00:24:24,336 --> 00:24:26,476
+History Tracking to true and we
+
+
+861
+00:24:26,476 --> 00:24:28,036
+will now track all of your
+
+
+862
+00:24:28,036 --> 00:24:28,946
+changes to your database.
+
+
+863
+00:24:29,036 --> 00:24:32,036
+So let's go back to that
+
+
+864
+00:24:32,036 --> 00:24:32,936
+previous-- thank you.
+
+
+865
+00:24:33,516 --> 00:24:36,856
+[ Applause ]
+
+
+866
+00:24:37,356 --> 00:24:38,276
+So we'll go back to that
+
+
+867
+00:24:38,276 --> 00:24:39,036
+previous example.
+
+
+868
+00:24:39,336 --> 00:24:41,036
+And now in my View Context and
+
+
+869
+00:24:41,036 --> 00:24:42,536
+Background Context load data,
+
+
+870
+00:24:43,426 --> 00:24:44,976
+we'll see that it happens within
+
+
+871
+00:24:45,106 --> 00:24:46,376
+a transaction.
+
+
+872
+00:24:46,856 --> 00:24:48,116
+And this transaction's written
+
+
+873
+00:24:48,116 --> 00:24:48,776
+to my database.
+
+
+874
+00:24:49,216 --> 00:24:50,326
+And I can see that it was done
+
+
+875
+00:24:50,326 --> 00:24:52,616
+by the Background Context and in
+
+
+876
+00:24:52,616 --> 00:24:52,986
+my app.
+
+
+877
+00:24:54,196 --> 00:24:55,916
+Now when I hop out of my app and
+
+
+878
+00:24:55,916 --> 00:24:57,446
+the user goes into a Document
+
+
+879
+00:24:57,446 --> 00:24:57,926
+Extension --
+
+
+880
+00:25:02,036 --> 00:25:03,126
+We'll see that this also
+
+
+881
+00:25:03,156 --> 00:25:06,906
+generates a transaction and so
+
+
+882
+00:25:06,906 --> 00:25:08,136
+on with my share extension.
+
+
+883
+00:25:08,706 --> 00:25:12,876
+And also the Share Extension
+
+
+884
+00:25:12,876 --> 00:25:13,906
+will note that there was a
+
+
+885
+00:25:13,906 --> 00:25:17,426
+modification and not an insert
+
+
+886
+00:25:17,426 --> 00:25:17,616
+here.
+
+
+887
+00:25:18,546 --> 00:25:20,266
+And now with a Photos Extension
+
+
+888
+00:25:20,366 --> 00:25:21,436
+we'll also see the fourth
+
+
+889
+00:25:21,436 --> 00:25:24,106
+transaction come in and we'll
+
+
+890
+00:25:24,106 --> 00:25:25,326
+see that it was done in photos.
+
+
+891
+00:25:25,326 --> 00:25:28,506
+So now when my app is being
+
+
+892
+00:25:28,506 --> 00:25:29,736
+brought back to the foreground,
+
+
+893
+00:25:30,356 --> 00:25:31,876
+I do still have still data, but
+
+
+894
+00:25:31,876 --> 00:25:33,366
+now I know where I am in the
+
+
+895
+00:25:33,366 --> 00:25:35,426
+history table and can simply go
+
+
+896
+00:25:35,426 --> 00:25:37,216
+from transaction 1 to 4.
+
+
+897
+00:25:37,836 --> 00:25:39,306
+And voila I've updated.
+
+
+898
+00:25:42,616 --> 00:25:45,326
+So we've introduced a new Store
+
+
+899
+00:25:45,326 --> 00:25:46,506
+Request for you to fetch your
+
+
+900
+00:25:46,506 --> 00:25:46,876
+history.
+
+
+901
+00:25:47,436 --> 00:25:48,626
+It's called NS Persistent
+
+
+902
+00:25:48,686 --> 00:25:49,726
+History Change Request.
+
+
+903
+00:25:50,426 --> 00:25:52,226
+You can simply start it up with
+
+
+904
+00:25:52,226 --> 00:25:54,796
+either a date, a token, or a
+
+
+905
+00:25:54,796 --> 00:25:55,426
+transaction.
+
+
+906
+00:25:56,016 --> 00:25:59,036
+And you can simply set the
+
+
+907
+00:25:59,036 --> 00:25:59,986
+result type as well.
+
+
+908
+00:26:00,516 --> 00:26:02,736
+As simple as a status, the count
+
+
+909
+00:26:02,736 --> 00:26:04,016
+of change is available.
+
+
+910
+00:26:04,066 --> 00:26:05,616
+Or you can get nitty-gritty and
+
+
+911
+00:26:05,616 --> 00:26:07,306
+get all the transactions and all
+
+
+912
+00:26:07,306 --> 00:26:07,836
+the changes.
+
+
+913
+00:26:09,676 --> 00:26:11,376
+Also with a change request we
+
+
+914
+00:26:11,376 --> 00:26:12,936
+allow you to purge your history.
+
+
+915
+00:26:13,486 --> 00:26:15,776
+So we want you to start this off
+
+
+916
+00:26:15,826 --> 00:26:17,296
+and you can delete the history
+
+
+917
+00:26:17,296 --> 00:26:19,716
+prior to date, a token, or a
+
+
+918
+00:26:19,716 --> 00:26:20,396
+transaction.
+
+
+919
+00:26:21,126 --> 00:26:23,036
+Now your Persistent History is
+
+
+920
+00:26:23,036 --> 00:26:25,176
+linear so this way it will keep
+
+
+921
+00:26:25,176 --> 00:26:25,636
+it short.
+
+
+922
+00:26:26,366 --> 00:26:29,086
+One of the caveats we want you
+
+
+923
+00:26:29,086 --> 00:26:30,386
+to keep in mind when pruning
+
+
+924
+00:26:30,386 --> 00:26:31,996
+your history is that you should
+
+
+925
+00:26:31,996 --> 00:26:33,246
+have a gatekeeper.
+
+
+926
+00:26:34,366 --> 00:26:36,036
+Single place where this should
+
+
+927
+00:26:36,036 --> 00:26:37,636
+be done so that it knows that
+
+
+928
+00:26:37,636 --> 00:26:38,876
+you've consumed the history you
+
+
+929
+00:26:38,876 --> 00:26:40,776
+need, your clients have consumed
+
+
+930
+00:26:40,776 --> 00:26:43,076
+it, and you no longer are
+
+
+931
+00:26:43,076 --> 00:26:44,156
+removing anything that is
+
+
+932
+00:26:44,156 --> 00:26:46,036
+relevant to someone else in your
+
+
+933
+00:26:46,116 --> 00:26:47,416
+app, all right?
+
+
+934
+00:26:47,416 --> 00:26:48,316
+And then now we have NS
+
+
+935
+00:26:48,316 --> 00:26:50,026
+Persistent History Transaction.
+
+
+936
+00:26:50,766 --> 00:26:52,716
+This is a large data blob that
+
+
+937
+00:26:52,796 --> 00:26:55,516
+covers who did the transaction
+
+
+938
+00:26:55,516 --> 00:26:56,106
+to your database.
+
+
+939
+00:26:56,536 --> 00:26:57,376
+So as you can see we have a
+
+
+940
+00:26:57,376 --> 00:27:00,316
+Store ID, a Bundle ID, a Process
+
+
+941
+00:27:00,316 --> 00:27:02,206
+ID, but we also have a Token.
+
+
+942
+00:27:02,576 --> 00:27:05,606
+Since your history is linear, we
+
+
+943
+00:27:05,606 --> 00:27:07,306
+provide you a Token that you can
+
+
+944
+00:27:07,306 --> 00:27:08,916
+encode to disc, so that when
+
+
+945
+00:27:08,916 --> 00:27:10,576
+your app exits you can keep
+
+
+946
+00:27:10,576 --> 00:27:12,276
+track of where your app was in
+
+
+947
+00:27:12,276 --> 00:27:12,786
+the history.
+
+
+948
+00:27:13,406 --> 00:27:15,056
+Simply re-launch your app, pull
+
+
+949
+00:27:15,056 --> 00:27:16,366
+your token, and fetch your
+
+
+950
+00:27:16,366 --> 00:27:17,646
+history based on that and you're
+
+
+951
+00:27:17,646 --> 00:27:18,146
+good to go.
+
+
+952
+00:27:19,516 --> 00:27:21,616
+Now, also in the transaction we
+
+
+953
+00:27:21,616 --> 00:27:24,356
+allow you -- the author, we want
+
+
+954
+00:27:24,356 --> 00:27:25,676
+you to go onto your Manage
+
+
+955
+00:27:25,676 --> 00:27:28,246
+Object Context and tell us who
+
+
+956
+00:27:28,246 --> 00:27:30,296
+is the author of this context
+
+
+957
+00:27:30,296 --> 00:27:32,456
+and this Save Batch Update or
+
+
+958
+00:27:32,456 --> 00:27:33,116
+Batch Delete.
+
+
+959
+00:27:34,056 --> 00:27:36,266
+And so we also allow you to go
+
+
+960
+00:27:36,266 --> 00:27:37,916
+onto the Manage Object Context
+
+
+961
+00:27:38,226 --> 00:27:39,586
+and set the Transaction Author.
+
+
+962
+00:27:40,676 --> 00:27:41,966
+Do this before your save or
+
+
+963
+00:27:41,966 --> 00:27:43,596
+executing a request and we'll
+
+
+964
+00:27:43,596 --> 00:27:45,136
+take this string, put in a
+
+
+965
+00:27:45,136 --> 00:27:46,956
+transaction, so you can identify
+
+
+966
+00:27:47,366 --> 00:27:48,926
+who did what to your database at
+
+
+967
+00:27:48,926 --> 00:27:50,236
+a later time.
+
+
+968
+00:27:51,926 --> 00:27:53,516
+And as part of every transaction
+
+
+969
+00:27:53,516 --> 00:27:54,586
+there is a set of changes.
+
+
+970
+00:27:55,246 --> 00:27:57,006
+A change represents a single
+
+
+971
+00:27:57,076 --> 00:27:58,126
+thing that was done to one
+
+
+972
+00:27:58,126 --> 00:27:58,636
+object.
+
+
+973
+00:27:58,686 --> 00:27:59,976
+So they'll be many changes for
+
+
+974
+00:27:59,976 --> 00:28:03,166
+every transaction and here we'll
+
+
+975
+00:28:03,166 --> 00:28:05,056
+have inserts, and updates, and
+
+
+976
+00:28:05,056 --> 00:28:05,366
+deletes.
+
+
+977
+00:28:05,906 --> 00:28:07,366
+In the case of an update, we'll
+
+
+978
+00:28:07,406 --> 00:28:08,946
+tell you which properties were
+
+
+979
+00:28:08,946 --> 00:28:11,366
+updated -- either attributes or
+
+
+980
+00:28:11,366 --> 00:28:13,516
+relationships, and then in the
+
+
+981
+00:28:13,516 --> 00:28:17,726
+case of a delete we'll tell you
+
+
+982
+00:28:17,726 --> 00:28:18,746
+what the tombstone is.
+
+
+983
+00:28:19,276 --> 00:28:20,376
+It's a set of attributes that
+
+
+984
+00:28:20,376 --> 00:28:21,876
+you can set in the model editor
+
+
+985
+00:28:22,206 --> 00:28:23,466
+that allow you to identify the
+
+
+986
+00:28:23,466 --> 00:28:24,606
+object post mortem.
+
+
+987
+00:28:25,226 --> 00:28:26,316
+It's no longer in your database
+
+
+988
+00:28:26,406 --> 00:28:27,996
+so the object ID isn't as
+
+
+989
+00:28:28,056 --> 00:28:30,106
+relevant anymore, but with a
+
+
+990
+00:28:30,106 --> 00:28:31,646
+tombstone you can still identify
+
+
+991
+00:28:31,646 --> 00:28:34,206
+that object and be able to
+
+
+992
+00:28:34,206 --> 00:28:35,376
+process it later.
+
+
+993
+00:28:36,526 --> 00:28:38,126
+Now here we are in the model
+
+
+994
+00:28:38,126 --> 00:28:38,566
+editor.
+
+
+995
+00:28:42,446 --> 00:28:44,086
+And I have a unique identifier
+
+
+996
+00:28:44,086 --> 00:28:44,656
+for this entity.
+
+
+997
+00:28:44,656 --> 00:28:45,896
+And it would be great if I could
+
+
+998
+00:28:45,896 --> 00:28:46,436
+tombstone it.
+
+
+999
+00:28:46,706 --> 00:28:49,236
+So we simply go in and mark it
+
+
+1000
+00:28:49,366 --> 00:28:50,486
+Preserve After Deletion.
+
+
+1001
+00:28:51,366 --> 00:28:52,396
+And it's that simple and it will
+
+
+1002
+00:28:52,396 --> 00:28:53,346
+show up in my tombstone.
+
+
+1003
+00:28:55,896 --> 00:28:56,916
+And so with that I'd like to
+
+
+1004
+00:28:56,916 --> 00:28:57,816
+show you a quick Demo.
+
+
+1005
+00:28:58,666 --> 00:28:59,786
+So I have a simple app here.
+
+
+1006
+00:29:00,196 --> 00:29:02,846
+It takes a post I have and puts
+
+
+1007
+00:29:02,846 --> 00:29:03,976
+it on my social media feeds.
+
+
+1008
+00:29:04,626 --> 00:29:06,136
+I've set it up with a few
+
+
+1009
+00:29:06,136 --> 00:29:06,696
+buttons here.
+
+
+1010
+00:29:06,886 --> 00:29:09,486
+A download button that will go
+
+
+1011
+00:29:09,486 --> 00:29:10,796
+on a background context and
+
+
+1012
+00:29:11,186 --> 00:29:12,986
+ingest from the Cloud.
+
+
+1013
+00:29:13,546 --> 00:29:15,186
+And a background task that will
+
+
+1014
+00:29:15,186 --> 00:29:17,086
+go out and post all of my stuff.
+
+
+1015
+00:29:17,216 --> 00:29:18,746
+And I've also got a tab where I
+
+
+1016
+00:29:18,746 --> 00:29:19,986
+can go and see the history.
+
+
+1017
+00:29:21,486 --> 00:29:23,576
+Currently in my code I have Use
+
+
+1018
+00:29:23,576 --> 00:29:24,986
+Persistent History set to False,
+
+
+1019
+00:29:24,986 --> 00:29:26,906
+but I've enabled it for my store
+
+
+1020
+00:29:26,906 --> 00:29:27,816
+so that we can see what's
+
+
+1021
+00:29:27,816 --> 00:29:28,286
+changed.
+
+
+1022
+00:29:30,016 --> 00:29:31,926
+So here I am and I'll have a
+
+
+1023
+00:29:31,926 --> 00:29:32,636
+user post.
+
+
+1024
+00:29:33,096 --> 00:29:34,306
+And this user said, "This demo
+
+
+1025
+00:29:34,306 --> 00:29:34,736
+is amazing!"
+
+
+1026
+00:29:34,736 --> 00:29:36,606
+Awesome. And I can also go and
+
+
+1027
+00:29:36,606 --> 00:29:37,746
+download one from the
+
+
+1028
+00:29:37,746 --> 00:29:38,366
+background.
+
+
+1029
+00:29:38,366 --> 00:29:40,846
+And we can see that I've labeled
+
+
+1030
+00:29:40,846 --> 00:29:42,046
+where the post came from.
+
+
+1031
+00:29:42,046 --> 00:29:43,046
+The first one comes from the
+
+
+1032
+00:29:43,046 --> 00:29:44,216
+user, the next one comes from
+
+
+1033
+00:29:44,216 --> 00:29:44,816
+the background.
+
+
+1034
+00:29:45,716 --> 00:29:48,196
+But now let's hop out and go to
+
+
+1035
+00:29:48,196 --> 00:29:49,146
+the Share Extension.
+
+
+1036
+00:29:49,876 --> 00:29:52,116
+And let's share about Apple here
+
+
+1037
+00:29:52,116 --> 00:29:52,636
+real quick.
+
+
+1038
+00:29:58,036 --> 00:30:00,146
+So I can post about this and see
+
+
+1039
+00:30:00,146 --> 00:30:00,696
+in my app.
+
+
+1040
+00:30:00,846 --> 00:30:02,846
+And now when we get back to my
+
+
+1041
+00:30:03,016 --> 00:30:05,736
+app -- oh wait, I lost some
+
+
+1042
+00:30:05,736 --> 00:30:06,686
+data, this is really odd.
+
+
+1043
+00:30:07,366 --> 00:30:08,626
+It must have something wrong.
+
+
+1044
+00:30:08,626 --> 00:30:10,256
+But if I go back to the history
+
+
+1045
+00:30:10,746 --> 00:30:12,526
+I can see that I had a post
+
+
+1046
+00:30:12,526 --> 00:30:14,276
+within the app and I had remote
+
+
+1047
+00:30:14,276 --> 00:30:15,906
+content and I even can see the
+
+
+1048
+00:30:15,906 --> 00:30:16,716
+Share Extension.
+
+
+1049
+00:30:17,716 --> 00:30:19,366
+However I'm not seeing that
+
+
+1050
+00:30:19,366 --> 00:30:21,816
+here, like the user I start
+
+
+1051
+00:30:21,816 --> 00:30:23,146
+adding data and trying to figure
+
+
+1052
+00:30:23,146 --> 00:30:24,196
+out what's wrong with this UI.
+
+
+1053
+00:30:25,036 --> 00:30:27,296
+And my Persistent History once
+
+
+1054
+00:30:27,296 --> 00:30:28,396
+again is showing everything.
+
+
+1055
+00:30:28,716 --> 00:30:29,866
+Oh wait, that's weird.
+
+
+1056
+00:30:30,326 --> 00:30:32,656
+All of a sudden my app has hit
+
+
+1057
+00:30:32,716 --> 00:30:33,826
+some refresh that I've
+
+
+1058
+00:30:33,826 --> 00:30:35,866
+downloaded into it based on some
+
+
+1059
+00:30:35,866 --> 00:30:37,816
+view where I finally go and hit
+
+
+1060
+00:30:37,816 --> 00:30:39,356
+the database and re-fetch
+
+
+1061
+00:30:39,756 --> 00:30:40,306
+everything.
+
+
+1062
+00:30:40,956 --> 00:30:41,766
+Because that's the only way I
+
+
+1063
+00:30:41,766 --> 00:30:43,346
+can solve this problem sometimes
+
+
+1064
+00:30:43,936 --> 00:30:45,056
+and that's frustrating to our
+
+
+1065
+00:30:45,056 --> 00:30:45,526
+users.
+
+
+1066
+00:30:46,466 --> 00:30:48,336
+But what happens if we turn on
+
+
+1067
+00:30:48,336 --> 00:30:50,036
+Persistent History and no longer
+
+
+1068
+00:30:50,036 --> 00:30:51,306
+have to track things like that?
+
+
+1069
+00:30:52,116 --> 00:30:53,736
+So I'll simply turn this on.
+
+
+1070
+00:30:53,956 --> 00:30:55,196
+So as you can see here real
+
+
+1071
+00:30:55,196 --> 00:30:59,006
+quick, I have my Background
+
+
+1072
+00:30:59,006 --> 00:31:01,086
+Context set up and my View
+
+
+1073
+00:31:01,086 --> 00:31:02,776
+Context set up and I've also got
+
+
+1074
+00:31:02,776 --> 00:31:03,806
+them listening to each other.
+
+
+1075
+00:31:04,326 --> 00:31:08,466
+But I also have some Transaction
+
+
+1076
+00:31:08,466 --> 00:31:08,996
+Author set.
+
+
+1077
+00:31:09,056 --> 00:31:09,986
+And I just want to show you how
+
+
+1078
+00:31:10,046 --> 00:31:11,316
+simple that is so that we can
+
+
+1079
+00:31:11,316 --> 00:31:12,226
+see this going forward.
+
+
+1080
+00:31:13,516 --> 00:31:14,986
+OK, so let's stop the app real
+
+
+1081
+00:31:14,986 --> 00:31:16,866
+quick and re-launch.
+
+
+1082
+00:31:24,066 --> 00:31:25,826
+And here we are with our app
+
+
+1083
+00:31:25,826 --> 00:31:26,766
+using History at this time.
+
+
+1084
+00:31:26,766 --> 00:31:28,916
+And let's go to that troublesome
+
+
+1085
+00:31:28,916 --> 00:31:30,606
+case of sharing a post.
+
+
+1086
+00:31:31,436 --> 00:31:33,036
+Well, High Sierra looks pretty
+
+
+1087
+00:31:33,036 --> 00:31:36,666
+cool, so let's share about that
+
+
+1088
+00:31:37,296 --> 00:31:37,686
+real quick.
+
+
+1089
+00:31:39,076 --> 00:31:40,756
+All right, shared about that.
+
+
+1090
+00:31:40,936 --> 00:31:42,086
+Real quick let's just share
+
+
+1091
+00:31:42,086 --> 00:31:43,076
+about one more thing.
+
+
+1092
+00:31:44,046 --> 00:31:45,556
+The cool new watchOS.
+
+
+1093
+00:31:55,106 --> 00:31:56,616
+And now when we get back to the
+
+
+1094
+00:31:56,616 --> 00:31:56,906
+app,
+
+
+1095
+00:32:01,116 --> 00:32:02,326
+voila. There they are.
+
+
+1096
+00:32:02,616 --> 00:32:03,956
+All I've done is absorb the
+
+
+1097
+00:32:03,956 --> 00:32:05,926
+history, when my view reloaded,
+
+
+1098
+00:32:06,856 --> 00:32:08,256
+and we can jump to that code
+
+
+1099
+00:32:08,256 --> 00:32:09,546
+real quick.
+
+
+1100
+00:32:18,326 --> 00:32:19,616
+So previously if I was using
+
+
+1101
+00:32:19,646 --> 00:32:21,356
+Fetch Hit -- not using
+
+
+1102
+00:32:21,356 --> 00:32:22,256
+Persistent History, I was
+
+
+1103
+00:32:22,286 --> 00:32:23,796
+fetching everything, but now
+
+
+1104
+00:32:23,796 --> 00:32:25,516
+that I am all I'm doing is
+
+
+1105
+00:32:25,516 --> 00:32:26,386
+fetching the history and
+
+
+1106
+00:32:26,746 --> 00:32:28,306
+absorbing the merged context
+
+
+1107
+00:32:28,486 --> 00:32:29,546
+from the History.
+
+
+1108
+00:32:29,546 --> 00:32:31,106
+And it gives me a much smaller
+
+
+1109
+00:32:31,106 --> 00:32:32,386
+subset and I no longer have to
+
+
+1110
+00:32:32,386 --> 00:32:34,006
+scan the entire database to see
+
+
+1111
+00:32:34,006 --> 00:32:34,646
+what was different.
+
+
+1112
+00:32:36,516 --> 00:32:39,636
+[ Applause ]
+
+
+1113
+00:32:40,136 --> 00:32:42,576
+And so to recap it's rather
+
+
+1114
+00:32:42,576 --> 00:32:42,896
+easy.
+
+
+1115
+00:32:43,336 --> 00:32:44,596
+Simple to enable Persistent
+
+
+1116
+00:32:44,596 --> 00:32:44,916
+History.
+
+
+1117
+00:32:44,986 --> 00:32:46,066
+It's just one option on your
+
+
+1118
+00:32:46,066 --> 00:32:46,386
+store.
+
+
+1119
+00:32:47,876 --> 00:32:49,096
+It really uncovers all those
+
+
+1120
+00:32:49,096 --> 00:32:49,746
+missing changes.
+
+
+1121
+00:32:50,196 --> 00:32:51,636
+And you may have been generating
+
+
+1122
+00:32:51,636 --> 00:32:53,336
+background context, you may just
+
+
+1123
+00:32:53,336 --> 00:32:54,396
+not realize that you're missing
+
+
+1124
+00:32:54,396 --> 00:32:56,116
+a notification, you've harnessed
+
+
+1125
+00:32:56,156 --> 00:32:57,796
+Batch Updates, Batch Deletes,
+
+
+1126
+00:32:58,096 --> 00:32:58,816
+which don't generate
+
+
+1127
+00:32:58,816 --> 00:32:59,646
+notifications.
+
+
+1128
+00:33:00,186 --> 00:33:01,476
+So they uncover all of that.
+
+
+1129
+00:33:01,886 --> 00:33:03,106
+And you'll never be in the dark
+
+
+1130
+00:33:03,106 --> 00:33:04,196
+again about changes to your
+
+
+1131
+00:33:04,196 --> 00:33:04,586
+database.
+
+
+1132
+00:33:07,826 --> 00:33:09,436
+Two caveats to mention about
+
+
+1133
+00:33:09,436 --> 00:33:11,246
+using persistent history -- the
+
+
+1134
+00:33:11,246 --> 00:33:12,436
+first one is about Migration.
+
+
+1135
+00:33:12,606 --> 00:33:14,396
+We will preserve as much of your
+
+
+1136
+00:33:14,396 --> 00:33:16,136
+history as possible on migration
+
+
+1137
+00:33:18,006 --> 00:33:18,936
+except for two cases.
+
+
+1138
+00:33:19,536 --> 00:33:21,096
+One is if you remove entities
+
+
+1139
+00:33:21,096 --> 00:33:22,466
+from your model and we already
+
+
+1140
+00:33:22,466 --> 00:33:24,556
+have history on these entities,
+
+
+1141
+00:33:25,146 --> 00:33:26,076
+we'll have to remove that
+
+
+1142
+00:33:26,076 --> 00:33:27,496
+history for those entities and
+
+
+1143
+00:33:27,606 --> 00:33:28,346
+that creates a gap.
+
+
+1144
+00:33:29,386 --> 00:33:31,216
+The other one is for tombstones.
+
+
+1145
+00:33:31,356 --> 00:33:34,396
+For tombstones you don't want to
+
+
+1146
+00:33:34,506 --> 00:33:35,916
+have certain data there after
+
+
+1147
+00:33:35,916 --> 00:33:37,146
+awhile to identify the object.
+
+
+1148
+00:33:37,216 --> 00:33:38,246
+Maybe it's become a security
+
+
+1149
+00:33:38,246 --> 00:33:39,106
+concern for you.
+
+
+1150
+00:33:39,106 --> 00:33:41,126
+So you've called the tombstone.
+
+
+1151
+00:33:41,386 --> 00:33:42,566
+So we'll do the same and we'll
+
+
+1152
+00:33:42,566 --> 00:33:44,106
+remove that tombstone value out
+
+
+1153
+00:33:44,396 --> 00:33:45,176
+from the model.
+
+
+1154
+00:33:45,176 --> 00:33:46,836
+But if that removes anything
+
+
+1155
+00:33:46,836 --> 00:33:49,026
+that will leave a gap in your
+
+
+1156
+00:33:49,026 --> 00:33:50,856
+history, we'll also then only
+
+
+1157
+00:33:50,856 --> 00:33:51,816
+preserve your history to the
+
+
+1158
+00:33:51,816 --> 00:33:53,296
+last complete transaction.
+
+
+1159
+00:33:53,716 --> 00:33:56,546
+This way you can go and follow
+
+
+1160
+00:33:56,546 --> 00:33:58,366
+the history without falling into
+
+
+1161
+00:33:58,366 --> 00:33:59,886
+a trap where I am missing
+
+
+1162
+00:33:59,886 --> 00:34:01,696
+changes once again because of a
+
+
+1163
+00:34:01,876 --> 00:34:01,976
+gap.
+
+
+1164
+00:34:03,316 --> 00:34:06,406
+As far as performance there's a
+
+
+1165
+00:34:06,406 --> 00:34:08,516
+slight impact on every save and
+
+
+1166
+00:34:08,516 --> 00:34:10,166
+every batch-operation you do.
+
+
+1167
+00:34:11,235 --> 00:34:12,255
+According to the size of your
+
+
+1168
+00:34:12,255 --> 00:34:13,585
+save and your batch operation
+
+
+1169
+00:34:13,585 --> 00:34:15,126
+we'll do a slight calculation of
+
+
+1170
+00:34:15,126 --> 00:34:16,565
+what changed and write that to
+
+
+1171
+00:34:16,565 --> 00:34:17,065
+the database.
+
+
+1172
+00:34:17,676 --> 00:34:19,956
+However, once your operation is
+
+
+1173
+00:34:19,956 --> 00:34:21,606
+complete all of that memory that
+
+
+1174
+00:34:21,606 --> 00:34:23,146
+we used is returned back to you.
+
+
+1175
+00:34:23,326 --> 00:34:24,716
+There's also small storage
+
+
+1176
+00:34:24,716 --> 00:34:26,476
+overhead, but your history can
+
+
+1177
+00:34:26,476 --> 00:34:27,806
+be purged, so this makes it
+
+
+1178
+00:34:27,806 --> 00:34:29,065
+really easy for you to reclaim
+
+
+1179
+00:34:29,065 --> 00:34:30,476
+that space once you've consumed
+
+
+1180
+00:34:30,476 --> 00:34:30,906
+the history.
+
+
+1181
+00:34:31,426 --> 00:34:34,766
+And that's Persistent History
+
+
+1182
+00:34:34,766 --> 00:34:35,056
+Tracking.
+
+
+1183
+00:34:36,516 --> 00:34:43,016
+[ Applause ]
+
+
+1184
+00:34:43,516 --> 00:34:44,716
+Now just to summarize what we've
+
+
+1185
+00:34:44,716 --> 00:34:45,436
+gone over today.
+
+
+1186
+00:34:45,876 --> 00:34:46,786
+Melissa went over Core
+
+
+1187
+00:34:46,786 --> 00:34:47,286
+Spotlight.
+
+
+1188
+00:34:47,496 --> 00:34:49,556
+It's really easy to adopt, easy
+
+
+1189
+00:34:49,556 --> 00:34:50,585
+to share your data with
+
+
+1190
+00:34:50,585 --> 00:34:52,346
+Spotlight, and it gives you deep
+
+
+1191
+00:34:52,346 --> 00:34:52,746
+linking.
+
+
+1192
+00:34:53,036 --> 00:34:54,295
+So your users can find their
+
+
+1193
+00:34:54,295 --> 00:34:56,255
+data in your app anywhere on the
+
+
+1194
+00:34:56,255 --> 00:34:56,505
+phone.
+
+
+1195
+00:34:57,416 --> 00:34:59,806
+And the New Indexing API makes
+
+
+1196
+00:34:59,806 --> 00:35:01,566
+your searches faster and just
+
+
+1197
+00:35:01,566 --> 00:35:02,856
+makes your app that much faster.
+
+
+1198
+00:35:03,596 --> 00:35:05,606
+And lastly, Persistent History
+
+
+1199
+00:35:06,106 --> 00:35:07,306
+allows you to know who's always
+
+
+1200
+00:35:07,306 --> 00:35:09,426
+done it, never be lost, always
+
+
+1201
+00:35:09,426 --> 00:35:10,316
+know who's done what to your
+
+
+1202
+00:35:10,316 --> 00:35:10,746
+database.
+
+
+1203
+00:35:13,026 --> 00:35:14,676
+One PSA before we go.
+
+
+1204
+00:35:14,916 --> 00:35:15,696
+Please file bugs.
+
+
+1205
+00:35:16,166 --> 00:35:17,176
+Let us know if you run into an
+
+
+1206
+00:35:17,176 --> 00:35:17,496
+issue.
+
+
+1207
+00:35:17,656 --> 00:35:18,466
+Let us know if you want
+
+
+1208
+00:35:18,466 --> 00:35:18,906
+something.
+
+
+1209
+00:35:19,986 --> 00:35:21,526
+Go to bugreport.apple.com.
+
+
+1210
+00:35:21,696 --> 00:35:22,406
+We are listening.
+
+
+1211
+00:35:23,066 --> 00:35:24,136
+So please go and visit.
+
+
+1212
+00:35:25,106 --> 00:35:27,186
+For more information check out
+
+
+1213
+00:35:27,186 --> 00:35:28,796
+the www.DC website.
+
+
+1214
+00:35:29,556 --> 00:35:31,686
+And for some related sessions we
+
+
+1215
+00:35:31,686 --> 00:35:32,626
+had "What's New in Cocoa"
+
+
+1216
+00:35:32,626 --> 00:35:33,986
+earlier today, so go check out
+
+
+1217
+00:35:33,986 --> 00:35:34,466
+that video.
+
+
+1218
+00:35:34,986 --> 00:35:35,836
+We also have "What's New in
+
+
+1219
+00:35:35,836 --> 00:35:36,956
+Foundation" coming up next.
+
+
+1220
+00:35:37,676 --> 00:35:39,936
+And we have some cool stuff on
+
+
+1221
+00:35:39,936 --> 00:35:41,246
+"What's New in Core Spotlight"
+
+
+1222
+00:35:41,246 --> 00:35:42,366
+later on Thursday.
+
+
+1223
+00:35:42,866 --> 00:35:44,016
+And check out the "Cocoa
+
+
+1224
+00:35:44,016 --> 00:35:45,356
+Development Tips" early on
+
+
+1225
+00:35:45,356 --> 00:35:45,956
+Friday morning.
+
+
+1226
+00:35:46,576 --> 00:35:47,276
+Thank you very much.
+
+
+1227
+00:35:48,508 --> 00:35:50,508
+[ Applause ]
+

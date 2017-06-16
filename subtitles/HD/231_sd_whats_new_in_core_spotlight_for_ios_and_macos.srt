@@ -1,0 +1,6019 @@
+1
+00:00:21,156 --> 00:00:21,716
+>> Hello and.
+
+
+2
+00:00:22,516 --> 00:00:27,646
+[ Applause ]
+
+
+3
+00:00:28,146 --> 00:00:29,176
+Welcome to what's new in Core
+
+
+4
+00:00:29,176 --> 00:00:29,686
+Spotlight.
+
+
+5
+00:00:30,316 --> 00:00:31,846
+I'm John Hornkvist, Senior
+
+
+6
+00:00:31,846 --> 00:00:33,516
+Manager for Core Spotlight and
+
+
+7
+00:00:33,516 --> 00:00:34,556
+joining me today will be my
+
+
+8
+00:00:34,556 --> 00:00:35,526
+colleague Lyn Fong.
+
+
+9
+00:00:36,876 --> 00:00:38,306
+Today, we'll cover some new
+
+
+10
+00:00:38,306 --> 00:00:41,186
+APIs, Core Spotlight on macOS,
+
+
+11
+00:00:43,176 --> 00:00:45,936
+Drag-and-Drop, Quick Look
+
+
+12
+00:00:45,936 --> 00:00:48,376
+previews, and then we'll give an
+
+
+13
+00:00:48,376 --> 00:00:50,586
+update on ranking before
+
+
+14
+00:00:50,586 --> 00:00:51,996
+finishing with a review of
+
+
+15
+00:00:51,996 --> 00:00:53,616
+indexing and search.
+
+
+16
+00:00:54,976 --> 00:00:56,986
+So, let's jump right into macOS.
+
+
+17
+00:00:57,846 --> 00:00:59,946
+Core Spotlight on macOS is the
+
+
+18
+00:00:59,946 --> 00:01:02,606
+exact same API as in iOS so it's
+
+
+19
+00:01:02,606 --> 00:01:04,825
+great for cross-platform apps.
+
+
+20
+00:01:05,376 --> 00:01:07,086
+It's already used by Notes and
+
+
+21
+00:01:07,086 --> 00:01:08,606
+Safari and because it's
+
+
+22
+00:01:08,606 --> 00:01:10,366
+cross-platform CoreData
+
+
+23
+00:01:10,486 --> 00:01:11,666
+Spotlight support has been
+
+
+24
+00:01:11,666 --> 00:01:12,736
+reimplemented using Core
+
+
+25
+00:01:12,736 --> 00:01:14,676
+Spotlight and is now available
+
+
+26
+00:01:14,676 --> 00:01:16,556
+for both iOS and macOS.
+
+
+27
+00:01:17,146 --> 00:01:18,996
+Core Spotlight is great for
+
+
+28
+00:01:18,996 --> 00:01:21,046
+databases and shoeboxes where
+
+
+29
+00:01:21,046 --> 00:01:22,546
+your app has full control over
+
+
+30
+00:01:22,546 --> 00:01:23,276
+the contents.
+
+
+31
+00:01:24,066 --> 00:01:26,106
+It's not for items that the user
+
+
+32
+00:01:26,106 --> 00:01:28,146
+monitors in the finder, for that
+
+
+33
+00:01:28,456 --> 00:01:30,276
+the classic Spotlight API still
+
+
+34
+00:01:30,276 --> 00:01:31,776
+exists and still works great.
+
+
+35
+00:01:33,416 --> 00:01:34,886
+Finally, the Core Spotlight API
+
+
+36
+00:01:35,006 --> 00:01:36,796
+is per user, so there's no
+
+
+37
+00:01:36,796 --> 00:01:37,216
+sharing.
+
+
+38
+00:01:37,686 --> 00:01:39,306
+For those of you who are new to
+
+
+39
+00:01:39,306 --> 00:01:41,736
+Core Spotlight we'll review the
+
+
+40
+00:01:41,736 --> 00:01:43,066
+basic concepts later in the
+
+
+41
+00:01:43,066 --> 00:01:43,476
+session.
+
+
+42
+00:01:43,936 --> 00:01:47,766
+An important new feature in iOS
+
+
+43
+00:01:47,766 --> 00:01:49,606
+11 is Drag-and-Drop and of
+
+
+44
+00:01:49,606 --> 00:01:51,216
+course, Drag-and-Drop is very
+
+
+45
+00:01:51,216 --> 00:01:52,596
+important to the Mac as well.
+
+
+46
+00:01:53,906 --> 00:01:54,636
+Drag-and-Drop with Core
+
+
+47
+00:01:54,636 --> 00:01:56,626
+Spotlight is built on the
+
+
+48
+00:01:56,626 --> 00:01:58,746
+concept of promises.
+
+
+49
+00:01:58,786 --> 00:02:00,036
+You make the promise of indexing
+
+
+50
+00:02:00,036 --> 00:02:02,286
+time and then you fulfill it
+
+
+51
+00:02:02,376 --> 00:02:03,906
+when the user drops a Core
+
+
+52
+00:02:03,906 --> 00:02:04,826
+Spotlight item later.
+
+
+53
+00:02:05,326 --> 00:02:07,866
+So, let's see this in action.
+
+
+54
+00:02:08,916 --> 00:02:10,286
+We start the drag in Spotlight
+
+
+55
+00:02:10,936 --> 00:02:15,096
+and then we hit the Home button
+
+
+56
+00:02:15,636 --> 00:02:16,936
+to go to SpringBoard where we
+
+
+57
+00:02:16,936 --> 00:02:20,316
+can enter notes and we can drop
+
+
+58
+00:02:20,316 --> 00:02:20,846
+the image.
+
+
+59
+00:02:21,316 --> 00:02:23,006
+This is an awesome accelerator
+
+
+60
+00:02:23,126 --> 00:02:24,636
+letting users get to the content
+
+
+61
+00:02:25,116 --> 00:02:26,016
+incredibly quickly.
+
+
+62
+00:02:26,576 --> 00:02:29,656
+Now you may wonder what's
+
+
+63
+00:02:29,656 --> 00:02:30,796
+actually going on behind the
+
+
+64
+00:02:30,796 --> 00:02:31,326
+scenes.
+
+
+65
+00:02:32,386 --> 00:02:34,116
+First your app indexes items and
+
+
+66
+00:02:34,116 --> 00:02:35,446
+each item carries a promise.
+
+
+67
+00:02:35,976 --> 00:02:40,426
+Your app quits and sometime
+
+
+68
+00:02:40,426 --> 00:02:42,226
+later the user runs a query in
+
+
+69
+00:02:42,226 --> 00:02:42,716
+Spotlight.
+
+
+70
+00:02:43,416 --> 00:02:45,116
+The user drags the item in
+
+
+71
+00:02:45,116 --> 00:02:46,736
+Spotlight and Spotlight creates
+
+
+72
+00:02:46,736 --> 00:02:48,666
+a promise that gets sent to the
+
+
+73
+00:02:48,666 --> 00:02:49,326
+drag receiver.
+
+
+74
+00:02:49,376 --> 00:02:52,966
+The app picks the type it wants
+
+
+75
+00:02:52,966 --> 00:02:54,056
+and the request goes back to
+
+
+76
+00:02:54,056 --> 00:02:54,586
+Spotlight.
+
+
+77
+00:02:56,256 --> 00:02:57,766
+Spotlight will then call your
+
+
+78
+00:02:57,766 --> 00:02:59,256
+application or your app
+
+
+79
+00:02:59,256 --> 00:03:01,966
+extension with the type and item
+
+
+80
+00:03:01,966 --> 00:03:02,936
+information.
+
+
+81
+00:03:07,176 --> 00:03:08,806
+So, then you provide the data
+
+
+82
+00:03:09,116 --> 00:03:10,556
+and it gets passed to Spotlight.
+
+
+83
+00:03:11,076 --> 00:03:13,616
+Of course, the receiving app it
+
+
+84
+00:03:13,616 --> 00:03:15,226
+can take the content.
+
+
+85
+00:03:15,346 --> 00:03:17,016
+This might look complicated, but
+
+
+86
+00:03:17,016 --> 00:03:18,326
+there's actually not that much
+
+
+87
+00:03:18,456 --> 00:03:20,296
+that you have to do.
+
+
+88
+00:03:20,816 --> 00:03:22,436
+Your first task is deciding what
+
+
+89
+00:03:22,436 --> 00:03:23,656
+drag types to support.
+
+
+90
+00:03:26,316 --> 00:03:28,226
+Drag types use uniform type
+
+
+91
+00:03:28,226 --> 00:03:30,426
+identifiers or UTI types which
+
+
+92
+00:03:30,426 --> 00:03:31,376
+are the [inaudible] of the
+
+
+93
+00:03:31,376 --> 00:03:31,756
+system.
+
+
+94
+00:03:32,256 --> 00:03:35,166
+These provide a uniform way of
+
+
+95
+00:03:35,166 --> 00:03:36,546
+describing types in our
+
+
+96
+00:03:36,546 --> 00:03:38,376
+hierarchy going from the most to
+
+
+97
+00:03:38,376 --> 00:03:39,206
+the least specific.
+
+
+98
+00:03:39,806 --> 00:03:42,106
+You can find great information
+
+
+99
+00:03:42,106 --> 00:03:43,616
+about uniform type identifiers
+
+
+100
+00:03:43,616 --> 00:03:44,966
+on developer.apple.com.
+
+
+101
+00:03:45,496 --> 00:03:48,526
+You can define new types for
+
+
+102
+00:03:48,526 --> 00:03:50,506
+your application, but for
+
+
+103
+00:03:50,506 --> 00:03:52,376
+Drag-and-Drop we want you to
+
+
+104
+00:03:52,376 --> 00:03:53,156
+declare types that are
+
+
+105
+00:03:53,156 --> 00:03:54,486
+well-known so that other
+
+
+106
+00:03:54,486 --> 00:03:56,106
+applications can receive the
+
+
+107
+00:03:56,106 --> 00:03:57,076
+data that you have to offer.
+
+
+108
+00:03:57,596 --> 00:04:00,576
+As an example, a note taking app
+
+
+109
+00:04:00,576 --> 00:04:02,406
+might have its own UTI type as a
+
+
+110
+00:04:02,616 --> 00:04:04,736
+type of its contents, but it
+
+
+111
+00:04:04,736 --> 00:04:05,796
+might advertise that it can
+
+
+112
+00:04:05,796 --> 00:04:08,126
+provide RTF, HTML and plaintext
+
+
+113
+00:04:08,246 --> 00:04:09,236
+when an item is dropped.
+
+
+114
+00:04:09,436 --> 00:04:11,736
+So that's types.
+
+
+115
+00:04:12,286 --> 00:04:13,446
+Now how do we let Spotlight know
+
+
+116
+00:04:13,446 --> 00:04:14,926
+what can be provided?
+
+
+117
+00:04:15,296 --> 00:04:17,716
+For that there are three new
+
+
+118
+00:04:17,716 --> 00:04:18,546
+attributes in
+
+
+119
+00:04:18,546 --> 00:04:19,946
+CSSearchableAttributeSet.
+
+
+120
+00:04:20,296 --> 00:04:22,046
+You can promise a data
+
+
+121
+00:04:22,046 --> 00:04:24,276
+representation, a file
+
+
+122
+00:04:24,276 --> 00:04:25,796
+representation which will get
+
+
+123
+00:04:25,796 --> 00:04:27,776
+copied or an in-place file
+
+
+124
+00:04:27,776 --> 00:04:29,856
+representation if your data is
+
+
+125
+00:04:29,856 --> 00:04:30,996
+saved [inaudible] copying.
+
+
+126
+00:04:31,476 --> 00:04:33,896
+As for the designing provider,
+
+
+127
+00:04:34,066 --> 00:04:35,316
+you should specify the highest
+
+
+128
+00:04:35,316 --> 00:04:36,896
+fidelity representation first.
+
+
+129
+00:04:37,776 --> 00:04:38,996
+So how is it used?
+
+
+130
+00:04:40,406 --> 00:04:40,956
+You create the
+
+
+131
+00:04:40,956 --> 00:04:42,926
+CSSearchableItemAttributeSet as
+
+
+132
+00:04:42,926 --> 00:04:43,286
+usual.
+
+
+133
+00:04:43,776 --> 00:04:45,036
+In this case, we already have an
+
+
+134
+00:04:45,036 --> 00:04:46,606
+image file so we'll provide that
+
+
+135
+00:04:46,606 --> 00:04:47,846
+for the file type identifier.
+
+
+136
+00:04:48,566 --> 00:04:49,906
+And we can also convert the
+
+
+137
+00:04:49,906 --> 00:04:51,756
+image [inaudible] so declared it
+
+
+138
+00:04:51,756 --> 00:04:54,266
+can provide plaintext as data.
+
+
+139
+00:04:54,556 --> 00:04:55,486
+So that's our promise.
+
+
+140
+00:04:55,766 --> 00:04:56,926
+Next, let's look at how to
+
+
+141
+00:04:56,926 --> 00:04:57,616
+produce that.
+
+
+142
+00:04:58,766 --> 00:05:01,206
+When the user drops items, your
+
+
+143
+00:05:01,206 --> 00:05:03,056
+extension will get called and in
+
+
+144
+00:05:03,056 --> 00:05:04,066
+the rare case that your app
+
+
+145
+00:05:04,066 --> 00:05:06,036
+happens to be running this may
+
+
+146
+00:05:06,036 --> 00:05:07,096
+be your app's index delegate
+
+
+147
+00:05:07,096 --> 00:05:07,456
+instead.
+
+
+148
+00:05:08,476 --> 00:05:09,996
+Depending on what the receiving
+
+
+149
+00:05:09,996 --> 00:05:11,996
+app requested one out of two
+
+
+150
+00:05:11,996 --> 00:05:12,896
+methods will get called.
+
+
+151
+00:05:13,216 --> 00:05:15,806
+If they ask for data or they ask
+
+
+152
+00:05:15,806 --> 00:05:17,106
+for a type or you could provide
+
+
+153
+00:05:17,106 --> 00:05:19,336
+data, the data method gets
+
+
+154
+00:05:19,336 --> 00:05:20,376
+called and takes a searchable
+
+
+155
+00:05:20,376 --> 00:05:22,456
+index, an item identifier, and a
+
+
+156
+00:05:22,456 --> 00:05:23,796
+type identifier and you're
+
+
+157
+00:05:23,796 --> 00:05:25,026
+expected to return the data
+
+
+158
+00:05:25,026 --> 00:05:25,506
+object.
+
+
+159
+00:05:26,776 --> 00:05:28,676
+The file URL method takes the
+
+
+160
+00:05:28,676 --> 00:05:30,716
+same arguments and additionally
+
+
+161
+00:05:30,716 --> 00:05:32,416
+Booleans specifying whether an
+
+
+162
+00:05:32,416 --> 00:05:33,656
+in-place file should be
+
+
+163
+00:05:33,656 --> 00:05:34,096
+provided.
+
+
+164
+00:05:36,036 --> 00:05:37,556
+The implementation of the data
+
+
+165
+00:05:37,556 --> 00:05:38,876
+method might look as follows.
+
+
+166
+00:05:38,986 --> 00:05:41,686
+We look at the model object for
+
+
+167
+00:05:41,686 --> 00:05:43,746
+the item identifier, we check
+
+
+168
+00:05:43,746 --> 00:05:45,096
+the type that's being requested,
+
+
+169
+00:05:45,726 --> 00:05:47,166
+and then we produce data
+
+
+170
+00:05:47,166 --> 00:05:47,736
+accordingly.
+
+
+171
+00:05:48,236 --> 00:05:52,386
+The implementation of the file
+
+
+172
+00:05:52,386 --> 00:05:53,866
+URL method is very similar.
+
+
+173
+00:05:54,326 --> 00:05:55,656
+Once again, we look at the model
+
+
+174
+00:05:55,656 --> 00:05:57,166
+object for the item identifier,
+
+
+175
+00:05:57,376 --> 00:05:58,346
+check the type that's being
+
+
+176
+00:05:58,346 --> 00:06:01,016
+requested, but here we produce a
+
+
+177
+00:06:01,016 --> 00:06:01,376
+file.
+
+
+178
+00:06:02,046 --> 00:06:03,656
+And that's actually all you need
+
+
+179
+00:06:03,656 --> 00:06:05,266
+to do for Drag-and-Drop on both
+
+
+180
+00:06:05,266 --> 00:06:06,416
+iOS and macOS.
+
+
+181
+00:06:06,996 --> 00:06:10,156
+So, to summarize the new API.
+
+
+182
+00:06:10,926 --> 00:06:12,206
+You declare and promise drag
+
+
+183
+00:06:12,206 --> 00:06:13,516
+types [inaudible] indexing time.
+
+
+184
+00:06:13,966 --> 00:06:15,346
+The Core Spotlight extension is
+
+
+185
+00:06:15,346 --> 00:06:16,766
+critical, it will get launched
+
+
+186
+00:06:16,766 --> 00:06:17,906
+to fulfill your promises.
+
+
+187
+00:06:18,526 --> 00:06:21,156
+Make producing the data as fast
+
+
+188
+00:06:21,156 --> 00:06:22,736
+as possible, the user will be
+
+
+189
+00:06:22,736 --> 00:06:24,046
+waiting for the drag to finish.
+
+
+190
+00:06:24,406 --> 00:06:26,856
+And of course, the new API is
+
+
+191
+00:06:26,856 --> 00:06:28,546
+for both macOS and iOS.
+
+
+192
+00:06:29,646 --> 00:06:30,996
+Next, Lyn is going to come
+
+
+193
+00:06:30,996 --> 00:06:32,296
+onstage to tell you all about
+
+
+194
+00:06:32,296 --> 00:06:33,426
+Quick Look previews for Core
+
+
+195
+00:06:33,426 --> 00:06:33,876
+Spotlight.
+
+
+196
+00:06:34,516 --> 00:06:40,826
+[ Applause ]
+
+
+197
+00:06:41,326 --> 00:06:43,486
+>> Hi [inaudible], let's talk
+
+
+198
+00:06:43,486 --> 00:06:44,826
+about Quick Look previews for
+
+
+199
+00:06:44,826 --> 00:06:46,146
+your Core Spotlight items.
+
+
+200
+00:06:47,266 --> 00:06:49,386
+On iOS Spotlight shows previews
+
+
+201
+00:06:49,456 --> 00:06:51,266
+of your content when you 3-D
+
+
+202
+00:06:51,266 --> 00:06:52,406
+touch to Peek and Pop.
+
+
+203
+00:06:53,816 --> 00:06:55,126
+By default, Spotlight shows a
+
+
+204
+00:06:55,126 --> 00:06:56,886
+text only preview based on the
+
+
+205
+00:06:56,886 --> 00:06:58,006
+text in your Core Spotlight
+
+
+206
+00:06:58,006 --> 00:07:00,396
+item, but now you can customize
+
+
+207
+00:07:00,396 --> 00:07:02,346
+your preview by adopting a Quick
+
+
+208
+00:07:02,346 --> 00:07:03,566
+Look preview extension.
+
+
+209
+00:07:04,146 --> 00:07:06,726
+So, this is an example of a
+
+
+210
+00:07:06,726 --> 00:07:08,566
+default Core Spotlight preview.
+
+
+211
+00:07:09,106 --> 00:07:10,616
+If you've tried Peek and Popping
+
+
+212
+00:07:10,616 --> 00:07:13,026
+on a Core Spotlight item in iOS
+
+
+213
+00:07:13,026 --> 00:07:14,466
+10 this may look familiar.
+
+
+214
+00:07:15,846 --> 00:07:17,606
+This is an example of what your
+
+
+215
+00:07:17,606 --> 00:07:19,216
+preview could look like by
+
+
+216
+00:07:19,216 --> 00:07:20,416
+adopting a Quick Look preview
+
+
+217
+00:07:20,416 --> 00:07:21,086
+extension.
+
+
+218
+00:07:21,836 --> 00:07:23,686
+This area here is where your
+
+
+219
+00:07:23,686 --> 00:07:25,656
+preview will be displayed and it
+
+
+220
+00:07:25,656 --> 00:07:27,426
+comes from a view controller in
+
+
+221
+00:07:27,426 --> 00:07:28,146
+your extension.
+
+
+222
+00:07:28,986 --> 00:07:30,866
+So, let's talk about how we go
+
+
+223
+00:07:30,866 --> 00:07:32,096
+about implementing one of these
+
+
+224
+00:07:32,096 --> 00:07:32,776
+extensions.
+
+
+225
+00:07:34,346 --> 00:07:35,966
+The Core Spotlight previews use
+
+
+226
+00:07:35,966 --> 00:07:37,476
+a Quick Look preview SDK which
+
+
+227
+00:07:37,636 --> 00:07:39,746
+is new to iOS this year and
+
+
+228
+00:07:39,746 --> 00:07:41,376
+comes with a shiny new Xcode
+
+
+229
+00:07:41,376 --> 00:07:41,736
+template.
+
+
+230
+00:07:42,716 --> 00:07:44,266
+When you create your target from
+
+
+231
+00:07:44,266 --> 00:07:45,946
+this template you will get an
+
+
+232
+00:07:45,946 --> 00:07:48,246
+extension Info.plist and if we
+
+
+233
+00:07:48,246 --> 00:07:50,306
+take a look at that plist under
+
+
+234
+00:07:50,486 --> 00:07:52,666
+NSExtension attributes you'll
+
+
+235
+00:07:52,666 --> 00:07:54,246
+see the QL supports searchable
+
+
+236
+00:07:54,246 --> 00:07:55,246
+items attribute.
+
+
+237
+00:07:55,706 --> 00:07:57,906
+For Core Spotlight previews you
+
+
+238
+00:07:57,906 --> 00:07:58,906
+want that set to yes.
+
+
+239
+00:07:59,546 --> 00:08:00,806
+This lets us know that your
+
+
+240
+00:08:00,806 --> 00:08:02,136
+Quick Look preview extension
+
+
+241
+00:08:02,136 --> 00:08:03,696
+supports Core Spotlight items.
+
+
+242
+00:08:04,526 --> 00:08:08,896
+So, let's take a look at the
+
+
+243
+00:08:09,056 --> 00:08:09,146
+API.
+
+
+244
+00:08:09,146 --> 00:08:10,356
+When you create your target, you
+
+
+245
+00:08:10,356 --> 00:08:12,036
+will get a view controller with
+
+
+246
+00:08:12,036 --> 00:08:13,886
+this method, preparePreviewOf
+
+
+247
+00:08:13,886 --> 00:08:14,716
+SearchableItem.
+
+
+248
+00:08:15,226 --> 00:08:16,496
+This is what will get called
+
+
+249
+00:08:16,686 --> 00:08:18,056
+when a preview is required.
+
+
+250
+00:08:18,636 --> 00:08:20,456
+In this method, you will get an
+
+
+251
+00:08:21,036 --> 00:08:22,856
+identifier, this is the Core
+
+
+252
+00:08:22,856 --> 00:08:24,636
+Spotlight identifier unique to
+
+
+253
+00:08:24,636 --> 00:08:25,306
+your result.
+
+
+254
+00:08:26,326 --> 00:08:28,036
+You'll get a query string which
+
+
+255
+00:08:28,036 --> 00:08:29,706
+is the string the user searched
+
+
+256
+00:08:29,706 --> 00:08:31,266
+for to get to your result.
+
+
+257
+00:08:31,736 --> 00:08:32,996
+This is helpful if you want to
+
+
+258
+00:08:32,996 --> 00:08:34,566
+highlight content relevant to
+
+
+259
+00:08:34,566 --> 00:08:36,135
+the search in your preview.
+
+
+260
+00:08:36,706 --> 00:08:38,765
+And finally, you will get a
+
+
+261
+00:08:38,765 --> 00:08:40,236
+completion handler that you have
+
+
+262
+00:08:40,236 --> 00:08:43,316
+to call once you're done.
+
+
+263
+00:08:43,515 --> 00:08:45,906
+So, debugging a Core Spotlight
+
+
+264
+00:08:45,956 --> 00:08:47,476
+preview extension is different
+
+
+265
+00:08:47,476 --> 00:08:48,786
+from debugging a typical
+
+
+266
+00:08:48,786 --> 00:08:50,266
+extension, but don't worry it's
+
+
+267
+00:08:50,266 --> 00:08:50,926
+still easy.
+
+
+268
+00:08:51,526 --> 00:08:53,116
+Instead of picking a host app
+
+
+269
+00:08:53,116 --> 00:08:54,066
+and launching your extension
+
+
+270
+00:08:54,066 --> 00:08:55,826
+from that host app you'll be
+
+
+271
+00:08:55,826 --> 00:08:57,126
+launching your extension from
+
+
+272
+00:08:57,126 --> 00:08:58,116
+Spotlight directly.
+
+
+273
+00:08:58,976 --> 00:09:00,966
+So, when Xcode asks you for an
+
+
+274
+00:09:00,966 --> 00:09:03,886
+app on launch pick any app, you
+
+
+275
+00:09:03,886 --> 00:09:05,456
+won't be using it, instead
+
+
+276
+00:09:05,456 --> 00:09:07,006
+you'll go to Spotlight, look for
+
+
+277
+00:09:07,006 --> 00:09:08,426
+your Core Spotlight item and
+
+
+278
+00:09:08,426 --> 00:09:09,176
+then Peek and Pop.
+
+
+279
+00:09:09,566 --> 00:09:11,406
+Xcode will automatically attach
+
+
+280
+00:09:11,406 --> 00:09:12,856
+to your extension for you.
+
+
+281
+00:09:13,196 --> 00:09:14,576
+So, let's take a look at this
+
+
+282
+00:09:14,576 --> 00:09:15,586
+workflow with a demo.
+
+
+283
+00:09:24,056 --> 00:09:25,236
+So, before we begin the app that
+
+
+284
+00:09:25,236 --> 00:09:26,356
+you will see in this demo is
+
+
+285
+00:09:26,356 --> 00:09:28,546
+available as sample code so feel
+
+
+286
+00:09:28,546 --> 00:09:29,516
+free to take a look after the
+
+
+287
+00:09:29,516 --> 00:09:29,956
+session.
+
+
+288
+00:09:30,416 --> 00:09:32,666
+So, let's start by taking a look
+
+
+289
+00:09:33,226 --> 00:09:33,926
+at our main app.
+
+
+290
+00:09:40,046 --> 00:09:41,256
+So here we have a simple app,
+
+
+291
+00:09:41,256 --> 00:09:42,506
+it's just a list of pictures.
+
+
+292
+00:09:43,246 --> 00:09:44,116
+If you select one of the
+
+
+293
+00:09:44,116 --> 00:09:45,696
+pictures you get a more detailed
+
+
+294
+00:09:45,696 --> 00:09:48,036
+view with a title, a rating and
+
+
+295
+00:09:48,036 --> 00:09:48,766
+some description.
+
+
+296
+00:09:49,076 --> 00:09:51,926
+So, let's see if we try to find
+
+
+297
+00:09:51,926 --> 00:09:53,326
+a picture in Spotlight and Peek
+
+
+298
+00:09:53,326 --> 00:09:53,896
+and Pop on it.
+
+
+299
+00:09:58,236 --> 00:09:59,436
+So, there's item.
+
+
+300
+00:10:00,036 --> 00:10:04,416
+Oops, it popped right in.
+
+
+301
+00:10:04,896 --> 00:10:08,236
+So, there's a bit of text, it's
+
+
+302
+00:10:08,236 --> 00:10:08,916
+not the greatest.
+
+
+303
+00:10:09,246 --> 00:10:10,206
+Let's see if we can do better.
+
+
+304
+00:10:11,646 --> 00:10:14,136
+So back in Xcode here I'm going
+
+
+305
+00:10:14,136 --> 00:10:16,736
+to add a new target from the
+
+
+306
+00:10:16,736 --> 00:10:18,326
+Quick Look preview extension
+
+
+307
+00:10:18,356 --> 00:10:20,846
+template and we'll call that
+
+
+308
+00:10:21,736 --> 00:10:25,226
+pictures preview extension for
+
+
+309
+00:10:26,776 --> 00:10:26,906
+iOS.
+
+
+310
+00:10:28,326 --> 00:10:29,436
+We'll go ahead and activate
+
+
+311
+00:10:29,436 --> 00:10:29,686
+that.
+
+
+312
+00:10:34,076 --> 00:10:35,596
+One thing I should mention is
+
+
+313
+00:10:35,596 --> 00:10:37,126
+that the view controller that we
+
+
+314
+00:10:37,126 --> 00:10:39,366
+saw in the app is in a framework
+
+
+315
+00:10:39,366 --> 00:10:40,756
+so that it can share across
+
+
+316
+00:10:40,876 --> 00:10:41,806
+multiple targets.
+
+
+317
+00:10:42,276 --> 00:10:43,976
+If you have code or resources to
+
+
+318
+00:10:43,976 --> 00:10:45,556
+share across targets we suggest
+
+
+319
+00:10:45,556 --> 00:10:46,726
+you use the same approach.
+
+
+320
+00:10:47,006 --> 00:10:49,006
+So, I'm going to go ahead and
+
+
+321
+00:10:49,006 --> 00:10:50,566
+import that framework now.
+
+
+322
+00:10:51,226 --> 00:10:53,566
+And then we can jump into the
+
+
+323
+00:10:53,566 --> 00:10:54,416
+meat of this file.
+
+
+324
+00:10:55,266 --> 00:10:55,966
+PreparePreview
+
+
+325
+00:10:55,966 --> 00:10:57,316
+OfSearchableItem, this is the
+
+
+326
+00:10:57,316 --> 00:10:58,276
+same method you saw in the
+
+
+327
+00:10:58,276 --> 00:10:58,866
+slides.
+
+
+328
+00:10:59,526 --> 00:11:00,986
+And here we have the identifier
+
+
+329
+00:11:01,096 --> 00:11:04,376
+and what we're going to do is
+
+
+330
+00:11:04,376 --> 00:11:06,676
+use that identifier to find a
+
+
+331
+00:11:06,676 --> 00:11:07,816
+picture with a matching
+
+
+332
+00:11:07,856 --> 00:11:08,536
+identifier.
+
+
+333
+00:11:09,716 --> 00:11:10,966
+And once we have that picture we
+
+
+334
+00:11:10,966 --> 00:11:12,596
+can just go ahead and set up our
+
+
+335
+00:11:12,596 --> 00:11:13,786
+view controller with that
+
+
+336
+00:11:13,786 --> 00:11:14,206
+picture.
+
+
+337
+00:11:14,626 --> 00:11:15,586
+Again, this is the same view
+
+
+338
+00:11:15,586 --> 00:11:16,756
+controller you saw in the main
+
+
+339
+00:11:17,666 --> 00:11:17,736
+app.
+
+
+340
+00:11:17,736 --> 00:11:19,236
+If you have a lightweight view
+
+
+341
+00:11:19,236 --> 00:11:21,356
+controller in your main app you
+
+
+342
+00:11:21,356 --> 00:11:22,226
+can certainly use the same
+
+
+343
+00:11:22,226 --> 00:11:22,696
+approach.
+
+
+344
+00:11:23,116 --> 00:11:25,286
+If your view controller is more
+
+
+345
+00:11:25,286 --> 00:11:26,696
+memory or speed intensive you
+
+
+346
+00:11:26,696 --> 00:11:28,566
+might want to consider making a
+
+
+347
+00:11:28,566 --> 00:11:30,216
+lighter weight version for this
+
+
+348
+00:11:30,216 --> 00:11:30,856
+purpose.
+
+
+349
+00:11:31,296 --> 00:11:32,746
+So, then we're going to go ahead
+
+
+350
+00:11:32,746 --> 00:11:33,446
+and present it.
+
+
+351
+00:11:34,356 --> 00:11:35,606
+Here I have a little printout so
+
+
+352
+00:11:35,606 --> 00:11:36,786
+I can see when Xcode has
+
+
+353
+00:11:36,786 --> 00:11:38,636
+attached and finally, we call
+
+
+354
+00:11:38,636 --> 00:11:39,666
+that completion handler.
+
+
+355
+00:11:40,716 --> 00:11:42,176
+So, let's go and give this a
+
+
+356
+00:11:42,176 --> 00:11:42,716
+spin.
+
+
+357
+00:11:43,326 --> 00:11:45,856
+So, as I mentioned, it doesn't
+
+
+358
+00:11:45,856 --> 00:11:47,086
+matter what you pick here you're
+
+
+359
+00:11:47,316 --> 00:11:48,496
+not going to use it, we're going
+
+
+360
+00:11:48,496 --> 00:11:49,666
+to pick pictures because that's
+
+
+361
+00:11:49,666 --> 00:11:49,976
+our app.
+
+
+362
+00:11:58,046 --> 00:11:58,976
+So, there's pictures and we're
+
+
+363
+00:11:59,046 --> 00:12:00,746
+going to head right back into
+
+
+364
+00:12:01,546 --> 00:12:03,136
+Spotlight and we're going to try
+
+
+365
+00:12:03,136 --> 00:12:04,216
+Peek and Popping again.
+
+
+366
+00:12:04,816 --> 00:12:08,146
+And there's our preview.
+
+
+367
+00:12:09,516 --> 00:12:14,546
+[ Applause ]
+
+
+368
+00:12:15,046 --> 00:12:15,546
+And you can see from the
+
+
+369
+00:12:15,546 --> 00:12:16,846
+printout in Xcode that we have
+
+
+370
+00:12:16,846 --> 00:12:18,456
+successfully attached and now we
+
+
+371
+00:12:18,456 --> 00:12:19,476
+can go ahead and debug.
+
+
+372
+00:12:26,166 --> 00:12:28,086
+So, as you saw implementing a
+
+
+373
+00:12:28,086 --> 00:12:29,416
+Quick Look preview extension can
+
+
+374
+00:12:29,416 --> 00:12:30,946
+be very simple, especially if
+
+
+375
+00:12:30,946 --> 00:12:31,836
+you already have a view
+
+
+376
+00:12:31,836 --> 00:12:32,896
+controller to display your
+
+
+377
+00:12:32,896 --> 00:12:33,396
+content.
+
+
+378
+00:12:33,986 --> 00:12:35,216
+Maybe the view controller in
+
+
+379
+00:12:35,216 --> 00:12:36,396
+your main app is lightweight
+
+
+380
+00:12:36,396 --> 00:12:37,656
+already or maybe you've got a
+
+
+381
+00:12:37,656 --> 00:12:39,706
+lightweight version for 3-D
+
+
+382
+00:12:39,706 --> 00:12:40,736
+touch in your app.
+
+
+383
+00:12:40,736 --> 00:12:42,006
+Either way, you can simply reuse
+
+
+384
+00:12:42,006 --> 00:12:43,126
+that view controller here.
+
+
+385
+00:12:43,466 --> 00:12:45,186
+Some final tips for your
+
+
+386
+00:12:45,186 --> 00:12:45,856
+extension.
+
+
+387
+00:12:46,056 --> 00:12:48,256
+A loading spinner will show
+
+
+388
+00:12:48,256 --> 00:12:49,526
+until you call that completion
+
+
+389
+00:12:49,526 --> 00:12:51,136
+handler so call it as soon as
+
+
+390
+00:12:51,136 --> 00:12:51,606
+you can.
+
+
+391
+00:12:52,316 --> 00:12:53,446
+You can expect to see that
+
+
+392
+00:12:53,446 --> 00:12:55,146
+spinner when Xcode is attaching
+
+
+393
+00:12:55,146 --> 00:12:57,116
+to your extension for the first
+
+
+394
+00:12:57,116 --> 00:12:58,236
+time like in the demo.
+
+
+395
+00:12:58,786 --> 00:13:00,406
+But once it has already attached
+
+
+396
+00:13:00,736 --> 00:13:01,666
+or if you're not running in
+
+
+397
+00:13:01,666 --> 00:13:02,926
+Xcode you want to see your
+
+
+398
+00:13:02,926 --> 00:13:04,286
+preview immediately.
+
+
+399
+00:13:04,606 --> 00:13:06,966
+This is an extension so memory
+
+
+400
+00:13:06,966 --> 00:13:08,406
+is limited, be efficient.
+
+
+401
+00:13:09,036 --> 00:13:10,566
+And finally, once you call that
+
+
+402
+00:13:10,566 --> 00:13:12,326
+completion handler your job is
+
+
+403
+00:13:12,326 --> 00:13:13,536
+done, don't do any more
+
+
+404
+00:13:13,536 --> 00:13:15,336
+background work after the fact.
+
+
+405
+00:13:15,626 --> 00:13:17,906
+So that's Core Spotlight
+
+
+406
+00:13:17,906 --> 00:13:19,306
+previews on iOS.
+
+
+407
+00:13:19,486 --> 00:13:21,786
+The Quick Look preview SDK also
+
+
+408
+00:13:21,786 --> 00:13:23,956
+supports file-based previews and
+
+
+409
+00:13:23,956 --> 00:13:25,556
+for that see the building great
+
+
+410
+00:13:25,646 --> 00:13:28,106
+documents based apps in iOS 11
+
+
+411
+00:13:28,366 --> 00:13:28,806
+session.
+
+
+412
+00:13:29,286 --> 00:13:32,906
+So, as John mentioned, Core
+
+
+413
+00:13:32,906 --> 00:13:34,556
+Spotlight is also coming to
+
+
+414
+00:13:34,556 --> 00:13:37,006
+macOS and just like on iOS you
+
+
+415
+00:13:37,006 --> 00:13:38,606
+can customize your preview.
+
+
+416
+00:13:39,556 --> 00:13:41,616
+On macOS a preview is shown when
+
+
+417
+00:13:41,616 --> 00:13:43,076
+you select a search result in
+
+
+418
+00:13:43,076 --> 00:13:44,066
+the Spotlight window.
+
+
+419
+00:13:44,206 --> 00:13:45,646
+Here you really do want to
+
+
+420
+00:13:45,646 --> 00:13:47,226
+implement a Quick Look preview
+
+
+421
+00:13:47,226 --> 00:13:48,336
+extension for your Core
+
+
+422
+00:13:48,336 --> 00:13:50,456
+Spotlight item because Spotlight
+
+
+423
+00:13:50,456 --> 00:13:52,956
+on macOS does not have a default
+
+
+424
+00:13:52,956 --> 00:13:53,436
+preview.
+
+
+425
+00:13:54,026 --> 00:13:55,176
+So, this is what it's going to
+
+
+426
+00:13:55,176 --> 00:13:57,146
+look like without a Quick Look
+
+
+427
+00:13:57,146 --> 00:13:58,056
+preview extension.
+
+
+428
+00:13:58,866 --> 00:14:00,346
+And this is what it could look
+
+
+429
+00:14:00,346 --> 00:14:01,196
+like with one.
+
+
+430
+00:14:02,246 --> 00:14:03,866
+This area here is where your
+
+
+431
+00:14:03,866 --> 00:14:05,956
+preview will be displayed and
+
+
+432
+00:14:05,956 --> 00:14:07,616
+just like on iOS it comes from a
+
+
+433
+00:14:07,616 --> 00:14:08,896
+view controller in your
+
+
+434
+00:14:08,896 --> 00:14:09,536
+extension.
+
+
+435
+00:14:09,536 --> 00:14:10,756
+So, you can do just about
+
+
+436
+00:14:10,756 --> 00:14:13,286
+anything a regular view can do.
+
+
+437
+00:14:14,186 --> 00:14:16,786
+Debugging a Core Spotlight Quick
+
+
+438
+00:14:16,786 --> 00:14:18,656
+Look preview extension on macOS
+
+
+439
+00:14:18,656 --> 00:14:19,716
+is again different from
+
+
+440
+00:14:19,716 --> 00:14:21,376
+debugging a typical extension
+
+
+441
+00:14:21,846 --> 00:14:23,206
+and also different from the iOS
+
+
+442
+00:14:23,376 --> 00:14:23,816
+workflow.
+
+
+443
+00:14:24,416 --> 00:14:26,346
+Because Spotlight's window
+
+
+444
+00:14:26,346 --> 00:14:27,996
+vanishes when another app gets
+
+
+445
+00:14:27,996 --> 00:14:29,876
+focused it can be difficult to
+
+
+446
+00:14:29,876 --> 00:14:31,536
+work with breakpoints in Xcode.
+
+
+447
+00:14:31,786 --> 00:14:33,336
+So instead we've provided the
+
+
+448
+00:14:33,336 --> 00:14:34,826
+Quick Look simulator to launch
+
+
+449
+00:14:34,826 --> 00:14:36,326
+your extension for you and it
+
+
+450
+00:14:36,326 --> 00:14:37,356
+will stick around while you
+
+
+451
+00:14:37,356 --> 00:14:37,836
+debug.
+
+
+452
+00:14:38,576 --> 00:14:39,496
+So, let's take a look at how
+
+
+453
+00:14:39,496 --> 00:14:39,976
+that works.
+
+
+454
+00:14:48,046 --> 00:14:49,356
+All right, so let's take a look
+
+
+455
+00:14:49,356 --> 00:14:51,946
+at the Mac version of the app.
+
+
+456
+00:14:58,246 --> 00:14:59,836
+So here we have the same app
+
+
+457
+00:14:59,836 --> 00:15:02,206
+that we saw on iOS.
+
+
+458
+00:15:02,856 --> 00:15:05,586
+It's got a list of pictures, if
+
+
+459
+00:15:05,586 --> 00:15:07,236
+you select a picture you get a
+
+
+460
+00:15:07,236 --> 00:15:09,066
+more detailed view with a title
+
+
+461
+00:15:09,066 --> 00:15:10,006
+and a larger picture.
+
+
+462
+00:15:10,786 --> 00:15:12,476
+Let's see what happens if we
+
+
+463
+00:15:12,476 --> 00:15:13,976
+search for it in Spotlight.
+
+
+464
+00:15:18,046 --> 00:15:18,966
+We get a big blank space.
+
+
+465
+00:15:19,426 --> 00:15:20,706
+Let's see if we can fix that.
+
+
+466
+00:15:26,046 --> 00:15:26,816
+So, I'm going to create another
+
+
+467
+00:15:26,816 --> 00:15:30,726
+target this time with the macOS
+
+
+468
+00:15:31,346 --> 00:15:32,636
+Quick Look preview extension
+
+
+469
+00:15:32,636 --> 00:15:35,676
+template and we'll call that
+
+
+470
+00:15:35,676 --> 00:15:40,166
+pictures preview extension for
+
+
+471
+00:15:40,166 --> 00:15:41,476
+macOS.
+
+
+472
+00:15:42,266 --> 00:15:45,866
+Go ahead and activate it.
+
+
+473
+00:15:47,876 --> 00:15:49,366
+And again, I'm going to import
+
+
+474
+00:15:49,366 --> 00:15:49,976
+the framework.
+
+
+475
+00:15:56,446 --> 00:15:58,266
+That one and jump to prepare
+
+
+476
+00:15:58,266 --> 00:15:59,956
+preview of searchable item which
+
+
+477
+00:15:59,956 --> 00:16:01,366
+is the same method that you saw
+
+
+478
+00:16:01,366 --> 00:16:01,956
+on iOS.
+
+
+479
+00:16:01,956 --> 00:16:03,896
+So, we're going to do the same
+
+
+480
+00:16:03,896 --> 00:16:05,266
+thing here and use that
+
+
+481
+00:16:05,266 --> 00:16:07,566
+identifier to get a picture with
+
+
+482
+00:16:07,566 --> 00:16:09,806
+the matching identifier and then
+
+
+483
+00:16:09,806 --> 00:16:11,126
+we're going to go ahead and set
+
+
+484
+00:16:11,126 --> 00:16:12,036
+up our view.
+
+
+485
+00:16:12,326 --> 00:16:13,366
+This is the same view that you
+
+
+486
+00:16:13,366 --> 00:16:15,256
+saw in the app, I'm going to add
+
+
+487
+00:16:15,256 --> 00:16:17,166
+it to our view hierarchy, do a
+
+
+488
+00:16:17,166 --> 00:16:18,326
+little printout so we know when
+
+
+489
+00:16:18,326 --> 00:16:20,346
+we've attached and finally, we
+
+
+490
+00:16:20,346 --> 00:16:21,526
+call that completion handler.
+
+
+491
+00:16:22,586 --> 00:16:24,836
+So, let's give that a go.
+
+
+492
+00:16:25,076 --> 00:16:26,156
+When you run your Quick Look
+
+
+493
+00:16:26,156 --> 00:16:27,756
+preview extension Xcode will
+
+
+494
+00:16:27,816 --> 00:16:29,226
+offer the Quick Look simulator
+
+
+495
+00:16:29,226 --> 00:16:29,816
+by default.
+
+
+496
+00:16:30,306 --> 00:16:32,586
+So, go ahead and select that.
+
+
+497
+00:16:40,236 --> 00:16:40,936
+And there's a Quick Look
+
+
+498
+00:16:40,936 --> 00:16:41,486
+simulator.
+
+
+499
+00:16:42,376 --> 00:16:44,336
+On the left you will see your
+
+
+500
+00:16:44,336 --> 00:16:45,516
+Core Spotlight items.
+
+
+501
+00:16:46,036 --> 00:16:47,256
+If you have a lot of index
+
+
+502
+00:16:47,256 --> 00:16:48,446
+search results you can use the
+
+
+503
+00:16:48,446 --> 00:16:49,976
+search field above to narrow it
+
+
+504
+00:16:49,976 --> 00:16:50,376
+down.
+
+
+505
+00:16:50,936 --> 00:16:52,736
+When you select one of these
+
+
+506
+00:16:52,736 --> 00:16:54,366
+results your preview will appear
+
+
+507
+00:16:54,366 --> 00:16:56,146
+on the right and you can see
+
+
+508
+00:16:56,146 --> 00:16:58,106
+that Xcode has successfully
+
+
+509
+00:16:58,106 --> 00:16:59,716
+attached and you can go ahead
+
+
+510
+00:16:59,716 --> 00:17:00,666
+and debug to your heart's
+
+
+511
+00:17:00,666 --> 00:17:01,046
+content.
+
+
+512
+00:17:01,586 --> 00:17:03,816
+So, let's see what it looks like
+
+
+513
+00:17:03,816 --> 00:17:04,626
+in Spotlight now.
+
+
+514
+00:17:10,056 --> 00:17:11,226
+So, as you can see Spotlight has
+
+
+515
+00:17:11,226 --> 00:17:12,576
+successfully replaced the blank
+
+
+516
+00:17:12,576 --> 00:17:14,286
+spot with your extension.
+
+
+517
+00:17:15,016 --> 00:17:16,000
+[ Applause ]
+
+
+518
+00:17:22,046 --> 00:17:23,925
+So, as you saw, the API for Core
+
+
+519
+00:17:23,925 --> 00:17:25,636
+Spotlight previews on macOS is
+
+
+520
+00:17:25,636 --> 00:17:27,326
+identical to the one on iOS.
+
+
+521
+00:17:28,706 --> 00:17:32,346
+Some final tips here.
+
+
+522
+00:17:32,346 --> 00:17:34,486
+One caveat to remember is that
+
+
+523
+00:17:35,136 --> 00:17:36,676
+you should not make any views in
+
+
+524
+00:17:36,676 --> 00:17:38,116
+your extension first responder.
+
+
+525
+00:17:38,486 --> 00:17:39,986
+Your preview is not meant to be
+
+
+526
+00:17:40,116 --> 00:17:41,686
+interactive, Spotlight is the
+
+
+527
+00:17:41,686 --> 00:17:43,046
+interactive element here.
+
+
+528
+00:17:44,146 --> 00:17:46,916
+And finally, the Quick Look
+
+
+529
+00:17:46,916 --> 00:17:49,006
+preview extension on macOS only
+
+
+530
+00:17:49,006 --> 00:17:50,806
+supports Core Spotlight items.
+
+
+531
+00:17:51,056 --> 00:17:53,126
+For file-based previews the
+
+
+532
+00:17:53,126 --> 00:17:54,946
+classic Quick Look generator API
+
+
+533
+00:17:55,206 --> 00:17:56,316
+is still the solution.
+
+
+534
+00:17:56,616 --> 00:17:58,806
+So that's it for Core Spotlight
+
+
+535
+00:17:58,806 --> 00:17:59,316
+previews.
+
+
+536
+00:17:59,316 --> 00:17:59,936
+Back to John.
+
+
+537
+00:18:00,516 --> 00:18:05,500
+[ Applause ]
+
+
+538
+00:18:10,076 --> 00:18:13,086
+>> Thanks Lyn, that was great.
+
+
+539
+00:18:13,416 --> 00:18:15,286
+Ranking is very important for
+
+
+540
+00:18:15,286 --> 00:18:15,846
+Spotlight.
+
+
+541
+00:18:16,696 --> 00:18:19,036
+In iOS 11 and macOS [inaudible]
+
+
+542
+00:18:19,376 --> 00:18:20,396
+we've added a new machine
+
+
+543
+00:18:20,396 --> 00:18:21,536
+learning based ranker for Core
+
+
+544
+00:18:21,536 --> 00:18:22,046
+Spotlight.
+
+
+545
+00:18:23,396 --> 00:18:24,596
+This is personalized and
+
+
+546
+00:18:24,596 --> 00:18:26,876
+adaptive, it runs on device
+
+
+547
+00:18:26,956 --> 00:18:29,166
+using Core ML and we've worked
+
+
+548
+00:18:29,166 --> 00:18:31,186
+very hard to keep your data
+
+
+549
+00:18:31,186 --> 00:18:31,696
+private.
+
+
+550
+00:18:32,816 --> 00:18:34,466
+All the personalization and
+
+
+551
+00:18:34,466 --> 00:18:35,936
+adaptation to the user happens
+
+
+552
+00:18:35,936 --> 00:18:36,596
+on device.
+
+
+553
+00:18:36,906 --> 00:18:38,276
+The ML model is trained in the
+
+
+554
+00:18:38,276 --> 00:18:40,136
+cloud using features known
+
+
+555
+00:18:40,136 --> 00:18:41,566
+locally from your devices.
+
+
+556
+00:18:42,036 --> 00:18:44,476
+Features are private, they do
+
+
+557
+00:18:44,476 --> 00:18:46,386
+not include actual results and
+
+
+558
+00:18:46,386 --> 00:18:47,696
+they do not include actual
+
+
+559
+00:18:47,696 --> 00:18:48,116
+queries.
+
+
+560
+00:18:48,736 --> 00:18:50,266
+Data for training is only
+
+
+561
+00:18:50,266 --> 00:18:52,216
+submitted if you're opted in to
+
+
+562
+00:18:52,216 --> 00:18:53,186
+device analytics.
+
+
+563
+00:18:53,826 --> 00:18:55,486
+This is a privacy friendly way
+
+
+564
+00:18:55,486 --> 00:18:56,406
+of doing machine learning.
+
+
+565
+00:19:02,206 --> 00:19:03,136
+We've also added some new
+
+
+566
+00:19:03,136 --> 00:19:05,386
+properties to let you help us
+
+
+567
+00:19:05,446 --> 00:19:06,366
+rank your content.
+
+
+568
+00:19:07,466 --> 00:19:08,916
+We've added a rankingHint which
+
+
+569
+00:19:08,916 --> 00:19:10,706
+is a number from 1 to 100 with
+
+
+570
+00:19:10,706 --> 00:19:11,906
+100 being the best.
+
+
+571
+00:19:12,456 --> 00:19:13,966
+And when the ranker can't tell
+
+
+572
+00:19:13,966 --> 00:19:15,456
+the difference between items
+
+
+573
+00:19:15,596 --> 00:19:17,916
+this can be used to elevate the
+
+
+574
+00:19:17,916 --> 00:19:19,046
+more important content.
+
+
+575
+00:19:19,486 --> 00:19:22,866
+A new Boolean attribute was
+
+
+576
+00:19:22,866 --> 00:19:23,426
+created.
+
+
+577
+00:19:24,046 --> 00:19:26,156
+This lets us know whether the
+
+
+578
+00:19:26,156 --> 00:19:27,536
+user created the item.
+
+
+579
+00:19:28,906 --> 00:19:30,646
+UserOwned lets us know whether
+
+
+580
+00:19:30,646 --> 00:19:31,806
+the user has purchased this
+
+
+581
+00:19:31,806 --> 00:19:32,176
+item.
+
+
+582
+00:19:32,426 --> 00:19:34,326
+And userCurated lets us know
+
+
+583
+00:19:34,326 --> 00:19:35,426
+whether this is an item that the
+
+
+584
+00:19:35,426 --> 00:19:37,126
+user selected, for example a
+
+
+585
+00:19:37,126 --> 00:19:38,096
+bookmarked news article.
+
+
+586
+00:19:38,426 --> 00:19:42,986
+Now keep in mind that this is
+
+
+587
+00:19:42,986 --> 00:19:44,316
+just input to the ranker.
+
+
+588
+00:19:45,546 --> 00:19:47,576
+If you try to fool the ranking
+
+
+589
+00:19:47,576 --> 00:19:49,506
+system by setting the
+
+
+590
+00:19:49,506 --> 00:19:51,486
+rankingHint at everything to 100
+
+
+591
+00:19:52,006 --> 00:19:53,306
+it won't really affect anything.
+
+
+592
+00:19:53,816 --> 00:19:55,716
+This is only for ranking within
+
+
+593
+00:19:55,716 --> 00:19:56,586
+your own items.
+
+
+594
+00:19:59,456 --> 00:20:01,076
+Match quality and usage
+
+
+595
+00:20:01,076 --> 00:20:03,576
+information is still critical
+
+
+596
+00:20:03,576 --> 00:20:04,136
+for ranking.
+
+
+597
+00:20:04,526 --> 00:20:05,956
+So, to get the best ranking
+
+
+598
+00:20:05,956 --> 00:20:08,146
+behavior use NSUserActivity so
+
+
+599
+00:20:08,146 --> 00:20:09,236
+that we know what the user
+
+
+600
+00:20:09,236 --> 00:20:11,066
+interacts with in your app.
+
+
+601
+00:20:12,016 --> 00:20:13,686
+Provide a rich metadata for the
+
+
+602
+00:20:13,686 --> 00:20:15,456
+ranker to work on, so set a
+
+
+603
+00:20:15,456 --> 00:20:17,956
+great title, set an informative
+
+
+604
+00:20:17,956 --> 00:20:20,096
+description, specify dates, and
+
+
+605
+00:20:20,096 --> 00:20:21,956
+judiciously use keywords to make
+
+
+606
+00:20:21,956 --> 00:20:24,266
+items easier to find, but don't
+
+
+607
+00:20:24,266 --> 00:20:27,156
+misuse keywords because straight
+
+
+608
+00:20:27,156 --> 00:20:28,736
+keyword matches means that your
+
+
+609
+00:20:28,736 --> 00:20:30,556
+application's results will rank
+
+
+610
+00:20:30,556 --> 00:20:30,856
+lower.
+
+
+611
+00:20:30,856 --> 00:20:35,026
+Now let's get back to basics.
+
+
+612
+00:20:35,506 --> 00:20:37,586
+You need to get content into the
+
+
+613
+00:20:37,586 --> 00:20:39,546
+index and the primary way to add
+
+
+614
+00:20:39,546 --> 00:20:41,626
+content is directly via the
+
+
+615
+00:20:41,626 --> 00:20:42,746
+CSSearchable index API.
+
+
+616
+00:20:44,516 --> 00:20:46,056
+Secondarily, you can also index
+
+
+617
+00:20:46,056 --> 00:20:47,686
+NSUserActivity which we
+
+
+618
+00:20:47,686 --> 00:20:48,956
+recommend doing because it
+
+
+619
+00:20:48,956 --> 00:20:50,236
+provides an important ranking
+
+
+620
+00:20:50,236 --> 00:20:50,566
+signal.
+
+
+621
+00:20:52,376 --> 00:20:53,946
+Sometimes you'll need to delete
+
+
+622
+00:20:53,946 --> 00:20:55,546
+items reacting to what the user
+
+
+623
+00:20:55,546 --> 00:20:57,236
+does or to external events.
+
+
+624
+00:20:57,236 --> 00:20:59,236
+And of course, we have APIs for
+
+
+625
+00:20:59,236 --> 00:21:02,726
+that as well.
+
+
+626
+00:21:02,816 --> 00:21:04,086
+Adding CSSearchableItems to the
+
+
+627
+00:21:04,086 --> 00:21:05,786
+index is quite easy and you're
+
+
+628
+00:21:05,786 --> 00:21:07,426
+in complete control of what you
+
+
+629
+00:21:07,426 --> 00:21:07,666
+add.
+
+
+630
+00:21:08,606 --> 00:21:10,066
+You first create a CSSearchable
+
+
+631
+00:21:10,066 --> 00:21:11,366
+item attribute set that will
+
+
+632
+00:21:11,366 --> 00:21:12,836
+hold the metadata for the item.
+
+
+633
+00:21:13,096 --> 00:21:14,776
+You initialize the attribute set
+
+
+634
+00:21:15,026 --> 00:21:16,886
+with the universal type
+
+
+635
+00:21:16,886 --> 00:21:17,466
+identifier.
+
+
+636
+00:21:18,756 --> 00:21:20,766
+Here we're using kUTTypeImage
+
+
+637
+00:21:20,766 --> 00:21:22,126
+with a generic type frame rich
+
+
+638
+00:21:22,126 --> 00:21:22,626
+content.
+
+
+639
+00:21:24,316 --> 00:21:25,506
+You also want to use something
+
+
+640
+00:21:25,506 --> 00:21:27,616
+more specific and there are many
+
+
+641
+00:21:27,616 --> 00:21:29,736
+built-in types of the system to
+
+
+642
+00:21:29,736 --> 00:21:30,406
+inherit from.
+
+
+643
+00:21:31,026 --> 00:21:32,346
+It's important in iOS and
+
+
+644
+00:21:32,346 --> 00:21:33,966
+critical in macOS that you use
+
+
+645
+00:21:33,966 --> 00:21:36,336
+the right type because it
+
+
+646
+00:21:36,336 --> 00:21:37,666
+affects where and how your
+
+
+647
+00:21:37,666 --> 00:21:38,586
+content is displayed.
+
+
+648
+00:21:40,196 --> 00:21:41,786
+Then you set some attributes and
+
+
+649
+00:21:41,786 --> 00:21:43,556
+the attribute set display name
+
+
+650
+00:21:43,556 --> 00:21:44,366
+is a bare minimum.
+
+
+651
+00:21:46,936 --> 00:21:48,316
+You create a searchable item
+
+
+652
+00:21:48,526 --> 00:21:49,996
+with a unique identifier, a
+
+
+653
+00:21:49,996 --> 00:21:51,486
+domain identifier and the
+
+
+654
+00:21:51,486 --> 00:21:52,056
+attribute set.
+
+
+655
+00:21:52,206 --> 00:21:53,906
+And keep in mind that unique
+
+
+656
+00:21:53,906 --> 00:21:55,086
+identifier is what you'll get
+
+
+657
+00:21:55,136 --> 00:21:56,646
+back when Spotlight wants to
+
+
+658
+00:21:56,646 --> 00:21:57,906
+launch into your application.
+
+
+659
+00:21:58,386 --> 00:22:02,276
+And you index it and the
+
+
+660
+00:22:02,276 --> 00:22:03,376
+completion handler will get
+
+
+661
+00:22:03,376 --> 00:22:05,226
+called and the data has been
+
+
+662
+00:22:05,226 --> 00:22:06,636
+safely committed to storage.
+
+
+663
+00:22:08,416 --> 00:22:09,736
+Just like for Spotlight
+
+
+664
+00:22:09,886 --> 00:22:11,436
+NSUserActivity can be used to
+
+
+665
+00:22:11,436 --> 00:22:12,816
+index content and navigation
+
+
+666
+00:22:12,816 --> 00:22:14,936
+points in your app.
+
+
+667
+00:22:14,936 --> 00:22:16,686
+NSUserActivity reflects what the
+
+
+668
+00:22:16,686 --> 00:22:17,456
+user has done in the
+
+
+669
+00:22:17,456 --> 00:22:19,106
+application, whereas
+
+
+670
+00:22:19,106 --> 00:22:22,606
+CSSearchable reflects what your
+
+
+671
+00:22:22,606 --> 00:22:23,406
+app has to offer.
+
+
+672
+00:22:23,976 --> 00:22:28,296
+So, the difference is that the
+
+
+673
+00:22:28,296 --> 00:22:29,686
+Core Spotlight API lets you
+
+
+674
+00:22:29,686 --> 00:22:31,736
+index items that the user hasn't
+
+
+675
+00:22:31,736 --> 00:22:33,176
+visited and is generally
+
+
+676
+00:22:33,176 --> 00:22:34,256
+preferable as it gives you
+
+
+677
+00:22:34,256 --> 00:22:35,716
+complete control over what is
+
+
+678
+00:22:35,716 --> 00:22:36,176
+indexed.
+
+
+679
+00:22:37,106 --> 00:22:38,596
+But on the other hand, because
+
+
+680
+00:22:38,636 --> 00:22:40,986
+NSUserActivity is only for items
+
+
+681
+00:22:40,986 --> 00:22:42,436
+that the user has visited it
+
+
+682
+00:22:42,436 --> 00:22:43,966
+provides that important signal
+
+
+683
+00:22:43,966 --> 00:22:44,486
+for ranking.
+
+
+684
+00:22:45,076 --> 00:22:47,346
+To use NSUserActivity to inform
+
+
+685
+00:22:47,346 --> 00:22:49,066
+ranking you need to relate them
+
+
+686
+00:22:49,066 --> 00:22:50,346
+to the CSSearchableItems that
+
+
+687
+00:22:50,346 --> 00:22:50,906
+you index.
+
+
+688
+00:22:55,276 --> 00:22:57,656
+To do this when you create your
+
+
+689
+00:22:58,076 --> 00:23:00,206
+NSUserActivity you also create
+
+
+690
+00:23:00,246 --> 00:23:01,846
+an attribute set.
+
+
+691
+00:23:03,116 --> 00:23:04,496
+You set properties on the
+
+
+692
+00:23:04,496 --> 00:23:06,256
+attribute set and then you set
+
+
+693
+00:23:06,256 --> 00:23:08,536
+the related unique identifier or
+
+
+694
+00:23:08,536 --> 00:23:09,896
+if you don't want the lifetime
+
+
+695
+00:23:09,896 --> 00:23:12,926
+of your NSUserActivity tied to
+
+
+696
+00:23:12,926 --> 00:23:15,016
+your Core Spotlight items use
+
+
+697
+00:23:15,016 --> 00:23:16,076
+the [inaudible] related unique
+
+
+698
+00:23:16,936 --> 00:23:18,176
+identifier instead.
+
+
+699
+00:23:19,916 --> 00:23:21,396
+Then you mark your user activity
+
+
+700
+00:23:21,396 --> 00:23:24,416
+as eligible for search and you
+
+
+701
+00:23:24,606 --> 00:23:26,176
+set the attribute set on the
+
+
+702
+00:23:26,176 --> 00:23:26,766
+user activity.
+
+
+703
+00:23:28,186 --> 00:23:32,306
+The many reasons to delete items
+
+
+704
+00:23:32,446 --> 00:23:34,046
+from reacting to user's actions
+
+
+705
+00:23:34,436 --> 00:23:35,766
+to getting rid of stale content.
+
+
+706
+00:23:36,666 --> 00:23:38,036
+Using the Core Spotlight API you
+
+
+707
+00:23:38,036 --> 00:23:40,586
+can delete specific items by
+
+
+708
+00:23:40,586 --> 00:23:41,536
+their identifiers.
+
+
+709
+00:23:41,916 --> 00:23:43,816
+For example, if the user deletes
+
+
+710
+00:23:43,816 --> 00:23:44,336
+a document.
+
+
+711
+00:23:44,496 --> 00:23:46,366
+You can delete groups of items
+
+
+712
+00:23:46,366 --> 00:23:48,056
+by their domain identifier which
+
+
+713
+00:23:48,056 --> 00:23:49,356
+can be useful if the user signs
+
+
+714
+00:23:49,356 --> 00:23:50,906
+out of account or ends a
+
+
+715
+00:23:50,906 --> 00:23:51,986
+subscription and you want to
+
+
+716
+00:23:51,986 --> 00:23:53,586
+remove all content for it.
+
+
+717
+00:23:53,586 --> 00:23:55,216
+You can also use this to delete
+
+
+718
+00:23:55,216 --> 00:23:56,316
+NSUserActivities that you've
+
+
+719
+00:23:56,316 --> 00:23:58,096
+indexed if you set the domain
+
+
+720
+00:23:58,096 --> 00:24:00,566
+identifier on them.
+
+
+721
+00:24:00,566 --> 00:24:02,646
+Finally, you can delete all
+
+
+722
+00:24:02,736 --> 00:24:03,666
+searchable items for your
+
+
+723
+00:24:03,666 --> 00:24:05,586
+applications, which is useful if
+
+
+724
+00:24:05,586 --> 00:24:06,616
+you have a version change and
+
+
+725
+00:24:06,616 --> 00:24:07,856
+you need to restart indexing.
+
+
+726
+00:24:08,116 --> 00:24:09,306
+This is also called on your
+
+
+727
+00:24:09,306 --> 00:24:11,206
+behalf when the user deletes an
+
+
+728
+00:24:11,206 --> 00:24:11,796
+application.
+
+
+729
+00:24:11,856 --> 00:24:16,006
+Now let's get into the details
+
+
+730
+00:24:16,006 --> 00:24:17,206
+of indexing Core Spotlight.
+
+
+731
+00:24:17,206 --> 00:24:19,326
+Let's start with how to register
+
+
+732
+00:24:19,326 --> 00:24:21,496
+as an index delete and then talk
+
+
+733
+00:24:21,496 --> 00:24:22,976
+about how to build a Core
+
+
+734
+00:24:22,976 --> 00:24:24,536
+Spotlight extension which does
+
+
+735
+00:24:24,536 --> 00:24:26,866
+the job of a delegate when your
+
+
+736
+00:24:26,866 --> 00:24:27,626
+app isn't running.
+
+
+737
+00:24:27,626 --> 00:24:29,776
+We'll talk about how client
+
+
+738
+00:24:29,776 --> 00:24:31,296
+state works and how you can use
+
+
+739
+00:24:31,296 --> 00:24:32,926
+it to make indexing robust and
+
+
+740
+00:24:32,926 --> 00:24:33,366
+efficient.
+
+
+741
+00:24:34,046 --> 00:24:35,096
+And we'll discuss some
+
+
+742
+00:24:35,096 --> 00:24:36,296
+performance considerations.
+
+
+743
+00:24:40,496 --> 00:24:42,206
+Registering as an index delegate
+
+
+744
+00:24:42,296 --> 00:24:44,166
+lets Spotlight reach out to your
+
+
+745
+00:24:44,166 --> 00:24:46,226
+app when we need you to take
+
+
+746
+00:24:46,226 --> 00:24:46,696
+action.
+
+
+747
+00:24:47,566 --> 00:24:48,616
+It lets us request that you
+
+
+748
+00:24:48,616 --> 00:24:50,496
+index all your content or index
+
+
+749
+00:24:50,496 --> 00:24:51,396
+particular items [inaudible]
+
+
+750
+00:24:51,746 --> 00:24:55,306
+accurate and up-to-date.
+
+
+751
+00:24:55,536 --> 00:24:56,566
+It's also responsible for
+
+
+752
+00:24:56,666 --> 00:24:58,096
+responding to index throttling
+
+
+753
+00:24:58,096 --> 00:24:59,976
+and for providing Drag-and-Drop
+
+
+754
+00:25:00,536 --> 00:25:00,656
+data.
+
+
+755
+00:25:00,696 --> 00:25:01,686
+As usual, setting up the
+
+
+756
+00:25:01,686 --> 00:25:03,196
+delegate is just a single line
+
+
+757
+00:25:03,196 --> 00:25:05,986
+of code, but to be a delegate
+
+
+758
+00:25:05,986 --> 00:25:06,836
+you need to implement the
+
+
+759
+00:25:06,836 --> 00:25:08,116
+CSSearchableIndex delegate
+
+
+760
+00:25:08,116 --> 00:25:08,466
+protocol.
+
+
+761
+00:25:10,136 --> 00:25:11,796
+This is a complete protocol.
+
+
+762
+00:25:12,476 --> 00:25:13,386
+The first two methods are
+
+
+763
+00:25:13,386 --> 00:25:15,086
+required, we look at those in a
+
+
+764
+00:25:15,086 --> 00:25:16,176
+bit more detail in a moment.
+
+
+765
+00:25:16,856 --> 00:25:18,756
+The second two are optional and
+
+
+766
+00:25:18,756 --> 00:25:19,816
+let you know that indexing has
+
+
+767
+00:25:19,816 --> 00:25:21,116
+been slowed down to favor
+
+
+768
+00:25:21,116 --> 00:25:23,316
+foreground activity giving you
+
+
+769
+00:25:23,316 --> 00:25:24,586
+the option of stopping any
+
+
+770
+00:25:24,586 --> 00:25:25,926
+noncritical indexing and
+
+
+771
+00:25:25,926 --> 00:25:27,646
+focusing on the most important
+
+
+772
+00:25:27,646 --> 00:25:28,006
+items.
+
+
+773
+00:25:28,466 --> 00:25:31,486
+And finally, there are the two
+
+
+774
+00:25:31,486 --> 00:25:32,696
+methods for Drag-and-Drop that
+
+
+775
+00:25:32,696 --> 00:25:33,526
+we discussed earlier.
+
+
+776
+00:25:41,146 --> 00:25:42,226
+When the index all method is
+
+
+777
+00:25:42,226 --> 00:25:43,566
+called you add everything to the
+
+
+778
+00:25:43,566 --> 00:25:44,026
+index.
+
+
+779
+00:25:44,626 --> 00:25:45,826
+And when you get the call back
+
+
+780
+00:25:45,826 --> 00:25:47,126
+for the last item you call the
+
+
+781
+00:25:47,126 --> 00:25:47,886
+acknowledgment handler.
+
+
+782
+00:25:48,316 --> 00:25:49,426
+If your app quits and is
+
+
+783
+00:25:49,426 --> 00:25:50,706
+relaunched before the handler is
+
+
+784
+00:25:50,706 --> 00:25:52,086
+called the Spotlight will call
+
+
+785
+00:25:52,086 --> 00:25:53,386
+that again with the same
+
+
+786
+00:25:53,386 --> 00:25:53,826
+callback.
+
+
+787
+00:25:54,786 --> 00:25:55,616
+When reindex items with
+
+
+788
+00:25:55,616 --> 00:25:57,056
+identifiers is called you look
+
+
+789
+00:25:57,056 --> 00:25:58,296
+up the items the Spotlight is
+
+
+790
+00:25:58,296 --> 00:25:59,986
+requesting and re-add or delete
+
+
+791
+00:25:59,986 --> 00:26:00,746
+them as appropriate.
+
+
+792
+00:26:01,206 --> 00:26:02,086
+And again, you call
+
+
+793
+00:26:02,086 --> 00:26:03,716
+acknowledgment handler only when
+
+
+794
+00:26:03,716 --> 00:26:04,686
+you've received the last
+
+
+795
+00:26:04,686 --> 00:26:06,006
+callback for any outstanding
+
+
+796
+00:26:06,006 --> 00:26:06,336
+work.
+
+
+797
+00:26:06,736 --> 00:26:10,606
+The Core Spotlight extension
+
+
+798
+00:26:10,686 --> 00:26:12,306
+implements a CSSearchableIndex
+
+
+799
+00:26:12,306 --> 00:26:14,126
+delegate protocol and allows
+
+
+800
+00:26:14,126 --> 00:26:15,356
+callbacks to happen when your
+
+
+801
+00:26:15,356 --> 00:26:16,126
+app is not running.
+
+
+802
+00:26:17,836 --> 00:26:19,096
+This gets your content back into
+
+
+803
+00:26:19,096 --> 00:26:20,816
+Spotlight as quickly as possible
+
+
+804
+00:26:20,816 --> 00:26:22,216
+after the user is restored from
+
+
+805
+00:26:22,216 --> 00:26:24,036
+backup or when disaster recovery
+
+
+806
+00:26:24,036 --> 00:26:24,396
+is needed.
+
+
+807
+00:26:25,176 --> 00:26:26,476
+The Core Spotlight extension
+
+
+808
+00:26:26,476 --> 00:26:27,836
+will be called before your items
+
+
+809
+00:26:27,836 --> 00:26:29,416
+expire allowing you to update
+
+
+810
+00:26:29,416 --> 00:26:30,746
+them if necessary, even if the
+
+
+811
+00:26:30,796 --> 00:26:32,406
+user happens to not be using
+
+
+812
+00:26:32,406 --> 00:26:33,146
+your application.
+
+
+813
+00:26:34,026 --> 00:26:36,396
+Since the interface extension is
+
+
+814
+00:26:36,396 --> 00:26:37,376
+the same as for the index
+
+
+815
+00:26:37,376 --> 00:26:38,956
+delegate it's best to factor
+
+
+816
+00:26:38,956 --> 00:26:40,136
+your code so that you can share
+
+
+817
+00:26:40,136 --> 00:26:40,946
+the implementation.
+
+
+818
+00:26:41,176 --> 00:26:42,766
+And ideally, the shared
+
+
+819
+00:26:42,766 --> 00:26:44,016
+implementation will live in the
+
+
+820
+00:26:44,016 --> 00:26:44,536
+framework.
+
+
+821
+00:26:45,596 --> 00:26:46,616
+Remember also that the Core
+
+
+822
+00:26:46,616 --> 00:26:48,056
+Spotlight extension is critical
+
+
+823
+00:26:48,056 --> 00:26:49,186
+to support Drag-and-Drop.
+
+
+824
+00:26:49,776 --> 00:26:51,066
+If you don't have an extension
+
+
+825
+00:26:51,066 --> 00:26:52,506
+there will be nothing to call
+
+
+826
+00:26:52,746 --> 00:26:55,386
+when the user drops an item for
+
+
+827
+00:26:55,386 --> 00:26:56,676
+your application in another app.
+
+
+828
+00:26:56,676 --> 00:27:00,916
+Well you can get the indexing
+
+
+829
+00:27:00,916 --> 00:27:02,506
+right without using client
+
+
+830
+00:27:02,506 --> 00:27:02,936
+state.
+
+
+831
+00:27:03,226 --> 00:27:05,076
+We found that it makes the task
+
+
+832
+00:27:05,106 --> 00:27:05,846
+far easier.
+
+
+833
+00:27:06,406 --> 00:27:07,896
+Client state allows you to keep
+
+
+834
+00:27:07,896 --> 00:27:09,326
+Spotlight and your own database
+
+
+835
+00:27:09,326 --> 00:27:11,826
+in sync without redundant work.
+
+
+836
+00:27:14,816 --> 00:27:16,106
+Client state is an opaque
+
+
+837
+00:27:16,106 --> 00:27:16,776
+Spotlight.
+
+
+838
+00:27:17,416 --> 00:27:18,886
+What it is is your choice.
+
+
+839
+00:27:19,616 --> 00:27:21,116
+It's often a simple integer
+
+
+840
+00:27:21,346 --> 00:27:24,026
+denoting a sequence number which
+
+
+841
+00:27:24,166 --> 00:27:25,916
+could be in a marker in a
+
+
+842
+00:27:25,916 --> 00:27:27,766
+database journal, but we've seen
+
+
+843
+00:27:27,766 --> 00:27:29,086
+more complex cases as well.
+
+
+844
+00:27:30,306 --> 00:27:31,386
+Let's look at how this works.
+
+
+845
+00:27:33,486 --> 00:27:34,756
+Your app sends batches to Core
+
+
+846
+00:27:34,756 --> 00:27:36,276
+Spotlight, each batch is
+
+
+847
+00:27:36,306 --> 00:27:37,916
+journaled with the client state.
+
+
+848
+00:27:38,796 --> 00:27:39,656
+When the batch has been
+
+
+849
+00:27:40,146 --> 00:27:41,486
+committed to the journal your
+
+
+850
+00:27:41,486 --> 00:27:42,896
+callback log is called letting
+
+
+851
+00:27:42,896 --> 00:27:44,026
+you know that the batch has been
+
+
+852
+00:27:44,026 --> 00:27:44,486
+received.
+
+
+853
+00:27:45,016 --> 00:27:47,316
+So here the app is just indexing
+
+
+854
+00:27:47,316 --> 00:27:50,096
+a new batch, but disaster
+
+
+855
+00:27:50,096 --> 00:27:51,506
+strikes and the app crashes.
+
+
+856
+00:27:52,826 --> 00:27:53,866
+Now what happened to the data
+
+
+857
+00:27:53,866 --> 00:27:55,516
+that was in flight, did it make
+
+
+858
+00:27:55,516 --> 00:27:56,236
+it to the index?
+
+
+859
+00:27:56,746 --> 00:27:59,166
+With client state, you can find
+
+
+860
+00:28:00,226 --> 00:28:00,306
+out.
+
+
+861
+00:28:00,576 --> 00:28:01,986
+When your app starts again you
+
+
+862
+00:28:01,986 --> 00:28:03,696
+request the client state.
+
+
+863
+00:28:04,186 --> 00:28:05,586
+Here you get state two back
+
+
+864
+00:28:05,656 --> 00:28:07,386
+since this was last state that
+
+
+865
+00:28:07,386 --> 00:28:08,466
+actually made it into the
+
+
+866
+00:28:08,466 --> 00:28:09,986
+journal and you can restart
+
+
+867
+00:28:09,986 --> 00:28:11,346
+indexing at just the right
+
+
+868
+00:28:11,346 --> 00:28:11,666
+point.
+
+
+869
+00:28:12,306 --> 00:28:15,046
+If the data had already made it
+
+
+870
+00:28:15,046 --> 00:28:16,306
+to the Core Spotlight process
+
+
+871
+00:28:16,306 --> 00:28:17,446
+when the crash happened you
+
+
+872
+00:28:17,446 --> 00:28:18,456
+could continue it from state
+
+
+873
+00:28:18,456 --> 00:28:19,836
+three instead, so you do the
+
+
+874
+00:28:19,836 --> 00:28:20,886
+minimal amount of work.
+
+
+875
+00:28:21,916 --> 00:28:24,156
+To store client state, you need
+
+
+876
+00:28:24,156 --> 00:28:25,306
+to create a named index.
+
+
+877
+00:28:25,786 --> 00:28:27,116
+You can't use the default
+
+
+878
+00:28:27,116 --> 00:28:27,636
+instance.
+
+
+879
+00:28:28,546 --> 00:28:30,196
+The name lets us know which
+
+
+880
+00:28:30,196 --> 00:28:31,816
+states to fetch which is
+
+
+881
+00:28:31,816 --> 00:28:33,446
+required because some apps need
+
+
+882
+00:28:33,446 --> 00:28:34,346
+more than one token.
+
+
+883
+00:28:34,616 --> 00:28:35,526
+For example, because they're
+
+
+884
+00:28:35,526 --> 00:28:36,466
+multiple databases.
+
+
+885
+00:28:37,586 --> 00:28:39,536
+So, in your code first you
+
+
+886
+00:28:39,536 --> 00:28:40,896
+create a named index instance,
+
+
+887
+00:28:41,746 --> 00:28:44,716
+you'll begin an index batch, you
+
+
+888
+00:28:44,946 --> 00:28:46,456
+add searchable items as usual,
+
+
+889
+00:28:46,966 --> 00:28:49,106
+and then you compute the state
+
+
+890
+00:28:49,106 --> 00:28:50,016
+that you want to save.
+
+
+891
+00:28:51,306 --> 00:28:53,606
+Finally, you end the batch with
+
+
+892
+00:28:53,606 --> 00:28:55,326
+your opaque state and pay
+
+
+893
+00:28:55,326 --> 00:28:57,026
+attention to any errors returned
+
+
+894
+00:28:57,026 --> 00:28:58,036
+with the completion handler.
+
+
+895
+00:28:58,526 --> 00:29:01,556
+So, at some later point when
+
+
+896
+00:29:01,556 --> 00:29:03,016
+you're app or extension starts
+
+
+897
+00:29:04,066 --> 00:29:05,516
+use client state to resume
+
+
+898
+00:29:05,516 --> 00:29:05,976
+indexing.
+
+
+899
+00:29:06,486 --> 00:29:09,496
+You fetch the client state and
+
+
+900
+00:29:09,496 --> 00:29:10,996
+you compare it to the current
+
+
+901
+00:29:10,996 --> 00:29:12,826
+state doing whatever work is
+
+
+902
+00:29:12,826 --> 00:29:14,096
+needed to bring them in sync.
+
+
+903
+00:29:14,486 --> 00:29:18,406
+So, in your code you create an
+
+
+904
+00:29:18,406 --> 00:29:19,536
+index instance for the same
+
+
+905
+00:29:19,536 --> 00:29:22,376
+name, you fetch the client
+
+
+906
+00:29:22,676 --> 00:29:25,126
+state, you examine the state
+
+
+907
+00:29:25,756 --> 00:29:26,846
+after dealing with any errors,
+
+
+908
+00:29:27,526 --> 00:29:29,746
+and then you just pick up where
+
+
+909
+00:29:29,746 --> 00:29:31,316
+you left off if required.
+
+
+910
+00:29:31,556 --> 00:29:34,156
+And so, you can replay exactly
+
+
+911
+00:29:34,156 --> 00:29:35,286
+the operations that are needed
+
+
+912
+00:29:35,286 --> 00:29:36,796
+to bring your index and Core
+
+
+913
+00:29:36,796 --> 00:29:37,736
+Spotlight in sync.
+
+
+914
+00:29:41,336 --> 00:29:42,556
+Let's talk some more about
+
+
+915
+00:29:42,556 --> 00:29:43,566
+indexing performance.
+
+
+916
+00:29:44,236 --> 00:29:46,036
+Indexing is a background task
+
+
+917
+00:29:46,036 --> 00:29:47,226
+and you don't want to slow down
+
+
+918
+00:29:47,226 --> 00:29:48,846
+your app or the device with
+
+
+919
+00:29:48,846 --> 00:29:49,526
+indexing work.
+
+
+920
+00:29:50,076 --> 00:29:53,476
+So, minimize overhead, optimize
+
+
+921
+00:29:53,476 --> 00:29:55,296
+any access to the file system or
+
+
+922
+00:29:55,296 --> 00:29:58,026
+databases that you have to do in
+
+
+923
+00:29:58,026 --> 00:29:58,976
+order to create items.
+
+
+924
+00:29:59,626 --> 00:30:01,536
+And remember that each call to
+
+
+925
+00:30:01,536 --> 00:30:03,166
+Core Spotlight carries overhead.
+
+
+926
+00:30:03,856 --> 00:30:06,306
+So, has batches of items instead
+
+
+927
+00:30:06,306 --> 00:30:08,236
+of single items whenever it's
+
+
+928
+00:30:08,446 --> 00:30:08,846
+possible.
+
+
+929
+00:30:09,476 --> 00:30:11,706
+That said, consider that memory
+
+
+930
+00:30:11,706 --> 00:30:15,326
+is limited, so keep your batches
+
+
+931
+00:30:15,326 --> 00:30:16,416
+reasonably small.
+
+
+932
+00:30:16,576 --> 00:30:18,056
+Even batching just 10 items
+
+
+933
+00:30:18,056 --> 00:30:19,676
+decreases the overhead by an
+
+
+934
+00:30:19,676 --> 00:30:20,426
+order of magnitude.
+
+
+935
+00:30:21,126 --> 00:30:23,016
+And it's often more efficient to
+
+
+936
+00:30:23,016 --> 00:30:25,286
+give multiple batches in flight
+
+
+937
+00:30:25,286 --> 00:30:27,106
+in the pipeline manner than to
+
+
+938
+00:30:27,316 --> 00:30:30,296
+use a single large batch.
+
+
+939
+00:30:30,296 --> 00:30:31,516
+This allows indexing to happen
+
+
+940
+00:30:31,516 --> 00:30:33,756
+in parallel with your work.
+
+
+941
+00:30:34,046 --> 00:30:35,336
+Sine your app will be indexing
+
+
+942
+00:30:36,016 --> 00:30:38,196
+while it's in use don't block
+
+
+943
+00:30:38,196 --> 00:30:38,766
+the main thread.
+
+
+944
+00:30:38,866 --> 00:30:40,896
+And finally, index on a
+
+
+945
+00:30:40,896 --> 00:30:42,356
+background queue this will help
+
+
+946
+00:30:42,356 --> 00:30:43,676
+with power and responsiveness.
+
+
+947
+00:30:44,246 --> 00:30:47,576
+To get a great presentation in
+
+
+948
+00:30:47,576 --> 00:30:49,136
+Spotlight you want to set a good
+
+
+949
+00:30:49,136 --> 00:30:49,596
+thumbnail.
+
+
+950
+00:30:51,006 --> 00:30:52,506
+By default, Spotlight will use
+
+
+951
+00:30:52,506 --> 00:30:54,066
+your app icon, which makes it
+
+
+952
+00:30:54,106 --> 00:30:55,446
+hard to distinguish results at a
+
+
+953
+00:30:55,446 --> 00:30:55,946
+glance.
+
+
+954
+00:30:56,846 --> 00:30:59,116
+Just as important the thumbnail
+
+
+955
+00:30:59,116 --> 00:31:01,306
+is a title, the title is not
+
+
+956
+00:31:01,306 --> 00:31:03,056
+just created visually, it's also
+
+
+957
+00:31:03,056 --> 00:31:04,176
+what users most frequently
+
+
+958
+00:31:04,176 --> 00:31:04,896
+search on.
+
+
+959
+00:31:05,366 --> 00:31:07,426
+After the thumbnail and the
+
+
+960
+00:31:07,426 --> 00:31:09,056
+title, you're going to set other
+
+
+961
+00:31:09,056 --> 00:31:10,286
+fields that are suitable for
+
+
+962
+00:31:10,286 --> 00:31:11,326
+your contact.
+
+
+963
+00:31:12,636 --> 00:31:14,256
+Your description creates a much
+
+
+964
+00:31:14,256 --> 00:31:16,196
+richer result and providing the
+
+
+965
+00:31:16,196 --> 00:31:17,866
+content creation date can be
+
+
+966
+00:31:17,866 --> 00:31:20,376
+very helpful as well.
+
+
+967
+00:31:20,376 --> 00:31:22,216
+Where appropriate, rating and
+
+
+968
+00:31:22,216 --> 00:31:23,776
+rating description can make a
+
+
+969
+00:31:23,776 --> 00:31:24,446
+big difference.
+
+
+970
+00:31:24,866 --> 00:31:26,616
+And if you know the location for
+
+
+971
+00:31:26,616 --> 00:31:28,036
+something, setting the location
+
+
+972
+00:31:28,036 --> 00:31:29,246
+name can be a very nice touch.
+
+
+973
+00:31:29,746 --> 00:31:35,426
+So, set a title, provide a great
+
+
+974
+00:31:35,426 --> 00:31:37,386
+thumbnail, and set the right
+
+
+975
+00:31:37,416 --> 00:31:39,466
+content type for your content.
+
+
+976
+00:31:40,076 --> 00:31:41,136
+Then fill out the UI with
+
+
+977
+00:31:41,136 --> 00:31:42,456
+additional metadata to write a
+
+
+978
+00:31:42,456 --> 00:31:43,746
+great visual representation of
+
+
+979
+00:31:43,746 --> 00:31:44,326
+your content.
+
+
+980
+00:31:44,896 --> 00:31:46,676
+And remember that setting the
+
+
+981
+00:31:46,676 --> 00:31:48,076
+right metadata isn't just about
+
+
+982
+00:31:48,076 --> 00:31:50,416
+looks it also affects behavior,
+
+
+983
+00:31:50,996 --> 00:31:53,726
+so let's take a look at that.
+
+
+984
+00:31:53,896 --> 00:31:55,236
+For starters, enabling quick
+
+
+985
+00:31:55,236 --> 00:31:56,536
+actions like directions and
+
+
+986
+00:31:56,536 --> 00:31:57,946
+calling makes the user interface
+
+
+987
+00:31:57,946 --> 00:31:59,866
+richer and provides great value
+
+
+988
+00:31:59,866 --> 00:32:00,486
+to the user.
+
+
+989
+00:32:01,476 --> 00:32:03,176
+To support navigation, you set
+
+
+990
+00:32:03,216 --> 00:32:04,566
+the latitude and longitude
+
+
+991
+00:32:04,566 --> 00:32:06,226
+attributes and set supports
+
+
+992
+00:32:06,226 --> 00:32:07,906
+navigation to true.
+
+
+993
+00:32:08,366 --> 00:32:10,136
+Similarly, to support phone
+
+
+994
+00:32:10,136 --> 00:32:11,706
+calls, you need to set the phone
+
+
+995
+00:32:11,706 --> 00:32:13,516
+numbers attribute and set
+
+
+996
+00:32:13,516 --> 00:32:14,806
+supports navigation to true
+
+
+997
+00:32:15,506 --> 00:32:17,506
+sorry, and set phone call to
+
+
+998
+00:32:17,506 --> 00:32:17,696
+true.
+
+
+999
+00:32:18,486 --> 00:32:21,026
+Setting attributes that the user
+
+
+1000
+00:32:21,026 --> 00:32:22,856
+can understand makes it easy to
+
+
+1001
+00:32:22,856 --> 00:32:23,356
+search.
+
+
+1002
+00:32:23,866 --> 00:32:24,916
+And setting attributes that
+
+
+1003
+00:32:24,916 --> 00:32:26,146
+aren't naturally associated with
+
+
+1004
+00:32:26,146 --> 00:32:27,556
+the item makes it hard to search
+
+
+1005
+00:32:27,556 --> 00:32:28,646
+and leads to poor ranking of
+
+
+1006
+00:32:28,646 --> 00:32:29,336
+your results.
+
+
+1007
+00:32:29,746 --> 00:32:31,996
+By setting contact identifiers,
+
+
+1008
+00:32:32,566 --> 00:32:34,016
+you can enable focus contact
+
+
+1009
+00:32:34,016 --> 00:32:35,666
+search which is a great way to
+
+
+1010
+00:32:35,876 --> 00:32:38,076
+get the user to your content.
+
+
+1011
+00:32:39,376 --> 00:32:40,646
+Supporting features like
+
+
+1012
+00:32:40,646 --> 00:32:42,756
+Drag-and-Drop and Quick Actions
+
+
+1013
+00:32:43,856 --> 00:32:44,796
+makes for a first-class
+
+
+1014
+00:32:44,796 --> 00:32:45,406
+experience.
+
+
+1015
+00:32:46,636 --> 00:32:48,086
+Another part of experiences is
+
+
+1016
+00:32:48,086 --> 00:32:49,116
+being able to engage with
+
+
+1017
+00:32:49,116 --> 00:32:49,676
+[inaudible] in your own
+
+
+1018
+00:32:49,676 --> 00:32:52,286
+application, so let's look at
+
+
+1019
+00:32:53,096 --> 00:32:53,236
+that.
+
+
+1020
+00:32:53,416 --> 00:32:54,396
+Make sure launching from
+
+
+1021
+00:32:54,396 --> 00:32:55,906
+Spotlight is fast and that it
+
+
+1022
+00:32:55,906 --> 00:32:57,156
+takes the user directly to the
+
+
+1023
+00:32:57,156 --> 00:32:57,876
+found items.
+
+
+1024
+00:32:59,206 --> 00:33:00,706
+Use NSUserActivity to restore
+
+
+1025
+00:33:00,706 --> 00:33:03,016
+the state, your app delegate
+
+
+1026
+00:33:03,016 --> 00:33:04,296
+will be called a continuous
+
+
+1027
+00:33:04,296 --> 00:33:06,096
+activity and your [inaudible]
+
+
+1028
+00:33:06,096 --> 00:33:08,586
+activity type and the userInfo
+
+
+1029
+00:33:08,586 --> 00:33:09,686
+dictionary is necessary.
+
+
+1030
+00:33:09,946 --> 00:33:10,956
+If you're being launched because
+
+
+1031
+00:33:10,956 --> 00:33:11,716
+the user selected a
+
+
+1032
+00:33:11,716 --> 00:33:13,286
+CSSearchableItem in Spotlight
+
+
+1033
+00:33:13,286 --> 00:33:15,296
+the activity type will be the
+
+
+1034
+00:33:15,406 --> 00:33:18,226
+CSSearchableItem action type and
+
+
+1035
+00:33:18,386 --> 00:33:20,666
+the unique identifier can be
+
+
+1036
+00:33:20,666 --> 00:33:21,726
+retrieved from the userInfo
+
+
+1037
+00:33:21,726 --> 00:33:22,696
+dictionary by using
+
+
+1038
+00:33:22,776 --> 00:33:24,136
+CSSearchableItem activity
+
+
+1039
+00:33:24,136 --> 00:33:24,856
+identifier.
+
+
+1040
+00:33:26,056 --> 00:33:27,266
+Another reason for being
+
+
+1041
+00:33:27,266 --> 00:33:29,946
+launched is that the user wants
+
+
+1042
+00:33:29,946 --> 00:33:31,476
+to continue the search in your
+
+
+1043
+00:33:31,476 --> 00:33:32,026
+application.
+
+
+1044
+00:33:32,596 --> 00:33:33,656
+In that case, you get the
+
+
+1045
+00:33:33,656 --> 00:33:35,376
+CSQueryContinuation action type
+
+
+1046
+00:33:35,896 --> 00:33:38,266
+and you can retrieve the search
+
+
+1047
+00:33:38,266 --> 00:33:39,176
+query using the
+
+
+1048
+00:33:39,176 --> 00:33:40,736
+CSSearchQueryString from the
+
+
+1049
+00:33:40,736 --> 00:33:41,696
+userInfo dictionary.
+
+
+1050
+00:33:42,046 --> 00:33:45,536
+Of course, the search system
+
+
+1051
+00:33:45,536 --> 00:33:46,786
+wouldn't be complete without a
+
+
+1052
+00:33:46,786 --> 00:33:47,316
+search API.
+
+
+1053
+00:33:48,316 --> 00:33:49,636
+Core Spotlight provides the
+
+
+1054
+00:33:49,636 --> 00:33:51,036
+ability to search the data that
+
+
+1055
+00:33:51,036 --> 00:33:51,686
+you have provided.
+
+
+1056
+00:33:52,656 --> 00:33:53,856
+It's the same search engine
+
+
+1057
+00:33:53,856 --> 00:33:55,586
+that's used in many places on
+
+
+1058
+00:33:55,586 --> 00:33:56,076
+the system.
+
+
+1059
+00:33:56,856 --> 00:33:58,616
+By using it you get consistent
+
+
+1060
+00:33:58,616 --> 00:33:59,906
+behavior with Spotlight and the
+
+
+1061
+00:33:59,906 --> 00:34:00,926
+system applications.
+
+
+1062
+00:34:01,526 --> 00:34:02,836
+It's great for all your content
+
+
+1063
+00:34:02,836 --> 00:34:04,616
+on the device and of course, it
+
+
+1064
+00:34:04,616 --> 00:34:06,346
+works in both iOS and macOS.
+
+
+1065
+00:34:06,866 --> 00:34:11,576
+You can query for equality, for
+
+
+1066
+00:34:11,576 --> 00:34:12,746
+greater than or less than.
+
+
+1067
+00:34:13,786 --> 00:34:15,306
+So, if you want to find items
+
+
+1068
+00:34:15,306 --> 00:34:16,505
+with more than a certain number
+
+
+1069
+00:34:16,505 --> 00:34:18,676
+of pages the query is very short
+
+
+1070
+00:34:18,676 --> 00:34:19,126
+and simple.
+
+
+1071
+00:34:19,666 --> 00:34:20,966
+If you want to find all items
+
+
+1072
+00:34:20,966 --> 00:34:22,045
+with page count in a certain
+
+
+1073
+00:34:22,045 --> 00:34:23,466
+range you can use the InRange
+
+
+1074
+00:34:23,466 --> 00:34:23,966
+operator.
+
+
+1075
+00:34:23,966 --> 00:34:26,146
+You can use Boolean operators
+
+
+1076
+00:34:26,216 --> 00:34:27,456
+for example, to select only
+
+
+1077
+00:34:27,456 --> 00:34:29,476
+items for the given width and
+
+
+1078
+00:34:29,476 --> 00:34:29,696
+height.
+
+
+1079
+00:34:30,396 --> 00:34:32,396
+You can use string matching with
+
+
+1080
+00:34:32,396 --> 00:34:33,606
+flags that makes Spotlight's
+
+
+1081
+00:34:33,606 --> 00:34:35,076
+matching more or less strict.
+
+
+1082
+00:34:36,016 --> 00:34:37,416
+From use in case insensitive
+
+
+1083
+00:34:37,516 --> 00:34:38,136
+word matching [inaudible]
+
+
+1084
+00:34:38,136 --> 00:34:40,136
+insensitive matching to other
+
+
+1085
+00:34:40,136 --> 00:34:42,045
+combinations of flags or to
+
+
+1086
+00:34:42,045 --> 00:34:43,556
+strict matching of full fields.
+
+
+1087
+00:34:45,315 --> 00:34:46,326
+Or you can make your matching
+
+
+1088
+00:34:46,326 --> 00:34:47,866
+very laxed and treat each word
+
+
+1089
+00:34:47,866 --> 00:34:48,846
+as an individual query.
+
+
+1090
+00:34:49,576 --> 00:34:50,926
+This is what Spotlight itself
+
+
+1091
+00:34:50,926 --> 00:34:52,295
+does so if you want to be
+
+
+1092
+00:34:52,295 --> 00:34:54,246
+consistent it's a good place to
+
+
+1093
+00:34:54,246 --> 00:34:54,585
+start.
+
+
+1094
+00:34:55,196 --> 00:34:57,346
+And of course, if this doesn't
+
+
+1095
+00:34:57,346 --> 00:34:59,146
+suit your own application you
+
+
+1096
+00:34:59,146 --> 00:35:00,636
+can combine and mix-and-match as
+
+
+1097
+00:35:00,636 --> 00:35:00,996
+you like.
+
+
+1098
+00:35:04,496 --> 00:35:06,156
+Core Spotlight supports a full
+
+
+1099
+00:35:06,156 --> 00:35:07,716
+range of operators for
+
+
+1100
+00:35:07,896 --> 00:35:09,456
+comparison and Boolean logic and
+
+
+1101
+00:35:09,456 --> 00:35:10,286
+of course, you can nest
+
+
+1102
+00:35:10,286 --> 00:35:11,666
+expressions using parentheses.
+
+
+1103
+00:35:12,066 --> 00:35:13,306
+The field wildcard will match
+
+
+1104
+00:35:13,306 --> 00:35:15,426
+any default search metadata and
+
+
+1105
+00:35:15,426 --> 00:35:16,806
+the double wildcard will match
+
+
+1106
+00:35:16,806 --> 00:35:18,216
+that, as well as text content.
+
+
+1107
+00:35:18,636 --> 00:35:21,326
+We have a number of options for
+
+
+1108
+00:35:21,326 --> 00:35:22,056
+string matching.
+
+
+1109
+00:35:22,376 --> 00:35:23,886
+Our index is heavily optimized
+
+
+1110
+00:35:23,886 --> 00:35:25,456
+for exact and prefix search and
+
+
+1111
+00:35:25,506 --> 00:35:27,396
+it's incredibly fast if you use
+
+
+1112
+00:35:27,876 --> 00:35:28,046
+these.
+
+
+1113
+00:35:28,696 --> 00:35:30,376
+As a general rule, the longer
+
+
+1114
+00:35:30,376 --> 00:35:33,116
+the prefix the faster the query.
+
+
+1115
+00:35:34,046 --> 00:35:35,616
+Partial matching is very similar
+
+
+1116
+00:35:35,616 --> 00:35:37,416
+to prefix matching, depending on
+
+
+1117
+00:35:37,416 --> 00:35:39,396
+the string whichever has your
+
+
+1118
+00:35:39,396 --> 00:35:42,296
+results is faster.
+
+
+1119
+00:35:42,386 --> 00:35:43,896
+Phrase matching which means
+
+
+1120
+00:35:43,896 --> 00:35:45,196
+matching only on consecutive
+
+
+1121
+00:35:45,196 --> 00:35:46,876
+words is significantly more
+
+
+1122
+00:35:46,876 --> 00:35:47,396
+expensive.
+
+
+1123
+00:35:48,766 --> 00:35:50,146
+And finally, suffix and infix
+
+
+1124
+00:35:50,146 --> 00:35:51,536
+matching are all slower and
+
+
+1125
+00:35:51,536 --> 00:35:52,806
+using phrase matching combined
+
+
+1126
+00:35:52,806 --> 00:35:55,086
+with these multiplies the cost.
+
+
+1127
+00:35:56,696 --> 00:35:58,446
+The query syntax also offers a
+
+
+1128
+00:35:58,446 --> 00:35:59,856
+set of flags that you can apply
+
+
+1129
+00:36:00,046 --> 00:36:00,886
+to make the matching less
+
+
+1130
+00:36:00,886 --> 00:36:01,306
+strict.
+
+
+1131
+00:36:01,746 --> 00:36:03,696
+The C is for case insensitive, D
+
+
+1132
+00:36:03,696 --> 00:36:04,976
+is for diacritics insensitive,
+
+
+1133
+00:36:05,236 --> 00:36:09,166
+which means that characters like
+
+
+1134
+00:36:09,166 --> 00:36:10,976
+an over [inaudible] can still be
+
+
+1135
+00:36:10,976 --> 00:36:12,326
+matched with an old character if
+
+
+1136
+00:36:12,426 --> 00:36:14,046
+the user is using the English
+
+
+1137
+00:36:14,046 --> 00:36:14,416
+locale.
+
+
+1138
+00:36:15,776 --> 00:36:17,706
+Word matching means that we
+
+
+1139
+00:36:17,706 --> 00:36:19,606
+match words internal to fields
+
+
+1140
+00:36:19,606 --> 00:36:21,246
+instead of just being anchored
+
+
+1141
+00:36:21,246 --> 00:36:22,166
+at the beginning of a field.
+
+
+1142
+00:36:22,256 --> 00:36:24,516
+And T for tokenized breaks out
+
+
+1143
+00:36:24,516 --> 00:36:25,656
+the individual words of the
+
+
+1144
+00:36:25,656 --> 00:36:26,056
+query.
+
+
+1145
+00:36:27,496 --> 00:36:28,886
+So, let's look at an example.
+
+
+1146
+00:36:30,636 --> 00:36:31,786
+We're implementing a search
+
+
+1147
+00:36:31,786 --> 00:36:33,046
+function that takes a user query
+
+
+1148
+00:36:33,046 --> 00:36:33,566
+as input.
+
+
+1149
+00:36:34,786 --> 00:36:36,166
+First, we make sure to cancel
+
+
+1150
+00:36:36,166 --> 00:36:37,846
+any currently running query so
+
+
+1151
+00:36:37,846 --> 00:36:38,736
+that we don't have multiple
+
+
+1152
+00:36:38,736 --> 00:36:40,066
+concurrent queries as this will
+
+
+1153
+00:36:40,066 --> 00:36:41,066
+slow down the new query.
+
+
+1154
+00:36:41,606 --> 00:36:42,876
+Since it's user input we make
+
+
+1155
+00:36:42,876 --> 00:36:44,256
+sure to state the query string.
+
+
+1156
+00:36:44,776 --> 00:36:47,736
+We then use the double star
+
+
+1157
+00:36:47,736 --> 00:36:51,496
+syntax with cdwmt operators to
+
+
+1158
+00:36:51,546 --> 00:36:53,056
+make a very forgiving query.
+
+
+1159
+00:36:53,516 --> 00:36:57,286
+We create the query object
+
+
+1160
+00:36:57,856 --> 00:36:59,076
+specifying that we want to fetch
+
+
+1161
+00:36:59,076 --> 00:36:59,806
+the display names.
+
+
+1162
+00:37:00,346 --> 00:37:02,736
+We set the found items handler
+
+
+1163
+00:37:03,246 --> 00:37:05,036
+and then we set the completion
+
+
+1164
+00:37:05,036 --> 00:37:05,296
+handler.
+
+
+1165
+00:37:06,576 --> 00:37:09,966
+The completion handler will get
+
+
+1166
+00:37:09,966 --> 00:37:11,056
+called only when there are no
+
+
+1167
+00:37:11,056 --> 00:37:12,576
+more results to receive from the
+
+
+1168
+00:37:12,576 --> 00:37:14,516
+query while the found items
+
+
+1169
+00:37:14,516 --> 00:37:15,796
+handler can be called with
+
+
+1170
+00:37:15,796 --> 00:37:17,106
+multiple batches of results.
+
+
+1171
+00:37:17,786 --> 00:37:19,886
+After that all they need to do
+
+
+1172
+00:37:19,886 --> 00:37:21,296
+is start the query, that's how
+
+
+1173
+00:37:21,296 --> 00:37:22,816
+easy it is to use the Core
+
+
+1174
+00:37:22,816 --> 00:37:23,706
+Spotlight search API.
+
+
+1175
+00:37:29,066 --> 00:37:30,656
+So, in summary Core Spotlight is
+
+
+1176
+00:37:30,656 --> 00:37:31,986
+now available for the Mac, as
+
+
+1177
+00:37:31,986 --> 00:37:34,096
+well as iOS and it's great for
+
+
+1178
+00:37:34,096 --> 00:37:35,166
+all your managed content.
+
+
+1179
+00:37:36,096 --> 00:37:37,696
+Please adopt the new APIs or
+
+
+1180
+00:37:37,696 --> 00:37:40,136
+previews for Drag-and-Drop on
+
+
+1181
+00:37:40,136 --> 00:37:41,406
+both iOS and macOS.
+
+
+1182
+00:37:42,156 --> 00:37:43,556
+Provide a rich metadata for
+
+
+1183
+00:37:43,556 --> 00:37:45,466
+search, display and ranking.
+
+
+1184
+00:37:45,846 --> 00:37:48,416
+And use NSUserActivity to
+
+
+1185
+00:37:48,416 --> 00:37:49,646
+provide usage information.
+
+
+1186
+00:37:50,136 --> 00:37:52,676
+And as always, keep the index
+
+
+1187
+00:37:52,676 --> 00:37:54,106
+accurate and up-to-date by
+
+
+1188
+00:37:54,106 --> 00:37:55,806
+implementing indexing extension
+
+
+1189
+00:37:56,406 --> 00:37:58,646
+and taking advantage of client
+
+
+1190
+00:37:59,236 --> 00:37:59,366
+state.
+
+
+1191
+00:38:01,186 --> 00:38:02,796
+For more information, visit
+
+
+1192
+00:38:02,796 --> 00:38:06,876
+developer.apple.com and you can
+
+
+1193
+00:38:06,876 --> 00:38:08,236
+also watch some sessions from
+
+
+1194
+00:38:08,236 --> 00:38:09,816
+earlier in the week if you're
+
+
+1195
+00:38:09,886 --> 00:38:11,496
+interested in Drag-and-Drop,
+
+
+1196
+00:38:11,566 --> 00:38:13,036
+introducing Drag-and-Drop, as
+
+
+1197
+00:38:13,086 --> 00:38:14,506
+well as mastering Drag-and-Drop
+
+
+1198
+00:38:15,056 --> 00:38:15,796
+would be recommended.
+
+
+1199
+00:38:15,936 --> 00:38:17,936
+And if you want to know about
+
+
+1200
+00:38:17,936 --> 00:38:19,246
+how CoreData and Core Spotlight
+
+
+1201
+00:38:19,246 --> 00:38:21,286
+interact the session on what's
+
+
+1202
+00:38:21,286 --> 00:38:23,206
+new in CoreData is great to
+
+
+1203
+00:38:23,206 --> 00:38:23,556
+watch.
+
+
+1204
+00:38:24,536 --> 00:38:25,836
+Thank you very much.
+

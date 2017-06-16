@@ -1,0 +1,7314 @@
+1
+00:00:19,516 --> 00:00:25,736
+[ Applause ]
+
+
+2
+00:00:26,236 --> 00:00:27,026
+>> Hello, and good morning,
+
+
+3
+00:00:27,026 --> 00:00:27,446
+everyone.
+
+
+4
+00:00:27,776 --> 00:00:28,676
+How's everyone doing, this
+
+
+5
+00:00:28,716 --> 00:00:29,016
+morning?
+
+
+6
+00:00:29,546 --> 00:00:32,926
+Great. Welcome to our talk on
+
+
+7
+00:00:32,926 --> 00:00:34,146
+Natural Language Processing.
+
+
+8
+00:00:34,296 --> 00:00:36,086
+We are delighted to share our
+
+
+9
+00:00:36,086 --> 00:00:37,586
+natural language processing APIs
+
+
+10
+00:00:38,296 --> 00:00:39,396
+and tell you how you can
+
+
+11
+00:00:39,396 --> 00:00:41,246
+incorporate these APIs into your
+
+
+12
+00:00:41,246 --> 00:00:41,866
+very own apps.
+
+
+13
+00:00:42,906 --> 00:00:44,366
+I'm Vivek, and I'll be jointly
+
+
+14
+00:00:44,366 --> 00:00:45,966
+presenting this session with my
+
+
+15
+00:00:46,096 --> 00:00:47,226
+colleague Doug.
+
+
+16
+00:00:47,226 --> 00:00:47,966
+In case you're wondering,
+
+
+17
+00:00:47,966 --> 00:00:48,786
+there's a third person.
+
+
+18
+00:00:48,786 --> 00:00:50,356
+No. I just have a really long
+
+
+19
+00:00:50,356 --> 00:00:50,596
+name.
+
+
+20
+00:00:53,686 --> 00:00:56,146
+Okay. So, let's start with the
+
+
+21
+00:00:56,146 --> 00:00:57,086
+goal of this session.
+
+
+22
+00:00:57,646 --> 00:01:00,286
+What we'd like to do, is we'd
+
+
+23
+00:01:00,286 --> 00:01:01,896
+like to put you at the center of
+
+
+24
+00:01:01,896 --> 00:01:02,396
+this session.
+
+
+25
+00:01:03,926 --> 00:01:05,146
+Here is an app.
+
+
+26
+00:01:05,146 --> 00:01:06,166
+This could be an app that you've
+
+
+27
+00:01:06,166 --> 00:01:07,996
+already published in the App
+
+
+28
+00:01:08,506 --> 00:01:08,976
+Store.
+
+
+29
+00:01:08,976 --> 00:01:09,836
+Or maybe, it's something that
+
+
+30
+00:01:09,836 --> 00:01:10,906
+you're working on, currently.
+
+
+31
+00:01:12,006 --> 00:01:13,396
+Or perhaps, it's just an idea
+
+
+32
+00:01:13,396 --> 00:01:14,146
+that you've conceived.
+
+
+33
+00:01:15,306 --> 00:01:17,326
+If your app leads with natural
+
+
+34
+00:01:17,326 --> 00:01:19,736
+language text in any form at the
+
+
+35
+00:01:19,776 --> 00:01:21,646
+input, and this could be typed
+
+
+36
+00:01:21,736 --> 00:01:23,126
+text on your keyboard.
+
+
+37
+00:01:23,126 --> 00:01:25,186
+Could be recognized handwriting
+
+
+38
+00:01:25,236 --> 00:01:26,336
+or transcribed speech.
+
+
+39
+00:01:27,116 --> 00:01:28,856
+For instance, you may be just
+
+
+40
+00:01:28,856 --> 00:01:30,286
+ingesting feeds or social media
+
+
+41
+00:01:30,286 --> 00:01:33,076
+feeds into your app.
+
+
+42
+00:01:33,076 --> 00:01:34,796
+Or if your app leads with
+
+
+43
+00:01:34,796 --> 00:01:36,086
+natural language text at the
+
+
+44
+00:01:36,086 --> 00:01:36,416
+output.
+
+
+45
+00:01:36,416 --> 00:01:37,936
+What do I mean by that?
+
+
+46
+00:01:38,176 --> 00:01:39,546
+if the user is generating
+
+
+47
+00:01:39,546 --> 00:01:41,536
+content within your app, perhaps
+
+
+48
+00:01:41,566 --> 00:01:42,726
+the user is writing reviews in
+
+
+49
+00:01:42,726 --> 00:01:43,496
+your app.
+
+
+50
+00:01:43,496 --> 00:01:45,806
+Or it's a productivity app where
+
+
+51
+00:01:45,806 --> 00:01:47,326
+the user is writing new
+
+
+52
+00:01:47,326 --> 00:01:48,916
+documents or editing documents.
+
+
+53
+00:01:49,386 --> 00:01:50,676
+So, if you're dealing with
+
+
+54
+00:01:50,676 --> 00:01:52,016
+natural language text, either at
+
+
+55
+00:01:52,016 --> 00:01:55,336
+the input or output, we'd like
+
+
+56
+00:01:55,606 --> 00:01:57,596
+to harness the power of NLP to
+
+
+57
+00:01:57,996 --> 00:01:59,556
+significantly improve the user
+
+
+58
+00:01:59,556 --> 00:02:00,616
+experience in your app.
+
+
+59
+00:02:02,026 --> 00:02:03,426
+So, when I say harness the power
+
+
+60
+00:02:03,426 --> 00:02:04,686
+of NLP, what does it really
+
+
+61
+00:02:04,686 --> 00:02:05,016
+mean?
+
+
+62
+00:02:05,586 --> 00:02:08,526
+So, I'm talking about natural
+
+
+63
+00:02:08,526 --> 00:02:09,366
+language APIs.
+
+
+64
+00:02:10,106 --> 00:02:11,496
+Now, these natural language
+
+
+65
+00:02:11,536 --> 00:02:13,416
+processing APIs are the same
+
+
+66
+00:02:13,416 --> 00:02:15,576
+APIs that drive several first
+
+
+67
+00:02:15,576 --> 00:02:17,126
+party apps across the entire
+
+
+68
+00:02:17,126 --> 00:02:18,976
+Apple ecosystem, across all out
+
+
+69
+00:02:18,976 --> 00:02:19,566
+platforms.
+
+
+70
+00:02:20,626 --> 00:02:21,896
+It drives everything from
+
+
+71
+00:02:21,896 --> 00:02:23,926
+keyboards to Spotlight to
+
+
+72
+00:02:23,926 --> 00:02:25,366
+Messages to Safari.
+
+
+73
+00:02:27,026 --> 00:02:28,596
+You've even seen an instance of
+
+
+74
+00:02:28,756 --> 00:02:31,446
+the APIs in action at the
+
+
+75
+00:02:32,016 --> 00:02:32,196
+Keynote.
+
+
+76
+00:02:32,336 --> 00:02:33,846
+You've seen how it can
+
+
+77
+00:02:34,296 --> 00:02:35,636
+significantly improve typing
+
+
+78
+00:02:35,636 --> 00:02:37,126
+experience for users.
+
+
+79
+00:02:37,996 --> 00:02:40,526
+So, let me set this up.
+
+
+80
+00:02:42,996 --> 00:02:45,346
+So, I've been communicating with
+
+
+81
+00:02:45,346 --> 00:02:46,676
+my friend and we have been
+
+
+82
+00:02:46,676 --> 00:02:48,146
+planning a trip to Iceland.
+
+
+83
+00:02:48,886 --> 00:02:50,106
+And I'm going to type, ''From
+
+
+84
+00:02:50,106 --> 00:02:51,236
+Reykjavik let's go to
+
+
+85
+00:02:51,236 --> 00:02:52,526
+Vatnajokull, which is the
+
+
+86
+00:02:52,526 --> 00:02:53,936
+largest glacier in Iceland and
+
+
+87
+00:02:53,936 --> 00:02:55,756
+all of Europe.'' Unfortunately,
+
+
+88
+00:02:55,756 --> 00:02:57,106
+the keyboard does not know what
+
+
+89
+00:02:57,106 --> 00:02:57,576
+I'm typing.
+
+
+90
+00:02:57,986 --> 00:02:59,056
+It actually thinks I'm typing
+
+
+91
+00:02:59,116 --> 00:02:59,666
+Batman.
+
+
+92
+00:03:00,056 --> 00:03:00,826
+No offense.
+
+
+93
+00:03:00,826 --> 00:03:01,726
+I love Batman.
+
+
+94
+00:03:01,726 --> 00:03:03,436
+But I seriously doubt he lives
+
+
+95
+00:03:03,436 --> 00:03:04,456
+anywhere close to Reykjavik.
+
+
+96
+00:03:05,586 --> 00:03:07,706
+But on the other hand, if you've
+
+
+97
+00:03:07,706 --> 00:03:09,496
+been browsing articles, you've
+
+
+98
+00:03:09,496 --> 00:03:11,956
+been looking for content based
+
+
+99
+00:03:11,956 --> 00:03:12,716
+on Iceland.
+
+
+100
+00:03:12,716 --> 00:03:13,496
+Presumably, you have been
+
+
+101
+00:03:13,496 --> 00:03:14,376
+planning your itinerary.
+
+
+102
+00:03:14,786 --> 00:03:16,406
+So, in this instance, I've been,
+
+
+103
+00:03:16,406 --> 00:03:17,766
+you know, reading a bunch of
+
+
+104
+00:03:17,766 --> 00:03:19,426
+stuff about Iceland, off the
+
+
+105
+00:03:19,426 --> 00:03:20,346
+east coast of Iceland.
+
+
+106
+00:03:20,596 --> 00:03:22,776
+NLP, through the power of
+
+
+107
+00:03:22,776 --> 00:03:23,606
+machine learning, can
+
+
+108
+00:03:23,606 --> 00:03:25,516
+automatically extract names like
+
+
+109
+00:03:25,516 --> 00:03:28,226
+Vatnajokull, Egilsstadir, from
+
+
+110
+00:03:28,226 --> 00:03:28,966
+this article.
+
+
+111
+00:03:29,336 --> 00:03:31,176
+And then, feed all those things
+
+
+112
+00:03:31,176 --> 00:03:32,096
+back to the keyboard.
+
+
+113
+00:03:32,776 --> 00:03:34,886
+And consequently, if you type
+
+
+114
+00:03:34,966 --> 00:03:36,986
+things what do you see?
+
+
+115
+00:03:37,836 --> 00:03:38,946
+The stuff that you just read.
+
+
+116
+00:03:38,946 --> 00:03:41,976
+And all of that is completely
+
+
+117
+00:03:42,046 --> 00:03:43,106
+due to NLP APIs.
+
+
+118
+00:03:43,106 --> 00:03:45,666
+So, those are a couple of
+
+
+119
+00:03:45,666 --> 00:03:48,246
+instances through how NLP APIs
+
+
+120
+00:03:48,246 --> 00:03:50,556
+can influence first party apps.
+
+
+121
+00:03:50,556 --> 00:03:51,986
+But as I said, we'd like to
+
+
+122
+00:03:51,986 --> 00:03:52,786
+focus on you.
+
+
+123
+00:03:53,676 --> 00:03:54,696
+And for the rest of the talk,
+
+
+124
+00:03:54,696 --> 00:03:56,126
+we'd like to talk about your
+
+
+125
+00:03:56,126 --> 00:03:57,176
+ideas and your apps.
+
+
+126
+00:03:57,176 --> 00:04:00,426
+When I look at the audience
+
+
+127
+00:04:00,426 --> 00:04:02,096
+here, I see a very diverse
+
+
+128
+00:04:02,126 --> 00:04:02,426
+group.
+
+
+129
+00:04:02,556 --> 00:04:04,346
+Some of you may be using NLP on
+
+
+130
+00:04:04,346 --> 00:04:06,156
+a day to day basis, are experts
+
+
+131
+00:04:06,156 --> 00:04:06,486
+at NLP.
+
+
+132
+00:04:06,486 --> 00:04:08,366
+When others are really curious
+
+
+133
+00:04:08,366 --> 00:04:08,896
+about this.
+
+
+134
+00:04:08,896 --> 00:04:10,306
+I mean, NLP and machine learning
+
+
+135
+00:04:10,306 --> 00:04:12,146
+is such a hard buzzword that
+
+
+136
+00:04:12,146 --> 00:04:13,806
+everybody wants to learn and
+
+
+137
+00:04:13,806 --> 00:04:14,956
+leverage these in their own
+
+
+138
+00:04:14,956 --> 00:04:15,386
+apps.
+
+
+139
+00:04:15,936 --> 00:04:17,055
+So, I think it's constructive to
+
+
+140
+00:04:17,055 --> 00:04:18,666
+just spend a little bit of time
+
+
+141
+00:04:19,016 --> 00:04:20,346
+talking about what does NLP
+
+
+142
+00:04:20,346 --> 00:04:22,476
+constitute, before we go into
+
+
+143
+00:04:22,516 --> 00:04:23,336
+the APIs themselves.
+
+
+144
+00:04:24,776 --> 00:04:25,906
+So, at a very high level, as I
+
+
+145
+00:04:25,906 --> 00:04:27,286
+mentioned, you have natural
+
+
+146
+00:04:27,286 --> 00:04:28,626
+language text, which could be
+
+
+147
+00:04:28,626 --> 00:04:29,936
+generated through any modality.
+
+
+148
+00:04:30,536 --> 00:04:32,596
+And then, you have to do some
+
+
+149
+00:04:32,596 --> 00:04:33,106
+processing.
+
+
+150
+00:04:33,376 --> 00:04:34,606
+Duh. It's NLP.
+
+
+151
+00:04:34,646 --> 00:04:36,366
+You didn't come here to learn
+
+
+152
+00:04:36,366 --> 00:04:37,316
+you have to do processing.
+
+
+153
+00:04:37,536 --> 00:04:39,046
+But what does processing entail?
+
+
+154
+00:04:40,266 --> 00:04:41,396
+It means that we have to convert
+
+
+155
+00:04:41,456 --> 00:04:42,886
+raw text into some sort of a
+
+
+156
+00:04:42,886 --> 00:04:43,846
+meaningful information.
+
+
+157
+00:04:44,776 --> 00:04:46,056
+And this meaningful information
+
+
+158
+00:04:46,166 --> 00:04:47,786
+is typically used to improve a
+
+
+159
+00:04:47,786 --> 00:04:49,376
+interaction between a user and a
+
+
+160
+00:04:49,376 --> 00:04:51,576
+device or between two devices.
+
+
+161
+00:04:52,736 --> 00:04:53,966
+Now, let's try to break this
+
+
+162
+00:04:53,966 --> 00:04:54,946
+down a little bit further.
+
+
+163
+00:04:56,606 --> 00:04:58,086
+When kind of still looks very
+
+
+164
+00:04:58,086 --> 00:04:58,546
+upstride.
+
+
+165
+00:04:58,886 --> 00:05:00,126
+So, I'd like to break this
+
+
+166
+00:05:00,156 --> 00:05:01,876
+nebulous cloud of processing
+
+
+167
+00:05:02,256 --> 00:05:04,116
+into fundamental building blocks
+
+
+168
+00:05:04,116 --> 00:05:05,896
+of NLP, into something that all
+
+
+169
+00:05:05,896 --> 00:05:07,516
+of us can wrap our heads around
+
+
+170
+00:05:07,916 --> 00:05:09,346
+and possibly transform into an
+
+
+171
+00:05:09,346 --> 00:05:09,656
+API.
+
+
+172
+00:05:10,986 --> 00:05:12,256
+So, let's look at each of the
+
+
+173
+00:05:12,256 --> 00:05:13,486
+fundamental building blocks of
+
+
+174
+00:05:13,486 --> 00:05:13,686
+NLP.
+
+
+175
+00:05:13,686 --> 00:05:15,906
+The first is language
+
+
+176
+00:05:15,936 --> 00:05:16,646
+identification.
+
+
+177
+00:05:17,256 --> 00:05:18,386
+What is the task of language
+
+
+178
+00:05:18,386 --> 00:05:18,946
+identification?
+
+
+179
+00:05:19,226 --> 00:05:20,426
+Before you start doing any
+
+
+180
+00:05:20,426 --> 00:05:22,166
+processing of text, you ought to
+
+
+181
+00:05:22,166 --> 00:05:23,706
+know what the language of the
+
+
+182
+00:05:23,706 --> 00:05:24,376
+text is.
+
+
+183
+00:05:24,646 --> 00:05:25,436
+And that's what language
+
+
+184
+00:05:25,436 --> 00:05:26,166
+identification does.
+
+
+185
+00:05:26,656 --> 00:05:27,676
+So, it leverages machine
+
+
+186
+00:05:27,676 --> 00:05:29,476
+learning techniques to identify
+
+
+187
+00:05:29,726 --> 00:05:31,406
+the language or script of the
+
+
+188
+00:05:31,406 --> 00:05:32,186
+piece of text.
+
+
+189
+00:05:32,676 --> 00:05:34,276
+So, I have a bunch of examples,
+
+
+190
+00:05:34,276 --> 00:05:34,686
+here.
+
+
+191
+00:05:35,086 --> 00:05:37,146
+If you feed in this string, the
+
+
+192
+00:05:37,146 --> 00:05:38,206
+first string, it's going to say
+
+
+193
+00:05:38,206 --> 00:05:38,816
+it's English.
+
+
+194
+00:05:39,076 --> 00:05:40,416
+Or you have simplified Chinese,
+
+
+195
+00:05:40,416 --> 00:05:42,476
+or you have Spanish, or you have
+
+
+196
+00:05:42,566 --> 00:05:44,956
+Hindi, or German.
+
+
+197
+00:05:46,446 --> 00:05:47,886
+So, once you identify the text,
+
+
+198
+00:05:48,466 --> 00:05:50,156
+you can start analyzing the
+
+
+199
+00:05:50,156 --> 00:05:50,416
+text.
+
+
+200
+00:05:50,846 --> 00:05:51,966
+But when you have text which is
+
+
+201
+00:05:51,966 --> 00:05:53,306
+a very large chunk, you could
+
+
+202
+00:05:53,306 --> 00:05:54,376
+have an entire document.
+
+
+203
+00:05:54,426 --> 00:05:56,446
+I mean, logically, you want to
+
+
+204
+00:05:56,446 --> 00:05:57,576
+break down this text into
+
+
+205
+00:05:57,576 --> 00:05:58,636
+meaningful chunks.
+
+
+206
+00:05:58,936 --> 00:06:00,456
+Sometimes, you want to analyze
+
+
+207
+00:06:00,456 --> 00:06:01,446
+an entire document.
+
+
+208
+00:06:01,986 --> 00:06:03,166
+But a document is typically
+
+
+209
+00:06:03,166 --> 00:06:04,346
+comprised of paragraphs.
+
+
+210
+00:06:04,656 --> 00:06:05,696
+So, perhaps you want to analyze
+
+
+211
+00:06:05,776 --> 00:06:07,186
+every paragraph in a document.
+
+
+212
+00:06:07,796 --> 00:06:09,266
+And you can break it down even
+
+
+213
+00:06:09,266 --> 00:06:09,426
+further.
+
+
+214
+00:06:09,716 --> 00:06:10,896
+Paragraphs are made up of
+
+
+215
+00:06:10,896 --> 00:06:11,466
+sentences.
+
+
+216
+00:06:11,466 --> 00:06:13,016
+So, you could analyze sentences
+
+
+217
+00:06:13,016 --> 00:06:13,876
+within your paragraphs.
+
+
+218
+00:06:14,426 --> 00:06:16,276
+And finally, a more fine grain
+
+
+219
+00:06:16,276 --> 00:06:17,926
+analysis would be every single
+
+
+220
+00:06:17,926 --> 00:06:18,776
+word in a sentence.
+
+
+221
+00:06:19,506 --> 00:06:20,386
+And that is called as
+
+
+222
+00:06:20,416 --> 00:06:21,046
+Tokenization.
+
+
+223
+00:06:21,676 --> 00:06:23,346
+So, just to give you an example
+
+
+224
+00:06:23,446 --> 00:06:25,336
+of sentence level tokenization,
+
+
+225
+00:06:25,626 --> 00:06:26,826
+in this particular sentence,
+
+
+226
+00:06:26,826 --> 00:06:28,486
+Mister Tim Cook presided over
+
+
+227
+00:06:28,486 --> 00:06:29,666
+the earnings report of Apple
+
+
+228
+00:06:29,666 --> 00:06:29,936
+Inc.
+
+
+229
+00:06:30,396 --> 00:06:33,306
+If I told your machine one rule
+
+
+230
+00:06:33,306 --> 00:06:35,026
+based way to chunk this, is
+
+
+231
+00:06:35,066 --> 00:06:36,276
+every time you see a period,
+
+
+232
+00:06:36,846 --> 00:06:37,976
+chunk this into a sentence.
+
+
+233
+00:06:38,866 --> 00:06:39,366
+Is that right?
+
+
+234
+00:06:39,946 --> 00:06:40,546
+Wrong. Right?
+
+
+235
+00:06:40,896 --> 00:06:41,976
+You're going to incorrectly
+
+
+236
+00:06:41,976 --> 00:06:43,616
+hypothesize that there are three
+
+
+237
+00:06:43,616 --> 00:06:44,336
+sentences, here.
+
+
+238
+00:06:44,826 --> 00:06:46,526
+So, sentence tokenization really
+
+
+239
+00:06:46,526 --> 00:06:48,846
+offers you the right sort of
+
+
+240
+00:06:48,846 --> 00:06:50,746
+approach to chunk sentences.
+
+
+241
+00:06:51,136 --> 00:06:52,656
+Now, this becomes even more
+
+
+242
+00:06:52,656 --> 00:06:53,876
+complex in a language like
+
+
+243
+00:06:53,876 --> 00:06:55,646
+Chinese, which doesn't have
+
+
+244
+00:06:55,646 --> 00:06:56,256
+whitespace.
+
+
+245
+00:06:56,666 --> 00:06:57,836
+So, you only have a sequence of
+
+
+246
+00:06:57,896 --> 00:06:58,496
+characters.
+
+
+247
+00:06:58,736 --> 00:07:00,126
+And in order to do anything
+
+
+248
+00:07:00,126 --> 00:07:02,776
+meaningful from a machine
+
+
+249
+00:07:02,776 --> 00:07:04,346
+perspective, you ought to break
+
+
+250
+00:07:04,346 --> 00:07:05,436
+this down into words.
+
+
+251
+00:07:05,676 --> 00:07:06,966
+And that is word tokenization.
+
+
+252
+00:07:07,826 --> 00:07:09,446
+Now, let's say that we have the
+
+
+253
+00:07:09,446 --> 00:07:10,916
+first two fundamental building
+
+
+254
+00:07:10,916 --> 00:07:11,806
+blocks in our kitty.
+
+
+255
+00:07:12,056 --> 00:07:13,196
+So, we know how to do language
+
+
+256
+00:07:13,196 --> 00:07:14,216
+identification.
+
+
+257
+00:07:14,216 --> 00:07:15,806
+We know how to do tokenization.
+
+
+258
+00:07:16,286 --> 00:07:17,966
+Let's talk about doing more
+
+
+259
+00:07:17,966 --> 00:07:19,536
+complex analysis on the text.
+
+
+260
+00:07:19,536 --> 00:07:21,856
+So, the next piece of technology
+
+
+261
+00:07:21,856 --> 00:07:23,146
+is part of speech tagging.
+
+
+262
+00:07:23,716 --> 00:07:25,156
+So, what do I mean by part of
+
+
+263
+00:07:25,156 --> 00:07:25,736
+speech tagging?
+
+
+264
+00:07:25,736 --> 00:07:26,526
+It's pretty simple.
+
+
+265
+00:07:27,256 --> 00:07:29,196
+So, given a sequence of words,
+
+
+266
+00:07:29,196 --> 00:07:30,486
+the task of part of speech
+
+
+267
+00:07:30,486 --> 00:07:32,526
+tagging is to confer a part of
+
+
+268
+00:07:32,526 --> 00:07:34,656
+speech tag to every word in this
+
+
+269
+00:07:34,656 --> 00:07:35,006
+text.
+
+
+270
+00:07:35,006 --> 00:07:36,706
+So, if you look at this example,
+
+
+271
+00:07:36,706 --> 00:07:39,046
+here, then Cook is a person
+
+
+272
+00:07:39,046 --> 00:07:41,576
+name, presided is a word, over
+
+
+273
+00:07:41,576 --> 00:07:43,196
+is a preposition, and earnings
+
+
+274
+00:07:43,226 --> 00:07:43,756
+is a noun.
+
+
+275
+00:07:43,756 --> 00:07:45,006
+And so on.
+
+
+276
+00:07:45,556 --> 00:07:47,846
+Now, as an app developer, you
+
+
+277
+00:07:47,846 --> 00:07:49,286
+might think, how is this useful
+
+
+278
+00:07:49,286 --> 00:07:49,616
+to me?
+
+
+279
+00:07:50,346 --> 00:07:51,376
+So, perhaps you are building a
+
+
+280
+00:07:51,376 --> 00:07:52,476
+dictionary app.
+
+
+281
+00:07:52,896 --> 00:07:54,156
+Right. A dictionary definition
+
+
+282
+00:07:54,226 --> 00:07:54,756
+service.
+
+
+283
+00:07:55,206 --> 00:07:56,626
+So, maybe kids are reading
+
+
+284
+00:07:56,626 --> 00:07:57,046
+books.
+
+
+285
+00:07:57,386 --> 00:07:58,506
+And they want to look up the
+
+
+286
+00:07:58,506 --> 00:07:59,906
+definition of a particular word.
+
+
+287
+00:08:00,406 --> 00:08:02,046
+Let's pick a word like bear,
+
+
+288
+00:08:02,496 --> 00:08:03,686
+B-E-A-R.
+
+
+289
+00:08:03,686 --> 00:08:05,206
+Bear can either be a noun, or it
+
+
+290
+00:08:05,206 --> 00:08:05,586
+could be a verb.
+
+
+291
+00:08:05,586 --> 00:08:06,836
+So, when you click on a
+
+
+292
+00:08:06,836 --> 00:08:09,316
+particular word, if you know
+
+
+293
+00:08:09,316 --> 00:08:10,966
+that is an actual verb, you can
+
+
+294
+00:08:10,966 --> 00:08:12,236
+show the right definition of
+
+
+295
+00:08:12,236 --> 00:08:12,676
+that word.
+
+
+296
+00:08:13,126 --> 00:08:14,876
+Right. So, I think those are
+
+
+297
+00:08:14,876 --> 00:08:15,936
+ways in which part of speech
+
+
+298
+00:08:15,976 --> 00:08:18,126
+tagging can really help you at
+
+
+299
+00:08:18,246 --> 00:08:18,996
+the user level.
+
+
+300
+00:08:20,086 --> 00:08:21,646
+So, the next building block is
+
+
+301
+00:08:21,676 --> 00:08:22,756
+called as lemmatization.
+
+
+302
+00:08:23,936 --> 00:08:25,186
+Sounds very NLPish.
+
+
+303
+00:08:25,256 --> 00:08:26,976
+But I think we can break this
+
+
+304
+00:08:26,976 --> 00:08:27,436
+down.
+
+
+305
+00:08:27,716 --> 00:08:29,496
+Let's try to understand what a
+
+
+306
+00:08:29,496 --> 00:08:30,076
+lemma is.
+
+
+307
+00:08:30,736 --> 00:08:32,986
+Words can be in appearance
+
+
+308
+00:08:32,986 --> 00:08:34,006
+several inflected forms.
+
+
+309
+00:08:34,006 --> 00:08:35,056
+So, you can have the present
+
+
+310
+00:08:35,056 --> 00:08:36,015
+tense of a word, you can have
+
+
+311
+00:08:36,015 --> 00:08:37,206
+the past tense of a word, or you
+
+
+312
+00:08:37,206 --> 00:08:38,145
+can have a future tense of a
+
+
+313
+00:08:38,145 --> 00:08:38,376
+word.
+
+
+314
+00:08:38,905 --> 00:08:40,096
+But what's common to all these
+
+
+315
+00:08:40,166 --> 00:08:40,436
+forms?
+
+
+316
+00:08:41,145 --> 00:08:43,366
+The root. The root is common to
+
+
+317
+00:08:43,366 --> 00:08:44,596
+all these inflected forms.
+
+
+318
+00:08:45,006 --> 00:08:46,296
+And that is also called as a
+
+
+319
+00:08:46,296 --> 00:08:46,566
+lemma.
+
+
+320
+00:08:47,146 --> 00:08:48,226
+So, let's look at an example,
+
+
+321
+00:08:48,226 --> 00:08:48,506
+here.
+
+
+322
+00:08:48,956 --> 00:08:50,766
+If you were to look at the word,
+
+
+323
+00:08:50,766 --> 00:08:52,596
+presided, it's a verb.
+
+
+324
+00:08:53,006 --> 00:08:54,536
+And the root form of that word
+
+
+325
+00:08:54,596 --> 00:08:55,146
+is preside.
+
+
+326
+00:08:55,696 --> 00:08:56,996
+And similarly, if you look at
+
+
+327
+00:08:56,996 --> 00:08:58,166
+the word, hours, which is a
+
+
+328
+00:08:58,166 --> 00:09:00,016
+noun, the root form of that word
+
+
+329
+00:09:00,016 --> 00:09:00,476
+is hour.
+
+
+330
+00:09:01,696 --> 00:09:02,556
+Why is this important?
+
+
+331
+00:09:02,556 --> 00:09:03,436
+I mean, this looks rather
+
+
+332
+00:09:03,436 --> 00:09:04,876
+innocuous for a language like
+
+
+333
+00:09:04,916 --> 00:09:05,396
+English.
+
+
+334
+00:09:05,756 --> 00:09:06,946
+But trust me, for those of you
+
+
+335
+00:09:06,946 --> 00:09:07,556
+who've dealt with
+
+
+336
+00:09:07,556 --> 00:09:08,806
+morphologically complex
+
+
+337
+00:09:08,806 --> 00:09:10,226
+languages like Russian or
+
+
+338
+00:09:10,226 --> 00:09:11,876
+Turkish, lemmatization is
+
+
+339
+00:09:11,936 --> 00:09:12,946
+extremely important.
+
+
+340
+00:09:13,486 --> 00:09:14,476
+In a language where you have
+
+
+341
+00:09:14,476 --> 00:09:16,246
+almost unbounded vocabulary.
+
+
+342
+00:09:16,346 --> 00:09:17,406
+I mean, you may have like a
+
+
+343
+00:09:17,406 --> 00:09:19,036
+million or 2 million words in a
+
+
+344
+00:09:19,036 --> 00:09:21,006
+language, it's critical to break
+
+
+345
+00:09:21,006 --> 00:09:22,826
+down those words into lemmas and
+
+
+346
+00:09:22,826 --> 00:09:23,406
+suffixes.
+
+
+347
+00:09:23,636 --> 00:09:25,016
+And then, do operation for
+
+
+348
+00:09:25,516 --> 00:09:26,726
+smaller building blocks.
+
+
+349
+00:09:26,726 --> 00:09:31,976
+The last piece of this puzzle is
+
+
+350
+00:09:32,096 --> 00:09:33,266
+named entity recognition.
+
+
+351
+00:09:34,236 --> 00:09:35,736
+Again, it sounds very complex.
+
+
+352
+00:09:35,736 --> 00:09:38,066
+I mean, a lot of NLP lingo.
+
+
+353
+00:09:38,066 --> 00:09:38,866
+What is an entity?
+
+
+354
+00:09:38,866 --> 00:09:39,656
+What is recognition?
+
+
+355
+00:09:39,656 --> 00:09:40,166
+And so on.
+
+
+356
+00:09:40,466 --> 00:09:41,566
+But I mean, let's look at this
+
+
+357
+00:09:41,566 --> 00:09:42,876
+through an example, again.
+
+
+358
+00:09:43,306 --> 00:09:44,516
+So, named entity recognition is
+
+
+359
+00:09:44,516 --> 00:09:46,336
+nothing but detecting names
+
+
+360
+00:09:46,336 --> 00:09:47,456
+automatically from text.
+
+
+361
+00:09:47,996 --> 00:09:49,216
+And these names can fall into
+
+
+362
+00:09:49,216 --> 00:09:50,176
+different categories.
+
+
+363
+00:09:50,496 --> 00:09:51,756
+For example, it can be person
+
+
+364
+00:09:51,756 --> 00:09:52,106
+names.
+
+
+365
+00:09:52,146 --> 00:09:53,746
+It can be organization names or
+
+
+366
+00:09:53,746 --> 00:09:54,526
+location names.
+
+
+367
+00:09:54,826 --> 00:09:57,366
+In this example, Mister Tim Cook
+
+
+368
+00:09:57,366 --> 00:09:59,136
+is a person name, Apple Inc.
+
+
+369
+00:09:59,176 --> 00:09:59,976
+is an organization name.
+
+
+370
+00:10:00,056 --> 00:10:01,956
+And the task of named entity
+
+
+371
+00:10:01,956 --> 00:10:03,346
+recognition is to use machine
+
+
+372
+00:10:03,346 --> 00:10:04,526
+learning and linguistics
+
+
+373
+00:10:04,526 --> 00:10:06,516
+information to automatically tag
+
+
+374
+00:10:06,836 --> 00:10:08,746
+ranges of text with these tags.
+
+
+375
+00:10:10,246 --> 00:10:11,856
+Okay. So, wait.
+
+
+376
+00:10:12,176 --> 00:10:13,296
+I think we've kind of
+
+
+377
+00:10:13,296 --> 00:10:14,666
+established the basic
+
+
+378
+00:10:15,126 --> 00:10:16,546
+fundamental building blocks of
+
+
+379
+00:10:16,546 --> 00:10:16,746
+NLP.
+
+
+380
+00:10:16,746 --> 00:10:18,826
+How do we achieve all these
+
+
+381
+00:10:18,916 --> 00:10:19,326
+tasks?
+
+
+382
+00:10:20,036 --> 00:10:21,016
+That's where we come in.
+
+
+383
+00:10:21,776 --> 00:10:24,476
+So, we use a combination or a
+
+
+384
+00:10:24,476 --> 00:10:26,556
+blend of linguistics and machine
+
+
+385
+00:10:26,556 --> 00:10:27,906
+learning to drive all these
+
+
+386
+00:10:27,906 --> 00:10:30,246
+fundamental building blocks up.
+
+
+387
+00:10:30,246 --> 00:10:33,976
+And these in entirety constitute
+
+
+388
+00:10:33,976 --> 00:10:35,546
+our NLP APIs.
+
+
+389
+00:10:35,726 --> 00:10:36,566
+Right. So, some of you may be
+
+
+390
+00:10:36,566 --> 00:10:37,656
+going, ''That's a lot of
+
+
+391
+00:10:37,656 --> 00:10:38,216
+information.
+
+
+392
+00:10:38,216 --> 00:10:39,536
+I knew all that.'' Others are
+
+
+393
+00:10:39,536 --> 00:10:40,346
+like, ''Thank you, for the
+
+
+394
+00:10:40,346 --> 00:10:43,706
+information.'' While others are
+
+
+395
+00:10:43,706 --> 00:10:44,136
+like, ''Enough.
+
+
+396
+00:10:44,376 --> 00:10:45,736
+Just tell me how to use it.''
+
+
+397
+00:10:46,266 --> 00:10:48,236
+So, let's look at how to use
+
+
+398
+00:10:48,236 --> 00:10:50,276
+these NLP APIs.
+
+
+399
+00:10:50,326 --> 00:10:52,086
+So, all these NLP APIs are
+
+
+400
+00:10:52,086 --> 00:10:53,726
+available across all Apple
+
+
+401
+00:10:53,726 --> 00:10:54,966
+platforms through
+
+
+402
+00:10:54,966 --> 00:10:55,936
+NSLinguisticTagger.
+
+
+403
+00:10:56,656 --> 00:10:58,016
+So, some of you may be familiar
+
+
+404
+00:10:58,016 --> 00:10:59,166
+with NSLinguisticTagger.
+
+
+405
+00:10:59,366 --> 00:11:00,336
+Perhaps, you've already
+
+
+406
+00:11:00,336 --> 00:11:02,416
+incorporated as a part of your
+
+
+407
+00:11:02,416 --> 00:11:03,466
+apps, you're calling
+
+
+408
+00:11:03,466 --> 00:11:04,676
+NSLinguisticTagger for several
+
+
+409
+00:11:04,676 --> 00:11:04,986
+things.
+
+
+410
+00:11:05,786 --> 00:11:06,966
+For those who are not familiar
+
+
+411
+00:11:06,966 --> 00:11:08,706
+with NSLinguisticTagger, what is
+
+
+412
+00:11:08,706 --> 00:11:08,826
+it?
+
+
+413
+00:11:09,416 --> 00:11:11,966
+It's a class in Foundation.
+
+
+414
+00:11:13,606 --> 00:11:14,986
+It's used to segment and tag
+
+
+415
+00:11:15,106 --> 00:11:15,386
+text.
+
+
+416
+00:11:16,126 --> 00:11:18,096
+So, every tag, every task that
+
+
+417
+00:11:18,096 --> 00:11:19,856
+we described from language
+
+
+418
+00:11:19,856 --> 00:11:21,716
+identification to tokenization
+
+
+419
+00:11:21,716 --> 00:11:22,726
+to part of speech tagging,
+
+
+420
+00:11:22,726 --> 00:11:23,956
+lemmatization, named entity
+
+
+421
+00:11:23,956 --> 00:11:26,366
+recognition are all tag schemes
+
+
+422
+00:11:26,706 --> 00:11:27,776
+in NSLinguisticTagger.
+
+
+423
+00:11:28,246 --> 00:11:29,696
+So, you specify a particular tag
+
+
+424
+00:11:29,696 --> 00:11:30,086
+scheme.
+
+
+425
+00:11:30,386 --> 00:11:31,336
+You send text to it.
+
+
+426
+00:11:31,336 --> 00:11:33,026
+It performs analysis and gives
+
+
+427
+00:11:33,026 --> 00:11:33,556
+you an output.
+
+
+428
+00:11:33,936 --> 00:11:35,166
+That's what NSLinguisticTagger
+
+
+429
+00:11:35,166 --> 00:11:35,456
+does.
+
+
+430
+00:11:35,956 --> 00:11:37,556
+So, for more information about
+
+
+431
+00:11:37,556 --> 00:11:39,616
+NSLinguisticTagger, I encourage
+
+
+432
+00:11:39,616 --> 00:11:40,866
+you to go look at the developer
+
+
+433
+00:11:40,866 --> 00:11:41,186
+docs.
+
+
+434
+00:11:41,426 --> 00:11:42,876
+But let's try to focus on what's
+
+
+435
+00:11:42,876 --> 00:11:44,166
+new in NSLinguisticTagger.
+
+
+436
+00:11:44,736 --> 00:11:47,306
+We made significant improvement
+
+
+437
+00:11:47,306 --> 00:11:48,786
+to NSLinguisticTagger for this
+
+
+438
+00:11:48,786 --> 00:11:49,116
+release.
+
+
+439
+00:11:49,666 --> 00:11:52,756
+So, first one is tagging units.
+
+
+440
+00:11:53,156 --> 00:11:54,316
+So, the previous version of
+
+
+441
+00:11:54,316 --> 00:11:56,126
+NSLinguisticTagger would operate
+
+
+442
+00:11:56,296 --> 00:11:57,226
+only on words.
+
+
+443
+00:11:58,136 --> 00:11:59,646
+So, if you were to do any sort
+
+
+444
+00:11:59,646 --> 00:12:01,096
+of more complex analysis, as I
+
+
+445
+00:12:01,096 --> 00:12:03,046
+said, text can be broken down
+
+
+446
+00:12:03,046 --> 00:12:04,216
+into a document, into
+
+
+447
+00:12:04,216 --> 00:12:05,806
+paragraphs, into sentences, and
+
+
+448
+00:12:05,806 --> 00:12:06,286
+then words.
+
+
+449
+00:12:06,706 --> 00:12:08,186
+Just doing analysis at a word
+
+
+450
+00:12:08,186 --> 00:12:10,496
+level may not be optimal or may
+
+
+451
+00:12:10,496 --> 00:12:11,716
+not be sufficient for several
+
+
+452
+00:12:11,716 --> 00:12:12,256
+tasks.
+
+
+453
+00:12:12,916 --> 00:12:13,776
+So, the new version of
+
+
+454
+00:12:13,776 --> 00:12:16,356
+NSLinguisticTagger has different
+
+
+455
+00:12:16,356 --> 00:12:16,726
+units.
+
+
+456
+00:12:17,656 --> 00:12:18,966
+So, we can operate at the unit
+
+
+457
+00:12:18,966 --> 00:12:19,646
+that we'd like.
+
+
+458
+00:12:20,026 --> 00:12:21,026
+We can operate either at the
+
+
+459
+00:12:21,026 --> 00:12:22,876
+word level, sentence level,
+
+
+460
+00:12:23,406 --> 00:12:25,246
+paragraph level, or document
+
+
+461
+00:12:25,246 --> 00:12:25,456
+level.
+
+
+462
+00:12:26,436 --> 00:12:28,296
+Now, not all tag schemes are
+
+
+463
+00:12:28,296 --> 00:12:29,616
+available for all units.
+
+
+464
+00:12:29,936 --> 00:12:31,466
+Right. So, if I ask you the part
+
+
+465
+00:12:31,466 --> 00:12:32,786
+of speech tag for sentence, it
+
+
+466
+00:12:33,206 --> 00:12:34,376
+doesn't make sense.
+
+
+467
+00:12:34,506 --> 00:12:35,526
+You have to do part of speech
+
+
+468
+00:12:35,526 --> 00:12:36,356
+tagging on words.
+
+
+469
+00:12:36,356 --> 00:12:38,426
+So, in order to find out what
+
+
+470
+00:12:38,426 --> 00:12:39,456
+units and schemes are
+
+
+471
+00:12:39,456 --> 00:12:41,286
+compatible, we also have a new
+
+
+472
+00:12:41,286 --> 00:12:43,066
+nifty convenience API, called
+
+
+473
+00:12:43,066 --> 00:12:45,066
+availableTagSchemes.
+
+
+474
+00:12:45,496 --> 00:12:47,036
+All that you do here, is pass
+
+
+475
+00:12:47,286 --> 00:12:48,486
+the unit that you're interested
+
+
+476
+00:12:48,486 --> 00:12:50,406
+in, the language, and for that
+
+
+477
+00:12:50,406 --> 00:12:52,416
+combination of unit and language
+
+
+478
+00:12:52,686 --> 00:12:53,886
+you will get all the available
+
+
+479
+00:12:53,886 --> 00:12:54,516
+tag schemes.
+
+
+480
+00:12:55,826 --> 00:12:57,406
+So, in addition to these two
+
+
+481
+00:12:57,406 --> 00:12:59,356
+improvements, we've also
+
+
+482
+00:12:59,356 --> 00:13:01,616
+introduced a new API called
+
+
+483
+00:13:01,616 --> 00:13:02,496
+dominantLanguage.
+
+
+484
+00:13:02,806 --> 00:13:04,126
+For those of you who have kind
+
+
+485
+00:13:04,216 --> 00:13:07,196
+of found it difficult to perform
+
+
+486
+00:13:07,196 --> 00:13:08,656
+language identification using
+
+
+487
+00:13:08,656 --> 00:13:10,416
+NSLinguisticTagger, because it
+
+
+488
+00:13:10,416 --> 00:13:11,686
+operates only on a word level.
+
+
+489
+00:13:11,686 --> 00:13:12,896
+So, if I give you a piece of
+
+
+490
+00:13:12,986 --> 00:13:14,766
+text it is going to hypothesize
+
+
+491
+00:13:14,766 --> 00:13:15,836
+a language for every word.
+
+
+492
+00:13:16,036 --> 00:13:17,006
+So, if you only want the
+
+
+493
+00:13:17,006 --> 00:13:18,316
+language of the sentence, you
+
+
+494
+00:13:18,316 --> 00:13:19,676
+had to do some sort of a ugly
+
+
+495
+00:13:19,676 --> 00:13:21,046
+majority word thing and stuff in
+
+
+496
+00:13:21,046 --> 00:13:21,526
+your code.
+
+
+497
+00:13:21,686 --> 00:13:22,906
+So, all of that you can get rid
+
+
+498
+00:13:22,906 --> 00:13:23,046
+of.
+
+
+499
+00:13:23,146 --> 00:13:24,296
+You can have much cleaner code
+
+
+500
+00:13:24,296 --> 00:13:24,626
+base.
+
+
+501
+00:13:24,936 --> 00:13:26,136
+You just call this method
+
+
+502
+00:13:26,136 --> 00:13:28,396
+dominantLanguage, pass a string
+
+
+503
+00:13:28,396 --> 00:13:29,576
+to it, and it's going to give
+
+
+504
+00:13:29,576 --> 00:13:32,206
+you the language of the text.
+
+
+505
+00:13:32,346 --> 00:13:34,196
+In addition, specifically for
+
+
+506
+00:13:34,196 --> 00:13:36,046
+Swift 4, we've moved from
+
+
+507
+00:13:36,046 --> 00:13:37,646
+generic strings to named types
+
+
+508
+00:13:37,696 --> 00:13:39,416
+for tags, as well as tagSchemes.
+
+
+509
+00:13:40,476 --> 00:13:43,466
+And finally, we've made
+
+
+510
+00:13:43,596 --> 00:13:44,826
+significant improvements to the
+
+
+511
+00:13:44,826 --> 00:13:46,176
+underlying implementation of
+
+
+512
+00:13:46,226 --> 00:13:47,116
+NSLinguisticTagger.
+
+
+513
+00:13:47,366 --> 00:13:48,786
+The API interface is still the
+
+
+514
+00:13:48,786 --> 00:13:50,616
+same, but the entire
+
+
+515
+00:13:50,616 --> 00:13:52,186
+implementation underneath has
+
+
+516
+00:13:52,186 --> 00:13:53,606
+been [inaudible] from scratch.
+
+
+517
+00:13:53,696 --> 00:13:55,526
+Just to make it scalable.
+
+
+518
+00:13:56,276 --> 00:13:57,986
+So, the consequences of that is
+
+
+519
+00:13:57,986 --> 00:13:59,326
+you get improved performance, a
+
+
+520
+00:13:59,426 --> 00:14:01,306
+higher accuracy, as well as
+
+
+521
+00:14:01,626 --> 00:14:02,566
+support for a lot more
+
+
+522
+00:14:02,566 --> 00:14:03,156
+languages.
+
+
+523
+00:14:03,686 --> 00:14:06,736
+Right. So, that's good.
+
+
+524
+00:14:06,876 --> 00:14:07,856
+I think we've kind of
+
+
+525
+00:14:07,856 --> 00:14:09,746
+established what the fundamental
+
+
+526
+00:14:09,746 --> 00:14:11,726
+building blocks of NLP are.
+
+
+527
+00:14:12,156 --> 00:14:13,496
+We've talked about
+
+
+528
+00:14:13,496 --> 00:14:14,526
+NSLinguisticTagger.
+
+
+529
+00:14:14,896 --> 00:14:16,286
+But let's try to really delve
+
+
+530
+00:14:16,286 --> 00:14:17,176
+into the APIs.
+
+
+531
+00:14:17,276 --> 00:14:18,456
+But I don't want to just show
+
+
+532
+00:14:18,456 --> 00:14:18,846
+code.
+
+
+533
+00:14:18,846 --> 00:14:20,116
+I want to [inaudible] of this,
+
+
+534
+00:14:20,546 --> 00:14:22,136
+through two hypothetical apps
+
+
+535
+00:14:22,216 --> 00:14:24,286
+called Winnow and Whisk, W and W
+
+
+536
+00:14:24,286 --> 00:14:25,016
+if you get the pun.
+
+
+537
+00:14:25,586 --> 00:14:27,316
+So, the first app is Winnow.
+
+
+538
+00:14:27,886 --> 00:14:29,616
+It's a macOS app.
+
+
+539
+00:14:29,616 --> 00:14:30,966
+And the second is app Whisk,
+
+
+540
+00:14:31,576 --> 00:14:32,406
+which is an iOS app.
+
+
+541
+00:14:32,886 --> 00:14:33,556
+And both of these are
+
+
+542
+00:14:33,556 --> 00:14:34,396
+hypothetical apps.
+
+
+543
+00:14:35,746 --> 00:14:36,736
+So, let's talk about Winnow.
+
+
+544
+00:14:37,606 --> 00:14:39,286
+So, Winnow is a hypothetical app
+
+
+545
+00:14:39,286 --> 00:14:40,546
+that tags photos with
+
+
+546
+00:14:40,546 --> 00:14:41,156
+descriptions.
+
+
+547
+00:14:41,666 --> 00:14:43,616
+So, I take a lot of pictures of
+
+
+548
+00:14:43,616 --> 00:14:45,086
+family, friends, kids.
+
+
+549
+00:14:45,086 --> 00:14:47,146
+And every time I have a memory
+
+
+550
+00:14:47,146 --> 00:14:48,216
+associated with that picture.
+
+
+551
+00:14:48,686 --> 00:14:50,216
+And I'd like to leave an imprint
+
+
+552
+00:14:50,606 --> 00:14:52,306
+of that memory as a description
+
+
+553
+00:14:52,486 --> 00:14:53,006
+on the photo.
+
+
+554
+00:14:53,616 --> 00:14:56,586
+So, this imprint can be either a
+
+
+555
+00:14:56,586 --> 00:14:59,146
+speech recording I leave on the
+
+
+556
+00:14:59,446 --> 00:14:59,966
+photo.
+
+
+557
+00:14:59,966 --> 00:15:01,396
+Or it can be a text message I
+
+
+558
+00:15:01,396 --> 00:15:02,286
+write through my keyboard.
+
+
+559
+00:15:02,506 --> 00:15:03,546
+Or it could be a handwritten
+
+
+560
+00:15:03,546 --> 00:15:03,766
+note.
+
+
+561
+00:15:04,576 --> 00:15:06,666
+So, what Winnow does is given a
+
+
+562
+00:15:06,666 --> 00:15:08,876
+library of images, when I take
+
+
+563
+00:15:08,876 --> 00:15:10,246
+the image it gives you the
+
+
+564
+00:15:10,246 --> 00:15:11,626
+facility to add a description.
+
+
+565
+00:15:12,666 --> 00:15:13,446
+So, I have all these
+
+
+566
+00:15:13,476 --> 00:15:13,916
+descriptions.
+
+
+567
+00:15:13,916 --> 00:15:15,136
+So, it doesn't matter how these
+
+
+568
+00:15:15,136 --> 00:15:16,356
+descriptions got created.
+
+
+569
+00:15:16,656 --> 00:15:17,576
+Let's assume that these
+
+
+570
+00:15:17,576 --> 00:15:19,756
+descriptions are part of your
+
+
+571
+00:15:19,756 --> 00:15:20,786
+Winnow application.
+
+
+572
+00:15:21,626 --> 00:15:22,826
+And they can be in different
+
+
+573
+00:15:22,826 --> 00:15:23,206
+languages.
+
+
+574
+00:15:23,206 --> 00:15:24,096
+It can be multilingual.
+
+
+575
+00:15:24,396 --> 00:15:26,496
+And the objective is, as an app
+
+
+576
+00:15:26,496 --> 00:15:29,166
+developer, I've pushed this to
+
+
+577
+00:15:29,166 --> 00:15:29,796
+the App Store.
+
+
+578
+00:15:29,796 --> 00:15:30,956
+I'm getting a lot of traction.
+
+
+579
+00:15:31,336 --> 00:15:32,606
+I'm really happy with it.
+
+
+580
+00:15:32,656 --> 00:15:33,866
+But I want to add more features
+
+
+581
+00:15:33,896 --> 00:15:34,076
+to it.
+
+
+582
+00:15:34,666 --> 00:15:35,746
+So, the first thing I want to do
+
+
+583
+00:15:35,746 --> 00:15:37,276
+to my Winnow app is add a
+
+
+584
+00:15:37,276 --> 00:15:38,636
+functionality for searching.
+
+
+585
+00:15:38,946 --> 00:15:40,266
+Right. People want to search
+
+
+586
+00:15:40,326 --> 00:15:40,566
+things.
+
+
+587
+00:15:40,566 --> 00:15:41,496
+I mean, you've written a lot of
+
+
+588
+00:15:41,496 --> 00:15:42,996
+descriptions, and what are you
+
+
+589
+00:15:42,996 --> 00:15:43,716
+going to do with it?
+
+
+590
+00:15:43,716 --> 00:15:44,976
+You know, when you say something
+
+
+591
+00:15:44,976 --> 00:15:46,786
+like, kid's birthday, you want
+
+
+592
+00:15:46,786 --> 00:15:47,916
+to see all the pictures related
+
+
+593
+00:15:47,916 --> 00:15:48,166
+to that.
+
+
+594
+00:15:49,256 --> 00:15:51,276
+So, I start off doing a first
+
+
+595
+00:15:51,276 --> 00:15:52,536
+pass implementation for
+
+
+596
+00:15:52,536 --> 00:15:53,086
+searching.
+
+
+597
+00:15:54,426 --> 00:15:56,476
+A query, such as hike, goes into
+
+
+598
+00:15:56,476 --> 00:15:57,706
+my Winnow app.
+
+
+599
+00:15:57,706 --> 00:15:59,446
+And unfortunately, I get no
+
+
+600
+00:15:59,446 --> 00:15:59,886
+results.
+
+
+601
+00:16:01,046 --> 00:16:02,266
+Because there's not mention of a
+
+
+602
+00:16:02,266 --> 00:16:04,076
+work hike in all my
+
+
+603
+00:16:04,076 --> 00:16:04,696
+descriptions.
+
+
+604
+00:16:05,696 --> 00:16:06,876
+So, what we'd like to do is
+
+
+605
+00:16:07,176 --> 00:16:08,406
+improve the search experience
+
+
+606
+00:16:08,406 --> 00:16:10,136
+and solve this problem using the
+
+
+607
+00:16:10,136 --> 00:16:11,646
+power of NLP.
+
+
+608
+00:16:12,616 --> 00:16:15,036
+So, now if I were to type a
+
+
+609
+00:16:15,076 --> 00:16:16,946
+query such as hike, what I'd
+
+
+610
+00:16:17,006 --> 00:16:19,656
+like to see is all images that
+
+
+611
+00:16:19,706 --> 00:16:22,326
+contain all mentions, perhaps,
+
+
+612
+00:16:22,326 --> 00:16:23,706
+all the inflected forms of hike.
+
+
+613
+00:16:24,156 --> 00:16:26,686
+So, I see hiked, hikes, hiking,
+
+
+614
+00:16:27,766 --> 00:16:28,976
+So, these are all things that
+
+
+615
+00:16:29,256 --> 00:16:30,956
+are related to hike, but they
+
+
+616
+00:16:30,956 --> 00:16:32,096
+are just different inflected
+
+
+617
+00:16:32,096 --> 00:16:32,346
+forms.
+
+
+618
+00:16:32,346 --> 00:16:33,586
+And those of you, you know,
+
+
+619
+00:16:33,676 --> 00:16:35,086
+understood the first part of the
+
+
+620
+00:16:35,086 --> 00:16:36,676
+talk, what does this do?
+
+
+621
+00:16:36,676 --> 00:16:37,966
+This is basically lemmatization.
+
+
+622
+00:16:38,706 --> 00:16:39,626
+Because different inflected
+
+
+623
+00:16:39,626 --> 00:16:41,106
+forms have one root form.
+
+
+624
+00:16:41,366 --> 00:16:44,546
+So, let's try to see how to
+
+
+625
+00:16:44,546 --> 00:16:47,446
+implement this using NLP APIs.
+
+
+626
+00:16:48,146 --> 00:16:49,596
+So, we have a bunch of images,
+
+
+627
+00:16:49,736 --> 00:16:50,546
+the descriptions.
+
+
+628
+00:16:51,116 --> 00:16:55,026
+It goes into our Winnow app.
+
+
+629
+00:16:57,346 --> 00:16:59,326
+Now, we want to use NLP in the
+
+
+630
+00:16:59,326 --> 00:16:59,626
+middle.
+
+
+631
+00:17:00,066 --> 00:17:01,056
+So, what do we do, first?
+
+
+632
+00:17:01,536 --> 00:17:02,466
+We ought to do language
+
+
+633
+00:17:02,466 --> 00:17:03,076
+identification.
+
+
+634
+00:17:03,776 --> 00:17:04,935
+Because descriptions can be in
+
+
+635
+00:17:04,935 --> 00:17:05,665
+different languages.
+
+
+636
+00:17:06,046 --> 00:17:07,776
+Perhaps, a friend of yours sent
+
+
+637
+00:17:07,776 --> 00:17:09,146
+you a picture with a description
+
+
+638
+00:17:09,146 --> 00:17:10,336
+in French from France.
+
+
+639
+00:17:10,486 --> 00:17:11,626
+Right. Now, it's part of your
+
+
+640
+00:17:11,626 --> 00:17:12,006
+library.
+
+
+641
+00:17:12,205 --> 00:17:12,965
+And you want to search for
+
+
+642
+00:17:12,965 --> 00:17:13,415
+pictures.
+
+
+643
+00:17:14,736 --> 00:17:15,556
+So, once you do language
+
+
+644
+00:17:15,556 --> 00:17:16,826
+identification of all the
+
+
+645
+00:17:16,826 --> 00:17:18,076
+descriptions, we have to
+
+
+646
+00:17:18,076 --> 00:17:18,915
+tokenize the text.
+
+
+647
+00:17:19,486 --> 00:17:20,836
+And the tokenization can be
+
+
+648
+00:17:20,836 --> 00:17:22,026
+either word, sentence, and
+
+
+649
+00:17:22,026 --> 00:17:22,476
+paragraph.
+
+
+650
+00:17:22,695 --> 00:17:23,636
+Right. Because some of your
+
+
+651
+00:17:23,636 --> 00:17:25,136
+descriptions may be really long,
+
+
+652
+00:17:25,136 --> 00:17:26,616
+may span multiple sentences.
+
+
+653
+00:17:27,175 --> 00:17:30,426
+Then, we do part of speech
+
+
+654
+00:17:30,456 --> 00:17:30,806
+tagging.
+
+
+655
+00:17:31,596 --> 00:17:33,036
+And finally, lemmatization.
+
+
+656
+00:17:33,516 --> 00:17:34,536
+So, if we have all these
+
+
+657
+00:17:34,536 --> 00:17:35,836
+building blocks within the
+
+
+658
+00:17:35,836 --> 00:17:38,886
+Winnow app, we can get improved
+
+
+659
+00:17:38,886 --> 00:17:39,676
+search experience.
+
+
+660
+00:17:40,216 --> 00:17:42,686
+And that is our UI.
+
+
+661
+00:17:42,686 --> 00:17:44,516
+We'll see a demo of this in
+
+
+662
+00:17:44,516 --> 00:17:45,386
+action, soon.
+
+
+663
+00:17:45,826 --> 00:17:48,056
+But let me just go through some
+
+
+664
+00:17:48,106 --> 00:17:49,866
+sample code to tell you how easy
+
+
+665
+00:17:49,866 --> 00:17:50,926
+it is to use each of these
+
+
+666
+00:17:50,966 --> 00:17:52,576
+blocks in your apps.
+
+
+667
+00:17:53,276 --> 00:17:54,466
+So, language identification is
+
+
+668
+00:17:54,636 --> 00:17:55,776
+pretty much just three lines of
+
+
+669
+00:17:55,846 --> 00:17:56,076
+code.
+
+
+670
+00:17:56,656 --> 00:17:57,846
+You start off with importing
+
+
+671
+00:17:57,846 --> 00:17:58,386
+Foundation.
+
+
+672
+00:17:59,786 --> 00:18:00,556
+You create an instance of the
+
+
+673
+00:18:00,556 --> 00:18:02,906
+NSLinguisticTagger object, and
+
+
+674
+00:18:02,906 --> 00:18:04,466
+you specify a tag scheme.
+
+
+675
+00:18:05,436 --> 00:18:06,636
+For language identification, the
+
+
+676
+00:18:06,696 --> 00:18:08,246
+tag scheme is just language.
+
+
+677
+00:18:08,826 --> 00:18:11,716
+You set a string that you want
+
+
+678
+00:18:11,716 --> 00:18:12,226
+to analyze.
+
+
+679
+00:18:12,466 --> 00:18:13,746
+In this case, the string is
+
+
+680
+00:18:13,746 --> 00:18:14,116
+German.
+
+
+681
+00:18:15,696 --> 00:18:17,366
+And then, we call the method
+
+
+682
+00:18:17,366 --> 00:18:18,566
+dominantLanguage, that I just
+
+
+683
+00:18:18,566 --> 00:18:19,536
+described a few slides back.
+
+
+684
+00:18:19,536 --> 00:18:20,946
+On this object, viola, you get
+
+
+685
+00:18:20,946 --> 00:18:23,186
+the language of the text.
+
+
+686
+00:18:23,616 --> 00:18:24,976
+It's as simple as that.
+
+
+687
+00:18:25,406 --> 00:18:26,356
+And under the hood, there's
+
+
+688
+00:18:26,446 --> 00:18:27,686
+complex machine learning, there
+
+
+689
+00:18:27,686 --> 00:18:28,576
+are all kinds of models.
+
+
+690
+00:18:28,786 --> 00:18:29,946
+For you, you just get the
+
+
+691
+00:18:29,946 --> 00:18:30,366
+result.
+
+
+692
+00:18:30,366 --> 00:18:32,016
+And you can move on to improving
+
+
+693
+00:18:32,016 --> 00:18:32,806
+your app experience.
+
+
+694
+00:18:32,806 --> 00:18:36,626
+Let's look at tokenization.
+
+
+695
+00:18:37,826 --> 00:18:38,916
+Again, we start off with
+
+
+696
+00:18:39,236 --> 00:18:40,186
+creating an instance of the
+
+
+697
+00:18:40,186 --> 00:18:41,926
+NSLinguisticTagger object.
+
+
+698
+00:18:42,416 --> 00:18:44,376
+But now, instead of language as
+
+
+699
+00:18:44,376 --> 00:18:45,626
+a tag scheme, we specify
+
+
+700
+00:18:45,626 --> 00:18:49,136
+tokenType as a tag scheme.
+
+
+701
+00:18:49,136 --> 00:18:50,646
+We specify some text.
+
+
+702
+00:18:51,146 --> 00:18:53,316
+And we set the range of the
+
+
+703
+00:18:53,316 --> 00:18:53,666
+text.
+
+
+704
+00:18:53,866 --> 00:18:55,736
+So, NSLinguisticTagger is still
+
+
+705
+00:18:55,736 --> 00:18:57,506
+dealing with NSranges and we
+
+
+706
+00:18:57,686 --> 00:18:59,196
+hope to move to ranges as part
+
+
+707
+00:18:59,196 --> 00:18:59,946
+of the next release.
+
+
+708
+00:19:00,396 --> 00:19:01,346
+But for now, let's set the
+
+
+709
+00:19:01,346 --> 00:19:02,886
+entire range to be the length of
+
+
+710
+00:19:02,886 --> 00:19:03,926
+the string that we would like to
+
+
+711
+00:19:03,926 --> 00:19:04,306
+analyze.
+
+
+712
+00:19:05,896 --> 00:19:07,266
+Then, we subsequently set some
+
+
+713
+00:19:07,326 --> 00:19:07,846
+options.
+
+
+714
+00:19:07,896 --> 00:19:10,076
+In this particular case, I want
+
+
+715
+00:19:10,076 --> 00:19:12,106
+to omit punctuation, and I also
+
+
+716
+00:19:12,106 --> 00:19:13,236
+want to omit whitespace.
+
+
+717
+00:19:16,936 --> 00:19:18,806
+And then, finally, we enumerate
+
+
+718
+00:19:18,886 --> 00:19:19,696
+for every word.
+
+
+719
+00:19:20,176 --> 00:19:21,406
+So, for each word as we
+
+
+720
+00:19:21,456 --> 00:19:23,586
+enumerate, we can find the token
+
+
+721
+00:19:23,926 --> 00:19:25,316
+as a substring of the original
+
+
+722
+00:19:25,316 --> 00:19:25,586
+string.
+
+
+723
+00:19:25,896 --> 00:19:27,626
+So, once you have a token, you
+
+
+724
+00:19:27,626 --> 00:19:29,386
+can do whatever you want to do
+
+
+725
+00:19:29,386 --> 00:19:30,406
+with that particular token.
+
+
+726
+00:19:30,986 --> 00:19:33,656
+So, let's look at lemmatization.
+
+
+727
+00:19:33,826 --> 00:19:34,906
+Now, as you see the code
+
+
+728
+00:19:34,906 --> 00:19:36,366
+samples, you see sort of a
+
+
+729
+00:19:36,366 --> 00:19:36,736
+pattern.
+
+
+730
+00:19:36,986 --> 00:19:37,856
+It's very similar.
+
+
+731
+00:19:38,226 --> 00:19:39,566
+You again, create an instance of
+
+
+732
+00:19:39,566 --> 00:19:41,426
+the NSLinguisticTagger object.
+
+
+733
+00:19:42,106 --> 00:19:43,436
+You specify a particular tag
+
+
+734
+00:19:43,436 --> 00:19:43,816
+scheme.
+
+
+735
+00:19:43,896 --> 00:19:44,966
+In this case, it's lemma.
+
+
+736
+00:19:45,266 --> 00:19:45,956
+If you look at all the
+
+
+737
+00:19:45,956 --> 00:19:47,256
+fundamental building blocks that
+
+
+738
+00:19:47,256 --> 00:19:48,836
+we talked about, it's exactly
+
+
+739
+00:19:48,836 --> 00:19:49,046
+that.
+
+
+740
+00:19:49,406 --> 00:19:50,556
+Those building blocks are now
+
+
+741
+00:19:50,556 --> 00:19:52,046
+translated into tag schemes.
+
+
+742
+00:19:52,576 --> 00:19:54,816
+We specify some text.
+
+
+743
+00:19:54,946 --> 00:19:57,666
+We set the range of the text
+
+
+744
+00:19:57,666 --> 00:19:58,606
+that we'd like to analyze.
+
+
+745
+00:19:59,976 --> 00:20:00,976
+And again, we set some options.
+
+
+746
+00:20:01,086 --> 00:20:03,056
+Again, we want to omit
+
+
+747
+00:20:03,146 --> 00:20:04,346
+punctuation, as well as
+
+
+748
+00:20:04,346 --> 00:20:04,986
+whitespace.
+
+
+749
+00:20:06,336 --> 00:20:08,016
+And finally, we enumerate over
+
+
+750
+00:20:08,016 --> 00:20:08,546
+every word.
+
+
+751
+00:20:09,416 --> 00:20:10,996
+And as we enumerate over every
+
+
+752
+00:20:10,996 --> 00:20:12,846
+word, we'd like to find out what
+
+
+753
+00:20:12,846 --> 00:20:14,006
+the lemma for that particular
+
+
+754
+00:20:14,006 --> 00:20:14,666
+word is.
+
+
+755
+00:20:15,336 --> 00:20:16,526
+And once we have the lemma, we
+
+
+756
+00:20:16,526 --> 00:20:18,506
+can index this in a different
+
+
+757
+00:20:18,576 --> 00:20:18,736
+app.
+
+
+758
+00:20:18,736 --> 00:20:19,826
+We can use it in many different
+
+
+759
+00:20:19,826 --> 00:20:20,096
+ways.
+
+
+760
+00:20:21,216 --> 00:20:23,156
+So, let me now, turn it over to
+
+
+761
+00:20:23,156 --> 00:20:24,616
+Doug, to show a light
+
+
+762
+00:20:24,616 --> 00:20:26,336
+demonstration of Winnow in
+
+
+763
+00:20:26,416 --> 00:20:28,406
+action, with the power of NLP.
+
+
+764
+00:20:28,406 --> 00:20:29,596
+Over to you, Doug.
+
+
+765
+00:20:30,516 --> 00:20:34,086
+[ Applause ]
+
+
+766
+00:20:34,586 --> 00:20:35,486
+>> Okay. Thanks, Vivek.
+
+
+767
+00:20:35,706 --> 00:20:37,516
+So, what I have here, is the
+
+
+768
+00:20:37,516 --> 00:20:38,796
+first version of the Winnow app
+
+
+769
+00:20:38,796 --> 00:20:39,336
+that we wrote.
+
+
+770
+00:20:39,716 --> 00:20:40,746
+It's a very simple app.
+
+
+771
+00:20:41,186 --> 00:20:42,846
+It shows a gallery of photos.
+
+
+772
+00:20:42,966 --> 00:20:44,306
+Each photo has a description.
+
+
+773
+00:20:44,396 --> 00:20:45,906
+And we have search fields so we
+
+
+774
+00:20:45,906 --> 00:20:47,656
+can search for descriptions for
+
+
+775
+00:20:47,656 --> 00:20:48,996
+photos by the words in their
+
+
+776
+00:20:48,996 --> 00:20:49,596
+descriptions.
+
+
+777
+00:20:50,186 --> 00:20:51,666
+But this version of Winnow has a
+
+
+778
+00:20:51,666 --> 00:20:52,036
+problem.
+
+
+779
+00:20:52,846 --> 00:20:54,296
+It doesn't have any NLP in it.
+
+
+780
+00:20:54,956 --> 00:20:56,306
+So, if I were to type something
+
+
+781
+00:20:56,306 --> 00:20:57,766
+like hike, and search for that,
+
+
+782
+00:20:57,766 --> 00:20:59,376
+I'd get no results.
+
+
+783
+00:20:59,896 --> 00:21:01,126
+Even though there are photos in
+
+
+784
+00:21:01,126 --> 00:21:03,056
+here that are related to hiking.
+
+
+785
+00:21:03,056 --> 00:21:05,576
+I could type hikes, and I get
+
+
+786
+00:21:05,716 --> 00:21:06,806
+the photos whose description
+
+
+787
+00:21:06,806 --> 00:21:07,616
+have hikes in them.
+
+
+788
+00:21:07,616 --> 00:21:10,636
+Or hiking, I get photos whose
+
+
+789
+00:21:10,636 --> 00:21:11,806
+descriptions have hiking in
+
+
+790
+00:21:11,806 --> 00:21:12,086
+them.
+
+
+791
+00:21:12,206 --> 00:21:14,746
+Or hiked. But because there's no
+
+
+792
+00:21:14,806 --> 00:21:16,696
+NLP in it, the app has no idea
+
+
+793
+00:21:16,696 --> 00:21:17,576
+that these words are all
+
+
+794
+00:21:17,576 --> 00:21:17,976
+related.
+
+
+795
+00:21:19,336 --> 00:21:20,546
+So, what can we do about that?
+
+
+796
+00:21:21,316 --> 00:21:25,226
+Well, let's take a look at the
+
+
+797
+00:21:25,396 --> 00:21:25,486
+code.
+
+
+798
+00:21:25,486 --> 00:21:27,976
+So, here is our function at the
+
+
+799
+00:21:27,976 --> 00:21:30,696
+heart of the application that is
+
+
+800
+00:21:30,696 --> 00:21:33,016
+responsible for what it needs to
+
+
+801
+00:21:33,016 --> 00:21:34,606
+do, as far as indexing for
+
+
+802
+00:21:34,606 --> 00:21:34,956
+search.
+
+
+803
+00:21:35,166 --> 00:21:36,706
+So, this function takes a
+
+
+804
+00:21:36,706 --> 00:21:37,716
+string, and maybe it's a
+
+
+805
+00:21:37,716 --> 00:21:39,326
+description or search string,
+
+
+806
+00:21:39,776 --> 00:21:42,326
+and it converts it into a set of
+
+
+807
+00:21:42,356 --> 00:21:44,206
+words that are used for the
+
+
+808
+00:21:44,206 --> 00:21:44,606
+searching.
+
+
+809
+00:21:45,676 --> 00:21:47,456
+And the reason why it has this
+
+
+810
+00:21:47,516 --> 00:21:48,636
+behavior is this function is
+
+
+811
+00:21:48,926 --> 00:21:49,866
+very naive.
+
+
+812
+00:21:50,286 --> 00:21:51,776
+It just uses a standard string
+
+
+813
+00:21:51,906 --> 00:21:53,966
+method for writing substrings.
+
+
+814
+00:21:53,966 --> 00:21:55,496
+In this case, by words.
+
+
+815
+00:21:55,766 --> 00:21:56,946
+So, it gets all the words.
+
+
+816
+00:21:57,236 --> 00:21:58,396
+And the only thing it does with
+
+
+817
+00:21:58,396 --> 00:22:00,186
+those is to lowercase them, so,
+
+
+818
+00:22:00,186 --> 00:22:01,066
+it's case insensitive.
+
+
+819
+00:22:01,506 --> 00:22:02,096
+But no NLP.
+
+
+820
+00:22:03,006 --> 00:22:03,936
+Well, let's fix that.
+
+
+821
+00:22:05,276 --> 00:22:08,096
+I'm going to replace this with
+
+
+822
+00:22:08,096 --> 00:22:09,236
+something that should look very
+
+
+823
+00:22:09,236 --> 00:22:11,316
+familiar from the slides.
+
+
+824
+00:22:12,976 --> 00:22:14,006
+I going to create a linguistic
+
+
+825
+00:22:14,056 --> 00:22:14,536
+tagger.
+
+
+826
+00:22:14,676 --> 00:22:15,866
+In this case, I'm going to use
+
+
+827
+00:22:15,916 --> 00:22:17,586
+the lemma language schemes.
+
+
+828
+00:22:19,466 --> 00:22:20,916
+And set the string on it.
+
+
+829
+00:22:21,536 --> 00:22:22,996
+A little twist here.
+
+
+830
+00:22:23,876 --> 00:22:26,506
+This method here, has two
+
+
+831
+00:22:26,506 --> 00:22:26,926
+options.
+
+
+832
+00:22:26,926 --> 00:22:28,296
+One, the language, if it's
+
+
+833
+00:22:28,296 --> 00:22:29,786
+known, can be passed in.
+
+
+834
+00:22:29,996 --> 00:22:31,366
+In which case, we tell the
+
+
+835
+00:22:31,366 --> 00:22:32,846
+tagger what the language is.
+
+
+836
+00:22:32,846 --> 00:22:33,916
+And this is how you do that.
+
+
+837
+00:22:34,656 --> 00:22:36,146
+But if it's not known and not
+
+
+838
+00:22:36,146 --> 00:22:37,656
+passed in, then we just ask it,
+
+
+839
+00:22:38,156 --> 00:22:39,376
+using dominantLanguage, to
+
+
+840
+00:22:39,376 --> 00:22:41,066
+identify the language for us.
+
+
+841
+00:22:42,556 --> 00:22:43,786
+And then, we're going to
+
+
+842
+00:22:43,786 --> 00:22:45,866
+enumerate through, using the
+
+
+843
+00:22:45,866 --> 00:22:46,646
+lemma scheme.
+
+
+844
+00:22:47,656 --> 00:22:50,066
+And that will also, along the
+
+
+845
+00:22:50,066 --> 00:22:51,346
+way, give us tokenizations.
+
+
+846
+00:22:51,346 --> 00:22:52,206
+We get the token.
+
+
+847
+00:22:52,696 --> 00:22:53,686
+We're going to use that as one
+
+
+848
+00:22:53,686 --> 00:22:54,416
+of our words.
+
+
+849
+00:22:54,866 --> 00:22:56,296
+And we also, if we have a lemma,
+
+
+850
+00:22:57,216 --> 00:22:58,646
+we'll take that and use that as
+
+
+851
+00:22:58,646 --> 00:22:59,426
+one of our words.
+
+
+852
+00:23:00,326 --> 00:23:01,466
+By the way, you don't have to
+
+
+853
+00:23:01,466 --> 00:23:02,486
+memorize this.
+
+
+854
+00:23:02,486 --> 00:23:03,706
+This should be available to you
+
+
+855
+00:23:03,706 --> 00:23:05,226
+as sample code.
+
+
+856
+00:23:06,416 --> 00:23:08,526
+So, let's try that out.
+
+
+857
+00:23:16,086 --> 00:23:18,176
+Okay. So, now in this version of
+
+
+858
+00:23:18,176 --> 00:23:20,686
+Winnow, if I type hike, I should
+
+
+859
+00:23:20,736 --> 00:23:23,186
+get images whose description
+
+
+860
+00:23:23,186 --> 00:23:26,196
+contain hiking or hiked or
+
+
+861
+00:23:26,196 --> 00:23:26,886
+hikes.
+
+
+862
+00:23:28,076 --> 00:23:29,206
+Let me try another word.
+
+
+863
+00:23:29,206 --> 00:23:30,526
+Maybe, party.
+
+
+864
+00:23:31,616 --> 00:23:33,046
+This one has parties in it.
+
+
+865
+00:23:33,046 --> 00:23:35,096
+Partied, party.
+
+
+866
+00:23:35,486 --> 00:23:36,796
+And of course, this is
+
+
+867
+00:23:36,796 --> 00:23:37,586
+multilingual.
+
+
+868
+00:23:37,586 --> 00:23:39,526
+Let me try a French verb,
+
+
+869
+00:23:40,136 --> 00:23:41,476
+marcher, to walk.
+
+
+870
+00:23:42,966 --> 00:23:44,816
+Now, I am sure all of you
+
+
+871
+00:23:45,066 --> 00:23:46,256
+remember how to conjugate your
+
+
+872
+00:23:46,256 --> 00:23:46,816
+French verbs.
+
+
+873
+00:23:46,816 --> 00:23:47,976
+But I have a little trouble with
+
+
+874
+00:23:47,976 --> 00:23:48,043
+it.
+
+
+875
+00:23:48,296 --> 00:23:50,436
+So, I'm glad that I have NLP
+
+
+876
+00:23:50,436 --> 00:23:53,176
+APIs to remember that forms of
+
+
+877
+00:23:53,176 --> 00:23:54,506
+this verb include, in this case,
+
+
+878
+00:23:54,506 --> 00:23:59,046
+marchons, marchais, marchent.
+
+
+879
+00:23:59,576 --> 00:24:00,906
+They're all recognized as forms
+
+
+880
+00:24:00,906 --> 00:24:01,686
+of the same verb.
+
+
+881
+00:24:01,746 --> 00:24:02,686
+Or maybe in German.
+
+
+882
+00:24:03,346 --> 00:24:04,666
+The verb spielen, meaning to
+
+
+883
+00:24:04,666 --> 00:24:04,986
+play.
+
+
+884
+00:24:06,016 --> 00:24:07,976
+I can find images whose caption
+
+
+885
+00:24:07,976 --> 00:24:08,906
+contain speilen.
+
+
+886
+00:24:09,306 --> 00:24:11,406
+But also, past tense, gespielt.
+
+
+887
+00:24:11,936 --> 00:24:14,526
+And the NLP API knows that these
+
+
+888
+00:24:14,526 --> 00:24:15,696
+are forms of the same verbs,
+
+
+889
+00:24:15,696 --> 00:24:16,926
+they have the same lemma, so
+
+
+890
+00:24:16,926 --> 00:24:17,586
+they get found.
+
+
+891
+00:24:19,106 --> 00:24:20,736
+And that is Winnow.
+
+
+892
+00:24:21,516 --> 00:24:25,856
+[ Applause ]
+
+
+893
+00:24:26,356 --> 00:24:27,136
+Back to you, Vivek.
+
+
+894
+00:24:27,996 --> 00:24:29,016
+>> Thank you, Doug, for the
+
+
+895
+00:24:29,016 --> 00:24:30,256
+great demo.
+
+
+896
+00:24:30,256 --> 00:24:31,976
+So, I mentioned that we are
+
+
+897
+00:24:31,976 --> 00:24:32,876
+going to talk about two
+
+
+898
+00:24:32,876 --> 00:24:33,796
+hypothetical apps.
+
+
+899
+00:24:33,796 --> 00:24:35,516
+So, we've covered the first W.
+
+
+900
+00:24:35,516 --> 00:24:36,706
+Let's go on to the next W.
+
+
+901
+00:24:37,136 --> 00:24:37,786
+Which is Whisk.
+
+
+902
+00:24:38,976 --> 00:24:39,976
+So, Whisk is again, a
+
+
+903
+00:24:40,026 --> 00:24:42,266
+hypothetical app to collate
+
+
+904
+00:24:42,266 --> 00:24:43,196
+social media feeds.
+
+
+905
+00:24:43,476 --> 00:24:45,366
+So, I find it really hard,
+
+
+906
+00:24:45,366 --> 00:24:46,526
+because I have multiple social
+
+
+907
+00:24:46,526 --> 00:24:47,156
+media accounts.
+
+
+908
+00:24:47,466 --> 00:24:48,746
+And it's kind of painful to log
+
+
+909
+00:24:48,746 --> 00:24:50,186
+into each account, and then, go
+
+
+910
+00:24:50,186 --> 00:24:51,196
+look at the feeds, look at the
+
+
+911
+00:24:51,196 --> 00:24:52,646
+activity, comment on a bunch of
+
+
+912
+00:24:52,686 --> 00:24:52,926
+things.
+
+
+913
+00:24:53,376 --> 00:24:55,816
+So, imagine an app that can just
+
+
+914
+00:24:55,816 --> 00:24:57,276
+bring all of that in one place.
+
+
+915
+00:24:57,546 --> 00:24:59,856
+So, that's the objective of
+
+
+916
+00:25:00,026 --> 00:25:00,316
+Whisk.
+
+
+917
+00:25:00,806 --> 00:25:02,336
+So, I take social media feeds
+
+
+918
+00:25:02,756 --> 00:25:03,786
+from different places, from
+
+
+919
+00:25:03,786 --> 00:25:04,976
+different social media accounts.
+
+
+920
+00:25:05,476 --> 00:25:07,006
+And then, whisks it all together
+
+
+921
+00:25:07,676 --> 00:25:08,506
+into one interface.
+
+
+922
+00:25:08,896 --> 00:25:10,196
+So again, you're going to get
+
+
+923
+00:25:10,196 --> 00:25:11,506
+all these feeds in one place.
+
+
+924
+00:25:11,726 --> 00:25:13,756
+Now, the problem with Whisk is
+
+
+925
+00:25:13,756 --> 00:25:14,986
+it's doing very well at the app
+
+
+926
+00:25:14,986 --> 00:25:15,286
+store.
+
+
+927
+00:25:15,286 --> 00:25:17,736
+But unfortunately, it's kind of
+
+
+928
+00:25:17,736 --> 00:25:18,336
+all over the place.
+
+
+929
+00:25:18,336 --> 00:25:20,006
+I mean, the content is not very
+
+
+930
+00:25:20,006 --> 00:25:21,806
+easy to browse, because I see
+
+
+931
+00:25:21,806 --> 00:25:23,656
+some feeds from Pinterest.
+
+
+932
+00:25:23,656 --> 00:25:25,386
+I see some feeds from Facebook.
+
+
+933
+00:25:25,646 --> 00:25:26,226
+From Twitter.
+
+
+934
+00:25:26,226 --> 00:25:27,086
+It's all over the place.
+
+
+935
+00:25:27,086 --> 00:25:29,466
+I really want to organize Whisk
+
+
+936
+00:25:29,466 --> 00:25:31,216
+app even more, like increase the
+
+
+937
+00:25:31,216 --> 00:25:31,946
+user engagement.
+
+
+938
+00:25:33,096 --> 00:25:33,846
+And how can we do that?
+
+
+939
+00:25:34,926 --> 00:25:36,726
+So, what we'd like to do is kind
+
+
+940
+00:25:36,726 --> 00:25:39,386
+of organize the feeds in Whisk
+
+
+941
+00:25:39,796 --> 00:25:40,946
+app based on people,
+
+
+942
+00:25:41,046 --> 00:25:42,786
+organization, and locations that
+
+
+943
+00:25:42,786 --> 00:25:44,496
+you've been interested in, and
+
+
+944
+00:25:44,496 --> 00:25:46,026
+what you have been subscribed to
+
+
+945
+00:25:46,026 --> 00:25:46,556
+in your feeds.
+
+
+946
+00:25:47,766 --> 00:25:48,386
+How can we do that?
+
+
+947
+00:25:48,826 --> 00:25:50,626
+So, let's assume that we are
+
+
+948
+00:25:50,626 --> 00:25:52,346
+following a bunch of articles in
+
+
+949
+00:25:52,346 --> 00:25:52,666
+Twitter.
+
+
+950
+00:25:52,666 --> 00:25:53,606
+I'm following ten.
+
+
+951
+00:25:54,116 --> 00:25:56,236
+I'm also following Apple Music.
+
+
+952
+00:25:56,656 --> 00:25:58,926
+And based on all this content,
+
+
+953
+00:25:59,006 --> 00:26:00,416
+the text in all of these feeds,
+
+
+954
+00:26:00,996 --> 00:26:02,926
+we can use our NLP APIs, such as
+
+
+955
+00:26:02,926 --> 00:26:04,926
+named entity extraction and
+
+
+956
+00:26:04,986 --> 00:26:07,116
+automatically tag and extract
+
+
+957
+00:26:07,116 --> 00:26:07,616
+entities.
+
+
+958
+00:26:08,106 --> 00:26:09,866
+So, in the first feed, you can
+
+
+959
+00:26:09,866 --> 00:26:11,566
+see that Tim Cook, Apple, Stevie
+
+
+960
+00:26:11,566 --> 00:26:12,856
+Wonder, these are all entities
+
+
+961
+00:26:13,116 --> 00:26:14,656
+that are automatically extracted
+
+
+962
+00:26:14,876 --> 00:26:16,086
+using the NLP APIs.
+
+
+963
+00:26:16,206 --> 00:26:17,096
+Completely through machine
+
+
+964
+00:26:17,096 --> 00:26:17,276
+learning.
+
+
+965
+00:26:18,196 --> 00:26:19,416
+In the second instance, you're
+
+
+966
+00:26:19,416 --> 00:26:20,016
+seeing Pharrell.
+
+
+967
+00:26:20,016 --> 00:26:21,806
+And Pharrell is visiting NYU.
+
+
+968
+00:26:21,806 --> 00:26:22,866
+And those are two entities that
+
+
+969
+00:26:22,866 --> 00:26:23,456
+we extracted.
+
+
+970
+00:26:23,856 --> 00:26:25,216
+So, imagine if you had all these
+
+
+971
+00:26:25,266 --> 00:26:26,946
+entities, we can organize the
+
+
+972
+00:26:26,946 --> 00:26:28,806
+content and make the user
+
+
+973
+00:26:28,936 --> 00:26:30,656
+experience within Whisk,
+
+
+974
+00:26:30,976 --> 00:26:32,016
+significantly better.
+
+
+975
+00:26:32,166 --> 00:26:33,186
+And that's the objective, here.
+
+
+976
+00:26:34,486 --> 00:26:35,916
+So again, how will we accomplish
+
+
+977
+00:26:35,916 --> 00:26:37,476
+this using our NLP APIs?
+
+
+978
+00:26:38,946 --> 00:26:41,046
+So, we start off with some
+
+
+979
+00:26:41,046 --> 00:26:41,446
+feeds.
+
+
+980
+00:26:41,526 --> 00:26:43,336
+So, we assume that there's some
+
+
+981
+00:26:43,336 --> 00:26:45,216
+feed API that's sending us all
+
+
+982
+00:26:45,216 --> 00:26:46,676
+this information from different
+
+
+983
+00:26:46,676 --> 00:26:47,636
+social media accounts.
+
+
+984
+00:26:48,466 --> 00:26:49,756
+So, once you have this feed API,
+
+
+985
+00:26:51,226 --> 00:26:52,566
+and then you ingest it into
+
+
+986
+00:26:52,736 --> 00:26:54,926
+Whisk, we'd like to bring NLP to
+
+
+987
+00:26:54,926 --> 00:26:55,486
+the fore.
+
+
+988
+00:26:56,646 --> 00:26:59,086
+And what do you think is going
+
+
+989
+00:26:59,086 --> 00:27:00,086
+to be the first block, here?
+
+
+990
+00:27:00,686 --> 00:27:03,156
+Right. It's going to be language
+
+
+991
+00:27:03,156 --> 00:27:04,726
+identification, because feeds
+
+
+992
+00:27:04,936 --> 00:27:06,026
+can be in different languages.
+
+
+993
+00:27:06,026 --> 00:27:07,016
+You can have a feed that's
+
+
+994
+00:27:07,016 --> 00:27:09,056
+coming in that is German or
+
+
+995
+00:27:09,056 --> 00:27:10,336
+Russian or French.
+
+
+996
+00:27:10,616 --> 00:27:11,716
+In order to do the right sort of
+
+
+997
+00:27:11,716 --> 00:27:13,186
+analysis, you have to do
+
+
+998
+00:27:13,186 --> 00:27:14,086
+language identification.
+
+
+999
+00:27:14,966 --> 00:27:15,796
+So, once you do language
+
+
+1000
+00:27:15,796 --> 00:27:17,676
+identification, you have to do
+
+
+1001
+00:27:17,676 --> 00:27:18,716
+tokenization of the text.
+
+
+1002
+00:27:18,986 --> 00:27:20,286
+Presumably, some of the feeds
+
+
+1003
+00:27:20,336 --> 00:27:21,836
+are sentences, paragraphs or
+
+
+1004
+00:27:21,836 --> 00:27:22,486
+documents, right.
+
+
+1005
+00:27:22,716 --> 00:27:23,696
+So, you have to tokenize the
+
+
+1006
+00:27:23,776 --> 00:27:24,046
+text.
+
+
+1007
+00:27:24,756 --> 00:27:26,406
+And then, finally, you can call
+
+
+1008
+00:27:26,406 --> 00:27:27,816
+the named entity extraction API,
+
+
+1009
+00:27:28,236 --> 00:27:29,516
+in order to get the entities
+
+
+1010
+00:27:29,656 --> 00:27:30,256
+from the text.
+
+
+1011
+00:27:31,226 --> 00:27:32,526
+And that is how our app would
+
+
+1012
+00:27:32,526 --> 00:27:32,726
+look.
+
+
+1013
+00:27:33,056 --> 00:27:34,636
+So, let's look at a code sample,
+
+
+1014
+00:27:34,636 --> 00:27:36,506
+again, to see how easy this is
+
+
+1015
+00:27:36,716 --> 00:27:37,236
+to implement.
+
+
+1016
+00:27:37,726 --> 00:27:40,066
+Again, the same pattern.
+
+
+1017
+00:27:40,706 --> 00:27:41,946
+We start off with creating an
+
+
+1018
+00:27:41,946 --> 00:27:43,426
+instance of NSLinguisticTagger
+
+
+1019
+00:27:43,476 --> 00:27:44,176
+object.
+
+
+1020
+00:27:44,556 --> 00:27:46,456
+Now, we specify a tag scheme to
+
+
+1021
+00:27:46,456 --> 00:27:47,126
+be nameType.
+
+
+1022
+00:27:47,416 --> 00:27:48,666
+So, we've gone through token
+
+
+1023
+00:27:48,666 --> 00:27:48,896
+type.
+
+
+1024
+00:27:48,896 --> 00:27:49,956
+We've gone through lemma,
+
+
+1025
+00:27:50,246 --> 00:27:51,576
+language, and now, name type.
+
+
+1026
+00:27:52,796 --> 00:27:53,916
+We set a string that we'd like
+
+
+1027
+00:27:53,916 --> 00:27:54,436
+to analyze.
+
+
+1028
+00:27:55,516 --> 00:27:56,536
+We set the range of the string,
+
+
+1029
+00:27:56,536 --> 00:27:57,586
+which is the entire string.
+
+
+1030
+00:27:58,246 --> 00:28:00,406
+And we set some options.
+
+
+1031
+00:28:00,766 --> 00:28:02,616
+So, if you carefully observe, in
+
+
+1032
+00:28:02,616 --> 00:28:04,516
+addition to omit punctuation and
+
+
+1033
+00:28:04,516 --> 00:28:05,556
+omit whitespace, which we've
+
+
+1034
+00:28:05,596 --> 00:28:06,166
+seen before.
+
+
+1035
+00:28:06,406 --> 00:28:07,776
+We also have this option called
+
+
+1036
+00:28:07,776 --> 00:28:08,656
+as joinedNames.
+
+
+1037
+00:28:09,146 --> 00:28:10,366
+What is the reason for that?
+
+
+1038
+00:28:10,836 --> 00:28:12,676
+Names can span multiple tokens.
+
+
+1039
+00:28:12,906 --> 00:28:15,146
+So, in this example, Tim Cook is
+
+
+1040
+00:28:15,146 --> 00:28:16,666
+a name that spans two tokens.
+
+
+1041
+00:28:16,876 --> 00:28:18,036
+So, when we iterate through our
+
+
+1042
+00:28:18,036 --> 00:28:19,756
+output we want to actually get
+
+
+1043
+00:28:19,946 --> 00:28:21,166
+that as a person name.
+
+
+1044
+00:28:21,306 --> 00:28:23,016
+So, we want to iterate over that
+
+
+1045
+00:28:23,016 --> 00:28:23,636
+join token.
+
+
+1046
+00:28:23,856 --> 00:28:25,256
+So, that's what join means to
+
+
+1047
+00:28:25,256 --> 00:28:25,536
+us.
+
+
+1048
+00:28:26,496 --> 00:28:27,656
+And then, we specify the tags
+
+
+1049
+00:28:27,656 --> 00:28:28,696
+that we're interested in.
+
+
+1050
+00:28:28,696 --> 00:28:30,626
+We are interested in person
+
+
+1051
+00:28:30,626 --> 00:28:31,696
+name, place name, and
+
+
+1052
+00:28:31,696 --> 00:28:32,456
+organization name.
+
+
+1053
+00:28:32,456 --> 00:28:34,356
+And finally, you know how to
+
+
+1054
+00:28:34,356 --> 00:28:35,386
+enumerate over the words.
+
+
+1055
+00:28:35,716 --> 00:28:36,856
+And as you enumerate over the
+
+
+1056
+00:28:36,856 --> 00:28:37,636
+words, you're going to get the
+
+
+1057
+00:28:37,636 --> 00:28:38,316
+token types.
+
+
+1058
+00:28:38,686 --> 00:28:40,676
+And if the token type has a
+
+
+1059
+00:28:40,676 --> 00:28:42,316
+particular tag which is of
+
+
+1060
+00:28:42,396 --> 00:28:45,356
+interest to us, we can get the
+
+
+1061
+00:28:45,356 --> 00:28:47,026
+span of the text that belongs to
+
+
+1062
+00:28:47,026 --> 00:28:47,596
+that category.
+
+
+1063
+00:28:48,246 --> 00:28:49,766
+So now, let me turn it over to
+
+
+1064
+00:28:49,766 --> 00:28:51,226
+Doug, again, to see a live
+
+
+1065
+00:28:51,226 --> 00:28:53,126
+demonstration of Whisk in action
+
+
+1066
+00:28:53,126 --> 00:28:53,526
+in XCode.
+
+
+1067
+00:28:53,846 --> 00:28:54,546
+Doug, over to you.
+
+
+1068
+00:28:55,336 --> 00:28:57,386
+>> Okay. So, here we are.
+
+
+1069
+00:28:57,546 --> 00:28:59,236
+And we have Whisk running, at
+
+
+1070
+00:28:59,236 --> 00:29:00,096
+least in the Simulator.
+
+
+1071
+00:29:00,566 --> 00:29:02,206
+And it shows all our feeds.
+
+
+1072
+00:29:02,326 --> 00:29:03,646
+We could go in and look at each
+
+
+1073
+00:29:03,646 --> 00:29:04,076
+one.
+
+
+1074
+00:29:04,076 --> 00:29:05,256
+But that's kind of boring.
+
+
+1075
+00:29:05,316 --> 00:29:06,886
+What we really want is to
+
+
+1076
+00:29:06,886 --> 00:29:08,836
+organize these things by named
+
+
+1077
+00:29:08,836 --> 00:29:09,306
+entities.
+
+
+1078
+00:29:09,306 --> 00:29:10,966
+So, let's hit the button.
+
+
+1079
+00:29:11,206 --> 00:29:12,916
+Boom! It's gone through and
+
+
+1080
+00:29:12,916 --> 00:29:14,496
+extracted all the name it can
+
+
+1081
+00:29:14,496 --> 00:29:16,846
+find and listed them by an order
+
+
+1082
+00:29:16,846 --> 00:29:17,426
+of frequency.
+
+
+1083
+00:29:18,216 --> 00:29:20,176
+And indexed everything.
+
+
+1084
+00:29:20,286 --> 00:29:22,176
+So, I go and pick Tim Cook.
+
+
+1085
+00:29:22,746 --> 00:29:23,846
+Let's see all the mentions of
+
+
+1086
+00:29:23,906 --> 00:29:24,466
+Tim Cook.
+
+
+1087
+00:29:24,636 --> 00:29:26,236
+I can go and find one, here.
+
+
+1088
+00:29:26,236 --> 00:29:27,566
+It's nicely highlighted for me.
+
+
+1089
+00:29:27,566 --> 00:29:32,056
+Maybe. Here's another one.
+
+
+1090
+00:29:32,056 --> 00:29:35,396
+Tim Cook. Or I can go back, pick
+
+
+1091
+00:29:35,436 --> 00:29:36,866
+the next entity.
+
+
+1092
+00:29:37,646 --> 00:29:39,526
+California, location name.
+
+
+1093
+00:29:40,216 --> 00:29:41,126
+Here are all the mentions of
+
+
+1094
+00:29:41,156 --> 00:29:41,786
+California.
+
+
+1095
+00:29:42,676 --> 00:29:44,556
+So, I look and find California.
+
+
+1096
+00:29:44,556 --> 00:29:46,176
+It's been found and highlighted
+
+
+1097
+00:29:46,946 --> 00:29:49,196
+for me.
+
+
+1098
+00:29:49,446 --> 00:29:52,376
+And so, this is Whisk.
+
+
+1099
+00:29:52,816 --> 00:29:53,526
+Now, how does it work?
+
+
+1100
+00:29:53,866 --> 00:29:55,056
+Well, let's take a look at the
+
+
+1101
+00:29:55,056 --> 00:29:55,666
+code.
+
+
+1102
+00:29:56,646 --> 00:29:59,126
+So, here is the important method
+
+
+1103
+00:29:59,416 --> 00:29:59,976
+in Whisk.
+
+
+1104
+00:30:00,156 --> 00:30:01,766
+This is the extractEntities
+
+
+1105
+00:30:01,766 --> 00:30:02,156
+Method.
+
+
+1106
+00:30:02,246 --> 00:30:06,816
+Takes piece of text and finds
+
+
+1107
+00:30:06,886 --> 00:30:08,036
+all of the named entities that
+
+
+1108
+00:30:08,036 --> 00:30:08,896
+we want in it.
+
+
+1109
+00:30:09,646 --> 00:30:10,626
+Should start to look very
+
+
+1110
+00:30:10,626 --> 00:30:11,326
+familiar, now.
+
+
+1111
+00:30:11,636 --> 00:30:12,956
+We create a tagger.
+
+
+1112
+00:30:12,956 --> 00:30:13,966
+We are interested in the
+
+
+1113
+00:30:13,966 --> 00:30:15,286
+nameType scheme.
+
+
+1114
+00:30:16,276 --> 00:30:17,766
+And we set the string on it.
+
+
+1115
+00:30:17,956 --> 00:30:19,246
+We set some options.
+
+
+1116
+00:30:19,306 --> 00:30:21,126
+We don't want whitespace or
+
+
+1117
+00:30:21,126 --> 00:30:21,766
+punctuation.
+
+
+1118
+00:30:21,766 --> 00:30:22,856
+We want names to be joined
+
+
+1119
+00:30:22,856 --> 00:30:23,326
+together.
+
+
+1120
+00:30:24,026 --> 00:30:25,766
+And then, we enumerate through
+
+
+1121
+00:30:25,766 --> 00:30:25,896
+it.
+
+
+1122
+00:30:27,166 --> 00:30:30,946
+And each case, if there is a
+
+
+1123
+00:30:31,036 --> 00:30:32,756
+name tag and it's one of the
+
+
+1124
+00:30:32,756 --> 00:30:34,236
+kinds we're interested in, that
+
+
+1125
+00:30:34,236 --> 00:30:36,056
+is, person, place, organization
+
+
+1126
+00:30:36,096 --> 00:30:36,406
+name.
+
+
+1127
+00:30:36,836 --> 00:30:39,086
+Then we find the text in that
+
+
+1128
+00:30:39,086 --> 00:30:39,426
+token.
+
+
+1129
+00:30:40,016 --> 00:30:42,416
+And we create an instance of our
+
+
+1130
+00:30:42,416 --> 00:30:44,176
+private namedEntity class, here,
+
+
+1131
+00:30:44,536 --> 00:30:46,046
+using that token and tag and
+
+
+1132
+00:30:46,046 --> 00:30:46,276
+range.
+
+
+1133
+00:30:47,576 --> 00:30:49,116
+And so, very simple.
+
+
+1134
+00:30:49,336 --> 00:30:50,306
+That's all there is to it.
+
+
+1135
+00:30:50,456 --> 00:30:51,706
+That's all that's needed to go
+
+
+1136
+00:30:51,706 --> 00:30:53,256
+through and extract the named
+
+
+1137
+00:30:53,256 --> 00:30:54,416
+entities from this text.
+
+
+1138
+00:30:56,276 --> 00:30:57,506
+Go back to you, Vivek.
+
+
+1139
+00:30:58,516 --> 00:31:03,706
+[ Applause ]
+
+
+1140
+00:31:04,206 --> 00:31:05,546
+>> Great. So, now you've seen
+
+
+1141
+00:31:05,586 --> 00:31:07,416
+NLP APIs in action through two
+
+
+1142
+00:31:07,416 --> 00:31:08,116
+hypothetical apps.
+
+
+1143
+00:31:08,116 --> 00:31:10,716
+I want to delve deeper into what
+
+
+1144
+00:31:10,716 --> 00:31:12,006
+are the benefits of these APIs?
+
+
+1145
+00:31:12,006 --> 00:31:13,746
+I mean, you've seen it's easy to
+
+
+1146
+00:31:13,746 --> 00:31:14,156
+use.
+
+
+1147
+00:31:14,156 --> 00:31:15,856
+It's kind of very systematic to
+
+
+1148
+00:31:15,856 --> 00:31:16,196
+use.
+
+
+1149
+00:31:16,526 --> 00:31:17,776
+It has very similar patterns.
+
+
+1150
+00:31:18,206 --> 00:31:19,756
+But beyond that, what are the
+
+
+1151
+00:31:19,756 --> 00:31:20,286
+benefits?
+
+
+1152
+00:31:20,766 --> 00:31:22,566
+The first is homogenous text
+
+
+1153
+00:31:22,566 --> 00:31:23,036
+processing.
+
+
+1154
+00:31:23,296 --> 00:31:25,186
+What do I mean by that?
+
+
+1155
+00:31:25,186 --> 00:31:26,386
+Now these NLP APIs are
+
+
+1156
+00:31:26,826 --> 00:31:28,036
+available, as I mentioned,
+
+
+1157
+00:31:28,036 --> 00:31:29,576
+across all Apple platforms.
+
+
+1158
+00:31:30,276 --> 00:31:31,666
+And as a user of these API, you
+
+
+1159
+00:31:31,666 --> 00:31:33,956
+are going to get consistent text
+
+
+1160
+00:31:33,956 --> 00:31:35,796
+processing across all platforms
+
+
+1161
+00:31:36,066 --> 00:31:36,936
+and a consistent user
+
+
+1162
+00:31:36,936 --> 00:31:37,536
+experience.
+
+
+1163
+00:31:38,586 --> 00:31:40,096
+Furthermore, these are the APIs,
+
+
+1164
+00:31:40,096 --> 00:31:40,856
+as I mentioned.
+
+
+1165
+00:31:41,286 --> 00:31:42,486
+These are the same ones that we
+
+
+1166
+00:31:42,486 --> 00:31:43,616
+used in our first party apps.
+
+
+1167
+00:31:43,906 --> 00:31:45,956
+So, a user of your app is going
+
+
+1168
+00:31:45,956 --> 00:31:47,026
+to get the same sort of
+
+
+1169
+00:31:47,026 --> 00:31:49,116
+experience of any other Apple
+
+
+1170
+00:31:49,976 --> 00:31:50,046
+app.
+
+
+1171
+00:31:50,916 --> 00:31:52,296
+Let's talk about the second
+
+
+1172
+00:31:52,296 --> 00:31:52,656
+benefit.
+
+
+1173
+00:31:53,106 --> 00:31:53,866
+It's privacy.
+
+
+1174
+00:31:55,056 --> 00:31:56,276
+All of the machine learning in
+
+
+1175
+00:31:56,326 --> 00:31:58,196
+NLP that we've talked about,
+
+
+1176
+00:31:58,196 --> 00:31:59,986
+happens completely on device.
+
+
+1177
+00:32:00,656 --> 00:32:02,986
+As a user of this, everything is
+
+
+1178
+00:32:02,986 --> 00:32:04,776
+on device and the user data does
+
+
+1179
+00:32:04,776 --> 00:32:06,316
+not have to leave the device.
+
+
+1180
+00:32:06,466 --> 00:32:07,526
+And that's great for you.
+
+
+1181
+00:32:08,296 --> 00:32:09,346
+Right. You don't have to have a
+
+
+1182
+00:32:09,346 --> 00:32:09,926
+cloud API.
+
+
+1183
+00:32:09,926 --> 00:32:10,846
+You don't have to do anything.
+
+
+1184
+00:32:10,876 --> 00:32:14,586
+Everything happens on device.
+
+
+1185
+00:32:14,746 --> 00:32:15,996
+In addition to privacy, the
+
+
+1186
+00:32:16,236 --> 00:32:19,166
+underlying implementation of
+
+
+1187
+00:32:19,166 --> 00:32:20,466
+NSLinguisticTagger was also
+
+
+1188
+00:32:20,466 --> 00:32:21,806
+completely revamped for this
+
+
+1189
+00:32:21,806 --> 00:32:22,126
+release.
+
+
+1190
+00:32:22,236 --> 00:32:24,456
+As a result of that, we've seen
+
+
+1191
+00:32:24,496 --> 00:32:25,466
+significant improvements in
+
+
+1192
+00:32:25,466 --> 00:32:25,986
+performance.
+
+
+1193
+00:32:26,606 --> 00:32:27,986
+So, the code base is highly
+
+
+1194
+00:32:27,986 --> 00:32:29,726
+optimized on device for all
+
+
+1195
+00:32:29,726 --> 00:32:30,326
+platforms.
+
+
+1196
+00:32:30,456 --> 00:32:31,536
+It's multithreaded, now.
+
+
+1197
+00:32:32,066 --> 00:32:33,356
+And existing clients of
+
+
+1198
+00:32:33,356 --> 00:32:35,526
+NSLinguisticTagger can see
+
+
+1199
+00:32:35,566 --> 00:32:36,916
+significant speed up.
+
+
+1200
+00:32:37,186 --> 00:32:38,666
+For instance, Chinese
+
+
+1201
+00:32:38,666 --> 00:32:41,636
+tokenization is 30% faster on
+
+
+1202
+00:32:41,636 --> 00:32:42,916
+iOS, and this was measured on
+
+
+1203
+00:32:42,916 --> 00:32:43,496
+iPhone 7.
+
+
+1204
+00:32:44,986 --> 00:32:47,056
+Named entity recognition is 80%
+
+
+1205
+00:32:47,056 --> 00:32:48,226
+faster with the new code base.
+
+
+1206
+00:32:49,126 --> 00:32:50,656
+And for those of you who have
+
+
+1207
+00:32:50,656 --> 00:32:52,136
+not used NSLinguisticTagger in
+
+
+1208
+00:32:52,136 --> 00:32:53,566
+the past, these relative
+
+
+1209
+00:32:53,566 --> 00:32:54,856
+improvements don't really mean
+
+
+1210
+00:32:54,856 --> 00:32:55,116
+much.
+
+
+1211
+00:32:55,116 --> 00:32:56,256
+I mean, what is 30%, what is
+
+
+1212
+00:32:56,256 --> 00:32:56,766
+80%?
+
+
+1213
+00:32:56,766 --> 00:32:57,346
+It's all relative.
+
+
+1214
+00:32:57,946 --> 00:33:00,036
+So, let's look at some raw
+
+
+1215
+00:33:00,036 --> 00:33:00,446
+numbers.
+
+
+1216
+00:33:01,866 --> 00:33:04,716
+So, I'm going to use a yellow
+
+
+1217
+00:33:04,826 --> 00:33:06,756
+line to specify a thread.
+
+
+1218
+00:33:06,756 --> 00:33:07,526
+So, if you look at part to
+
+
+1219
+00:33:07,526 --> 00:33:09,386
+speech tagging on an iOS device
+
+
+1220
+00:33:09,386 --> 00:33:11,036
+with a single thread, we can
+
+
+1221
+00:33:11,036 --> 00:33:13,166
+process 50,000 tokens in a
+
+
+1222
+00:33:13,226 --> 00:33:13,566
+second.
+
+
+1223
+00:33:14,316 --> 00:33:15,896
+Everything on device, using
+
+
+1224
+00:33:15,896 --> 00:33:16,996
+machine learning on device.
+
+
+1225
+00:33:18,186 --> 00:33:20,816
+Named entity recognition, on the
+
+
+1226
+00:33:20,816 --> 00:33:22,546
+other hand, we can process about
+
+
+1227
+00:33:22,546 --> 00:33:24,006
+40,000 tokens per second.
+
+
+1228
+00:33:24,356 --> 00:33:26,276
+Now, imagine for a minute, what
+
+
+1229
+00:33:26,276 --> 00:33:27,346
+is the average length of an
+
+
+1230
+00:33:27,346 --> 00:33:28,966
+article that you'd analyze or
+
+
+1231
+00:33:28,966 --> 00:33:29,226
+read?
+
+
+1232
+00:33:29,536 --> 00:33:31,036
+It's about 400, 500 words.
+
+
+1233
+00:33:31,066 --> 00:33:32,886
+So, you can process hundreds of
+
+
+1234
+00:33:32,886 --> 00:33:34,446
+articles, extract named
+
+
+1235
+00:33:34,446 --> 00:33:36,676
+entities, in a second on an iOS
+
+
+1236
+00:33:36,706 --> 00:33:37,056
+device.
+
+
+1237
+00:33:37,406 --> 00:33:38,376
+And that's terrific.
+
+
+1238
+00:33:38,376 --> 00:33:39,436
+And we are so excited about
+
+
+1239
+00:33:39,436 --> 00:33:39,676
+this.
+
+
+1240
+00:33:40,516 --> 00:33:45,956
+[ Applause ]
+
+
+1241
+00:33:46,456 --> 00:33:47,966
+So, in addition to privacy and
+
+
+1242
+00:33:47,966 --> 00:33:49,966
+performance, NSLinguisticTagger
+
+
+1243
+00:33:49,966 --> 00:33:51,926
+also offers support across a
+
+
+1244
+00:33:51,926 --> 00:33:53,316
+wide variety of languages.
+
+
+1245
+00:33:53,876 --> 00:33:55,106
+For those of you who localize
+
+
+1246
+00:33:55,106 --> 00:33:56,066
+your apps, this could be very
+
+
+1247
+00:33:56,066 --> 00:33:56,396
+useful.
+
+
+1248
+00:33:57,286 --> 00:33:58,506
+Language identification is
+
+
+1249
+00:33:58,506 --> 00:34:01,276
+supported for 29 scripts and 52
+
+
+1250
+00:34:01,276 --> 00:34:01,866
+languages.
+
+
+1251
+00:34:03,496 --> 00:34:05,766
+Tokenization is supported for
+
+
+1252
+00:34:05,766 --> 00:34:07,596
+all iOS and macOS system
+
+
+1253
+00:34:07,596 --> 00:34:08,156
+languages.
+
+
+1254
+00:34:09,416 --> 00:34:10,926
+Lemmatization, part to speech
+
+
+1255
+00:34:10,966 --> 00:34:12,686
+tagging, and named entity
+
+
+1256
+00:34:12,686 --> 00:34:14,295
+recognition is supported for
+
+
+1257
+00:34:14,295 --> 00:34:15,116
+eight languages.
+
+
+1258
+00:34:15,626 --> 00:34:18,556
+And everything other than
+
+
+1259
+00:34:18,556 --> 00:34:19,846
+English was added for this
+
+
+1260
+00:34:19,846 --> 00:34:20,146
+release.
+
+
+1261
+00:34:20,335 --> 00:34:21,766
+And our English models have also
+
+
+1262
+00:34:21,766 --> 00:34:23,005
+been significantly revamped.
+
+
+1263
+00:34:23,005 --> 00:34:25,806
+And talking about accuracy.
+
+
+1264
+00:34:26,056 --> 00:34:27,156
+So, those of you who really
+
+
+1265
+00:34:27,156 --> 00:34:29,126
+talking, you know, our family of
+
+
+1266
+00:34:29,126 --> 00:34:30,356
+machine learning, you've seen
+
+
+1267
+00:34:30,356 --> 00:34:31,636
+all of the benefits of the API.
+
+
+1268
+00:34:31,726 --> 00:34:33,216
+You know it works well.
+
+
+1269
+00:34:33,216 --> 00:34:34,036
+It's easy to use.
+
+
+1270
+00:34:34,335 --> 00:34:35,496
+The big question is, ''How
+
+
+1271
+00:34:35,496 --> 00:34:36,476
+accurate are these
+
+
+1272
+00:34:36,565 --> 00:34:38,136
+technologies?'' So, let's look
+
+
+1273
+00:34:38,136 --> 00:34:39,416
+at accuracy.
+
+
+1274
+00:34:39,485 --> 00:34:41,456
+It's a perfect segue.
+
+
+1275
+00:34:41,686 --> 00:34:44,326
+So, these models, I'm showing
+
+
+1276
+00:34:44,326 --> 00:34:45,356
+you only results for English and
+
+
+1277
+00:34:45,356 --> 00:34:46,806
+Spanish, for brevity, here, work
+
+
+1278
+00:34:47,036 --> 00:34:48,616
+remarkably well.
+
+
+1279
+00:34:48,866 --> 00:34:50,576
+Our part to speech tagging model
+
+
+1280
+00:34:50,576 --> 00:34:52,426
+for both English and Spanish,
+
+
+1281
+00:34:52,456 --> 00:34:54,315
+achieves accuracy over 90%.
+
+
+1282
+00:34:54,565 --> 00:34:55,766
+And this is on a tag set of
+
+
+1283
+00:34:55,766 --> 00:34:56,706
+about 15 tags.
+
+
+1284
+00:34:57,045 --> 00:34:58,476
+The exact tags that are being
+
+
+1285
+00:34:58,476 --> 00:34:59,166
+supported for
+
+
+1286
+00:34:59,166 --> 00:35:00,586
+NSLinguisticTagger, you can find
+
+
+1287
+00:35:00,626 --> 00:35:02,866
+in the Apple Developer docs.
+
+
+1288
+00:35:03,446 --> 00:35:04,936
+For named entity recognition,
+
+
+1289
+00:35:05,186 --> 00:35:06,586
+our accuracies are in the mid
+
+
+1290
+00:35:06,586 --> 00:35:07,026
+80s.
+
+
+1291
+00:35:07,086 --> 00:35:08,356
+And that is state of the art.
+
+
+1292
+00:35:08,356 --> 00:35:10,126
+Again, all of this on device,
+
+
+1293
+00:35:10,706 --> 00:35:12,386
+using complex machine learning
+
+
+1294
+00:35:12,956 --> 00:35:13,176
+techniques.
+
+
+1295
+00:35:14,616 --> 00:35:17,166
+So, before we kind of wrap up
+
+
+1296
+00:35:17,166 --> 00:35:18,486
+the talk, I'd like to spend a
+
+
+1297
+00:35:18,486 --> 00:35:20,036
+few minutes talking about, you
+
+
+1298
+00:35:20,036 --> 00:35:21,026
+know, giving you some debugging
+
+
+1299
+00:35:21,026 --> 00:35:21,246
+hints.
+
+
+1300
+00:35:21,426 --> 00:35:22,086
+Now, that you're kind of
+
+
+1301
+00:35:22,116 --> 00:35:23,616
+familiar with how to use the
+
+
+1302
+00:35:23,616 --> 00:35:24,876
+APIs, I'm sure you'll run into a
+
+
+1303
+00:35:24,876 --> 00:35:26,436
+few, you know, issues.
+
+
+1304
+00:35:26,756 --> 00:35:28,276
+So, one heads-up that I'd like
+
+
+1305
+00:35:28,276 --> 00:35:30,366
+to give is, in case you run
+
+
+1306
+00:35:30,436 --> 00:35:31,896
+these APIs and you get the part
+
+
+1307
+00:35:31,896 --> 00:35:33,486
+to speech tagging output or
+
+
+1308
+00:35:33,486 --> 00:35:34,846
+named entity recognition output,
+
+
+1309
+00:35:35,236 --> 00:35:36,336
+they'll all be other word.
+
+
+1310
+00:35:36,536 --> 00:35:37,366
+Which means that it doesn't
+
+
+1311
+00:35:37,366 --> 00:35:38,986
+confer a person name or a place
+
+
+1312
+00:35:38,986 --> 00:35:39,536
+name tag.
+
+
+1313
+00:35:40,206 --> 00:35:41,766
+It might just be a consequence
+
+
+1314
+00:35:41,766 --> 00:35:42,936
+of the models not being
+
+
+1315
+00:35:42,936 --> 00:35:44,636
+downloaded onto your device.
+
+
+1316
+00:35:44,896 --> 00:35:45,766
+What do I mean by that?
+
+
+1317
+00:35:46,526 --> 00:35:47,706
+So, all of the part to speech
+
+
+1318
+00:35:47,706 --> 00:35:48,806
+tagging and the named entity
+
+
+1319
+00:35:48,806 --> 00:35:50,556
+recognition models are all
+
+
+1320
+00:35:50,556 --> 00:35:52,376
+downloaded over the air across
+
+
+1321
+00:35:52,696 --> 00:35:53,906
+the iOS platforms.
+
+
+1322
+00:35:54,396 --> 00:35:54,956
+And why is that?
+
+
+1323
+00:35:55,566 --> 00:35:57,706
+So, as you've heard, multiple
+
+
+1324
+00:35:57,706 --> 00:35:59,276
+times, machine learning is all
+
+
+1325
+00:35:59,276 --> 00:36:01,016
+about improving models with more
+
+
+1326
+00:36:01,016 --> 00:36:01,346
+data.
+
+
+1327
+00:36:01,876 --> 00:36:03,786
+So, what we would like to do is
+
+
+1328
+00:36:03,786 --> 00:36:05,116
+revamp and train our models,
+
+
+1329
+00:36:05,116 --> 00:36:06,446
+from time to time, so that
+
+
+1330
+00:36:06,526 --> 00:36:08,066
+accuracy of our models is always
+
+
+1331
+00:36:08,066 --> 00:36:08,666
+state of the art.
+
+
+1332
+00:36:09,236 --> 00:36:10,046
+And then, we do that.
+
+
+1333
+00:36:10,046 --> 00:36:11,246
+We want to push that model to
+
+
+1334
+00:36:11,246 --> 00:36:13,546
+you as an over-the-air update,
+
+
+1335
+00:36:13,696 --> 00:36:14,736
+as quickly as possible.
+
+
+1336
+00:36:15,366 --> 00:36:16,756
+So, all these models are not
+
+
+1337
+00:36:16,756 --> 00:36:18,036
+installed completely on disc.
+
+
+1338
+00:36:18,106 --> 00:36:19,686
+So, they're all delivered OTA.
+
+
+1339
+00:36:20,346 --> 00:36:22,586
+So, for iOS, how do you get the
+
+
+1340
+00:36:22,586 --> 00:36:23,036
+models?
+
+
+1341
+00:36:23,306 --> 00:36:24,426
+So, as soon as you install a
+
+
+1342
+00:36:24,426 --> 00:36:25,276
+particular keyboard.
+
+
+1343
+00:36:25,276 --> 00:36:26,416
+Let's say you install the French
+
+
+1344
+00:36:26,416 --> 00:36:28,326
+keyboard, all the French assets
+
+
+1345
+00:36:28,326 --> 00:36:29,256
+will get downloaded to your
+
+
+1346
+00:36:29,256 --> 00:36:29,616
+device.
+
+
+1347
+00:36:29,986 --> 00:36:30,906
+And similarly, for other
+
+
+1348
+00:36:30,906 --> 00:36:31,426
+languages.
+
+
+1349
+00:36:32,466 --> 00:36:33,976
+Now, the second hint I'd like to
+
+
+1350
+00:36:33,976 --> 00:36:36,466
+give is if you know what the
+
+
+1351
+00:36:36,466 --> 00:36:37,476
+language you're dealing with,
+
+
+1352
+00:36:37,846 --> 00:36:38,986
+you can explicitly set the
+
+
+1353
+00:36:38,986 --> 00:36:39,416
+language.
+
+
+1354
+00:36:39,806 --> 00:36:41,186
+What do I mean by that?
+
+
+1355
+00:36:41,186 --> 00:36:42,666
+So, let's take a string like
+
+
+1356
+00:36:42,666 --> 00:36:42,986
+Hello.
+
+
+1357
+00:36:43,646 --> 00:36:45,176
+And if you pass a string like
+
+
+1358
+00:36:45,236 --> 00:36:46,526
+Hello, to the language
+
+
+1359
+00:36:46,676 --> 00:36:48,516
+identification API, what do you
+
+
+1360
+00:36:48,516 --> 00:36:49,476
+expect the language to be?
+
+
+1361
+00:36:50,546 --> 00:36:51,556
+Hello, is a word that's used in
+
+
+1362
+00:36:51,556 --> 00:36:52,636
+so many different languages.
+
+
+1363
+00:36:52,776 --> 00:36:54,496
+Right. So, you can be smart
+
+
+1364
+00:36:54,496 --> 00:36:56,026
+about how you leverage these
+
+
+1365
+00:36:56,026 --> 00:36:56,306
+APIs.
+
+
+1366
+00:36:56,306 --> 00:36:57,536
+And that like the really art of
+
+
+1367
+00:36:57,536 --> 00:36:58,746
+NLP and machine learning.
+
+
+1368
+00:36:58,746 --> 00:37:01,456
+The APIs automatically give you
+
+
+1369
+00:37:01,456 --> 00:37:02,326
+a lot of information.
+
+
+1370
+00:37:02,326 --> 00:37:04,046
+But you're also extremely smart
+
+
+1371
+00:37:04,046 --> 00:37:05,296
+in how you can utilize it in
+
+
+1372
+00:37:05,296 --> 00:37:05,876
+your own app.
+
+
+1373
+00:37:06,426 --> 00:37:07,566
+So, if you know that language
+
+
+1374
+00:37:07,616 --> 00:37:09,656
+explicitly for certain cases, it
+
+
+1375
+00:37:09,656 --> 00:37:10,966
+might behoove to set that
+
+
+1376
+00:37:10,966 --> 00:37:11,376
+language.
+
+
+1377
+00:37:11,596 --> 00:37:13,096
+If a string is fairly long, then
+
+
+1378
+00:37:13,166 --> 00:37:14,096
+use the APIs to get the
+
+
+1379
+00:37:14,096 --> 00:37:14,486
+language.
+
+
+1380
+00:37:14,696 --> 00:37:15,986
+So, it's a tradeoff.
+
+
+1381
+00:37:16,076 --> 00:37:17,116
+Depending on the application,
+
+
+1382
+00:37:17,116 --> 00:37:18,866
+you can choose how will you like
+
+
+1383
+00:37:18,926 --> 00:37:19,286
+to use it.
+
+
+1384
+00:37:20,666 --> 00:37:23,226
+So, in summary, we've talked
+
+
+1385
+00:37:23,226 --> 00:37:24,406
+about our natural language
+
+
+1386
+00:37:24,406 --> 00:37:25,226
+processing APIs.
+
+
+1387
+00:37:26,396 --> 00:37:28,456
+And these APIs are available
+
+
+1388
+00:37:28,456 --> 00:37:29,556
+through NSLinguisticTagger.
+
+
+1389
+00:37:30,676 --> 00:37:31,996
+We've talked about support for
+
+
+1390
+00:37:31,996 --> 00:37:33,436
+new units in this release.
+
+
+1391
+00:37:33,706 --> 00:37:35,816
+So, in addition to just word
+
+
+1392
+00:37:35,816 --> 00:37:37,186
+level enumeration, you can also
+
+
+1393
+00:37:37,506 --> 00:37:39,226
+get sentence, paragraph, and
+
+
+1394
+00:37:39,226 --> 00:37:40,316
+document level.
+
+
+1395
+00:37:40,476 --> 00:37:41,796
+So, these sort of units are
+
+
+1396
+00:37:41,796 --> 00:37:43,466
+going to become more and more
+
+
+1397
+00:37:43,546 --> 00:37:45,186
+pertinent as we add more
+
+
+1398
+00:37:45,186 --> 00:37:47,856
+functionalities to the APIs.
+
+
+1399
+00:37:48,306 --> 00:37:49,916
+Because of significant revamping
+
+
+1400
+00:37:49,916 --> 00:37:51,966
+of the code base itself, the
+
+
+1401
+00:37:52,006 --> 00:37:53,796
+tagger is significantly faster.
+
+
+1402
+00:37:54,416 --> 00:37:55,816
+It gives us higher accuracy.
+
+
+1403
+00:37:56,156 --> 00:37:57,666
+And it also supports a lot more
+
+
+1404
+00:37:57,666 --> 00:37:58,356
+languages.
+
+
+1405
+00:37:59,046 --> 00:38:02,766
+So, for more information about
+
+
+1406
+00:38:02,766 --> 00:38:04,036
+this talk, you can go to the
+
+
+1407
+00:38:04,036 --> 00:38:05,066
+Session 208.
+
+
+1408
+00:38:05,136 --> 00:38:06,456
+You can look at the transcripts.
+
+
+1409
+00:38:06,456 --> 00:38:07,436
+You also have the sample
+
+
+1410
+00:38:07,436 --> 00:38:08,776
+projects that Doug described,
+
+
+1411
+00:38:08,856 --> 00:38:09,836
+both the Winnow and the Whisk
+
+
+1412
+00:38:09,906 --> 00:38:10,216
+project.
+
+
+1413
+00:38:10,836 --> 00:38:12,686
+But we do have a lot more in
+
+
+1414
+00:38:12,686 --> 00:38:13,906
+store for you, at WWDC.
+
+
+1415
+00:38:13,906 --> 00:38:15,866
+First, there are some related
+
+
+1416
+00:38:15,916 --> 00:38:16,356
+sessions.
+
+
+1417
+00:38:16,616 --> 00:38:17,896
+So, for those of you who
+
+
+1418
+00:38:17,896 --> 00:38:19,326
+attended the Introduction to
+
+
+1419
+00:38:19,326 --> 00:38:20,986
+Core ML session, yesterday,
+
+
+1420
+00:38:21,326 --> 00:38:22,676
+there's a subsequent session for
+
+
+1421
+00:38:22,676 --> 00:38:23,676
+Core ML in Depth.
+
+
+1422
+00:38:23,676 --> 00:38:25,076
+That's tomorrow.
+
+
+1423
+00:38:25,376 --> 00:38:27,196
+And we also have some very core
+
+
+1424
+00:38:27,196 --> 00:38:28,446
+Accelerate and Sparse Solvers
+
+
+1425
+00:38:28,446 --> 00:38:29,246
+which are like matrix
+
+
+1426
+00:38:29,246 --> 00:38:30,656
+multiplication and low-level
+
+
+1427
+00:38:31,016 --> 00:38:32,146
+stuff that you can attend on
+
+
+1428
+00:38:32,146 --> 00:38:32,536
+Thursday.
+
+
+1429
+00:38:33,126 --> 00:38:36,596
+NLP is a super interesting area
+
+
+1430
+00:38:36,596 --> 00:38:37,456
+for us.
+
+
+1431
+00:38:37,456 --> 00:38:38,656
+We're investing a lot of time
+
+
+1432
+00:38:38,656 --> 00:38:39,846
+and effort into this area.
+
+
+1433
+00:38:39,846 --> 00:38:41,026
+We really want to understand
+
+
+1434
+00:38:41,536 --> 00:38:42,946
+what are the sort of APIs that
+
+
+1435
+00:38:42,986 --> 00:38:44,276
+would make a difference for you?
+
+
+1436
+00:38:44,546 --> 00:38:45,766
+And difference for our users?
+
+
+1437
+00:38:46,206 --> 00:38:47,706
+Right. So, just solving
+
+
+1438
+00:38:47,706 --> 00:38:49,686
+something for the sake of
+
+
+1439
+00:38:49,686 --> 00:38:51,096
+solving it is not our objective.
+
+
+1440
+00:38:51,096 --> 00:38:52,606
+We really want to hear from you.
+
+
+1441
+00:38:52,606 --> 00:38:53,706
+We would like to hear your
+
+
+1442
+00:38:53,706 --> 00:38:54,576
+feedback about what are the
+
+
+1443
+00:38:54,576 --> 00:38:55,946
+problems that you face, with
+
+
+1444
+00:38:55,946 --> 00:38:56,876
+respect to text classes?
+
+
+1445
+00:38:56,876 --> 00:38:58,046
+And what are the sort of APIs
+
+
+1446
+00:38:58,046 --> 00:38:59,466
+that would really make your life
+
+
+1447
+00:38:59,526 --> 00:38:59,876
+better?
+
+
+1448
+00:39:00,366 --> 00:39:01,656
+So, if we can find a good middle
+
+
+1449
+00:39:01,656 --> 00:39:03,536
+ground for the features that we
+
+
+1450
+00:39:03,536 --> 00:39:05,666
+develop and also, those that can
+
+
+1451
+00:39:05,666 --> 00:39:07,246
+be exposed as APIs to you.
+
+
+1452
+00:39:07,596 --> 00:39:08,746
+I think it's be great.
+
+
+1453
+00:39:08,746 --> 00:39:10,286
+So, please get the conversation
+
+
+1454
+00:39:10,286 --> 00:39:10,666
+started.
+
+
+1455
+00:39:10,716 --> 00:39:12,816
+Come talk to us, as part of the
+
+
+1456
+00:39:12,816 --> 00:39:13,106
+lab.
+
+
+1457
+00:39:13,106 --> 00:39:15,756
+Tell us your problems and tell
+
+
+1458
+00:39:15,756 --> 00:39:16,966
+us your interest.
+
+
+1459
+00:39:16,966 --> 00:39:18,206
+And what you'd like to hear and
+
+
+1460
+00:39:18,206 --> 00:39:19,516
+what you'd like us to do.
+
+
+1461
+00:39:19,906 --> 00:39:21,996
+And we're all ears for it.
+
+
+1462
+00:39:22,416 --> 00:39:22,846
+Thank you.
+
+
+1463
+00:39:23,516 --> 00:39:28,500
+[ Applause ]
+

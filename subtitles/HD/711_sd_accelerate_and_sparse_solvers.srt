@@ -1,0 +1,6959 @@
+1
+00:00:26,156 --> 00:00:26,516
+>> Thank you.
+
+
+2
+00:00:26,516 --> 00:00:27,806
+And welcome to the Accelerate
+
+
+3
+00:00:27,806 --> 00:00:28,166
+Session.
+
+
+4
+00:00:28,166 --> 00:00:29,296
+My name is Eric Bainville.
+
+
+5
+00:00:29,296 --> 00:00:30,826
+I'm with the CoreOS Vector and
+
+
+6
+00:00:30,826 --> 00:00:31,566
+Numerics Group.
+
+
+7
+00:00:32,326 --> 00:00:34,916
+Our group is maintaining the
+
+
+8
+00:00:34,916 --> 00:00:35,956
+Accelerate framework.
+
+
+9
+00:00:36,336 --> 00:00:37,566
+And this is our agenda for
+
+
+10
+00:00:37,566 --> 00:00:37,786
+today.
+
+
+11
+00:00:37,786 --> 00:00:38,926
+So first I will introduce
+
+
+12
+00:00:38,926 --> 00:00:41,286
+Accelerate, what's inside, how
+
+
+13
+00:00:41,286 --> 00:00:42,676
+to use it, and through a few
+
+
+14
+00:00:42,676 --> 00:00:43,956
+examples I'll show you why you
+
+
+15
+00:00:43,956 --> 00:00:44,736
+want to use that.
+
+
+16
+00:00:44,736 --> 00:00:47,346
+And then we focus on new
+
+
+17
+00:00:47,346 --> 00:00:48,576
+improvements and additions we
+
+
+18
+00:00:48,576 --> 00:00:50,196
+have this year, first with
+
+
+19
+00:00:50,196 --> 00:00:51,786
+Compression, lossless data
+
+
+20
+00:00:51,786 --> 00:00:54,176
+compression library, then BNNS,
+
+
+21
+00:00:54,236 --> 00:00:55,566
+Basic Neural Network
+
+
+22
+00:00:55,566 --> 00:00:56,126
+Subroutines.
+
+
+23
+00:00:57,006 --> 00:00:58,676
+And after that my colleague
+
+
+24
+00:00:58,676 --> 00:00:59,836
+Steve will come on stage and
+
+
+25
+00:00:59,836 --> 00:01:01,246
+tell us what's new in simd.
+
+
+26
+00:01:01,556 --> 00:01:02,796
+And finally, our very own
+
+
+27
+00:01:02,996 --> 00:01:04,436
+Jonathan Hogg will come on stage
+
+
+28
+00:01:04,436 --> 00:01:05,876
+and tell us -- introduce the
+
+
+29
+00:01:05,876 --> 00:01:07,176
+sparse matrices package.
+
+
+30
+00:01:07,686 --> 00:01:08,666
+It will be the first time
+
+
+31
+00:01:08,716 --> 00:01:10,206
+commercialized shipping with
+
+
+32
+00:01:10,206 --> 00:01:12,386
+sparse matrices solver package.
+
+
+33
+00:01:12,806 --> 00:01:14,196
+But let's start with Accelerate.
+
+
+34
+00:01:15,186 --> 00:01:17,536
+Accelerate is a low-level system
+
+
+35
+00:01:17,536 --> 00:01:19,356
+framework dedicated to high
+
+
+36
+00:01:19,356 --> 00:01:20,846
+performance primitive on the
+
+
+37
+00:01:20,846 --> 00:01:21,356
+CPU.
+
+
+38
+00:01:22,576 --> 00:01:25,186
+Actually, it's everywhere when
+
+
+39
+00:01:25,186 --> 00:01:26,686
+you have a significant workload
+
+
+40
+00:01:26,686 --> 00:01:27,706
+to run on the CPU.
+
+
+41
+00:01:28,466 --> 00:01:30,136
+Inside Accelerate there's a lot
+
+
+42
+00:01:30,136 --> 00:01:32,196
+of libraries, like vImage for
+
+
+43
+00:01:32,196 --> 00:01:33,516
+image processing, the Swiss
+
+
+44
+00:01:34,116 --> 00:01:35,466
+knife of image processing.
+
+
+45
+00:01:35,856 --> 00:01:37,636
+We also have vDSP inside for
+
+
+46
+00:01:37,636 --> 00:01:39,326
+DFT's and FFT's signal
+
+
+47
+00:01:39,326 --> 00:01:41,786
+processing, vForce for vector
+
+
+48
+00:01:41,786 --> 00:01:42,426
+functions.
+
+
+49
+00:01:43,046 --> 00:01:44,686
+And then we have a whole lot of
+
+
+50
+00:01:44,766 --> 00:01:46,586
+linear algebra libraries for
+
+
+51
+00:01:46,586 --> 00:01:48,626
+dense and sparse matrices.
+
+
+52
+00:01:48,626 --> 00:01:50,126
+So that's BLAS and LAPACK for
+
+
+53
+00:01:50,126 --> 00:01:51,436
+dense vectors and matrices.
+
+
+54
+00:01:51,906 --> 00:01:53,056
+And Sparse BLAS and Sparse
+
+
+55
+00:01:53,056 --> 00:01:54,996
+Solvers for sparse vectors and
+
+
+56
+00:01:54,996 --> 00:01:55,576
+matrices.
+
+
+57
+00:01:56,196 --> 00:01:57,656
+Last year we also introduced
+
+
+58
+00:01:57,656 --> 00:01:59,076
+BNNS, Basic Neural Network
+
+
+59
+00:01:59,076 --> 00:02:01,146
+Subroutines, which is also
+
+
+60
+00:02:01,146 --> 00:02:02,146
+[inaudible] for neural networks.
+
+
+61
+00:02:02,356 --> 00:02:04,766
+This is used by, for example,
+
+
+62
+00:02:04,766 --> 00:02:06,726
+Core ML and also Vision and NLP
+
+
+63
+00:02:06,726 --> 00:02:07,406
+frameworks.
+
+
+64
+00:02:08,216 --> 00:02:09,626
+Slightly outside Accelerate but
+
+
+65
+00:02:09,626 --> 00:02:11,476
+still maintained by us, we have
+
+
+66
+00:02:11,476 --> 00:02:13,066
+simd, which is a set of headers
+
+
+67
+00:02:13,066 --> 00:02:14,806
+and function allowing you to
+
+
+68
+00:02:14,806 --> 00:02:16,536
+directly talk to the CPU vector
+
+
+69
+00:02:16,536 --> 00:02:17,026
+units.
+
+
+70
+00:02:17,996 --> 00:02:19,186
+And finally, Compression, a
+
+
+71
+00:02:19,516 --> 00:02:20,616
+lossless data compression
+
+
+72
+00:02:20,616 --> 00:02:21,046
+library.
+
+
+73
+00:02:22,306 --> 00:02:23,696
+How do you use Accelerate?
+
+
+74
+00:02:24,676 --> 00:02:26,216
+Well, so you import Accelerate
+
+
+75
+00:02:26,216 --> 00:02:27,336
+or you include the Accelerate
+
+
+76
+00:02:27,366 --> 00:02:28,946
+header and then link with
+
+
+77
+00:02:28,946 --> 00:02:30,286
+Accelerate frameworks on your
+
+
+78
+00:02:30,286 --> 00:02:30,726
+own set.
+
+
+79
+00:02:30,726 --> 00:02:31,976
+Now, I will show you a few
+
+
+80
+00:02:31,976 --> 00:02:34,086
+examples about why you want to
+
+
+81
+00:02:34,086 --> 00:02:34,996
+use Accelerate.
+
+
+82
+00:02:35,466 --> 00:02:36,596
+Let's start with that one.
+
+
+83
+00:02:37,106 --> 00:02:37,886
+So let's say you have this
+
+
+84
+00:02:37,886 --> 00:02:39,276
+vector X of floating point
+
+
+85
+00:02:39,276 --> 00:02:40,936
+values and you want to scale
+
+
+86
+00:02:40,936 --> 00:02:41,236
+them.
+
+
+87
+00:02:42,126 --> 00:02:43,166
+So you have this scale.
+
+
+88
+00:02:43,166 --> 00:02:44,996
+And so you multiply each value
+
+
+89
+00:02:44,996 --> 00:02:46,216
+and store it in the Y vector.
+
+
+90
+00:02:46,216 --> 00:02:48,206
+So it's a very simple loop.
+
+
+91
+00:02:48,696 --> 00:02:49,676
+That's perfectly fine.
+
+
+92
+00:02:50,176 --> 00:02:51,066
+But actually, there is a
+
+
+93
+00:02:51,066 --> 00:02:52,946
+function for you in Accelerate
+
+
+94
+00:02:52,946 --> 00:02:53,926
+doing the same thing, it's
+
+
+95
+00:02:53,926 --> 00:02:54,696
+called vsmul.
+
+
+96
+00:02:55,786 --> 00:02:57,666
+So that's one single line
+
+
+97
+00:02:57,666 --> 00:02:58,646
+replacing your code.
+
+
+98
+00:02:58,986 --> 00:03:00,996
+And the good thing is that we
+
+
+99
+00:03:00,996 --> 00:03:02,766
+optimize it for you on all the
+
+
+100
+00:03:02,766 --> 00:03:03,716
+supported hardware.
+
+
+101
+00:03:04,226 --> 00:03:05,256
+And of course, we maintain it
+
+
+102
+00:03:05,256 --> 00:03:06,316
+for you so you don't have your
+
+
+103
+00:03:06,316 --> 00:03:07,566
+loop to maintain again.
+
+
+104
+00:03:08,016 --> 00:03:09,856
+And, of course, it's faster, as
+
+
+105
+00:03:09,856 --> 00:03:10,846
+Accelerate says.
+
+
+106
+00:03:11,356 --> 00:03:12,766
+So that's a reference speed and
+
+
+107
+00:03:12,766 --> 00:03:14,176
+energy consumption for the loop.
+
+
+108
+00:03:14,406 --> 00:03:15,536
+And this is what you get with
+
+
+109
+00:03:15,536 --> 00:03:16,136
+Accelerate.
+
+
+110
+00:03:16,856 --> 00:03:18,166
+Six times faster.
+
+
+111
+00:03:19,516 --> 00:03:21,616
+[ Applause ]
+
+
+112
+00:03:22,116 --> 00:03:23,946
+And six times less energy
+
+
+113
+00:03:23,946 --> 00:03:25,086
+consumed, which is very
+
+
+114
+00:03:25,086 --> 00:03:25,566
+important.
+
+
+115
+00:03:25,796 --> 00:03:26,876
+Let me give you another one.
+
+
+116
+00:03:27,256 --> 00:03:28,736
+So this time we still have this
+
+
+117
+00:03:28,876 --> 00:03:30,596
+array X, and we want to clip the
+
+
+118
+00:03:30,596 --> 00:03:31,976
+values between the low and high
+
+
+119
+00:03:31,976 --> 00:03:33,746
+bound and store that in Y.
+
+
+120
+00:03:34,176 --> 00:03:35,156
+Again, you could go with this
+
+
+121
+00:03:35,156 --> 00:03:35,466
+code.
+
+
+122
+00:03:35,576 --> 00:03:36,376
+That's perfectly fine.
+
+
+123
+00:03:36,376 --> 00:03:36,786
+That's good.
+
+
+124
+00:03:37,336 --> 00:03:38,646
+But we have a function for you
+
+
+125
+00:03:38,646 --> 00:03:40,306
+in vDSP; it's called vclip.
+
+
+126
+00:03:40,936 --> 00:03:42,096
+Does the same thing.
+
+
+127
+00:03:42,096 --> 00:03:43,586
+And, again, we maintain it for
+
+
+128
+00:03:43,586 --> 00:03:43,756
+you.
+
+
+129
+00:03:43,756 --> 00:03:44,846
+We optimize it for you.
+
+
+130
+00:03:45,616 --> 00:03:46,796
+And, of course, it's faster.
+
+
+131
+00:03:46,846 --> 00:03:48,276
+That's a reference for the loop.
+
+
+132
+00:03:48,696 --> 00:03:49,736
+And this is what you get with
+
+
+133
+00:03:49,736 --> 00:03:52,126
+Accelerate, eight times faster
+
+
+134
+00:03:52,126 --> 00:03:53,756
+and also eight times less energy
+
+
+135
+00:03:53,756 --> 00:03:54,246
+consumed.
+
+
+136
+00:03:55,146 --> 00:03:58,166
+Another one, matrices.
+
+
+137
+00:03:58,166 --> 00:03:59,016
+So let's say you have two
+
+
+138
+00:03:59,016 --> 00:04:00,766
+matrices A and B, and you want
+
+
+139
+00:04:00,766 --> 00:04:02,126
+to compute the product of A and
+
+
+140
+00:04:02,126 --> 00:04:04,016
+B and add the result into the C
+
+
+141
+00:04:04,016 --> 00:04:04,506
+matrix.
+
+
+142
+00:04:05,026 --> 00:04:06,736
+It doesn't sound simple.
+
+
+143
+00:04:06,776 --> 00:04:08,266
+But actually, it's very simple.
+
+
+144
+00:04:08,266 --> 00:04:09,516
+That's just three lines of code.
+
+
+145
+00:04:09,516 --> 00:04:10,166
+You can see that.
+
+
+146
+00:04:11,356 --> 00:04:12,436
+And we have, of course, a
+
+
+147
+00:04:12,436 --> 00:04:13,716
+function for you in Accelerate
+
+
+148
+00:04:13,716 --> 00:04:15,396
+doing that; it's called sgemm
+
+
+149
+00:04:15,396 --> 00:04:16,745
+for the Cblas package.
+
+
+150
+00:04:17,906 --> 00:04:20,336
+And really, really, you never
+
+
+151
+00:04:20,336 --> 00:04:22,046
+want to write code computing
+
+
+152
+00:04:22,046 --> 00:04:23,206
+metrics vector products or
+
+
+153
+00:04:23,206 --> 00:04:24,786
+matrix metrics or anything
+
+
+154
+00:04:24,786 --> 00:04:25,646
+related to metrics.
+
+
+155
+00:04:25,646 --> 00:04:26,576
+You don't want to write that
+
+
+156
+00:04:26,576 --> 00:04:27,076
+code ever.
+
+
+157
+00:04:28,196 --> 00:04:29,966
+You want to call BLAS, LAPACK,
+
+
+158
+00:04:29,966 --> 00:04:31,196
+or anything in Accelerate.
+
+
+159
+00:04:31,636 --> 00:04:32,946
+Why? Well, first because we
+
+
+160
+00:04:32,946 --> 00:04:34,246
+maintain that for you, and it
+
+
+161
+00:04:34,246 --> 00:04:35,296
+will be optimized and
+
+
+162
+00:04:35,326 --> 00:04:37,336
+multithreaded on all the
+
+
+163
+00:04:37,336 --> 00:04:38,546
+architectures we support.
+
+
+164
+00:04:39,806 --> 00:04:41,676
+And this time -- this is a
+
+
+165
+00:04:41,676 --> 00:04:42,706
+reference for the loop -- this
+
+
+166
+00:04:42,706 --> 00:04:43,986
+is what you get with Accelerate.
+
+
+167
+00:04:43,986 --> 00:04:46,996
+I'm not sure you can see it.
+
+
+168
+00:04:47,686 --> 00:04:52,126
+Yeah. That's 100 times faster
+
+
+169
+00:04:52,126 --> 00:04:54,236
+and 26 times more energy
+
+
+170
+00:04:54,236 --> 00:04:54,716
+efficient.
+
+
+171
+00:04:54,926 --> 00:04:56,296
+That's your battery here.
+
+
+172
+00:04:56,986 --> 00:04:58,296
+Okay. One more example, this
+
+
+173
+00:04:58,296 --> 00:04:59,346
+time in vImage.
+
+
+174
+00:04:59,486 --> 00:05:01,156
+So let's say you have a 32-bit
+
+
+175
+00:05:01,156 --> 00:05:02,656
+per pixel image with four
+
+
+176
+00:05:02,656 --> 00:05:04,006
+components per pixel.
+
+
+177
+00:05:04,006 --> 00:05:05,206
+That's alpha, red, green, and
+
+
+178
+00:05:05,206 --> 00:05:05,536
+blue.
+
+
+179
+00:05:05,916 --> 00:05:07,746
+And you want to apply a 4 by 4
+
+
+180
+00:05:07,746 --> 00:05:09,106
+transformation matrix to every
+
+
+181
+00:05:09,106 --> 00:05:10,116
+pixel in the image.
+
+
+182
+00:05:10,876 --> 00:05:11,746
+But you could write the code.
+
+
+183
+00:05:11,746 --> 00:05:12,736
+You could write it here, that
+
+
+184
+00:05:12,736 --> 00:05:13,276
+would be too long.
+
+
+185
+00:05:13,536 --> 00:05:14,526
+But really, you don't want to
+
+
+186
+00:05:14,526 --> 00:05:15,186
+write this code.
+
+
+187
+00:05:15,346 --> 00:05:16,316
+We have a function for you in
+
+
+188
+00:05:16,316 --> 00:05:18,036
+vImage, MatrixMultiply -- that's
+
+
+189
+00:05:18,036 --> 00:05:19,176
+one of the most used functions
+
+
+190
+00:05:19,176 --> 00:05:21,026
+in vImage -- doing exactly that
+
+
+191
+00:05:21,026 --> 00:05:23,906
+and optimized to as fast as it
+
+
+192
+00:05:23,906 --> 00:05:25,446
+can on all the architectures we
+
+
+193
+00:05:25,446 --> 00:05:25,866
+support.
+
+
+194
+00:05:26,826 --> 00:05:30,066
+Last one, this is convolution
+
+
+195
+00:05:30,066 --> 00:05:30,306
+layer.
+
+
+196
+00:05:30,376 --> 00:05:33,036
+That's the working horse of the
+
+
+197
+00:05:33,036 --> 00:05:34,526
+neural networks, the convolution
+
+
+198
+00:05:34,526 --> 00:05:35,406
+neural networks.
+
+
+199
+00:05:35,956 --> 00:05:38,416
+So this layer takes input stacks
+
+
+200
+00:05:38,486 --> 00:05:40,016
+-- that's the right thing on the
+
+
+201
+00:05:40,016 --> 00:05:42,076
+left -- that's a stack of
+
+
+202
+00:05:42,076 --> 00:05:42,716
+images.
+
+
+203
+00:05:43,066 --> 00:05:45,196
+And it will put output image
+
+
+204
+00:05:45,196 --> 00:05:46,056
+stack, the blue thing.
+
+
+205
+00:05:46,286 --> 00:05:48,046
+And each pixel in the output is
+
+
+206
+00:05:48,046 --> 00:05:49,146
+the result of a treaty
+
+
+207
+00:05:49,146 --> 00:05:51,376
+convolution on all the entire
+
+
+208
+00:05:51,376 --> 00:05:52,226
+input stack.
+
+
+209
+00:05:52,226 --> 00:05:53,886
+And we do that for every of the
+
+
+210
+00:05:53,886 --> 00:05:54,806
+three that I mentioned for
+
+
+211
+00:05:54,806 --> 00:05:55,506
+output image.
+
+
+212
+00:05:56,066 --> 00:05:56,916
+So at the end, that's a
+
+
+213
+00:05:56,916 --> 00:05:59,176
+six-dimensional loop.
+
+
+214
+00:05:59,176 --> 00:06:00,146
+And you really don't want to
+
+
+215
+00:06:00,146 --> 00:06:00,746
+write this loop.
+
+
+216
+00:06:01,336 --> 00:06:02,896
+And even when the dimensions are
+
+
+217
+00:06:02,896 --> 00:06:04,336
+small, you're multiplying all of
+
+
+218
+00:06:04,336 --> 00:06:04,886
+them together.
+
+
+219
+00:06:04,886 --> 00:06:07,066
+So that's millions or even
+
+
+220
+00:06:07,066 --> 00:06:08,376
+billions of floating points
+
+
+221
+00:06:08,376 --> 00:06:09,146
+operation here.
+
+
+222
+00:06:09,786 --> 00:06:11,076
+Of course, we have a function
+
+
+223
+00:06:11,076 --> 00:06:12,626
+for you this time in BNNS doing
+
+
+224
+00:06:12,626 --> 00:06:12,906
+that.
+
+
+225
+00:06:13,396 --> 00:06:14,516
+And when you run a Core ML
+
+
+226
+00:06:14,516 --> 00:06:16,616
+model, you will spend, like, 80%
+
+
+227
+00:06:16,616 --> 00:06:17,866
+of the time in this function.
+
+
+228
+00:06:18,636 --> 00:06:19,386
+All right.
+
+
+229
+00:06:19,386 --> 00:06:21,106
+So that was a few examples.
+
+
+230
+00:06:21,186 --> 00:06:22,956
+I could continue almost forever
+
+
+231
+00:06:22,956 --> 00:06:24,936
+because we have more than 2,800
+
+
+232
+00:06:24,936 --> 00:06:26,516
+API's in Accelerate.
+
+
+233
+00:06:27,146 --> 00:06:28,246
+So usually that would be a
+
+
+234
+00:06:28,246 --> 00:06:29,386
+function for you inside.
+
+
+235
+00:06:29,656 --> 00:06:30,756
+And every time you use an
+
+
+236
+00:06:30,756 --> 00:06:32,456
+Accelerate function, the
+
+
+237
+00:06:32,456 --> 00:06:34,146
+benefits are that's less code
+
+
+238
+00:06:34,146 --> 00:06:36,516
+for you to write; we maintain it
+
+
+239
+00:06:36,516 --> 00:06:38,086
+for you; of course, it will be
+
+
+240
+00:06:38,086 --> 00:06:39,216
+faster and more energy
+
+
+241
+00:06:39,216 --> 00:06:40,756
+efficient; and it will be
+
+
+242
+00:06:40,756 --> 00:06:43,326
+optimal -- as close to optimal
+
+
+243
+00:06:43,326 --> 00:06:44,346
+as possible on all the
+
+
+244
+00:06:44,346 --> 00:06:45,476
+architectures we support,
+
+
+245
+00:06:45,476 --> 00:06:46,606
+including the new ones.
+
+
+246
+00:06:46,606 --> 00:06:47,986
+So when we release new hardware,
+
+
+247
+00:06:48,696 --> 00:06:49,816
+you will get your code running
+
+
+248
+00:06:49,816 --> 00:06:51,506
+as fast as it can from day one.
+
+
+249
+00:06:52,596 --> 00:06:53,966
+Okay. So that was it for
+
+
+250
+00:06:53,966 --> 00:06:54,536
+Accelerate.
+
+
+251
+00:06:54,536 --> 00:06:56,466
+Now let's focus on Compression.
+
+
+252
+00:06:58,826 --> 00:07:00,906
+Compression is a lossless data
+
+
+253
+00:07:00,906 --> 00:07:01,746
+compression library.
+
+
+254
+00:07:01,746 --> 00:07:04,096
+It's a very simple API with a
+
+
+255
+00:07:04,096 --> 00:07:06,076
+few select compressors inside.
+
+
+256
+00:07:06,406 --> 00:07:08,136
+So they are represented on this
+
+
+257
+00:07:08,136 --> 00:07:09,046
+little graph here.
+
+
+258
+00:07:09,466 --> 00:07:11,096
+On the x-axis you see the
+
+
+259
+00:07:11,096 --> 00:07:12,506
+relative compression ratio
+
+
+260
+00:07:12,736 --> 00:07:13,526
+compared to ZLIB.
+
+
+261
+00:07:13,526 --> 00:07:14,616
+ZLIB is in the center.
+
+
+262
+00:07:14,616 --> 00:07:16,596
+And on the y-axis is the
+
+
+263
+00:07:16,596 --> 00:07:18,416
+compression speed.
+
+
+264
+00:07:18,516 --> 00:07:20,556
+It's not that exponential.
+
+
+265
+00:07:21,076 --> 00:07:22,346
+So inside the compression
+
+
+266
+00:07:22,346 --> 00:07:24,486
+library we have a selection of
+
+
+267
+00:07:24,486 --> 00:07:25,476
+compressors, as I said.
+
+
+268
+00:07:26,026 --> 00:07:27,866
+We offer LZMA for better
+
+
+269
+00:07:27,866 --> 00:07:30,166
+compression, optimized versions
+
+
+270
+00:07:30,166 --> 00:07:32,356
+of LZ4 for fast compression.
+
+
+271
+00:07:32,836 --> 00:07:35,146
+Of course we have ZLIB with the
+
+
+272
+00:07:35,146 --> 00:07:36,776
+optimized ZLIB decoder, and our
+
+
+273
+00:07:36,776 --> 00:07:39,196
+very own LZFSE, which compresses
+
+
+274
+00:07:39,196 --> 00:07:41,416
+slightly more than ZLIB but much
+
+
+275
+00:07:41,416 --> 00:07:41,776
+faster.
+
+
+276
+00:07:42,796 --> 00:07:44,366
+And last year we open sourced
+
+
+277
+00:07:44,536 --> 00:07:46,226
+LZFSE; it's on GitHub.
+
+
+278
+00:07:47,136 --> 00:07:49,316
+Okay. The API now.
+
+
+279
+00:07:49,866 --> 00:07:51,626
+That, too, API's in the
+
+
+280
+00:07:51,626 --> 00:07:52,286
+compression.
+
+
+281
+00:07:52,686 --> 00:07:54,116
+The first one is a buffer API.
+
+
+282
+00:07:54,116 --> 00:07:55,166
+So that's when you have the
+
+
+283
+00:07:55,166 --> 00:07:57,986
+entire data to compress.
+
+
+284
+00:07:57,986 --> 00:07:59,106
+And so you have a buffer with
+
+
+285
+00:07:59,106 --> 00:08:00,246
+the data to compress, you just
+
+
+286
+00:08:00,246 --> 00:08:02,406
+call one function, provide the
+
+
+287
+00:08:02,406 --> 00:08:03,456
+output buffer, and you will get
+
+
+288
+00:08:03,456 --> 00:08:04,986
+the output in one single code.
+
+
+289
+00:08:05,146 --> 00:08:06,476
+That's good for encode and
+
+
+290
+00:08:06,476 --> 00:08:06,856
+decode.
+
+
+291
+00:08:07,226 --> 00:08:09,306
+And if the data is huge or you
+
+
+292
+00:08:09,306 --> 00:08:12,086
+get it in small pieces, you want
+
+
+293
+00:08:12,086 --> 00:08:13,086
+to use a stream API.
+
+
+294
+00:08:13,926 --> 00:08:15,606
+In that case you will create a
+
+
+295
+00:08:15,606 --> 00:08:17,806
+stream object and send data
+
+
+296
+00:08:17,806 --> 00:08:19,386
+inside and get smaller data
+
+
+297
+00:08:19,386 --> 00:08:19,916
+outside.
+
+
+298
+00:08:19,916 --> 00:08:20,776
+And you will call that
+
+
+299
+00:08:20,776 --> 00:08:22,076
+repeatedly until the entire
+
+
+300
+00:08:22,076 --> 00:08:23,606
+stream is processed.
+
+
+301
+00:08:25,436 --> 00:08:27,076
+And this, what we have, what's
+
+
+302
+00:08:27,076 --> 00:08:29,316
+new, we added a compression tool
+
+
+303
+00:08:29,316 --> 00:08:29,986
+command line.
+
+
+304
+00:08:30,866 --> 00:08:33,145
+So you can compress with
+
+
+305
+00:08:33,145 --> 00:08:34,296
+Compression from the command
+
+
+306
+00:08:34,296 --> 00:08:34,515
+line.
+
+
+307
+00:08:35,655 --> 00:08:37,025
+Okay. That's for Compression.
+
+
+308
+00:08:37,025 --> 00:08:39,046
+Now let's switch to BNNS, Basic
+
+
+309
+00:08:39,046 --> 00:08:40,366
+Neural Network Subroutines.
+
+
+310
+00:08:40,775 --> 00:08:42,456
+As I said, this is the energy
+
+
+311
+00:08:42,456 --> 00:08:44,386
+running of the CPU and
+
+
+312
+00:08:44,386 --> 00:08:45,916
+supporting all the neural
+
+
+313
+00:08:45,916 --> 00:08:48,746
+network and the machine learning
+
+
+314
+00:08:48,836 --> 00:08:49,446
+libraries.
+
+
+315
+00:08:49,886 --> 00:08:52,686
+So you use BNNS almost anytime.
+
+
+316
+00:08:52,686 --> 00:08:55,156
+When you type on the keyboard or
+
+
+317
+00:08:55,156 --> 00:08:56,766
+when you run face recognition,
+
+
+318
+00:08:57,486 --> 00:09:00,216
+all these applications use BNNS.
+
+
+319
+00:09:00,216 --> 00:09:03,566
+And BNNS provides lower-level
+
+
+320
+00:09:03,806 --> 00:09:04,846
+functions for this.
+
+
+321
+00:09:05,006 --> 00:09:07,276
+So that's convolutional layers,
+
+
+322
+00:09:07,456 --> 00:09:08,286
+pooling layers.
+
+
+323
+00:09:08,856 --> 00:09:10,296
+We also have fully connected
+
+
+324
+00:09:10,296 --> 00:09:10,686
+layers.
+
+
+325
+00:09:10,686 --> 00:09:13,646
+And these, we added separate
+
+
+326
+00:09:13,696 --> 00:09:15,536
+activation layers doing just the
+
+
+327
+00:09:15,536 --> 00:09:16,516
+activation function.
+
+
+328
+00:09:16,816 --> 00:09:18,236
+And these layers also can do
+
+
+329
+00:09:18,236 --> 00:09:20,256
+efficient conversion, data type
+
+
+330
+00:09:20,546 --> 00:09:21,026
+conversions.
+
+
+331
+00:09:21,656 --> 00:09:24,466
+Speaking of which, data types.
+
+
+332
+00:09:24,786 --> 00:09:27,276
+So when you train a machine
+
+
+333
+00:09:27,276 --> 00:09:29,526
+learning model, what you get is
+
+
+334
+00:09:29,596 --> 00:09:31,246
+megabytes or hundreds of
+
+
+335
+00:09:31,246 --> 00:09:33,026
+megabytes of data, usually
+
+
+336
+00:09:33,026 --> 00:09:34,656
+32-bit floating point data for
+
+
+337
+00:09:34,656 --> 00:09:35,076
+your model.
+
+
+338
+00:09:35,076 --> 00:09:37,076
+That's the convolution weights,
+
+
+339
+00:09:37,076 --> 00:09:40,216
+etc. It turns out you can
+
+
+340
+00:09:40,216 --> 00:09:41,936
+convert these guys into smaller
+
+
+341
+00:09:41,936 --> 00:09:43,626
+types, like 16-bit floating
+
+
+342
+00:09:43,626 --> 00:09:45,656
+point or even 8-bit integer
+
+
+343
+00:09:45,956 --> 00:09:47,926
+signed or unsigned and still get
+
+
+344
+00:09:47,926 --> 00:09:49,076
+the same precision for your
+
+
+345
+00:09:49,076 --> 00:09:49,476
+model.
+
+
+346
+00:09:50,056 --> 00:09:51,606
+But, of course, when you convert
+
+
+347
+00:09:51,606 --> 00:09:53,356
+32-bit floating point to 8-bit,
+
+
+348
+00:09:53,356 --> 00:09:54,566
+your model is four times
+
+
+349
+00:09:54,566 --> 00:09:55,116
+smaller.
+
+
+350
+00:09:55,656 --> 00:09:56,656
+And that's something you ship
+
+
+351
+00:09:56,656 --> 00:09:57,316
+with your app.
+
+
+352
+00:09:57,316 --> 00:09:59,906
+So you want to consider that.
+
+
+353
+00:09:59,906 --> 00:10:02,316
+This year we optimized BNNS to
+
+
+354
+00:10:02,316 --> 00:10:03,456
+support these types.
+
+
+355
+00:10:03,846 --> 00:10:06,526
+So this is what we support now,
+
+
+356
+00:10:06,806 --> 00:10:08,456
+optimized in the convolutional
+
+
+357
+00:10:08,456 --> 00:10:08,746
+layers.
+
+
+358
+00:10:08,746 --> 00:10:10,216
+The green stuff is new.
+
+
+359
+00:10:11,186 --> 00:10:13,416
+See, we added fp16 storage for
+
+
+360
+00:10:13,416 --> 00:10:15,126
+input and weights and also int8.
+
+
+361
+00:10:16,206 --> 00:10:18,176
+And this is what we support for
+
+
+362
+00:10:18,176 --> 00:10:19,846
+the fully connected layers.
+
+
+363
+00:10:19,846 --> 00:10:21,656
+So we're still accumulating to
+
+
+364
+00:10:21,656 --> 00:10:24,426
+32 bits, but we can take 16-bit
+
+
+365
+00:10:24,426 --> 00:10:25,746
+or even 8-bit inputs and
+
+
+366
+00:10:25,746 --> 00:10:26,126
+weights.
+
+
+367
+00:10:27,096 --> 00:10:28,006
+Now, for the activation
+
+
+368
+00:10:28,006 --> 00:10:30,546
+functions, this is what we had
+
+
+369
+00:10:30,546 --> 00:10:30,946
+last year.
+
+
+370
+00:10:30,946 --> 00:10:32,166
+And this year we added a few
+
+
+371
+00:10:32,166 --> 00:10:33,696
+more, including the most
+
+
+372
+00:10:33,696 --> 00:10:34,646
+requested, Softmax.
+
+
+373
+00:10:34,646 --> 00:10:36,036
+So now we have an optimized
+
+
+374
+00:10:36,036 --> 00:10:37,066
+Softmax in BNNS.
+
+
+375
+00:10:37,986 --> 00:10:39,616
+And if you set the activation
+
+
+376
+00:10:39,616 --> 00:10:41,716
+function to identity, then you
+
+
+377
+00:10:41,716 --> 00:10:43,526
+can change the input and output
+
+
+378
+00:10:44,116 --> 00:10:45,466
+types to different combinations.
+
+
+379
+00:10:45,716 --> 00:10:47,236
+This is what we support now.
+
+
+380
+00:10:47,236 --> 00:10:48,986
+And you will get optimized type
+
+
+381
+00:10:48,986 --> 00:10:51,146
+conversion from BNNS.
+
+
+382
+00:10:51,666 --> 00:10:53,386
+Last but not least, performance.
+
+
+383
+00:10:54,296 --> 00:10:56,306
+So we worked a lot with the Core
+
+
+384
+00:10:56,306 --> 00:10:58,166
+ML team and the Vision and NLP
+
+
+385
+00:10:58,616 --> 00:11:00,786
+teams to optimize what they
+
+
+386
+00:11:00,786 --> 00:11:01,736
+really use a lot.
+
+
+387
+00:11:02,686 --> 00:11:05,496
+So that includes convolutions
+
+
+388
+00:11:05,496 --> 00:11:08,676
+with padding and Stride 1 and 2
+
+
+389
+00:11:08,676 --> 00:11:10,616
+convolutions also and smaller
+
+
+390
+00:11:10,616 --> 00:11:10,976
+kernels.
+
+
+391
+00:11:10,976 --> 00:11:13,296
+Because the new neural networks
+
+
+392
+00:11:13,376 --> 00:11:14,556
+have a lot of layers with
+
+
+393
+00:11:14,556 --> 00:11:16,716
+smaller convolutions -- that's 3
+
+
+394
+00:11:16,716 --> 00:11:17,966
+by 3 and 1 by 1.
+
+
+395
+00:11:18,066 --> 00:11:19,436
+So we optimized these cases.
+
+
+396
+00:11:19,846 --> 00:11:21,276
+And especially for the 3 by 3
+
+
+397
+00:11:21,276 --> 00:11:22,386
+case, we have Winograd
+
+
+398
+00:11:22,386 --> 00:11:24,166
+convolutions, which can be up to
+
+
+399
+00:11:24,166 --> 00:11:25,776
+four times faster than the
+
+
+400
+00:11:25,776 --> 00:11:27,086
+reference implementation.
+
+
+401
+00:11:27,326 --> 00:11:29,056
+And that's it for BNNS.
+
+
+402
+00:11:29,056 --> 00:11:31,046
+So let me invite Steve on stage,
+
+
+403
+00:11:31,046 --> 00:11:32,186
+and he will tell us everything
+
+
+404
+00:11:32,186 --> 00:11:32,796
+about simd.
+
+
+405
+00:11:32,936 --> 00:11:33,216
+Thank you.
+
+
+406
+00:11:34,516 --> 00:11:37,216
+[ Applause ]
+
+
+407
+00:11:37,716 --> 00:11:38,576
+>> Thanks very much, Eric.
+
+
+408
+00:11:38,766 --> 00:11:39,506
+Thank you, everyone.
+
+
+409
+00:11:40,126 --> 00:11:41,416
+As Eric said, my name's Steve.
+
+
+410
+00:11:41,416 --> 00:11:42,446
+And today I'm going to talk to
+
+
+411
+00:11:42,446 --> 00:11:43,506
+you a little bit about the simd
+
+
+412
+00:11:43,506 --> 00:11:43,836
+module.
+
+
+413
+00:11:43,836 --> 00:11:44,636
+I don't think I'll get to cover
+
+
+414
+00:11:44,636 --> 00:11:45,966
+everything, but we'll cover
+
+
+415
+00:11:45,966 --> 00:11:46,206
+some.
+
+
+416
+00:11:47,316 --> 00:11:50,366
+So the simd module lives outside
+
+
+417
+00:11:50,366 --> 00:11:51,036
+of Accelerate.
+
+
+418
+00:11:51,036 --> 00:11:52,536
+It's a small collection of
+
+
+419
+00:11:52,536 --> 00:11:53,576
+headers and user include.
+
+
+420
+00:11:53,836 --> 00:11:55,016
+And it's a module you import in
+
+
+421
+00:11:55,016 --> 00:11:55,406
+Swift.
+
+
+422
+00:11:55,956 --> 00:11:57,226
+And there's sort of three main
+
+
+423
+00:11:57,226 --> 00:11:58,546
+use cases that are going to
+
+
+424
+00:11:58,546 --> 00:11:59,406
+drive you to use simd.
+
+
+425
+00:12:00,206 --> 00:12:01,906
+The first is if you're doing 2
+
+
+426
+00:12:01,906 --> 00:12:04,986
+by 2, 3 by 3, 4 by 4 vector and
+
+
+427
+00:12:04,986 --> 00:12:06,046
+matrix arithmetic, the sort of
+
+
+428
+00:12:06,046 --> 00:12:07,156
+thing that comes up all the time
+
+
+429
+00:12:07,156 --> 00:12:08,506
+when doing graphics or geometry
+
+
+430
+00:12:08,506 --> 00:12:09,176
+operations.
+
+
+431
+00:12:10,576 --> 00:12:12,436
+It also provides a bigger set of
+
+
+432
+00:12:12,436 --> 00:12:13,596
+vector times, both integer
+
+
+433
+00:12:13,596 --> 00:12:14,616
+vectors and floating point
+
+
+434
+00:12:14,616 --> 00:12:16,726
+vectors on lengths up to 64
+
+
+435
+00:12:16,726 --> 00:12:18,626
+bytes for doing sort of general
+
+
+436
+00:12:18,626 --> 00:12:19,306
+vector programming.
+
+
+437
+00:12:19,306 --> 00:12:21,226
+It lets you target all the
+
+
+438
+00:12:21,226 --> 00:12:22,446
+architectures we support on all
+
+
+439
+00:12:22,446 --> 00:12:24,666
+the platforms we support pretty
+
+
+440
+00:12:24,666 --> 00:12:25,046
+easily.
+
+
+441
+00:12:25,046 --> 00:12:26,216
+And you can write one piece of
+
+
+442
+00:12:26,216 --> 00:12:27,636
+code that gets you good vector
+
+
+443
+00:12:27,836 --> 00:12:28,796
+code gen for all of those
+
+
+444
+00:12:28,796 --> 00:12:29,436
+architectures.
+
+
+445
+00:12:30,616 --> 00:12:31,966
+The last reason you'll use simd
+
+
+446
+00:12:32,656 --> 00:12:34,416
+is that it's a great set of
+
+
+447
+00:12:34,416 --> 00:12:35,686
+types and operations for
+
+
+448
+00:12:35,686 --> 00:12:37,676
+interoperating between all of
+
+
+449
+00:12:37,676 --> 00:12:39,636
+the various things that do 3 by
+
+
+450
+00:12:39,636 --> 00:12:41,096
+3, 4 by 4 operations on the
+
+
+451
+00:12:41,096 --> 00:12:41,416
+platform.
+
+
+452
+00:12:41,416 --> 00:12:42,486
+So things like SceneKit,
+
+
+453
+00:12:42,686 --> 00:12:45,556
+SpriteKit, ARKit, Vision -- all
+
+
+454
+00:12:45,556 --> 00:12:46,556
+those different things you have
+
+
+455
+00:12:46,806 --> 00:12:48,406
+lots of matrices and vectors
+
+
+456
+00:12:48,406 --> 00:12:49,076
+flying around.
+
+
+457
+00:12:49,516 --> 00:12:51,246
+And the simd types are a great
+
+
+458
+00:12:51,246 --> 00:12:52,126
+set of things to use with that.
+
+
+459
+00:12:52,526 --> 00:12:54,136
+I should say that SpriteKit in
+
+
+460
+00:12:54,136 --> 00:12:55,166
+particular -- or SceneKit in
+
+
+461
+00:12:55,166 --> 00:12:56,336
+particular added a bunch of new
+
+
+462
+00:12:56,336 --> 00:12:56,946
+stuff this year.
+
+
+463
+00:12:56,946 --> 00:12:57,906
+So check out their session.
+
+
+464
+00:12:57,906 --> 00:12:59,006
+There's some nice stuff for
+
+
+465
+00:12:59,006 --> 00:12:59,796
+working with simd there.
+
+
+466
+00:12:59,796 --> 00:13:01,346
+I'm going to show you a few
+
+
+467
+00:13:01,346 --> 00:13:02,706
+examples of what you can do.
+
+
+468
+00:13:04,296 --> 00:13:04,966
+So let's say you want to
+
+
+469
+00:13:04,966 --> 00:13:06,756
+multiply a three-dimensional
+
+
+470
+00:13:06,756 --> 00:13:07,726
+matrix by a vector.
+
+
+471
+00:13:07,986 --> 00:13:09,616
+You can do that using BLAS,
+
+
+472
+00:13:09,696 --> 00:13:10,666
+which Eric talked about earlier,
+
+
+473
+00:13:11,176 --> 00:13:11,826
+looks like this.
+
+
+474
+00:13:12,376 --> 00:13:15,776
+And this is fine, but BLAS takes
+
+
+475
+00:13:15,826 --> 00:13:17,106
+all the parameters just as raw
+
+
+476
+00:13:17,106 --> 00:13:17,556
+pointers.
+
+
+477
+00:13:17,586 --> 00:13:19,066
+So we have to tell it these are
+
+
+478
+00:13:19,066 --> 00:13:20,106
+the dimensions of the matrix,
+
+
+479
+00:13:20,106 --> 00:13:20,906
+these are the dimensions of the
+
+
+480
+00:13:20,906 --> 00:13:22,296
+vector, this is how the memory's
+
+
+481
+00:13:22,296 --> 00:13:22,706
+laid out.
+
+
+482
+00:13:23,016 --> 00:13:23,706
+There's a lot of other
+
+
+483
+00:13:23,706 --> 00:13:24,796
+information we have to pass,
+
+
+484
+00:13:25,826 --> 00:13:26,706
+which both makes the code a
+
+
+485
+00:13:26,706 --> 00:13:28,656
+little harder to write and it
+
+
+486
+00:13:28,656 --> 00:13:29,676
+makes it harder to read.
+
+
+487
+00:13:29,976 --> 00:13:31,476
+In you're not fluent with BLAS
+
+
+488
+00:13:31,476 --> 00:13:33,146
+already, this last line here,
+
+
+489
+00:13:33,146 --> 00:13:34,266
+it's not really obvious that
+
+
+490
+00:13:34,266 --> 00:13:35,206
+that's doing a matrix vector
+
+
+491
+00:13:35,206 --> 00:13:35,596
+product.
+
+
+492
+00:13:36,056 --> 00:13:37,066
+So we'd like to have something
+
+
+493
+00:13:37,066 --> 00:13:38,306
+simpler than that.
+
+
+494
+00:13:39,056 --> 00:13:40,206
+We could also write this with
+
+
+495
+00:13:40,206 --> 00:13:40,626
+GLKit.
+
+
+496
+00:13:41,136 --> 00:13:42,796
+GLKit makes it considerably
+
+
+497
+00:13:42,796 --> 00:13:43,156
+nicer.
+
+
+498
+00:13:43,516 --> 00:13:44,966
+We have dedicated types for a
+
+
+499
+00:13:44,966 --> 00:13:46,496
+three-dimensional matrix and for
+
+
+500
+00:13:46,496 --> 00:13:47,956
+three-dimensional vector; we
+
+
+501
+00:13:47,956 --> 00:13:48,366
+call this
+
+
+502
+00:13:48,366 --> 00:13:50,696
+GLKMatrix3MultiplyVector3
+
+
+503
+00:13:50,696 --> 00:13:51,146
+function.
+
+
+504
+00:13:51,676 --> 00:13:52,486
+It's pretty clear that's a
+
+
+505
+00:13:52,486 --> 00:13:53,196
+multiplication.
+
+
+506
+00:13:53,536 --> 00:13:55,416
+But we can make this even nicer
+
+
+507
+00:13:55,786 --> 00:13:56,246
+using simd.
+
+
+508
+00:13:56,246 --> 00:13:58,176
+This is what it looks like in
+
+
+509
+00:13:58,176 --> 00:13:58,496
+simd.
+
+
+510
+00:13:59,016 --> 00:14:00,786
+Okay? Totally explicit that it's
+
+
+511
+00:14:00,786 --> 00:14:01,776
+diagonal matrix.
+
+
+512
+00:14:02,176 --> 00:14:03,686
+And multiply a matrix by a
+
+
+513
+00:14:03,686 --> 00:14:05,006
+vector is just using the
+
+
+514
+00:14:05,006 --> 00:14:05,936
+multiplication operator.
+
+
+515
+00:14:06,356 --> 00:14:07,936
+It's really nice, it's really
+
+
+516
+00:14:07,936 --> 00:14:09,576
+simple, and it's also really
+
+
+517
+00:14:09,576 --> 00:14:09,796
+fast.
+
+
+518
+00:14:10,536 --> 00:14:12,046
+All of simd for the most part is
+
+
+519
+00:14:12,046 --> 00:14:13,296
+implemented as header inlines.
+
+
+520
+00:14:13,616 --> 00:14:14,786
+So this is just going to give me
+
+
+521
+00:14:14,786 --> 00:14:16,626
+three vector multiplications on
+
+
+522
+00:14:16,626 --> 00:14:17,236
+my CPU.
+
+
+523
+00:14:17,646 --> 00:14:18,706
+It's really fast, there's no
+
+
+524
+00:14:18,706 --> 00:14:20,056
+call overhead, there's no
+
+
+525
+00:14:20,056 --> 00:14:21,066
+parameter checking, there's no
+
+
+526
+00:14:21,066 --> 00:14:21,396
+nothing.
+
+
+527
+00:14:21,726 --> 00:14:23,516
+I get just nice simple code gen
+
+
+528
+00:14:23,516 --> 00:14:23,806
+from this.
+
+
+529
+00:14:24,526 --> 00:14:25,496
+So that's a Swift example.
+
+
+530
+00:14:26,076 --> 00:14:27,706
+The next example that I'm going
+
+
+531
+00:14:27,706 --> 00:14:28,896
+to show you will be in C.
+
+
+532
+00:14:30,286 --> 00:14:31,906
+Here I'm going to show you an
+
+
+533
+00:14:31,906 --> 00:14:33,426
+example of how you can use simd
+
+
+534
+00:14:33,426 --> 00:14:34,206
+to write vector code.
+
+
+535
+00:14:34,806 --> 00:14:35,806
+So let's say that we want to
+
+
+536
+00:14:35,806 --> 00:14:37,506
+compute a logistic curve with a
+
+
+537
+00:14:37,506 --> 00:14:39,266
+given midpoint and maximum
+
+
+538
+00:14:39,266 --> 00:14:39,666
+slope.
+
+
+539
+00:14:40,176 --> 00:14:41,236
+This is a function that comes up
+
+
+540
+00:14:41,316 --> 00:14:43,006
+all the time in sort of
+
+
+541
+00:14:43,006 --> 00:14:43,866
+computational mathematics,
+
+
+542
+00:14:43,866 --> 00:14:44,856
+especially machine learning.
+
+
+543
+00:14:44,856 --> 00:14:46,216
+So this is a useful function to
+
+
+544
+00:14:46,216 --> 00:14:46,996
+be able to optimize.
+
+
+545
+00:14:46,996 --> 00:14:47,936
+We care a lot about this.
+
+
+546
+00:14:48,876 --> 00:14:50,126
+And what I've put in the comment
+
+
+547
+00:14:50,286 --> 00:14:51,406
+in the body of the function here
+
+
+548
+00:14:52,176 --> 00:14:54,286
+is sort of a typical scalar
+
+
+549
+00:14:54,286 --> 00:14:55,216
+implementation, just
+
+
+550
+00:14:55,216 --> 00:14:56,496
+mathematically what this looks
+
+
+551
+00:14:56,496 --> 00:14:56,696
+like.
+
+
+552
+00:14:56,906 --> 00:14:59,366
+But we want to compute this on
+
+
+553
+00:14:59,576 --> 00:15:01,236
+16 floating point values
+
+
+554
+00:15:01,236 --> 00:15:02,456
+simultaneously because we can
+
+
+555
+00:15:02,456 --> 00:15:03,656
+get better efficiency that way.
+
+
+556
+00:15:03,896 --> 00:15:05,946
+So that's what this simd float16
+
+
+557
+00:15:05,946 --> 00:15:06,896
+type in the function is --
+
+
+558
+00:15:06,926 --> 00:15:08,226
+that's just a vector of 16
+
+
+559
+00:15:08,226 --> 00:15:08,716
+floats.
+
+
+560
+00:15:09,376 --> 00:15:10,766
+And we're going to see if we can
+
+
+561
+00:15:10,766 --> 00:15:11,676
+implement the body of this
+
+
+562
+00:15:11,676 --> 00:15:11,966
+function.
+
+
+563
+00:15:12,676 --> 00:15:14,746
+So vector code is complicated.
+
+
+564
+00:15:14,746 --> 00:15:16,806
+I just break this apart into
+
+
+565
+00:15:16,806 --> 00:15:18,886
+three pieces so we can write
+
+
+566
+00:15:18,886 --> 00:15:20,126
+each one of them individually.
+
+
+567
+00:15:20,486 --> 00:15:21,496
+Let's start with this first
+
+
+568
+00:15:21,496 --> 00:15:22,876
+section, the linear section.
+
+
+569
+00:15:23,366 --> 00:15:25,976
+So we're just subtracting a
+
+
+570
+00:15:25,976 --> 00:15:26,756
+scalar from a vector.
+
+
+571
+00:15:26,756 --> 00:15:27,556
+We're going to subtract it from
+
+
+572
+00:15:27,556 --> 00:15:28,676
+every lane of the vector, and
+
+
+573
+00:15:28,676 --> 00:15:29,676
+then we're going to multiply by
+
+
+574
+00:15:29,676 --> 00:15:30,076
+a scalar.
+
+
+575
+00:15:30,686 --> 00:15:32,576
+What does that look like in
+
+
+576
+00:15:33,496 --> 00:15:34,136
+simd?
+
+
+577
+00:15:34,206 --> 00:15:35,406
+We just subtract and we
+
+
+578
+00:15:35,406 --> 00:15:35,896
+multiply.
+
+
+579
+00:15:35,896 --> 00:15:36,846
+It's really, really simple.
+
+
+580
+00:15:37,366 --> 00:15:38,756
+This works in C, it works in
+
+
+581
+00:15:38,756 --> 00:15:40,426
+Swift, it works in C++, it works
+
+
+582
+00:15:40,426 --> 00:15:41,146
+in Objective-C.
+
+
+583
+00:15:41,536 --> 00:15:42,286
+It's really nice.
+
+
+584
+00:15:42,286 --> 00:15:43,506
+It looks a lot like shader
+
+
+585
+00:15:43,506 --> 00:15:44,476
+programming if you've done any
+
+
+586
+00:15:44,476 --> 00:15:44,776
+of that.
+
+
+587
+00:15:45,766 --> 00:15:47,176
+And this last piece down here
+
+
+588
+00:15:48,176 --> 00:15:49,446
+where we take a reciprocal,
+
+
+589
+00:15:49,556 --> 00:15:51,326
+again, the same thing, we just
+
+
+590
+00:15:51,406 --> 00:15:52,866
+write code that looks like the
+
+
+591
+00:15:52,866 --> 00:15:53,016
+math.
+
+
+592
+00:15:53,016 --> 00:15:54,196
+It looks just like the scaler
+
+
+593
+00:15:54,196 --> 00:15:55,136
+code, it looks just like the
+
+
+594
+00:15:55,136 --> 00:15:55,736
+math we're doing.
+
+
+595
+00:15:56,876 --> 00:15:57,906
+What about this middle section?
+
+
+596
+00:15:58,336 --> 00:15:58,996
+That's a little bit more
+
+
+597
+00:15:58,996 --> 00:15:59,536
+complicated.
+
+
+598
+00:15:59,536 --> 00:16:01,206
+What we want to do here is for
+
+
+599
+00:16:01,296 --> 00:16:02,456
+every element in the vector, we
+
+
+600
+00:16:02,456 --> 00:16:03,776
+want to compute the exponential
+
+
+601
+00:16:03,776 --> 00:16:05,536
+function of that and put that in
+
+
+602
+00:16:05,536 --> 00:16:06,936
+the corresponding element of the
+
+
+603
+00:16:06,936 --> 00:16:07,586
+result factor.
+
+
+604
+00:16:07,836 --> 00:16:10,056
+We can do that with a for loop.
+
+
+605
+00:16:10,716 --> 00:16:12,806
+And this is fine, this works.
+
+
+606
+00:16:13,686 --> 00:16:14,986
+But we have a nice new feature
+
+
+607
+00:16:14,986 --> 00:16:16,836
+for you this year, which is that
+
+
+608
+00:16:17,406 --> 00:16:18,606
+basically all of the math
+
+
+609
+00:16:18,606 --> 00:16:20,206
+functions just work on vectors
+
+
+610
+00:16:20,206 --> 00:16:21,116
+of floats and doubles.
+
+
+611
+00:16:21,116 --> 00:16:22,876
+So any length of vector, float,
+
+
+612
+00:16:22,876 --> 00:16:23,226
+and double.
+
+
+613
+00:16:23,706 --> 00:16:25,236
+You can call XPath, you can call
+
+
+614
+00:16:25,236 --> 00:16:26,406
+sine, you can call cosine,
+
+
+615
+00:16:26,576 --> 00:16:26,866
+whatever.
+
+
+616
+00:16:27,146 --> 00:16:28,096
+The math functions, they just
+
+
+617
+00:16:28,096 --> 00:16:28,536
+work on them.
+
+
+618
+00:16:28,916 --> 00:16:30,176
+It's a really nice convenience
+
+
+619
+00:16:30,176 --> 00:16:31,506
+feature when you're writing this
+
+
+620
+00:16:31,506 --> 00:16:31,966
+kind of code.
+
+
+621
+00:16:32,736 --> 00:16:35,086
+And this is going to target the
+
+
+622
+00:16:35,086 --> 00:16:38,086
+NEON extensions when I write for
+
+
+623
+00:16:38,086 --> 00:16:38,356
+ARM.
+
+
+624
+00:16:38,456 --> 00:16:39,846
+And when I compile for Intel,
+
+
+625
+00:16:39,846 --> 00:16:41,206
+it's going to target AVX and
+
+
+626
+00:16:41,206 --> 00:16:41,576
+SSE.
+
+
+627
+00:16:41,806 --> 00:16:43,206
+So I'm going to get fast code on
+
+
+628
+00:16:43,206 --> 00:16:43,906
+all the platforms.
+
+
+629
+00:16:43,906 --> 00:16:44,726
+This is really nice.
+
+
+630
+00:16:45,306 --> 00:16:46,856
+We have one other big new
+
+
+631
+00:16:46,856 --> 00:16:47,986
+feature this year that a lot of
+
+
+632
+00:16:47,986 --> 00:16:49,846
+people have asked for, which is
+
+
+633
+00:16:49,846 --> 00:16:50,546
+quaternions.
+
+
+634
+00:16:50,986 --> 00:16:52,076
+I'm going to give you a real
+
+
+635
+00:16:52,076 --> 00:16:53,036
+quick introduction to them.
+
+
+636
+00:16:53,816 --> 00:16:55,816
+Just that quaternions extend the
+
+
+637
+00:16:55,816 --> 00:16:57,666
+complex numbers in the same way
+
+
+638
+00:16:57,666 --> 00:16:58,716
+the complex numbers extend the
+
+
+639
+00:16:58,716 --> 00:16:59,176
+reals.
+
+
+640
+00:17:00,676 --> 00:17:02,196
+So complex number, you might
+
+
+641
+00:17:02,196 --> 00:17:03,796
+remember from school, has a real
+
+
+642
+00:17:03,796 --> 00:17:06,366
+part and an imaginary part.
+
+
+643
+00:17:06,915 --> 00:17:10,066
+Quaternions have a real part and
+
+
+644
+00:17:10,066 --> 00:17:12,016
+they have three imaginary parts;
+
+
+645
+00:17:12,126 --> 00:17:12,836
+sometimes you call that the
+
+
+646
+00:17:12,836 --> 00:17:13,376
+vector part.
+
+
+647
+00:17:13,776 --> 00:17:15,506
+My mom always said that if
+
+
+648
+00:17:15,506 --> 00:17:16,756
+having one square root of minus
+
+
+649
+00:17:16,756 --> 00:17:17,896
+one is good, having three square
+
+
+650
+00:17:17,896 --> 00:17:18,856
+roots of minus one must be
+
+
+651
+00:17:18,856 --> 00:17:19,146
+great.
+
+
+652
+00:17:20,705 --> 00:17:21,486
+She was a smart lady.
+
+
+653
+00:17:21,486 --> 00:17:24,996
+You should listen to her.
+
+
+654
+00:17:25,246 --> 00:17:26,425
+There's a lot of fascinating
+
+
+655
+00:17:26,425 --> 00:17:27,526
+mathematical structure about the
+
+
+656
+00:17:27,526 --> 00:17:28,876
+quaternions -- we don't really
+
+
+657
+00:17:28,876 --> 00:17:29,436
+care about that.
+
+
+658
+00:17:29,956 --> 00:17:30,926
+We're interested in one thing.
+
+
+659
+00:17:32,026 --> 00:17:33,066
+Quaternions have a notion of
+
+
+660
+00:17:33,066 --> 00:17:34,196
+length that's just like the
+
+
+661
+00:17:34,196 --> 00:17:35,016
+complex numbers.
+
+
+662
+00:17:35,016 --> 00:17:36,166
+You sum the squares of the
+
+
+663
+00:17:36,166 --> 00:17:37,006
+components and you take the
+
+
+664
+00:17:37,006 --> 00:17:38,396
+square root, that's the length
+
+
+665
+00:17:38,396 --> 00:17:38,886
+of a quaternion.
+
+
+666
+00:17:39,796 --> 00:17:41,996
+Quaternions of length one, we
+
+
+667
+00:17:41,996 --> 00:17:43,886
+call those unit quaternions, and
+
+
+668
+00:17:43,886 --> 00:17:45,556
+they have this really nice
+
+
+669
+00:17:45,556 --> 00:17:48,286
+property, which is that you can
+
+
+670
+00:17:48,286 --> 00:17:50,126
+use them to represent rotations
+
+
+671
+00:17:50,456 --> 00:17:51,726
+in three-dimensional space.
+
+
+672
+00:17:52,716 --> 00:17:53,796
+That's all we care about.
+
+
+673
+00:17:53,796 --> 00:17:55,156
+Forget about all the other math
+
+
+674
+00:17:55,156 --> 00:17:57,816
+that I just mentioned.
+
+
+675
+00:17:57,896 --> 00:17:59,386
+So I'll show you a quick code
+
+
+676
+00:17:59,386 --> 00:18:00,136
+example of that.
+
+
+677
+00:18:00,566 --> 00:18:01,606
+Say we have a vector that's a
+
+
+678
+00:18:01,606 --> 00:18:02,646
+vector in the XY plane.
+
+
+679
+00:18:03,846 --> 00:18:05,126
+And let's build a quaternion.
+
+
+680
+00:18:05,476 --> 00:18:06,336
+This is a quaternion that
+
+
+681
+00:18:06,336 --> 00:18:08,146
+represents a rotation around the
+
+
+682
+00:18:08,146 --> 00:18:08,956
+y-axis.
+
+
+683
+00:18:10,526 --> 00:18:12,666
+Quaternions act on vectors --
+
+
+684
+00:18:12,666 --> 00:18:14,006
+that's the simd act function.
+
+
+685
+00:18:14,806 --> 00:18:16,356
+It's not multiplication.
+
+
+686
+00:18:16,356 --> 00:18:18,236
+When you multiply a vector by a
+
+
+687
+00:18:18,236 --> 00:18:20,666
+matrix -- when you rotate a
+
+
+688
+00:18:20,666 --> 00:18:21,986
+vector by a matrix, you just
+
+
+689
+00:18:21,986 --> 00:18:22,686
+multiply it.
+
+
+690
+00:18:22,926 --> 00:18:23,886
+With quaternions it's called an
+
+
+691
+00:18:23,886 --> 00:18:24,286
+action.
+
+
+692
+00:18:24,706 --> 00:18:26,356
+And we don't care too much about
+
+
+693
+00:18:26,356 --> 00:18:28,126
+the details of that, but that's
+
+
+694
+00:18:28,126 --> 00:18:29,146
+why this is the act function.
+
+
+695
+00:18:29,506 --> 00:18:31,106
+So this is a nice way to
+
+
+696
+00:18:31,106 --> 00:18:32,246
+represent rotations.
+
+
+697
+00:18:32,686 --> 00:18:33,836
+There's a lot of other ways to
+
+
+698
+00:18:33,836 --> 00:18:34,856
+represent rotations.
+
+
+699
+00:18:35,056 --> 00:18:36,376
+Why do you want to use this one
+
+
+700
+00:18:36,376 --> 00:18:37,346
+and when do you want to use this
+
+
+701
+00:18:37,346 --> 00:18:37,506
+one?
+
+
+702
+00:18:37,596 --> 00:18:40,116
+You know, you might use matrices
+
+
+703
+00:18:40,116 --> 00:18:41,346
+instead, you might use Euler
+
+
+704
+00:18:41,346 --> 00:18:42,836
+angles or yaw/pitch/roll, you
+
+
+705
+00:18:42,836 --> 00:18:43,916
+can use axis and angle
+
+
+706
+00:18:43,916 --> 00:18:44,496
+representation.
+
+
+707
+00:18:44,496 --> 00:18:45,486
+There's lots of choices.
+
+
+708
+00:18:45,946 --> 00:18:47,626
+Quaternions are an especially
+
+
+709
+00:18:47,626 --> 00:18:48,856
+good choice for a certain class
+
+
+710
+00:18:48,856 --> 00:18:50,106
+of operations that I'm going to
+
+
+711
+00:18:50,106 --> 00:18:51,586
+tell you about.
+
+
+712
+00:18:52,336 --> 00:18:53,786
+The first nice thing about
+
+
+713
+00:18:53,786 --> 00:18:54,716
+quaternions is they take less
+
+
+714
+00:18:54,716 --> 00:18:55,746
+memory than matrices do.
+
+
+715
+00:18:56,016 --> 00:18:59,316
+This is nice and it's great, but
+
+
+716
+00:18:59,316 --> 00:19:00,346
+that's not really why we want to
+
+
+717
+00:19:00,346 --> 00:19:01,486
+use them.
+
+
+718
+00:19:02,066 --> 00:19:02,876
+The better thing about
+
+
+719
+00:19:02,876 --> 00:19:04,616
+quaternions is that while they
+
+
+720
+00:19:04,616 --> 00:19:06,936
+are not especially fast to do a
+
+
+721
+00:19:06,936 --> 00:19:08,166
+rotation with, you can see here
+
+
+722
+00:19:08,166 --> 00:19:09,476
+they're about a third the speed
+
+
+723
+00:19:09,476 --> 00:19:10,696
+of using matrices to actually
+
+
+724
+00:19:11,056 --> 00:19:11,956
+compute a rotation.
+
+
+725
+00:19:13,416 --> 00:19:15,086
+When you want to do a sequence
+
+
+726
+00:19:15,086 --> 00:19:16,206
+of operations, when you want to
+
+
+727
+00:19:16,206 --> 00:19:17,596
+combine rotations or you want to
+
+
+728
+00:19:17,596 --> 00:19:18,766
+interpolate rotations, you want
+
+
+729
+00:19:18,766 --> 00:19:19,486
+to do anything like that,
+
+
+730
+00:19:19,846 --> 00:19:21,836
+they're the most natural setting
+
+
+731
+00:19:21,836 --> 00:19:23,016
+to do those operations in.
+
+
+732
+00:19:23,476 --> 00:19:24,806
+So when we want to multiply two
+
+
+733
+00:19:24,806 --> 00:19:25,916
+rotations together, you can see
+
+
+734
+00:19:25,916 --> 00:19:27,846
+quaternions are about 30% faster
+
+
+735
+00:19:28,046 --> 00:19:29,196
+than vectors and matrices.
+
+
+736
+00:19:29,576 --> 00:19:31,316
+But they also let us do things
+
+
+737
+00:19:31,316 --> 00:19:32,366
+that are hard to do with
+
+
+738
+00:19:32,366 --> 00:19:32,856
+matrices.
+
+
+739
+00:19:32,856 --> 00:19:35,336
+So let's say we want to
+
+
+740
+00:19:35,336 --> 00:19:36,946
+interpolate between two
+
+
+741
+00:19:36,946 --> 00:19:38,106
+different rotated coordinate
+
+
+742
+00:19:38,106 --> 00:19:38,556
+frames.
+
+
+743
+00:19:39,256 --> 00:19:40,536
+That's a little subtle with
+
+
+744
+00:19:40,536 --> 00:19:42,036
+matrices, but it's really
+
+
+745
+00:19:42,036 --> 00:19:43,106
+natural with quaternions.
+
+
+746
+00:19:43,536 --> 00:19:45,026
+And the reason it's natural has
+
+
+747
+00:19:45,026 --> 00:19:46,886
+to do with this sphere that I've
+
+
+748
+00:19:46,886 --> 00:19:47,806
+drawn over on the side of the
+
+
+749
+00:19:47,806 --> 00:19:48,306
+screen here.
+
+
+750
+00:19:48,426 --> 00:19:49,336
+You might say, "Well, why are
+
+
+751
+00:19:49,336 --> 00:19:50,836
+you drawing rotations on a
+
+
+752
+00:19:50,836 --> 00:19:51,166
+sphere?"
+
+
+753
+00:19:51,876 --> 00:19:52,766
+There's a good reason for that.
+
+
+754
+00:19:53,606 --> 00:19:55,746
+Quaternions you can think of as
+
+
+755
+00:19:55,846 --> 00:19:57,066
+points on the four-dimensional
+
+
+756
+00:19:57,066 --> 00:19:57,796
+projective sphere.
+
+
+757
+00:19:58,866 --> 00:20:00,586
+And that sounds complicated and
+
+
+758
+00:20:00,586 --> 00:20:02,926
+mathematical, and it is, but
+
+
+759
+00:20:03,166 --> 00:20:04,816
+it's the natural space of
+
+
+760
+00:20:04,816 --> 00:20:05,956
+rotations for three-dimensional
+
+
+761
+00:20:05,956 --> 00:20:06,376
+space.
+
+
+762
+00:20:06,826 --> 00:20:08,406
+So when I do operations on the
+
+
+763
+00:20:08,406 --> 00:20:09,966
+surface of this sphere, that
+
+
+764
+00:20:09,966 --> 00:20:11,446
+corresponds exactly to your
+
+
+765
+00:20:11,446 --> 00:20:12,816
+natural intuition for what
+
+
+766
+00:20:12,816 --> 00:20:13,846
+should happen with rotations.
+
+
+767
+00:20:13,946 --> 00:20:16,576
+So for instance, if we want to
+
+
+768
+00:20:16,576 --> 00:20:17,726
+interpolate between them, we
+
+
+769
+00:20:17,726 --> 00:20:19,666
+just interpolate along a great
+
+
+770
+00:20:19,666 --> 00:20:20,766
+circle on the sphere -- that's
+
+
+771
+00:20:20,766 --> 00:20:22,196
+this simd slerp function that
+
+
+772
+00:20:22,196 --> 00:20:23,376
+stands for spherical linear
+
+
+773
+00:20:23,376 --> 00:20:24,056
+interpolation.
+
+
+774
+00:20:24,676 --> 00:20:26,656
+And that's really easy to use
+
+
+775
+00:20:26,656 --> 00:20:27,926
+and it does exactly what you
+
+
+776
+00:20:27,926 --> 00:20:28,266
+want.
+
+
+777
+00:20:28,636 --> 00:20:30,346
+If we have a whole sequence of
+
+
+778
+00:20:30,386 --> 00:20:31,416
+points that we want to
+
+
+779
+00:20:31,416 --> 00:20:33,596
+interpolate between, we could
+
+
+780
+00:20:33,596 --> 00:20:35,496
+call slerp repeatedly to
+
+
+781
+00:20:35,496 --> 00:20:36,786
+interpolate between them, but
+
+
+782
+00:20:37,056 --> 00:20:38,946
+that will have a noticeable jump
+
+
+783
+00:20:38,946 --> 00:20:40,726
+a little bit in the rotation
+
+
+784
+00:20:40,826 --> 00:20:41,836
+when you get to corners.
+
+
+785
+00:20:42,886 --> 00:20:45,136
+Instead we can use the simd
+
+
+786
+00:20:45,136 --> 00:20:46,616
+spline function to get a
+
+
+787
+00:20:46,616 --> 00:20:48,566
+completely smooth interpolation
+
+
+788
+00:20:48,566 --> 00:20:49,786
+using a whole sequence of
+
+
+789
+00:20:49,786 --> 00:20:50,936
+rotated coordinate frames.
+
+
+790
+00:20:51,626 --> 00:20:52,806
+There's a ton of other
+
+
+791
+00:20:53,016 --> 00:20:54,796
+operations like this in the simd
+
+
+792
+00:20:54,796 --> 00:20:56,746
+headers that you can use to do
+
+
+793
+00:20:56,746 --> 00:20:58,616
+these types of operations.
+
+
+794
+00:20:58,936 --> 00:20:59,846
+If you want to work with
+
+
+795
+00:20:59,846 --> 00:21:01,786
+rotations, the API is really
+
+
+796
+00:21:01,786 --> 00:21:02,356
+pretty full.
+
+
+797
+00:21:02,356 --> 00:21:03,666
+I encourage you to check it out.
+
+
+798
+00:21:04,176 --> 00:21:05,326
+And as I said, this was one of
+
+
+799
+00:21:05,326 --> 00:21:06,306
+the most requested features from
+
+
+800
+00:21:06,306 --> 00:21:06,846
+developers.
+
+
+801
+00:21:06,846 --> 00:21:08,726
+So I encourage you to file bugs
+
+
+802
+00:21:08,726 --> 00:21:10,016
+to say, "Hey, can you guys add
+
+
+803
+00:21:10,016 --> 00:21:11,016
+this other thing as well?"
+
+
+804
+00:21:11,016 --> 00:21:12,016
+We're really responsive to that.
+
+
+805
+00:21:12,016 --> 00:21:13,206
+We love to get feature requests
+
+
+806
+00:21:13,206 --> 00:21:13,846
+from our users.
+
+
+807
+00:21:14,656 --> 00:21:16,206
+With that, I'm going to turn you
+
+
+808
+00:21:16,206 --> 00:21:18,346
+over to Jonathan Hogg, who's
+
+
+809
+00:21:18,346 --> 00:21:19,426
+going to tell you all about
+
+
+810
+00:21:19,586 --> 00:21:21,366
+really, really big matrices.
+
+
+811
+00:21:22,516 --> 00:21:26,946
+[ Applause ]
+
+
+812
+00:21:27,446 --> 00:21:29,846
+>> Hi. So you've heard from
+
+
+813
+00:21:29,846 --> 00:21:32,206
+Steve about simd, which is
+
+
+814
+00:21:32,206 --> 00:21:33,196
+really great for very, very
+
+
+815
+00:21:33,196 --> 00:21:34,146
+small matrices.
+
+
+816
+00:21:34,336 --> 00:21:35,896
+And I'm going to tell you in a
+
+
+817
+00:21:35,896 --> 00:21:37,386
+little while about very big
+
+
+818
+00:21:37,386 --> 00:21:38,226
+matrices.
+
+
+819
+00:21:38,516 --> 00:21:39,856
+But first I'm going to tell you
+
+
+820
+00:21:39,856 --> 00:21:40,886
+about BLAS and LAPACK.
+
+
+821
+00:21:41,396 --> 00:21:43,346
+These are libraries for handling
+
+
+822
+00:21:43,726 --> 00:21:44,406
+dense matrices.
+
+
+823
+00:21:44,406 --> 00:21:46,436
+So you can get up to 30,000 or
+
+
+824
+00:21:46,436 --> 00:21:48,766
+40,000 rows of columns here on a
+
+
+825
+00:21:48,766 --> 00:21:49,266
+MacBook.
+
+
+826
+00:21:50,846 --> 00:21:51,516
+What do we have?
+
+
+827
+00:21:52,816 --> 00:21:55,046
+So BLAS stands for Basic Linear
+
+
+828
+00:21:55,046 --> 00:21:56,886
+Algebra Subroutines, and these
+
+
+829
+00:21:56,886 --> 00:21:59,056
+do basic operations on matrices
+
+
+830
+00:21:59,056 --> 00:21:59,716
+and vectors.
+
+
+831
+00:22:00,646 --> 00:22:02,436
+We have BLAS 1, which does
+
+
+832
+00:22:02,556 --> 00:22:03,996
+vector vector operations.
+
+
+833
+00:22:04,176 --> 00:22:05,846
+And then we move through BLAS 2
+
+
+834
+00:22:05,846 --> 00:22:08,056
+for matrix vector, to BLAS 3 for
+
+
+835
+00:22:08,056 --> 00:22:09,356
+matrix matrix operations.
+
+
+836
+00:22:09,746 --> 00:22:10,546
+And you've already seen from
+
+
+837
+00:22:10,546 --> 00:22:13,046
+Eric that we can be 100 times
+
+
+838
+00:22:13,046 --> 00:22:14,546
+faster on the matrix matrix
+
+
+839
+00:22:14,546 --> 00:22:16,236
+multiply than your simple loop.
+
+
+840
+00:22:17,256 --> 00:22:18,236
+If you want to do things more
+
+
+841
+00:22:18,236 --> 00:22:20,036
+complicated than this, then we
+
+
+842
+00:22:20,036 --> 00:22:21,186
+have LAPACK.
+
+
+843
+00:22:21,906 --> 00:22:22,876
+These do your matrix
+
+
+844
+00:22:22,876 --> 00:22:24,386
+factorizations, your linear
+
+
+845
+00:22:24,386 --> 00:22:26,646
+solves, your find Eigenvalues,
+
+
+846
+00:22:26,736 --> 00:22:28,486
+Eigenvectors, SVD's -- pretty
+
+
+847
+00:22:28,946 --> 00:22:31,066
+much everything you want to do.
+
+
+848
+00:22:32,896 --> 00:22:33,866
+That's all I'm going to tell you
+
+
+849
+00:22:33,866 --> 00:22:35,646
+about dense matrices because we
+
+
+850
+00:22:35,646 --> 00:22:38,286
+want to actually talk about
+
+
+851
+00:22:38,956 --> 00:22:39,376
+sparse matrices.
+
+
+852
+00:22:39,376 --> 00:22:41,406
+What is a sparse matrix?
+
+
+853
+00:22:44,136 --> 00:22:46,516
+So James Wilkinson was one of
+
+
+854
+00:22:46,516 --> 00:22:47,606
+the founding fathers of
+
+
+855
+00:22:47,606 --> 00:22:48,996
+computational linear algebra.
+
+
+856
+00:22:49,226 --> 00:22:51,646
+This was his definition, "Sparse
+
+
+857
+00:22:51,646 --> 00:22:52,896
+matrix is any one where
+
+
+858
+00:22:52,896 --> 00:22:56,076
+exploiting zeros is useful to
+
+
+859
+00:22:57,196 --> 00:22:57,296
+us."
+
+
+860
+00:22:57,516 --> 00:22:59,046
+Let's see what sparse matrix
+
+
+861
+00:22:59,046 --> 00:23:00,446
+actually looks like.
+
+
+862
+00:23:01,416 --> 00:23:03,776
+So here are two sparse matrices.
+
+
+863
+00:23:03,876 --> 00:23:05,096
+One's actually the Cholesky
+
+
+864
+00:23:05,096 --> 00:23:06,786
+factorization of the other.
+
+
+865
+00:23:07,416 --> 00:23:09,266
+And each pixel here represents
+
+
+866
+00:23:09,266 --> 00:23:10,396
+multiple non-zeros.
+
+
+867
+00:23:11,366 --> 00:23:14,826
+Where they are white, all of the
+
+
+868
+00:23:14,826 --> 00:23:16,936
+entries behind that pixel are
+
+
+869
+00:23:16,936 --> 00:23:17,306
+zero.
+
+
+870
+00:23:17,836 --> 00:23:19,746
+Where there's blue, that means
+
+
+871
+00:23:19,746 --> 00:23:21,066
+at least one non-zero's present.
+
+
+872
+00:23:21,066 --> 00:23:22,756
+So you can see these matrices
+
+
+873
+00:23:23,026 --> 00:23:24,156
+are mostly empty.
+
+
+874
+00:23:25,246 --> 00:23:26,936
+In fact, if you were to store
+
+
+875
+00:23:26,936 --> 00:23:28,896
+this as a dense matrix, it's
+
+
+876
+00:23:28,896 --> 00:23:30,226
+about 30,000 by 30,000.
+
+
+877
+00:23:30,226 --> 00:23:32,696
+So it takes us 6.5 gigabytes.
+
+
+878
+00:23:33,396 --> 00:23:34,446
+If we store it as a sparse
+
+
+879
+00:23:34,446 --> 00:23:37,706
+matrix, we require 260 times
+
+
+880
+00:23:38,016 --> 00:23:40,366
+less storage -- only 26
+
+
+881
+00:23:40,366 --> 00:23:41,026
+megabytes.
+
+
+882
+00:23:41,386 --> 00:23:43,106
+If we wanted to multiply this
+
+
+883
+00:23:43,106 --> 00:23:46,246
+matrix by a vector, we'd require
+
+
+884
+00:23:46,436 --> 00:23:48,586
+almost 200 times fewer floating
+
+
+885
+00:23:48,586 --> 00:23:49,746
+point operations.
+
+
+886
+00:23:50,656 --> 00:23:51,716
+But if we want to do something
+
+
+887
+00:23:51,716 --> 00:23:53,906
+more complicated like factorize
+
+
+888
+00:23:53,906 --> 00:23:58,246
+this matrix, things get better,
+
+
+889
+00:23:58,776 --> 00:24:00,596
+at least in the floating point.
+
+
+890
+00:24:00,966 --> 00:24:03,616
+We require 2,000 times fewer
+
+
+891
+00:24:03,616 --> 00:24:05,026
+floating point operations to
+
+
+892
+00:24:05,246 --> 00:24:06,506
+factorize this matrix.
+
+
+893
+00:24:07,496 --> 00:24:09,086
+And the dense matrix is still
+
+
+894
+00:24:09,086 --> 00:24:10,466
+the same size, the factor's
+
+
+895
+00:24:10,466 --> 00:24:11,266
+filled in a bit.
+
+
+896
+00:24:11,806 --> 00:24:13,136
+It's slightly less sparse than
+
+
+897
+00:24:13,136 --> 00:24:15,516
+it was, so we're only 30 times
+
+
+898
+00:24:15,516 --> 00:24:16,596
+better on the storage.
+
+
+899
+00:24:17,446 --> 00:24:19,086
+Now, to drive that point home,
+
+
+900
+00:24:19,256 --> 00:24:20,666
+we've set up a little race.
+
+
+901
+00:24:21,196 --> 00:24:22,746
+We decided we'd run the sparse
+
+
+902
+00:24:22,746 --> 00:24:25,556
+solver on a Watch and we put it
+
+
+903
+00:24:25,686 --> 00:24:27,666
+up against our best dense matrix
+
+
+904
+00:24:27,666 --> 00:24:30,286
+solver from LAPACK on a Macbook
+
+
+905
+00:24:30,356 --> 00:24:30,686
+Air.
+
+
+906
+00:24:31,506 --> 00:24:32,806
+And this is what happened.
+
+
+907
+00:24:33,466 --> 00:24:36,896
+Now, this is running at five
+
+
+908
+00:24:36,896 --> 00:24:38,816
+times real time.
+
+
+909
+00:24:39,136 --> 00:24:40,656
+And you can see that the Watch
+
+
+910
+00:24:40,916 --> 00:24:43,756
+is finished in only 16 seconds.
+
+
+911
+00:24:43,756 --> 00:24:44,946
+You got to remember while
+
+
+912
+00:24:44,946 --> 00:24:46,966
+watching this that the floating
+
+
+913
+00:24:46,966 --> 00:24:48,176
+point throughput on the MacBook
+
+
+914
+00:24:48,176 --> 00:24:50,466
+Air is about 50 times that
+
+
+915
+00:24:50,466 --> 00:24:51,736
+available on the Watch.
+
+
+916
+00:24:52,516 --> 00:24:56,546
+[ Laughter ]
+
+
+917
+00:24:57,046 --> 00:24:59,076
+Now, there's actually two phases
+
+
+918
+00:24:59,076 --> 00:25:00,046
+to this factorization in the
+
+
+919
+00:25:00,046 --> 00:25:00,626
+sparse world.
+
+
+920
+00:25:00,986 --> 00:25:02,596
+First we find where the
+
+
+921
+00:25:02,596 --> 00:25:03,476
+positions of the non-zero
+
+
+922
+00:25:03,476 --> 00:25:05,036
+entry's going to be -- that's
+
+
+923
+00:25:05,036 --> 00:25:05,886
+the symbolic phase.
+
+
+924
+00:25:06,116 --> 00:25:07,966
+Then we have a numeric phase
+
+
+925
+00:25:08,166 --> 00:25:09,056
+which calculates the actual
+
+
+926
+00:25:09,056 --> 00:25:09,566
+values.
+
+
+927
+00:25:10,646 --> 00:25:11,846
+These times are just for the
+
+
+928
+00:25:11,846 --> 00:25:14,436
+numeric phase, but the symbolic
+
+
+929
+00:25:14,436 --> 00:25:15,816
+phase only takes about two
+
+
+930
+00:25:15,816 --> 00:25:16,926
+seconds on the Watch.
+
+
+931
+00:25:17,286 --> 00:25:19,266
+So rather than 16 seconds, you
+
+
+932
+00:25:19,266 --> 00:25:21,046
+could say it takes about 18
+
+
+933
+00:25:21,046 --> 00:25:21,526
+seconds.
+
+
+934
+00:25:21,526 --> 00:25:22,846
+But if you're doing more than
+
+
+935
+00:25:22,846 --> 00:25:25,596
+one factorization on the same
+
+
+936
+00:25:26,236 --> 00:25:27,676
+pattern, you can skip that
+
+
+937
+00:25:27,676 --> 00:25:29,636
+symbolic phase on the second and
+
+
+938
+00:25:29,636 --> 00:25:30,526
+third factorization.
+
+
+939
+00:25:31,336 --> 00:25:32,506
+Even if you include that, we're
+
+
+940
+00:25:32,506 --> 00:25:33,916
+still more than 10 times faster
+
+
+941
+00:25:33,916 --> 00:25:35,266
+than the Macbook due to dense
+
+
+942
+00:25:35,266 --> 00:25:36,006
+computation.
+
+
+943
+00:25:37,336 --> 00:25:39,316
+Hopefully I've now convinced you
+
+
+944
+00:25:39,586 --> 00:25:40,716
+that it's worth using sparse
+
+
+945
+00:25:40,716 --> 00:25:41,346
+matrices.
+
+
+946
+00:25:41,576 --> 00:25:43,296
+So let's tell you how to
+
+
+947
+00:25:43,296 --> 00:25:44,616
+actually define one.
+
+
+948
+00:25:45,436 --> 00:25:47,476
+So here is a very, very small
+
+
+949
+00:25:47,476 --> 00:25:48,426
+sparse matrix.
+
+
+950
+00:25:48,796 --> 00:25:49,596
+You'll notice it's missing
+
+
+951
+00:25:49,596 --> 00:25:51,886
+entries -- those are zero.
+
+
+952
+00:25:51,886 --> 00:25:54,896
+We are going to store this using
+
+
+953
+00:25:54,896 --> 00:25:55,936
+a standard format called
+
+
+954
+00:25:55,936 --> 00:25:57,496
+compressed sparse column, which
+
+
+955
+00:25:57,496 --> 00:25:59,806
+uses these three arrays.
+
+
+956
+00:26:01,146 --> 00:26:02,946
+And we'll start off with the
+
+
+957
+00:26:02,946 --> 00:26:03,926
+rowIndices rate.
+
+
+958
+00:26:04,186 --> 00:26:06,676
+So let's put the row numbers
+
+
+959
+00:26:06,996 --> 00:26:08,156
+onto our matrix.
+
+
+960
+00:26:09,166 --> 00:26:10,526
+And we'll just copy those up
+
+
+961
+00:26:10,656 --> 00:26:11,816
+into the rowIndices array.
+
+
+962
+00:26:12,226 --> 00:26:14,416
+And let's do something similar
+
+
+963
+00:26:14,416 --> 00:26:15,206
+for the values.
+
+
+964
+00:26:15,776 --> 00:26:17,846
+You can see we got a one-to-one
+
+
+965
+00:26:17,846 --> 00:26:18,736
+correspondence here.
+
+
+966
+00:26:19,316 --> 00:26:21,386
+That first entry is in row zero
+
+
+967
+00:26:21,386 --> 00:26:22,386
+and has value two.
+
+
+968
+00:26:23,796 --> 00:26:26,076
+So let's just put on the
+
+
+969
+00:26:26,076 --> 00:26:28,256
+positions of those entries in
+
+
+970
+00:26:28,256 --> 00:26:29,456
+that rowIndices and values
+
+
+971
+00:26:29,456 --> 00:26:29,756
+array.
+
+
+972
+00:26:30,656 --> 00:26:31,746
+And the trick to compressed
+
+
+973
+00:26:31,746 --> 00:26:34,046
+sparse column is that all these
+
+
+974
+00:26:34,046 --> 00:26:36,106
+values have to occur in order of
+
+
+975
+00:26:36,106 --> 00:26:37,106
+increasing column.
+
+
+976
+00:26:37,536 --> 00:26:38,966
+All entries in column zero
+
+
+977
+00:26:38,966 --> 00:26:40,666
+actually occur before those from
+
+
+978
+00:26:40,666 --> 00:26:41,686
+column one.
+
+
+979
+00:26:41,896 --> 00:26:44,116
+And then we get to the trick to
+
+
+980
+00:26:44,116 --> 00:26:45,556
+this format, which is we're only
+
+
+981
+00:26:45,556 --> 00:26:47,876
+going to store the position of
+
+
+982
+00:26:47,876 --> 00:26:50,846
+the first entry in each column
+
+
+983
+00:26:51,826 --> 00:26:52,906
+and one additional piece of
+
+
+984
+00:26:52,906 --> 00:26:55,346
+information, the total number of
+
+
+985
+00:26:55,346 --> 00:26:57,446
+entries in the matrix.
+
+
+986
+00:26:57,446 --> 00:26:58,886
+That means that we know how long
+
+
+987
+00:26:58,886 --> 00:27:00,026
+that last column is.
+
+
+988
+00:27:01,386 --> 00:27:02,986
+If you've already using a sparse
+
+
+989
+00:27:02,986 --> 00:27:04,986
+solver, you should probably have
+
+
+990
+00:27:04,986 --> 00:27:06,546
+your data in either this format
+
+
+991
+00:27:06,856 --> 00:27:08,606
+or a coordinate format and we
+
+
+992
+00:27:08,676 --> 00:27:11,076
+provide a converter.
+
+
+993
+00:27:11,176 --> 00:27:12,846
+To use it in Accelerate, we need
+
+
+994
+00:27:12,846 --> 00:27:14,556
+to wrap it in some metadata,
+
+
+995
+00:27:15,036 --> 00:27:16,526
+just telling it how many rows,
+
+
+996
+00:27:16,526 --> 00:27:17,396
+how many columns.
+
+
+997
+00:27:17,756 --> 00:27:19,326
+And we're going to say this one
+
+
+998
+00:27:19,326 --> 00:27:20,636
+is an ordinary sparse matrix.
+
+
+999
+00:27:20,636 --> 00:27:21,996
+I've got an example of an
+
+
+1000
+00:27:21,996 --> 00:27:24,426
+unordinary sparse matrix in a
+
+
+1001
+00:27:24,426 --> 00:27:25,386
+couple of slides.
+
+
+1002
+00:27:26,136 --> 00:27:27,736
+Now I've got my sparse matrix,
+
+
+1003
+00:27:27,866 --> 00:27:30,226
+what can I do with it?
+
+
+1004
+00:27:31,426 --> 00:27:33,386
+So you can do pretty much
+
+
+1005
+00:27:33,386 --> 00:27:34,296
+anything you'd expect.
+
+
+1006
+00:27:34,296 --> 00:27:36,356
+You can multiply a dense vector
+
+
+1007
+00:27:36,356 --> 00:27:38,416
+or a dense matrix by it; you can
+
+
+1008
+00:27:38,506 --> 00:27:39,886
+add two sparse matrices or
+
+
+1009
+00:27:39,886 --> 00:27:41,376
+sparse vectors together; you can
+
+
+1010
+00:27:41,376 --> 00:27:43,516
+permute the rows or columns; or
+
+
+1011
+00:27:43,516 --> 00:27:45,076
+you can find various useful
+
+
+1012
+00:27:45,076 --> 00:27:46,046
+matrix norms.
+
+
+1013
+00:27:46,766 --> 00:27:47,996
+All that functionality is
+
+
+1014
+00:27:47,996 --> 00:27:49,476
+provided by the Sparse BLAS,
+
+
+1015
+00:27:49,776 --> 00:27:51,516
+which we introduced a few years
+
+
+1016
+00:27:51,516 --> 00:27:51,616
+ago.
+
+
+1017
+00:27:52,476 --> 00:27:53,536
+So what's new this time?
+
+
+1018
+00:27:54,756 --> 00:27:56,636
+The ability to solve sparse
+
+
+1019
+00:27:56,636 --> 00:28:00,846
+systems, that is, given a matrix
+
+
+1020
+00:28:00,846 --> 00:28:03,596
+equation A times X equals B
+
+
+1021
+00:28:03,676 --> 00:28:04,866
+where we know the matrix A and
+
+
+1022
+00:28:04,866 --> 00:28:07,376
+to the right-hand side B, find
+
+
+1023
+00:28:07,526 --> 00:28:09,366
+that vector of unknowns X.
+
+
+1024
+00:28:10,666 --> 00:28:12,656
+So we got two approaches to this
+
+
+1025
+00:28:12,656 --> 00:28:12,976
+for you.
+
+
+1026
+00:28:13,586 --> 00:28:15,636
+The first is matrix
+
+
+1027
+00:28:15,636 --> 00:28:16,166
+factorization.
+
+
+1028
+00:28:16,246 --> 00:28:17,686
+This is exactly what happens in
+
+
+1029
+00:28:17,686 --> 00:28:18,226
+LAPACK.
+
+
+1030
+00:28:19,086 --> 00:28:20,396
+It's simple, it's accurate, it's
+
+
+1031
+00:28:20,536 --> 00:28:21,616
+easy to use.
+
+
+1032
+00:28:22,446 --> 00:28:23,916
+But mathematicians being
+
+
+1033
+00:28:23,916 --> 00:28:25,396
+mathematicians, they came up
+
+
+1034
+00:28:25,516 --> 00:28:26,646
+with a more complicated way of
+
+
+1035
+00:28:26,646 --> 00:28:27,376
+doing things.
+
+
+1036
+00:28:28,696 --> 00:28:29,946
+That's iterative methods.
+
+
+1037
+00:28:29,946 --> 00:28:30,746
+And I'll tell you a bit more
+
+
+1038
+00:28:30,746 --> 00:28:31,546
+about those later.
+
+
+1039
+00:28:32,106 --> 00:28:35,536
+So now a matrix factorization.
+
+
+1040
+00:28:35,686 --> 00:28:37,196
+For those of you who haven't
+
+
+1041
+00:28:37,196 --> 00:28:39,096
+come across this before, we want
+
+
+1042
+00:28:39,096 --> 00:28:41,256
+to take our green matrix on the
+
+
+1043
+00:28:41,256 --> 00:28:42,926
+left here and factorize it into
+
+
+1044
+00:28:42,926 --> 00:28:44,166
+the products of two triangular
+
+
+1045
+00:28:44,166 --> 00:28:45,116
+matrices on the right.
+
+
+1046
+00:28:46,176 --> 00:28:47,106
+That's because we know how to
+
+
+1047
+00:28:47,106 --> 00:28:48,226
+solve a system with a triangular
+
+
+1048
+00:28:48,226 --> 00:28:49,616
+matrix very well.
+
+
+1049
+00:28:50,626 --> 00:28:52,186
+If we're not square, we have to
+
+
+1050
+00:28:52,186 --> 00:28:53,376
+do things slightly differently;
+
+
+1051
+00:28:54,136 --> 00:28:55,586
+we have to pick a rectangular
+
+
+1052
+00:28:55,586 --> 00:28:57,656
+and orthogonal factor here.
+
+
+1053
+00:28:57,656 --> 00:28:59,136
+And this is your QR
+
+
+1054
+00:28:59,136 --> 00:29:00,746
+factorization if you've heard of
+
+
+1055
+00:29:00,746 --> 00:29:01,466
+that before.
+
+
+1056
+00:29:02,526 --> 00:29:05,276
+So let's see how to actually do
+
+
+1057
+00:29:05,976 --> 00:29:06,076
+this.
+
+
+1058
+00:29:06,256 --> 00:29:08,076
+Here is a sparse matrix
+
+
+1059
+00:29:08,206 --> 00:29:08,686
+equation.
+
+
+1060
+00:29:09,866 --> 00:29:11,346
+And let's define that matrix
+
+
+1061
+00:29:11,346 --> 00:29:11,896
+just to begin with.
+
+
+1062
+00:29:12,566 --> 00:29:14,586
+So this is going to be very
+
+
+1063
+00:29:14,586 --> 00:29:15,896
+similar to what I just showed
+
+
+1064
+00:29:15,896 --> 00:29:17,526
+you, except this matrix is
+
+
+1065
+00:29:17,526 --> 00:29:17,936
+special.
+
+
+1066
+00:29:18,626 --> 00:29:19,466
+It's symmetric.
+
+
+1067
+00:29:19,956 --> 00:29:21,316
+That means that the lower
+
+
+1068
+00:29:21,316 --> 00:29:23,426
+triangle is just the mirror
+
+
+1069
+00:29:23,426 --> 00:29:24,366
+reflection of the other
+
+
+1070
+00:29:24,366 --> 00:29:24,746
+triangle.
+
+
+1071
+00:29:24,796 --> 00:29:27,036
+So we can take advantage of that
+
+
+1072
+00:29:27,036 --> 00:29:28,376
+and let's only store those lower
+
+
+1073
+00:29:28,376 --> 00:29:29,366
+triangle entries.
+
+
+1074
+00:29:30,486 --> 00:29:31,966
+Wrap it in that metadata and
+
+
+1075
+00:29:31,966 --> 00:29:34,606
+this time we're going to specify
+
+
+1076
+00:29:34,606 --> 00:29:35,746
+that this is not ordinary, this
+
+
+1077
+00:29:35,746 --> 00:29:37,086
+is a symmetric matrix.
+
+
+1078
+00:29:37,476 --> 00:29:38,666
+And we're going to tell it that
+
+
+1079
+00:29:38,666 --> 00:29:40,076
+we're passing the lower
+
+
+1080
+00:29:40,076 --> 00:29:40,606
+triangle.
+
+
+1081
+00:29:40,946 --> 00:29:41,936
+We could pass the upper triangle
+
+
+1082
+00:29:41,936 --> 00:29:43,306
+if we wanted, we've chosen the
+
+
+1083
+00:29:43,306 --> 00:29:44,246
+lower triangle here.
+
+
+1084
+00:29:45,156 --> 00:29:46,806
+So we got our matrix.
+
+
+1085
+00:29:47,206 --> 00:29:48,616
+Next let's look at that
+
+
+1086
+00:29:48,616 --> 00:29:49,446
+right-hand side.
+
+
+1087
+00:29:50,036 --> 00:29:51,526
+So this is a dense vector.
+
+
+1088
+00:29:52,606 --> 00:29:54,456
+Let's just have a simple array.
+
+
+1089
+00:29:55,146 --> 00:29:56,136
+Wrap it in a little bit of
+
+
+1090
+00:29:56,136 --> 00:29:57,296
+metadata, telling us how long it
+
+
+1091
+00:29:57,296 --> 00:30:00,906
+is, and that's how easy this is.
+
+
+1092
+00:30:01,516 --> 00:30:03,196
+Which gets us to the interesting
+
+
+1093
+00:30:03,196 --> 00:30:04,936
+part, how do we actually find
+
+
+1094
+00:30:05,036 --> 00:30:08,836
+that vector X?
+
+
+1095
+00:30:09,056 --> 00:30:11,016
+So let's define some storage to
+
+
+1096
+00:30:11,126 --> 00:30:11,866
+put the answer in.
+
+
+1097
+00:30:11,866 --> 00:30:13,736
+This is exactly the same as flat
+
+
+1098
+00:30:13,736 --> 00:30:15,206
+dense vector B we just saw,
+
+
+1099
+00:30:15,436 --> 00:30:16,646
+except we don't have to supply
+
+
+1100
+00:30:16,646 --> 00:30:17,606
+any values.
+
+
+1101
+00:30:18,126 --> 00:30:20,476
+Then we're going to call
+
+
+1102
+00:30:20,476 --> 00:30:21,376
+SparseFactor.
+
+
+1103
+00:30:21,776 --> 00:30:23,136
+And I know this matrix is
+
+
+1104
+00:30:23,136 --> 00:30:24,876
+positive definite; therefore, I
+
+
+1105
+00:30:24,876 --> 00:30:25,876
+can tell it use a Cholesky
+
+
+1106
+00:30:25,876 --> 00:30:26,496
+factorization.
+
+
+1107
+00:30:26,646 --> 00:30:28,516
+I've got a flowchart for you in
+
+
+1108
+00:30:28,516 --> 00:30:29,606
+a couple of slides which tells
+
+
+1109
+00:30:29,606 --> 00:30:30,716
+you how to pick a factorization
+
+
+1110
+00:30:30,716 --> 00:30:33,046
+to use, but here we're using
+
+
+1111
+00:30:33,046 --> 00:30:33,476
+Cholesky.
+
+
+1112
+00:30:33,886 --> 00:30:35,646
+That gets us L times L transpose
+
+
+1113
+00:30:35,646 --> 00:30:37,346
+factorization, which we then
+
+
+1114
+00:30:37,346 --> 00:30:39,436
+feed into SparseSolve, pass that
+
+
+1115
+00:30:39,436 --> 00:30:40,766
+right-hand side and the storage
+
+
+1116
+00:30:40,766 --> 00:30:41,416
+we specify it.
+
+
+1117
+00:30:41,746 --> 00:30:42,876
+And we get our answer.
+
+
+1118
+00:30:43,576 --> 00:30:44,626
+We can put that back into the
+
+
+1119
+00:30:44,626 --> 00:30:45,226
+equation.
+
+
+1120
+00:30:45,466 --> 00:30:48,876
+And we can see this is correct.
+
+
+1121
+00:30:49,006 --> 00:30:51,226
+So what if A is not square?
+
+
+1122
+00:30:53,356 --> 00:30:55,136
+Well, this is where we have to
+
+
+1123
+00:30:55,136 --> 00:30:56,116
+use that QR factorization
+
+
+1124
+00:30:56,116 --> 00:30:57,026
+[inaudible] I mentioned before.
+
+
+1125
+00:30:57,026 --> 00:30:59,346
+But we got two different cases
+
+
+1126
+00:30:59,346 --> 00:30:59,546
+here.
+
+
+1127
+00:30:59,596 --> 00:31:00,906
+It's not entirely simple.
+
+
+1128
+00:31:01,266 --> 00:31:03,286
+We can be overdetermined since
+
+
+1129
+00:31:03,286 --> 00:31:05,676
+we have more rows than columns.
+
+
+1130
+00:31:06,676 --> 00:31:07,656
+Unless you've picked a very
+
+
+1131
+00:31:07,656 --> 00:31:08,626
+special system here, that
+
+
+1132
+00:31:08,626 --> 00:31:09,786
+probably means there's no
+
+
+1133
+00:31:09,786 --> 00:31:11,546
+exactly correct answer.
+
+
+1134
+00:31:12,106 --> 00:31:13,026
+In fact, you're in this sort of
+
+
+1135
+00:31:13,026 --> 00:31:13,676
+situation.
+
+
+1136
+00:31:14,976 --> 00:31:17,186
+Put a straight line through
+
+
+1137
+00:31:17,186 --> 00:31:18,206
+these four points.
+
+
+1138
+00:31:20,056 --> 00:31:22,246
+Clearly that's impossible, but
+
+
+1139
+00:31:22,246 --> 00:31:22,926
+if you remember back to your
+
+
+1140
+00:31:22,926 --> 00:31:24,586
+school days, you probably did
+
+
+1141
+00:31:24,886 --> 00:31:26,136
+some least squares fitting.
+
+
+1142
+00:31:27,396 --> 00:31:29,716
+We pick a line which minimizes
+
+
+1143
+00:31:29,866 --> 00:31:31,426
+sum of the square of the arrows.
+
+
+1144
+00:31:31,616 --> 00:31:32,746
+It's exactly what we do in this
+
+
+1145
+00:31:32,746 --> 00:31:33,266
+case.
+
+
+1146
+00:31:34,076 --> 00:31:35,296
+Remember we want to solve X
+
+
+1147
+00:31:35,296 --> 00:31:35,896
+equals B.
+
+
+1148
+00:31:35,996 --> 00:31:37,966
+So the arrow is X minus B.
+
+
+1149
+00:31:38,506 --> 00:31:39,686
+Let's take the two normals out,
+
+
+1150
+00:31:39,776 --> 00:31:41,046
+which is effectively the sum of
+
+
+1151
+00:31:41,046 --> 00:31:41,936
+the square of the arrows in this
+
+
+1152
+00:31:42,436 --> 00:31:45,126
+example, and minimize that.
+
+
+1153
+00:31:46,676 --> 00:31:48,336
+If we're underdetermined, that
+
+
+1154
+00:31:48,336 --> 00:31:49,876
+is, we have more columns than
+
+
+1155
+00:31:49,876 --> 00:31:51,486
+rows, we're in a slightly
+
+
+1156
+00:31:51,486 --> 00:31:52,456
+different situation.
+
+
+1157
+00:31:53,816 --> 00:31:55,836
+It's equivalent to saying put a
+
+
+1158
+00:31:55,836 --> 00:31:57,196
+line through this point.
+
+
+1159
+00:31:58,026 --> 00:32:00,086
+Obviously, there's an infinite
+
+
+1160
+00:32:00,086 --> 00:32:01,386
+family of lines which goes
+
+
+1161
+00:32:01,386 --> 00:32:02,036
+through that point.
+
+
+1162
+00:32:02,526 --> 00:32:04,906
+So how do we pick one to return
+
+
+1163
+00:32:04,906 --> 00:32:05,496
+to you?
+
+
+1164
+00:32:06,476 --> 00:32:08,536
+We give you the solution with
+
+
+1165
+00:32:08,536 --> 00:32:09,056
+minimum norm.
+
+
+1166
+00:32:09,056 --> 00:32:13,446
+Let's look at that on a code
+
+
+1167
+00:32:13,446 --> 00:32:13,856
+slide.
+
+
+1168
+00:32:15,276 --> 00:32:17,416
+Here it's very, very similar to
+
+
+1169
+00:32:17,416 --> 00:32:18,616
+that Cholesky factorization we
+
+
+1170
+00:32:18,616 --> 00:32:19,116
+saw before.
+
+
+1171
+00:32:19,656 --> 00:32:22,356
+In fact, the only difference is
+
+
+1172
+00:32:22,356 --> 00:32:23,426
+that we say to use a QR
+
+
+1173
+00:32:23,426 --> 00:32:25,136
+factorization rather than
+
+
+1174
+00:32:25,136 --> 00:32:25,656
+Cholesky.
+
+
+1175
+00:32:25,876 --> 00:32:27,756
+And this will automatically pick
+
+
+1176
+00:32:27,756 --> 00:32:28,836
+whether to do the least squares
+
+
+1177
+00:32:28,836 --> 00:32:30,336
+or the minimum norm depending on
+
+
+1178
+00:32:30,336 --> 00:32:32,336
+the dimensions of your matrix.
+
+
+1179
+00:32:32,816 --> 00:32:34,906
+And I told you that we had a
+
+
+1180
+00:32:34,906 --> 00:32:36,246
+flowchart for you on how to
+
+
+1181
+00:32:36,246 --> 00:32:37,636
+decide which factorization to
+
+
+1182
+00:32:37,636 --> 00:32:38,016
+use.
+
+
+1183
+00:32:38,596 --> 00:32:40,306
+So the first question you have
+
+
+1184
+00:32:41,046 --> 00:32:45,346
+to ask is: Is your matrix
+
+
+1185
+00:32:45,416 --> 00:32:46,006
+symmetric?
+
+
+1186
+00:32:47,536 --> 00:32:49,706
+If it isn't, you have to use the
+
+
+1187
+00:32:49,706 --> 00:32:50,956
+QR factorization.
+
+
+1188
+00:32:51,556 --> 00:32:53,076
+But if it is, we have another
+
+
+1189
+00:32:53,076 --> 00:32:55,496
+question for you: Is your matrix
+
+
+1190
+00:32:55,496 --> 00:32:56,266
+positive definite?
+
+
+1191
+00:32:56,706 --> 00:32:57,756
+Now, if you don't know the
+
+
+1192
+00:32:57,756 --> 00:33:00,416
+answer or if you're sure it
+
+
+1193
+00:33:00,416 --> 00:33:02,646
+isn't, you can do a symmetric
+
+
+1194
+00:33:02,646 --> 00:33:05,356
+indefinite factorization, LDL
+
+
+1195
+00:33:05,446 --> 00:33:06,626
+transpose.
+
+
+1196
+00:33:07,246 --> 00:33:08,636
+But if you know that extra bit
+
+
+1197
+00:33:08,636 --> 00:33:09,696
+of information that you've got
+
+
+1198
+00:33:09,696 --> 00:33:11,496
+positive definite matrix, you
+
+
+1199
+00:33:11,496 --> 00:33:12,286
+can use the Cholesky
+
+
+1200
+00:33:12,286 --> 00:33:14,206
+factorization L times L
+
+
+1201
+00:33:14,206 --> 00:33:15,076
+transposes.
+
+
+1202
+00:33:15,926 --> 00:33:17,406
+And that's all we have to tell
+
+
+1203
+00:33:17,406 --> 00:33:18,906
+you on matrix factorizations.
+
+
+1204
+00:33:18,906 --> 00:33:21,006
+Now, I said there was this other
+
+
+1205
+00:33:21,096 --> 00:33:22,936
+technique, iterative methods.
+
+
+1206
+00:33:22,936 --> 00:33:26,906
+So what is an iterative method?
+
+
+1207
+00:33:27,886 --> 00:33:29,806
+Well, we pick a starting point,
+
+
+1208
+00:33:29,806 --> 00:33:31,476
+our best guess at the solution
+
+
+1209
+00:33:31,476 --> 00:33:32,566
+before we start.
+
+
+1210
+00:33:32,616 --> 00:33:34,326
+And this can be zero if you
+
+
+1211
+00:33:34,326 --> 00:33:35,676
+don't have any idea what the
+
+
+1212
+00:33:35,676 --> 00:33:37,276
+actual answer is going to look
+
+
+1213
+00:33:37,276 --> 00:33:37,536
+like.
+
+
+1214
+00:33:38,136 --> 00:33:40,346
+And we want to get within some
+
+
+1215
+00:33:40,346 --> 00:33:42,336
+small radius of our actual
+
+
+1216
+00:33:42,336 --> 00:33:42,936
+solution.
+
+
+1217
+00:33:42,936 --> 00:33:45,286
+And the way we do that is we
+
+
+1218
+00:33:45,286 --> 00:33:46,646
+iterate through a series of
+
+
+1219
+00:33:46,646 --> 00:33:48,676
+points which converge to that
+
+
+1220
+00:33:48,676 --> 00:33:49,186
+solution.
+
+
+1221
+00:33:50,156 --> 00:33:51,616
+Now, there's a couple of caveats
+
+
+1222
+00:33:51,616 --> 00:33:52,376
+with using these.
+
+
+1223
+00:33:53,816 --> 00:33:55,156
+Typically they're only going to
+
+
+1224
+00:33:55,156 --> 00:33:56,906
+be faster than that matrix
+
+
+1225
+00:33:56,906 --> 00:33:59,176
+factorization approach if you've
+
+
+1226
+00:33:59,176 --> 00:34:01,286
+got a really, really, really big
+
+
+1227
+00:34:01,286 --> 00:34:02,316
+sparse matrix.
+
+
+1228
+00:34:03,026 --> 00:34:04,616
+And further, to actually get to
+
+
+1229
+00:34:04,616 --> 00:34:06,256
+that performance, you need to
+
+
+1230
+00:34:06,256 --> 00:34:07,576
+know a bit mathematically about
+
+
+1231
+00:34:07,576 --> 00:34:08,146
+your problem.
+
+
+1232
+00:34:08,306 --> 00:34:09,146
+You need something called a
+
+
+1233
+00:34:09,146 --> 00:34:11,126
+preconditioner, which is a very
+
+
+1234
+00:34:11,126 --> 00:34:12,126
+approximate solution.
+
+
+1235
+00:34:13,246 --> 00:34:14,846
+And if you check the literature
+
+
+1236
+00:34:14,846 --> 00:34:16,176
+for your field, you'll probably
+
+
+1237
+00:34:16,176 --> 00:34:17,775
+find quite a number have been
+
+
+1238
+00:34:18,126 --> 00:34:20,036
+derived by mathematicians.
+
+
+1239
+00:34:21,206 --> 00:34:22,266
+What does this actually look
+
+
+1240
+00:34:22,266 --> 00:34:23,045
+like to use?
+
+
+1241
+00:34:23,676 --> 00:34:25,516
+So here's that matrix equation
+
+
+1242
+00:34:25,516 --> 00:34:26,065
+we had earlier.
+
+
+1243
+00:34:26,456 --> 00:34:27,456
+This time I'm going to use
+
+
+1244
+00:34:27,456 --> 00:34:28,686
+iterative method to solve it.
+
+
+1245
+00:34:29,545 --> 00:34:30,946
+In fact, I'm going to use
+
+
+1246
+00:34:30,946 --> 00:34:32,106
+conjugate gradients.
+
+
+1247
+00:34:32,846 --> 00:34:34,416
+So this is positive definite.
+
+
+1248
+00:34:35,315 --> 00:34:38,676
+So we just specify to use the
+
+
+1249
+00:34:38,676 --> 00:34:39,656
+conjugate gradient methods.
+
+
+1250
+00:34:39,656 --> 00:34:40,525
+And you'll notice there's some
+
+
+1251
+00:34:40,525 --> 00:34:41,646
+brackets ever this.
+
+
+1252
+00:34:42,735 --> 00:34:43,666
+That's actually because this is
+
+
+1253
+00:34:43,666 --> 00:34:45,126
+a factory function which
+
+
+1254
+00:34:45,126 --> 00:34:46,846
+produces the methods and you can
+
+
+1255
+00:34:46,846 --> 00:34:48,956
+specify method-specific
+
+
+1256
+00:34:48,956 --> 00:34:50,485
+parameters in those brackets.
+
+
+1257
+00:34:51,216 --> 00:34:52,146
+The other thing I'm going to do
+
+
+1258
+00:34:52,146 --> 00:34:53,505
+is I'm going to use a diagonal
+
+
+1259
+00:34:53,505 --> 00:34:54,065
+precondition.
+
+
+1260
+00:34:54,556 --> 00:34:55,795
+This matrix is diagonally
+
+
+1261
+00:34:55,795 --> 00:34:56,166
+dominant.
+
+
+1262
+00:34:56,166 --> 00:34:57,486
+That means that the entries down
+
+
+1263
+00:34:57,486 --> 00:34:58,716
+the diagonal are very large
+
+
+1264
+00:34:58,716 --> 00:34:59,646
+compared to those off the
+
+
+1265
+00:34:59,646 --> 00:35:02,006
+diagonal; therefore, I know this
+
+
+1266
+00:35:02,006 --> 00:35:03,206
+diagonal preconditioner will
+
+
+1267
+00:35:03,206 --> 00:35:04,146
+work very well.
+
+
+1268
+00:35:04,736 --> 00:35:06,886
+And indeed, if we look at the
+
+
+1269
+00:35:06,886 --> 00:35:08,536
+output of the algorithm, you can
+
+
+1270
+00:35:08,536 --> 00:35:10,316
+see that this arrow AX minus B
+
+
+1271
+00:35:10,316 --> 00:35:12,556
+is decreasing its iteration and
+
+
+1272
+00:35:12,556 --> 00:35:13,696
+we get to machine precision in
+
+
+1273
+00:35:13,696 --> 00:35:14,766
+four iterations.
+
+
+1274
+00:35:14,876 --> 00:35:16,316
+That's because it's 4 by 4
+
+
+1275
+00:35:16,316 --> 00:35:16,906
+matrix.
+
+
+1276
+00:35:17,176 --> 00:35:18,046
+Mathematically, we should
+
+
+1277
+00:35:18,046 --> 00:35:21,006
+converge in at most N iterations
+
+
+1278
+00:35:21,216 --> 00:35:22,646
+where N is the size of matrix.
+
+
+1279
+00:35:23,526 --> 00:35:24,826
+So this is behaving as expected.
+
+
+1280
+00:35:24,856 --> 00:35:25,916
+But if you've got a much larger
+
+
+1281
+00:35:25,916 --> 00:35:27,126
+matrix, you probably don't want
+
+
+1282
+00:35:27,126 --> 00:35:28,676
+to go that many iterations,
+
+
+1283
+00:35:29,266 --> 00:35:30,196
+which is why you get an
+
+
+1284
+00:35:30,196 --> 00:35:31,186
+approximate solution.
+
+
+1285
+00:35:32,366 --> 00:35:33,556
+And you can see you the get same
+
+
+1286
+00:35:33,556 --> 00:35:34,286
+answer as before.
+
+
+1287
+00:35:35,096 --> 00:35:37,196
+Now, let's say we want to solve
+
+
+1288
+00:35:37,196 --> 00:35:38,026
+the least squares problem
+
+
+1289
+00:35:38,026 --> 00:35:38,516
+instead.
+
+
+1290
+00:35:39,466 --> 00:35:41,426
+We offer a least square solver,
+
+
+1291
+00:35:41,506 --> 00:35:42,196
+which is iterative.
+
+
+1292
+00:35:42,496 --> 00:35:43,126
+We don't offer an
+
+
+1293
+00:35:43,126 --> 00:35:45,606
+underdetermined system solver,
+
+
+1294
+00:35:45,606 --> 00:35:45,946
+however.
+
+
+1295
+00:35:46,196 --> 00:35:47,986
+In that case you can just pick a
+
+
+1296
+00:35:47,986 --> 00:35:48,956
+[inaudible] of zeros and call
+
+
+1297
+00:35:48,956 --> 00:35:50,086
+them in solver square system
+
+
+1298
+00:35:50,086 --> 00:35:50,556
+instead.
+
+
+1299
+00:35:51,476 --> 00:35:53,916
+And to use this, we use the
+
+
+1300
+00:35:53,956 --> 00:35:56,176
+method LSMR and a slightly
+
+
+1301
+00:35:56,176 --> 00:35:57,806
+different preconditioner which
+
+
+1302
+00:35:57,806 --> 00:35:59,486
+is, again, problem-specific.
+
+
+1303
+00:35:59,996 --> 00:36:01,946
+And you can see that we get
+
+
+1304
+00:36:01,946 --> 00:36:03,326
+there three iterations this time
+
+
+1305
+00:36:03,326 --> 00:36:05,176
+because this is a 4 by 3 matrix.
+
+
+1306
+00:36:05,796 --> 00:36:07,696
+But there are some very cool
+
+
+1307
+00:36:07,696 --> 00:36:11,226
+things about this particular way
+
+
+1308
+00:36:11,226 --> 00:36:11,976
+of doing things.
+
+
+1309
+00:36:13,446 --> 00:36:15,646
+The first is that I don't
+
+
+1310
+00:36:15,646 --> 00:36:16,996
+actually need my matrix
+
+
+1311
+00:36:16,996 --> 00:36:17,606
+explicitly.
+
+
+1312
+00:36:18,946 --> 00:36:20,856
+As long as I have a function
+
+
+1313
+00:36:21,306 --> 00:36:22,866
+which performs the mathematical
+
+
+1314
+00:36:22,866 --> 00:36:25,006
+operation A times X or A
+
+
+1315
+00:36:25,006 --> 00:36:26,606
+transpose times X, that is, you
+
+
+1316
+00:36:26,606 --> 00:36:28,886
+have an operator, I can
+
+
+1317
+00:36:28,886 --> 00:36:30,676
+substitute a block of code in
+
+
+1318
+00:36:30,676 --> 00:36:31,896
+place of this actual matrix
+
+
+1319
+00:36:31,896 --> 00:36:32,376
+argument.
+
+
+1320
+00:36:33,476 --> 00:36:35,496
+The second is you're not
+
+
+1321
+00:36:35,496 --> 00:36:36,996
+restricted to using our
+
+
+1322
+00:36:36,996 --> 00:36:37,956
+preconditioners.
+
+
+1323
+00:36:38,786 --> 00:36:40,206
+You can write your own and just
+
+
+1324
+00:36:40,206 --> 00:36:41,376
+provide a function pointer in
+
+
+1325
+00:36:41,376 --> 00:36:41,966
+this argument.
+
+
+1326
+00:36:44,646 --> 00:36:46,276
+Now, you're probably saying,
+
+
+1327
+00:36:46,366 --> 00:36:47,776
+"How do I know which iterative
+
+
+1328
+00:36:47,776 --> 00:36:48,366
+method to use?"
+
+
+1329
+00:36:48,446 --> 00:36:49,156
+I've got another one of those
+
+
+1330
+00:36:49,156 --> 00:36:49,896
+flowcharts for you.
+
+
+1331
+00:36:50,996 --> 00:36:52,386
+This time our first question is
+
+
+1332
+00:36:52,386 --> 00:36:54,046
+not whether you are symmetric
+
+
+1333
+00:36:54,046 --> 00:36:55,366
+but whether you are square.
+
+
+1334
+00:36:55,846 --> 00:36:57,216
+If you're not square, you're
+
+
+1335
+00:36:57,216 --> 00:36:58,126
+going to have to do a least
+
+
+1336
+00:36:58,126 --> 00:36:58,706
+square solve.
+
+
+1337
+00:36:59,926 --> 00:37:01,666
+However, if you are, we go
+
+
+1338
+00:37:01,666 --> 00:37:03,066
+straight to that question are
+
+
+1339
+00:37:03,066 --> 00:37:04,056
+you positive definite?
+
+
+1340
+00:37:05,286 --> 00:37:07,406
+If you're not, we have GMRES --
+
+
+1341
+00:37:07,406 --> 00:37:08,926
+that will handle pretty much any
+
+
+1342
+00:37:08,926 --> 00:37:09,866
+square matrix.
+
+
+1343
+00:37:10,916 --> 00:37:12,516
+But if you know that extra bit
+
+
+1344
+00:37:12,516 --> 00:37:13,856
+of information, you can, of
+
+
+1345
+00:37:13,856 --> 00:37:15,316
+course, use the famous conjugate
+
+
+1346
+00:37:15,316 --> 00:37:15,996
+gradient method.
+
+
+1347
+00:37:16,526 --> 00:37:18,946
+Now, that's everything I have to
+
+
+1348
+00:37:18,946 --> 00:37:20,476
+tell you today about sparse
+
+
+1349
+00:37:20,476 --> 00:37:21,106
+matrices.
+
+
+1350
+00:37:22,056 --> 00:37:23,956
+So we've got one thing we want
+
+
+1351
+00:37:23,956 --> 00:37:27,396
+to point out, and that is that
+
+
+1352
+00:37:27,776 --> 00:37:29,706
+you can now use Accelerate on
+
+
+1353
+00:37:29,966 --> 00:37:30,426
+the Watch.
+
+
+1354
+00:37:30,426 --> 00:37:31,956
+We have provided you that SDK.
+
+
+1355
+00:37:31,956 --> 00:37:34,996
+Now, the framework has always
+
+
+1356
+00:37:34,996 --> 00:37:35,626
+been there.
+
+
+1357
+00:37:35,866 --> 00:37:36,906
+So it's even better.
+
+
+1358
+00:37:36,976 --> 00:37:39,576
+Using today's SDK you can back
+
+
+1359
+00:37:39,686 --> 00:37:42,166
+deploy to previous Watch OS's.
+
+
+1360
+00:37:42,536 --> 00:37:44,256
+So that means that you get
+
+
+1361
+00:37:44,856 --> 00:37:46,316
+everything that we've told you
+
+
+1362
+00:37:46,316 --> 00:37:47,986
+about today on the Watch.
+
+
+1363
+00:37:48,796 --> 00:37:51,056
+So let's just summarize what
+
+
+1364
+00:37:51,056 --> 00:37:51,496
+that is.
+
+
+1365
+00:37:51,916 --> 00:37:53,966
+By using Accelerate your code
+
+
+1366
+00:37:53,966 --> 00:37:54,936
+will run faster.
+
+
+1367
+00:37:55,306 --> 00:37:56,616
+It will be more energy
+
+
+1368
+00:37:56,616 --> 00:37:57,076
+efficient.
+
+
+1369
+00:37:57,396 --> 00:37:58,596
+It will run across all our
+
+
+1370
+00:37:58,596 --> 00:37:59,296
+devices.
+
+
+1371
+00:37:59,356 --> 00:38:00,746
+And at the end of the day you
+
+
+1372
+00:38:00,746 --> 00:38:02,026
+have less code to maintain.
+
+
+1373
+00:38:02,486 --> 00:38:03,676
+You get everything here we've
+
+
+1374
+00:38:03,676 --> 00:38:04,626
+told you about today -- that
+
+
+1375
+00:38:04,626 --> 00:38:06,246
+sparse solver library, the new
+
+
+1376
+00:38:06,246 --> 00:38:08,996
+compression tool, changes to the
+
+
+1377
+00:38:09,656 --> 00:38:11,356
+BNNS, improvements to simd, and
+
+
+1378
+00:38:11,356 --> 00:38:12,756
+many more, and increased
+
+
+1379
+00:38:12,756 --> 00:38:13,926
+performance across the
+
+
+1380
+00:38:13,926 --> 00:38:14,386
+framework.
+
+
+1381
+00:38:16,166 --> 00:38:17,446
+So if you want some more
+
+
+1382
+00:38:17,446 --> 00:38:19,206
+information, including some
+
+
+1383
+00:38:19,206 --> 00:38:20,306
+extensive sample code we've
+
+
+1384
+00:38:20,306 --> 00:38:21,666
+developed for the sparse solver,
+
+
+1385
+00:38:21,986 --> 00:38:22,896
+it's all available here.
+
+
+1386
+00:38:23,756 --> 00:38:27,336
+And you may be interested in
+
+
+1387
+00:38:27,336 --> 00:38:28,026
+reviewing some of these
+
+
+1388
+00:38:28,026 --> 00:38:29,186
+sessions, which have already
+
+
+1389
+00:38:29,186 --> 00:38:30,656
+been or going to the Metal
+
+
+1390
+00:38:30,656 --> 00:38:32,096
+session this afternoon.
+
+
+1391
+00:38:33,416 --> 00:38:34,786
+Thank you for your time.
+
+
+1392
+00:38:35,016 --> 00:38:37,000
+[ Applause ]
+

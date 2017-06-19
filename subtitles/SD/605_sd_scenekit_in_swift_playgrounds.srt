@@ -1,0 +1,6669 @@
+1
+00:00:19,516 --> 00:00:22,736
+[ Applause ]
+
+
+2
+00:00:23,236 --> 00:00:25,986
+>> Thank you.
+
+
+3
+00:00:26,176 --> 00:00:27,606
+Good morning everybody, and
+
+
+4
+00:00:27,606 --> 00:00:29,186
+welcome to SceneKit in Swift
+
+
+5
+00:00:29,186 --> 00:00:29,796
+Playgrounds.
+
+
+6
+00:00:30,496 --> 00:00:31,926
+My name's Michael DeWitt and I'm
+
+
+7
+00:00:31,926 --> 00:00:33,536
+really excited today to give you
+
+
+8
+00:00:33,536 --> 00:00:35,396
+an inside look into how we use
+
+
+9
+00:00:35,396 --> 00:00:36,866
+SceneKit to make the Learn to
+
+
+10
+00:00:36,866 --> 00:00:37,616
+Code content.
+
+
+11
+00:00:38,026 --> 00:00:39,366
+So hopefully many of you are
+
+
+12
+00:00:39,366 --> 00:00:40,416
+already familiar with Swift
+
+
+13
+00:00:40,416 --> 00:00:42,036
+Playgrounds, but let me show you
+
+
+14
+00:00:42,036 --> 00:00:43,286
+Learn to Code.
+
+
+15
+00:00:44,576 --> 00:00:46,296
+So this is an example lesson
+
+
+16
+00:00:46,296 --> 00:00:47,826
+from the Learn to Code content
+
+
+17
+00:00:47,856 --> 00:00:48,916
+that lives inside Swift
+
+
+18
+00:00:48,916 --> 00:00:49,426
+Playgrounds.
+
+
+19
+00:00:49,556 --> 00:00:51,716
+On the left-hand side we have
+
+
+20
+00:00:51,716 --> 00:00:53,246
+the lesson and the user's code.
+
+
+21
+00:00:53,246 --> 00:00:55,326
+But for this talk we're really
+
+
+22
+00:00:55,326 --> 00:00:56,636
+going to focus on the right-hand
+
+
+23
+00:00:56,636 --> 00:00:56,996
+side.
+
+
+24
+00:00:57,096 --> 00:00:58,076
+Notice the live view.
+
+
+25
+00:00:58,366 --> 00:00:59,816
+If we could actually take that
+
+
+26
+00:00:59,816 --> 00:01:01,256
+full screen to get a little
+
+
+27
+00:01:01,256 --> 00:01:02,246
+better view of it.
+
+
+28
+00:01:03,056 --> 00:01:05,126
+This character, Byte, that is
+
+
+29
+00:01:05,126 --> 00:01:06,676
+now literally sprinting around
+
+
+30
+00:01:06,676 --> 00:01:09,076
+this map to collect the gems, is
+
+
+31
+00:01:09,076 --> 00:01:11,666
+moving up and down stairs and
+
+
+32
+00:01:11,666 --> 00:01:13,446
+after Byte has collected all the
+
+
+33
+00:01:13,446 --> 00:01:16,136
+gems, we get a congratulations
+
+
+34
+00:01:16,136 --> 00:01:17,796
+sequence that lets the learner
+
+
+35
+00:01:17,796 --> 00:01:18,726
+know they've done something
+
+
+36
+00:01:18,726 --> 00:01:20,676
+great, and Byte even has a few
+
+
+37
+00:01:20,676 --> 00:01:22,756
+dance moves to let people know
+
+
+38
+00:01:22,756 --> 00:01:23,316
+it's really good.
+
+
+39
+00:01:24,106 --> 00:01:25,856
+So this is our case study today.
+
+
+40
+00:01:26,506 --> 00:01:28,186
+We're going to work through this
+
+
+41
+00:01:28,186 --> 00:01:30,656
+scene on how to use SceneKit
+
+
+42
+00:01:30,656 --> 00:01:32,606
+effectively and really bring the
+
+
+43
+00:01:32,606 --> 00:01:34,016
+richness of 3D to your
+
+
+44
+00:01:34,016 --> 00:01:34,906
+applications.
+
+
+45
+00:01:36,096 --> 00:01:39,476
+So if you're interested in 3D
+
+
+46
+00:01:39,676 --> 00:01:41,246
+but are maybe pretty new to it,
+
+
+47
+00:01:41,776 --> 00:01:42,766
+you've come to the right place
+
+
+48
+00:01:42,766 --> 00:01:44,436
+because we actually started with
+
+
+49
+00:01:44,436 --> 00:01:46,656
+something very different than
+
+
+50
+00:01:47,476 --> 00:01:47,576
+this.
+
+
+51
+00:01:47,796 --> 00:01:49,646
+We started with a simple 2D
+
+
+52
+00:01:49,736 --> 00:01:50,096
+scene.
+
+
+53
+00:01:50,666 --> 00:01:52,206
+And one of the best parts about
+
+
+54
+00:01:52,206 --> 00:01:54,206
+SceneKit is it allowed a couple
+
+
+55
+00:01:54,206 --> 00:01:56,546
+of 2D programmers to take this
+
+
+56
+00:01:56,546 --> 00:01:59,096
+scene on an existing timeline
+
+
+57
+00:01:59,456 --> 00:02:01,776
+and make the rich 3D content
+
+
+58
+00:02:01,776 --> 00:02:02,976
+that we shift in Learn to Code.
+
+
+59
+00:02:04,326 --> 00:02:05,196
+So that's what we're going to
+
+
+60
+00:02:05,196 --> 00:02:05,906
+talk about today.
+
+
+61
+00:02:06,426 --> 00:02:07,956
+We've got 40 minutes and we've
+
+
+62
+00:02:07,956 --> 00:02:09,036
+broken it down into three
+
+
+63
+00:02:09,036 --> 00:02:09,626
+sections.
+
+
+64
+00:02:10,716 --> 00:02:12,146
+First, I'll talk about
+
+
+65
+00:02:12,146 --> 00:02:14,226
+prototyping and how we refined
+
+
+66
+00:02:14,226 --> 00:02:15,626
+the idea to make sure it was
+
+
+67
+00:02:15,626 --> 00:02:16,806
+really good.
+
+
+68
+00:02:17,296 --> 00:02:19,356
+In iterating I want to go over
+
+
+69
+00:02:19,356 --> 00:02:20,086
+when you're actually getting
+
+
+70
+00:02:20,086 --> 00:02:21,156
+some real assets from your
+
+
+71
+00:02:21,156 --> 00:02:22,836
+vendor, how you can establish an
+
+
+72
+00:02:22,836 --> 00:02:23,806
+effective pipeline.
+
+
+73
+00:02:23,806 --> 00:02:25,776
+And then Lamont will come on
+
+
+74
+00:02:25,776 --> 00:02:27,386
+stage to talk about tuning and
+
+
+75
+00:02:27,386 --> 00:02:28,856
+getting your scene ready to
+
+
+76
+00:02:29,376 --> 00:02:29,486
+ship.
+
+
+77
+00:02:30,276 --> 00:02:32,646
+First up is prototyping.
+
+
+78
+00:02:33,466 --> 00:02:36,706
+This is coming at a phase right
+
+
+79
+00:02:36,706 --> 00:02:38,876
+after we decided on the idea for
+
+
+80
+00:02:38,876 --> 00:02:40,066
+Learn to Code and we're really
+
+
+81
+00:02:40,066 --> 00:02:41,026
+ready to start building
+
+
+82
+00:02:41,026 --> 00:02:41,426
+something.
+
+
+83
+00:02:41,936 --> 00:02:43,616
+So you saw this graphic before,
+
+
+84
+00:02:43,616 --> 00:02:44,826
+but here it is in context.
+
+
+85
+00:02:45,896 --> 00:02:48,796
+We started off with gems that
+
+
+86
+00:02:48,796 --> 00:02:50,236
+came from the emoji tray and
+
+
+87
+00:02:50,366 --> 00:02:51,586
+assets we had lying around
+
+
+88
+00:02:51,766 --> 00:02:52,806
+because we just needed to get
+
+
+89
+00:02:52,806 --> 00:02:53,946
+something up and running as
+
+
+90
+00:02:53,946 --> 00:02:55,956
+quickly as possible to test the
+
+
+91
+00:02:55,956 --> 00:02:57,336
+interaction model in this new
+
+
+92
+00:02:58,236 --> 00:02:58,346
+app.
+
+
+93
+00:02:58,346 --> 00:02:59,476
+So we learned a lot from this.
+
+
+94
+00:02:59,476 --> 00:03:00,566
+It didn't matter what the assets
+
+
+95
+00:03:00,566 --> 00:03:03,166
+looked like, but through this
+
+
+96
+00:03:03,166 --> 00:03:04,496
+prototyping process we started
+
+
+97
+00:03:04,496 --> 00:03:05,426
+to get some early feedback.
+
+
+98
+00:03:06,456 --> 00:03:08,116
+Some of those comments were
+
+
+99
+00:03:08,116 --> 00:03:09,016
+about the graphics.
+
+
+100
+00:03:09,496 --> 00:03:11,126
+It was requests like could we
+
+
+101
+00:03:11,126 --> 00:03:12,886
+change the gem color, could we
+
+
+102
+00:03:12,886 --> 00:03:14,606
+add a border around the scene,
+
+
+103
+00:03:14,726 --> 00:03:16,046
+or could we pivot the camera at
+
+
+104
+00:03:16,146 --> 00:03:16,996
+the end to give a little bit of
+
+
+105
+00:03:16,996 --> 00:03:17,826
+visual interest.
+
+
+106
+00:03:18,946 --> 00:03:21,636
+While this is good feedback, it
+
+
+107
+00:03:21,636 --> 00:03:23,936
+really is very iterative, and
+
+
+108
+00:03:23,936 --> 00:03:25,046
+when you're prototyping, you
+
+
+109
+00:03:25,046 --> 00:03:26,166
+shouldn't be afraid to throw the
+
+
+110
+00:03:26,166 --> 00:03:26,876
+whole thing away.
+
+
+111
+00:03:27,376 --> 00:03:28,956
+And so if we go back and look at
+
+
+112
+00:03:28,956 --> 00:03:30,856
+the scene in context, you can
+
+
+113
+00:03:30,856 --> 00:03:32,496
+see it just is very flat on this
+
+
+114
+00:03:32,496 --> 00:03:33,036
+page.
+
+
+115
+00:03:33,396 --> 00:03:34,636
+So all of the feedback we're
+
+
+116
+00:03:34,636 --> 00:03:35,926
+getting is about the visual
+
+
+117
+00:03:35,926 --> 00:03:36,116
+look.
+
+
+118
+00:03:36,436 --> 00:03:38,126
+We need to just re-evaluate our
+
+
+119
+00:03:38,126 --> 00:03:38,606
+strategy.
+
+
+120
+00:03:40,396 --> 00:03:41,796
+So we had been working the
+
+
+121
+00:03:41,796 --> 00:03:43,786
+SpriteKit and now we started
+
+
+122
+00:03:43,786 --> 00:03:44,656
+exploring SceneKit.
+
+
+123
+00:03:45,316 --> 00:03:46,376
+And for many of you who are
+
+
+124
+00:03:46,376 --> 00:03:48,336
+familiar with SpriteKit, you'll
+
+
+125
+00:03:48,336 --> 00:03:49,916
+know that it has these concepts;
+
+
+126
+00:03:50,606 --> 00:03:52,206
+basically a scene to do your
+
+
+127
+00:03:52,206 --> 00:03:54,356
+update logic, a node to place
+
+
+128
+00:03:54,356 --> 00:03:56,546
+things in view, and actions to
+
+
+129
+00:03:56,546 --> 00:03:57,676
+move those objects around.
+
+
+130
+00:03:58,686 --> 00:04:00,166
+Now, the benefit of having
+
+
+131
+00:04:00,166 --> 00:04:01,676
+SceneKit also developed at Apple
+
+
+132
+00:04:02,096 --> 00:04:03,386
+is that it has a lot of those
+
+
+133
+00:04:03,386 --> 00:04:04,226
+same concepts.
+
+
+134
+00:04:05,396 --> 00:04:07,286
+So this gave us enough
+
+
+135
+00:04:07,286 --> 00:04:08,976
+confidence, a simple prefix
+
+
+136
+00:04:08,976 --> 00:04:10,366
+switch, to get started with
+
+
+137
+00:04:10,366 --> 00:04:11,766
+SceneKit and start diving in.
+
+
+138
+00:04:12,396 --> 00:04:13,796
+So like many of you out there,
+
+
+139
+00:04:14,106 --> 00:04:16,076
+we watched a WWDC presentation
+
+
+140
+00:04:16,486 --> 00:04:17,866
+from 2015.
+
+
+141
+00:04:17,866 --> 00:04:19,125
+It's a great talk given by the
+
+
+142
+00:04:19,125 --> 00:04:21,046
+SceneKit Team on how to build a
+
+
+143
+00:04:21,046 --> 00:04:23,186
+simple scene like the one you
+
+
+144
+00:04:23,436 --> 00:04:26,486
+see here, and not only that, but
+
+
+145
+00:04:26,486 --> 00:04:27,876
+we got to use some of the assets
+
+
+146
+00:04:27,876 --> 00:04:30,276
+from the sample and recreate our
+
+
+147
+00:04:30,276 --> 00:04:30,706
+scene.
+
+
+148
+00:04:32,066 --> 00:04:33,626
+So now we got to this stage and
+
+
+149
+00:04:33,626 --> 00:04:35,196
+immediately we could tell this
+
+
+150
+00:04:35,196 --> 00:04:36,226
+is just way better.
+
+
+151
+00:04:36,306 --> 00:04:37,986
+I mean, it's far more immersive,
+
+
+152
+00:04:38,176 --> 00:04:39,736
+you can freely pan the camera
+
+
+153
+00:04:39,736 --> 00:04:41,326
+and it actually helps you solve
+
+
+154
+00:04:41,326 --> 00:04:41,916
+the levels.
+
+
+155
+00:04:42,446 --> 00:04:45,616
+But the point of this slide is
+
+
+156
+00:04:45,616 --> 00:04:46,426
+that even though we've
+
+
+157
+00:04:46,426 --> 00:04:47,946
+definitely bumped up the visual
+
+
+158
+00:04:47,946 --> 00:04:49,766
+quality, when you're
+
+
+159
+00:04:49,766 --> 00:04:51,316
+prototyping, you still want to
+
+
+160
+00:04:51,316 --> 00:04:52,826
+keep that visual fidelity low.
+
+
+161
+00:04:52,986 --> 00:04:54,446
+So when we're adding new game
+
+
+162
+00:04:54,446 --> 00:04:55,956
+mechanics like these portals,
+
+
+163
+00:04:57,066 --> 00:04:58,116
+we're doing it with SceneKit
+
+
+164
+00:04:58,146 --> 00:04:59,776
+primitives because we don't want
+
+
+165
+00:04:59,776 --> 00:05:01,006
+to get too hung up on making
+
+
+166
+00:05:01,006 --> 00:05:02,566
+sure the scene looks absolutely
+
+
+167
+00:05:02,566 --> 00:05:02,926
+great.
+
+
+168
+00:05:03,196 --> 00:05:04,036
+We want to make sure it's a good
+
+
+169
+00:05:04,036 --> 00:05:04,736
+idea first.
+
+
+170
+00:05:05,616 --> 00:05:08,056
+So if I had to throw this up on
+
+
+171
+00:05:08,056 --> 00:05:10,766
+a Business Tool 101 chart, you
+
+
+172
+00:05:10,766 --> 00:05:11,856
+basically look at the whole
+
+
+173
+00:05:11,856 --> 00:05:13,026
+timeline of your project.
+
+
+174
+00:05:13,976 --> 00:05:15,396
+You want to allocate a large
+
+
+175
+00:05:15,396 --> 00:05:16,566
+chunk of that to prototyping
+
+
+176
+00:05:17,136 --> 00:05:18,426
+because it's the phase with
+
+
+177
+00:05:18,426 --> 00:05:20,206
+which you can make the biggest
+
+
+178
+00:05:20,206 --> 00:05:21,876
+changes and the effort to change
+
+
+179
+00:05:21,876 --> 00:05:24,386
+is low, especially when you're
+
+
+180
+00:05:24,386 --> 00:05:25,426
+working in 3D.
+
+
+181
+00:05:26,076 --> 00:05:27,176
+When you start to get real
+
+
+182
+00:05:27,276 --> 00:05:28,546
+assets, and in this next section
+
+
+183
+00:05:28,546 --> 00:05:29,396
+that we're going to talk about,
+
+
+184
+00:05:29,926 --> 00:05:31,396
+the effort to change goes way
+
+
+185
+00:05:31,396 --> 00:05:31,626
+up.
+
+
+186
+00:05:32,446 --> 00:05:33,476
+So be mindful of that when
+
+
+187
+00:05:33,476 --> 00:05:34,146
+you're prototyping.
+
+
+188
+00:05:35,566 --> 00:05:38,086
+So in summary, really, you want
+
+
+189
+00:05:38,086 --> 00:05:38,936
+to work on testing your
+
+
+190
+00:05:38,936 --> 00:05:39,916
+interaction model when you're
+
+
+191
+00:05:39,916 --> 00:05:40,436
+prototyping.
+
+
+192
+00:05:40,526 --> 00:05:41,736
+It's not about the assets.
+
+
+193
+00:05:42,126 --> 00:05:43,126
+You want to interpret the
+
+
+194
+00:05:43,126 --> 00:05:45,186
+feedback you receive, but don't
+
+
+195
+00:05:45,186 --> 00:05:46,476
+look for incremental changes.
+
+
+196
+00:05:46,686 --> 00:05:47,836
+Look to make sure the idea is
+
+
+197
+00:05:47,836 --> 00:05:48,196
+valid.
+
+
+198
+00:05:48,856 --> 00:05:50,546
+And then finally, take the
+
+
+199
+00:05:50,546 --> 00:05:51,826
+insights from this section,
+
+
+200
+00:05:52,016 --> 00:05:52,796
+believe the code.
+
+
+201
+00:05:52,886 --> 00:05:53,936
+I think one of the best
+
+
+202
+00:05:53,936 --> 00:05:55,066
+decisions we made was to
+
+
+203
+00:05:55,096 --> 00:05:56,896
+actually start file-new-project
+
+
+204
+00:05:56,966 --> 00:05:58,086
+when moving forward past this
+
+
+205
+00:05:58,086 --> 00:06:00,746
+point, which brings us to
+
+
+206
+00:06:00,746 --> 00:06:00,956
+iterating.
+
+
+207
+00:06:04,246 --> 00:06:06,036
+So now we've got the idea and
+
+
+208
+00:06:06,036 --> 00:06:07,036
+we're ready to get some real
+
+
+209
+00:06:07,036 --> 00:06:08,456
+art, so we started working with
+
+
+210
+00:06:08,456 --> 00:06:10,116
+an artist and we received this
+
+
+211
+00:06:10,116 --> 00:06:11,316
+early 2D comp.
+
+
+212
+00:06:11,316 --> 00:06:14,476
+So you can start to see it
+
+
+213
+00:06:14,476 --> 00:06:15,996
+resembles Byte's world now.
+
+
+214
+00:06:16,406 --> 00:06:17,366
+It looks way better.
+
+
+215
+00:06:17,806 --> 00:06:19,156
+And I want to break down this
+
+
+216
+00:06:19,156 --> 00:06:20,716
+world into four parts.
+
+
+217
+00:06:21,666 --> 00:06:22,846
+The first thing we'll talk about
+
+
+218
+00:06:23,026 --> 00:06:24,936
+is how it's constructed and some
+
+
+219
+00:06:24,936 --> 00:06:25,986
+strategies to do that
+
+
+220
+00:06:25,986 --> 00:06:26,506
+effectively.
+
+
+221
+00:06:27,476 --> 00:06:30,296
+Next, we'll look at how you can
+
+
+222
+00:06:30,296 --> 00:06:32,916
+accomplish complex animations in
+
+
+223
+00:06:32,916 --> 00:06:34,486
+your app by looking at how we
+
+
+224
+00:06:34,486 --> 00:06:35,976
+made Byte move up the stairs.
+
+
+225
+00:06:37,136 --> 00:06:38,686
+We'll look at how you can add
+
+
+226
+00:06:38,686 --> 00:06:40,266
+visual interests with water and
+
+
+227
+00:06:40,266 --> 00:06:41,406
+other scenery elements.
+
+
+228
+00:06:42,616 --> 00:06:44,426
+And then we're really focused on
+
+
+229
+00:06:44,426 --> 00:06:46,006
+the visuals in this talk, but
+
+
+230
+00:06:46,006 --> 00:06:47,226
+there's a whole other area of
+
+
+231
+00:06:47,226 --> 00:06:48,686
+your users that actually won't
+
+
+232
+00:06:48,686 --> 00:06:49,816
+be able to benefit from the
+
+
+233
+00:06:49,816 --> 00:06:51,256
+visuals of a 3D scene, so we're
+
+
+234
+00:06:51,426 --> 00:06:53,046
+going to spend some time talking
+
+
+235
+00:06:53,046 --> 00:06:54,476
+about accessibility support, and
+
+
+236
+00:06:54,476 --> 00:06:55,496
+VoiceOver specifically.
+
+
+237
+00:06:56,686 --> 00:06:57,006
+All right.
+
+
+238
+00:06:57,996 --> 00:07:00,406
+First up, modeling this world.
+
+
+239
+00:07:00,976 --> 00:07:02,376
+So as you can sort of see by the
+
+
+240
+00:07:02,376 --> 00:07:04,116
+stencil we built this out of
+
+
+241
+00:07:04,326 --> 00:07:04,876
+blocks.
+
+
+242
+00:07:05,016 --> 00:07:06,136
+We had individual assets.
+
+
+243
+00:07:06,346 --> 00:07:07,856
+There was a couple reasons to do
+
+
+244
+00:07:08,776 --> 00:07:08,926
+this.
+
+
+245
+00:07:09,376 --> 00:07:11,146
+We needed to not only iterate on
+
+
+246
+00:07:11,146 --> 00:07:12,846
+the asset design, but also on
+
+
+247
+00:07:12,846 --> 00:07:13,666
+the lesson design.
+
+
+248
+00:07:14,046 --> 00:07:15,506
+So we were putting together very
+
+
+249
+00:07:15,506 --> 00:07:17,926
+simple puzzles like this to make
+
+
+250
+00:07:17,926 --> 00:07:19,306
+sure that learners had a smooth
+
+
+251
+00:07:19,306 --> 00:07:20,386
+path through the curriculum.
+
+
+252
+00:07:21,916 --> 00:07:23,466
+But rather than placing these
+
+
+253
+00:07:23,466 --> 00:07:25,066
+individual blocks in a Scene
+
+
+254
+00:07:25,066 --> 00:07:26,406
+Editor, which would be pretty
+
+
+255
+00:07:26,486 --> 00:07:28,196
+tedious, we actually wrote some
+
+
+256
+00:07:28,196 --> 00:07:29,146
+code to do this.
+
+
+257
+00:07:29,546 --> 00:07:31,196
+So much like learners use in
+
+
+258
+00:07:31,196 --> 00:07:32,186
+Learn to Code 2 when they're
+
+
+259
+00:07:32,186 --> 00:07:34,216
+building their own worlds, we
+
+
+260
+00:07:34,216 --> 00:07:35,666
+wrote some code to generate this
+
+
+261
+00:07:35,746 --> 00:07:36,816
+and it looks like this.
+
+
+262
+00:07:37,686 --> 00:07:39,846
+So to build that world you first
+
+
+263
+00:07:39,846 --> 00:07:41,566
+give it a size, 5 by 5.
+
+
+264
+00:07:42,266 --> 00:07:43,976
+You place items into it, like
+
+
+265
+00:07:44,026 --> 00:07:45,736
+actor, or Byte in the scene you
+
+
+266
+00:07:45,736 --> 00:07:46,286
+saw before.
+
+
+267
+00:07:46,606 --> 00:07:48,176
+And then you can add additional
+
+
+268
+00:07:48,176 --> 00:07:50,106
+elements, such as gems or the
+
+
+269
+00:07:50,106 --> 00:07:51,086
+water that you saw in the
+
+
+270
+00:07:51,086 --> 00:07:51,456
+center.
+
+
+271
+00:07:51,496 --> 00:07:53,696
+But the reason I'm showing you
+
+
+272
+00:07:53,696 --> 00:07:55,636
+this code is not because, wow,
+
+
+273
+00:07:55,636 --> 00:07:56,596
+we wrote an API to build a
+
+
+274
+00:07:56,596 --> 00:07:58,166
+world, that's cool, but it's
+
+
+275
+00:07:58,166 --> 00:08:00,326
+really because this is totally
+
+
+276
+00:08:00,326 --> 00:08:01,756
+independent from the graphics.
+
+
+277
+00:08:02,006 --> 00:08:03,116
+Right. This code will be just as
+
+
+278
+00:08:03,116 --> 00:08:05,286
+valid in 2D as it is in 3D.
+
+
+279
+00:08:06,456 --> 00:08:08,636
+And let me show you actually
+
+
+280
+00:08:08,636 --> 00:08:09,096
+what I mean by that.
+
+
+281
+00:08:09,096 --> 00:08:09,916
+I have a short video here for
+
+
+282
+00:08:09,916 --> 00:08:09,983
+you.
+
+
+283
+00:08:15,416 --> 00:08:17,016
+So here we have Byte moving
+
+
+284
+00:08:17,016 --> 00:08:18,316
+around this world and we're
+
+
+285
+00:08:18,316 --> 00:08:19,776
+going to add in a few nodes.
+
+
+286
+00:08:19,986 --> 00:08:21,366
+The green and red nodes you see
+
+
+287
+00:08:21,366 --> 00:08:23,096
+in the scene actually represent
+
+
+288
+00:08:23,096 --> 00:08:23,846
+the data that we're
+
+
+289
+00:08:23,846 --> 00:08:24,976
+reconstructing gameplay with.
+
+
+290
+00:08:29,346 --> 00:08:31,856
+And then really, that data is
+
+
+291
+00:08:31,856 --> 00:08:32,476
+all we need.
+
+
+292
+00:08:33,176 --> 00:08:34,956
+We've actually separated the
+
+
+293
+00:08:34,956 --> 00:08:36,436
+visuals of the scene from the
+
+
+294
+00:08:36,436 --> 00:08:38,006
+data that's used to reconstruct
+
+
+295
+00:08:38,006 --> 00:08:38,436
+gameplay.
+
+
+296
+00:08:39,336 --> 00:08:40,246
+There are a couple of big
+
+
+297
+00:08:40,246 --> 00:08:41,466
+benefits to this, and I want you
+
+
+298
+00:08:41,466 --> 00:08:42,256
+to think about it when you're
+
+
+299
+00:08:42,256 --> 00:08:43,436
+modeling a 3D world.
+
+
+300
+00:08:44,716 --> 00:08:46,286
+So separate the data from
+
+
+301
+00:08:46,286 --> 00:08:46,826
+visuals.
+
+
+302
+00:08:47,186 --> 00:08:48,876
+First is it allows you to swap
+
+
+303
+00:08:48,876 --> 00:08:49,856
+out assets easily.
+
+
+304
+00:08:50,256 --> 00:08:51,596
+Remember, we're still iterating
+
+
+305
+00:08:51,596 --> 00:08:52,036
+on this stuff.
+
+
+306
+00:08:52,036 --> 00:08:53,836
+We will get a new version of the
+
+
+307
+00:08:53,836 --> 00:08:55,446
+block any day, and we don't want
+
+
+308
+00:08:55,446 --> 00:08:56,796
+to have to rebuild those maps,
+
+
+309
+00:08:56,996 --> 00:08:58,376
+so we're dynamically generating
+
+
+310
+00:08:58,376 --> 00:08:58,576
+them.
+
+
+311
+00:08:59,956 --> 00:09:01,466
+It also allows you to take that
+
+
+312
+00:09:01,466 --> 00:09:02,776
+data and send it elsewhere.
+
+
+313
+00:09:03,006 --> 00:09:04,046
+Maybe you need to send it across
+
+
+314
+00:09:04,046 --> 00:09:06,066
+a network or send some gameplay
+
+
+315
+00:09:06,066 --> 00:09:07,656
+logic across process, like we
+
+
+316
+00:09:07,656 --> 00:09:08,876
+were doing in some playgrounds.
+
+
+317
+00:09:09,606 --> 00:09:11,376
+And later on down the road it
+
+
+318
+00:09:11,376 --> 00:09:13,206
+will also allow you to optimize
+
+
+319
+00:09:13,206 --> 00:09:13,876
+the geometry.
+
+
+320
+00:09:14,506 --> 00:09:15,796
+And Lamont will get into that in
+
+
+321
+00:09:15,796 --> 00:09:17,636
+more detail, but it's really key
+
+
+322
+00:09:17,636 --> 00:09:18,886
+that you're not dependent on the
+
+
+323
+00:09:18,886 --> 00:09:20,646
+actual nodes and scene for this
+
+
+324
+00:09:20,646 --> 00:09:21,126
+to work well.
+
+
+325
+00:09:21,126 --> 00:09:23,326
+And I have one caveat.
+
+
+326
+00:09:24,306 --> 00:09:26,896
+You need some debugging tools to
+
+
+327
+00:09:26,896 --> 00:09:27,826
+make this work really well.
+
+
+328
+00:09:27,946 --> 00:09:29,106
+We found that out early on.
+
+
+329
+00:09:29,106 --> 00:09:30,886
+You can't just look at the world
+
+
+330
+00:09:30,886 --> 00:09:32,526
+anymore and see how gameplay
+
+
+331
+00:09:32,526 --> 00:09:34,416
+will be reconstructed, and so we
+
+
+332
+00:09:34,416 --> 00:09:36,096
+actually built a pretty simple
+
+
+333
+00:09:36,096 --> 00:09:36,586
+Mac app.
+
+
+334
+00:09:37,676 --> 00:09:39,396
+This app can actually load in
+
+
+335
+00:09:39,396 --> 00:09:41,646
+all the levels that we have, and
+
+
+336
+00:09:41,646 --> 00:09:42,986
+more than that, it has
+
+
+337
+00:09:43,196 --> 00:09:44,746
+scene-specific knowledge.
+
+
+338
+00:09:45,536 --> 00:09:47,896
+So in this case this is the tool
+
+
+339
+00:09:47,896 --> 00:09:49,166
+that allows us to show those
+
+
+340
+00:09:49,166 --> 00:09:50,616
+debugging nodes you saw before,
+
+
+341
+00:09:51,466 --> 00:09:54,026
+and it also can run hard-to-hit
+
+
+342
+00:09:54,096 --> 00:09:56,176
+cases in our game, like rotating
+
+
+343
+00:09:56,176 --> 00:09:57,336
+around the world when you hit
+
+
+344
+00:09:57,336 --> 00:09:58,686
+the congratulations sequence.
+
+
+345
+00:09:58,866 --> 00:09:59,836
+We want to make sure that works
+
+
+346
+00:09:59,836 --> 00:10:01,436
+on every map, but we don't want
+
+
+347
+00:10:01,436 --> 00:10:02,826
+to test every map all the way to
+
+
+348
+00:10:02,826 --> 00:10:04,866
+the end just to see that work.
+
+
+349
+00:10:05,376 --> 00:10:07,446
+So that's our first stop.
+
+
+350
+00:10:07,806 --> 00:10:08,656
+That's how we put the world
+
+
+351
+00:10:08,656 --> 00:10:09,066
+together.
+
+
+352
+00:10:09,356 --> 00:10:10,526
+We separated the data from
+
+
+353
+00:10:10,526 --> 00:10:12,106
+visuals and we used tools.
+
+
+354
+00:10:13,346 --> 00:10:15,826
+Now on to animations.
+
+
+355
+00:10:16,696 --> 00:10:17,996
+So if we look closely at the
+
+
+356
+00:10:17,996 --> 00:10:21,546
+stairs, you can see this is
+
+
+357
+00:10:21,546 --> 00:10:23,056
+actually a fairly complicated
+
+
+358
+00:10:23,056 --> 00:10:23,866
+piece of geometry.
+
+
+359
+00:10:24,046 --> 00:10:24,966
+Right. Not only are there
+
+
+360
+00:10:24,966 --> 00:10:26,656
+individual steps, but there are
+
+
+361
+00:10:26,656 --> 00:10:28,246
+little cutouts from the step.
+
+
+362
+00:10:28,556 --> 00:10:29,886
+So we want to be super precise
+
+
+363
+00:10:29,886 --> 00:10:31,386
+about where our character's foot
+
+
+364
+00:10:31,386 --> 00:10:32,526
+lands on each step.
+
+
+365
+00:10:33,306 --> 00:10:34,476
+So we considered a couple
+
+
+366
+00:10:34,476 --> 00:10:36,166
+different strategies, and one
+
+
+367
+00:10:36,166 --> 00:10:37,846
+thing that's pretty common for
+
+
+368
+00:10:38,056 --> 00:10:40,056
+3D scenes to use is just swap
+
+
+369
+00:10:40,056 --> 00:10:42,206
+this out for a ramp because
+
+
+370
+00:10:42,206 --> 00:10:42,906
+ramps are easy.
+
+
+371
+00:10:43,346 --> 00:10:45,166
+You have a character, you move
+
+
+372
+00:10:45,166 --> 00:10:46,526
+that character forward, you
+
+
+373
+00:10:46,526 --> 00:10:47,696
+figure out how far up they need
+
+
+374
+00:10:47,696 --> 00:10:49,306
+to move, and you just translate
+
+
+375
+00:10:49,306 --> 00:10:50,666
+them from point A to point B
+
+
+376
+00:10:50,736 --> 00:10:51,796
+while running the walk cycle.
+
+
+377
+00:10:52,976 --> 00:10:55,166
+For stairs, not so great.
+
+
+378
+00:10:55,646 --> 00:10:57,476
+So here's Byte trying to walk up
+
+
+379
+00:10:57,476 --> 00:10:59,246
+the stairs, and if you look
+
+
+380
+00:10:59,246 --> 00:11:01,736
+closely, Byte hasn't even gotten
+
+
+381
+00:11:01,736 --> 00:11:02,926
+to the first step and he's
+
+
+382
+00:11:02,926 --> 00:11:03,816
+already floating in midair.
+
+
+383
+00:11:03,876 --> 00:11:05,206
+So we need to do something a
+
+
+384
+00:11:05,206 --> 00:11:05,976
+little bit better.
+
+
+385
+00:11:10,296 --> 00:11:11,396
+The second thing we considered
+
+
+386
+00:11:11,396 --> 00:11:13,986
+is using a built-in type in
+
+
+387
+00:11:13,986 --> 00:11:14,516
+SceneKit.
+
+
+388
+00:11:14,516 --> 00:11:15,576
+It's actually part of SceneKit's
+
+
+389
+00:11:15,576 --> 00:11:17,116
+constraint system to be able to
+
+
+390
+00:11:17,116 --> 00:11:18,306
+do inverse kinematics.
+
+
+391
+00:11:18,796 --> 00:11:20,336
+Now, inverse kinematics allow
+
+
+392
+00:11:20,336 --> 00:11:21,806
+you to be super precise about
+
+
+393
+00:11:21,806 --> 00:11:22,856
+where you want the character's
+
+
+394
+00:11:22,856 --> 00:11:23,686
+foot to land.
+
+
+395
+00:11:24,106 --> 00:11:26,076
+So we would specify each step
+
+
+396
+00:11:26,076 --> 00:11:27,166
+where we wanted the character to
+
+
+397
+00:11:27,166 --> 00:11:29,266
+take, but it comes with a
+
+
+398
+00:11:29,266 --> 00:11:30,936
+sacrifice of some personality in
+
+
+399
+00:11:30,936 --> 00:11:31,476
+the character.
+
+
+400
+00:11:31,546 --> 00:11:33,546
+Right. We're not able to control
+
+
+401
+00:11:33,546 --> 00:11:34,866
+the eye movement or the upper
+
+
+402
+00:11:34,866 --> 00:11:36,576
+body as detailed as we'd like.
+
+
+403
+00:11:37,176 --> 00:11:38,066
+So we actually went with a third
+
+
+404
+00:11:38,066 --> 00:11:40,266
+option, and that's to bake the
+
+
+405
+00:11:40,266 --> 00:11:42,066
+displacement into the animation.
+
+
+406
+00:11:42,406 --> 00:11:43,686
+And so because this is the one
+
+
+407
+00:11:43,686 --> 00:11:44,806
+we went with, let me break it
+
+
+408
+00:11:44,806 --> 00:11:46,086
+down for you in a little bit
+
+
+409
+00:11:46,606 --> 00:11:47,716
+more detail.
+
+
+410
+00:11:47,856 --> 00:11:50,346
+Usually, most games you have a
+
+
+411
+00:11:50,346 --> 00:11:51,556
+node, which represents a
+
+
+412
+00:11:51,556 --> 00:11:53,766
+position, and you have geometry,
+
+
+413
+00:11:53,956 --> 00:11:54,946
+which is what you're actually
+
+
+414
+00:11:54,946 --> 00:11:56,026
+seeing in the scene.
+
+
+415
+00:11:57,126 --> 00:11:59,066
+Now, it's common for these two
+
+
+416
+00:11:59,066 --> 00:12:00,536
+things to move together, so you
+
+
+417
+00:12:00,536 --> 00:12:02,066
+translate the node and the
+
+
+418
+00:12:02,066 --> 00:12:03,696
+geometry, while playing the walk
+
+
+419
+00:12:03,696 --> 00:12:05,016
+cycle, it moves the character
+
+
+420
+00:12:05,016 --> 00:12:06,046
+from point A to point B.
+
+
+421
+00:12:06,926 --> 00:12:08,136
+But for the stairs we did
+
+
+422
+00:12:08,136 --> 00:12:10,416
+something different.
+
+
+423
+00:12:10,456 --> 00:12:12,676
+We leave the node alone and we
+
+
+424
+00:12:12,676 --> 00:12:14,106
+apply an animation, which
+
+
+425
+00:12:14,106 --> 00:12:15,736
+actually has displacement in it.
+
+
+426
+00:12:16,056 --> 00:12:18,406
+So this moves the geometry away
+
+
+427
+00:12:18,406 --> 00:12:20,616
+from the node and then when that
+
+
+428
+00:12:20,616 --> 00:12:22,656
+animation is complete, we
+
+
+429
+00:12:22,656 --> 00:12:24,116
+synchronize the node's position
+
+
+430
+00:12:24,756 --> 00:12:25,866
+and remove the animation.
+
+
+431
+00:12:26,876 --> 00:12:28,406
+We do that with a type in
+
+
+432
+00:12:28,406 --> 00:12:29,356
+SceneKit called an
+
+
+433
+00:12:29,356 --> 00:12:30,456
+SCNTransaction.
+
+
+434
+00:12:31,006 --> 00:12:33,566
+And SCNTransactions allow you to
+
+
+435
+00:12:33,566 --> 00:12:35,006
+make sure that update happens in
+
+
+436
+00:12:35,006 --> 00:12:35,656
+one frame.
+
+
+437
+00:12:35,656 --> 00:12:36,686
+So let me show you what that
+
+
+438
+00:12:36,686 --> 00:12:37,176
+looks like.
+
+
+439
+00:12:38,306 --> 00:12:40,066
+You set up the transaction with
+
+
+440
+00:12:40,066 --> 00:12:42,286
+the begin and commit calls, and
+
+
+441
+00:12:42,286 --> 00:12:43,686
+in our case we want an animation
+
+
+442
+00:12:43,686 --> 00:12:45,896
+duration of zero because we need
+
+
+443
+00:12:45,896 --> 00:12:47,946
+it to happen in the exact same
+
+
+444
+00:12:48,076 --> 00:12:48,196
+frame.
+
+
+445
+00:12:48,196 --> 00:12:49,716
+We move the character to the new
+
+
+446
+00:12:49,716 --> 00:12:51,776
+position and we remove the
+
+
+447
+00:12:51,776 --> 00:12:54,056
+animations, making Byte ready
+
+
+448
+00:12:54,056 --> 00:12:55,276
+for the next round of
+
+
+449
+00:12:55,276 --> 00:12:55,956
+animations.
+
+
+450
+00:12:56,816 --> 00:12:57,806
+So let's see this in action.
+
+
+451
+00:12:58,646 --> 00:13:00,276
+Got to stretch it out first,
+
+
+452
+00:13:01,616 --> 00:13:04,286
+walks up the stairs, and you can
+
+
+453
+00:13:04,286 --> 00:13:05,806
+see now, because we're allowing
+
+
+454
+00:13:05,806 --> 00:13:07,496
+our animator the freedom to put
+
+
+455
+00:13:07,496 --> 00:13:08,386
+the displacement in the
+
+
+456
+00:13:08,386 --> 00:13:10,106
+animation, we can be far more
+
+
+457
+00:13:10,106 --> 00:13:11,696
+precise about Byte's movements.
+
+
+458
+00:13:12,026 --> 00:13:14,636
+Byte's head turns while it walks
+
+
+459
+00:13:14,636 --> 00:13:15,766
+up and down the stairs.
+
+
+460
+00:13:16,216 --> 00:13:17,206
+So this is a much better
+
+
+461
+00:13:17,206 --> 00:13:18,606
+solution and something you
+
+
+462
+00:13:18,606 --> 00:13:19,796
+should consider for complex
+
+
+463
+00:13:19,796 --> 00:13:21,146
+animations in your scenes.
+
+
+464
+00:13:21,646 --> 00:13:25,196
+On to train stop number three,
+
+
+465
+00:13:26,416 --> 00:13:27,556
+and that's to look at how we did
+
+
+466
+00:13:27,556 --> 00:13:28,586
+the scenery elements, because
+
+
+467
+00:13:28,586 --> 00:13:29,486
+it's not all about the
+
+
+468
+00:13:29,486 --> 00:13:30,016
+character.
+
+
+469
+00:13:30,276 --> 00:13:31,186
+You also need to make sure the
+
+
+470
+00:13:31,186 --> 00:13:32,136
+world feels alive.
+
+
+471
+00:13:32,136 --> 00:13:34,506
+So let's take a close look at
+
+
+472
+00:13:34,506 --> 00:13:34,956
+the water.
+
+
+473
+00:13:34,956 --> 00:13:39,166
+Now, you saw before we have been
+
+
+474
+00:13:39,166 --> 00:13:40,996
+using maps like this, right,
+
+
+475
+00:13:40,996 --> 00:13:43,166
+fairly basic, just enough to
+
+
+476
+00:13:43,166 --> 00:13:44,566
+reconstruct the puzzle with, but
+
+
+477
+00:13:45,316 --> 00:13:46,686
+we want to get to a point where
+
+
+478
+00:13:46,686 --> 00:13:47,686
+our maps look like this.
+
+
+479
+00:13:48,276 --> 00:13:51,286
+And the way we did that is to
+
+
+480
+00:13:51,286 --> 00:13:53,326
+actually save the original map
+
+
+481
+00:13:53,326 --> 00:13:55,806
+out to an SCN file so we can add
+
+
+482
+00:13:55,806 --> 00:13:56,986
+in those additional elements.
+
+
+483
+00:13:57,266 --> 00:13:58,136
+Right. So instead of writing
+
+
+484
+00:13:58,136 --> 00:13:59,716
+code to place each scenery
+
+
+485
+00:13:59,716 --> 00:14:00,876
+element, we can do it in the
+
+
+486
+00:14:00,876 --> 00:14:01,966
+Scene Editor now because it
+
+
+487
+00:14:01,966 --> 00:14:03,046
+makes much more sense.
+
+
+488
+00:14:03,606 --> 00:14:04,856
+So if we look at that in the
+
+
+489
+00:14:04,856 --> 00:14:07,326
+SceneKit Scene Editor, it looks
+
+
+490
+00:14:07,326 --> 00:14:10,046
+great, but now we're investing a
+
+
+491
+00:14:10,046 --> 00:14:11,716
+ton of time and effort into each
+
+
+492
+00:14:11,716 --> 00:14:12,366
+individual map.
+
+
+493
+00:14:12,876 --> 00:14:14,626
+You can see that by the node
+
+
+494
+00:14:14,626 --> 00:14:17,416
+hierarchy on the left there.
+
+
+495
+00:14:17,516 --> 00:14:19,626
+So the problem is you still want
+
+
+496
+00:14:19,626 --> 00:14:20,606
+to keep some amount of
+
+
+497
+00:14:20,606 --> 00:14:21,246
+flexibility.
+
+
+498
+00:14:21,246 --> 00:14:22,536
+Make sure if the artist comes in
+
+
+499
+00:14:22,536 --> 00:14:23,486
+next week and says I have a new
+
+
+500
+00:14:23,486 --> 00:14:24,476
+waterfall that would look so
+
+
+501
+00:14:24,476 --> 00:14:25,916
+much better, you're not changing
+
+
+502
+00:14:25,916 --> 00:14:27,226
+out at 81 maps.
+
+
+503
+00:14:27,566 --> 00:14:29,516
+And the way to do that, if we
+
+
+504
+00:14:29,516 --> 00:14:30,656
+look closely at the waterfall,
+
+
+505
+00:14:30,656 --> 00:14:32,736
+is to use a technique called
+
+
+506
+00:14:32,736 --> 00:14:33,596
+reference nodes.
+
+
+507
+00:14:34,156 --> 00:14:36,256
+So these are the water nodes in
+
+
+508
+00:14:36,256 --> 00:14:37,916
+our scene and the arrow
+
+
+509
+00:14:37,916 --> 00:14:39,316
+indicates that they're being
+
+
+510
+00:14:39,316 --> 00:14:41,126
+referenced out to a single SCN
+
+
+511
+00:14:41,126 --> 00:14:41,466
+file.
+
+
+512
+00:14:41,786 --> 00:14:43,056
+So you update that file in one
+
+
+513
+00:14:43,056 --> 00:14:44,476
+place and it propagates through
+
+
+514
+00:14:44,476 --> 00:14:45,236
+all your maps.
+
+
+515
+00:14:45,756 --> 00:14:48,876
+Now, that's not all there is to
+
+
+516
+00:14:48,876 --> 00:14:49,286
+water.
+
+
+517
+00:14:49,836 --> 00:14:51,046
+If we take a closer look at that
+
+
+518
+00:14:51,046 --> 00:14:54,076
+SCN file, water kind of also has
+
+
+519
+00:14:54,076 --> 00:14:55,236
+to move for it to be
+
+
+520
+00:14:55,236 --> 00:14:55,676
+interesting.
+
+
+521
+00:14:55,766 --> 00:14:56,806
+Right. The artist did a great
+
+
+522
+00:14:56,806 --> 00:14:57,866
+job here, the texture looks
+
+
+523
+00:14:57,866 --> 00:14:59,906
+amazing, but it's not real.
+
+
+524
+00:15:01,326 --> 00:15:02,896
+So in order to accomplish moving
+
+
+525
+00:15:02,896 --> 00:15:04,046
+the water, we're using a
+
+
+526
+00:15:04,046 --> 00:15:05,976
+technique, a geometry modifier,
+
+
+527
+00:15:06,026 --> 00:15:08,236
+actually writing a shader, and
+
+
+528
+00:15:08,306 --> 00:15:09,966
+you access that by the button
+
+
+529
+00:15:09,966 --> 00:15:11,416
+down in the lower right here.
+
+
+530
+00:15:12,486 --> 00:15:13,406
+I'll zoom in on it for you a
+
+
+531
+00:15:13,406 --> 00:15:13,856
+little bit.
+
+
+532
+00:15:13,856 --> 00:15:15,426
+It's going to be hard to see.
+
+
+533
+00:15:15,426 --> 00:15:16,616
+And that will bring up a tray,
+
+
+534
+00:15:16,836 --> 00:15:19,096
+new in Xcode 9, where you can
+
+
+535
+00:15:19,096 --> 00:15:20,786
+modify -- or you can specify
+
+
+536
+00:15:20,786 --> 00:15:22,766
+your geometry modifier built off
+
+
+537
+00:15:22,766 --> 00:15:24,646
+this SCN shader geometry type
+
+
+538
+00:15:24,816 --> 00:15:25,856
+provided to you by SceneKit.
+
+
+539
+00:15:26,636 --> 00:15:28,466
+Now, all this is doing is moving
+
+
+540
+00:15:28,466 --> 00:15:29,306
+the texture around the
+
+
+541
+00:15:29,306 --> 00:15:31,376
+waterfall, but it adds a great
+
+
+542
+00:15:31,376 --> 00:15:31,726
+effect.
+
+
+543
+00:15:31,856 --> 00:15:32,976
+So let's check it out in action.
+
+
+544
+00:15:39,046 --> 00:15:39,416
+There we go.
+
+
+545
+00:15:40,016 --> 00:15:41,256
+So now the water actually is
+
+
+546
+00:15:41,256 --> 00:15:42,556
+flowing, you can just see the
+
+
+547
+00:15:42,556 --> 00:15:43,906
+textures moving around and it
+
+
+548
+00:15:44,046 --> 00:15:44,836
+adds this great effect.
+
+
+549
+00:15:45,206 --> 00:15:46,846
+And we use that same technique
+
+
+550
+00:15:46,876 --> 00:15:48,536
+for the vines that sway in the
+
+
+551
+00:15:48,626 --> 00:15:49,926
+scene and for the grass that
+
+
+552
+00:15:49,966 --> 00:15:51,176
+blows in the breeze.
+
+
+553
+00:15:51,506 --> 00:15:52,986
+So this can add a lot of life to
+
+
+554
+00:15:53,026 --> 00:15:54,996
+your scene and it's a great
+
+
+555
+00:15:54,996 --> 00:15:56,566
+technique for you to try out.
+
+
+556
+00:15:57,156 --> 00:15:58,026
+That's three.
+
+
+557
+00:15:58,936 --> 00:16:00,316
+And we've really been focused on
+
+
+558
+00:16:00,316 --> 00:16:00,986
+the visuals.
+
+
+559
+00:16:01,186 --> 00:16:03,046
+We've taken a number of stops to
+
+
+560
+00:16:03,046 --> 00:16:04,046
+figure out how you can make that
+
+
+561
+00:16:04,046 --> 00:16:05,556
+great, but there's a whole other
+
+
+562
+00:16:05,556 --> 00:16:07,616
+aspect you have to consider and
+
+
+563
+00:16:07,616 --> 00:16:09,156
+that's what the scene would look
+
+
+564
+00:16:09,156 --> 00:16:10,276
+like to a visually-impaired
+
+
+565
+00:16:10,276 --> 00:16:10,586
+user.
+
+
+566
+00:16:11,856 --> 00:16:13,566
+So when you're trying to design
+
+
+567
+00:16:13,566 --> 00:16:15,636
+a great experience in VoiceOver,
+
+
+568
+00:16:16,516 --> 00:16:17,676
+you want to focus on things
+
+
+569
+00:16:17,786 --> 00:16:18,666
+other than the visuals
+
+
+570
+00:16:18,666 --> 00:16:20,766
+obviously, but without
+
+
+571
+00:16:20,766 --> 00:16:22,156
+describing everything we did, I
+
+
+572
+00:16:22,156 --> 00:16:23,536
+first want you to just listen to
+
+
+573
+00:16:23,536 --> 00:16:23,976
+the experience.
+
+
+574
+00:16:24,516 --> 00:16:28,756
+[ Music ]
+
+
+575
+00:16:29,256 --> 00:16:30,266
+>> VoiceOver on.
+
+
+576
+00:16:30,556 --> 00:16:31,526
+Landscape.
+
+
+577
+00:16:31,526 --> 00:16:33,876
+The world is five columns by
+
+
+578
+00:16:33,876 --> 00:16:35,926
+five rows.
+
+
+579
+00:16:35,926 --> 00:16:37,716
+Column 0, row 0, [inaudible] at
+
+
+580
+00:16:37,806 --> 00:16:39,816
+height 0 facing north.
+
+
+581
+00:16:39,886 --> 00:16:41,416
+Double attach to switch
+
+
+582
+00:16:41,416 --> 00:16:42,156
+characters.
+
+
+583
+00:16:42,216 --> 00:16:44,846
+Column 0, row 1, gem at height
+
+
+584
+00:16:44,846 --> 00:16:44,976
+0.
+
+
+585
+00:16:45,508 --> 00:16:47,508
+[ Music ]
+
+
+586
+00:16:52,046 --> 00:16:55,216
+>> So we did a number of things
+
+
+587
+00:16:55,216 --> 00:16:56,646
+to support VoiceOver in Learn to
+
+
+588
+00:16:56,646 --> 00:16:58,856
+Code, but the first thing I want
+
+
+589
+00:16:58,856 --> 00:17:01,046
+you to notice is we're actually
+
+
+590
+00:17:01,046 --> 00:17:02,656
+focusing on a great nonvisual
+
+
+591
+00:17:02,656 --> 00:17:03,276
+experience.
+
+
+592
+00:17:03,306 --> 00:17:05,046
+By adding music, by adding
+
+
+593
+00:17:05,046 --> 00:17:07,136
+character noises, you make the
+
+
+594
+00:17:07,136 --> 00:17:10,006
+scene auditorily rich.
+
+
+595
+00:17:11,536 --> 00:17:14,636
+There's other things we added to
+
+
+596
+00:17:14,636 --> 00:17:16,236
+VoiceOver, and to go for a deep
+
+
+597
+00:17:16,236 --> 00:17:17,826
+dive on those techniques, you
+
+
+598
+00:17:17,826 --> 00:17:19,156
+can check out a great talk this
+
+
+599
+00:17:19,156 --> 00:17:20,425
+year about how to make your
+
+
+600
+00:17:20,425 --> 00:17:21,746
+media and games accessible.
+
+
+601
+00:17:21,746 --> 00:17:24,006
+The one that was really
+
+
+602
+00:17:24,006 --> 00:17:25,726
+important for us is actually
+
+
+603
+00:17:25,726 --> 00:17:26,925
+describing the important
+
+
+604
+00:17:26,925 --> 00:17:29,066
+locations using VoiceOver, and
+
+
+605
+00:17:29,066 --> 00:17:30,576
+the reason I want to show you
+
+
+606
+00:17:30,576 --> 00:17:31,906
+this in more detail is because
+
+
+607
+00:17:31,906 --> 00:17:33,486
+it's surprisingly easy to do.
+
+
+608
+00:17:34,406 --> 00:17:36,176
+So just like in your UIKit apps
+
+
+609
+00:17:36,866 --> 00:17:37,796
+we're overriding an
+
+
+610
+00:17:37,796 --> 00:17:40,796
+accessibility element so that we
+
+
+611
+00:17:40,796 --> 00:17:42,236
+can provide a custom label.
+
+
+612
+00:17:42,826 --> 00:17:44,796
+In this case we're providing a
+
+
+613
+00:17:44,796 --> 00:17:46,856
+label which is updated with the
+
+
+614
+00:17:46,856 --> 00:17:48,146
+current contents of the world.
+
+
+615
+00:17:48,496 --> 00:17:51,086
+So this is basically the same
+
+
+616
+00:17:51,086 --> 00:17:52,416
+technique you're already used to
+
+
+617
+00:17:52,616 --> 00:17:54,256
+in UIKit, and it really is that
+
+
+618
+00:17:54,256 --> 00:17:54,596
+simple.
+
+
+619
+00:17:54,706 --> 00:17:55,636
+You create one of those
+
+
+620
+00:17:55,636 --> 00:17:59,276
+elements, you specify its frame,
+
+
+621
+00:17:59,696 --> 00:18:00,876
+we're using projectPoint from
+
+
+622
+00:18:00,876 --> 00:18:03,006
+SceneKit to get from 3D to 2D,
+
+
+623
+00:18:03,606 --> 00:18:04,856
+and you add that element to the
+
+
+624
+00:18:04,856 --> 00:18:05,166
+view.
+
+
+625
+00:18:06,556 --> 00:18:08,236
+So my point is even though 3D
+
+
+626
+00:18:08,306 --> 00:18:09,426
+seems really tough to make
+
+
+627
+00:18:09,426 --> 00:18:11,606
+accessible, it's quite easy and
+
+
+628
+00:18:11,606 --> 00:18:12,556
+it's already techniques you're
+
+
+629
+00:18:12,556 --> 00:18:13,326
+familiar with.
+
+
+630
+00:18:14,036 --> 00:18:15,296
+So there are really three main
+
+
+631
+00:18:15,296 --> 00:18:16,706
+reasons to support it.
+
+
+632
+00:18:17,546 --> 00:18:19,366
+One, it's great for your users.
+
+
+633
+00:18:19,436 --> 00:18:20,396
+It's probably one of the most
+
+
+634
+00:18:20,396 --> 00:18:22,156
+rewarding aspects, that I
+
+
+635
+00:18:22,156 --> 00:18:23,126
+thought, of working on this
+
+
+636
+00:18:23,126 --> 00:18:23,536
+project.
+
+
+637
+00:18:24,716 --> 00:18:25,486
+One of the aspects that I
+
+
+638
+00:18:25,486 --> 00:18:26,296
+thought was most rewarding.
+
+
+639
+00:18:26,296 --> 00:18:26,676
+Excuse me.
+
+
+640
+00:18:26,786 --> 00:18:28,936
+Two, is that it's just easy to
+
+
+641
+00:18:28,936 --> 00:18:29,266
+do.
+
+
+642
+00:18:29,966 --> 00:18:31,926
+It's many of the familiar things
+
+
+643
+00:18:31,926 --> 00:18:32,856
+you're used to from UIKit
+
+
+644
+00:18:32,856 --> 00:18:33,386
+development.
+
+
+645
+00:18:33,636 --> 00:18:34,976
+And three, just like there are
+
+
+646
+00:18:34,976 --> 00:18:36,806
+no excuses for not making your
+
+
+647
+00:18:36,806 --> 00:18:39,266
+apps in UIKit accessible, there
+
+
+648
+00:18:39,266 --> 00:18:40,596
+really should be no excuses for
+
+
+649
+00:18:40,596 --> 00:18:41,436
+doing so in 3D.
+
+
+650
+00:18:42,406 --> 00:18:43,946
+So if you want to see this code
+
+
+651
+00:18:43,946 --> 00:18:46,356
+in full detail, you can always
+
+
+652
+00:18:46,356 --> 00:18:47,706
+check out the source for Learn
+
+
+653
+00:18:47,706 --> 00:18:49,616
+to Code by diving into the
+
+
+654
+00:18:49,616 --> 00:18:51,546
+auxiliary sources in the
+
+
+655
+00:18:51,546 --> 00:18:53,016
+Playground book, and this file
+
+
+656
+00:18:53,016 --> 00:18:54,096
+actually sits in
+
+
+657
+00:18:54,096 --> 00:18:56,246
+Accessibilityextensions.swift.
+
+
+658
+00:18:57,196 --> 00:18:58,996
+So that is iterating.
+
+
+659
+00:18:59,566 --> 00:19:01,186
+We talked about how you should
+
+
+660
+00:19:01,186 --> 00:19:02,696
+separate your data from the
+
+
+661
+00:19:02,696 --> 00:19:03,746
+visuals of your scene.
+
+
+662
+00:19:03,966 --> 00:19:05,486
+Right. We did that for modeling
+
+
+663
+00:19:05,486 --> 00:19:06,876
+the world, but also how we did
+
+
+664
+00:19:06,876 --> 00:19:07,856
+the stair animation.
+
+
+665
+00:19:08,376 --> 00:19:11,376
+You should value flexibility
+
+
+666
+00:19:11,376 --> 00:19:12,196
+even at this phase.
+
+
+667
+00:19:12,196 --> 00:19:13,246
+So when you're putting all that
+
+
+668
+00:19:13,246 --> 00:19:14,286
+time and effort into your
+
+
+669
+00:19:14,286 --> 00:19:15,376
+levels, make sure you're doing
+
+
+670
+00:19:15,376 --> 00:19:16,626
+things like using reference
+
+
+671
+00:19:16,626 --> 00:19:18,076
+nodes so that you still have
+
+
+672
+00:19:18,076 --> 00:19:18,956
+some flexibility.
+
+
+673
+00:19:19,906 --> 00:19:21,816
+And then finally, make sure you
+
+
+674
+00:19:21,816 --> 00:19:23,366
+audit that accessibility support
+
+
+675
+00:19:23,366 --> 00:19:23,746
+early.
+
+
+676
+00:19:24,056 --> 00:19:25,046
+It's not something that can be
+
+
+677
+00:19:25,046 --> 00:19:26,576
+bolted on at the end, and it's
+
+
+678
+00:19:26,576 --> 00:19:28,396
+surprisingly easy to do if you
+
+
+679
+00:19:28,396 --> 00:19:30,446
+plan for it.
+
+
+680
+00:19:30,706 --> 00:19:32,626
+Now to talk about how we took
+
+
+681
+00:19:32,626 --> 00:19:34,736
+these design time assets and
+
+
+682
+00:19:34,736 --> 00:19:35,866
+really tuned them up to make
+
+
+683
+00:19:35,866 --> 00:19:36,996
+them super performant, I'm going
+
+
+684
+00:19:36,996 --> 00:19:37,736
+to invite Lamont up to the
+
+
+685
+00:19:37,736 --> 00:19:37,886
+stage.
+
+
+686
+00:19:38,516 --> 00:19:41,116
+[ Applause ]
+
+
+687
+00:19:41,616 --> 00:19:42,236
+>> Thank you, Michael.
+
+
+688
+00:19:42,676 --> 00:19:44,586
+That's great [applause].
+
+
+689
+00:19:45,046 --> 00:19:46,156
+Hello everyone.
+
+
+690
+00:19:46,706 --> 00:19:47,326
+I'm Lamont.
+
+
+691
+00:19:47,326 --> 00:19:48,396
+I'm an engineer on the Swift
+
+
+692
+00:19:48,396 --> 00:19:50,736
+Playgrounds' Content Team, and
+
+
+693
+00:19:50,736 --> 00:19:51,826
+today I'm going to talk to you
+
+
+694
+00:19:51,826 --> 00:19:52,906
+about how you can improve the
+
+
+695
+00:19:52,906 --> 00:19:53,916
+performance of your SceneKit
+
+
+696
+00:19:53,916 --> 00:19:56,696
+apps in terms of frame rate and
+
+
+697
+00:19:56,696 --> 00:19:57,466
+user experience.
+
+
+698
+00:19:59,776 --> 00:20:02,626
+When we first started developing
+
+
+699
+00:20:02,626 --> 00:20:04,306
+Learn to Code, one of the things
+
+
+700
+00:20:04,306 --> 00:20:05,596
+that was critical for us was to
+
+
+701
+00:20:05,596 --> 00:20:07,136
+have a really rich and detailed
+
+
+702
+00:20:07,136 --> 00:20:09,026
+world, and as you can see here,
+
+
+703
+00:20:09,026 --> 00:20:10,256
+that's exactly what we have.
+
+
+704
+00:20:11,006 --> 00:20:13,806
+The waterfalls look realistic,
+
+
+705
+00:20:13,806 --> 00:20:15,496
+the shadows behind the
+
+
+706
+00:20:15,746 --> 00:20:17,356
+staircases look pretty good, the
+
+
+707
+00:20:17,356 --> 00:20:19,306
+colors are rich and vivid.
+
+
+708
+00:20:19,306 --> 00:20:21,066
+We even have nice statues hidden
+
+
+709
+00:20:21,066 --> 00:20:22,046
+in the waterfalls there.
+
+
+710
+00:20:23,546 --> 00:20:25,896
+But as you know, a good-looking
+
+
+711
+00:20:25,896 --> 00:20:28,966
+application isn't the only
+
+
+712
+00:20:28,966 --> 00:20:31,866
+aspect of a great experience.
+
+
+713
+00:20:31,986 --> 00:20:32,946
+It's also performance.
+
+
+714
+00:20:34,126 --> 00:20:35,236
+So what does that actually mean?
+
+
+715
+00:20:35,236 --> 00:20:38,156
+To have a good experience we
+
+
+716
+00:20:38,156 --> 00:20:40,056
+actually want to have a really
+
+
+717
+00:20:40,056 --> 00:20:41,026
+responsive frame rate.
+
+
+718
+00:20:41,196 --> 00:20:42,326
+Your users are interacting with
+
+
+719
+00:20:42,326 --> 00:20:43,236
+your application, they're
+
+
+720
+00:20:43,306 --> 00:20:44,606
+pinching, they're gesturing,
+
+
+721
+00:20:45,006 --> 00:20:45,876
+they're adding things to the
+
+
+722
+00:20:45,876 --> 00:20:46,916
+scene, removing things.
+
+
+723
+00:20:47,306 --> 00:20:48,386
+You want this to be really fast
+
+
+724
+00:20:48,386 --> 00:20:49,046
+and very fluid.
+
+
+725
+00:20:49,096 --> 00:20:51,836
+So I'm going to show you how we
+
+
+726
+00:20:51,836 --> 00:20:52,806
+actually increased the
+
+
+727
+00:20:52,806 --> 00:20:53,586
+performance of our application
+
+
+728
+00:20:53,586 --> 00:20:53,976
+in Learn to Code.
+
+
+729
+00:20:58,046 --> 00:20:59,546
+Let's take a look at one of our
+
+
+730
+00:20:59,546 --> 00:21:01,136
+geometrically complex scenes.
+
+
+731
+00:21:01,416 --> 00:21:02,396
+And when I say geometrically
+
+
+732
+00:21:02,396 --> 00:21:05,116
+complex, what I mean is this
+
+
+733
+00:21:05,116 --> 00:21:06,836
+scene is comprised of thousands
+
+
+734
+00:21:06,836 --> 00:21:09,796
+of individual geometry parts.
+
+
+735
+00:21:11,176 --> 00:21:12,696
+Now, each of these parts have to
+
+
+736
+00:21:12,696 --> 00:21:14,326
+be rendered separately by the
+
+
+737
+00:21:14,326 --> 00:21:14,886
+GPU.
+
+
+738
+00:21:16,336 --> 00:21:18,316
+So let's take a look at what the
+
+
+739
+00:21:18,316 --> 00:21:19,436
+performance of our application
+
+
+740
+00:21:19,436 --> 00:21:19,716
+is.
+
+
+741
+00:21:20,636 --> 00:21:22,156
+SceneKit has a really useful
+
+
+742
+00:21:22,156 --> 00:21:24,056
+tool called the Debug Statistics
+
+
+743
+00:21:24,056 --> 00:21:26,946
+View and I want to zoom in on it
+
+
+744
+00:21:26,946 --> 00:21:28,996
+now and take a look at it.
+
+
+745
+00:21:29,646 --> 00:21:30,686
+Now, you can enable this in your
+
+
+746
+00:21:30,686 --> 00:21:32,966
+applications by simply setting
+
+
+747
+00:21:32,966 --> 00:21:35,236
+the showStatistics property on
+
+
+748
+00:21:35,236 --> 00:21:36,306
+your view to true.
+
+
+749
+00:21:36,336 --> 00:21:39,936
+If we take a look at some of the
+
+
+750
+00:21:39,936 --> 00:21:41,926
+more interesting numbers on this
+
+
+751
+00:21:42,196 --> 00:21:44,166
+debug view, you'll notice we
+
+
+752
+00:21:44,166 --> 00:21:46,106
+have a low frame rate, 29 frames
+
+
+753
+00:21:46,106 --> 00:21:46,566
+per second.
+
+
+754
+00:21:47,346 --> 00:21:48,606
+That's not very great.
+
+
+755
+00:21:49,006 --> 00:21:50,346
+What we actually really want is
+
+
+756
+00:21:50,346 --> 00:21:51,726
+60 frames per second minimum.
+
+
+757
+00:21:52,326 --> 00:21:54,626
+This allows us to get that fluid
+
+
+758
+00:21:54,626 --> 00:21:55,736
+interaction as the users are
+
+
+759
+00:21:55,736 --> 00:21:57,186
+pinching and gesturing around.
+
+
+760
+00:21:59,686 --> 00:22:00,926
+Well, what contributes to this
+
+
+761
+00:22:00,926 --> 00:22:01,546
+low frame rate?
+
+
+762
+00:22:02,256 --> 00:22:03,366
+Well, let's break it down.
+
+
+763
+00:22:03,366 --> 00:22:05,576
+What are we doing on each frame?
+
+
+764
+00:22:06,976 --> 00:22:08,376
+This number here, the rendering
+
+
+765
+00:22:08,376 --> 00:22:10,106
+number, is the amount of time
+
+
+766
+00:22:10,106 --> 00:22:11,786
+we're taking to render one
+
+
+767
+00:22:11,786 --> 00:22:13,156
+complete frame.
+
+
+768
+00:22:13,156 --> 00:22:16,676
+It looks like we're taking 20.4
+
+
+769
+00:22:16,676 --> 00:22:17,316
+milliseconds.
+
+
+770
+00:22:18,426 --> 00:22:19,646
+That's pretty slow.
+
+
+771
+00:22:19,946 --> 00:22:21,446
+If you do the math, if you want
+
+
+772
+00:22:21,446 --> 00:22:22,766
+to hit 60 frames per second, you
+
+
+773
+00:22:22,766 --> 00:22:23,916
+have to be under 16
+
+
+774
+00:22:23,916 --> 00:22:24,516
+milliseconds.
+
+
+775
+00:22:25,916 --> 00:22:27,016
+So what are we doing that's
+
+
+776
+00:22:27,046 --> 00:22:28,226
+taking 20 milliseconds?
+
+
+777
+00:22:29,436 --> 00:22:31,526
+Well, to aid in that, one thing
+
+
+778
+00:22:31,526 --> 00:22:32,526
+we can look at is the number of
+
+
+779
+00:22:32,526 --> 00:22:33,796
+draw calls, as you can see
+
+
+780
+00:22:33,796 --> 00:22:37,096
+highlighted by this diamond.
+
+
+781
+00:22:37,096 --> 00:22:38,906
+Now, what's a draw call?
+
+
+782
+00:22:39,666 --> 00:22:40,956
+A quick refresher.
+
+
+783
+00:22:41,736 --> 00:22:42,906
+When you want to draw objects in
+
+
+784
+00:22:42,906 --> 00:22:44,446
+a scene, the CPU has to tell
+
+
+785
+00:22:44,446 --> 00:22:46,286
+GPU, hey, draw this mesh.
+
+
+786
+00:22:47,226 --> 00:22:48,696
+The CPU draws this mesh or a
+
+
+787
+00:22:48,696 --> 00:22:50,736
+geometry object, and that's one
+
+
+788
+00:22:50,736 --> 00:22:51,416
+draw call.
+
+
+789
+00:22:51,886 --> 00:22:54,136
+It looks like we have 877 of
+
+
+790
+00:22:54,136 --> 00:22:54,356
+them.
+
+
+791
+00:22:55,376 --> 00:22:56,346
+That's quite a bit of draw
+
+
+792
+00:22:56,346 --> 00:22:56,656
+calls.
+
+
+793
+00:22:56,886 --> 00:22:58,616
+So what are some of the things
+
+
+794
+00:22:58,616 --> 00:22:59,656
+we could do to actually increase
+
+
+795
+00:22:59,656 --> 00:23:01,426
+the performance of our app?
+
+
+796
+00:23:02,016 --> 00:23:03,566
+Well, I'm going to share with
+
+
+797
+00:23:03,566 --> 00:23:04,156
+you one tip.
+
+
+798
+00:23:05,526 --> 00:23:06,476
+The theme throughout the rest of
+
+
+799
+00:23:06,476 --> 00:23:08,376
+the talk is how do we reduce our
+
+
+800
+00:23:08,376 --> 00:23:09,146
+draw call count.
+
+
+801
+00:23:09,836 --> 00:23:13,766
+I'm going to talk to you about
+
+
+802
+00:23:13,766 --> 00:23:17,856
+that in three distinct phases;
+
+
+803
+00:23:18,016 --> 00:23:19,906
+geometry, which are those meshes
+
+
+804
+00:23:19,906 --> 00:23:21,006
+that comprise the scene;
+
+
+805
+00:23:22,216 --> 00:23:23,946
+materials, which give our scene
+
+
+806
+00:23:23,946 --> 00:23:27,126
+a nice look; and lighting, which
+
+
+807
+00:23:27,126 --> 00:23:27,836
+kind of brings our scene to
+
+
+808
+00:23:27,836 --> 00:23:27,936
+life.
+
+
+809
+00:23:31,046 --> 00:23:33,696
+Let's take a look at an example
+
+
+810
+00:23:33,696 --> 00:23:34,796
+level that we showed earlier.
+
+
+811
+00:23:36,016 --> 00:23:38,796
+Now, this scene has lots of
+
+
+812
+00:23:38,796 --> 00:23:39,646
+individual parts.
+
+
+813
+00:23:39,646 --> 00:23:42,806
+I want to focus in on one type,
+
+
+814
+00:23:43,736 --> 00:23:45,296
+the grass.
+
+
+815
+00:23:45,406 --> 00:23:49,146
+Now, if you look closely, and
+
+
+816
+00:23:49,146 --> 00:23:50,116
+you're good at math, you can
+
+
+817
+00:23:50,116 --> 00:23:51,786
+count, there are roughly 30
+
+
+818
+00:23:51,786 --> 00:23:53,136
+individual tiles in this screen,
+
+
+819
+00:23:54,226 --> 00:23:57,106
+each have their own mesh, so the
+
+
+820
+00:23:57,106 --> 00:23:58,636
+CPU has to tell the GPU to
+
+
+821
+00:23:58,636 --> 00:24:01,726
+render these things one-by-one,
+
+
+822
+00:24:01,956 --> 00:24:03,396
+so we get 30 draw calls.
+
+
+823
+00:24:03,396 --> 00:24:05,286
+Now, this is a small scene.
+
+
+824
+00:24:05,286 --> 00:24:06,446
+Imagine if you wanted to have
+
+
+825
+00:24:06,446 --> 00:24:08,576
+like a huge expansive world with
+
+
+826
+00:24:08,636 --> 00:24:09,646
+thousands of these tiles.
+
+
+827
+00:24:09,646 --> 00:24:10,646
+Now we're going to have
+
+
+828
+00:24:10,646 --> 00:24:11,646
+thousands of draw calls.
+
+
+829
+00:24:11,906 --> 00:24:12,756
+Imagine what happens to our
+
+
+830
+00:24:12,756 --> 00:24:15,296
+frame rate then.
+
+
+831
+00:24:16,136 --> 00:24:18,496
+One thing you might notice is
+
+
+832
+00:24:19,266 --> 00:24:20,356
+these grass tiles may not
+
+
+833
+00:24:20,356 --> 00:24:25,006
+actually move, so if they don't
+
+
+834
+00:24:25,306 --> 00:24:26,816
+move, why are we drawing so many
+
+
+835
+00:24:26,916 --> 00:24:27,376
+of them?
+
+
+836
+00:24:27,656 --> 00:24:29,656
+Could we draw perhaps one big
+
+
+837
+00:24:29,656 --> 00:24:30,006
+mesh?
+
+
+838
+00:24:30,566 --> 00:24:33,166
+That's possible.
+
+
+839
+00:24:33,746 --> 00:24:36,706
+There's one rule I want you to
+
+
+840
+00:24:36,706 --> 00:24:38,676
+remember, is when you're talking
+
+
+841
+00:24:38,676 --> 00:24:41,466
+to the GPU, there's one draw
+
+
+842
+00:24:41,466 --> 00:24:42,246
+call per mesh.
+
+
+843
+00:24:42,766 --> 00:24:43,876
+You have a thousand meshes, you
+
+
+844
+00:24:43,876 --> 00:24:44,886
+have a thousand draw calls.
+
+
+845
+00:24:46,066 --> 00:24:47,736
+So if we look at our grass tile
+
+
+846
+00:24:47,736 --> 00:24:49,486
+and we want to actually combine
+
+
+847
+00:24:49,486 --> 00:24:51,506
+them somehow, that sounds like a
+
+
+848
+00:24:51,506 --> 00:24:52,256
+reasonable technique.
+
+
+849
+00:24:53,166 --> 00:24:54,516
+I'm going to show you how we can
+
+
+850
+00:24:55,006 --> 00:24:56,896
+do that.
+
+
+851
+00:24:57,646 --> 00:24:59,546
+Let's say we have two geometry
+
+
+852
+00:24:59,546 --> 00:25:00,496
+objects in our scene.
+
+
+853
+00:25:00,786 --> 00:25:03,096
+On our left we have a grass
+
+
+854
+00:25:03,096 --> 00:25:03,636
+tile.
+
+
+855
+00:25:04,246 --> 00:25:05,426
+On our right we have another
+
+
+856
+00:25:05,426 --> 00:25:07,626
+grass tile.
+
+
+857
+00:25:07,846 --> 00:25:08,926
+They both reference the same
+
+
+858
+00:25:08,926 --> 00:25:09,876
+material, they have the same
+
+
+859
+00:25:09,876 --> 00:25:11,876
+look, they're just displaced and
+
+
+860
+00:25:11,876 --> 00:25:13,236
+they have different locations in
+
+
+861
+00:25:13,236 --> 00:25:13,906
+3D space.
+
+
+862
+00:25:14,846 --> 00:25:16,416
+When you send this to the GPU,
+
+
+863
+00:25:16,466 --> 00:25:17,856
+you're going to get two draw
+
+
+864
+00:25:17,856 --> 00:25:17,976
+calls.
+
+
+865
+00:25:22,556 --> 00:25:24,426
+If we merge the two together
+
+
+866
+00:25:24,426 --> 00:25:25,336
+through a process called
+
+
+867
+00:25:25,336 --> 00:25:27,456
+flattening, what we're doing is
+
+
+868
+00:25:27,456 --> 00:25:28,966
+saying let's take all the points
+
+
+869
+00:25:28,966 --> 00:25:31,226
+out of mesh A and combine them
+
+
+870
+00:25:31,226 --> 00:25:32,906
+with the points in mesh B into
+
+
+871
+00:25:32,906 --> 00:25:35,146
+one super-Godzilla mesh.
+
+
+872
+00:25:37,136 --> 00:25:40,546
+The beauty of this is now all
+
+
+873
+00:25:40,546 --> 00:25:41,896
+these points reference just that
+
+
+874
+00:25:41,896 --> 00:25:43,866
+one material and when the CPU
+
+
+875
+00:25:43,866 --> 00:25:45,216
+talks to the GPU, all it has to
+
+
+876
+00:25:45,216 --> 00:25:46,716
+do is say, hey, draw this one
+
+
+877
+00:25:46,716 --> 00:25:46,996
+thing.
+
+
+878
+00:25:48,426 --> 00:25:50,266
+Done. Now, this sounds pretty
+
+
+879
+00:25:50,266 --> 00:25:52,786
+trivial and it's really easy to
+
+
+880
+00:25:52,786 --> 00:25:53,186
+use.
+
+
+881
+00:25:53,786 --> 00:25:55,416
+You can use it in your
+
+
+882
+00:25:55,416 --> 00:25:58,946
+applications by a method on
+
+
+883
+00:25:59,076 --> 00:26:01,136
+SCNNode called flattenedClone,
+
+
+884
+00:26:01,926 --> 00:26:03,036
+and what you want to do here is
+
+
+885
+00:26:03,036 --> 00:26:04,106
+just make sure that there's a
+
+
+886
+00:26:04,106 --> 00:26:06,656
+parent node that contains the
+
+
+887
+00:26:06,656 --> 00:26:09,416
+nodes that you want to flatten,
+
+
+888
+00:26:09,416 --> 00:26:11,336
+and the return of this is a new
+
+
+889
+00:26:11,336 --> 00:26:12,656
+flattened mesh that you can
+
+
+890
+00:26:12,656 --> 00:26:14,056
+composite in your scene and
+
+
+891
+00:26:14,056 --> 00:26:15,086
+replace the other nodes.
+
+
+892
+00:26:17,016 --> 00:26:18,636
+Now, this simple technique was
+
+
+893
+00:26:18,636 --> 00:26:20,086
+used throughout Learn to Code.
+
+
+894
+00:26:20,086 --> 00:26:22,766
+So if we take our level that I
+
+
+895
+00:26:22,766 --> 00:26:24,646
+showed you earlier, I'm going to
+
+
+896
+00:26:24,646 --> 00:26:26,556
+break down the sections at which
+
+
+897
+00:26:26,556 --> 00:26:27,516
+we were able to run this
+
+
+898
+00:26:27,516 --> 00:26:28,386
+flattening logic.
+
+
+899
+00:26:28,386 --> 00:26:30,516
+I'm going to highlight in red
+
+
+900
+00:26:30,516 --> 00:26:32,326
+the areas that were flattened
+
+
+901
+00:26:32,326 --> 00:26:32,806
+together.
+
+
+902
+00:26:32,966 --> 00:26:34,146
+So you can see here, our water
+
+
+903
+00:26:34,146 --> 00:26:36,226
+now -- the grass tile is much
+
+
+904
+00:26:36,226 --> 00:26:39,506
+fewer draw calls.
+
+
+905
+00:26:39,906 --> 00:26:41,116
+And each of these red sections
+
+
+906
+00:26:41,116 --> 00:26:42,456
+equates to one draw call,
+
+
+907
+00:26:42,456 --> 00:26:43,746
+instead of an individual draw
+
+
+908
+00:26:43,746 --> 00:26:43,976
+call.
+
+
+909
+00:26:46,046 --> 00:26:47,116
+So we were able to greatly
+
+
+910
+00:26:47,116 --> 00:26:48,616
+reduce the number of draw calls
+
+
+911
+00:26:48,616 --> 00:26:49,176
+in our scene.
+
+
+912
+00:26:50,556 --> 00:26:53,266
+We went from over 550 draw calls
+
+
+913
+00:26:53,796 --> 00:26:54,876
+to less than 16.
+
+
+914
+00:26:54,966 --> 00:26:55,916
+This is huge.
+
+
+915
+00:26:58,016 --> 00:26:59,056
+[ Applause ]
+
+
+916
+00:26:59,056 --> 00:26:59,646
+Thank you.
+
+
+917
+00:26:59,646 --> 00:27:04,156
+Now, you have to use a bit of
+
+
+918
+00:27:04,156 --> 00:27:05,916
+discretion here because you
+
+
+919
+00:27:05,916 --> 00:27:06,836
+don't want to just go all
+
+
+920
+00:27:06,836 --> 00:27:08,176
+willy-nilly and, you know,
+
+
+921
+00:27:08,176 --> 00:27:09,496
+flatten all the things.
+
+
+922
+00:27:10,546 --> 00:27:12,616
+The reason why is, as Michael
+
+
+923
+00:27:12,616 --> 00:27:14,976
+showed you earlier, he made the
+
+
+924
+00:27:14,976 --> 00:27:16,376
+water look really realistic by
+
+
+925
+00:27:16,376 --> 00:27:17,786
+adding that simple shader
+
+
+926
+00:27:17,786 --> 00:27:18,786
+modifier that gave us this
+
+
+927
+00:27:18,936 --> 00:27:19,936
+really great effect.
+
+
+928
+00:27:21,176 --> 00:27:24,856
+So if we were to flatten
+
+
+929
+00:27:24,856 --> 00:27:26,596
+everything, the whole world
+
+
+930
+00:27:26,596 --> 00:27:27,576
+would kind of drip away.
+
+
+931
+00:27:27,576 --> 00:27:28,926
+That's not what we want.
+
+
+932
+00:27:29,856 --> 00:27:33,126
+So we were selective in choosing
+
+
+933
+00:27:33,126 --> 00:27:34,716
+what things to flatten.
+
+
+934
+00:27:35,096 --> 00:27:36,306
+So we flattened the waterfalls
+
+
+935
+00:27:36,306 --> 00:27:36,846
+altogether.
+
+
+936
+00:27:37,676 --> 00:27:39,406
+In your worlds or games that you
+
+
+937
+00:27:39,406 --> 00:27:42,036
+create you may choose to have an
+
+
+938
+00:27:42,036 --> 00:27:44,256
+object that disappears or moves
+
+
+939
+00:27:44,256 --> 00:27:46,096
+or scales or rotates, or somehow
+
+
+940
+00:27:46,096 --> 00:27:46,876
+it gets modified.
+
+
+941
+00:27:47,546 --> 00:27:50,226
+So I think the takeaway here is
+
+
+942
+00:27:51,396 --> 00:27:52,416
+based on how you want to use
+
+
+943
+00:27:52,416 --> 00:27:53,366
+your geometry, if there's
+
+
+944
+00:27:53,366 --> 00:27:54,936
+something dynamic about it, you
+
+
+945
+00:27:54,936 --> 00:27:56,656
+may want to keep flattening it
+
+
+946
+00:27:56,656 --> 00:27:58,296
+with other things that move in
+
+
+947
+00:27:58,296 --> 00:27:58,976
+the exact same way.
+
+
+948
+00:28:04,256 --> 00:28:05,036
+So I'm going to give you a
+
+
+949
+00:28:05,036 --> 00:28:07,466
+couple of tips on working with
+
+
+950
+00:28:07,466 --> 00:28:07,996
+flattening.
+
+
+951
+00:28:08,686 --> 00:28:09,846
+One is you want to store your
+
+
+952
+00:28:09,846 --> 00:28:11,386
+nodes that you want to flatten
+
+
+953
+00:28:11,436 --> 00:28:13,256
+in the same group, parent group,
+
+
+954
+00:28:13,256 --> 00:28:13,826
+parent node.
+
+
+955
+00:28:14,136 --> 00:28:14,946
+And it doesn't have to be the
+
+
+956
+00:28:14,946 --> 00:28:16,916
+same type of geometry like we're
+
+
+957
+00:28:16,916 --> 00:28:18,196
+using grass tiles here, but
+
+
+958
+00:28:18,416 --> 00:28:19,926
+let's say you're modeling a
+
+
+959
+00:28:19,926 --> 00:28:21,836
+living room and you have a sofa
+
+
+960
+00:28:21,836 --> 00:28:23,166
+and a chair and a table, and
+
+
+961
+00:28:23,166 --> 00:28:24,336
+they don't move relative to each
+
+
+962
+00:28:24,336 --> 00:28:24,576
+other.
+
+
+963
+00:28:25,366 --> 00:28:26,506
+They're all good candidates to
+
+
+964
+00:28:26,506 --> 00:28:28,736
+put in one node group and
+
+
+965
+00:28:28,816 --> 00:28:29,906
+flatten by itself.
+
+
+966
+00:28:30,296 --> 00:28:31,046
+So you want to be really
+
+
+967
+00:28:31,046 --> 00:28:32,466
+aggressive here and anything
+
+
+968
+00:28:32,466 --> 00:28:33,806
+that doesn't move relative to
+
+
+969
+00:28:33,806 --> 00:28:37,266
+something else, flatten it and
+
+
+970
+00:28:37,546 --> 00:28:38,566
+you'll reduce your draw call
+
+
+971
+00:28:38,566 --> 00:28:39,516
+count significantly.
+
+
+972
+00:28:40,146 --> 00:28:42,996
+Now, there is a caveat here.
+
+
+973
+00:28:44,476 --> 00:28:46,206
+Learn to Code's world is pretty
+
+
+974
+00:28:47,596 --> 00:28:49,266
+static in terms of it's a small
+
+
+975
+00:28:49,266 --> 00:28:50,706
+world that's always visible on
+
+
+976
+00:28:50,706 --> 00:28:52,416
+the screen, but for your world,
+
+
+977
+00:28:52,416 --> 00:28:53,356
+you may do something really
+
+
+978
+00:28:53,356 --> 00:28:54,376
+expansive where you have to go
+
+
+979
+00:28:54,376 --> 00:28:56,946
+into a building or you're on a
+
+
+980
+00:28:56,946 --> 00:28:58,476
+large terrain or you have
+
+
+981
+00:28:58,476 --> 00:28:58,896
+levels.
+
+
+982
+00:28:59,766 --> 00:29:00,926
+So what you want to do here --
+
+
+983
+00:29:01,936 --> 00:29:03,076
+what you don't want to do is
+
+
+984
+00:29:03,146 --> 00:29:04,626
+atlas everything all willy-nilly
+
+
+985
+00:29:04,626 --> 00:29:05,506
+because what's going to happen
+
+
+986
+00:29:05,506 --> 00:29:07,446
+is if you have an atlas of this
+
+
+987
+00:29:07,446 --> 00:29:09,616
+entire world, of which only a
+
+
+988
+00:29:09,616 --> 00:29:11,026
+portion is visible in the scene
+
+
+989
+00:29:11,026 --> 00:29:12,636
+at any one time, you're going to
+
+
+990
+00:29:12,636 --> 00:29:13,846
+pay the performance cost of
+
+
+991
+00:29:13,946 --> 00:29:15,566
+rendering all these points and
+
+
+992
+00:29:15,566 --> 00:29:17,486
+all the meshes, and that's not
+
+
+993
+00:29:17,486 --> 00:29:17,976
+what you want.
+
+
+994
+00:29:19,466 --> 00:29:21,056
+A simple technique here is to
+
+
+995
+00:29:21,176 --> 00:29:22,556
+simply subdivide your world into
+
+
+996
+00:29:22,556 --> 00:29:25,266
+discrete chunks and then run
+
+
+997
+00:29:25,266 --> 00:29:26,786
+this process on each of those
+
+
+998
+00:29:26,786 --> 00:29:28,386
+chunks, and as you move from
+
+
+999
+00:29:28,386 --> 00:29:29,986
+chunk-to-chunk, as the camera
+
+
+1000
+00:29:29,986 --> 00:29:31,356
+moves from chunk-to-chunk,
+
+
+1001
+00:29:31,356 --> 00:29:32,016
+you're actually getting the
+
+
+1002
+00:29:32,016 --> 00:29:33,566
+benefits of flattening without
+
+
+1003
+00:29:33,566 --> 00:29:35,976
+paying the overhead of rendering
+
+
+1004
+00:29:36,066 --> 00:29:38,226
+everything in your scene at
+
+
+1005
+00:29:38,976 --> 00:29:39,146
+once.
+
+
+1006
+00:29:39,716 --> 00:29:40,726
+Next I'd like to talk to you
+
+
+1007
+00:29:40,726 --> 00:29:41,526
+about materials.
+
+
+1008
+00:29:42,556 --> 00:29:44,276
+Now, materials have an even
+
+
+1009
+00:29:44,276 --> 00:29:46,066
+bigger impact on your draw call
+
+
+1010
+00:29:46,066 --> 00:29:49,376
+count, and I'll get into why.
+
+
+1011
+00:29:50,286 --> 00:29:52,106
+Here's a still frame from that
+
+
+1012
+00:29:52,226 --> 00:29:54,056
+movie I showed earlier, where we
+
+
+1013
+00:29:54,056 --> 00:29:56,266
+show that we flattened this
+
+
+1014
+00:29:56,266 --> 00:29:58,386
+aspect of the scene, the top of
+
+
+1015
+00:29:58,446 --> 00:30:02,006
+the world mostly, into one mesh.
+
+
+1016
+00:30:03,006 --> 00:30:04,616
+So this is one draw call.
+
+
+1017
+00:30:05,236 --> 00:30:07,536
+But the astute observers of you
+
+
+1018
+00:30:07,536 --> 00:30:09,326
+out there that may notice, hey,
+
+
+1019
+00:30:10,026 --> 00:30:11,286
+there are multiple materials
+
+
+1020
+00:30:11,286 --> 00:30:12,996
+here, like obviously those
+
+
+1021
+00:30:13,556 --> 00:30:15,366
+stonehenges don't have the same
+
+
+1022
+00:30:15,366 --> 00:30:17,196
+materials as the staircase, and
+
+
+1023
+00:30:17,196 --> 00:30:18,466
+surely not the stones
+
+
+1024
+00:30:18,766 --> 00:30:19,326
+themselves.
+
+
+1025
+00:30:19,326 --> 00:30:21,316
+So what's going on here?
+
+
+1026
+00:30:22,046 --> 00:30:24,346
+Let's talk about reducing
+
+
+1027
+00:30:24,346 --> 00:30:26,006
+materials because that's what we
+
+
+1028
+00:30:26,006 --> 00:30:27,956
+did to get this down to one draw
+
+
+1029
+00:30:27,956 --> 00:30:28,196
+call.
+
+
+1030
+00:30:30,016 --> 00:30:31,416
+So again, we have our two
+
+
+1031
+00:30:31,416 --> 00:30:33,016
+geometry objects on the screen;
+
+
+1032
+00:30:34,156 --> 00:30:36,016
+one on the left, one on the
+
+
+1033
+00:30:36,016 --> 00:30:36,276
+right.
+
+
+1034
+00:30:37,316 --> 00:30:40,506
+One uses the sand texture, one
+
+
+1035
+00:30:40,506 --> 00:30:42,486
+uses this more sand/grass
+
+
+1036
+00:30:42,486 --> 00:30:43,176
+looking texture.
+
+
+1037
+00:30:44,596 --> 00:30:46,026
+If we run the logic that I
+
+
+1038
+00:30:46,026 --> 00:30:47,206
+showed you before, flattening,
+
+
+1039
+00:30:48,076 --> 00:30:50,516
+we actually get that one
+
+
+1040
+00:30:50,516 --> 00:30:53,466
+combined, Godzilla mesh, but
+
+
+1041
+00:30:53,786 --> 00:30:54,796
+we're still referencing two
+
+
+1042
+00:30:54,796 --> 00:30:55,206
+materials.
+
+
+1043
+00:30:55,356 --> 00:30:56,946
+So when the CPU has to talk to
+
+
+1044
+00:30:56,946 --> 00:30:58,946
+the GPU, it's going to say, hey,
+
+
+1045
+00:30:59,386 --> 00:31:01,066
+take this mesh and draw the sand
+
+
+1046
+00:31:01,066 --> 00:31:01,766
+material with it.
+
+
+1047
+00:31:02,336 --> 00:31:03,356
+Great. Okay.
+
+
+1048
+00:31:03,356 --> 00:31:04,706
+Now, take this mesh again and
+
+
+1049
+00:31:04,706 --> 00:31:05,996
+draw the parts of it that uses
+
+
+1050
+00:31:05,996 --> 00:31:06,996
+the grass material again.
+
+
+1051
+00:31:07,146 --> 00:31:08,316
+You still get two draw calls.
+
+
+1052
+00:31:09,456 --> 00:31:11,706
+There's an opportunity here to
+
+
+1053
+00:31:12,276 --> 00:31:14,006
+reduce this.
+
+
+1054
+00:31:15,466 --> 00:31:16,746
+And you may have heard of
+
+
+1055
+00:31:16,746 --> 00:31:19,006
+texture atlasing, but maybe you
+
+
+1056
+00:31:19,006 --> 00:31:20,146
+don't understand exactly what
+
+
+1057
+00:31:20,146 --> 00:31:20,456
+that is.
+
+
+1058
+00:31:20,456 --> 00:31:22,176
+It's a very simple process.
+
+
+1059
+00:31:23,206 --> 00:31:25,466
+Your artist, and their 3D tools,
+
+
+1060
+00:31:26,086 --> 00:31:28,056
+would take your materials and
+
+
+1061
+00:31:28,056 --> 00:31:30,936
+combine them into one texture
+
+
+1062
+00:31:30,936 --> 00:31:34,566
+atlas and under the covers
+
+
+1063
+00:31:34,726 --> 00:31:36,126
+they'll update your geometry so
+
+
+1064
+00:31:36,126 --> 00:31:37,096
+that it's pointing to the right
+
+
+1065
+00:31:37,096 --> 00:31:39,346
+bits inside your textures, but
+
+
+1066
+00:31:39,346 --> 00:31:41,376
+the net result is you have one
+
+
+1067
+00:31:41,376 --> 00:31:41,976
+draw call.
+
+
+1068
+00:31:44,136 --> 00:31:49,196
+Now, this works if you have a
+
+
+1069
+00:31:49,196 --> 00:31:50,886
+few objects or thousands of
+
+
+1070
+00:31:50,886 --> 00:31:51,386
+objects.
+
+
+1071
+00:31:52,486 --> 00:31:53,386
+In Learn to Code I'll give you
+
+
+1072
+00:31:53,386 --> 00:31:54,826
+an example of one of the atlases
+
+
+1073
+00:31:54,826 --> 00:31:56,056
+for the world that I just showed
+
+
+1074
+00:31:56,056 --> 00:31:56,236
+you.
+
+
+1075
+00:31:56,346 --> 00:31:57,816
+This is what our atlas looked
+
+
+1076
+00:31:57,816 --> 00:31:57,976
+like.
+
+
+1077
+00:32:00,216 --> 00:32:03,296
+We had over 70 materials that we
+
+
+1078
+00:32:03,296 --> 00:32:04,926
+were able to condense down into
+
+
+1079
+00:32:04,926 --> 00:32:05,246
+one.
+
+
+1080
+00:32:05,906 --> 00:32:08,066
+That's a huge savings.
+
+
+1081
+00:32:09,636 --> 00:32:11,296
+There's another benefit here
+
+
+1082
+00:32:11,296 --> 00:32:14,176
+that you may not be aware of.
+
+
+1083
+00:32:14,386 --> 00:32:15,786
+When you have a material in your
+
+
+1084
+00:32:15,786 --> 00:32:17,176
+scene, when your scene loads,
+
+
+1085
+00:32:17,826 --> 00:32:20,406
+there's a shader that has to be
+
+
+1086
+00:32:20,456 --> 00:32:23,786
+generated behind the scenes and
+
+
+1087
+00:32:24,146 --> 00:32:25,236
+you can't start your scene until
+
+
+1088
+00:32:25,236 --> 00:32:26,296
+that shader's actually finished
+
+
+1089
+00:32:26,296 --> 00:32:26,756
+compiling.
+
+
+1090
+00:32:26,936 --> 00:32:28,376
+If you have 70 materials, you
+
+
+1091
+00:32:28,376 --> 00:32:29,336
+have 70 shaders.
+
+
+1092
+00:32:29,726 --> 00:32:30,796
+You have a really rich level
+
+
+1093
+00:32:30,796 --> 00:32:31,906
+with hundreds of objects,
+
+
+1094
+00:32:32,316 --> 00:32:34,146
+hundreds of materials, now all
+
+
+1095
+00:32:34,146 --> 00:32:35,656
+of a sudden your load time --
+
+
+1096
+00:32:35,686 --> 00:32:36,676
+you're stuck waiting for the
+
+
+1097
+00:32:36,676 --> 00:32:37,556
+scene to load.
+
+
+1098
+00:32:38,436 --> 00:32:40,146
+By combining it into one
+
+
+1099
+00:32:40,616 --> 00:32:42,236
+material, or fewer materials,
+
+
+1100
+00:32:42,536 --> 00:32:43,656
+you're reducing the number of
+
+
+1101
+00:32:43,656 --> 00:32:44,446
+shaders that need to get
+
+
+1102
+00:32:44,446 --> 00:32:46,176
+compiled, boosting your startup
+
+
+1103
+00:32:46,176 --> 00:32:49,606
+time, not to mention lesser I/O
+
+
+1104
+00:32:49,606 --> 00:32:50,936
+in terms of hitting a disk.
+
+
+1105
+00:32:55,536 --> 00:32:56,686
+So next I want to talk about
+
+
+1106
+00:32:56,686 --> 00:32:57,056
+lighting.
+
+
+1107
+00:32:57,766 --> 00:32:59,466
+Now, lighting's very interesting
+
+
+1108
+00:32:59,466 --> 00:33:02,336
+because lighting is what allows
+
+
+1109
+00:33:02,336 --> 00:33:05,666
+you to add rich, vivid detail to
+
+
+1110
+00:33:05,666 --> 00:33:06,136
+your world.
+
+
+1111
+00:33:07,006 --> 00:33:07,866
+You can take a scene and it
+
+
+1112
+00:33:07,866 --> 00:33:08,936
+looks kind of static, kind of
+
+
+1113
+00:33:08,936 --> 00:33:09,326
+boring.
+
+
+1114
+00:33:09,776 --> 00:33:11,706
+You add lights, now it gets a
+
+
+1115
+00:33:11,706 --> 00:33:12,296
+little interesting.
+
+
+1116
+00:33:13,216 --> 00:33:17,356
+So we let our artists put a few
+
+
+1117
+00:33:17,356 --> 00:33:18,346
+lights in the scene and give us
+
+
+1118
+00:33:18,386 --> 00:33:19,316
+this visual effect.
+
+
+1119
+00:33:19,996 --> 00:33:22,396
+We add a spotlight so that when
+
+
+1120
+00:33:22,396 --> 00:33:23,316
+the characters went around the
+
+
+1121
+00:33:23,316 --> 00:33:24,676
+world, they're casting shadows
+
+
+1122
+00:33:24,676 --> 00:33:27,326
+as they move along the water or
+
+
+1123
+00:33:27,666 --> 00:33:28,166
+the grass.
+
+
+1124
+00:33:28,556 --> 00:33:30,816
+It's a nice effect.
+
+
+1125
+00:33:30,856 --> 00:33:32,376
+We added omni-directional lights
+
+
+1126
+00:33:32,626 --> 00:33:33,836
+scattered throughout the scene
+
+
+1127
+00:33:34,886 --> 00:33:36,416
+to add a little visual pop.
+
+
+1128
+00:33:36,416 --> 00:33:38,086
+So you can see the staircases in
+
+
+1129
+00:33:38,086 --> 00:33:39,526
+the foreground are highlighted a
+
+
+1130
+00:33:39,526 --> 00:33:40,506
+little bit more than the
+
+
+1131
+00:33:40,556 --> 00:33:41,786
+staircases in the background.
+
+
+1132
+00:33:44,386 --> 00:33:46,006
+And lastly, we added an ambient
+
+
+1133
+00:33:46,006 --> 00:33:49,036
+light, which makes sure that
+
+
+1134
+00:33:49,036 --> 00:33:50,056
+everything in the scene is
+
+
+1135
+00:33:50,136 --> 00:33:51,216
+visible; otherwise, you'd have
+
+
+1136
+00:33:51,316 --> 00:33:53,586
+really super dark areas where
+
+
+1137
+00:33:53,586 --> 00:33:54,866
+the other lights don't hit.
+
+
+1138
+00:33:54,926 --> 00:33:57,246
+And you can see this sort of
+
+
+1139
+00:33:57,246 --> 00:33:58,156
+great effect if you look in the
+
+
+1140
+00:33:58,156 --> 00:34:00,496
+shadows of where the water is.
+
+
+1141
+00:34:00,496 --> 00:34:01,206
+It's really neat.
+
+
+1142
+00:34:02,686 --> 00:34:04,506
+Now, there's a performance cost
+
+
+1143
+00:34:04,506 --> 00:34:04,906
+to this.
+
+
+1144
+00:34:04,906 --> 00:34:05,966
+Lights are not free.
+
+
+1145
+00:34:07,276 --> 00:34:08,606
+Remember I told you that draw
+
+
+1146
+00:34:08,606 --> 00:34:10,116
+calls, the more you have the
+
+
+1147
+00:34:10,116 --> 00:34:11,726
+less performant you are, your
+
+
+1148
+00:34:11,726 --> 00:34:12,295
+application is?
+
+
+1149
+00:34:12,996 --> 00:34:15,116
+Well, whenever you have a light
+
+
+1150
+00:34:15,116 --> 00:34:19,176
+that hits a mesh, that's an
+
+
+1151
+00:34:19,366 --> 00:34:20,446
+extra draw call.
+
+
+1152
+00:34:21,206 --> 00:34:22,286
+So you have five lights in your
+
+
+1153
+00:34:22,286 --> 00:34:24,366
+scene, you just increased your
+
+
+1154
+00:34:24,366 --> 00:34:26,266
+draw call count by five.
+
+
+1155
+00:34:27,516 --> 00:34:29,386
+There's a way to get around
+
+
+1156
+00:34:29,386 --> 00:34:32,186
+this, and it's called a light
+
+
+1157
+00:34:32,186 --> 00:34:32,856
+map.
+
+
+1158
+00:34:34,065 --> 00:34:36,416
+Now, what this is, is your
+
+
+1159
+00:34:36,416 --> 00:34:38,275
+artist, and their 3D tool, will
+
+
+1160
+00:34:38,275 --> 00:34:41,166
+basically run a process that
+
+
+1161
+00:34:41,166 --> 00:34:43,096
+calculates where the lights are.
+
+
+1162
+00:34:43,096 --> 00:34:44,636
+They can go to town, put all the
+
+
+1163
+00:34:44,636 --> 00:34:45,876
+lights they want in there, light
+
+
+1164
+00:34:45,876 --> 00:34:47,556
+all the things, and it would
+
+
+1165
+00:34:47,556 --> 00:34:49,676
+actually precompute the
+
+
+1166
+00:34:49,786 --> 00:34:51,226
+intensity of the light hitting
+
+
+1167
+00:34:51,226 --> 00:34:53,045
+your scene and it would store it
+
+
+1168
+00:34:53,045 --> 00:34:54,876
+in a material, not unlike the
+
+
+1169
+00:34:54,876 --> 00:34:56,065
+textures we showed you earlier.
+
+
+1170
+00:34:57,406 --> 00:35:01,356
+The beauty of this is that this
+
+
+1171
+00:35:01,696 --> 00:35:03,726
+process is not CPU or GPU
+
+
+1172
+00:35:03,726 --> 00:35:04,216
+intensive.
+
+
+1173
+00:35:04,446 --> 00:35:05,666
+As a matter of fact, it's free.
+
+
+1174
+00:35:05,666 --> 00:35:06,656
+It's taking me more energy to
+
+
+1175
+00:35:06,656 --> 00:35:08,336
+talk about it than the CPU would
+
+
+1176
+00:35:08,336 --> 00:35:12,346
+actually spend applying this.
+
+
+1177
+00:35:12,536 --> 00:35:13,506
+So we are able to take our light
+
+
+1178
+00:35:13,506 --> 00:35:15,146
+count down to zero if we wanted.
+
+
+1179
+00:35:16,196 --> 00:35:16,806
+Now, we didn't.
+
+
+1180
+00:35:17,846 --> 00:35:19,276
+We left one spotlight in there
+
+
+1181
+00:35:20,026 --> 00:35:21,436
+because we distinguished between
+
+
+1182
+00:35:21,436 --> 00:35:23,036
+lights that don't change every
+
+
+1183
+00:35:23,036 --> 00:35:24,156
+frame, why should we render
+
+
+1184
+00:35:24,156 --> 00:35:25,136
+these lights again, we did it
+
+
+1185
+00:35:25,136 --> 00:35:26,136
+the last frame and nothing
+
+
+1186
+00:35:26,136 --> 00:35:29,086
+changed, but the spotlight does
+
+
+1187
+00:35:29,086 --> 00:35:29,476
+change.
+
+
+1188
+00:35:29,926 --> 00:35:31,416
+As you rotate the world the
+
+
+1189
+00:35:31,416 --> 00:35:32,926
+spotlight's going to hit the
+
+
+1190
+00:35:32,926 --> 00:35:34,036
+objects in a different way.
+
+
+1191
+00:35:35,016 --> 00:35:36,046
+When you have your character
+
+
+1192
+00:35:36,046 --> 00:35:37,626
+walking around the world, its
+
+
+1193
+00:35:37,626 --> 00:35:39,316
+shadow is going to cast on the
+
+
+1194
+00:35:39,316 --> 00:35:40,726
+rest of the world in a different
+
+
+1195
+00:35:40,726 --> 00:35:40,886
+way.
+
+
+1196
+00:35:41,796 --> 00:35:43,786
+So we kept it, but we made sure
+
+
+1197
+00:35:43,786 --> 00:35:46,216
+that we were specific as to what
+
+
+1198
+00:35:46,216 --> 00:35:48,796
+it would apply to, the
+
+
+1199
+00:35:49,386 --> 00:35:51,336
+characters or certain parts of
+
+
+1200
+00:35:51,336 --> 00:35:51,846
+the scene.
+
+
+1201
+00:35:53,316 --> 00:35:55,126
+And the good thing about this is
+
+
+1202
+00:35:55,126 --> 00:35:57,536
+it works in tandem with all the
+
+
+1203
+00:35:57,536 --> 00:35:58,566
+flattening that I showed you
+
+
+1204
+00:35:58,566 --> 00:35:59,966
+earlier, because obviously
+
+
+1205
+00:35:59,966 --> 00:36:01,496
+lights act like a multiplier in
+
+
+1206
+00:36:01,496 --> 00:36:02,406
+terms of your draw calls.
+
+
+1207
+00:36:02,816 --> 00:36:03,646
+Well, guess what.
+
+
+1208
+00:36:04,306 --> 00:36:05,496
+We reduced the first term.
+
+
+1209
+00:36:05,496 --> 00:36:09,146
+We reduced the number of meshes
+
+
+1210
+00:36:09,186 --> 00:36:11,696
+that have to be lit.
+
+
+1211
+00:36:11,806 --> 00:36:12,916
+So if we actually really wanted
+
+
+1212
+00:36:12,916 --> 00:36:13,626
+to put another light in there,
+
+
+1213
+00:36:13,626 --> 00:36:15,226
+the effect wouldn't be as bad as
+
+
+1214
+00:36:15,226 --> 00:36:15,876
+when we started.
+
+
+1215
+00:36:17,216 --> 00:36:19,266
+So after making all of these
+
+
+1216
+00:36:19,266 --> 00:36:21,466
+changes, let's take a look at
+
+
+1217
+00:36:21,466 --> 00:36:22,386
+our performance and see where we
+
+
+1218
+00:36:22,386 --> 00:36:22,906
+are now.
+
+
+1219
+00:36:23,546 --> 00:36:25,436
+Let's zoom in.
+
+
+1220
+00:36:25,436 --> 00:36:27,006
+Actually, I want to take a
+
+
+1221
+00:36:27,006 --> 00:36:28,906
+moment to just appreciate how
+
+
+1222
+00:36:28,906 --> 00:36:30,476
+good the light maps look.
+
+
+1223
+00:36:31,716 --> 00:36:32,746
+If you take a look behind the
+
+
+1224
+00:36:32,746 --> 00:36:33,766
+first staircase, you see that
+
+
+1225
+00:36:33,766 --> 00:36:34,886
+little dark shadow and the
+
+
+1226
+00:36:34,886 --> 00:36:37,036
+crevices and even behind the
+
+
+1227
+00:36:37,036 --> 00:36:38,106
+waterfall slightly is a little
+
+
+1228
+00:36:38,106 --> 00:36:40,796
+darker, around the rocks and the
+
+
+1229
+00:36:40,796 --> 00:36:42,856
+curved areas in the stonehenge,
+
+
+1230
+00:36:42,856 --> 00:36:43,796
+it looks really great.
+
+
+1231
+00:36:44,286 --> 00:36:45,266
+And you know what, you're not
+
+
+1232
+00:36:45,266 --> 00:36:46,256
+paying anything for it.
+
+
+1233
+00:36:46,256 --> 00:36:48,366
+It was done all offline using
+
+
+1234
+00:36:48,366 --> 00:36:48,846
+material.
+
+
+1235
+00:36:48,846 --> 00:36:50,536
+Our artist went crazy with
+
+
+1236
+00:36:50,536 --> 00:36:51,856
+lights and their 3D tool.
+
+
+1237
+00:36:51,856 --> 00:36:54,196
+Now I'll zoom in on the
+
+
+1238
+00:36:54,196 --> 00:36:54,826
+performance.
+
+
+1239
+00:36:57,176 --> 00:36:58,516
+Wow, we're hitting 60 fps now.
+
+
+1240
+00:36:58,516 --> 00:36:59,676
+Our users won't be closing our
+
+
+1241
+00:36:59,676 --> 00:37:00,736
+app and going to go do something
+
+
+1242
+00:37:00,736 --> 00:37:01,196
+else.
+
+
+1243
+00:37:01,796 --> 00:37:05,346
+Let's look at our rendering
+
+
+1244
+00:37:05,346 --> 00:37:05,626
+time.
+
+
+1245
+00:37:05,706 --> 00:37:08,656
+We're at 2.3 milliseconds.
+
+
+1246
+00:37:09,416 --> 00:37:10,536
+Now, that's fantastic, for a
+
+
+1247
+00:37:10,536 --> 00:37:11,346
+number of reasons.
+
+
+1248
+00:37:12,066 --> 00:37:13,556
+Number one, remember we said you
+
+
+1249
+00:37:13,556 --> 00:37:14,556
+have to get under 16
+
+
+1250
+00:37:14,556 --> 00:37:17,316
+milliseconds to be able to
+
+
+1251
+00:37:17,466 --> 00:37:22,896
+actually render at 60 fps?
+
+
+1252
+00:37:23,886 --> 00:37:25,136
+Well, that new iPad that just
+
+
+1253
+00:37:25,136 --> 00:37:27,106
+came out, if you want to take
+
+
+1254
+00:37:27,106 --> 00:37:28,346
+advantage of 120 hertz
+
+
+1255
+00:37:28,566 --> 00:37:30,826
+technology refresh rate, you
+
+
+1256
+00:37:30,826 --> 00:37:31,946
+want to get that number under 7.
+
+
+1257
+00:37:32,406 --> 00:37:33,416
+We're under 2, so we're good.
+
+
+1258
+00:37:34,286 --> 00:37:36,906
+Crank it up.
+
+
+1259
+00:37:37,456 --> 00:37:41,156
+So let's talk about headroom.
+
+
+1260
+00:37:42,296 --> 00:37:44,746
+The beauty of this low number is
+
+
+1261
+00:37:44,746 --> 00:37:46,206
+if you want to add more things
+
+
+1262
+00:37:46,206 --> 00:37:47,156
+to your scene, maybe you want to
+
+
+1263
+00:37:47,156 --> 00:37:48,176
+add a little bit more gameplay
+
+
+1264
+00:37:48,176 --> 00:37:50,176
+logic using GameplayKit, or you
+
+
+1265
+00:37:50,176 --> 00:37:53,216
+wanted to do some networking or
+
+
+1266
+00:37:53,216 --> 00:37:54,456
+you wanted to just make your
+
+
+1267
+00:37:54,456 --> 00:37:56,926
+scene rich, tell your artist,
+
+
+1268
+00:37:56,926 --> 00:37:58,236
+hey, crank it up, let's make
+
+
+1269
+00:37:58,236 --> 00:37:59,976
+some more objects in our scene,
+
+
+1270
+00:37:59,976 --> 00:38:02,136
+make it more detailed, or you
+
+
+1271
+00:38:02,136 --> 00:38:03,486
+just want to enjoy your better
+
+
+1272
+00:38:03,486 --> 00:38:06,556
+battery life, you can do that.
+
+
+1273
+00:38:06,656 --> 00:38:07,646
+Finally, let's look at that draw
+
+
+1274
+00:38:07,646 --> 00:38:08,186
+call count.
+
+
+1275
+00:38:09,576 --> 00:38:12,116
+Wow, 73. If you remember, the
+
+
+1276
+00:38:12,116 --> 00:38:13,686
+earlier number was over 700.
+
+
+1277
+00:38:14,156 --> 00:38:16,586
+We're using less than a tenth of
+
+
+1278
+00:38:16,586 --> 00:38:19,816
+the draw call amount than we had
+
+
+1279
+00:38:19,816 --> 00:38:20,276
+before.
+
+
+1280
+00:38:20,926 --> 00:38:22,556
+We're sipping power instead of
+
+
+1281
+00:38:22,556 --> 00:38:24,266
+guzzling it like we were before.
+
+
+1282
+00:38:24,846 --> 00:38:25,396
+This is great.
+
+
+1283
+00:38:26,186 --> 00:38:27,526
+Our app is very fluid.
+
+
+1284
+00:38:28,206 --> 00:38:29,916
+And when I talk about headroom
+
+
+1285
+00:38:29,916 --> 00:38:31,726
+again, you have to remember
+
+
+1286
+00:38:31,726 --> 00:38:33,026
+you're going to be doing other
+
+
+1287
+00:38:33,026 --> 00:38:33,916
+things in your app other than
+
+
+1288
+00:38:33,916 --> 00:38:34,516
+just rendering.
+
+
+1289
+00:38:34,836 --> 00:38:36,106
+In our case, we have the Swift
+
+
+1290
+00:38:36,106 --> 00:38:37,636
+Compiler running on the left,
+
+
+1291
+00:38:38,076 --> 00:38:38,716
+potentially.
+
+
+1292
+00:38:39,406 --> 00:38:42,656
+The users were editing code and
+
+
+1293
+00:38:42,656 --> 00:38:44,106
+clicking on menu items, and
+
+
+1294
+00:38:44,106 --> 00:38:44,756
+things like that.
+
+
+1295
+00:38:44,756 --> 00:38:47,346
+And in your application maybe
+
+
+1296
+00:38:47,346 --> 00:38:48,426
+the user's doing something like
+
+
+1297
+00:38:48,426 --> 00:38:50,416
+pinching or doing some selection
+
+
+1298
+00:38:50,416 --> 00:38:53,556
+or, you know, anything that
+
+
+1299
+00:38:53,556 --> 00:38:54,316
+would actually take more
+
+
+1300
+00:38:54,316 --> 00:38:55,646
+processing time in terms of
+
+
+1301
+00:38:55,646 --> 00:38:56,716
+logic in your application.
+
+
+1302
+00:38:58,186 --> 00:39:00,756
+So that's great.
+
+
+1303
+00:39:00,936 --> 00:39:04,106
+So to recap, we've talked about
+
+
+1304
+00:39:04,106 --> 00:39:05,546
+flattening geometry, how this is
+
+
+1305
+00:39:05,546 --> 00:39:07,336
+the low-hanging fruit of
+
+
+1306
+00:39:07,396 --> 00:39:08,646
+performance optimizations in
+
+
+1307
+00:39:08,646 --> 00:39:09,806
+terms of reducing your draw call
+
+
+1308
+00:39:09,806 --> 00:39:10,136
+count.
+
+
+1309
+00:39:11,726 --> 00:39:13,366
+We talked about using a texture
+
+
+1310
+00:39:13,366 --> 00:39:14,826
+atlas, which is something that
+
+
+1311
+00:39:14,826 --> 00:39:15,936
+you get your artist to do and
+
+
+1312
+00:39:15,936 --> 00:39:17,236
+you just take advantage of that
+
+
+1313
+00:39:17,236 --> 00:39:18,136
+will reduce the number of
+
+
+1314
+00:39:18,136 --> 00:39:20,136
+materials that you use, which
+
+
+1315
+00:39:20,136 --> 00:39:21,876
+has an impact on loading time,
+
+
+1316
+00:39:21,956 --> 00:39:23,286
+making your app start up much
+
+
+1317
+00:39:23,286 --> 00:39:26,306
+faster, and also an impact on
+
+
+1318
+00:39:26,306 --> 00:39:28,796
+disk I/O, making it less objects
+
+
+1319
+00:39:28,796 --> 00:39:29,176
+to load.
+
+
+1320
+00:39:30,286 --> 00:39:32,636
+And lastly, it works in tandem
+
+
+1321
+00:39:32,806 --> 00:39:34,626
+with the geometry flattening to
+
+
+1322
+00:39:34,626 --> 00:39:35,336
+make sure that you have the
+
+
+1323
+00:39:35,336 --> 00:39:36,426
+fewest amount of draw calls
+
+
+1324
+00:39:36,476 --> 00:39:36,896
+possible.
+
+
+1325
+00:39:38,306 --> 00:39:42,116
+And lastly, using light maps to
+
+
+1326
+00:39:42,116 --> 00:39:43,876
+add that rich visual detail to
+
+
+1327
+00:39:43,876 --> 00:39:47,036
+your scene and not pay any
+
+
+1328
+00:39:47,096 --> 00:39:49,366
+performance penalty for it on
+
+
+1329
+00:39:49,366 --> 00:39:49,846
+the GPU.
+
+
+1330
+00:39:50,016 --> 00:39:50,816
+Let your artist go crazy.
+
+
+1331
+00:39:51,396 --> 00:39:54,586
+We have a few related sessions
+
+
+1332
+00:39:54,586 --> 00:39:54,956
+for you.
+
+
+1333
+00:39:55,846 --> 00:39:56,966
+Thanks, and have a great WWDC.
+
+
+1334
+00:39:57,516 --> 00:40:07,980
+[ Applause ]
+

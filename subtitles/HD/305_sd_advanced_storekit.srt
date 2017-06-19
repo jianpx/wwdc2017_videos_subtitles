@@ -1,0 +1,10609 @@
+1
+00:00:07,516 --> 00:00:17,316
+[ Background Sounds ]
+
+
+2
+00:00:17,816 --> 00:00:17,976
+>> All right.
+
+
+3
+00:00:18,096 --> 00:00:18,906
+Good afternoon everyone.
+
+
+4
+00:00:19,516 --> 00:00:23,036
+[ Clapping ]
+
+
+5
+00:00:23,536 --> 00:00:24,596
+My name's Pete Hare and I'm an
+
+
+6
+00:00:24,596 --> 00:00:26,056
+engineer on the App Store team
+
+
+7
+00:00:26,056 --> 00:00:26,546
+here at Apple.
+
+
+8
+00:00:26,896 --> 00:00:28,536
+Now you're probably here because
+
+
+9
+00:00:28,536 --> 00:00:29,816
+you're in one of a couple of
+
+
+10
+00:00:29,816 --> 00:00:30,446
+different groups.
+
+
+11
+00:00:30,446 --> 00:00:31,466
+Maybe you're here to find out a
+
+
+12
+00:00:31,506 --> 00:00:33,106
+bit more about integrating
+
+
+13
+00:00:33,106 --> 00:00:34,606
+in-app purchases into your
+
+
+14
+00:00:34,606 --> 00:00:35,566
+application and you want to know
+
+
+15
+00:00:35,566 --> 00:00:36,686
+a bit more about how to do it
+
+
+16
+00:00:36,876 --> 00:00:38,296
+securely and reliably.
+
+
+17
+00:00:38,376 --> 00:00:39,836
+Or maybe you're here to find out
+
+
+18
+00:00:40,106 --> 00:00:41,706
+about subscriptions and you want
+
+
+19
+00:00:41,706 --> 00:00:43,136
+to understand the process of
+
+
+20
+00:00:43,396 --> 00:00:44,786
+maintaining a subscription state
+
+
+21
+00:00:44,786 --> 00:00:46,596
+across multiple platforms in a
+
+
+22
+00:00:46,596 --> 00:00:47,896
+server environment, that kind of
+
+
+23
+00:00:47,896 --> 00:00:48,126
+thing.
+
+
+24
+00:00:48,886 --> 00:00:50,356
+Well whichever group you land
+
+
+25
+00:00:50,356 --> 00:00:51,556
+in, in-app purchases really
+
+
+26
+00:00:51,556 --> 00:00:53,426
+represents a new level of trust
+
+
+27
+00:00:53,426 --> 00:00:54,896
+between you and your users.
+
+
+28
+00:00:55,206 --> 00:00:56,576
+You see as soon a user is
+
+
+29
+00:00:56,576 --> 00:00:58,516
+handing over money in exchange
+
+
+30
+00:00:58,716 --> 00:01:00,086
+for digital content or services,
+
+
+31
+00:01:00,086 --> 00:01:01,616
+they're really entrusting you
+
+
+32
+00:01:01,616 --> 00:01:03,136
+with the responsibility of
+
+
+33
+00:01:03,136 --> 00:01:04,736
+delivering that in a reliable
+
+
+34
+00:01:04,736 --> 00:01:05,536
+and secure manner.
+
+
+35
+00:01:06,516 --> 00:01:07,476
+So today we're going to talk
+
+
+36
+00:01:07,476 --> 00:01:09,366
+about some techniques do that.
+
+
+37
+00:01:09,636 --> 00:01:10,596
+Firstly, we're going to discuss
+
+
+38
+00:01:10,596 --> 00:01:11,996
+receipt validation in greater
+
+
+39
+00:01:11,996 --> 00:01:12,476
+detail.
+
+
+40
+00:01:12,476 --> 00:01:13,936
+We talked on it a little bit
+
+
+41
+00:01:13,936 --> 00:01:14,936
+this morning in the what's new
+
+
+42
+00:01:14,936 --> 00:01:16,106
+session but we're going to go
+
+
+43
+00:01:16,106 --> 00:01:17,276
+into some details around how to
+
+
+44
+00:01:17,276 --> 00:01:19,026
+do this on the user's device.
+
+
+45
+00:01:19,376 --> 00:01:20,936
+We're also going to talk about
+
+
+46
+00:01:20,936 --> 00:01:22,426
+maintaining a subscription state
+
+
+47
+00:01:22,726 --> 00:01:24,476
+particularly on the server and
+
+
+48
+00:01:24,476 --> 00:01:26,336
+how to update multiple different
+
+
+49
+00:01:26,336 --> 00:01:27,496
+platforms based on that
+
+
+50
+00:01:27,496 --> 00:01:28,296
+subscription state.
+
+
+51
+00:01:29,606 --> 00:01:30,406
+Finally, we're also going to
+
+
+52
+00:01:30,406 --> 00:01:31,236
+touch on development in a
+
+
+53
+00:01:31,236 --> 00:01:32,156
+sandbox environment.
+
+
+54
+00:01:32,156 --> 00:01:33,196
+So how you can use these
+
+
+55
+00:01:33,196 --> 00:01:34,316
+technologies when you're
+
+
+56
+00:01:34,316 --> 00:01:35,736
+developing without actually
+
+
+57
+00:01:35,736 --> 00:01:36,886
+having to use your own money.
+
+
+58
+00:01:37,506 --> 00:01:39,266
+So I'm going to put up this
+
+
+59
+00:01:39,266 --> 00:01:39,666
+diagram.
+
+
+60
+00:01:39,666 --> 00:01:40,376
+This is what we looked at in
+
+
+61
+00:01:40,376 --> 00:01:41,166
+this morning's session.
+
+
+62
+00:01:41,166 --> 00:01:42,566
+This was the in-app purchase
+
+
+63
+00:01:42,566 --> 00:01:42,966
+flow.
+
+
+64
+00:01:42,966 --> 00:01:44,026
+So this is what you need to
+
+
+65
+00:01:44,026 --> 00:01:45,336
+implement in your application in
+
+
+66
+00:01:45,336 --> 00:01:47,136
+order to actually sell in-app
+
+
+67
+00:01:47,186 --> 00:01:47,746
+purchases.
+
+
+68
+00:01:48,386 --> 00:01:49,496
+In this particular session,
+
+
+69
+00:01:49,496 --> 00:01:50,346
+we're just going to really focus
+
+
+70
+00:01:50,346 --> 00:01:51,646
+on these last three points
+
+
+71
+00:01:51,676 --> 00:01:52,786
+though which I'm going to refer
+
+
+72
+00:01:52,786 --> 00:01:54,386
+to as processing transactions.
+
+
+73
+00:01:54,516 --> 00:01:55,686
+So this is when StoreKit
+
+
+74
+00:01:55,686 --> 00:01:56,866
+delivers a transaction to you
+
+
+75
+00:01:56,866 --> 00:01:58,536
+once a user's made a payment and
+
+
+76
+00:01:58,536 --> 00:01:59,936
+it's up to you to then process
+
+
+77
+00:02:00,006 --> 00:02:01,746
+that transaction and deliver the
+
+
+78
+00:02:01,746 --> 00:02:02,956
+content to the user who's paid
+
+
+79
+00:02:02,956 --> 00:02:03,816
+for it.
+
+
+80
+00:02:03,816 --> 00:02:05,086
+So I'm going to expand out these
+
+
+81
+00:02:05,126 --> 00:02:06,376
+three steps now and also
+
+
+82
+00:02:06,376 --> 00:02:07,746
+introduce an extra layer to this
+
+
+83
+00:02:07,746 --> 00:02:08,936
+which is to add your server into
+
+
+84
+00:02:08,936 --> 00:02:09,376
+the mix.
+
+
+85
+00:02:10,636 --> 00:02:11,676
+So this is how we can think of
+
+
+86
+00:02:11,676 --> 00:02:12,776
+it for this particular talk.
+
+
+87
+00:02:12,986 --> 00:02:14,026
+The process is going to start
+
+
+88
+00:02:14,026 --> 00:02:15,796
+with us receiving a transaction.
+
+
+89
+00:02:16,346 --> 00:02:17,676
+And this arrives by a StoreKit
+
+
+90
+00:02:17,676 --> 00:02:18,586
+on the user's device.
+
+
+91
+00:02:19,436 --> 00:02:20,376
+Then you make a choice as to
+
+
+92
+00:02:20,376 --> 00:02:21,626
+whether you want to validate the
+
+
+93
+00:02:21,626 --> 00:02:23,766
+receipt on the user's device or
+
+
+94
+00:02:23,766 --> 00:02:24,456
+up in the server.
+
+
+95
+00:02:26,816 --> 00:02:28,106
+From there, you can proceed to
+
+
+96
+00:02:28,106 --> 00:02:29,396
+inspect the contents of that
+
+
+97
+00:02:29,396 --> 00:02:31,566
+receipt and unlock content or
+
+
+98
+00:02:31,566 --> 00:02:32,736
+update a subscription state
+
+
+99
+00:02:32,796 --> 00:02:34,416
+based on that contents.
+
+
+100
+00:02:34,936 --> 00:02:36,116
+And finally the last step in the
+
+
+101
+00:02:36,116 --> 00:02:36,906
+process, to finish the
+
+
+102
+00:02:36,906 --> 00:02:38,856
+transaction back down on the
+
+
+103
+00:02:38,856 --> 00:02:39,706
+user's device.
+
+
+104
+00:02:40,866 --> 00:02:42,006
+Now you'll notice that the first
+
+
+105
+00:02:42,006 --> 00:02:44,116
+and last parts of this flow
+
+
+106
+00:02:44,306 --> 00:02:46,096
+occur on the device level only.
+
+
+107
+00:02:46,096 --> 00:02:47,766
+We don't allow transactions to
+
+
+108
+00:02:47,766 --> 00:02:48,726
+come in at the server level.
+
+
+109
+00:02:48,726 --> 00:02:49,736
+Now this is really important.
+
+
+110
+00:02:49,736 --> 00:02:51,436
+Even if you're using a service
+
+
+111
+00:02:51,436 --> 00:02:52,336
+side flow for receipt
+
+
+112
+00:02:52,336 --> 00:02:53,346
+validation, you still need to
+
+
+113
+00:02:53,346 --> 00:02:54,386
+make sure that you receive and
+
+
+114
+00:02:54,386 --> 00:02:55,816
+finish transactions on the
+
+
+115
+00:02:55,816 --> 00:02:56,516
+user's device.
+
+
+116
+00:02:57,946 --> 00:02:59,856
+Now this morning, we also
+
+
+117
+00:02:59,856 --> 00:03:01,196
+discussed the four different
+
+
+118
+00:03:01,196 --> 00:03:02,266
+types of in-app purchases.
+
+
+119
+00:03:02,746 --> 00:03:03,646
+If you're dealing with
+
+
+120
+00:03:03,646 --> 00:03:04,696
+consumable products or
+
+
+121
+00:03:04,696 --> 00:03:06,136
+non-consumable products, it's
+
+
+122
+00:03:06,136 --> 00:03:07,356
+quite likely that you'll do a
+
+
+123
+00:03:07,356 --> 00:03:08,576
+flow like this, which is the on
+
+
+124
+00:03:08,576 --> 00:03:09,176
+device flow.
+
+
+125
+00:03:09,776 --> 00:03:11,036
+This is where you can inspect
+
+
+126
+00:03:11,246 --> 00:03:12,496
+the receipt and unlock content
+
+
+127
+00:03:12,496 --> 00:03:13,696
+without sending anything up to
+
+
+128
+00:03:13,696 --> 00:03:14,956
+your server or requiring a
+
+
+129
+00:03:14,956 --> 00:03:15,736
+network request.
+
+
+130
+00:03:16,306 --> 00:03:17,226
+If you're dealing with
+
+
+131
+00:03:17,226 --> 00:03:18,626
+subscriptions, auto renewable
+
+
+132
+00:03:18,626 --> 00:03:19,656
+subscriptions in particular,
+
+
+133
+00:03:19,946 --> 00:03:20,836
+it's quite likely that you'll
+
+
+134
+00:03:20,836 --> 00:03:22,556
+have a situation like this where
+
+
+135
+00:03:22,556 --> 00:03:23,926
+you want to keep state on the
+
+
+136
+00:03:23,926 --> 00:03:24,576
+server side.
+
+
+137
+00:03:24,576 --> 00:03:25,726
+And you need to have a server
+
+
+138
+00:03:25,726 --> 00:03:26,986
+being able to update multiple
+
+
+139
+00:03:26,986 --> 00:03:27,826
+devices from there.
+
+
+140
+00:03:28,676 --> 00:03:30,036
+You can, of course, do both of
+
+
+141
+00:03:30,036 --> 00:03:31,056
+these techniques if you want.
+
+
+142
+00:03:31,416 --> 00:03:32,916
+But either way, the process
+
+
+143
+00:03:32,916 --> 00:03:34,206
+still starts at that same point
+
+
+144
+00:03:34,206 --> 00:03:35,636
+which is to receive transaction
+
+
+145
+00:03:36,016 --> 00:03:36,766
+on the device.
+
+
+146
+00:03:36,886 --> 00:03:38,526
+So let's dive now into each of
+
+
+147
+00:03:38,526 --> 00:03:39,476
+these steps to see what they
+
+
+148
+00:03:39,476 --> 00:03:39,946
+look like.
+
+
+149
+00:03:43,236 --> 00:03:44,276
+This is right at the start of my
+
+
+150
+00:03:44,276 --> 00:03:45,436
+application life cycle.
+
+
+151
+00:03:46,266 --> 00:03:47,256
+We have the did finish launching
+
+
+152
+00:03:47,256 --> 00:03:48,646
+with options delegate method on
+
+
+153
+00:03:48,646 --> 00:03:50,406
+the application and here we have
+
+
+154
+00:03:50,406 --> 00:03:51,496
+to register a transaction
+
+
+155
+00:03:51,496 --> 00:03:53,096
+observer for the SK payment
+
+
+156
+00:03:53,096 --> 00:03:53,306
+queue.
+
+
+157
+00:03:53,646 --> 00:03:54,506
+So you need the transaction
+
+
+158
+00:03:54,506 --> 00:03:55,526
+observer to be registered as
+
+
+159
+00:03:55,566 --> 00:03:56,566
+early as possible in the
+
+
+160
+00:03:56,566 --> 00:03:57,816
+application life cycle so that
+
+
+161
+00:03:58,086 --> 00:03:59,156
+you can start to receive the
+
+
+162
+00:03:59,156 --> 00:04:00,576
+updated transactions that come
+
+
+163
+00:04:00,576 --> 00:04:01,186
+through StoreKit.
+
+
+164
+00:04:02,086 --> 00:04:02,966
+Here I'm just adding the app
+
+
+165
+00:04:02,966 --> 00:04:04,656
+delegate itself as my payment
+
+
+166
+00:04:04,656 --> 00:04:06,156
+observer but you might add a
+
+
+167
+00:04:06,236 --> 00:04:07,356
+separate controller object to do
+
+
+168
+00:04:07,356 --> 00:04:07,796
+this for you.
+
+
+169
+00:04:07,796 --> 00:04:08,526
+It's really up to you.
+
+
+170
+00:04:09,226 --> 00:04:10,266
+What's important is that it's
+
+
+171
+00:04:10,266 --> 00:04:11,246
+happening right at the start of
+
+
+172
+00:04:11,246 --> 00:04:13,036
+the application life cycle but
+
+
+173
+00:04:13,036 --> 00:04:14,336
+once that's registered, you're
+
+
+174
+00:04:14,336 --> 00:04:15,966
+ready to start receiving
+
+
+175
+00:04:15,966 --> 00:04:17,646
+transactions through the updated
+
+
+176
+00:04:17,646 --> 00:04:18,586
+transactions call back.
+
+
+177
+00:04:19,616 --> 00:04:20,736
+So this is the updated
+
+
+178
+00:04:20,736 --> 00:04:22,096
+transactions call back in the
+
+
+179
+00:04:22,096 --> 00:04:22,926
+transaction observer.
+
+
+180
+00:04:23,776 --> 00:04:25,116
+And you receive an array of
+
+
+181
+00:04:25,116 --> 00:04:25,976
+transactions that you can
+
+
+182
+00:04:25,976 --> 00:04:26,786
+iterate through.
+
+
+183
+00:04:27,016 --> 00:04:28,016
+You can check the transaction
+
+
+184
+00:04:28,016 --> 00:04:28,946
+state on each of these.
+
+
+185
+00:04:29,396 --> 00:04:30,156
+And you want to look for a
+
+
+186
+00:04:30,156 --> 00:04:31,436
+transaction in the purchase
+
+
+187
+00:04:31,436 --> 00:04:31,726
+state.
+
+
+188
+00:04:31,726 --> 00:04:33,096
+So this is a transaction that
+
+
+189
+00:04:33,096 --> 00:04:34,696
+StoreKit deems appropriate for
+
+
+190
+00:04:34,696 --> 00:04:36,216
+you to go ahead and validate.
+
+
+191
+00:04:36,216 --> 00:04:37,726
+And then unlock content for.
+
+
+192
+00:04:37,936 --> 00:04:39,166
+So it's telling you that the
+
+
+193
+00:04:39,166 --> 00:04:40,256
+user has actually handed over
+
+
+194
+00:04:40,886 --> 00:04:41,000
+money.
+
+
+195
+00:04:42,476 --> 00:04:43,816
+So once you've got that
+
+
+196
+00:04:43,816 --> 00:04:45,016
+transaction in a purchase state,
+
+
+197
+00:04:45,016 --> 00:04:46,196
+you're ready to go ahead with
+
+
+198
+00:04:46,196 --> 00:04:47,346
+the next step in this diagram.
+
+
+199
+00:04:47,936 --> 00:04:49,426
+So let's firstly look at how to
+
+
+200
+00:04:49,426 --> 00:04:50,806
+do this validation of the
+
+
+201
+00:04:50,806 --> 00:04:52,606
+receipt on the user's device.
+
+
+202
+00:04:53,346 --> 00:04:54,616
+Now what is the receipt?
+
+
+203
+00:04:55,006 --> 00:04:55,926
+We talked about it a little bit
+
+
+204
+00:04:55,926 --> 00:04:56,746
+this morning but for those of
+
+
+205
+00:04:56,746 --> 00:04:57,906
+you who weren't there, the
+
+
+206
+00:04:57,906 --> 00:04:59,136
+receipt's really just like a
+
+
+207
+00:04:59,136 --> 00:04:59,606
+document.
+
+
+208
+00:04:59,606 --> 00:05:00,936
+Like a receipt you'd get at any
+
+
+209
+00:05:00,936 --> 00:05:01,596
+department store.
+
+
+210
+00:05:01,596 --> 00:05:03,136
+It's a proof of purchase that
+
+
+211
+00:05:03,466 --> 00:05:04,736
+really is an authentic document
+
+
+212
+00:05:04,736 --> 00:05:05,566
+that indicates they've bought
+
+
+213
+00:05:05,566 --> 00:05:06,676
+what they say they've bought.
+
+
+214
+00:05:07,286 --> 00:05:08,486
+So we've have this application
+
+
+215
+00:05:08,486 --> 00:05:09,646
+receipt which is a trusted
+
+
+216
+00:05:09,646 --> 00:05:11,306
+record of the app and any in-app
+
+
+217
+00:05:11,306 --> 00:05:13,116
+purchases that a user's made in
+
+
+218
+00:05:13,116 --> 00:05:13,736
+your application.
+
+
+219
+00:05:14,806 --> 00:05:16,316
+This particular receipt's stored
+
+
+220
+00:05:16,316 --> 00:05:16,976
+on the device.
+
+
+221
+00:05:17,676 --> 00:05:18,586
+And it's issued by the App
+
+
+222
+00:05:18,586 --> 00:05:18,786
+Store.
+
+
+223
+00:05:18,786 --> 00:05:19,766
+It's put there by StoreKit.
+
+
+224
+00:05:21,116 --> 00:05:22,606
+Now it's assigned an verifiable
+
+
+225
+00:05:22,606 --> 00:05:24,166
+document which means you can use
+
+
+226
+00:05:24,456 --> 00:05:25,726
+certificates to be able to check
+
+
+227
+00:05:25,726 --> 00:05:26,896
+that this document was actually
+
+
+228
+00:05:26,956 --> 00:05:28,696
+issued by Apple and put there on
+
+
+229
+00:05:28,696 --> 00:05:30,276
+the user's device to make sure
+
+
+230
+00:05:31,076 --> 00:05:32,036
+it's authentic.
+
+
+231
+00:05:32,136 --> 00:05:33,236
+Finally it's for your app on
+
+
+232
+00:05:33,236 --> 00:05:35,306
+that device only which means it
+
+
+233
+00:05:35,306 --> 00:05:36,536
+can't be shared across devices
+
+
+234
+00:05:36,536 --> 00:05:38,266
+or amongst other applications.
+
+
+235
+00:05:39,746 --> 00:05:41,006
+So when it comes receipt
+
+
+236
+00:05:41,006 --> 00:05:42,326
+validation, this is the process
+
+
+237
+00:05:42,326 --> 00:05:43,756
+of ensuring that this document
+
+
+238
+00:05:43,756 --> 00:05:45,236
+is an authentic document and not
+
+
+239
+00:05:45,646 --> 00:05:46,686
+some phony one that's someone
+
+
+240
+00:05:46,746 --> 00:05:47,076
+put there.
+
+
+241
+00:05:47,166 --> 00:05:48,166
+There's two ways to do this.
+
+
+242
+00:05:48,166 --> 00:05:49,296
+You can do this on the device,
+
+
+243
+00:05:49,426 --> 00:05:50,446
+which we're about to look at now
+
+
+244
+00:05:51,346 --> 00:05:52,276
+and of course, you can do this
+
+
+245
+00:05:52,686 --> 00:05:53,866
+by sending it up to your server
+
+
+246
+00:05:53,866 --> 00:05:54,916
+using the server-to-server
+
+
+247
+00:05:54,916 --> 00:05:55,526
+validation.
+
+
+248
+00:05:55,526 --> 00:05:57,666
+Now I just want to point out
+
+
+249
+00:05:57,666 --> 00:05:58,306
+here that if you're on the
+
+
+250
+00:05:58,306 --> 00:05:59,486
+user's device, it's really
+
+
+251
+00:05:59,486 --> 00:06:00,336
+important that you don't use
+
+
+252
+00:06:00,386 --> 00:06:01,896
+online validation directly from
+
+
+253
+00:06:01,896 --> 00:06:03,346
+the user's device because this
+
+
+254
+00:06:03,346 --> 00:06:05,036
+isn't a secure way of checking
+
+
+255
+00:06:05,256 --> 00:06:05,526
+at all.
+
+
+256
+00:06:05,526 --> 00:06:06,466
+If you're going to be doing it
+
+
+257
+00:06:06,466 --> 00:06:07,476
+directly on the device, you need
+
+
+258
+00:06:07,476 --> 00:06:08,606
+to use these checks we're about
+
+
+259
+00:06:08,606 --> 00:06:09,396
+to do now.
+
+
+260
+00:06:10,046 --> 00:06:12,406
+So what does the receipt look
+
+
+261
+00:06:12,406 --> 00:06:12,606
+like?
+
+
+262
+00:06:12,606 --> 00:06:13,496
+Let's take a look at the actual
+
+
+263
+00:06:13,496 --> 00:06:13,916
+document.
+
+
+264
+00:06:14,496 --> 00:06:16,756
+The receipt document.
+
+
+265
+00:06:17,226 --> 00:06:18,346
+We just take all that purchase
+
+
+266
+00:06:18,346 --> 00:06:19,216
+information about your
+
+
+267
+00:06:19,216 --> 00:06:20,256
+application including all the
+
+
+268
+00:06:20,346 --> 00:06:21,396
+in-app purchases and we wrap
+
+
+269
+00:06:21,396 --> 00:06:23,056
+that around certificates and
+
+
+270
+00:06:23,056 --> 00:06:25,066
+signatures in order to create a
+
+
+271
+00:06:25,066 --> 00:06:26,106
+document that you can check for
+
+
+272
+00:06:26,106 --> 00:06:26,736
+authenticity.
+
+
+273
+00:06:27,296 --> 00:06:28,736
+So it's a document that's stored
+
+
+274
+00:06:28,776 --> 00:06:30,206
+in the application bundle and we
+
+
+275
+00:06:30,206 --> 00:06:31,676
+provide an API for you to
+
+
+276
+00:06:31,676 --> 00:06:33,496
+actually get that document.
+
+
+277
+00:06:34,376 --> 00:06:35,286
+It's a single file.
+
+
+278
+00:06:35,896 --> 00:06:37,146
+And it contains all the purchase
+
+
+279
+00:06:37,146 --> 00:06:38,656
+data about the application and
+
+
+280
+00:06:38,656 --> 00:06:40,186
+also the in-app purchases that
+
+
+281
+00:06:40,186 --> 00:06:40,586
+have occurred.
+
+
+282
+00:06:40,916 --> 00:06:42,196
+And it also contains a signature
+
+
+283
+00:06:42,266 --> 00:06:43,986
+for you to be able to check for
+
+
+284
+00:06:44,106 --> 00:06:44,796
+authenticity.
+
+
+285
+00:06:44,946 --> 00:06:45,926
+To make sure it's issued by
+
+
+286
+00:06:45,926 --> 00:06:46,206
+Apple.
+
+
+287
+00:06:47,326 --> 00:06:49,026
+The document is based on a
+
+
+288
+00:06:49,026 --> 00:06:50,356
+series of industry standards.
+
+
+289
+00:06:50,356 --> 00:06:51,526
+So it's actually signed using
+
+
+290
+00:06:51,676 --> 00:06:52,936
+the public key cryptographic
+
+
+291
+00:06:52,976 --> 00:06:54,376
+standard 7, cryptographic
+
+
+292
+00:06:54,376 --> 00:06:54,756
+container.
+
+
+293
+00:06:56,066 --> 00:06:58,256
+It's encoded using an ASN.1 data
+
+
+294
+00:06:58,256 --> 00:06:58,696
+encoding.
+
+
+295
+00:06:58,696 --> 00:07:00,456
+And don't let the acronyms, the
+
+
+296
+00:07:00,456 --> 00:07:01,666
+daunting acronyms fool you.
+
+
+297
+00:07:01,666 --> 00:07:03,126
+These are actually very public
+
+
+298
+00:07:03,126 --> 00:07:04,146
+open standards and there's a lot
+
+
+299
+00:07:04,146 --> 00:07:05,546
+of information available online
+
+
+300
+00:07:05,546 --> 00:07:06,836
+for you to be able to actually
+
+
+301
+00:07:06,836 --> 00:07:07,586
+do these things.
+
+
+302
+00:07:08,186 --> 00:07:09,756
+One prebuilt technique that you
+
+
+303
+00:07:09,756 --> 00:07:10,926
+might recognize is actual
+
+
+304
+00:07:10,926 --> 00:07:11,466
+OpenSSL.
+
+
+305
+00:07:11,756 --> 00:07:13,296
+So OpenSSL is a framework that
+
+
+306
+00:07:13,686 --> 00:07:15,006
+not only provides the
+
+
+307
+00:07:15,006 --> 00:07:16,296
+functionality for secure web
+
+
+308
+00:07:16,296 --> 00:07:17,396
+traffic tunneling, it also
+
+
+309
+00:07:17,666 --> 00:07:18,956
+includes functions to be able to
+
+
+310
+00:07:19,216 --> 00:07:20,496
+read in the data encoding from
+
+
+311
+00:07:20,496 --> 00:07:22,486
+an ASN.1 payload and also check
+
+
+312
+00:07:22,486 --> 00:07:23,606
+the signing on a cryptographic
+
+
+313
+00:07:23,606 --> 00:07:24,446
+container like this.
+
+
+314
+00:07:25,676 --> 00:07:26,876
+Of course, you can use a
+
+
+315
+00:07:26,876 --> 00:07:28,346
+prebuilt solution like OpenSSL
+
+
+316
+00:07:28,346 --> 00:07:29,546
+or you could even roll your own,
+
+
+317
+00:07:29,546 --> 00:07:30,606
+you know, to read in this
+
+
+318
+00:07:30,606 --> 00:07:31,316
+particular data.
+
+
+319
+00:07:31,626 --> 00:07:32,516
+It's really up to you and your
+
+
+320
+00:07:32,516 --> 00:07:34,096
+business as to which solution
+
+
+321
+00:07:34,096 --> 00:07:34,526
+you use.
+
+
+322
+00:07:34,526 --> 00:07:35,636
+You see when it comes to
+
+
+323
+00:07:35,636 --> 00:07:37,146
+security and this particular
+
+
+324
+00:07:37,146 --> 00:07:39,306
+type of check, it's not a binary
+
+
+325
+00:07:39,306 --> 00:07:39,626
+choice.
+
+
+326
+00:07:39,626 --> 00:07:41,166
+It's not secure or not secure.
+
+
+327
+00:07:41,166 --> 00:07:42,336
+You know, security's a scale.
+
+
+328
+00:07:42,596 --> 00:07:43,586
+So you have to think about how
+
+
+329
+00:07:43,646 --> 00:07:45,006
+far down that scale you want to
+
+
+330
+00:07:45,006 --> 00:07:46,876
+go in order to verify these
+
+
+331
+00:07:46,916 --> 00:07:47,486
+purchases.
+
+
+332
+00:07:48,706 --> 00:07:50,406
+But either way, it starts by
+
+
+333
+00:07:50,406 --> 00:07:51,576
+reading in this encrypted data
+
+
+334
+00:07:51,726 --> 00:07:52,396
+for this document.
+
+
+335
+00:07:52,396 --> 00:07:53,706
+So you do that by using the API
+
+
+336
+00:07:53,706 --> 00:07:54,346
+I mentioned.
+
+
+337
+00:07:54,706 --> 00:07:56,836
+It's the AppStoreReceiptURL API
+
+
+338
+00:07:57,466 --> 00:07:58,236
+on the bend bundle.
+
+
+339
+00:07:59,216 --> 00:08:00,266
+That gives you an url that you
+
+
+340
+00:08:00,266 --> 00:08:01,776
+can just past through to a data
+
+
+341
+00:08:01,776 --> 00:08:03,626
+object and you can read in that
+
+
+342
+00:08:03,626 --> 00:08:05,646
+encrypted binary data to a
+
+
+343
+00:08:05,646 --> 00:08:06,416
+receipt object.
+
+
+344
+00:08:06,416 --> 00:08:08,016
+So now you've got that encrypted
+
+
+345
+00:08:08,016 --> 00:08:09,846
+binary data in memory ready to
+
+
+346
+00:08:10,176 --> 00:08:11,296
+act on.
+
+
+347
+00:08:13,156 --> 00:08:14,726
+A couple of tips if you do want
+
+
+348
+00:08:14,726 --> 00:08:15,766
+to use OpenSSL.
+
+
+349
+00:08:15,766 --> 00:08:16,496
+We're not going to go through
+
+
+350
+00:08:16,496 --> 00:08:17,516
+the whole process of using
+
+
+351
+00:08:17,516 --> 00:08:20,216
+OpenSSL in this talk but OpenSSL
+
+
+352
+00:08:20,216 --> 00:08:21,646
+doesn't actually ship with iOS.
+
+
+353
+00:08:22,166 --> 00:08:23,346
+You have to build it and include
+
+
+354
+00:08:23,346 --> 00:08:24,536
+it in your app yourself.
+
+
+355
+00:08:25,066 --> 00:08:26,656
+If you are building it, remember
+
+
+356
+00:08:26,656 --> 00:08:27,866
+to build as your own static
+
+
+357
+00:08:27,866 --> 00:08:29,156
+library for your application and
+
+
+358
+00:08:29,156 --> 00:08:30,266
+not a dynamic library.
+
+
+359
+00:08:30,266 --> 00:08:31,836
+If it was a dynamic library,
+
+
+360
+00:08:31,836 --> 00:08:32,756
+it's much easier for someone to
+
+
+361
+00:08:32,756 --> 00:08:34,176
+come along and switch out that
+
+
+362
+00:08:34,176 --> 00:08:35,846
+dynamic library with a phony one
+
+
+363
+00:08:36,096 --> 00:08:38,166
+than say, you know, messing with
+
+
+364
+00:08:38,166 --> 00:08:39,586
+the actual methods inside your
+
+
+365
+00:08:39,586 --> 00:08:40,556
+own application binary.
+
+
+366
+00:08:40,556 --> 00:08:42,015
+So a static library will mean
+
+
+367
+00:08:42,015 --> 00:08:43,186
+that that binary data's wrapped
+
+
+368
+00:08:43,186 --> 00:08:44,626
+up with your own application and
+
+
+369
+00:08:44,626 --> 00:08:45,656
+it's much harder for someone to
+
+
+370
+00:08:45,656 --> 00:08:46,966
+come along and switch out your
+
+
+371
+00:08:46,966 --> 00:08:47,966
+OpenSSL instance.
+
+
+372
+00:08:49,486 --> 00:08:50,296
+When it comes to the actual
+
+
+373
+00:08:50,296 --> 00:08:51,466
+certificate check, you can
+
+
+374
+00:08:51,466 --> 00:08:52,386
+download the Apple Root
+
+
+375
+00:08:52,386 --> 00:08:53,446
+certificate authority's
+
+
+376
+00:08:53,566 --> 00:08:55,146
+certificate from the Apple site.
+
+
+377
+00:08:55,476 --> 00:08:56,476
+And you can use that certificate
+
+
+378
+00:08:56,476 --> 00:08:57,616
+to actually perform that check
+
+
+379
+00:08:57,656 --> 00:08:59,816
+using OpenSSL to see that it is
+
+
+380
+00:08:59,816 --> 00:09:01,056
+a verified document from Apple.
+
+
+381
+00:09:01,886 --> 00:09:03,156
+If you are bundling in the app,
+
+
+382
+00:09:03,156 --> 00:09:04,316
+just one note here that be
+
+
+383
+00:09:04,316 --> 00:09:06,226
+mindful about the expiry date on
+
+
+384
+00:09:06,226 --> 00:09:07,246
+the actual certificate that
+
+
+385
+00:09:07,246 --> 00:09:09,146
+you're including with a bundled
+
+
+386
+00:09:09,146 --> 00:09:09,686
+application.
+
+
+387
+00:09:11,076 --> 00:09:12,266
+There is plenty of documentation
+
+
+388
+00:09:12,266 --> 00:09:12,936
+online for this.
+
+
+389
+00:09:12,936 --> 00:09:14,356
+In fact, we had a session here a
+
+
+390
+00:09:14,356 --> 00:09:15,816
+couple of years where we built
+
+
+391
+00:09:15,856 --> 00:09:17,396
+OpenSSL here on stage just in a
+
+
+392
+00:09:17,396 --> 00:09:19,146
+live demo and did these checks
+
+
+393
+00:09:19,146 --> 00:09:19,726
+here on stage.
+
+
+394
+00:09:19,726 --> 00:09:20,866
+So it's a much simple process
+
+
+395
+00:09:20,916 --> 00:09:21,576
+than you might think.
+
+
+396
+00:09:21,576 --> 00:09:22,736
+So I'd encourage you to check
+
+
+397
+00:09:22,736 --> 00:09:24,366
+out those previous sessions on
+
+
+398
+00:09:24,366 --> 00:09:25,526
+receipt validation to see how
+
+
+399
+00:09:25,526 --> 00:09:27,846
+that might be done.
+
+
+400
+00:09:28,056 --> 00:09:28,926
+When it comes to prebuilt
+
+
+401
+00:09:28,926 --> 00:09:30,096
+solutions, I'm sure some of you
+
+
+402
+00:09:30,096 --> 00:09:31,746
+in here have tried integrating
+
+
+403
+00:09:31,746 --> 00:09:32,936
+in-app purchases and probably
+
+
+404
+00:09:33,336 --> 00:09:35,116
+maybe go on Get Hub and found a
+
+
+405
+00:09:35,336 --> 00:09:36,456
+solution that's prebuilt that
+
+
+406
+00:09:36,456 --> 00:09:37,506
+can do a lot of these checks for
+
+
+407
+00:09:37,506 --> 00:09:37,636
+you.
+
+
+408
+00:09:38,146 --> 00:09:39,866
+Just remember when you're
+
+
+409
+00:09:39,866 --> 00:09:41,206
+downloading prebuilt solutions
+
+
+410
+00:09:41,206 --> 00:09:42,276
+that convenience comes at a
+
+
+411
+00:09:42,276 --> 00:09:42,746
+price.
+
+
+412
+00:09:43,946 --> 00:09:45,826
+And so reusing code like this
+
+
+413
+00:09:45,826 --> 00:09:46,776
+brings with it any bugs and
+
+
+414
+00:09:46,776 --> 00:09:47,546
+vulnerabilities.
+
+
+415
+00:09:47,546 --> 00:09:48,816
+And that's especially important
+
+
+416
+00:09:48,816 --> 00:09:50,136
+when it comes to transactional
+
+
+417
+00:09:50,266 --> 00:09:51,506
+APIs like StoreKit.
+
+
+418
+00:09:52,166 --> 00:09:53,646
+Can you imagine if every jeweler
+
+
+419
+00:09:53,646 --> 00:09:54,986
+around the country used the same
+
+
+420
+00:09:54,986 --> 00:09:56,006
+lock on their safe?
+
+
+421
+00:09:56,186 --> 00:09:57,286
+And then a single exploit was
+
+
+422
+00:09:57,286 --> 00:09:58,946
+found on that one particular
+
+
+423
+00:09:58,946 --> 00:09:59,216
+lock.
+
+
+424
+00:09:59,216 --> 00:10:00,426
+Suddenly every jeweler around
+
+
+425
+00:10:00,426 --> 00:10:01,816
+the country has their jewels
+
+
+426
+00:10:01,816 --> 00:10:03,436
+vulnerable to the same single
+
+
+427
+00:10:03,436 --> 00:10:03,946
+exploit.
+
+
+428
+00:10:03,946 --> 00:10:06,026
+So it's important for you when
+
+
+429
+00:10:06,026 --> 00:10:06,906
+you're doing this to know and
+
+
+430
+00:10:06,906 --> 00:10:08,076
+own the risks as you build it.
+
+
+431
+00:10:08,076 --> 00:10:09,496
+And remember that while you're
+
+
+432
+00:10:09,496 --> 00:10:11,126
+building these integrations with
+
+
+433
+00:10:11,126 --> 00:10:12,646
+StoreKit, it's your revenue
+
+
+434
+00:10:12,646 --> 00:10:12,986
+stream.
+
+
+435
+00:10:12,986 --> 00:10:14,116
+And so people who are building
+
+
+436
+00:10:14,646 --> 00:10:16,346
+these prebuilt solutions are not
+
+
+437
+00:10:16,346 --> 00:10:17,476
+as inclined to be worried about
+
+
+438
+00:10:17,476 --> 00:10:18,356
+your money as you are.
+
+
+439
+00:10:22,336 --> 00:10:23,436
+When you're verifying the
+
+
+440
+00:10:23,436 --> 00:10:24,376
+receipt -- the actual
+
+
+441
+00:10:24,376 --> 00:10:26,046
+certificate used to sign the
+
+
+442
+00:10:26,046 --> 00:10:27,956
+receipt, a couple of tips here.
+
+
+443
+00:10:28,626 --> 00:10:29,576
+You don't need to actually check
+
+
+444
+00:10:29,576 --> 00:10:30,906
+the expiry date of the
+
+
+445
+00:10:30,906 --> 00:10:32,316
+certificate used to sign the
+
+
+446
+00:10:32,316 --> 00:10:32,786
+receipt.
+
+
+447
+00:10:34,546 --> 00:10:35,316
+What do I mean by that?
+
+
+448
+00:10:35,316 --> 00:10:36,496
+Well, if you think about a
+
+
+449
+00:10:36,496 --> 00:10:37,896
+receipt that's encrypted at a
+
+
+450
+00:10:37,896 --> 00:10:38,896
+point in time, let's say two
+
+
+451
+00:10:38,896 --> 00:10:40,706
+years ago and then someone signs
+
+
+452
+00:10:40,706 --> 00:10:41,566
+it with a certificate that's
+
+
+453
+00:10:41,566 --> 00:10:42,346
+valid at the time.
+
+
+454
+00:10:42,666 --> 00:10:43,906
+Then that certificate expires a
+
+
+455
+00:10:43,906 --> 00:10:44,596
+little while later.
+
+
+456
+00:10:45,246 --> 00:10:46,236
+Just because the certificate's
+
+
+457
+00:10:46,236 --> 00:10:47,286
+now expired and we're in the
+
+
+458
+00:10:47,286 --> 00:10:48,676
+future, doesn't make the receipt
+
+
+459
+00:10:48,796 --> 00:10:49,986
+actually any less valid.
+
+
+460
+00:10:50,286 --> 00:10:51,396
+What's really important here is
+
+
+461
+00:10:51,396 --> 00:10:52,676
+not whether the certificate's
+
+
+462
+00:10:52,676 --> 00:10:54,316
+still valid right now, it's
+
+
+463
+00:10:54,316 --> 00:10:55,536
+really only important as to
+
+
+464
+00:10:55,536 --> 00:10:56,836
+whether it was valid at the time
+
+
+465
+00:10:57,006 --> 00:10:57,966
+the receipt was made.
+
+
+466
+00:10:57,966 --> 00:10:58,856
+So if you're going to compare
+
+
+467
+00:10:58,856 --> 00:11:00,256
+that date to anything, compare
+
+
+468
+00:11:00,256 --> 00:11:01,726
+it to a purchase date of a
+
+
+469
+00:11:01,726 --> 00:11:03,126
+transaction inside the receipt
+
+
+470
+00:11:03,126 --> 00:11:04,076
+to make sure it was valid at the
+
+
+471
+00:11:04,076 --> 00:11:04,776
+time of signing.
+
+
+472
+00:11:05,326 --> 00:11:08,216
+Let's take look inside the
+
+
+473
+00:11:08,216 --> 00:11:09,306
+actual payload of the receipt.
+
+
+474
+00:11:09,306 --> 00:11:10,846
+So this is the ASN.1 encoding
+
+
+475
+00:11:10,846 --> 00:11:11,406
+that I mentioned.
+
+
+476
+00:11:12,066 --> 00:11:13,196
+All this is, is really, a series
+
+
+477
+00:11:13,196 --> 00:11:14,226
+of types and values.
+
+
+478
+00:11:14,566 --> 00:11:15,356
+Much like dictionary.
+
+
+479
+00:11:15,356 --> 00:11:16,376
+You can just think about it as
+
+
+480
+00:11:16,616 --> 00:11:17,496
+keys and values like a
+
+
+481
+00:11:17,496 --> 00:11:18,256
+dictionary would have.
+
+
+482
+00:11:18,726 --> 00:11:19,596
+And you could read out these
+
+
+483
+00:11:19,596 --> 00:11:21,056
+particular values based on the
+
+
+484
+00:11:21,056 --> 00:11:21,646
+different types.
+
+
+485
+00:11:22,596 --> 00:11:24,026
+So now that you've verified that
+
+
+486
+00:11:24,026 --> 00:11:25,436
+the actual document is signed
+
+
+487
+00:11:25,436 --> 00:11:26,676
+using the right certificate from
+
+
+488
+00:11:26,676 --> 00:11:28,826
+Apple, you need to verify that
+
+
+489
+00:11:28,826 --> 00:11:31,266
+the application used to make
+
+
+490
+00:11:31,266 --> 00:11:32,116
+this receipt is the one the
+
+
+491
+00:11:32,116 --> 00:11:32,746
+user's running on.
+
+
+492
+00:11:32,776 --> 00:11:33,626
+So how do we do that?
+
+
+493
+00:11:34,946 --> 00:11:36,166
+To verify that this receipt's
+
+
+494
+00:11:36,166 --> 00:11:37,396
+for this application, there's
+
+
+495
+00:11:37,436 --> 00:11:38,396
+two particular types of
+
+
+496
+00:11:38,396 --> 00:11:38,926
+attributes.
+
+
+497
+00:11:39,016 --> 00:11:40,766
+Type 2 and 3, and they contain
+
+
+498
+00:11:40,766 --> 00:11:42,306
+the bundle identifier that this
+
+
+499
+00:11:42,306 --> 00:11:43,926
+receipt's for and also the
+
+
+500
+00:11:43,926 --> 00:11:45,026
+bundle version that this
+
+
+501
+00:11:45,026 --> 00:11:45,586
+receipt's for.
+
+
+502
+00:11:46,466 --> 00:11:47,286
+So what you need to do is
+
+
+503
+00:11:47,286 --> 00:11:48,986
+compare these two particular
+
+
+504
+00:11:48,986 --> 00:11:50,576
+attributes to hard coded ones
+
+
+505
+00:11:50,576 --> 00:11:51,886
+inside your application.
+
+
+506
+00:11:52,446 --> 00:11:53,526
+It's important to use hard coded
+
+
+507
+00:11:53,526 --> 00:11:54,636
+values here because of the same
+
+
+508
+00:11:54,636 --> 00:11:55,646
+principle I mentioned earlier.
+
+
+509
+00:11:56,806 --> 00:11:58,166
+If it's an info plist file, it's
+
+
+510
+00:11:58,166 --> 00:11:59,026
+much easier for someone to
+
+
+511
+00:11:59,026 --> 00:12:00,656
+switch out a plist file with
+
+
+512
+00:12:00,656 --> 00:12:01,986
+phony values to match a phony
+
+
+513
+00:12:01,986 --> 00:12:04,696
+receipt than it is to switch out
+
+
+514
+00:12:04,696 --> 00:12:05,776
+something to match hard coded
+
+
+515
+00:12:05,776 --> 00:12:06,216
+values.
+
+
+516
+00:12:06,726 --> 00:12:08,866
+But if you check these two
+
+
+517
+00:12:08,866 --> 00:12:10,046
+things against hard coded values
+
+
+518
+00:12:10,046 --> 00:12:11,306
+and they match then great.
+
+
+519
+00:12:11,306 --> 00:12:12,316
+You verified that the
+
+
+520
+00:12:12,316 --> 00:12:13,996
+application is correct.
+
+
+521
+00:12:14,886 --> 00:12:15,996
+The next step is to verify the
+
+
+522
+00:12:15,996 --> 00:12:17,296
+device that the user's on and
+
+
+523
+00:12:17,296 --> 00:12:18,266
+verify that this document
+
+
+524
+00:12:18,266 --> 00:12:18,716
+matches.
+
+
+525
+00:12:19,316 --> 00:12:20,956
+We do that using types 4 and 5.
+
+
+526
+00:12:21,196 --> 00:12:22,816
+It's a similar process but this
+
+
+527
+00:12:22,866 --> 00:12:23,706
+time, the one that we want to
+
+
+528
+00:12:23,706 --> 00:12:24,996
+check is attribute number 5.
+
+
+529
+00:12:26,016 --> 00:12:27,046
+Now attribute number 5 is
+
+
+530
+00:12:27,046 --> 00:12:28,716
+actually a SHA-1 hash of these
+
+
+531
+00:12:28,796 --> 00:12:29,536
+three values.
+
+
+532
+00:12:29,536 --> 00:12:31,006
+It's a SHA-1 hash of the bundle
+
+
+533
+00:12:31,076 --> 00:12:33,556
+ID, the device ID, we provide
+
+
+534
+00:12:33,556 --> 00:12:34,906
+APIs for the device ID.
+
+
+535
+00:12:34,906 --> 00:12:36,896
+And the third one is an opaque
+
+
+536
+00:12:36,896 --> 00:12:38,636
+value, which is really just the
+
+
+537
+00:12:38,636 --> 00:12:40,106
+attribute in type number 4.
+
+
+538
+00:12:40,246 --> 00:12:41,816
+Now the reason we do that, it's
+
+
+539
+00:12:41,816 --> 00:12:42,836
+a little bit of cryptographic
+
+
+540
+00:12:42,836 --> 00:12:43,376
+entropy.
+
+
+541
+00:12:43,376 --> 00:12:45,036
+A bit of secret salt that allows
+
+
+542
+00:12:45,036 --> 00:12:46,466
+that SHA-1 hash to change over
+
+
+543
+00:12:46,466 --> 00:12:47,896
+time, even the bundle ID and the
+
+
+544
+00:12:47,896 --> 00:12:49,076
+device ID aren't changing.
+
+
+545
+00:12:49,566 --> 00:12:50,656
+So it just makes this process a
+
+
+546
+00:12:50,656 --> 00:12:51,466
+little more secure.
+
+
+547
+00:12:52,696 --> 00:12:53,866
+And so accordingly, this SHA-1
+
+
+548
+00:12:53,866 --> 00:12:55,646
+hash is unique to this app on
+
+
+549
+00:12:55,646 --> 00:12:56,236
+the device.
+
+
+550
+00:12:56,786 --> 00:12:58,156
+And what you do is you create
+
+
+551
+00:12:58,156 --> 00:12:59,626
+that SHA-1 hash using your own,
+
+
+552
+00:12:59,936 --> 00:13:01,096
+you know, hard coded values.
+
+
+553
+00:13:01,096 --> 00:13:01,966
+The same technique that we did
+
+
+554
+00:13:01,966 --> 00:13:03,786
+before and you compare it to the
+
+
+555
+00:13:03,786 --> 00:13:04,806
+one in type number 5.
+
+
+556
+00:13:04,806 --> 00:13:06,666
+And if they match, then that's
+
+
+557
+00:13:06,666 --> 00:13:06,936
+it.
+
+
+558
+00:13:06,936 --> 00:13:08,666
+You verified that the device the
+
+
+559
+00:13:08,666 --> 00:13:09,956
+user's on matches the one the
+
+
+560
+00:13:09,956 --> 00:13:12,456
+receipt is for.
+
+
+561
+00:13:12,716 --> 00:13:13,806
+So now you've done those three
+
+
+562
+00:13:13,806 --> 00:13:14,306
+checks.
+
+
+563
+00:13:15,666 --> 00:13:16,926
+That's the process of validating
+
+
+564
+00:13:16,926 --> 00:13:17,936
+the receipt on the device.
+
+
+565
+00:13:17,936 --> 00:13:18,696
+You now know that this is a
+
+
+566
+00:13:18,696 --> 00:13:20,096
+document that you can trust when
+
+
+567
+00:13:20,096 --> 00:13:21,196
+you're reading out further
+
+
+568
+00:13:21,196 --> 00:13:22,146
+information from it.
+
+
+569
+00:13:22,306 --> 00:13:23,326
+So let's take a look at the next
+
+
+570
+00:13:23,326 --> 00:13:25,306
+step which is to actually update
+
+
+571
+00:13:25,306 --> 00:13:27,036
+state and inspect the contents
+
+
+572
+00:13:27,266 --> 00:13:28,826
+of these in-app purchases inside
+
+
+573
+00:13:28,826 --> 00:13:29,296
+the receipt.
+
+
+574
+00:13:31,006 --> 00:13:32,136
+Let's dive back into what the
+
+
+575
+00:13:32,446 --> 00:13:33,826
+payload of the receipt contains.
+
+
+576
+00:13:34,966 --> 00:13:36,406
+The receipt contains a specific
+
+
+577
+00:13:36,406 --> 00:13:38,436
+type, type 17 for every
+
+
+578
+00:13:38,436 --> 00:13:40,476
+transaction that occurs for this
+
+
+579
+00:13:40,476 --> 00:13:42,196
+user on this device.
+
+
+580
+00:13:43,106 --> 00:13:45,606
+Now in each type 17, the actual
+
+
+581
+00:13:45,606 --> 00:13:47,796
+payload is another ASN.1 encoded
+
+
+582
+00:13:47,836 --> 00:13:48,466
+container.
+
+
+583
+00:13:49,106 --> 00:13:51,316
+And inside of this, there's a
+
+
+584
+00:13:51,316 --> 00:13:53,246
+bunch of types and values that
+
+
+585
+00:13:53,246 --> 00:13:54,626
+are associated just for this
+
+
+586
+00:13:54,626 --> 00:13:55,666
+specific transaction in
+
+
+587
+00:13:55,666 --> 00:13:56,056
+question.
+
+
+588
+00:13:56,056 --> 00:13:57,106
+So we have things like a
+
+
+589
+00:13:57,106 --> 00:13:58,756
+quantity, a product identifier,
+
+
+590
+00:13:58,756 --> 00:13:59,686
+a transaction ID.
+
+
+591
+00:13:59,986 --> 00:14:01,066
+So these are values that you can
+
+
+592
+00:14:01,066 --> 00:14:03,476
+use to verify that a transaction
+
+
+593
+00:14:03,666 --> 00:14:04,806
+exists in the real world.
+
+
+594
+00:14:05,806 --> 00:14:06,866
+One more to call out while I'm
+
+
+595
+00:14:06,866 --> 00:14:08,196
+here is type 1708.
+
+
+596
+00:14:08,196 --> 00:14:09,436
+This is particularly important
+
+
+597
+00:14:09,436 --> 00:14:10,166
+if you're dealing with auto
+
+
+598
+00:14:10,166 --> 00:14:11,346
+renewable subscriptions.
+
+
+599
+00:14:11,816 --> 00:14:13,146
+This contains the expiry date
+
+
+600
+00:14:13,346 --> 00:14:14,936
+for a particular transaction for
+
+
+601
+00:14:14,936 --> 00:14:15,836
+a particular billing period.
+
+
+602
+00:14:15,836 --> 00:14:17,306
+And we'll come back to talking
+
+
+603
+00:14:17,306 --> 00:14:18,286
+about subscriptions in a bit.
+
+
+604
+00:14:19,556 --> 00:14:20,146
+If you want to know more
+
+
+605
+00:14:20,146 --> 00:14:21,406
+information about all the
+
+
+606
+00:14:21,406 --> 00:14:22,136
+different types that are
+
+
+607
+00:14:22,136 --> 00:14:23,046
+included here, I'd just
+
+
+608
+00:14:23,326 --> 00:14:24,156
+encourage you to check out the
+
+
+609
+00:14:24,156 --> 00:14:25,446
+Receipt Validation programming
+
+
+610
+00:14:25,446 --> 00:14:26,006
+guide online.
+
+
+611
+00:14:26,316 --> 00:14:27,406
+And we go through all the
+
+
+612
+00:14:27,406 --> 00:14:28,086
+different types that are
+
+
+613
+00:14:28,086 --> 00:14:29,496
+actually included in the
+
+
+614
+00:14:29,496 --> 00:14:29,886
+receipt.
+
+
+615
+00:14:30,406 --> 00:14:32,896
+But now that you can read all
+
+
+616
+00:14:32,896 --> 00:14:35,226
+these transactions, it's up to
+
+
+617
+00:14:35,226 --> 00:14:36,566
+you to use those to verify the
+
+
+618
+00:14:36,566 --> 00:14:38,396
+content that StoreKit's telling
+
+
+619
+00:14:38,396 --> 00:14:38,866
+you the user's bought.
+
+
+620
+00:14:38,866 --> 00:14:40,656
+So what you do is you take the
+
+
+621
+00:14:40,656 --> 00:14:41,796
+transaction that's appeared
+
+
+622
+00:14:41,796 --> 00:14:42,486
+through this updated
+
+
+623
+00:14:42,486 --> 00:14:43,546
+transaction's call at the
+
+
+624
+00:14:43,546 --> 00:14:45,266
+beginning of the process and all
+
+
+625
+00:14:45,266 --> 00:14:46,446
+you have to do is compare all
+
+
+626
+00:14:46,446 --> 00:14:47,976
+those values to the ones inside
+
+
+627
+00:14:47,976 --> 00:14:48,426
+the receipt.
+
+
+628
+00:14:48,426 --> 00:14:49,386
+So you can use things like the
+
+
+629
+00:14:49,386 --> 00:14:50,726
+transaction ID, the purchase
+
+
+630
+00:14:50,726 --> 00:14:52,336
+date, the product identifier
+
+
+631
+00:14:52,336 --> 00:14:53,456
+that it's saying the user
+
+
+632
+00:14:53,456 --> 00:14:54,856
+bought, and if you can verify
+
+
+633
+00:14:54,856 --> 00:14:55,806
+that there's a transaction that
+
+
+634
+00:14:55,806 --> 00:14:56,926
+matches then great.
+
+
+635
+00:14:56,926 --> 00:14:58,456
+You've got a proof -- a document
+
+
+636
+00:14:58,456 --> 00:14:59,526
+proving that the user actually
+
+
+637
+00:14:59,526 --> 00:15:00,446
+purchased it and money's
+
+
+638
+00:15:00,446 --> 00:15:01,436
+actually changed hands.
+
+
+639
+00:15:01,436 --> 00:15:03,076
+So you can trust the transaction
+
+
+640
+00:15:03,076 --> 00:15:04,596
+that StoreKit's telling you.
+
+
+641
+00:15:05,716 --> 00:15:06,516
+When you're dealing with
+
+
+642
+00:15:06,516 --> 00:15:08,056
+subscriptions a common question
+
+
+643
+00:15:08,056 --> 00:15:09,686
+at this point is does my user
+
+
+644
+00:15:09,686 --> 00:15:10,756
+have an active subscription.
+
+
+645
+00:15:11,696 --> 00:15:13,236
+Well one thing just to note
+
+
+646
+00:15:13,236 --> 00:15:13,456
+here.
+
+
+647
+00:15:13,456 --> 00:15:14,356
+Just remember that a valid
+
+
+648
+00:15:14,356 --> 00:15:15,996
+receipt is not the same thing as
+
+
+649
+00:15:15,996 --> 00:15:17,156
+having a subscribed user.
+
+
+650
+00:15:17,636 --> 00:15:18,646
+So there's a bit of confusion
+
+
+651
+00:15:18,646 --> 00:15:19,216
+sometimes.
+
+
+652
+00:15:19,436 --> 00:15:20,566
+If you can validate the receipt
+
+
+653
+00:15:20,566 --> 00:15:21,176
+that doesn't mean that the
+
+
+654
+00:15:21,176 --> 00:15:22,576
+user's actually paid anything.
+
+
+655
+00:15:22,876 --> 00:15:23,746
+You know every app has a
+
+
+656
+00:15:23,746 --> 00:15:24,156
+receipt.
+
+
+657
+00:15:24,236 --> 00:15:25,526
+It contains information about
+
+
+658
+00:15:25,766 --> 00:15:27,446
+original application purchases
+
+
+659
+00:15:27,446 --> 00:15:28,406
+even for free apps.
+
+
+660
+00:15:29,016 --> 00:15:30,026
+It's the data inside the
+
+
+661
+00:15:30,026 --> 00:15:30,346
+receipt.
+
+
+662
+00:15:30,346 --> 00:15:31,456
+These transactions that's going
+
+
+663
+00:15:31,456 --> 00:15:32,256
+to tell you about the
+
+
+664
+00:15:32,256 --> 00:15:33,386
+subscription state of the user.
+
+
+665
+00:15:33,386 --> 00:15:35,846
+Now how do we find out that
+
+
+666
+00:15:35,846 --> 00:15:36,576
+subscription state?
+
+
+667
+00:15:36,576 --> 00:15:37,896
+You could take those
+
+
+668
+00:15:37,896 --> 00:15:39,476
+transactions and you want to
+
+
+669
+00:15:39,476 --> 00:15:40,366
+group them together by the
+
+
+670
+00:15:40,366 --> 00:15:42,436
+original transaction ID field.
+
+
+671
+00:15:43,306 --> 00:15:44,676
+This field just contains that
+
+
+672
+00:15:44,746 --> 00:15:46,086
+first transaction ID for a
+
+
+673
+00:15:46,086 --> 00:15:47,206
+particular auto renewable
+
+
+674
+00:15:47,206 --> 00:15:48,726
+subscription that a user used.
+
+
+675
+00:15:48,726 --> 00:15:49,666
+You can kind of think of this as
+
+
+676
+00:15:49,666 --> 00:15:51,526
+being like a subscription ID
+
+
+677
+00:15:51,676 --> 00:15:52,666
+that you can use to reference
+
+
+678
+00:15:52,666 --> 00:15:53,746
+and group together these
+
+
+679
+00:15:53,746 --> 00:15:54,466
+transactions.
+
+
+680
+00:15:55,506 --> 00:15:56,516
+So you can grab those
+
+
+681
+00:15:56,766 --> 00:15:58,006
+transactions and you want to
+
+
+682
+00:15:58,006 --> 00:15:58,966
+look for the one that has the
+
+
+683
+00:15:58,966 --> 00:16:00,166
+latest expiry date.
+
+
+684
+00:16:00,456 --> 00:16:02,316
+Now this is an indication of the
+
+
+685
+00:16:02,316 --> 00:16:03,636
+latest transaction that's taken
+
+
+686
+00:16:03,636 --> 00:16:03,846
+place.
+
+
+687
+00:16:03,846 --> 00:16:05,026
+So if you see an expiry date in
+
+
+688
+00:16:05,026 --> 00:16:06,606
+the future, that's an indication
+
+
+689
+00:16:06,606 --> 00:16:07,596
+that the user's in the middle of
+
+
+690
+00:16:07,596 --> 00:16:08,746
+a billing period and they have
+
+
+691
+00:16:08,746 --> 00:16:09,646
+an active subscription.
+
+
+692
+00:16:10,116 --> 00:16:11,856
+Now if you find an expiry date
+
+
+693
+00:16:11,856 --> 00:16:13,256
+in the past, that's an
+
+
+694
+00:16:13,256 --> 00:16:14,276
+indication that there's been no
+
+
+695
+00:16:14,276 --> 00:16:15,356
+transaction since then.
+
+
+696
+00:16:15,356 --> 00:16:16,516
+So the user's subscription's
+
+
+697
+00:16:16,516 --> 00:16:17,276
+actually lapsed.
+
+
+698
+00:16:18,176 --> 00:16:20,416
+Now if you do find this, you can
+
+
+699
+00:16:20,416 --> 00:16:21,756
+do what we say -- what we call a
+
+
+700
+00:16:21,756 --> 00:16:22,866
+receive refresh request.
+
+
+701
+00:16:24,056 --> 00:16:25,346
+And this'll go fetch the latest
+
+
+702
+00:16:25,346 --> 00:16:26,556
+copy of the receipt just as a
+
+
+703
+00:16:26,556 --> 00:16:27,956
+double check and you can repeat
+
+
+704
+00:16:27,956 --> 00:16:28,856
+those steps of receipt
+
+
+705
+00:16:28,856 --> 00:16:31,156
+validation and check these steps
+
+
+706
+00:16:31,186 --> 00:16:33,266
+that we just called above to see
+
+
+707
+00:16:33,266 --> 00:16:34,306
+if any new transactions have
+
+
+708
+00:16:34,306 --> 00:16:34,716
+appeared.
+
+
+709
+00:16:36,316 --> 00:16:37,696
+Now there is one caveat when
+
+
+710
+00:16:37,696 --> 00:16:38,596
+you're maintaining a
+
+
+711
+00:16:38,596 --> 00:16:39,996
+subscription state on the device
+
+
+712
+00:16:39,996 --> 00:16:40,396
+like this.
+
+
+713
+00:16:40,396 --> 00:16:41,576
+We talked about, you know,
+
+
+714
+00:16:41,576 --> 00:16:42,436
+expiry dates.
+
+
+715
+00:16:42,436 --> 00:16:43,396
+And we've talked about purchase
+
+
+716
+00:16:43,396 --> 00:16:43,716
+dates.
+
+
+717
+00:16:44,046 --> 00:16:45,396
+Well if you're doing this purely
+
+
+718
+00:16:45,396 --> 00:16:47,116
+on the device, the only data you
+
+
+719
+00:16:47,116 --> 00:16:48,196
+actually have to compare these
+
+
+720
+00:16:48,196 --> 00:16:49,446
+to is the user system data.
+
+
+721
+00:16:49,986 --> 00:16:51,086
+So what's stopping the user from
+
+
+722
+00:16:51,086 --> 00:16:52,306
+just winding their clock back
+
+
+723
+00:16:52,586 --> 00:16:53,846
+and putting themselves into an
+
+
+724
+00:16:53,846 --> 00:16:54,926
+active subscription period?
+
+
+725
+00:16:56,726 --> 00:16:57,936
+Not a lot, unfortunately.
+
+
+726
+00:16:58,216 --> 00:16:59,796
+So if this is a problem for you,
+
+
+727
+00:16:59,796 --> 00:17:01,176
+it's probably likely that you're
+
+
+728
+00:17:01,176 --> 00:17:01,906
+going to need to look at some
+
+
+729
+00:17:01,906 --> 00:17:03,036
+kind of service side solution.
+
+
+730
+00:17:03,146 --> 00:17:04,376
+Maybe look at receipt validation
+
+
+731
+00:17:04,376 --> 00:17:05,746
+on your server or at least, some
+
+
+732
+00:17:05,746 --> 00:17:06,965
+check to actually get timed --
+
+
+733
+00:17:07,146 --> 00:17:08,356
+time and date from your server
+
+
+734
+00:17:08,356 --> 00:17:09,076
+to check it against.
+
+
+735
+00:17:09,076 --> 00:17:11,726
+When it comes to actually
+
+
+736
+00:17:11,796 --> 00:17:13,136
+refreshing the receipt like I
+
+
+737
+00:17:13,136 --> 00:17:14,496
+just mentioned, you can do this
+
+
+738
+00:17:14,496 --> 00:17:15,925
+if the receipt doesn't exist or
+
+
+739
+00:17:15,925 --> 00:17:17,195
+it's invalid or maybe you're
+
+
+740
+00:17:17,195 --> 00:17:17,996
+searching for that extra
+
+
+741
+00:17:17,996 --> 00:17:18,586
+transaction.
+
+
+742
+00:17:18,586 --> 00:17:20,086
+It will require a network
+
+
+743
+00:17:20,086 --> 00:17:21,116
+request because it goes and
+
+
+744
+00:17:21,116 --> 00:17:22,185
+fetches a new receipt from the
+
+
+745
+00:17:22,185 --> 00:17:22,736
+App Store.
+
+
+746
+00:17:22,976 --> 00:17:24,866
+And it will require sign-in from
+
+
+747
+00:17:24,866 --> 00:17:26,626
+the user which means that you
+
+
+748
+00:17:26,626 --> 00:17:27,576
+should be very careful about how
+
+
+749
+00:17:27,576 --> 00:17:29,226
+often you do this and avoid
+
+
+750
+00:17:29,226 --> 00:17:31,066
+continuous loops of validating
+
+
+751
+00:17:31,066 --> 00:17:31,676
+and refreshing.
+
+
+752
+00:17:31,676 --> 00:17:32,566
+If you're doing that example
+
+
+753
+00:17:32,566 --> 00:17:33,686
+that we just spoke about where
+
+
+754
+00:17:33,686 --> 00:17:34,906
+you're looking for that expiry
+
+
+755
+00:17:34,906 --> 00:17:36,146
+date, make sure that if you
+
+
+756
+00:17:36,146 --> 00:17:37,086
+don't find it that you don't
+
+
+757
+00:17:37,086 --> 00:17:38,746
+just keep refreshing the receipt
+
+
+758
+00:17:38,746 --> 00:17:40,406
+refresh request over and over
+
+
+759
+00:17:40,406 --> 00:17:41,076
+again because it'll keep
+
+
+760
+00:17:41,116 --> 00:17:42,216
+prompting the user to log in.
+
+
+761
+00:17:42,506 --> 00:17:43,536
+So just issue one of these
+
+
+762
+00:17:43,536 --> 00:17:45,046
+requests if you're going to do
+
+
+763
+00:17:45,046 --> 00:17:46,356
+it and this is what it looks
+
+
+764
+00:17:46,356 --> 00:17:46,976
+like in code.
+
+
+765
+00:17:47,786 --> 00:17:48,276
+You create an
+
+
+766
+00:17:48,276 --> 00:17:50,076
+SKReceiptRefreshRequest object.
+
+
+767
+00:17:50,556 --> 00:17:51,656
+You set a delegate on it and you
+
+
+768
+00:17:51,656 --> 00:17:53,046
+just kick it off using the start
+
+
+769
+00:17:53,126 --> 00:17:53,306
+method.
+
+
+770
+00:17:53,596 --> 00:17:56,266
+On mac iOS if you're developing
+
+
+771
+00:17:56,266 --> 00:17:58,476
+for the Mac, same principles
+
+
+772
+00:17:58,476 --> 00:17:58,726
+apply.
+
+
+773
+00:17:58,726 --> 00:18:00,026
+You can do this if the receipt's
+
+
+774
+00:18:00,026 --> 00:18:00,436
+invalid.
+
+
+775
+00:18:01,296 --> 00:18:02,596
+It'll require a network request
+
+
+776
+00:18:02,596 --> 00:18:03,866
+and it will prompt the user to
+
+
+777
+00:18:03,866 --> 00:18:05,966
+actually log in as well but in
+
+
+778
+00:18:05,966 --> 00:18:06,816
+this case, it's a little
+
+
+779
+00:18:06,816 --> 00:18:07,086
+different.
+
+
+780
+00:18:07,086 --> 00:18:08,476
+The API what you do is you exit
+
+
+781
+00:18:08,476 --> 00:18:10,116
+your application using the code
+
+
+782
+00:18:10,116 --> 00:18:11,216
+173.
+
+
+783
+00:18:11,216 --> 00:18:12,796
+And that looks like this.
+
+
+784
+00:18:12,796 --> 00:18:14,056
+So this'll exit your
+
+
+785
+00:18:14,056 --> 00:18:14,626
+application.
+
+
+786
+00:18:14,626 --> 00:18:15,666
+This will trigger StoreKit in
+
+
+787
+00:18:15,666 --> 00:18:16,546
+the background to go and
+
+
+788
+00:18:16,546 --> 00:18:18,076
+download a new receipt to the
+
+
+789
+00:18:18,076 --> 00:18:19,766
+Mac and then it'll prompt the
+
+
+790
+00:18:19,766 --> 00:18:21,286
+user to log in and launch your
+
+
+791
+00:18:21,286 --> 00:18:21,516
+app again.
+
+
+792
+00:18:21,516 --> 00:18:24,476
+Now at this point I just want to
+
+
+793
+00:18:24,476 --> 00:18:25,936
+touch on a couple of differences
+
+
+794
+00:18:25,936 --> 00:18:26,826
+here between restoring
+
+
+795
+00:18:26,826 --> 00:18:28,496
+transactions and refreshing the
+
+
+796
+00:18:28,496 --> 00:18:28,986
+receipt.
+
+
+797
+00:18:29,046 --> 00:18:29,936
+These can be sometimes be
+
+
+798
+00:18:29,936 --> 00:18:30,366
+confused.
+
+
+799
+00:18:30,366 --> 00:18:32,116
+These are two separate APIs.
+
+
+800
+00:18:33,016 --> 00:18:34,256
+So restoring completed
+
+
+801
+00:18:34,256 --> 00:18:35,936
+transactions which is an API we
+
+
+802
+00:18:35,936 --> 00:18:37,146
+looked at in the What's New in
+
+
+803
+00:18:37,146 --> 00:18:38,846
+StoreKit talk this morning, this
+
+
+804
+00:18:38,846 --> 00:18:40,466
+is an API on the SK payment
+
+
+805
+00:18:40,466 --> 00:18:42,506
+queue whereas the receipt
+
+
+806
+00:18:42,506 --> 00:18:44,036
+refresh request is its own
+
+
+807
+00:18:44,036 --> 00:18:45,396
+instance that you create and you
+
+
+808
+00:18:45,396 --> 00:18:46,526
+kick it off using the start
+
+
+809
+00:18:46,526 --> 00:18:46,786
+method.
+
+
+810
+00:18:46,906 --> 00:18:48,196
+And they accomplish slightly
+
+
+811
+00:18:48,196 --> 00:18:48,786
+different things.
+
+
+812
+00:18:48,926 --> 00:18:50,156
+So restoring completed
+
+
+813
+00:18:50,156 --> 00:18:52,346
+transactions causes all the
+
+
+814
+00:18:52,346 --> 00:18:53,486
+completed transactions that have
+
+
+815
+00:18:53,486 --> 00:18:54,946
+occurred for a user to appear
+
+
+816
+00:18:54,946 --> 00:18:55,886
+back on that updated
+
+
+817
+00:18:55,886 --> 00:18:57,696
+transactions call back for you
+
+
+818
+00:18:57,696 --> 00:18:58,716
+to be able to process.
+
+
+819
+00:18:59,756 --> 00:19:01,036
+Whereas the receipt refresh
+
+
+820
+00:19:01,036 --> 00:19:02,446
+request is really just used to
+
+
+821
+00:19:02,446 --> 00:19:03,926
+go and fetch that new receipt
+
+
+822
+00:19:03,926 --> 00:19:04,316
+document.
+
+
+823
+00:19:04,316 --> 00:19:05,896
+That encrypted binary code for
+
+
+824
+00:19:05,896 --> 00:19:07,116
+you to be able to check the
+
+
+825
+00:19:07,276 --> 00:19:08,086
+contents of.
+
+
+826
+00:19:09,406 --> 00:19:10,266
+And there's also a slight
+
+
+827
+00:19:10,266 --> 00:19:11,506
+difference to actually what they
+
+
+828
+00:19:11,506 --> 00:19:12,006
+include.
+
+
+829
+00:19:12,006 --> 00:19:13,076
+So when you're restoring
+
+
+830
+00:19:13,076 --> 00:19:14,856
+completed transactions, this
+
+
+831
+00:19:14,856 --> 00:19:16,326
+restores only non-consumerable
+
+
+832
+00:19:16,326 --> 00:19:17,536
+products and auto renewable
+
+
+833
+00:19:17,536 --> 00:19:18,556
+subscription products.
+
+
+834
+00:19:19,746 --> 00:19:21,006
+Whereas a receipt refresh
+
+
+835
+00:19:21,006 --> 00:19:22,696
+request has both of those but it
+
+
+836
+00:19:22,696 --> 00:19:23,426
+also includes also any
+
+
+837
+00:19:23,426 --> 00:19:24,806
+non-renewing subscription
+
+
+838
+00:19:25,166 --> 00:19:26,466
+entries in the receipt.
+
+
+839
+00:19:27,146 --> 00:19:28,626
+So you'll notice that consumable
+
+
+840
+00:19:28,626 --> 00:19:30,136
+products are absent from both of
+
+
+841
+00:19:30,136 --> 00:19:31,226
+these types of requests.
+
+
+842
+00:19:31,416 --> 00:19:31,936
+If you're dealing with
+
+
+843
+00:19:31,936 --> 00:19:33,706
+consumable product purchases,
+
+
+844
+00:19:34,226 --> 00:19:35,246
+they're just going to appear
+
+
+845
+00:19:35,246 --> 00:19:36,696
+both in the updated transactions
+
+
+846
+00:19:36,946 --> 00:19:38,426
+and on the receipt at the time
+
+
+847
+00:19:38,426 --> 00:19:39,106
+of purchase.
+
+
+848
+00:19:39,286 --> 00:19:40,066
+So you kind of have that one
+
+
+849
+00:19:40,066 --> 00:19:41,956
+chance to actually verify the
+
+
+850
+00:19:41,956 --> 00:19:43,186
+consumable product and it won't
+
+
+851
+00:19:43,186 --> 00:19:44,576
+be restored for either of these
+
+
+852
+00:19:44,576 --> 00:19:44,916
+calls.
+
+
+853
+00:19:46,176 --> 00:19:47,356
+Now one other tip for dealing
+
+
+854
+00:19:47,356 --> 00:19:48,686
+with receipts is if you're
+
+
+855
+00:19:48,686 --> 00:19:49,446
+looking to switch to
+
+
+856
+00:19:49,446 --> 00:19:50,416
+subscriptions, maybe you've got
+
+
+857
+00:19:50,416 --> 00:19:51,636
+a paid application and you want
+
+
+858
+00:19:51,636 --> 00:19:52,576
+to switch it to being a
+
+
+859
+00:19:52,576 --> 00:19:54,196
+subscription model, you can use
+
+
+860
+00:19:54,196 --> 00:19:56,196
+this type 19 value in the
+
+
+861
+00:19:56,196 --> 00:19:57,216
+application receipt.
+
+
+862
+00:19:58,586 --> 00:19:59,606
+This contains the original
+
+
+863
+00:19:59,606 --> 00:20:00,506
+application version.
+
+
+864
+00:20:00,586 --> 00:20:02,156
+So you can use this application
+
+
+865
+00:20:02,156 --> 00:20:03,396
+version that a user originally
+
+
+866
+00:20:03,396 --> 00:20:05,056
+downloaded as kind of a gate to
+
+
+867
+00:20:05,056 --> 00:20:06,496
+know as to whether you need to
+
+
+868
+00:20:06,496 --> 00:20:07,766
+provide a content based on a
+
+
+869
+00:20:07,796 --> 00:20:08,916
+paid app or based on a
+
+
+870
+00:20:08,976 --> 00:20:09,426
+subscription.
+
+
+871
+00:20:09,426 --> 00:20:10,566
+You know it's not a great
+
+
+872
+00:20:10,566 --> 00:20:11,526
+experience if you've paid for an
+
+
+873
+00:20:11,526 --> 00:20:12,856
+application and then suddenly
+
+
+874
+00:20:12,856 --> 00:20:13,766
+you lose access to that
+
+
+875
+00:20:13,766 --> 00:20:15,266
+functionality you paid for if
+
+
+876
+00:20:15,266 --> 00:20:16,226
+it's now a subscription model.
+
+
+877
+00:20:16,226 --> 00:20:17,916
+So use type 19 as a bit of a
+
+
+878
+00:20:17,916 --> 00:20:20,606
+gate to be able to supply that.
+
+
+879
+00:20:21,496 --> 00:20:22,846
+So once you've done this step,
+
+
+880
+00:20:22,846 --> 00:20:23,876
+that's the process of checking
+
+
+881
+00:20:23,876 --> 00:20:25,336
+the transaction and confirming
+
+
+882
+00:20:25,336 --> 00:20:26,206
+subscription state on the
+
+
+883
+00:20:26,206 --> 00:20:26,646
+device.
+
+
+884
+00:20:27,046 --> 00:20:28,366
+You can then go ahead to finish
+
+
+885
+00:20:28,406 --> 00:20:29,026
+the transaction.
+
+
+886
+00:20:29,026 --> 00:20:30,346
+So you've made the content
+
+
+887
+00:20:30,346 --> 00:20:31,156
+available to the user.
+
+
+888
+00:20:31,476 --> 00:20:32,856
+You've updated that subscription
+
+
+889
+00:20:32,856 --> 00:20:33,176
+state.
+
+
+890
+00:20:33,486 --> 00:20:34,376
+When it comes to finishing the
+
+
+891
+00:20:34,376 --> 00:20:36,766
+transaction, you have to
+
+
+892
+00:20:36,766 --> 00:20:37,506
+remember to finish all
+
+
+893
+00:20:37,506 --> 00:20:38,876
+transactions that come through
+
+
+894
+00:20:38,876 --> 00:20:40,356
+this flow but only do it once
+
+
+895
+00:20:40,356 --> 00:20:41,696
+you've made content available to
+
+
+896
+00:20:41,696 --> 00:20:42,026
+the user.
+
+
+897
+00:20:43,316 --> 00:20:44,446
+So maybe you're downloading
+
+
+898
+00:20:44,446 --> 00:20:45,586
+content associated with an
+
+
+899
+00:20:45,586 --> 00:20:46,216
+in-app purchase.
+
+
+900
+00:20:46,416 --> 00:20:47,506
+Make sure until that download's
+
+
+901
+00:20:47,506 --> 00:20:48,986
+completely finished before you
+
+
+902
+00:20:48,986 --> 00:20:49,846
+go ahead and finish the
+
+
+903
+00:20:49,846 --> 00:20:50,406
+transaction.
+
+
+904
+00:20:51,366 --> 00:20:52,726
+And this includes all auto
+
+
+905
+00:20:52,726 --> 00:20:53,826
+renewable subscription
+
+
+906
+00:20:53,826 --> 00:20:54,466
+transactions.
+
+
+907
+00:20:54,466 --> 00:20:55,886
+So these renewable transactions
+
+
+908
+00:20:55,886 --> 00:20:56,906
+that come in at the end of each
+
+
+909
+00:20:56,906 --> 00:20:58,296
+billing period, you still need
+
+
+910
+00:20:58,296 --> 00:20:59,036
+to finish all of these
+
+
+911
+00:20:59,036 --> 00:21:00,086
+transactions and handle them.
+
+
+912
+00:21:00,896 --> 00:21:02,016
+And if you don't, the payment
+
+
+913
+00:21:02,126 --> 00:21:03,496
+actually stays on the payment
+
+
+914
+00:21:03,496 --> 00:21:05,106
+queue and it'll keep reappearing
+
+
+915
+00:21:05,106 --> 00:21:06,356
+in the updated transactions call
+
+
+916
+00:21:06,356 --> 00:21:07,816
+back until you deal with it and
+
+
+917
+00:21:07,966 --> 00:21:09,086
+call finish transactions.
+
+
+918
+00:21:09,676 --> 00:21:11,496
+We also have specific logic
+
+
+919
+00:21:11,496 --> 00:21:12,596
+around subscription billing
+
+
+920
+00:21:12,596 --> 00:21:13,046
+retry.
+
+
+921
+00:21:13,046 --> 00:21:14,316
+So if you do have auto renewable
+
+
+922
+00:21:14,316 --> 00:21:16,026
+subscriptions, it's important
+
+
+923
+00:21:16,026 --> 00:21:17,276
+that you do finish these
+
+
+924
+00:21:17,276 --> 00:21:18,246
+transactions so that our
+
+
+925
+00:21:18,246 --> 00:21:20,076
+subscription billing retry logic
+
+
+926
+00:21:20,076 --> 00:21:21,326
+can continue to try and charge
+
+
+927
+00:21:21,326 --> 00:21:22,586
+user's credit cards if there's
+
+
+928
+00:21:22,586 --> 00:21:23,786
+any kind of billing error along
+
+
+929
+00:21:23,786 --> 00:21:24,086
+the way.
+
+
+930
+00:21:24,456 --> 00:21:25,736
+So this is quite important for
+
+
+931
+00:21:25,736 --> 00:21:27,046
+our end to know the state of all
+
+
+932
+00:21:27,046 --> 00:21:28,156
+these transactions.
+
+
+933
+00:21:29,036 --> 00:21:30,016
+This is what the API though
+
+
+934
+00:21:30,066 --> 00:21:30,486
+looks like.
+
+
+935
+00:21:30,696 --> 00:21:31,686
+It's just one line of code.
+
+
+936
+00:21:31,846 --> 00:21:33,156
+You can pass in that transaction
+
+
+937
+00:21:33,156 --> 00:21:34,296
+object that we received at the
+
+
+938
+00:21:34,296 --> 00:21:35,816
+start of the process to the
+
+
+939
+00:21:35,816 --> 00:21:38,116
+finish transaction method on the
+
+
+940
+00:21:38,116 --> 00:21:39,636
+SKPaymentQueue's default queue.
+
+
+941
+00:21:43,056 --> 00:21:44,316
+So that wraps up that device
+
+
+942
+00:21:44,386 --> 00:21:46,016
+flow of validating the receipt
+
+
+943
+00:21:46,016 --> 00:21:47,446
+and updating content on the
+
+
+944
+00:21:47,446 --> 00:21:48,156
+user's device.
+
+
+945
+00:21:48,336 --> 00:21:49,756
+Let's jump up now and look at
+
+
+946
+00:21:49,756 --> 00:21:51,036
+how this works in a service side
+
+
+947
+00:21:51,036 --> 00:21:51,496
+environment.
+
+
+948
+00:21:52,066 --> 00:21:53,396
+And to do this, let's just walk
+
+
+949
+00:21:53,396 --> 00:21:54,206
+through a bit of an example.
+
+
+950
+00:21:56,226 --> 00:21:58,486
+Let's say I have a user here and
+
+
+951
+00:21:58,486 --> 00:22:01,396
+it's using your application and
+
+
+952
+00:22:01,396 --> 00:22:02,336
+you've got a server there
+
+
+953
+00:22:02,616 --> 00:22:03,506
+powering your back end.
+
+
+954
+00:22:03,846 --> 00:22:04,906
+The process here starts, of
+
+
+955
+00:22:04,906 --> 00:22:05,836
+course, with receiving that
+
+
+956
+00:22:05,836 --> 00:22:06,936
+transaction and the update
+
+
+957
+00:22:06,936 --> 00:22:08,096
+transactions call back that we
+
+
+958
+00:22:08,096 --> 00:22:08,416
+saw.
+
+
+959
+00:22:09,396 --> 00:22:10,476
+From there, you could read in
+
+
+960
+00:22:10,476 --> 00:22:12,316
+that binary receipt data using
+
+
+961
+00:22:12,316 --> 00:22:13,386
+the API mentioned.
+
+
+962
+00:22:13,716 --> 00:22:14,956
+At this point it's still encoded
+
+
+963
+00:22:14,956 --> 00:22:15,686
+so we haven't done all these
+
+
+964
+00:22:15,686 --> 00:22:16,856
+checks yet with the certificate
+
+
+965
+00:22:16,856 --> 00:22:17,216
+or anything.
+
+
+966
+00:22:17,806 --> 00:22:18,456
+Instead of doing it on the
+
+
+967
+00:22:18,456 --> 00:22:19,796
+device, what we can do is take
+
+
+968
+00:22:19,796 --> 00:22:21,346
+that binary encoded receipt data
+
+
+969
+00:22:21,716 --> 00:22:23,256
+and send it up to your server.
+
+
+970
+00:22:24,626 --> 00:22:26,096
+From here, you can just
+
+
+971
+00:22:26,096 --> 00:22:27,246
+establish connection over to the
+
+
+972
+00:22:27,246 --> 00:22:29,256
+App Store server by this verify
+
+
+973
+00:22:29,256 --> 00:22:30,396
+receipt url.
+
+
+974
+00:22:31,076 --> 00:22:32,326
+And you pass that binary data
+
+
+975
+00:22:32,326 --> 00:22:33,296
+over to the App Store.
+
+
+976
+00:22:33,296 --> 00:22:34,806
+Now the App Store does all that
+
+
+977
+00:22:34,806 --> 00:22:35,766
+hard work of checking the
+
+
+978
+00:22:35,766 --> 00:22:37,396
+certificates and verifying all
+
+
+979
+00:22:37,396 --> 00:22:38,066
+this information.
+
+
+980
+00:22:38,246 --> 00:22:40,086
+And it responds with a receipt
+
+
+981
+00:22:40,086 --> 00:22:41,426
+validity status as to whether or
+
+
+982
+00:22:41,426 --> 00:22:42,966
+not this is a valid document
+
+
+983
+00:22:42,966 --> 00:22:45,556
+that you can trust.
+
+
+984
+00:22:45,556 --> 00:22:47,176
+So this is it again really in
+
+
+985
+00:22:47,176 --> 00:22:48,576
+textual form, the response is in
+
+
+986
+00:22:48,576 --> 00:22:48,806
+JSON.
+
+
+987
+00:22:49,526 --> 00:22:51,816
+And it returns that status as to
+
+
+988
+00:22:51,816 --> 00:22:52,866
+whether a receipt is valid or
+
+
+989
+00:22:52,866 --> 00:22:54,136
+not but one point to note here,
+
+
+990
+00:22:54,136 --> 00:22:55,586
+as I mentioned before, you
+
+
+991
+00:22:55,586 --> 00:22:56,426
+shouldn't ever use this
+
+
+992
+00:22:56,426 --> 00:22:57,516
+technique directly from the
+
+
+993
+00:22:57,516 --> 00:22:58,266
+user's device.
+
+
+994
+00:22:58,616 --> 00:22:59,776
+This is really only secure when
+
+
+995
+00:22:59,776 --> 00:23:00,756
+you're doing it from your server
+
+
+996
+00:23:00,756 --> 00:23:01,386
+to the App Store.
+
+
+997
+00:23:01,976 --> 00:23:05,706
+And that's the whole step of
+
+
+998
+00:23:05,756 --> 00:23:06,926
+validating a receipt on your
+
+
+999
+00:23:06,926 --> 00:23:07,236
+server.
+
+
+1000
+00:23:07,236 --> 00:23:08,806
+It's a little simpler than on
+
+
+1001
+00:23:08,806 --> 00:23:09,606
+the user's device.
+
+
+1002
+00:23:10,466 --> 00:23:11,696
+Now let's take a look at how you
+
+
+1003
+00:23:11,696 --> 00:23:13,156
+unlock content and inspect
+
+
+1004
+00:23:13,156 --> 00:23:14,986
+transactions based on this
+
+
+1005
+00:23:14,986 --> 00:23:15,366
+scenario.
+
+
+1006
+00:23:17,736 --> 00:23:18,826
+Let's look at this example
+
+
+1007
+00:23:18,826 --> 00:23:19,096
+again.
+
+
+1008
+00:23:19,096 --> 00:23:20,296
+So let's say that you've sent
+
+
+1009
+00:23:20,296 --> 00:23:21,816
+that binary data up to your
+
+
+1010
+00:23:22,226 --> 00:23:22,426
+server.
+
+
+1011
+00:23:22,456 --> 00:23:23,746
+You establish that connection to
+
+
+1012
+00:23:23,746 --> 00:23:24,976
+the App Store and you send over
+
+
+1013
+00:23:24,976 --> 00:23:26,396
+the binary data to the App
+
+
+1014
+00:23:26,396 --> 00:23:26,636
+Store.
+
+
+1015
+00:23:27,636 --> 00:23:28,876
+Now not only does the App Store
+
+
+1016
+00:23:28,876 --> 00:23:30,556
+actually respond with the
+
+
+1017
+00:23:30,556 --> 00:23:32,176
+validity of the receipt, the
+
+
+1018
+00:23:32,336 --> 00:23:33,836
+response here actually includes
+
+
+1019
+00:23:34,106 --> 00:23:35,886
+a decoded version of the latest
+
+
+1020
+00:23:36,326 --> 00:23:37,946
+application receipt as well.
+
+
+1021
+00:23:38,386 --> 00:23:39,746
+So this is a decoded version in
+
+
+1022
+00:23:39,746 --> 00:23:41,496
+JSON that you can inspect and
+
+
+1023
+00:23:41,496 --> 00:23:42,786
+look at all those transactions.
+
+
+1024
+00:23:42,786 --> 00:23:43,946
+It's just the same consent that
+
+
+1025
+00:23:43,946 --> 00:23:45,546
+you see on the user's device
+
+
+1026
+00:23:45,546 --> 00:23:46,396
+when you decrypt it on the
+
+
+1027
+00:23:46,396 --> 00:23:48,116
+device but this time it's a JSON
+
+
+1028
+00:23:48,116 --> 00:23:49,066
+payload from the App Store and
+
+
+1029
+00:23:49,066 --> 00:23:49,996
+you can just inspect all those
+
+
+1030
+00:23:49,996 --> 00:23:50,566
+transactions.
+
+
+1031
+00:23:50,906 --> 00:23:52,056
+Make decisions about whether to
+
+
+1032
+00:23:52,056 --> 00:23:53,716
+unlock the content and then go
+
+
+1033
+00:23:53,716 --> 00:23:54,486
+ahead and finish that
+
+
+1034
+00:23:54,486 --> 00:23:55,596
+transaction back down on the
+
+
+1035
+00:23:55,596 --> 00:23:56,546
+user's device again.
+
+
+1036
+00:23:57,306 --> 00:23:58,266
+This is particularly useful
+
+
+1037
+00:23:58,266 --> 00:23:59,446
+because you can then do things
+
+
+1038
+00:23:59,446 --> 00:24:00,746
+like updating state across other
+
+
+1039
+00:24:00,746 --> 00:24:01,756
+platforms that you might have
+
+
+1040
+00:24:01,756 --> 00:24:03,106
+associated with your server.
+
+
+1041
+00:24:04,626 --> 00:24:05,936
+So this is what that process
+
+
+1042
+00:24:05,936 --> 00:24:07,266
+looks like, again, just in text
+
+
+1043
+00:24:07,266 --> 00:24:08,576
+but the important point here to
+
+
+1044
+00:24:08,576 --> 00:24:09,406
+call out is that you have to
+
+
+1045
+00:24:09,406 --> 00:24:10,746
+remember to tell the device to
+
+
+1046
+00:24:10,746 --> 00:24:12,126
+still finish the transaction if
+
+
+1047
+00:24:12,126 --> 00:24:12,976
+you're using this technique.
+
+
+1048
+00:24:18,226 --> 00:24:19,256
+So let's answer this question
+
+
+1049
+00:24:19,256 --> 00:24:21,426
+again of unlocking subscription
+
+
+1050
+00:24:21,426 --> 00:24:21,746
+features.
+
+
+1051
+00:24:21,746 --> 00:24:23,186
+So does my user have an active
+
+
+1052
+00:24:23,186 --> 00:24:23,746
+subscription.
+
+
+1053
+00:24:24,796 --> 00:24:25,906
+It's exactly the same flow, you
+
+
+1054
+00:24:25,906 --> 00:24:26,936
+know, here because we said that
+
+
+1055
+00:24:27,306 --> 00:24:28,336
+this receipt contains all the
+
+
+1056
+00:24:28,336 --> 00:24:29,006
+same information.
+
+
+1057
+00:24:29,006 --> 00:24:29,656
+So you can group the
+
+
+1058
+00:24:29,656 --> 00:24:30,936
+transactions that come back in
+
+
+1059
+00:24:30,936 --> 00:24:32,766
+this receipt by the original
+
+
+1060
+00:24:32,766 --> 00:24:33,576
+transaction ID.
+
+
+1061
+00:24:33,576 --> 00:24:34,936
+That's that subscription ID
+
+
+1062
+00:24:34,936 --> 00:24:35,246
+field.
+
+
+1063
+00:24:35,956 --> 00:24:36,976
+And all you need to do is find
+
+
+1064
+00:24:36,976 --> 00:24:37,956
+the transaction that has the
+
+
+1065
+00:24:37,956 --> 00:24:39,126
+latest expiry date.
+
+
+1066
+00:24:39,126 --> 00:24:40,386
+And if there's an expiry date in
+
+
+1067
+00:24:40,386 --> 00:24:41,876
+the future that's an indication
+
+
+1068
+00:24:41,876 --> 00:24:43,476
+that the user is in an active
+
+
+1069
+00:24:43,476 --> 00:24:44,086
+subscription.
+
+
+1070
+00:24:45,156 --> 00:24:46,166
+If there's not an expiry date in
+
+
+1071
+00:24:46,166 --> 00:24:47,176
+the future, if it's in the past
+
+
+1072
+00:24:47,176 --> 00:24:48,836
+somewhere well that means that
+
+
+1073
+00:24:48,896 --> 00:24:50,156
+the subscription's unfortunately
+
+
+1074
+00:24:50,156 --> 00:24:50,576
+lapsed.
+
+
+1075
+00:24:50,956 --> 00:24:52,126
+And this is the latest copy of
+
+
+1076
+00:24:52,126 --> 00:24:52,586
+the receipt.
+
+
+1077
+00:24:52,586 --> 00:24:53,386
+So there's no way that you can
+
+
+1078
+00:24:53,386 --> 00:24:55,166
+really do a receipt refresh
+
+
+1079
+00:24:55,166 --> 00:24:55,846
+request from the server.
+
+
+1080
+00:24:55,846 --> 00:24:56,976
+You've just got the latest copy
+
+
+1081
+00:24:56,976 --> 00:24:57,286
+already.
+
+
+1082
+00:24:57,926 --> 00:25:01,086
+So now we've unlocked content on
+
+
+1083
+00:25:01,166 --> 00:25:02,346
+the server based on this
+
+
+1084
+00:25:02,346 --> 00:25:02,926
+information.
+
+
+1085
+00:25:03,166 --> 00:25:04,076
+As I mentioned, you still need
+
+
+1086
+00:25:04,076 --> 00:25:04,876
+to remember to finish the
+
+
+1087
+00:25:04,876 --> 00:25:06,036
+transaction back down on the
+
+
+1088
+00:25:06,036 --> 00:25:06,976
+user's device again.
+
+
+1089
+00:25:07,446 --> 00:25:08,546
+You'll hear me say finish
+
+
+1090
+00:25:08,546 --> 00:25:09,736
+transactions a lot in this talk.
+
+
+1091
+00:25:09,736 --> 00:25:11,336
+It's a really important point
+
+
+1092
+00:25:11,336 --> 00:25:13,726
+that I want to drive home today.
+
+
+1093
+00:25:13,936 --> 00:25:15,486
+So let's look specifically at
+
+
+1094
+00:25:15,486 --> 00:25:16,486
+subscriptions for a little
+
+
+1095
+00:25:16,486 --> 00:25:16,746
+while.
+
+
+1096
+00:25:16,746 --> 00:25:18,686
+These scenarios have applied to
+
+
+1097
+00:25:18,686 --> 00:25:19,796
+all in-app purchase types.
+
+
+1098
+00:25:20,036 --> 00:25:21,136
+Now let's really talk about
+
+
+1099
+00:25:21,416 --> 00:25:22,426
+maintaining subscription state
+
+
+1100
+00:25:22,426 --> 00:25:24,026
+and particularly using that
+
+
+1101
+00:25:24,026 --> 00:25:24,826
+service side flow.
+
+
+1102
+00:25:24,826 --> 00:25:29,686
+So in this example, again, we
+
+
+1103
+00:25:29,686 --> 00:25:30,896
+have an updated transactions
+
+
+1104
+00:25:30,896 --> 00:25:32,706
+call being given to the user's
+
+
+1105
+00:25:32,706 --> 00:25:33,266
+device.
+
+
+1106
+00:25:33,486 --> 00:25:34,446
+And the user can read in that
+
+
+1107
+00:25:34,446 --> 00:25:36,626
+binary receipt data into memory
+
+
+1108
+00:25:36,626 --> 00:25:37,356
+on the user's device.
+
+
+1109
+00:25:37,356 --> 00:25:39,526
+They send that information up to
+
+
+1110
+00:25:39,606 --> 00:25:40,946
+your server.
+
+
+1111
+00:25:41,126 --> 00:25:42,326
+Now this time, we're going to do
+
+
+1112
+00:25:42,326 --> 00:25:43,066
+a little bit of a different
+
+
+1113
+00:25:43,066 --> 00:25:43,436
+technique.
+
+
+1114
+00:25:43,436 --> 00:25:44,396
+This is going to be a bit more
+
+
+1115
+00:25:44,396 --> 00:25:45,466
+of a real world scenario here.
+
+
+1116
+00:25:45,896 --> 00:25:47,316
+We're going to hold onto a copy
+
+
+1117
+00:25:47,626 --> 00:25:49,316
+of the binary receipt data on
+
+
+1118
+00:25:49,316 --> 00:25:51,346
+your server here and at the same
+
+
+1119
+00:25:51,346 --> 00:25:52,516
+time, we'll send a copy of that
+
+
+1120
+00:25:52,516 --> 00:25:53,746
+data over to the App Store to
+
+
+1121
+00:25:53,746 --> 00:25:54,976
+achieve the technique that we
+
+
+1122
+00:25:54,976 --> 00:25:55,556
+saw before.
+
+
+1123
+00:25:55,556 --> 00:25:56,956
+So this will respond with the
+
+
+1124
+00:25:56,956 --> 00:25:58,056
+latest copy of the receipt and
+
+
+1125
+00:25:58,056 --> 00:25:59,506
+we can do that same technique of
+
+
+1126
+00:25:59,896 --> 00:26:01,236
+finishing a transaction and
+
+
+1127
+00:26:01,236 --> 00:26:02,806
+updating content across devices.
+
+
+1128
+00:26:03,116 --> 00:26:06,016
+Now in this example, we're
+
+
+1129
+00:26:06,016 --> 00:26:06,916
+dealing with an auto renewable
+
+
+1130
+00:26:06,916 --> 00:26:07,586
+subscription.
+
+
+1131
+00:26:07,656 --> 00:26:09,316
+So let's say that the user goes
+
+
+1132
+00:26:09,396 --> 00:26:10,506
+offline for a bit and stops
+
+
+1133
+00:26:10,506 --> 00:26:11,666
+using your app for a few days
+
+
+1134
+00:26:12,086 --> 00:26:13,576
+which is a shocking thought, I
+
+
+1135
+00:26:13,576 --> 00:26:13,706
+know.
+
+
+1136
+00:26:14,006 --> 00:26:16,176
+But it can happen and if it does
+
+
+1137
+00:26:16,176 --> 00:26:18,346
+happen and then the user happens
+
+
+1138
+00:26:18,376 --> 00:26:19,306
+to have their subscription
+
+
+1139
+00:26:19,306 --> 00:26:20,376
+renewed in the background during
+
+
+1140
+00:26:20,376 --> 00:26:21,046
+this process.
+
+
+1141
+00:26:21,046 --> 00:26:22,226
+The credit card's charged.
+
+
+1142
+00:26:22,796 --> 00:26:24,116
+So a new transaction's taken
+
+
+1143
+00:26:24,116 --> 00:26:24,746
+place somewhere.
+
+
+1144
+00:26:25,726 --> 00:26:26,666
+And you don't know about it yet.
+
+
+1145
+00:26:26,666 --> 00:26:28,076
+So the user jumps on, I don't
+
+
+1146
+00:26:28,076 --> 00:26:28,736
+know your website.
+
+
+1147
+00:26:30,126 --> 00:26:31,386
+And at this point, your server
+
+
+1148
+00:26:31,386 --> 00:26:32,706
+doesn't have any new information
+
+
+1149
+00:26:32,706 --> 00:26:33,736
+about the transaction that's
+
+
+1150
+00:26:33,736 --> 00:26:35,336
+taken place in the background.
+
+
+1151
+00:26:35,946 --> 00:26:36,986
+So in order for you to know this
+
+
+1152
+00:26:36,986 --> 00:26:38,266
+information from your service
+
+
+1153
+00:26:38,266 --> 00:26:40,136
+point of view, remember we're
+
+
+1154
+00:26:40,136 --> 00:26:41,236
+holding on to that binary
+
+
+1155
+00:26:41,236 --> 00:26:42,446
+receipt data on the server.
+
+
+1156
+00:26:42,446 --> 00:26:43,806
+You can treat that data just
+
+
+1157
+00:26:43,806 --> 00:26:44,306
+like a token.
+
+
+1158
+00:26:44,306 --> 00:26:45,456
+And you can actually send it
+
+
+1159
+00:26:45,456 --> 00:26:46,696
+back over to the App Store here
+
+
+1160
+00:26:46,986 --> 00:26:47,996
+by that same request.
+
+
+1161
+00:26:48,486 --> 00:26:50,846
+And as I mentioned before, not
+
+
+1162
+00:26:50,846 --> 00:26:52,096
+only does this include the
+
+
+1163
+00:26:52,096 --> 00:26:53,386
+decoded receipt data, this is
+
+
+1164
+00:26:53,386 --> 00:26:55,046
+actually the latest copy of the
+
+
+1165
+00:26:55,046 --> 00:26:55,976
+application receipt.
+
+
+1166
+00:26:56,226 --> 00:26:57,746
+So this is latest copy is going
+
+
+1167
+00:26:57,746 --> 00:26:59,246
+to contain any new transactions
+
+
+1168
+00:26:59,246 --> 00:27:00,206
+that have occurred in the
+
+
+1169
+00:27:00,206 --> 00:27:00,736
+background.
+
+
+1170
+00:27:00,736 --> 00:27:02,406
+So you can find out about that
+
+
+1171
+00:27:02,406 --> 00:27:03,456
+transaction that's occurred and
+
+
+1172
+00:27:03,786 --> 00:27:05,276
+accordingly, give the user
+
+
+1173
+00:27:05,276 --> 00:27:06,556
+access to your website again.
+
+
+1174
+00:27:07,696 --> 00:27:08,486
+From there, you might want to
+
+
+1175
+00:27:08,486 --> 00:27:09,696
+unlock content across multiple
+
+
+1176
+00:27:09,696 --> 00:27:10,276
+devices.
+
+
+1177
+00:27:11,026 --> 00:27:12,096
+But you do have to remember that
+
+
+1178
+00:27:12,096 --> 00:27:13,296
+when the user does pick up that
+
+
+1179
+00:27:13,296 --> 00:27:14,796
+original device again and come
+
+
+1180
+00:27:14,796 --> 00:27:16,756
+back online, that will still
+
+
+1181
+00:27:16,756 --> 00:27:17,956
+receive the transaction through
+
+
+1182
+00:27:17,956 --> 00:27:19,276
+the updated transactions call.
+
+
+1183
+00:27:19,276 --> 00:27:21,186
+And so you still need to handle
+
+
+1184
+00:27:21,186 --> 00:27:22,396
+this and all the way through to
+
+
+1185
+00:27:22,396 --> 00:27:23,336
+finishing the transaction.
+
+
+1186
+00:27:23,336 --> 00:27:24,896
+So what we'd suggest is maybe
+
+
+1187
+00:27:25,096 --> 00:27:26,236
+treat this as an opportunity to
+
+
+1188
+00:27:26,566 --> 00:27:27,986
+update that binary receipt data
+
+
+1189
+00:27:27,986 --> 00:27:28,716
+up on your server.
+
+
+1190
+00:27:28,716 --> 00:27:30,906
+You're probably associating that
+
+
+1191
+00:27:30,906 --> 00:27:32,466
+with a user's account for your
+
+
+1192
+00:27:32,466 --> 00:27:33,366
+particular application.
+
+
+1193
+00:27:33,816 --> 00:27:35,186
+And then remember to finish the
+
+
+1194
+00:27:35,186 --> 00:27:36,226
+transaction back down on the
+
+
+1195
+00:27:36,226 --> 00:27:36,826
+device again.
+
+
+1196
+00:27:36,826 --> 00:27:37,716
+So even though your server
+
+
+1197
+00:27:37,716 --> 00:27:38,596
+already knew about this
+
+
+1198
+00:27:38,596 --> 00:27:39,546
+transaction, it's still
+
+
+1199
+00:27:39,546 --> 00:27:40,966
+important to complete this flow
+
+
+1200
+00:27:40,966 --> 00:27:41,996
+and finish that transaction
+
+
+1201
+00:27:41,996 --> 00:27:42,996
+based on what I said before.
+
+
+1202
+00:27:44,056 --> 00:27:45,316
+So for this technique, what
+
+
+1203
+00:27:45,346 --> 00:27:46,396
+we're really doing here is we're
+
+
+1204
+00:27:46,396 --> 00:27:48,106
+treating that receipt data much
+
+
+1205
+00:27:48,106 --> 00:27:48,646
+like a token.
+
+
+1206
+00:27:48,736 --> 00:27:49,826
+And we're using it to perform
+
+
+1207
+00:27:50,026 --> 00:27:51,516
+multiple requests by storing it
+
+
+1208
+00:27:51,796 --> 00:27:52,406
+on your server.
+
+
+1209
+00:27:53,046 --> 00:27:54,156
+It's the same binary data that
+
+
+1210
+00:27:54,156 --> 00:27:55,726
+can be used over and over again.
+
+
+1211
+00:27:56,336 --> 00:27:58,296
+And it's quite useful for
+
+
+1212
+00:27:58,296 --> 00:27:59,596
+propagating subscription state
+
+
+1213
+00:27:59,596 --> 00:28:00,906
+across multiple devices and
+
+
+1214
+00:28:00,906 --> 00:28:02,766
+platforms but still remember
+
+
+1215
+00:28:02,896 --> 00:28:04,786
+that you have to process all the
+
+
+1216
+00:28:04,786 --> 00:28:06,106
+updated transaction calls and
+
+
+1217
+00:28:06,106 --> 00:28:07,166
+that means all the renewal
+
+
+1218
+00:28:07,166 --> 00:28:08,566
+transactions that come through
+
+
+1219
+00:28:08,826 --> 00:28:10,306
+for each billing period all the
+
+
+1220
+00:28:10,306 --> 00:28:11,886
+way through to finishing the
+
+
+1221
+00:28:11,886 --> 00:28:12,436
+transaction.
+
+
+1222
+00:28:12,436 --> 00:28:16,716
+Now, as you can imagine, over
+
+
+1223
+00:28:16,716 --> 00:28:18,096
+time if you're dealing with an
+
+
+1224
+00:28:18,096 --> 00:28:19,156
+auto renewable subscription
+
+
+1225
+00:28:19,156 --> 00:28:20,826
+particularly if it has a short
+
+
+1226
+00:28:20,826 --> 00:28:22,776
+billing period, this transaction
+
+
+1227
+00:28:22,776 --> 00:28:24,236
+receipt can grow quite large,
+
+
+1228
+00:28:24,236 --> 00:28:24,456
+you know?
+
+
+1229
+00:28:24,456 --> 00:28:26,236
+Every transaction that occurs
+
+
+1230
+00:28:26,236 --> 00:28:27,266
+for a subscription appears on
+
+
+1231
+00:28:27,266 --> 00:28:27,686
+the receipt.
+
+
+1232
+00:28:27,776 --> 00:28:29,506
+So this document can grow quite
+
+
+1233
+00:28:29,506 --> 00:28:30,446
+large over time.
+
+
+1234
+00:28:31,186 --> 00:28:32,816
+And we've heard feedback that a
+
+
+1235
+00:28:32,816 --> 00:28:34,086
+lot of you only real care about
+
+
+1236
+00:28:34,336 --> 00:28:35,296
+the latest transaction.
+
+
+1237
+00:28:35,376 --> 00:28:36,486
+You know I keep on saying you
+
+
+1238
+00:28:36,486 --> 00:28:37,606
+check for the latest expiry
+
+
+1239
+00:28:37,606 --> 00:28:37,736
+date.
+
+
+1240
+00:28:37,736 --> 00:28:38,716
+Well a lot of you really only
+
+
+1241
+00:28:38,716 --> 00:28:39,616
+care about that particular
+
+
+1242
+00:28:39,616 --> 00:28:40,166
+transaction.
+
+
+1243
+00:28:40,166 --> 00:28:42,526
+So we're enhancing this endpoint
+
+
+1244
+00:28:42,526 --> 00:28:44,136
+today with a new query parameter
+
+
+1245
+00:28:44,136 --> 00:28:45,456
+that you can include which is to
+
+
+1246
+00:28:45,456 --> 00:28:47,416
+exclude old transactions from
+
+
+1247
+00:28:47,416 --> 00:28:48,136
+this endpoint.
+
+
+1248
+00:28:48,646 --> 00:28:50,506
+If you set this to true, the
+
+
+1249
+00:28:51,486 --> 00:28:52,786
+verify receipt endpoint's just
+
+
+1250
+00:28:52,786 --> 00:28:54,636
+going to respond with the latest
+
+
+1251
+00:28:54,636 --> 00:28:55,766
+transaction for each
+
+
+1252
+00:28:55,766 --> 00:28:56,406
+subscription.
+
+
+1253
+00:28:56,496 --> 00:28:57,396
+So that's going to drastically
+
+
+1254
+00:28:57,396 --> 00:28:58,906
+reduce the payload of that
+
+
+1255
+00:28:58,906 --> 00:29:00,376
+request that's coming back from
+
+
+1256
+00:29:00,376 --> 00:29:01,566
+the verified receipt endpoint.
+
+
+1257
+00:29:01,986 --> 00:29:03,756
+And not only just save web
+
+
+1258
+00:29:03,756 --> 00:29:04,806
+traffic but it's also just going
+
+
+1259
+00:29:04,806 --> 00:29:07,096
+to mean saved processing time on
+
+
+1260
+00:29:07,096 --> 00:29:08,086
+your server because you don't
+
+
+1261
+00:29:08,086 --> 00:29:09,426
+have as many transactions to be
+
+
+1262
+00:29:09,426 --> 00:29:09,886
+looping through.
+
+
+1263
+00:29:09,886 --> 00:29:11,066
+Now this doesn't sound like a
+
+
+1264
+00:29:11,066 --> 00:29:12,066
+lot but when you're dealing with
+
+
+1265
+00:29:12,206 --> 00:29:13,896
+thousands or millions of users
+
+
+1266
+00:29:13,896 --> 00:29:15,486
+like a lot of you do, this can
+
+
+1267
+00:29:15,486 --> 00:29:16,386
+actually save quite a lot of
+
+
+1268
+00:29:16,386 --> 00:29:16,606
+time.
+
+
+1269
+00:29:16,606 --> 00:29:17,456
+So we think this is going to be
+
+
+1270
+00:29:17,456 --> 00:29:18,546
+a great enhancement for those of
+
+
+1271
+00:29:18,546 --> 00:29:19,536
+you're dealing with this
+
+
+1272
+00:29:19,536 --> 00:29:20,316
+particular scenario.
+
+
+1273
+00:29:21,006 --> 00:29:23,706
+Now this technique of status
+
+
+1274
+00:29:23,706 --> 00:29:23,976
+polling --
+
+
+1275
+00:29:24,516 --> 00:29:27,606
+[ Clapping ]
+
+
+1276
+00:29:28,106 --> 00:29:30,686
+Thanks. This technique of status
+
+
+1277
+00:29:30,686 --> 00:29:32,166
+polling really fits as a bit of
+
+
+1278
+00:29:32,166 --> 00:29:33,066
+a server side tool.
+
+
+1279
+00:29:33,066 --> 00:29:33,956
+So you can think about it as
+
+
+1280
+00:29:33,956 --> 00:29:34,706
+sitting up here in this
+
+
+1281
+00:29:34,706 --> 00:29:36,616
+particular diagram but you'll
+
+
+1282
+00:29:36,616 --> 00:29:37,846
+notice I'm leaving that
+
+
+1283
+00:29:37,846 --> 00:29:39,456
+particular flow of updating and
+
+
+1284
+00:29:39,456 --> 00:29:40,586
+finishing transactions because
+
+
+1285
+00:29:40,586 --> 00:29:41,656
+it's still important that you
+
+
+1286
+00:29:41,656 --> 00:29:43,206
+handle all of these transactions
+
+
+1287
+00:29:43,206 --> 00:29:43,856
+as you come through in a user's
+
+
+1288
+00:29:43,856 --> 00:29:44,000
+device.
+
+
+1289
+00:29:47,976 --> 00:29:49,596
+So let's stick on the subject of
+
+
+1290
+00:29:49,596 --> 00:29:50,926
+subscriptions for a little bit.
+
+
+1291
+00:29:57,416 --> 00:29:58,556
+Now we opened up auto renewable
+
+
+1292
+00:29:58,556 --> 00:30:00,026
+subscriptions to many more
+
+
+1293
+00:30:00,026 --> 00:30:01,176
+categories last year.
+
+
+1294
+00:30:01,356 --> 00:30:02,526
+And we've seen great uptake and
+
+
+1295
+00:30:02,526 --> 00:30:03,816
+heard great feedback from those
+
+
+1296
+00:30:03,816 --> 00:30:04,766
+of you who have implemented
+
+
+1297
+00:30:04,766 --> 00:30:04,896
+them.
+
+
+1298
+00:30:05,636 --> 00:30:06,816
+And we've tried to offer
+
+
+1299
+00:30:07,126 --> 00:30:08,716
+information about your users and
+
+
+1300
+00:30:08,716 --> 00:30:09,806
+the behavior of them via the way
+
+
+1301
+00:30:09,806 --> 00:30:11,116
+of things like iTunes Connect
+
+
+1302
+00:30:11,116 --> 00:30:11,616
+reports.
+
+
+1303
+00:30:12,026 --> 00:30:13,446
+You can find about how many
+
+
+1304
+00:30:13,446 --> 00:30:14,816
+expirys you had and some of the
+
+
+1305
+00:30:14,816 --> 00:30:15,816
+reasoning behind that but
+
+
+1306
+00:30:16,256 --> 00:30:17,216
+there's been a lot of questions
+
+
+1307
+00:30:17,216 --> 00:30:18,086
+that you've had that you haven't
+
+
+1308
+00:30:18,086 --> 00:30:19,246
+been able to answer until now.
+
+
+1309
+00:30:19,956 --> 00:30:21,066
+Particularly about individual
+
+
+1310
+00:30:21,066 --> 00:30:21,326
+users.
+
+
+1311
+00:30:21,326 --> 00:30:22,556
+So what are these questions?
+
+
+1312
+00:30:22,556 --> 00:30:24,176
+Things like why did a particular
+
+
+1313
+00:30:24,176 --> 00:30:25,416
+user's subscription expire?
+
+
+1314
+00:30:25,416 --> 00:30:27,806
+Or will this user's subscription
+
+
+1315
+00:30:27,806 --> 00:30:29,106
+be renewed as the end of this
+
+
+1316
+00:30:29,136 --> 00:30:29,746
+billing period?
+
+
+1317
+00:30:31,176 --> 00:30:32,816
+Will this user be downgraded at
+
+
+1318
+00:30:32,816 --> 00:30:33,696
+the end of this billing period?
+
+
+1319
+00:30:33,696 --> 00:30:35,346
+Have they elected to change that
+
+
+1320
+00:30:35,346 --> 00:30:36,526
+subscription that they're
+
+
+1321
+00:30:36,526 --> 00:30:38,216
+subscribed to?
+
+
+1322
+00:30:38,386 --> 00:30:39,486
+Maybe they asked for a refund
+
+
+1323
+00:30:39,486 --> 00:30:40,166
+from AppleCare?
+
+
+1324
+00:30:40,226 --> 00:30:41,346
+What was the reason behind it?
+
+
+1325
+00:30:41,466 --> 00:30:42,706
+Did they have a problem or is
+
+
+1326
+00:30:42,766 --> 00:30:43,816
+just something that they wanted
+
+
+1327
+00:30:43,816 --> 00:30:44,096
+to do?
+
+
+1328
+00:30:45,176 --> 00:30:46,186
+Have they agreed to a price
+
+
+1329
+00:30:46,186 --> 00:30:47,456
+increase that I've put in place?
+
+
+1330
+00:30:47,486 --> 00:30:49,386
+Or will they just end their
+
+
+1331
+00:30:49,386 --> 00:30:50,356
+subscription at the end of this
+
+
+1332
+00:30:50,396 --> 00:30:50,856
+billing period?
+
+
+1333
+00:30:50,856 --> 00:30:51,746
+How can I know this ahead of
+
+
+1334
+00:30:51,796 --> 00:30:52,066
+time?
+
+
+1335
+00:30:52,446 --> 00:30:53,876
+Or just simply what kind of
+
+
+1336
+00:30:53,876 --> 00:30:55,506
+messaging do I need to tell my
+
+
+1337
+00:30:55,506 --> 00:30:56,616
+user about their subscription?
+
+
+1338
+00:30:56,616 --> 00:30:58,076
+How can I communicate to them
+
+
+1339
+00:30:58,076 --> 00:31:00,446
+effectively and you know, with
+
+
+1340
+00:31:00,446 --> 00:31:01,096
+things they need to know?
+
+
+1341
+00:31:01,546 --> 00:31:02,856
+Now why are all these questions
+
+
+1342
+00:31:02,856 --> 00:31:03,516
+really important?
+
+
+1343
+00:31:04,906 --> 00:31:06,356
+Obviously to provide a great
+
+
+1344
+00:31:06,356 --> 00:31:07,716
+experience for the user but can
+
+
+1345
+00:31:07,716 --> 00:31:09,126
+you think about why these
+
+
+1346
+00:31:09,126 --> 00:31:10,276
+questions are really important?
+
+
+1347
+00:31:10,276 --> 00:31:13,496
+Well, it's because all these
+
+
+1348
+00:31:14,376 --> 00:31:16,246
+questions are centered around
+
+
+1349
+00:31:16,316 --> 00:31:17,726
+the user's renewal of their
+
+
+1350
+00:31:17,726 --> 00:31:19,386
+subscription and so providing a
+
+
+1351
+00:31:19,386 --> 00:31:21,026
+seamless experience in these
+
+
+1352
+00:31:21,026 --> 00:31:22,456
+particularly scenarios, it's
+
+
+1353
+00:31:22,536 --> 00:31:24,186
+really paramount to reducing
+
+
+1354
+00:31:24,186 --> 00:31:25,506
+what we call subscription churn.
+
+
+1355
+00:31:26,406 --> 00:31:27,316
+Subscription churn is just a
+
+
+1356
+00:31:27,316 --> 00:31:28,306
+fancy way of saying losing
+
+
+1357
+00:31:28,306 --> 00:31:28,946
+subscribers.
+
+
+1358
+00:31:29,256 --> 00:31:30,126
+And the thing is when you lose
+
+
+1359
+00:31:30,126 --> 00:31:32,106
+subscribers that's immediately
+
+
+1360
+00:31:32,106 --> 00:31:33,446
+lost revenue for your business.
+
+
+1361
+00:31:33,586 --> 00:31:34,816
+And not only is it lost revenue
+
+
+1362
+00:31:34,816 --> 00:31:35,986
+for your business it's a lost
+
+
+1363
+00:31:35,986 --> 00:31:37,626
+acquisition cost for each one of
+
+
+1364
+00:31:37,626 --> 00:31:38,466
+those users as well.
+
+
+1365
+00:31:39,926 --> 00:31:40,686
+Now we can think about
+
+
+1366
+00:31:40,686 --> 00:31:42,566
+subscription churn as two
+
+
+1367
+00:31:42,566 --> 00:31:43,316
+particular buckets.
+
+
+1368
+00:31:43,316 --> 00:31:43,996
+We can talk about the
+
+
+1369
+00:31:43,996 --> 00:31:46,056
+involuntary churn, which is the
+
+
+1370
+00:31:46,056 --> 00:31:47,506
+case that the user hasn't even
+
+
+1371
+00:31:47,506 --> 00:31:48,816
+elected to unsubscribe.
+
+
+1372
+00:31:48,816 --> 00:31:49,826
+Maybe their credit card just
+
+
+1373
+00:31:49,826 --> 00:31:51,026
+expired and it was an
+
+
+1374
+00:31:51,026 --> 00:31:52,026
+involuntary action.
+
+
+1375
+00:31:52,776 --> 00:31:55,216
+Now this is far too many users
+
+
+1376
+00:31:55,216 --> 00:31:56,026
+fall into this particular
+
+
+1377
+00:31:56,026 --> 00:31:56,406
+category.
+
+
+1378
+00:31:57,516 --> 00:31:58,596
+There's also voluntary
+
+
+1379
+00:31:58,596 --> 00:31:59,326
+subscription churn.
+
+
+1380
+00:31:59,326 --> 00:32:00,466
+In the case that a user elected
+
+
+1381
+00:32:00,466 --> 00:32:01,956
+to unsubscribe from your
+
+
+1382
+00:32:01,956 --> 00:32:02,516
+application.
+
+
+1383
+00:32:02,906 --> 00:32:04,356
+Maybe they asked for a refund
+
+
+1384
+00:32:04,356 --> 00:32:05,436
+from AppleCare or they turned
+
+
+1385
+00:32:05,436 --> 00:32:06,826
+off auto renew inside the
+
+
+1386
+00:32:06,826 --> 00:32:07,346
+settings.
+
+
+1387
+00:32:08,786 --> 00:32:10,156
+So we really want to empower you
+
+
+1388
+00:32:10,156 --> 00:32:11,376
+with new tools to be able to
+
+
+1389
+00:32:11,376 --> 00:32:12,406
+address both of these buckets
+
+
+1390
+00:32:12,406 --> 00:32:13,096
+and we think we've got some
+
+
+1391
+00:32:13,096 --> 00:32:14,366
+great new ways to do that today.
+
+
+1392
+00:32:14,366 --> 00:32:15,306
+So we're announcing some new
+
+
+1393
+00:32:15,306 --> 00:32:16,896
+tools to help reduce this
+
+
+1394
+00:32:16,896 --> 00:32:17,566
+subscription churn.
+
+
+1395
+00:32:18,296 --> 00:32:19,376
+Now to go through them, let's
+
+
+1396
+00:32:19,376 --> 00:32:20,396
+walk through an example, again,
+
+
+1397
+00:32:20,396 --> 00:32:21,116
+just to illustrate it.
+
+
+1398
+00:32:22,456 --> 00:32:23,536
+So let's say a user here is
+
+
+1399
+00:32:23,536 --> 00:32:24,926
+subscribed to your subscription
+
+
+1400
+00:32:24,926 --> 00:32:25,416
+service.
+
+
+1401
+00:32:25,416 --> 00:32:26,386
+It's a video subscription
+
+
+1402
+00:32:26,386 --> 00:32:27,356
+service for this example.
+
+
+1403
+00:32:28,096 --> 00:32:29,446
+You're using these techniques
+
+
+1404
+00:32:29,446 --> 00:32:30,666
+with status polling like we said
+
+
+1405
+00:32:30,666 --> 00:32:32,376
+before to poll the App Store to
+
+
+1406
+00:32:32,376 --> 00:32:34,306
+find out the latest subscription
+
+
+1407
+00:32:34,436 --> 00:32:35,656
+information about a user and
+
+
+1408
+00:32:35,756 --> 00:32:36,876
+they're actively subscribed.
+
+
+1409
+00:32:37,126 --> 00:32:37,676
+Everyone's happy.
+
+
+1410
+00:32:38,716 --> 00:32:40,086
+Then the user goes offline for a
+
+
+1411
+00:32:40,086 --> 00:32:40,616
+few days.
+
+
+1412
+00:32:41,976 --> 00:32:43,266
+And during this particular time,
+
+
+1413
+00:32:43,716 --> 00:32:44,706
+their subscription's renewed
+
+
+1414
+00:32:44,706 --> 00:32:44,916
+again.
+
+
+1415
+00:32:44,916 --> 00:32:45,926
+This is a similar example to
+
+
+1416
+00:32:45,926 --> 00:32:47,976
+before, but, this time let's say
+
+
+1417
+00:32:47,976 --> 00:32:48,976
+that the user's credit card's
+
+
+1418
+00:32:48,976 --> 00:32:49,516
+expired.
+
+
+1419
+00:32:49,516 --> 00:32:50,806
+And the App Store wasn't able to
+
+
+1420
+00:32:50,806 --> 00:32:51,266
+charge them.
+
+
+1421
+00:32:51,916 --> 00:32:53,146
+So there was some kind of
+
+
+1422
+00:32:53,146 --> 00:32:54,086
+billing error that's happened
+
+
+1423
+00:32:54,506 --> 00:32:55,846
+and the user comes along and
+
+
+1424
+00:32:55,846 --> 00:32:58,126
+jumps on your website in order
+
+
+1425
+00:32:58,126 --> 00:32:59,146
+to keep on watching videos.
+
+
+1426
+00:32:59,606 --> 00:33:00,526
+Now at this point your server
+
+
+1427
+00:33:00,526 --> 00:33:01,556
+does that status polling
+
+
+1428
+00:33:01,556 --> 00:33:02,706
+technique that we talked about
+
+
+1429
+00:33:03,476 --> 00:33:05,206
+but the App Store's going to
+
+
+1430
+00:33:05,206 --> 00:33:06,156
+inform it that there's been no
+
+
+1431
+00:33:06,156 --> 00:33:07,116
+transaction that's occurred
+
+
+1432
+00:33:07,116 --> 00:33:08,316
+because there was a billing
+
+
+1433
+00:33:08,316 --> 00:33:08,786
+error, right?
+
+
+1434
+00:33:08,786 --> 00:33:10,136
+So your server does the only
+
+
+1435
+00:33:10,136 --> 00:33:10,716
+thing that it can.
+
+
+1436
+00:33:10,716 --> 00:33:12,096
+It informs the website that
+
+
+1437
+00:33:12,476 --> 00:33:13,706
+subscription's actually expired
+
+
+1438
+00:33:13,746 --> 00:33:15,436
+and the user, the poor user's
+
+
+1439
+00:33:15,436 --> 00:33:16,126
+done nothing wrong.
+
+
+1440
+00:33:16,126 --> 00:33:17,276
+Their credit card just expired.
+
+
+1441
+00:33:17,676 --> 00:33:19,096
+They go over and begrudgingly
+
+
+1442
+00:33:19,096 --> 00:33:20,116
+pull out their credit card.
+
+
+1443
+00:33:20,276 --> 00:33:21,366
+They go and update their credit
+
+
+1444
+00:33:21,366 --> 00:33:22,646
+card details in the App Store.
+
+
+1445
+00:33:23,126 --> 00:33:24,446
+The App Store based on the new
+
+
+1446
+00:33:24,446 --> 00:33:25,336
+credit card details is
+
+
+1447
+00:33:25,336 --> 00:33:26,616
+successfully able to actually
+
+
+1448
+00:33:26,616 --> 00:33:27,406
+charge that card.
+
+
+1449
+00:33:27,766 --> 00:33:28,636
+So the user's gone to this
+
+
+1450
+00:33:28,636 --> 00:33:30,096
+effort, everything looks good.
+
+
+1451
+00:33:30,096 --> 00:33:31,256
+They jump back on your website
+
+
+1452
+00:33:31,626 --> 00:33:32,066
+and then bah.
+
+
+1453
+00:33:33,126 --> 00:33:33,596
+This happens.
+
+
+1454
+00:33:34,896 --> 00:33:36,586
+Now at this point, your server
+
+
+1455
+00:33:36,716 --> 00:33:38,576
+had no knowledge of the actual
+
+
+1456
+00:33:38,606 --> 00:33:39,676
+transaction that's occurred.
+
+
+1457
+00:33:39,876 --> 00:33:40,916
+The fact that that credit card
+
+
+1458
+00:33:40,916 --> 00:33:42,436
+was able to be charged again and
+
+
+1459
+00:33:42,436 --> 00:33:43,616
+so if this kind of thing happens
+
+
+1460
+00:33:43,616 --> 00:33:45,616
+to you as a user, go to all that
+
+
+1461
+00:33:45,616 --> 00:33:45,946
+effort.
+
+
+1462
+00:33:45,946 --> 00:33:46,796
+You update your credit card
+
+
+1463
+00:33:46,796 --> 00:33:48,406
+details and then you even see
+
+
+1464
+00:33:48,406 --> 00:33:49,546
+money being taken off your
+
+
+1465
+00:33:49,546 --> 00:33:51,296
+credit card and then you don't
+
+
+1466
+00:33:51,296 --> 00:33:52,356
+get an immediate update of your
+
+
+1467
+00:33:52,356 --> 00:33:54,316
+subscription state, you probably
+
+
+1468
+00:33:54,316 --> 00:33:56,476
+just unsubscribe or you ask for
+
+
+1469
+00:33:56,476 --> 00:33:57,316
+a refund straight away.
+
+
+1470
+00:33:57,316 --> 00:33:58,466
+Now this happens far too
+
+
+1471
+00:33:58,466 --> 00:33:58,976
+frequently.
+
+
+1472
+00:33:59,386 --> 00:34:00,736
+So to address that today we're
+
+
+1473
+00:34:00,736 --> 00:34:02,406
+introducing new server-to-server
+
+
+1474
+00:34:02,546 --> 00:34:03,856
+notifications from the App
+
+
+1475
+00:34:03,856 --> 00:34:03,976
+Store.
+
+
+1476
+00:34:04,516 --> 00:34:09,576
+[ Clapping ]
+
+
+1477
+00:34:10,076 --> 00:34:10,966
+So let's look at how that
+
+
+1478
+00:34:10,966 --> 00:34:12,366
+scenario plays out now.
+
+
+1479
+00:34:13,286 --> 00:34:14,295
+The user receives this
+
+
+1480
+00:34:14,295 --> 00:34:15,246
+information that's something
+
+
+1481
+00:34:15,246 --> 00:34:15,496
+happened.
+
+
+1482
+00:34:15,496 --> 00:34:16,275
+There's been a billing error.
+
+
+1483
+00:34:17,005 --> 00:34:18,226
+They go over and they update
+
+
+1484
+00:34:18,226 --> 00:34:19,366
+their credit card details.
+
+
+1485
+00:34:19,525 --> 00:34:20,966
+Now this time with the new
+
+
+1486
+00:34:20,966 --> 00:34:22,045
+notifications, as soon as the
+
+
+1487
+00:34:22,045 --> 00:34:23,416
+App Store is able to charge that
+
+
+1488
+00:34:23,416 --> 00:34:25,076
+credit card it sends a
+
+
+1489
+00:34:25,076 --> 00:34:26,525
+notification over to your server
+
+
+1490
+00:34:26,826 --> 00:34:27,916
+with the latest transaction
+
+
+1491
+00:34:27,916 --> 00:34:28,196
+that's occurred.
+
+
+1492
+00:34:28,196 --> 00:34:29,876
+And you can use the payload of
+
+
+1493
+00:34:29,876 --> 00:34:31,306
+that transaction to unblock the
+
+
+1494
+00:34:31,306 --> 00:34:32,896
+user immediately and give them
+
+
+1495
+00:34:32,896 --> 00:34:34,226
+access to using that website and
+
+
+1496
+00:34:34,226 --> 00:34:35,196
+you've got happy users.
+
+
+1497
+00:34:35,356 --> 00:34:35,786
+That's great.
+
+
+1498
+00:34:36,456 --> 00:34:37,985
+So this is going to be awesome
+
+
+1499
+00:34:37,985 --> 00:34:39,056
+for those of you who are dealing
+
+
+1500
+00:34:39,056 --> 00:34:40,416
+with subscriptions on the server
+
+
+1501
+00:34:40,416 --> 00:34:40,766
+side.
+
+
+1502
+00:34:41,156 --> 00:34:41,946
+This is what it looks like in
+
+
+1503
+00:34:41,946 --> 00:34:42,366
+practice.
+
+
+1504
+00:34:42,366 --> 00:34:43,556
+You've got a status url in
+
+
+1505
+00:34:43,666 --> 00:34:45,275
+iTunes Connect that you can
+
+
+1506
+00:34:45,275 --> 00:34:45,436
+enter.
+
+
+1507
+00:34:45,436 --> 00:34:47,126
+That you can put url in for your
+
+
+1508
+00:34:47,126 --> 00:34:47,406
+own server.
+
+
+1509
+00:34:47,406 --> 00:34:49,656
+Your server does have to adhere
+
+
+1510
+00:34:49,656 --> 00:34:51,065
+the app transport security
+
+
+1511
+00:34:51,065 --> 00:34:53,926
+requirements but if it does, all
+
+
+1512
+00:34:53,926 --> 00:34:56,196
+it is an http post that gets
+
+
+1513
+00:34:56,196 --> 00:34:57,276
+sent to your server for key
+
+
+1514
+00:34:57,506 --> 00:34:58,466
+status changes for
+
+
+1515
+00:34:58,466 --> 00:34:59,016
+subscriptions.
+
+
+1516
+00:34:59,016 --> 00:35:00,246
+Now what are these events that
+
+
+1517
+00:35:00,246 --> 00:35:01,006
+we send them for.
+
+
+1518
+00:35:01,126 --> 00:35:02,656
+It happens for any initial
+
+
+1519
+00:35:02,656 --> 00:35:03,826
+purchase of a subscription.
+
+
+1520
+00:35:05,536 --> 00:35:06,676
+If there's any subscription
+
+
+1521
+00:35:06,676 --> 00:35:07,986
+cancellations by AppleCare.
+
+
+1522
+00:35:07,986 --> 00:35:09,466
+So if a user gets a refund, you
+
+
+1523
+00:35:09,466 --> 00:35:10,316
+get notified of that.
+
+
+1524
+00:35:11,216 --> 00:35:12,436
+It happens for any subscription
+
+
+1525
+00:35:12,436 --> 00:35:13,036
+downgrades.
+
+
+1526
+00:35:13,036 --> 00:35:14,216
+So any time a user elects to
+
+
+1527
+00:35:14,216 --> 00:35:15,366
+downgrade their subscription,
+
+
+1528
+00:35:15,366 --> 00:35:16,836
+you can find out about that and
+
+
+1529
+00:35:16,836 --> 00:35:18,086
+update their subscription state
+
+
+1530
+00:35:18,276 --> 00:35:19,276
+on the server accordingly.
+
+
+1531
+00:35:20,366 --> 00:35:21,596
+And also that example that we
+
+
+1532
+00:35:21,596 --> 00:35:22,336
+just saw, when there's a
+
+
+1533
+00:35:22,376 --> 00:35:23,896
+successful renewal or a
+
+
+1534
+00:35:23,896 --> 00:35:25,166
+re-purchase for an expired
+
+
+1535
+00:35:25,166 --> 00:35:26,086
+subscription so that you can
+
+
+1536
+00:35:26,126 --> 00:35:27,576
+unblock those users immediately
+
+
+1537
+00:35:27,846 --> 00:35:28,836
+and give them access to their
+
+
+1538
+00:35:28,836 --> 00:35:29,346
+subscription.
+
+
+1539
+00:35:29,346 --> 00:35:31,636
+Now the payload of the
+
+
+1540
+00:35:31,636 --> 00:35:32,956
+notification includes the latest
+
+
+1541
+00:35:32,956 --> 00:35:34,476
+transaction for the actual
+
+
+1542
+00:35:35,486 --> 00:35:36,756
+transaction in question that's
+
+
+1543
+00:35:36,756 --> 00:35:37,716
+taken place that you've missed
+
+
+1544
+00:35:37,716 --> 00:35:37,996
+out on.
+
+
+1545
+00:35:39,016 --> 00:35:39,846
+So when you're doing this it
+
+
+1546
+00:35:39,846 --> 00:35:40,636
+means that you don't need to
+
+
+1547
+00:35:40,636 --> 00:35:42,296
+polling the verify receipt
+
+
+1548
+00:35:42,436 --> 00:35:43,726
+nearly as often as you used to.
+
+
+1549
+00:35:44,676 --> 00:35:45,946
+You still might need to call
+
+
+1550
+00:35:45,946 --> 00:35:47,076
+verify receipt using that
+
+
+1551
+00:35:47,076 --> 00:35:48,396
+polling but you can be a bit
+
+
+1552
+00:35:48,396 --> 00:35:49,696
+smarter about when you do it.
+
+
+1553
+00:35:50,356 --> 00:35:51,796
+Maybe an App Store notification
+
+
+1554
+00:35:51,796 --> 00:35:52,826
+wasn't able to reach your
+
+
+1555
+00:35:52,826 --> 00:35:53,126
+server.
+
+
+1556
+00:35:53,666 --> 00:35:54,736
+So you still need to maybe use
+
+
+1557
+00:35:54,736 --> 00:35:55,906
+this to actually retrieve and
+
+
+1558
+00:35:55,946 --> 00:35:57,256
+poll information about the
+
+
+1559
+00:35:57,256 --> 00:35:58,876
+subscription state but as I
+
+
+1560
+00:35:58,876 --> 00:35:59,866
+said, you can a bit smarter
+
+
+1561
+00:35:59,866 --> 00:36:00,536
+about when you do it.
+
+
+1562
+00:36:00,536 --> 00:36:01,806
+Maybe you want to do it the day
+
+
+1563
+00:36:01,806 --> 00:36:03,456
+before or the day of a user's
+
+
+1564
+00:36:03,456 --> 00:36:05,096
+expiry instead of having to do
+
+
+1565
+00:36:05,096 --> 00:36:06,476
+it every five minutes.
+
+
+1566
+00:36:07,276 --> 00:36:08,436
+So these are coming later this
+
+
+1567
+00:36:08,436 --> 00:36:09,976
+year and we think it's going to
+
+
+1568
+00:36:09,976 --> 00:36:11,956
+drastically improve and reduce
+
+
+1569
+00:36:11,956 --> 00:36:13,406
+that subscription churn that you
+
+
+1570
+00:36:13,406 --> 00:36:13,926
+might be seeing.
+
+
+1571
+00:36:17,766 --> 00:36:18,526
+So let's bring up these
+
+
+1572
+00:36:18,526 --> 00:36:19,676
+questions again that I asked
+
+
+1573
+00:36:19,676 --> 00:36:20,236
+just before.
+
+
+1574
+00:36:20,796 --> 00:36:22,596
+The new notifications is going
+
+
+1575
+00:36:22,596 --> 00:36:24,026
+to do a great job of reducing
+
+
+1576
+00:36:24,026 --> 00:36:24,676
+subscription churn.
+
+
+1577
+00:36:24,806 --> 00:36:25,986
+You know via that technique that
+
+
+1578
+00:36:25,986 --> 00:36:26,886
+we just saw but there's a lot of
+
+
+1579
+00:36:26,886 --> 00:36:28,836
+information here that we still
+
+
+1580
+00:36:28,836 --> 00:36:29,746
+don't have answers for
+
+
+1581
+00:36:31,136 --> 00:36:33,166
+particularly about users before
+
+
+1582
+00:36:33,166 --> 00:36:33,816
+they've expired.
+
+
+1583
+00:36:34,246 --> 00:36:36,116
+So in order to give you access
+
+
+1584
+00:36:36,186 --> 00:36:37,566
+to this specific information,
+
+
+1585
+00:36:37,566 --> 00:36:38,756
+today we're announcing new
+
+
+1586
+00:36:38,926 --> 00:36:40,536
+fields in the verify receipt
+
+
+1587
+00:36:40,536 --> 00:36:40,916
+endpoint.
+
+
+1588
+00:36:41,496 --> 00:36:42,866
+Now these new fields are going
+
+
+1589
+00:36:42,866 --> 00:36:43,636
+to provide you with the
+
+
+1590
+00:36:43,636 --> 00:36:45,266
+information specifically about
+
+
+1591
+00:36:45,266 --> 00:36:46,736
+users along these key
+
+
+1592
+00:36:46,736 --> 00:36:47,496
+subscription events.
+
+
+1593
+00:36:47,496 --> 00:36:48,996
+So if they turn off auto renew
+
+
+1594
+00:36:49,226 --> 00:36:50,156
+in the settings, you can now
+
+
+1595
+00:36:50,156 --> 00:36:51,316
+know this ahead of time that
+
+
+1596
+00:36:51,316 --> 00:36:52,556
+they've elected to not be
+
+
+1597
+00:36:52,556 --> 00:36:53,956
+subscribed at the end of this
+
+
+1598
+00:36:53,956 --> 00:36:55,456
+billing period or maybe they
+
+
+1599
+00:36:55,456 --> 00:36:56,846
+cancel a receipt or refund at
+
+
+1600
+00:36:57,056 --> 00:36:59,016
+the end and they won't have
+
+
+1601
+00:36:59,016 --> 00:37:00,056
+their subscription continuing.
+
+
+1602
+00:37:00,056 --> 00:37:00,906
+So you can act on this
+
+
+1603
+00:37:00,906 --> 00:37:02,156
+information now ahead of time
+
+
+1604
+00:37:02,156 --> 00:37:03,476
+and make key business decisions
+
+
+1605
+00:37:03,736 --> 00:37:04,736
+about this information.
+
+
+1606
+00:37:05,086 --> 00:37:06,056
+So let's look at the new fields
+
+
+1607
+00:37:06,056 --> 00:37:06,736
+that we're including.
+
+
+1608
+00:37:08,026 --> 00:37:09,316
+So this is that same request,
+
+
+1609
+00:37:09,316 --> 00:37:10,646
+the verify receipt endpoint.
+
+
+1610
+00:37:11,246 --> 00:37:12,236
+We're including now an auto
+
+
+1611
+00:37:12,236 --> 00:37:13,106
+renew status.
+
+
+1612
+00:37:13,726 --> 00:37:15,726
+So when a user elects to turn
+
+
+1613
+00:37:15,726 --> 00:37:16,546
+off auto renew for a
+
+
+1614
+00:37:16,546 --> 00:37:17,966
+subscription, you can find this
+
+
+1615
+00:37:17,966 --> 00:37:19,316
+out now ahead of time before
+
+
+1616
+00:37:19,316 --> 00:37:20,306
+they've actually expired their
+
+
+1617
+00:37:20,306 --> 00:37:20,846
+subscription.
+
+
+1618
+00:37:22,166 --> 00:37:23,186
+We're including an auto renew
+
+
+1619
+00:37:23,186 --> 00:37:23,806
+preference.
+
+
+1620
+00:37:24,306 --> 00:37:25,876
+So if a user elects to downgrade
+
+
+1621
+00:37:25,876 --> 00:37:26,976
+or change their subscription
+
+
+1622
+00:37:26,976 --> 00:37:28,726
+preference, you can now know how
+
+
+1623
+00:37:28,726 --> 00:37:29,366
+they're going to have -- what's
+
+
+1624
+00:37:29,366 --> 00:37:30,226
+going to happen at the end of
+
+
+1625
+00:37:30,226 --> 00:37:31,356
+that particular billing period.
+
+
+1626
+00:37:32,126 --> 00:37:33,926
+We're including a price consent
+
+
+1627
+00:37:33,926 --> 00:37:34,386
+status.
+
+
+1628
+00:37:34,526 --> 00:37:35,626
+So if you're rolling a price
+
+
+1629
+00:37:35,626 --> 00:37:37,156
+increase to a bunch of users,
+
+
+1630
+00:37:37,376 --> 00:37:38,456
+now you can find out that I
+
+
+1631
+00:37:38,776 --> 00:37:39,416
+don't know let's look at an
+
+
+1632
+00:37:39,416 --> 00:37:39,706
+example.
+
+
+1633
+00:37:39,706 --> 00:37:41,646
+Maybe 80% of your users haven't
+
+
+1634
+00:37:41,646 --> 00:37:42,726
+agreed to a price increase and
+
+
+1635
+00:37:42,726 --> 00:37:43,466
+they're actually going to be
+
+
+1636
+00:37:43,466 --> 00:37:44,636
+unsubscribed at the end of the
+
+
+1637
+00:37:44,636 --> 00:37:45,226
+billing period.
+
+
+1638
+00:37:45,436 --> 00:37:46,716
+Previously you didn't know how
+
+
+1639
+00:37:46,716 --> 00:37:47,676
+many users were going to be
+
+
+1640
+00:37:47,676 --> 00:37:48,066
+rolled off.
+
+
+1641
+00:37:48,066 --> 00:37:49,396
+So you can make key business
+
+
+1642
+00:37:49,396 --> 00:37:50,476
+decisions based off that now.
+
+
+1643
+00:37:50,706 --> 00:37:52,056
+Maybe you'll decide to not go
+
+
+1644
+00:37:52,056 --> 00:37:53,016
+ahead with the price increase
+
+
+1645
+00:37:53,066 --> 00:37:53,876
+based on the fact that you're
+
+
+1646
+00:37:53,876 --> 00:37:54,476
+going to lose too many
+
+
+1647
+00:37:54,476 --> 00:37:55,126
+subscribers.
+
+
+1648
+00:37:56,856 --> 00:37:58,176
+We're including a subscription
+
+
+1649
+00:37:58,176 --> 00:37:59,296
+billing retry flag.
+
+
+1650
+00:37:59,986 --> 00:38:01,116
+So if a user falls into the
+
+
+1651
+00:38:01,116 --> 00:38:02,616
+category of having some kind of
+
+
+1652
+00:38:02,616 --> 00:38:04,006
+billing error like we saw before
+
+
+1653
+00:38:04,326 --> 00:38:05,366
+and App Store is trying to
+
+
+1654
+00:38:05,366 --> 00:38:06,516
+recharge their credit card to
+
+
+1655
+00:38:06,516 --> 00:38:07,746
+get a successful transaction,
+
+
+1656
+00:38:07,746 --> 00:38:09,286
+you can see if a user's in that
+
+
+1657
+00:38:09,286 --> 00:38:09,606
+window.
+
+
+1658
+00:38:09,606 --> 00:38:10,556
+And we'll see a couple of
+
+
+1659
+00:38:10,556 --> 00:38:11,886
+examples about how to use these
+
+
+1660
+00:38:11,886 --> 00:38:14,476
+in just a moment.
+
+
+1661
+00:38:14,476 --> 00:38:15,496
+An expiration intent.
+
+
+1662
+00:38:15,936 --> 00:38:17,596
+So why a user actually expired.
+
+
+1663
+00:38:17,596 --> 00:38:18,616
+Was it because of a billing
+
+
+1664
+00:38:18,616 --> 00:38:19,916
+error or some other reason?
+
+
+1665
+00:38:19,916 --> 00:38:20,766
+You can now find this
+
+
+1666
+00:38:20,766 --> 00:38:22,106
+information out about a user.
+
+
+1667
+00:38:23,326 --> 00:38:24,136
+We're also including an
+
+
+1668
+00:38:24,136 --> 00:38:25,126
+cancellation reason.
+
+
+1669
+00:38:25,866 --> 00:38:28,106
+So previously if a user got a
+
+
+1670
+00:38:28,106 --> 00:38:29,286
+refund from AppleCare, you were
+
+
+1671
+00:38:29,286 --> 00:38:30,586
+going to kind of blind as to why
+
+
+1672
+00:38:30,586 --> 00:38:31,186
+that was the case.
+
+
+1673
+00:38:31,186 --> 00:38:32,646
+Now you can know if the user had
+
+
+1674
+00:38:32,646 --> 00:38:34,096
+a problem with your app or an
+
+
+1675
+00:38:34,096 --> 00:38:35,706
+in-app purchase or if it was
+
+
+1676
+00:38:35,706 --> 00:38:36,896
+some personal reason the user
+
+
+1677
+00:38:36,956 --> 00:38:38,466
+had in order to get a refund.
+
+
+1678
+00:38:39,716 --> 00:38:40,766
+So let's look at a couple of
+
+
+1679
+00:38:40,766 --> 00:38:41,746
+examples about how you can
+
+
+1680
+00:38:41,746 --> 00:38:43,346
+actually use these fields in
+
+
+1681
+00:38:43,346 --> 00:38:44,056
+order to address the
+
+
+1682
+00:38:44,056 --> 00:38:45,186
+subscription turn that we talked
+
+
+1683
+00:38:45,186 --> 00:38:45,406
+about.
+
+
+1684
+00:38:45,506 --> 00:38:46,256
+Firstly, let's address
+
+
+1685
+00:38:46,256 --> 00:38:47,566
+involuntary expiration.
+
+
+1686
+00:38:47,636 --> 00:38:49,286
+So this is the case that a user
+
+
+1687
+00:38:49,286 --> 00:38:50,546
+hasn't even elected to
+
+
+1688
+00:38:50,546 --> 00:38:51,126
+unsubscribe.
+
+
+1689
+00:38:51,896 --> 00:38:52,956
+So we think there's a lot we can
+
+
+1690
+00:38:52,956 --> 00:38:54,046
+do to address involuntary
+
+
+1691
+00:38:54,046 --> 00:38:54,606
+expiration.
+
+
+1692
+00:38:54,796 --> 00:38:55,746
+And so we're going to do what we
+
+
+1693
+00:38:55,746 --> 00:38:57,616
+can on our end to address this.
+
+
+1694
+00:38:57,616 --> 00:38:59,276
+And that includes expanding that
+
+
+1695
+00:38:59,276 --> 00:39:01,096
+retry window for billing retry
+
+
+1696
+00:39:01,426 --> 00:39:02,696
+to up to 60 days now.
+
+
+1697
+00:39:03,436 --> 00:39:05,606
+So previously, we would only try
+
+
+1698
+00:39:05,606 --> 00:39:07,096
+for a period of a few hours to
+
+
+1699
+00:39:07,096 --> 00:39:08,636
+recharge a credit card if there
+
+
+1700
+00:39:08,636 --> 00:39:09,486
+was any kind of issues.
+
+
+1701
+00:39:09,486 --> 00:39:10,806
+Now we're expanding that right
+
+
+1702
+00:39:10,806 --> 00:39:11,976
+out to be up to 60 days.
+
+
+1703
+00:39:12,396 --> 00:39:13,606
+We think that's going to catch a
+
+
+1704
+00:39:13,816 --> 00:39:16,096
+lot of unsubscribes that occur.
+
+
+1705
+00:39:16,176 --> 00:39:17,416
+On your end, there's a couple of
+
+
+1706
+00:39:17,416 --> 00:39:18,246
+things that you can do to
+
+
+1707
+00:39:18,246 --> 00:39:19,296
+address these scenarios.
+
+
+1708
+00:39:19,836 --> 00:39:22,176
+You can use that expiration
+
+
+1709
+00:39:22,176 --> 00:39:23,666
+intent field and the
+
+
+1710
+00:39:23,666 --> 00:39:25,186
+subscription retry flag to do a
+
+
+1711
+00:39:25,186 --> 00:39:25,926
+few key things.
+
+
+1712
+00:39:26,756 --> 00:39:27,576
+Now if there's anything that you
+
+
+1713
+00:39:27,576 --> 00:39:29,606
+can get from this talk, let it
+
+
+1714
+00:39:29,606 --> 00:39:31,796
+be these three points because if
+
+
+1715
+00:39:31,796 --> 00:39:33,176
+you can go ahead and implement
+
+
+1716
+00:39:33,176 --> 00:39:34,026
+these things that I'm about to
+
+
+1717
+00:39:34,026 --> 00:39:35,376
+outline, you'll drastically
+
+
+1718
+00:39:35,376 --> 00:39:36,506
+reduce your involuntary
+
+
+1719
+00:39:36,506 --> 00:39:37,226
+subscription turn.
+
+
+1720
+00:39:37,866 --> 00:39:39,306
+So firstly, you can use these
+
+
+1721
+00:39:39,306 --> 00:39:41,186
+two fields to provide messaging
+
+
+1722
+00:39:41,186 --> 00:39:41,676
+to your user.
+
+
+1723
+00:39:42,016 --> 00:39:42,896
+If you see that they've had a
+
+
+1724
+00:39:42,896 --> 00:39:44,516
+billing error, you can now tell
+
+
+1725
+00:39:44,516 --> 00:39:45,656
+them to go ahead and update
+
+
+1726
+00:39:45,906 --> 00:39:47,196
+their billing info in the app
+
+
+1727
+00:39:47,196 --> 00:39:47,476
+store.
+
+
+1728
+00:39:48,636 --> 00:39:50,846
+Number 2, you can offer a
+
+
+1729
+00:39:50,846 --> 00:39:52,156
+downgraded or temporary
+
+
+1730
+00:39:52,156 --> 00:39:53,556
+experience to users who are in
+
+
+1731
+00:39:53,556 --> 00:39:54,416
+this retry window.
+
+
+1732
+00:39:54,416 --> 00:39:55,396
+So if you see that they're in
+
+
+1733
+00:39:55,396 --> 00:39:56,986
+billing retry window, maybe you
+
+
+1734
+00:39:56,986 --> 00:39:58,696
+give them access to browse your
+
+
+1735
+00:39:58,696 --> 00:39:59,936
+catalog or videos but you don't
+
+
+1736
+00:39:59,936 --> 00:40:00,556
+let them watch them.
+
+
+1737
+00:40:01,096 --> 00:40:01,946
+So give them some kind of
+
+
+1738
+00:40:02,046 --> 00:40:03,236
+temporary experience in the
+
+
+1739
+00:40:03,236 --> 00:40:03,606
+middle there.
+
+
+1740
+00:40:04,216 --> 00:40:06,826
+And number three, use these new
+
+
+1741
+00:40:06,826 --> 00:40:08,036
+server notifications.
+
+
+1742
+00:40:08,036 --> 00:40:09,256
+Use the verify receipt endpoint
+
+
+1743
+00:40:09,256 --> 00:40:10,526
+or any other technique to
+
+
+1744
+00:40:10,606 --> 00:40:12,686
+unblock users as soon as their
+
+
+1745
+00:40:12,686 --> 00:40:13,696
+subscription renews.
+
+
+1746
+00:40:14,396 --> 00:40:15,856
+Now these sound like pretty
+
+
+1747
+00:40:16,716 --> 00:40:17,876
+obvious examples but if you can
+
+
+1748
+00:40:17,876 --> 00:40:19,256
+do these three things, there's a
+
+
+1749
+00:40:19,256 --> 00:40:20,706
+lot of involuntary expiration
+
+
+1750
+00:40:20,706 --> 00:40:22,666
+that you will save because of
+
+
+1751
+00:40:22,666 --> 00:40:23,336
+these three things.
+
+
+1752
+00:40:23,906 --> 00:40:25,796
+So there's some things you can
+
+
+1753
+00:40:25,796 --> 00:40:26,956
+do for the voluntary case as
+
+
+1754
+00:40:26,956 --> 00:40:27,196
+well.
+
+
+1755
+00:40:27,286 --> 00:40:28,516
+So when a user has actually
+
+
+1756
+00:40:28,516 --> 00:40:29,896
+voluntarily elected to
+
+
+1757
+00:40:29,896 --> 00:40:31,076
+unsubscribe from your app, you
+
+
+1758
+00:40:31,076 --> 00:40:32,306
+can use this information to help
+
+
+1759
+00:40:32,306 --> 00:40:32,976
+you here as well.
+
+
+1760
+00:40:33,736 --> 00:40:34,916
+There's that expiration intent
+
+
+1761
+00:40:34,916 --> 00:40:35,956
+field that we're including now
+
+
+1762
+00:40:36,006 --> 00:40:37,406
+and you can use this as a way to
+
+
+1763
+00:40:37,406 --> 00:40:38,436
+offer messaging to those
+
+
+1764
+00:40:38,436 --> 00:40:39,346
+particular users.
+
+
+1765
+00:40:40,096 --> 00:40:41,166
+So let's say that a user
+
+
+1766
+00:40:41,166 --> 00:40:41,586
+canceled.
+
+
+1767
+00:40:42,376 --> 00:40:43,996
+You can maybe think well, let's
+
+
+1768
+00:40:43,996 --> 00:40:45,256
+apply some kind of win back.
+
+
+1769
+00:40:46,206 --> 00:40:47,366
+Maybe you rolled out a price
+
+
+1770
+00:40:47,366 --> 00:40:49,246
+increase and the user expired
+
+
+1771
+00:40:49,246 --> 00:40:50,566
+because they didn't consent to
+
+
+1772
+00:40:50,566 --> 00:40:50,636
+it.
+
+
+1773
+00:40:50,636 --> 00:40:52,206
+Well now you can offer maybe an
+
+
+1774
+00:40:52,206 --> 00:40:53,306
+attractive downgrade option
+
+
+1775
+00:40:53,306 --> 00:40:54,506
+because you know that it was
+
+
+1776
+00:40:54,506 --> 00:40:55,266
+really about the price
+
+
+1777
+00:40:55,266 --> 00:40:56,586
+difference that caused the user
+
+
+1778
+00:40:56,586 --> 00:40:57,386
+to unsubscribe.
+
+
+1779
+00:40:57,386 --> 00:40:58,786
+So you can see how you can use
+
+
+1780
+00:40:58,996 --> 00:40:59,676
+just in these couple of
+
+
+1781
+00:40:59,676 --> 00:41:00,976
+examples, these fields to now,
+
+
+1782
+00:41:01,386 --> 00:41:02,306
+you know, make key business
+
+
+1783
+00:41:02,306 --> 00:41:03,536
+decisions and how you interact
+
+
+1784
+00:41:03,536 --> 00:41:04,686
+with your users and save
+
+
+1785
+00:41:04,926 --> 00:41:05,636
+subscription churn.
+
+
+1786
+00:41:07,596 --> 00:41:08,786
+These new fields are arriving
+
+
+1787
+00:41:08,786 --> 00:41:10,046
+later this year along with the
+
+
+1788
+00:41:10,046 --> 00:41:12,046
+server notifications and we
+
+
+1789
+00:41:12,046 --> 00:41:13,176
+think this is going to give a
+
+
+1790
+00:41:13,176 --> 00:41:14,556
+much better experience for all
+
+
+1791
+00:41:14,556 --> 00:41:16,016
+users for your subscriptions and
+
+
+1792
+00:41:16,016 --> 00:41:17,076
+for you developing it as well.
+
+
+1793
+00:41:18,516 --> 00:41:24,546
+[ Clapping ]
+
+
+1794
+00:41:25,046 --> 00:41:27,626
+They fit in this diagram as
+
+
+1795
+00:41:27,626 --> 00:41:28,576
+another set of tools that you
+
+
+1796
+00:41:28,576 --> 00:41:29,576
+can use for server side
+
+
+1797
+00:41:29,576 --> 00:41:30,536
+subscription management
+
+
+1798
+00:41:30,536 --> 00:41:31,716
+alongside the status polling
+
+
+1799
+00:41:31,716 --> 00:41:32,446
+that we talked about.
+
+
+1800
+00:41:32,446 --> 00:41:33,826
+But of course, you still need to
+
+
+1801
+00:41:33,826 --> 00:41:35,616
+be relying on this flow of
+
+
+1802
+00:41:35,616 --> 00:41:36,446
+updating and finishing
+
+
+1803
+00:41:36,446 --> 00:41:38,276
+transactions on a user's device.
+
+
+1804
+00:41:39,206 --> 00:41:40,546
+So while we're talking about
+
+
+1805
+00:41:40,546 --> 00:41:41,476
+subscriptions, I just want to
+
+
+1806
+00:41:41,476 --> 00:41:43,486
+touch on free trials for a
+
+
+1807
+00:41:44,416 --> 00:41:44,646
+moment.
+
+
+1808
+00:41:44,756 --> 00:41:45,936
+Free trial is when a user can
+
+
+1809
+00:41:46,156 --> 00:41:47,366
+begin a subscription without
+
+
+1810
+00:41:47,366 --> 00:41:48,746
+actually paying for anything.
+
+
+1811
+00:41:49,176 --> 00:41:50,626
+And they are not billed until
+
+
+1812
+00:41:50,626 --> 00:41:51,616
+the free trial period is
+
+
+1813
+00:41:51,616 --> 00:41:52,106
+actually over.
+
+
+1814
+00:41:53,566 --> 00:41:55,996
+So previously, we had this
+
+
+1815
+00:41:56,476 --> 00:41:57,666
+pretty convoluted looking table
+
+
+1816
+00:41:57,666 --> 00:41:59,136
+and you'd have an associated
+
+
+1817
+00:41:59,136 --> 00:42:00,726
+free trial duration for a
+
+
+1818
+00:42:00,726 --> 00:42:01,546
+subscription length.
+
+
+1819
+00:42:01,876 --> 00:42:03,376
+And you had to choose which
+
+
+1820
+00:42:03,376 --> 00:42:04,836
+trials you could offer based on
+
+
+1821
+00:42:04,836 --> 00:42:05,716
+the subscription length that you
+
+
+1822
+00:42:05,716 --> 00:42:06,536
+were offering users.
+
+
+1823
+00:42:06,536 --> 00:42:07,416
+Now we made some changes
+
+
+1824
+00:42:07,416 --> 00:42:08,956
+recently to make this much
+
+
+1825
+00:42:08,956 --> 00:42:09,256
+simpler.
+
+
+1826
+00:42:09,256 --> 00:42:10,606
+So you can now have any
+
+
+1827
+00:42:10,606 --> 00:42:11,856
+subscription length available
+
+
+1828
+00:42:11,856 --> 00:42:13,256
+for any free trial duration.
+
+
+1829
+00:42:13,256 --> 00:42:14,596
+So we think is a much better
+
+
+1830
+00:42:14,596 --> 00:42:16,206
+improvement and this includes
+
+
+1831
+00:42:16,546 --> 00:42:18,106
+two new free trial durations as
+
+
+1832
+00:42:18,106 --> 00:42:19,126
+well, which is the three-day
+
+
+1833
+00:42:19,126 --> 00:42:20,576
+trial and the two-week trial.
+
+
+1834
+00:42:20,576 --> 00:42:21,766
+These are two new trial
+
+
+1835
+00:42:21,766 --> 00:42:22,766
+durations that you can offer to
+
+
+1836
+00:42:22,766 --> 00:42:23,376
+your users.
+
+
+1837
+00:42:23,926 --> 00:42:26,456
+So that's a bit about
+
+
+1838
+00:42:26,456 --> 00:42:27,806
+maintaining subscription state
+
+
+1839
+00:42:27,806 --> 00:42:28,996
+and talking about managing auto
+
+
+1840
+00:42:28,996 --> 00:42:29,986
+renewable subscriptions in the
+
+
+1841
+00:42:29,986 --> 00:42:30,236
+server.
+
+
+1842
+00:42:30,236 --> 00:42:32,176
+I'd like to touch now on
+
+
+1843
+00:42:32,266 --> 00:42:33,596
+developing in the sandbox
+
+
+1844
+00:42:33,596 --> 00:42:34,116
+environment.
+
+
+1845
+00:42:34,226 --> 00:42:35,076
+So how you can use these
+
+
+1846
+00:42:35,076 --> 00:42:36,286
+technologies while you're
+
+
+1847
+00:42:36,286 --> 00:42:36,746
+developing.
+
+
+1848
+00:42:37,406 --> 00:42:38,796
+So what is the sandbox?
+
+
+1849
+00:42:39,606 --> 00:42:40,556
+Well it's not to be confused
+
+
+1850
+00:42:40,556 --> 00:42:41,726
+with the sandbox on your
+
+
+1851
+00:42:41,726 --> 00:42:43,166
+application, on a user's device
+
+
+1852
+00:42:43,206 --> 00:42:44,146
+that guards access to
+
+
+1853
+00:42:44,146 --> 00:42:45,226
+application resources.
+
+
+1854
+00:42:45,496 --> 00:42:47,736
+This particular sandbox is the
+
+
+1855
+00:42:47,736 --> 00:42:48,806
+test environment that we offer
+
+
+1856
+00:42:48,806 --> 00:42:50,176
+for you to test out in-app
+
+
+1857
+00:42:50,176 --> 00:42:50,746
+purchases in.
+
+
+1858
+00:42:51,406 --> 00:42:53,026
+And we select it based on the
+
+
+1859
+00:42:53,026 --> 00:42:54,126
+certificate that's actually used
+
+
+1860
+00:42:54,126 --> 00:42:55,216
+to sign your application.
+
+
+1861
+00:42:55,726 --> 00:42:56,946
+It's how StoreKit knows whether
+
+
+1862
+00:42:56,946 --> 00:42:58,236
+to be in a sandbox mode or not.
+
+
+1863
+00:42:58,646 --> 00:43:00,446
+So if you build and run your app
+
+
+1864
+00:43:00,446 --> 00:43:01,006
+from Xcode [phonetic].
+
+
+1865
+00:43:01,006 --> 00:43:02,236
+It's signed using your developer
+
+
+1866
+00:43:02,236 --> 00:43:03,656
+certificate and StoreKit knows
+
+
+1867
+00:43:03,656 --> 00:43:04,846
+that it needs to be talking to
+
+
+1868
+00:43:04,846 --> 00:43:05,916
+the sandbox environment.
+
+
+1869
+00:43:06,016 --> 00:43:07,926
+Of course, if you distribute it
+
+
+1870
+00:43:07,926 --> 00:43:09,776
+using the App Store, well
+
+
+1871
+00:43:09,926 --> 00:43:10,896
+StoreKit knows that it needs to
+
+
+1872
+00:43:10,896 --> 00:43:11,696
+talk to the production
+
+
+1873
+00:43:11,696 --> 00:43:12,476
+environment based on the
+
+
+1874
+00:43:12,476 --> 00:43:14,116
+certificate used to sign your
+
+
+1875
+00:43:14,116 --> 00:43:14,306
+app.
+
+
+1876
+00:43:15,546 --> 00:43:16,506
+And how do you know when you're
+
+
+1877
+00:43:16,506 --> 00:43:18,026
+actually working with app which
+
+
+1878
+00:43:18,076 --> 00:43:19,616
+environment you're in?
+
+
+1879
+00:43:20,566 --> 00:43:21,426
+When you make your in-app
+
+
+1880
+00:43:21,426 --> 00:43:22,276
+purchase inside your
+
+
+1881
+00:43:22,276 --> 00:43:23,996
+application, you get this
+
+
+1882
+00:43:23,996 --> 00:43:24,996
+payment sheet that we saw in
+
+
+1883
+00:43:24,996 --> 00:43:25,756
+this morning's session.
+
+
+1884
+00:43:26,666 --> 00:43:28,096
+And we have this indication here
+
+
+1885
+00:43:28,096 --> 00:43:29,156
+that you're in sandbox mode.
+
+
+1886
+00:43:29,156 --> 00:43:30,146
+So this is going to inform you
+
+
+1887
+00:43:30,146 --> 00:43:31,336
+that the payment that's about to
+
+
+1888
+00:43:31,336 --> 00:43:33,216
+take place is actually a sandbox
+
+
+1889
+00:43:33,216 --> 00:43:34,676
+payment and no real money is
+
+
+1890
+00:43:34,676 --> 00:43:35,936
+going to be changing hands.
+
+
+1891
+00:43:36,506 --> 00:43:39,386
+So the key differences between
+
+
+1892
+00:43:39,386 --> 00:43:40,446
+the sandbox and the production
+
+
+1893
+00:43:40,446 --> 00:43:41,256
+environment, well the biggest
+
+
+1894
+00:43:41,256 --> 00:43:42,006
+one, of course, is that there's
+
+
+1895
+00:43:42,006 --> 00:43:43,556
+no real money being changed
+
+
+1896
+00:43:43,556 --> 00:43:43,966
+hands here.
+
+
+1897
+00:43:43,966 --> 00:43:45,376
+There's no actual charge
+
+
+1898
+00:43:45,376 --> 00:43:45,726
+happening.
+
+
+1899
+00:43:45,726 --> 00:43:46,866
+So you don't need to be charging
+
+
+1900
+00:43:46,866 --> 00:43:48,036
+your personal card 10-cent
+
+
+1901
+00:43:48,036 --> 00:43:49,476
+transactions all the time.
+
+
+1902
+00:43:49,826 --> 00:43:51,266
+There's a different endpoint as
+
+
+1903
+00:43:51,266 --> 00:43:51,886
+well when it comes to
+
+
+1904
+00:43:51,886 --> 00:43:53,346
+server-to-server validation.
+
+
+1905
+00:43:53,716 --> 00:43:54,946
+We provide a different url for
+
+
+1906
+00:43:54,946 --> 00:43:56,266
+that verify receipt endpoint.
+
+
+1907
+00:43:56,986 --> 00:43:58,346
+And you can also request expired
+
+
+1908
+00:43:58,346 --> 00:43:59,896
+and revoked certificates in the
+
+
+1909
+00:43:59,896 --> 00:44:01,036
+sandbox environment to be able
+
+
+1910
+00:44:01,036 --> 00:44:01,776
+to handle them a little
+
+
+1911
+00:44:01,776 --> 00:44:02,156
+differently.
+
+
+1912
+00:44:03,376 --> 00:44:04,746
+The other thing that is
+
+
+1913
+00:44:04,746 --> 00:44:06,336
+different is a time contraction
+
+
+1914
+00:44:06,516 --> 00:44:07,146
+for auto renewable
+
+
+1915
+00:44:07,146 --> 00:44:07,836
+subscriptions.
+
+
+1916
+00:44:08,296 --> 00:44:09,276
+So instead of having to wait a
+
+
+1917
+00:44:09,276 --> 00:44:10,726
+full year for a subscription to
+
+
+1918
+00:44:10,726 --> 00:44:11,776
+renew to be able to test out
+
+
+1919
+00:44:11,776 --> 00:44:13,096
+that scenario, we can track
+
+
+1920
+00:44:13,146 --> 00:44:13,996
+these time intervals.
+
+
+1921
+00:44:14,426 --> 00:44:15,856
+So the rule of thumb is that one
+
+
+1922
+00:44:15,856 --> 00:44:17,056
+hour of time in the sandbox
+
+
+1923
+00:44:17,056 --> 00:44:19,026
+world equals one year of time in
+
+
+1924
+00:44:19,026 --> 00:44:19,606
+the real world.
+
+
+1925
+00:44:19,606 --> 00:44:21,716
+And this is how those relate for
+
+
+1926
+00:44:21,716 --> 00:44:22,466
+the various different
+
+
+1927
+00:44:22,466 --> 00:44:23,576
+subscription durations.
+
+
+1928
+00:44:24,096 --> 00:44:26,296
+The other thing that we do when
+
+
+1929
+00:44:26,296 --> 00:44:27,406
+you're operating in a sandbox
+
+
+1930
+00:44:27,406 --> 00:44:28,506
+environment is that if you are
+
+
+1931
+00:44:28,506 --> 00:44:30,046
+subscribed to an auto renewable
+
+
+1932
+00:44:30,046 --> 00:44:32,036
+subscription, we only renew it
+
+
+1933
+00:44:32,036 --> 00:44:34,586
+after six times per eight-hour
+
+
+1934
+00:44:34,586 --> 00:44:34,876
+window.
+
+
+1935
+00:44:36,156 --> 00:44:37,626
+Then we let it expire.
+
+
+1936
+00:44:37,816 --> 00:44:39,406
+So you can handle the case where
+
+
+1937
+00:44:39,406 --> 00:44:40,436
+a user has actually let their
+
+
+1938
+00:44:40,436 --> 00:44:41,496
+subscription lapse and you can
+
+
+1939
+00:44:41,786 --> 00:44:43,056
+handle that in your application
+
+
+1940
+00:44:43,056 --> 00:44:43,516
+accordingly.
+
+
+1941
+00:44:45,536 --> 00:44:46,836
+When it comes to setting up this
+
+
+1942
+00:44:46,836 --> 00:44:47,886
+test environment, it's done
+
+
+1943
+00:44:47,886 --> 00:44:48,826
+through iTunes Connect.
+
+
+1944
+00:44:49,406 --> 00:44:50,776
+You create test users in iTunes
+
+
+1945
+00:44:50,776 --> 00:44:52,156
+Connect and you can just those
+
+
+1946
+00:44:52,156 --> 00:44:53,146
+in-app purchase products that
+
+
+1947
+00:44:53,146 --> 00:44:54,706
+you've already got for sale and
+
+
+1948
+00:44:54,706 --> 00:44:55,946
+then you just build and sign
+
+
+1949
+00:44:55,946 --> 00:44:56,886
+your app using XCode.
+
+
+1950
+00:44:57,086 --> 00:44:58,206
+So it's built and signed using
+
+
+1951
+00:44:58,206 --> 00:44:59,356
+the developer certificate.
+
+
+1952
+00:44:59,816 --> 00:45:00,986
+And you just go ahead and buy
+
+
+1953
+00:45:00,986 --> 00:45:02,016
+products in your application.
+
+
+1954
+00:45:02,016 --> 00:45:03,346
+And when you're prompted to sign
+
+
+1955
+00:45:03,346 --> 00:45:04,856
+in, you'll be able to sign in
+
+
+1956
+00:45:04,856 --> 00:45:06,716
+using that test user that you
+
+
+1957
+00:45:06,716 --> 00:45:07,656
+made in iTunes Connect.
+
+
+1958
+00:45:08,906 --> 00:45:10,046
+One note if you are developing
+
+
+1959
+00:45:10,046 --> 00:45:11,746
+for the Mac, you may need to
+
+
+1960
+00:45:11,746 --> 00:45:13,146
+launch your app once from Finder
+
+
+1961
+00:45:13,226 --> 00:45:14,716
+just in order to make sure that
+
+
+1962
+00:45:14,716 --> 00:45:15,756
+the receipt gets fetched.
+
+
+1963
+00:45:16,486 --> 00:45:18,146
+This is because that exit code
+
+
+1964
+00:45:18,146 --> 00:45:19,006
+that we mentioned earlier on in
+
+
+1965
+00:45:19,006 --> 00:45:21,106
+the talk where you exit 173 on a
+
+
+1966
+00:45:21,106 --> 00:45:23,296
+Mac, well XCode catches that if
+
+
+1967
+00:45:23,296 --> 00:45:24,066
+you're building and running
+
+
+1968
+00:45:24,066 --> 00:45:25,156
+straight from XCode the first
+
+
+1969
+00:45:25,156 --> 00:45:25,336
+time.
+
+
+1970
+00:45:25,336 --> 00:45:26,126
+You need to make sure that you
+
+
+1971
+00:45:26,126 --> 00:45:27,606
+launch the app once that binary
+
+
+1972
+00:45:27,606 --> 00:45:29,036
+from Finder so that StoreKit can
+
+
+1973
+00:45:29,036 --> 00:45:30,816
+catch that exit code and handle
+
+
+1974
+00:45:30,816 --> 00:45:31,346
+it appropriately.
+
+
+1975
+00:45:31,956 --> 00:45:34,476
+In terms of using the sandbox
+
+
+1976
+00:45:34,476 --> 00:45:35,306
+from the server, I mentioned
+
+
+1977
+00:45:35,306 --> 00:45:36,076
+that we have a different
+
+
+1978
+00:45:36,266 --> 00:45:37,816
+endpoint for the verify receipt
+
+
+1979
+00:45:37,816 --> 00:45:37,883
+url.
+
+
+1980
+00:45:37,883 --> 00:45:39,826
+This is what it looks like in
+
+
+1981
+00:45:39,826 --> 00:45:40,736
+the development environment.
+
+
+1982
+00:45:40,736 --> 00:45:41,516
+You'll probably have your
+
+
+1983
+00:45:41,686 --> 00:45:43,226
+developer signed app probably
+
+
+1984
+00:45:43,226 --> 00:45:44,996
+talking to your test server and
+
+
+1985
+00:45:44,996 --> 00:45:46,506
+that test server can talk to the
+
+
+1986
+00:45:46,506 --> 00:45:47,716
+App Store sandbox by the
+
+
+1987
+00:45:47,716 --> 00:45:48,406
+different url.
+
+
+1988
+00:45:49,596 --> 00:45:50,346
+In production, you'll have
+
+
+1989
+00:45:50,346 --> 00:45:50,946
+something like this.
+
+
+1990
+00:45:50,946 --> 00:45:52,306
+Your production app will talk to
+
+
+1991
+00:45:52,306 --> 00:45:53,936
+your production server and that
+
+
+1992
+00:45:53,936 --> 00:45:54,996
+can talk to the production App
+
+
+1993
+00:45:54,996 --> 00:45:56,626
+Store server but there is one
+
+
+1994
+00:45:56,626 --> 00:45:57,906
+particularly case where there's
+
+
+1995
+00:45:57,906 --> 00:45:58,756
+a bit of a mismatch.
+
+
+1996
+00:45:59,806 --> 00:46:00,936
+And that's when your app is in
+
+
+1997
+00:46:00,936 --> 00:46:01,516
+app review.
+
+
+1998
+00:46:01,516 --> 00:46:04,026
+And why is it a mismatch?
+
+
+1999
+00:46:04,026 --> 00:46:05,546
+It's because the app review team
+
+
+2000
+00:46:05,546 --> 00:46:07,366
+actually uses a sandbox user to
+
+
+2001
+00:46:07,366 --> 00:46:08,476
+be able to test your in-app
+
+
+2002
+00:46:08,476 --> 00:46:09,146
+purchases.
+
+
+2003
+00:46:09,876 --> 00:46:10,926
+So this is what that looks like.
+
+
+2004
+00:46:10,926 --> 00:46:12,296
+You have your production signed
+
+
+2005
+00:46:12,296 --> 00:46:13,986
+app talking to your production
+
+
+2006
+00:46:13,986 --> 00:46:15,216
+server but you need to be able
+
+
+2007
+00:46:15,216 --> 00:46:17,396
+to verify transactions for a
+
+
+2008
+00:46:17,396 --> 00:46:18,736
+sandbox user just to get through
+
+
+2009
+00:46:18,736 --> 00:46:19,826
+the app review scenario.
+
+
+2010
+00:46:19,826 --> 00:46:21,136
+So how do you handle this
+
+
+2011
+00:46:21,186 --> 00:46:22,056
+particular mismatch?
+
+
+2012
+00:46:22,546 --> 00:46:23,616
+Well we have a way of doing
+
+
+2013
+00:46:23,616 --> 00:46:23,866
+this.
+
+
+2014
+00:46:24,836 --> 00:46:25,966
+Firstly, when you're in the
+
+
+2015
+00:46:25,966 --> 00:46:28,756
+production environment try the
+
+
+2016
+00:46:28,756 --> 00:46:30,306
+production App Store url first.
+
+
+2017
+00:46:31,296 --> 00:46:32,526
+Now if the receipt is for the
+
+
+2018
+00:46:32,526 --> 00:46:33,536
+sandbox, you'll receive a
+
+
+2019
+00:46:33,536 --> 00:46:35,766
+specific error code, 21 double 0
+
+
+2020
+00:46:35,766 --> 00:46:35,946
+7.
+
+
+2021
+00:46:36,606 --> 00:46:37,526
+That's an indication that you
+
+
+2022
+00:46:37,526 --> 00:46:39,556
+need to then to try against the
+
+
+2023
+00:46:39,556 --> 00:46:40,966
+App Store sandbox instead.
+
+
+2024
+00:46:41,406 --> 00:46:42,516
+So you can leave that in your
+
+
+2025
+00:46:42,516 --> 00:46:43,716
+production environment and this
+
+
+2026
+00:46:43,716 --> 00:46:44,586
+will just mean that your app is
+
+
+2027
+00:46:44,586 --> 00:46:45,906
+able to sail through app review
+
+
+2028
+00:46:46,146 --> 00:46:47,126
+without any problems in this
+
+
+2029
+00:46:47,126 --> 00:46:47,436
+regard.
+
+
+2030
+00:46:47,436 --> 00:46:50,516
+When it comes to the new server
+
+
+2031
+00:46:50,516 --> 00:46:52,426
+to server notifications, this is
+
+
+2032
+00:46:52,426 --> 00:46:53,456
+handled slightly differently.
+
+
+2033
+00:46:53,456 --> 00:46:54,586
+So we don't actually have a
+
+
+2034
+00:46:54,586 --> 00:46:56,206
+separate url in iTunes Connect
+
+
+2035
+00:46:56,526 --> 00:46:58,166
+for a sandbox -- or for your own
+
+
+2036
+00:46:58,166 --> 00:46:58,716
+test server.
+
+
+2037
+00:46:59,686 --> 00:47:01,116
+We handle this sandboxing by
+
+
+2038
+00:47:01,116 --> 00:47:02,416
+parameter in the actual payload
+
+
+2039
+00:47:02,746 --> 00:47:03,666
+of the notification.
+
+
+2040
+00:47:03,666 --> 00:47:04,846
+So there's an environment key
+
+
+2041
+00:47:04,846 --> 00:47:06,226
+that you can use that'll tell
+
+
+2042
+00:47:06,226 --> 00:47:06,856
+you whether or not the
+
+
+2043
+00:47:06,856 --> 00:47:09,716
+notification is for a sandbox
+
+
+2044
+00:47:09,716 --> 00:47:11,046
+subscription or whether it's for
+
+
+2045
+00:47:11,046 --> 00:47:11,626
+a production one.
+
+
+2046
+00:47:12,206 --> 00:47:15,226
+So that's a bit about developing
+
+
+2047
+00:47:15,226 --> 00:47:16,156
+now in a sandbox.
+
+
+2048
+00:47:16,226 --> 00:47:17,506
+So we touched on a few things
+
+
+2049
+00:47:17,506 --> 00:47:17,716
+today.
+
+
+2050
+00:47:17,716 --> 00:47:18,236
+There's been a lot of
+
+
+2051
+00:47:18,236 --> 00:47:18,836
+information.
+
+
+2052
+00:47:19,566 --> 00:47:20,866
+Let's just go through again what
+
+
+2053
+00:47:20,866 --> 00:47:21,406
+we talked about.
+
+
+2054
+00:47:21,406 --> 00:47:22,186
+We talked about receipt
+
+
+2055
+00:47:22,186 --> 00:47:22,956
+validation in detail.
+
+
+2056
+00:47:22,956 --> 00:47:24,376
+How to do this on a user's
+
+
+2057
+00:47:24,376 --> 00:47:25,826
+device and how to check that
+
+
+2058
+00:47:25,826 --> 00:47:27,506
+document for authenticity and
+
+
+2059
+00:47:27,506 --> 00:47:29,526
+read out transactions from it.
+
+
+2060
+00:47:29,526 --> 00:47:30,896
+We talked about maintaining a
+
+
+2061
+00:47:30,896 --> 00:47:32,606
+subscription state across a
+
+
+2062
+00:47:32,606 --> 00:47:33,506
+server environment.
+
+
+2063
+00:47:33,506 --> 00:47:35,486
+How to update devices and act on
+
+
+2064
+00:47:35,486 --> 00:47:36,776
+that verify receipt endpoint.
+
+
+2065
+00:47:37,916 --> 00:47:40,146
+We have new notifications that
+
+
+2066
+00:47:40,146 --> 00:47:41,136
+we're introducing that's going
+
+
+2067
+00:47:41,136 --> 00:47:42,246
+to unblock and save a lot of
+
+
+2068
+00:47:42,246 --> 00:47:43,486
+that involuntary subscription
+
+
+2069
+00:47:43,486 --> 00:47:43,646
+churn.
+
+
+2070
+00:47:44,026 --> 00:47:45,336
+Provide a much better experience
+
+
+2071
+00:47:45,336 --> 00:47:45,976
+for your users.
+
+
+2072
+00:47:46,756 --> 00:47:48,216
+We're also introducing those new
+
+
+2073
+00:47:48,216 --> 00:47:48,896
+receipt fields.
+
+
+2074
+00:47:48,896 --> 00:47:50,146
+So you can make key decisions
+
+
+2075
+00:47:50,386 --> 00:47:51,846
+based on business information
+
+
+2076
+00:47:51,846 --> 00:47:53,766
+about your users and now message
+
+
+2077
+00:47:53,766 --> 00:47:54,756
+them much more directly.
+
+
+2078
+00:47:55,456 --> 00:47:56,666
+Remember those three easy steps
+
+
+2079
+00:47:56,666 --> 00:47:57,866
+to retain subscribers.
+
+
+2080
+00:47:58,266 --> 00:47:59,406
+Three steps to success.
+
+
+2081
+00:48:00,216 --> 00:48:01,366
+So if you do these three things,
+
+
+2082
+00:48:01,566 --> 00:48:03,006
+this will, I kid you not, it'll
+
+
+2083
+00:48:03,006 --> 00:48:04,386
+save you a ton of involuntary
+
+
+2084
+00:48:04,386 --> 00:48:05,136
+subscription churns.
+
+
+2085
+00:48:05,136 --> 00:48:06,576
+So please go ahead and do these
+
+
+2086
+00:48:06,576 --> 00:48:07,656
+when these fields come out later
+
+
+2087
+00:48:07,656 --> 00:48:08,026
+this year.
+
+
+2088
+00:48:08,426 --> 00:48:09,466
+And finally we talked about
+
+
+2089
+00:48:09,706 --> 00:48:10,536
+sandbox development.
+
+
+2090
+00:48:10,536 --> 00:48:11,286
+Being able to use these
+
+
+2091
+00:48:11,286 --> 00:48:12,526
+technologies in the sandbox
+
+
+2092
+00:48:12,526 --> 00:48:13,026
+environment.
+
+
+2093
+00:48:13,266 --> 00:48:14,666
+So for more information on this
+
+
+2094
+00:48:14,666 --> 00:48:16,116
+session and to see the slides
+
+
+2095
+00:48:16,116 --> 00:48:17,446
+and follow any links, this is
+
+
+2096
+00:48:17,446 --> 00:48:18,416
+session 305.
+
+
+2097
+00:48:18,416 --> 00:48:19,576
+You can check it out on the
+
+
+2098
+00:48:19,576 --> 00:48:20,346
+developer website.
+
+
+2099
+00:48:21,316 --> 00:48:22,136
+We did have some related
+
+
+2100
+00:48:22,186 --> 00:48:23,796
+sessions earlier this week.
+
+
+2101
+00:48:23,796 --> 00:48:24,456
+We're kind of at the end of the
+
+
+2102
+00:48:24,456 --> 00:48:24,866
+week now.
+
+
+2103
+00:48:25,196 --> 00:48:26,236
+But we are still here in the
+
+
+2104
+00:48:26,236 --> 00:48:27,626
+labs all afternoon this
+
+
+2105
+00:48:27,626 --> 00:48:28,046
+afternoon.
+
+
+2106
+00:48:28,046 --> 00:48:29,956
+So we have engineers from both
+
+
+2107
+00:48:29,956 --> 00:48:31,536
+the client and from the service
+
+
+2108
+00:48:31,536 --> 00:48:32,826
+side from all across the
+
+
+2109
+00:48:32,826 --> 00:48:34,206
+organization down in the
+
+
+2110
+00:48:34,206 --> 00:48:35,266
+StoreKit labs, both this
+
+
+2111
+00:48:35,266 --> 00:48:36,236
+afternoon and tomorrow
+
+
+2112
+00:48:36,236 --> 00:48:36,566
+afternoon.
+
+
+2113
+00:48:36,826 --> 00:48:38,456
+So please come and say hi and
+
+
+2114
+00:48:38,686 --> 00:48:39,796
+bombard us with questions.
+
+
+2115
+00:48:39,796 --> 00:48:40,986
+And we're happy to help you out
+
+
+2116
+00:48:40,986 --> 00:48:42,066
+and talk about how you're
+
+
+2117
+00:48:42,066 --> 00:48:43,236
+architecting your solutions.
+
+
+2118
+00:48:43,636 --> 00:48:44,886
+But until then, thanks for
+
+
+2119
+00:48:44,886 --> 00:48:45,366
+coming today.
+
+
+2120
+00:48:45,366 --> 00:48:46,286
+Thanks for your time.
+
+
+2121
+00:48:46,286 --> 00:48:46,956
+Enjoy your afternoon.
+
+
+2122
+00:48:47,516 --> 00:48:51,500
+[ Clapping ]
+

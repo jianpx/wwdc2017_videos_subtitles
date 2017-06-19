@@ -1,0 +1,5634 @@
+1
+00:00:24,516 --> 00:00:26,556
+[ Applause ]
+
+
+2
+00:00:27,056 --> 00:00:28,896
+>> Good morning everybody, I'm
+
+
+3
+00:00:28,896 --> 00:00:30,686
+Vincent Hittson, Cocoa engineer
+
+
+4
+00:00:30,816 --> 00:00:32,816
+along with Rachel Goldeen, Cocoa
+
+
+5
+00:00:32,816 --> 00:00:35,176
+engineer and welcome to Cocoa
+
+
+6
+00:00:35,176 --> 00:00:35,966
+Development Tips.
+
+
+7
+00:00:37,036 --> 00:00:38,636
+Rachel is going to start us off.
+
+
+8
+00:00:39,586 --> 00:00:41,776
+>> Good morning, we have a wide
+
+
+9
+00:00:41,776 --> 00:00:43,606
+array of tips to show you this
+
+
+10
+00:00:43,606 --> 00:00:45,156
+morning, we're going to speed
+
+
+11
+00:00:45,156 --> 00:00:45,666
+through them.
+
+
+12
+00:00:45,846 --> 00:00:46,966
+And it was a little tricky to
+
+
+13
+00:00:46,966 --> 00:00:48,466
+figure out how to order them,
+
+
+14
+00:00:48,466 --> 00:00:50,066
+what kind of sequence or
+
+
+15
+00:00:50,066 --> 00:00:51,736
+numbering system to use, we
+
+
+16
+00:00:51,736 --> 00:00:52,806
+think we got something really
+
+
+17
+00:00:52,806 --> 00:00:52,926
+good.
+
+
+18
+00:00:52,926 --> 00:00:54,446
+I'm going to start you out with
+
+
+19
+00:00:54,446 --> 00:00:56,656
+a quick tip to get things going.
+
+
+20
+00:00:57,846 --> 00:01:00,466
+Number pi internationalization
+
+
+21
+00:01:00,566 --> 00:01:03,256
+because it's all Greek to us.
+
+
+22
+00:01:03,256 --> 00:01:05,176
+Just take a look at the Xcode
+
+
+23
+00:01:05,176 --> 00:01:07,696
+Scheme Editor and in the run
+
+
+24
+00:01:07,696 --> 00:01:09,176
+section you'll notice there's
+
+
+25
+00:01:09,176 --> 00:01:12,926
+this location debugging section.
+
+
+26
+00:01:13,356 --> 00:01:14,446
+You can check the show
+
+
+27
+00:01:14,446 --> 00:01:16,116
+nonlocalized strings checkbox
+
+
+28
+00:01:16,696 --> 00:01:17,826
+and see where your app is
+
+
+29
+00:01:17,826 --> 00:01:19,076
+missing localized strings.
+
+
+30
+00:01:19,426 --> 00:01:20,436
+But I'd like to focus your
+
+
+31
+00:01:20,436 --> 00:01:21,876
+attention on this application
+
+
+32
+00:01:21,876 --> 00:01:22,646
+language menu.
+
+
+33
+00:01:23,046 --> 00:01:24,246
+Down at the bottom there's a
+
+
+34
+00:01:24,246 --> 00:01:25,826
+list of pseudolanguages that you
+
+
+35
+00:01:25,826 --> 00:01:28,076
+can use before your translations
+
+
+36
+00:01:28,076 --> 00:01:29,456
+have been made and this will
+
+
+37
+00:01:29,456 --> 00:01:31,096
+show you if your app is ready
+
+
+38
+00:01:31,326 --> 00:01:32,406
+for those translations.
+
+
+39
+00:01:32,886 --> 00:01:34,806
+Okay that's it, back to Vince.
+
+
+40
+00:01:35,576 --> 00:01:37,856
+>> Okay tip number zero, user
+
+
+41
+00:01:37,856 --> 00:01:39,396
+defaults since zero makes a
+
+
+42
+00:01:39,396 --> 00:01:40,656
+pretty good default value.
+
+
+43
+00:01:41,486 --> 00:01:43,206
+So, you have your standard user
+
+
+44
+00:01:43,206 --> 00:01:44,816
+defaults and this is what you
+
+
+45
+00:01:44,816 --> 00:01:46,776
+use to get and set your user
+
+
+46
+00:01:46,776 --> 00:01:49,086
+preferences, but it's not just a
+
+
+47
+00:01:49,086 --> 00:01:51,056
+big bag of preferences it's
+
+
+48
+00:01:51,056 --> 00:01:52,726
+actually a set of domains and
+
+
+49
+00:01:52,726 --> 00:01:54,406
+each of those domains have their
+
+
+50
+00:01:54,406 --> 00:01:56,446
+own bags and here's a subset of
+
+
+51
+00:01:56,446 --> 00:01:56,956
+those.
+
+
+52
+00:01:57,666 --> 00:01:58,946
+And when you ask the standard
+
+
+53
+00:01:58,946 --> 00:02:01,096
+user defaults for a value it
+
+
+54
+00:02:01,096 --> 00:02:03,226
+checks each of these domains in
+
+
+55
+00:02:03,226 --> 00:02:05,596
+order returning the first value
+
+
+56
+00:02:05,596 --> 00:02:06,086
+it finds.
+
+
+57
+00:02:07,366 --> 00:02:09,586
+And you can set values in these
+
+
+58
+00:02:09,586 --> 00:02:12,256
+domains using their own
+
+
+59
+00:02:12,256 --> 00:02:14,076
+techniques and we're going to go
+
+
+60
+00:02:14,076 --> 00:02:15,596
+through them in reverse order.
+
+
+61
+00:02:16,016 --> 00:02:17,416
+So, starting at the bottom is
+
+
+62
+00:02:17,416 --> 00:02:19,416
+the registration domain, it's
+
+
+63
+00:02:19,416 --> 00:02:21,546
+last in the list and you use the
+
+
+64
+00:02:21,546 --> 00:02:23,446
+register method, passing in the
+
+
+65
+00:02:23,446 --> 00:02:25,046
+dictionary of the user defaults,
+
+
+66
+00:02:25,046 --> 00:02:26,086
+keys and values.
+
+
+67
+00:02:26,656 --> 00:02:30,036
+And it's temporary so it's only
+
+
+68
+00:02:30,036 --> 00:02:31,306
+available for the lifetime of
+
+
+69
+00:02:31,306 --> 00:02:32,776
+this particular process.
+
+
+70
+00:02:33,036 --> 00:02:34,516
+The next time your app launches
+
+
+71
+00:02:34,516 --> 00:02:35,696
+you'll have to call register
+
+
+72
+00:02:35,696 --> 00:02:36,036
+again.
+
+
+73
+00:02:36,366 --> 00:02:38,076
+So, use this to provide initial
+
+
+74
+00:02:38,076 --> 00:02:39,876
+values for your defaults without
+
+
+75
+00:02:39,876 --> 00:02:40,806
+setting them permanently.
+
+
+76
+00:02:40,806 --> 00:02:44,476
+Next up is the global domain.
+
+
+77
+00:02:45,016 --> 00:02:46,076
+This is shared by all
+
+
+78
+00:02:46,076 --> 00:02:47,606
+applications and it's commonly
+
+
+79
+00:02:47,606 --> 00:02:49,606
+used by system frameworks to
+
+
+80
+00:02:49,606 --> 00:02:51,186
+store systemwide preferences.
+
+
+81
+00:02:51,636 --> 00:02:52,816
+And you can set it using the
+
+
+82
+00:02:52,816 --> 00:02:55,196
+defaults command line tool, but
+
+
+83
+00:02:55,306 --> 00:02:57,076
+it's persistent so any changes
+
+
+84
+00:02:57,076 --> 00:02:58,026
+you make are going to be
+
+
+85
+00:02:58,026 --> 00:03:01,266
+permanent so be aware of that.
+
+
+86
+00:03:01,436 --> 00:03:02,936
+Next up is the application
+
+
+87
+00:03:02,936 --> 00:03:04,906
+domain and when you set a value
+
+
+88
+00:03:04,906 --> 00:03:06,786
+on the standard user defaults
+
+
+89
+00:03:06,786 --> 00:03:08,396
+using the set method it goes
+
+
+90
+00:03:08,476 --> 00:03:08,806
+here.
+
+
+91
+00:03:09,356 --> 00:03:12,096
+And this domain is persistent so
+
+
+92
+00:03:12,096 --> 00:03:14,306
+the next time your user launches
+
+
+93
+00:03:14,306 --> 00:03:16,236
+your app it'll have the value
+
+
+94
+00:03:16,236 --> 00:03:17,836
+that you set so you'll want to
+
+
+95
+00:03:17,836 --> 00:03:19,686
+use this when your user actually
+
+
+96
+00:03:19,686 --> 00:03:21,436
+changes a preference from the
+
+
+97
+00:03:21,436 --> 00:03:22,096
+initial value.
+
+
+98
+00:03:23,756 --> 00:03:27,166
+Last or first, but not least is
+
+
+99
+00:03:27,166 --> 00:03:29,606
+the argument domain and the
+
+
+100
+00:03:29,606 --> 00:03:31,486
+argument domain is really cool.
+
+
+101
+00:03:31,486 --> 00:03:33,196
+So, you can pass your user
+
+
+102
+00:03:33,196 --> 00:03:34,966
+defaults key as an argument to
+
+
+103
+00:03:34,966 --> 00:03:36,826
+your application along with the
+
+
+104
+00:03:36,826 --> 00:03:38,706
+value and you prepend your user
+
+
+105
+00:03:38,706 --> 00:03:39,856
+defaults key with a hyphen.
+
+
+106
+00:03:40,466 --> 00:03:42,736
+And it's first in the list, so
+
+
+107
+00:03:42,736 --> 00:03:44,716
+it overrides the values of all
+
+
+108
+00:03:44,716 --> 00:03:45,676
+those other domains.
+
+
+109
+00:03:46,246 --> 00:03:49,206
+And it's temporary, so it's only
+
+
+110
+00:03:49,206 --> 00:03:51,296
+set when your app is launched
+
+
+111
+00:03:51,296 --> 00:03:52,756
+with these particular arguments.
+
+
+112
+00:03:52,756 --> 00:03:53,826
+If you run your app and these
+
+
+113
+00:03:53,826 --> 00:03:55,266
+arguments aren't there the
+
+
+114
+00:03:55,266 --> 00:03:56,256
+values won't be there.
+
+
+115
+00:03:57,216 --> 00:03:59,046
+So, this is really handy if
+
+
+116
+00:03:59,046 --> 00:03:59,956
+you're trying to reproduce an
+
+
+117
+00:03:59,956 --> 00:04:01,806
+issue involving user preferences
+
+
+118
+00:04:02,106 --> 00:04:03,216
+and you don't want to actually
+
+
+119
+00:04:03,216 --> 00:04:05,836
+set them on your machine or for
+
+
+120
+00:04:05,836 --> 00:04:07,316
+just enabling a debug flag.
+
+
+121
+00:04:07,816 --> 00:04:10,106
+And speaking of debug flags,
+
+
+122
+00:04:10,516 --> 00:04:12,576
+AppKit has a couple, here's some
+
+
+123
+00:04:13,386 --> 00:04:14,786
+that you can use.
+
+
+124
+00:04:14,786 --> 00:04:16,646
+NSiewLayoutFeedback
+
+
+125
+00:04:16,646 --> 00:04:18,625
+LoopDebuggingEnabled, you can
+
+
+126
+00:04:18,625 --> 00:04:20,125
+set this to yes if your app is
+
+
+127
+00:04:20,125 --> 00:04:21,706
+getting stuck repeatedly doing
+
+
+128
+00:04:21,706 --> 00:04:22,186
+layout.
+
+
+129
+00:04:22,456 --> 00:04:24,036
+The feedback loop debugger will
+
+
+130
+00:04:24,036 --> 00:04:25,386
+help you track down that that
+
+
+131
+00:04:25,386 --> 00:04:25,786
+issue.
+
+
+132
+00:04:26,566 --> 00:04:28,696
+Next is NSApplicationCrash
+
+
+133
+00:04:28,696 --> 00:04:31,416
+OnExceptions and use this in
+
+
+134
+00:04:31,416 --> 00:04:32,996
+NSApplication if it catches an
+
+
+135
+00:04:32,996 --> 00:04:34,416
+exception it'll crash your app.
+
+
+136
+00:04:34,726 --> 00:04:36,206
+So, it's a good thing to have on
+
+
+137
+00:04:36,206 --> 00:04:37,946
+during development so you find
+
+
+138
+00:04:37,946 --> 00:04:38,486
+those issues.
+
+
+139
+00:04:38,986 --> 00:04:41,386
+And you probably want to use the
+
+
+140
+00:04:41,386 --> 00:04:43,586
+argument domain to set these so
+
+
+141
+00:04:43,586 --> 00:04:45,286
+you don't shift with them so
+
+
+142
+00:04:45,526 --> 00:04:46,756
+that's a good idea.
+
+
+143
+00:04:47,046 --> 00:04:49,806
+Here's a neat thing about the
+
+
+144
+00:04:49,806 --> 00:04:51,456
+standard user defaults, it
+
+
+145
+00:04:51,456 --> 00:04:53,536
+supports key-value observing or
+
+
+146
+00:04:53,676 --> 00:04:54,596
+KVO.
+
+
+147
+00:04:55,446 --> 00:04:56,766
+You just add your observer with
+
+
+148
+00:04:56,766 --> 00:04:58,246
+the user defaults key as your
+
+
+149
+00:04:58,246 --> 00:05:01,256
+keyPath and any time that value
+
+
+150
+00:05:01,256 --> 00:05:02,826
+changes even if it's from
+
+
+151
+00:05:02,826 --> 00:05:04,586
+another process you'll get
+
+
+152
+00:05:04,586 --> 00:05:05,126
+notified.
+
+
+153
+00:05:05,666 --> 00:05:07,456
+So, here's an example of what
+
+
+154
+00:05:07,456 --> 00:05:08,296
+that looks like.
+
+
+155
+00:05:08,816 --> 00:05:10,246
+We add an observer using the
+
+
+156
+00:05:10,246 --> 00:05:12,236
+addObserver for keypad options
+
+
+157
+00:05:12,236 --> 00:05:14,466
+context method and pass our user
+
+
+158
+00:05:14,466 --> 00:05:15,986
+defaults key as a sting.
+
+
+159
+00:05:17,336 --> 00:05:19,296
+And of course, when we're no
+
+
+160
+00:05:19,296 --> 00:05:20,966
+longer interested in watching
+
+
+161
+00:05:20,966 --> 00:05:22,726
+for these changes we remove our
+
+
+162
+00:05:22,726 --> 00:05:23,306
+observer.
+
+
+163
+00:05:24,636 --> 00:05:27,046
+And in the meantime, you'll get
+
+
+164
+00:05:27,046 --> 00:05:29,146
+an observeValue for keyPath call
+
+
+165
+00:05:29,146 --> 00:05:31,146
+out any time your defaults value
+
+
+166
+00:05:31,146 --> 00:05:31,666
+changes.
+
+
+167
+00:05:32,166 --> 00:05:33,916
+So that's about that, here's
+
+
+168
+00:05:33,916 --> 00:05:36,396
+what that looks like in diagram
+
+
+169
+00:05:36,396 --> 00:05:36,786
+form.
+
+
+170
+00:05:37,366 --> 00:05:39,296
+So, if your application sets a
+
+
+171
+00:05:39,296 --> 00:05:40,846
+user default and you have an
+
+
+172
+00:05:40,846 --> 00:05:42,516
+observer registered it will be
+
+
+173
+00:05:42,516 --> 00:05:44,536
+notified of that change.
+
+
+174
+00:05:45,286 --> 00:05:47,116
+And similarly, if another
+
+
+175
+00:05:47,116 --> 00:05:49,246
+process sets a value for one of
+
+
+176
+00:05:49,246 --> 00:05:50,386
+your user defaults that you're
+
+
+177
+00:05:50,386 --> 00:05:52,476
+observing, you will be notified
+
+
+178
+00:05:52,476 --> 00:05:53,116
+of that as well.
+
+
+179
+00:05:53,696 --> 00:05:55,256
+So, it's pretty straightforward.
+
+
+180
+00:05:56,636 --> 00:05:58,216
+Here's another neat trick.
+
+
+181
+00:05:59,156 --> 00:06:01,016
+So, if you want that new keyPath
+
+
+182
+00:06:01,016 --> 00:06:02,336
+syntax and that block-based
+
+
+183
+00:06:02,336 --> 00:06:03,616
+observe method that you heard
+
+
+184
+00:06:03,616 --> 00:06:04,446
+about in what's new in
+
+
+185
+00:06:04,446 --> 00:06:06,606
+Foundation you can do that with
+
+
+186
+00:06:06,606 --> 00:06:07,376
+user defaults.
+
+
+187
+00:06:07,856 --> 00:06:08,646
+You just need to add an
+
+
+188
+00:06:08,646 --> 00:06:11,656
+extension and add at an @objc
+
+
+189
+00:06:11,656 --> 00:06:14,466
+dynamic property that has the
+
+
+190
+00:06:14,466 --> 00:06:16,646
+same name as your user defaults
+
+
+191
+00:06:16,646 --> 00:06:17,916
+key and that's really important.
+
+
+192
+00:06:17,916 --> 00:06:19,126
+If the names don't match this
+
+
+193
+00:06:19,126 --> 00:06:19,996
+isn't going to work.
+
+
+194
+00:06:20,386 --> 00:06:22,096
+And you can as a convenience
+
+
+195
+00:06:22,096 --> 00:06:23,646
+implement your property getter
+
+
+196
+00:06:23,646 --> 00:06:24,916
+to return the value.
+
+
+197
+00:06:25,026 --> 00:06:29,046
+And then you can use the
+
+
+198
+00:06:29,046 --> 00:06:30,986
+block-based observe method along
+
+
+199
+00:06:30,986 --> 00:06:32,566
+with the keyPath literal syntax
+
+
+200
+00:06:32,566 --> 00:06:34,956
+that's new and it works just
+
+
+201
+00:06:34,956 --> 00:06:35,516
+like you'd expect.
+
+
+202
+00:06:36,496 --> 00:06:38,406
+So that's it for user defaults.
+
+
+203
+00:06:39,536 --> 00:06:43,566
+Next up is tip number 64, what
+
+
+204
+00:06:43,566 --> 00:06:44,086
+is that?
+
+
+205
+00:06:45,406 --> 00:06:48,036
+Oh, base 64 right.
+
+
+206
+00:06:48,616 --> 00:06:49,816
+So, for those that aren't
+
+
+207
+00:06:49,816 --> 00:06:52,096
+familiar base 64 is an encoding
+
+
+208
+00:06:52,096 --> 00:06:54,056
+that lets you represent any data
+
+
+209
+00:06:54,366 --> 00:06:56,126
+using a simple set of ASCII.
+
+
+210
+00:06:56,616 --> 00:06:58,466
+So, this is handy of you want to
+
+
+211
+00:06:58,466 --> 00:07:00,596
+have a test or an easy to copy
+
+
+212
+00:07:00,596 --> 00:07:02,526
+paste and share snippet of code
+
+
+213
+00:07:02,706 --> 00:07:04,296
+that includes some binary data
+
+
+214
+00:07:04,296 --> 00:07:05,436
+and you don't want to worry
+
+
+215
+00:07:05,436 --> 00:07:07,006
+about packaging that up and
+
+
+216
+00:07:07,006 --> 00:07:08,186
+having to look it up and all
+
+
+217
+00:07:09,366 --> 00:07:09,836
+that.
+
+
+218
+00:07:09,836 --> 00:07:12,796
+And NSData supports base 64 and
+
+
+219
+00:07:12,796 --> 00:07:15,276
+you can create a data from the
+
+
+220
+00:07:15,276 --> 00:07:17,636
+base 64 string using the base 64
+
+
+221
+00:07:17,636 --> 00:07:20,636
+encoded initializer on data and
+
+
+222
+00:07:20,636 --> 00:07:21,616
+you'll get back your data.
+
+
+223
+00:07:21,616 --> 00:07:24,086
+And then you can use it [sound
+
+
+224
+00:07:24,316 --> 00:07:25,296
+effect] for example, to play a
+
+
+225
+00:07:25,296 --> 00:07:25,776
+sound.
+
+
+226
+00:07:28,256 --> 00:07:32,526
+And now if you want to create
+
+
+227
+00:07:32,526 --> 00:07:34,656
+these base 64 strings you can
+
+
+228
+00:07:34,656 --> 00:07:36,236
+use the base 64 encoded string
+
+
+229
+00:07:36,236 --> 00:07:37,746
+method on data to get those
+
+
+230
+00:07:37,746 --> 00:07:38,216
+strings.
+
+
+231
+00:07:38,466 --> 00:07:40,066
+There's also a base 64 command
+
+
+232
+00:07:40,066 --> 00:07:41,446
+line utility that you can use in
+
+
+233
+00:07:41,446 --> 00:07:43,356
+terminal to get your base 64
+
+
+234
+00:07:43,356 --> 00:07:45,456
+strings and that's base 64.
+
+
+235
+00:07:45,786 --> 00:07:46,676
+Now back to Rachel.
+
+
+236
+00:07:49,176 --> 00:07:51,106
+>> Number 2X, we're going to
+
+
+237
+00:07:51,106 --> 00:07:52,356
+talk about asset catalogs a
+
+
+238
+00:07:52,356 --> 00:07:53,586
+little bit.
+
+
+239
+00:07:53,996 --> 00:07:55,216
+Many of you are already using
+
+
+240
+00:07:55,216 --> 00:07:56,916
+asset catalogs, you know that
+
+
+241
+00:07:56,916 --> 00:07:58,346
+they organizer your images,
+
+
+242
+00:07:58,426 --> 00:08:00,196
+speed up launch times, reduce
+
+
+243
+00:08:00,196 --> 00:08:00,846
+storage space.
+
+
+244
+00:08:01,726 --> 00:08:03,046
+And I'd like to talk about a few
+
+
+245
+00:08:03,046 --> 00:08:04,396
+things that were added last year
+
+
+246
+00:08:04,396 --> 00:08:06,356
+in macOS Sierra and iOS 10 in
+
+
+247
+00:08:06,356 --> 00:08:07,376
+case you hadn't heard about
+
+
+248
+00:08:07,376 --> 00:08:07,586
+them.
+
+
+249
+00:08:08,326 --> 00:08:09,836
+First, there's layout direction.
+
+
+250
+00:08:10,526 --> 00:08:12,676
+This action image is symmetrical
+
+
+251
+00:08:12,676 --> 00:08:14,446
+and it doesn't matter, it'll be
+
+
+252
+00:08:14,446 --> 00:08:15,706
+the same both left to right and
+
+
+253
+00:08:15,706 --> 00:08:16,936
+right to left so the direction
+
+
+254
+00:08:16,936 --> 00:08:17,476
+is fixed.
+
+
+255
+00:08:18,236 --> 00:08:20,186
+But here's a GoForward image and
+
+
+256
+00:08:20,186 --> 00:08:21,526
+in right to left languages
+
+
+257
+00:08:21,966 --> 00:08:23,266
+GoForward means to the left
+
+
+258
+00:08:23,586 --> 00:08:24,766
+whereas left to right means it's
+
+
+259
+00:08:24,766 --> 00:08:25,556
+going to the right.
+
+
+260
+00:08:25,976 --> 00:08:27,376
+So, we want it to mirror for the
+
+
+261
+00:08:27,376 --> 00:08:28,106
+other language.
+
+
+262
+00:08:28,436 --> 00:08:29,626
+And then a little more
+
+
+263
+00:08:29,626 --> 00:08:31,626
+sophisticated is when you have
+
+
+264
+00:08:31,626 --> 00:08:33,226
+an image that needs to be
+
+
+265
+00:08:33,226 --> 00:08:34,236
+different for the layout
+
+
+266
+00:08:34,236 --> 00:08:35,856
+directions, but isn't a mirror
+
+
+267
+00:08:35,856 --> 00:08:37,626
+image, such as this autofill
+
+
+268
+00:08:37,626 --> 00:08:39,635
+image where the dots indicating
+
+
+269
+00:08:39,635 --> 00:08:40,785
+what has been written are to the
+
+
+270
+00:08:40,785 --> 00:08:42,196
+left of the pencil in left to
+
+
+271
+00:08:42,196 --> 00:08:43,645
+right and to the right of the
+
+
+272
+00:08:43,645 --> 00:08:45,186
+pencil in right to left, but the
+
+
+273
+00:08:45,186 --> 00:08:46,636
+pencil still tilts to the right.
+
+
+274
+00:08:47,076 --> 00:08:48,266
+So, they're not mirror images
+
+
+275
+00:08:48,266 --> 00:08:49,646
+and the designer decided it was
+
+
+276
+00:08:49,646 --> 00:08:50,636
+worth it to provide two
+
+
+277
+00:08:50,636 --> 00:08:52,296
+different images, but asset
+
+
+278
+00:08:52,436 --> 00:08:53,786
+catalogs will handle this for
+
+
+279
+00:08:53,786 --> 00:08:53,966
+you.
+
+
+280
+00:08:54,886 --> 00:08:56,216
+Next, I'd like to talk about
+
+
+281
+00:08:56,216 --> 00:08:58,096
+display gamut and that's the
+
+
+282
+00:08:58,096 --> 00:08:59,676
+different kind of color
+
+
+283
+00:08:59,676 --> 00:09:00,736
+representations that are
+
+
+284
+00:09:00,736 --> 00:09:02,556
+available on different displays,
+
+
+285
+00:09:02,586 --> 00:09:04,576
+the older displaces use sRGB,
+
+
+286
+00:09:04,916 --> 00:09:06,146
+the newer ones with brighter,
+
+
+287
+00:09:06,146 --> 00:09:08,336
+richer colors use Display P3.
+
+
+288
+00:09:08,386 --> 00:09:09,656
+I've overexaggerated the
+
+
+289
+00:09:09,656 --> 00:09:11,116
+difference between these images,
+
+
+290
+00:09:11,486 --> 00:09:13,016
+but just to show you that asset
+
+
+291
+00:09:13,016 --> 00:09:14,836
+catalogs allow you to specify
+
+
+292
+00:09:15,246 --> 00:09:17,106
+specific images for the two
+
+
+293
+00:09:17,106 --> 00:09:18,246
+different display gamuts.
+
+
+294
+00:09:18,906 --> 00:09:23,336
+In iOS 11 and macOS Sierra we
+
+
+295
+00:09:23,336 --> 00:09:25,476
+added colors to asset catalogs.
+
+
+296
+00:09:25,576 --> 00:09:27,516
+So, you can make a named color
+
+
+297
+00:09:27,516 --> 00:09:30,036
+just my simple accent color here
+
+
+298
+00:09:30,036 --> 00:09:32,346
+and you can also if you need to
+
+
+299
+00:09:32,556 --> 00:09:34,856
+specify sRGB and Display P3
+
+
+300
+00:09:34,856 --> 00:09:36,156
+versions of that color.
+
+
+301
+00:09:36,786 --> 00:09:39,126
+To use it in code we want to use
+
+
+302
+00:09:39,126 --> 00:09:39,766
+this new API.
+
+
+303
+00:09:40,656 --> 00:09:42,246
+You can add your name to the
+
+
+304
+00:09:42,246 --> 00:09:44,716
+extensible NSColor.Name enum and
+
+
+305
+00:09:44,716 --> 00:09:46,756
+then use the color named
+
+
+306
+00:09:47,396 --> 00:09:49,286
+initializer with your name to
+
+
+307
+00:09:49,286 --> 00:09:50,836
+create your color it's as easy
+
+
+308
+00:09:51,786 --> 00:09:52,546
+as that.
+
+
+309
+00:09:52,746 --> 00:09:56,616
+Next up number one, unit tests.
+
+
+310
+00:09:56,756 --> 00:09:57,556
+Sometimes there's a
+
+
+311
+00:09:57,646 --> 00:09:59,346
+psychological barrier to writing
+
+
+312
+00:09:59,346 --> 00:10:00,666
+unit tests, it seems like it's
+
+
+313
+00:10:00,666 --> 00:10:02,306
+going to be hard, but I'm here
+
+
+314
+00:10:02,306 --> 00:10:03,836
+to show you how easy it can be.
+
+
+315
+00:10:04,336 --> 00:10:07,426
+Create a new file in Xcode, make
+
+
+316
+00:10:07,426 --> 00:10:10,286
+it a unit test case class, Xcode
+
+
+317
+00:10:10,286 --> 00:10:11,826
+will give you a template, you
+
+
+318
+00:10:11,826 --> 00:10:13,196
+can fill it in with something as
+
+
+319
+00:10:13,196 --> 00:10:14,296
+easy as this.
+
+
+320
+00:10:14,366 --> 00:10:16,496
+Here I've created my addCatImage
+
+
+321
+00:10:16,806 --> 00:10:17,896
+and I'm checking to see that
+
+
+322
+00:10:17,896 --> 00:10:18,536
+it's not nil.
+
+
+323
+00:10:18,736 --> 00:10:20,766
+It's just a sanity check, is my
+
+
+324
+00:10:20,876 --> 00:10:22,376
+asset catalog on and working.
+
+
+325
+00:10:22,826 --> 00:10:23,976
+And once you've got one unit
+
+
+326
+00:10:23,976 --> 00:10:25,996
+test written it's much easier to
+
+
+327
+00:10:26,456 --> 00:10:28,146
+write additional tests and
+
+
+328
+00:10:28,146 --> 00:10:29,546
+prevent bugs from getting out to
+
+
+329
+00:10:29,546 --> 00:10:30,166
+your users.
+
+
+330
+00:10:31,416 --> 00:10:32,096
+Back to Vince.
+
+
+331
+00:10:32,586 --> 00:10:35,986
+>> Okay tip number 27, NSBox.
+
+
+332
+00:10:36,696 --> 00:10:38,536
+Sometimes all you want is a
+
+
+333
+00:10:38,536 --> 00:10:39,916
+simple view that shows a
+
+
+334
+00:10:39,916 --> 00:10:40,806
+background color.
+
+
+335
+00:10:41,786 --> 00:10:43,496
+And you control it may be like
+
+
+336
+00:10:43,496 --> 00:10:45,766
+this, so you can implement one
+
+
+337
+00:10:45,916 --> 00:10:47,266
+and you can make it layered back
+
+
+338
+00:10:47,266 --> 00:10:50,606
+even and that's fine or you can
+
+
+339
+00:10:50,606 --> 00:10:52,196
+let AppKit do it for you.
+
+
+340
+00:10:52,576 --> 00:10:54,896
+We have NSBox all you need to do
+
+
+341
+00:10:54,896 --> 00:10:56,696
+is set the box type to custom
+
+
+342
+00:10:56,936 --> 00:10:58,146
+and then configure it setting
+
+
+343
+00:10:58,146 --> 00:10:59,026
+the fill color.
+
+
+344
+00:10:59,306 --> 00:11:00,666
+And this would be more dynamic
+
+
+345
+00:11:00,666 --> 00:11:01,966
+than just setting the background
+
+
+346
+00:11:01,966 --> 00:11:04,406
+color on a layer because if the
+
+
+347
+00:11:04,406 --> 00:11:06,056
+color's a system color that
+
+
+348
+00:11:06,056 --> 00:11:07,496
+changes dynamically based on
+
+
+349
+00:11:07,496 --> 00:11:10,076
+appearance or context NSBox will
+
+
+350
+00:11:10,076 --> 00:11:11,006
+update automatically.
+
+
+351
+00:11:11,926 --> 00:11:13,786
+And even better, you can drag it
+
+
+352
+00:11:13,786 --> 00:11:15,006
+out of Interface Builder and
+
+
+353
+00:11:15,006 --> 00:11:15,936
+configure it from there.
+
+
+354
+00:11:16,456 --> 00:11:19,476
+And there are several properties
+
+
+355
+00:11:19,476 --> 00:11:20,816
+that you can use to configure a
+
+
+356
+00:11:20,816 --> 00:11:21,736
+custom box.
+
+
+357
+00:11:21,956 --> 00:11:23,076
+There's border width, corner
+
+
+358
+00:11:23,076 --> 00:11:24,486
+radius, border color and of
+
+
+359
+00:11:24,486 --> 00:11:26,636
+course, fill color so use that.
+
+
+360
+00:11:27,036 --> 00:11:28,756
+And you can even set a content
+
+
+361
+00:11:28,756 --> 00:11:31,246
+view on a box to show another
+
+
+362
+00:11:31,246 --> 00:11:33,446
+view inside the box, so it's
+
+
+363
+00:11:33,446 --> 00:11:34,116
+really easy.
+
+
+364
+00:11:34,646 --> 00:11:38,006
+And that's not all, sometimes
+
+
+365
+00:11:38,056 --> 00:11:39,796
+all you want is a simple
+
+
+366
+00:11:39,796 --> 00:11:42,556
+separator and NSBox has you
+
+
+367
+00:11:42,556 --> 00:11:43,996
+covered there too.
+
+
+368
+00:11:44,346 --> 00:11:45,486
+All you need to do is create a
+
+
+369
+00:11:45,486 --> 00:11:47,576
+box with the separator type and
+
+
+370
+00:11:47,576 --> 00:11:48,736
+position it however you like.
+
+
+371
+00:11:49,376 --> 00:11:51,106
+And of course, it's available
+
+
+372
+00:11:51,106 --> 00:11:51,946
+from Interface Builder.
+
+
+373
+00:11:52,316 --> 00:11:54,316
+So that's NSBox it should make
+
+
+374
+00:11:54,316 --> 00:11:56,176
+creating your user interfaces a
+
+
+375
+00:11:56,176 --> 00:11:56,896
+lot easier.
+
+
+376
+00:11:58,216 --> 00:12:00,296
+Next up is tip number eight,
+
+
+377
+00:12:00,616 --> 00:12:01,956
+restorable state.
+
+
+378
+00:12:04,286 --> 00:12:06,766
+So, macOS has a feature where
+
+
+379
+00:12:06,766 --> 00:12:08,166
+you can restart your machine and
+
+
+380
+00:12:08,166 --> 00:12:09,606
+all your running applications
+
+
+381
+00:12:09,606 --> 00:12:11,666
+come back and using this
+
+
+382
+00:12:11,666 --> 00:12:13,176
+invaluable trio of methods on
+
+
+383
+00:12:13,276 --> 00:12:15,156
+NSResponder you can bring your
+
+
+384
+00:12:15,156 --> 00:12:16,856
+user right back to where they
+
+
+385
+00:12:16,856 --> 00:12:17,606
+left off.
+
+
+386
+00:12:17,866 --> 00:12:19,686
+And most AppKit controls will
+
+
+387
+00:12:19,686 --> 00:12:21,076
+have these implemented for you,
+
+
+388
+00:12:21,076 --> 00:12:22,276
+but if you have your own
+
+
+389
+00:12:22,276 --> 00:12:23,966
+controls or restorable state,
+
+
+390
+00:12:23,966 --> 00:12:24,806
+you can implement them
+
+
+391
+00:12:24,806 --> 00:12:25,436
+yourselves.
+
+
+392
+00:12:25,976 --> 00:12:27,946
+And this is what that might look
+
+
+393
+00:12:27,946 --> 00:12:28,316
+like.
+
+
+394
+00:12:28,906 --> 00:12:30,756
+So, you have your properties
+
+
+395
+00:12:30,756 --> 00:12:32,186
+that are your restorable state,
+
+
+396
+00:12:32,376 --> 00:12:34,226
+when they change you invalidate
+
+
+397
+00:12:34,226 --> 00:12:35,276
+restorable state.
+
+
+398
+00:12:35,616 --> 00:12:37,836
+And then at some point, the
+
+
+399
+00:12:37,836 --> 00:12:39,016
+system will call in code
+
+
+400
+00:12:39,016 --> 00:12:40,616
+restorable state so you take the
+
+
+401
+00:12:40,616 --> 00:12:42,226
+values from your properties and
+
+
+402
+00:12:42,226 --> 00:12:43,926
+put them in the coder and then
+
+
+403
+00:12:43,926 --> 00:12:45,026
+when your application is
+
+
+404
+00:12:45,026 --> 00:12:46,436
+relaunched we'll call restore
+
+
+405
+00:12:46,436 --> 00:12:48,016
+state with coder and you take
+
+
+406
+00:12:48,016 --> 00:12:49,516
+the values out your coder and
+
+
+407
+00:12:49,516 --> 00:12:50,446
+put them in the properties.
+
+
+408
+00:12:50,746 --> 00:12:51,996
+It's pretty straightforward and
+
+
+409
+00:12:51,996 --> 00:12:54,926
+pretty easy, but there is an
+
+
+410
+00:12:54,926 --> 00:12:55,716
+easier way.
+
+
+411
+00:12:56,176 --> 00:12:58,016
+NSResponder has this class
+
+
+412
+00:12:58,196 --> 00:13:00,446
+property restorableStateKeyPaths
+
+
+413
+00:13:00,446 --> 00:13:02,606
+and this can point to any
+
+
+414
+00:13:02,606 --> 00:13:04,586
+NSCoding conforming type and
+
+
+415
+00:13:04,586 --> 00:13:05,886
+AppKit will use key value
+
+
+416
+00:13:05,886 --> 00:13:07,646
+observing to watch for changes
+
+
+417
+00:13:07,846 --> 00:13:08,796
+to these properties.
+
+
+418
+00:13:09,346 --> 00:13:12,006
+So that means when restoring
+
+
+419
+00:13:12,166 --> 00:13:13,506
+will automatically set the
+
+
+420
+00:13:13,506 --> 00:13:15,886
+values for you, so it's really
+
+
+421
+00:13:15,886 --> 00:13:16,396
+easy.
+
+
+422
+00:13:16,396 --> 00:13:18,436
+Do note that these properties
+
+
+423
+00:13:18,436 --> 00:13:20,256
+are marked @objc dynamic and so
+
+
+424
+00:13:20,336 --> 00:13:21,756
+that's key value observing can
+
+
+425
+00:13:21,756 --> 00:13:23,886
+do its automatic notification.
+
+
+426
+00:13:24,506 --> 00:13:26,466
+And you can still use this with
+
+
+427
+00:13:26,466 --> 00:13:27,696
+the other state restoration
+
+
+428
+00:13:27,696 --> 00:13:28,406
+callouts.
+
+
+429
+00:13:28,826 --> 00:13:30,826
+You can use this for your simple
+
+
+430
+00:13:30,826 --> 00:13:32,076
+properties and then use those
+
+
+431
+00:13:32,076 --> 00:13:33,546
+other callouts for other bits of
+
+
+432
+00:13:33,546 --> 00:13:34,916
+restorable state you may have,
+
+
+433
+00:13:34,916 --> 00:13:35,676
+they work together.
+
+
+434
+00:13:37,256 --> 00:13:38,816
+All right, now back to Rachel.
+
+
+435
+00:13:39,786 --> 00:13:41,196
+>> Okay I'm going to tell you a
+
+
+436
+00:13:41,196 --> 00:13:43,006
+sequence of tips about Core Data
+
+
+437
+00:13:43,006 --> 00:13:45,256
+that build upon each other and
+
+
+438
+00:13:45,256 --> 00:13:46,616
+I'm starting with number 13
+
+
+439
+00:13:46,616 --> 00:13:47,516
+because you may have been
+
+
+440
+00:13:47,516 --> 00:13:49,076
+unlucky enough in the past to
+
+
+441
+00:13:49,076 --> 00:13:50,566
+have to set up a Core Data Stack
+
+
+442
+00:13:50,856 --> 00:13:51,996
+before the existence of
+
+
+443
+00:13:52,036 --> 00:13:54,176
+NSPersistentContainer that was
+
+
+444
+00:13:54,176 --> 00:13:56,886
+added last year in Sierra and
+
+
+445
+00:13:57,386 --> 00:13:58,466
+iOS 10.
+
+
+446
+00:13:58,466 --> 00:14:00,376
+Core Data Stack consists of a
+
+
+447
+00:14:00,376 --> 00:14:02,676
+managed object model and then
+
+
+448
+00:14:02,676 --> 00:14:04,186
+you have a persistent store
+
+
+449
+00:14:04,186 --> 00:14:05,886
+coordinator that coordinates one
+
+
+450
+00:14:05,886 --> 00:14:08,036
+or more persistent stores and a
+
+
+451
+00:14:08,036 --> 00:14:10,016
+managed object context.
+
+
+452
+00:14:10,556 --> 00:14:12,156
+And to set that up took a fair
+
+
+453
+00:14:12,156 --> 00:14:12,966
+amount of code.
+
+
+454
+00:14:13,016 --> 00:14:15,186
+This is a reduced version of the
+
+
+455
+00:14:15,186 --> 00:14:16,606
+code you needed to write to get
+
+
+456
+00:14:16,606 --> 00:14:17,116
+that going.
+
+
+457
+00:14:18,316 --> 00:14:20,906
+But last year with the hard work
+
+
+458
+00:14:20,906 --> 00:14:22,496
+of the Core Data team there's
+
+
+459
+00:14:22,536 --> 00:14:24,126
+the NSPersistentContainer class
+
+
+460
+00:14:24,176 --> 00:14:26,666
+setting encapsulates the stack
+
+
+461
+00:14:27,246 --> 00:14:28,106
+and it's easy now.
+
+
+462
+00:14:28,446 --> 00:14:29,406
+You just have to do this.
+
+
+463
+00:14:29,456 --> 00:14:31,386
+The key line is to initialize
+
+
+464
+00:14:31,436 --> 00:14:32,806
+your persistent container with
+
+
+465
+00:14:32,806 --> 00:14:33,766
+your model name.
+
+
+466
+00:14:33,876 --> 00:14:38,236
+Moving on to number 21, arrays.
+
+
+467
+00:14:38,896 --> 00:14:41,676
+I've got my Cat Wrangler
+
+
+468
+00:14:41,676 --> 00:14:43,446
+application, one of those Cat
+
+
+469
+00:14:43,446 --> 00:14:45,666
+management applications and I
+
+
+470
+00:14:46,226 --> 00:14:48,986
+have a cat entity in my data
+
+
+471
+00:14:48,986 --> 00:14:51,186
+model with a name and a photo
+
+
+472
+00:14:51,186 --> 00:14:51,766
+attribute.
+
+
+473
+00:14:52,126 --> 00:14:53,976
+And I realize cats also have
+
+
+474
+00:14:53,976 --> 00:14:56,466
+behaviors, such as attacking
+
+
+475
+00:14:56,466 --> 00:14:58,696
+dust particles, staring at
+
+
+476
+00:14:58,696 --> 00:15:01,286
+walls, and playing keyboards.
+
+
+477
+00:15:02,196 --> 00:15:03,936
+So, I'd like to add an array of
+
+
+478
+00:15:03,936 --> 00:15:05,176
+behaviors because I think a
+
+
+479
+00:15:05,236 --> 00:15:06,616
+string is a good representation
+
+
+480
+00:15:06,616 --> 00:15:07,976
+of a behavior and I just want an
+
+
+481
+00:15:07,976 --> 00:15:08,816
+array of strings.
+
+
+482
+00:15:09,436 --> 00:15:11,146
+But there's no array type here,
+
+
+483
+00:15:12,136 --> 00:15:13,496
+well I just transformable
+
+
+484
+00:15:13,496 --> 00:15:14,686
+because that can be anything.
+
+
+485
+00:15:14,686 --> 00:15:17,236
+So, I make an array that's not a
+
+
+486
+00:15:17,236 --> 00:15:17,716
+good idea.
+
+
+487
+00:15:18,626 --> 00:15:19,906
+There's performance issues,
+
+
+488
+00:15:20,846 --> 00:15:22,546
+there's overhead for serializing
+
+
+489
+00:15:22,546 --> 00:15:23,826
+and deserializing arrays and
+
+
+490
+00:15:23,826 --> 00:15:26,336
+their contents and also any such
+
+
+491
+00:15:26,336 --> 00:15:27,526
+requests are going to be a lot
+
+
+492
+00:15:27,576 --> 00:15:28,596
+slower if you do things this
+
+
+493
+00:15:28,656 --> 00:15:28,866
+way.
+
+
+494
+00:15:29,476 --> 00:15:31,676
+So, we recommend instead making
+
+
+495
+00:15:31,676 --> 00:15:34,096
+a behavior entity and making a
+
+
+496
+00:15:34,096 --> 00:15:35,606
+relationship to the behaviors.
+
+
+497
+00:15:36,206 --> 00:15:37,226
+This would be a too many
+
+
+498
+00:15:37,226 --> 00:15:38,956
+relationships because there's
+
+
+499
+00:15:38,956 --> 00:15:41,426
+many behaviors and I want to
+
+
+500
+00:15:41,426 --> 00:15:43,066
+check the ordered checkbox if I
+
+
+501
+00:15:43,066 --> 00:15:44,986
+care that they're in a certain
+
+
+502
+00:15:44,986 --> 00:15:45,286
+order.
+
+
+503
+00:15:46,256 --> 00:15:48,126
+In addition, this has the
+
+
+504
+00:15:48,126 --> 00:15:49,956
+benefit of allowing me to use a
+
+
+505
+00:15:49,956 --> 00:15:52,246
+richer data model for my
+
+
+506
+00:15:52,246 --> 00:15:54,256
+behavior, I can add a duration
+
+
+507
+00:15:54,256 --> 00:15:54,926
+for example.
+
+
+508
+00:15:55,276 --> 00:15:56,856
+And so, your data model will
+
+
+509
+00:15:56,856 --> 00:15:58,336
+become more representative of
+
+
+510
+00:15:58,336 --> 00:15:59,166
+what you're trying to do.
+
+
+511
+00:16:00,646 --> 00:16:02,436
+Tip number 34, core data
+
+
+512
+00:16:02,436 --> 00:16:03,106
+migration.
+
+
+513
+00:16:03,656 --> 00:16:04,796
+Migration is one of the real
+
+
+514
+00:16:04,796 --> 00:16:06,166
+strengths of using Core Data.
+
+
+515
+00:16:06,166 --> 00:16:09,676
+I shipped Cat Wrangler and then
+
+
+516
+00:16:09,676 --> 00:16:11,956
+I realized cats also eat food
+
+
+517
+00:16:12,776 --> 00:16:17,846
+like grass, cupcakes, meat, and
+
+
+518
+00:16:17,846 --> 00:16:18,956
+of course broccoli.
+
+
+519
+00:16:20,416 --> 00:16:22,496
+So, I need a new data model, I
+
+
+520
+00:16:22,496 --> 00:16:24,236
+copy my Cat Wrangler data model,
+
+
+521
+00:16:24,236 --> 00:16:27,666
+make Cat Wrangler 2 and I can
+
+
+522
+00:16:27,666 --> 00:16:29,936
+add my food entity to it.
+
+
+523
+00:16:30,446 --> 00:16:32,516
+In Xcode, I simply change the
+
+
+524
+00:16:32,516 --> 00:16:34,006
+current model version to Cat
+
+
+525
+00:16:34,006 --> 00:16:37,116
+Wrangler 2 and then lightweight
+
+
+526
+00:16:37,116 --> 00:16:38,076
+migration is handled
+
+
+527
+00:16:38,076 --> 00:16:39,476
+automatically if you've used
+
+
+528
+00:16:39,516 --> 00:16:40,806
+NSPersistentContainer.
+
+
+529
+00:16:41,466 --> 00:16:42,876
+If you set up your own stack you
+
+
+530
+00:16:43,016 --> 00:16:44,356
+have a couple of options that
+
+
+531
+00:16:44,356 --> 00:16:45,996
+you need to set to make the
+
+
+532
+00:16:45,996 --> 00:16:47,726
+migration happen and that's all
+
+
+533
+00:16:47,806 --> 00:16:50,126
+you have to do.
+
+
+534
+00:16:50,356 --> 00:16:53,026
+Tip number 55, error handling.
+
+
+535
+00:16:53,806 --> 00:16:55,826
+In a perfect world we'd handle
+
+
+536
+00:16:55,826 --> 00:16:57,896
+all errors, but everybody knows
+
+
+537
+00:16:57,896 --> 00:16:59,386
+it's not a perfect world, the
+
+
+538
+00:16:59,386 --> 00:17:01,076
+world itself isn't entirely
+
+
+539
+00:17:01,076 --> 00:17:01,466
+round.
+
+
+540
+00:17:02,936 --> 00:17:04,866
+So, if you can only handle
+
+
+541
+00:17:04,866 --> 00:17:07,356
+errors in one area in Core Data
+
+
+542
+00:17:07,356 --> 00:17:08,896
+the most important part is when
+
+
+543
+00:17:08,896 --> 00:17:10,356
+you've added a persistent store.
+
+
+544
+00:17:10,955 --> 00:17:12,205
+If things don't work there
+
+
+545
+00:17:12,386 --> 00:17:13,566
+nothing's going to go right in
+
+
+546
+00:17:13,566 --> 00:17:14,396
+your application.
+
+
+547
+00:17:15,786 --> 00:17:17,986
+If you use persistent container
+
+
+548
+00:17:18,846 --> 00:17:19,616
+you can see there's the
+
+
+549
+00:17:19,616 --> 00:17:21,826
+loadPersistentStores method and
+
+
+550
+00:17:21,925 --> 00:17:22,846
+some of the things that can
+
+
+551
+00:17:22,906 --> 00:17:24,036
+happen is you can run out of
+
+
+552
+00:17:24,036 --> 00:17:25,236
+storage space, you can have
+
+
+553
+00:17:25,236 --> 00:17:26,846
+permission issues or data
+
+
+554
+00:17:26,846 --> 00:17:28,866
+protection or you can have an
+
+
+555
+00:17:28,866 --> 00:17:32,116
+older file that can't be opened,
+
+
+556
+00:17:32,116 --> 00:17:32,966
+you don't have a proper
+
+
+557
+00:17:32,966 --> 00:17:34,586
+migration strategy for it.
+
+
+558
+00:17:35,286 --> 00:17:36,736
+And if you're wondering how to
+
+
+559
+00:17:36,816 --> 00:17:38,306
+present those errors to users
+
+
+560
+00:17:39,156 --> 00:17:40,436
+Vince has something to tell you.
+
+
+561
+00:17:40,436 --> 00:17:43,046
+>> All right, tip number 404,
+
+
+562
+00:17:43,236 --> 00:17:43,856
+NSError.
+
+
+563
+00:17:44,686 --> 00:17:46,596
+So, in the rare event that
+
+
+564
+00:17:46,596 --> 00:17:47,856
+something goes wrong in your
+
+
+565
+00:17:47,856 --> 00:17:49,426
+application you want to give
+
+
+566
+00:17:49,426 --> 00:17:51,376
+your users great error messages
+
+
+567
+00:17:51,446 --> 00:17:53,586
+and Cocoa APIs like Core Data
+
+
+568
+00:17:54,056 --> 00:17:55,376
+give you error messages that are
+
+
+569
+00:17:55,376 --> 00:17:56,746
+fully localized and ready to
+
+
+570
+00:17:56,746 --> 00:17:58,786
+present to the user and that's
+
+
+571
+00:17:58,786 --> 00:18:00,066
+really easy to do.
+
+
+572
+00:18:00,176 --> 00:18:02,226
+Any responder has a presentError
+
+
+573
+00:18:02,226 --> 00:18:04,006
+method, you pass in your error
+
+
+574
+00:18:04,006 --> 00:18:05,406
+and it'll go up the responder
+
+
+575
+00:18:05,406 --> 00:18:07,936
+chain, if anything NSApplication
+
+
+576
+00:18:07,936 --> 00:18:08,776
+will catch it and show a
+
+
+577
+00:18:08,776 --> 00:18:09,376
+dialogue.
+
+
+578
+00:18:10,136 --> 00:18:11,376
+And if you have your own
+
+
+579
+00:18:11,376 --> 00:18:12,656
+responder subclass that's
+
+
+580
+00:18:12,656 --> 00:18:13,736
+well-suited to presenting an
+
+
+581
+00:18:13,736 --> 00:18:15,866
+error you can override this and
+
+
+582
+00:18:15,916 --> 00:18:17,296
+present the error yourself.
+
+
+583
+00:18:17,946 --> 00:18:21,356
+And here's the trick about these
+
+
+584
+00:18:21,356 --> 00:18:24,566
+Cocoa API errors, you can create
+
+
+585
+00:18:24,566 --> 00:18:26,676
+them yourself all you need to do
+
+
+586
+00:18:26,676 --> 00:18:30,046
+is create an NSError, pass in
+
+
+587
+00:18:30,046 --> 00:18:32,326
+the NS Cocoa error domain, a
+
+
+588
+00:18:32,326 --> 00:18:33,976
+code that matches what went
+
+
+589
+00:18:33,976 --> 00:18:36,316
+wrong and then a user info that
+
+
+590
+00:18:36,316 --> 00:18:37,856
+might have some additional
+
+
+591
+00:18:37,856 --> 00:18:40,086
+information like the file URL
+
+
+592
+00:18:40,086 --> 00:18:41,696
+you're acting on.
+
+
+593
+00:18:42,136 --> 00:18:43,796
+And you'll get a nice localized
+
+
+594
+00:18:43,796 --> 00:18:45,316
+user presentable error just like
+
+
+595
+00:18:45,316 --> 00:18:46,546
+that, just like the ones we
+
+
+596
+00:18:46,546 --> 00:18:46,946
+return.
+
+
+597
+00:18:47,396 --> 00:18:49,316
+And we have a lot of error
+
+
+598
+00:18:49,316 --> 00:18:52,046
+codes, so hopefully you can find
+
+
+599
+00:18:52,046 --> 00:18:53,356
+something that matches what went
+
+
+600
+00:18:53,356 --> 00:18:53,796
+wrong.
+
+
+601
+00:18:54,076 --> 00:18:55,876
+This is a snippet of foundation
+
+
+602
+00:18:55,876 --> 00:18:57,416
+errors.h, the generated
+
+
+603
+00:18:57,416 --> 00:18:59,286
+interface, so feel free to look
+
+
+604
+00:18:59,286 --> 00:19:00,976
+through this, we're not going to
+
+
+605
+00:19:00,976 --> 00:19:01,606
+go through them all.
+
+
+606
+00:19:03,136 --> 00:19:05,846
+And if the error is close, but
+
+
+607
+00:19:05,846 --> 00:19:07,386
+could be better you can
+
+
+608
+00:19:07,386 --> 00:19:09,176
+customize them with the user
+
+
+609
+00:19:09,176 --> 00:19:09,606
+info.
+
+
+610
+00:19:09,606 --> 00:19:11,256
+There are several user info keys
+
+
+611
+00:19:11,256 --> 00:19:12,776
+that will let you alter pieces
+
+
+612
+00:19:12,776 --> 00:19:13,796
+of the error message.
+
+
+613
+00:19:14,026 --> 00:19:15,536
+Here we're altering the recovery
+
+
+614
+00:19:15,536 --> 00:19:17,416
+suggestion because we know that
+
+
+615
+00:19:17,416 --> 00:19:18,266
+this error occurred in the
+
+
+616
+00:19:18,266 --> 00:19:19,936
+context of a download and we can
+
+
+617
+00:19:19,936 --> 00:19:21,946
+tell the user that to help them
+
+
+618
+00:19:21,946 --> 00:19:22,326
+recover.
+
+
+619
+00:19:22,846 --> 00:19:25,756
+And by the way, if you're using
+
+
+620
+00:19:25,756 --> 00:19:27,806
+Xcode 9 you can use this new
+
+
+621
+00:19:27,806 --> 00:19:29,676
+Cocoa error method to make
+
+
+622
+00:19:29,676 --> 00:19:31,296
+creating Cocoa domain errors
+
+
+623
+00:19:31,396 --> 00:19:32,686
+even more convenient.
+
+
+624
+00:19:34,056 --> 00:19:36,306
+Now if you need an error that
+
+
+625
+00:19:36,306 --> 00:19:38,646
+Cocoa doesn't provide it's still
+
+
+626
+00:19:38,646 --> 00:19:39,636
+easy to make your own.
+
+
+627
+00:19:40,386 --> 00:19:42,266
+All you need to do is define a
+
+
+628
+00:19:42,266 --> 00:19:44,846
+domain, your error codes, and
+
+
+629
+00:19:45,036 --> 00:19:47,086
+then you create an NSError with
+
+
+630
+00:19:47,086 --> 00:19:49,916
+that domain, one of those codes
+
+
+631
+00:19:49,916 --> 00:19:52,006
+and a user info with keys that
+
+
+632
+00:19:52,006 --> 00:19:53,386
+describe the error message,
+
+
+633
+00:19:53,876 --> 00:19:54,866
+provide the error message.
+
+
+634
+00:19:55,186 --> 00:19:57,176
+And you don't need to give those
+
+
+635
+00:19:57,176 --> 00:19:59,186
+keys up front in your user info
+
+
+636
+00:19:59,456 --> 00:20:01,116
+you can call this NSErrorClass
+
+
+637
+00:20:01,116 --> 00:20:02,816
+method, set user info value
+
+
+638
+00:20:02,816 --> 00:20:04,336
+provider, and you get at your
+
+
+639
+00:20:04,336 --> 00:20:04,976
+domain.
+
+
+640
+00:20:05,206 --> 00:20:07,146
+And when an NSError with your
+
+
+641
+00:20:07,146 --> 00:20:09,466
+domain looks up at a info key
+
+
+642
+00:20:09,466 --> 00:20:10,976
+and it's not found it will call
+
+
+643
+00:20:10,976 --> 00:20:11,656
+this block.
+
+
+644
+00:20:12,116 --> 00:20:13,916
+And so, you can lazily return
+
+
+645
+00:20:13,916 --> 00:20:15,516
+values for those keys.
+
+
+646
+00:20:16,036 --> 00:20:17,736
+And what that means is now it's
+
+
+647
+00:20:17,776 --> 00:20:20,086
+super easy to create your errors
+
+
+648
+00:20:20,206 --> 00:20:21,556
+you just make an NSError with
+
+
+649
+00:20:21,556 --> 00:20:23,116
+your domain and code and that's
+
+
+650
+00:20:23,156 --> 00:20:23,396
+it.
+
+
+651
+00:20:26,586 --> 00:20:27,706
+Now there are a lot of
+
+
+652
+00:20:27,706 --> 00:20:29,756
+properties on NSError, check out
+
+
+653
+00:20:29,756 --> 00:20:30,716
+the header for more.
+
+
+654
+00:20:30,716 --> 00:20:33,376
+I do want to note that a lot of
+
+
+655
+00:20:33,376 --> 00:20:35,166
+them have user info keys that
+
+
+656
+00:20:35,166 --> 00:20:37,066
+correspond so you can use them
+
+
+657
+00:20:37,066 --> 00:20:38,676
+in your user info value provider
+
+
+658
+00:20:38,676 --> 00:20:40,526
+and return values lazily, so
+
+
+659
+00:20:40,526 --> 00:20:41,276
+give those a look.
+
+
+660
+00:20:42,616 --> 00:20:45,996
+Now next up is tip number six,
+
+
+661
+00:20:46,116 --> 00:20:47,326
+shared keysets.
+
+
+662
+00:20:48,076 --> 00:20:50,256
+So, if you were creating a lot
+
+
+663
+00:20:50,456 --> 00:20:52,136
+of dictionaries with the same
+
+
+664
+00:20:52,136 --> 00:20:54,636
+known keys you can use a shared
+
+
+665
+00:20:54,686 --> 00:20:56,206
+keyset and your dictionaries
+
+
+666
+00:20:56,206 --> 00:20:57,826
+will be more compact and
+
+
+667
+00:20:57,986 --> 00:20:59,276
+performant, thanks to proof of
+
+
+668
+00:20:59,276 --> 00:20:59,786
+hashing.
+
+
+669
+00:21:00,236 --> 00:21:01,896
+So, you create a shared keyset
+
+
+670
+00:21:01,896 --> 00:21:03,816
+using this NSDictionary class
+
+
+671
+00:21:03,966 --> 00:21:06,176
+function and it comes up with
+
+
+672
+00:21:06,176 --> 00:21:07,916
+the perfect hash and then you
+
+
+673
+00:21:07,916 --> 00:21:08,696
+can initialize your
+
+
+674
+00:21:08,806 --> 00:21:10,086
+NSMutableDictationaries with
+
+
+675
+00:21:10,086 --> 00:21:10,876
+your shared keyset.
+
+
+676
+00:21:11,806 --> 00:21:13,186
+Here's what this might look
+
+
+677
+00:21:13,186 --> 00:21:13,506
+like.
+
+
+678
+00:21:14,116 --> 00:21:16,036
+So, you create your shared
+
+
+679
+00:21:16,036 --> 00:21:18,266
+keyset, it is not trivial to
+
+
+680
+00:21:18,266 --> 00:21:20,136
+compute a shared keyset so it's
+
+
+681
+00:21:20,136 --> 00:21:22,456
+a good idea to stash it away and
+
+
+682
+00:21:22,456 --> 00:21:24,026
+reuse it and create as many
+
+
+683
+00:21:24,026 --> 00:21:25,296
+mutable dictionaries as you
+
+
+684
+00:21:25,826 --> 00:21:26,316
+want.
+
+
+685
+00:21:26,436 --> 00:21:27,436
+And you create your mutable
+
+
+686
+00:21:27,436 --> 00:21:29,606
+dictionary and then you can use
+
+
+687
+00:21:29,606 --> 00:21:30,966
+it like any other mutable
+
+
+688
+00:21:30,966 --> 00:21:33,196
+dictionary and even you can put
+
+
+689
+00:21:33,196 --> 00:21:34,646
+in keys that aren't in your
+
+
+690
+00:21:34,646 --> 00:21:36,506
+shared keyset they just won't be
+
+
+691
+00:21:36,506 --> 00:21:37,156
+as performant.
+
+
+692
+00:21:37,626 --> 00:21:39,756
+So that's shared keyset.
+
+
+693
+00:21:40,286 --> 00:21:41,396
+Now back to Rachel.
+
+
+694
+00:21:42,496 --> 00:21:44,566
+>> We've come to hexadecimal A
+
+
+695
+00:21:44,676 --> 00:21:46,836
+for accessibility, get AX
+
+
+696
+00:21:46,836 --> 00:21:47,966
+accessibility?
+
+
+697
+00:21:48,116 --> 00:21:52,276
+And Apple has many ways to make
+
+
+698
+00:21:52,276 --> 00:21:53,546
+your products accessible to all
+
+
+699
+00:21:53,546 --> 00:21:54,016
+users.
+
+
+700
+00:21:54,016 --> 00:21:55,186
+I'm just going to go over a few
+
+
+701
+00:21:55,186 --> 00:21:55,896
+small things.
+
+
+702
+00:21:56,296 --> 00:21:57,826
+VoiceOver is not small, but I'll
+
+
+703
+00:21:57,826 --> 00:21:59,046
+talk about it briefly.
+
+
+704
+00:21:59,396 --> 00:22:00,846
+It comes built-in on all Apple
+
+
+705
+00:22:00,846 --> 00:22:03,396
+products and it's easy to set up
+
+
+706
+00:22:03,396 --> 00:22:04,766
+in Interface Builder, I have my
+
+
+707
+00:22:04,906 --> 00:22:07,946
+add cat button and I just fill
+
+
+708
+00:22:07,946 --> 00:22:09,526
+in the accessibility description
+
+
+709
+00:22:09,526 --> 00:22:11,296
+add cat and then VoiceOver knows
+
+
+710
+00:22:11,296 --> 00:22:13,446
+what to say.
+
+
+711
+00:22:13,636 --> 00:22:15,556
+Also remember to test your apps
+
+
+712
+00:22:15,626 --> 00:22:17,706
+at low resolutions, low vision
+
+
+713
+00:22:17,706 --> 00:22:19,116
+users want to see things bigger
+
+
+714
+00:22:19,116 --> 00:22:19,796
+on the screen.
+
+
+715
+00:22:20,006 --> 00:22:22,156
+So, for example, here's my Cat
+
+
+716
+00:22:22,156 --> 00:22:23,786
+Wrangler/screen that I'm really
+
+
+717
+00:22:23,786 --> 00:22:24,416
+happy with.
+
+
+718
+00:22:24,416 --> 00:22:26,456
+I try it at a lower resolution
+
+
+719
+00:22:26,456 --> 00:22:28,236
+it goes off the screen, don't
+
+
+720
+00:22:28,236 --> 00:22:29,136
+let this happen to you.
+
+
+721
+00:22:29,136 --> 00:22:32,056
+Last, I'd like to point out the
+
+
+722
+00:22:32,056 --> 00:22:33,636
+existence of the Accessibility
+
+
+723
+00:22:33,636 --> 00:22:35,526
+Inspector that's available from
+
+
+724
+00:22:35,526 --> 00:22:36,536
+the Xcode menu.
+
+
+725
+00:22:36,966 --> 00:22:38,586
+Launch it, run it on your apps
+
+
+726
+00:22:38,646 --> 00:22:40,176
+and see where you can improve
+
+
+727
+00:22:40,656 --> 00:22:41,996
+your apps in terms of being
+
+
+728
+00:22:41,996 --> 00:22:42,596
+accessible.
+
+
+729
+00:22:43,506 --> 00:22:44,176
+Back to Vince.
+
+
+730
+00:22:45,166 --> 00:22:47,646
+>> Okay and now toward infinity
+
+
+731
+00:22:48,116 --> 00:22:48,966
+and documents.
+
+
+732
+00:22:50,366 --> 00:22:52,086
+So, users today are very
+
+
+733
+00:22:52,086 --> 00:22:54,066
+demanding, they expect a lot
+
+
+734
+00:22:54,066 --> 00:22:55,326
+from document-based apps.
+
+
+735
+00:22:55,586 --> 00:22:56,766
+They don't want to worry about
+
+
+736
+00:22:56,766 --> 00:22:57,296
+saving.
+
+
+737
+00:22:57,756 --> 00:22:59,656
+They want it to be easy to name
+
+
+738
+00:22:59,656 --> 00:23:01,736
+and organize their documents and
+
+
+739
+00:23:01,736 --> 00:23:03,536
+they want powerful version
+
+
+740
+00:23:03,536 --> 00:23:03,946
+control.
+
+
+741
+00:23:04,516 --> 00:23:06,326
+And they even want features like
+
+
+742
+00:23:06,326 --> 00:23:07,906
+iCloud document sharing that's
+
+
+743
+00:23:07,906 --> 00:23:09,736
+new in macOS High Sierra that
+
+
+744
+00:23:09,736 --> 00:23:10,816
+you will never even have heard
+
+
+745
+00:23:10,816 --> 00:23:12,226
+about until this week.
+
+
+746
+00:23:12,496 --> 00:23:13,646
+What's a developer to do?
+
+
+747
+00:23:14,766 --> 00:23:17,796
+Well you can use NSDocument and
+
+
+748
+00:23:17,796 --> 00:23:19,416
+NSDocument has a class property
+
+
+749
+00:23:19,416 --> 00:23:20,606
+autosavesInPlace.
+
+
+750
+00:23:20,936 --> 00:23:22,626
+By default, it returns false,
+
+
+751
+00:23:22,846 --> 00:23:24,406
+but you can override it and
+
+
+752
+00:23:24,406 --> 00:23:26,076
+return true and you get all of
+
+
+753
+00:23:26,076 --> 00:23:28,326
+those features for free, so it's
+
+
+754
+00:23:28,326 --> 00:23:28,986
+pretty great.
+
+
+755
+00:23:29,326 --> 00:23:30,916
+Check out NSDocument if you have
+
+
+756
+00:23:30,916 --> 00:23:32,066
+a document-based application.
+
+
+757
+00:23:32,826 --> 00:23:37,406
+Next up is number 42, the answer
+
+
+758
+00:23:38,206 --> 00:23:39,626
+to reporting exceptions.
+
+
+759
+00:23:40,816 --> 00:23:41,946
+For the most part, when
+
+
+760
+00:23:41,946 --> 00:23:43,386
+NSApplication catches an
+
+
+761
+00:23:43,386 --> 00:23:45,296
+exception it will just log it
+
+
+762
+00:23:45,296 --> 00:23:46,276
+and let your app continue
+
+
+763
+00:23:46,276 --> 00:23:47,046
+limping along.
+
+
+764
+00:23:47,456 --> 00:23:48,776
+But if you want to add
+
+
+765
+00:23:48,776 --> 00:23:50,416
+information or handle those
+
+
+766
+00:23:50,416 --> 00:23:52,066
+exceptions differently you can
+
+
+767
+00:23:52,066 --> 00:23:53,656
+override this NSApplication
+
+
+768
+00:23:53,656 --> 00:23:55,166
+method to do your own thing.
+
+
+769
+00:23:55,716 --> 00:23:57,516
+Now back to Rachel.
+
+
+770
+00:23:58,286 --> 00:24:00,656
+>> All right, to err is human
+
+
+771
+00:24:00,776 --> 00:24:01,816
+and to [inaudible] computer,
+
+
+772
+00:24:01,816 --> 00:24:02,906
+especially when the humans have
+
+
+773
+00:24:02,906 --> 00:24:04,416
+erred so we'll talk a little bit
+
+
+774
+00:24:04,416 --> 00:24:05,456
+about debugging.
+
+
+775
+00:24:05,796 --> 00:24:06,896
+You know here's many, many
+
+
+776
+00:24:06,896 --> 00:24:08,196
+debugging tools and I'm just
+
+
+777
+00:24:08,196 --> 00:24:09,636
+going to show you a couple that
+
+
+778
+00:24:09,636 --> 00:24:10,986
+are somewhat hidden in Xcode.
+
+
+779
+00:24:10,986 --> 00:24:12,626
+Right above the debug console
+
+
+780
+00:24:12,886 --> 00:24:14,226
+there's this row of buttons,
+
+
+781
+00:24:14,936 --> 00:24:16,626
+there's the debug view hierarchy
+
+
+782
+00:24:16,626 --> 00:24:19,716
+button, debug memory graph and
+
+
+783
+00:24:19,716 --> 00:24:20,926
+simulate location.
+
+
+784
+00:24:21,326 --> 00:24:22,246
+I'm just going to show you a
+
+
+785
+00:24:22,246 --> 00:24:23,326
+little bit about the view
+
+
+786
+00:24:23,326 --> 00:24:23,906
+debugger.
+
+
+787
+00:24:25,256 --> 00:24:27,096
+Here I have this simple browser
+
+
+788
+00:24:27,096 --> 00:24:28,976
+sample application and I can
+
+
+789
+00:24:28,976 --> 00:24:31,096
+expand out the views in order to
+
+
+790
+00:24:31,096 --> 00:24:32,686
+see what's going on, is there a
+
+
+791
+00:24:32,686 --> 00:24:33,796
+view that's hidden by another
+
+
+792
+00:24:33,796 --> 00:24:35,626
+one, which view is doing what.
+
+
+793
+00:24:35,626 --> 00:24:38,416
+I can see where the views extend
+
+
+794
+00:24:38,416 --> 00:24:39,636
+off when they're clipped views,
+
+
+795
+00:24:39,976 --> 00:24:41,146
+there's many other things with
+
+
+796
+00:24:41,146 --> 00:24:42,666
+auto layout that you can use in
+
+
+797
+00:24:42,666 --> 00:24:44,296
+this view debugger so check it
+
+
+798
+00:24:44,296 --> 00:24:46,116
+out and it'll simplify your
+
+
+799
+00:24:46,116 --> 00:24:47,476
+ability to debug your view
+
+
+800
+00:24:47,566 --> 00:24:47,996
+problems.
+
+
+801
+00:24:49,176 --> 00:24:51,066
+Sometimes the bugs are in our
+
+
+802
+00:24:51,066 --> 00:24:53,006
+code, in which case I've come to
+
+
+803
+00:24:53,006 --> 00:24:57,616
+tip 30512012 right, bug reports.
+
+
+804
+00:24:58,476 --> 00:25:00,146
+To make it easier for us to fix
+
+
+805
+00:25:00,146 --> 00:25:02,356
+the bugs include steps to
+
+
+806
+00:25:02,356 --> 00:25:03,736
+reproduce that's the very most
+
+
+807
+00:25:03,736 --> 00:25:04,546
+important thing.
+
+
+808
+00:25:05,716 --> 00:25:07,136
+We love it when you put sample
+
+
+809
+00:25:07,136 --> 00:25:08,406
+apps in your bug reports,
+
+
+810
+00:25:08,786 --> 00:25:10,666
+especially when they build and
+
+
+811
+00:25:10,666 --> 00:25:12,486
+show the problem on the platform
+
+
+812
+00:25:12,486 --> 00:25:13,296
+that you care about.
+
+
+813
+00:25:14,286 --> 00:25:15,756
+Include any resources that are
+
+
+814
+00:25:15,756 --> 00:25:16,956
+needed to reproduce your
+
+
+815
+00:25:16,956 --> 00:25:17,576
+problem.
+
+
+816
+00:25:19,026 --> 00:25:20,596
+And then logs, such as
+
+
+817
+00:25:20,646 --> 00:25:21,356
+sysdiagnose.
+
+
+818
+00:25:21,946 --> 00:25:23,126
+There's a page on
+
+
+819
+00:25:23,276 --> 00:25:25,446
+developer.apple.com that shows
+
+
+820
+00:25:25,446 --> 00:25:27,696
+how to collect logs for all of
+
+
+821
+00:25:27,696 --> 00:25:29,566
+our platforms and look through
+
+
+822
+00:25:29,566 --> 00:25:31,236
+there see whatever might be
+
+
+823
+00:25:31,236 --> 00:25:32,426
+helpful to the person who's
+
+
+824
+00:25:32,476 --> 00:25:34,156
+taking a look at the issue and
+
+
+825
+00:25:34,156 --> 00:25:35,606
+that'll help it all go faster.
+
+
+826
+00:25:36,756 --> 00:25:37,626
+Back to Vince.
+
+
+827
+00:25:38,496 --> 00:25:41,756
+>> Okay tip number 44.1, here's
+
+
+828
+00:25:41,756 --> 00:25:44,176
+a really easy way to add bells
+
+
+829
+00:25:44,176 --> 00:25:45,126
+and whistles to your
+
+
+830
+00:25:45,126 --> 00:25:45,806
+application.
+
+
+831
+00:25:46,936 --> 00:25:49,056
+NSButton has a property it's
+
+
+832
+00:25:49,056 --> 00:25:51,016
+called sound, it takes an
+
+
+833
+00:25:51,076 --> 00:25:52,756
+NSSound and it's really easy to
+
+
+834
+00:25:52,846 --> 00:25:53,096
+set.
+
+
+835
+00:25:53,496 --> 00:25:55,026
+And if you do when the user
+
+
+836
+00:25:55,026 --> 00:25:56,746
+clicks the button it will play
+
+
+837
+00:25:56,746 --> 00:25:59,006
+the sound and you can even set
+
+
+838
+00:25:59,006 --> 00:26:00,266
+it in Interface Builder.
+
+
+839
+00:26:00,706 --> 00:26:02,366
+So, use this to give your UI
+
+
+840
+00:26:02,366 --> 00:26:04,046
+that extra pop that your users
+
+
+841
+00:26:04,046 --> 00:26:04,986
+are clamoring for [sound
+
+
+842
+00:26:04,986 --> 00:26:05,053
+effect].
+
+
+843
+00:26:05,053 --> 00:26:09,786
+So now tip number 29, I'm going
+
+
+844
+00:26:09,786 --> 00:26:13,276
+to give a demo not of an NSSound
+
+
+845
+00:26:13,276 --> 00:26:14,646
+playing from a button that would
+
+
+846
+00:26:14,646 --> 00:26:15,676
+be a silly thing to demo, we're
+
+
+847
+00:26:15,916 --> 00:26:18,036
+going to show you a macOS app.
+
+
+848
+00:26:18,506 --> 00:26:19,966
+It's a daring entry into the
+
+
+849
+00:26:19,966 --> 00:26:21,486
+overcrowded market of cat
+
+
+850
+00:26:21,486 --> 00:26:22,876
+management applications it's
+
+
+851
+00:26:22,876 --> 00:26:24,846
+called Cat Herder and it's
+
+
+852
+00:26:24,846 --> 00:26:27,036
+completely unrelated to that Cat
+
+
+853
+00:26:27,036 --> 00:26:28,366
+Wrangler app you might have
+
+
+854
+00:26:28,366 --> 00:26:29,646
+heard about and we're going to
+
+
+855
+00:26:29,646 --> 00:26:32,616
+build it from the ground up.
+
+
+856
+00:26:32,846 --> 00:26:34,486
+Okay, so we have our project
+
+
+857
+00:26:34,956 --> 00:26:38,366
+already and here we have our
+
+
+858
+00:26:38,366 --> 00:26:40,416
+specification for our Cat Herder
+
+
+859
+00:26:40,416 --> 00:26:43,116
+application and it looks like we
+
+
+860
+00:26:43,116 --> 00:26:44,916
+have a list of cats on the
+
+
+861
+00:26:44,916 --> 00:26:47,576
+left-hand side and some add and
+
+
+862
+00:26:47,576 --> 00:26:48,606
+remove buttons.
+
+
+863
+00:26:49,016 --> 00:26:51,366
+And then for the selected cat we
+
+
+864
+00:26:51,366 --> 00:26:53,136
+can edit the name and photo.
+
+
+865
+00:26:53,756 --> 00:26:55,156
+Okay that seems pretty simple
+
+
+866
+00:26:55,156 --> 00:26:56,276
+and pretty straightforward.
+
+
+867
+00:26:57,176 --> 00:26:58,896
+Luckily, we have a designer that
+
+
+868
+00:26:58,896 --> 00:27:02,006
+already created a nib for us and
+
+
+869
+00:27:02,006 --> 00:27:04,716
+we can go ahead and look at that
+
+
+870
+00:27:04,716 --> 00:27:05,576
+and it looks pretty good.
+
+
+871
+00:27:05,576 --> 00:27:05,976
+We can run it.
+
+
+872
+00:27:10,046 --> 00:27:11,746
+And there we go, but nothing's
+
+
+873
+00:27:11,746 --> 00:27:13,026
+really hooked up, nothing's
+
+
+874
+00:27:13,026 --> 00:27:16,416
+working so nothing does
+
+
+875
+00:27:16,416 --> 00:27:16,826
+anything.
+
+
+876
+00:27:17,096 --> 00:27:18,846
+So, it's time to write some code
+
+
+877
+00:27:19,156 --> 00:27:20,356
+to get this all hooked up
+
+
+878
+00:27:20,356 --> 00:27:20,786
+together.
+
+
+879
+00:27:22,146 --> 00:27:24,356
+But what if I told you that
+
+
+880
+00:27:24,356 --> 00:27:25,806
+there's a way we can get this
+
+
+881
+00:27:25,806 --> 00:27:27,676
+user interface working without
+
+
+882
+00:27:27,676 --> 00:27:28,926
+needing any code.
+
+
+883
+00:27:29,576 --> 00:27:31,546
+And macOS has a technology
+
+
+884
+00:27:31,546 --> 00:27:32,936
+called bindings that will let us
+
+
+885
+00:27:32,936 --> 00:27:34,216
+do exactly that.
+
+
+886
+00:27:35,436 --> 00:27:38,966
+So, we can go ahead and go to
+
+
+887
+00:27:38,966 --> 00:27:42,416
+our storyboard and we have our
+
+
+888
+00:27:42,416 --> 00:27:45,806
+table view here and a table view
+
+
+889
+00:27:45,806 --> 00:27:47,496
+is going to show a list of cats,
+
+
+890
+00:27:48,226 --> 00:27:49,276
+which is probably going to be
+
+
+891
+00:27:49,276 --> 00:27:50,236
+backed by an array.
+
+
+892
+00:27:50,766 --> 00:27:52,896
+And it turns out we have a class
+
+
+893
+00:27:52,896 --> 00:27:55,746
+called array controller in the
+
+
+894
+00:27:55,746 --> 00:27:58,336
+object browser here and we can
+
+
+895
+00:27:58,336 --> 00:27:59,816
+go ahead and drag that into our
+
+
+896
+00:27:59,896 --> 00:28:00,186
+scene.
+
+
+897
+00:28:00,826 --> 00:28:03,196
+And an array controller lets you
+
+
+898
+00:28:03,196 --> 00:28:05,846
+create bindings to an array of
+
+
+899
+00:28:05,846 --> 00:28:06,566
+objects.
+
+
+900
+00:28:07,096 --> 00:28:08,626
+So, we can go to the attributes
+
+
+901
+00:28:08,626 --> 00:28:10,656
+inspector here in the upper
+
+
+902
+00:28:10,656 --> 00:28:13,796
+right and select attributes and
+
+
+903
+00:28:13,796 --> 00:28:15,146
+you can have your array
+
+
+904
+00:28:15,146 --> 00:28:16,896
+controller manage an array of
+
+
+905
+00:28:16,896 --> 00:28:19,846
+whatever class you like or a
+
+
+906
+00:28:19,846 --> 00:28:20,746
+Core Data entity.
+
+
+907
+00:28:21,306 --> 00:28:22,606
+And we're going to use an
+
+
+908
+00:28:22,606 --> 00:28:24,426
+NSMutableDictionary as a default
+
+
+909
+00:28:24,556 --> 00:28:25,836
+since that just lets us get
+
+
+910
+00:28:25,836 --> 00:28:26,586
+things up and running.
+
+
+911
+00:28:26,926 --> 00:28:28,346
+So, we want our table view to
+
+
+912
+00:28:28,346 --> 00:28:30,526
+show our list of cats and we can
+
+
+913
+00:28:30,526 --> 00:28:33,516
+do that by drilling down into
+
+
+914
+00:28:33,576 --> 00:28:35,136
+our table view until we get to
+
+
+915
+00:28:35,136 --> 00:28:36,166
+the table column.
+
+
+916
+00:28:36,816 --> 00:28:38,356
+And we can go over here to the
+
+
+917
+00:28:38,356 --> 00:28:39,996
+Bindings Inspector, it's in the
+
+
+918
+00:28:39,996 --> 00:28:41,276
+upper right it's that little
+
+
+919
+00:28:41,276 --> 00:28:44,436
+swirly boxy looking thing and we
+
+
+920
+00:28:44,436 --> 00:28:45,386
+can click on that.
+
+
+921
+00:28:45,496 --> 00:28:49,196
+And bind the value of the table
+
+
+922
+00:28:49,196 --> 00:28:51,556
+column to the array controller's
+
+
+923
+00:28:51,556 --> 00:28:52,756
+arranged objects.
+
+
+924
+00:28:53,136 --> 00:28:54,396
+And the arranged objects is a
+
+
+925
+00:28:54,396 --> 00:28:56,356
+property on the array controller
+
+
+926
+00:28:56,356 --> 00:28:57,836
+that is your array of cats
+
+
+927
+00:28:57,836 --> 00:28:59,656
+that's meant for the view side
+
+
+928
+00:29:00,206 --> 00:29:01,146
+of things.
+
+
+929
+00:29:01,326 --> 00:29:03,846
+So now our table view will
+
+
+930
+00:29:03,846 --> 00:29:06,606
+create a row for each cat in our
+
+
+931
+00:29:06,606 --> 00:29:09,056
+array and that means it will
+
+
+932
+00:29:09,056 --> 00:29:10,756
+create a table cell view for
+
+
+933
+00:29:10,756 --> 00:29:13,046
+each cat in our array and have
+
+
+934
+00:29:13,046 --> 00:29:14,776
+the object value of that cell
+
+
+935
+00:29:14,776 --> 00:29:16,476
+view set to that particular cat.
+
+
+936
+00:29:17,346 --> 00:29:18,666
+So, we can go into our table
+
+
+937
+00:29:18,666 --> 00:29:20,926
+cell view and we have an image
+
+
+938
+00:29:20,926 --> 00:29:23,676
+view, a thumbnail and the label
+
+
+939
+00:29:23,676 --> 00:29:24,286
+for the name.
+
+
+940
+00:29:24,976 --> 00:29:26,586
+And we can go ahead over back
+
+
+941
+00:29:26,586 --> 00:29:28,376
+again to our Bindings Inspector
+
+
+942
+00:29:28,896 --> 00:29:31,196
+and select bind to the table
+
+
+943
+00:29:31,196 --> 00:29:33,076
+cell view's object value and
+
+
+944
+00:29:33,076 --> 00:29:34,316
+that object value again is going
+
+
+945
+00:29:34,316 --> 00:29:35,366
+to be one of our cats.
+
+
+946
+00:29:35,876 --> 00:29:38,466
+And we can keyPath into that and
+
+
+947
+00:29:38,466 --> 00:29:41,516
+specify the name of the cat and
+
+
+948
+00:29:41,516 --> 00:29:42,656
+it will look that up in the
+
+
+949
+00:29:42,656 --> 00:29:44,826
+dictionary and show it.
+
+
+950
+00:29:45,016 --> 00:29:48,036
+Similarly, we combined the photo
+
+
+951
+00:29:48,336 --> 00:29:51,066
+of the cat to the image view
+
+
+952
+00:29:51,066 --> 00:29:55,246
+here just like that.
+
+
+953
+00:29:55,356 --> 00:29:57,406
+Now that's our table view that's
+
+
+954
+00:29:57,406 --> 00:29:59,436
+it, it's now bound and wired up
+
+
+955
+00:29:59,436 --> 00:30:00,386
+to the array controller and
+
+
+956
+00:30:00,386 --> 00:30:00,976
+it'll show its contents.
+
+
+957
+00:30:02,146 --> 00:30:03,646
+Next up we have these buttons
+
+
+958
+00:30:03,646 --> 00:30:06,816
+here in the corner, so array
+
+
+959
+00:30:06,816 --> 00:30:08,916
+controller actually has ID
+
+
+960
+00:30:08,916 --> 00:30:11,206
+actions for adding and removing
+
+
+961
+00:30:11,346 --> 00:30:12,266
+objects.
+
+
+962
+00:30:13,426 --> 00:30:15,426
+And the add method does about
+
+
+963
+00:30:15,426 --> 00:30:16,776
+what you'd expect, it creates a
+
+
+964
+00:30:16,776 --> 00:30:18,226
+new instance of the object it's
+
+
+965
+00:30:18,226 --> 00:30:19,706
+managing, in our case an
+
+
+966
+00:30:19,706 --> 00:30:21,246
+NSMutableDictionary and adds it
+
+
+967
+00:30:21,246 --> 00:30:23,016
+to the array so we can just wire
+
+
+968
+00:30:23,016 --> 00:30:23,436
+that up.
+
+
+969
+00:30:23,976 --> 00:30:26,656
+And there's also of course, a
+
+
+970
+00:30:26,656 --> 00:30:28,526
+remove action that does what we
+
+
+971
+00:30:28,526 --> 00:30:30,946
+expect, it takes the selected
+
+
+972
+00:30:30,946 --> 00:30:32,386
+items and removes them from the
+
+
+973
+00:30:32,386 --> 00:30:32,716
+array.
+
+
+974
+00:30:33,966 --> 00:30:35,856
+And of course, we need to add
+
+
+975
+00:30:35,856 --> 00:30:37,426
+some bells and whistles to our
+
+
+976
+00:30:37,426 --> 00:30:39,316
+application, that is what we're
+
+
+977
+00:30:39,316 --> 00:30:40,026
+known for.
+
+
+978
+00:30:41,576 --> 00:30:45,736
+Just like that and that's the
+
+
+979
+00:30:45,736 --> 00:30:46,106
+buttons.
+
+
+980
+00:30:46,626 --> 00:30:47,846
+All that's left now is the
+
+
+981
+00:30:47,846 --> 00:30:49,196
+detail view on the side.
+
+
+982
+00:30:50,406 --> 00:30:53,696
+So, we can go back to our text
+
+
+983
+00:30:53,696 --> 00:30:55,166
+field -- go to our text field
+
+
+984
+00:30:55,166 --> 00:30:56,866
+here that is the name that will
+
+
+985
+00:30:56,866 --> 00:30:58,516
+allow us to edit the name and we
+
+
+986
+00:30:58,516 --> 00:30:59,686
+go back to the Bindings
+
+
+987
+00:30:59,686 --> 00:31:02,216
+Inspector and we can bind to the
+
+
+988
+00:31:02,216 --> 00:31:03,686
+array controller selection.
+
+
+989
+00:31:03,946 --> 00:31:05,316
+And the selection of an array
+
+
+990
+00:31:05,316 --> 00:31:07,106
+controller it's a property and
+
+
+991
+00:31:07,106 --> 00:31:08,326
+it's a proxy object that
+
+
+992
+00:31:08,326 --> 00:31:09,506
+represents the currently
+
+
+993
+00:31:09,506 --> 00:31:11,856
+selected items in the array.
+
+
+994
+00:31:12,486 --> 00:31:13,936
+So, we can keyPath into that
+
+
+995
+00:31:13,936 --> 00:31:15,896
+selection to actually allow us
+
+
+996
+00:31:15,936 --> 00:31:18,526
+to edit and show the name of our
+
+
+997
+00:31:19,746 --> 00:31:21,466
+cat and similarly, we can do the
+
+
+998
+00:31:21,466 --> 00:31:23,696
+same thing with the selection
+
+
+999
+00:31:23,786 --> 00:31:28,616
+for the photo and that's it.
+
+
+1000
+00:31:28,616 --> 00:31:29,636
+We've now wired up our
+
+
+1001
+00:31:29,996 --> 00:31:32,346
+application with no code.
+
+
+1002
+00:31:32,876 --> 00:31:33,976
+So, let's go ahead and run it.
+
+
+1003
+00:31:39,046 --> 00:31:42,166
+And we can add our cats, give
+
+
+1004
+00:31:42,166 --> 00:31:46,266
+them names, give them pictures,
+
+
+1005
+00:31:47,596 --> 00:31:51,146
+add more cats, it's a really
+
+
+1006
+00:31:51,886 --> 00:31:53,796
+amazing application it's so
+
+
+1007
+00:31:53,796 --> 00:31:54,136
+handy.
+
+
+1008
+00:31:55,366 --> 00:31:58,346
+And since we're using bindings
+
+
+1009
+00:31:58,346 --> 00:32:00,146
+you can update these and they'll
+
+
+1010
+00:32:00,146 --> 00:32:01,446
+get updated immediately in the
+
+
+1011
+00:32:01,446 --> 00:32:02,246
+table view.
+
+
+1012
+00:32:02,906 --> 00:32:04,336
+Just like that we can drag in a
+
+
+1013
+00:32:04,336 --> 00:32:07,666
+new picture or a Quick Look and
+
+
+1014
+00:32:07,666 --> 00:32:09,326
+drag in a new picture and it
+
+
+1015
+00:32:09,326 --> 00:32:10,556
+gets updated in the table view
+
+
+1016
+00:32:10,556 --> 00:32:10,886
+as well.
+
+
+1017
+00:32:11,476 --> 00:32:13,126
+And of course, we need to make
+
+
+1018
+00:32:13,126 --> 00:32:14,296
+sure our bells and whistles are
+
+
+1019
+00:32:14,786 --> 00:32:16,046
+working [sound effect], great.
+
+
+1020
+00:32:17,196 --> 00:32:17,976
+So that's bindings.
+
+
+1021
+00:32:18,516 --> 00:32:21,766
+[ Applause ]
+
+
+1022
+00:32:22,266 --> 00:32:24,356
+So, you can use bindings to wire
+
+
+1023
+00:32:24,356 --> 00:32:25,906
+up your user interface to your
+
+
+1024
+00:32:25,906 --> 00:32:27,436
+model without having to write
+
+
+1025
+00:32:27,436 --> 00:32:29,486
+any of that glue code.
+
+
+1026
+00:32:29,486 --> 00:32:31,686
+Next steps might be using a real
+
+
+1027
+00:32:31,686 --> 00:32:33,096
+cat class instead of a
+
+
+1028
+00:32:33,096 --> 00:32:35,266
+dictionary or even a Core Data
+
+
+1029
+00:32:35,266 --> 00:32:36,856
+entity that way you'll get
+
+
+1030
+00:32:36,996 --> 00:32:39,056
+persistent -- your list of cats
+
+
+1031
+00:32:39,056 --> 00:32:39,566
+will persist.
+
+
+1032
+00:32:40,036 --> 00:32:43,026
+But you'll never have to write
+
+
+1033
+00:32:43,026 --> 00:32:44,956
+and for that you will have to
+
+
+1034
+00:32:44,956 --> 00:32:46,566
+write some code, but you won't
+
+
+1035
+00:32:46,566 --> 00:32:48,136
+have to write that glue code for
+
+
+1036
+00:32:48,136 --> 00:32:50,296
+your user interfaces and that's
+
+
+1037
+00:32:50,296 --> 00:32:50,636
+bindings.
+
+
+1038
+00:32:51,206 --> 00:32:51,906
+And back to Rachel.
+
+
+1039
+00:32:52,096 --> 00:32:54,686
+>> Okay, so number 29 may have
+
+
+1040
+00:32:54,686 --> 00:32:56,926
+seemed like the end, but we have
+
+
+1041
+00:32:57,336 --> 00:32:59,446
+tip and plus one, add your own
+
+
+1042
+00:32:59,446 --> 00:32:59,896
+tips.
+
+
+1043
+00:33:00,176 --> 00:33:01,346
+Some ideas for how to get
+
+
+1044
+00:33:01,346 --> 00:33:02,506
+information and learn more.
+
+
+1045
+00:33:03,056 --> 00:33:04,656
+We have new revised
+
+
+1046
+00:33:04,656 --> 00:33:06,906
+documentation this year, topics
+
+
+1047
+00:33:06,906 --> 00:33:07,596
+are grouped by task.
+
+
+1048
+00:33:08,376 --> 00:33:09,796
+There's a hierarchical structure
+
+
+1049
+00:33:09,796 --> 00:33:11,216
+that allows you to drill down,
+
+
+1050
+00:33:11,566 --> 00:33:13,186
+such as this example of going
+
+
+1051
+00:33:13,186 --> 00:33:14,846
+down and looking at NSView.
+
+
+1052
+00:33:15,756 --> 00:33:17,336
+There's three different styles
+
+
+1053
+00:33:17,336 --> 00:33:18,386
+of presentation, there's
+
+
+1054
+00:33:18,386 --> 00:33:20,636
+reference documents, there's
+
+
+1055
+00:33:20,636 --> 00:33:23,396
+conceptual articles and sample
+
+
+1056
+00:33:23,396 --> 00:33:23,716
+code.
+
+
+1057
+00:33:23,716 --> 00:33:24,806
+So, there's different ways of
+
+
+1058
+00:33:24,806 --> 00:33:25,806
+approaching the material.
+
+
+1059
+00:33:27,096 --> 00:33:28,626
+We also highly recommend that
+
+
+1060
+00:33:28,626 --> 00:33:29,826
+people check out the release
+
+
+1061
+00:33:29,826 --> 00:33:31,196
+notes on all of our platforms.
+
+
+1062
+00:33:31,636 --> 00:33:32,966
+This is information straight
+
+
+1063
+00:33:32,966 --> 00:33:34,266
+from the engineer's fingertips
+
+
+1064
+00:33:34,266 --> 00:33:35,356
+about what's new in every
+
+
+1065
+00:33:35,356 --> 00:33:35,916
+release.
+
+
+1066
+00:33:37,216 --> 00:33:38,736
+Header files are always a good
+
+
+1067
+00:33:38,736 --> 00:33:40,186
+source of information with line
+
+
+1068
+00:33:40,186 --> 00:33:42,006
+by line comments about all of
+
+
+1069
+00:33:42,006 --> 00:33:43,546
+our APIs.
+
+
+1070
+00:33:44,356 --> 00:33:46,046
+On Wednesday in what's new in
+
+
+1071
+00:33:46,046 --> 00:33:48,326
+Cocoa we asked people to tweet
+
+
+1072
+00:33:48,326 --> 00:33:50,076
+their own Cocoa development tips
+
+
+1073
+00:33:50,836 --> 00:33:52,206
+and we collected some of our
+
+
+1074
+00:33:52,206 --> 00:33:53,186
+favorites from Twitter.
+
+
+1075
+00:33:53,296 --> 00:33:54,766
+It was hard to choose, but
+
+
+1076
+00:33:54,766 --> 00:33:56,586
+here's some of the tips that we
+
+
+1077
+00:33:56,586 --> 00:33:56,806
+liked.
+
+
+1078
+00:33:57,176 --> 00:34:00,076
+NSHashTable is like NSSet, but
+
+
+1079
+00:34:00,076 --> 00:34:01,276
+it can contain arbitrary
+
+
+1080
+00:34:01,276 --> 00:34:02,646
+pointers such as void star.
+
+
+1081
+00:34:03,256 --> 00:34:04,506
+And also, you can weekly
+
+
+1082
+00:34:04,506 --> 00:34:05,646
+reference objects from
+
+
+1083
+00:34:05,686 --> 00:34:06,456
+NSHashTable.
+
+
+1084
+00:34:09,656 --> 00:34:11,246
+Sometimes generics in
+
+
+1085
+00:34:11,246 --> 00:34:12,576
+Objective-C are a little bit
+
+
+1086
+00:34:12,576 --> 00:34:14,235
+cumbersome looking and you can
+
+
+1087
+00:34:14,235 --> 00:34:16,286
+use a typedef to simplify the
+
+
+1088
+00:34:16,286 --> 00:34:17,646
+way they look and clean up your
+
+
+1089
+00:34:17,646 --> 00:34:17,976
+code.
+
+
+1090
+00:34:19,416 --> 00:34:21,306
+In Swift, you can use typealias
+
+
+1091
+00:34:21,306 --> 00:34:22,235
+to do the same thing.
+
+
+1092
+00:34:26,516 --> 00:34:28,266
+And if you're coming to the Mac
+
+
+1093
+00:34:28,456 --> 00:34:31,835
+from iOS you may remember that
+
+
+1094
+00:34:31,976 --> 00:34:33,856
+NSWindowController is often a
+
+
+1095
+00:34:33,856 --> 00:34:35,065
+class that you want to use
+
+
+1096
+00:34:35,065 --> 00:34:36,565
+rather than NSViewController.
+
+
+1097
+00:34:37,096 --> 00:34:40,286
+So, check it out and think about
+
+
+1098
+00:34:41,146 --> 00:34:41,235
+it.
+
+
+1099
+00:34:41,496 --> 00:34:44,176
+And our last tip from Twitter is
+
+
+1100
+00:34:44,496 --> 00:34:46,315
+that in Xcode you can use Add
+
+
+1101
+00:34:46,496 --> 00:34:48,436
+Expression to get Quick Look
+
+
+1102
+00:34:48,436 --> 00:34:49,596
+previews for arbitrary
+
+
+1103
+00:34:49,596 --> 00:34:50,186
+addresses.
+
+
+1104
+00:34:50,826 --> 00:34:53,235
+So, here are some screenshots
+
+
+1105
+00:34:53,235 --> 00:34:54,196
+showing how that would work.
+
+
+1106
+00:34:54,886 --> 00:34:56,545
+I'm stopped in the debugger and
+
+
+1107
+00:34:56,846 --> 00:34:59,656
+I print out the image, this add
+
+
+1108
+00:34:59,796 --> 00:35:01,216
+cat image.
+
+
+1109
+00:35:01,516 --> 00:35:04,476
+I grab the pointer here and I
+
+
+1110
+00:35:04,476 --> 00:35:06,476
+can use the Add Expression menu
+
+
+1111
+00:35:06,476 --> 00:35:09,926
+item and paste in my image
+
+
+1112
+00:35:09,926 --> 00:35:10,336
+pointer.
+
+
+1113
+00:35:10,836 --> 00:35:15,276
+And then if I hit the spacebar
+
+
+1114
+00:35:15,276 --> 00:35:17,936
+I'll get a Quick Look preview of
+
+
+1115
+00:35:17,996 --> 00:35:18,626
+my image.
+
+
+1116
+00:35:20,216 --> 00:35:21,926
+There's documentation on how to
+
+
+1117
+00:35:21,926 --> 00:35:23,936
+make your own classes Quick
+
+
+1118
+00:35:23,936 --> 00:35:25,676
+Lookable, so check that out.
+
+
+1119
+00:35:25,676 --> 00:35:30,036
+And we've come to the end.
+
+
+1120
+00:35:30,426 --> 00:35:32,286
+For more information, you can go
+
+
+1121
+00:35:32,286 --> 00:35:35,086
+to this page, we have several
+
+
+1122
+00:35:35,086 --> 00:35:36,526
+related sessions that are all in
+
+
+1123
+00:35:36,526 --> 00:35:36,726
+the past.
+
+
+1124
+00:35:37,236 --> 00:35:39,086
+Check them out on video and, you
+
+
+1125
+00:35:39,086 --> 00:35:40,736
+know, cats because we all want
+
+
+1126
+00:35:40,736 --> 00:35:40,976
+to see them.
+
+
+1127
+00:35:44,046 --> 00:35:44,976
+Thanks for being here.
+

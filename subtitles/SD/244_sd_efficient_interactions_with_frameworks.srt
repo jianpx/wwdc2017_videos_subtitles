@@ -1,0 +1,6859 @@
+1
+00:00:20,516 --> 00:00:24,086
+[ Applause ]
+
+
+2
+00:00:24,586 --> 00:00:25,246
+>> Good afternoon.
+
+
+3
+00:00:25,356 --> 00:00:26,606
+My name is Phillipe Hausler, and
+
+
+4
+00:00:26,606 --> 00:00:27,726
+I'm here today, with my
+
+
+5
+00:00:27,726 --> 00:00:28,686
+colleague, Donna Tom.
+
+
+6
+00:00:28,726 --> 00:00:29,816
+And we're going to talk about
+
+
+7
+00:00:29,816 --> 00:00:30,996
+Efficient Interaction with
+
+
+8
+00:00:31,066 --> 00:00:31,686
+Frameworks.
+
+
+9
+00:00:32,566 --> 00:00:34,566
+Now, we all care very deeply
+
+
+10
+00:00:34,566 --> 00:00:35,776
+about performance.
+
+
+11
+00:00:35,896 --> 00:00:37,596
+We want our laptops to be fast.
+
+
+12
+00:00:37,596 --> 00:00:39,376
+We want our phones and tablets
+
+
+13
+00:00:39,376 --> 00:00:41,126
+to have all day battery life.
+
+
+14
+00:00:41,176 --> 00:00:42,816
+And we want to do amazing things
+
+
+15
+00:00:42,816 --> 00:00:43,776
+with our desktops.
+
+
+16
+00:00:43,966 --> 00:00:45,476
+As a matter of fact, all of
+
+
+17
+00:00:45,476 --> 00:00:46,886
+these devices should have great
+
+
+18
+00:00:46,926 --> 00:00:47,636
+performance.
+
+
+19
+00:00:48,066 --> 00:00:49,826
+And it's our jobs to be able to
+
+
+20
+00:00:49,826 --> 00:00:50,656
+make that happen.
+
+
+21
+00:00:52,236 --> 00:00:53,376
+Now, performance has many
+
+
+22
+00:00:53,376 --> 00:00:54,066
+dimensions.
+
+
+23
+00:00:54,256 --> 00:00:56,396
+How fast code can run, how much
+
+
+24
+00:00:56,396 --> 00:00:57,446
+power it takes.
+
+
+25
+00:00:57,666 --> 00:00:59,166
+Or what the memory footprint of
+
+
+26
+00:00:59,166 --> 00:00:59,776
+that is.
+
+
+27
+00:01:00,106 --> 00:01:01,156
+Since, there are multiple
+
+
+28
+00:01:01,156 --> 00:01:02,886
+dimensions, how can we visualize
+
+
+29
+00:01:02,946 --> 00:01:03,766
+this a little bit better?
+
+
+30
+00:01:04,686 --> 00:01:06,296
+To give you a framework, no pun
+
+
+31
+00:01:06,296 --> 00:01:08,356
+intended, for visualizing this.
+
+
+32
+00:01:08,356 --> 00:01:09,786
+You can think of it as a graph
+
+
+33
+00:01:09,916 --> 00:01:11,276
+with the size of the data that
+
+
+34
+00:01:11,276 --> 00:01:12,766
+you're working with on one axis
+
+
+35
+00:01:13,136 --> 00:01:14,716
+and the frequency on another.
+
+
+36
+00:01:15,456 --> 00:01:17,196
+If you're looking at a lot of
+
+
+37
+00:01:17,196 --> 00:01:18,896
+data and code that runs very
+
+
+38
+00:01:18,896 --> 00:01:20,516
+frequently, you're going to be
+
+
+39
+00:01:20,516 --> 00:01:22,356
+up there in that first quadrant.
+
+
+40
+00:01:22,646 --> 00:01:24,146
+And these are going to be things
+
+
+41
+00:01:24,146 --> 00:01:25,126
+that are going to be likely to
+
+
+42
+00:01:25,126 --> 00:01:26,646
+be able to make a notable impact
+
+
+43
+00:01:26,646 --> 00:01:27,486
+upon performance.
+
+
+44
+00:01:27,886 --> 00:01:29,006
+And you're going to want to
+
+
+45
+00:01:29,006 --> 00:01:30,936
+spend time optimizing these
+
+
+46
+00:01:30,936 --> 00:01:31,576
+cases.
+
+
+47
+00:01:32,486 --> 00:01:33,716
+But if you're looking at
+
+
+48
+00:01:33,826 --> 00:01:35,166
+something that works with just a
+
+
+49
+00:01:35,166 --> 00:01:36,746
+little bit of data and runs just
+
+
+50
+00:01:36,746 --> 00:01:37,536
+a few times.
+
+
+51
+00:01:37,536 --> 00:01:38,436
+You're going to be down there in
+
+
+52
+00:01:38,436 --> 00:01:39,466
+that third quadrant.
+
+
+53
+00:01:39,766 --> 00:01:41,626
+And to be honest, you really
+
+
+54
+00:01:41,626 --> 00:01:42,656
+don't want to spend a whole lot
+
+
+55
+00:01:42,656 --> 00:01:44,146
+of time worrying about them, too
+
+
+56
+00:01:44,146 --> 00:01:44,616
+much.
+
+
+57
+00:01:45,546 --> 00:01:47,636
+It's that second and fourth
+
+
+58
+00:01:47,636 --> 00:01:48,776
+quadrant that are a bit
+
+
+59
+00:01:48,776 --> 00:01:49,316
+trickier.
+
+
+60
+00:01:49,726 --> 00:01:51,346
+These are gray areas that are
+
+
+61
+00:01:51,346 --> 00:01:52,476
+highly dependent upon the
+
+
+62
+00:01:52,476 --> 00:01:53,336
+situation.
+
+
+63
+00:01:53,426 --> 00:01:54,766
+And in these cases, you'll most
+
+
+64
+00:01:54,766 --> 00:01:55,896
+certainly want to be able to
+
+
+65
+00:01:55,896 --> 00:01:57,056
+measure the performance in a
+
+
+66
+00:01:57,056 --> 00:01:59,216
+scenario that reflects actual
+
+
+67
+00:01:59,216 --> 00:01:59,876
+usage.
+
+
+68
+00:02:00,266 --> 00:02:01,806
+And then, use that information
+
+
+69
+00:02:01,806 --> 00:02:03,156
+to be able to evaluate whether
+
+
+70
+00:02:03,156 --> 00:02:04,446
+it's worth your time to be able
+
+
+71
+00:02:04,446 --> 00:02:05,466
+to make changes.
+
+
+72
+00:02:06,036 --> 00:02:09,096
+In this release, we took a deep
+
+
+73
+00:02:09,156 --> 00:02:10,856
+look to be able to understand
+
+
+74
+00:02:10,856 --> 00:02:11,806
+how we could make performance
+
+
+75
+00:02:11,806 --> 00:02:12,946
+better across the operating
+
+
+76
+00:02:12,946 --> 00:02:13,406
+system.
+
+
+77
+00:02:13,686 --> 00:02:15,116
+But for your apps, as well.
+
+
+78
+00:02:15,886 --> 00:02:17,466
+We will go over a few really
+
+
+79
+00:02:17,466 --> 00:02:18,716
+awesome changes that we made in
+
+
+80
+00:02:18,716 --> 00:02:19,356
+Foundation.
+
+
+81
+00:02:20,276 --> 00:02:21,526
+And of course, Swift has been a
+
+
+82
+00:02:21,666 --> 00:02:23,716
+big part of this release, as we
+
+
+83
+00:02:23,716 --> 00:02:25,376
+took a long hard look at how
+
+
+84
+00:02:25,376 --> 00:02:26,866
+bridging works for some of the
+
+
+85
+00:02:26,866 --> 00:02:27,786
+Foundation types.
+
+
+86
+00:02:28,026 --> 00:02:30,296
+To be able to make them faster
+
+
+87
+00:02:30,296 --> 00:02:31,346
+and work better in your
+
+
+88
+00:02:31,346 --> 00:02:32,226
+applications.
+
+
+89
+00:02:33,676 --> 00:02:35,146
+Now, strings are, of course, are
+
+
+90
+00:02:35,146 --> 00:02:36,986
+a huge part of many apps.
+
+
+91
+00:02:37,086 --> 00:02:38,896
+They're used as tokens, human
+
+
+92
+00:02:38,896 --> 00:02:40,466
+readable data formats, and
+
+
+93
+00:02:40,466 --> 00:02:41,636
+displaying to the screen.
+
+
+94
+00:02:42,066 --> 00:02:44,056
+And efficient string handling
+
+
+95
+00:02:44,296 --> 00:02:45,856
+makes a big impact on many
+
+
+96
+00:02:45,856 --> 00:02:46,596
+applications.
+
+
+97
+00:02:46,686 --> 00:02:48,486
+And often is a huge part of the
+
+
+98
+00:02:48,486 --> 00:02:50,326
+critical content being displayed
+
+
+99
+00:02:50,326 --> 00:02:51,036
+to users.
+
+
+100
+00:02:52,136 --> 00:02:53,086
+But of course, the reason why
+
+
+101
+00:02:53,176 --> 00:02:54,986
+you are here, is you want to
+
+
+102
+00:02:54,986 --> 00:02:56,586
+make your app run faster.
+
+
+103
+00:02:56,746 --> 00:02:58,126
+You want to use less energy.
+
+
+104
+00:02:58,436 --> 00:02:59,736
+You want to get more things done
+
+
+105
+00:02:59,766 --> 00:03:00,486
+with less RAM.
+
+
+106
+00:03:00,526 --> 00:03:02,456
+And don't worry, we'll get to
+
+
+107
+00:03:02,456 --> 00:03:03,996
+that on each of the sections
+
+
+108
+00:03:03,996 --> 00:03:05,396
+that we're going to be talking,
+
+
+109
+00:03:05,396 --> 00:03:06,016
+today, about.
+
+
+110
+00:03:06,356 --> 00:03:07,486
+To give you things to keep in
+
+
+111
+00:03:07,486 --> 00:03:08,756
+mind when optimizing for
+
+
+112
+00:03:08,996 --> 00:03:10,366
+performance.
+
+
+113
+00:03:11,596 --> 00:03:13,826
+Now, as I said, we made a number
+
+
+114
+00:03:13,826 --> 00:03:14,816
+of performance improvements
+
+
+115
+00:03:14,816 --> 00:03:16,216
+across the operating system.
+
+
+116
+00:03:16,556 --> 00:03:18,126
+And in Foundation, we made some
+
+
+117
+00:03:18,126 --> 00:03:19,276
+pretty nice changes.
+
+
+118
+00:03:19,416 --> 00:03:20,736
+These are just a few of the
+
+
+119
+00:03:20,736 --> 00:03:21,546
+highlights.
+
+
+120
+00:03:22,366 --> 00:03:24,186
+We overhauled NSCalendar for
+
+
+121
+00:03:24,186 --> 00:03:25,916
+date enumeration, not only to
+
+
+122
+00:03:25,916 --> 00:03:28,116
+use less memory, but also, it's
+
+
+123
+00:03:28,116 --> 00:03:29,236
+much faster, too.
+
+
+124
+00:03:29,806 --> 00:03:31,126
+And trust me when I say,
+
+
+125
+00:03:31,126 --> 00:03:33,206
+calendrical calculations are
+
+
+126
+00:03:33,406 --> 00:03:34,686
+really tricky to get right.
+
+
+127
+00:03:35,186 --> 00:03:37,696
+And then, this update, the
+
+
+128
+00:03:37,696 --> 00:03:39,716
+NSCalendar implementation is not
+
+
+129
+00:03:39,716 --> 00:03:41,646
+only faster, but also, corrects
+
+
+130
+00:03:41,646 --> 00:03:43,166
+some outstanding Edge cases that
+
+
+131
+00:03:43,166 --> 00:03:44,196
+have been lurking around for a
+
+
+132
+00:03:44,196 --> 00:03:44,776
+while, now.
+
+
+133
+00:03:46,106 --> 00:03:48,306
+But when making changes, you
+
+
+134
+00:03:48,306 --> 00:03:49,706
+have to consider the scale at
+
+
+135
+00:03:49,706 --> 00:03:50,856
+which that change will impact.
+
+
+136
+00:03:51,456 --> 00:03:52,766
+And in Foundation and Core
+
+
+137
+00:03:52,766 --> 00:03:54,526
+Foundation, we took a number of
+
+
+138
+00:03:54,526 --> 00:03:56,306
+places where the small things
+
+
+139
+00:03:56,306 --> 00:03:57,016
+that would add up.
+
+
+140
+00:03:57,466 --> 00:03:59,036
+And we looked at a deep dive of
+
+
+141
+00:03:59,036 --> 00:04:00,496
+how thread-safe operations in
+
+
+142
+00:04:00,496 --> 00:04:01,466
+Foundation work.
+
+
+143
+00:04:01,676 --> 00:04:03,186
+And decided to migrate to using
+
+
+144
+00:04:03,186 --> 00:04:04,906
+Atomics and OS and Fairlock,
+
+
+145
+00:04:05,226 --> 00:04:06,636
+which in the end, ends up
+
+
+146
+00:04:06,636 --> 00:04:07,726
+playing a lot better with
+
+
+147
+00:04:07,726 --> 00:04:08,866
+quality of service.
+
+
+148
+00:04:10,056 --> 00:04:11,966
+Now, speaking of quality of
+
+
+149
+00:04:11,966 --> 00:04:13,836
+service, NSOperation and
+
+
+150
+00:04:13,836 --> 00:04:15,576
+OperationQueue have been also
+
+
+151
+00:04:15,576 --> 00:04:17,716
+overhauled to have more correct
+
+
+152
+00:04:17,716 --> 00:04:18,796
+implementation, whenever it
+
+
+153
+00:04:18,796 --> 00:04:19,796
+comes to their quality of
+
+
+154
+00:04:19,796 --> 00:04:20,386
+service.
+
+
+155
+00:04:20,886 --> 00:04:22,016
+You'll see some pretty neat
+
+
+156
+00:04:22,016 --> 00:04:23,326
+performance improvements, as
+
+
+157
+00:04:23,326 --> 00:04:23,686
+well.
+
+
+158
+00:04:24,046 --> 00:04:26,016
+And in heavy cases, we've seen
+
+
+159
+00:04:26,016 --> 00:04:28,326
+up to 25% improvement on
+
+
+160
+00:04:28,326 --> 00:04:30,116
+queueing operations, just to
+
+
+161
+00:04:30,116 --> 00:04:31,346
+point out one highlight.
+
+
+162
+00:04:31,896 --> 00:04:34,836
+And after working for a while,
+
+
+163
+00:04:34,836 --> 00:04:37,486
+now, in Swift, we realized that
+
+
+164
+00:04:37,486 --> 00:04:39,176
+copy on write is pretty
+
+
+165
+00:04:39,176 --> 00:04:40,066
+fantastic.
+
+
+166
+00:04:40,546 --> 00:04:42,746
+And in Foundation, a number of
+
+
+167
+00:04:42,746 --> 00:04:44,786
+the collection types will now
+
+
+168
+00:04:44,786 --> 00:04:46,196
+use copy on write as their
+
+
+169
+00:04:46,196 --> 00:04:47,246
+backing storage.
+
+
+170
+00:04:48,606 --> 00:04:50,486
+So, what's this whole copy on
+
+
+171
+00:04:50,486 --> 00:04:51,066
+write thing?
+
+
+172
+00:04:51,666 --> 00:04:54,026
+Copy on write is a mechanism, or
+
+
+173
+00:04:54,316 --> 00:04:57,426
+COW for short, where two items
+
+
+174
+00:04:57,426 --> 00:04:58,726
+can point to a shared backing
+
+
+175
+00:04:58,726 --> 00:05:01,016
+store until a mutation occurs.
+
+
+176
+00:05:01,656 --> 00:05:03,436
+And when that mutation happens,
+
+
+177
+00:05:03,616 --> 00:05:05,646
+the mutating party copies that
+
+
+178
+00:05:05,646 --> 00:05:06,946
+backing storage to be able to
+
+
+179
+00:05:06,946 --> 00:05:08,406
+allow for the write to happen.
+
+
+180
+00:05:08,946 --> 00:05:11,316
+So, in short, copying isn't
+
+
+181
+00:05:11,316 --> 00:05:12,436
+costly, anymore.
+
+
+182
+00:05:12,926 --> 00:05:14,126
+This means that whenever you
+
+
+183
+00:05:14,126 --> 00:05:15,726
+defensively copy a mutable
+
+
+184
+00:05:15,726 --> 00:05:17,976
+container, it's almost free.
+
+
+185
+00:05:19,056 --> 00:05:20,936
+And before, copies of
+
+
+186
+00:05:20,936 --> 00:05:23,066
+collections were at best, linear
+
+
+187
+00:05:23,066 --> 00:05:24,096
+execution time.
+
+
+188
+00:05:24,556 --> 00:05:26,346
+And now, whenever you copy them,
+
+
+189
+00:05:26,506 --> 00:05:28,716
+they're constant until a shared
+
+
+190
+00:05:28,716 --> 00:05:29,306
+mutation.
+
+
+191
+00:05:30,076 --> 00:05:31,376
+So, let's pull that apart a
+
+
+192
+00:05:31,376 --> 00:05:33,376
+little bit and understand how
+
+
+193
+00:05:33,376 --> 00:05:34,556
+it's working, under the hood.
+
+
+194
+00:05:34,556 --> 00:05:37,466
+So, in this particular example,
+
+
+195
+00:05:37,466 --> 00:05:38,866
+we're creating a new mutable
+
+
+196
+00:05:38,866 --> 00:05:39,126
+array.
+
+
+197
+00:05:39,726 --> 00:05:42,376
+And when this happens, we
+
+
+198
+00:05:42,376 --> 00:05:44,026
+initially have a COW backing
+
+
+199
+00:05:44,026 --> 00:05:46,006
+store that holds zero items.
+
+
+200
+00:05:47,036 --> 00:05:49,476
+So, we do some extra work and in
+
+
+201
+00:05:49,666 --> 00:05:51,526
+our application, we then call
+
+
+202
+00:05:51,526 --> 00:05:51,946
+copy.
+
+
+203
+00:05:52,646 --> 00:05:53,766
+In this particular case, we're
+
+
+204
+00:05:53,766 --> 00:05:55,996
+assigning B as a copy of A.
+
+
+205
+00:05:56,666 --> 00:05:58,486
+And whenever that copy has
+
+
+206
+00:05:58,486 --> 00:06:00,216
+occurred, the only price that
+
+
+207
+00:06:00,216 --> 00:06:02,316
+you pay in your application is
+
+
+208
+00:06:02,316 --> 00:06:04,276
+the allocation of the new
+
+
+209
+00:06:04,276 --> 00:06:04,926
+collection.
+
+
+210
+00:06:05,276 --> 00:06:06,696
+You don't have to actually copy
+
+
+211
+00:06:06,696 --> 00:06:07,566
+any of the items.
+
+
+212
+00:06:07,836 --> 00:06:09,116
+So, in this case, we're still
+
+
+213
+00:06:09,116 --> 00:06:10,626
+pointing to the same backing
+
+
+214
+00:06:10,626 --> 00:06:13,346
+store that holds zero items.
+
+
+215
+00:06:13,856 --> 00:06:16,486
+So, later on, if we were to make
+
+
+216
+00:06:16,486 --> 00:06:18,756
+a mutation, then what will
+
+
+217
+00:06:18,756 --> 00:06:21,616
+happen is that the copying party
+
+
+218
+00:06:21,966 --> 00:06:24,226
+initially has a reference to
+
+
+219
+00:06:24,226 --> 00:06:25,886
+that shared backing store.
+
+
+220
+00:06:26,246 --> 00:06:27,886
+So, in order to make a mutation,
+
+
+221
+00:06:28,056 --> 00:06:29,696
+it has to copy from that backing
+
+
+222
+00:06:29,696 --> 00:06:31,256
+store to be able to make sure
+
+
+223
+00:06:31,256 --> 00:06:33,106
+that the mutation is in safe.
+
+
+224
+00:06:34,346 --> 00:06:35,606
+But you have to take in
+
+
+225
+00:06:35,606 --> 00:06:37,086
+consideration that most
+
+
+226
+00:06:37,086 --> 00:06:38,536
+applications are going to be
+
+
+227
+00:06:38,596 --> 00:06:40,066
+ending at that point, right
+
+
+228
+00:06:40,116 --> 00:06:41,776
+there, whenever you don't have
+
+
+229
+00:06:41,776 --> 00:06:43,166
+any further mutations.
+
+
+230
+00:06:43,636 --> 00:06:46,096
+So, as you can see, you can end
+
+
+231
+00:06:46,096 --> 00:06:47,666
+up having a vast performance
+
+
+232
+00:06:47,666 --> 00:06:50,666
+improvement by leveraging this
+
+
+233
+00:06:50,966 --> 00:06:51,376
+feature.
+
+
+234
+00:06:52,286 --> 00:06:53,786
+Now, let's see how you can
+
+
+235
+00:06:53,786 --> 00:06:55,076
+actually use this in your
+
+
+236
+00:06:55,076 --> 00:06:55,846
+application.
+
+
+237
+00:06:56,556 --> 00:06:58,376
+Now, I'm as guilty as the next
+
+
+238
+00:06:58,376 --> 00:06:58,906
+developer.
+
+
+239
+00:06:59,336 --> 00:07:01,096
+I've written code like this with
+
+
+240
+00:07:01,096 --> 00:07:03,556
+comments, with the hopes that my
+
+
+241
+00:07:03,556 --> 00:07:04,836
+colleagues are going to follow
+
+
+242
+00:07:04,836 --> 00:07:06,656
+my suggestion, all in the name
+
+
+243
+00:07:06,656 --> 00:07:07,666
+of performance.
+
+
+244
+00:07:08,306 --> 00:07:09,846
+But there's a little pitfall,
+
+
+245
+00:07:09,846 --> 00:07:12,146
+here that if a mutable array
+
+
+246
+00:07:12,146 --> 00:07:14,836
+were to have snuck in, then we
+
+
+247
+00:07:14,836 --> 00:07:15,906
+would end up sharing mutable
+
+
+248
+00:07:15,906 --> 00:07:16,436
+state.
+
+
+249
+00:07:16,576 --> 00:07:17,626
+Which means we are going to be
+
+
+250
+00:07:17,626 --> 00:07:18,646
+sharing bugs.
+
+
+251
+00:07:18,986 --> 00:07:19,866
+Nobody wants that.
+
+
+252
+00:07:20,776 --> 00:07:22,466
+But since copies are nearly
+
+
+253
+00:07:22,466 --> 00:07:24,326
+free, now, we can do the same
+
+
+254
+00:07:24,326 --> 00:07:26,346
+thing every single time and not
+
+
+255
+00:07:26,416 --> 00:07:27,186
+have to worry about the
+
+
+256
+00:07:27,186 --> 00:07:27,976
+performance hit.
+
+
+257
+00:07:27,976 --> 00:07:29,246
+It's pretty great.
+
+
+258
+00:07:30,476 --> 00:07:31,556
+But it isn't just the copy
+
+
+259
+00:07:31,556 --> 00:07:32,786
+nature of properties.
+
+
+260
+00:07:33,226 --> 00:07:34,776
+Many times, mutable containers
+
+
+261
+00:07:34,776 --> 00:07:35,956
+are used to build things up.
+
+
+262
+00:07:36,546 --> 00:07:38,556
+And in this sample, the author
+
+
+263
+00:07:38,556 --> 00:07:40,526
+knew that NSMutableArray is a
+
+
+264
+00:07:40,526 --> 00:07:41,876
+subclass of an NSArray.
+
+
+265
+00:07:42,466 --> 00:07:44,466
+And the advertised return value
+
+
+266
+00:07:44,466 --> 00:07:45,486
+is an NSArray.
+
+
+267
+00:07:45,716 --> 00:07:47,996
+So, it's mostly safe, right?
+
+
+268
+00:07:48,726 --> 00:07:50,426
+Well, unfortunately, there's
+
+
+269
+00:07:50,426 --> 00:07:52,286
+some other consequences that can
+
+
+270
+00:07:52,286 --> 00:07:52,956
+happen, here.
+
+
+271
+00:07:53,356 --> 00:07:54,736
+If somebody checks the actual
+
+
+272
+00:07:54,736 --> 00:07:56,936
+class of the return type, well,
+
+
+273
+00:07:56,936 --> 00:07:57,506
+oops.
+
+
+274
+00:07:57,556 --> 00:07:58,706
+They could end up having a
+
+
+275
+00:07:58,706 --> 00:08:00,326
+mutation of shared state, again.
+
+
+276
+00:08:00,906 --> 00:08:03,176
+So instead, you can defensively
+
+
+277
+00:08:03,176 --> 00:08:05,466
+copy return values so that it
+
+
+278
+00:08:05,466 --> 00:08:06,986
+does the right thing without
+
+
+279
+00:08:07,046 --> 00:08:08,026
+having to worry about the
+
+
+280
+00:08:08,026 --> 00:08:09,186
+performance costs.
+
+
+281
+00:08:10,396 --> 00:08:12,266
+There's actually another case
+
+
+282
+00:08:12,416 --> 00:08:14,626
+that's a little bit more hidden.
+
+
+283
+00:08:14,846 --> 00:08:17,356
+In the case of Swift, whenever
+
+
+284
+00:08:17,526 --> 00:08:19,186
+either of these two APIs were
+
+
+285
+00:08:19,286 --> 00:08:22,096
+exported, we have to make a copy
+
+
+286
+00:08:22,286 --> 00:08:23,806
+to be able to preserve value
+
+
+287
+00:08:23,806 --> 00:08:24,446
+types.
+
+
+288
+00:08:24,866 --> 00:08:27,226
+And so, if you cast to an array
+
+
+289
+00:08:27,226 --> 00:08:29,006
+of any, from the NSArray for
+
+
+290
+00:08:29,046 --> 00:08:30,806
+either of these two APIs, the
+
+
+291
+00:08:30,806 --> 00:08:32,506
+previous implementation would
+
+
+292
+00:08:33,006 --> 00:08:35,405
+have to spend a linear execution
+
+
+293
+00:08:35,405 --> 00:08:36,525
+time to be able to make that
+
+
+294
+00:08:36,525 --> 00:08:36,926
+copy.
+
+
+295
+00:08:37,356 --> 00:08:39,506
+If you defensively do so, the
+
+
+296
+00:08:39,506 --> 00:08:41,086
+copy then, doesn't end up
+
+
+297
+00:08:41,135 --> 00:08:42,676
+attributing to some other place
+
+
+298
+00:08:42,736 --> 00:08:44,096
+that is unknown performance
+
+
+299
+00:08:45,246 --> 00:08:45,396
+costs.
+
+
+300
+00:08:47,396 --> 00:08:49,956
+In Swift 3, we introduced a
+
+
+301
+00:08:49,956 --> 00:08:51,996
+number of structural types for
+
+
+302
+00:08:51,996 --> 00:08:52,656
+Foundation.
+
+
+303
+00:08:53,256 --> 00:08:54,856
+One that made a whole lot of
+
+
+304
+00:08:54,856 --> 00:08:56,886
+sense was NSData being bridged
+
+
+305
+00:08:56,886 --> 00:08:58,386
+to the structural type data.
+
+
+306
+00:08:59,426 --> 00:09:01,746
+And we took a long look at data
+
+
+307
+00:09:01,746 --> 00:09:03,696
+to be able to understand common
+
+
+308
+00:09:03,696 --> 00:09:05,386
+use cases and places that we
+
+
+309
+00:09:05,386 --> 00:09:06,986
+could improve data to be able to
+
+
+310
+00:09:06,986 --> 00:09:08,176
+make it work better in our
+
+
+311
+00:09:08,176 --> 00:09:09,066
+applications.
+
+
+312
+00:09:09,906 --> 00:09:11,986
+And in this release, we've got
+
+
+313
+00:09:12,206 --> 00:09:14,736
+now data is its own slice type.
+
+
+314
+00:09:14,786 --> 00:09:15,846
+And we've looked at the
+
+
+315
+00:09:15,846 --> 00:09:17,166
+performance for being able to do
+
+
+316
+00:09:17,166 --> 00:09:18,816
+common tasks like for example,
+
+
+317
+00:09:19,086 --> 00:09:20,446
+getting the Count of the data.
+
+
+318
+00:09:20,666 --> 00:09:22,566
+Or indexing to a specific byte
+
+
+319
+00:09:22,566 --> 00:09:23,546
+at an offset.
+
+
+320
+00:09:24,636 --> 00:09:25,566
+And some of these
+
+
+321
+00:09:25,566 --> 00:09:28,026
+implementations are kind of
+
+
+322
+00:09:28,026 --> 00:09:28,566
+extreme.
+
+
+323
+00:09:28,806 --> 00:09:30,046
+Normally a few machine
+
+
+324
+00:09:30,046 --> 00:09:31,556
+instructions wouldn't move the
+
+
+325
+00:09:31,556 --> 00:09:32,486
+needle, at all.
+
+
+326
+00:09:32,916 --> 00:09:33,766
+But what it comes to
+
+
+327
+00:09:33,766 --> 00:09:36,546
+representing a byte buffer, even
+
+
+328
+00:09:36,546 --> 00:09:39,016
+20 versus four instructions can
+
+
+329
+00:09:39,146 --> 00:09:41,896
+actually make a difference.
+
+
+330
+00:09:41,986 --> 00:09:43,856
+So, this code looks pretty
+
+
+331
+00:09:43,856 --> 00:09:44,146
+simple.
+
+
+332
+00:09:44,446 --> 00:09:47,576
+But if has a few interesting
+
+
+333
+00:09:47,576 --> 00:09:49,526
+characteristics that reveal some
+
+
+334
+00:09:49,526 --> 00:09:50,906
+insight on how we could make
+
+
+335
+00:09:50,906 --> 00:09:51,796
+data faster.
+
+
+336
+00:09:52,606 --> 00:09:54,446
+First off, data is a collection,
+
+
+337
+00:09:54,656 --> 00:09:55,596
+just like array.
+
+
+338
+00:09:55,926 --> 00:09:57,456
+It can be subscripted, but both
+
+
+339
+00:09:57,456 --> 00:09:58,986
+indexes and ranges.
+
+
+340
+00:09:59,626 --> 00:10:01,576
+So, this means that the start
+
+
+341
+00:10:01,576 --> 00:10:03,846
+index of the data, is not always
+
+
+342
+00:10:03,846 --> 00:10:03,976
+zero.
+
+
+343
+00:10:04,136 --> 00:10:06,536
+Because the index is similar to
+
+
+344
+00:10:06,606 --> 00:10:07,576
+iterators in the other
+
+
+345
+00:10:07,576 --> 00:10:08,466
+languages.
+
+
+346
+00:10:09,026 --> 00:10:10,016
+And for the record, this code
+
+
+347
+00:10:10,016 --> 00:10:11,376
+has nothing wrong with it.
+
+
+348
+00:10:11,376 --> 00:10:13,606
+We just used it to be able to
+
+
+349
+00:10:13,606 --> 00:10:15,116
+understand what parts of data
+
+
+350
+00:10:15,116 --> 00:10:16,076
+should be refined.
+
+
+351
+00:10:16,786 --> 00:10:19,096
+So, the two questions, here, are
+
+
+352
+00:10:19,446 --> 00:10:20,646
+how big is the data that we're
+
+
+353
+00:10:20,646 --> 00:10:21,176
+dealing with?
+
+
+354
+00:10:21,476 --> 00:10:23,516
+And how many times it's called?
+
+
+355
+00:10:23,946 --> 00:10:25,436
+Where is it on that chart?
+
+
+356
+00:10:26,206 --> 00:10:28,226
+And the answer truly is that it
+
+
+357
+00:10:28,226 --> 00:10:29,966
+could fall on almost any of
+
+
+358
+00:10:30,036 --> 00:10:30,326
+them.
+
+
+359
+00:10:30,786 --> 00:10:32,556
+And most likely, it's in that
+
+
+360
+00:10:32,556 --> 00:10:33,576
+place where it needs to be
+
+
+361
+00:10:33,576 --> 00:10:34,016
+measured.
+
+
+362
+00:10:34,946 --> 00:10:36,896
+So, we did exactly that.
+
+
+363
+00:10:36,896 --> 00:10:40,656
+And on the top in the blue, is
+
+
+364
+00:10:40,656 --> 00:10:42,106
+the initial Swift 3 version of
+
+
+365
+00:10:42,106 --> 00:10:42,466
+Data.
+
+
+366
+00:10:43,046 --> 00:10:46,296
+And when subscripting, it took
+
+
+367
+00:10:46,416 --> 00:10:48,316
+about 16 nanoseconds on the
+
+
+368
+00:10:48,316 --> 00:10:49,926
+machine that I was using to be
+
+
+369
+00:10:49,926 --> 00:10:52,126
+able to profile it.
+
+
+370
+00:10:52,126 --> 00:10:54,346
+And since data is a common
+
+
+371
+00:10:54,346 --> 00:10:56,126
+currency of dealing with a
+
+
+372
+00:10:56,126 --> 00:10:58,096
+collection of bytes, this should
+
+
+373
+00:10:58,096 --> 00:11:01,046
+be really, really fast.
+
+
+374
+00:11:01,046 --> 00:11:02,806
+After tuning, we got it just
+
+
+375
+00:11:02,806 --> 00:11:04,706
+down to four nanoseconds.
+
+
+376
+00:11:04,856 --> 00:11:05,676
+It's pretty impressive.
+
+
+377
+00:11:06,446 --> 00:11:08,116
+And if you were using Data,
+
+
+378
+00:11:08,116 --> 00:11:10,716
+before, you get this advantage
+
+
+379
+00:11:10,816 --> 00:11:11,486
+for free.
+
+
+380
+00:11:12,176 --> 00:11:14,006
+And it will also be able to
+
+
+381
+00:11:14,056 --> 00:11:15,816
+interoperate with all the rest
+
+
+382
+00:11:15,816 --> 00:11:17,766
+of the APIs that take and use
+
+
+383
+00:11:18,406 --> 00:11:18,556
+data.
+
+
+384
+00:11:19,576 --> 00:11:20,196
+Thanks.
+
+
+385
+00:11:21,416 --> 00:11:23,416
+[ Applause ]
+
+
+386
+00:11:23,816 --> 00:11:26,356
+Now again, preface, here for
+
+
+387
+00:11:26,356 --> 00:11:28,236
+you, none of these examples are
+
+
+388
+00:11:28,236 --> 00:11:29,906
+clearly wrong or harmful.
+
+
+389
+00:11:30,266 --> 00:11:31,636
+But they do have things to be
+
+
+390
+00:11:31,636 --> 00:11:33,536
+able to consider versus their
+
+
+391
+00:11:33,536 --> 00:11:34,546
+counterparts.
+
+
+392
+00:11:35,716 --> 00:11:37,606
+Oftentimes, it's viewed that a
+
+
+393
+00:11:37,606 --> 00:11:38,716
+collection of bytes can be
+
+
+394
+00:11:38,716 --> 00:11:39,726
+expressed in an array.
+
+
+395
+00:11:39,786 --> 00:11:42,436
+And in small cases, sure.
+
+
+396
+00:11:42,536 --> 00:11:43,626
+That works just fine.
+
+
+397
+00:11:44,106 --> 00:11:46,226
+However, there's a hidden cost,
+
+
+398
+00:11:46,226 --> 00:11:47,666
+here, from a cognitive sense
+
+
+399
+00:11:48,016 --> 00:11:49,596
+that when you try to write it to
+
+
+400
+00:11:49,596 --> 00:11:52,296
+a file, that' pretty tricky.
+
+
+401
+00:11:52,376 --> 00:11:53,566
+There's a lot of Edge cases,
+
+
+402
+00:11:53,566 --> 00:11:53,826
+there.
+
+
+403
+00:11:54,196 --> 00:11:55,796
+We take care of that for you.
+
+
+404
+00:11:56,046 --> 00:11:57,746
+Being able to interoperate with
+
+
+405
+00:11:57,746 --> 00:11:59,056
+things like writing to files,
+
+
+406
+00:11:59,056 --> 00:12:01,786
+converting to basic C4, Data is
+
+
+407
+00:12:01,786 --> 00:12:02,676
+a clear winner.
+
+
+408
+00:12:04,126 --> 00:12:06,686
+Now, sometimes we get nostalgic
+
+
+409
+00:12:06,756 --> 00:12:09,676
+and we fall back to old trusty
+
+
+410
+00:12:09,676 --> 00:12:10,226
+malloc.
+
+
+411
+00:12:10,866 --> 00:12:13,206
+And unfortunately, this can
+
+
+412
+00:12:13,206 --> 00:12:14,816
+sometimes skip out on other
+
+
+413
+00:12:14,816 --> 00:12:15,966
+optimizations.
+
+
+414
+00:12:16,236 --> 00:12:17,976
+Like for example, knowing proper
+
+
+415
+00:12:17,976 --> 00:12:20,036
+allocation sizes that work best
+
+
+416
+00:12:20,036 --> 00:12:21,106
+with rounding to the right
+
+
+417
+00:12:21,366 --> 00:12:23,666
+regions that malloc returns for
+
+
+418
+00:12:23,666 --> 00:12:24,306
+buffers.
+
+
+419
+00:12:25,166 --> 00:12:27,156
+Data deals with all of this, for
+
+
+420
+00:12:27,156 --> 00:12:27,336
+you.
+
+
+421
+00:12:27,336 --> 00:12:28,866
+So, you don't have to worry
+
+
+422
+00:12:28,866 --> 00:12:29,986
+about reallocation.
+
+
+423
+00:12:30,026 --> 00:12:31,466
+You don't have to worry about
+
+
+424
+00:12:31,466 --> 00:12:33,526
+understanding the Edge cases of
+
+
+425
+00:12:33,526 --> 00:12:35,816
+what sizes might be better for
+
+
+426
+00:12:35,816 --> 00:12:36,936
+malloc, than others.
+
+
+427
+00:12:36,936 --> 00:12:41,326
+Now, these two next lines are
+
+
+428
+00:12:41,576 --> 00:12:42,446
+really similar.
+
+
+429
+00:12:42,796 --> 00:12:44,496
+And they're worth noting,
+
+
+430
+00:12:44,786 --> 00:12:46,726
+because in certain cases, you
+
+
+431
+00:12:46,726 --> 00:12:48,056
+want to be able to work with a
+
+
+432
+00:12:48,056 --> 00:12:49,306
+large region of data.
+
+
+433
+00:12:49,786 --> 00:12:51,626
+And in other cases, you want to
+
+
+434
+00:12:51,626 --> 00:12:53,046
+be able to just hold around a
+
+
+435
+00:12:53,046 --> 00:12:54,386
+small little bit of it.
+
+
+436
+00:12:55,116 --> 00:12:56,886
+So, Data has two APIs.
+
+
+437
+00:12:57,016 --> 00:12:58,336
+One of which is subdata in
+
+
+438
+00:12:58,336 --> 00:12:58,876
+range.
+
+
+439
+00:12:59,166 --> 00:13:00,906
+And this will create a copy, so
+
+
+440
+00:13:00,906 --> 00:13:02,356
+that if you have a large file
+
+
+441
+00:13:02,356 --> 00:13:03,596
+that you're working with, but
+
+
+442
+00:13:03,596 --> 00:13:05,286
+only want to keep around a small
+
+
+443
+00:13:05,286 --> 00:13:05,766
+bit.
+
+
+444
+00:13:06,126 --> 00:13:08,066
+Subdata with range will make an
+
+
+445
+00:13:08,066 --> 00:13:09,546
+enforced copy, like that.
+
+
+446
+00:13:10,436 --> 00:13:12,606
+But we changed Data so that it's
+
+
+447
+00:13:12,606 --> 00:13:16,586
+its own subtype, or sub-slice of
+
+
+448
+00:13:16,586 --> 00:13:16,986
+a type.
+
+
+449
+00:13:17,336 --> 00:13:18,526
+So, that whenever you use the
+
+
+450
+00:13:18,526 --> 00:13:20,636
+range syntax, even for example,
+
+
+451
+00:13:20,636 --> 00:13:21,986
+this version of ranges.
+
+
+452
+00:13:22,556 --> 00:13:24,986
+You can use that as a window to
+
+
+453
+00:13:24,986 --> 00:13:26,536
+be able to peer into the data.
+
+
+454
+00:13:26,956 --> 00:13:28,466
+So, if you have a large file
+
+
+455
+00:13:28,466 --> 00:13:29,566
+that you're dealing with, that
+
+
+456
+00:13:29,566 --> 00:13:30,726
+you just need to be able to
+
+
+457
+00:13:30,726 --> 00:13:32,706
+parse it and the data itself
+
+
+458
+00:13:32,706 --> 00:13:34,106
+will only be transitory.
+
+
+459
+00:13:34,606 --> 00:13:36,476
+Then, using slices is an
+
+
+460
+00:13:36,476 --> 00:13:38,386
+incredibly efficient manner to
+
+
+461
+00:13:38,386 --> 00:13:39,986
+be able to access it, because it
+
+
+462
+00:13:39,986 --> 00:13:43,386
+causes no copy.
+
+
+463
+00:13:43,546 --> 00:13:45,346
+Now, we've talked a number of
+
+
+464
+00:13:45,346 --> 00:13:46,566
+times about bridges.
+
+
+465
+00:13:46,796 --> 00:13:48,496
+And there are two types of
+
+
+466
+00:13:48,496 --> 00:13:50,526
+bridges that are relevant, here.
+
+
+467
+00:13:51,456 --> 00:13:53,346
+And on the left we have
+
+
+468
+00:13:53,686 --> 00:13:54,976
+toll-free bridging.
+
+
+469
+00:13:55,666 --> 00:13:58,096
+And in these cases, they are
+
+
+470
+00:13:58,096 --> 00:13:59,686
+bridging from a Foundation type
+
+
+471
+00:13:59,896 --> 00:14:01,216
+to a Core Foundation type.
+
+
+472
+00:14:01,836 --> 00:14:03,376
+Or from a Foundation type to a
+
+
+473
+00:14:03,376 --> 00:14:04,356
+Core Foundation type.
+
+
+474
+00:14:05,226 --> 00:14:08,476
+And these are zero cost at the
+
+
+475
+00:14:08,846 --> 00:14:09,186
+cast.
+
+
+476
+00:14:09,386 --> 00:14:10,776
+So, whatever you actually have
+
+
+477
+00:14:10,776 --> 00:14:12,126
+in this particular case, the
+
+
+478
+00:14:12,406 --> 00:14:14,816
+NSArray being bridged to a
+
+
+479
+00:14:14,816 --> 00:14:16,776
+CFArray, it's just a
+
+
+480
+00:14:16,776 --> 00:14:18,526
+reinterpretation of a pointer.
+
+
+481
+00:14:19,356 --> 00:14:22,906
+But there is a slight cost to be
+
+
+482
+00:14:22,906 --> 00:14:25,266
+paid, whenever you pass that
+
+
+483
+00:14:25,326 --> 00:14:27,796
+object to CFArrayGetCount,
+
+
+484
+00:14:28,496 --> 00:14:29,956
+there's something that you have,
+
+
+485
+00:14:29,956 --> 00:14:30,186
+there.
+
+
+486
+00:14:30,536 --> 00:14:31,656
+We'll go over that, here in just
+
+
+487
+00:14:31,656 --> 00:14:32,186
+a little bit.
+
+
+488
+00:14:33,346 --> 00:14:35,156
+So, contrasting that to Swift
+
+
+489
+00:14:35,156 --> 00:14:38,146
+bridging, those are cases where
+
+
+490
+00:14:38,426 --> 00:14:39,756
+you're bridging from a reference
+
+
+491
+00:14:39,756 --> 00:14:41,386
+type to a structural type.
+
+
+492
+00:14:42,376 --> 00:14:45,206
+And contrarily so, bridging from
+
+
+493
+00:14:45,206 --> 00:14:47,146
+a structural type to a reference
+
+
+494
+00:14:47,146 --> 00:14:47,456
+type.
+
+
+495
+00:14:48,956 --> 00:14:49,916
+But the costs in these
+
+
+496
+00:14:49,946 --> 00:14:51,976
+particular cases are paid in
+
+
+497
+00:14:51,976 --> 00:14:52,726
+advance.
+
+
+498
+00:14:52,956 --> 00:14:54,386
+So, whenever you import from
+
+
+499
+00:14:54,386 --> 00:14:56,796
+Objective-C or if, in this case,
+
+
+500
+00:14:56,796 --> 00:14:58,876
+you use as question mark, to be
+
+
+501
+00:14:58,876 --> 00:15:00,486
+able to convert between the two,
+
+
+502
+00:15:00,766 --> 00:15:02,916
+you are paying that cost, there.
+
+
+503
+00:15:04,236 --> 00:15:06,786
+But the differential is that
+
+
+504
+00:15:06,786 --> 00:15:08,676
+these are then normal costs at
+
+
+505
+00:15:08,896 --> 00:15:09,846
+the usage.
+
+
+506
+00:15:10,956 --> 00:15:12,066
+So, let's dive in a little bit
+
+
+507
+00:15:12,066 --> 00:15:12,456
+more.
+
+
+508
+00:15:12,706 --> 00:15:14,076
+I know this looks scary.
+
+
+509
+00:15:14,636 --> 00:15:16,066
+Don't have a cow, actually, as a
+
+
+510
+00:15:16,066 --> 00:15:16,936
+matter of fact, this doesn't
+
+
+511
+00:15:17,016 --> 00:15:17,546
+actually.
+
+
+512
+00:15:17,586 --> 00:15:19,246
+CFArray doesn't implement copy
+
+
+513
+00:15:19,246 --> 00:15:19,676
+on write.
+
+
+514
+00:15:21,046 --> 00:15:23,206
+But whenever you pass an NSArray
+
+
+515
+00:15:23,456 --> 00:15:25,056
+or subclass into
+
+
+516
+00:15:25,056 --> 00:15:27,426
+CFArrayGetCount, it will
+
+
+517
+00:15:27,576 --> 00:15:29,276
+magically call out to this
+
+
+518
+00:15:29,276 --> 00:15:30,726
+Objective-C method count.
+
+
+519
+00:15:31,536 --> 00:15:32,656
+So, let's pick it apart a little
+
+
+520
+00:15:32,656 --> 00:15:34,426
+bit further and understand how
+
+
+521
+00:15:34,426 --> 00:15:35,636
+this is different than the Swift
+
+
+522
+00:15:35,736 --> 00:15:36,146
+bridge.
+
+
+523
+00:15:36,606 --> 00:15:39,856
+Here it is, a little bit more
+
+
+524
+00:15:39,856 --> 00:15:40,596
+simplified.
+
+
+525
+00:15:41,126 --> 00:15:43,296
+First, we tested the arrays and
+
+
+526
+00:15:43,296 --> 00:15:44,546
+Objective-C subclass.
+
+
+527
+00:15:44,926 --> 00:15:46,296
+And then, we see that invocation
+
+
+528
+00:15:46,296 --> 00:15:47,116
+to count, there.
+
+
+529
+00:15:47,646 --> 00:15:49,726
+If it wasn't, we know that the
+
+
+530
+00:15:49,726 --> 00:15:51,336
+structural layout of the object
+
+
+531
+00:15:51,616 --> 00:15:53,326
+can let us indirect to that
+
+
+532
+00:15:53,626 --> 00:15:55,526
+variable count.
+
+
+533
+00:15:56,236 --> 00:15:58,036
+So, expanding it a bit further.
+
+
+534
+00:15:58,916 --> 00:16:00,536
+It checks the internal layout of
+
+
+535
+00:16:00,536 --> 00:16:02,126
+the object against the expected
+
+
+536
+00:16:02,126 --> 00:16:02,866
+class table.
+
+
+537
+00:16:03,236 --> 00:16:05,746
+So, in truth it basically boils
+
+
+538
+00:16:05,746 --> 00:16:07,506
+down to costing two indirections
+
+
+539
+00:16:07,506 --> 00:16:08,946
+and a function call, to
+
+
+540
+00:16:08,946 --> 00:16:12,526
+determine if the Objective-C
+
+
+541
+00:16:12,526 --> 00:16:14,126
+method needs to actually be
+
+
+542
+00:16:14,126 --> 00:16:14,796
+invoked or not.
+
+
+543
+00:16:14,886 --> 00:16:17,526
+So, let's wrap it up for this
+
+
+544
+00:16:17,526 --> 00:16:17,796
+one.
+
+
+545
+00:16:18,116 --> 00:16:20,536
+Casting to an array or subclass
+
+
+546
+00:16:20,616 --> 00:16:23,336
+to a CFArray is just a
+
+
+547
+00:16:23,336 --> 00:16:25,146
+reinterpretation of the pointer.
+
+
+548
+00:16:25,816 --> 00:16:27,686
+It's the usage points that
+
+
+549
+00:16:27,836 --> 00:16:29,046
+actually have the cost.
+
+
+550
+00:16:29,816 --> 00:16:30,926
+So, this is usually an
+
+
+551
+00:16:30,926 --> 00:16:32,716
+exceedingly small impact.
+
+
+552
+00:16:33,006 --> 00:16:34,756
+But in rare cases, it could
+
+
+553
+00:16:34,756 --> 00:16:36,956
+often move the needle a little
+
+
+554
+00:16:37,296 --> 00:16:37,386
+bit.
+
+
+555
+00:16:37,386 --> 00:16:39,356
+So, on the graph, we're mostly
+
+
+556
+00:16:39,356 --> 00:16:40,876
+down there in that third
+
+
+557
+00:16:40,876 --> 00:16:42,586
+quadrant, maybe peeking up a
+
+
+558
+00:16:42,586 --> 00:16:44,696
+little bit.
+
+
+559
+00:16:44,916 --> 00:16:47,266
+Now, on the flipside, we have
+
+
+560
+00:16:47,266 --> 00:16:48,066
+Swift bridging.
+
+
+561
+00:16:48,626 --> 00:16:50,036
+Now, remember this is whenever
+
+
+562
+00:16:50,036 --> 00:16:52,496
+we call as question mark or
+
+
+563
+00:16:52,496 --> 00:16:54,656
+expose an API from Objective-C,
+
+
+564
+00:16:55,066 --> 00:16:56,306
+whenever we have a bridged
+
+
+565
+00:16:56,306 --> 00:16:57,166
+reference type.
+
+
+566
+00:16:57,926 --> 00:16:59,886
+The compiler will emit this
+
+
+567
+00:16:59,886 --> 00:17:01,536
+bridgeable family of functions,
+
+
+568
+00:17:01,856 --> 00:17:03,636
+in which will in turn in this
+
+
+569
+00:17:03,636 --> 00:17:05,076
+particular case, invoke the
+
+
+570
+00:17:05,076 --> 00:17:06,406
+referencing initializer for
+
+
+571
+00:17:06,406 --> 00:17:06,705
+Data.
+
+
+572
+00:17:08,256 --> 00:17:10,086
+And when Data is initialized
+
+
+573
+00:17:10,086 --> 00:17:12,346
+with a reference it will make a
+
+
+574
+00:17:12,346 --> 00:17:15,066
+copy to store into the backing
+
+
+575
+00:17:15,066 --> 00:17:15,876
+storage of the data.
+
+
+576
+00:17:16,306 --> 00:17:17,965
+Because we need to be able to
+
+
+577
+00:17:17,965 --> 00:17:19,695
+preserve, not only the value
+
+
+578
+00:17:19,695 --> 00:17:21,336
+type nature of the data.
+
+
+579
+00:17:21,626 --> 00:17:22,996
+But also, make sure that we
+
+
+580
+00:17:22,996 --> 00:17:24,306
+aren't holding onto a shared
+
+
+581
+00:17:24,306 --> 00:17:25,925
+mutable reference, causing of
+
+
+582
+00:17:25,955 --> 00:17:27,226
+course, bugs.
+
+
+583
+00:17:28,096 --> 00:17:30,016
+So, you can see that if this
+
+
+584
+00:17:30,016 --> 00:17:32,066
+were actually a mutable case or
+
+
+585
+00:17:32,066 --> 00:17:34,216
+a proxy or some other subclass,
+
+
+586
+00:17:34,806 --> 00:17:37,186
+it could be a potentially costly
+
+
+587
+00:17:37,216 --> 00:17:39,456
+point under the hood.
+
+
+588
+00:17:39,676 --> 00:17:41,356
+Now, bringing it all back
+
+
+589
+00:17:41,356 --> 00:17:43,926
+together, let's look at that
+
+
+590
+00:17:44,116 --> 00:17:45,816
+graph, again.
+
+
+591
+00:17:45,876 --> 00:17:47,796
+And in this time, the bridge is
+
+
+592
+00:17:47,796 --> 00:17:49,566
+not too often hit.
+
+
+593
+00:17:49,726 --> 00:17:52,846
+And whenever the common case,
+
+
+594
+00:17:53,206 --> 00:17:54,916
+the copy is optimized into a
+
+
+595
+00:17:54,916 --> 00:17:55,516
+retain.
+
+
+596
+00:17:55,816 --> 00:17:56,886
+So, we're going to, again, be
+
+
+597
+00:17:56,886 --> 00:17:57,956
+down there in that third
+
+
+598
+00:17:58,006 --> 00:17:58,526
+quadrant.
+
+
+599
+00:17:59,276 --> 00:18:00,666
+But in the cases of the
+
+
+600
+00:18:00,666 --> 00:18:03,036
+exceptions for subclasses, like
+
+
+601
+00:18:03,036 --> 00:18:04,916
+for example, mutable data, that
+
+
+602
+00:18:04,916 --> 00:18:07,096
+copy could potentially be in any
+
+
+603
+00:18:07,096 --> 00:18:08,166
+of those quadrants.
+
+
+604
+00:18:08,576 --> 00:18:10,386
+So, if you have subclasses that
+
+
+605
+00:18:10,386 --> 00:18:11,546
+you need to be able to deal
+
+
+606
+00:18:11,546 --> 00:18:13,636
+with, or you're passing mutable
+
+
+607
+00:18:13,776 --> 00:18:15,746
+versions back and forth across
+
+
+608
+00:18:15,746 --> 00:18:16,226
+the bridge.
+
+
+609
+00:18:16,766 --> 00:18:17,986
+You should probably be
+
+
+610
+00:18:18,126 --> 00:18:20,136
+understanding those with better
+
+
+611
+00:18:20,136 --> 00:18:22,326
+measurements with useful cases.
+
+
+612
+00:18:23,336 --> 00:18:25,696
+But this same pattern occurs for
+
+
+613
+00:18:25,696 --> 00:18:27,596
+not just data, but all of the
+
+
+614
+00:18:27,596 --> 00:18:29,966
+structural types within Swift.
+
+
+615
+00:18:29,966 --> 00:18:31,286
+Things like arrays and
+
+
+616
+00:18:31,286 --> 00:18:32,656
+dictionaries and strings.
+
+
+617
+00:18:33,386 --> 00:18:35,086
+Now, speaking of strings, I
+
+
+618
+00:18:35,186 --> 00:18:36,546
+heard they're kind of popular.
+
+
+619
+00:18:36,856 --> 00:18:38,406
+Here to guide you through the
+
+
+620
+00:18:38,406 --> 00:18:40,496
+wonderful world of strings,
+
+
+621
+00:18:40,496 --> 00:18:42,956
+ranges, and texts is Donna.
+
+
+622
+00:18:43,516 --> 00:18:47,986
+[ Applause ]
+
+
+623
+00:18:48,486 --> 00:18:49,036
+>> Thanks, Phillipe.
+
+
+624
+00:18:51,896 --> 00:18:53,126
+Now, strings are probably one of
+
+
+625
+00:18:53,126 --> 00:18:54,406
+the most frequently used data
+
+
+626
+00:18:54,406 --> 00:18:55,086
+types, ever.
+
+
+627
+00:18:55,626 --> 00:18:56,746
+If you're an app developer, your
+
+
+628
+00:18:56,746 --> 00:18:58,346
+app probably creates and mutates
+
+
+629
+00:18:58,346 --> 00:18:59,636
+hundreds, if not thousands, of
+
+
+630
+00:18:59,636 --> 00:19:01,006
+strings each time they're used.
+
+
+631
+00:19:01,056 --> 00:19:02,486
+And if you're a framework
+
+
+632
+00:19:02,486 --> 00:19:03,786
+developer, your framework's
+
+
+633
+00:19:03,786 --> 00:19:04,806
+probably create and mutate
+
+
+634
+00:19:04,806 --> 00:19:06,466
+strings each time someone calls
+
+
+635
+00:19:06,466 --> 00:19:07,326
+one of our APIs.
+
+
+636
+00:19:07,886 --> 00:19:08,896
+And those strings might then be
+
+
+637
+00:19:08,896 --> 00:19:10,336
+mutated farther beyond the
+
+
+638
+00:19:10,336 --> 00:19:11,276
+boundaries of your framework.
+
+
+639
+00:19:11,956 --> 00:19:13,466
+And strings, they're not used in
+
+
+640
+00:19:13,466 --> 00:19:13,866
+a vacuum.
+
+
+641
+00:19:14,196 --> 00:19:14,886
+You're interacting with
+
+
+642
+00:19:14,886 --> 00:19:16,076
+frameworks to do anything
+
+
+643
+00:19:16,076 --> 00:19:16,996
+interesting with strings.
+
+
+644
+00:19:17,226 --> 00:19:18,186
+Whether it's slicing them,
+
+
+645
+00:19:18,496 --> 00:19:20,256
+dicing them, smashing them
+
+
+646
+00:19:20,256 --> 00:19:20,686
+together.
+
+
+647
+00:19:20,716 --> 00:19:21,746
+Or even just rendering them on
+
+
+648
+00:19:21,746 --> 00:19:22,176
+the screen.
+
+
+649
+00:19:22,766 --> 00:19:24,686
+And so, you may be able to
+
+
+650
+00:19:24,686 --> 00:19:25,796
+improve your app or framework's
+
+
+651
+00:19:25,796 --> 00:19:27,356
+performance by understanding how
+
+
+652
+00:19:27,356 --> 00:19:29,416
+strings, ranges, and text
+
+
+653
+00:19:29,796 --> 00:19:30,766
+interact with frameworks.
+
+
+654
+00:19:30,946 --> 00:19:32,156
+And by making implementation
+
+
+655
+00:19:32,156 --> 00:19:33,076
+choices based on this
+
+
+656
+00:19:33,076 --> 00:19:33,606
+understanding.
+
+
+657
+00:19:34,706 --> 00:19:35,686
+But before we dive into the
+
+
+658
+00:19:35,686 --> 00:19:36,566
+nitty gritty details, I'm going
+
+
+659
+00:19:36,966 --> 00:19:38,586
+to kind of go back to rehash
+
+
+660
+00:19:38,586 --> 00:19:39,736
+some of what Phillipe talked
+
+
+661
+00:19:39,736 --> 00:19:41,336
+about and talk a little bit
+
+
+662
+00:19:41,336 --> 00:19:42,946
+about evaluating the impact of
+
+
+663
+00:19:42,976 --> 00:19:43,916
+performance improvements.
+
+
+664
+00:19:44,566 --> 00:19:47,366
+Now, it's really important not
+
+
+665
+00:19:47,366 --> 00:19:48,786
+to lose sight of the big picture
+
+
+666
+00:19:48,876 --> 00:19:49,746
+when you're looking to improve
+
+
+667
+00:19:49,746 --> 00:19:50,196
+performance.
+
+
+668
+00:19:51,326 --> 00:19:52,376
+It's really easy to get caught
+
+
+669
+00:19:52,376 --> 00:19:54,066
+up in the details and become
+
+
+670
+00:19:54,066 --> 00:19:55,456
+really focused on optimizing for
+
+
+671
+00:19:55,456 --> 00:19:57,066
+those very particular scenarios.
+
+
+672
+00:19:57,366 --> 00:19:59,356
+But it those scenarios don't
+
+
+673
+00:19:59,356 --> 00:20:00,696
+reflect the way users actually
+
+
+674
+00:20:00,696 --> 00:20:02,626
+use your app framework, then
+
+
+675
+00:20:02,626 --> 00:20:03,786
+it's not a very efficient use of
+
+
+676
+00:20:03,786 --> 00:20:04,966
+your time to optimize for them.
+
+
+677
+00:20:06,026 --> 00:20:08,126
+And so, once you've decided that
+
+
+678
+00:20:08,126 --> 00:20:09,226
+a scenario you're looking at
+
+
+679
+00:20:09,226 --> 00:20:10,776
+reflects actual usage, you might
+
+
+680
+00:20:10,776 --> 00:20:11,906
+then look at the performance of
+
+
+681
+00:20:11,906 --> 00:20:13,076
+a particular piece of code.
+
+
+682
+00:20:13,076 --> 00:20:14,476
+And when you do that, it's
+
+
+683
+00:20:14,476 --> 00:20:15,516
+important to keep in mind, these
+
+
+684
+00:20:15,516 --> 00:20:16,566
+concepts that we've discussed.
+
+
+685
+00:20:16,996 --> 00:20:18,566
+How big is the data I'm working
+
+
+686
+00:20:18,566 --> 00:20:18,836
+with?
+
+
+687
+00:20:18,836 --> 00:20:20,056
+And how often is that code
+
+
+688
+00:20:20,056 --> 00:20:20,316
+running?
+
+
+689
+00:20:20,886 --> 00:20:22,686
+And so, we're going to bring
+
+
+690
+00:20:22,686 --> 00:20:23,326
+back the graph.
+
+
+691
+00:20:23,816 --> 00:20:25,246
+But we're going to change the
+
+
+692
+00:20:25,246 --> 00:20:26,836
+axis labels a little bit for the
+
+
+693
+00:20:26,836 --> 00:20:28,036
+context of strings and text.
+
+
+694
+00:20:28,576 --> 00:20:29,836
+So, the general concept is the
+
+
+695
+00:20:29,836 --> 00:20:30,186
+same.
+
+
+696
+00:20:30,356 --> 00:20:31,446
+But for strings, we'll think of
+
+
+697
+00:20:31,446 --> 00:20:32,836
+it in terms of how long or how
+
+
+698
+00:20:32,836 --> 00:20:34,376
+short the string is and how
+
+
+699
+00:20:34,376 --> 00:20:35,656
+frequently that code is running.
+
+
+700
+00:20:36,226 --> 00:20:38,676
+So, let's keep these concepts of
+
+
+701
+00:20:38,716 --> 00:20:39,916
+scale and frequency in mind as
+
+
+702
+00:20:39,916 --> 00:20:40,846
+we cover these topics.
+
+
+703
+00:20:42,526 --> 00:20:43,526
+First, we're going to start with
+
+
+704
+00:20:43,526 --> 00:20:44,086
+string bridging.
+
+
+705
+00:20:44,086 --> 00:20:46,226
+And then next, we'll talk about
+
+
+706
+00:20:46,226 --> 00:20:47,676
+ranges and the nuances of string
+
+
+707
+00:20:47,676 --> 00:20:48,076
+index.
+
+
+708
+00:20:48,956 --> 00:20:50,056
+And finally, we'll share a few
+
+
+709
+00:20:50,056 --> 00:20:51,366
+tips for working efficiently
+
+
+710
+00:20:51,366 --> 00:20:52,436
+with text layout and rendering
+
+
+711
+00:20:52,436 --> 00:20:53,576
+in AVKit and UIKit.
+
+
+712
+00:20:54,616 --> 00:20:55,916
+So, let's get started with sting
+
+
+713
+00:20:55,916 --> 00:20:56,216
+bridging.
+
+
+714
+00:20:56,776 --> 00:20:59,316
+The first example we'll look at
+
+
+715
+00:20:59,316 --> 00:21:00,236
+works with UILabel.
+
+
+716
+00:21:00,236 --> 00:21:03,036
+So, let's say I have a label
+
+
+717
+00:21:03,036 --> 00:21:04,966
+like this, and I want to access
+
+
+718
+00:21:05,856 --> 00:21:07,116
+its text.
+
+
+719
+00:21:07,266 --> 00:21:08,406
+In Swift, I might start with
+
+
+720
+00:21:08,406 --> 00:21:08,986
+something like this.
+
+
+721
+00:21:10,116 --> 00:21:11,996
+But we asked the UIKit framework
+
+
+722
+00:21:12,176 --> 00:21:13,406
+to give us the label's text.
+
+
+723
+00:21:14,246 --> 00:21:15,776
+So, here's what the interface to
+
+
+724
+00:21:15,776 --> 00:21:16,886
+that looks like.
+
+
+725
+00:21:17,896 --> 00:21:19,416
+But remember, that this is just
+
+
+726
+00:21:19,416 --> 00:21:20,406
+a generated interface.
+
+
+727
+00:21:20,796 --> 00:21:22,346
+UILabel is implemented in
+
+
+728
+00:21:22,346 --> 00:21:23,016
+Objective-C.
+
+
+729
+00:21:24,676 --> 00:21:26,056
+And so, even though our variable
+
+
+730
+00:21:26,056 --> 00:21:27,846
+text is a Swift string, the
+
+
+731
+00:21:27,846 --> 00:21:29,306
+backing store is actually an
+
+
+732
+00:21:29,426 --> 00:21:30,886
+NSString and it's bridged from
+
+
+733
+00:21:30,886 --> 00:21:31,436
+Objective-C.
+
+
+734
+00:21:32,036 --> 00:21:34,656
+And so, now let's take a look at
+
+
+735
+00:21:34,656 --> 00:21:35,616
+what happens when we ask for
+
+
+736
+00:21:35,616 --> 00:21:36,886
+that label's text from Swift.
+
+
+737
+00:21:38,266 --> 00:21:39,406
+The NSString form the framework
+
+
+738
+00:21:39,406 --> 00:21:41,186
+is a reference type, while
+
+
+739
+00:21:41,246 --> 00:21:42,436
+Swift's string is a value type.
+
+
+740
+00:21:43,106 --> 00:21:44,296
+And so, when we ask the
+
+
+741
+00:21:44,346 --> 00:21:45,666
+framework for that NSString,
+
+
+742
+00:21:46,066 --> 00:21:47,156
+it's wrapped in the value type
+
+
+743
+00:21:47,296 --> 00:21:48,116
+when it crosses the Swift
+
+
+744
+00:21:48,146 --> 00:21:48,446
+bridge.
+
+
+745
+00:21:49,946 --> 00:21:50,766
+But we don't know what might
+
+
+746
+00:21:50,766 --> 00:21:52,366
+happen to that original NSString
+
+
+747
+00:21:52,546 --> 00:21:53,156
+after bridging.
+
+
+748
+00:21:53,656 --> 00:21:55,126
+And so, to preserve Swift value
+
+
+749
+00:21:55,186 --> 00:21:56,916
+semantics, the framework has to
+
+
+750
+00:21:56,916 --> 00:21:57,806
+make a copy of it.
+
+
+751
+00:21:58,906 --> 00:22:00,196
+Now luckily, in this case, the
+
+
+752
+00:22:00,196 --> 00:22:01,996
+original NSString is immutable.
+
+
+753
+00:22:02,346 --> 00:22:03,606
+And so, when the framework makes
+
+
+754
+00:22:03,606 --> 00:22:05,196
+that copy, it's optimized to
+
+
+755
+00:22:05,196 --> 00:22:06,576
+just retain, which is pretty
+
+
+756
+00:22:06,576 --> 00:22:06,816
+cheap.
+
+
+757
+00:22:06,816 --> 00:22:07,736
+Since, it's just incrementing
+
+
+758
+00:22:07,736 --> 00:22:08,826
+the ref count.
+
+
+759
+00:22:11,696 --> 00:22:13,116
+But even if we did make a full
+
+
+760
+00:22:13,116 --> 00:22:14,486
+copy of this string, let's go
+
+
+761
+00:22:14,486 --> 00:22:15,746
+back to our graph and evaluate
+
+
+762
+00:22:15,746 --> 00:22:16,056
+the impact.
+
+
+763
+00:22:16,056 --> 00:22:18,866
+Now in this case, the original
+
+
+764
+00:22:18,866 --> 00:22:20,336
+string consisted of seven ASCII
+
+
+765
+00:22:20,336 --> 00:22:20,796
+characters.
+
+
+766
+00:22:21,066 --> 00:22:22,846
+So, even if we made a full copy
+
+
+767
+00:22:23,846 --> 00:22:24,576
+the impact would be pretty
+
+
+768
+00:22:24,576 --> 00:22:24,786
+small.
+
+
+769
+00:22:25,996 --> 00:22:27,346
+Now, most of the time UILabels
+
+
+770
+00:22:27,346 --> 00:22:28,506
+are going to consist of short
+
+
+771
+00:22:28,506 --> 00:22:29,766
+strings that are used for UI
+
+
+772
+00:22:29,766 --> 00:22:30,566
+display purposes.
+
+
+773
+00:22:31,266 --> 00:22:32,736
+And so, you're probably not
+
+
+774
+00:22:32,736 --> 00:22:33,616
+going to be fetching their text
+
+
+775
+00:22:33,616 --> 00:22:34,336
+very frequently.
+
+
+776
+00:22:34,706 --> 00:22:36,156
+And in most cases, you'll end up
+
+
+777
+00:22:36,156 --> 00:22:37,236
+down her in quadrant three.
+
+
+778
+00:22:37,776 --> 00:22:39,426
+So, the bridging copies aren't
+
+
+779
+00:22:39,426 --> 00:22:42,346
+going to be a big deal.
+
+
+780
+00:22:43,116 --> 00:22:43,976
+But now, let's take a look at
+
+
+781
+00:22:43,976 --> 00:22:45,796
+what happens in a larger scale
+
+
+782
+00:22:45,796 --> 00:22:47,276
+example, like in NSText storage.
+
+
+783
+00:22:47,686 --> 00:22:49,456
+NSText storage is the
+
+
+784
+00:22:49,556 --> 00:22:51,266
+fundamental storage mechanism
+
+
+785
+00:22:51,266 --> 00:22:51,956
+behind TextKit.
+
+
+786
+00:22:52,496 --> 00:22:53,756
+It's used to power text views
+
+
+787
+00:22:53,756 --> 00:22:54,766
+like the one you see here, in
+
+
+788
+00:22:54,766 --> 00:22:56,016
+both Cocoa and Cocoa Touch.
+
+
+789
+00:22:57,136 --> 00:22:58,526
+And so, if you're working with
+
+
+790
+00:22:58,526 --> 00:22:59,746
+text views, you're going to want
+
+
+791
+00:22:59,746 --> 00:23:00,946
+to be able to access the text
+
+
+792
+00:23:00,946 --> 00:23:01,796
+inside that text storage.
+
+
+793
+00:23:01,796 --> 00:23:03,446
+And so, here's what that looks
+
+
+794
+00:23:03,446 --> 00:23:03,966
+like in Swift.
+
+
+795
+00:23:07,616 --> 00:23:09,016
+Here's the generated interface.
+
+
+796
+00:23:10,256 --> 00:23:13,216
+And here's the Objective-C
+
+
+797
+00:23:13,216 --> 00:23:13,596
+interface.
+
+
+798
+00:23:14,966 --> 00:23:16,676
+But notice here, the NSText
+
+
+799
+00:23:16,676 --> 00:23:17,946
+storage is a subclass of
+
+
+800
+00:23:18,046 --> 00:23:19,576
+NSMutableAttributedString.
+
+
+801
+00:23:20,246 --> 00:23:22,856
+Now, since NSText storage is
+
+
+802
+00:23:22,856 --> 00:23:23,996
+intended for working with text
+
+
+803
+00:23:23,996 --> 00:23:25,496
+editing, it's reasonable to
+
+
+804
+00:23:25,496 --> 00:23:27,346
+expect the contents of that text
+
+
+805
+00:23:27,346 --> 00:23:28,276
+storage to be mutated,
+
+
+806
+00:23:28,276 --> 00:23:28,666
+frequently.
+
+
+807
+00:23:29,976 --> 00:23:31,316
+And the contents of the text
+
+
+808
+00:23:31,316 --> 00:23:32,376
+storage could also be a very
+
+
+809
+00:23:32,376 --> 00:23:32,986
+long string.
+
+
+810
+00:23:32,986 --> 00:23:34,346
+It could be megabytes or even
+
+
+811
+00:23:34,346 --> 00:23:35,256
+gigabytes in size.
+
+
+812
+00:23:36,226 --> 00:23:37,486
+And so, for efficiency, the
+
+
+813
+00:23:37,486 --> 00:23:38,986
+framework only keeps the mutable
+
+
+814
+00:23:38,986 --> 00:23:39,496
+string around.
+
+
+815
+00:23:39,906 --> 00:23:41,006
+So, when you ask for that string
+
+
+816
+00:23:41,006 --> 00:23:42,486
+property on the text storage,
+
+
+817
+00:23:43,196 --> 00:23:44,286
+what you'll get is going to be
+
+
+818
+00:23:44,286 --> 00:23:45,716
+backed by an NSString that
+
+
+819
+00:23:45,716 --> 00:23:47,106
+refers to the mutable string.
+
+
+820
+00:23:47,586 --> 00:23:50,886
+And so now, once again, we'll
+
+
+821
+00:23:50,886 --> 00:23:51,876
+take a look at what happens when
+
+
+822
+00:23:51,876 --> 00:23:53,056
+we ask for that string property
+
+
+823
+00:23:53,056 --> 00:23:53,516
+from Swift.
+
+
+824
+00:23:54,036 --> 00:23:57,346
+Just as before, it'll be wrapped
+
+
+825
+00:23:57,346 --> 00:23:59,086
+in the value type when it
+
+
+826
+00:23:59,146 --> 00:24:00,226
+crosses the bridge, because it's
+
+
+827
+00:24:00,226 --> 00:24:00,786
+an NSString.
+
+
+828
+00:24:00,936 --> 00:24:02,266
+And the framework is going to
+
+
+829
+00:24:02,266 --> 00:24:02,836
+make a copy.
+
+
+830
+00:24:04,016 --> 00:24:05,446
+But unlike in the UILabel case,
+
+
+831
+00:24:05,656 --> 00:24:07,416
+here the underlying NSString is
+
+
+832
+00:24:07,416 --> 00:24:08,416
+actually mutable.
+
+
+833
+00:24:09,326 --> 00:24:10,136
+So, this copy could be
+
+
+834
+00:24:10,136 --> 00:24:10,646
+expensive.
+
+
+835
+00:24:11,826 --> 00:24:13,066
+And as we said previously, text
+
+
+836
+00:24:13,066 --> 00:24:14,526
+storage is much more likely to
+
+
+837
+00:24:14,526 --> 00:24:16,186
+contain long length strings.
+
+
+838
+00:24:16,826 --> 00:24:17,856
+It could be megabytes or even
+
+
+839
+00:24:17,856 --> 00:24:18,906
+gigabytes in size, so
+
+
+840
+00:24:18,906 --> 00:24:20,266
+potentially this copy could be
+
+
+841
+00:24:20,266 --> 00:24:21,076
+very expensive.
+
+
+842
+00:24:21,586 --> 00:24:24,416
+But now, let's take a look at
+
+
+843
+00:24:24,416 --> 00:24:25,526
+what happens when we ask for the
+
+
+844
+00:24:25,526 --> 00:24:26,596
+mutable string property.
+
+
+845
+00:24:28,256 --> 00:24:30,046
+NSMutableString is a reference
+
+
+846
+00:24:30,046 --> 00:24:31,006
+type that is not bridged.
+
+
+847
+00:24:32,136 --> 00:24:33,146
+And because it's not bridged,
+
+
+848
+00:24:33,376 --> 00:24:33,896
+there's no copy.
+
+
+849
+00:24:34,576 --> 00:24:35,486
+So, we avoid the cost of the
+
+
+850
+00:24:35,486 --> 00:24:35,946
+copy, here.
+
+
+851
+00:24:37,496 --> 00:24:38,986
+This situation results from a
+
+
+852
+00:24:38,986 --> 00:24:40,526
+mismatch between Swift's value
+
+
+853
+00:24:40,526 --> 00:24:42,066
+semantics and the design of
+
+
+854
+00:24:42,066 --> 00:24:43,686
+NSText storage, which needs to
+
+
+855
+00:24:43,686 --> 00:24:44,816
+use reference semantics for
+
+
+856
+00:24:44,816 --> 00:24:46,006
+performant management of large
+
+
+857
+00:24:46,006 --> 00:24:46,686
+amounts of text.
+
+
+858
+00:24:47,876 --> 00:24:48,966
+So, we're working on solving
+
+
+859
+00:24:48,966 --> 00:24:49,946
+this problem, here at Apple.
+
+
+860
+00:24:49,946 --> 00:24:51,156
+But we don't quite have the
+
+
+861
+00:24:51,156 --> 00:24:51,776
+solution, yet.
+
+
+862
+00:24:51,926 --> 00:24:52,826
+So, you should be aware that
+
+
+863
+00:24:52,826 --> 00:24:53,576
+this is something that can
+
+
+864
+00:24:53,576 --> 00:24:54,006
+happen.
+
+
+865
+00:24:54,406 --> 00:24:55,506
+And if you're working with very
+
+
+866
+00:24:55,506 --> 00:24:56,626
+large amounts of text and the
+
+
+867
+00:24:56,626 --> 00:24:58,316
+text storage, use MutableString
+
+
+868
+00:24:58,316 --> 00:24:59,906
+to access it, even if you don't
+
+
+869
+00:24:59,906 --> 00:25:01,286
+plan on mutating it.
+
+
+870
+00:25:02,796 --> 00:25:04,086
+But before you go bananas
+
+
+871
+00:25:04,146 --> 00:25:05,026
+changing all of your string
+
+
+872
+00:25:05,026 --> 00:25:06,326
+accesses to MutableString, let's
+
+
+873
+00:25:06,326 --> 00:25:07,296
+consider that graph, again.
+
+
+874
+00:25:08,196 --> 00:25:09,006
+Now, due to the nature of the
+
+
+875
+00:25:09,006 --> 00:25:09,876
+text storage API, you're
+
+
+876
+00:25:10,036 --> 00:25:11,276
+probably going to be up here on
+
+
+877
+00:25:11,276 --> 00:25:12,906
+the top half, in terms of
+
+
+878
+00:25:12,906 --> 00:25:13,386
+frequency.
+
+
+879
+00:25:13,726 --> 00:25:14,586
+So then, the real question
+
+
+880
+00:25:14,586 --> 00:25:16,686
+becomes, how much text do you
+
+
+881
+00:25:16,686 --> 00:25:18,426
+expect that storage to contain?
+
+
+882
+00:25:19,026 --> 00:25:20,626
+A kilobyte?
+
+
+883
+00:25:20,626 --> 00:25:22,686
+Might be in here, it's not too
+
+
+884
+00:25:22,686 --> 00:25:22,986
+bad.
+
+
+885
+00:25:22,986 --> 00:25:24,236
+If you use the string property,
+
+
+886
+00:25:24,236 --> 00:25:25,776
+that's probably fine.
+
+
+887
+00:25:26,696 --> 00:25:27,576
+One megabyte?
+
+
+888
+00:25:27,626 --> 00:25:29,386
+You're starting to move into
+
+
+889
+00:25:29,386 --> 00:25:30,506
+first quadrant territory, here.
+
+
+890
+00:25:30,506 --> 00:25:31,726
+And you may want to consider
+
+
+891
+00:25:31,726 --> 00:25:32,656
+using MutableString.
+
+
+892
+00:25:34,016 --> 00:25:34,706
+One gigabyte?
+
+
+893
+00:25:34,706 --> 00:25:36,366
+I really hope you're using
+
+
+894
+00:25:36,366 --> 00:25:36,936
+MutableString.
+
+
+895
+00:25:39,126 --> 00:25:40,356
+And as I said, we're working on
+
+
+896
+00:25:40,356 --> 00:25:41,406
+fixing this on our end, here.
+
+
+897
+00:25:41,726 --> 00:25:42,606
+So, keep an eye out for it in
+
+
+898
+00:25:42,606 --> 00:25:43,276
+future releases.
+
+
+899
+00:25:43,916 --> 00:25:46,066
+And so, now that we have a
+
+
+900
+00:25:46,066 --> 00:25:47,216
+better understanding of string
+
+
+901
+00:25:47,216 --> 00:25:48,766
+bridging, let's move on to
+
+
+902
+00:25:48,766 --> 00:25:48,976
+ranges.
+
+
+903
+00:25:52,536 --> 00:25:53,336
+Now, I don't know about the rest
+
+
+904
+00:25:53,336 --> 00:25:54,286
+of you, but this is certainly
+
+
+905
+00:25:54,286 --> 00:25:55,496
+how I feel when I have to work
+
+
+906
+00:25:55,496 --> 00:25:56,786
+with ranges and string index in
+
+
+907
+00:25:56,786 --> 00:25:57,146
+Swift.
+
+
+908
+00:25:57,616 --> 00:25:59,646
+And to see why, let's consider a
+
+
+909
+00:25:59,646 --> 00:26:01,806
+string containing the face palm
+
+
+910
+00:26:01,806 --> 00:26:03,206
+emoji, which coincidentally,
+
+
+911
+00:26:03,206 --> 00:26:04,236
+looks a little bit like me.
+
+
+912
+00:26:05,476 --> 00:26:07,436
+So, here's our string.
+
+
+913
+00:26:07,796 --> 00:26:09,046
+It's a length one in terms of
+
+
+914
+00:26:09,046 --> 00:26:09,796
+perceived characters.
+
+
+915
+00:26:10,776 --> 00:26:12,066
+But this one character consists
+
+
+916
+00:26:12,066 --> 00:26:13,216
+of three individual components.
+
+
+917
+00:26:13,676 --> 00:26:15,036
+We have this jaundice face palm,
+
+
+918
+00:26:15,946 --> 00:26:17,416
+a skin tone modifier, presumable
+
+
+919
+00:26:17,416 --> 00:26:18,986
+to get rid of the jaundice, and
+
+
+920
+00:26:19,146 --> 00:26:20,186
+a gender modifier.
+
+
+921
+00:26:21,246 --> 00:26:22,336
+But these visual components
+
+
+922
+00:26:22,336 --> 00:26:23,306
+don't tell the whole story,
+
+
+923
+00:26:23,406 --> 00:26:23,556
+either.
+
+
+924
+00:26:24,006 --> 00:26:25,016
+There are also, two control
+
+
+925
+00:26:25,016 --> 00:26:25,946
+characters in this string.
+
+
+926
+00:26:26,036 --> 00:26:27,556
+A zero width joiner and a
+
+
+927
+00:26:27,556 --> 00:26:28,466
+variation selector.
+
+
+928
+00:26:28,466 --> 00:26:30,206
+And to see this, we'll look at
+
+
+929
+00:26:30,206 --> 00:26:31,596
+the Unicode Scalar values that
+
+
+930
+00:26:31,596 --> 00:26:32,276
+make up the string.
+
+
+931
+00:26:32,476 --> 00:26:33,396
+Now, if you're not familiar with
+
+
+932
+00:26:33,396 --> 00:26:35,216
+the term, a Unicode Scalar value
+
+
+933
+00:26:35,216 --> 00:26:37,786
+is a 21-bit number that uniquely
+
+
+934
+00:26:37,786 --> 00:26:39,166
+represents a Unicode character.
+
+
+935
+00:26:39,916 --> 00:26:41,096
+And so, here are the Unicode
+
+
+936
+00:26:41,096 --> 00:26:42,136
+Scalar values that make up the
+
+
+937
+00:26:42,136 --> 00:26:43,786
+string, and the names that are
+
+
+938
+00:26:43,786 --> 00:26:45,306
+associated with those values.
+
+
+939
+00:26:45,406 --> 00:26:47,026
+So, if you look at the string
+
+
+940
+00:26:47,026 --> 00:26:48,186
+from a Unicode Scalar point of
+
+
+941
+00:26:48,186 --> 00:26:49,536
+view, it's actually made up of
+
+
+942
+00:26:49,536 --> 00:26:50,636
+five different values, and it
+
+
+943
+00:26:50,636 --> 00:26:51,526
+has length five.
+
+
+944
+00:26:52,106 --> 00:26:54,446
+Now, this is all fine and dandy
+
+
+945
+00:26:54,446 --> 00:26:55,486
+if you're working purely with
+
+
+946
+00:26:55,486 --> 00:26:56,086
+Swift's string API.
+
+
+947
+00:26:56,886 --> 00:26:57,706
+But if you're using
+
+
+948
+00:26:57,706 --> 00:26:59,786
+NSAttributedString, or any API
+
+
+949
+00:26:59,786 --> 00:27:02,236
+really, that uses NSRange, these
+
+
+950
+00:27:02,236 --> 00:27:03,896
+think in terms of UTF-16.
+
+
+951
+00:27:04,546 --> 00:27:05,426
+And so, if you look at the
+
+
+952
+00:27:05,426 --> 00:27:06,906
+UTF-16 view of this string, it
+
+
+953
+00:27:06,906 --> 00:27:08,056
+actually consists of seven
+
+
+954
+00:27:08,056 --> 00:27:08,966
+values and it's of length,
+
+
+955
+00:27:09,216 --> 00:27:09,546
+seven.
+
+
+956
+00:27:10,466 --> 00:27:11,226
+Now this can get really
+
+
+957
+00:27:11,226 --> 00:27:12,396
+confusing, and it makes working
+
+
+958
+00:27:12,396 --> 00:27:13,856
+with NSRange and range of string
+
+
+959
+00:27:13,856 --> 00:27:14,816
+index a little bit painful.
+
+
+960
+00:27:14,816 --> 00:27:17,806
+So, let's clear up some of this
+
+
+961
+00:27:17,806 --> 00:27:18,906
+confusion and talk about how to
+
+
+962
+00:27:18,906 --> 00:27:20,386
+work with NSAttributedString,
+
+
+963
+00:27:20,386 --> 00:27:21,246
+which makes heavy use of
+
+
+964
+00:27:21,366 --> 00:27:21,816
+NSRange.
+
+
+965
+00:27:22,266 --> 00:27:24,336
+So, let's say I have a string
+
+
+966
+00:27:24,336 --> 00:27:26,146
+like this.
+
+
+967
+00:27:26,146 --> 00:27:27,326
+And I want to create an
+
+
+968
+00:27:27,326 --> 00:27:28,606
+attributed string with it, and
+
+
+969
+00:27:28,606 --> 00:27:29,816
+change the background color of
+
+
+970
+00:27:29,816 --> 00:27:30,966
+one of the characters to green.
+
+
+971
+00:27:31,566 --> 00:27:35,386
+Now, this is complicated enough,
+
+
+972
+00:27:35,386 --> 00:27:36,916
+that even I forget how to do it,
+
+
+973
+00:27:36,916 --> 00:27:37,296
+sometimes.
+
+
+974
+00:27:37,366 --> 00:27:38,016
+But don't tell anyone.
+
+
+975
+00:27:38,456 --> 00:27:40,646
+So, I might have to look it up
+
+
+976
+00:27:40,646 --> 00:27:41,176
+on the internet.
+
+
+977
+00:27:41,176 --> 00:27:42,486
+And then, after I do that I
+
+
+978
+00:27:42,486 --> 00:27:43,486
+might end up with some code that
+
+
+979
+00:27:43,486 --> 00:27:44,006
+looks like this.
+
+
+980
+00:27:45,246 --> 00:27:46,216
+it's annoying, because I have to
+
+
+981
+00:27:46,216 --> 00:27:47,256
+keep flipping back and forth
+
+
+982
+00:27:47,256 --> 00:27:49,176
+between this string API and this
+
+
+983
+00:27:49,176 --> 00:27:50,826
+NSString API, right.
+
+
+984
+00:27:51,056 --> 00:27:52,206
+I have to take my original
+
+
+985
+00:27:52,206 --> 00:27:53,226
+string and then, create an
+
+
+986
+00:27:53,336 --> 00:27:54,376
+NSString from it, and then
+
+
+987
+00:27:54,376 --> 00:27:55,896
+calculate the NSRange using the
+
+
+988
+00:27:55,896 --> 00:27:56,336
+NSString.
+
+
+989
+00:27:56,746 --> 00:27:58,256
+But then, I have to go back and
+
+
+990
+00:27:58,296 --> 00:27:58,686
+create my
+
+
+991
+00:27:58,856 --> 00:28:00,276
+NSMutableAttributedString using
+
+
+992
+00:28:00,276 --> 00:28:01,246
+the original string, again.
+
+
+993
+00:28:01,856 --> 00:28:03,586
+Yuck. I don't like to do this.
+
+
+994
+00:28:04,326 --> 00:28:06,706
+Nobody likes to do this.
+
+
+995
+00:28:06,916 --> 00:28:07,896
+The good news is that you won't
+
+
+996
+00:28:07,896 --> 00:28:08,696
+have to do this, anymore,
+
+
+997
+00:28:09,086 --> 00:28:10,186
+because in Swift 4, we're
+
+
+998
+00:28:10,186 --> 00:28:11,606
+introducing new initializers for
+
+
+999
+00:28:11,776 --> 00:28:12,786
+NSRange and Range.
+
+
+1000
+00:28:13,576 --> 00:28:14,646
+And so, when we use these new
+
+
+1001
+00:28:14,646 --> 00:28:15,286
+initializers.
+
+
+1002
+00:28:15,506 --> 00:28:16,826
+Thank you.
+
+
+1003
+00:28:17,646 --> 00:28:20,386
+That same example trims down to
+
+
+1004
+00:28:20,386 --> 00:28:21,836
+just this and it's a lot easier
+
+
+1005
+00:28:21,836 --> 00:28:23,506
+to read, write, and remember.
+
+
+1006
+00:28:24,086 --> 00:28:25,796
+So, the new NSRange initializer
+
+
+1007
+00:28:25,896 --> 00:28:27,266
+that's being used here, it takes
+
+
+1008
+00:28:27,266 --> 00:28:28,716
+a range and the Swift string and
+
+
+1009
+00:28:28,716 --> 00:28:29,916
+it uses it to create the
+
+
+1010
+00:28:29,916 --> 00:28:30,366
+NSRange.
+
+
+1011
+00:28:30,366 --> 00:28:31,196
+And you can just pass that
+
+
+1012
+00:28:31,196 --> 00:28:32,136
+directly into the
+
+
+1013
+00:28:32,136 --> 00:28:33,756
+attributedString API.
+
+
+1014
+00:28:35,176 --> 00:28:36,456
+But now, let's take a look at
+
+
+1015
+00:28:36,456 --> 00:28:37,256
+the conversion in the other
+
+
+1016
+00:28:37,256 --> 00:28:38,906
+direction from NSRange to Range
+
+
+1017
+00:28:38,906 --> 00:28:39,416
+and string index.
+
+
+1018
+00:28:39,546 --> 00:28:42,596
+To look at this simple example,
+
+
+1019
+00:28:42,686 --> 00:28:43,936
+let's say we have some html like
+
+
+1020
+00:28:43,936 --> 00:28:45,336
+this, and we want to print out
+
+
+1021
+00:28:45,336 --> 00:28:45,966
+all the start tags.
+
+
+1022
+00:28:46,946 --> 00:28:48,056
+And so, in order to do this,
+
+
+1023
+00:28:48,826 --> 00:28:50,196
+we'll use NSRegularExpression to
+
+
+1024
+00:28:50,196 --> 00:28:51,446
+find the tags we want, and then
+
+
+1025
+00:28:51,446 --> 00:28:52,296
+append them to a string.
+
+
+1026
+00:28:52,686 --> 00:28:54,836
+Sounds reasonable, right?
+
+
+1027
+00:28:55,586 --> 00:28:57,196
+But the NSRegularExpression API
+
+
+1028
+00:28:57,276 --> 00:28:58,766
+gives me NS ranges back from my
+
+
+1029
+00:28:58,766 --> 00:28:59,246
+match groups.
+
+
+1030
+00:28:59,466 --> 00:29:00,616
+And I need ranges of string
+
+
+1031
+00:29:00,616 --> 00:29:02,066
+index to be able to append to my
+
+
+1032
+00:29:02,066 --> 00:29:02,606
+Swift string.
+
+
+1033
+00:29:03,156 --> 00:29:05,056
+And so, before these new
+
+
+1034
+00:29:05,056 --> 00:29:06,946
+initializers were available, we
+
+
+1035
+00:29:06,946 --> 00:29:07,846
+might have use something like
+
+
+1036
+00:29:07,846 --> 00:29:09,366
+this to convert from NSRange to
+
+
+1037
+00:29:09,366 --> 00:29:10,066
+range a string index.
+
+
+1038
+00:29:11,156 --> 00:29:12,076
+And remember that face palm
+
+
+1039
+00:29:12,076 --> 00:29:13,016
+emoji we talked about a few
+
+
+1040
+00:29:13,016 --> 00:29:14,476
+minutes ago, and how it was of
+
+
+1041
+00:29:14,476 --> 00:29:15,746
+length seven, in terms of
+
+
+1042
+00:29:15,746 --> 00:29:16,386
+UTF-16?
+
+
+1043
+00:29:16,496 --> 00:29:17,626
+And length five in terms of
+
+
+1044
+00:29:17,626 --> 00:29:18,246
+Unicode Scalar?
+
+
+1045
+00:29:18,656 --> 00:29:19,526
+Well, this code is a little bit
+
+
+1046
+00:29:19,526 --> 00:29:21,476
+complicated, because it's doing
+
+
+1047
+00:29:21,476 --> 00:29:23,846
+that conversion from UTF-16 to
+
+
+1048
+00:29:23,846 --> 00:29:24,546
+Unicode Scalar.
+
+
+1049
+00:29:25,086 --> 00:29:27,366
+But now, with these new array
+
+
+1050
+00:29:27,396 --> 00:29:28,296
+initializers, you don't have to
+
+
+1051
+00:29:28,296 --> 00:29:29,006
+do that anymore, either.
+
+
+1052
+00:29:29,816 --> 00:29:30,976
+We can just take the NSRange we
+
+
+1053
+00:29:30,976 --> 00:29:31,936
+get back from the match group
+
+
+1054
+00:29:32,366 --> 00:29:34,126
+and use that to create our range
+
+
+1055
+00:29:34,126 --> 00:29:35,346
+of string index, and append it
+
+
+1056
+00:29:35,346 --> 00:29:36,116
+directly to our string.
+
+
+1057
+00:29:36,846 --> 00:29:38,006
+This is a lot more convenient
+
+
+1058
+00:29:38,146 --> 00:29:39,036
+and it's a lot easier to use.
+
+
+1059
+00:29:39,926 --> 00:29:40,886
+So, these new initializers are
+
+
+1060
+00:29:40,886 --> 00:29:42,486
+really great, and I hope that
+
+
+1061
+00:29:42,486 --> 00:29:43,596
+you use them for all your Range
+
+
+1062
+00:29:43,656 --> 00:29:44,616
+and NSRange conversions.
+
+
+1063
+00:29:45,036 --> 00:29:47,036
+[ Applause ]
+
+
+1064
+00:29:47,056 --> 00:29:47,726
+Thank you.
+
+
+1065
+00:29:48,016 --> 00:29:49,916
+[ Applause ]
+
+
+1066
+00:29:49,916 --> 00:29:51,236
+So, that wraps up ranges.
+
+
+1067
+00:29:51,266 --> 00:29:52,516
+Let's move on to text layout and
+
+
+1068
+00:29:52,516 --> 00:29:52,966
+rendering.
+
+
+1069
+00:29:53,526 --> 00:29:55,526
+Text is hard.
+
+
+1070
+00:29:56,586 --> 00:29:57,706
+It seems simple on the surface.
+
+
+1071
+00:29:58,226 --> 00:29:59,366
+Because everyone knows what text
+
+
+1072
+00:29:59,366 --> 00:29:59,566
+is.
+
+
+1073
+00:30:00,106 --> 00:30:01,086
+Everyone encounters it on a
+
+
+1074
+00:30:01,086 --> 00:30:01,736
+daily basis.
+
+
+1075
+00:30:02,246 --> 00:30:04,066
+It's familiar and it's ordinary.
+
+
+1076
+00:30:04,766 --> 00:30:06,066
+And as a result, there is a
+
+
+1077
+00:30:06,066 --> 00:30:07,446
+tendency to implicitly assume
+
+
+1078
+00:30:07,446 --> 00:30:07,996
+that it's easy.
+
+
+1079
+00:30:09,256 --> 00:30:10,316
+But it's not easy.
+
+
+1080
+00:30:10,986 --> 00:30:12,446
+Text poses some real performance
+
+
+1081
+00:30:12,446 --> 00:30:13,446
+challenges, because of its
+
+
+1082
+00:30:13,446 --> 00:30:14,336
+ubiquity in scale.
+
+
+1083
+00:30:14,946 --> 00:30:17,386
+So, think about this.
+
+
+1084
+00:30:17,656 --> 00:30:20,026
+We ship 40 localizations for
+
+
+1085
+00:30:20,026 --> 00:30:24,386
+iOS, 35 for macOS, 39 for
+
+
+1086
+00:30:24,386 --> 00:30:27,076
+watchOS, and 40 again for tvOS.
+
+
+1087
+00:30:28,546 --> 00:30:29,756
+And for all of these platforms,
+
+
+1088
+00:30:29,886 --> 00:30:31,246
+we support text input for more
+
+
+1089
+00:30:31,246 --> 00:30:32,666
+than 300 other languages.
+
+
+1090
+00:30:33,306 --> 00:30:35,786
+And each of these languages may
+
+
+1091
+00:30:35,786 --> 00:30:36,956
+have different rules for things
+
+
+1092
+00:30:36,956 --> 00:30:37,846
+like word breaking and
+
+
+1093
+00:30:37,846 --> 00:30:38,306
+hyphenation.
+
+
+1094
+00:30:38,306 --> 00:30:40,346
+And that's going to affect the
+
+
+1095
+00:30:40,346 --> 00:30:41,836
+line breaking, which is going to
+
+
+1096
+00:30:41,836 --> 00:30:43,436
+affect the text layout, which is
+
+
+1097
+00:30:43,436 --> 00:30:44,296
+going to affect the text
+
+
+1098
+00:30:44,296 --> 00:30:44,666
+rendering.
+
+
+1099
+00:30:44,666 --> 00:30:46,316
+And our frameworks need to be
+
+
+1100
+00:30:46,316 --> 00:30:47,296
+able to handle all of these
+
+
+1101
+00:30:47,296 --> 00:30:48,116
+languages, correctly.
+
+
+1102
+00:30:48,116 --> 00:30:51,476
+Now, if that wasn't enough, here
+
+
+1103
+00:30:51,476 --> 00:30:52,366
+are just some of the other
+
+
+1104
+00:30:52,366 --> 00:30:53,766
+factors that our frameworks take
+
+
+1105
+00:30:53,766 --> 00:30:55,096
+into account when we perform
+
+
+1106
+00:30:55,096 --> 00:30:55,976
+text layout and rendering.
+
+
+1107
+00:30:56,586 --> 00:30:57,426
+So, we look at all of these
+
+
+1108
+00:30:57,466 --> 00:30:58,576
+things and more to render your
+
+
+1109
+00:30:58,576 --> 00:30:59,776
+text in a way that's both
+
+
+1110
+00:30:59,776 --> 00:31:00,726
+correct and performant.
+
+
+1111
+00:31:01,096 --> 00:31:02,436
+So, I encourage you to use the
+
+
+1112
+00:31:02,486 --> 00:31:04,086
+standard label controls whenever
+
+
+1113
+00:31:04,086 --> 00:31:04,486
+possible.
+
+
+1114
+00:31:05,546 --> 00:31:06,876
+Now, with so many different
+
+
+1115
+00:31:06,876 --> 00:31:08,216
+variables to consider, our
+
+
+1116
+00:31:08,216 --> 00:31:09,146
+frameworks use multiple
+
+
+1117
+00:31:09,146 --> 00:31:10,426
+optimization strategies, under
+
+
+1118
+00:31:10,426 --> 00:31:10,756
+the hood.
+
+
+1119
+00:31:11,486 --> 00:31:12,906
+Selection of any one particular
+
+
+1120
+00:31:12,906 --> 00:31:14,476
+strategy is highly situational
+
+
+1121
+00:31:14,586 --> 00:31:15,986
+and multiple criteria might have
+
+
+1122
+00:31:16,036 --> 00:31:17,576
+to be met in order to apply one.
+
+
+1123
+00:31:18,806 --> 00:31:20,056
+And so, I would warn you to be
+
+
+1124
+00:31:20,056 --> 00:31:21,646
+careful when you're applying
+
+
+1125
+00:31:21,646 --> 00:31:23,086
+your own optimizations on top of
+
+
+1126
+00:31:23,086 --> 00:31:23,876
+the standard controls.
+
+
+1127
+00:31:24,536 --> 00:31:25,516
+Because a change in rendering
+
+
+1128
+00:31:25,516 --> 00:31:26,986
+conditions or input data could
+
+
+1129
+00:31:26,986 --> 00:31:28,426
+nullify any performance gains
+
+
+1130
+00:31:28,426 --> 00:31:29,356
+from your optimizations.
+
+
+1131
+00:31:30,056 --> 00:31:32,136
+And to illustrate what I mean by
+
+
+1132
+00:31:32,136 --> 00:31:33,466
+that, I'd like to share with you
+
+
+1133
+00:31:33,466 --> 00:31:35,056
+a cautionary tale of two labels.
+
+
+1134
+00:31:35,116 --> 00:31:39,286
+So, once upon a time, there was
+
+
+1135
+00:31:39,286 --> 00:31:40,576
+a developer who needed to render
+
+
+1136
+00:31:40,576 --> 00:31:41,466
+a lot of labels in her app.
+
+
+1137
+00:31:42,606 --> 00:31:43,666
+And she required each label to
+
+
+1138
+00:31:43,666 --> 00:31:44,946
+have a line of bold text,
+
+
+1139
+00:31:45,316 --> 00:31:46,506
+followed by a line of normal
+
+
+1140
+00:31:46,506 --> 00:31:46,936
+weight text.
+
+
+1141
+00:31:48,156 --> 00:31:49,176
+And she needed to position her
+
+
+1142
+00:31:49,176 --> 00:31:50,776
+labels by manually setting their
+
+
+1143
+00:31:50,776 --> 00:31:52,446
+frames, because business
+
+
+1144
+00:31:52,446 --> 00:31:52,736
+reasons.
+
+
+1145
+00:31:54,886 --> 00:31:55,926
+So, she set up her labels with
+
+
+1146
+00:31:55,926 --> 00:31:57,236
+attributed strings and off she
+
+
+1147
+00:31:58,156 --> 00:31:58,286
+went.
+
+
+1148
+00:31:59,196 --> 00:32:00,956
+But she noticed that the
+
+
+1149
+00:32:00,956 --> 00:32:02,336
+scrolling performance in her app
+
+
+1150
+00:32:02,336 --> 00:32:03,606
+was a little bit slower than she
+
+
+1151
+00:32:03,606 --> 00:32:03,966
+would like.
+
+
+1152
+00:32:04,896 --> 00:32:05,666
+So, she did a little bit of
+
+
+1153
+00:32:05,666 --> 00:32:07,946
+profiling and she found that one
+
+
+1154
+00:32:07,946 --> 00:32:08,986
+areas where a lot of time was
+
+
+1155
+00:32:08,986 --> 00:32:10,256
+being spent was in laying out
+
+
+1156
+00:32:10,256 --> 00:32:11,236
+and rendering the labels.
+
+
+1157
+00:32:11,946 --> 00:32:13,756
+So, then she did some
+
+
+1158
+00:32:13,756 --> 00:32:15,756
+experimentation and she noticed
+
+
+1159
+00:32:16,216 --> 00:32:19,196
+that if she rendered each line
+
+
+1160
+00:32:19,196 --> 00:32:20,496
+in a separate label, her app
+
+
+1161
+00:32:20,546 --> 00:32:21,706
+scrolling performance improved.
+
+
+1162
+00:32:22,256 --> 00:32:23,266
+''Well, this is fantastic'', she
+
+
+1163
+00:32:23,266 --> 00:32:23,486
+thought.
+
+
+1164
+00:32:23,896 --> 00:32:24,896
+So, she changed her app to use a
+
+
+1165
+00:32:24,896 --> 00:32:26,016
+separate label for each line of
+
+
+1166
+00:32:26,016 --> 00:32:26,336
+text.
+
+
+1167
+00:32:26,556 --> 00:32:27,556
+And she lived happily ever
+
+
+1168
+00:32:27,556 --> 00:32:30,226
+after, until her company wanted
+
+
+1169
+00:32:30,226 --> 00:32:31,176
+to expand into the Chinese
+
+
+1170
+00:32:31,176 --> 00:32:31,456
+market.
+
+
+1171
+00:32:33,056 --> 00:32:34,676
+When she tested her app with
+
+
+1172
+00:32:34,676 --> 00:32:36,376
+this Chinese text, she was
+
+
+1173
+00:32:36,376 --> 00:32:38,086
+dismayed to discover that the
+
+
+1174
+00:32:38,086 --> 00:32:39,456
+scrolling performance was even
+
+
+1175
+00:32:39,556 --> 00:32:40,856
+slower than before.
+
+
+1176
+00:32:42,266 --> 00:32:43,296
+So, what happened, here?
+
+
+1177
+00:32:43,456 --> 00:32:46,656
+Well, our tragic heroine started
+
+
+1178
+00:32:46,656 --> 00:32:47,726
+off with the right approach.
+
+
+1179
+00:32:48,256 --> 00:32:49,346
+She was looking at frequent
+
+
+1180
+00:32:49,346 --> 00:32:50,366
+rendering of lots of short
+
+
+1181
+00:32:50,416 --> 00:32:52,386
+strings, which falls here, in
+
+
+1182
+00:32:52,386 --> 00:32:52,986
+quadrant two.
+
+
+1183
+00:32:54,496 --> 00:32:55,406
+And so, she took some
+
+
+1184
+00:32:55,406 --> 00:32:56,906
+measurements, she determined an
+
+
+1185
+00:32:56,906 --> 00:32:58,436
+area for improvement, and she
+
+
+1186
+00:32:58,436 --> 00:32:59,366
+made an optimization.
+
+
+1187
+00:33:00,436 --> 00:33:01,796
+But then, when the input data
+
+
+1188
+00:33:01,796 --> 00:33:03,316
+changed to Chinese text, the
+
+
+1189
+00:33:03,316 --> 00:33:04,766
+optimization was no longer an
+
+
+1190
+00:33:04,766 --> 00:33:05,276
+improvement.
+
+
+1191
+00:33:05,276 --> 00:33:07,426
+And to see why, let's do a
+
+
+1192
+00:33:07,426 --> 00:33:07,956
+postmortem.
+
+
+1193
+00:33:09,506 --> 00:33:11,106
+So, in this example, the initial
+
+
+1194
+00:33:11,106 --> 00:33:12,116
+conditions qualified the
+
+
+1195
+00:33:12,116 --> 00:33:13,516
+attributed strings for a faster
+
+
+1196
+00:33:13,516 --> 00:33:14,416
+rendering path within the
+
+
+1197
+00:33:14,416 --> 00:33:14,786
+framework.
+
+
+1198
+00:33:15,586 --> 00:33:16,566
+And the optimization of
+
+
+1199
+00:33:16,566 --> 00:33:17,686
+splitting each line into its own
+
+
+1200
+00:33:17,686 --> 00:33:19,406
+label took advantage of the fact
+
+
+1201
+00:33:19,406 --> 00:33:20,306
+that attributed strings
+
+
+1202
+00:33:20,306 --> 00:33:21,446
+containing only one style of
+
+
+1203
+00:33:21,446 --> 00:33:23,276
+text may qualify for faster
+
+
+1204
+00:33:23,276 --> 00:33:23,646
+rendering.
+
+
+1205
+00:33:24,186 --> 00:33:26,976
+But this isn't a sufficient
+
+
+1206
+00:33:26,976 --> 00:33:28,176
+condition for faster rendering.
+
+
+1207
+00:33:28,916 --> 00:33:30,406
+The faster rendering paths take
+
+
+1208
+00:33:30,456 --> 00:33:31,616
+shortcuts that make certain
+
+
+1209
+00:33:31,616 --> 00:33:33,166
+assumptions about the input data
+
+
+1210
+00:33:33,166 --> 00:33:34,156
+and the rendering conditions.
+
+
+1211
+00:33:34,606 --> 00:33:36,056
+And in this case, using Chinese
+
+
+1212
+00:33:36,056 --> 00:33:37,516
+text requires font fallback, and
+
+
+1213
+00:33:37,516 --> 00:33:38,546
+that forced the rendering down
+
+
+1214
+00:33:38,546 --> 00:33:39,456
+the slower path within the
+
+
+1215
+00:33:39,456 --> 00:33:40,236
+framework to maintain
+
+
+1216
+00:33:40,236 --> 00:33:40,676
+correctness.
+
+
+1217
+00:33:40,676 --> 00:33:43,336
+And on top of that, splitting
+
+
+1218
+00:33:43,336 --> 00:33:44,326
+the two-line strings into
+
+
+1219
+00:33:44,326 --> 00:33:45,216
+separate labels, meant that the
+
+
+1220
+00:33:45,216 --> 00:33:46,576
+app was rendering twice as many
+
+
+1221
+00:33:46,576 --> 00:33:48,336
+labels as it needed to.
+
+
+1222
+00:33:49,786 --> 00:33:51,756
+And additionally, the app was
+
+
+1223
+00:33:51,756 --> 00:33:53,116
+using older layout practices by
+
+
+1224
+00:33:53,116 --> 00:33:54,236
+manually setting the frames,
+
+
+1225
+00:33:54,396 --> 00:33:55,436
+instead of using auto layout.
+
+
+1226
+00:33:56,266 --> 00:33:57,416
+So generally, we're going to pay
+
+
+1227
+00:33:57,416 --> 00:33:58,356
+a lot of attention to
+
+
+1228
+00:33:58,356 --> 00:33:59,476
+performance under conditions
+
+
+1229
+00:33:59,516 --> 00:34:00,796
+that are using modern practices,
+
+
+1230
+00:34:00,896 --> 00:34:01,546
+like auto layout.
+
+
+1231
+00:34:01,626 --> 00:34:02,926
+Because that's what most apps
+
+
+1232
+00:34:02,926 --> 00:34:04,096
+are using and that's where our
+
+
+1233
+00:34:04,096 --> 00:34:05,086
+performance improvements will
+
+
+1234
+00:34:05,086 --> 00:34:05,966
+make the largest impact.
+
+
+1235
+00:34:07,056 --> 00:34:07,756
+So, with auto layout in
+
+
+1236
+00:34:07,756 --> 00:34:08,976
+particular, that text system
+
+
+1237
+00:34:08,976 --> 00:34:10,496
+caches some layout information.
+
+
+1238
+00:34:10,856 --> 00:34:11,755
+And this can really improve
+
+
+1239
+00:34:11,755 --> 00:34:12,235
+performance.
+
+
+1240
+00:34:12,286 --> 00:34:13,476
+But since this app wasn't using
+
+
+1241
+00:34:13,476 --> 00:34:15,166
+auto layout, it couldn't take
+
+
+1242
+00:34:15,166 --> 00:34:16,996
+advantage of that.
+
+
+1243
+00:34:17,186 --> 00:34:18,065
+And so, with that in mind,
+
+
+1244
+00:34:18,556 --> 00:34:19,746
+here's some strategies and tips
+
+
+1245
+00:34:19,876 --> 00:34:21,206
+that you can employ to improve
+
+
+1246
+00:34:21,206 --> 00:34:22,266
+text layout and rendering
+
+
+1247
+00:34:22,686 --> 00:34:23,636
+performance in your app.
+
+
+1248
+00:34:23,636 --> 00:34:26,255
+Now, if you've been paying
+
+
+1249
+00:34:26,255 --> 00:34:27,386
+attention, you already know what
+
+
+1250
+00:34:27,386 --> 00:34:28,065
+I'm going to say the first
+
+
+1251
+00:34:28,065 --> 00:34:28,536
+strategy is.
+
+
+1252
+00:34:29,146 --> 00:34:31,275
+Use the standard labels for
+
+
+1253
+00:34:31,275 --> 00:34:32,746
+rendering your text and let us
+
+
+1254
+00:34:32,746 --> 00:34:33,766
+do the heavy lifting for you.
+
+
+1255
+00:34:34,686 --> 00:34:35,646
+The framework is in a better
+
+
+1256
+00:34:35,706 --> 00:34:36,485
+place to apply these
+
+
+1257
+00:34:36,485 --> 00:34:37,896
+optimizations, because it has a
+
+
+1258
+00:34:37,946 --> 00:34:38,795
+bigger picture view of the
+
+
+1259
+00:34:38,835 --> 00:34:40,335
+situation and more information
+
+
+1260
+00:34:40,335 --> 00:34:41,376
+about the rendering conditions.
+
+
+1261
+00:34:42,516 --> 00:34:43,806
+And when we make performance
+
+
+1262
+00:34:43,806 --> 00:34:44,596
+improvements, you'll
+
+
+1263
+00:34:44,596 --> 00:34:45,556
+automatically get those
+
+
+1264
+00:34:45,606 --> 00:34:45,966
+benefits.
+
+
+1265
+00:34:46,886 --> 00:34:48,516
+So, as an example of that, in
+
+
+1266
+00:34:48,516 --> 00:34:50,846
+macOS 10.13, NSTextField renders
+
+
+1267
+00:34:50,846 --> 00:34:52,346
+text roughly three times faster,
+
+
+1268
+00:34:52,346 --> 00:34:54,376
+at 5.7 milliseconds per frame
+
+
+1269
+00:34:54,525 --> 00:34:55,406
+during live resize.
+
+
+1270
+00:34:55,746 --> 00:34:58,336
+Down from 16.67 milliseconds per
+
+
+1271
+00:34:58,336 --> 00:34:59,136
+frame in 10.12.
+
+
+1272
+00:34:59,816 --> 00:35:00,956
+And you'll get this performance
+
+
+1273
+00:35:00,956 --> 00:35:02,246
+boost for free if you're using
+
+
+1274
+00:35:02,246 --> 00:35:03,296
+the standard framework controls.
+
+
+1275
+00:35:03,876 --> 00:35:05,006
+So, it's really a good idea to
+
+
+1276
+00:35:05,006 --> 00:35:06,076
+use the standard controls
+
+
+1277
+00:35:06,146 --> 00:35:06,826
+whenever possible.
+
+
+1278
+00:35:07,286 --> 00:35:11,506
+Second strategy, as we kind of
+
+
+1279
+00:35:11,506 --> 00:35:13,096
+saw from out story, is to use
+
+
+1280
+00:35:13,096 --> 00:35:14,316
+modern layout practices like
+
+
+1281
+00:35:14,316 --> 00:35:14,816
+auto layout.
+
+
+1282
+00:35:15,516 --> 00:35:16,526
+Now, text layout and rendering
+
+
+1283
+00:35:16,526 --> 00:35:17,436
+performance with modern
+
+
+1284
+00:35:17,436 --> 00:35:19,016
+practices is very heavily
+
+
+1285
+00:35:19,016 --> 00:35:20,136
+scrutinized on our end.
+
+
+1286
+00:35:20,866 --> 00:35:22,016
+And by adopting these modern
+
+
+1287
+00:35:22,016 --> 00:35:23,426
+practices, you'll be less likely
+
+
+1288
+00:35:23,426 --> 00:35:24,396
+to run into edge case
+
+
+1289
+00:35:24,396 --> 00:35:25,536
+performance scenarios that we
+
+
+1290
+00:35:25,536 --> 00:35:26,486
+haven't already seen and
+
+
+1291
+00:35:26,486 --> 00:35:26,856
+improved.
+
+
+1292
+00:35:30,536 --> 00:35:32,306
+Next up, is a lower level tip.
+
+
+1293
+00:35:32,796 --> 00:35:33,456
+If you're working with
+
+
+1294
+00:35:33,456 --> 00:35:35,276
+NSAttributedString, there are a
+
+
+1295
+00:35:35,276 --> 00:35:36,346
+few attributes that are
+
+
+1296
+00:35:36,346 --> 00:35:37,846
+absolutely necessary for layout
+
+
+1297
+00:35:37,846 --> 00:35:38,296
+and rendering.
+
+
+1298
+00:35:38,296 --> 00:35:40,406
+And if you don't supply these
+
+
+1299
+00:35:40,406 --> 00:35:41,666
+attributes yourself, the text
+
+
+1300
+00:35:41,666 --> 00:35:42,986
+system needs to resolve them in
+
+
+1301
+00:35:42,986 --> 00:35:44,016
+order to be able to render.
+
+
+1302
+00:35:44,536 --> 00:35:45,746
+And so, you can shave off a
+
+
+1303
+00:35:45,746 --> 00:35:47,056
+little bit of time by supplying
+
+
+1304
+00:35:47,056 --> 00:35:48,456
+these attributes yourself, when
+
+
+1305
+00:35:48,456 --> 00:35:49,516
+rendering attributed strings.
+
+
+1306
+00:35:50,176 --> 00:35:53,896
+In a similar vein, you might see
+
+
+1307
+00:35:53,896 --> 00:35:54,916
+some small improvements from
+
+
+1308
+00:35:54,916 --> 00:35:56,346
+explicitly specifying the
+
+
+1309
+00:35:56,346 --> 00:35:57,546
+writing direction and alignment,
+
+
+1310
+00:35:57,546 --> 00:35:58,566
+instead of using the natural
+
+
+1311
+00:35:58,606 --> 00:35:58,926
+settings.
+
+
+1312
+00:35:59,006 --> 00:36:00,876
+And this will save you a little
+
+
+1313
+00:36:00,876 --> 00:36:01,956
+time, because the text system
+
+
+1314
+00:36:01,956 --> 00:36:03,196
+can skip over any logic that
+
+
+1315
+00:36:03,196 --> 00:36:04,256
+tries to figure out the writing
+
+
+1316
+00:36:04,256 --> 00:36:05,236
+direction and the alignment.
+
+
+1317
+00:36:06,486 --> 00:36:07,426
+But remember that you'll only
+
+
+1318
+00:36:07,426 --> 00:36:08,316
+want to do this if you're
+
+
+1319
+00:36:08,316 --> 00:36:09,956
+absolutely sure that your input
+
+
+1320
+00:36:09,956 --> 00:36:11,536
+data won't contain mixed writing
+
+
+1321
+00:36:11,536 --> 00:36:11,926
+directions.
+
+
+1322
+00:36:11,926 --> 00:36:13,536
+Now, there's a balance between
+
+
+1323
+00:36:13,536 --> 00:36:14,506
+performance and correctness.
+
+
+1324
+00:36:14,506 --> 00:36:16,116
+And this is one optimization
+
+
+1325
+00:36:16,116 --> 00:36:17,446
+that can tip the balance a
+
+
+1326
+00:36:17,446 --> 00:36:18,396
+little too far away from
+
+
+1327
+00:36:18,396 --> 00:36:19,516
+correctness if you're not sure
+
+
+1328
+00:36:19,516 --> 00:36:19,976
+of your input.
+
+
+1329
+00:36:23,266 --> 00:36:24,756
+And along those same lines of
+
+
+1330
+00:36:24,756 --> 00:36:25,936
+performance versus correctness,
+
+
+1331
+00:36:26,436 --> 00:36:27,726
+if you know that all your labels
+
+
+1332
+00:36:27,726 --> 00:36:28,986
+are only going to consist of one
+
+
+1333
+00:36:28,986 --> 00:36:30,626
+line, you can set the line break
+
+
+1334
+00:36:30,626 --> 00:36:31,486
+mode to use clipping.
+
+
+1335
+00:36:32,376 --> 00:36:34,156
+Now, by default, labels will use
+
+
+1336
+00:36:34,156 --> 00:36:34,506
+word wrap.
+
+
+1337
+00:36:34,796 --> 00:36:35,996
+And when you do this, the text
+
+
+1338
+00:36:35,996 --> 00:36:37,126
+system needs to figure out where
+
+
+1339
+00:36:37,126 --> 00:36:37,966
+to place the line breaks.
+
+
+1340
+00:36:38,606 --> 00:36:39,546
+And so, if you use the clipping
+
+
+1341
+00:36:39,546 --> 00:36:40,986
+line break mode, you can skip
+
+
+1342
+00:36:41,176 --> 00:36:42,436
+this line breaking and
+
+
+1343
+00:36:42,436 --> 00:36:43,616
+hyphenation logic, and your text
+
+
+1344
+00:36:43,616 --> 00:36:44,666
+might run there just a little
+
+
+1345
+00:36:44,836 --> 00:36:45,656
+bit faster.
+
+
+1346
+00:36:48,066 --> 00:36:49,186
+So, in summary, we've looked at
+
+
+1347
+00:36:49,186 --> 00:36:49,936
+a lot of different things,
+
+
+1348
+00:36:49,986 --> 00:36:50,276
+today.
+
+
+1349
+00:36:50,506 --> 00:36:51,476
+From performance improvements in
+
+
+1350
+00:36:51,476 --> 00:36:53,276
+Foundation, to string bridging
+
+
+1351
+00:36:53,486 --> 00:36:54,406
+and working with text.
+
+
+1352
+00:36:55,176 --> 00:36:56,086
+Now, if you take just one thing
+
+
+1353
+00:36:56,086 --> 00:36:57,576
+away from this talk, let it be
+
+
+1354
+00:36:57,576 --> 00:36:58,086
+this graph.
+
+
+1355
+00:36:58,686 --> 00:37:00,036
+Use the concepts of scale and
+
+
+1356
+00:37:00,036 --> 00:37:01,726
+frequency to minimize the large
+
+
+1357
+00:37:01,726 --> 00:37:02,946
+expense of operations in your
+
+
+1358
+00:37:02,946 --> 00:37:03,256
+code.
+
+
+1359
+00:37:03,726 --> 00:37:04,906
+Don't sweat the small infrequent
+
+
+1360
+00:37:04,906 --> 00:37:06,636
+stuff, and always measure if you
+
+
+1361
+00:37:06,636 --> 00:37:06,976
+aren't sure.
+
+
+1362
+00:37:10,076 --> 00:37:11,306
+So, for more information, you
+
+
+1363
+00:37:11,306 --> 00:37:13,116
+can visit our session URL, we
+
+
+1364
+00:37:13,166 --> 00:37:16,046
+are Session 244.
+
+
+1365
+00:37:16,046 --> 00:37:17,646
+And check out these related
+
+
+1366
+00:37:17,646 --> 00:37:18,796
+sessions on video.
+
+
+1367
+00:37:18,796 --> 00:37:19,296
+Pretty cool.
+
+
+1368
+00:37:19,866 --> 00:37:21,546
+Unfortunately, most of them
+
+
+1369
+00:37:21,546 --> 00:37:22,066
+already happened.
+
+
+1370
+00:37:23,266 --> 00:37:24,376
+Thank you, and enjoy the rest of
+
+
+1371
+00:37:24,376 --> 00:37:24,946
+the conference.
+
+
+1372
+00:37:25,516 --> 00:37:28,500
+[ Applause ]
+

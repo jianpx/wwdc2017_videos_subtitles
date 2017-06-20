@@ -1,0 +1,5199 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Cheers ]
+
+
+2
+00:00:23,516 --> 00:00:25,896
+[ Applause ]
+
+
+3
+00:00:26,396 --> 00:00:27,726
+>> Good afternoon everybody!
+
+
+4
+00:00:28,096 --> 00:00:30,256
+Welcome to WWDC2017.
+
+
+5
+00:00:30,936 --> 00:00:32,206
+My name is David Duncan.
+
+
+6
+00:00:32,206 --> 00:00:34,536
+I'll be joined by Raj Ramamurphy
+
+
+7
+00:00:34,536 --> 00:00:35,626
+[phonetic] and Kyle Sluder
+
+
+8
+00:00:35,626 --> 00:00:35,693
+[phonetic].
+
+
+9
+00:00:35,693 --> 00:00:37,506
+And we're here to talk to you
+
+
+10
+00:00:37,806 --> 00:00:39,946
+about updating your app for iOS
+
+
+11
+00:00:40,016 --> 00:00:40,476
+11.
+
+
+12
+00:00:42,176 --> 00:00:44,076
+So first a little agenda for
+
+
+13
+00:00:44,076 --> 00:00:46,416
+what we're going to talk about
+
+
+14
+00:00:46,416 --> 00:00:46,906
+today.
+
+
+15
+00:00:47,816 --> 00:00:48,966
+The first thing that I'm going
+
+
+16
+00:00:48,966 --> 00:00:50,116
+to be discussing with you is
+
+
+17
+00:00:50,366 --> 00:00:52,486
+adopting new functionality in UI
+
+
+18
+00:00:52,486 --> 00:00:55,586
+kits bars; UI navigation bar, UI
+
+
+19
+00:00:55,586 --> 00:00:58,426
+tab bar, UI toolbar, and UI
+
+
+20
+00:00:58,426 --> 00:00:59,086
+search bar.
+
+
+21
+00:00:59,086 --> 00:01:00,736
+And we're going to talk to you
+
+
+22
+00:01:00,736 --> 00:01:02,216
+about how these can update your
+
+
+23
+00:01:02,216 --> 00:01:04,135
+app to the new looks that we've
+
+
+24
+00:01:04,135 --> 00:01:06,056
+introduced throughout iOS 11.
+
+
+25
+00:01:07,266 --> 00:01:09,956
+Next Kyle will come up and talk
+
+
+26
+00:01:09,956 --> 00:01:11,116
+to you a bit about managing
+
+
+27
+00:01:11,116 --> 00:01:13,116
+margins and insets, changes that
+
+
+28
+00:01:13,116 --> 00:01:14,656
+we've made to UI scroll view and
+
+
+29
+00:01:14,656 --> 00:01:17,816
+table view will come after that,
+
+
+30
+00:01:17,816 --> 00:01:21,286
+and we're going to use all that
+
+
+31
+00:01:21,286 --> 00:01:22,186
+to show you how you can make
+
+
+32
+00:01:22,186 --> 00:01:22,686
+your app better.
+
+
+33
+00:01:23,256 --> 00:01:25,086
+So let's start by taking a look
+
+
+34
+00:01:25,086 --> 00:01:26,936
+at the files app.
+
+
+35
+00:01:27,616 --> 00:01:29,896
+So if you've gotten the chance
+
+
+36
+00:01:29,896 --> 00:01:31,616
+to install the beta and take a
+
+
+37
+00:01:31,616 --> 00:01:33,176
+look at the files app, you'll
+
+
+38
+00:01:33,176 --> 00:01:35,586
+see some changes that it's
+
+
+39
+00:01:35,586 --> 00:01:37,586
+taking advantage of from UI kit.
+
+
+40
+00:01:38,126 --> 00:01:39,636
+You can see that giant, large
+
+
+41
+00:01:39,636 --> 00:01:41,126
+title view up there showing the
+
+
+42
+00:01:41,126 --> 00:01:42,116
+browse feature.
+
+
+43
+00:01:42,926 --> 00:01:43,986
+You've got a search bar right
+
+
+44
+00:01:43,986 --> 00:01:45,246
+below it that has a bit of a
+
+
+45
+00:01:45,246 --> 00:01:46,446
+different appearance from any
+
+
+46
+00:01:46,486 --> 00:01:47,596
+search bar you've probably seen
+
+
+47
+00:01:47,596 --> 00:01:48,526
+before.
+
+
+48
+00:01:49,206 --> 00:01:51,266
+Now the tab bar actually has
+
+
+49
+00:01:51,266 --> 00:01:53,066
+some changes, but you won't see
+
+
+50
+00:01:53,066 --> 00:01:54,466
+them here so let's go ahead and
+
+
+51
+00:01:54,466 --> 00:01:56,696
+rotate this to landscape.
+
+
+52
+00:01:57,136 --> 00:01:58,496
+We've got this brand new
+
+
+53
+00:01:58,496 --> 00:02:00,416
+appearance for the tab bar, both
+
+
+54
+00:02:00,416 --> 00:02:02,876
+in landscape and on iPad, where
+
+
+55
+00:02:02,876 --> 00:02:04,556
+we show the icon and the text
+
+
+56
+00:02:04,556 --> 00:02:05,316
+side by side.
+
+
+57
+00:02:05,316 --> 00:02:08,436
+And in particular on iPhones the
+
+
+58
+00:02:08,436 --> 00:02:10,106
+icon is smaller and the tab bar
+
+
+59
+00:02:10,106 --> 00:02:11,366
+is smaller to give a bit more
+
+
+60
+00:02:11,366 --> 00:02:12,006
+room vertically.
+
+
+61
+00:02:12,706 --> 00:02:13,836
+We're going to discuss how you
+
+
+62
+00:02:13,836 --> 00:02:15,576
+can customize the icons for
+
+
+63
+00:02:15,636 --> 00:02:19,066
+landscape and tab bar as well.
+
+
+64
+00:02:19,066 --> 00:02:20,796
+Now things getting smaller can
+
+
+65
+00:02:20,796 --> 00:02:22,826
+sometimes be a problem for users
+
+
+66
+00:02:22,826 --> 00:02:24,156
+that are hard of vision or
+
+
+67
+00:02:24,156 --> 00:02:25,176
+otherwise need a little
+
+
+68
+00:02:25,176 --> 00:02:26,166
+assistance to see things
+
+
+69
+00:02:26,166 --> 00:02:26,636
+clearer.
+
+
+70
+00:02:27,546 --> 00:02:28,856
+We've got you covered there too.
+
+
+71
+00:02:28,856 --> 00:02:32,116
+If you turn on larger text then
+
+
+72
+00:02:32,116 --> 00:02:34,156
+when you long press on one of
+
+
+73
+00:02:34,156 --> 00:02:35,996
+these items -- this is in tab
+
+
+74
+00:02:35,996 --> 00:02:38,356
+bar, tool bar, and navigation
+
+
+75
+00:02:38,356 --> 00:02:40,606
+bar -- we'll put up this HUD
+
+
+76
+00:02:40,606 --> 00:02:43,026
+that shows you clearly what the
+
+
+77
+00:02:43,026 --> 00:02:45,206
+text is and what the icon is.
+
+
+78
+00:02:45,206 --> 00:02:47,586
+And now I'm going to explain how
+
+
+79
+00:02:47,586 --> 00:02:48,806
+both of these features can be
+
+
+80
+00:02:48,806 --> 00:02:50,066
+adopted in your app and they're
+
+
+81
+00:02:50,066 --> 00:02:50,976
+really, really easy.
+
+
+82
+00:02:52,476 --> 00:02:55,126
+So there's this class called UI
+
+
+83
+00:02:55,126 --> 00:02:56,776
+Bar Item that you probably never
+
+
+84
+00:02:56,886 --> 00:02:58,216
+thought much about because it's
+
+
+85
+00:02:58,216 --> 00:03:00,406
+actually the super class of two
+
+
+86
+00:03:00,406 --> 00:03:02,586
+important bar item classes in UI
+
+
+87
+00:03:02,586 --> 00:03:05,136
+kit; UI tab bar item and UI bar
+
+
+88
+00:03:05,136 --> 00:03:05,666
+button item.
+
+
+89
+00:03:05,756 --> 00:03:09,286
+And so to customize the image in
+
+
+90
+00:03:09,286 --> 00:03:11,766
+landscape on that tab bar all
+
+
+91
+00:03:11,766 --> 00:03:12,946
+you have to do is set this
+
+
+92
+00:03:12,946 --> 00:03:14,836
+property, the landscape image
+
+
+93
+00:03:14,836 --> 00:03:17,166
+phone property, on any UI tab
+
+
+94
+00:03:17,236 --> 00:03:18,906
+bar items that you're placing in
+
+
+95
+00:03:18,906 --> 00:03:19,656
+your tab bars.
+
+
+96
+00:03:19,656 --> 00:03:21,446
+And of course we'll have support
+
+
+97
+00:03:21,446 --> 00:03:22,456
+for this in storyboards and
+
+
+98
+00:03:22,456 --> 00:03:24,116
+everywhere else, but that's how
+
+
+99
+00:03:24,116 --> 00:03:25,096
+you would customize that.
+
+
+100
+00:03:25,096 --> 00:03:26,126
+And there are also some inset
+
+
+101
+00:03:26,126 --> 00:03:27,226
+properties in case you need
+
+
+102
+00:03:27,256 --> 00:03:27,536
+those.
+
+
+103
+00:03:28,306 --> 00:03:30,876
+For that HUD image we've got
+
+
+104
+00:03:30,876 --> 00:03:33,436
+another related property called
+
+
+105
+00:03:33,436 --> 00:03:35,736
+the Large Content Size Image.
+
+
+106
+00:03:36,746 --> 00:03:38,856
+Now you can set this, put a big
+
+
+107
+00:03:38,856 --> 00:03:40,186
+image in there, it'll appear in
+
+
+108
+00:03:40,186 --> 00:03:42,726
+the HUD, but if you're using PDF
+
+
+109
+00:03:42,726 --> 00:03:45,236
+assets in your asset catalogue
+
+
+110
+00:03:45,406 --> 00:03:46,386
+it's even easier.
+
+
+111
+00:03:46,966 --> 00:03:49,676
+All you have to do is set that
+
+
+112
+00:03:49,786 --> 00:03:53,156
+preserve PDF data and we'll
+
+
+113
+00:03:53,156 --> 00:03:55,566
+automatically pick up the PDF
+
+
+114
+00:03:55,566 --> 00:03:57,036
+data, resize it larger, and
+
+
+115
+00:03:57,036 --> 00:03:58,406
+display it in that HUD without
+
+
+116
+00:03:58,406 --> 00:03:59,516
+you having to do anything to
+
+
+117
+00:03:59,516 --> 00:03:59,976
+your assets.
+
+
+118
+00:04:04,086 --> 00:04:06,426
+So if you wanted to learn more
+
+
+119
+00:04:06,426 --> 00:04:07,636
+about accessibility features
+
+
+120
+00:04:07,636 --> 00:04:08,976
+such as the HUD and how you can
+
+
+121
+00:04:08,976 --> 00:04:10,526
+pick that up, there's the What's
+
+
+122
+00:04:10,526 --> 00:04:11,796
+New in Accessibility session
+
+
+123
+00:04:11,796 --> 00:04:12,946
+happening this Wednesday.
+
+
+124
+00:04:12,946 --> 00:04:14,356
+I recommend you go there to
+
+
+125
+00:04:14,356 --> 00:04:15,386
+learn all about what's new in
+
+
+126
+00:04:15,386 --> 00:04:17,016
+accessibility in iOS 11.
+
+
+127
+00:04:17,016 --> 00:04:19,886
+And so let's talk next about
+
+
+128
+00:04:19,886 --> 00:04:20,956
+navigation bar.
+
+
+129
+00:04:21,026 --> 00:04:22,836
+How do we get those large titles
+
+
+130
+00:04:22,836 --> 00:04:24,296
+that appeared in the files app
+
+
+131
+00:04:24,296 --> 00:04:25,286
+and other apps across the
+
+
+132
+00:04:25,286 --> 00:04:25,516
+system?
+
+
+133
+00:04:26,156 --> 00:04:28,926
+So first there's a new property
+
+
+134
+00:04:28,966 --> 00:04:31,436
+on UI navigation bar, prefers
+
+
+135
+00:04:31,436 --> 00:04:32,296
+large titles.
+
+
+136
+00:04:32,856 --> 00:04:34,566
+If you set this to "true" on any
+
+
+137
+00:04:34,566 --> 00:04:36,686
+given navigation bar then you'll
+
+
+138
+00:04:36,686 --> 00:04:38,486
+start seeing large titles all
+
+
+139
+00:04:38,486 --> 00:04:39,486
+across the system -- all across
+
+
+140
+00:04:39,486 --> 00:04:40,136
+your application.
+
+
+141
+00:04:41,356 --> 00:04:42,796
+Now you might be wondering; what
+
+
+142
+00:04:42,796 --> 00:04:44,326
+do these other three words that
+
+
+143
+00:04:44,326 --> 00:04:45,556
+I've got here on this slide --
+
+
+144
+00:04:45,556 --> 00:04:46,476
+maybe they're a little hard to
+
+
+145
+00:04:46,476 --> 00:04:48,026
+see, but automatic, always, and
+
+
+146
+00:04:48,026 --> 00:04:48,906
+never -- what does that have to
+
+
+147
+00:04:48,906 --> 00:04:49,296
+do with?
+
+
+148
+00:04:49,946 --> 00:04:51,776
+Well, there's a second property
+
+
+149
+00:04:51,776 --> 00:04:52,996
+to control when these appear;
+
+
+150
+00:04:52,996 --> 00:04:55,176
+the large title display mode.
+
+
+151
+00:04:55,886 --> 00:04:57,346
+This is what easily allows you
+
+
+152
+00:04:57,346 --> 00:04:58,546
+to determine for each view
+
+
+153
+00:04:58,546 --> 00:04:59,846
+control you push onto a nav
+
+
+154
+00:04:59,886 --> 00:05:01,126
+controller or to a navigation
+
+
+155
+00:05:01,126 --> 00:05:03,436
+bar stack when the large title
+
+
+156
+00:05:03,436 --> 00:05:03,976
+appears.
+
+
+157
+00:05:04,386 --> 00:05:05,516
+And let me show you how that
+
+
+158
+00:05:05,516 --> 00:05:05,866
+works.
+
+
+159
+00:05:07,326 --> 00:05:09,046
+So we turned on large titles on
+
+
+160
+00:05:09,046 --> 00:05:11,286
+this navigation bar and we put
+
+
+161
+00:05:11,286 --> 00:05:12,116
+an item on there.
+
+
+162
+00:05:12,456 --> 00:05:14,346
+It defaults to automatic and
+
+
+163
+00:05:14,346 --> 00:05:16,456
+automatic means whatever the
+
+
+164
+00:05:16,456 --> 00:05:18,506
+current state is, whoever asked
+
+
+165
+00:05:18,506 --> 00:05:20,436
+last for that bar to appear,
+
+
+166
+00:05:20,776 --> 00:05:21,496
+keep it.
+
+
+167
+00:05:22,046 --> 00:05:23,326
+Since nothing else is on the
+
+
+168
+00:05:23,326 --> 00:05:24,646
+stack and we turned on large
+
+
+169
+00:05:24,646 --> 00:05:26,226
+titles, we have a large title.
+
+
+170
+00:05:26,226 --> 00:05:28,226
+But let's go ahead and push a
+
+
+171
+00:05:28,226 --> 00:05:29,516
+navigation item that we don't
+
+
+172
+00:05:29,516 --> 00:05:30,896
+want to display that large title
+
+
+173
+00:05:30,896 --> 00:05:32,996
+on and we just set the large
+
+
+174
+00:05:32,996 --> 00:05:34,326
+title display mode to "never"
+
+
+175
+00:05:34,326 --> 00:05:36,526
+and the large title goes away.
+
+
+176
+00:05:38,076 --> 00:05:38,876
+Now again we'll push an
+
+
+177
+00:05:38,876 --> 00:05:40,506
+"automatic," preserve whatever
+
+
+178
+00:05:40,506 --> 00:05:42,126
+we have now, and so we don't get
+
+
+179
+00:05:42,126 --> 00:05:43,926
+a large title, and then we'll
+
+
+180
+00:05:43,926 --> 00:05:46,286
+push "always," and now the large
+
+
+181
+00:05:46,286 --> 00:05:47,026
+title is back.
+
+
+182
+00:05:47,026 --> 00:05:48,546
+And again, we can push an
+
+
+183
+00:05:48,546 --> 00:05:50,796
+"automatic" and we're all there.
+
+
+184
+00:05:51,236 --> 00:05:54,266
+Simple. So there are two more
+
+
+185
+00:05:54,266 --> 00:05:55,736
+things we want to talk about on
+
+
+186
+00:05:55,736 --> 00:05:58,706
+navigation item and the first is
+
+
+187
+00:05:58,706 --> 00:06:00,226
+how to integrate the search
+
+
+188
+00:06:00,226 --> 00:06:01,486
+controller and the new search
+
+
+189
+00:06:01,486 --> 00:06:02,916
+bar look with your navigation
+
+
+190
+00:06:02,916 --> 00:06:03,256
+bars.
+
+
+191
+00:06:04,456 --> 00:06:06,316
+There's a single property again,
+
+
+192
+00:06:06,556 --> 00:06:07,726
+navigation item search
+
+
+193
+00:06:07,726 --> 00:06:08,256
+controller.
+
+
+194
+00:06:08,716 --> 00:06:09,476
+You assign your search
+
+
+195
+00:06:09,476 --> 00:06:10,526
+controller to the navigation
+
+
+196
+00:06:10,526 --> 00:06:13,476
+item and you're done.
+
+
+197
+00:06:13,586 --> 00:06:14,556
+The search bar is placed
+
+
+198
+00:06:14,556 --> 00:06:17,326
+correctly and it behaves just as
+
+
+199
+00:06:17,326 --> 00:06:19,436
+it does in a lot of our apps.
+
+
+200
+00:06:19,616 --> 00:06:20,636
+Now if you've actually gotten a
+
+
+201
+00:06:20,636 --> 00:06:22,486
+chance to play with "files" or
+
+
+202
+00:06:22,486 --> 00:06:23,696
+"mail" or some of the others
+
+
+203
+00:06:23,696 --> 00:06:24,806
+you'll notice that sometimes
+
+
+204
+00:06:24,936 --> 00:06:26,396
+that search bar stays pegged
+
+
+205
+00:06:26,396 --> 00:06:27,436
+when you scroll, sometimes it
+
+
+206
+00:06:27,436 --> 00:06:28,186
+does not.
+
+
+207
+00:06:28,266 --> 00:06:29,516
+In particular in "files" it
+
+
+208
+00:06:29,516 --> 00:06:31,216
+stays pegged and that's
+
+
+209
+00:06:31,216 --> 00:06:33,346
+controlled by this "hide search
+
+
+210
+00:06:33,386 --> 00:06:35,266
+bar when scrolling" property.
+
+
+211
+00:06:36,126 --> 00:06:37,276
+It defaults to "true."
+
+
+212
+00:06:37,276 --> 00:06:38,686
+So, for example in "mail" it
+
+
+213
+00:06:38,686 --> 00:06:40,916
+scrolls away, but in "files"
+
+
+214
+00:06:40,916 --> 00:06:41,936
+they've turned it off.
+
+
+215
+00:06:41,936 --> 00:06:43,346
+And so it stays pegged.
+
+
+216
+00:06:43,346 --> 00:06:44,396
+You can always reach the search
+
+
+217
+00:06:44,396 --> 00:06:46,726
+bar and it looks great.
+
+
+218
+00:06:47,356 --> 00:06:49,796
+So how does all this work?
+
+
+219
+00:06:49,796 --> 00:06:51,106
+A little bit of behind the
+
+
+220
+00:06:51,106 --> 00:06:52,166
+scenes on some of these things.
+
+
+221
+00:06:52,956 --> 00:06:54,156
+And the first thing you should
+
+
+222
+00:06:54,156 --> 00:06:55,676
+know is that a lot of these
+
+
+223
+00:06:55,676 --> 00:06:56,806
+interactions are actually
+
+
+224
+00:06:56,806 --> 00:06:58,626
+mediated by UI navigation
+
+
+225
+00:06:58,626 --> 00:06:59,106
+controller.
+
+
+226
+00:06:59,566 --> 00:07:01,226
+So if you're taking the
+
+
+227
+00:07:01,226 --> 00:07:03,066
+navigation bar and assembling
+
+
+228
+00:07:03,066 --> 00:07:04,346
+kind of the entire push and pop
+
+
+229
+00:07:04,346 --> 00:07:05,746
+experience yourself, and not
+
+
+230
+00:07:05,746 --> 00:07:07,476
+many people do, but if you are
+
+
+231
+00:07:07,936 --> 00:07:08,946
+you're not going to get some of
+
+
+232
+00:07:08,946 --> 00:07:09,626
+these features.
+
+
+233
+00:07:10,006 --> 00:07:11,636
+In particular you're not going
+
+
+234
+00:07:11,636 --> 00:07:12,576
+to get the search controller
+
+
+235
+00:07:12,576 --> 00:07:13,186
+integration.
+
+
+236
+00:07:13,216 --> 00:07:15,536
+You're not going to get refresh
+
+
+237
+00:07:15,536 --> 00:07:17,636
+controls hoisting and you're not
+
+
+238
+00:07:17,636 --> 00:07:18,586
+going to get rubber bending.
+
+
+239
+00:07:18,586 --> 00:07:19,956
+Rubber bending is when you start
+
+
+240
+00:07:19,956 --> 00:07:21,456
+pulling down, that large title
+
+
+241
+00:07:21,456 --> 00:07:23,496
+grows larger, and responds to
+
+
+242
+00:07:23,496 --> 00:07:24,086
+that scroller.
+
+
+243
+00:07:25,666 --> 00:07:27,606
+So that's navigation bar,
+
+
+244
+00:07:27,606 --> 00:07:29,386
+navigation controller, and those
+
+
+245
+00:07:29,386 --> 00:07:30,816
+new large title features.
+
+
+246
+00:07:31,846 --> 00:07:33,716
+But while we're here making all
+
+
+247
+00:07:33,716 --> 00:07:34,826
+of these changes we figured
+
+
+248
+00:07:34,826 --> 00:07:36,016
+let's actually make some other
+
+
+249
+00:07:36,016 --> 00:07:37,346
+changes to help your lives be
+
+
+250
+00:07:37,456 --> 00:07:38,636
+easier as well.
+
+
+251
+00:07:38,636 --> 00:07:42,756
+And so now in iOS 11, UI toolbar
+
+
+252
+00:07:42,756 --> 00:07:45,846
+and UI navigation bar both have
+
+
+253
+00:07:45,846 --> 00:07:47,596
+intricate and express support
+
+
+254
+00:07:47,596 --> 00:07:47,976
+for auto layout.
+
+
+255
+00:07:48,516 --> 00:07:54,106
+[ Applause ]
+
+
+256
+00:07:54,606 --> 00:07:56,266
+So what this means is that your
+
+
+257
+00:07:56,266 --> 00:07:57,706
+custom bar button items, your
+
+
+258
+00:07:57,706 --> 00:07:59,216
+custom title of use, can now use
+
+
+259
+00:07:59,216 --> 00:08:01,126
+layout to express their size to
+
+
+260
+00:08:01,126 --> 00:08:03,276
+us and get the proper layout
+
+
+261
+00:08:03,276 --> 00:08:04,466
+that you would otherwise expect.
+
+
+262
+00:08:05,326 --> 00:08:06,726
+Now there are a few things to
+
+
+263
+00:08:06,726 --> 00:08:07,346
+keep in mind.
+
+
+264
+00:08:07,926 --> 00:08:08,966
+One of them is you kind of want
+
+
+265
+00:08:08,966 --> 00:08:10,216
+to keep your constraints inside
+
+
+266
+00:08:10,216 --> 00:08:10,776
+of that view.
+
+
+267
+00:08:11,286 --> 00:08:12,546
+So if you give us a custom title
+
+
+268
+00:08:12,546 --> 00:08:13,496
+view you want to make sure that
+
+
+269
+00:08:13,496 --> 00:08:15,356
+any constraints there only
+
+
+270
+00:08:15,356 --> 00:08:16,946
+reference that title view and
+
+
+271
+00:08:16,946 --> 00:08:19,566
+any of its sub-views.
+
+
+272
+00:08:19,756 --> 00:08:21,776
+And this one is kind of big, but
+
+
+273
+00:08:21,776 --> 00:08:23,246
+it's kind of worth bringing out,
+
+
+274
+00:08:23,416 --> 00:08:25,136
+is that when you use auto layout
+
+
+275
+00:08:25,136 --> 00:08:26,216
+we also assume you know what
+
+
+276
+00:08:26,216 --> 00:08:28,746
+you're doing [laughter] and the
+
+
+277
+00:08:28,746 --> 00:08:30,866
+reason why I bring this up is
+
+
+278
+00:08:30,866 --> 00:08:32,866
+because otherwise you end up in
+
+
+279
+00:08:32,866 --> 00:08:34,586
+this case where you have to --
+
+
+280
+00:08:34,885 --> 00:08:36,586
+you get zero sized views.
+
+
+281
+00:08:37,446 --> 00:08:39,155
+So how do you avoid these zero
+
+
+282
+00:08:39,155 --> 00:08:39,876
+sized views?
+
+
+283
+00:08:40,196 --> 00:08:43,155
+Well, UI navigation bar and UI
+
+
+284
+00:08:43,155 --> 00:08:44,316
+toolbar provide positioning
+
+
+285
+00:08:44,316 --> 00:08:44,876
+information.
+
+
+286
+00:08:45,796 --> 00:08:47,366
+Zero sized views end up becoming
+
+
+287
+00:08:47,366 --> 00:08:48,806
+because you have some ambiguous
+
+
+288
+00:08:48,806 --> 00:08:49,606
+constraint layout.
+
+
+289
+00:08:49,606 --> 00:08:51,246
+And so the position is taken
+
+
+290
+00:08:51,246 --> 00:08:51,886
+care of for you.
+
+
+291
+00:08:51,886 --> 00:08:52,946
+You won't get your views shoved
+
+
+292
+00:08:52,946 --> 00:08:54,086
+up in an upper left corner
+
+
+293
+00:08:54,086 --> 00:08:56,366
+somewhere, but you still have to
+
+
+294
+00:08:56,366 --> 00:08:57,866
+provide sizing for us.
+
+
+295
+00:08:57,946 --> 00:08:59,406
+And there are three ways you can
+
+
+296
+00:08:59,406 --> 00:09:00,256
+do that.
+
+
+297
+00:09:01,136 --> 00:09:03,096
+You could add constraints for
+
+
+298
+00:09:03,096 --> 00:09:04,376
+width and height; perfectly
+
+
+299
+00:09:04,376 --> 00:09:05,756
+legal, perfectly legitimate.
+
+
+300
+00:09:05,756 --> 00:09:07,536
+Do that. You can put whatever
+
+
+301
+00:09:07,536 --> 00:09:08,966
+else you want in there and
+
+
+302
+00:09:08,966 --> 00:09:09,686
+you're golden.
+
+
+303
+00:09:11,076 --> 00:09:12,376
+You could also implement
+
+
+304
+00:09:12,446 --> 00:09:13,816
+intrinsic content size.
+
+
+305
+00:09:13,816 --> 00:09:15,626
+That'll also give us as much
+
+
+306
+00:09:15,626 --> 00:09:16,856
+information as we need.
+
+
+307
+00:09:17,376 --> 00:09:18,446
+You go along with the content
+
+
+308
+00:09:18,446 --> 00:09:19,336
+compression hugging and
+
+
+309
+00:09:19,336 --> 00:09:20,586
+compression resistance and
+
+
+310
+00:09:20,586 --> 00:09:21,706
+you're set.
+
+
+311
+00:09:22,736 --> 00:09:24,566
+But finally, the most easy way,
+
+
+312
+00:09:24,566 --> 00:09:26,566
+for most people, is to actually
+
+
+313
+00:09:26,566 --> 00:09:27,586
+make sure that all of your
+
+
+314
+00:09:27,586 --> 00:09:29,286
+sub-views are properly connected
+
+
+315
+00:09:29,286 --> 00:09:30,486
+and set up with auto layout.
+
+
+316
+00:09:30,486 --> 00:09:32,826
+And what that means is let's say
+
+
+317
+00:09:32,826 --> 00:09:34,956
+you have a custom title view and
+
+
+318
+00:09:35,016 --> 00:09:36,276
+you have a label and a button in
+
+
+319
+00:09:36,276 --> 00:09:38,416
+there, if you want to make sure
+
+
+320
+00:09:38,416 --> 00:09:39,726
+that you get the proper
+
+
+321
+00:09:39,726 --> 00:09:41,426
+horizontal width of that title
+
+
+322
+00:09:41,426 --> 00:09:43,556
+view you just need to make sure
+
+
+323
+00:09:43,556 --> 00:09:45,426
+that there are constraints set
+
+
+324
+00:09:45,426 --> 00:09:46,716
+up between those labels and
+
+
+325
+00:09:46,716 --> 00:09:48,146
+buttons such that the leading
+
+
+326
+00:09:48,146 --> 00:09:50,156
+and trailing edge, or the width,
+
+
+327
+00:09:50,246 --> 00:09:51,936
+of that title view is defined in
+
+
+328
+00:09:51,936 --> 00:09:53,046
+terms of those two views.
+
+
+329
+00:09:54,276 --> 00:09:56,266
+And so that's how you can use
+
+
+330
+00:09:56,326 --> 00:09:59,006
+auto layout to add precise
+
+
+331
+00:09:59,006 --> 00:10:00,706
+control to the size of your
+
+
+332
+00:10:00,706 --> 00:10:02,006
+custom title views and bar
+
+
+333
+00:10:02,006 --> 00:10:02,706
+button items.
+
+
+334
+00:10:03,436 --> 00:10:05,446
+Now, to demonstrate all the
+
+
+335
+00:10:05,446 --> 00:10:06,656
+things we've talked about today
+
+
+336
+00:10:06,656 --> 00:10:07,596
+we bring up Raj Ramamurphy to
+
+
+337
+00:10:07,596 --> 00:10:07,966
+give you a demo.
+
+
+338
+00:10:08,516 --> 00:10:16,246
+[ Applause ]
+
+
+339
+00:10:16,746 --> 00:10:17,396
+>> Thanks David.
+
+
+340
+00:10:17,766 --> 00:10:19,986
+So as David just explained, we
+
+
+341
+00:10:19,986 --> 00:10:21,956
+have a bunch of great new API in
+
+
+342
+00:10:22,056 --> 00:10:23,916
+iOS 11 for these new, large
+
+
+343
+00:10:23,916 --> 00:10:24,696
+navigation bars.
+
+
+344
+00:10:25,346 --> 00:10:26,326
+I'm going to walk you through
+
+
+345
+00:10:26,326 --> 00:10:28,226
+updating an app for iOS 11.
+
+
+346
+00:10:29,246 --> 00:10:30,166
+So here's a sample app we're
+
+
+347
+00:10:30,166 --> 00:10:31,176
+going to be working with today.
+
+
+348
+00:10:31,176 --> 00:10:32,826
+It's a pretty simple app called
+
+
+349
+00:10:32,826 --> 00:10:33,586
+"Trail Diary."
+
+
+350
+00:10:34,036 --> 00:10:35,276
+It's just a diary of some trails
+
+
+351
+00:10:35,276 --> 00:10:35,776
+I visited.
+
+
+352
+00:10:36,636 --> 00:10:37,846
+So here we are in the main view
+
+
+353
+00:10:37,846 --> 00:10:38,936
+controller, which I called the
+
+
+354
+00:10:38,936 --> 00:10:40,016
+"memory view controller."
+
+
+355
+00:10:40,656 --> 00:10:42,056
+Now, if I tap on one of these
+
+
+356
+00:10:42,056 --> 00:10:43,666
+cells you'll notice I get a
+
+
+357
+00:10:43,666 --> 00:10:44,766
+detail view controller.
+
+
+358
+00:10:45,216 --> 00:10:46,586
+This contains a photo, a
+
+
+359
+00:10:46,586 --> 00:10:47,736
+description, and some
+
+
+360
+00:10:47,736 --> 00:10:48,646
+information about this.
+
+
+361
+00:10:49,726 --> 00:10:50,776
+There's also a way to add
+
+
+362
+00:10:50,776 --> 00:10:52,046
+comments, and we're going to get
+
+
+363
+00:10:52,046 --> 00:10:52,986
+into that a little bit later,
+
+
+364
+00:10:53,486 --> 00:10:55,276
+but for now let's start updating
+
+
+365
+00:10:55,276 --> 00:10:56,436
+this app for iOS 11.
+
+
+366
+00:10:57,316 --> 00:10:58,616
+One of the first things I'd like
+
+
+367
+00:10:58,616 --> 00:11:00,686
+to do is introduce support in
+
+
+368
+00:11:00,686 --> 00:11:02,096
+this application for those
+
+
+369
+00:11:02,096 --> 00:11:03,396
+beautiful, new large titles.
+
+
+370
+00:11:04,076 --> 00:11:05,136
+So let's go ahead and do that.
+
+
+371
+00:11:06,066 --> 00:11:07,826
+We'll go over to the navigation
+
+
+372
+00:11:08,076 --> 00:11:08,976
+-- or sorry -- to the memory
+
+
+373
+00:11:08,976 --> 00:11:10,876
+view controller here and we're
+
+
+374
+00:11:10,876 --> 00:11:11,726
+going to get the navigation
+
+
+375
+00:11:11,726 --> 00:11:11,976
+controller.
+
+
+376
+00:11:17,186 --> 00:11:19,836
+Get the navigation bar and set
+
+
+377
+00:11:20,056 --> 00:11:22,256
+the "prefers large titles"
+
+
+378
+00:11:22,256 --> 00:11:24,056
+property on the navigation bar.
+
+
+379
+00:11:24,996 --> 00:11:26,516
+Now, when we set this property
+
+
+380
+00:11:26,886 --> 00:11:29,216
+we get large titles everywhere.
+
+
+381
+00:11:29,916 --> 00:11:31,836
+And if I recompile and rerun the
+
+
+382
+00:11:31,836 --> 00:11:34,716
+application, head back over to
+
+
+383
+00:11:35,296 --> 00:11:37,106
+it, and bring up the memory view
+
+
+384
+00:11:37,106 --> 00:11:39,316
+controller you'll notice we have
+
+
+385
+00:11:39,316 --> 00:11:41,356
+this beautiful, large title, and
+
+
+386
+00:11:41,516 --> 00:11:42,616
+since we already have a refresh
+
+
+387
+00:11:42,616 --> 00:11:44,206
+control that gets hoisted into
+
+
+388
+00:11:44,206 --> 00:11:45,686
+the navigation bar and we get
+
+
+389
+00:11:45,686 --> 00:11:46,926
+the rubber banding experience --
+
+
+390
+00:11:47,126 --> 00:11:48,036
+everything's looking great.
+
+
+391
+00:11:48,876 --> 00:11:50,386
+Now, "prefers large titles" will
+
+
+392
+00:11:50,386 --> 00:11:52,266
+turn large titles on everywhere.
+
+
+393
+00:11:52,656 --> 00:11:54,506
+So if I tap back into the detail
+
+
+394
+00:11:54,506 --> 00:11:55,946
+view controller you'll see we
+
+
+395
+00:11:55,946 --> 00:11:57,546
+get a really nice transition and
+
+
+396
+00:11:57,546 --> 00:11:58,386
+we have the detail view
+
+
+397
+00:11:58,386 --> 00:11:59,716
+controller showing a large title
+
+
+398
+00:11:59,716 --> 00:12:00,126
+as well.
+
+
+399
+00:12:01,126 --> 00:12:02,656
+Now this is great, but sometimes
+
+
+400
+00:12:02,656 --> 00:12:03,876
+the large title isn't what you
+
+
+401
+00:12:03,876 --> 00:12:04,816
+want everywhere.
+
+
+402
+00:12:05,356 --> 00:12:06,966
+And so for that, as David
+
+
+403
+00:12:06,966 --> 00:12:08,786
+explained, we have the
+
+
+404
+00:12:08,786 --> 00:12:10,856
+navigation item property, "large
+
+
+405
+00:12:10,856 --> 00:12:11,706
+title display mode."
+
+
+406
+00:12:12,956 --> 00:12:15,416
+So in this view I'd like to show
+
+
+407
+00:12:15,416 --> 00:12:16,596
+the standard inline title.
+
+
+408
+00:12:16,916 --> 00:12:18,356
+So let's update this view
+
+
+409
+00:12:18,356 --> 00:12:19,816
+controller to show that.
+
+
+410
+00:12:21,246 --> 00:12:22,936
+If I go over to the detail view
+
+
+411
+00:12:22,936 --> 00:12:24,186
+controller and set its
+
+
+412
+00:12:24,186 --> 00:12:26,346
+navigation items' large title
+
+
+413
+00:12:26,346 --> 00:12:28,506
+display mode to "never," as
+
+
+414
+00:12:28,506 --> 00:12:29,786
+David showed you before with the
+
+
+415
+00:12:29,786 --> 00:12:33,596
+stack, if we recompile and rerun
+
+
+416
+00:12:33,596 --> 00:12:35,446
+the application, we'll start out
+
+
+417
+00:12:35,446 --> 00:12:37,996
+with the large title, but if I
+
+
+418
+00:12:37,996 --> 00:12:39,586
+push view controller now we have
+
+
+419
+00:12:39,586 --> 00:12:41,216
+this standard inline title and
+
+
+420
+00:12:41,216 --> 00:12:42,136
+you get a great transition
+
+
+421
+00:12:42,136 --> 00:12:43,416
+between them and everything's
+
+
+422
+00:12:43,416 --> 00:12:44,166
+looking really great.
+
+
+423
+00:12:45,326 --> 00:12:46,066
+So that's how to use the
+
+
+424
+00:12:46,066 --> 00:12:48,246
+navigation item properties for
+
+
+425
+00:12:48,246 --> 00:12:50,536
+showing the large title, but I'd
+
+
+426
+00:12:50,536 --> 00:12:51,806
+also like to add search to this
+
+
+427
+00:12:51,806 --> 00:12:52,426
+application.
+
+
+428
+00:12:53,256 --> 00:12:54,496
+So I've already gone ahead and
+
+
+429
+00:12:54,496 --> 00:12:55,576
+configured a search controller
+
+
+430
+00:12:55,576 --> 00:12:57,066
+instance and I just need to show
+
+
+431
+00:12:57,066 --> 00:12:57,986
+the search bar in the
+
+
+432
+00:12:57,986 --> 00:12:58,566
+application.
+
+
+433
+00:12:59,246 --> 00:13:00,486
+As you may have seen, we're
+
+
+434
+00:13:00,486 --> 00:13:01,696
+showing search bars in the
+
+
+435
+00:13:01,696 --> 00:13:04,056
+navigation in iOS 11.
+
+
+436
+00:13:04,346 --> 00:13:05,476
+So let's add that appearance.
+
+
+437
+00:13:06,556 --> 00:13:08,516
+If I go over to the memory view
+
+
+438
+00:13:08,516 --> 00:13:10,476
+controller again and set the
+
+
+439
+00:13:10,476 --> 00:13:12,396
+navigation item's search
+
+
+440
+00:13:12,396 --> 00:13:13,696
+controller property to our
+
+
+441
+00:13:13,696 --> 00:13:15,586
+instance -- in this case it's
+
+
+442
+00:13:15,586 --> 00:13:16,926
+just called "search controller."
+
+
+443
+00:13:20,606 --> 00:13:22,646
+Recompile and rerun the
+
+
+444
+00:13:22,646 --> 00:13:22,976
+application.
+
+
+445
+00:13:27,116 --> 00:13:28,006
+You'll notice when the
+
+
+446
+00:13:28,006 --> 00:13:29,226
+application comes up into the
+
+
+447
+00:13:29,226 --> 00:13:31,386
+memory view controller, we still
+
+
+448
+00:13:31,386 --> 00:13:33,796
+have the large title, but now if
+
+
+449
+00:13:33,796 --> 00:13:35,236
+we pull down we get this
+
+
+450
+00:13:35,236 --> 00:13:36,726
+beautiful new search appearance.
+
+
+451
+00:13:37,546 --> 00:13:38,816
+So this app is looking really
+
+
+452
+00:13:38,816 --> 00:13:39,166
+great.
+
+
+453
+00:13:39,766 --> 00:13:42,606
+So that's just how to update
+
+
+454
+00:13:42,606 --> 00:13:44,236
+some of your bars for the new
+
+
+455
+00:13:44,236 --> 00:13:45,496
+appearance in iOS 11.
+
+
+456
+00:13:46,096 --> 00:13:47,496
+Now I'd like to bring Kyle
+
+
+457
+00:13:47,496 --> 00:13:49,016
+Sluder up who's going to talk to
+
+
+458
+00:13:49,016 --> 00:13:50,706
+you about margins, insets, and
+
+
+459
+00:13:50,706 --> 00:13:50,976
+scroll views.
+
+
+460
+00:13:51,516 --> 00:13:56,666
+[ Applause ]
+
+
+461
+00:13:57,166 --> 00:13:58,166
+>> Well done.
+
+
+462
+00:13:59,346 --> 00:13:59,976
+Thank you Raj.
+
+
+463
+00:14:04,496 --> 00:14:06,156
+So in iOS 11 we've made a number
+
+
+464
+00:14:06,156 --> 00:14:07,546
+of improvements to give you more
+
+
+465
+00:14:07,546 --> 00:14:09,396
+information and better control
+
+
+466
+00:14:09,396 --> 00:14:10,766
+over how your views lay out
+
+
+467
+00:14:10,766 --> 00:14:11,756
+their user interfaces.
+
+
+468
+00:14:12,606 --> 00:14:13,806
+And let's start by talking about
+
+
+469
+00:14:13,806 --> 00:14:14,756
+layout margins.
+
+
+470
+00:14:15,426 --> 00:14:16,756
+Layout margins are a portion of
+
+
+471
+00:14:16,756 --> 00:14:19,146
+the interior of your views that
+
+
+472
+00:14:19,186 --> 00:14:21,506
+UI kit gives you as a guide to
+
+
+473
+00:14:21,506 --> 00:14:22,666
+layout your content and give a
+
+
+474
+00:14:22,666 --> 00:14:24,706
+little breathing room between it
+
+
+475
+00:14:24,706 --> 00:14:25,556
+and the surrounding user
+
+
+476
+00:14:25,556 --> 00:14:26,406
+interface elements.
+
+
+477
+00:14:26,986 --> 00:14:28,116
+And we give this information to
+
+
+478
+00:14:28,116 --> 00:14:28,906
+you in two ways.
+
+
+479
+00:14:29,356 --> 00:14:30,966
+The first is a UI layout guide
+
+
+480
+00:14:30,966 --> 00:14:32,736
+object, which you can use with
+
+
+481
+00:14:32,736 --> 00:14:34,546
+auto layout to position your
+
+
+482
+00:14:34,586 --> 00:14:35,026
+content.
+
+
+483
+00:14:36,316 --> 00:14:38,116
+The second is a set of edge
+
+
+484
+00:14:38,116 --> 00:14:38,636
+insets.
+
+
+485
+00:14:38,756 --> 00:14:40,086
+And you can read these from your
+
+
+486
+00:14:40,086 --> 00:14:41,886
+view and write to them to
+
+
+487
+00:14:41,886 --> 00:14:43,206
+customize your layout margins.
+
+
+488
+00:14:44,606 --> 00:14:45,926
+In iOS 11 we're adding a new
+
+
+489
+00:14:45,926 --> 00:14:47,656
+property; directional layout
+
+
+490
+00:14:47,656 --> 00:14:48,196
+margins.
+
+
+491
+00:14:48,786 --> 00:14:49,946
+And this allows you to express
+
+
+492
+00:14:49,946 --> 00:14:50,996
+the layout margins in your
+
+
+493
+00:14:50,996 --> 00:14:52,566
+views, not just in left and
+
+
+494
+00:14:52,566 --> 00:14:54,126
+right terms, but in leading and
+
+
+495
+00:14:54,176 --> 00:14:54,556
+trailing.
+
+
+496
+00:14:55,556 --> 00:14:57,296
+And these two properties are in
+
+
+497
+00:14:57,296 --> 00:14:58,086
+sync with each other.
+
+
+498
+00:14:58,086 --> 00:15:00,676
+The left property is in sync
+
+
+499
+00:15:00,676 --> 00:15:01,566
+with the leading, when you're
+
+
+500
+00:15:01,566 --> 00:15:03,106
+writing in an LTR or left to
+
+
+501
+00:15:03,106 --> 00:15:04,196
+right language.
+
+
+502
+00:15:04,526 --> 00:15:05,526
+And the right property and the
+
+
+503
+00:15:05,526 --> 00:15:06,686
+trailing property are in sync.
+
+
+504
+00:15:07,356 --> 00:15:09,106
+So I can do something like write
+
+
+505
+00:15:09,106 --> 00:15:10,436
+a value to the trailing property
+
+
+506
+00:15:10,436 --> 00:15:12,456
+of this view, which will cause
+
+
+507
+00:15:12,456 --> 00:15:15,056
+its layout to adjust, and then
+
+
+508
+00:15:15,056 --> 00:15:15,896
+when I'm running in a right to
+
+
+509
+00:15:15,896 --> 00:15:17,806
+left language that trailing
+
+
+510
+00:15:18,096 --> 00:15:19,516
+space will be put on the left
+
+
+511
+00:15:19,516 --> 00:15:21,576
+side of the view and my layout
+
+
+512
+00:15:21,576 --> 00:15:22,946
+code can then read it from the
+
+
+513
+00:15:22,946 --> 00:15:23,706
+left property of the layout
+
+
+514
+00:15:23,706 --> 00:15:23,956
+margin.
+
+
+515
+00:15:24,516 --> 00:15:30,546
+[ Applause ]
+
+
+516
+00:15:31,046 --> 00:15:32,046
+You may also be familiar with a
+
+
+517
+00:15:32,046 --> 00:15:33,336
+behavior that has existed since
+
+
+518
+00:15:33,336 --> 00:15:34,596
+we introduced layout margins
+
+
+519
+00:15:34,596 --> 00:15:36,296
+where adding a view to a view
+
+
+520
+00:15:36,296 --> 00:15:38,196
+controller would fix its layout
+
+
+521
+00:15:38,196 --> 00:15:40,086
+margins to UI kit defined
+
+
+522
+00:15:40,086 --> 00:15:40,656
+values.
+
+
+523
+00:15:42,516 --> 00:15:44,596
+Well starting in iOS 11 these
+
+
+524
+00:15:44,596 --> 00:15:46,236
+are no longer fixed values.
+
+
+525
+00:15:46,556 --> 00:15:47,736
+They're actually minimums.
+
+
+526
+00:15:48,326 --> 00:15:49,776
+And we communicate the size of
+
+
+527
+00:15:49,776 --> 00:15:51,276
+these values to you with this
+
+
+528
+00:15:51,276 --> 00:15:53,106
+new property, system minimum
+
+
+529
+00:15:53,106 --> 00:15:54,106
+layout margins.
+
+
+530
+00:15:54,586 --> 00:15:55,806
+And you can change your view's
+
+
+531
+00:15:55,806 --> 00:15:57,616
+layout margins to any greater
+
+
+532
+00:15:57,616 --> 00:15:58,976
+value, no changes needed.
+
+
+533
+00:15:59,516 --> 00:16:03,976
+[ Applause ]
+
+
+534
+00:16:04,476 --> 00:16:05,976
+But we went one step further and
+
+
+535
+00:16:05,976 --> 00:16:07,826
+we added another new property on
+
+
+536
+00:16:07,826 --> 00:16:09,496
+view controller; view respects
+
+
+537
+00:16:09,496 --> 00:16:11,096
+system minimum layout margins.
+
+
+538
+00:16:11,456 --> 00:16:14,086
+If you set this to "false" you
+
+
+539
+00:16:14,086 --> 00:16:15,156
+can actually change your layout
+
+
+540
+00:16:15,156 --> 00:16:16,276
+margins to whatever value you
+
+
+541
+00:16:16,276 --> 00:16:18,276
+want, including zero, and you
+
+
+542
+00:16:18,276 --> 00:16:19,546
+can have full width content in
+
+
+543
+00:16:19,546 --> 00:16:21,256
+any view including those that
+
+
+544
+00:16:21,256 --> 00:16:21,926
+are managed by a view
+
+
+545
+00:16:21,926 --> 00:16:22,346
+controller.
+
+
+546
+00:16:25,256 --> 00:16:27,256
+Since iOS 7 we've had these
+
+
+547
+00:16:27,256 --> 00:16:29,306
+translucent bars throughout the
+
+
+548
+00:16:29,306 --> 00:16:30,746
+operating system and we've
+
+
+549
+00:16:30,746 --> 00:16:31,966
+encouraged you to draw your
+
+
+550
+00:16:31,966 --> 00:16:33,486
+content through those bars, as
+
+
+551
+00:16:33,486 --> 00:16:34,396
+you can see happening here in
+
+
+552
+00:16:34,396 --> 00:16:35,036
+the photos app.
+
+
+553
+00:16:36,146 --> 00:16:37,206
+The way that you do this is
+
+
+554
+00:16:37,206 --> 00:16:38,596
+using the edges for extended
+
+
+555
+00:16:38,596 --> 00:16:40,016
+layout property on UI view
+
+
+556
+00:16:40,016 --> 00:16:40,476
+controller.
+
+
+557
+00:16:41,096 --> 00:16:42,326
+And what this does is it causes
+
+
+558
+00:16:42,326 --> 00:16:44,096
+container view controllers to
+
+
+559
+00:16:44,096 --> 00:16:46,676
+size your views underneath the
+
+
+560
+00:16:46,676 --> 00:16:47,216
+bars.
+
+
+561
+00:16:48,026 --> 00:16:50,016
+By default it applies to all
+
+
+562
+00:16:50,016 --> 00:16:53,176
+edges and we communicate to you
+
+
+563
+00:16:53,436 --> 00:16:55,186
+the size of the overhanging bars
+
+
+564
+00:16:55,616 --> 00:16:57,176
+via these two properties; top
+
+
+565
+00:16:57,176 --> 00:16:58,556
+layout guide and bottom layout
+
+
+566
+00:16:58,556 --> 00:16:58,806
+guide.
+
+
+567
+00:16:59,986 --> 00:17:01,176
+Starting in iOS 11 we're
+
+
+568
+00:17:01,176 --> 00:17:02,916
+deprecating these properties and
+
+
+569
+00:17:02,916 --> 00:17:03,836
+replacing them with a new, more
+
+
+570
+00:17:03,836 --> 00:17:05,396
+powerful construct that we call
+
+
+571
+00:17:05,396 --> 00:17:05,816
+the "safe area."
+
+
+572
+00:17:10,215 --> 00:17:11,726
+The safe area is a way of
+
+
+573
+00:17:11,726 --> 00:17:13,226
+describing the portion of your
+
+
+574
+00:17:13,226 --> 00:17:14,826
+view that isn't occluded by any
+
+
+575
+00:17:14,906 --> 00:17:15,476
+content.
+
+
+576
+00:17:16,276 --> 00:17:17,826
+It's available to you as a set
+
+
+577
+00:17:17,826 --> 00:17:20,695
+of insets or as a UI layout
+
+
+578
+00:17:20,695 --> 00:17:21,306
+guide object.
+
+
+579
+00:17:22,185 --> 00:17:24,116
+And on TV it incorporates a very
+
+
+580
+00:17:24,116 --> 00:17:26,866
+useful bit of information called
+
+
+581
+00:17:26,866 --> 00:17:28,226
+the "over scan compensation
+
+
+582
+00:17:28,226 --> 00:17:28,796
+insets."
+
+
+583
+00:17:29,056 --> 00:17:30,736
+So any view on the screen can
+
+
+584
+00:17:30,736 --> 00:17:32,606
+layout its content and make sure
+
+
+585
+00:17:32,606 --> 00:17:33,836
+that it isn't overlapped by the
+
+
+586
+00:17:33,836 --> 00:17:35,126
+physical bezel of the
+
+
+587
+00:17:35,126 --> 00:17:35,676
+television.
+
+
+588
+00:17:36,176 --> 00:17:38,156
+Now if you have a custom
+
+
+589
+00:17:38,156 --> 00:17:39,726
+container view controller, you
+
+
+590
+00:17:39,726 --> 00:17:41,176
+might be adding your own bars
+
+
+591
+00:17:41,486 --> 00:17:43,506
+and you can increase the size of
+
+
+592
+00:17:43,846 --> 00:17:45,096
+the -- excuse me -- you can
+
+
+593
+00:17:45,096 --> 00:17:46,916
+increase the size of the safe
+
+
+594
+00:17:46,916 --> 00:17:49,096
+area insets via this new
+
+
+595
+00:17:49,096 --> 00:17:51,036
+property; additional safe area
+
+
+596
+00:17:51,036 --> 00:17:51,666
+insets.
+
+
+597
+00:17:52,246 --> 00:17:53,616
+And if any of your ancestor view
+
+
+598
+00:17:53,616 --> 00:17:55,396
+controllers change their size of
+
+
+599
+00:17:55,396 --> 00:17:57,416
+their safe area insets you will
+
+
+600
+00:17:57,416 --> 00:17:58,666
+get a call back in two different
+
+
+601
+00:17:58,666 --> 00:17:59,056
+ways.
+
+
+602
+00:17:59,276 --> 00:18:01,066
+Every view can get safe area
+
+
+603
+00:18:01,066 --> 00:18:02,566
+insets to change and view
+
+
+604
+00:18:02,566 --> 00:18:03,906
+controllers can get view safe
+
+
+605
+00:18:03,906 --> 00:18:05,226
+area insets to change.
+
+
+606
+00:18:06,896 --> 00:18:07,816
+[applause] Thank you.
+
+
+607
+00:18:08,456 --> 00:18:10,456
+[ Applause ]
+
+
+608
+00:18:10,896 --> 00:18:12,576
+So one really common view that's
+
+
+609
+00:18:12,576 --> 00:18:14,086
+used with UI view controller is
+
+
+610
+00:18:14,086 --> 00:18:14,746
+UI scroll view.
+
+
+611
+00:18:15,436 --> 00:18:17,026
+And in this little sample here I
+
+
+612
+00:18:17,026 --> 00:18:18,286
+have some text that's inside of
+
+
+613
+00:18:18,286 --> 00:18:19,926
+the UI scroll view and contained
+
+
+614
+00:18:19,926 --> 00:18:21,636
+within a navigation controller.
+
+
+615
+00:18:22,766 --> 00:18:24,386
+Now traditionally navigation
+
+
+616
+00:18:24,386 --> 00:18:26,706
+controllers would impart a
+
+
+617
+00:18:26,706 --> 00:18:28,806
+content inset to the scroll
+
+
+618
+00:18:28,806 --> 00:18:30,296
+views of their topmost view
+
+
+619
+00:18:30,296 --> 00:18:30,766
+controller.
+
+
+620
+00:18:31,786 --> 00:18:33,156
+We're making a really big change
+
+
+621
+00:18:33,156 --> 00:18:34,886
+here in iOS 11 and we're no
+
+
+622
+00:18:34,886 --> 00:18:36,566
+longer populating the content
+
+
+623
+00:18:36,566 --> 00:18:37,596
+inset property through scroll
+
+
+624
+00:18:37,596 --> 00:18:37,876
+views.
+
+
+625
+00:18:38,386 --> 00:18:40,356
+Instead we've added a new
+
+
+626
+00:18:40,356 --> 00:18:42,176
+property, adjusted content
+
+
+627
+00:18:42,176 --> 00:18:44,536
+inset, that includes the sum of
+
+
+628
+00:18:44,536 --> 00:18:46,476
+the content inset and any
+
+
+629
+00:18:46,476 --> 00:18:48,096
+overlap from container view
+
+
+630
+00:18:48,096 --> 00:18:48,716
+controllers.
+
+
+631
+00:18:49,876 --> 00:18:51,376
+This means you can use the
+
+
+632
+00:18:51,376 --> 00:18:52,856
+content inset property for
+
+
+633
+00:18:52,856 --> 00:18:54,196
+whatever purposes are
+
+
+634
+00:18:54,196 --> 00:18:54,886
+appropriate for your
+
+
+635
+00:18:54,886 --> 00:18:56,356
+application, such as this
+
+
+636
+00:18:56,416 --> 00:18:58,436
+additional information about
+
+
+637
+00:18:58,436 --> 00:19:00,976
+this text here, and we won't
+
+
+638
+00:19:00,976 --> 00:19:01,456
+change it.
+
+
+639
+00:19:02,066 --> 00:19:02,886
+And you don't have to worry
+
+
+640
+00:19:02,886 --> 00:19:04,266
+about saving and restoring any
+
+
+641
+00:19:04,266 --> 00:19:05,906
+UI kit provided values and
+
+
+642
+00:19:05,906 --> 00:19:07,236
+having content underlapping
+
+
+643
+00:19:07,486 --> 00:19:08,816
+navigation bars or the status
+
+
+644
+00:19:08,816 --> 00:19:08,936
+bar.
+
+
+645
+00:19:09,516 --> 00:19:15,046
+[ Applause ]
+
+
+646
+00:19:15,546 --> 00:19:16,986
+You may be familiar with our
+
+
+647
+00:19:16,986 --> 00:19:18,466
+auto layout support in UI scroll
+
+
+648
+00:19:18,466 --> 00:19:20,436
+view that lets you dictate how
+
+
+649
+00:19:20,436 --> 00:19:21,806
+big the scrollable region of
+
+
+650
+00:19:21,806 --> 00:19:23,286
+your scroll view is by
+
+
+651
+00:19:23,286 --> 00:19:25,446
+constraining sub-views to the
+
+
+652
+00:19:25,446 --> 00:19:26,536
+scroll view itself.
+
+
+653
+00:19:27,176 --> 00:19:28,406
+And we've added a couple of UI
+
+
+654
+00:19:28,406 --> 00:19:30,056
+layout guide objects that make
+
+
+655
+00:19:30,136 --> 00:19:32,026
+your layout more clear and more
+
+
+656
+00:19:32,026 --> 00:19:33,436
+expressive and more powerful.
+
+
+657
+00:19:33,986 --> 00:19:35,756
+The first is a UI layout guide
+
+
+658
+00:19:35,756 --> 00:19:37,056
+object called the frame layout
+
+
+659
+00:19:37,096 --> 00:19:37,406
+guide.
+
+
+660
+00:19:37,816 --> 00:19:39,216
+And this layout guide
+
+
+661
+00:19:39,266 --> 00:19:41,096
+corresponds to the position and
+
+
+662
+00:19:41,096 --> 00:19:42,486
+size of your scroll view in
+
+
+663
+00:19:42,486 --> 00:19:44,636
+screen space, which means you
+
+
+664
+00:19:44,636 --> 00:19:45,976
+can do things like constrain the
+
+
+665
+00:19:45,976 --> 00:19:47,126
+sub-view, like this page
+
+
+666
+00:19:47,126 --> 00:19:48,476
+indicator, and it will stay
+
+
+667
+00:19:48,596 --> 00:19:50,016
+fixed on screen as the user
+
+
+668
+00:19:50,016 --> 00:19:50,616
+scrolls.
+
+
+669
+00:19:51,966 --> 00:19:53,216
+The second layout guide object
+
+
+670
+00:19:53,216 --> 00:19:54,676
+we've added is the content
+
+
+671
+00:19:54,676 --> 00:19:55,246
+layout guide.
+
+
+672
+00:19:55,766 --> 00:19:56,786
+And you can contain your
+
+
+673
+00:19:56,786 --> 00:19:58,146
+sub-views in order to influence
+
+
+674
+00:19:58,146 --> 00:19:59,656
+the scrollable size of your
+
+
+675
+00:19:59,656 --> 00:20:02,296
+scroll view or have things move
+
+
+676
+00:20:02,296 --> 00:20:03,456
+as the user scrolls.
+
+
+677
+00:20:04,916 --> 00:20:06,806
+One really common sub class of
+
+
+678
+00:20:06,806 --> 00:20:08,786
+UI scroll view is UI table view
+
+
+679
+00:20:09,066 --> 00:20:09,896
+and we've made a number of
+
+
+680
+00:20:09,896 --> 00:20:11,466
+changes here too, the biggest of
+
+
+681
+00:20:11,466 --> 00:20:13,446
+which is that table views use
+
+
+682
+00:20:13,446 --> 00:20:16,516
+self-sizing by default on iOS
+
+
+683
+00:20:16,516 --> 00:20:17,906
+11, not on TVOS.
+
+
+684
+00:20:19,116 --> 00:20:20,396
+This means that your headers,
+
+
+685
+00:20:20,446 --> 00:20:23,556
+your footers, and your cells are
+
+
+686
+00:20:23,556 --> 00:20:25,676
+using estimated sizes.
+
+
+687
+00:20:25,986 --> 00:20:27,066
+We've done this by changing the
+
+
+688
+00:20:27,066 --> 00:20:29,076
+default value of the estimated
+
+
+689
+00:20:29,076 --> 00:20:30,886
+size properties on UI table view
+
+
+690
+00:20:31,246 --> 00:20:32,576
+to this constant, automatic
+
+
+691
+00:20:32,576 --> 00:20:33,006
+dimension.
+
+
+692
+00:20:34,456 --> 00:20:35,916
+This means that you need to
+
+
+693
+00:20:35,916 --> 00:20:37,736
+ensure that your cells all have
+
+
+694
+00:20:37,736 --> 00:20:39,166
+sufficient internal constraints
+
+
+695
+00:20:39,166 --> 00:20:40,396
+to tell UI table view how big
+
+
+696
+00:20:40,396 --> 00:20:42,296
+they should be or you need to
+
+
+697
+00:20:42,296 --> 00:20:43,726
+implement the delegate methods
+
+
+698
+00:20:43,956 --> 00:20:45,356
+that tell us how big your rows
+
+
+699
+00:20:45,356 --> 00:20:45,586
+are.
+
+
+700
+00:20:45,776 --> 00:20:46,846
+You should also implement those
+
+
+701
+00:20:46,846 --> 00:20:48,446
+delicate methods for you headers
+
+
+702
+00:20:48,706 --> 00:20:49,536
+and your footers.
+
+
+703
+00:20:50,826 --> 00:20:52,286
+Now maybe you want to link your
+
+
+704
+00:20:52,286 --> 00:20:53,806
+application against the iOS 11
+
+
+705
+00:20:53,876 --> 00:20:55,966
+SDK, but you're not ready to
+
+
+706
+00:20:56,186 --> 00:20:57,186
+adopt this new behavior.
+
+
+707
+00:20:57,516 --> 00:20:59,026
+You can opt out of it by setting
+
+
+708
+00:20:59,026 --> 00:21:00,426
+the estimated height properties
+
+
+709
+00:21:00,426 --> 00:21:02,096
+on your table views to zero.
+
+
+710
+00:21:02,476 --> 00:21:03,926
+That will turn off estimated
+
+
+711
+00:21:03,926 --> 00:21:06,236
+sizes, which will also disable
+
+
+712
+00:21:06,236 --> 00:21:06,906
+self-sizing.
+
+
+713
+00:21:09,596 --> 00:21:11,096
+Now you may be familiar with
+
+
+714
+00:21:11,096 --> 00:21:12,226
+another concept we introduced a
+
+
+715
+00:21:12,226 --> 00:21:13,636
+while back called the readable
+
+
+716
+00:21:13,636 --> 00:21:14,466
+content guide.
+
+
+717
+00:21:14,936 --> 00:21:16,106
+And this is a portion of your
+
+
+718
+00:21:16,106 --> 00:21:17,516
+views that if you lay out your
+
+
+719
+00:21:17,516 --> 00:21:18,806
+content within, will be
+
+
+720
+00:21:18,806 --> 00:21:20,056
+comfortable to read even on a
+
+
+721
+00:21:20,056 --> 00:21:21,876
+large device like an iPad in
+
+
+722
+00:21:21,876 --> 00:21:22,416
+landscape.
+
+
+723
+00:21:22,926 --> 00:21:25,906
+Now by default table views have
+
+
+724
+00:21:25,906 --> 00:21:28,106
+a separator inset that is within
+
+
+725
+00:21:28,106 --> 00:21:30,146
+the readable content area and
+
+
+726
+00:21:30,146 --> 00:21:31,446
+this influences the position of
+
+
+727
+00:21:31,446 --> 00:21:33,556
+the separators and of the labels
+
+
+728
+00:21:33,556 --> 00:21:34,796
+in the table use content view
+
+
+729
+00:21:34,796 --> 00:21:35,266
+itself.
+
+
+730
+00:21:36,316 --> 00:21:38,056
+And if you change the separator
+
+
+731
+00:21:38,056 --> 00:21:41,766
+insets' values you would see
+
+
+732
+00:21:41,766 --> 00:21:43,586
+that the separator inset moves
+
+
+733
+00:21:43,586 --> 00:21:45,596
+relative to its readable content
+
+
+734
+00:21:45,596 --> 00:21:46,176
+guide position.
+
+
+735
+00:21:47,066 --> 00:21:48,346
+Starting in iOS 11 we're
+
+
+736
+00:21:48,346 --> 00:21:51,436
+changing this and the separator
+
+
+737
+00:21:51,436 --> 00:21:53,226
+insets will always be relative
+
+
+738
+00:21:53,276 --> 00:21:54,366
+to the edges of the cells
+
+
+739
+00:21:54,366 --> 00:21:55,566
+themselves, which are the full
+
+
+740
+00:21:55,566 --> 00:21:56,966
+width of the table view, which
+
+
+741
+00:21:58,016 --> 00:21:59,526
+means you can set these values
+
+
+742
+00:21:59,526 --> 00:22:01,416
+to zero and have full width,
+
+
+743
+00:22:01,776 --> 00:22:03,476
+full bleed content even on an
+
+
+744
+00:22:03,596 --> 00:22:04,866
+iPad running in landscape.
+
+
+745
+00:22:05,296 --> 00:22:08,006
+And this is a table view on an
+
+
+746
+00:22:08,006 --> 00:22:10,726
+iPhone and if I change the
+
+
+747
+00:22:10,726 --> 00:22:12,976
+separator inset here you can see
+
+
+748
+00:22:12,976 --> 00:22:14,696
+that it is also defined relative
+
+
+749
+00:22:14,736 --> 00:22:16,316
+to the edges of the cell -- to
+
+
+750
+00:22:16,316 --> 00:22:17,186
+the edge of the table view.
+
+
+751
+00:22:18,276 --> 00:22:19,416
+We've added a new property to UI
+
+
+752
+00:22:19,416 --> 00:22:21,886
+table view, separator inset
+
+
+753
+00:22:21,886 --> 00:22:23,236
+reference, that you can use to
+
+
+754
+00:22:23,236 --> 00:22:24,426
+tell us that you actually just
+
+
+755
+00:22:24,426 --> 00:22:26,036
+want to adjust the separator
+
+
+756
+00:22:26,036 --> 00:22:27,826
+inset from its default automatic
+
+
+757
+00:22:27,826 --> 00:22:28,246
+position.
+
+
+758
+00:22:30,176 --> 00:22:31,266
+And this works on iPad too.
+
+
+759
+00:22:31,846 --> 00:22:34,016
+A couple of things to keep in
+
+
+760
+00:22:34,016 --> 00:22:34,946
+mind about the way the table
+
+
+761
+00:22:34,946 --> 00:22:36,056
+views interact with the safe
+
+
+762
+00:22:36,056 --> 00:22:38,036
+area; those automatic separator
+
+
+763
+00:22:38,036 --> 00:22:39,646
+insets are relative to the safe
+
+
+764
+00:22:39,646 --> 00:22:40,396
+area insets.
+
+
+765
+00:22:40,726 --> 00:22:42,476
+So by default the entire content
+
+
+766
+00:22:42,476 --> 00:22:44,026
+of your table view avoids the
+
+
+767
+00:22:44,026 --> 00:22:45,346
+safe area insets from its
+
+
+768
+00:22:45,376 --> 00:22:46,556
+ancestor view controllers.
+
+
+769
+00:22:47,296 --> 00:22:49,656
+UI table view cell and UI table
+
+
+770
+00:22:49,656 --> 00:22:50,966
+view header/footer view, which
+
+
+771
+00:22:50,966 --> 00:22:52,076
+might be one of the longer names
+
+
+772
+00:22:52,076 --> 00:22:53,936
+in the kit, they both have a
+
+
+773
+00:22:53,936 --> 00:22:55,236
+content view property.
+
+
+774
+00:22:55,446 --> 00:22:56,256
+That's where you should be
+
+
+775
+00:22:56,256 --> 00:22:57,456
+adding your sub-views.
+
+
+776
+00:22:58,276 --> 00:22:59,636
+Both of these classes make sure
+
+
+777
+00:22:59,636 --> 00:23:01,526
+that that content view also
+
+
+778
+00:23:01,526 --> 00:23:03,156
+avoids the safe area insets.
+
+
+779
+00:23:03,646 --> 00:23:05,206
+So you should be using UI table
+
+
+780
+00:23:05,206 --> 00:23:07,176
+view header/footer view for all
+
+
+781
+00:23:07,176 --> 00:23:08,156
+of the headers and footers in
+
+
+782
+00:23:08,156 --> 00:23:09,896
+your table views; table headers
+
+
+783
+00:23:09,896 --> 00:23:11,726
+and footers and section headers
+
+
+784
+00:23:12,236 --> 00:23:14,196
+and footers.
+
+
+785
+00:23:14,346 --> 00:23:15,496
+We've also brought over the
+
+
+786
+00:23:15,496 --> 00:23:17,296
+really rich swipe action
+
+
+787
+00:23:17,986 --> 00:23:19,586
+functionality from the mail
+
+
+788
+00:23:19,586 --> 00:23:20,776
+application to your
+
+
+789
+00:23:20,776 --> 00:23:21,476
+applications.
+
+
+790
+00:23:22,146 --> 00:23:24,176
+So on iOS 11 your applications
+
+
+791
+00:23:24,176 --> 00:23:25,426
+will get the new swipe action
+
+
+792
+00:23:25,426 --> 00:23:27,596
+look and feel by default, and if
+
+
+793
+00:23:27,596 --> 00:23:30,256
+you link against iOS 11, you can
+
+
+794
+00:23:30,256 --> 00:23:31,636
+get full swipe to delete
+
+
+795
+00:23:31,636 --> 00:23:32,986
+behavior, just like you're used
+
+
+796
+00:23:32,986 --> 00:23:33,786
+to from the mail app.
+
+
+797
+00:23:34,596 --> 00:23:35,306
+And if you go ahead --
+
+
+798
+00:23:35,966 --> 00:23:36,616
+[applause] some people are very
+
+
+799
+00:23:36,616 --> 00:23:37,516
+excited about this I know.
+
+
+800
+00:23:38,406 --> 00:23:39,836
+[applause] And if you go ahead
+
+
+801
+00:23:39,836 --> 00:23:41,736
+and adopt a few new APIs you can
+
+
+802
+00:23:41,736 --> 00:23:43,026
+get some really cool features,
+
+
+803
+00:23:43,386 --> 00:23:44,736
+like images in your swipe
+
+
+804
+00:23:44,736 --> 00:23:46,736
+actions, or swipe actions from
+
+
+805
+00:23:46,736 --> 00:23:47,876
+both the leading and the
+
+
+806
+00:23:47,876 --> 00:23:50,646
+trailing edges, or a completion
+
+
+807
+00:23:50,646 --> 00:23:51,936
+handler that lets you cancel the
+
+
+808
+00:23:51,936 --> 00:23:52,606
+swipe action.
+
+
+809
+00:23:53,066 --> 00:23:55,286
+And to show us how to adopt all
+
+
+810
+00:23:55,286 --> 00:23:55,886
+these features in our
+
+
+811
+00:23:55,886 --> 00:23:57,236
+application, Raj is going to
+
+
+812
+00:23:57,236 --> 00:23:57,926
+come up and give us another
+
+
+813
+00:23:57,926 --> 00:23:58,216
+demo.
+
+
+814
+00:23:58,406 --> 00:23:58,706
+Raj?
+
+
+815
+00:23:59,516 --> 00:24:05,906
+[ Applause ]
+
+
+816
+00:24:06,406 --> 00:24:06,936
+>> Thanks Kyle.
+
+
+817
+00:24:07,596 --> 00:24:08,576
+So we're going to switch over to
+
+
+818
+00:24:08,576 --> 00:24:10,506
+the demo machine again and as
+
+
+819
+00:24:10,506 --> 00:24:12,136
+you can see we've got these big
+
+
+820
+00:24:12,136 --> 00:24:13,286
+beautiful bars in this new
+
+
+821
+00:24:13,286 --> 00:24:13,936
+application.
+
+
+822
+00:24:14,286 --> 00:24:15,216
+It's looking really great.
+
+
+823
+00:24:16,436 --> 00:24:17,116
+But I want to show you the
+
+
+824
+00:24:17,116 --> 00:24:18,106
+comments view controller.
+
+
+825
+00:24:18,106 --> 00:24:19,646
+Now if I push into the comments
+
+
+826
+00:24:19,646 --> 00:24:21,216
+view controller here, you'll
+
+
+827
+00:24:21,216 --> 00:24:22,266
+notice we have some really
+
+
+828
+00:24:22,266 --> 00:24:24,636
+interesting comments and we've
+
+
+829
+00:24:24,636 --> 00:24:26,046
+got all the comments here in a
+
+
+830
+00:24:26,046 --> 00:24:27,216
+comment bar at the bottom.
+
+
+831
+00:24:28,096 --> 00:24:29,586
+Now our users have been asking
+
+
+832
+00:24:29,586 --> 00:24:31,466
+us for one thing and that's time
+
+
+833
+00:24:31,466 --> 00:24:31,876
+stamps.
+
+
+834
+00:24:32,436 --> 00:24:33,776
+And so I went and spoke to our
+
+
+835
+00:24:33,776 --> 00:24:35,366
+designer and got this really
+
+
+836
+00:24:35,366 --> 00:24:37,086
+cool design for this awesome new
+
+
+837
+00:24:37,086 --> 00:24:37,736
+scroll bar.
+
+
+838
+00:24:38,436 --> 00:24:40,376
+This scroll bar also indicates,
+
+
+839
+00:24:40,856 --> 00:24:42,506
+not only where you are in the
+
+
+840
+00:24:42,506 --> 00:24:44,446
+comments view, but also the time
+
+
+841
+00:24:44,446 --> 00:24:45,776
+stamp where it's pointing.
+
+
+842
+00:24:46,666 --> 00:24:48,146
+So let's go ahead and implement
+
+
+843
+00:24:48,146 --> 00:24:48,346
+that.
+
+
+844
+00:24:49,456 --> 00:24:50,606
+I'll switch over to the comments
+
+
+845
+00:24:50,606 --> 00:24:52,456
+view controller and create our
+
+
+846
+00:24:52,456 --> 00:24:54,426
+scroll bar using a method I
+
+
+847
+00:24:54,426 --> 00:24:55,086
+wrote earlier.
+
+
+848
+00:24:55,876 --> 00:24:58,176
+And when I recompile and rerun
+
+
+849
+00:24:58,176 --> 00:25:02,026
+the application, scroll down,
+
+
+850
+00:25:03,306 --> 00:25:05,656
+tap on one of these cells, and
+
+
+851
+00:25:05,656 --> 00:25:06,346
+into the comments view
+
+
+852
+00:25:06,346 --> 00:25:07,936
+controller you'll see there it
+
+
+853
+00:25:08,566 --> 00:25:08,636
+is.
+
+
+854
+00:25:08,636 --> 00:25:09,776
+So it's looking pretty cool.
+
+
+855
+00:25:09,776 --> 00:25:11,116
+It shows you where you are in
+
+
+856
+00:25:11,116 --> 00:25:12,296
+this comments view controller
+
+
+857
+00:25:12,816 --> 00:25:15,436
+and the time stamp of the cell
+
+
+858
+00:25:15,526 --> 00:25:17,456
+that it's pointing at.
+
+
+859
+00:25:18,146 --> 00:25:19,776
+But, as you might notice, there
+
+
+860
+00:25:19,776 --> 00:25:20,606
+are a few issues here.
+
+
+861
+00:25:21,236 --> 00:25:22,906
+The first issue is that this
+
+
+862
+00:25:22,906 --> 00:25:24,716
+indicator actually overlaps with
+
+
+863
+00:25:24,716 --> 00:25:26,306
+the table view cell a little bit
+
+
+864
+00:25:26,306 --> 00:25:27,466
+and so it makes things maybe a
+
+
+865
+00:25:27,466 --> 00:25:28,346
+little bit hard to read.
+
+
+866
+00:25:29,286 --> 00:25:30,886
+The second thing is that this
+
+
+867
+00:25:30,936 --> 00:25:32,116
+indicator overlaps with this
+
+
+868
+00:25:32,146 --> 00:25:33,496
+input field here at the bottom.
+
+
+869
+00:25:34,376 --> 00:25:36,386
+So let's use some new APIs in
+
+
+870
+00:25:36,466 --> 00:25:37,856
+iOS 11 to help solve these
+
+
+871
+00:25:37,856 --> 00:25:38,276
+problems.
+
+
+872
+00:25:38,916 --> 00:25:40,596
+We're going to use the
+
+
+873
+00:25:40,596 --> 00:25:42,146
+additional safe area insets
+
+
+874
+00:25:42,146 --> 00:25:44,586
+property on UI view controller
+
+
+875
+00:25:44,586 --> 00:25:45,706
+to help solve this.
+
+
+876
+00:25:46,406 --> 00:25:47,766
+So I'll go ahead and unwrap our
+
+
+877
+00:25:47,766 --> 00:25:49,956
+two views and I'll set our
+
+
+878
+00:25:49,956 --> 00:25:51,576
+additional safe area insets to a
+
+
+879
+00:25:51,576 --> 00:25:52,996
+UA edge insets.
+
+
+880
+00:25:54,366 --> 00:25:56,066
+So on the top we don't have
+
+
+881
+00:25:56,066 --> 00:25:57,136
+anything additional to add.
+
+
+882
+00:25:57,996 --> 00:25:59,376
+On the left that's the same
+
+
+883
+00:25:59,376 --> 00:25:59,796
+story.
+
+
+884
+00:26:00,346 --> 00:26:01,976
+On the bottom we want to make it
+
+
+885
+00:26:01,976 --> 00:26:04,096
+the comment bar's size.
+
+
+886
+00:26:04,366 --> 00:26:05,456
+So we'll get the height of the
+
+
+887
+00:26:05,456 --> 00:26:07,726
+comment bar and on the right we
+
+
+888
+00:26:07,726 --> 00:26:08,636
+have a property that I've
+
+
+889
+00:26:08,636 --> 00:26:10,286
+written earlier on the side
+
+
+890
+00:26:10,286 --> 00:26:12,516
+indicator that gives its
+
+
+891
+00:26:12,516 --> 00:26:13,376
+preferred width.
+
+
+892
+00:26:14,616 --> 00:26:16,106
+So now we've set up our
+
+
+893
+00:26:16,106 --> 00:26:17,406
+additional safe area insets.
+
+
+894
+00:26:17,976 --> 00:26:20,676
+If I recompile and rerun the
+
+
+895
+00:26:20,676 --> 00:26:23,846
+application, head into the
+
+
+896
+00:26:23,846 --> 00:26:25,316
+detail view and again into the
+
+
+897
+00:26:25,316 --> 00:26:26,806
+comments view controller, you'll
+
+
+898
+00:26:26,806 --> 00:26:27,896
+notice things are starting to
+
+
+899
+00:26:27,896 --> 00:26:28,756
+look pretty good.
+
+
+900
+00:26:29,366 --> 00:26:31,176
+We've got our content inset from
+
+
+901
+00:26:31,176 --> 00:26:33,656
+the right edge and the scroll
+
+
+902
+00:26:33,656 --> 00:26:35,146
+indicator's also inset from the
+
+
+903
+00:26:35,146 --> 00:26:37,416
+bottom edge, but you'll notice
+
+
+904
+00:26:37,416 --> 00:26:39,356
+here, down at the bottom, that
+
+
+905
+00:26:39,926 --> 00:26:42,406
+this comment field actually is
+
+
+906
+00:26:42,606 --> 00:26:43,726
+inset a little bit from the
+
+
+907
+00:26:43,726 --> 00:26:44,646
+right edge of the screen.
+
+
+908
+00:26:45,796 --> 00:26:48,526
+So the reason for that is the
+
+
+909
+00:26:48,526 --> 00:26:51,306
+comment field's text field is
+
+
+910
+00:26:51,306 --> 00:26:53,056
+constrained to its super views
+
+
+911
+00:26:53,106 --> 00:26:54,046
+layout margins.
+
+
+912
+00:26:54,836 --> 00:26:57,076
+Now in iOS 11 your layout
+
+
+913
+00:26:57,076 --> 00:26:59,046
+margins are actually inset from
+
+
+914
+00:26:59,046 --> 00:27:01,286
+the safe area and because we
+
+
+915
+00:27:01,286 --> 00:27:02,686
+added additional safe area
+
+
+916
+00:27:02,686 --> 00:27:04,506
+insets on the right of this view
+
+
+917
+00:27:04,986 --> 00:27:06,316
+our layout margins get inset
+
+
+918
+00:27:06,316 --> 00:27:06,896
+accordingly.
+
+
+919
+00:27:07,836 --> 00:27:09,206
+Now most of the time this is
+
+
+920
+00:27:09,206 --> 00:27:10,376
+going to be exactly what you
+
+
+921
+00:27:10,376 --> 00:27:12,476
+want, but we do have a property
+
+
+922
+00:27:12,476 --> 00:27:14,736
+on UI view, "insets layout
+
+
+923
+00:27:14,736 --> 00:27:16,746
+margins from safe area," which
+
+
+924
+00:27:16,746 --> 00:27:17,896
+lets you control this property.
+
+
+925
+00:27:18,586 --> 00:27:20,236
+So for this use case let's go
+
+
+926
+00:27:20,236 --> 00:27:20,966
+ahead and set that to "false."
+
+
+927
+00:27:27,046 --> 00:27:27,836
+When I go ahead and do that,
+
+
+928
+00:27:28,526 --> 00:27:30,166
+recompile and rerun the
+
+
+929
+00:27:30,166 --> 00:27:33,906
+application, go back into the
+
+
+930
+00:27:33,906 --> 00:27:35,256
+detail view controller and
+
+
+931
+00:27:35,256 --> 00:27:36,186
+finally into the comments view
+
+
+932
+00:27:36,186 --> 00:27:38,056
+controller, you'll see things
+
+
+933
+00:27:38,056 --> 00:27:38,896
+are starting to look really
+
+
+934
+00:27:38,896 --> 00:27:39,156
+good.
+
+
+935
+00:27:39,646 --> 00:27:40,916
+We've got our content at the
+
+
+936
+00:27:40,916 --> 00:27:41,726
+right spot.
+
+
+937
+00:27:41,966 --> 00:27:42,836
+We've got our beautiful new
+
+
+938
+00:27:42,836 --> 00:27:43,626
+scroll indicator.
+
+
+939
+00:27:44,036 --> 00:27:45,896
+Everything is inset and the
+
+
+940
+00:27:45,896 --> 00:27:47,296
+comment field is a full width.
+
+
+941
+00:27:47,746 --> 00:27:50,816
+Awesome! The next thing I'd like
+
+
+942
+00:27:50,816 --> 00:27:53,006
+to show you is adding swipe
+
+
+943
+00:27:53,006 --> 00:27:54,436
+actions to this application.
+
+
+944
+00:27:55,236 --> 00:27:57,136
+So I've decided that I'd like to
+
+
+945
+00:27:57,136 --> 00:27:59,216
+add the ability to favorite and
+
+
+946
+00:27:59,216 --> 00:28:00,126
+maybe delete some of these
+
+
+947
+00:28:00,126 --> 00:28:00,386
+things.
+
+
+948
+00:28:01,656 --> 00:28:03,306
+So let's go to the memory view
+
+
+949
+00:28:03,306 --> 00:28:06,266
+controller and add support for
+
+
+950
+00:28:06,346 --> 00:28:08,296
+the new swipe actions in iOS 11.
+
+
+951
+00:28:08,866 --> 00:28:12,256
+So it looks like a lot, but I'll
+
+
+952
+00:28:12,256 --> 00:28:12,946
+walk you through it.
+
+
+953
+00:28:13,916 --> 00:28:15,366
+All I've done is implemented two
+
+
+954
+00:28:15,366 --> 00:28:17,296
+new methods; leading swipe
+
+
+955
+00:28:17,296 --> 00:28:18,736
+actions configuration for road
+
+
+956
+00:28:18,736 --> 00:28:20,296
+indexpath and trailing swipe
+
+
+957
+00:28:20,296 --> 00:28:21,646
+actions configurations for road
+
+
+958
+00:28:21,646 --> 00:28:22,196
+indexpath.
+
+
+959
+00:28:22,956 --> 00:28:23,646
+So let's walk through the
+
+
+960
+00:28:23,646 --> 00:28:24,186
+leading one.
+
+
+961
+00:28:24,926 --> 00:28:26,286
+All I do is I create a UI
+
+
+962
+00:28:26,286 --> 00:28:27,786
+contextual action here, with a
+
+
+963
+00:28:27,786 --> 00:28:29,266
+style of "normal," a title of
+
+
+964
+00:28:29,266 --> 00:28:31,096
+"favorite," and a block based
+
+
+965
+00:28:31,096 --> 00:28:31,516
+handler.
+
+
+966
+00:28:32,636 --> 00:28:34,056
+I update our favorites state,
+
+
+967
+00:28:34,256 --> 00:28:35,536
+using a method I wrote earlier,
+
+
+968
+00:28:35,536 --> 00:28:37,046
+and then I call the completion
+
+
+969
+00:28:37,046 --> 00:28:39,146
+handler with the parameter of
+
+
+970
+00:28:39,916 --> 00:28:40,016
+"true."
+
+
+971
+00:28:40,246 --> 00:28:41,326
+Just so everything's looking
+
+
+972
+00:28:41,326 --> 00:28:42,856
+right, I'll also set it to
+
+
+973
+00:28:42,856 --> 00:28:44,246
+"unfavorite," based on whether
+
+
+974
+00:28:44,246 --> 00:28:45,476
+that item's already favorited.
+
+
+975
+00:28:46,586 --> 00:28:48,586
+And then I'll set the image to
+
+
+976
+00:28:48,586 --> 00:28:49,926
+this beautiful star that I had
+
+
+977
+00:28:49,996 --> 00:28:52,026
+made earlier and the background
+
+
+978
+00:28:52,026 --> 00:28:53,356
+color to this awesome looking
+
+
+979
+00:28:53,356 --> 00:28:53,776
+orange.
+
+
+980
+00:28:54,436 --> 00:28:56,106
+And then all I need to do is
+
+
+981
+00:28:56,106 --> 00:28:57,296
+create a UI swipe actions
+
+
+982
+00:28:57,296 --> 00:28:59,216
+configuration using that UI
+
+
+983
+00:28:59,216 --> 00:29:00,966
+contextual action and return it.
+
+
+984
+00:29:02,386 --> 00:29:03,496
+The story's pretty much the same
+
+
+985
+00:29:03,496 --> 00:29:05,046
+for the trailing actions; I just
+
+
+986
+00:29:05,046 --> 00:29:06,406
+use the style of disruptive.
+
+
+987
+00:29:07,376 --> 00:29:08,916
+So when I recompile and rerun
+
+
+988
+00:29:08,916 --> 00:29:13,716
+this time, go back over, and
+
+
+989
+00:29:13,716 --> 00:29:15,386
+swipe, you'll notice we get this
+
+
+990
+00:29:15,446 --> 00:29:17,606
+option swipe actions and you can
+
+
+991
+00:29:17,606 --> 00:29:18,706
+even have a swipe action on the
+
+
+992
+00:29:18,706 --> 00:29:19,976
+leading edge, as you see here,
+
+
+993
+00:29:19,976 --> 00:29:21,156
+which you were never able to do
+
+
+994
+00:29:21,156 --> 00:29:21,456
+before.
+
+
+995
+00:29:22,836 --> 00:29:24,456
+For full -- furthermore, you get
+
+
+996
+00:29:24,456 --> 00:29:26,036
+full swipe to delete support out
+
+
+997
+00:29:26,036 --> 00:29:27,046
+of the box.
+
+
+998
+00:29:27,416 --> 00:29:29,166
+So all I need to do is swipe all
+
+
+999
+00:29:29,166 --> 00:29:30,596
+the way across and it just
+
+
+1000
+00:29:30,596 --> 00:29:30,976
+works.
+
+
+1001
+00:29:31,516 --> 00:29:37,666
+[ Applause ]
+
+
+1002
+00:29:38,166 --> 00:29:39,436
+So that's a look at some of the
+
+
+1003
+00:29:39,436 --> 00:29:40,676
+new APIs for margins, insets,
+
+
+1004
+00:29:41,036 --> 00:29:42,996
+scroll views, and bars in this
+
+
+1005
+00:29:42,996 --> 00:29:43,466
+demo app.
+
+
+1006
+00:29:43,696 --> 00:29:44,726
+It's looking really great and
+
+
+1007
+00:29:44,726 --> 00:29:46,026
+definitely ready for iOS 11.
+
+
+1008
+00:29:46,476 --> 00:29:47,736
+Now Kyle's going to come back up
+
+
+1009
+00:29:47,776 --> 00:29:48,726
+to tell you about some related
+
+
+1010
+00:29:48,726 --> 00:29:48,976
+sessions.
+
+
+1011
+00:29:49,516 --> 00:29:56,866
+[ Applause ]
+
+
+1012
+00:29:57,366 --> 00:29:58,236
+>> Thank you again Raj.
+
+
+1013
+00:29:59,136 --> 00:30:00,456
+So just to recap what we've
+
+
+1014
+00:30:00,456 --> 00:30:02,026
+learned today; we've learned how
+
+
+1015
+00:30:02,026 --> 00:30:03,716
+to adopt large navigation titles
+
+
+1016
+00:30:04,006 --> 00:30:05,076
+and the new integrated search
+
+
+1017
+00:30:05,076 --> 00:30:06,706
+experience into our applications
+
+
+1018
+00:30:06,806 --> 00:30:07,616
+for iOS 11.
+
+
+1019
+00:30:09,006 --> 00:30:10,516
+We've also learned about some
+
+
+1020
+00:30:10,516 --> 00:30:11,936
+new improvements to layout
+
+
+1021
+00:30:11,936 --> 00:30:13,296
+margins that give us complete
+
+
+1022
+00:30:13,296 --> 00:30:15,686
+control over our views and the
+
+
+1023
+00:30:15,686 --> 00:30:17,616
+way they layout, as well as a
+
+
+1024
+00:30:17,616 --> 00:30:18,826
+new concept called the safe
+
+
+1025
+00:30:18,826 --> 00:30:20,206
+area, which tells us about
+
+
+1026
+00:30:20,206 --> 00:30:22,006
+overlapping contents and things
+
+
+1027
+00:30:22,006 --> 00:30:23,376
+like over scan compensation
+
+
+1028
+00:30:23,376 --> 00:30:24,446
+insets on Apple TV.
+
+
+1029
+00:30:24,996 --> 00:30:27,046
+We've learned about some new
+
+
+1030
+00:30:27,046 --> 00:30:28,476
+enhancements to UI scroll view
+
+
+1031
+00:30:28,896 --> 00:30:30,276
+that give us better control over
+
+
+1032
+00:30:30,276 --> 00:30:32,456
+our content inset and some new
+
+
+1033
+00:30:32,456 --> 00:30:34,286
+features in UI table view and
+
+
+1034
+00:30:34,286 --> 00:30:35,526
+how it interacts with concepts
+
+
+1035
+00:30:35,776 --> 00:30:36,636
+like the safe area.
+
+
+1036
+00:30:37,276 --> 00:30:40,096
+If you have more questions be
+
+
+1037
+00:30:40,096 --> 00:30:41,436
+sure to visit the site for this
+
+
+1038
+00:30:41,436 --> 00:30:41,856
+session.
+
+
+1039
+00:30:42,436 --> 00:30:42,976
+Have a great WWDC.
+
+
+1040
+00:30:43,516 --> 00:30:49,500
+[ Applause ]
+

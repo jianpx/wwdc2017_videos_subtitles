@@ -1,0 +1,10119 @@
+1
+00:00:21,756 --> 00:00:22,106
+>> Hello.
+
+
+2
+00:00:23,516 --> 00:00:27,116
+[ Applause ]
+
+
+3
+00:00:27,616 --> 00:00:28,166
+Thanks for coming.
+
+
+4
+00:00:28,626 --> 00:00:29,636
+My name is Tony Parker.
+
+
+5
+00:00:29,636 --> 00:00:30,306
+I'm the manager of the
+
+
+6
+00:00:30,306 --> 00:00:31,806
+Foundation Team at Apple, and
+
+
+7
+00:00:31,806 --> 00:00:32,516
+I'm here today with my
+
+
+8
+00:00:32,516 --> 00:00:33,846
+colleagues Michael LeHew and
+
+
+9
+00:00:33,846 --> 00:00:35,226
+Itai Ferber to tell you What's
+
+
+10
+00:00:35,226 --> 00:00:36,206
+New in Foundation.
+
+
+11
+00:00:37,476 --> 00:00:38,766
+We have three topics today.
+
+
+12
+00:00:39,016 --> 00:00:40,376
+The first, we're going to go
+
+
+13
+00:00:40,376 --> 00:00:41,916
+over really quickly some new API
+
+
+14
+00:00:42,066 --> 00:00:42,966
+highlights from this year's
+
+
+15
+00:00:42,966 --> 00:00:43,906
+release of Foundation.
+
+
+16
+00:00:44,646 --> 00:00:46,006
+After that, we're going to go
+
+
+17
+00:00:46,006 --> 00:00:47,326
+into the first of our two major
+
+
+18
+00:00:47,326 --> 00:00:49,796
+topics, the key paths and key
+
+
+19
+00:00:49,796 --> 00:00:51,186
+value observation APIs.
+
+
+20
+00:00:52,476 --> 00:00:53,536
+And after that, we'll talk about
+
+
+21
+00:00:53,536 --> 00:00:55,356
+our new encoding and decoding
+
+
+22
+00:00:55,466 --> 00:00:55,846
+APIs.
+
+
+23
+00:00:56,636 --> 00:00:58,426
+So let's get started with those
+
+
+24
+00:00:58,426 --> 00:01:00,186
+new API highlights.
+
+
+25
+00:01:01,996 --> 00:01:04,286
+First, this year, we've enhanced
+
+
+26
+00:01:04,286 --> 00:01:05,656
+the FileProvider API that we
+
+
+27
+00:01:05,656 --> 00:01:06,956
+introduced last year as part of
+
+
+28
+00:01:06,956 --> 00:01:07,506
+iOS 10.
+
+
+29
+00:01:08,406 --> 00:01:09,866
+This enhances your ability to
+
+
+30
+00:01:09,866 --> 00:01:12,006
+communicate between FileProvider
+
+
+31
+00:01:12,006 --> 00:01:13,136
+extensions and other
+
+
+32
+00:01:13,136 --> 00:01:13,896
+applications.
+
+
+33
+00:01:14,456 --> 00:01:17,046
+We've improved our available
+
+
+34
+00:01:17,046 --> 00:01:18,126
+storage space API.
+
+
+35
+00:01:18,796 --> 00:01:21,216
+This is new API on MSURL that
+
+
+36
+00:01:21,216 --> 00:01:22,586
+lets you not only get an idea of
+
+
+37
+00:01:22,586 --> 00:01:24,146
+how much free space is available
+
+
+38
+00:01:24,146 --> 00:01:25,706
+on your customer's device but
+
+
+39
+00:01:25,706 --> 00:01:26,906
+also how much space can be made
+
+
+40
+00:01:26,906 --> 00:01:28,216
+available if we purge
+
+
+41
+00:01:28,536 --> 00:01:30,316
+unnecessary content like caches
+
+
+42
+00:01:30,416 --> 00:01:31,396
+or old data.
+
+
+43
+00:01:32,016 --> 00:01:35,896
+We've added new API to NS range
+
+
+44
+00:01:36,046 --> 00:01:37,666
+and Swift range to help convert
+
+
+45
+00:01:37,666 --> 00:01:39,766
+between NSString's use of NS
+
+
+46
+00:01:39,766 --> 00:01:42,226
+range and Swift's string and its
+
+
+47
+00:01:42,226 --> 00:01:42,636
+range.
+
+
+48
+00:01:43,106 --> 00:01:44,416
+This is especially useful for
+
+
+49
+00:01:44,416 --> 00:01:46,156
+classes like AttributedString
+
+
+50
+00:01:46,156 --> 00:01:47,106
+and RegularExpression.
+
+
+51
+00:01:47,716 --> 00:01:50,846
+In NSXPCConnection, we've added
+
+
+52
+00:01:50,846 --> 00:01:52,996
+support for, better support for
+
+
+53
+00:01:53,036 --> 00:01:53,736
+NSProgress.
+
+
+54
+00:01:53,736 --> 00:01:54,946
+And this is actually really
+
+
+55
+00:01:54,946 --> 00:01:56,106
+interesting for that first item
+
+
+56
+00:01:56,326 --> 00:01:58,006
+because the new, enhanced
+
+
+57
+00:01:58,006 --> 00:01:59,466
+ability for communication
+
+
+58
+00:01:59,466 --> 00:02:01,406
+between extensions and apps is
+
+
+59
+00:02:01,406 --> 00:02:03,176
+actually NSXPCConnection, which
+
+
+60
+00:02:03,176 --> 00:02:04,646
+is available this year on iOS
+
+
+61
+00:02:04,646 --> 00:02:05,366
+for the first time.
+
+
+62
+00:02:06,086 --> 00:02:07,516
+NSURLSession has also gained
+
+
+63
+00:02:07,516 --> 00:02:08,726
+support for NSProgress.
+
+
+64
+00:02:09,166 --> 00:02:10,515
+And so what we're hoping is that
+
+
+65
+00:02:10,515 --> 00:02:11,946
+you can use all of these
+
+
+66
+00:02:11,946 --> 00:02:14,066
+progress features together to
+
+
+67
+00:02:14,266 --> 00:02:16,056
+flow progress from a download to
+
+
+68
+00:02:16,056 --> 00:02:18,126
+the extension, to an app, and
+
+
+69
+00:02:18,126 --> 00:02:19,326
+display something to your user.
+
+
+70
+00:02:19,856 --> 00:02:22,196
+And finally, we've brought the
+
+
+71
+00:02:22,196 --> 00:02:23,726
+thermal notifications from Mac
+
+
+72
+00:02:23,866 --> 00:02:24,856
+to iOS this year.
+
+
+73
+00:02:25,496 --> 00:02:27,056
+For more on many of these
+
+
+74
+00:02:27,056 --> 00:02:28,246
+topics, check out What's New in
+
+
+75
+00:02:28,246 --> 00:02:28,756
+Cocoa.
+
+
+76
+00:02:28,756 --> 00:02:29,896
+It was this morning, so if you
+
+
+77
+00:02:29,896 --> 00:02:31,486
+missed it, we had a pretty big
+
+
+78
+00:02:31,486 --> 00:02:33,146
+section on Foundation in that
+
+
+79
+00:02:33,926 --> 00:02:34,026
+talk.
+
+
+80
+00:02:35,436 --> 00:02:37,026
+Performance was also a really
+
+
+81
+00:02:37,026 --> 00:02:38,986
+key consideration for us this
+
+
+82
+00:02:38,986 --> 00:02:40,576
+year on Foundation, and that
+
+
+83
+00:02:40,576 --> 00:02:42,456
+started with a new copy-on-write
+
+
+84
+00:02:42,456 --> 00:02:43,936
+behavior for NSArray and its
+
+
+85
+00:02:43,966 --> 00:02:45,816
+dictionary, NSSet, and their
+
+
+86
+00:02:45,816 --> 00:02:46,456
+mutable friends.
+
+
+87
+00:02:47,656 --> 00:02:49,726
+So a huge motivator for this was
+
+
+88
+00:02:49,806 --> 00:02:50,726
+bridging into Swift.
+
+
+89
+00:02:51,216 --> 00:02:53,876
+So when an NSArray is returned
+
+
+90
+00:02:53,876 --> 00:02:55,626
+from an Objective-C API, perhaps
+
+
+91
+00:02:55,626 --> 00:02:57,486
+in a framework, and you use it
+
+
+92
+00:02:57,486 --> 00:02:58,916
+in Swift, you're receiving the
+
+
+93
+00:02:58,916 --> 00:03:00,216
+Swift value type: array,
+
+
+94
+00:03:00,216 --> 00:03:01,066
+dictionary, and set.
+
+
+95
+00:03:01,066 --> 00:03:03,106
+And to preserve value semantics,
+
+
+96
+00:03:03,466 --> 00:03:05,886
+those structures call copy on
+
+
+97
+00:03:05,886 --> 00:03:07,086
+the reference type when they do
+
+
+98
+00:03:07,086 --> 00:03:07,596
+that bridging.
+
+
+99
+00:03:08,296 --> 00:03:09,486
+If the result happened to be one
+
+
+100
+00:03:09,486 --> 00:03:11,126
+of the mutable subclasses, then
+
+
+101
+00:03:11,126 --> 00:03:12,186
+that copy could be pretty
+
+
+102
+00:03:12,186 --> 00:03:12,756
+expensive.
+
+
+103
+00:03:13,316 --> 00:03:14,636
+Now, we can defer the cost of
+
+
+104
+00:03:14,636 --> 00:03:16,106
+that copy until the time that
+
+
+105
+00:03:16,106 --> 00:03:17,466
+it's actually mutated, if that
+
+
+106
+00:03:17,466 --> 00:03:19,036
+happens at all, which can result
+
+
+107
+00:03:19,036 --> 00:03:21,076
+in really big improvements for
+
+
+108
+00:03:21,076 --> 00:03:22,036
+performance when bridging.
+
+
+109
+00:03:22,406 --> 00:03:25,276
+Struct data, a part of the
+
+
+110
+00:03:25,276 --> 00:03:27,486
+Foundation's Swift overlap, has
+
+
+111
+00:03:27,486 --> 00:03:28,816
+also gained a lot of performance
+
+
+112
+00:03:28,816 --> 00:03:29,356
+enhancements.
+
+
+113
+00:03:29,846 --> 00:03:31,406
+In particular, something really
+
+
+114
+00:03:31,406 --> 00:03:32,566
+cool -- we're able to actually
+
+
+115
+00:03:32,566 --> 00:03:34,386
+inline critical parts of data's
+
+
+116
+00:03:34,386 --> 00:03:35,956
+behavior into your app when you
+
+
+117
+00:03:35,956 --> 00:03:36,496
+compile.
+
+
+118
+00:03:36,936 --> 00:03:38,096
+This can include things like
+
+
+119
+00:03:38,176 --> 00:03:40,136
+indexing byte by byte in a data.
+
+
+120
+00:03:40,906 --> 00:03:42,966
+And again, that leads to some
+
+
+121
+00:03:42,966 --> 00:03:44,016
+really impressive performance
+
+
+122
+00:03:44,016 --> 00:03:44,546
+improvements.
+
+
+123
+00:03:45,836 --> 00:03:47,606
+NSCalendar has gained a better
+
+
+124
+00:03:47,606 --> 00:03:49,296
+performance, both in CPU time
+
+
+125
+00:03:49,296 --> 00:03:51,126
+and with lower peak memory, and
+
+
+126
+00:03:51,126 --> 00:03:51,996
+in addition to that, we've
+
+
+127
+00:03:51,996 --> 00:03:53,026
+actually improved the results
+
+
+128
+00:03:53,026 --> 00:03:54,206
+that it gives you, especially in
+
+
+129
+00:03:54,206 --> 00:03:55,006
+corner cases.
+
+
+130
+00:03:55,556 --> 00:03:57,756
+And finally, we've improved the
+
+
+131
+00:03:57,756 --> 00:03:59,236
+performance of bridging NSNumber
+
+
+132
+00:03:59,276 --> 00:04:01,336
+to and from Swift, and we've
+
+
+133
+00:04:01,336 --> 00:04:02,956
+improved its behavior in corner
+
+
+134
+00:04:02,956 --> 00:04:05,146
+cases as well to provide better
+
+
+135
+00:04:05,146 --> 00:04:07,166
+safety when you are converting
+
+
+136
+00:04:07,166 --> 00:04:08,716
+things from NSNumber to Swift
+
+
+137
+00:04:08,716 --> 00:04:10,096
+types like integer, Boolean, and
+
+
+138
+00:04:10,096 --> 00:04:10,496
+so forth.
+
+
+139
+00:04:11,446 --> 00:04:12,606
+This faster bridging has a big
+
+
+140
+00:04:12,606 --> 00:04:13,796
+impact on things like property
+
+
+141
+00:04:13,796 --> 00:04:14,406
+list parsing.
+
+
+142
+00:04:15,146 --> 00:04:16,396
+For more on many of these
+
+
+143
+00:04:16,396 --> 00:04:17,856
+topics, check out Efficient
+
+
+144
+00:04:17,856 --> 00:04:18,896
+Interactions with Frameworks.
+
+
+145
+00:04:19,005 --> 00:04:20,416
+That's Friday at 1:50.
+
+
+146
+00:04:21,296 --> 00:04:22,346
+Now, with that, I'd like to turn
+
+
+147
+00:04:22,346 --> 00:04:23,556
+it over to my colleague Michael
+
+
+148
+00:04:23,556 --> 00:04:24,876
+to talk about key paths and key
+
+
+149
+00:04:24,876 --> 00:04:25,526
+value observing.
+
+
+150
+00:04:26,516 --> 00:04:34,406
+[ Applause ]
+
+
+151
+00:04:34,906 --> 00:04:35,546
+>> Thanks, Tony.
+
+
+152
+00:04:36,236 --> 00:04:37,676
+Hi, I'm Michael from the
+
+
+153
+00:04:37,676 --> 00:04:39,336
+Foundation Team, and I'm excited
+
+
+154
+00:04:39,576 --> 00:04:40,736
+to share some improvements that
+
+
+155
+00:04:40,736 --> 00:04:42,026
+we're making to key paths and
+
+
+156
+00:04:42,026 --> 00:04:43,246
+key value observing this year.
+
+
+157
+00:04:43,446 --> 00:04:44,666
+And I'd like to start by saying
+
+
+158
+00:04:44,666 --> 00:04:45,616
+something that we feel fairly
+
+
+159
+00:04:45,616 --> 00:04:46,876
+strongly about on the Foundation
+
+
+160
+00:04:46,876 --> 00:04:47,136
+Team.
+
+
+161
+00:04:47,926 --> 00:04:49,276
+And that is that key paths are
+
+
+162
+00:04:49,276 --> 00:04:50,696
+incredibly important in Cocoa
+
+
+163
+00:04:50,696 --> 00:04:51,286
+development.
+
+
+164
+00:04:51,496 --> 00:04:53,056
+And this is because they let us
+
+
+165
+00:04:53,056 --> 00:04:54,306
+reason about the structure of
+
+
+166
+00:04:54,306 --> 00:04:55,676
+our types apart from any
+
+
+167
+00:04:55,676 --> 00:04:57,316
+specific instance in a way
+
+
+168
+00:04:57,316 --> 00:04:58,596
+that's far more constrained than
+
+
+169
+00:04:58,596 --> 00:04:59,136
+a closure.
+
+
+170
+00:04:59,906 --> 00:05:01,486
+And this is so important that we
+
+
+171
+00:05:01,486 --> 00:05:02,656
+felt that they weren't, that
+
+
+172
+00:05:02,656 --> 00:05:03,816
+warranted special treatment in
+
+
+173
+00:05:03,816 --> 00:05:04,666
+the language itself.
+
+
+174
+00:05:04,766 --> 00:05:09,466
+And we started on this last
+
+
+175
+00:05:09,466 --> 00:05:11,396
+year, when we added string key
+
+
+176
+00:05:11,396 --> 00:05:12,706
+paths to Swift 3.
+
+
+177
+00:05:13,656 --> 00:05:14,606
+This was the, this added the
+
+
+178
+00:05:14,606 --> 00:05:17,506
+ability for Swift to, at compile
+
+
+179
+00:05:17,506 --> 00:05:19,196
+time, confirm the correctness of
+
+
+180
+00:05:19,196 --> 00:05:21,446
+an Objective-C key path, which
+
+
+181
+00:05:21,446 --> 00:05:22,156
+I'll review now.
+
+
+182
+00:05:22,676 --> 00:05:23,836
+Let's suppose we have a class
+
+
+183
+00:05:23,836 --> 00:05:25,166
+Kid, and it has some key value
+
+
+184
+00:05:25,166 --> 00:05:26,396
+observable properties, such as
+
+
+185
+00:05:26,396 --> 00:05:28,006
+their nickname, their age, and,
+
+
+186
+00:05:28,006 --> 00:05:28,976
+of course, their current best
+
+
+187
+00:05:28,976 --> 00:05:29,736
+friend of the moment.
+
+
+188
+00:05:30,306 --> 00:05:31,446
+We can go ahead and construct an
+
+
+189
+00:05:31,446 --> 00:05:32,746
+instance -- in this case, a
+
+
+190
+00:05:32,746 --> 00:05:34,076
+little boy by the name of Benji
+
+
+191
+00:05:34,896 --> 00:05:36,406
+-- and then form a string key
+
+
+192
+00:05:36,406 --> 00:05:37,776
+path to a kid's nickname
+
+
+193
+00:05:37,776 --> 00:05:38,266
+property.
+
+
+194
+00:05:38,556 --> 00:05:40,006
+And then, the Swift compiler
+
+
+195
+00:05:40,006 --> 00:05:41,296
+will confirm that this is a
+
+
+196
+00:05:41,296 --> 00:05:43,896
+reasonable thing for us to do.
+
+
+197
+00:05:43,896 --> 00:05:45,636
+We can then use key value, or
+
+
+198
+00:05:45,636 --> 00:05:47,856
+key value coding to read or
+
+
+199
+00:05:47,856 --> 00:05:49,086
+write that variable back into
+
+
+200
+00:05:49,086 --> 00:05:49,796
+the instance.
+
+
+201
+00:05:51,316 --> 00:05:52,766
+Now, while this compile time
+
+
+202
+00:05:52,766 --> 00:05:54,006
+check that we get with using a
+
+
+203
+00:05:54,006 --> 00:05:55,486
+string key path expression is
+
+
+204
+00:05:55,486 --> 00:05:57,536
+pretty awesome, in the end, it
+
+
+205
+00:05:57,536 --> 00:05:59,176
+still compiles down to a string.
+
+
+206
+00:06:00,226 --> 00:06:01,386
+And in order for that string to
+
+
+207
+00:06:01,386 --> 00:06:02,566
+be useful, we need to use the
+
+
+208
+00:06:02,566 --> 00:06:04,316
+Objective-C runtime, which, last
+
+
+209
+00:06:04,316 --> 00:06:05,306
+I checked, still remains
+
+
+210
+00:06:05,306 --> 00:06:07,066
+unavailable for Swift value
+
+
+211
+00:06:07,066 --> 00:06:08,346
+types and probably won't be made
+
+
+212
+00:06:08,346 --> 00:06:09,496
+available any time soon.
+
+
+213
+00:06:10,826 --> 00:06:12,756
+Finally, string key paths carry
+
+
+214
+00:06:12,756 --> 00:06:15,296
+no type information.
+
+
+215
+00:06:15,296 --> 00:06:16,386
+It's just a string.
+
+
+216
+00:06:17,666 --> 00:06:19,896
+And so all general API that uses
+
+
+217
+00:06:19,896 --> 00:06:21,046
+string key paths needs to be
+
+
+218
+00:06:21,046 --> 00:06:23,206
+defined in terms of any.
+
+
+219
+00:06:23,756 --> 00:06:27,006
+But this is Swift, and surely we
+
+
+220
+00:06:27,006 --> 00:06:27,626
+can do better.
+
+
+221
+00:06:28,476 --> 00:06:29,756
+And so we thought about what
+
+
+222
+00:06:29,856 --> 00:06:31,256
+would, you know, key paths, what
+
+
+223
+00:06:31,256 --> 00:06:32,386
+should they be in Swift?
+
+
+224
+00:06:32,666 --> 00:06:34,326
+Well, we'd want to be able to
+
+
+225
+00:06:34,326 --> 00:06:35,426
+describe properties first, so
+
+
+226
+00:06:35,426 --> 00:06:36,336
+that's pretty essential.
+
+
+227
+00:06:36,706 --> 00:06:37,516
+They should be statically
+
+
+228
+00:06:37,516 --> 00:06:38,246
+type-safe.
+
+
+229
+00:06:39,476 --> 00:06:41,066
+They should be fast as well.
+
+
+230
+00:06:41,286 --> 00:06:42,316
+And they should work with all
+
+
+231
+00:06:42,316 --> 00:06:43,516
+the kinds of values that we
+
+
+232
+00:06:43,516 --> 00:06:44,536
+encounter in Swift.
+
+
+233
+00:06:44,886 --> 00:06:47,706
+And they also should work on all
+
+
+234
+00:06:47,706 --> 00:06:48,596
+platforms where Swift is
+
+
+235
+00:06:48,596 --> 00:06:49,046
+supported.
+
+
+236
+00:06:49,976 --> 00:06:51,096
+And so we thought for a long
+
+
+237
+00:06:51,096 --> 00:06:52,386
+time about how to make all these
+
+
+238
+00:06:52,386 --> 00:06:53,746
+key paths' dreams come true,
+
+
+239
+00:06:54,416 --> 00:06:55,996
+ultimately sharing our idea with
+
+
+240
+00:06:55,996 --> 00:06:56,926
+the world through the open
+
+
+241
+00:06:56,926 --> 00:06:58,596
+source Swift evolution process
+
+
+242
+00:06:58,596 --> 00:07:00,946
+with a document entitled SE-0161
+
+
+243
+00:07:01,106 --> 00:07:02,736
+Smart Key Paths.
+
+
+244
+00:07:02,816 --> 00:07:04,146
+And here's what the new Swift 4
+
+
+245
+00:07:04,146 --> 00:07:05,466
+key path literals look like.
+
+
+246
+00:07:07,316 --> 00:07:08,906
+They start with a backslash,
+
+
+247
+00:07:10,336 --> 00:07:12,046
+followed by the name of the base
+
+
+248
+00:07:12,046 --> 00:07:14,666
+type, a dot to indicate that
+
+
+249
+00:07:14,666 --> 00:07:15,576
+we're doing something inside
+
+
+250
+00:07:15,576 --> 00:07:17,076
+that base type, and then the
+
+
+251
+00:07:17,076 --> 00:07:17,826
+name of the property.
+
+
+252
+00:07:18,436 --> 00:07:21,036
+And the backslash here is really
+
+
+253
+00:07:21,036 --> 00:07:22,436
+important because it helps us to
+
+
+254
+00:07:22,436 --> 00:07:24,056
+disambiguate the execution of a
+
+
+255
+00:07:24,056 --> 00:07:26,156
+property versus a mention or a
+
+
+256
+00:07:26,156 --> 00:07:27,236
+reference to the property.
+
+
+257
+00:07:27,756 --> 00:07:30,316
+And of course, this is Swift, so
+
+
+258
+00:07:30,316 --> 00:07:31,716
+when we can infer the base type,
+
+
+259
+00:07:32,036 --> 00:07:34,546
+we do, though the backslash and
+
+
+260
+00:07:34,546 --> 00:07:35,346
+the dot remain.
+
+
+261
+00:07:37,036 --> 00:07:38,736
+Key paths can be composed in
+
+
+262
+00:07:38,736 --> 00:07:39,896
+sequence, just like calling
+
+
+263
+00:07:39,896 --> 00:07:41,126
+property after property, after
+
+
+264
+00:07:41,126 --> 00:07:41,536
+property.
+
+
+265
+00:07:42,716 --> 00:07:44,416
+And soon, optional chaining will
+
+
+266
+00:07:44,416 --> 00:07:46,026
+work as it does with properties.
+
+
+267
+00:07:49,196 --> 00:07:50,456
+We'll also soon allow
+
+
+268
+00:07:50,456 --> 00:07:51,926
+indirection through subscripts.
+
+
+269
+00:07:55,096 --> 00:07:56,286
+Someone likes that.
+
+
+270
+00:07:56,286 --> 00:07:56,876
+I like it too.
+
+
+271
+00:07:57,136 --> 00:07:59,206
+[laughs] Key paths can also
+
+
+272
+00:08:00,306 --> 00:08:02,436
+begin directly at a subscript,
+
+
+273
+00:08:02,436 --> 00:08:03,676
+and here we're starting with
+
+
+274
+00:08:04,216 --> 00:08:06,446
+data's byte subscript, and we're
+
+
+275
+00:08:06,446 --> 00:08:08,266
+using the startIndex here.
+
+
+276
+00:08:08,966 --> 00:08:10,886
+And of course, this can be
+
+
+277
+00:08:10,886 --> 00:08:12,036
+inferred as well, though the
+
+
+278
+00:08:12,036 --> 00:08:14,056
+backslash and the dot remain for
+
+
+279
+00:08:14,056 --> 00:08:14,816
+consistency.
+
+
+280
+00:08:15,926 --> 00:08:17,326
+These new key path expressions
+
+
+281
+00:08:17,326 --> 00:08:19,086
+offer uniform syntax for all
+
+
+282
+00:08:19,086 --> 00:08:20,546
+Swift types that support
+
+
+283
+00:08:20,546 --> 00:08:21,826
+properties, whether they are
+
+
+284
+00:08:21,826 --> 00:08:23,086
+stored or computed.
+
+
+285
+00:08:23,886 --> 00:08:25,976
+And of course, forming key paths
+
+
+286
+00:08:25,976 --> 00:08:27,566
+is one thing, but how can we use
+
+
+287
+00:08:27,566 --> 00:08:27,806
+them?
+
+
+288
+00:08:27,916 --> 00:08:29,306
+Well, let's suppose we have a
+
+
+289
+00:08:29,306 --> 00:08:32,126
+key path.
+
+
+290
+00:08:32,346 --> 00:08:33,736
+In this case, to a kid's age.
+
+
+291
+00:08:34,366 --> 00:08:35,546
+Using the key path to read a
+
+
+292
+00:08:35,546 --> 00:08:37,246
+property is as easy as invoking
+
+
+293
+00:08:37,246 --> 00:08:37,856
+a subscript.
+
+
+294
+00:08:39,476 --> 00:08:41,116
+That's starting to look like
+
+
+295
+00:08:41,116 --> 00:08:41,966
+code, so I'm going to go ahead
+
+
+296
+00:08:41,966 --> 00:08:44,406
+and syntax highlight now.
+
+
+297
+00:08:44,656 --> 00:08:44,976
+There we go.
+
+
+298
+00:08:45,226 --> 00:08:47,356
+So there's a little bit going on
+
+
+299
+00:08:47,356 --> 00:08:48,076
+here, and I want to talk about
+
+
+300
+00:08:48,076 --> 00:08:50,446
+some of the motivations behind
+
+
+301
+00:08:50,446 --> 00:08:51,636
+why this looks the way it looks.
+
+
+302
+00:08:51,886 --> 00:08:53,066
+First, we gave the key path
+
+
+303
+00:08:53,406 --> 00:08:56,086
+subscript parameter a label, and
+
+
+304
+00:08:56,086 --> 00:08:57,176
+we did this because we wanted it
+
+
+305
+00:08:57,176 --> 00:08:58,206
+to be non-ambiguous with other
+
+
+306
+00:08:58,206 --> 00:08:59,206
+subscripts that may exist on
+
+
+307
+00:08:59,206 --> 00:08:59,796
+other types.
+
+
+308
+00:09:00,396 --> 00:09:02,176
+Next, the type of the value that
+
+
+309
+00:09:02,176 --> 00:09:03,036
+you're using, invoking the
+
+
+310
+00:09:03,036 --> 00:09:04,646
+subscript on needs to match the
+
+
+311
+00:09:04,646 --> 00:09:06,936
+base type of the key path.
+
+
+312
+00:09:06,936 --> 00:09:08,206
+And if they match, it's a
+
+
+313
+00:09:08,206 --> 00:09:09,866
+reasonable thing, and your code
+
+
+314
+00:09:09,866 --> 00:09:10,466
+will compile.
+
+
+315
+00:09:10,986 --> 00:09:14,086
+You can also use subscripts to
+
+
+316
+00:09:14,086 --> 00:09:16,626
+mutate a particular value.
+
+
+317
+00:09:17,256 --> 00:09:18,446
+And subscripts are nice because
+
+
+318
+00:09:18,446 --> 00:09:20,016
+they offer a fast and symmetric
+
+
+319
+00:09:20,016 --> 00:09:21,636
+syntax for reads and writes into
+
+
+320
+00:09:21,636 --> 00:09:22,706
+a value, whether they be a value
+
+
+321
+00:09:22,706 --> 00:09:24,326
+type or a reference type.
+
+
+322
+00:09:24,876 --> 00:09:26,636
+Now, let me, I've been showing
+
+
+323
+00:09:26,636 --> 00:09:27,756
+these with reference types now,
+
+
+324
+00:09:27,756 --> 00:09:28,876
+but now I want to switch and
+
+
+325
+00:09:28,876 --> 00:09:29,986
+show how they work with value
+
+
+326
+00:09:29,986 --> 00:09:30,396
+types.
+
+
+327
+00:09:30,726 --> 00:09:31,866
+And to do this, we're going to
+
+
+328
+00:09:31,866 --> 00:09:32,836
+expand our example to what I
+
+
+329
+00:09:32,836 --> 00:09:34,016
+really wanted to talk about,
+
+
+330
+00:09:34,146 --> 00:09:35,166
+which is birthday party
+
+
+331
+00:09:35,166 --> 00:09:35,526
+planning.
+
+
+332
+00:09:36,956 --> 00:09:38,286
+So let's go ahead and create a
+
+
+333
+00:09:38,286 --> 00:09:38,686
+party.
+
+
+334
+00:09:39,646 --> 00:09:40,366
+Benji's going to have a
+
+
+335
+00:09:40,366 --> 00:09:41,686
+construction-theme birthday
+
+
+336
+00:09:41,686 --> 00:09:42,486
+party, it looks like.
+
+
+337
+00:09:42,926 --> 00:09:44,556
+And reading from a value type
+
+
+338
+00:09:44,556 --> 00:09:45,566
+with a key path that uses the
+
+
+339
+00:09:45,566 --> 00:09:47,086
+same subscript syntax that we
+
+
+340
+00:09:47,086 --> 00:09:48,516
+saw with our reference types.
+
+
+341
+00:09:49,156 --> 00:09:52,446
+Similarly, mutating a party uses
+
+
+342
+00:09:52,446 --> 00:09:53,576
+the same subscript syntax.
+
+
+343
+00:09:53,576 --> 00:09:54,636
+There's a common theme here.
+
+
+344
+00:09:54,806 --> 00:09:56,246
+The syntax really is uniform.
+
+
+345
+00:09:56,896 --> 00:09:59,526
+However, since this is Swift, we
+
+
+346
+00:09:59,526 --> 00:10:00,786
+know that Ben's party is a
+
+
+347
+00:10:00,786 --> 00:10:01,926
+birthday party, and so the
+
+
+348
+00:10:01,926 --> 00:10:03,406
+language can infer that for us.
+
+
+349
+00:10:04,696 --> 00:10:05,836
+And I just heard that Ben
+
+
+350
+00:10:05,836 --> 00:10:06,766
+changed his mind about his
+
+
+351
+00:10:06,766 --> 00:10:08,156
+birthday party theme again, so
+
+
+352
+00:10:08,156 --> 00:10:09,866
+let's fix that while we're at
+
+
+353
+00:10:10,576 --> 00:10:10,676
+it.
+
+
+354
+00:10:10,896 --> 00:10:11,986
+Now, here I'm just highlighting
+
+
+355
+00:10:11,986 --> 00:10:12,676
+the syntax.
+
+
+356
+00:10:12,966 --> 00:10:13,946
+In code like this, you would
+
+
+357
+00:10:13,946 --> 00:10:15,516
+just call the properties, so
+
+
+358
+00:10:15,516 --> 00:10:16,476
+let's look at what's actually
+
+
+359
+00:10:16,476 --> 00:10:17,756
+happening when you use these key
+
+
+360
+00:10:17,756 --> 00:10:18,736
+path expressions.
+
+
+361
+00:10:19,096 --> 00:10:22,866
+Key path expressions are
+
+
+362
+00:10:22,866 --> 00:10:24,186
+actually producing concrete
+
+
+363
+00:10:24,186 --> 00:10:25,636
+values, and like all values,
+
+
+364
+00:10:25,726 --> 00:10:26,566
+they can be stored.
+
+
+365
+00:10:27,906 --> 00:10:29,296
+Well, what is the type of this
+
+
+366
+00:10:29,296 --> 00:10:29,716
+variable?
+
+
+367
+00:10:30,156 --> 00:10:30,876
+Let's pretend we can
+
+
+368
+00:10:30,876 --> 00:10:33,026
+Option-click in X, just like we
+
+
+369
+00:10:33,026 --> 00:10:34,456
+could in Xcode and see that, not
+
+
+370
+00:10:34,456 --> 00:10:35,646
+surprisingly, we're getting back
+
+
+371
+00:10:35,646 --> 00:10:37,776
+a strongly typed key path with
+
+
+372
+00:10:37,776 --> 00:10:39,286
+the base type being a kid and
+
+
+373
+00:10:39,286 --> 00:10:41,026
+the property type being a string
+
+
+374
+00:10:41,026 --> 00:10:43,356
+because nicknames are strings.
+
+
+375
+00:10:44,176 --> 00:10:45,506
+Strongly typed key paths also
+
+
+376
+00:10:45,506 --> 00:10:46,886
+work with compound key paths.
+
+
+377
+00:10:47,136 --> 00:10:48,166
+Here we see that we started a
+
+
+378
+00:10:48,166 --> 00:10:49,686
+birthday party and traversed
+
+
+379
+00:10:49,686 --> 00:10:51,126
+through to the celebrant's age.
+
+
+380
+00:10:51,296 --> 00:10:52,726
+And of course, age is a double
+
+
+381
+00:10:52,726 --> 00:10:53,726
+because if you've ever known a
+
+
+382
+00:10:53,726 --> 00:10:55,386
+young kid, the numbers after the
+
+
+383
+00:10:55,386 --> 00:10:56,336
+decimal point are very
+
+
+384
+00:10:56,336 --> 00:10:56,836
+important.
+
+
+385
+00:10:58,736 --> 00:11:00,186
+Key paths stored in variables
+
+
+386
+00:11:00,186 --> 00:11:01,326
+can be used just like the
+
+
+387
+00:11:01,326 --> 00:11:01,906
+literals.
+
+
+388
+00:11:02,196 --> 00:11:07,106
+And because they're strongly
+
+
+389
+00:11:07,106 --> 00:11:08,426
+typed, they are statically known
+
+
+390
+00:11:08,426 --> 00:11:09,816
+to have the right type -- here
+
+
+391
+00:11:09,816 --> 00:11:11,166
+double, as we expected.
+
+
+392
+00:11:12,316 --> 00:11:13,206
+Let's suppose we had another
+
+
+393
+00:11:13,206 --> 00:11:14,126
+birthday party to plan.
+
+
+394
+00:11:14,806 --> 00:11:16,806
+This time, it's Mia's, or Ben's
+
+
+395
+00:11:16,806 --> 00:11:17,676
+little sister Mia.
+
+
+396
+00:11:18,706 --> 00:11:19,906
+We can use the same key path
+
+
+397
+00:11:19,906 --> 00:11:20,846
+variable to find out which
+
+
+398
+00:11:20,846 --> 00:11:22,166
+birthday she'll be celebrating,
+
+
+399
+00:11:22,716 --> 00:11:23,916
+and in this way, key paths kind
+
+
+400
+00:11:23,916 --> 00:11:25,566
+of serve as an unexecuted
+
+
+401
+00:11:25,566 --> 00:11:26,666
+property invocation.
+
+
+402
+00:11:27,856 --> 00:11:28,936
+Now, in this example, I'm hard
+
+
+403
+00:11:28,936 --> 00:11:30,396
+coding the celebrant's age, but
+
+
+404
+00:11:30,526 --> 00:11:31,576
+let's go ahead and generalize
+
+
+405
+00:11:31,576 --> 00:11:31,956
+this a bit.
+
+
+406
+00:11:32,156 --> 00:11:34,336
+What if I wanted to know the age
+
+
+407
+00:11:34,336 --> 00:11:35,746
+of anyone relevant to a party?
+
+
+408
+00:11:36,256 --> 00:11:37,256
+We're going to go ahead and
+
+
+409
+00:11:37,256 --> 00:11:38,816
+define a function, and we're
+
+
+410
+00:11:38,816 --> 00:11:39,296
+going to call it the
+
+
+411
+00:11:39,296 --> 00:11:40,926
+partyPersonsAge function.
+
+
+412
+00:11:41,316 --> 00:11:42,936
+They're given a party, and a key
+
+
+413
+00:11:42,936 --> 00:11:44,536
+path to a participant will
+
+
+414
+00:11:44,536 --> 00:11:45,406
+return their age.
+
+
+415
+00:11:45,696 --> 00:11:46,626
+And to do this, I'm going to
+
+
+416
+00:11:46,626 --> 00:11:48,266
+show another feature that these
+
+
+417
+00:11:48,266 --> 00:11:50,066
+type-safe key paths have, and
+
+
+418
+00:11:50,066 --> 00:11:50,726
+that is the ability to
+
+
+419
+00:11:50,726 --> 00:11:52,536
+dynamically form new key paths
+
+
+420
+00:11:52,536 --> 00:11:53,536
+from other key paths.
+
+
+421
+00:11:53,976 --> 00:11:55,456
+And so here I'll append two key
+
+
+422
+00:11:55,456 --> 00:11:56,466
+paths together, the
+
+
+423
+00:11:56,466 --> 00:11:58,376
+participantPath to a kid's age.
+
+
+424
+00:11:58,546 --> 00:11:59,616
+And again, we're inferring kid
+
+
+425
+00:11:59,616 --> 00:12:00,446
+here, which is why you don't see
+
+
+426
+00:12:00,446 --> 00:12:01,486
+the word "kid" there, except for
+
+
+427
+00:12:01,486 --> 00:12:02,436
+in the variable name.
+
+
+428
+00:12:03,696 --> 00:12:05,466
+And as you would expect, you get
+
+
+429
+00:12:05,466 --> 00:12:06,586
+a strongly typed key path that
+
+
+430
+00:12:06,586 --> 00:12:07,806
+starts at a birthday party and
+
+
+431
+00:12:07,806 --> 00:12:08,386
+goes to a double.
+
+
+432
+00:12:09,546 --> 00:12:11,556
+Using the key path is the same
+
+
+433
+00:12:11,556 --> 00:12:12,796
+as any other key path stored
+
+
+434
+00:12:12,796 --> 00:12:13,376
+into a variable.
+
+
+435
+00:12:13,736 --> 00:12:14,656
+And we can go ahead and call our
+
+
+436
+00:12:14,656 --> 00:12:15,556
+function on the celebrant in
+
+
+437
+00:12:15,556 --> 00:12:16,516
+that we have the same exact
+
+
+438
+00:12:16,746 --> 00:12:18,126
+result that we saw previously.
+
+
+439
+00:12:19,226 --> 00:12:20,536
+And when subscripts are
+
+
+440
+00:12:20,536 --> 00:12:21,816
+supported, we can also use this
+
+
+441
+00:12:21,816 --> 00:12:23,466
+function now to find the age of
+
+
+442
+00:12:23,466 --> 00:12:25,006
+the first attendee to the party.
+
+
+443
+00:12:25,066 --> 00:12:28,216
+Now, I want to talk to the rules
+
+
+444
+00:12:28,216 --> 00:12:30,706
+of appending key paths a bit.
+
+
+445
+00:12:30,706 --> 00:12:31,906
+When we append two key paths
+
+
+446
+00:12:31,906 --> 00:12:33,666
+together, it's like we're adding
+
+
+447
+00:12:33,666 --> 00:12:34,176
+them together.
+
+
+448
+00:12:34,706 --> 00:12:36,856
+But in order for this addition
+
+
+449
+00:12:36,856 --> 00:12:38,266
+to make sense, we really need to
+
+
+450
+00:12:38,266 --> 00:12:39,406
+look at the types of the key
+
+
+451
+00:12:39,406 --> 00:12:40,176
+paths involved.
+
+
+452
+00:12:41,036 --> 00:12:42,306
+Specifically, we need to look at
+
+
+453
+00:12:42,396 --> 00:12:43,956
+each base type and each property
+
+
+454
+00:12:43,956 --> 00:12:44,226
+type.
+
+
+455
+00:12:45,286 --> 00:12:47,736
+And the inner types need to
+
+
+456
+00:12:47,736 --> 00:12:48,196
+match.
+
+
+457
+00:12:48,316 --> 00:12:50,186
+And if that's the case, we can
+
+
+458
+00:12:50,186 --> 00:12:51,466
+form a key path from the
+
+
+459
+00:12:51,496 --> 00:12:53,716
+original base type to the final
+
+
+460
+00:12:53,716 --> 00:12:54,356
+property type.
+
+
+461
+00:12:54,916 --> 00:12:58,606
+And in this way, it's like key
+
+
+462
+00:12:58,606 --> 00:12:59,536
+paths actually don't care how
+
+
+463
+00:12:59,536 --> 00:13:00,646
+they get from the, their base
+
+
+464
+00:13:00,646 --> 00:13:02,286
+type to the property type, just
+
+
+465
+00:13:02,286 --> 00:13:03,376
+that they can, and the compiler
+
+
+466
+00:13:03,376 --> 00:13:05,896
+ensures that for us.
+
+
+467
+00:13:06,086 --> 00:13:06,976
+Now, I'd like to take another
+
+
+468
+00:13:06,976 --> 00:13:08,236
+look at another example or
+
+
+469
+00:13:08,236 --> 00:13:09,356
+another aspect of the type
+
+
+470
+00:13:09,356 --> 00:13:10,606
+safety that the Swift key paths
+
+
+471
+00:13:10,606 --> 00:13:13,366
+provide, in case it wasn't that
+
+
+472
+00:13:13,676 --> 00:13:13,946
+clear.
+
+
+473
+00:13:13,946 --> 00:13:17,296
+Suppose we wanted to output a
+
+
+474
+00:13:17,296 --> 00:13:18,236
+summary of our party.
+
+
+475
+00:13:18,636 --> 00:13:20,106
+We could form an array of labels
+
+
+476
+00:13:20,106 --> 00:13:22,976
+in key paths, but what would we
+
+
+477
+00:13:22,976 --> 00:13:25,196
+expect this array, partyPaths,
+
+
+478
+00:13:25,616 --> 00:13:26,746
+what would we expect the type of
+
+
+479
+00:13:26,746 --> 00:13:27,196
+it to be?
+
+
+480
+00:13:27,456 --> 00:13:29,106
+After all, theme is a string,
+
+
+481
+00:13:29,476 --> 00:13:30,616
+the attending is an array of
+
+
+482
+00:13:30,616 --> 00:13:32,716
+kids, and the celebrant is a
+
+
+483
+00:13:32,716 --> 00:13:33,826
+reference to a single kid.
+
+
+484
+00:13:35,346 --> 00:13:36,466
+In this case, we get a new type.
+
+
+485
+00:13:36,826 --> 00:13:38,276
+It's a, it's an array of partial
+
+
+486
+00:13:38,276 --> 00:13:39,676
+key paths to BirthdayParty.
+
+
+487
+00:13:40,246 --> 00:13:41,266
+And partial key paths are
+
+
+488
+00:13:41,266 --> 00:13:43,186
+partially type-erased key paths.
+
+
+489
+00:13:43,656 --> 00:13:44,736
+They know about their base type,
+
+
+490
+00:13:44,996 --> 00:13:47,466
+but they can point to any valid
+
+
+491
+00:13:47,466 --> 00:13:50,406
+key path for that particular
+
+
+492
+00:13:50,406 --> 00:13:50,776
+base.
+
+
+493
+00:13:50,776 --> 00:13:52,216
+And so in this case, let's go
+
+
+494
+00:13:52,216 --> 00:13:53,486
+ahead and print our report.
+
+
+495
+00:13:54,466 --> 00:13:57,176
+We'll zip our titles and paths
+
+
+496
+00:13:57,176 --> 00:13:59,446
+together, use the party path to
+
+
+497
+00:13:59,446 --> 00:14:01,286
+get the party value, and then
+
+
+498
+00:14:01,286 --> 00:14:01,946
+print our report.
+
+
+499
+00:14:02,096 --> 00:14:04,086
+And you can see Mia's having a
+
+
+500
+00:14:04,086 --> 00:14:05,226
+space-themed -- well, it looks
+
+
+501
+00:14:05,226 --> 00:14:06,406
+like a family birthday party --
+
+
+502
+00:14:06,566 --> 00:14:07,676
+but it's space themed, which
+
+
+503
+00:14:07,676 --> 00:14:11,076
+should be pretty fun.
+
+
+504
+00:14:11,296 --> 00:14:12,716
+Now, I want to add an extension
+
+
+505
+00:14:12,776 --> 00:14:13,476
+to BirthdayParty.
+
+
+506
+00:14:13,756 --> 00:14:14,756
+We're going to add a function
+
+
+507
+00:14:14,926 --> 00:14:15,916
+that lets our kids blow out
+
+
+508
+00:14:15,916 --> 00:14:16,896
+their birthday candles, and this
+
+
+509
+00:14:16,896 --> 00:14:17,586
+is going to be a little bit
+
+
+510
+00:14:17,586 --> 00:14:18,346
+different from what we were
+
+
+511
+00:14:18,346 --> 00:14:19,836
+doing previously because up
+
+
+512
+00:14:19,836 --> 00:14:20,806
+until now, we've been reading
+
+
+513
+00:14:20,806 --> 00:14:21,756
+key paths, and now I want to
+
+
+514
+00:14:21,756 --> 00:14:23,066
+write to a key path or use a key
+
+
+515
+00:14:23,066 --> 00:14:24,006
+path to write to a value.
+
+
+516
+00:14:24,216 --> 00:14:25,876
+So we're going to add our
+
+
+517
+00:14:25,876 --> 00:14:27,586
+functions, and I want to point
+
+
+518
+00:14:27,586 --> 00:14:28,566
+out that age key path is
+
+
+519
+00:14:28,566 --> 00:14:29,426
+actually a new type.
+
+
+520
+00:14:29,426 --> 00:14:30,736
+It's a writable key path of a,
+
+
+521
+00:14:30,866 --> 00:14:31,956
+that starts at a BirthdayParty
+
+
+522
+00:14:31,956 --> 00:14:32,736
+and goes to a double.
+
+
+523
+00:14:33,236 --> 00:14:35,616
+We can use writable key paths
+
+
+524
+00:14:35,616 --> 00:14:37,976
+just like regular key paths to
+
+
+525
+00:14:37,976 --> 00:14:39,806
+get values out of our values,
+
+
+526
+00:14:40,506 --> 00:14:41,506
+and we can also use them to
+
+
+527
+00:14:41,506 --> 00:14:42,386
+mutate our values.
+
+
+528
+00:14:43,016 --> 00:14:44,236
+And we can finally go ahead and
+
+
+529
+00:14:44,236 --> 00:14:45,246
+blow out our candles.
+
+
+530
+00:14:45,616 --> 00:14:46,766
+This all looks pretty good,
+
+
+531
+00:14:47,016 --> 00:14:48,106
+except for one problem.
+
+
+532
+00:14:48,836 --> 00:14:49,716
+Doesn't compile.
+
+
+533
+00:14:50,286 --> 00:14:51,856
+This is a birthday catastrophe.
+
+
+534
+00:14:52,846 --> 00:14:54,826
+So let's try to, I'm going to
+
+
+535
+00:14:54,826 --> 00:14:56,326
+debug this live on stage.
+
+
+536
+00:14:56,706 --> 00:15:00,246
+Debug. So the compiler's telling
+
+
+537
+00:15:00,246 --> 00:15:01,406
+us, "Cannot assign to an
+
+
+538
+00:15:01,406 --> 00:15:02,446
+immutable expression of type
+
+
+539
+00:15:02,486 --> 00:15:04,486
+'Double,'" which is very Swift
+
+
+540
+00:15:04,486 --> 00:15:04,736
+of it.
+
+
+541
+00:15:04,736 --> 00:15:06,936
+Let's see if we can figure out
+
+
+542
+00:15:06,936 --> 00:15:07,506
+what's going on.
+
+
+543
+00:15:08,076 --> 00:15:09,206
+It's saying immutable, but we
+
+
+544
+00:15:09,206 --> 00:15:12,196
+are passing a writable key path.
+
+
+545
+00:15:12,196 --> 00:15:13,946
+And we are indeed passing a key
+
+
+546
+00:15:13,946 --> 00:15:14,146
+path.
+
+
+547
+00:15:14,146 --> 00:15:15,116
+Let's confirm, though, that this
+
+
+548
+00:15:15,116 --> 00:15:16,556
+key path is actually to
+
+
+549
+00:15:16,556 --> 00:15:17,226
+immutable variable.
+
+
+550
+00:15:17,226 --> 00:15:18,186
+That, you know, sometimes you
+
+
+551
+00:15:18,186 --> 00:15:19,216
+say let when you meant to say
+
+
+552
+00:15:19,216 --> 00:15:19,496
+var.
+
+
+553
+00:15:19,626 --> 00:15:20,306
+So let's bring back the
+
+
+554
+00:15:20,306 --> 00:15:21,636
+declaration of kid, but we'll
+
+
+555
+00:15:21,636 --> 00:15:23,676
+see that var, our age is indeed
+
+
+556
+00:15:23,676 --> 00:15:24,116
+mutable.
+
+
+557
+00:15:24,496 --> 00:15:26,196
+It's a var, so that's not the
+
+
+558
+00:15:26,196 --> 00:15:26,706
+problem.
+
+
+559
+00:15:27,406 --> 00:15:28,496
+So maybe the problem's with the
+
+
+560
+00:15:28,496 --> 00:15:29,626
+actual write itself.
+
+
+561
+00:15:30,186 --> 00:15:31,166
+And that's, and we're using the
+
+
+562
+00:15:31,166 --> 00:15:31,676
+subscript.
+
+
+563
+00:15:31,816 --> 00:15:32,926
+And I'm on stage telling you
+
+
+564
+00:15:32,926 --> 00:15:34,116
+that subscripts work, so that's
+
+
+565
+00:15:34,116 --> 00:15:34,866
+not the problem.
+
+
+566
+00:15:35,476 --> 00:15:37,006
+So it must be something to do
+
+
+567
+00:15:37,006 --> 00:15:37,536
+self.
+
+
+568
+00:15:38,076 --> 00:15:39,136
+Well, what's self?
+
+
+569
+00:15:39,136 --> 00:15:40,426
+Self is an extension on
+
+
+570
+00:15:40,426 --> 00:15:41,546
+BirthdayParty, so now we're
+
+
+571
+00:15:41,546 --> 00:15:42,596
+going to need to bring back the
+
+
+572
+00:15:42,596 --> 00:15:43,666
+declaration of BirthdayParty.
+
+
+573
+00:15:43,666 --> 00:15:44,576
+Luckily, we had some room.
+
+
+574
+00:15:44,786 --> 00:15:47,116
+And we'll see that
+
+
+575
+00:15:47,626 --> 00:15:49,196
+BirthdayParty's a struct, and
+
+
+576
+00:15:49,196 --> 00:15:50,356
+structs are value types.
+
+
+577
+00:15:50,516 --> 00:15:51,566
+And so the compiler's actually
+
+
+578
+00:15:51,566 --> 00:15:52,426
+doing the right thing here.
+
+
+579
+00:15:52,616 --> 00:15:53,816
+It's not letting us mutate a
+
+
+580
+00:15:53,816 --> 00:15:55,126
+BirthdayParty because our key
+
+
+581
+00:15:55,126 --> 00:15:56,676
+path's anchored in a
+
+
+582
+00:15:56,676 --> 00:15:57,716
+BirthdayParty there.
+
+
+583
+00:15:58,346 --> 00:15:59,446
+And so one trick we could do,
+
+
+584
+00:15:59,446 --> 00:15:59,726
+right.
+
+
+585
+00:15:59,726 --> 00:16:00,946
+We look in our bag of Swift
+
+
+586
+00:16:00,946 --> 00:16:03,116
+tricks that we know, and we see
+
+
+587
+00:16:03,116 --> 00:16:04,496
+that, oh, OK, we can just add
+
+
+588
+00:16:04,496 --> 00:16:05,436
+mutating, and everything will
+
+
+589
+00:16:05,436 --> 00:16:05,706
+work.
+
+
+590
+00:16:07,136 --> 00:16:08,706
+But when you do that, you want
+
+
+591
+00:16:08,706 --> 00:16:09,606
+to stop and think, is this
+
+
+592
+00:16:09,606 --> 00:16:10,716
+really the right choice?
+
+
+593
+00:16:11,316 --> 00:16:13,396
+Because we're not really
+
+
+594
+00:16:13,396 --> 00:16:15,336
+modifying the key, or the
+
+
+595
+00:16:15,606 --> 00:16:16,336
+birthday party.
+
+
+596
+00:16:16,936 --> 00:16:18,276
+We're modifying the celebrant.
+
+
+597
+00:16:18,276 --> 00:16:19,736
+Birthday parties don't have ages
+
+
+598
+00:16:19,736 --> 00:16:21,756
+last I checked, and celebrant's
+
+
+599
+00:16:21,756 --> 00:16:24,076
+actually a class, a reference
+
+
+600
+00:16:24,076 --> 00:16:24,256
+type.
+
+
+601
+00:16:24,986 --> 00:16:26,326
+And so for this, we actually
+
+
+602
+00:16:26,326 --> 00:16:27,496
+have another kind of key path
+
+
+603
+00:16:27,496 --> 00:16:29,496
+that adds reference mutable
+
+
+604
+00:16:29,496 --> 00:16:31,696
+semantics to mutations, and it's
+
+
+605
+00:16:31,696 --> 00:16:32,736
+called a reference writable key
+
+
+606
+00:16:33,956 --> 00:16:34,076
+path.
+
+
+607
+00:16:34,846 --> 00:16:35,866
+And so let's go ahead and use
+
+
+608
+00:16:35,866 --> 00:16:35,996
+it.
+
+
+609
+00:16:36,246 --> 00:16:37,866
+And this compiles, and we can
+
+
+610
+00:16:37,866 --> 00:16:39,056
+finally assert that our little
+
+
+611
+00:16:39,056 --> 00:16:40,396
+boy, Benji, is finally one year
+
+
+612
+00:16:40,396 --> 00:16:41,606
+older, although I think he goes
+
+
+613
+00:16:41,606 --> 00:16:43,066
+by Ben now.
+
+
+614
+00:16:43,256 --> 00:16:44,036
+And so we can review the
+
+
+615
+00:16:44,036 --> 00:16:45,076
+difference between these two
+
+
+616
+00:16:45,406 --> 00:16:48,196
+kinds of mutating key paths.
+
+
+617
+00:16:48,276 --> 00:16:49,766
+So we have a writable key path.
+
+
+618
+00:16:49,916 --> 00:16:51,336
+And writable key paths write
+
+
+619
+00:16:51,336 --> 00:16:52,966
+directly into their value-type
+
+
+620
+00:16:52,966 --> 00:16:53,556
+bases.
+
+
+621
+00:16:53,936 --> 00:16:55,786
+So the base or the chained bases
+
+
+622
+00:16:55,906 --> 00:16:56,866
+need to be mutable.
+
+
+623
+00:16:57,236 --> 00:16:59,936
+Whereas a reference writable key
+
+
+624
+00:16:59,936 --> 00:17:01,666
+path simply invokes a property
+
+
+625
+00:17:01,666 --> 00:17:02,966
+setter on the reference type.
+
+
+626
+00:17:03,576 --> 00:17:05,136
+And all of these key path types
+
+
+627
+00:17:05,136 --> 00:17:08,205
+form an inheritance tree, each
+
+
+628
+00:17:08,205 --> 00:17:09,715
+more specific than the last.
+
+
+629
+00:17:10,165 --> 00:17:11,715
+Rooted at the top of this tree
+
+
+630
+00:17:11,715 --> 00:17:13,046
+is another kind of key path that
+
+
+631
+00:17:13,046 --> 00:17:14,086
+I haven't talked about called an
+
+
+632
+00:17:14,086 --> 00:17:15,156
+any key path, and this is a
+
+
+633
+00:17:15,156 --> 00:17:17,236
+fully type-erased key path.
+
+
+634
+00:17:17,236 --> 00:17:18,386
+And this is useful for when you
+
+
+635
+00:17:18,386 --> 00:17:19,146
+have key paths that are
+
+
+636
+00:17:19,146 --> 00:17:20,636
+comprised of multiple bases to
+
+
+637
+00:17:20,636 --> 00:17:21,476
+multiple different property
+
+
+638
+00:17:21,476 --> 00:17:22,816
+types, usually in a collection.
+
+
+639
+00:17:23,326 --> 00:17:25,256
+Now, if all of this seems a
+
+
+640
+00:17:25,256 --> 00:17:26,836
+little bit complicated, I assure
+
+
+641
+00:17:26,836 --> 00:17:27,915
+you that the rules for the kind
+
+
+642
+00:17:27,915 --> 00:17:29,046
+of key path that you want, and
+
+
+643
+00:17:29,046 --> 00:17:32,086
+use, and get are actually fairly
+
+
+644
+00:17:32,086 --> 00:17:33,616
+simple and match the rules that
+
+
+645
+00:17:33,616 --> 00:17:34,546
+you're already familiar with
+
+
+646
+00:17:34,546 --> 00:17:35,686
+from working with Swift value
+
+
+647
+00:17:35,756 --> 00:17:37,536
+types and reference types.
+
+
+648
+00:17:38,756 --> 00:17:40,366
+We'll start out with eliminating
+
+
+649
+00:17:40,366 --> 00:17:41,116
+half of the problem.
+
+
+650
+00:17:41,416 --> 00:17:43,916
+Read-only properties always
+
+
+651
+00:17:43,916 --> 00:17:46,656
+yield a key path.
+
+
+652
+00:17:46,866 --> 00:17:47,786
+With read-write properties,
+
+
+653
+00:17:47,786 --> 00:17:48,576
+things get a little more
+
+
+654
+00:17:48,576 --> 00:17:49,216
+nuanced.
+
+
+655
+00:17:50,716 --> 00:17:52,446
+Mutable value type bases or
+
+
+656
+00:17:52,446 --> 00:17:54,026
+chained mutable value type bases
+
+
+657
+00:17:54,206 --> 00:17:56,026
+will result in a writable key
+
+
+658
+00:17:56,026 --> 00:17:56,156
+path.
+
+
+659
+00:17:56,386 --> 00:17:58,516
+And so writable key paths help
+
+
+660
+00:17:58,516 --> 00:18:00,816
+let you write efficiently into a
+
+
+661
+00:18:00,816 --> 00:18:02,016
+value type.
+
+
+662
+00:18:02,426 --> 00:18:03,876
+However, if one of those value
+
+
+663
+00:18:03,876 --> 00:18:06,566
+types is made immutable, say
+
+
+664
+00:18:06,566 --> 00:18:08,836
+through a let statement, the
+
+
+665
+00:18:08,836 --> 00:18:10,156
+mutability of that property goes
+
+
+666
+00:18:10,156 --> 00:18:11,186
+away, just as it does when
+
+
+667
+00:18:11,186 --> 00:18:12,796
+you're using regular properties,
+
+
+668
+00:18:13,236 --> 00:18:14,256
+and you're left with just a key
+
+
+669
+00:18:14,946 --> 00:18:15,086
+path.
+
+
+670
+00:18:15,896 --> 00:18:17,076
+And saving the simplest case for
+
+
+671
+00:18:17,076 --> 00:18:18,566
+last, read-write properties on
+
+
+672
+00:18:18,566 --> 00:18:20,196
+reference type bases always
+
+
+673
+00:18:20,196 --> 00:18:21,386
+produce reference writable key
+
+
+674
+00:18:21,386 --> 00:18:21,836
+paths.
+
+
+675
+00:18:21,836 --> 00:18:24,996
+Now, I want to share one last
+
+
+676
+00:18:25,226 --> 00:18:26,436
+detail regarding the behavior of
+
+
+677
+00:18:26,436 --> 00:18:27,066
+key paths.
+
+
+678
+00:18:28,046 --> 00:18:29,596
+When we can use key paths with
+
+
+679
+00:18:29,596 --> 00:18:31,076
+subscripts, it's important to
+
+
+680
+00:18:31,076 --> 00:18:32,626
+know how their behavior differs
+
+
+681
+00:18:32,626 --> 00:18:33,376
+from closures.
+
+
+682
+00:18:34,746 --> 00:18:35,966
+Consider the following example.
+
+
+683
+00:18:36,626 --> 00:18:37,526
+Here I'm going to form a key
+
+
+684
+00:18:37,526 --> 00:18:38,676
+path to the first attendee of
+
+
+685
+00:18:38,676 --> 00:18:40,836
+the birthday party and use that
+
+
+686
+00:18:40,836 --> 00:18:42,106
+to identify their, use our
+
+
+687
+00:18:42,106 --> 00:18:43,486
+partyPersonAge method from
+
+
+688
+00:18:43,486 --> 00:18:45,736
+before to identify their age.
+
+
+689
+00:18:46,256 --> 00:18:47,886
+And not surprisingly, the key
+
+
+690
+00:18:47,886 --> 00:18:48,726
+path that we get here is
+
+
+691
+00:18:48,726 --> 00:18:50,156
+actually, is going to the zeroth
+
+
+692
+00:18:50,156 --> 00:18:51,716
+element of the attendees array.
+
+
+693
+00:18:52,936 --> 00:18:54,216
+Well, let's suppose I change the
+
+
+694
+00:18:54,216 --> 00:18:54,936
+index to 1.
+
+
+695
+00:18:55,006 --> 00:18:56,356
+I also care about the second
+
+
+696
+00:18:56,356 --> 00:18:58,206
+attendee's age for some reason.
+
+
+697
+00:18:59,296 --> 00:19:01,176
+You would be, might be surprised
+
+
+698
+00:19:02,436 --> 00:19:03,966
+that the resulting key path
+
+
+699
+00:19:03,966 --> 00:19:05,186
+actually is unchanged,
+
+
+700
+00:19:05,186 --> 00:19:06,516
+regardless of my changing of
+
+
+701
+00:19:06,516 --> 00:19:06,976
+index.
+
+
+702
+00:19:07,496 --> 00:19:08,766
+And in this way, key paths
+
+
+703
+00:19:08,836 --> 00:19:10,456
+became different than closures.
+
+
+704
+00:19:10,896 --> 00:19:12,806
+They capture by value, and so
+
+
+705
+00:19:12,806 --> 00:19:14,166
+when this feature becomes
+
+
+706
+00:19:14,166 --> 00:19:15,046
+available -- I wanted to say
+
+
+707
+00:19:15,046 --> 00:19:16,076
+this today so that you're not
+
+
+708
+00:19:16,076 --> 00:19:18,586
+surprised, and now I have.
+
+
+709
+00:19:19,356 --> 00:19:21,636
+So at this point, we've seen
+
+
+710
+00:19:21,636 --> 00:19:23,236
+many examples for how these
+
+
+711
+00:19:23,336 --> 00:19:25,546
+type-safe key paths satisfy our
+
+
+712
+00:19:25,546 --> 00:19:28,116
+goals for fast, type-safe and
+
+
+713
+00:19:28,116 --> 00:19:29,676
+expressive property traversal.
+
+
+714
+00:19:30,276 --> 00:19:31,956
+I'm going to change gears a
+
+
+715
+00:19:31,956 --> 00:19:33,176
+little bit now, though, because
+
+
+716
+00:19:33,176 --> 00:19:34,036
+I want to talk about how these
+
+
+717
+00:19:34,036 --> 00:19:35,346
+key paths can be used to improve
+
+
+718
+00:19:35,346 --> 00:19:37,026
+existing APIs in Swift today.
+
+
+719
+00:19:37,746 --> 00:19:38,626
+Specifically, I want to talk
+
+
+720
+00:19:38,626 --> 00:19:39,846
+about how we applied them to key
+
+
+721
+00:19:39,846 --> 00:19:40,486
+value observing.
+
+
+722
+00:19:42,116 --> 00:19:44,496
+As you probably know, KVO is
+
+
+723
+00:19:44,496 --> 00:19:45,816
+Cocoa's way of allowing objects
+
+
+724
+00:19:45,816 --> 00:19:47,566
+to establish relationships to be
+
+
+725
+00:19:47,566 --> 00:19:48,696
+notified about changes in their
+
+
+726
+00:19:48,696 --> 00:19:49,026
+state.
+
+
+727
+00:19:49,626 --> 00:19:50,966
+And if you've tried to use KVO
+
+
+728
+00:19:50,966 --> 00:19:53,176
+in Swift up to now, you probably
+
+
+729
+00:19:53,176 --> 00:19:55,226
+know that it leaves a little bit
+
+
+730
+00:19:55,226 --> 00:19:56,056
+to be desired.
+
+
+731
+00:19:58,596 --> 00:20:00,216
+Let's suppose we have a
+
+
+732
+00:20:00,216 --> 00:20:00,876
+reference--
+
+
+733
+00:20:01,016 --> 00:20:02,636
+[ Applause ]
+
+
+734
+00:20:02,636 --> 00:20:03,226
+Don't clap yet.
+
+
+735
+00:20:03,226 --> 00:20:05,726
+Clap in a minute.
+
+
+736
+00:20:05,726 --> 00:20:06,536
+[laughs] Let's suppose we have a
+
+
+737
+00:20:06,536 --> 00:20:07,726
+reference to an Objective-C
+
+
+738
+00:20:07,726 --> 00:20:09,086
+value -- say the little kid,
+
+
+739
+00:20:09,086 --> 00:20:10,936
+Mia, from earlier -- and we
+
+
+740
+00:20:10,936 --> 00:20:12,106
+really care about when this
+
+
+741
+00:20:12,106 --> 00:20:13,196
+kid's age changes.
+
+
+742
+00:20:14,446 --> 00:20:15,396
+We think that forming an
+
+
+743
+00:20:15,396 --> 00:20:17,096
+observation should simple, look
+
+
+744
+00:20:17,096 --> 00:20:18,236
+as simple as this.
+
+
+745
+00:20:18,346 --> 00:20:18,766
+Now clap. [laughs]
+
+
+746
+00:20:20,516 --> 00:20:24,606
+[ Applause ]
+
+
+747
+00:20:25,106 --> 00:20:26,266
+So I want to call out some
+
+
+748
+00:20:26,306 --> 00:20:27,346
+details about this form.
+
+
+749
+00:20:27,786 --> 00:20:29,546
+We are forming our observation
+
+
+750
+00:20:29,546 --> 00:20:31,856
+directly on the value type using
+
+
+751
+00:20:31,856 --> 00:20:33,856
+our new type-safe key paths.
+
+
+752
+00:20:34,056 --> 00:20:35,406
+What we get back is an
+
+
+753
+00:20:35,406 --> 00:20:37,016
+observation token similar to our
+
+
+754
+00:20:37,016 --> 00:20:38,076
+Notification Center APIs.
+
+
+755
+00:20:38,076 --> 00:20:39,856
+And this observation token is
+
+
+756
+00:20:39,856 --> 00:20:40,876
+doing two things for us.
+
+
+757
+00:20:41,036 --> 00:20:42,826
+One, it's saving us from having
+
+
+758
+00:20:42,826 --> 00:20:44,906
+to deal with unsafe raw pointers
+
+
+759
+00:20:44,906 --> 00:20:46,136
+with context to uniquely
+
+
+760
+00:20:46,136 --> 00:20:47,686
+identify our observation.
+
+
+761
+00:20:47,986 --> 00:20:49,526
+Now, our observation is directly
+
+
+762
+00:20:49,526 --> 00:20:50,976
+tied to our, the observation
+
+
+763
+00:20:50,976 --> 00:20:51,436
+that we get back.
+
+
+764
+00:20:52,126 --> 00:20:53,506
+Two, it's managing the life
+
+
+765
+00:20:53,506 --> 00:20:54,716
+[inaudible] of our observation.
+
+
+766
+00:20:55,006 --> 00:20:56,846
+And so if I, if -- well, in this
+
+
+767
+00:20:56,846 --> 00:20:57,736
+case, I can't set it to nil --
+
+
+768
+00:20:57,736 --> 00:20:58,786
+but if I were to set it to nil,
+
+
+769
+00:20:58,906 --> 00:20:59,996
+the observation would be toward
+
+
+770
+00:21:00,746 --> 00:21:01,866
+now [phonetic], which is a vast
+
+
+771
+00:21:01,866 --> 00:21:03,096
+improvement over getting
+
+
+772
+00:21:03,096 --> 00:21:04,506
+exceptions and having your app
+
+
+773
+00:21:04,626 --> 00:21:05,396
+crash when you forget to
+
+
+774
+00:21:05,396 --> 00:21:06,576
+unregister an observation.
+
+
+775
+00:21:07,736 --> 00:21:09,376
+Finally -- and this is perhaps
+
+
+776
+00:21:09,406 --> 00:21:10,886
+the nicest part -- you now
+
+
+777
+00:21:10,956 --> 00:21:13,056
+handle your observation's
+
+
+778
+00:21:13,056 --> 00:21:14,736
+reaction with a closure as
+
+
+779
+00:21:15,016 --> 00:21:16,996
+opposed to nested if statements
+
+
+780
+00:21:16,996 --> 00:21:18,066
+looking at and comparing
+
+
+781
+00:21:18,066 --> 00:21:18,606
+strings.
+
+
+782
+00:21:19,186 --> 00:21:19,836
+Let's take a look at the
+
+
+783
+00:21:19,836 --> 00:21:20,876
+parameters to this closure a
+
+
+784
+00:21:20,876 --> 00:21:21,496
+little bit more.
+
+
+785
+00:21:22,786 --> 00:21:24,006
+It has two parameters.
+
+
+786
+00:21:24,006 --> 00:21:25,526
+The first is the observed object
+
+
+787
+00:21:25,526 --> 00:21:25,986
+itself.
+
+
+788
+00:21:26,256 --> 00:21:27,626
+This is the same reference, Mia,
+
+
+789
+00:21:27,726 --> 00:21:29,506
+but we provide it as a parameter
+
+
+790
+00:21:29,816 --> 00:21:32,516
+to help you avoid accidentally
+
+
+791
+00:21:32,516 --> 00:21:33,726
+creating retain cycles.
+
+
+792
+00:21:34,906 --> 00:21:37,236
+Second, parameter is a change
+
+
+793
+00:21:37,476 --> 00:21:39,036
+object, and this is very similar
+
+
+794
+00:21:39,036 --> 00:21:40,756
+to the existing KVO API, except
+
+
+795
+00:21:40,756 --> 00:21:41,856
+you, if you've used, if you're
+
+
+796
+00:21:41,856 --> 00:21:43,066
+familiar with that API, you know
+
+
+797
+00:21:43,066 --> 00:21:44,096
+that that's a loosely type
+
+
+798
+00:21:44,096 --> 00:21:45,106
+dictionary, and here we're
+
+
+799
+00:21:45,106 --> 00:21:46,076
+actually providing a strongly
+
+
+800
+00:21:46,076 --> 00:21:46,686
+typed struct.
+
+
+801
+00:21:46,906 --> 00:21:48,066
+So we know observed is a kid
+
+
+802
+00:21:48,066 --> 00:21:49,126
+because of the key path and we
+
+
+803
+00:21:49,126 --> 00:21:50,476
+know that the age that's
+
+
+804
+00:21:50,476 --> 00:21:51,736
+changing is a double because of
+
+
+805
+00:21:51,736 --> 00:21:52,256
+the key path.
+
+
+806
+00:21:52,626 --> 00:21:53,476
+And now, I want to go ahead and
+
+
+807
+00:21:53,476 --> 00:21:54,136
+make this real.
+
+
+808
+00:21:54,276 --> 00:21:55,386
+So we'll do an example.
+
+
+809
+00:21:55,386 --> 00:21:56,596
+Let's suppose we have a
+
+
+810
+00:21:56,596 --> 00:21:57,736
+controller that cares about when
+
+
+811
+00:21:57,736 --> 00:21:58,586
+our kids get older.
+
+
+812
+00:21:58,706 --> 00:21:59,996
+It's the KindergartenController,
+
+
+813
+00:22:00,366 --> 00:22:01,506
+and it has a single key value
+
+
+814
+00:22:01,506 --> 00:22:03,036
+observable property, its
+
+
+815
+00:22:03,396 --> 00:22:04,516
+representedKid.
+
+
+816
+00:22:04,666 --> 00:22:05,486
+And we're going to form an
+
+
+817
+00:22:05,486 --> 00:22:06,936
+observation, so let's go ahead
+
+
+818
+00:22:06,936 --> 00:22:08,606
+and add an i var for our
+
+
+819
+00:22:08,606 --> 00:22:09,316
+observation.
+
+
+820
+00:22:09,446 --> 00:22:11,116
+And then, we'll form that
+
+
+821
+00:22:11,116 --> 00:22:12,796
+observation right now to our
+
+
+822
+00:22:12,796 --> 00:22:14,236
+controller's representedKid's
+
+
+823
+00:22:14,296 --> 00:22:15,406
+age, and we'll hold onto that in
+
+
+824
+00:22:15,406 --> 00:22:15,906
+the i var.
+
+
+825
+00:22:16,656 --> 00:22:18,206
+And we'll add our super-secret
+
+
+826
+00:22:18,206 --> 00:22:18,926
+business logic.
+
+
+827
+00:22:19,246 --> 00:22:20,156
+And if you're looking at this
+
+
+828
+00:22:20,156 --> 00:22:21,706
+and thinking that it's wrong, I
+
+
+829
+00:22:21,706 --> 00:22:22,596
+assure you that once you're
+
+
+830
+00:22:22,596 --> 00:22:23,616
+ready for kindergarten, you're
+
+
+831
+00:22:23,616 --> 00:22:24,666
+always ready for kindergarten,
+
+
+832
+00:22:24,666 --> 00:22:25,606
+so it's actually correct.
+
+
+833
+00:22:26,146 --> 00:22:27,466
+And that's it.
+
+
+834
+00:22:27,646 --> 00:22:30,176
+That's the entire declaration of
+
+
+835
+00:22:30,176 --> 00:22:30,806
+our controller.
+
+
+836
+00:22:31,856 --> 00:22:33,416
+There is no need for a dnit
+
+
+837
+00:22:33,416 --> 00:22:34,526
+[phonetic] where I throw away or
+
+
+838
+00:22:34,526 --> 00:22:36,016
+tear down my observation because
+
+
+839
+00:22:36,016 --> 00:22:36,986
+it's tied to the life
+
+
+840
+00:22:36,986 --> 00:22:37,876
+[inaudible] of that observation
+
+
+841
+00:22:37,876 --> 00:22:38,156
+token.
+
+
+842
+00:22:38,156 --> 00:22:39,266
+And so when the controller goes
+
+
+843
+00:22:39,266 --> 00:22:40,686
+away, the observation token will
+
+
+844
+00:22:40,686 --> 00:22:42,996
+go away, and it fits on the
+
+
+845
+00:22:42,996 --> 00:22:43,346
+slide.
+
+
+846
+00:22:43,926 --> 00:22:46,716
+So let's go ahead and create our
+
+
+847
+00:22:46,716 --> 00:22:47,216
+controller.
+
+
+848
+00:22:48,806 --> 00:22:50,596
+And here we'll point to Mia, and
+
+
+849
+00:22:50,596 --> 00:22:51,466
+we'll have Mia blow out her
+
+
+850
+00:22:51,466 --> 00:22:52,516
+candles with our function that
+
+
+851
+00:22:52,516 --> 00:22:53,326
+we defined earlier.
+
+
+852
+00:22:53,676 --> 00:22:54,696
+And we'll finally see through
+
+
+853
+00:22:54,696 --> 00:22:55,936
+the power of these new type-safe
+
+
+854
+00:22:55,936 --> 00:22:57,196
+key paths our little girl grow
+
+
+855
+00:22:57,196 --> 00:22:57,876
+one year older.
+
+
+856
+00:22:58,306 --> 00:23:01,396
+Now, at this point, I've shown
+
+
+857
+00:23:01,396 --> 00:23:02,316
+everything that I'm planning on
+
+
+858
+00:23:02,316 --> 00:23:03,896
+showing, but I do want to circle
+
+
+859
+00:23:03,896 --> 00:23:05,096
+back and talk about string key
+
+
+860
+00:23:05,096 --> 00:23:06,196
+paths one more time.
+
+
+861
+00:23:06,276 --> 00:23:08,756
+These guys are going to continue
+
+
+862
+00:23:08,756 --> 00:23:10,016
+to exist, and they're going to
+
+
+863
+00:23:10,016 --> 00:23:12,106
+remain useful for legacy APIs
+
+
+864
+00:23:13,036 --> 00:23:14,356
+that, you know, insist on using
+
+
+865
+00:23:14,356 --> 00:23:14,906
+strings.
+
+
+866
+00:23:15,996 --> 00:23:17,686
+However, starting in Swift 4,
+
+
+867
+00:23:19,006 --> 00:23:20,506
+you now have access to these new
+
+
+868
+00:23:20,506 --> 00:23:22,436
+type-safe performant key paths,
+
+
+869
+00:23:23,006 --> 00:23:23,946
+and we brought them to the
+
+
+870
+00:23:23,946 --> 00:23:25,156
+language because we feel that
+
+
+871
+00:23:25,156 --> 00:23:26,196
+they are so incredibly
+
+
+872
+00:23:26,196 --> 00:23:26,646
+important.
+
+
+873
+00:23:26,646 --> 00:23:28,456
+And they're only going to grow
+
+
+874
+00:23:28,456 --> 00:23:29,916
+to be more important over time.
+
+
+875
+00:23:30,466 --> 00:23:32,796
+And with that, I'd like to bring
+
+
+876
+00:23:32,796 --> 00:23:34,046
+Tony back on stage to discuss
+
+
+877
+00:23:34,046 --> 00:23:34,986
+another important language
+
+
+878
+00:23:34,986 --> 00:23:35,776
+feature that we're bringing to
+
+
+879
+00:23:35,776 --> 00:23:36,416
+Swift this year.
+
+
+880
+00:23:36,586 --> 00:23:36,916
+Thank you.
+
+
+881
+00:23:38,516 --> 00:23:42,686
+[ Applause ]
+
+
+882
+00:23:43,186 --> 00:23:43,466
+>> All right.
+
+
+883
+00:23:43,466 --> 00:23:43,956
+Thanks, Michael.
+
+
+884
+00:23:44,446 --> 00:23:45,806
+So next up, we're going to talk
+
+
+885
+00:23:45,806 --> 00:23:47,486
+about encoding and decoding.
+
+
+886
+00:23:48,836 --> 00:23:50,726
+So broadly speaking, encoding
+
+
+887
+00:23:50,726 --> 00:23:51,906
+and decoding is about the
+
+
+888
+00:23:51,906 --> 00:23:53,776
+conversion between your native
+
+
+889
+00:23:53,776 --> 00:23:55,596
+and custom Swift data structures
+
+
+890
+00:23:56,016 --> 00:23:58,216
+and archived formats, especially
+
+
+891
+00:23:58,216 --> 00:23:58,776
+JSON.
+
+
+892
+00:23:59,656 --> 00:24:00,646
+Now, many of you have told us
+
+
+893
+00:24:00,646 --> 00:24:02,266
+about the challenge of a
+
+
+894
+00:24:02,266 --> 00:24:03,946
+mismatch that is between the
+
+
+895
+00:24:03,946 --> 00:24:05,516
+strongly typed language of Swift
+
+
+896
+00:24:06,146 --> 00:24:08,476
+and loosely typed archive data
+
+
+897
+00:24:08,476 --> 00:24:09,566
+formats like JSON.
+
+
+898
+00:24:10,606 --> 00:24:11,856
+We believe that the answer to
+
+
+899
+00:24:11,856 --> 00:24:13,666
+this challenge is something that
+
+
+900
+00:24:13,666 --> 00:24:15,106
+starts with the language itself
+
+
+901
+00:24:15,626 --> 00:24:16,776
+and also takes advantage of the
+
+
+902
+00:24:16,776 --> 00:24:18,876
+compiler, the standard library,
+
+
+903
+00:24:19,006 --> 00:24:20,736
+and Foundation to make
+
+
+904
+00:24:20,736 --> 00:24:22,576
+interaction with JSON simple,
+
+
+905
+00:24:22,926 --> 00:24:24,326
+but also to provide you the
+
+
+906
+00:24:24,326 --> 00:24:25,596
+opportunity for powerful
+
+
+907
+00:24:25,596 --> 00:24:26,276
+customization.
+
+
+908
+00:24:27,276 --> 00:24:28,746
+So let's get started by looking
+
+
+909
+00:24:28,746 --> 00:24:29,436
+at an example.
+
+
+910
+00:24:29,536 --> 00:24:31,946
+Here is some JSON from one of
+
+
+911
+00:24:31,946 --> 00:24:33,106
+our favorite sites, GitHub.
+
+
+912
+00:24:33,836 --> 00:24:35,296
+This is the result of asking for
+
+
+913
+00:24:35,296 --> 00:24:37,006
+information about a commit made
+
+
+914
+00:24:37,006 --> 00:24:38,996
+to a repository, and it's pretty
+
+
+915
+00:24:38,996 --> 00:24:39,696
+standard JSON.
+
+
+916
+00:24:40,116 --> 00:24:41,936
+It's a JSON object or maybe what
+
+
+917
+00:24:41,936 --> 00:24:42,946
+we would call a dictionary.
+
+
+918
+00:24:43,436 --> 00:24:44,666
+It supports and arbitrary number
+
+
+919
+00:24:44,666 --> 00:24:46,136
+of key value pairs -- in this
+
+
+920
+00:24:46,136 --> 00:24:48,046
+case, name, which is a string;
+
+
+921
+00:24:48,746 --> 00:24:50,196
+email, which is also a string;
+
+
+922
+00:24:50,196 --> 00:24:52,316
+and date, which is a string.
+
+
+923
+00:24:52,756 --> 00:24:53,946
+And the reason is because, of
+
+
+924
+00:24:53,946 --> 00:24:55,316
+course, JSON has no native type
+
+
+925
+00:24:55,316 --> 00:24:55,866
+for dates.
+
+
+926
+00:24:56,346 --> 00:24:57,896
+But there are many conventions
+
+
+927
+00:24:57,896 --> 00:24:59,666
+by which dates are encoded in a
+
+
+928
+00:24:59,666 --> 00:25:01,986
+way into JSON, and this one
+
+
+929
+00:25:01,986 --> 00:25:03,566
+appears to be iso8601.
+
+
+930
+00:25:04,826 --> 00:25:06,436
+If we were to represent this
+
+
+931
+00:25:06,436 --> 00:25:08,446
+JSON in Swift, it would look
+
+
+932
+00:25:08,446 --> 00:25:09,406
+very different.
+
+
+933
+00:25:09,546 --> 00:25:11,846
+For example, we would make a
+
+
+934
+00:25:11,846 --> 00:25:13,756
+strong type for it, a struct
+
+
+935
+00:25:13,756 --> 00:25:14,786
+perhaps called Author.
+
+
+936
+00:25:15,936 --> 00:25:17,096
+This struct would have exactly
+
+
+937
+00:25:17,096 --> 00:25:18,876
+three properties -- name and
+
+
+938
+00:25:18,876 --> 00:25:20,446
+email, which are strings still;
+
+
+939
+00:25:20,946 --> 00:25:22,266
+but date, as you can see here,
+
+
+940
+00:25:22,366 --> 00:25:24,366
+is using Foundation's date type.
+
+
+941
+00:25:24,366 --> 00:25:26,516
+And the reason that's important
+
+
+942
+00:25:26,516 --> 00:25:27,876
+is because, as you interact with
+
+
+943
+00:25:27,876 --> 00:25:29,466
+the rest of the Cocoa SDK and
+
+
+944
+00:25:29,466 --> 00:25:31,416
+other APIs, you'll find that
+
+
+945
+00:25:31,416 --> 00:25:34,026
+date is the kind of type used to
+
+
+946
+00:25:34,026 --> 00:25:35,446
+represent a point in time.
+
+
+947
+00:25:36,266 --> 00:25:37,436
+And so this is where we've
+
+
+948
+00:25:37,436 --> 00:25:38,576
+reached that challenge, right.
+
+
+949
+00:25:39,406 --> 00:25:41,306
+How do we convert between that
+
+
+950
+00:25:41,306 --> 00:25:43,796
+loosely typed JSON on top and
+
+
+951
+00:25:43,796 --> 00:25:45,336
+the strong Swift type on the
+
+
+952
+00:25:45,336 --> 00:25:45,666
+bottom?
+
+
+953
+00:25:46,586 --> 00:25:48,236
+Well, we think it should be as
+
+
+954
+00:25:48,236 --> 00:25:49,046
+easy as this.
+
+
+955
+00:25:49,226 --> 00:25:51,196
+Simply adopt a protocol on your
+
+
+956
+00:25:51,196 --> 00:25:53,206
+struct and let the compiler, the
+
+
+957
+00:25:53,206 --> 00:25:54,886
+standard library, and Foundation
+
+
+958
+00:25:55,246 --> 00:25:56,936
+do the vast majority of the work
+
+
+959
+00:25:56,936 --> 00:25:57,256
+for you.
+
+
+960
+00:25:57,346 --> 00:25:59,216
+Thank you.
+
+
+961
+00:26:00,516 --> 00:26:03,706
+[ Applause ]
+
+
+962
+00:26:04,206 --> 00:26:05,436
+So let's turn this slide into
+
+
+963
+00:26:05,436 --> 00:26:06,056
+some real code.
+
+
+964
+00:26:06,836 --> 00:26:07,866
+First, I'm going to turn that
+
+
+965
+00:26:07,866 --> 00:26:09,306
+JSON into a string using Swift
+
+
+966
+00:26:09,306 --> 00:26:10,836
+4's cool, new string literal
+
+
+967
+00:26:10,836 --> 00:26:12,696
+syntax, the triple quote, and
+
+
+968
+00:26:12,696 --> 00:26:13,876
+then turn that string into data
+
+
+969
+00:26:14,126 --> 00:26:15,436
+using UTF-8 encoding, which is
+
+
+970
+00:26:15,436 --> 00:26:16,416
+pretty common for JSON.
+
+
+971
+00:26:16,896 --> 00:26:18,076
+Struct Author remains the same,
+
+
+972
+00:26:18,286 --> 00:26:18,776
+of course.
+
+
+973
+00:26:19,366 --> 00:26:21,296
+Next, we create a decoder.
+
+
+974
+00:26:21,296 --> 00:26:22,496
+This is what is actually doing
+
+
+975
+00:26:22,496 --> 00:26:24,696
+the conversion between the JSON
+
+
+976
+00:26:24,696 --> 00:26:25,706
+and our Swift structure.
+
+
+977
+00:26:26,256 --> 00:26:29,106
+We tell the decoder about that
+
+
+978
+00:26:29,106 --> 00:26:31,256
+convention, the iso8601 date.
+
+
+979
+00:26:31,256 --> 00:26:32,396
+And we'll talk more about this
+
+
+980
+00:26:32,396 --> 00:26:32,656
+later.
+
+
+981
+00:26:33,526 --> 00:26:35,146
+And finally, we ask the decoder
+
+
+982
+00:26:35,146 --> 00:26:36,706
+to decode an author.
+
+
+983
+00:26:37,086 --> 00:26:38,346
+The result is not an any.
+
+
+984
+00:26:38,486 --> 00:26:39,586
+It's not a dictionary.
+
+
+985
+00:26:39,586 --> 00:26:40,276
+You don't have to fish through
+
+
+986
+00:26:40,276 --> 00:26:42,136
+strings or check for keys.
+
+
+987
+00:26:42,546 --> 00:26:43,736
+It's already the type that you
+
+
+988
+00:26:43,736 --> 00:26:45,396
+care about using, in this case.
+
+
+989
+00:26:46,806 --> 00:26:47,916
+So that was pretty easy.
+
+
+990
+00:26:48,196 --> 00:26:49,216
+Let's bump up the difficulty
+
+
+991
+00:26:49,216 --> 00:26:50,116
+level one notch.
+
+
+992
+00:26:50,496 --> 00:26:52,046
+This JSON is actually part of a
+
+
+993
+00:26:52,046 --> 00:26:53,856
+larger set of JSON that comes as
+
+
+994
+00:26:53,856 --> 00:26:55,026
+the result of this request,
+
+
+995
+00:26:55,346 --> 00:26:57,516
+which includes things like URLs,
+
+
+996
+00:26:57,516 --> 00:26:58,836
+and additional strings, and
+
+
+997
+00:26:58,836 --> 00:26:59,716
+integer values.
+
+
+998
+00:27:00,436 --> 00:27:02,926
+So in Swift, we can just follow
+
+
+999
+00:27:02,926 --> 00:27:03,206
+suit.
+
+
+1000
+00:27:03,396 --> 00:27:04,846
+So I'm going to nest my struct
+
+
+1001
+00:27:04,846 --> 00:27:06,346
+Author in a new struct called
+
+
+1002
+00:27:06,346 --> 00:27:08,076
+Commit, which is also codable.
+
+
+1003
+00:27:08,706 --> 00:27:09,826
+There you can see that I'm able
+
+
+1004
+00:27:09,826 --> 00:27:12,096
+to use Foundation's URL type and
+
+
+1005
+00:27:12,096 --> 00:27:13,106
+our struct Author.
+
+
+1006
+00:27:13,236 --> 00:27:14,016
+So you can see how we can
+
+
+1007
+00:27:14,016 --> 00:27:15,566
+recursively descend into types,
+
+
+1008
+00:27:15,566 --> 00:27:16,766
+if they conform with codable, to
+
+
+1009
+00:27:16,766 --> 00:27:17,816
+decode them as well.
+
+
+1010
+00:27:18,586 --> 00:27:19,956
+The string, which is, message,
+
+
+1011
+00:27:19,956 --> 00:27:21,456
+which is a string, and our
+
+
+1012
+00:27:21,456 --> 00:27:22,456
+comment count property.
+
+
+1013
+00:27:22,456 --> 00:27:25,786
+And to decode this, again, one
+
+
+1014
+00:27:25,786 --> 00:27:26,236
+line of code.
+
+
+1015
+00:27:26,236 --> 00:27:27,176
+We're going to decode a commit
+
+
+1016
+00:27:27,216 --> 00:27:27,706
+this time.
+
+
+1017
+00:27:27,866 --> 00:27:30,146
+And the result: Our strong Swift
+
+
+1018
+00:27:30,146 --> 00:27:31,586
+type, which lets us use the
+
+
+1019
+00:27:31,586 --> 00:27:32,846
+Swift language features that we
+
+
+1020
+00:27:32,846 --> 00:27:34,356
+know and love to get at the
+
+
+1021
+00:27:34,356 --> 00:27:35,636
+values that we care about in the
+
+
+1022
+00:27:35,636 --> 00:27:36,096
+archive.
+
+
+1023
+00:27:36,456 --> 00:27:37,416
+In this case, it's simply
+
+
+1024
+00:27:37,416 --> 00:27:38,366
+property access.
+
+
+1025
+00:27:38,836 --> 00:27:40,856
+So let's look at what's going on
+
+
+1026
+00:27:40,856 --> 00:27:41,026
+here.
+
+
+1027
+00:27:41,636 --> 00:27:43,236
+First, the codable protocol,
+
+
+1028
+00:27:43,236 --> 00:27:44,336
+which is actually not one
+
+
+1029
+00:27:44,336 --> 00:27:45,136
+protocol, but two.
+
+
+1030
+00:27:45,616 --> 00:27:47,076
+The first is called encodable
+
+
+1031
+00:27:47,526 --> 00:27:49,466
+and has one function, encode to
+
+
+1032
+00:27:49,466 --> 00:27:49,936
+encoder.
+
+
+1033
+00:27:50,656 --> 00:27:52,806
+The purpose of that function is
+
+
+1034
+00:27:52,956 --> 00:27:54,086
+to allow the type to tell the
+
+
+1035
+00:27:54,086 --> 00:27:55,916
+encoder all of the information
+
+
+1036
+00:27:55,916 --> 00:27:57,076
+that it needs in order to
+
+
+1037
+00:27:57,076 --> 00:27:58,636
+recreate itself at a later time.
+
+
+1038
+00:27:59,566 --> 00:28:01,106
+The corresponding protocol,
+
+
+1039
+00:28:01,106 --> 00:28:03,066
+decodable, has one initializer.
+
+
+1040
+00:28:03,716 --> 00:28:04,976
+The purpose of the initializer
+
+
+1041
+00:28:05,286 --> 00:28:06,376
+is to allow the type to get the
+
+
+1042
+00:28:06,376 --> 00:28:07,676
+values that it needs from the
+
+
+1043
+00:28:07,676 --> 00:28:10,026
+decoder and then use those to
+
+
+1044
+00:28:10,026 --> 00:28:11,616
+create a fully initialized
+
+
+1045
+00:28:11,616 --> 00:28:13,686
+instance of itself that is ready
+
+
+1046
+00:28:13,686 --> 00:28:14,226
+for use.
+
+
+1047
+00:28:14,756 --> 00:28:17,616
+The primary design point of
+
+
+1048
+00:28:17,616 --> 00:28:20,486
+these APIs is to use a Swift
+
+
+1049
+00:28:20,486 --> 00:28:21,846
+behavior that you may already be
+
+
+1050
+00:28:21,846 --> 00:28:23,276
+familiar with, and that's called
+
+
+1051
+00:28:23,276 --> 00:28:24,176
+protocol extensions.
+
+
+1052
+00:28:24,876 --> 00:28:26,746
+So in Swift, protocols can not
+
+
+1053
+00:28:26,746 --> 00:28:28,966
+only define an interface, but
+
+
+1054
+00:28:28,966 --> 00:28:31,626
+via an extension, they can
+
+
+1055
+00:28:31,626 --> 00:28:33,346
+provide a default implementation
+
+
+1056
+00:28:33,496 --> 00:28:34,876
+for that interface.
+
+
+1057
+00:28:36,106 --> 00:28:37,426
+And they let you write your own
+
+
+1058
+00:28:37,426 --> 00:28:39,026
+implementation for either part
+
+
+1059
+00:28:39,026 --> 00:28:40,746
+or whole of that protocol to
+
+
+1060
+00:28:40,746 --> 00:28:41,956
+customize the behavior.
+
+
+1061
+00:28:42,746 --> 00:28:44,316
+So let's go back to our commit
+
+
+1062
+00:28:44,316 --> 00:28:45,216
+to see how this works.
+
+
+1063
+00:28:46,226 --> 00:28:47,216
+When I adopted the codable
+
+
+1064
+00:28:47,216 --> 00:28:49,016
+protocol, the compiler actually
+
+
+1065
+00:28:49,016 --> 00:28:50,796
+generated an implementation of
+
+
+1066
+00:28:50,796 --> 00:28:52,356
+encode to encoder and initfrom
+
+
+1067
+00:28:52,356 --> 00:28:54,106
+decoder for us completely for
+
+
+1068
+00:28:54,106 --> 00:28:54,376
+free.
+
+
+1069
+00:28:54,476 --> 00:28:56,426
+And in this case, I don't need
+
+
+1070
+00:28:56,426 --> 00:28:57,556
+to customize anything about
+
+
+1071
+00:28:57,556 --> 00:28:59,286
+them, so I can just omit them
+
+
+1072
+00:28:59,286 --> 00:29:00,386
+completely from my type.
+
+
+1073
+00:29:01,866 --> 00:29:02,896
+There is one thing I do want to
+
+
+1074
+00:29:02,896 --> 00:29:04,056
+customize about this type,
+
+
+1075
+00:29:04,106 --> 00:29:05,856
+though, and that is the name of
+
+
+1076
+00:29:05,856 --> 00:29:06,476
+this property.
+
+
+1077
+00:29:06,856 --> 00:29:08,176
+Now, you may notice that it is
+
+
+1078
+00:29:08,176 --> 00:29:09,546
+using snake case, which is
+
+
+1079
+00:29:09,546 --> 00:29:11,116
+pretty common in JSON, but it
+
+
+1080
+00:29:11,116 --> 00:29:12,576
+doesn't match Swift's naming
+
+
+1081
+00:29:12,576 --> 00:29:13,196
+conventions.
+
+
+1082
+00:29:13,656 --> 00:29:14,846
+So let me show you how we're
+
+
+1083
+00:29:14,846 --> 00:29:15,456
+going to fix that.
+
+
+1084
+00:29:15,936 --> 00:29:17,336
+First, there's one more thing
+
+
+1085
+00:29:17,336 --> 00:29:18,546
+that the compiler generated for
+
+
+1086
+00:29:18,546 --> 00:29:20,226
+us, and that is this private
+
+
+1087
+00:29:20,226 --> 00:29:21,646
+enum called CodingKeys.
+
+
+1088
+00:29:23,176 --> 00:29:24,846
+This enum is backed by a string
+
+
+1089
+00:29:25,326 --> 00:29:27,266
+and adopts a CodingKey protocol,
+
+
+1090
+00:29:27,266 --> 00:29:28,276
+which, again, we'll talk more
+
+
+1091
+00:29:28,276 --> 00:29:28,806
+about later.
+
+
+1092
+00:29:29,266 --> 00:29:30,466
+But what's interesting to note
+
+
+1093
+00:29:30,466 --> 00:29:32,136
+here is that this enum has four
+
+
+1094
+00:29:32,136 --> 00:29:33,796
+case statements that match the
+
+
+1095
+00:29:33,796 --> 00:29:35,676
+names of my four properties.
+
+
+1096
+00:29:36,246 --> 00:29:37,666
+And so in order to customize the
+
+
+1097
+00:29:37,666 --> 00:29:39,706
+name of my property, I just need
+
+
+1098
+00:29:39,706 --> 00:29:41,186
+to customize the name of my case
+
+
+1099
+00:29:41,186 --> 00:29:41,616
+statement.
+
+
+1100
+00:29:42,056 --> 00:29:43,526
+So to do that, I'm going to
+
+
+1101
+00:29:43,526 --> 00:29:45,456
+change this comment count snake
+
+
+1102
+00:29:45,456 --> 00:29:47,356
+case to camel case.
+
+
+1103
+00:29:47,986 --> 00:29:49,996
+But as you can see, I remain
+
+
+1104
+00:29:50,216 --> 00:29:51,866
+compatible with the JSON that
+
+
+1105
+00:29:51,866 --> 00:29:53,126
+we're reading by setting the
+
+
+1106
+00:29:53,126 --> 00:29:55,096
+string value of that case to be
+
+
+1107
+00:29:55,376 --> 00:29:56,846
+the value we expect to find in
+
+
+1108
+00:29:56,846 --> 00:29:57,406
+our archive.
+
+
+1109
+00:29:58,326 --> 00:29:59,506
+Now, if that's all the
+
+
+1110
+00:29:59,506 --> 00:30:00,706
+customization that we needed to
+
+
+1111
+00:30:00,706 --> 00:30:04,006
+do, then we're done.
+
+
+1112
+00:30:04,086 --> 00:30:05,506
+Maybe you can stop watching now
+
+
+1113
+00:30:05,506 --> 00:30:08,156
+and leave, but by the end of the
+
+
+1114
+00:30:08,156 --> 00:30:09,586
+talk, I do want to show you how
+
+
+1115
+00:30:09,586 --> 00:30:11,326
+we can do even more kinds of
+
+
+1116
+00:30:11,326 --> 00:30:12,786
+customizations on this commit.
+
+
+1117
+00:30:13,056 --> 00:30:14,426
+For now, I'd like to hand it
+
+
+1118
+00:30:14,426 --> 00:30:16,186
+over to my colleague Itai to
+
+
+1119
+00:30:16,186 --> 00:30:17,456
+show us a demo of this stuff in
+
+
+1120
+00:30:17,456 --> 00:30:17,796
+action.
+
+
+1121
+00:30:19,516 --> 00:30:25,856
+[ Applause ]
+
+
+1122
+00:30:26,356 --> 00:30:28,556
+>> Thanks, Tony.
+
+
+1123
+00:30:29,726 --> 00:30:31,796
+So Tony showed you just how easy
+
+
+1124
+00:30:31,796 --> 00:30:32,986
+it is to adopt codable in your
+
+
+1125
+00:30:32,986 --> 00:30:34,776
+types, but let's dive in to see
+
+
+1126
+00:30:34,776 --> 00:30:35,936
+what this might look like for
+
+
+1127
+00:30:35,936 --> 00:30:37,226
+many of your apps in practice.
+
+
+1128
+00:30:37,756 --> 00:30:39,656
+I've got a small app here that
+
+
+1129
+00:30:39,656 --> 00:30:40,756
+I've been prototyping lately.
+
+
+1130
+00:30:41,266 --> 00:30:42,306
+Because I'm such a big fan of
+
+
+1131
+00:30:42,306 --> 00:30:43,646
+Swift, I like to watch for
+
+
+1132
+00:30:43,646 --> 00:30:45,156
+interesting git commits as they
+
+
+1133
+00:30:45,156 --> 00:30:46,736
+come in on Swift's GitHub repo.
+
+
+1134
+00:30:47,296 --> 00:30:48,836
+I've written a small app here
+
+
+1135
+00:30:49,036 --> 00:30:50,876
+that talks to GitHub's JSON REST
+
+
+1136
+00:30:50,876 --> 00:30:52,836
+API to parse these commits and
+
+
+1137
+00:30:52,836 --> 00:30:53,856
+show me them in the table view.
+
+
+1138
+00:30:54,946 --> 00:30:55,976
+So let's take a quick look at
+
+
+1139
+00:30:55,976 --> 00:30:57,396
+how easy it was to put this app
+
+
+1140
+00:30:57,396 --> 00:30:58,856
+together using the new codable
+
+
+1141
+00:30:59,016 --> 00:30:59,316
+APIs.
+
+
+1142
+00:30:59,916 --> 00:31:02,446
+If we switch to Xcode, you'll
+
+
+1143
+00:31:02,446 --> 00:31:03,646
+notice some of the same models
+
+
+1144
+00:31:03,646 --> 00:31:05,246
+that Tony had up on his slide
+
+
+1145
+00:31:05,506 --> 00:31:06,896
+expanded a little bit.
+
+
+1146
+00:31:07,216 --> 00:31:09,116
+We've got the same commit info,
+
+
+1147
+00:31:09,206 --> 00:31:11,456
+author info, and we've gone
+
+
+1148
+00:31:11,456 --> 00:31:12,276
+ahead and done the same
+
+
+1149
+00:31:12,276 --> 00:31:12,636
+renaming.
+
+
+1150
+00:31:13,876 --> 00:31:15,216
+On the right is the JSON spec
+
+
+1151
+00:31:15,336 --> 00:31:16,786
+that GitHub provides, but with
+
+
+1152
+00:31:16,786 --> 00:31:17,676
+some of the irrelevant parts
+
+
+1153
+00:31:17,676 --> 00:31:18,156
+snipped out.
+
+
+1154
+00:31:18,156 --> 00:31:19,506
+And if you'll notice on the
+
+
+1155
+00:31:19,506 --> 00:31:20,986
+bottom right, we've got some
+
+
+1156
+00:31:20,986 --> 00:31:22,526
+info in the JSON spec that we're
+
+
+1157
+00:31:22,526 --> 00:31:23,646
+not currently decoding.
+
+
+1158
+00:31:24,526 --> 00:31:25,666
+That's actually OK because it'll
+
+
+1159
+00:31:25,666 --> 00:31:26,926
+get ignored by default, and so
+
+
+1160
+00:31:26,926 --> 00:31:27,886
+we can come back to this later.
+
+
+1161
+00:31:28,436 --> 00:31:30,196
+So let's hide this JSON spec and
+
+
+1162
+00:31:30,256 --> 00:31:31,436
+go a little bit further down
+
+
+1163
+00:31:31,436 --> 00:31:32,746
+into our file to see how we can
+
+
+1164
+00:31:32,746 --> 00:31:33,946
+use these models in practice.
+
+
+1165
+00:31:34,736 --> 00:31:35,926
+So in here, we've got our
+
+
+1166
+00:31:35,926 --> 00:31:37,606
+CommitsViewController, and this
+
+
+1167
+00:31:37,606 --> 00:31:38,586
+is the view controller that
+
+
+1168
+00:31:38,586 --> 00:31:40,146
+actually displays these commits
+
+
+1169
+00:31:40,196 --> 00:31:40,866
+in our table view.
+
+
+1170
+00:31:41,426 --> 00:31:42,636
+And so the view controller here
+
+
+1171
+00:31:42,636 --> 00:31:44,506
+has our table view, along with
+
+
+1172
+00:31:44,506 --> 00:31:45,556
+an array of these commits.
+
+
+1173
+00:31:45,906 --> 00:31:47,126
+And note here that this is an
+
+
+1174
+00:31:47,126 --> 00:31:49,146
+array of our type.
+
+
+1175
+00:31:49,516 --> 00:31:50,746
+It's not an array of any or
+
+
+1176
+00:31:50,746 --> 00:31:51,346
+anything similar.
+
+
+1177
+00:31:52,796 --> 00:31:54,846
+When we're going to go and
+
+
+1178
+00:31:54,846 --> 00:31:56,136
+display this data, we can fetch
+
+
+1179
+00:31:56,136 --> 00:31:57,716
+the data from GitHub, and then
+
+
+1180
+00:31:57,716 --> 00:31:59,316
+using a JSON decoder, just like
+
+
+1181
+00:31:59,316 --> 00:32:01,146
+Tony showed you, we can go ahead
+
+
+1182
+00:32:01,146 --> 00:32:02,606
+and request to decode an array
+
+
+1183
+00:32:02,606 --> 00:32:03,926
+of these commits into our type.
+
+
+1184
+00:32:05,286 --> 00:32:06,776
+Once that's done, we can reload
+
+
+1185
+00:32:06,776 --> 00:32:07,876
+our table view and have that
+
+
+1186
+00:32:07,876 --> 00:32:08,226
+display.
+
+
+1187
+00:32:09,766 --> 00:32:11,366
+Now, if anything goes wrong, we
+
+
+1188
+00:32:11,366 --> 00:32:13,186
+can catch that error and display
+
+
+1189
+00:32:13,186 --> 00:32:14,456
+some localized information to
+
+
+1190
+00:32:14,456 --> 00:32:15,606
+the user to tell them what went
+
+
+1191
+00:32:15,606 --> 00:32:17,686
+wrong at a high level.
+
+
+1192
+00:32:17,956 --> 00:32:19,096
+Now, this is how you load the
+
+
+1193
+00:32:19,096 --> 00:32:20,146
+data into your app, but let's
+
+
+1194
+00:32:20,146 --> 00:32:21,276
+take a look at how this hooks up
+
+
+1195
+00:32:21,276 --> 00:32:21,626
+to our UI.
+
+
+1196
+00:32:21,876 --> 00:32:23,356
+So a little bit further down in
+
+
+1197
+00:32:23,356 --> 00:32:24,876
+the file here, I've got a helper
+
+
+1198
+00:32:24,876 --> 00:32:26,556
+method that lets me set up table
+
+
+1199
+00:32:26,556 --> 00:32:27,586
+view cells right before they're
+
+
+1200
+00:32:27,586 --> 00:32:28,476
+displayed to the user.
+
+
+1201
+00:32:28,896 --> 00:32:30,696
+So in here, to set up my custom
+
+
+1202
+00:32:30,696 --> 00:32:32,246
+table view cell, I'm going to
+
+
+1203
+00:32:32,246 --> 00:32:33,586
+pull out a commit from our array
+
+
+1204
+00:32:33,586 --> 00:32:35,856
+of commits, and then using the
+
+
+1205
+00:32:35,856 --> 00:32:37,516
+strongly typed properties on
+
+
+1206
+00:32:37,516 --> 00:32:38,866
+that commit, we can hook it up
+
+
+1207
+00:32:38,866 --> 00:32:39,266
+to our UI.
+
+
+1208
+00:32:39,876 --> 00:32:40,946
+And note again that we're not
+
+
+1209
+00:32:40,946 --> 00:32:42,216
+downcasting from any and we're
+
+
+1210
+00:32:42,216 --> 00:32:43,406
+not peering through arrays or
+
+
+1211
+00:32:43,406 --> 00:32:43,966
+dictionaries.
+
+
+1212
+00:32:44,316 --> 00:32:45,626
+This is our type the way we
+
+
+1213
+00:32:45,626 --> 00:32:47,076
+wrote it and how we want to use
+
+
+1214
+00:32:47,076 --> 00:32:47,146
+it.
+
+
+1215
+00:32:48,226 --> 00:32:49,676
+Now, that's all nice and good,
+
+
+1216
+00:32:49,676 --> 00:32:50,826
+but let's go back into our app
+
+
+1217
+00:32:50,826 --> 00:32:51,806
+and you'll take a look here and
+
+
+1218
+00:32:51,806 --> 00:32:53,206
+notice that we've got some room
+
+
+1219
+00:32:53,206 --> 00:32:54,526
+in the UI that I've left here
+
+
+1220
+00:32:54,526 --> 00:32:56,096
+for hooking up the hash values
+
+
+1221
+00:32:56,096 --> 00:32:56,996
+of each of these commits.
+
+
+1222
+00:32:57,306 --> 00:32:58,356
+But it's not hooked up yet, so
+
+
+1223
+00:32:58,446 --> 00:33:01,506
+let's go ahead and do that now.
+
+
+1224
+00:33:02,166 --> 00:33:03,626
+If we go back to our models and
+
+
+1225
+00:33:03,626 --> 00:33:05,736
+pop open the JSON spec again, we
+
+
+1226
+00:33:05,736 --> 00:33:08,636
+can see that there's a hash
+
+
+1227
+00:33:08,636 --> 00:33:10,226
+property in the JSON spec that
+
+
+1228
+00:33:10,226 --> 00:33:11,256
+we haven't been requesting.
+
+
+1229
+00:33:11,836 --> 00:33:12,876
+So let's go ahead and add that
+
+
+1230
+00:33:12,876 --> 00:33:13,396
+to our type.
+
+
+1231
+00:33:14,036 --> 00:33:15,826
+And then, if I go ahead and
+
+
+1232
+00:33:15,826 --> 00:33:17,096
+build our project to use it,
+
+
+1233
+00:33:17,636 --> 00:33:18,646
+you'll notice that I actually
+
+
+1234
+00:33:18,646 --> 00:33:19,836
+got a build failure.
+
+
+1235
+00:33:19,876 --> 00:33:21,356
+So let's explore why that
+
+
+1236
+00:33:21,356 --> 00:33:21,816
+happens.
+
+
+1237
+00:33:23,296 --> 00:33:24,606
+As part of this type, I've
+
+
+1238
+00:33:24,606 --> 00:33:26,046
+created a custom CodingKeys
+
+
+1239
+00:33:26,046 --> 00:33:26,356
+enum.
+
+
+1240
+00:33:26,896 --> 00:33:28,246
+Now, the CodingKeys enum that
+
+
+1241
+00:33:28,246 --> 00:33:29,766
+you put in your type is a really
+
+
+1242
+00:33:29,766 --> 00:33:31,416
+powerful tool for controlling
+
+
+1243
+00:33:31,416 --> 00:33:32,956
+what the compiler generates as
+
+
+1244
+00:33:32,956 --> 00:33:34,836
+part of init from NNCode
+
+
+1245
+00:33:34,866 --> 00:33:35,126
+[phonetic] 2.
+
+
+1246
+00:33:36,016 --> 00:33:37,186
+In this case, I provided a
+
+
+1247
+00:33:37,186 --> 00:33:39,246
+CodingKeys enum that renames my
+
+
+1248
+00:33:39,296 --> 00:33:41,106
+info property to commit to match
+
+
+1249
+00:33:41,106 --> 00:33:42,396
+what's in the JSON.
+
+
+1250
+00:33:43,116 --> 00:33:44,456
+But in this case, the hash
+
+
+1251
+00:33:44,526 --> 00:33:46,096
+property that I just added isn't
+
+
+1252
+00:33:46,096 --> 00:33:47,206
+found in the CodingKeys.
+
+
+1253
+00:33:47,886 --> 00:33:49,286
+Now, what the compiler will try
+
+
+1254
+00:33:49,286 --> 00:33:50,846
+to do is if you purposefully
+
+
+1255
+00:33:50,846 --> 00:33:52,406
+leave a property out of your
+
+
+1256
+00:33:52,406 --> 00:33:53,906
+CodingKeys enum, it'll actually
+
+
+1257
+00:33:53,906 --> 00:33:55,826
+omit it from your encoded and
+
+
+1258
+00:33:55,826 --> 00:33:56,866
+decoded representation.
+
+
+1259
+00:33:57,326 --> 00:33:58,546
+But what's happening here is
+
+
+1260
+00:33:58,546 --> 00:34:00,146
+that because this hash property
+
+
+1261
+00:34:00,146 --> 00:34:02,046
+doesn't have a default value, if
+
+
+1262
+00:34:02,046 --> 00:34:03,356
+the compiler were to try and
+
+
+1263
+00:34:03,356 --> 00:34:05,096
+generate an initializer for us,
+
+
+1264
+00:34:05,436 --> 00:34:06,776
+there'd be no reasonable value
+
+
+1265
+00:34:06,776 --> 00:34:08,076
+to initialize this property to,
+
+
+1266
+00:34:08,496 --> 00:34:09,846
+and so the compiler refuses to
+
+
+1267
+00:34:09,846 --> 00:34:10,846
+do it and we get our build
+
+
+1268
+00:34:10,846 --> 00:34:11,806
+failure because our type
+
+
+1269
+00:34:11,806 --> 00:34:13,416
+actually doesn't conform to
+
+
+1270
+00:34:13,416 --> 00:34:13,896
+decodable.
+
+
+1271
+00:34:14,856 --> 00:34:16,116
+Now, in this case, we actually
+
+
+1272
+00:34:16,116 --> 00:34:17,136
+don't want to leave this hash
+
+
+1273
+00:34:17,136 --> 00:34:18,416
+property out of our encoded
+
+
+1274
+00:34:18,416 --> 00:34:19,156
+representation.
+
+
+1275
+00:34:19,156 --> 00:34:20,016
+We do want to decode it.
+
+
+1276
+00:34:20,346 --> 00:34:21,545
+So let's go ahead and mirror
+
+
+1277
+00:34:21,545 --> 00:34:22,906
+that same property in our
+
+
+1278
+00:34:22,906 --> 00:34:23,676
+CodingKeys enum.
+
+
+1279
+00:34:25,036 --> 00:34:26,275
+Let's hide the JSON spec again
+
+
+1280
+00:34:26,275 --> 00:34:27,766
+and go and hook up this property
+
+
+1281
+00:34:27,976 --> 00:34:28,795
+directly to our UI.
+
+
+1282
+00:34:29,536 --> 00:34:31,275
+So here in the cell setup method
+
+
+1283
+00:34:31,275 --> 00:34:32,585
+that we have, we're going to add
+
+
+1284
+00:34:32,585 --> 00:34:34,496
+another line of code that grabs
+
+
+1285
+00:34:34,496 --> 00:34:35,846
+that hash, and here we're going
+
+
+1286
+00:34:35,846 --> 00:34:36,766
+to shorten it up a bit so it
+
+
+1287
+00:34:36,766 --> 00:34:37,815
+fits nicely in our UI.
+
+
+1288
+00:34:37,815 --> 00:34:39,275
+And just like using everything
+
+
+1289
+00:34:39,275 --> 00:34:40,456
+else, using the strongly typed
+
+
+1290
+00:34:40,456 --> 00:34:41,636
+properties, we can hook it up to
+
+
+1291
+00:34:41,636 --> 00:34:42,416
+our UI directly.
+
+
+1292
+00:34:43,096 --> 00:34:44,196
+So let's go ahead and rerun our
+
+
+1293
+00:34:44,466 --> 00:34:45,585
+app and take a look to make sure
+
+
+1294
+00:34:45,585 --> 00:34:46,766
+that things hooked up correctly.
+
+
+1295
+00:34:49,516 --> 00:34:51,596
+Here, now that we've rerun, we
+
+
+1296
+00:34:51,596 --> 00:34:53,065
+can actually see that everything
+
+
+1297
+00:34:53,065 --> 00:34:54,466
+is hooked up to our UI, and I'm
+
+
+1298
+00:34:54,466 --> 00:34:55,686
+pretty happy because that took a
+
+
+1299
+00:34:55,686 --> 00:34:57,366
+whole of four lines of code to
+
+
+1300
+00:34:57,366 --> 00:34:58,566
+add to our app.
+
+
+1301
+00:35:00,516 --> 00:35:06,186
+[ Applause ]
+
+
+1302
+00:35:06,686 --> 00:35:07,956
+Now, going back to the code for
+
+
+1303
+00:35:07,956 --> 00:35:09,046
+a moment, let's take a look at
+
+
+1304
+00:35:09,046 --> 00:35:10,506
+what we can do when things go
+
+
+1305
+00:35:10,506 --> 00:35:12,816
+wrong in our app.
+
+
+1306
+00:35:13,116 --> 00:35:14,626
+So if we pop open the JSON spec
+
+
+1307
+00:35:14,626 --> 00:35:16,126
+one more time, you might notice
+
+
+1308
+00:35:16,126 --> 00:35:16,876
+that in the bottom right, we
+
+
+1309
+00:35:17,106 --> 00:35:18,356
+have one final property that we
+
+
+1310
+00:35:18,356 --> 00:35:19,766
+haven't been decoding, so let's
+
+
+1311
+00:35:19,766 --> 00:35:20,936
+go ahead and try to do that now.
+
+
+1312
+00:35:22,106 --> 00:35:23,126
+We're going to add a URL
+
+
+1313
+00:35:23,196 --> 00:35:24,786
+property to our type, and again,
+
+
+1314
+00:35:24,786 --> 00:35:25,976
+we're going to want to mirror it
+
+
+1315
+00:35:25,976 --> 00:35:27,016
+in the CodingKeys enum.
+
+
+1316
+00:35:28,276 --> 00:35:29,726
+This time, though, let's give
+
+
+1317
+00:35:29,726 --> 00:35:31,696
+the CodingKey a value that is
+
+
+1318
+00:35:31,696 --> 00:35:33,376
+clearly not found within our
+
+
+1319
+00:35:33,376 --> 00:35:34,126
+JSON payload.
+
+
+1320
+00:35:35,296 --> 00:35:36,926
+Now, when we go ahead and try to
+
+
+1321
+00:35:36,926 --> 00:35:38,386
+decode this value, it won't be
+
+
+1322
+00:35:38,386 --> 00:35:39,906
+found, and so this'll actually
+
+
+1323
+00:35:39,906 --> 00:35:41,176
+be an error at decode time.
+
+
+1324
+00:35:41,676 --> 00:35:43,466
+To see how we can handle that
+
+
+1325
+00:35:43,466 --> 00:35:44,806
+error, let's hide the JSON spec
+
+
+1326
+00:35:44,806 --> 00:35:46,186
+again and go down to where we
+
+
+1327
+00:35:46,186 --> 00:35:47,096
+perform the decode.
+
+
+1328
+00:35:48,706 --> 00:35:49,926
+In order to handle this error,
+
+
+1329
+00:35:50,316 --> 00:35:51,966
+we can catch a decoding error,
+
+
+1330
+00:35:52,366 --> 00:35:53,946
+key not found error, which
+
+
+1331
+00:35:53,946 --> 00:35:55,066
+indicates that we tried to
+
+
+1332
+00:35:55,066 --> 00:35:56,596
+access something with this key,
+
+
+1333
+00:35:56,996 --> 00:35:57,906
+but it wasn't found in the
+
+
+1334
+00:35:57,906 --> 00:35:58,566
+payload anywhere.
+
+
+1335
+00:35:59,486 --> 00:36:00,606
+Along with that, we get some
+
+
+1336
+00:36:00,606 --> 00:36:01,936
+contextual information about
+
+
+1337
+00:36:01,936 --> 00:36:02,816
+what went wrong and where.
+
+
+1338
+00:36:03,476 --> 00:36:04,966
+So now, let's set a break point
+
+
+1339
+00:36:04,966 --> 00:36:06,256
+here, and run our app with this
+
+
+1340
+00:36:06,256 --> 00:36:07,866
+faulty key, and take a look to
+
+
+1341
+00:36:07,866 --> 00:36:09,146
+make sure that we can catch this
+
+
+1342
+00:36:09,146 --> 00:36:10,146
+error and we hit the break
+
+
+1343
+00:36:10,206 --> 00:36:10,386
+point.
+
+
+1344
+00:36:11,496 --> 00:36:13,456
+And so now that we run this app,
+
+
+1345
+00:36:13,596 --> 00:36:14,476
+you'll notice that we do hit
+
+
+1346
+00:36:14,476 --> 00:36:15,086
+that break point.
+
+
+1347
+00:36:15,316 --> 00:36:16,466
+Now, if we go ahead and print
+
+
+1348
+00:36:16,466 --> 00:36:17,946
+the key, you might see that this
+
+
+1349
+00:36:17,946 --> 00:36:19,376
+is in fact the URL key that we
+
+
+1350
+00:36:19,376 --> 00:36:21,036
+gave a faulty value to, and in
+
+
+1351
+00:36:21,036 --> 00:36:22,356
+fact, it wasn't found in the
+
+
+1352
+00:36:22,416 --> 00:36:23,426
+payload, and so we get the
+
+
+1353
+00:36:23,426 --> 00:36:23,656
+error.
+
+
+1354
+00:36:24,616 --> 00:36:26,016
+Now, here if we take a look at
+
+
+1355
+00:36:26,016 --> 00:36:27,166
+the contextual information, you
+
+
+1356
+00:36:27,166 --> 00:36:28,696
+might see two useful features
+
+
+1357
+00:36:29,046 --> 00:36:29,996
+that helps you debug what
+
+
+1358
+00:36:29,996 --> 00:36:30,376
+happened.
+
+
+1359
+00:36:31,146 --> 00:36:32,726
+First, a debug description for
+
+
+1360
+00:36:32,726 --> 00:36:34,176
+you the developer to figure out
+
+
+1361
+00:36:34,176 --> 00:36:35,836
+what went wrong along with the
+
+
+1362
+00:36:35,836 --> 00:36:37,476
+coding path that describes where
+
+
+1363
+00:36:37,476 --> 00:36:38,376
+in the payload something
+
+
+1364
+00:36:38,376 --> 00:36:39,846
+happened to cause this to go
+
+
+1365
+00:36:39,846 --> 00:36:40,136
+wrong.
+
+
+1366
+00:36:41,666 --> 00:36:42,846
+Now, this is all nice and good,
+
+
+1367
+00:36:42,946 --> 00:36:45,216
+but in fact, if my URL is
+
+
+1368
+00:36:45,216 --> 00:36:46,446
+something I don't really care
+
+
+1369
+00:36:46,446 --> 00:36:47,526
+about all that much and I might
+
+
+1370
+00:36:47,526 --> 00:36:49,036
+not need it, one way to handle
+
+
+1371
+00:36:49,036 --> 00:36:50,516
+this error is to make your URL
+
+
+1372
+00:36:50,646 --> 00:36:51,056
+optional.
+
+
+1373
+00:36:52,466 --> 00:36:53,356
+When you make the property
+
+
+1374
+00:36:53,356 --> 00:36:55,176
+optional by default, if the key
+
+
+1375
+00:36:55,176 --> 00:36:56,956
+or value is not found, it'll
+
+
+1376
+00:36:56,956 --> 00:36:58,616
+actually get set to nil on
+
+
+1377
+00:36:58,616 --> 00:36:59,256
+initialization.
+
+
+1378
+00:36:59,876 --> 00:37:01,256
+So let's hide our UI a bit and
+
+
+1379
+00:37:01,256 --> 00:37:02,596
+rerun our app to see if we hit
+
+
+1380
+00:37:02,596 --> 00:37:04,046
+that break point or not.
+
+
+1381
+00:37:04,596 --> 00:37:06,506
+And in fact, when we rerun it,
+
+
+1382
+00:37:06,606 --> 00:37:07,706
+we don't hit that break point
+
+
+1383
+00:37:07,706 --> 00:37:09,056
+because the value is set to nil
+
+
+1384
+00:37:09,056 --> 00:37:10,246
+by default, which is a handy
+
+
+1385
+00:37:10,246 --> 00:37:10,626
+behavior.
+
+
+1386
+00:37:11,386 --> 00:37:12,996
+Now, let's go back to our code
+
+
+1387
+00:37:12,996 --> 00:37:13,946
+and take a look and see what
+
+
+1388
+00:37:13,946 --> 00:37:15,116
+other errors we might be able to
+
+
+1389
+00:37:15,116 --> 00:37:16,006
+catch that are helpful.
+
+
+1390
+00:37:17,236 --> 00:37:18,766
+One other error like that is the
+
+
+1391
+00:37:18,766 --> 00:37:20,356
+DecodingError.valueNotFound,
+
+
+1392
+00:37:20,976 --> 00:37:22,156
+which indicates we tried to
+
+
+1393
+00:37:22,156 --> 00:37:23,596
+decode something of this type
+
+
+1394
+00:37:24,006 --> 00:37:25,146
+but in fact found nil.
+
+
+1395
+00:37:26,066 --> 00:37:27,296
+Again, you get that same
+
+
+1396
+00:37:27,296 --> 00:37:29,016
+contextual information that
+
+
+1397
+00:37:29,016 --> 00:37:31,046
+tells you what went wrong and
+
+
+1398
+00:37:32,176 --> 00:37:32,286
+where.
+
+
+1399
+00:37:32,486 --> 00:37:33,686
+Along with that, you might want
+
+
+1400
+00:37:33,686 --> 00:37:35,576
+to catch a type mismatch, which
+
+
+1401
+00:37:35,576 --> 00:37:36,916
+indicates that you try to decode
+
+
+1402
+00:37:36,916 --> 00:37:38,416
+something of this type, but
+
+
+1403
+00:37:38,416 --> 00:37:39,516
+something else was found in a,
+
+
+1404
+00:37:39,616 --> 00:37:40,186
+in the payload.
+
+
+1405
+00:37:40,326 --> 00:37:41,706
+Say, you tried to decode a
+
+
+1406
+00:37:41,706 --> 00:37:43,236
+strong, but instead, a number
+
+
+1407
+00:37:43,236 --> 00:37:43,646
+was found.
+
+
+1408
+00:37:44,126 --> 00:37:45,316
+And again, you get that same
+
+
+1409
+00:37:45,316 --> 00:37:46,566
+contextual information as
+
+
+1410
+00:37:46,566 --> 00:37:46,926
+before.
+
+
+1411
+00:37:47,746 --> 00:37:49,226
+Now, these errors are really
+
+
+1412
+00:37:49,226 --> 00:37:50,756
+handy for when you want to debug
+
+
+1413
+00:37:50,756 --> 00:37:52,366
+when something goes wrong, but
+
+
+1414
+00:37:52,366 --> 00:37:53,486
+in the general case, you don't
+
+
+1415
+00:37:53,486 --> 00:37:54,566
+really want to catch these at
+
+
+1416
+00:37:54,566 --> 00:37:55,676
+the top level like here.
+
+
+1417
+00:37:56,196 --> 00:37:57,026
+Instead, you just want to
+
+
+1418
+00:37:57,026 --> 00:37:57,976
+capture general error and
+
+
+1419
+00:37:57,976 --> 00:37:59,136
+display something localized to
+
+
+1420
+00:37:59,136 --> 00:38:00,436
+the users so they can figure out
+
+
+1421
+00:38:00,436 --> 00:38:03,166
+what went wrong or report the
+
+
+1422
+00:38:03,476 --> 00:38:03,566
+bug.
+
+
+1423
+00:38:03,566 --> 00:38:04,956
+Now, these are actually a very
+
+
+1424
+00:38:04,956 --> 00:38:06,336
+powerful tool to do some more
+
+
+1425
+00:38:06,336 --> 00:38:07,176
+advanced things.
+
+
+1426
+00:38:07,586 --> 00:38:09,056
+If you customize your init from
+
+
+1427
+00:38:09,056 --> 00:38:10,726
+or encode to, you can actually
+
+
+1428
+00:38:10,726 --> 00:38:12,026
+catch these errors within your
+
+
+1429
+00:38:12,026 --> 00:38:13,486
+types to do powerful things like
+
+
+1430
+00:38:13,526 --> 00:38:15,186
+data migrations, renaming
+
+
+1431
+00:38:15,186 --> 00:38:16,626
+properties, and so on and so
+
+
+1432
+00:38:16,626 --> 00:38:16,886
+forth.
+
+
+1433
+00:38:17,146 --> 00:38:18,676
+But within our app, we actually
+
+
+1434
+00:38:18,676 --> 00:38:19,866
+don't need that because I've got
+
+
+1435
+00:38:19,866 --> 00:38:21,116
+exactly what I want with not
+
+
+1436
+00:38:21,116 --> 00:38:21,526
+much code.
+
+
+1437
+00:38:22,096 --> 00:38:23,126
+And so I'm going to turn things
+
+
+1438
+00:38:23,126 --> 00:38:24,606
+back over to Tony to talk about
+
+
+1439
+00:38:24,606 --> 00:38:25,696
+some of these more advanced
+
+
+1440
+00:38:25,696 --> 00:38:27,176
+encoding and decoding topics.
+
+
+1441
+00:38:27,406 --> 00:38:27,716
+Thanks.
+
+
+1442
+00:38:28,516 --> 00:38:32,896
+[ Applause ]
+
+
+1443
+00:38:33,396 --> 00:38:33,826
+>> Thanks, Itai.
+
+
+1444
+00:38:34,456 --> 00:38:37,256
+All right, let's move on to talk
+
+
+1445
+00:38:37,256 --> 00:38:39,396
+about some more advanced topics
+
+
+1446
+00:38:39,446 --> 00:38:41,136
+in this, with encoding and
+
+
+1447
+00:38:41,136 --> 00:38:41,536
+decoding.
+
+
+1448
+00:38:41,536 --> 00:38:42,646
+And to do that, we're going to
+
+
+1449
+00:38:42,646 --> 00:38:43,996
+go over what I call the three
+
+
+1450
+00:38:43,996 --> 00:38:45,546
+pillars of our codable API
+
+
+1451
+00:38:45,546 --> 00:38:46,486
+design philosophy.
+
+
+1452
+00:38:46,926 --> 00:38:48,296
+The first is that we really
+
+
+1453
+00:38:48,296 --> 00:38:49,546
+wanted error handling to be
+
+
+1454
+00:38:49,546 --> 00:38:50,986
+built right in, as you just saw
+
+
+1455
+00:38:50,986 --> 00:38:51,556
+in this demo.
+
+
+1456
+00:38:51,906 --> 00:38:53,286
+So when you're working with
+
+
+1457
+00:38:53,286 --> 00:38:54,976
+archived data, dealing with
+
+
+1458
+00:38:54,976 --> 00:38:56,246
+unexpected input is not a
+
+
+1459
+00:38:56,246 --> 00:38:58,586
+question of if, but simply when.
+
+
+1460
+00:38:59,866 --> 00:39:01,396
+This can be data corruption, it
+
+
+1461
+00:39:01,396 --> 00:39:03,156
+could be unexpected API changes
+
+
+1462
+00:39:03,156 --> 00:39:04,216
+from where you receive that
+
+
+1463
+00:39:04,216 --> 00:39:05,916
+data, or even something like
+
+
+1464
+00:39:05,916 --> 00:39:07,356
+malicious input -- somebody
+
+
+1465
+00:39:07,356 --> 00:39:08,836
+trying to probe for weaknesses
+
+
+1466
+00:39:08,836 --> 00:39:09,646
+in your app.
+
+
+1467
+00:39:09,786 --> 00:39:10,916
+And so we decided that there
+
+
+1468
+00:39:10,916 --> 00:39:12,326
+should be no fatal errors as a
+
+
+1469
+00:39:12,326 --> 00:39:13,756
+result of parsing untrusted
+
+
+1470
+00:39:13,756 --> 00:39:13,976
+data.
+
+
+1471
+00:39:14,546 --> 00:39:16,636
+However, we do use the fatal
+
+
+1472
+00:39:16,636 --> 00:39:18,626
+error in Swift if we detect
+
+
+1473
+00:39:18,626 --> 00:39:19,306
+something that may be a
+
+
+1474
+00:39:19,306 --> 00:39:20,196
+developer mistake.
+
+
+1475
+00:39:20,296 --> 00:39:21,406
+And in those cases, there's a
+
+
+1476
+00:39:21,406 --> 00:39:22,356
+string with the fatal error
+
+
+1477
+00:39:22,356 --> 00:39:23,266
+that'll tell you where you may
+
+
+1478
+00:39:23,266 --> 00:39:23,976
+have gone wrong.
+
+
+1479
+00:39:23,976 --> 00:39:26,296
+For everything else, we use
+
+
+1480
+00:39:26,296 --> 00:39:27,886
+Swift's built-in error handling
+
+
+1481
+00:39:27,886 --> 00:39:29,196
+mechanism, and those kinds of
+
+
+1482
+00:39:29,196 --> 00:39:30,296
+errors are possible on both
+
+
+1483
+00:39:30,376 --> 00:39:31,956
+encoding and decoding.
+
+
+1484
+00:39:32,076 --> 00:39:33,866
+So let's look at what they are.
+
+
+1485
+00:39:35,166 --> 00:39:37,186
+First, there's encoding.
+
+
+1486
+00:39:37,286 --> 00:39:38,286
+So there's only one kind of
+
+
+1487
+00:39:38,286 --> 00:39:39,476
+error on encoding, and that is
+
+
+1488
+00:39:39,476 --> 00:39:40,406
+an invalid value.
+
+
+1489
+00:39:41,216 --> 00:39:42,756
+So for some kinds of formats
+
+
+1490
+00:39:42,756 --> 00:39:44,406
+like JSON, we wanted to give
+
+
+1491
+00:39:44,406 --> 00:39:46,086
+them the flexibility to handle
+
+
+1492
+00:39:46,626 --> 00:39:48,116
+input that they may not expect
+
+
+1493
+00:39:48,116 --> 00:39:49,536
+without resorting to a fatal
+
+
+1494
+00:39:49,536 --> 00:39:50,846
+error or some kind of default
+
+
+1495
+00:39:50,846 --> 00:39:51,256
+value.
+
+
+1496
+00:39:51,696 --> 00:39:53,076
+In JSON, for example, not a
+
+
+1497
+00:39:53,076 --> 00:39:55,416
+number or infinity are not valid
+
+
+1498
+00:39:55,416 --> 00:39:55,906
+values.
+
+
+1499
+00:39:55,906 --> 00:39:57,226
+And so in those cases, they can
+
+
+1500
+00:39:57,226 --> 00:39:57,756
+throw in error.
+
+
+1501
+00:39:58,336 --> 00:39:59,256
+There may not be much you can do
+
+
+1502
+00:39:59,256 --> 00:40:00,526
+about this at the type, by type
+
+
+1503
+00:40:00,526 --> 00:40:01,946
+level, but you could still catch
+
+
+1504
+00:40:01,946 --> 00:40:03,196
+it at the top level and present
+
+
+1505
+00:40:03,196 --> 00:40:05,096
+an error to your user or prevent
+
+
+1506
+00:40:05,096 --> 00:40:07,176
+some other kind of recovery
+
+
+1507
+00:40:07,176 --> 00:40:07,686
+mechanism.
+
+
+1508
+00:40:08,676 --> 00:40:09,896
+On decoding, there are four
+
+
+1509
+00:40:09,896 --> 00:40:11,396
+kinds of error, three of which
+
+
+1510
+00:40:11,396 --> 00:40:12,576
+we just saw in the demo -- type
+
+
+1511
+00:40:12,576 --> 00:40:13,776
+mismatch, missing key, and
+
+
+1512
+00:40:13,776 --> 00:40:14,836
+missing value, which you can
+
+
+1513
+00:40:14,836 --> 00:40:16,326
+handle, again, either by using
+
+
+1514
+00:40:16,326 --> 00:40:17,736
+the air handling mechanism if
+
+
+1515
+00:40:17,736 --> 00:40:19,196
+the [inaudible] a required part
+
+
+1516
+00:40:19,196 --> 00:40:20,966
+of your type or by making those
+
+
+1517
+00:40:20,966 --> 00:40:21,906
+properties optional.
+
+
+1518
+00:40:22,736 --> 00:40:23,796
+And lastly, we have data
+
+
+1519
+00:40:23,796 --> 00:40:24,236
+corrupt.
+
+
+1520
+00:40:24,706 --> 00:40:25,646
+Data corrupt is our kind of
+
+
+1521
+00:40:25,686 --> 00:40:26,946
+catch-all error for all the
+
+
+1522
+00:40:26,946 --> 00:40:27,876
+other kinds of things that can
+
+
+1523
+00:40:27,876 --> 00:40:29,046
+happen during a decode.
+
+
+1524
+00:40:29,646 --> 00:40:30,436
+And to see where it might be
+
+
+1525
+00:40:30,436 --> 00:40:32,136
+useful, let's go into some depth
+
+
+1526
+00:40:32,136 --> 00:40:33,356
+on what actually happens during
+
+
+1527
+00:40:33,356 --> 00:40:33,886
+a decode.
+
+
+1528
+00:40:34,656 --> 00:40:36,346
+First, in the beginning, all we
+
+
+1529
+00:40:36,346 --> 00:40:37,046
+have are bytes.
+
+
+1530
+00:40:37,616 --> 00:40:38,986
+It could be from the network.
+
+
+1531
+00:40:39,026 --> 00:40:40,716
+It could be from a file on disk
+
+
+1532
+00:40:41,016 --> 00:40:41,976
+or somewhere else in your app.
+
+
+1533
+00:40:42,256 --> 00:40:43,956
+But regardless, at this point,
+
+
+1534
+00:40:43,956 --> 00:40:44,826
+we don't really know anything
+
+
+1535
+00:40:44,826 --> 00:40:45,266
+about them.
+
+
+1536
+00:40:45,266 --> 00:40:47,146
+And so the very first step is to
+
+
+1537
+00:40:47,146 --> 00:40:48,346
+convert those bytes into
+
+
+1538
+00:40:48,346 --> 00:40:49,286
+structured bytes.
+
+
+1539
+00:40:50,176 --> 00:40:51,976
+For example, the JSON decoder
+
+
+1540
+00:40:52,356 --> 00:40:53,266
+has to verify certain
+
+
+1541
+00:40:53,266 --> 00:40:54,726
+requirements of the JSON spec
+
+
+1542
+00:40:54,726 --> 00:40:56,846
+are met -- the particular bytes
+
+
+1543
+00:40:56,846 --> 00:40:58,036
+at the beginning of the archive,
+
+
+1544
+00:40:58,196 --> 00:40:59,386
+which indicate string encoding;
+
+
+1545
+00:40:59,556 --> 00:41:00,896
+certain characters which are
+
+
+1546
+00:41:00,896 --> 00:41:02,946
+used as delimiters for strings,
+
+
+1547
+00:41:03,176 --> 00:41:04,366
+numeric values, arrays, and
+
+
+1548
+00:41:04,366 --> 00:41:05,386
+dictionaries, and so forth.
+
+
+1549
+00:41:05,596 --> 00:41:07,486
+If any of those look wrong, then
+
+
+1550
+00:41:07,486 --> 00:41:08,996
+the JSON decoder can throw an
+
+
+1551
+00:41:08,996 --> 00:41:10,876
+error and stop the decode right
+
+
+1552
+00:41:10,876 --> 00:41:11,096
+there.
+
+
+1553
+00:41:12,526 --> 00:41:14,306
+After that, we want to convert
+
+
+1554
+00:41:14,306 --> 00:41:15,826
+from things like JSON arrays,
+
+
+1555
+00:41:15,826 --> 00:41:16,896
+and dictionaries, and strings
+
+
+1556
+00:41:16,896 --> 00:41:18,706
+into your types, commits and
+
+
+1557
+00:41:18,706 --> 00:41:19,196
+authors.
+
+
+1558
+00:41:19,316 --> 00:41:20,606
+That is, after all, the entire
+
+
+1559
+00:41:20,606 --> 00:41:21,506
+point of this API.
+
+
+1560
+00:41:22,836 --> 00:41:24,066
+But there may be more that we
+
+
+1561
+00:41:24,066 --> 00:41:26,016
+can do, and we call that
+
+
+1562
+00:41:26,016 --> 00:41:27,576
+domain-specific validation.
+
+
+1563
+00:41:28,156 --> 00:41:29,506
+For example, let's say that you
+
+
+1564
+00:41:29,506 --> 00:41:30,526
+have a type that has an integer
+
+
+1565
+00:41:30,526 --> 00:41:32,276
+property, but the only valid
+
+
+1566
+00:41:32,276 --> 00:41:33,426
+values for the integer are
+
+
+1567
+00:41:33,426 --> 00:41:34,626
+between zero and 100.
+
+
+1568
+00:41:35,286 --> 00:41:37,086
+Or maybe your type has two
+
+
+1569
+00:41:37,086 --> 00:41:38,506
+Boolean properties, but they
+
+
+1570
+00:41:38,506 --> 00:41:39,786
+have to have an exclusive or
+
+
+1571
+00:41:39,786 --> 00:41:40,876
+relationship with each other.
+
+
+1572
+00:41:41,726 --> 00:41:42,546
+These kinds of things can be
+
+
+1573
+00:41:42,546 --> 00:41:44,126
+difficult to express in Swift's
+
+
+1574
+00:41:44,126 --> 00:41:46,116
+type system, but we do think we
+
+
+1575
+00:41:46,116 --> 00:41:48,066
+have a great tool for handling
+
+
+1576
+00:41:48,066 --> 00:41:49,176
+those, and that's just simply
+
+
+1577
+00:41:49,176 --> 00:41:50,126
+writing more Swift code.
+
+
+1578
+00:41:50,456 --> 00:41:51,786
+And so we wanted to make sure
+
+
+1579
+00:41:51,786 --> 00:41:52,486
+that we provided you the
+
+
+1580
+00:41:52,486 --> 00:41:53,826
+opportunity to do that if you
+
+
+1581
+00:41:53,826 --> 00:41:54,526
+have those kinds of
+
+
+1582
+00:41:54,526 --> 00:41:55,126
+requirements.
+
+
+1583
+00:41:56,156 --> 00:41:57,116
+Finally, you may have
+
+
+1584
+00:41:57,266 --> 00:41:58,396
+graph-level validation.
+
+
+1585
+00:41:58,736 --> 00:41:59,876
+This is about the relationship
+
+
+1586
+00:41:59,876 --> 00:42:01,036
+of the objects in the graph to
+
+
+1587
+00:42:01,036 --> 00:42:02,686
+each other or to another part of
+
+
+1588
+00:42:02,686 --> 00:42:03,066
+your app.
+
+
+1589
+00:42:04,046 --> 00:42:05,986
+Let's apply this to our commit.
+
+
+1590
+00:42:06,286 --> 00:42:07,676
+So earlier we saw how we
+
+
+1591
+00:42:07,676 --> 00:42:08,976
+customized our commentCount
+
+
+1592
+00:42:08,976 --> 00:42:10,826
+property by customizing the enum
+
+
+1593
+00:42:10,826 --> 00:42:11,696
+called CodingKeys.
+
+
+1594
+00:42:12,066 --> 00:42:13,016
+Now, we're going to customize
+
+
+1595
+00:42:13,046 --> 00:42:15,136
+the decodable by implementing
+
+
+1596
+00:42:15,136 --> 00:42:16,066
+init from decoder.
+
+
+1597
+00:42:16,916 --> 00:42:19,006
+First, I asked the decoder for a
+
+
+1598
+00:42:19,006 --> 00:42:19,716
+container.
+
+
+1599
+00:42:20,286 --> 00:42:21,976
+Containers are what match up
+
+
+1600
+00:42:21,976 --> 00:42:24,226
+your keys to the values that you
+
+
+1601
+00:42:24,226 --> 00:42:25,706
+expect to find in the archive.
+
+
+1602
+00:42:26,926 --> 00:42:28,426
+Once we have a container, we can
+
+
+1603
+00:42:28,426 --> 00:42:30,226
+ask it for the values that we
+
+
+1604
+00:42:30,226 --> 00:42:30,506
+need.
+
+
+1605
+00:42:30,736 --> 00:42:32,586
+So in this case, a URL, a
+
+
+1606
+00:42:32,586 --> 00:42:34,556
+string, our author, and there's
+
+
+1607
+00:42:34,556 --> 00:42:36,616
+our recursive descent again, and
+
+
+1608
+00:42:36,656 --> 00:42:37,886
+the integer value for
+
+
+1609
+00:42:37,886 --> 00:42:38,646
+commentCount.
+
+
+1610
+00:42:39,716 --> 00:42:40,686
+Now, let's say that I have an
+
+
+1611
+00:42:40,686 --> 00:42:41,766
+additional requirement that I
+
+
+1612
+00:42:41,766 --> 00:42:43,246
+need to verify as part of my
+
+
+1613
+00:42:43,246 --> 00:42:45,296
+spec, and that is that all URLs
+
+
+1614
+00:42:45,296 --> 00:42:47,056
+have to be HTTPS.
+
+
+1615
+00:42:47,496 --> 00:42:48,786
+If they're not, then something
+
+
+1616
+00:42:48,786 --> 00:42:49,426
+has gone wrong.
+
+
+1617
+00:42:50,106 --> 00:42:50,966
+So let's see how we might do
+
+
+1618
+00:42:50,966 --> 00:42:51,186
+that.
+
+
+1619
+00:42:51,586 --> 00:42:52,976
+First, make some more room on
+
+
+1620
+00:42:52,976 --> 00:42:53,346
+the slide.
+
+
+1621
+00:42:54,286 --> 00:42:55,806
+After that, I'm going to use the
+
+
+1622
+00:42:55,806 --> 00:42:57,256
+URL API that we already know how
+
+
+1623
+00:42:57,256 --> 00:42:59,276
+to use, and that is the scheme
+
+
+1624
+00:42:59,276 --> 00:42:59,706
+property.
+
+
+1625
+00:43:00,696 --> 00:43:01,666
+Here I can just check that it's
+
+
+1626
+00:43:01,666 --> 00:43:03,476
+equal to HTTPS, and if it's not,
+
+
+1627
+00:43:03,476 --> 00:43:04,816
+I can throw one of these
+
+
+1628
+00:43:04,816 --> 00:43:06,626
+decoding errors, providing a
+
+
+1629
+00:43:06,626 --> 00:43:07,676
+debug description so that you
+
+
+1630
+00:43:07,676 --> 00:43:08,956
+can catch it in your debugger as
+
+
+1631
+00:43:08,956 --> 00:43:09,986
+Itai showed in the demo.
+
+
+1632
+00:43:10,726 --> 00:43:11,806
+Now, what you see, what you'll
+
+
+1633
+00:43:11,806 --> 00:43:14,466
+notice is not here is this type,
+
+
+1634
+00:43:14,466 --> 00:43:16,076
+commit, looking into the string
+
+
+1635
+00:43:16,076 --> 00:43:17,136
+value for the URL.
+
+
+1636
+00:43:17,136 --> 00:43:19,286
+We can allow URL to decode
+
+
+1637
+00:43:19,286 --> 00:43:21,126
+itself, and that's part of
+
+
+1638
+00:43:21,176 --> 00:43:22,636
+what's so great about this
+
+
+1639
+00:43:22,636 --> 00:43:23,036
+design.
+
+
+1640
+00:43:23,426 --> 00:43:25,546
+So URL knows if that string is
+
+
+1641
+00:43:25,546 --> 00:43:26,896
+URL or not, and if it's not,
+
+
+1642
+00:43:27,296 --> 00:43:28,216
+it'll throw an error before we
+
+
+1643
+00:43:28,216 --> 00:43:29,106
+even get to this point.
+
+
+1644
+00:43:29,406 --> 00:43:30,466
+And because of the design of
+
+
+1645
+00:43:30,466 --> 00:43:32,006
+Swift's error handling, that can
+
+
+1646
+00:43:32,006 --> 00:43:34,036
+propagate out of this type to
+
+
+1647
+00:43:34,036 --> 00:43:34,826
+the one that's decoding the
+
+
+1648
+00:43:34,826 --> 00:43:36,426
+commit or even to the top level.
+
+
+1649
+00:43:36,926 --> 00:43:39,906
+Let's move on to the second
+
+
+1650
+00:43:39,906 --> 00:43:41,106
+pillar, and that is
+
+
+1651
+00:43:41,106 --> 00:43:42,706
+encapsulation of the encoding
+
+
+1652
+00:43:42,706 --> 00:43:43,246
+details.
+
+
+1653
+00:43:44,366 --> 00:43:45,576
+We felt it was really important
+
+
+1654
+00:43:45,576 --> 00:43:47,536
+to make sure that the keys and
+
+
+1655
+00:43:47,536 --> 00:43:49,226
+values that a type chooses to
+
+
+1656
+00:43:49,226 --> 00:43:50,776
+put into the archive are private
+
+
+1657
+00:43:50,876 --> 00:43:51,606
+to that type.
+
+
+1658
+00:43:51,606 --> 00:43:54,036
+And the reason it's important is
+
+
+1659
+00:43:54,036 --> 00:43:55,616
+because that frees us from
+
+
+1660
+00:43:55,616 --> 00:43:57,176
+something that, from designing
+
+
+1661
+00:43:57,176 --> 00:43:58,326
+something that has global
+
+
+1662
+00:43:58,326 --> 00:43:59,906
+knowledge of everything in the
+
+
+1663
+00:43:59,906 --> 00:44:01,256
+archive that can possibly be
+
+
+1664
+00:44:01,256 --> 00:44:01,476
+there.
+
+
+1665
+00:44:02,286 --> 00:44:03,486
+The main mechanism we have for
+
+
+1666
+00:44:03,586 --> 00:44:05,206
+performing this encapsulation is
+
+
+1667
+00:44:05,206 --> 00:44:06,926
+called containers, and we have
+
+
+1668
+00:44:07,026 --> 00:44:07,576
+three kinds.
+
+
+1669
+00:44:08,126 --> 00:44:10,026
+The first is a keyed container.
+
+
+1670
+00:44:10,716 --> 00:44:11,946
+Keyed containers are the
+
+
+1671
+00:44:11,946 --> 00:44:13,056
+preferred choice in the vast
+
+
+1672
+00:44:13,056 --> 00:44:14,426
+majority of cases, and the
+
+
+1673
+00:44:14,426 --> 00:44:16,396
+reason is because they're by far
+
+
+1674
+00:44:16,396 --> 00:44:17,636
+the most forward and backward
+
+
+1675
+00:44:17,636 --> 00:44:18,166
+compatible.
+
+
+1676
+00:44:18,836 --> 00:44:20,166
+If in a new version of your app
+
+
+1677
+00:44:20,226 --> 00:44:22,186
+you have new or changed data,
+
+
+1678
+00:44:22,556 --> 00:44:23,626
+you simply have to use a new
+
+
+1679
+00:44:23,626 --> 00:44:23,946
+key.
+
+
+1680
+00:44:24,576 --> 00:44:26,016
+This makes the most versions of
+
+
+1681
+00:44:26,016 --> 00:44:27,546
+your app compatible with the
+
+
+1682
+00:44:27,546 --> 00:44:28,686
+most versions of your data,
+
+
+1683
+00:44:28,946 --> 00:44:29,836
+which is the best possible
+
+
+1684
+00:44:29,836 --> 00:44:30,716
+outcome for everybody.
+
+
+1685
+00:44:31,896 --> 00:44:32,976
+Let's look at what those keys
+
+
+1686
+00:44:32,976 --> 00:44:33,586
+actually are.
+
+
+1687
+00:44:34,186 --> 00:44:35,086
+So earlier we talked about the
+
+
+1688
+00:44:35,086 --> 00:44:36,056
+CodingKey protocol.
+
+
+1689
+00:44:36,206 --> 00:44:37,146
+Here's what it is.
+
+
+1690
+00:44:37,526 --> 00:44:39,406
+It has two protocol, or two
+
+
+1691
+00:44:39,406 --> 00:44:41,256
+properties and two initializers.
+
+
+1692
+00:44:41,836 --> 00:44:43,046
+So the properties are
+
+
+1693
+00:44:43,046 --> 00:44:44,376
+stringValue, which is handy when
+
+
+1694
+00:44:44,376 --> 00:44:45,346
+you're working with JSON, for
+
+
+1695
+00:44:45,346 --> 00:44:46,776
+example, but you can also
+
+
+1696
+00:44:46,776 --> 00:44:48,166
+provide an integer value, which
+
+
+1697
+00:44:48,166 --> 00:44:49,376
+is useful for formats that may
+
+
+1698
+00:44:49,376 --> 00:44:50,896
+support a more efficient encoded
+
+
+1699
+00:44:50,896 --> 00:44:51,976
+binary representation.
+
+
+1700
+00:44:53,186 --> 00:44:54,346
+The initializers, what I would
+
+
+1701
+00:44:54,346 --> 00:44:55,336
+like you to notice is that they
+
+
+1702
+00:44:55,336 --> 00:44:56,056
+are optional.
+
+
+1703
+00:44:56,576 --> 00:44:57,386
+What that means is that the
+
+
+1704
+00:44:57,386 --> 00:44:58,956
+decoder has an ability to
+
+
+1705
+00:44:58,956 --> 00:45:00,416
+perform an additional level of
+
+
+1706
+00:45:00,416 --> 00:45:01,236
+safety checking.
+
+
+1707
+00:45:01,476 --> 00:45:03,406
+It can verify with your coding
+
+
+1708
+00:45:03,406 --> 00:45:05,436
+key that the value that's found
+
+
+1709
+00:45:05,436 --> 00:45:06,486
+in the archive is actually what
+
+
+1710
+00:45:06,486 --> 00:45:07,456
+you expect to find there.
+
+
+1711
+00:45:08,346 --> 00:45:09,416
+Typically, you're going to adopt
+
+
+1712
+00:45:09,416 --> 00:45:11,316
+this protocol on an enumeration,
+
+
+1713
+00:45:11,496 --> 00:45:12,946
+like the one we've seen so far.
+
+
+1714
+00:45:13,366 --> 00:45:15,196
+And again, what's happening here
+
+
+1715
+00:45:15,196 --> 00:45:16,036
+is that the compiler in the
+
+
+1716
+00:45:16,036 --> 00:45:17,306
+standard library are providing
+
+
+1717
+00:45:17,306 --> 00:45:18,636
+an implementation of all four of
+
+
+1718
+00:45:18,636 --> 00:45:19,576
+those requirements for us
+
+
+1719
+00:45:19,576 --> 00:45:20,436
+completely for free.
+
+
+1720
+00:45:20,976 --> 00:45:22,146
+So in this case, because the
+
+
+1721
+00:45:22,146 --> 00:45:24,636
+enum is backed by a string, the
+
+
+1722
+00:45:24,636 --> 00:45:26,516
+compiler uses the case name as
+
+
+1723
+00:45:26,516 --> 00:45:27,566
+the string value, both for the
+
+
+1724
+00:45:27,566 --> 00:45:28,656
+property and for the
+
+
+1725
+00:45:28,656 --> 00:45:29,316
+initializer.
+
+
+1726
+00:45:29,386 --> 00:45:30,916
+The intValue, though, remains
+
+
+1727
+00:45:30,916 --> 00:45:32,046
+nil because there's not enough
+
+
+1728
+00:45:32,046 --> 00:45:33,406
+information in this enum to
+
+
+1729
+00:45:33,406 --> 00:45:34,846
+assign a particular value to
+
+
+1730
+00:45:34,846 --> 00:45:35,096
+that.
+
+
+1731
+00:45:36,096 --> 00:45:37,286
+Earlier when we customized the
+
+
+1732
+00:45:37,286 --> 00:45:38,856
+case name, you can see how that
+
+
+1733
+00:45:38,856 --> 00:45:39,446
+worked now.
+
+
+1734
+00:45:39,566 --> 00:45:40,986
+We changed the name of the case,
+
+
+1735
+00:45:41,166 --> 00:45:42,726
+but the value remained the same.
+
+
+1736
+00:45:42,726 --> 00:45:44,066
+And so stringValue remained
+
+
+1737
+00:45:44,066 --> 00:45:45,426
+compatible with our GitHub API.
+
+
+1738
+00:45:47,016 --> 00:45:48,646
+If you're writing library code,
+
+
+1739
+00:45:48,736 --> 00:45:49,366
+I would encourage you to
+
+
+1740
+00:45:49,366 --> 00:45:50,436
+consider backing your coding
+
+
+1741
+00:45:50,436 --> 00:45:51,376
+keys with an integer.
+
+
+1742
+00:45:51,426 --> 00:45:54,036
+If you do this, you still get
+
+
+1743
+00:45:54,036 --> 00:45:55,326
+more implementation for free
+
+
+1744
+00:45:55,326 --> 00:45:56,706
+from the compiler -- in this
+
+
+1745
+00:45:56,706 --> 00:45:57,986
+case, an integer value, which,
+
+
+1746
+00:45:57,986 --> 00:45:59,806
+again, could be useful for
+
+
+1747
+00:45:59,806 --> 00:46:01,286
+formats that may support integer
+
+
+1748
+00:46:01,286 --> 00:46:01,726
+keys.
+
+
+1749
+00:46:03,496 --> 00:46:05,256
+We also support unkeyed
+
+
+1750
+00:46:05,256 --> 00:46:05,826
+containers.
+
+
+1751
+00:46:06,026 --> 00:46:08,126
+These encode and decode in
+
+
+1752
+00:46:08,236 --> 00:46:08,576
+order.
+
+
+1753
+00:46:09,326 --> 00:46:10,606
+Use these for ordered or
+
+
+1754
+00:46:10,606 --> 00:46:12,236
+unbounded data, and, you know,
+
+
+1755
+00:46:12,236 --> 00:46:13,126
+the reason for that is that, of
+
+
+1756
+00:46:13,126 --> 00:46:13,726
+course, you don't have to
+
+
+1757
+00:46:13,726 --> 00:46:14,986
+generate fake keys in order to
+
+
+1758
+00:46:14,986 --> 00:46:16,216
+get your data into an archive.
+
+
+1759
+00:46:17,076 --> 00:46:18,826
+We also support single value
+
+
+1760
+00:46:18,826 --> 00:46:20,166
+container, which, as the name
+
+
+1761
+00:46:20,166 --> 00:46:22,006
+suggests, holds exactly one
+
+
+1762
+00:46:22,006 --> 00:46:22,336
+entry.
+
+
+1763
+00:46:22,996 --> 00:46:24,286
+Use these for primitive types.
+
+
+1764
+00:46:24,346 --> 00:46:25,796
+For example, date stores the
+
+
+1765
+00:46:25,796 --> 00:46:27,036
+number of seconds since a
+
+
+1766
+00:46:27,036 --> 00:46:28,156
+reference point in time.
+
+
+1767
+00:46:28,966 --> 00:46:30,196
+Now, when you choose these, just
+
+
+1768
+00:46:30,196 --> 00:46:31,856
+be aware that they are the least
+
+
+1769
+00:46:31,856 --> 00:46:34,376
+compatible choice, so keep that
+
+
+1770
+00:46:34,376 --> 00:46:34,716
+in mind.
+
+
+1771
+00:46:35,896 --> 00:46:37,266
+Let's return one more time to
+
+
+1772
+00:46:37,266 --> 00:46:37,866
+our commit.
+
+
+1773
+00:46:39,056 --> 00:46:40,346
+So we saw how we customized the
+
+
+1774
+00:46:40,346 --> 00:46:42,696
+commentCount and the CodingKeys
+
+
+1775
+00:46:42,696 --> 00:46:44,286
+with that, the decoding by
+
+
+1776
+00:46:44,286 --> 00:46:45,546
+changing init from decoder.
+
+
+1777
+00:46:45,916 --> 00:46:48,406
+Now, let's look at encoding with
+
+
+1778
+00:46:48,406 --> 00:46:49,476
+encode to encoder.
+
+
+1779
+00:46:49,806 --> 00:46:50,976
+And actually, I don't need to
+
+
+1780
+00:46:50,976 --> 00:46:52,616
+customize anything here, but I
+
+
+1781
+00:46:52,616 --> 00:46:53,366
+still want to show you what it
+
+
+1782
+00:46:53,366 --> 00:46:54,726
+looks like so you can understand
+
+
+1783
+00:46:54,726 --> 00:46:55,316
+how it works.
+
+
+1784
+00:46:55,756 --> 00:46:57,876
+So first, we get a container,
+
+
+1785
+00:46:57,946 --> 00:46:59,266
+and that container, as you can
+
+
+1786
+00:46:59,266 --> 00:47:00,986
+see here, is keyed by our own
+
+
+1787
+00:47:00,986 --> 00:47:02,766
+private-to-us CodingKeys.
+
+
+1788
+00:47:03,276 --> 00:47:05,426
+That container is how I can
+
+
+1789
+00:47:05,426 --> 00:47:07,706
+encode the values that I want to
+
+
+1790
+00:47:07,706 --> 00:47:08,886
+be put in the archive -- our
+
+
+1791
+00:47:08,916 --> 00:47:10,376
+URL, message, author, the
+
+
+1792
+00:47:10,376 --> 00:47:12,056
+recursive descent again, and the
+
+
+1793
+00:47:12,056 --> 00:47:12,666
+comment count.
+
+
+1794
+00:47:12,836 --> 00:47:14,466
+I do want to show you an example
+
+
+1795
+00:47:14,466 --> 00:47:15,176
+of where you may choose a
+
+
+1796
+00:47:15,176 --> 00:47:16,756
+different kind of container, so
+
+
+1797
+00:47:16,756 --> 00:47:17,766
+let's say that we are working
+
+
+1798
+00:47:17,766 --> 00:47:19,436
+with the GO JSON spec, which has
+
+
+1799
+00:47:19,756 --> 00:47:20,876
+this concept of a point.
+
+
+1800
+00:47:21,346 --> 00:47:22,636
+And point has two values, and it
+
+
+1801
+00:47:22,636 --> 00:47:23,556
+should be an array of two
+
+
+1802
+00:47:23,556 --> 00:47:24,786
+numeric entries in JSON.
+
+
+1803
+00:47:25,076 --> 00:47:26,306
+So in order to make that work,
+
+
+1804
+00:47:26,636 --> 00:47:28,826
+I'm going to adopt encodable and
+
+
+1805
+00:47:28,896 --> 00:47:30,426
+implement the encode to encoder
+
+
+1806
+00:47:30,466 --> 00:47:32,206
+to use a unkeyed container.
+
+
+1807
+00:47:32,316 --> 00:47:33,166
+And you'll notice, of course,
+
+
+1808
+00:47:33,166 --> 00:47:34,796
+there's no key argument to this
+
+
+1809
+00:47:34,796 --> 00:47:35,266
+container.
+
+
+1810
+00:47:35,756 --> 00:47:37,156
+And when I encode, I use no
+
+
+1811
+00:47:37,156 --> 00:47:37,616
+keys.
+
+
+1812
+00:47:37,756 --> 00:47:39,466
+And the result looks something
+
+
+1813
+00:47:39,466 --> 00:47:40,506
+like this in JSON.
+
+
+1814
+00:47:41,656 --> 00:47:43,116
+We also support nested
+
+
+1815
+00:47:43,116 --> 00:47:43,616
+containers.
+
+
+1816
+00:47:44,076 --> 00:47:45,676
+So let's say that maybe the
+
+
+1817
+00:47:45,676 --> 00:47:47,066
+second entry in my dictionary
+
+
+1818
+00:47:47,066 --> 00:47:48,226
+actually needed to be an array
+
+
+1819
+00:47:48,226 --> 00:47:48,896
+of three values.
+
+
+1820
+00:47:49,106 --> 00:47:50,936
+So we support nesting unkeyed
+
+
+1821
+00:47:50,936 --> 00:47:52,286
+containers and keyed containers,
+
+
+1822
+00:47:52,286 --> 00:47:53,886
+as you see here, or any other
+
+
+1823
+00:47:53,886 --> 00:47:55,456
+combination of keyed, unkeyed,
+
+
+1824
+00:47:55,456 --> 00:47:56,266
+and single value.
+
+
+1825
+00:47:57,126 --> 00:47:58,346
+The primary use case for nested
+
+
+1826
+00:47:58,346 --> 00:48:00,096
+containers is actually classes.
+
+
+1827
+00:48:00,506 --> 00:48:01,926
+We've talked a lot about structs
+
+
+1828
+00:48:02,376 --> 00:48:04,926
+so far, but nested containers
+
+
+1829
+00:48:04,926 --> 00:48:06,526
+gives us a natural mechanism for
+
+
+1830
+00:48:06,526 --> 00:48:08,066
+encapsulating our superclass
+
+
+1831
+00:48:08,066 --> 00:48:09,406
+data from our own data as a
+
+
+1832
+00:48:09,406 --> 00:48:10,886
+subclass, which is a change from
+
+
+1833
+00:48:10,886 --> 00:48:11,346
+NSCoding.
+
+
+1834
+00:48:12,116 --> 00:48:13,006
+Let's look at an example.
+
+
+1835
+00:48:13,546 --> 00:48:14,636
+Here's everyone's favorite
+
+
+1836
+00:48:14,766 --> 00:48:15,816
+object-oriented example,
+
+
+1837
+00:48:15,816 --> 00:48:16,286
+animals.
+
+
+1838
+00:48:16,426 --> 00:48:17,956
+So animals have a leg count,
+
+
+1839
+00:48:18,336 --> 00:48:18,786
+naturally.
+
+
+1840
+00:48:19,176 --> 00:48:21,296
+And its own coding keys.
+
+
+1841
+00:48:21,406 --> 00:48:23,306
+And here you can see that on
+
+
+1842
+00:48:23,306 --> 00:48:24,366
+this class, when I implement
+
+
+1843
+00:48:24,366 --> 00:48:25,436
+init from decoder, it is a
+
+
+1844
+00:48:25,436 --> 00:48:26,466
+required initializer.
+
+
+1845
+00:48:27,726 --> 00:48:29,376
+Here I create a keyed contained
+
+
+1846
+00:48:29,376 --> 00:48:30,806
+using the animal's coding keys
+
+
+1847
+00:48:30,806 --> 00:48:31,856
+and decode my leg count.
+
+
+1848
+00:48:31,996 --> 00:48:32,786
+Pretty similar to what we've
+
+
+1849
+00:48:32,786 --> 00:48:33,466
+seen so far.
+
+
+1850
+00:48:34,576 --> 00:48:35,766
+Now, let's subclass it.
+
+
+1851
+00:48:36,526 --> 00:48:37,786
+Dogs is a kind of animal that
+
+
+1852
+00:48:37,786 --> 00:48:39,046
+has a best friend, which is the
+
+
+1853
+00:48:39,046 --> 00:48:40,186
+kid from our birthday party
+
+
+1854
+00:48:40,186 --> 00:48:40,566
+earlier.
+
+
+1855
+00:48:41,256 --> 00:48:42,926
+Now, you notice that dog also
+
+
+1856
+00:48:42,926 --> 00:48:44,256
+has a private enum called
+
+
+1857
+00:48:44,256 --> 00:48:46,486
+CodingKeys, and yet, even though
+
+
+1858
+00:48:46,486 --> 00:48:47,546
+it has the same name as the one
+
+
+1859
+00:48:47,546 --> 00:48:48,956
+from the superclass, because
+
+
+1860
+00:48:48,956 --> 00:48:50,536
+it's private, it doesn't
+
+
+1861
+00:48:50,536 --> 00:48:52,146
+conflict with the one that
+
+
+1862
+00:48:52,146 --> 00:48:52,896
+animal uses.
+
+
+1863
+00:48:53,376 --> 00:48:54,996
+So when I implement the dog's
+
+
+1864
+00:48:54,996 --> 00:48:56,316
+init from decoder and get a
+
+
+1865
+00:48:56,316 --> 00:48:58,046
+container with its own coding
+
+
+1866
+00:48:58,046 --> 00:48:59,696
+keys, I can decode it in a
+
+
+1867
+00:48:59,696 --> 00:49:01,506
+type-safe way with the keys that
+
+
+1868
+00:49:01,506 --> 00:49:03,126
+are important to it, not its
+
+
+1869
+00:49:03,126 --> 00:49:03,786
+superclass.
+
+
+1870
+00:49:04,526 --> 00:49:05,516
+Now, we do need to finish that
+
+
+1871
+00:49:05,516 --> 00:49:05,926
+nesting.
+
+
+1872
+00:49:06,556 --> 00:49:08,516
+So we could call superclass, our
+
+
+1873
+00:49:08,516 --> 00:49:09,956
+superclasses init from decoder
+
+
+1874
+00:49:09,956 --> 00:49:10,986
+with the decoder that we
+
+
+1875
+00:49:10,986 --> 00:49:11,546
+received.
+
+
+1876
+00:49:12,026 --> 00:49:13,776
+However, that doesn't give the
+
+
+1877
+00:49:13,776 --> 00:49:16,266
+container a chance to nest that
+
+
+1878
+00:49:16,266 --> 00:49:17,146
+superclass data.
+
+
+1879
+00:49:17,636 --> 00:49:19,226
+So the easiest way to do that is
+
+
+1880
+00:49:19,226 --> 00:49:20,466
+to use this convenience API --
+
+
+1881
+00:49:21,046 --> 00:49:22,406
+it's called superDecoder -- that
+
+
+1882
+00:49:22,406 --> 00:49:23,966
+gets a new decoder that we could
+
+
+1883
+00:49:23,966 --> 00:49:25,106
+pass to our superclass.
+
+
+1884
+00:49:25,386 --> 00:49:27,416
+And by calling super, we finish
+
+
+1885
+00:49:27,866 --> 00:49:29,546
+satisfying Swift's rules for
+
+
+1886
+00:49:29,546 --> 00:49:30,906
+creating an initializer that
+
+
+1887
+00:49:31,036 --> 00:49:32,556
+results in a finally initialized
+
+
+1888
+00:49:32,606 --> 00:49:33,876
+type that's ready for use.
+
+
+1889
+00:49:36,776 --> 00:49:38,166
+Finally, we have our third
+
+
+1890
+00:49:38,166 --> 00:49:39,666
+pillar, and that is abstracting
+
+
+1891
+00:49:39,666 --> 00:49:41,676
+the encoded format from these
+
+
+1892
+00:49:41,706 --> 00:49:42,226
+types.
+
+
+1893
+00:49:43,606 --> 00:49:44,716
+We felt it was important to be
+
+
+1894
+00:49:44,716 --> 00:49:46,816
+able to reuse one implementation
+
+
+1895
+00:49:46,876 --> 00:49:48,286
+of these protocols.
+
+
+1896
+00:49:49,186 --> 00:49:50,216
+We didn't want to wind up in a
+
+
+1897
+00:49:50,216 --> 00:49:51,906
+situation where we had many
+
+
+1898
+00:49:52,156 --> 00:49:53,036
+almost duplicated
+
+
+1899
+00:49:53,036 --> 00:49:55,256
+implementations of encodable and
+
+
+1900
+00:49:55,256 --> 00:49:56,656
+decodable to support new
+
+
+1901
+00:49:56,656 --> 00:49:57,276
+formats.
+
+
+1902
+00:49:57,986 --> 00:50:00,636
+So by abstracting the format, we
+
+
+1903
+00:50:00,636 --> 00:50:02,046
+can allow brand-new formats
+
+
+1904
+00:50:02,046 --> 00:50:03,436
+without any library changes.
+
+
+1905
+00:50:03,626 --> 00:50:04,886
+Those formats can come from us,
+
+
+1906
+00:50:05,216 --> 00:50:06,836
+or from you, or even from Swift
+
+
+1907
+00:50:06,836 --> 00:50:09,636
+Packages, and those formats can
+
+
+1908
+00:50:09,636 --> 00:50:10,656
+work with types that come from
+
+
+1909
+00:50:10,656 --> 00:50:12,276
+us, or from you, or with Swift
+
+
+1910
+00:50:12,276 --> 00:50:12,866
+Packages.
+
+
+1911
+00:50:13,836 --> 00:50:15,146
+We do understand, though, that
+
+
+1912
+00:50:15,146 --> 00:50:16,916
+different formats have different
+
+
+1913
+00:50:16,916 --> 00:50:18,576
+fundamental types and different
+
+
+1914
+00:50:18,576 --> 00:50:19,256
+conventions.
+
+
+1915
+00:50:19,906 --> 00:50:21,196
+So the mechanism we have for
+
+
+1916
+00:50:21,196 --> 00:50:22,116
+working with that is called
+
+
+1917
+00:50:22,116 --> 00:50:23,136
+encoding strategies.
+
+
+1918
+00:50:23,496 --> 00:50:24,536
+These are encoder- and
+
+
+1919
+00:50:24,536 --> 00:50:26,266
+decoder-specific customizations
+
+
+1920
+00:50:26,596 --> 00:50:27,746
+for certain types.
+
+
+1921
+00:50:27,906 --> 00:50:29,696
+For example, in JSON, we saw one
+
+
+1922
+00:50:29,696 --> 00:50:30,556
+already for date.
+
+
+1923
+00:50:31,016 --> 00:50:32,596
+In our GitHub example, the date
+
+
+1924
+00:50:32,596 --> 00:50:34,426
+was encoded as an iso8601
+
+
+1925
+00:50:34,426 --> 00:50:34,816
+string.
+
+
+1926
+00:50:35,486 --> 00:50:36,906
+But there are other conventions
+
+
+1927
+00:50:37,006 --> 00:50:38,046
+that are possible.
+
+
+1928
+00:50:38,096 --> 00:50:39,236
+For example, the number of
+
+
+1929
+00:50:39,236 --> 00:50:40,726
+seconds since a reference date,
+
+
+1930
+00:50:40,986 --> 00:50:42,236
+the number of milliseconds since
+
+
+1931
+00:50:42,236 --> 00:50:43,786
+a reference date, or you can
+
+
+1932
+00:50:43,786 --> 00:50:45,216
+even specify a completely custom
+
+
+1933
+00:50:45,216 --> 00:50:46,546
+date formatter if you have
+
+
+1934
+00:50:46,546 --> 00:50:47,726
+something very specialized in
+
+
+1935
+00:50:47,726 --> 00:50:48,026
+mind.
+
+
+1936
+00:50:49,066 --> 00:50:50,276
+The JSON encoder and decoder
+
+
+1937
+00:50:50,276 --> 00:50:51,196
+support other kinds of
+
+
+1938
+00:50:51,196 --> 00:50:51,756
+strategies.
+
+
+1939
+00:50:51,756 --> 00:50:53,346
+For example, for data.
+
+
+1940
+00:50:53,956 --> 00:50:55,356
+In JSON, it's very common to
+
+
+1941
+00:50:55,446 --> 00:50:56,816
+Base64 encode your data.
+
+
+1942
+00:50:57,766 --> 00:50:59,116
+But we also allow you to
+
+
+1943
+00:50:59,116 --> 00:51:00,256
+customize this by choosing a
+
+
+1944
+00:51:00,256 --> 00:51:02,636
+strategy that encodes it as an
+
+
+1945
+00:51:02,636 --> 00:51:04,126
+array of bytes, or you can
+
+
+1946
+00:51:04,126 --> 00:51:05,176
+specify something completely
+
+
+1947
+00:51:05,176 --> 00:51:06,576
+custom, like this one, which
+
+
+1948
+00:51:06,576 --> 00:51:07,886
+turns all zeros into sheep and
+
+
+1949
+00:51:07,886 --> 00:51:08,866
+everything else into a dog.
+
+
+1950
+00:51:09,506 --> 00:51:11,066
+I don't know why you'd do this,
+
+
+1951
+00:51:11,066 --> 00:51:13,196
+but it's possible, so there you
+
+
+1952
+00:51:13,196 --> 00:51:13,366
+go.
+
+
+1953
+00:51:13,976 --> 00:51:16,196
+Now, this abstraction helps us
+
+
+1954
+00:51:16,256 --> 00:51:17,506
+with different formats as well.
+
+
+1955
+00:51:17,506 --> 00:51:18,246
+So we've seen, we've talked a
+
+
+1956
+00:51:18,246 --> 00:51:19,736
+lot about JSON today, but
+
+
+1957
+00:51:19,736 --> 00:51:20,526
+actually, we are also
+
+
+1958
+00:51:20,526 --> 00:51:21,806
+introducing a property list
+
+
+1959
+00:51:21,806 --> 00:51:22,756
+encoder and decoder.
+
+
+1960
+00:51:23,396 --> 00:51:25,186
+And property lists, unlike JSON,
+
+
+1961
+00:51:25,186 --> 00:51:27,066
+have native types for data and
+
+
+1962
+00:51:27,066 --> 00:51:27,486
+for date.
+
+
+1963
+00:51:28,096 --> 00:51:29,786
+And so when these encoders and
+
+
+1964
+00:51:29,786 --> 00:51:31,326
+decoders encounter these objects
+
+
+1965
+00:51:31,326 --> 00:51:32,336
+either in the object graph that
+
+
+1966
+00:51:32,336 --> 00:51:33,706
+it's encoding or in the data
+
+
+1967
+00:51:33,706 --> 00:51:35,656
+that it's unarchiving, we can
+
+
+1968
+00:51:35,656 --> 00:51:36,506
+convert them into the right
+
+
+1969
+00:51:36,506 --> 00:51:37,716
+types that are proper for that
+
+
+1970
+00:51:37,716 --> 00:51:38,076
+format.
+
+
+1971
+00:51:38,486 --> 00:51:40,876
+Because of these abstractions,
+
+
+1972
+00:51:40,876 --> 00:51:41,996
+we're able to adopt the codable
+
+
+1973
+00:51:41,996 --> 00:51:43,696
+protocols on a wide variety of
+
+
+1974
+00:51:43,696 --> 00:51:45,066
+Foundation types, including all
+
+
+1975
+00:51:45,066 --> 00:51:45,836
+the ones you see here.
+
+
+1976
+00:51:45,836 --> 00:51:48,416
+Now, we've talked about a lot of
+
+
+1977
+00:51:48,416 --> 00:51:49,286
+codable API.
+
+
+1978
+00:51:49,286 --> 00:51:51,096
+I want to give you a visual
+
+
+1979
+00:51:51,096 --> 00:51:52,946
+overview to help you understand
+
+
+1980
+00:51:52,986 --> 00:51:54,006
+what the big picture is.
+
+
+1981
+00:51:54,116 --> 00:51:54,866
+So we're going to start, of
+
+
+1982
+00:51:54,866 --> 00:51:55,846
+course, with your type.
+
+
+1983
+00:51:56,616 --> 00:51:58,836
+Your type adopts two protocols.
+
+
+1984
+00:51:58,896 --> 00:52:00,166
+They're called encodable and
+
+
+1985
+00:52:00,166 --> 00:52:00,746
+decodable.
+
+
+1986
+00:52:01,916 --> 00:52:03,116
+These have a function and an
+
+
+1987
+00:52:03,116 --> 00:52:04,476
+initializer, which give you
+
+
+1988
+00:52:04,476 --> 00:52:06,546
+access to an encoder and a
+
+
+1989
+00:52:06,546 --> 00:52:07,146
+decoder.
+
+
+1990
+00:52:08,266 --> 00:52:09,686
+These provide you access to
+
+
+1991
+00:52:09,686 --> 00:52:10,736
+containers, and that's what
+
+
+1992
+00:52:10,736 --> 00:52:11,976
+actually holds the values that
+
+
+1993
+00:52:11,976 --> 00:52:12,726
+are in the archive.
+
+
+1994
+00:52:13,216 --> 00:52:14,086
+In the case of a keyed
+
+
+1995
+00:52:14,086 --> 00:52:16,086
+container, we use the coding
+
+
+1996
+00:52:16,086 --> 00:52:17,646
+keys that are defined by your
+
+
+1997
+00:52:17,646 --> 00:52:18,016
+type.
+
+
+1998
+00:52:19,216 --> 00:52:20,746
+And finally, the encoders and
+
+
+1999
+00:52:20,746 --> 00:52:22,026
+containers provide an
+
+
+2000
+00:52:22,026 --> 00:52:23,606
+abstraction for encoded formats
+
+
+2001
+00:52:23,606 --> 00:52:25,766
+like JSON, property list, and
+
+
+2002
+00:52:25,806 --> 00:52:26,076
+more.
+
+
+2003
+00:52:26,656 --> 00:52:29,996
+All right, so we started today
+
+
+2004
+00:52:29,996 --> 00:52:31,626
+by going over some new API and
+
+
+2005
+00:52:31,626 --> 00:52:32,776
+improved performance in this
+
+
+2006
+00:52:32,776 --> 00:52:33,896
+year's release of Foundation.
+
+
+2007
+00:52:34,476 --> 00:52:35,976
+After that, we looked at the new
+
+
+2008
+00:52:36,246 --> 00:52:37,476
+strongly typed key paths for
+
+
+2009
+00:52:37,476 --> 00:52:38,966
+Swift, including one really cool
+
+
+2010
+00:52:38,966 --> 00:52:40,636
+use case, our brand-new,
+
+
+2011
+00:52:40,716 --> 00:52:42,186
+closure-based KVO API.
+
+
+2012
+00:52:43,126 --> 00:52:44,166
+And finally, we went over the
+
+
+2013
+00:52:44,166 --> 00:52:46,266
+new codable protocols, which
+
+
+2014
+00:52:46,436 --> 00:52:47,556
+make integration with formats
+
+
+2015
+00:52:47,556 --> 00:52:49,786
+like JSON easy, but also allow
+
+
+2016
+00:52:49,786 --> 00:52:51,566
+you the opportunity for powerful
+
+
+2017
+00:52:51,566 --> 00:52:52,306
+customization.
+
+
+2018
+00:52:53,316 --> 00:52:54,716
+For more information, check out
+
+
+2019
+00:52:54,716 --> 00:52:55,106
+this link.
+
+
+2020
+00:52:56,116 --> 00:52:57,366
+We have a couple of related
+
+
+2021
+00:52:57,366 --> 00:52:58,266
+sessions that we've talked
+
+
+2022
+00:52:58,266 --> 00:52:58,566
+about.
+
+
+2023
+00:52:58,566 --> 00:53:01,096
+Thank you so much.
+
+
+2024
+00:53:02,516 --> 00:53:05,500
+[ Applause ]
+

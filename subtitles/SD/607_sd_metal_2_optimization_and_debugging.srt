@@ -1,0 +1,5149 @@
+1
+00:00:07,516 --> 00:00:21,516
+[ Background Conversations ]
+
+
+2
+00:00:22,516 --> 00:00:27,556
+[ Applause ]
+
+
+3
+00:00:28,056 --> 00:00:29,076
+>> Good afternoon, everyone.
+
+
+4
+00:00:29,076 --> 00:00:30,446
+And welcome to Metal 2
+
+
+5
+00:00:30,446 --> 00:00:31,796
+Optimization and Debugging.
+
+
+6
+00:00:31,796 --> 00:00:34,716
+As you know, we're talking a lot
+
+
+7
+00:00:34,716 --> 00:00:35,856
+about Metal 2 this year, with
+
+
+8
+00:00:35,856 --> 00:00:37,116
+some great new enhancements to
+
+
+9
+00:00:37,116 --> 00:00:39,106
+the platform including GP driven
+
+
+10
+00:00:39,106 --> 00:00:40,966
+rendering, machine learning
+
+
+11
+00:00:40,966 --> 00:00:43,936
+acceleration, and a macOS VR,
+
+
+12
+00:00:43,936 --> 00:00:45,716
+and external GPU support.
+
+
+13
+00:00:47,106 --> 00:00:48,466
+And not forgetting Advanced
+
+
+14
+00:00:48,466 --> 00:00:49,636
+Optimization Tools.
+
+
+15
+00:00:50,186 --> 00:00:52,886
+So, this afternoon, we're going
+
+
+16
+00:00:52,886 --> 00:00:54,536
+to talk about the current Metal
+
+
+17
+00:00:54,666 --> 00:00:56,076
+tools, give you a recap of
+
+
+18
+00:00:56,376 --> 00:00:57,906
+those, talk about some great new
+
+
+19
+00:00:57,906 --> 00:00:59,536
+enhancements to the Metal frame
+
+
+20
+00:00:59,536 --> 00:01:01,356
+debugger, and then finally cover
+
+
+21
+00:01:01,356 --> 00:01:03,136
+some major enhancements in terms
+
+
+22
+00:01:03,136 --> 00:01:04,016
+of GPU profiling.
+
+
+23
+00:01:04,676 --> 00:01:08,016
+But first, the frame debugger.
+
+
+24
+00:01:10,226 --> 00:01:12,056
+So hopefully you're all familiar
+
+
+25
+00:01:12,056 --> 00:01:12,776
+with this tool.
+
+
+26
+00:01:14,076 --> 00:01:15,376
+It is our fully-featured frame
+
+
+27
+00:01:15,376 --> 00:01:17,246
+debugger integrated into Xcode,
+
+
+28
+00:01:17,246 --> 00:01:20,106
+that lets you capture your Metal
+
+
+29
+00:01:20,106 --> 00:01:22,586
+2 work, be it computer graphics,
+
+
+30
+00:01:22,966 --> 00:01:24,126
+and then step through it into
+
+
+31
+00:01:24,126 --> 00:01:25,086
+the debugger, to inspect state
+
+
+32
+00:01:25,086 --> 00:01:27,086
+and resources, letting you debug
+
+
+33
+00:01:27,476 --> 00:01:28,186
+and optimize.
+
+
+34
+00:01:29,076 --> 00:01:33,216
+One of our focuses this year has
+
+
+35
+00:01:33,216 --> 00:01:34,006
+been on improving the
+
+
+36
+00:01:34,006 --> 00:01:34,886
+performance to the frame
+
+
+37
+00:01:34,886 --> 00:01:36,676
+debugger, and in particular, we
+
+
+38
+00:01:36,676 --> 00:01:38,316
+paid particular regard to
+
+
+39
+00:01:38,316 --> 00:01:39,386
+improving the speed with which
+
+
+40
+00:01:39,676 --> 00:01:40,346
+captures happen.
+
+
+41
+00:01:40,346 --> 00:01:43,096
+And I'm happy to say that
+
+
+42
+00:01:43,096 --> 00:01:46,436
+compared to Xcode 8, Xcode 9 now
+
+
+43
+00:01:46,436 --> 00:01:48,586
+captures up to 10 times as fast,
+
+
+44
+00:01:49,106 --> 00:01:50,116
+getting you from clicking the
+
+
+45
+00:01:50,116 --> 00:01:51,556
+Capture button to into the
+
+
+46
+00:01:51,556 --> 00:01:52,946
+debugger much, much more
+
+
+47
+00:01:52,946 --> 00:01:53,256
+quickly.
+
+
+48
+00:01:56,036 --> 00:01:58,466
+As you'd expect, we have full
+
+
+49
+00:01:58,466 --> 00:02:00,036
+support for all the new Metal 2
+
+
+50
+00:02:00,036 --> 00:02:02,006
+API, including Raster order
+
+
+51
+00:02:02,006 --> 00:02:04,346
+groups, sampler arrays, viewport
+
+
+52
+00:02:04,346 --> 00:02:06,146
+arrays, and the new pixel and
+
+
+53
+00:02:06,146 --> 00:02:07,356
+vertex array formats.
+
+
+54
+00:02:07,876 --> 00:02:10,856
+One particular part of Metal 2
+
+
+55
+00:02:10,856 --> 00:02:12,406
+that we've paid a lot of
+
+
+56
+00:02:12,406 --> 00:02:14,116
+attention to is the support for
+
+
+57
+00:02:14,116 --> 00:02:15,296
+the new argument buffers.
+
+
+58
+00:02:15,936 --> 00:02:17,376
+With this, in the buffer viewer,
+
+
+59
+00:02:17,626 --> 00:02:19,386
+you can now see all the
+
+
+60
+00:02:19,386 --> 00:02:20,546
+argument, buffer arguments,
+
+
+61
+00:02:20,646 --> 00:02:22,196
+displayed in line, and you can
+
+
+62
+00:02:22,196 --> 00:02:23,856
+click through whether it be to
+
+
+63
+00:02:23,856 --> 00:02:26,516
+attach your sampler, buffer, or
+
+
+64
+00:02:26,516 --> 00:02:32,686
+another argument buffer itself.
+
+
+65
+00:02:32,686 --> 00:02:33,956
+We've also added support for VR
+
+
+66
+00:02:33,956 --> 00:02:35,196
+captures this year, with
+
+
+67
+00:02:35,196 --> 00:02:36,456
+automatic support for SteamVR.
+
+
+68
+00:02:36,456 --> 00:02:38,316
+And we've added support for you
+
+
+69
+00:02:38,316 --> 00:02:40,216
+to view your submitted surfaces
+
+
+70
+00:02:40,216 --> 00:02:40,966
+in stereo.
+
+
+71
+00:02:41,446 --> 00:02:43,526
+So when you get to the Submit
+
+
+72
+00:02:43,526 --> 00:02:44,576
+call, you're sending your
+
+
+73
+00:02:44,576 --> 00:02:46,116
+surfaces to the VR compositer,
+
+
+74
+00:02:46,406 --> 00:02:47,786
+you will see left eye and right
+
+
+75
+00:02:47,786 --> 00:02:49,556
+eye alongside each other, to
+
+
+76
+00:02:49,556 --> 00:02:51,106
+quickly spot any discrepancies.
+
+
+77
+00:02:51,676 --> 00:02:56,496
+Another area of focus this year
+
+
+78
+00:02:56,716 --> 00:02:58,006
+has been on improving the
+
+
+79
+00:02:58,006 --> 00:02:59,456
+workflow for capturing more
+
+
+80
+00:02:59,456 --> 00:03:00,416
+complex workloads.
+
+
+81
+00:03:00,826 --> 00:03:01,836
+So now if you're doing
+
+
+82
+00:03:01,896 --> 00:03:04,036
+compute-only work in Metal, or
+
+
+83
+00:03:04,036 --> 00:03:05,396
+perhaps you're using multiple
+
+
+84
+00:03:05,396 --> 00:03:07,516
+Metal cues, it's much easier to
+
+
+85
+00:03:07,516 --> 00:03:08,846
+capture exactly the work that
+
+
+86
+00:03:08,846 --> 00:03:09,396
+you want.
+
+
+87
+00:03:10,446 --> 00:03:11,526
+We've added the lightweight
+
+
+88
+00:03:11,526 --> 00:03:13,576
+capture API, with some new Metal
+
+
+89
+00:03:13,576 --> 00:03:15,406
+capture scope objects, that you
+
+
+90
+00:03:15,406 --> 00:03:17,416
+create at startup and then reuse
+
+
+91
+00:03:17,416 --> 00:03:19,276
+every frame to surround the work
+
+
+92
+00:03:19,276 --> 00:03:20,136
+that you want to capture.
+
+
+93
+00:03:20,546 --> 00:03:21,656
+You'll see a demo of this later,
+
+
+94
+00:03:21,656 --> 00:03:22,746
+but it's great for being able to
+
+
+95
+00:03:22,746 --> 00:03:25,346
+say, group all your regular
+
+
+96
+00:03:25,626 --> 00:03:28,006
+rendering work in one scope, and
+
+
+97
+00:03:28,006 --> 00:03:29,666
+some asynchronous work like
+
+
+98
+00:03:29,916 --> 00:03:31,126
+regenerating your tessellation
+
+
+99
+00:03:31,126 --> 00:03:32,866
+factor buffers, in another
+
+
+100
+00:03:32,866 --> 00:03:33,956
+scope, and when you come to
+
+
+101
+00:03:33,956 --> 00:03:35,456
+capture, you get exactly what
+
+
+102
+00:03:35,456 --> 00:03:35,866
+you want.
+
+
+103
+00:03:37,416 --> 00:03:38,576
+We also have support for
+
+
+104
+00:03:38,576 --> 00:03:39,266
+triggering captures
+
+
+105
+00:03:39,266 --> 00:03:40,766
+programmatically from your app.
+
+
+106
+00:03:41,316 --> 00:03:43,026
+We use this a lot within our
+
+
+107
+00:03:43,026 --> 00:03:44,256
+test apps ourselves, so that we
+
+
+108
+00:03:44,256 --> 00:03:45,436
+can quickly do a gesture on the
+
+
+109
+00:03:45,436 --> 00:03:46,826
+device, and trigger a frame
+
+
+110
+00:03:47,216 --> 00:03:48,476
+capture, without having to
+
+
+111
+00:03:48,476 --> 00:03:53,046
+switch our focus back to Xcode.
+
+
+112
+00:03:53,546 --> 00:03:55,076
+Another new feature this year is
+
+
+113
+00:03:55,076 --> 00:03:56,676
+support for Xcode's Quick Looks
+
+
+114
+00:03:57,046 --> 00:03:57,606
+support.
+
+
+115
+00:03:58,826 --> 00:04:00,766
+So now, you have lightweight
+
+
+116
+00:04:00,766 --> 00:04:02,286
+Metal debugging in the CPU
+
+
+117
+00:04:02,286 --> 00:04:02,856
+debugger.
+
+
+118
+00:04:03,116 --> 00:04:05,276
+So if you hit a breakpoint, and
+
+
+119
+00:04:05,276 --> 00:04:07,316
+there is a Metal texture there,
+
+
+120
+00:04:07,796 --> 00:04:09,206
+we'll pull back the data from
+
+
+121
+00:04:09,206 --> 00:04:11,426
+the metal texture on the GPU and
+
+
+122
+00:04:11,426 --> 00:04:12,716
+let you view it there and then.
+
+
+123
+00:04:12,916 --> 00:04:14,106
+Similarly, with buffers and
+
+
+124
+00:04:14,106 --> 00:04:14,586
+samplers.
+
+
+125
+00:04:15,486 --> 00:04:17,375
+This is great for those cases
+
+
+126
+00:04:17,375 --> 00:04:19,796
+where a full frame capture might
+
+
+127
+00:04:19,796 --> 00:04:21,736
+be too invasive, for instance,
+
+
+128
+00:04:21,736 --> 00:04:22,786
+if you're debugging your
+
+
+129
+00:04:22,786 --> 00:04:24,156
+resource loading or some of the
+
+
+130
+00:04:24,156 --> 00:04:24,546
+setup code.
+
+
+131
+00:04:24,546 --> 00:04:27,506
+It is also great in cases where
+
+
+132
+00:04:27,506 --> 00:04:28,916
+you're debugging some compute
+
+
+133
+00:04:28,916 --> 00:04:32,606
+workloads as well.
+
+
+134
+00:04:33,026 --> 00:04:35,156
+So last year we introduced
+
+
+135
+00:04:35,416 --> 00:04:37,056
+support for rich filtering
+
+
+136
+00:04:37,266 --> 00:04:38,606
+throughout the frame debugger,
+
+
+137
+00:04:38,686 --> 00:04:41,526
+so that you could filter both on
+
+
+138
+00:04:41,526 --> 00:04:42,946
+things like resource properties,
+
+
+139
+00:04:43,426 --> 00:04:44,356
+but also within the frame
+
+
+140
+00:04:44,356 --> 00:04:47,156
+navigator, you can filter based
+
+
+141
+00:04:47,156 --> 00:04:49,606
+on contextual data, so what
+
+
+142
+00:04:49,936 --> 00:04:51,146
+resources you're using at a
+
+
+143
+00:04:51,146 --> 00:04:52,506
+given draw call will let that
+
+
+144
+00:04:52,506 --> 00:04:53,566
+draw call show up.
+
+
+145
+00:04:53,756 --> 00:04:55,196
+Well we've taken this to the
+
+
+146
+00:04:55,196 --> 00:04:56,626
+next level this year, with
+
+
+147
+00:04:56,626 --> 00:04:58,136
+support for data mining
+
+
+148
+00:04:58,136 --> 00:04:59,476
+throughout your capture tray.
+
+
+149
+00:05:00,156 --> 00:05:01,716
+So now, when you type, we'll
+
+
+150
+00:05:01,716 --> 00:05:03,626
+give you context aware, or
+
+
+151
+00:05:03,626 --> 00:05:04,866
+complete suggestions.
+
+
+152
+00:05:05,706 --> 00:05:07,886
+And we now allow compound terms.
+
+
+153
+00:05:08,326 --> 00:05:10,236
+So now if you search for a given
+
+
+154
+00:05:10,236 --> 00:05:12,506
+encoder, and then you search for
+
+
+155
+00:05:12,506 --> 00:05:14,696
+a texture, we'll only show you
+
+
+156
+00:05:14,696 --> 00:05:15,806
+auto-complete suggestions for
+
+
+157
+00:05:15,806 --> 00:05:17,026
+the textures that are actually
+
+
+158
+00:05:17,026 --> 00:05:22,346
+used within that encoder.
+
+
+159
+00:05:22,946 --> 00:05:24,386
+One of our most requested
+
+
+160
+00:05:24,386 --> 00:05:25,806
+features over the years has been
+
+
+161
+00:05:25,806 --> 00:05:27,106
+support for pixel inspection.
+
+
+162
+00:05:28,386 --> 00:05:29,496
+And we've finally caught up with
+
+
+163
+00:05:29,496 --> 00:05:29,766
+that.
+
+
+164
+00:05:30,386 --> 00:05:32,186
+So now you can do detailed
+
+
+165
+00:05:32,186 --> 00:05:34,886
+inspection of individual pixels
+
+
+166
+00:05:35,196 --> 00:05:36,706
+within your textures and your
+
+
+167
+00:05:36,706 --> 00:05:37,486
+render targets.
+
+
+168
+00:05:38,046 --> 00:05:39,366
+And if you have multiple
+
+
+169
+00:05:39,366 --> 00:05:40,196
+attachments to your render
+
+
+170
+00:05:40,196 --> 00:05:41,606
+targets, we'll show you the
+
+
+171
+00:05:41,656 --> 00:05:43,366
+pixel values for the same
+
+
+172
+00:05:43,366 --> 00:05:45,206
+location in each attachment at
+
+
+173
+00:05:45,206 --> 00:05:45,866
+the same time.
+
+
+174
+00:05:45,976 --> 00:05:47,146
+So it's really good if you're
+
+
+175
+00:05:47,146 --> 00:05:48,836
+trying to debug what the color
+
+
+176
+00:05:48,836 --> 00:05:50,136
+value is alongside that and
+
+
+177
+00:05:50,136 --> 00:05:51,036
+stencil and such like.
+
+
+178
+00:05:51,346 --> 00:05:52,916
+It's also very valuable for
+
+
+179
+00:05:52,916 --> 00:05:54,516
+debugging compute workloads if
+
+
+180
+00:05:54,516 --> 00:05:55,746
+you're working with images there
+
+
+181
+00:05:55,746 --> 00:05:56,996
+and you are, for instance,
+
+
+182
+00:05:56,996 --> 00:05:58,236
+halfway through your CNN and you
+
+
+183
+00:05:58,236 --> 00:05:59,686
+want to test watch to see what
+
+
+184
+00:05:59,686 --> 00:06:01,036
+the exact values in the buffers
+
+
+185
+00:06:01,036 --> 00:06:01,306
+are.
+
+
+186
+00:06:03,516 --> 00:06:07,546
+[ Applause ]
+
+
+187
+00:06:08,046 --> 00:06:09,026
+>> Another new feature we
+
+
+188
+00:06:09,026 --> 00:06:10,556
+introduced last year was our
+
+
+189
+00:06:10,556 --> 00:06:12,436
+vertex attribute viewer, where
+
+
+190
+00:06:12,436 --> 00:06:14,336
+you can see all the vertex data
+
+
+191
+00:06:14,486 --> 00:06:16,376
+as it goes into your vertex
+
+
+192
+00:06:16,376 --> 00:06:18,246
+shader, you know, shown on a per
+
+
+193
+00:06:18,246 --> 00:06:19,856
+vertex basis.
+
+
+194
+00:06:20,496 --> 00:06:21,446
+Well, this year, we've added
+
+
+195
+00:06:21,446 --> 00:06:23,626
+support for viewing the outputs
+
+
+196
+00:06:23,626 --> 00:06:25,556
+from your vertex shader as well,
+
+
+197
+00:06:25,696 --> 00:06:27,766
+and we will display this inline
+
+
+198
+00:06:28,076 --> 00:06:29,776
+with all the other input data,
+
+
+199
+00:06:30,146 --> 00:06:31,476
+so in this case, you can see
+
+
+200
+00:06:31,476 --> 00:06:33,306
+your position inputs, and your
+
+
+201
+00:06:33,306 --> 00:06:34,596
+position outputs, at the same
+
+
+202
+00:06:34,596 --> 00:06:35,000
+time.
+
+
+203
+00:06:38,046 --> 00:06:38,866
+Well, to show you all these
+
+
+204
+00:06:38,866 --> 00:06:40,076
+great new features in action,
+
+
+205
+00:06:40,076 --> 00:06:41,256
+I'd like to invite my colleague,
+
+
+206
+00:06:41,486 --> 00:06:42,686
+Max, to the stage, who is going
+
+
+207
+00:06:42,686 --> 00:06:44,106
+to give you a demo of all this
+
+
+208
+00:06:44,106 --> 00:06:45,076
+new stuff.
+
+
+209
+00:06:46,516 --> 00:06:49,556
+[ Applause ]
+
+
+210
+00:06:50,056 --> 00:06:51,956
+>> Hello. Great to see you here
+
+
+211
+00:06:51,956 --> 00:06:52,386
+today.
+
+
+212
+00:06:52,526 --> 00:06:57,706
+I hope you are doing fine and
+
+
+213
+00:06:57,706 --> 00:06:59,776
+you are as hyped about Metal as
+
+
+214
+00:06:59,776 --> 00:07:00,236
+we are.
+
+
+215
+00:07:00,636 --> 00:07:02,616
+Xcode GPU debugger helps you
+
+
+216
+00:07:02,616 --> 00:07:04,456
+debugging your GPU and the Metal
+
+
+217
+00:07:04,456 --> 00:07:05,146
+usage.
+
+
+218
+00:07:05,616 --> 00:07:07,356
+I am Max, and I am going to
+
+
+219
+00:07:07,356 --> 00:07:08,496
+maximize your debugging
+
+
+220
+00:07:08,496 --> 00:07:09,886
+experience, showing our new
+
+
+221
+00:07:09,886 --> 00:07:10,246
+features.
+
+
+222
+00:07:11,516 --> 00:07:14,696
+[ Applause ]
+
+
+223
+00:07:15,196 --> 00:07:17,106
+>> Yeah, let me run my demo app.
+
+
+224
+00:07:19,576 --> 00:07:21,676
+It is rendering a beautiful
+
+
+225
+00:07:21,676 --> 00:07:24,056
+scenery, reflects snowy
+
+
+226
+00:07:24,056 --> 00:07:26,266
+mountains, grass that is waving
+
+
+227
+00:07:26,266 --> 00:07:27,936
+in the wind, and to make it even
+
+
+228
+00:07:27,936 --> 00:07:29,986
+look nicer, I added some
+
+
+229
+00:07:29,986 --> 00:07:31,846
+particles that are glowing in
+
+
+230
+00:07:32,606 --> 00:07:33,176
+the air.
+
+
+231
+00:07:33,216 --> 00:07:35,636
+But as you can see, the
+
+
+232
+00:07:35,636 --> 00:07:37,826
+particles of the grass, there is
+
+
+233
+00:07:37,826 --> 00:07:39,316
+some kind of a problem.
+
+
+234
+00:07:39,546 --> 00:07:41,196
+So let's figure this out.
+
+
+235
+00:07:41,756 --> 00:07:46,296
+As a first step, let's check if
+
+
+236
+00:07:46,296 --> 00:07:47,336
+the texture is correct.
+
+
+237
+00:07:47,906 --> 00:07:49,436
+Let me set a breakpoint in the
+
+
+238
+00:07:49,436 --> 00:07:50,656
+rendering loop, where this
+
+
+239
+00:07:50,716 --> 00:07:52,116
+texture is being used.
+
+
+240
+00:07:53,216 --> 00:07:54,846
+Hovering over a variable gives
+
+
+241
+00:07:54,846 --> 00:07:57,226
+you access to Xcode's data tips,
+
+
+242
+00:07:57,566 --> 00:07:59,446
+and you can quick look into the
+
+
+243
+00:07:59,446 --> 00:08:00,196
+texture data.
+
+
+244
+00:08:00,726 --> 00:08:02,296
+This data is fetched live from
+
+
+245
+00:08:02,296 --> 00:08:03,996
+the GPU, and it helps you to
+
+
+246
+00:08:03,996 --> 00:08:05,576
+verify the resources you are
+
+
+247
+00:08:05,576 --> 00:08:07,466
+binding, and, of course, it
+
+
+248
+00:08:07,466 --> 00:08:09,136
+works with all Metal resources.
+
+
+249
+00:08:09,856 --> 00:08:12,196
+The texture in this case looks
+
+
+250
+00:08:12,196 --> 00:08:12,916
+correct.
+
+
+251
+00:08:13,406 --> 00:08:20,006
+So what else can we check?
+
+
+252
+00:08:20,276 --> 00:08:21,786
+Our next step is to capture a
+
+
+253
+00:08:21,786 --> 00:08:22,226
+frame.
+
+
+254
+00:08:22,686 --> 00:08:25,336
+Using the little camera icon in
+
+
+255
+00:08:25,336 --> 00:08:27,366
+the debug bar, let's you capture
+
+
+256
+00:08:27,366 --> 00:08:29,866
+a frame, but using a long press
+
+
+257
+00:08:30,146 --> 00:08:31,556
+gives you access to capture
+
+
+258
+00:08:31,556 --> 00:08:33,596
+scopes and command cues.
+
+
+259
+00:08:33,876 --> 00:08:36,106
+A capture scope is one path
+
+
+260
+00:08:36,306 --> 00:08:37,596
+through your rendering pipeline.
+
+
+261
+00:08:37,846 --> 00:08:39,035
+Like my environment map, I'm
+
+
+262
+00:08:39,035 --> 00:08:40,395
+only updating every couple of
+
+
+263
+00:08:40,395 --> 00:08:41,066
+frames.
+
+
+264
+00:08:41,826 --> 00:08:43,366
+In this case, however, we want
+
+
+265
+00:08:43,366 --> 00:08:44,596
+to capture rendering, this is
+
+
+266
+00:08:44,596 --> 00:08:45,636
+where the particles are being
+
+
+267
+00:08:45,636 --> 00:08:45,936
+drawn.
+
+
+268
+00:08:46,866 --> 00:08:49,836
+So let's capture this.
+
+
+269
+00:08:50,046 --> 00:08:50,946
+And already done.
+
+
+270
+00:08:51,476 --> 00:08:54,096
+For those who are not familiar
+
+
+271
+00:08:54,096 --> 00:08:55,956
+with our tool, I will give you a
+
+
+272
+00:08:55,956 --> 00:08:56,986
+quick run through of all the
+
+
+273
+00:08:56,986 --> 00:08:58,186
+views you are seeing here.
+
+
+274
+00:08:58,186 --> 00:09:01,726
+On the left side, we have the
+
+
+275
+00:09:01,726 --> 00:09:02,716
+debug navigator.
+
+
+276
+00:09:03,186 --> 00:09:04,276
+It is in [inaudible]
+
+
+277
+00:09:04,276 --> 00:09:06,396
+presentation of your frame, and
+
+
+278
+00:09:06,396 --> 00:09:08,016
+to help you, we automatically
+
+
+279
+00:09:08,016 --> 00:09:10,316
+group by command buffers and
+
+
+280
+00:09:10,316 --> 00:09:11,376
+command encoders.
+
+
+281
+00:09:12,346 --> 00:09:13,926
+But also your debugging groups
+
+
+282
+00:09:13,926 --> 00:09:15,936
+are shown here, giving you fine
+
+
+283
+00:09:15,936 --> 00:09:17,566
+grain control over the grouping.
+
+
+284
+00:09:17,906 --> 00:09:19,856
+You can select the draw call or
+
+
+285
+00:09:19,856 --> 00:09:21,526
+any other Metal call to inspect
+
+
+286
+00:09:21,526 --> 00:09:22,346
+further details.
+
+
+287
+00:09:23,136 --> 00:09:27,406
+The editor in the center is
+
+
+288
+00:09:27,406 --> 00:09:29,106
+showing the bound resources.
+
+
+289
+00:09:29,496 --> 00:09:30,846
+All the Metal objects you are
+
+
+290
+00:09:30,846 --> 00:09:32,986
+using in the selected API call.
+
+
+291
+00:09:33,986 --> 00:09:35,976
+Again, you can see labeling your
+
+
+292
+00:09:35,976 --> 00:09:37,726
+objects will greatly increase
+
+
+293
+00:09:37,726 --> 00:09:38,536
+readability.
+
+
+294
+00:09:38,926 --> 00:09:41,306
+So I suggest to do that.
+
+
+295
+00:09:42,956 --> 00:09:45,026
+The editor on the right side is
+
+
+296
+00:09:45,026 --> 00:09:46,556
+showing the attachments, the
+
+
+297
+00:09:46,556 --> 00:09:48,556
+output of the last issued draw
+
+
+298
+00:09:48,556 --> 00:09:48,936
+call.
+
+
+299
+00:09:49,136 --> 00:09:50,066
+So whenever you are, like,
+
+
+300
+00:09:50,066 --> 00:09:51,416
+navigating through your frame,
+
+
+301
+00:09:51,606 --> 00:09:53,106
+you instantly see where you are.
+
+
+302
+00:09:53,936 --> 00:09:56,346
+On the bottom, we have our
+
+
+303
+00:09:56,346 --> 00:09:58,166
+variables view, where you can
+
+
+304
+00:09:58,166 --> 00:10:00,156
+access all the states of each
+
+
+305
+00:10:00,156 --> 00:10:01,026
+Metal object.
+
+
+306
+00:10:01,506 --> 00:10:03,296
+Back to our problem with the
+
+
+307
+00:10:03,296 --> 00:10:04,366
+particles.
+
+
+308
+00:10:04,786 --> 00:10:06,216
+Here, we can make use of our new
+
+
+309
+00:10:06,216 --> 00:10:07,756
+super powerful filtering.
+
+
+310
+00:10:08,496 --> 00:10:11,226
+So I know the particles are
+
+
+311
+00:10:11,226 --> 00:10:12,666
+drawn somewhere in my forward
+
+
+312
+00:10:12,666 --> 00:10:12,976
+rendering.
+
+
+313
+00:10:13,316 --> 00:10:15,556
+So let me filter for this.
+
+
+314
+00:10:15,866 --> 00:10:17,576
+Filtering for command encoder
+
+
+315
+00:10:17,976 --> 00:10:20,786
+will only show API calls inside
+
+
+316
+00:10:20,786 --> 00:10:21,926
+this command encoder.
+
+
+317
+00:10:21,926 --> 00:10:22,846
+Like this.
+
+
+318
+00:10:23,446 --> 00:10:25,486
+But it is still a lot.
+
+
+319
+00:10:26,646 --> 00:10:28,386
+So let me add an additional
+
+
+320
+00:10:28,386 --> 00:10:28,736
+filter.
+
+
+321
+00:10:29,086 --> 00:10:30,616
+We know it is using our particle
+
+
+322
+00:10:30,616 --> 00:10:31,066
+texture.
+
+
+323
+00:10:34,556 --> 00:10:37,186
+Filtering for texture will only
+
+
+324
+00:10:37,186 --> 00:10:39,476
+show draw calls using this
+
+
+325
+00:10:39,476 --> 00:10:39,896
+texture.
+
+
+326
+00:10:40,576 --> 00:10:43,656
+And boom, this combination of
+
+
+327
+00:10:43,656 --> 00:10:46,046
+filters results in a single API
+
+
+328
+00:10:46,046 --> 00:10:47,986
+call we want to inspect further.
+
+
+329
+00:10:48,726 --> 00:10:49,536
+So let's go here.
+
+
+330
+00:10:50,016 --> 00:10:53,296
+Let's take a look at the bound
+
+
+331
+00:10:53,296 --> 00:10:54,166
+resources.
+
+
+332
+00:10:55,046 --> 00:10:57,026
+The vertex attributes combines
+
+
+333
+00:10:57,026 --> 00:10:58,456
+the data that is going into your
+
+
+334
+00:10:58,456 --> 00:11:01,026
+vertex function and leaving it.
+
+
+335
+00:11:01,296 --> 00:11:02,616
+Maybe we are doing something
+
+
+336
+00:11:02,616 --> 00:11:05,106
+wrong with our geometry here, so
+
+
+337
+00:11:05,106 --> 00:11:06,196
+let's open this by double
+
+
+338
+00:11:06,196 --> 00:11:06,616
+clicking.
+
+
+339
+00:11:07,626 --> 00:11:09,696
+Let me also hide the attachments
+
+
+340
+00:11:09,696 --> 00:11:10,406
+for a moment.
+
+
+341
+00:11:11,626 --> 00:11:13,036
+Last year, we started to show
+
+
+342
+00:11:13,036 --> 00:11:14,436
+you a nice layout for all the
+
+
+343
+00:11:14,436 --> 00:11:14,976
+buffers.
+
+
+344
+00:11:16,516 --> 00:11:17,836
+And this year we added something
+
+
+345
+00:11:17,836 --> 00:11:18,186
+more.
+
+
+346
+00:11:18,986 --> 00:11:20,316
+In the header, you can see the
+
+
+347
+00:11:20,316 --> 00:11:21,746
+direction where the data is
+
+
+348
+00:11:21,746 --> 00:11:22,306
+flowing.
+
+
+349
+00:11:23,266 --> 00:11:28,336
+And if we take a look, this is
+
+
+350
+00:11:28,336 --> 00:11:29,626
+the output data, the data that
+
+
+351
+00:11:29,626 --> 00:11:31,106
+is leaving the vertex function.
+
+
+352
+00:11:31,376 --> 00:11:32,966
+This is the output position of
+
+
+353
+00:11:33,106 --> 00:11:35,776
+every particle vertex, and as we
+
+
+354
+00:11:35,776 --> 00:11:37,336
+can see here, there is no
+
+
+355
+00:11:37,376 --> 00:11:39,286
+obvious error, like big numbers
+
+
+356
+00:11:39,286 --> 00:11:41,166
+or something like this, so I
+
+
+357
+00:11:41,166 --> 00:11:42,706
+assume this data is correct.
+
+
+358
+00:11:43,446 --> 00:11:45,336
+So what else can we check?
+
+
+359
+00:11:46,036 --> 00:11:50,386
+The debug navigator now gives
+
+
+360
+00:11:50,386 --> 00:11:51,836
+you quick access to all the
+
+
+361
+00:11:51,836 --> 00:11:53,596
+views related to this draw call.
+
+
+362
+00:11:53,926 --> 00:11:54,846
+Let's switch back to the
+
+
+363
+00:11:54,846 --> 00:11:55,746
+attachments again.
+
+
+364
+00:11:56,256 --> 00:12:01,306
+We are using two render targets
+
+
+365
+00:12:01,306 --> 00:12:01,506
+here.
+
+
+366
+00:12:02,436 --> 00:12:04,566
+Color, and depth.
+
+
+367
+00:12:05,076 --> 00:12:06,796
+Let's inspect some more pixel
+
+
+368
+00:12:06,796 --> 00:12:07,376
+values.
+
+
+369
+00:12:07,876 --> 00:12:11,586
+Using the inspect pixels button
+
+
+370
+00:12:11,586 --> 00:12:13,156
+in the lower right corner, we
+
+
+371
+00:12:13,226 --> 00:12:16,456
+will present a new tool.
+
+
+372
+00:12:16,556 --> 00:12:20,386
+A loop. This loop displays the
+
+
+373
+00:12:20,386 --> 00:12:22,106
+value like they are outputted by
+
+
+374
+00:12:22,106 --> 00:12:23,296
+the fragment function.
+
+
+375
+00:12:24,246 --> 00:12:26,256
+And you can move the loop around
+
+
+376
+00:12:26,256 --> 00:12:27,506
+all the render targets.
+
+
+377
+00:12:28,386 --> 00:12:29,796
+But you can also use your arrow
+
+
+378
+00:12:29,796 --> 00:12:31,796
+keys for pixel precise control,
+
+
+379
+00:12:31,796 --> 00:12:33,186
+even if you are not zoomed in.
+
+
+380
+00:12:34,396 --> 00:12:36,566
+Also, you notice, all the loops
+
+
+381
+00:12:36,566 --> 00:12:37,806
+are being synchronized between
+
+
+382
+00:12:37,806 --> 00:12:38,956
+all the render targets.
+
+
+383
+00:12:39,246 --> 00:12:40,976
+That helps you to relate values.
+
+
+384
+00:12:41,256 --> 00:12:43,306
+Let me find an interesting pixel
+
+
+385
+00:12:45,056 --> 00:12:45,136
+now.
+
+
+386
+00:12:45,356 --> 00:12:46,426
+Using a long press will
+
+
+387
+00:12:46,426 --> 00:12:47,666
+instantly move the cursor.
+
+
+388
+00:12:48,286 --> 00:12:51,686
+And here we can see something
+
+
+389
+00:12:51,686 --> 00:12:52,576
+strange.
+
+
+390
+00:12:53,466 --> 00:12:55,676
+The depth value inside and
+
+
+391
+00:12:55,676 --> 00:12:57,586
+outside a particle is different,
+
+
+392
+00:12:58,076 --> 00:12:59,796
+and let's opt, our particles
+
+
+393
+00:12:59,796 --> 00:13:00,946
+shouldn't write into the depths
+
+
+394
+00:13:00,946 --> 00:13:01,896
+buffer, of course.
+
+
+395
+00:13:02,526 --> 00:13:03,896
+That will be an easy fix.
+
+
+396
+00:13:04,316 --> 00:13:05,976
+And I'm also sure our new GPU
+
+
+397
+00:13:05,976 --> 00:13:07,536
+debugger will help you fixing
+
+
+398
+00:13:07,536 --> 00:13:08,886
+your issues with the GPU.
+
+
+399
+00:13:09,906 --> 00:13:11,346
+I hope we see each other in the
+
+
+400
+00:13:11,346 --> 00:13:13,326
+labs tomorrow morning, or at the
+
+
+401
+00:13:13,326 --> 00:13:14,226
+[inaudible] later today.
+
+
+402
+00:13:14,936 --> 00:13:16,296
+Back to my colleague, Seth.
+
+
+403
+00:13:17,516 --> 00:13:23,256
+[ Applause ]
+
+
+404
+00:13:23,756 --> 00:13:26,276
+>> So now, onto GPU profiling.
+
+
+405
+00:13:27,896 --> 00:13:29,796
+As you know, performance is
+
+
+406
+00:13:29,796 --> 00:13:30,896
+crucial to games and other
+
+
+407
+00:13:30,896 --> 00:13:32,596
+graphical applications, and
+
+
+408
+00:13:32,596 --> 00:13:33,966
+achieving a consistent, fast
+
+
+409
+00:13:33,966 --> 00:13:35,316
+framework is always necessary.
+
+
+410
+00:13:36,106 --> 00:13:37,216
+But on the flip side, you want
+
+
+411
+00:13:37,216 --> 00:13:38,616
+to get the most of the GPU for
+
+
+412
+00:13:38,616 --> 00:13:40,066
+the best looking game as well,
+
+
+413
+00:13:40,066 --> 00:13:41,756
+and at the same time, increase
+
+
+414
+00:13:41,756 --> 00:13:43,106
+efficiency for a longer game
+
+
+415
+00:13:43,106 --> 00:13:43,846
+experience.
+
+
+416
+00:13:44,556 --> 00:13:45,726
+Well, for all this, you need to
+
+
+417
+00:13:45,726 --> 00:13:47,206
+use the GPU Profiling tools.
+
+
+418
+00:13:47,656 --> 00:13:53,046
+The first tool I want to talk
+
+
+419
+00:13:53,046 --> 00:13:54,546
+about is Metal System Trace.
+
+
+420
+00:13:55,396 --> 00:13:56,236
+This is our tool for
+
+
+421
+00:13:56,236 --> 00:13:58,446
+investigating timing issues, by
+
+
+422
+00:13:58,446 --> 00:14:00,136
+which I mean investigating cases
+
+
+423
+00:14:00,136 --> 00:14:02,446
+where the CPU and the GPU might
+
+
+424
+00:14:02,446 --> 00:14:04,656
+not be running in parallel,
+
+
+425
+00:14:04,656 --> 00:14:06,286
+because you have some synching
+
+
+426
+00:14:06,286 --> 00:14:07,836
+operations by mistake, and
+
+
+427
+00:14:07,836 --> 00:14:08,726
+you're forcing them to work in
+
+
+428
+00:14:08,726 --> 00:14:09,116
+serial.
+
+
+429
+00:14:09,796 --> 00:14:10,586
+It's also great for
+
+
+430
+00:14:10,586 --> 00:14:12,166
+investigating those cases where
+
+
+431
+00:14:12,396 --> 00:14:13,586
+you're mostly achieving the
+
+
+432
+00:14:13,586 --> 00:14:14,676
+framework you want, but
+
+
+433
+00:14:14,676 --> 00:14:15,976
+occasionally you get a stutter,
+
+
+434
+00:14:16,246 --> 00:14:17,126
+and you need to figure out,
+
+
+435
+00:14:17,126 --> 00:14:18,306
+okay, what is going wrong in
+
+
+436
+00:14:18,306 --> 00:14:19,226
+that particular frame?
+
+
+437
+00:14:20,106 --> 00:14:21,676
+It lets you trace your Metal
+
+
+438
+00:14:21,676 --> 00:14:22,966
+workloads through the system,
+
+
+439
+00:14:23,046 --> 00:14:25,436
+from CPU to GPU to display.
+
+
+440
+00:14:27,436 --> 00:14:29,606
+This year, we've added support
+
+
+441
+00:14:29,606 --> 00:14:31,296
+for VR applications, with
+
+
+442
+00:14:31,296 --> 00:14:33,056
+specific VR trace points for
+
+
+443
+00:14:33,056 --> 00:14:35,836
+activities like when you query
+
+
+444
+00:14:35,836 --> 00:14:38,916
+the head set for post-data, when
+
+
+445
+00:14:38,916 --> 00:14:40,516
+you submit your surfaces to the
+
+
+446
+00:14:40,516 --> 00:14:43,086
+VR compositor, when it does its
+
+
+447
+00:14:43,086 --> 00:14:45,196
+work to do the compositing, and
+
+
+448
+00:14:45,196 --> 00:14:46,946
+finally, when it hits the glass
+
+
+449
+00:14:47,106 --> 00:14:48,506
+on the headset.
+
+
+450
+00:14:49,576 --> 00:14:51,406
+In effect, it lets you trace
+
+
+451
+00:14:51,406 --> 00:14:53,366
+from motion to photon.
+
+
+452
+00:14:55,976 --> 00:14:58,266
+We've also added support this
+
+
+453
+00:14:58,266 --> 00:14:59,566
+year for the new ProMotion
+
+
+454
+00:14:59,566 --> 00:15:02,076
+displays, as you'll find in the
+
+
+455
+00:15:02,076 --> 00:15:04,096
+new iPads, iPad Pros released
+
+
+456
+00:15:04,096 --> 00:15:06,066
+early this week, and also
+
+
+457
+00:15:06,066 --> 00:15:08,046
+support for external GPUs on
+
+
+458
+00:15:08,046 --> 00:15:08,666
+macOS.
+
+
+459
+00:15:09,476 --> 00:15:10,776
+It is also worth noting there
+
+
+460
+00:15:10,776 --> 00:15:11,906
+are some great improvements in
+
+
+461
+00:15:11,906 --> 00:15:13,846
+the instruments, to make it much
+
+
+462
+00:15:13,846 --> 00:15:15,616
+easier to view other instruments
+
+
+463
+00:15:15,786 --> 00:15:17,646
+alongside Metal System Trace in
+
+
+464
+00:15:17,646 --> 00:15:20,386
+a more integrated fashion.
+
+
+465
+00:15:20,816 --> 00:15:22,776
+Our next profiling tool is the
+
+
+466
+00:15:22,776 --> 00:15:23,806
+GPU Shader Profiler.
+
+
+467
+00:15:24,306 --> 00:15:25,726
+The tool for probing shader
+
+
+468
+00:15:25,726 --> 00:15:26,326
+performance.
+
+
+469
+00:15:27,076 --> 00:15:28,316
+It is integrated into the frame
+
+
+470
+00:15:28,316 --> 00:15:29,626
+debugger, and lets you view
+
+
+471
+00:15:29,626 --> 00:15:31,466
+shader time on a per draw call
+
+
+472
+00:15:31,466 --> 00:15:33,116
+and per pipeline basis.
+
+
+473
+00:15:33,686 --> 00:15:37,416
+And if you're on iOS or tvOS, it
+
+
+474
+00:15:37,416 --> 00:15:39,236
+also lets you view it on a per
+
+
+475
+00:15:39,236 --> 00:15:39,956
+line basis.
+
+
+476
+00:15:41,696 --> 00:15:43,136
+Well, our first new tool this
+
+
+477
+00:15:43,136 --> 00:15:44,816
+year is designed to work hand in
+
+
+478
+00:15:44,816 --> 00:15:46,006
+hand with the GPU Shader
+
+
+479
+00:15:46,006 --> 00:15:46,496
+Profiler.
+
+
+480
+00:15:48,636 --> 00:15:50,296
+We call that Metal Pipeline
+
+
+481
+00:15:50,296 --> 00:15:51,046
+Statistics.
+
+
+482
+00:15:53,036 --> 00:15:55,436
+Metal Pipeline Statistics gives
+
+
+483
+00:15:55,436 --> 00:15:57,456
+you a direct line to the GPU
+
+
+484
+00:15:57,456 --> 00:15:59,306
+compiler to find out about the
+
+
+485
+00:15:59,306 --> 00:16:00,916
+quality of the machine code the
+
+
+486
+00:16:00,916 --> 00:16:02,946
+compiler is generating from your
+
+
+487
+00:16:03,016 --> 00:16:03,316
+shader.
+
+
+488
+00:16:04,066 --> 00:16:05,176
+It gives you a rich set of
+
+
+489
+00:16:05,176 --> 00:16:06,606
+statistics with things such as
+
+
+490
+00:16:06,756 --> 00:16:08,366
+instruction count, instruction
+
+
+491
+00:16:08,366 --> 00:16:10,236
+mix, by which I mean the
+
+
+492
+00:16:10,236 --> 00:16:11,796
+relative ratio of operations
+
+
+493
+00:16:11,796 --> 00:16:13,396
+such as ALU or memory or control
+
+
+494
+00:16:13,396 --> 00:16:15,826
+flow, and on GPUs where it is
+
+
+495
+00:16:15,826 --> 00:16:17,216
+relevant, it will also show you
+
+
+496
+00:16:17,216 --> 00:16:18,866
+register usage and occupancy.
+
+
+497
+00:16:19,306 --> 00:16:21,986
+For GPUs such as that, these
+
+
+498
+00:16:22,016 --> 00:16:23,436
+measures are crucial in
+
+
+499
+00:16:23,436 --> 00:16:25,306
+understanding what is the
+
+
+500
+00:16:25,306 --> 00:16:27,766
+limitations on how many shaders
+
+
+501
+00:16:27,766 --> 00:16:29,496
+can be scheduled simultaneously,
+
+
+502
+00:16:30,176 --> 00:16:32,486
+by which shader instances can be
+
+
+503
+00:16:32,646 --> 00:16:33,646
+scheduled simultaneously.
+
+
+504
+00:16:34,876 --> 00:16:37,976
+But even better are the new
+
+
+505
+00:16:37,976 --> 00:16:39,066
+compiler remarks.
+
+
+506
+00:16:39,736 --> 00:16:41,636
+With this, the GPU compiler will
+
+
+507
+00:16:41,636 --> 00:16:43,446
+give you direct actual guidance
+
+
+508
+00:16:43,666 --> 00:16:44,786
+on the performance of your
+
+
+509
+00:16:44,786 --> 00:16:46,506
+shader, and things you can do to
+
+
+510
+00:16:46,506 --> 00:16:48,556
+avoid performance hits, from
+
+
+511
+00:16:48,556 --> 00:16:49,956
+things such as slow math usage,
+
+
+512
+00:16:50,256 --> 00:16:51,776
+register spills, and stack
+
+
+513
+00:16:51,776 --> 00:16:52,216
+usage.
+
+
+514
+00:16:52,796 --> 00:16:56,906
+It's like having a GPU compiler
+
+
+515
+00:16:56,906 --> 00:16:59,636
+engineer built into every Xcode.
+
+
+516
+00:17:00,736 --> 00:17:02,806
+For each remark, it will explain
+
+
+517
+00:17:02,946 --> 00:17:06,246
+what it means, what you can do
+
+
+518
+00:17:06,316 --> 00:17:08,796
+to reduce it, and give you a
+
+
+519
+00:17:08,796 --> 00:17:11,006
+link to where you need to go to
+
+
+520
+00:17:11,076 --> 00:17:11,536
+fix it.
+
+
+521
+00:17:12,695 --> 00:17:13,955
+Well, to demo this new feature,
+
+
+522
+00:17:13,955 --> 00:17:15,036
+I'd like to invite my colleague
+
+
+523
+00:17:15,256 --> 00:17:16,935
+Jose to the stage, to give you a
+
+
+524
+00:17:16,935 --> 00:17:18,465
+tour of Metal Pipeline
+
+
+525
+00:17:18,465 --> 00:17:19,086
+Statistics.
+
+
+526
+00:17:20,516 --> 00:17:22,546
+[ Applause ]
+
+
+527
+00:17:23,046 --> 00:17:23,536
+>> Hello everyone.
+
+
+528
+00:17:23,685 --> 00:17:24,526
+My name is Jose Enrique
+
+
+529
+00:17:24,526 --> 00:17:24,606
+[inaudible].
+
+
+530
+00:17:24,606 --> 00:17:26,006
+I am going to present you a new
+
+
+531
+00:17:26,006 --> 00:17:27,556
+feature of our GPU friendly
+
+
+532
+00:17:27,556 --> 00:17:28,946
+debugger that will have you
+
+
+533
+00:17:29,296 --> 00:17:30,466
+produce good quality.
+
+
+534
+00:17:30,836 --> 00:17:32,416
+As you can see, we are replaying
+
+
+535
+00:17:32,526 --> 00:17:33,786
+a capture of Metal [inaudible]
+
+
+536
+00:17:33,976 --> 00:17:35,166
+demo for iOS.
+
+
+537
+00:17:35,996 --> 00:17:37,956
+The first thing I'm going to do,
+
+
+538
+00:17:37,956 --> 00:17:39,286
+I'm going to change my debug
+
+
+539
+00:17:39,286 --> 00:17:41,196
+navigator view from view frame
+
+
+540
+00:17:41,196 --> 00:17:42,766
+by call to view frame by
+
+
+541
+00:17:42,766 --> 00:17:43,496
+performance.
+
+
+542
+00:17:44,026 --> 00:17:46,916
+What this gives, what this view
+
+
+543
+00:17:46,916 --> 00:17:50,216
+gives is all these pipelines you
+
+
+544
+00:17:50,216 --> 00:17:53,956
+capture, sorted by time.
+
+
+545
+00:17:54,146 --> 00:17:56,066
+Remember, in Metal, a shader is
+
+
+546
+00:17:56,066 --> 00:17:57,156
+always linked to a pipeline,
+
+
+547
+00:17:57,556 --> 00:17:59,556
+therefore, this is a list of all
+
+
+548
+00:17:59,556 --> 00:18:00,656
+initiator combinations that are
+
+
+549
+00:18:00,656 --> 00:18:01,126
+available in [inaudible]
+
+
+550
+00:18:01,126 --> 00:18:01,466
+capture.
+
+
+551
+00:18:02,486 --> 00:18:04,506
+I am going to go to a
+
+
+552
+00:18:04,506 --> 00:18:05,296
+[inaudible] view of the most
+
+
+553
+00:18:05,296 --> 00:18:06,836
+expensive pipeline, to see if we
+
+
+554
+00:18:06,836 --> 00:18:07,866
+can improve the shaders.
+
+
+555
+00:18:08,436 --> 00:18:12,726
+As you can see, this view has
+
+
+556
+00:18:12,726 --> 00:18:13,586
+three sections.
+
+
+557
+00:18:13,956 --> 00:18:15,686
+On top, we have remarks.
+
+
+558
+00:18:16,296 --> 00:18:17,626
+Remarks are a unique approach to
+
+
+559
+00:18:17,626 --> 00:18:19,246
+the compiler shader quality.
+
+
+560
+00:18:19,616 --> 00:18:21,576
+As the report, final compiler
+
+
+561
+00:18:22,116 --> 00:18:23,486
+co-generation issues.
+
+
+562
+00:18:24,646 --> 00:18:26,326
+Remember, the GPU will execute
+
+
+563
+00:18:26,326 --> 00:18:28,206
+your shader millions of times
+
+
+564
+00:18:28,206 --> 00:18:30,046
+per frame, therefore, the
+
+
+565
+00:18:30,046 --> 00:18:31,446
+[inaudible] you can get, the
+
+
+566
+00:18:31,446 --> 00:18:33,746
+better the performance it will
+
+
+567
+00:18:33,746 --> 00:18:34,016
+have.
+
+
+568
+00:18:35,096 --> 00:18:36,406
+Remarks also are sorted by
+
+
+569
+00:18:36,406 --> 00:18:38,766
+relevance, and if expanded, they
+
+
+570
+00:18:38,766 --> 00:18:41,106
+offer you reason on why we're
+
+
+571
+00:18:41,106 --> 00:18:42,986
+reporting it, and our
+
+
+572
+00:18:42,986 --> 00:18:44,556
+recommendation on how to prevent
+
+
+573
+00:18:45,456 --> 00:18:45,523
+it.
+
+
+574
+00:18:46,226 --> 00:18:47,836
+Below remarks, we have an
+
+
+575
+00:18:47,836 --> 00:18:49,336
+overview for each shader, where
+
+
+576
+00:18:49,336 --> 00:18:50,496
+you can see how the compiler
+
+
+577
+00:18:50,576 --> 00:18:52,986
+final assemblies compose
+
+
+578
+00:18:52,986 --> 00:18:54,096
+[inaudible] of instruction
+
+
+579
+00:18:54,166 --> 00:18:54,876
+ratios.
+
+
+580
+00:18:56,186 --> 00:18:58,046
+And finally, we have a list of
+
+
+581
+00:18:58,106 --> 00:18:59,306
+all the recalls using this
+
+
+582
+00:18:59,306 --> 00:18:59,756
+pipeline.
+
+
+583
+00:19:00,396 --> 00:19:01,626
+This will become very handy
+
+
+584
+00:19:01,626 --> 00:19:02,776
+whenever we are iterating over
+
+
+585
+00:19:02,776 --> 00:19:03,396
+our shaders.
+
+
+586
+00:19:04,426 --> 00:19:06,946
+So let me showcase an example of
+
+
+587
+00:19:06,946 --> 00:19:08,506
+workflow profiler statistics.
+
+
+588
+00:19:09,376 --> 00:19:10,976
+We go to our top remark,
+
+
+589
+00:19:11,186 --> 00:19:13,036
+Register Spill, we can see the
+
+
+590
+00:19:13,036 --> 00:19:14,846
+compiler is reporting a big
+
+
+591
+00:19:14,846 --> 00:19:16,946
+spill, 1,040 bytes.
+
+
+592
+00:19:17,786 --> 00:19:19,246
+Spills will cause the GPU to
+
+
+593
+00:19:19,246 --> 00:19:21,546
+access memory, which can stall
+
+
+594
+00:19:21,546 --> 00:19:22,486
+your shade execution.
+
+
+595
+00:19:23,856 --> 00:19:24,806
+Knowing that a compiler is
+
+
+596
+00:19:24,806 --> 00:19:26,326
+spilling and fixing it can
+
+
+597
+00:19:26,326 --> 00:19:27,376
+drastically improve your shader
+
+
+598
+00:19:27,376 --> 00:19:29,636
+performance, yet finding where
+
+
+599
+00:19:29,636 --> 00:19:30,886
+and why the compiler is spilling
+
+
+600
+00:19:31,296 --> 00:19:32,566
+tends to be a time consuming
+
+
+601
+00:19:32,566 --> 00:19:32,876
+manual [inaudible].
+
+
+602
+00:19:33,936 --> 00:19:36,596
+But notice the second and fourth
+
+
+603
+00:19:36,596 --> 00:19:37,106
+remarks.
+
+
+604
+00:19:37,586 --> 00:19:39,156
+Dynamic Stack Store, and Dynamic
+
+
+605
+00:19:39,156 --> 00:19:39,766
+Stack Load.
+
+
+606
+00:19:40,776 --> 00:19:43,056
+If expanded, they offer a reason
+
+
+607
+00:19:43,226 --> 00:19:45,046
+an expensive stack load is
+
+
+608
+00:19:45,046 --> 00:19:46,716
+emitted to a dynamic offset in a
+
+
+609
+00:19:46,716 --> 00:19:47,416
+local array.
+
+
+610
+00:19:48,256 --> 00:19:51,096
+As well as a recommendation, to
+
+
+611
+00:19:51,096 --> 00:19:52,256
+reduce the stack access,
+
+
+612
+00:19:52,336 --> 00:19:53,786
+eliminate dynamic access to
+
+
+613
+00:19:53,786 --> 00:19:54,476
+local arrays.
+
+
+614
+00:19:55,236 --> 00:19:57,026
+This is basically saying that we
+
+
+615
+00:19:57,026 --> 00:19:58,586
+have an array variable in our
+
+
+616
+00:19:58,586 --> 00:20:00,116
+shader code that is storing the
+
+
+617
+00:20:00,116 --> 00:20:01,936
+stack and where accessing it
+
+
+618
+00:20:01,936 --> 00:20:03,416
+using some other index variable.
+
+
+619
+00:20:04,296 --> 00:20:05,996
+This is a very common pattern
+
+
+620
+00:20:05,996 --> 00:20:07,816
+when providing for the CPU, but
+
+
+621
+00:20:07,816 --> 00:20:09,286
+GPUs are different, they suffer
+
+
+622
+00:20:09,286 --> 00:20:11,346
+when we rely on stack usage.
+
+
+623
+00:20:11,966 --> 00:20:14,726
+But note the languages below the
+
+
+624
+00:20:14,726 --> 00:20:15,376
+recommendation.
+
+
+625
+00:20:15,426 --> 00:20:16,916
+It has an exact line number.
+
+
+626
+00:20:17,436 --> 00:20:18,676
+This means that we option click
+
+
+627
+00:20:18,776 --> 00:20:22,086
+to it, we'll jump directly to
+
+
+628
+00:20:22,086 --> 00:20:23,426
+the [inaudible] line where the
+
+
+629
+00:20:23,426 --> 00:20:25,146
+compiler is actually loading
+
+
+630
+00:20:25,146 --> 00:20:26,286
+data from the stack array.
+
+
+631
+00:20:26,776 --> 00:20:27,896
+We just found the compiler
+
+
+632
+00:20:27,896 --> 00:20:28,296
+spill.
+
+
+633
+00:20:29,366 --> 00:20:30,656
+Also these align very well with
+
+
+634
+00:20:30,656 --> 00:20:31,676
+our shared performing data,
+
+
+635
+00:20:31,676 --> 00:20:33,116
+informing us of the high cost of
+
+
+636
+00:20:33,116 --> 00:20:34,986
+this line, which now we know
+
+
+637
+00:20:34,986 --> 00:20:35,666
+exactly why.
+
+
+638
+00:20:37,396 --> 00:20:40,326
+The shader is doing two passes.
+
+
+639
+00:20:41,056 --> 00:20:42,836
+The first pass, doing some light
+
+
+640
+00:20:42,836 --> 00:20:43,586
+computation.
+
+
+641
+00:20:44,166 --> 00:20:46,956
+And a second pass, doing the
+
+
+642
+00:20:46,956 --> 00:20:47,776
+light accumulation.
+
+
+643
+00:20:48,766 --> 00:20:49,766
+This speaks to the issue by
+
+
+644
+00:20:49,766 --> 00:20:51,076
+working with the compiler but
+
+
+645
+00:20:51,076 --> 00:20:52,186
+from a GPU perspective.
+
+
+646
+00:20:52,856 --> 00:20:55,056
+The first thing I'm going to do,
+
+
+647
+00:20:55,176 --> 00:20:56,686
+I'm going to remove the stack
+
+
+648
+00:20:56,686 --> 00:20:59,756
+array, I am going to remove it
+
+
+649
+00:20:59,756 --> 00:21:02,366
+in relation, and then I'm going
+
+
+650
+00:21:02,366 --> 00:21:03,536
+to compute the light
+
+
+651
+00:21:03,536 --> 00:21:04,896
+accommodation directly into the
+
+
+652
+00:21:04,896 --> 00:21:06,166
+first loop.
+
+
+653
+00:21:09,116 --> 00:21:10,736
+Then I am going to remove the
+
+
+654
+00:21:10,736 --> 00:21:12,976
+second loop, and just not do
+
+
+655
+00:21:13,996 --> 00:21:14,316
+that anymore.
+
+
+656
+00:21:14,316 --> 00:21:15,916
+Now, I click my update shader
+
+
+657
+00:21:15,916 --> 00:21:17,396
+button, and wait for the
+
+
+658
+00:21:17,396 --> 00:21:17,916
+results.
+
+
+659
+00:21:18,516 --> 00:21:19,646
+What this is going to do, it's
+
+
+660
+00:21:19,646 --> 00:21:20,966
+going to have the compiler
+
+
+661
+00:21:20,966 --> 00:21:21,776
+perform a whole loop
+
+
+662
+00:21:21,776 --> 00:21:24,376
+optimization and reuse the same
+
+
+663
+00:21:24,376 --> 00:21:26,636
+reducer over and over, instead
+
+
+664
+00:21:26,636 --> 00:21:27,596
+of relying on the stack.
+
+
+665
+00:21:28,906 --> 00:21:30,356
+Once the results are back, we
+
+
+666
+00:21:30,356 --> 00:21:31,786
+can see the instruction ratio
+
+
+667
+00:21:31,786 --> 00:21:33,356
+between the previous and current
+
+
+668
+00:21:33,356 --> 00:21:35,416
+[inaudible] has been reduced, as
+
+
+669
+00:21:35,416 --> 00:21:36,486
+well as the impact of this
+
+
+670
+00:21:36,486 --> 00:21:38,006
+change on every single draw call
+
+
+671
+00:21:38,006 --> 00:21:39,726
+used in the pipeline, giving us
+
+
+672
+00:21:39,726 --> 00:21:41,296
+also whole space performance
+
+
+673
+00:21:41,296 --> 00:21:41,896
+improvements.
+
+
+674
+00:21:43,046 --> 00:21:44,226
+And with this, I conclude my
+
+
+675
+00:21:44,226 --> 00:21:44,986
+example of [inaudible]
+
+
+676
+00:21:44,986 --> 00:21:46,246
+statistics.
+
+
+677
+00:21:46,466 --> 00:21:47,656
+I hand it back to my colleague,
+
+
+678
+00:21:47,656 --> 00:21:47,926
+Seth.
+
+
+679
+00:21:49,516 --> 00:21:54,756
+[ Applause ]
+
+
+680
+00:21:55,256 --> 00:21:56,866
+>> Thank you, Jose.
+
+
+681
+00:21:56,966 --> 00:21:59,766
+And finally, onto our last new
+
+
+682
+00:21:59,766 --> 00:22:00,296
+tool today.
+
+
+683
+00:22:00,726 --> 00:22:02,286
+GPU Counter Profiling.
+
+
+684
+00:22:02,806 --> 00:22:06,196
+As you know, GPU architecture is
+
+
+685
+00:22:06,196 --> 00:22:08,056
+complex, with a pipeline
+
+
+686
+00:22:08,056 --> 00:22:08,986
+consisting of multiple
+
+
+687
+00:22:08,986 --> 00:22:10,366
+programmable and fixed function
+
+
+688
+00:22:10,366 --> 00:22:12,196
+blocks, bottlenecks can occur at
+
+
+689
+00:22:12,196 --> 00:22:13,396
+any point within the pipeline,
+
+
+690
+00:22:14,216 --> 00:22:15,476
+and often, at multiple
+
+
+691
+00:22:15,546 --> 00:22:16,936
+simultaneous points.
+
+
+692
+00:22:18,386 --> 00:22:20,986
+Your job as Metal programmers is
+
+
+693
+00:22:20,986 --> 00:22:23,026
+to minimize fixed function
+
+
+694
+00:22:23,026 --> 00:22:24,366
+bottlenecks while efficiently
+
+
+695
+00:22:24,366 --> 00:22:25,966
+harnessing programmable blocks.
+
+
+696
+00:22:28,776 --> 00:22:30,586
+Well, to do that, our new GPU
+
+
+697
+00:22:30,586 --> 00:22:33,166
+Counter Profiling is the tool.
+
+
+698
+00:22:33,546 --> 00:22:36,106
+Instead of going directly into
+
+
+699
+00:22:36,106 --> 00:22:38,236
+the GPU Frame Debugger, it gives
+
+
+700
+00:22:38,236 --> 00:22:40,286
+you detailed GPU hardware
+
+
+701
+00:22:40,286 --> 00:22:42,866
+performance statistics on a per
+
+
+702
+00:22:42,866 --> 00:22:46,496
+draw call, on macOS and per
+
+
+703
+00:22:46,496 --> 00:22:49,066
+encoder on iOS and tvOS basis.
+
+
+704
+00:22:50,036 --> 00:22:51,986
+And instead of giving you an
+
+
+705
+00:22:51,986 --> 00:22:54,336
+arcane list of counters that
+
+
+706
+00:22:54,336 --> 00:22:55,906
+change for every GPU and are
+
+
+707
+00:22:55,906 --> 00:22:57,676
+hard to understand, and often
+
+
+708
+00:22:58,206 --> 00:22:59,216
+don't tell you what you need to
+
+
+709
+00:22:59,216 --> 00:23:01,576
+know, we've defined a high level
+
+
+710
+00:23:01,576 --> 00:23:03,236
+set of characters that mean the
+
+
+711
+00:23:03,236 --> 00:23:04,936
+same across each GPU.
+
+
+712
+00:23:05,286 --> 00:23:07,296
+So you don't have a per GPU
+
+
+713
+00:23:07,296 --> 00:23:08,666
+learning curve.
+
+
+714
+00:23:10,156 --> 00:23:12,606
+So here is the Counter
+
+
+715
+00:23:12,606 --> 00:23:13,146
+Profiling.
+
+
+716
+00:23:13,146 --> 00:23:16,726
+On the left, we have a graph
+
+
+717
+00:23:16,726 --> 00:23:19,506
+view, showing you detailed GPU
+
+
+718
+00:23:19,546 --> 00:23:21,156
+counter graphs, and on the
+
+
+719
+00:23:21,156 --> 00:23:22,886
+right, the detail window.
+
+
+720
+00:23:23,606 --> 00:23:25,246
+Let's talk about those in order.
+
+
+721
+00:23:26,036 --> 00:23:29,866
+In the graph view, we show you
+
+
+722
+00:23:30,276 --> 00:23:33,306
+counters across your frame,
+
+
+723
+00:23:33,936 --> 00:23:35,706
+where the x axis represents draw
+
+
+724
+00:23:35,706 --> 00:23:37,836
+calls, or encoders across time.
+
+
+725
+00:23:39,036 --> 00:23:40,506
+At the top, we show you GPU
+
+
+726
+00:23:40,506 --> 00:23:40,826
+time.
+
+
+727
+00:23:40,826 --> 00:23:43,206
+As that is inherent to all GPU
+
+
+728
+00:23:43,206 --> 00:23:43,996
+counter profiling.
+
+
+729
+00:23:44,746 --> 00:23:45,886
+And then below that, a set of
+
+
+730
+00:23:45,886 --> 00:23:47,106
+top level counters that
+
+
+731
+00:23:47,106 --> 00:23:48,706
+correspond to the stages in the
+
+
+732
+00:23:48,706 --> 00:23:50,986
+GPU pipeline, along with some
+
+
+733
+00:23:50,986 --> 00:23:52,386
+other top level counters that
+
+
+734
+00:23:52,386 --> 00:23:53,996
+correspond to shared execution
+
+
+735
+00:23:53,996 --> 00:23:55,816
+units, such as the shader core
+
+
+736
+00:23:55,816 --> 00:23:56,836
+and test units.
+
+
+737
+00:23:58,616 --> 00:24:00,796
+For each group, you can drill
+
+
+738
+00:24:00,796 --> 00:24:02,686
+down to more detailed counters,
+
+
+739
+00:24:02,686 --> 00:24:04,726
+exploring a lot more data for
+
+
+740
+00:24:04,726 --> 00:24:06,966
+each stage, and this is great
+
+
+741
+00:24:06,966 --> 00:24:08,926
+for work flow where you identify
+
+
+742
+00:24:08,926 --> 00:24:10,616
+it as your first cut, where you
+
+
+743
+00:24:10,616 --> 00:24:11,816
+think the performance issue is,
+
+
+744
+00:24:11,976 --> 00:24:13,746
+and then drill down to see why
+
+
+745
+00:24:13,746 --> 00:24:14,286
+it's going on.
+
+
+746
+00:24:14,976 --> 00:24:19,586
+In the detail view, we'll show
+
+
+747
+00:24:19,586 --> 00:24:20,976
+you all the same counters from
+
+
+748
+00:24:20,976 --> 00:24:22,306
+the counter graph view, but
+
+
+749
+00:24:22,306 --> 00:24:23,706
+displayed in full detail
+
+
+750
+00:24:23,706 --> 00:24:24,226
+numerically.
+
+
+751
+00:24:25,096 --> 00:24:26,546
+And to give it context, we will
+
+
+752
+00:24:26,546 --> 00:24:28,656
+show it alongside the median,
+
+
+753
+00:24:28,656 --> 00:24:29,996
+max, and total values for the
+
+
+754
+00:24:29,996 --> 00:24:30,786
+frame as well.
+
+
+755
+00:24:31,016 --> 00:24:34,546
+Now, both the graph view and the
+
+
+756
+00:24:34,546 --> 00:24:35,856
+detail views support the same
+
+
+757
+00:24:35,856 --> 00:24:38,136
+full, rich filtering options
+
+
+758
+00:24:38,426 --> 00:24:40,036
+that we support elsewhere in the
+
+
+759
+00:24:40,036 --> 00:24:42,226
+frame debugger, so if you want
+
+
+760
+00:24:42,226 --> 00:24:44,086
+to just view certain pixel stats
+
+
+761
+00:24:44,216 --> 00:24:45,426
+and certain memory stats at the
+
+
+762
+00:24:45,426 --> 00:24:47,336
+same time, you can put together
+
+
+763
+00:24:47,336 --> 00:24:48,776
+the search term, and view
+
+
+764
+00:24:48,776 --> 00:24:49,876
+everything you want alongside
+
+
+765
+00:24:49,876 --> 00:24:50,726
+each other.
+
+
+766
+00:24:51,406 --> 00:24:54,696
+But I'll highlight the GPU
+
+
+767
+00:24:54,696 --> 00:24:56,756
+counter profiling is our advance
+
+
+768
+00:24:56,756 --> 00:24:58,026
+to bottleneck analysis.
+
+
+769
+00:24:59,016 --> 00:25:00,516
+With this, we take all the
+
+
+770
+00:25:00,516 --> 00:25:01,896
+counters that have been pulled
+
+
+771
+00:25:01,896 --> 00:25:03,706
+for each draw call, or each
+
+
+772
+00:25:03,706 --> 00:25:05,536
+encoder, and perform rich
+
+
+773
+00:25:05,536 --> 00:25:07,696
+analysis on it, both on a cross
+
+
+774
+00:25:07,696 --> 00:25:10,446
+platform basis, and on a per GPU
+
+
+775
+00:25:10,446 --> 00:25:12,716
+specific basis to identify
+
+
+776
+00:25:12,716 --> 00:25:14,506
+potential bottlenecks at each
+
+
+777
+00:25:14,506 --> 00:25:14,866
+call.
+
+
+778
+00:25:16,446 --> 00:25:19,546
+Alongside this, we will give you
+
+
+779
+00:25:19,546 --> 00:25:21,416
+lots of data about, okay, what
+
+
+780
+00:25:21,416 --> 00:25:22,636
+is going on here?
+
+
+781
+00:25:23,006 --> 00:25:24,306
+What could cause it?
+
+
+782
+00:25:24,306 --> 00:25:26,266
+And then intuitive workflow to
+
+
+783
+00:25:26,266 --> 00:25:28,716
+navigate direct to the affected
+
+
+784
+00:25:28,716 --> 00:25:29,016
+area.
+
+
+785
+00:25:30,346 --> 00:25:32,136
+Now, both the, all the
+
+
+786
+00:25:32,136 --> 00:25:34,356
+bottlenecks and all the counters
+
+
+787
+00:25:34,486 --> 00:25:36,606
+will have rich detailed
+
+
+788
+00:25:36,866 --> 00:25:38,826
+documentation within Xcode docs,
+
+
+789
+00:25:39,166 --> 00:25:40,716
+explaining what each counter
+
+
+790
+00:25:40,716 --> 00:25:43,276
+means in detail, why it might be
+
+
+791
+00:25:43,276 --> 00:25:44,636
+particularly high or
+
+
+792
+00:25:44,636 --> 00:25:46,626
+particularly low, and what you
+
+
+793
+00:25:46,626 --> 00:25:47,846
+can do about it.
+
+
+794
+00:25:47,846 --> 00:25:49,306
+To give a demo of this great new
+
+
+795
+00:25:49,516 --> 00:25:51,086
+GPU Counter Profiling feature,
+
+
+796
+00:25:51,086 --> 00:25:52,556
+I'd like to invite my colleague,
+
+
+797
+00:25:52,556 --> 00:25:54,476
+Jose, back to the stage to give
+
+
+798
+00:25:54,476 --> 00:25:56,336
+you a demo of it in action.
+
+
+799
+00:25:57,516 --> 00:25:59,676
+[ Applause ]
+
+
+800
+00:26:00,176 --> 00:26:00,576
+>> Thank you, Seth.
+
+
+801
+00:26:01,176 --> 00:26:02,116
+And hello again everyone.
+
+
+802
+00:26:02,806 --> 00:26:06,066
+This time, I will demonstrate
+
+
+803
+00:26:06,426 --> 00:26:10,266
+GPU counters, a tool that will
+
+
+804
+00:26:10,266 --> 00:26:11,396
+help you analyze your GPU
+
+
+805
+00:26:11,396 --> 00:26:11,996
+performance.
+
+
+806
+00:26:13,036 --> 00:26:14,066
+First, I'm going to replay the
+
+
+807
+00:26:14,066 --> 00:26:15,286
+same demo that [inaudible] was
+
+
+808
+00:26:15,286 --> 00:26:17,496
+on, but this time, we'll focus
+
+
+809
+00:26:17,496 --> 00:26:18,636
+from a performance perspective.
+
+
+810
+00:26:19,766 --> 00:26:21,596
+The first thing to note is, the
+
+
+811
+00:26:21,596 --> 00:26:23,656
+new GPU gauge, just under the
+
+
+812
+00:26:23,656 --> 00:26:24,336
+FPS gauge.
+
+
+813
+00:26:25,366 --> 00:26:26,356
+By clicking on it, we'll
+
+
+814
+00:26:26,356 --> 00:26:28,796
+navigate to our GP counter view.
+
+
+815
+00:26:29,436 --> 00:26:31,316
+As you can see, there is a
+
+
+816
+00:26:31,316 --> 00:26:32,486
+wealth of data here.
+
+
+817
+00:26:33,106 --> 00:26:34,306
+Available for the first time.
+
+
+818
+00:26:34,476 --> 00:26:36,286
+With this view, you can now
+
+
+819
+00:26:36,356 --> 00:26:38,216
+deliver file any GPU performance
+
+
+820
+00:26:38,216 --> 00:26:39,316
+issue that you have in any of
+
+
+821
+00:26:39,316 --> 00:26:40,296
+your capture frames.
+
+
+822
+00:26:41,326 --> 00:26:42,796
+So let me demonstrate how to
+
+
+823
+00:26:42,796 --> 00:26:43,776
+find performance issues.
+
+
+824
+00:26:45,326 --> 00:26:46,696
+First, let's focus on the graph
+
+
+825
+00:26:46,696 --> 00:26:47,016
+view.
+
+
+826
+00:26:47,016 --> 00:26:47,083
+'
+
+
+827
+00:26:50,206 --> 00:26:51,566
+As you can see, there is a main
+
+
+828
+00:26:51,566 --> 00:26:53,076
+spike in GPU time at the very
+
+
+829
+00:26:53,076 --> 00:26:54,016
+beginning of a capture.
+
+
+830
+00:26:54,526 --> 00:26:56,356
+The first thing you want to do
+
+
+831
+00:26:56,356 --> 00:26:58,746
+is to zoom in to see a single
+
+
+832
+00:26:58,826 --> 00:26:59,876
+recall, there are more
+
+
+833
+00:26:59,876 --> 00:27:00,436
+offenders.
+
+
+834
+00:27:00,946 --> 00:27:01,926
+In order to do that, I can
+
+
+835
+00:27:01,926 --> 00:27:04,596
+simply pinch and zoom, just like
+
+
+836
+00:27:04,596 --> 00:27:04,846
+that.
+
+
+837
+00:27:05,556 --> 00:27:07,216
+Any default system behaviors
+
+
+838
+00:27:07,216 --> 00:27:08,356
+will work just as you expect
+
+
+839
+00:27:08,356 --> 00:27:08,696
+them to.
+
+
+840
+00:27:09,406 --> 00:27:11,546
+Now I will see that there is a
+
+
+841
+00:27:11,546 --> 00:27:12,266
+main spike.
+
+
+842
+00:27:12,456 --> 00:27:14,106
+You can click on this draw call
+
+
+843
+00:27:14,106 --> 00:27:15,306
+to highlight this impact across
+
+
+844
+00:27:15,436 --> 00:27:17,856
+all the pipeline, and hovering
+
+
+845
+00:27:17,856 --> 00:27:19,856
+over each row will give us
+
+
+846
+00:27:19,856 --> 00:27:21,396
+detailed information on how
+
+
+847
+00:27:21,396 --> 00:27:23,016
+relevant that stage is for this
+
+
+848
+00:27:23,016 --> 00:27:23,936
+particular draw call.
+
+
+849
+00:27:24,856 --> 00:27:26,896
+In this case, Vertex Omission,
+
+
+850
+00:27:27,026 --> 00:27:28,506
+Vertex Shader, and Primitives
+
+
+851
+00:27:28,936 --> 00:27:30,546
+did not seem to have relevant
+
+
+852
+00:27:30,676 --> 00:27:30,876
+impact.
+
+
+853
+00:27:31,406 --> 00:27:33,096
+On the contrary, Fragment Shader
+
+
+854
+00:27:33,716 --> 00:27:35,236
+and Pixels [inaudible] seemed to
+
+
+855
+00:27:35,436 --> 00:27:36,316
+be quite high.
+
+
+856
+00:27:37,106 --> 00:27:38,836
+Let's focus on the Fragment
+
+
+857
+00:27:38,836 --> 00:27:39,436
+Shader first.
+
+
+858
+00:27:40,396 --> 00:27:42,326
+If we expand this group we now
+
+
+859
+00:27:42,326 --> 00:27:43,796
+get access to a massive amount
+
+
+860
+00:27:43,796 --> 00:27:45,596
+of counter data that gives us
+
+
+861
+00:27:45,656 --> 00:27:47,336
+detailed information what is
+
+
+862
+00:27:47,336 --> 00:27:48,806
+going on with the Shader stage.
+
+
+863
+00:27:49,636 --> 00:27:50,646
+The last thing that this
+
+
+864
+00:27:50,646 --> 00:27:52,366
+counted, we can quickly see that
+
+
+865
+00:27:52,616 --> 00:27:54,476
+the stall time is unusually
+
+
+866
+00:27:54,476 --> 00:27:56,786
+high, over 76%.
+
+
+867
+00:27:57,486 --> 00:27:58,936
+This means that most of the time
+
+
+868
+00:27:58,936 --> 00:28:00,116
+we are spending on the Fragment
+
+
+869
+00:28:00,116 --> 00:28:01,586
+Shader is actually waiting for
+
+
+870
+00:28:01,586 --> 00:28:03,366
+some memory or data to be
+
+
+871
+00:28:03,366 --> 00:28:03,816
+available.
+
+
+872
+00:28:04,526 --> 00:28:06,776
+This is caused because you are
+
+
+873
+00:28:06,776 --> 00:28:08,176
+fetching from a buffer or from a
+
+
+874
+00:28:08,176 --> 00:28:10,596
+texture, but texture captures
+
+
+875
+00:28:10,596 --> 00:28:11,806
+should be here in this latency,
+
+
+876
+00:28:12,406 --> 00:28:14,556
+so let's go down to our Texture
+
+
+877
+00:28:14,556 --> 00:28:16,736
+Unit, to see what is the cache
+
+
+878
+00:28:16,736 --> 00:28:16,956
+rate.
+
+
+879
+00:28:18,746 --> 00:28:20,526
+And we can immediately see that
+
+
+880
+00:28:20,526 --> 00:28:22,256
+the textures cache rate is also
+
+
+881
+00:28:22,256 --> 00:28:24,586
+unusually high, almost at 60%.
+
+
+882
+00:28:25,326 --> 00:28:27,246
+This means that more than half
+
+
+883
+00:28:27,246 --> 00:28:28,396
+of the texture samples we are
+
+
+884
+00:28:28,396 --> 00:28:29,636
+doing are coming from video
+
+
+885
+00:28:29,636 --> 00:28:30,766
+memory and not from the texture
+
+
+886
+00:28:30,766 --> 00:28:31,236
+caches.
+
+
+887
+00:28:31,966 --> 00:28:33,956
+Now that we have a better
+
+
+888
+00:28:33,956 --> 00:28:34,946
+understanding of the issue at
+
+
+889
+00:28:34,946 --> 00:28:36,966
+hand, let's focus on the
+
+
+890
+00:28:36,966 --> 00:28:37,636
+assistant editor.
+
+
+891
+00:28:38,196 --> 00:28:41,686
+As you can see, the assistant
+
+
+892
+00:28:41,686 --> 00:28:43,406
+editors offer the same graph
+
+
+893
+00:28:43,506 --> 00:28:45,006
+inform-- counter information as
+
+
+894
+00:28:45,006 --> 00:28:46,156
+the graph view was offering, but
+
+
+895
+00:28:46,356 --> 00:28:48,106
+this time, displayed as a table
+
+
+896
+00:28:48,106 --> 00:28:48,516
+view.
+
+
+897
+00:28:48,806 --> 00:28:51,376
+But more important, look at the
+
+
+898
+00:28:51,376 --> 00:28:51,826
+top.
+
+
+899
+00:28:51,826 --> 00:28:53,286
+This is our bottleneck access
+
+
+900
+00:28:53,286 --> 00:28:53,566
+tool.
+
+
+901
+00:28:53,566 --> 00:28:56,406
+It will point out two relevant
+
+
+902
+00:28:56,406 --> 00:28:58,106
+issues that we consider when we
+
+
+903
+00:28:58,106 --> 00:29:00,276
+analyze all the counters within
+
+
+904
+00:29:00,276 --> 00:29:01,736
+the selected draw call, and
+
+
+905
+00:29:01,736 --> 00:29:03,076
+point out any relevant issues
+
+
+906
+00:29:03,076 --> 00:29:04,976
+that we cconsider important for
+
+
+907
+00:29:04,976 --> 00:29:05,926
+you to pay attention to.
+
+
+908
+00:29:06,266 --> 00:29:07,356
+In this case, highlighting the
+
+
+909
+00:29:07,356 --> 00:29:09,446
+same as we just found manually
+
+
+910
+00:29:09,446 --> 00:29:12,776
+by checking the graph, that the
+
+
+911
+00:29:12,776 --> 00:29:15,646
+texture cache miss rate is high.
+
+
+912
+00:29:15,876 --> 00:29:17,686
+When expanded, it also offers
+
+
+913
+00:29:17,686 --> 00:29:18,586
+recommendations on what to
+
+
+914
+00:29:18,586 --> 00:29:18,866
+check.
+
+
+915
+00:29:19,636 --> 00:29:21,436
+In this case, check if sampled
+
+
+916
+00:29:21,436 --> 00:29:23,446
+textures have [inaudible], and a
+
+
+917
+00:29:23,486 --> 00:29:25,406
+quick navigational name to
+
+
+918
+00:29:25,436 --> 00:29:26,786
+relevant views for this issue.
+
+
+919
+00:29:28,066 --> 00:29:29,656
+For example, boundary sources,
+
+
+920
+00:29:30,006 --> 00:29:31,266
+where we can immediately see
+
+
+921
+00:29:31,266 --> 00:29:32,886
+what's the issue at hand, we're
+
+
+922
+00:29:32,886 --> 00:29:35,866
+fetching a 4K by 4K RGBA32
+
+
+923
+00:29:35,926 --> 00:29:37,126
+Floating Point Texture with
+
+
+924
+00:29:37,126 --> 00:29:38,576
+[inaudible] in both our vertex
+
+
+925
+00:29:39,226 --> 00:29:40,126
+and our Fragment Shader.
+
+
+926
+00:29:40,476 --> 00:29:43,336
+This is a 256-megabyte texture
+
+
+927
+00:29:43,336 --> 00:29:44,866
+that is fetched all over the
+
+
+928
+00:29:44,866 --> 00:29:45,296
+pipeline.
+
+
+929
+00:29:45,846 --> 00:29:47,816
+No wonder we are trashing our
+
+
+930
+00:29:48,496 --> 00:29:48,786
+cache.
+
+
+931
+00:29:48,826 --> 00:29:50,156
+Just think for a moment what we
+
+
+932
+00:29:50,156 --> 00:29:50,826
+just did.
+
+
+933
+00:29:51,426 --> 00:29:52,486
+This was an incredibly detailed
+
+
+934
+00:29:52,486 --> 00:29:54,656
+view of how GPU internals work.
+
+
+935
+00:29:55,616 --> 00:29:56,926
+You finally have the data to
+
+
+936
+00:29:56,926 --> 00:29:58,216
+prove what [inaudible] telling
+
+
+937
+00:29:58,216 --> 00:29:59,746
+you, that fetching from the
+
+
+938
+00:29:59,746 --> 00:30:01,226
+textures is expensive, but now
+
+
+939
+00:30:01,226 --> 00:30:02,176
+you know exactly why.
+
+
+940
+00:30:03,296 --> 00:30:05,076
+Accessing this texture was a
+
+
+941
+00:30:05,076 --> 00:30:06,216
+star on the Fragment Shader,
+
+
+942
+00:30:06,216 --> 00:30:08,136
+because it had to fetch some
+
+
+943
+00:30:08,136 --> 00:30:09,196
+data from [inaudible] memory
+
+
+944
+00:30:09,196 --> 00:30:11,426
+that was not available in the
+
+
+945
+00:30:12,376 --> 00:30:12,576
+caches.
+
+
+946
+00:30:12,706 --> 00:30:13,656
+This level of detail is
+
+
+947
+00:30:13,656 --> 00:30:14,716
+typically not seen outside
+
+
+948
+00:30:14,716 --> 00:30:15,606
+consult tools.
+
+
+949
+00:30:16,706 --> 00:30:17,896
+Solving this issue now is a
+
+
+950
+00:30:17,896 --> 00:30:20,566
+matter of balancing performance,
+
+
+951
+00:30:21,006 --> 00:30:22,736
+quality, and correctness, but
+
+
+952
+00:30:22,736 --> 00:30:23,926
+you have demonstrated how you
+
+
+953
+00:30:23,926 --> 00:30:25,036
+can use GPU counters [inaudible]
+
+
+954
+00:30:25,036 --> 00:30:27,376
+the GPU Frame Debugger, to help
+
+
+955
+00:30:27,376 --> 00:30:30,196
+you investigate, analyze, and
+
+
+956
+00:30:30,196 --> 00:30:32,016
+verify any capture information
+
+
+957
+00:30:32,016 --> 00:30:34,246
+-- any performance information
+
+
+958
+00:30:34,246 --> 00:30:35,256
+that you have in your captures.
+
+
+959
+00:30:35,676 --> 00:30:37,056
+And now, I hand it back to my
+
+
+960
+00:30:37,056 --> 00:30:37,586
+colleague, Seth.
+
+
+961
+00:30:38,516 --> 00:30:43,500
+[ Applause ]
+
+
+962
+00:30:48,386 --> 00:30:48,976
+>> Thank you, Jose.
+
+
+963
+00:30:50,696 --> 00:30:52,756
+So that is GPU Counter
+
+
+964
+00:30:52,756 --> 00:30:53,346
+Profiling.
+
+
+965
+00:30:53,966 --> 00:30:54,926
+Like all the new features we
+
+
+966
+00:30:54,926 --> 00:30:56,456
+talked about today, it's the
+
+
+967
+00:30:56,456 --> 00:30:58,676
+ultimate joy in Xcode Beta 9,
+
+
+968
+00:30:59,166 --> 00:31:00,716
+and it's available for all Metal
+
+
+969
+00:31:00,716 --> 00:31:01,906
+capable GPUs.
+
+
+970
+00:31:02,656 --> 00:31:04,356
+You will find that more recent
+
+
+971
+00:31:04,356 --> 00:31:05,586
+GPUs have more counters
+
+
+972
+00:31:05,586 --> 00:31:07,676
+available due to the more modern
+
+
+973
+00:31:07,986 --> 00:31:10,086
+nature of the GPU, but there's
+
+
+974
+00:31:10,086 --> 00:31:11,976
+still a rich and very usable set
+
+
+975
+00:31:11,976 --> 00:31:13,616
+available for all GPUs.
+
+
+976
+00:31:14,026 --> 00:31:16,616
+However, we would love to hear
+
+
+977
+00:31:16,616 --> 00:31:17,936
+feedback from you if you feel
+
+
+978
+00:31:17,936 --> 00:31:18,946
+there's particular counters that
+
+
+979
+00:31:18,946 --> 00:31:19,696
+were unexposed that would be
+
+
+980
+00:31:19,696 --> 00:31:22,156
+particularly valuable, you know,
+
+
+981
+00:31:22,426 --> 00:31:24,606
+please drop by the lab, or
+
+
+982
+00:31:24,606 --> 00:31:26,046
+[inaudible] and we'll be happy
+
+
+983
+00:31:26,046 --> 00:31:26,956
+to investigate.
+
+
+984
+00:31:27,386 --> 00:31:28,986
+So what have we talked about
+
+
+985
+00:31:28,986 --> 00:31:29,226
+today?
+
+
+986
+00:31:29,486 --> 00:31:30,586
+We've talked about some great
+
+
+987
+00:31:30,586 --> 00:31:31,906
+enhancements to the Metal Frame
+
+
+988
+00:31:31,906 --> 00:31:33,676
+Debugger, with support for pixel
+
+
+989
+00:31:33,676 --> 00:31:35,846
+inspection, inspecting Vertex
+
+
+990
+00:31:36,246 --> 00:31:39,256
+Shader outputs, rich filtering,
+
+
+991
+00:31:39,776 --> 00:31:42,186
+better capture support, better
+
+
+992
+00:31:42,186 --> 00:31:44,196
+capture performance, and Xcode
+
+
+993
+00:31:44,196 --> 00:31:45,696
+Metal Quick Looks.
+
+
+994
+00:31:46,216 --> 00:31:49,206
+We've talked about support for
+
+
+995
+00:31:49,206 --> 00:31:50,586
+debugging and profiling VR
+
+
+996
+00:31:50,586 --> 00:31:53,506
+applications in Metal Tray
+
+
+997
+00:31:53,506 --> 00:31:54,876
+Debugger, and Metal System
+
+
+998
+00:31:54,876 --> 00:31:55,186
+Trays.
+
+
+999
+00:31:57,356 --> 00:31:59,986
+We've talked about Metal
+
+
+1000
+00:32:00,056 --> 00:32:01,726
+Pipeline Statistics, giving you
+
+
+1001
+00:32:01,726 --> 00:32:03,236
+a direct line to the GPU
+
+
+1002
+00:32:03,236 --> 00:32:04,316
+compiler for performance
+
+
+1003
+00:32:04,316 --> 00:32:04,916
+information.
+
+
+1004
+00:32:06,696 --> 00:32:08,516
+And we've introduced GPU Counter
+
+
+1005
+00:32:08,516 --> 00:32:11,586
+Profiling, giving you unheralded
+
+
+1006
+00:32:11,586 --> 00:32:13,626
+access to GPU Performance
+
+
+1007
+00:32:13,626 --> 00:32:17,346
+Counter Data in Metal.
+
+
+1008
+00:32:17,626 --> 00:32:19,866
+For more information, check out
+
+
+1009
+00:32:19,866 --> 00:32:20,486
+the website.
+
+
+1010
+00:32:22,166 --> 00:32:23,846
+Code is 607.
+
+
+1011
+00:32:23,846 --> 00:32:28,276
+I did want to call out a couple
+
+
+1012
+00:32:28,276 --> 00:32:29,956
+of other sessions.
+
+
+1013
+00:32:30,316 --> 00:32:31,756
+If you didn't catch either the
+
+
+1014
+00:32:31,756 --> 00:32:33,946
+Introducing Metal 2, or VR With
+
+
+1015
+00:32:33,946 --> 00:32:35,716
+Metal 2 sessions earlier on this
+
+
+1016
+00:32:35,716 --> 00:32:38,186
+week, it's highly worth going
+
+
+1017
+00:32:38,186 --> 00:32:39,896
+and checking out the video, even
+
+
+1018
+00:32:39,896 --> 00:32:41,606
+if you did see them, it's still
+
+
+1019
+00:32:41,606 --> 00:32:42,736
+worth checking out the videos.
+
+
+1020
+00:32:43,066 --> 00:32:45,246
+And coming up later this
+
+
+1021
+00:32:45,246 --> 00:32:46,446
+afternoon, there is a great
+
+
+1022
+00:32:46,446 --> 00:32:47,706
+session on using Metal 2 for
+
+
+1023
+00:32:47,706 --> 00:32:49,856
+Compute, in Grand Ballroom A, at
+
+
+1024
+00:32:49,926 --> 00:32:50,866
+10 past 4.
+
+
+1025
+00:32:51,386 --> 00:32:52,996
+And that's it.
+
+
+1026
+00:32:52,996 --> 00:32:54,216
+Thanks for coming.
+
+
+1027
+00:32:54,556 --> 00:32:56,086
+Have a great remainder of your
+
+
+1028
+00:32:56,146 --> 00:32:58,436
+WWDC 17 and enjoy the bash.
+
+
+1029
+00:32:58,436 --> 00:32:58,776
+Thank you.
+
+
+1030
+00:32:59,016 --> 00:33:00,000
+[ Applause ]
+

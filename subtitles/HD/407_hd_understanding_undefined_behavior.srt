@@ -1,0 +1,6224 @@
+1
+00:00:08,516 --> 00:00:16,500
+[ Background voices ]
+
+
+2
+00:00:24,056 --> 00:00:24,606
+>> Good morning.
+
+
+3
+00:00:26,576 --> 00:00:28,376
+Welcome to the understanding
+
+
+4
+00:00:28,376 --> 00:00:30,936
+undefined behavior session.
+
+
+5
+00:00:31,286 --> 00:00:33,076
+I know all of you have already
+
+
+6
+00:00:33,076 --> 00:00:34,886
+spent countless hours debugging
+
+
+7
+00:00:34,886 --> 00:00:36,466
+bugs that would just disappear
+
+
+8
+00:00:36,466 --> 00:00:38,036
+when you switched from release
+
+
+9
+00:00:38,036 --> 00:00:38,756
+to debug mode.
+
+
+10
+00:00:39,296 --> 00:00:40,946
+You might even have lost users
+
+
+11
+00:00:41,306 --> 00:00:42,566
+because you couldn't reproduce
+
+
+12
+00:00:42,566 --> 00:00:43,916
+the bugs that happened only on
+
+
+13
+00:00:43,916 --> 00:00:44,616
+their device.
+
+
+14
+00:00:45,366 --> 00:00:46,786
+Those might be signs that you
+
+
+15
+00:00:46,786 --> 00:00:48,246
+have undefined behavior in your
+
+
+16
+00:00:48,246 --> 00:00:48,500
+code.
+
+
+17
+00:00:49,956 --> 00:00:51,676
+I'm Fred. I work on the client
+
+
+18
+00:00:51,676 --> 00:00:53,626
+compiler team and today I'll
+
+
+19
+00:00:53,626 --> 00:00:55,266
+start by explaining what
+
+
+20
+00:00:55,266 --> 00:00:57,176
+undefined behavior is and why it
+
+
+21
+00:00:57,176 --> 00:00:57,846
+exists.
+
+
+22
+00:00:58,586 --> 00:00:59,526
+Then we'll dive into the
+
+
+23
+00:00:59,526 --> 00:01:01,026
+compiler and see how its
+
+
+24
+00:01:01,026 --> 00:01:02,636
+interactions with undefined
+
+
+25
+00:01:02,636 --> 00:01:04,215
+behavior cause those subtle
+
+
+26
+00:01:04,215 --> 00:01:04,726
+bugs.
+
+
+27
+00:01:05,596 --> 00:01:08,496
+Those bugs might not only cost
+
+
+28
+00:01:08,496 --> 00:01:09,936
+you a lot of debugging time.
+
+
+29
+00:01:10,446 --> 00:01:11,456
+They might have security
+
+
+30
+00:01:11,456 --> 00:01:12,166
+implications.
+
+
+31
+00:01:12,756 --> 00:01:14,596
+Ryan, from our security team,
+
+
+32
+00:01:14,896 --> 00:01:16,156
+will tell you more about this
+
+
+33
+00:01:16,346 --> 00:01:18,656
+and how you can use our tools to
+
+
+34
+00:01:18,656 --> 00:01:19,666
+avoid those issues.
+
+
+35
+00:01:20,896 --> 00:01:22,506
+Finally, my colleague Anna will
+
+
+36
+00:01:22,506 --> 00:01:23,856
+come to the stage and tell you
+
+
+37
+00:01:23,856 --> 00:01:25,366
+how SWF tackles this problem
+
+
+38
+00:01:25,366 --> 00:01:25,806
+space.
+
+
+39
+00:01:27,616 --> 00:01:30,336
+So, what is undefined behavior?
+
+
+40
+00:01:32,076 --> 00:01:34,846
+Undefined behavior happens when
+
+
+41
+00:01:34,846 --> 00:01:36,856
+your code has correct syntax but
+
+
+42
+00:01:36,856 --> 00:01:39,376
+its behavior is not within the
+
+
+43
+00:01:39,496 --> 00:01:43,286
+bounds of what the language
+
+
+44
+00:01:43,866 --> 00:01:44,046
+allows.
+
+
+45
+00:01:45,336 --> 00:01:48,106
+The C and C++ standards have
+
+
+46
+00:01:48,106 --> 00:01:49,926
+really similar definitions of
+
+
+47
+00:01:49,926 --> 00:01:52,166
+undefined behavior in the
+
+
+48
+00:01:52,166 --> 00:01:52,616
+standard.
+
+
+49
+00:01:53,106 --> 00:01:54,006
+Let's have a look at what the
+
+
+50
+00:01:54,006 --> 00:01:55,216
+C++ standard says.
+
+
+51
+00:01:57,396 --> 00:02:00,126
+Undefined behavior: Behavior for
+
+
+52
+00:02:00,126 --> 00:02:01,496
+which this international
+
+
+53
+00:02:01,496 --> 00:02:03,216
+standard imposes no
+
+
+54
+00:02:03,216 --> 00:02:04,006
+requirements.
+
+
+55
+00:02:04,926 --> 00:02:06,556
+Well, that's helpful, right?
+
+
+56
+00:02:07,286 --> 00:02:11,436
+To be fair, it comes with a note
+
+
+57
+00:02:11,546 --> 00:02:12,846
+that gives more details but it's
+
+
+58
+00:02:12,876 --> 00:02:14,066
+too long to put up on the screen
+
+
+59
+00:02:14,336 --> 00:02:15,176
+so here's a summary.
+
+
+60
+00:02:17,706 --> 00:02:18,986
+So, what can the compiler do?
+
+
+61
+00:02:19,266 --> 00:02:20,606
+If you knew about undefined
+
+
+62
+00:02:20,606 --> 00:02:22,176
+behavior before coming to this
+
+
+63
+00:02:22,176 --> 00:02:23,996
+session, you might have heard
+
+
+64
+00:02:23,996 --> 00:02:25,146
+that if you have undefined
+
+
+65
+00:02:25,146 --> 00:02:26,986
+behavior, the compiler is
+
+
+66
+00:02:26,986 --> 00:02:28,276
+allowed to wipe your disc.
+
+
+67
+00:02:29,066 --> 00:02:30,676
+I guarantee this is not going to
+
+
+68
+00:02:30,676 --> 00:02:31,046
+happen.
+
+
+69
+00:02:31,916 --> 00:02:32,726
+So, what can I do?
+
+
+70
+00:02:33,766 --> 00:02:35,116
+The compiler can choose to
+
+
+71
+00:02:35,116 --> 00:02:37,286
+diagnose the issues using
+
+
+72
+00:02:37,286 --> 00:02:38,526
+warnings or errors.
+
+
+73
+00:02:39,186 --> 00:02:41,076
+This is by far our preferred
+
+
+74
+00:02:41,076 --> 00:02:42,516
+solution and it is very
+
+
+75
+00:02:42,516 --> 00:02:43,976
+actionable on your side and it
+
+
+76
+00:02:43,976 --> 00:02:44,826
+prevents the issue and the
+
+
+77
+00:02:44,826 --> 00:02:45,296
+source.
+
+
+78
+00:02:45,606 --> 00:02:48,866
+The compiler can also choose to
+
+
+79
+00:02:48,866 --> 00:02:50,416
+act in a documented manner.
+
+
+80
+00:02:51,106 --> 00:02:52,806
+Basically, choosing to define
+
+
+81
+00:02:52,976 --> 00:02:54,086
+what the standard left
+
+
+82
+00:02:54,086 --> 00:02:54,696
+undefined.
+
+
+83
+00:02:55,416 --> 00:02:57,466
+We do not do this a lot but
+
+
+84
+00:02:57,466 --> 00:02:58,376
+there are some kinds of
+
+
+85
+00:02:58,376 --> 00:02:59,936
+undefined behavior, which are
+
+
+86
+00:02:59,936 --> 00:03:01,496
+way to common not to support.
+
+
+87
+00:03:04,286 --> 00:03:05,916
+And finally, the compiler can
+
+
+88
+00:03:05,916 --> 00:03:07,846
+produce unpredictable results.
+
+
+89
+00:03:08,336 --> 00:03:09,826
+This is the part we are going to
+
+
+90
+00:03:09,826 --> 00:03:10,836
+focus on today.
+
+
+91
+00:03:12,056 --> 00:03:14,216
+Note that unpredictable includes
+
+
+92
+00:03:14,216 --> 00:03:16,606
+behaving as you intended, which
+
+
+93
+00:03:16,606 --> 00:03:18,526
+is why some of those bugs will
+
+
+94
+00:03:18,526 --> 00:03:19,486
+be really evasive.
+
+
+95
+00:03:20,616 --> 00:03:23,606
+There is a lot of undefined
+
+
+96
+00:03:23,606 --> 00:03:25,036
+behavior in the C family of
+
+
+97
+00:03:25,036 --> 00:03:25,546
+languages.
+
+
+98
+00:03:26,226 --> 00:03:27,596
+This is just a small sample.
+
+
+99
+00:03:28,866 --> 00:03:30,746
+The C standard has a list in
+
+
+100
+00:03:30,796 --> 00:03:32,996
+Annex J of all the known sources
+
+
+101
+00:03:32,996 --> 00:03:33,966
+of undefined behavior.
+
+
+102
+00:03:33,966 --> 00:03:37,506
+There are around 200 of them.
+
+
+103
+00:03:37,756 --> 00:03:39,016
+At this point, you might be
+
+
+104
+00:03:39,016 --> 00:03:41,486
+wondering why is undefined
+
+
+105
+00:03:41,486 --> 00:03:42,796
+behavior even a thing?
+
+
+106
+00:03:42,966 --> 00:03:44,316
+Why is it defined in the
+
+
+107
+00:03:44,316 --> 00:03:45,006
+standards?
+
+
+108
+00:03:45,006 --> 00:03:46,426
+Were people just lazy?
+
+
+109
+00:03:46,426 --> 00:03:47,546
+They didn't want to define
+
+
+110
+00:03:47,546 --> 00:03:48,006
+everything?
+
+
+111
+00:03:49,066 --> 00:03:49,846
+Of course, not.
+
+
+112
+00:03:50,686 --> 00:03:51,836
+This is about tradeoffs.
+
+
+113
+00:03:52,656 --> 00:03:55,366
+C has been designed to favor
+
+
+114
+00:03:55,706 --> 00:03:58,096
+performance, affordability, and
+
+
+115
+00:03:58,096 --> 00:03:59,506
+ease of implementation over
+
+
+116
+00:03:59,506 --> 00:04:00,016
+safety.
+
+
+117
+00:04:01,666 --> 00:04:03,316
+The C family of languages has
+
+
+118
+00:04:03,316 --> 00:04:04,806
+inherited those tradeoffs.
+
+
+119
+00:04:06,136 --> 00:04:08,026
+Those were deliberate choices
+
+
+120
+00:04:08,246 --> 00:04:09,316
+and they still make a lot of
+
+
+121
+00:04:09,316 --> 00:04:10,946
+sense in many circumstances
+
+
+122
+00:04:10,946 --> 00:04:11,286
+today.
+
+
+123
+00:04:12,266 --> 00:04:16,886
+Our OSs run fast thanks to them.
+
+
+124
+00:04:16,886 --> 00:04:18,745
+But as with every tradeoff,
+
+
+125
+00:04:18,776 --> 00:04:20,416
+there is a price to pay and in
+
+
+126
+00:04:20,416 --> 00:04:22,005
+this case it is you, the
+
+
+127
+00:04:22,005 --> 00:04:24,196
+developers, who are paying it.
+
+
+128
+00:04:24,586 --> 00:04:25,896
+This is why it is really
+
+
+129
+00:04:25,896 --> 00:04:27,466
+important that you know that it
+
+
+130
+00:04:27,466 --> 00:04:29,926
+exists and how to deal with it.
+
+
+131
+00:04:30,496 --> 00:04:33,586
+As I said, there are way too
+
+
+132
+00:04:33,586 --> 00:04:35,466
+many kinds of undefined behavior
+
+
+133
+00:04:35,546 --> 00:04:37,056
+to go through all of them but
+
+
+134
+00:04:37,436 --> 00:04:38,836
+let's just go through a few
+
+
+135
+00:04:38,836 --> 00:04:39,816
+examples to make sure
+
+
+136
+00:04:39,816 --> 00:04:43,136
+everybody's on the same page.
+
+
+137
+00:04:43,336 --> 00:04:45,426
+My first example is the use of
+
+
+138
+00:04:45,426 --> 00:04:46,936
+an uninitialized value.
+
+
+139
+00:04:47,646 --> 00:04:49,326
+In this function, we have a
+
+
+140
+00:04:49,326 --> 00:04:50,396
+local variable, value.
+
+
+141
+00:04:51,016 --> 00:04:52,386
+It is used in the return
+
+
+142
+00:04:52,386 --> 00:04:55,536
+statement but it is initialized
+
+
+143
+00:04:55,536 --> 00:04:57,596
+only if the condition to the if
+
+
+144
+00:04:57,596 --> 00:04:58,346
+block is true.
+
+
+145
+00:04:59,316 --> 00:05:01,346
+If you pass any positive number
+
+
+146
+00:05:01,346 --> 00:05:02,986
+to this function, it will invoke
+
+
+147
+00:05:02,986 --> 00:05:05,136
+undefined behavior as value will
+
+
+148
+00:05:05,136 --> 00:05:06,626
+be used and initialized.
+
+
+149
+00:05:07,986 --> 00:05:09,386
+In this simple case, the
+
+
+150
+00:05:09,386 --> 00:05:10,646
+compiler will catch the issue
+
+
+151
+00:05:10,646 --> 00:05:11,376
+and warn about it.
+
+
+152
+00:05:12,816 --> 00:05:14,416
+The static analyzer would give
+
+
+153
+00:05:14,416 --> 00:05:15,976
+you that information too and it
+
+
+154
+00:05:15,976 --> 00:05:18,156
+would catch more complex cases
+
+
+155
+00:05:18,316 --> 00:05:21,026
+of the same kind.
+
+
+156
+00:05:22,426 --> 00:05:23,786
+My second example is about
+
+
+157
+00:05:23,786 --> 00:05:24,906
+misaligned pointers.
+
+
+158
+00:05:25,256 --> 00:05:28,136
+In this function, we take a
+
+
+159
+00:05:28,136 --> 00:05:29,656
+character pointer as an argument
+
+
+160
+00:05:30,796 --> 00:05:32,836
+but inside the function, we use
+
+
+161
+00:05:32,836 --> 00:05:34,076
+it as an integer pointer.
+
+
+162
+00:05:34,786 --> 00:05:36,976
+The issue is that not every
+
+
+163
+00:05:36,976 --> 00:05:38,376
+character pointer is a valid
+
+
+164
+00:05:38,376 --> 00:05:39,236
+integer pointer.
+
+
+165
+00:05:40,746 --> 00:05:42,606
+Integers have to be correctly
+
+
+166
+00:05:42,606 --> 00:05:43,076
+aligned.
+
+
+167
+00:05:43,416 --> 00:05:44,886
+Usually this means their address
+
+
+168
+00:05:44,886 --> 00:05:46,166
+needs to be a multiple of four.
+
+
+169
+00:05:47,406 --> 00:05:48,836
+This kind of code will often
+
+
+170
+00:05:48,836 --> 00:05:50,606
+cause issues when porting code
+
+
+171
+00:05:50,606 --> 00:05:52,086
+between different architectures,
+
+
+172
+00:05:52,206 --> 00:05:53,896
+which have different alignment
+
+
+173
+00:05:53,896 --> 00:05:55,156
+constraints at the hardware
+
+
+174
+00:05:55,526 --> 00:05:56,046
+level.
+
+
+175
+00:05:56,856 --> 00:05:58,816
+This year, in Xcode 9 we
+
+
+176
+00:05:58,816 --> 00:06:00,246
+introduced the new Runtime tool,
+
+
+177
+00:06:00,356 --> 00:06:01,366
+the Undefined Behavior
+
+
+178
+00:06:01,366 --> 00:06:02,796
+Sanitizer, which would catch
+
+
+179
+00:06:02,796 --> 00:06:03,660
+this issue.
+
+
+180
+00:06:07,646 --> 00:06:09,906
+My last example is about
+
+
+181
+00:06:09,906 --> 00:06:10,516
+lifetimes.
+
+
+182
+00:06:11,706 --> 00:06:13,926
+Variables are defined only
+
+
+183
+00:06:13,926 --> 00:06:15,296
+within the scope -- our
+
+
+184
+00:06:15,416 --> 00:06:17,116
+variables are valued only within
+
+
+185
+00:06:17,116 --> 00:06:18,436
+the scope they are defined in.
+
+
+186
+00:06:19,336 --> 00:06:20,946
+Here, we take the address of the
+
+
+187
+00:06:20,946 --> 00:06:22,056
+default value variable.
+
+
+188
+00:06:23,166 --> 00:06:25,416
+Default is defined within the if
+
+
+189
+00:06:25,416 --> 00:06:27,556
+block and exists only there.
+
+
+190
+00:06:28,036 --> 00:06:29,946
+But by using this pointer
+
+
+191
+00:06:30,336 --> 00:06:32,116
+outside of the block, we invoke
+
+
+192
+00:06:32,116 --> 00:06:33,026
+undefined behavior.
+
+
+193
+00:06:34,776 --> 00:06:37,476
+Again, our tools will catch
+
+
+194
+00:06:37,476 --> 00:06:37,696
+that.
+
+
+195
+00:06:38,606 --> 00:06:42,236
+Now that we have a better idea
+
+
+196
+00:06:42,236 --> 00:06:44,366
+of the issues we are talking
+
+
+197
+00:06:44,366 --> 00:06:46,526
+about, let's take a look at how
+
+
+198
+00:06:46,526 --> 00:06:47,816
+they interact with the compiler
+
+
+199
+00:06:49,506 --> 00:06:50,876
+and how they can produce those
+
+
+200
+00:06:50,876 --> 00:06:51,676
+surprising bugs.
+
+
+201
+00:06:52,576 --> 00:06:55,546
+First, let's look at what the
+
+
+202
+00:06:55,546 --> 00:06:56,776
+compiler, what undefined
+
+
+203
+00:06:56,776 --> 00:06:58,376
+behavior means to the compiler.
+
+
+204
+00:06:59,266 --> 00:07:01,556
+It is not actively looking for
+
+
+205
+00:07:01,556 --> 00:07:03,976
+it to transform it in weird
+
+
+206
+00:07:03,976 --> 00:07:04,386
+ways.
+
+
+207
+00:07:04,776 --> 00:07:05,706
+This is not happening.
+
+
+208
+00:07:06,306 --> 00:07:07,616
+But the compiler makes the
+
+
+209
+00:07:07,616 --> 00:07:09,356
+assumption that there is no
+
+
+210
+00:07:09,356 --> 00:07:11,116
+undefined behavior in your code
+
+
+211
+00:07:11,556 --> 00:07:12,976
+because otherwise the semantics
+
+
+212
+00:07:12,976 --> 00:07:14,086
+of your code wouldn't be well
+
+
+213
+00:07:14,086 --> 00:07:14,556
+defined.
+
+
+214
+00:07:15,656 --> 00:07:17,696
+By making this assumption, the
+
+
+215
+00:07:17,696 --> 00:07:20,216
+compiler gathers information to
+
+
+216
+00:07:20,456 --> 00:07:21,616
+better optimize your code.
+
+
+217
+00:07:21,716 --> 00:07:24,756
+Here are a few examples.
+
+
+218
+00:07:26,416 --> 00:07:28,296
+As it is undefined to overflow
+
+
+219
+00:07:28,296 --> 00:07:30,346
+assigned integer, if X is
+
+
+220
+00:07:30,346 --> 00:07:31,986
+assigned integer, the compiler
+
+
+221
+00:07:31,986 --> 00:07:33,976
+can assume that X is lower than
+
+
+222
+00:07:33,976 --> 00:07:34,616
+X + 1.
+
+
+223
+00:07:35,386 --> 00:07:37,326
+This is a very simple but very
+
+
+224
+00:07:37,326 --> 00:07:38,696
+powerful assumption to make when
+
+
+225
+00:07:38,696 --> 00:07:40,226
+dealing, for example, with loop
+
+
+226
+00:07:40,226 --> 00:07:41,036
+optimizations.
+
+
+227
+00:07:42,836 --> 00:07:45,826
+As I said, pointers need to be
+
+
+228
+00:07:45,826 --> 00:07:46,296
+aligned.
+
+
+229
+00:07:47,136 --> 00:07:48,416
+And by making the assumption
+
+
+230
+00:07:48,416 --> 00:07:49,916
+that they are, the compiler can
+
+
+231
+00:07:49,916 --> 00:07:52,056
+use more powerful memory access
+
+
+232
+00:07:52,056 --> 00:07:53,396
+instructions like vector
+
+
+233
+00:07:53,396 --> 00:07:55,046
+instructions to make your code
+
+
+234
+00:07:55,046 --> 00:07:55,786
+way faster.
+
+
+235
+00:07:56,356 --> 00:08:00,736
+And last example, it is
+
+
+236
+00:08:00,736 --> 00:08:02,246
+undefined to dereference another
+
+
+237
+00:08:02,246 --> 00:08:03,986
+pointer, so the compiler can
+
+
+238
+00:08:03,986 --> 00:08:05,596
+assume that each pointer that is
+
+
+239
+00:08:05,596 --> 00:08:08,456
+dereferenced cannot be now and
+
+
+240
+00:08:08,456 --> 00:08:09,976
+use this information to further
+
+
+241
+00:08:09,976 --> 00:08:10,696
+optimize your code.
+
+
+242
+00:08:12,946 --> 00:08:14,526
+So, let's get a little bit more
+
+
+243
+00:08:14,526 --> 00:08:16,496
+concrete and look at how a
+
+
+244
+00:08:16,496 --> 00:08:17,416
+compiler works.
+
+
+245
+00:08:18,346 --> 00:08:19,856
+At a very high level, the
+
+
+246
+00:08:19,856 --> 00:08:21,336
+compiler takes your source code
+
+
+247
+00:08:22,236 --> 00:08:23,466
+and transforms it into an
+
+
+248
+00:08:23,466 --> 00:08:24,666
+intermediate representation.
+
+
+249
+00:08:24,996 --> 00:08:27,466
+It then applies a pipeline of
+
+
+250
+00:08:27,466 --> 00:08:29,016
+optimizations to generate
+
+
+251
+00:08:29,016 --> 00:08:30,316
+optimizations to generate the
+
+
+252
+00:08:30,676 --> 00:08:30,846
+binary.
+
+
+253
+00:08:30,846 --> 00:08:32,765
+Each of those optimizations has
+
+
+254
+00:08:32,765 --> 00:08:35,076
+one goal, generate a more
+
+
+255
+00:08:35,076 --> 00:08:37,265
+efficient representation of its
+
+
+256
+00:08:37,265 --> 00:08:39,106
+input while preserving the
+
+
+257
+00:08:39,106 --> 00:08:39,796
+semantics.
+
+
+258
+00:08:40,326 --> 00:08:44,265
+But I introduced the session by
+
+
+259
+00:08:44,426 --> 00:08:45,726
+talking about those bugs that
+
+
+260
+00:08:45,796 --> 00:08:47,376
+would reproduce in release mode
+
+
+261
+00:08:47,416 --> 00:08:48,386
+but not in debug mode.
+
+
+262
+00:08:48,386 --> 00:08:49,526
+So, how is that behavior
+
+
+263
+00:08:49,526 --> 00:08:50,226
+preserving?
+
+
+264
+00:08:51,266 --> 00:08:52,916
+Let's look at a simple example.
+
+
+265
+00:08:54,056 --> 00:08:55,716
+Here we have our compiler at the
+
+
+266
+00:08:55,716 --> 00:08:56,066
+top.
+
+
+267
+00:08:57,506 --> 00:08:58,946
+It has only one optimization -
+
+
+268
+00:08:59,266 --> 00:09:00,416
+dead code elimination.
+
+
+269
+00:09:01,066 --> 00:09:03,886
+Dead code elimination looks for
+
+
+270
+00:09:03,886 --> 00:09:06,666
+code that cannot be executed or
+
+
+271
+00:09:06,666 --> 00:09:08,156
+that doesn't affect the result
+
+
+272
+00:09:08,156 --> 00:09:10,186
+of your program in any way and
+
+
+273
+00:09:10,186 --> 00:09:11,526
+it removes this code, thus
+
+
+274
+00:09:11,526 --> 00:09:13,326
+making your apps smaller.
+
+
+275
+00:09:14,786 --> 00:09:16,166
+Let's apply this compiler to a
+
+
+276
+00:09:16,166 --> 00:09:17,236
+simple function.
+
+
+277
+00:09:18,276 --> 00:09:19,636
+The function has only two
+
+
+278
+00:09:19,636 --> 00:09:20,916
+statements, one variable
+
+
+279
+00:09:20,916 --> 00:09:22,576
+assignment and a return
+
+
+280
+00:09:22,576 --> 00:09:23,006
+statement.
+
+
+281
+00:09:23,636 --> 00:09:26,906
+We run dead code elimination.
+
+
+282
+00:09:27,896 --> 00:09:29,876
+The variable is not used so
+
+
+283
+00:09:29,986 --> 00:09:32,426
+let's get rid of it.
+
+
+284
+00:09:32,686 --> 00:09:34,616
+And here, look at what we got.
+
+
+285
+00:09:35,546 --> 00:09:37,216
+What happens if we pass another
+
+
+286
+00:09:37,216 --> 00:09:38,236
+pointer to this function?
+
+
+287
+00:09:38,776 --> 00:09:40,646
+The unoptimized version will
+
+
+288
+00:09:40,646 --> 00:09:42,936
+crash but the optimized version
+
+
+289
+00:09:42,936 --> 00:09:44,346
+will happily return 42.
+
+
+290
+00:09:44,996 --> 00:09:46,476
+So, we have a difference in
+
+
+291
+00:09:46,476 --> 00:09:46,956
+behavior.
+
+
+292
+00:09:47,936 --> 00:09:49,576
+But by passing null to this
+
+
+293
+00:09:49,576 --> 00:09:51,496
+function, you invoked undefined
+
+
+294
+00:09:51,496 --> 00:09:53,756
+behavior as it is undefined to
+
+
+295
+00:09:53,756 --> 00:09:54,966
+dereference another pointer.
+
+
+296
+00:09:56,156 --> 00:09:57,756
+I'll repeat that.
+
+
+297
+00:09:57,756 --> 00:09:59,566
+It is undefined to dereference
+
+
+298
+00:09:59,566 --> 00:10:00,226
+another pointer.
+
+
+299
+00:10:00,276 --> 00:10:02,056
+It is not defined to crash.
+
+
+300
+00:10:03,216 --> 00:10:05,116
+If dereferencing another pointer
+
+
+301
+00:10:05,116 --> 00:10:07,456
+was defined to crash or if for
+
+
+302
+00:10:07,456 --> 00:10:08,826
+some other reason the compiler
+
+
+303
+00:10:08,826 --> 00:10:10,166
+couldn't make the assumption
+
+
+304
+00:10:10,546 --> 00:10:12,236
+that dereferenced pointers were
+
+
+305
+00:10:12,236 --> 00:10:14,796
+valid, it would be really hard
+
+
+306
+00:10:14,796 --> 00:10:16,306
+to make any transformations on
+
+
+307
+00:10:16,306 --> 00:10:17,236
+the memory accesses.
+
+
+308
+00:10:17,396 --> 00:10:19,066
+Like, it couldn't reorder them.
+
+
+309
+00:10:19,066 --> 00:10:21,086
+It couldn't merge them or it
+
+
+310
+00:10:21,086 --> 00:10:22,206
+couldn't remove the useless
+
+
+311
+00:10:22,206 --> 00:10:23,296
+ones, like we just saw.
+
+
+312
+00:10:26,166 --> 00:10:27,696
+Dealing with memory access is a
+
+
+313
+00:10:27,796 --> 00:10:29,346
+huge part of the compiler job.
+
+
+314
+00:10:30,586 --> 00:10:31,896
+So, here you have an example of
+
+
+315
+00:10:32,026 --> 00:10:34,306
+how undefined behavior changes
+
+
+316
+00:10:34,306 --> 00:10:35,546
+the behavior of your program
+
+
+317
+00:10:35,546 --> 00:10:37,046
+between unoptimized and
+
+
+318
+00:10:37,046 --> 00:10:37,816
+optimized code.
+
+
+319
+00:10:38,436 --> 00:10:39,426
+But there's more I want to show
+
+
+320
+00:10:39,426 --> 00:10:39,616
+you.
+
+
+321
+00:10:40,186 --> 00:10:41,536
+Let's move to a slightly more
+
+
+322
+00:10:41,536 --> 00:10:42,526
+complicated example.
+
+
+323
+00:10:44,136 --> 00:10:45,956
+Here again we have our compiler
+
+
+324
+00:10:45,956 --> 00:10:47,856
+that's up and our source at the
+
+
+325
+00:10:47,856 --> 00:10:48,276
+bottom.
+
+
+326
+00:10:49,206 --> 00:10:51,246
+This example is actually derived
+
+
+327
+00:10:51,506 --> 00:10:53,106
+from a real issue that happened
+
+
+328
+00:10:53,106 --> 00:10:54,536
+in our big open source code days
+
+
+329
+00:10:54,716 --> 00:10:55,746
+a few years ago.
+
+
+330
+00:10:55,976 --> 00:10:57,586
+So, do not disregard it as
+
+
+331
+00:10:57,586 --> 00:10:58,926
+completely theoretical.
+
+
+332
+00:11:00,786 --> 00:11:02,426
+When you have a big function
+
+
+333
+00:11:02,616 --> 00:11:03,996
+that is modified by multiple
+
+
+334
+00:11:04,076 --> 00:11:05,566
+people over a long period of
+
+
+335
+00:11:05,566 --> 00:11:07,896
+time, it's easy to end up with
+
+
+336
+00:11:07,896 --> 00:11:09,426
+artifacts from the past, like
+
+
+337
+00:11:09,426 --> 00:11:10,786
+this unused variable at the top
+
+
+338
+00:11:10,786 --> 00:11:11,406
+of the function.
+
+
+339
+00:11:12,606 --> 00:11:14,786
+Now, let's compile this code.
+
+
+340
+00:11:15,296 --> 00:11:16,596
+Our new compiler has one more
+
+
+341
+00:11:16,596 --> 00:11:17,336
+optimization.
+
+
+342
+00:11:17,986 --> 00:11:19,226
+Redundant null check
+
+
+343
+00:11:19,226 --> 00:11:19,976
+elimination.
+
+
+344
+00:11:20,916 --> 00:11:22,186
+This optimization is a
+
+
+345
+00:11:22,186 --> 00:11:23,796
+specialized version of dead code
+
+
+346
+00:11:23,796 --> 00:11:24,526
+elimination.
+
+
+347
+00:11:24,976 --> 00:11:26,436
+It will look for pointers
+
+
+348
+00:11:26,436 --> 00:11:28,596
+compared against now and tries
+
+
+349
+00:11:28,626 --> 00:11:30,536
+to decide if statically at this
+
+
+350
+00:11:30,576 --> 00:11:33,336
+point of the program it can
+
+
+351
+00:11:33,726 --> 00:11:36,316
+prove that the pointer is either
+
+
+352
+00:11:36,316 --> 00:11:37,456
+null or nonnull.
+
+
+353
+00:11:38,776 --> 00:11:40,296
+And when it can do so, it just
+
+
+354
+00:11:40,296 --> 00:11:41,526
+removes the code that can never
+
+
+355
+00:11:41,526 --> 00:11:42,366
+be executed.
+
+
+356
+00:11:43,316 --> 00:11:46,626
+In this case, P is dereferenced
+
+
+357
+00:11:46,626 --> 00:11:47,846
+in the first line of the
+
+
+358
+00:11:47,846 --> 00:11:48,356
+function.
+
+
+359
+00:11:48,426 --> 00:11:49,856
+So, of course the pointer cannot
+
+
+360
+00:11:49,856 --> 00:11:50,206
+be null.
+
+
+361
+00:11:50,806 --> 00:11:51,776
+Let's remove the null check.
+
+
+362
+00:11:52,396 --> 00:11:56,376
+We then move on to our second
+
+
+363
+00:11:56,376 --> 00:11:57,066
+optimization.
+
+
+364
+00:11:57,416 --> 00:11:58,656
+We already know about dead code
+
+
+365
+00:11:58,656 --> 00:11:59,396
+elimination.
+
+
+366
+00:12:00,116 --> 00:12:01,066
+Unused is unused.
+
+
+367
+00:12:01,616 --> 00:12:02,296
+It goes away.
+
+
+368
+00:12:03,846 --> 00:12:05,796
+And here's the result of our
+
+
+369
+00:12:05,796 --> 00:12:06,396
+compilation.
+
+
+370
+00:12:07,716 --> 00:12:10,006
+Now, let's play the same game.
+
+
+371
+00:12:10,006 --> 00:12:11,596
+What happens if we pass null to
+
+
+372
+00:12:11,596 --> 00:12:12,166
+this function?
+
+
+373
+00:12:12,876 --> 00:12:14,956
+The unoptimized version will
+
+
+374
+00:12:14,956 --> 00:12:15,446
+crash.
+
+
+375
+00:12:16,306 --> 00:12:18,356
+The optimized version will crash
+
+
+376
+00:12:18,356 --> 00:12:18,576
+too.
+
+
+377
+00:12:19,436 --> 00:12:20,806
+But note that they don't crash
+
+
+378
+00:12:20,806 --> 00:12:21,476
+in the same spot.
+
+
+379
+00:12:21,946 --> 00:12:23,296
+The unoptimized version crashes
+
+
+380
+00:12:23,296 --> 00:12:24,086
+on the first line.
+
+
+381
+00:12:24,506 --> 00:12:26,116
+The optimized version crashes on
+
+
+382
+00:12:26,116 --> 00:12:26,916
+the last line.
+
+
+383
+00:12:27,706 --> 00:12:29,296
+Those could be hundreds of
+
+
+384
+00:12:29,296 --> 00:12:30,376
+thousands of lines away.
+
+
+385
+00:12:31,226 --> 00:12:32,996
+This is a very important lesson
+
+
+386
+00:12:32,996 --> 00:12:34,236
+to learn about undefined
+
+
+387
+00:12:34,236 --> 00:12:34,766
+behavior.
+
+
+388
+00:12:35,356 --> 00:12:37,786
+When it causes an issue, whether
+
+
+389
+00:12:37,786 --> 00:12:39,996
+it is another reference, an
+
+
+390
+00:12:39,996 --> 00:12:42,136
+integer overflow, memory
+
+
+391
+00:12:42,136 --> 00:12:44,126
+corruption due to an out of
+
+
+392
+00:12:44,126 --> 00:12:45,686
+bound access or any other kind
+
+
+393
+00:12:45,686 --> 00:12:47,336
+of undefined behavior, the
+
+
+394
+00:12:47,336 --> 00:12:49,106
+symptom you see will often be
+
+
+395
+00:12:49,106 --> 00:12:50,526
+very far away from the root
+
+
+396
+00:12:50,526 --> 00:12:51,336
+cause of the issue.
+
+
+397
+00:12:53,566 --> 00:12:54,806
+There is one more thing I want
+
+
+398
+00:12:54,806 --> 00:12:55,306
+to show you.
+
+
+399
+00:12:56,096 --> 00:12:58,606
+Let's restart the compilation
+
+
+400
+00:12:58,606 --> 00:12:59,606
+with a slightly different
+
+
+401
+00:12:59,606 --> 00:13:00,056
+compiler.
+
+
+402
+00:13:01,136 --> 00:13:02,496
+As you see, we just see swapped
+
+
+403
+00:13:02,646 --> 00:13:03,656
+the two optimizations.
+
+
+404
+00:13:04,386 --> 00:13:05,556
+Let's compile the same code
+
+
+405
+00:13:05,556 --> 00:13:05,906
+again.
+
+
+406
+00:13:08,366 --> 00:13:10,266
+Dead code elimination, unused is
+
+
+407
+00:13:10,266 --> 00:13:10,906
+still unused.
+
+
+408
+00:13:10,906 --> 00:13:12,056
+It goes away.
+
+
+409
+00:13:13,696 --> 00:13:15,736
+Now we try to apply redundant
+
+
+410
+00:13:15,736 --> 00:13:17,330
+null check elimination.
+
+
+411
+00:13:18,186 --> 00:13:19,846
+There is nothing to - there is
+
+
+412
+00:13:19,846 --> 00:13:21,266
+nothing to reason anymore about
+
+
+413
+00:13:21,266 --> 00:13:22,786
+the value of the P pointer so
+
+
+414
+00:13:22,786 --> 00:13:24,136
+the optimization just does
+
+
+415
+00:13:24,136 --> 00:13:24,656
+nothing.
+
+
+416
+00:13:25,176 --> 00:13:27,886
+And here's the result of our
+
+
+417
+00:13:28,046 --> 00:13:29,366
+second compilation of the same
+
+
+418
+00:13:29,366 --> 00:13:29,616
+code.
+
+
+419
+00:13:30,446 --> 00:13:33,036
+Note that in this case if you
+
+
+420
+00:13:33,036 --> 00:13:34,726
+pass a null pointer to the
+
+
+421
+00:13:34,726 --> 00:13:36,466
+optimized version, it will not
+
+
+422
+00:13:36,886 --> 00:13:37,000
+crash.
+
+
+423
+00:13:39,036 --> 00:13:41,816
+Now, imagine your app has the
+
+
+424
+00:13:41,816 --> 00:13:43,726
+code on the left and the
+
+
+425
+00:13:43,726 --> 00:13:44,946
+developer who added the null
+
+
+426
+00:13:44,946 --> 00:13:46,116
+check to this function at some
+
+
+427
+00:13:46,116 --> 00:13:48,836
+point added a few uses of the
+
+
+428
+00:13:48,836 --> 00:13:50,146
+function with another argument.
+
+
+429
+00:13:51,186 --> 00:13:52,586
+You might have never realized
+
+
+430
+00:13:52,586 --> 00:13:54,136
+that it is an issue because your
+
+
+431
+00:13:54,136 --> 00:13:55,566
+compiler is acting like compiler
+
+
+432
+00:13:55,566 --> 00:13:55,846
+2.
+
+
+433
+00:13:56,826 --> 00:13:58,646
+But there is no guarantee that
+
+
+434
+00:13:58,646 --> 00:14:00,396
+in the future it will not act
+
+
+435
+00:14:00,396 --> 00:14:02,206
+like compiler 1 and break your
+
+
+436
+00:14:02,206 --> 00:14:02,486
+code.
+
+
+437
+00:14:03,726 --> 00:14:05,356
+This is maybe the most important
+
+
+438
+00:14:05,356 --> 00:14:06,606
+thing to remember about
+
+
+439
+00:14:06,606 --> 00:14:07,476
+undefined behavior.
+
+
+440
+00:14:07,716 --> 00:14:09,466
+The fact that you don't have an
+
+
+441
+00:14:09,466 --> 00:14:11,226
+issue today doesn't mean that
+
+
+442
+00:14:11,226 --> 00:14:12,806
+that change in the compiler will
+
+
+443
+00:14:12,806 --> 00:14:13,866
+not cause it to break in the
+
+
+444
+00:14:13,866 --> 00:14:14,276
+future.
+
+
+445
+00:14:15,786 --> 00:14:17,266
+And your compiler might be
+
+
+446
+00:14:17,266 --> 00:14:18,686
+changing behavior more than you
+
+
+447
+00:14:18,686 --> 00:14:18,996
+think.
+
+
+448
+00:14:20,966 --> 00:14:22,796
+During a single day, each time
+
+
+449
+00:14:22,796 --> 00:14:24,046
+you switch between debug and
+
+
+450
+00:14:24,046 --> 00:14:25,796
+release mode or each time you
+
+
+451
+00:14:25,796 --> 00:14:26,776
+change the optimization
+
+
+452
+00:14:26,776 --> 00:14:29,026
+settings, you run a different
+
+
+453
+00:14:29,026 --> 00:14:30,396
+instance of the compiler with a
+
+
+454
+00:14:30,396 --> 00:14:31,476
+very different set of
+
+
+455
+00:14:31,476 --> 00:14:32,786
+transformations applied to your
+
+
+456
+00:14:32,786 --> 00:14:33,136
+code.
+
+
+457
+00:14:35,016 --> 00:14:36,996
+Maybe more surprisingly, each
+
+
+458
+00:14:36,996 --> 00:14:38,086
+time you switch from a real
+
+
+459
+00:14:38,086 --> 00:14:39,776
+device to a simulator or vice
+
+
+460
+00:14:39,776 --> 00:14:42,196
+versa, you are targeting a
+
+
+461
+00:14:42,196 --> 00:14:43,746
+different architecture, which
+
+
+462
+00:14:43,746 --> 00:14:45,566
+might react differently to
+
+
+463
+00:14:45,566 --> 00:14:46,496
+undefined behavior.
+
+
+464
+00:14:47,076 --> 00:14:50,746
+And, of course, each time you
+
+
+465
+00:14:50,746 --> 00:14:52,656
+upgrade Xcode to a new major
+
+
+466
+00:14:52,656 --> 00:14:54,656
+version, you get a brand new
+
+
+467
+00:14:54,656 --> 00:14:55,176
+compiler.
+
+
+468
+00:14:55,176 --> 00:14:58,176
+And we work hard all year long
+
+
+469
+00:14:58,176 --> 00:14:59,356
+to make the compiler better,
+
+
+470
+00:14:59,476 --> 00:15:01,136
+generate faster, smaller code.
+
+
+471
+00:15:02,126 --> 00:15:05,296
+Many of those improvements could
+
+
+472
+00:15:05,296 --> 00:15:06,656
+reveal undefined behavior in
+
+
+473
+00:15:06,656 --> 00:15:07,500
+your code.
+
+
+474
+00:15:09,336 --> 00:15:12,336
+So, before moving along, just,
+
+
+475
+00:15:12,616 --> 00:15:13,996
+let's just summarize what we
+
+
+476
+00:15:13,996 --> 00:15:14,886
+learned about undefined
+
+
+477
+00:15:14,886 --> 00:15:15,336
+behavior.
+
+
+478
+00:15:17,486 --> 00:15:19,836
+Undefined behavior will not
+
+
+479
+00:15:19,836 --> 00:15:21,176
+trigger bugs reliably.
+
+
+480
+00:15:22,016 --> 00:15:23,406
+One of your configurations could
+
+
+481
+00:15:23,406 --> 00:15:24,936
+be working while the other one
+
+
+482
+00:15:24,936 --> 00:15:25,416
+breaks.
+
+
+483
+00:15:26,746 --> 00:15:28,706
+When undefined behavior breaks,
+
+
+484
+00:15:28,956 --> 00:15:31,166
+when it breaks your code, the
+
+
+485
+00:15:31,166 --> 00:15:33,136
+symptom you are seeing might be
+
+
+486
+00:15:33,296 --> 00:15:35,106
+thousands of lines away or maybe
+
+
+487
+00:15:35,106 --> 00:15:37,316
+even hours of executions away
+
+
+488
+00:15:37,946 --> 00:15:39,356
+from the real root cause of the
+
+
+489
+00:15:39,356 --> 00:15:39,886
+issue.
+
+
+490
+00:15:40,456 --> 00:15:41,486
+This could be really hard to
+
+
+491
+00:15:41,486 --> 00:15:42,676
+debug if you are not prepared
+
+
+492
+00:15:42,676 --> 00:15:43,026
+for it.
+
+
+493
+00:15:45,076 --> 00:15:48,336
+And lastly, the fact that you
+
+
+494
+00:15:48,336 --> 00:15:50,586
+don't have any bugs today that
+
+
+495
+00:15:50,586 --> 00:15:52,496
+you know of doesn't mean that
+
+
+496
+00:15:52,496 --> 00:15:54,036
+you don't have any bugs due to
+
+
+497
+00:15:54,036 --> 00:15:54,886
+undefined behavior.
+
+
+498
+00:15:55,266 --> 00:15:56,556
+And if you have undefined
+
+
+499
+00:15:56,556 --> 00:15:58,796
+behavior, it will break at some
+
+
+500
+00:15:58,796 --> 00:15:59,646
+point in the future.
+
+
+501
+00:16:01,016 --> 00:16:03,106
+When it breaks, it could cost
+
+
+502
+00:16:03,106 --> 00:16:04,776
+you a lot of debugging time but
+
+
+503
+00:16:04,776 --> 00:16:06,246
+it could also put your users'
+
+
+504
+00:16:06,246 --> 00:16:07,036
+data at risk.
+
+
+505
+00:16:08,076 --> 00:16:09,516
+Here's Ryan to tell you more
+
+
+506
+00:16:09,516 --> 00:16:11,096
+about the security implications
+
+
+507
+00:16:11,096 --> 00:16:12,206
+of undefined behavior.
+
+
+508
+00:16:14,516 --> 00:16:18,896
+[ Applause ]
+
+
+509
+00:16:19,396 --> 00:16:19,816
+>> Thanks, Fred.
+
+
+510
+00:16:21,616 --> 00:16:23,276
+So, who here remembers the
+
+
+511
+00:16:23,276 --> 00:16:24,496
+heartbleed vulnerability from a
+
+
+512
+00:16:24,496 --> 00:16:25,126
+few years ago?
+
+
+513
+00:16:26,096 --> 00:16:26,916
+Well, if you're like me, you
+
+
+514
+00:16:26,916 --> 00:16:27,866
+probably had to go and change
+
+
+515
+00:16:27,866 --> 00:16:29,356
+your password on like 100
+
+
+516
+00:16:29,356 --> 00:16:31,246
+different websites or maybe
+
+
+517
+00:16:31,486 --> 00:16:33,026
+patch some of your own backend
+
+
+518
+00:16:33,026 --> 00:16:33,516
+servers.
+
+
+519
+00:16:34,486 --> 00:16:35,446
+Well, heartbleed was an
+
+
+520
+00:16:35,446 --> 00:16:37,216
+out-of-bounds read in a widely
+
+
+521
+00:16:37,216 --> 00:16:38,556
+used cryptographic library
+
+
+522
+00:16:38,556 --> 00:16:39,506
+called open SSL.
+
+
+523
+00:16:40,196 --> 00:16:41,906
+By sending just one packet to an
+
+
+524
+00:16:41,906 --> 00:16:43,686
+affected server, an attacker
+
+
+525
+00:16:43,686 --> 00:16:44,926
+would receive in reply a few
+
+
+526
+00:16:44,926 --> 00:16:46,056
+kilobytes of the server
+
+
+527
+00:16:46,056 --> 00:16:48,136
+process's heap memory, which
+
+
+528
+00:16:48,136 --> 00:16:51,796
+turned into a pretty significant
+
+
+529
+00:16:52,056 --> 00:16:53,586
+privacy and security exposure.
+
+
+530
+00:16:55,696 --> 00:16:58,826
+Now, that out-of-bounds read in
+
+
+531
+00:16:58,826 --> 00:17:00,236
+heartbleed is an example of
+
+
+532
+00:17:00,236 --> 00:17:01,956
+undefined behavior and it turns
+
+
+533
+00:17:01,956 --> 00:17:03,316
+out that undefined behavior is
+
+
+534
+00:17:03,316 --> 00:17:04,346
+at the core of many different
+
+
+535
+00:17:04,346 --> 00:17:05,026
+types of security
+
+
+536
+00:17:05,026 --> 00:17:05,626
+vulnerabilities.
+
+
+537
+00:17:06,465 --> 00:17:08,185
+To name just a few, you could
+
+
+538
+00:17:08,185 --> 00:17:11,556
+think of buffer overflows, uses
+
+
+539
+00:17:11,556 --> 00:17:14,016
+of uninitialized variables, heat
+
+
+540
+00:17:14,016 --> 00:17:16,766
+misuse bugs like use after free
+
+
+541
+00:17:16,766 --> 00:17:17,465
+and double free.
+
+
+542
+00:17:18,086 --> 00:17:19,526
+And also race conditions.
+
+
+543
+00:17:22,296 --> 00:17:24,215
+So, keep in mind that your users
+
+
+544
+00:17:24,415 --> 00:17:27,316
+trust your app and potentially
+
+
+545
+00:17:27,526 --> 00:17:29,026
+with their personal information
+
+
+546
+00:17:29,026 --> 00:17:30,926
+such as their photos or their
+
+
+547
+00:17:30,926 --> 00:17:31,766
+private messages.
+
+
+548
+00:17:32,196 --> 00:17:32,996
+And so you should do everything
+
+
+549
+00:17:32,996 --> 00:17:34,146
+you can to make sure that your
+
+
+550
+00:17:34,146 --> 00:17:35,746
+app is as safe and secure as
+
+
+551
+00:17:35,746 --> 00:17:36,226
+possible.
+
+
+552
+00:17:37,376 --> 00:17:38,286
+And if you're a framework
+
+
+553
+00:17:38,286 --> 00:17:39,686
+developer, remember that your
+
+
+554
+00:17:39,686 --> 00:17:41,236
+client apps inherit all of your
+
+
+555
+00:17:41,236 --> 00:17:42,286
+bugs, just like all those
+
+
+556
+00:17:42,286 --> 00:17:43,706
+websites inherited the
+
+
+557
+00:17:43,706 --> 00:17:44,676
+heartbleed vulnerability.
+
+
+558
+00:17:45,256 --> 00:17:48,516
+But the good news that there are
+
+
+559
+00:17:48,516 --> 00:17:49,506
+tools that could help you.
+
+
+560
+00:17:50,296 --> 00:17:52,396
+Now, too often we developers
+
+
+561
+00:17:52,396 --> 00:17:54,616
+reach for our tools only after a
+
+
+562
+00:17:54,616 --> 00:17:55,876
+bug has manifested some other
+
+
+563
+00:17:55,876 --> 00:17:56,166
+way.
+
+
+564
+00:17:56,166 --> 00:17:57,326
+Maybe it showed up in our users'
+
+
+565
+00:17:57,326 --> 00:17:58,066
+crash logs.
+
+
+566
+00:17:58,836 --> 00:18:00,566
+But by running tools early and
+
+
+567
+00:18:00,566 --> 00:18:02,636
+often throughout development, we
+
+
+568
+00:18:02,636 --> 00:18:03,956
+can catch these issues before
+
+
+569
+00:18:03,956 --> 00:18:05,476
+they ever become a problem that
+
+
+570
+00:18:05,476 --> 00:18:08,416
+affects our customers.
+
+
+571
+00:18:08,416 --> 00:18:11,326
+So, I wanted to relate a story
+
+
+572
+00:18:11,326 --> 00:18:12,826
+of how one of these tools,
+
+
+573
+00:18:12,826 --> 00:18:15,636
+Address Sanitizer, saved macOS
+
+
+574
+00:18:15,636 --> 00:18:16,096
+Yosemite.
+
+
+575
+00:18:17,536 --> 00:18:19,246
+So, about one month before the
+
+
+576
+00:18:19,246 --> 00:18:20,856
+macOS Yosemite public release,
+
+
+577
+00:18:21,236 --> 00:18:22,396
+many new crashes started
+
+
+578
+00:18:22,396 --> 00:18:23,916
+appearing throughout the system.
+
+
+579
+00:18:24,446 --> 00:18:26,166
+And we had a hunch that we had a
+
+
+580
+00:18:26,166 --> 00:18:28,766
+heap corruption bug that was in
+
+
+581
+00:18:28,766 --> 00:18:30,796
+one of the low-level system
+
+
+582
+00:18:30,796 --> 00:18:31,346
+frameworks.
+
+
+583
+00:18:31,966 --> 00:18:32,836
+Well, we were having a really
+
+
+584
+00:18:32,836 --> 00:18:34,226
+hard time reproducing the issue.
+
+
+585
+00:18:34,846 --> 00:18:35,676
+And without being able to
+
+
+586
+00:18:35,676 --> 00:18:36,776
+reproduce it, we didn't have a
+
+
+587
+00:18:36,776 --> 00:18:38,436
+smoking gun that was pointing to
+
+
+588
+00:18:38,436 --> 00:18:39,886
+a specific function that was
+
+
+589
+00:18:39,886 --> 00:18:40,876
+causing the heap corruption.
+
+
+590
+00:18:41,966 --> 00:18:43,646
+And so we turned to a tool that
+
+
+591
+00:18:43,646 --> 00:18:46,516
+at the time was very new, called
+
+
+592
+00:18:46,516 --> 00:18:48,096
+Address Sanitizer, and we
+
+
+593
+00:18:48,096 --> 00:18:49,256
+thought it would help us catch
+
+
+594
+00:18:49,256 --> 00:18:50,246
+this heap corruption bug.
+
+
+595
+00:18:50,366 --> 00:18:51,676
+So, we instrumented some of the
+
+
+596
+00:18:51,676 --> 00:18:53,256
+system frameworks and we loaded
+
+
+597
+00:18:53,256 --> 00:18:53,626
+it up.
+
+
+598
+00:18:53,626 --> 00:18:54,656
+And sure enough, Address
+
+
+599
+00:18:54,656 --> 00:18:55,726
+Sanitizer did its job
+
+
+600
+00:18:55,726 --> 00:18:57,516
+wonderfully and honed right in
+
+
+601
+00:18:57,516 --> 00:18:59,486
+on this piece of code.
+
+
+602
+00:18:59,576 --> 00:19:01,476
+So, to summarize it briefly, we
+
+
+603
+00:19:03,196 --> 00:19:04,886
+had a CF string and we were
+
+
+604
+00:19:04,886 --> 00:19:07,026
+constructing a path to a file
+
+
+605
+00:19:07,026 --> 00:19:09,146
+inside the user's library
+
+
+606
+00:19:09,146 --> 00:19:10,056
+cache's directory.
+
+
+607
+00:19:11,056 --> 00:19:12,106
+And then we needed to convert
+
+
+608
+00:19:12,106 --> 00:19:14,026
+this C string, sorry, convert
+
+
+609
+00:19:14,026 --> 00:19:15,676
+this CF string into a C string.
+
+
+610
+00:19:16,186 --> 00:19:17,406
+And so, I mean, that's a pretty
+
+
+611
+00:19:17,406 --> 00:19:18,176
+straightforward thing, right?
+
+
+612
+00:19:18,176 --> 00:19:19,526
+We have to measure the length of
+
+
+613
+00:19:19,526 --> 00:19:22,206
+the CF string, allocate buffer
+
+
+614
+00:19:22,206 --> 00:19:23,106
+on the heap of that many
+
+
+615
+00:19:23,106 --> 00:19:25,766
+characters and copy the bytes
+
+
+616
+00:19:25,766 --> 00:19:26,196
+into it.
+
+
+617
+00:19:27,186 --> 00:19:28,876
+And, oh yeah.
+
+
+618
+00:19:28,876 --> 00:19:30,376
+We forgot one thing which is
+
+
+619
+00:19:30,376 --> 00:19:31,706
+that C strings need to be null
+
+
+620
+00:19:31,706 --> 00:19:32,216
+terminated.
+
+
+621
+00:19:32,966 --> 00:19:35,816
+And so we have to add that too.
+
+
+622
+00:19:36,046 --> 00:19:38,236
+But we made a mistake, an off by
+
+
+623
+00:19:38,236 --> 00:19:38,796
+one error.
+
+
+624
+00:19:38,856 --> 00:19:40,026
+Because we didn't include that
+
+
+625
+00:19:40,026 --> 00:19:41,696
+null byte when we were computing
+
+
+626
+00:19:41,696 --> 00:19:43,036
+the size of the allocation that
+
+
+627
+00:19:43,036 --> 00:19:43,436
+we needed.
+
+
+628
+00:19:44,706 --> 00:19:46,496
+And so we actually overflowed
+
+
+629
+00:19:46,496 --> 00:19:46,966
+our buffer.
+
+
+630
+00:19:47,566 --> 00:19:50,606
+But most of the time this didn't
+
+
+631
+00:19:50,606 --> 00:19:52,006
+have any impact on the user.
+
+
+632
+00:19:52,616 --> 00:19:54,266
+And that's because the heap will
+
+
+633
+00:19:54,266 --> 00:19:55,756
+round up the size of the
+
+
+634
+00:19:55,756 --> 00:19:56,436
+allocation.
+
+
+635
+00:19:56,436 --> 00:19:57,866
+In this case, let's say we
+
+
+636
+00:19:57,866 --> 00:19:58,866
+rounded it up to the next
+
+
+637
+00:19:58,866 --> 00:20:00,226
+multiple of 16 bytes.
+
+
+638
+00:20:01,066 --> 00:20:02,176
+And so when we write our null
+
+
+639
+00:20:02,176 --> 00:20:04,296
+byte into that unused space at
+
+
+640
+00:20:04,296 --> 00:20:05,776
+the end, that there's no
+
+
+641
+00:20:05,776 --> 00:20:06,576
+consequence, right?
+
+
+642
+00:20:08,436 --> 00:20:11,146
+But let's see what happens when
+
+
+643
+00:20:11,816 --> 00:20:13,476
+one of the variables in that
+
+
+644
+00:20:13,476 --> 00:20:15,216
+buffer changes, and that's the
+
+
+645
+00:20:15,216 --> 00:20:15,806
+username.
+
+
+646
+00:20:17,166 --> 00:20:19,286
+Well, if the length of the
+
+
+647
+00:20:19,286 --> 00:20:20,926
+username changes, the amount of
+
+
+648
+00:20:20,926 --> 00:20:22,446
+unused space would also change.
+
+
+649
+00:20:22,856 --> 00:20:23,866
+And it turned out that if the
+
+
+650
+00:20:23,866 --> 00:20:27,246
+user's username was exactly 11
+
+
+651
+00:20:27,246 --> 00:20:28,986
+characters long, there wouldn't
+
+
+652
+00:20:28,986 --> 00:20:30,606
+be any unused space and we would
+
+
+653
+00:20:30,606 --> 00:20:32,286
+end up corrupting the adjacent
+
+
+654
+00:20:32,286 --> 00:20:33,546
+object on the heap and causing
+
+
+655
+00:20:33,546 --> 00:20:34,786
+some other part of the code to
+
+
+656
+00:20:34,786 --> 00:20:35,246
+crash.
+
+
+657
+00:20:36,076 --> 00:20:37,246
+And so this was the secret to
+
+
+658
+00:20:37,246 --> 00:20:39,256
+why it was so hard to catch
+
+
+659
+00:20:39,576 --> 00:20:41,886
+normally but Address Sanitizer
+
+
+660
+00:20:41,886 --> 00:20:43,016
+did a great job of finding it
+
+
+661
+00:20:43,016 --> 00:20:43,396
+right away.
+
+
+662
+00:20:44,806 --> 00:20:47,056
+Now, in this case, this off by
+
+
+663
+00:20:47,056 --> 00:20:48,796
+one probably didn't have many
+
+
+664
+00:20:48,796 --> 00:20:49,996
+security consequences.
+
+
+665
+00:20:50,466 --> 00:20:54,216
+But many other similar bugs can
+
+
+666
+00:20:54,396 --> 00:20:55,856
+result in exploitable
+
+
+667
+00:20:55,856 --> 00:20:56,566
+vulnerabilities.
+
+
+668
+00:20:57,326 --> 00:20:58,736
+And remember that security flaws
+
+
+669
+00:20:59,066 --> 00:21:00,946
+often don't manifest until
+
+
+670
+00:21:01,026 --> 00:21:02,196
+they've been exploited.
+
+
+671
+00:21:03,146 --> 00:21:04,576
+So, running tools like Address
+
+
+672
+00:21:04,576 --> 00:21:06,006
+Sanitizer early and throughout
+
+
+673
+00:21:06,076 --> 00:21:07,596
+the development process can help
+
+
+674
+00:21:07,596 --> 00:21:09,166
+you catch these before they ever
+
+
+675
+00:21:09,166 --> 00:21:10,686
+reach your customer devices.
+
+
+676
+00:21:13,676 --> 00:21:15,956
+So, let's talk about the tools
+
+
+677
+00:21:16,256 --> 00:21:17,546
+that you have at your disposal
+
+
+678
+00:21:17,576 --> 00:21:19,416
+to catch undefined behavior.
+
+
+679
+00:21:20,146 --> 00:21:22,616
+First we'll talk about the
+
+
+680
+00:21:22,616 --> 00:21:26,176
+compiler, the static analyzer in
+
+
+681
+00:21:26,206 --> 00:21:29,576
+Xcode, and the Sanitizers -
+
+
+682
+00:21:29,776 --> 00:21:31,596
+Address Sanitizer, Thread
+
+
+683
+00:21:31,596 --> 00:21:33,406
+Sanitizer and the Undefined
+
+
+684
+00:21:33,406 --> 00:21:34,296
+Behavior Sanitizer.
+
+
+685
+00:21:35,236 --> 00:21:36,026
+So, let's start with the
+
+
+686
+00:21:36,026 --> 00:21:36,416
+compiler.
+
+
+687
+00:21:37,066 --> 00:21:39,906
+So, the compiler alerts you to
+
+
+688
+00:21:39,906 --> 00:21:41,686
+parts of your code that might be
+
+
+689
+00:21:41,686 --> 00:21:43,136
+a little suspicious and it does
+
+
+690
+00:21:43,136 --> 00:21:44,226
+this in the form of compiler
+
+
+691
+00:21:44,226 --> 00:21:44,586
+warnings.
+
+
+692
+00:21:45,296 --> 00:21:46,286
+Believe it or not, they're not
+
+
+693
+00:21:46,286 --> 00:21:47,196
+just there to annoy you.
+
+
+694
+00:21:48,756 --> 00:21:50,446
+Now, every release of Xcode has
+
+
+695
+00:21:50,536 --> 00:21:51,936
+better warnings and great
+
+
+696
+00:21:51,936 --> 00:21:53,506
+features like fixits, so you can
+
+
+697
+00:21:53,506 --> 00:21:54,486
+resolve them with just one
+
+
+698
+00:21:54,486 --> 00:21:54,786
+click.
+
+
+699
+00:21:55,866 --> 00:21:57,366
+To learn what's new in the
+
+
+700
+00:21:57,366 --> 00:21:58,766
+compiler this year, check out
+
+
+701
+00:21:58,766 --> 00:22:00,336
+the What's New in LLDM talk
+
+
+702
+00:22:00,726 --> 00:22:01,836
+which is later this afternoon.
+
+
+703
+00:22:02,406 --> 00:22:05,786
+Now, you might be wondering, do
+
+
+704
+00:22:05,786 --> 00:22:07,286
+I have the recommended set of
+
+
+705
+00:22:07,586 --> 00:22:08,606
+warnings turned on for my
+
+
+706
+00:22:08,606 --> 00:22:09,086
+project?
+
+
+707
+00:22:09,706 --> 00:22:10,656
+Well, every time you upgrade
+
+
+708
+00:22:10,656 --> 00:22:12,236
+Xcode, you'll be presented with
+
+
+709
+00:22:12,236 --> 00:22:13,396
+the opportunity to modernize
+
+
+710
+00:22:13,396 --> 00:22:13,946
+your project.
+
+
+711
+00:22:14,286 --> 00:22:15,376
+And you can also do this at any
+
+
+712
+00:22:15,376 --> 00:22:17,356
+time using the validate settings
+
+
+713
+00:22:17,426 --> 00:22:19,186
+option and that'll help you get
+
+
+714
+00:22:19,306 --> 00:22:20,406
+into a good state again.
+
+
+715
+00:22:21,756 --> 00:22:22,556
+And there's one more build
+
+
+716
+00:22:22,556 --> 00:22:23,946
+setting that I think you should
+
+
+717
+00:22:23,946 --> 00:22:25,296
+know about which is treat
+
+
+718
+00:22:25,296 --> 00:22:26,646
+warnings as errors.
+
+
+719
+00:22:27,806 --> 00:22:29,086
+And it does what it says on the
+
+
+720
+00:22:29,086 --> 00:22:29,406
+tin.
+
+
+721
+00:22:29,816 --> 00:22:31,796
+If your project already compiles
+
+
+722
+00:22:31,796 --> 00:22:33,146
+with relatively few warnings,
+
+
+723
+00:22:33,426 --> 00:22:34,906
+consider turning that on and
+
+
+724
+00:22:34,906 --> 00:22:36,646
+enforcing the self-discipline to
+
+
+725
+00:22:36,646 --> 00:22:38,000
+keep that compiler count low.
+
+
+726
+00:22:41,836 --> 00:22:43,076
+Now, let's talk about the static
+
+
+727
+00:22:43,076 --> 00:22:43,526
+analyzer.
+
+
+728
+00:22:44,226 --> 00:22:45,326
+The static analyzer can be
+
+
+729
+00:22:45,326 --> 00:22:46,646
+thought of as a supercharged
+
+
+730
+00:22:46,646 --> 00:22:48,136
+version of compiler warnings.
+
+
+731
+00:22:48,186 --> 00:22:50,546
+It explores your code and finds
+
+
+732
+00:22:50,616 --> 00:22:52,556
+bugs that only happen in very
+
+
+733
+00:22:52,556 --> 00:22:54,606
+particular conditions, maybe
+
+
+734
+00:22:54,606 --> 00:22:55,966
+conditions that aren't being hit
+
+
+735
+00:22:56,066 --> 00:22:58,026
+when you normally test your app.
+
+
+736
+00:22:58,776 --> 00:23:01,066
+So, what we recommend doing is
+
+
+737
+00:23:01,066 --> 00:23:02,636
+analyzing during every build.
+
+
+738
+00:23:03,416 --> 00:23:04,386
+There's a build setting for this
+
+
+739
+00:23:04,466 --> 00:23:06,416
+and when you turn it on, Xcode
+
+
+740
+00:23:06,416 --> 00:23:08,276
+will run a fast analysis pass
+
+
+741
+00:23:08,446 --> 00:23:09,236
+every time you build your
+
+
+742
+00:23:09,236 --> 00:23:09,636
+project.
+
+
+743
+00:23:10,716 --> 00:23:13,116
+And that makes sure that you can
+
+
+744
+00:23:13,256 --> 00:23:14,566
+find bugs that you've just
+
+
+745
+00:23:14,566 --> 00:23:16,356
+introduced as quickly as
+
+
+746
+00:23:16,356 --> 00:23:16,786
+possible.
+
+
+747
+00:23:17,936 --> 00:23:19,136
+But there's also a deeper mode
+
+
+748
+00:23:19,416 --> 00:23:21,026
+that the analyzer can run in and
+
+
+749
+00:23:21,026 --> 00:23:23,006
+you can use that at any time,
+
+
+750
+00:23:23,326 --> 00:23:24,136
+and that's the mode that we
+
+
+751
+00:23:24,136 --> 00:23:25,596
+recommend using under your
+
+
+752
+00:23:25,596 --> 00:23:27,056
+continuous integration in order
+
+
+753
+00:23:27,056 --> 00:23:28,846
+to make the most of the static
+
+
+754
+00:23:28,846 --> 00:23:29,976
+analyzer's bug finding
+
+
+755
+00:23:29,976 --> 00:23:30,676
+capabilities.
+
+
+756
+00:23:34,456 --> 00:23:38,166
+So, next I'm going to talk about
+
+
+757
+00:23:38,776 --> 00:23:39,566
+the Sanitizers.
+
+
+758
+00:23:40,656 --> 00:23:43,976
+But first to note, the
+
+
+759
+00:23:43,976 --> 00:23:45,456
+Sanitizers are Runtime tools.
+
+
+760
+00:23:45,456 --> 00:23:47,346
+Unlike the compiler or the
+
+
+761
+00:23:47,346 --> 00:23:49,296
+static analyzer, to get the most
+
+
+762
+00:23:49,296 --> 00:23:51,136
+out of the Sanitizers, you need
+
+
+763
+00:23:51,136 --> 00:23:52,446
+to actually run an exerciser
+
+
+764
+00:23:52,446 --> 00:23:54,226
+code that can only find bugs in
+
+
+765
+00:23:55,166 --> 00:23:56,526
+code that's actually being
+
+
+766
+00:23:56,526 --> 00:23:57,136
+executed.
+
+
+767
+00:23:57,466 --> 00:23:58,196
+So, keep that in mind.
+
+
+768
+00:23:59,316 --> 00:24:03,166
+But they offer a high degree of
+
+
+769
+00:24:03,216 --> 00:24:04,766
+bug finding capabilities.
+
+
+770
+00:24:05,076 --> 00:24:07,996
+So, first as I mentioned before,
+
+
+771
+00:24:07,996 --> 00:24:09,116
+there's Address Sanitizer.
+
+
+772
+00:24:09,766 --> 00:24:11,376
+Now, Address Sanitizer catches
+
+
+773
+00:24:11,376 --> 00:24:12,936
+memory corruption bugs like
+
+
+774
+00:24:13,006 --> 00:24:14,286
+buffer overflows and
+
+
+775
+00:24:14,286 --> 00:24:15,156
+use-after-free bugs.
+
+
+776
+00:24:15,636 --> 00:24:16,526
+And these ones are highly
+
+
+777
+00:24:16,526 --> 00:24:17,396
+correlated with security
+
+
+778
+00:24:17,396 --> 00:24:18,000
+vulnerabilities.
+
+
+779
+00:24:21,216 --> 00:24:22,956
+Then there's Thread Sanitizer,
+
+
+780
+00:24:23,456 --> 00:24:24,796
+which catches data races.
+
+
+781
+00:24:24,896 --> 00:24:26,026
+So, in your multithreaded app,
+
+
+782
+00:24:26,706 --> 00:24:28,296
+if two threads tried to access
+
+
+783
+00:24:28,356 --> 00:24:30,226
+the same piece of memory without
+
+
+784
+00:24:30,266 --> 00:24:31,716
+proper synchronization, you have
+
+
+785
+00:24:31,716 --> 00:24:32,316
+a data race.
+
+
+786
+00:24:33,226 --> 00:24:34,166
+But a cool thing about Thread
+
+
+787
+00:24:34,166 --> 00:24:36,276
+Sanitizer is that it catches
+
+
+788
+00:24:36,276 --> 00:24:37,556
+even potential data races.
+
+
+789
+00:24:38,236 --> 00:24:40,056
+So, even if in your execution of
+
+
+790
+00:24:40,056 --> 00:24:41,486
+the app everything seems to be
+
+
+791
+00:24:41,486 --> 00:24:43,526
+working great, Thread Sanitizer
+
+
+792
+00:24:43,526 --> 00:24:45,406
+can tell you if two operations
+
+
+793
+00:24:45,406 --> 00:24:46,526
+could potentially happen in a
+
+
+794
+00:24:46,526 --> 00:24:48,106
+different order and cause your
+
+
+795
+00:24:48,106 --> 00:24:49,000
+app to misbehave.
+
+
+796
+00:24:52,066 --> 00:24:54,206
+And new in Xcode 9 is the
+
+
+797
+00:24:54,206 --> 00:24:55,726
+Undefined Behavior Sanitizer.
+
+
+798
+00:24:56,686 --> 00:24:58,726
+It catches over 15 different
+
+
+799
+00:24:58,726 --> 00:25:01,196
+types of undefined behavior and
+
+
+800
+00:25:01,196 --> 00:25:02,566
+it extends either Address
+
+
+801
+00:25:02,566 --> 00:25:04,776
+Sanitizer or Thread Sanitizer so
+
+
+802
+00:25:04,776 --> 00:25:06,206
+you get even more bug-finding
+
+
+803
+00:25:06,206 --> 00:25:06,516
+power.
+
+
+804
+00:25:07,236 --> 00:25:08,516
+So, some of these types of
+
+
+805
+00:25:08,516 --> 00:25:09,736
+undefined behavior that it
+
+
+806
+00:25:09,736 --> 00:25:11,576
+catches include assigned integer
+
+
+807
+00:25:11,576 --> 00:25:13,366
+overflows and tightness match
+
+
+808
+00:25:13,426 --> 00:25:15,076
+bugs, which are also somewhat
+
+
+809
+00:25:15,076 --> 00:25:16,426
+related to security
+
+
+810
+00:25:16,426 --> 00:25:17,496
+vulnerabilities in some
+
+
+811
+00:25:17,496 --> 00:25:17,976
+contexts.
+
+
+812
+00:25:17,976 --> 00:25:21,846
+All of the sanitizers provide
+
+
+813
+00:25:21,846 --> 00:25:23,136
+you with really rich and
+
+
+814
+00:25:23,136 --> 00:25:25,086
+informative diagnostics that
+
+
+815
+00:25:25,086 --> 00:25:26,936
+help you hone in on the root
+
+
+816
+00:25:26,936 --> 00:25:27,646
+cause of a bug.
+
+
+817
+00:25:28,306 --> 00:25:29,776
+You can find a lot of really
+
+
+818
+00:25:29,776 --> 00:25:30,886
+helpful information in the
+
+
+819
+00:25:30,886 --> 00:25:32,956
+Runtime Issue Navigator such as
+
+
+820
+00:25:32,956 --> 00:25:36,026
+stack backtraces at important
+
+
+821
+00:25:36,026 --> 00:25:39,756
+parts during the bug's
+
+
+822
+00:25:39,926 --> 00:25:40,266
+execution.
+
+
+823
+00:25:40,436 --> 00:25:41,736
+So, we recommend turning on the
+
+
+824
+00:25:41,736 --> 00:25:43,736
+sanitizers during development.
+
+
+825
+00:25:44,066 --> 00:25:45,036
+You can do this in the scheme
+
+
+826
+00:25:45,036 --> 00:25:46,236
+editor under the diagnostics
+
+
+827
+00:25:46,236 --> 00:25:46,486
+tab.
+
+
+828
+00:25:47,636 --> 00:25:48,576
+And this is where you can also
+
+
+829
+00:25:48,576 --> 00:25:50,816
+turn it on for running your unit
+
+
+830
+00:25:50,816 --> 00:25:51,216
+tests.
+
+
+831
+00:25:51,506 --> 00:25:53,356
+And remember that the sanitizers
+
+
+832
+00:25:53,636 --> 00:25:55,386
+need good code coverage in order
+
+
+833
+00:25:55,436 --> 00:25:56,926
+to find bugs throughout your
+
+
+834
+00:25:56,926 --> 00:25:58,126
+program, and that's something
+
+
+835
+00:25:58,126 --> 00:25:59,366
+that your unit test can provide.
+
+
+836
+00:25:59,956 --> 00:26:02,836
+You can learn more about the
+
+
+837
+00:26:02,836 --> 00:26:04,546
+sanitizers and other Runtime
+
+
+838
+00:26:04,546 --> 00:26:05,626
+tools that are new this year in
+
+
+839
+00:26:05,626 --> 00:26:07,686
+Xcode at the Finding Bugs Using
+
+
+840
+00:26:07,686 --> 00:26:09,966
+Xcode Runtime Tools talk.
+
+
+841
+00:26:12,416 --> 00:26:15,756
+So, those are five powerful
+
+
+842
+00:26:15,756 --> 00:26:16,936
+tools that you have at your
+
+
+843
+00:26:16,936 --> 00:26:19,056
+disposal to track down undefined
+
+
+844
+00:26:19,056 --> 00:26:21,116
+behavior and address some of the
+
+
+845
+00:26:21,116 --> 00:26:22,786
+security vulnerabilities that
+
+
+846
+00:26:23,246 --> 00:26:23,886
+they may create.
+
+
+847
+00:26:24,886 --> 00:26:26,026
+But before moving on, there's
+
+
+848
+00:26:26,026 --> 00:26:27,156
+one more thing that I wanted to
+
+
+849
+00:26:27,206 --> 00:26:28,786
+talk about, which is the
+
+
+850
+00:26:28,786 --> 00:26:29,536
+language itself.
+
+
+851
+00:26:29,536 --> 00:26:33,066
+So, you can think of your use of
+
+
+852
+00:26:33,066 --> 00:26:34,736
+the language as your first line
+
+
+853
+00:26:34,736 --> 00:26:36,426
+of defense in writing safe and
+
+
+854
+00:26:36,426 --> 00:26:37,026
+secure code.
+
+
+855
+00:26:37,816 --> 00:26:39,406
+And so with that in mind, you
+
+
+856
+00:26:39,406 --> 00:26:41,126
+should prefer the safe
+
+
+857
+00:26:41,126 --> 00:26:43,076
+constructs that your library and
+
+
+858
+00:26:43,076 --> 00:26:44,186
+your language provide to you.
+
+
+859
+00:26:45,086 --> 00:26:47,246
+For instance, automatic
+
+
+860
+00:26:47,246 --> 00:26:48,566
+reference counting in Objective
+
+
+861
+00:26:48,566 --> 00:26:48,996
+C.
+
+
+862
+00:26:49,396 --> 00:26:53,036
+Or smart pointers in C++ free
+
+
+863
+00:26:53,036 --> 00:26:54,206
+you from the burden of having to
+
+
+864
+00:26:54,206 --> 00:26:56,176
+do a lot of the manual memory
+
+
+865
+00:26:56,176 --> 00:26:57,746
+management that results in bugs.
+
+
+866
+00:26:58,796 --> 00:27:00,956
+And if your standard library
+
+
+867
+00:27:00,956 --> 00:27:02,116
+provides you with container
+
+
+868
+00:27:02,116 --> 00:27:03,906
+classes like NSarray from
+
+
+869
+00:27:03,906 --> 00:27:06,436
+foundation, which check their
+
+
+870
+00:27:06,436 --> 00:27:07,666
+bounds automatically, you don't
+
+
+871
+00:27:07,666 --> 00:27:08,746
+have to worry so much about
+
+
+872
+00:27:08,746 --> 00:27:09,526
+buffer overflows.
+
+
+873
+00:27:10,086 --> 00:27:13,446
+But it's just key to understand
+
+
+874
+00:27:13,446 --> 00:27:14,706
+the tradeoffs that your language
+
+
+875
+00:27:14,706 --> 00:27:16,836
+is making when it comes to
+
+
+876
+00:27:16,836 --> 00:27:17,966
+safety and security.
+
+
+877
+00:27:18,596 --> 00:27:20,316
+And when these are very
+
+
+878
+00:27:20,316 --> 00:27:21,876
+important factors in your code,
+
+
+879
+00:27:22,506 --> 00:27:24,936
+consider using SWF, a language
+
+
+880
+00:27:24,936 --> 00:27:25,956
+that was designed from the
+
+
+881
+00:27:25,956 --> 00:27:28,186
+ground up to eliminate entire
+
+
+882
+00:27:28,186 --> 00:27:30,126
+categories of undefined
+
+
+883
+00:27:30,126 --> 00:27:30,536
+behavior.
+
+
+884
+00:27:31,496 --> 00:27:32,676
+And to tell you more about that,
+
+
+885
+00:27:33,256 --> 00:27:34,086
+I'd like to invite up my
+
+
+886
+00:27:34,086 --> 00:27:35,786
+colleague, Anna.
+
+
+887
+00:27:37,516 --> 00:27:41,566
+[ Applause ]
+
+
+888
+00:27:42,066 --> 00:27:42,796
+>> Thank you, Ryan.
+
+
+889
+00:27:44,066 --> 00:27:46,816
+Now let's talk about undefined
+
+
+890
+00:27:46,876 --> 00:27:49,076
+behavior and SWF.
+
+
+891
+00:27:49,296 --> 00:27:50,446
+While you can write code
+
+
+892
+00:27:50,446 --> 00:27:52,986
+fine-tuned for performance in
+
+
+893
+00:27:52,986 --> 00:27:54,226
+SWF, this language makes
+
+
+894
+00:27:54,226 --> 00:27:55,756
+different tradeoffs and was
+
+
+895
+00:27:55,756 --> 00:27:57,316
+designed to be much safer by
+
+
+896
+00:27:57,316 --> 00:27:57,816
+default.
+
+
+897
+00:27:57,976 --> 00:28:00,056
+As you've seen from the previous
+
+
+898
+00:28:00,056 --> 00:28:02,426
+examples, undefined behavior can
+
+
+899
+00:28:02,506 --> 00:28:04,956
+introduce very subtle bugs that
+
+
+900
+00:28:04,956 --> 00:28:07,186
+in turn could lead to security
+
+
+901
+00:28:07,186 --> 00:28:07,786
+exploits.
+
+
+902
+00:28:08,406 --> 00:28:10,236
+And this is simply summarized in
+
+
+903
+00:28:10,236 --> 00:28:11,586
+this code from SWF.org.
+
+
+904
+00:28:12,276 --> 00:28:14,116
+Undefined behavior is the enemy
+
+
+905
+00:28:14,116 --> 00:28:14,776
+of safety.
+
+
+906
+00:28:16,076 --> 00:28:17,966
+Safety in SWF is important on
+
+
+907
+00:28:17,966 --> 00:28:18,666
+many levels.
+
+
+908
+00:28:19,136 --> 00:28:20,846
+Let's see how some of the major
+
+
+909
+00:28:20,846 --> 00:28:22,606
+sources of undefined behavior
+
+
+910
+00:28:22,896 --> 00:28:24,526
+that Ryan and Fred talked about
+
+
+911
+00:28:24,756 --> 00:28:26,246
+are addressed in SWF using
+
+
+912
+00:28:26,246 --> 00:28:27,156
+different techniques.
+
+
+913
+00:28:27,606 --> 00:28:29,366
+The stricter type system gives
+
+
+914
+00:28:29,366 --> 00:28:31,426
+us optional types, which
+
+
+915
+00:28:31,516 --> 00:28:33,546
+statically prevent null point of
+
+
+916
+00:28:33,546 --> 00:28:34,426
+dereferences.
+
+
+917
+00:28:35,216 --> 00:28:36,606
+Use of an initialized variables
+
+
+918
+00:28:36,606 --> 00:28:38,746
+is eliminated by guarantee of
+
+
+919
+00:28:38,746 --> 00:28:40,216
+definite initialization.
+
+
+920
+00:28:40,816 --> 00:28:42,466
+Buffer and integer overflows are
+
+
+921
+00:28:42,466 --> 00:28:44,776
+checked at runtime and just like
+
+
+922
+00:28:44,776 --> 00:28:46,586
+in Objective C, automatic
+
+
+923
+00:28:46,586 --> 00:28:48,336
+reference counting is the SWF
+
+
+924
+00:28:48,336 --> 00:28:51,166
+answer to use after freeze as it
+
+
+925
+00:28:51,296 --> 00:28:52,736
+allows the developer not to
+
+
+926
+00:28:52,736 --> 00:28:54,106
+focus on manual memory
+
+
+927
+00:28:54,106 --> 00:28:54,946
+management issues.
+
+
+928
+00:28:55,816 --> 00:28:57,336
+So, let's look into some of this
+
+
+929
+00:28:57,336 --> 00:28:58,026
+in more detail.
+
+
+930
+00:28:59,546 --> 00:29:01,876
+Optional types is SWF answer to
+
+
+931
+00:29:01,876 --> 00:29:03,186
+null point of dereferences.
+
+
+932
+00:29:03,556 --> 00:29:05,396
+SWF has two kinds of types.
+
+
+933
+00:29:05,986 --> 00:29:07,726
+Here we have a nonoptional cake
+
+
+934
+00:29:08,376 --> 00:29:09,806
+and an optional cake, which you
+
+
+935
+00:29:09,806 --> 00:29:11,636
+can think of as a box that may
+
+
+936
+00:29:11,636 --> 00:29:13,246
+have a cake in it or might be
+
+
+937
+00:29:13,246 --> 00:29:13,656
+empty.
+
+
+938
+00:29:14,566 --> 00:29:16,286
+Now, as SWF tools, I can assure
+
+
+939
+00:29:16,286 --> 00:29:18,176
+you a bug that may have a cake
+
+
+940
+00:29:18,176 --> 00:29:20,196
+in it is definitely not the same
+
+
+941
+00:29:20,196 --> 00:29:22,106
+thing as this delicious triple
+
+
+942
+00:29:22,106 --> 00:29:22,926
+chocolate delight.
+
+
+943
+00:29:23,376 --> 00:29:26,676
+So, before using a value of
+
+
+944
+00:29:26,676 --> 00:29:28,136
+optional type, you need to check
+
+
+945
+00:29:28,136 --> 00:29:28,396
+for it.
+
+
+946
+00:29:29,106 --> 00:29:30,346
+Suppose we have a function
+
+
+947
+00:29:30,346 --> 00:29:32,656
+called receive package that is
+
+
+948
+00:29:32,656 --> 00:29:34,356
+declared to return an optional
+
+
+949
+00:29:34,356 --> 00:29:34,966
+cake type.
+
+
+950
+00:29:36,126 --> 00:29:37,966
+Don't jump for joy unless you
+
+
+951
+00:29:37,966 --> 00:29:40,526
+check and know for sure that it
+
+
+952
+00:29:40,526 --> 00:29:41,636
+will not return nil.
+
+
+953
+00:29:42,436 --> 00:29:44,000
+It's possible the cake is a lie.
+
+
+954
+00:29:47,536 --> 00:29:49,636
+Note that SWF's syntax provides
+
+
+955
+00:29:49,636 --> 00:29:51,466
+affordances for easy checking of
+
+
+956
+00:29:51,466 --> 00:29:53,796
+optional types, specifically to
+
+
+957
+00:29:53,796 --> 00:29:55,356
+lessen the burden of using this
+
+
+958
+00:29:55,356 --> 00:29:56,506
+types on the developer.
+
+
+959
+00:29:57,846 --> 00:30:00,256
+Another important reminder is
+
+
+960
+00:30:00,256 --> 00:30:01,776
+that you should not abuse the
+
+
+961
+00:30:01,776 --> 00:30:04,246
+fourth unwrap operator, which
+
+
+962
+00:30:04,246 --> 00:30:05,376
+will stop execution of the
+
+
+963
+00:30:05,376 --> 00:30:06,726
+program if the value is nil.
+
+
+964
+00:30:07,556 --> 00:30:09,376
+If the API has been declared to
+
+
+965
+00:30:09,376 --> 00:30:11,306
+return an optional, it means
+
+
+966
+00:30:11,586 --> 00:30:12,966
+that it might return nil so
+
+
+967
+00:30:12,966 --> 00:30:14,656
+check for it.
+
+
+968
+00:30:14,946 --> 00:30:16,336
+Now, the fourth unwrap should
+
+
+969
+00:30:16,336 --> 00:30:18,716
+only be used in rare cases when
+
+
+970
+00:30:18,716 --> 00:30:20,766
+you, the developer, know for
+
+
+971
+00:30:20,766 --> 00:30:22,266
+sure and can guarantee that the
+
+
+972
+00:30:22,266 --> 00:30:23,616
+return value is never nil.
+
+
+973
+00:30:23,906 --> 00:30:25,416
+However, that cannot be encoded
+
+
+974
+00:30:25,416 --> 00:30:26,356
+in the type system.
+
+
+975
+00:30:27,076 --> 00:30:28,436
+One example of that is when
+
+
+976
+00:30:28,436 --> 00:30:29,886
+you're loading an image asset
+
+
+977
+00:30:29,956 --> 00:30:30,906
+from the app bundle.
+
+
+978
+00:30:33,016 --> 00:30:34,866
+SWF also has a notion of
+
+
+979
+00:30:34,866 --> 00:30:36,796
+implicitly unwrapped optional
+
+
+980
+00:30:36,796 --> 00:30:37,086
+type.
+
+
+981
+00:30:37,836 --> 00:30:39,576
+This type is similar to
+
+
+982
+00:30:39,576 --> 00:30:40,216
+optional.
+
+
+983
+00:30:40,426 --> 00:30:41,966
+However, here the compiler does
+
+
+984
+00:30:41,966 --> 00:30:45,996
+not enforce that the values are
+
+
+985
+00:30:46,076 --> 00:30:48,736
+used before, the values are
+
+
+986
+00:30:48,736 --> 00:30:50,066
+checked before use, making no
+
+
+987
+00:30:50,066 --> 00:30:51,226
+compile time guarantees.
+
+
+988
+00:30:52,736 --> 00:30:54,266
+However, note that this type is
+
+
+989
+00:30:54,266 --> 00:30:55,836
+still much safer than the C
+
+
+990
+00:30:55,836 --> 00:30:58,746
+pointer type because using it is
+
+
+991
+00:30:58,746 --> 00:30:59,776
+defined behavior.
+
+
+992
+00:31:00,536 --> 00:31:02,016
+If the value's nil, the program
+
+
+993
+00:31:02,016 --> 00:31:04,216
+is guaranteed to stop execution,
+
+
+994
+00:31:04,766 --> 00:31:07,306
+making this model much more
+
+
+995
+00:31:07,306 --> 00:31:07,926
+secure.
+
+
+996
+00:31:08,496 --> 00:31:11,216
+Now, this type should be used
+
+
+997
+00:31:11,276 --> 00:31:12,216
+for properties that are
+
+
+998
+00:31:12,216 --> 00:31:13,606
+guaranteed to have a value.
+
+
+999
+00:31:13,976 --> 00:31:15,096
+However, they cannot be
+
+
+1000
+00:31:15,096 --> 00:31:16,536
+initialized in the constructor.
+
+
+1001
+00:31:17,266 --> 00:31:18,796
+Some of you might be using it
+
+
+1002
+00:31:18,796 --> 00:31:19,906
+for IB outlets.
+
+
+1003
+00:31:20,766 --> 00:31:22,656
+However, another source of
+
+
+1004
+00:31:22,656 --> 00:31:24,166
+implicitly unwrapped optionals
+
+
+1005
+00:31:24,436 --> 00:31:26,306
+are pointered types coming from
+
+
+1006
+00:31:26,306 --> 00:31:28,076
+Objective C and C APIs.
+
+
+1007
+00:31:29,056 --> 00:31:31,096
+And this source subverts the
+
+
+1008
+00:31:31,096 --> 00:31:32,786
+type safety of SWF optionals.
+
+
+1009
+00:31:33,136 --> 00:31:34,206
+So, what can we do here?
+
+
+1010
+00:31:34,816 --> 00:31:37,506
+At the time SWF was released,
+
+
+1011
+00:31:37,506 --> 00:31:38,936
+we've also added nullability
+
+
+1012
+00:31:38,936 --> 00:31:40,686
+annotations to the Apple LLDM
+
+
+1013
+00:31:40,686 --> 00:31:41,246
+compiler.
+
+
+1014
+00:31:41,856 --> 00:31:43,946
+This annotation in C languages
+
+
+1015
+00:31:44,246 --> 00:31:46,536
+communicate the intent of the
+
+
+1016
+00:31:46,536 --> 00:31:48,096
+APIs but are also used to
+
+
+1017
+00:31:48,096 --> 00:31:49,806
+enhance their SWF interfaces.
+
+
+1018
+00:31:50,536 --> 00:31:52,626
+They allow us to map the unsafe
+
+
+1019
+00:31:52,656 --> 00:31:54,206
+C pointers onto the optional
+
+
+1020
+00:31:54,206 --> 00:31:54,636
+types.
+
+
+1021
+00:31:55,406 --> 00:31:56,716
+Let's look at this example.
+
+
+1022
+00:31:57,306 --> 00:31:58,936
+Here we have ancestor shared
+
+
+1023
+00:31:58,966 --> 00:32:00,376
+with view method on NSview.
+
+
+1024
+00:32:00,376 --> 00:32:02,936
+As you can see here, it takes a
+
+
+1025
+00:32:02,936 --> 00:32:04,836
+non-null argument because it
+
+
+1026
+00:32:04,836 --> 00:32:06,766
+does not make sense to look for
+
+
+1027
+00:32:06,766 --> 00:32:09,166
+an ancestor between a nil and a
+
+
+1028
+00:32:09,166 --> 00:32:09,626
+value.
+
+
+1029
+00:32:10,416 --> 00:32:11,956
+On the other hand, its return
+
+
+1030
+00:32:11,956 --> 00:32:13,496
+value is nullable because it's
+
+
+1031
+00:32:13,496 --> 00:32:15,416
+possible the two views do not
+
+
+1032
+00:32:15,416 --> 00:32:16,646
+have the same ancestor.
+
+
+1033
+00:32:18,526 --> 00:32:20,676
+Now, as you can see here,
+
+
+1034
+00:32:20,846 --> 00:32:22,626
+nullability directly maps onto
+
+
+1035
+00:32:22,626 --> 00:32:23,706
+the SWF interface.
+
+
+1036
+00:32:24,066 --> 00:32:25,276
+Non-null maps into the
+
+
+1037
+00:32:25,276 --> 00:32:27,326
+nonoptional value and nullable
+
+
+1038
+00:32:27,326 --> 00:32:29,416
+is mapped to the optional value.
+
+
+1039
+00:32:29,936 --> 00:32:32,296
+Good news is that most Apple
+
+
+1040
+00:32:32,296 --> 00:32:34,606
+APIs have been audited and
+
+
+1041
+00:32:34,606 --> 00:32:35,956
+annotated with nullability
+
+
+1042
+00:32:35,956 --> 00:32:36,626
+annotations.
+
+
+1043
+00:32:37,666 --> 00:32:40,076
+However, if you have APIs or
+
+
+1044
+00:32:40,076 --> 00:32:42,046
+just C or Objective C code that
+
+
+1045
+00:32:42,046 --> 00:32:44,196
+interoperates with SWF, you too
+
+
+1046
+00:32:44,196 --> 00:32:45,216
+can benefit from these
+
+
+1047
+00:32:45,216 --> 00:32:45,906
+annotations.
+
+
+1048
+00:32:46,846 --> 00:32:48,716
+In addition, you can use tools
+
+
+1049
+00:32:48,966 --> 00:32:50,026
+such as the [inaudible] Static
+
+
+1050
+00:32:50,026 --> 00:32:51,996
+Analyzer, Warnings, and
+
+
+1051
+00:32:51,996 --> 00:32:53,546
+Undefined Behavior Sanitizer to
+
+
+1052
+00:32:53,546 --> 00:32:55,746
+find inconsistencies of how this
+
+
+1053
+00:32:55,746 --> 00:32:57,226
+these annotations are applied on
+
+
+1054
+00:32:57,226 --> 00:32:59,106
+your C code or Objective C code.
+
+
+1055
+00:32:59,766 --> 00:33:01,706
+Now, I really, really like this
+
+
+1056
+00:33:01,706 --> 00:33:03,626
+example because it highlights
+
+
+1057
+00:33:03,626 --> 00:33:05,256
+how the improvements to the LLDM
+
+
+1058
+00:33:05,256 --> 00:33:07,716
+compiler, the SWF compiler, and
+
+
+1059
+00:33:07,716 --> 00:33:09,796
+the frameworks work all together
+
+
+1060
+00:33:09,796 --> 00:33:12,000
+to benefit the whole ecosystem.
+
+
+1061
+00:33:15,126 --> 00:33:17,106
+SWF definite initialization is a
+
+
+1062
+00:33:17,106 --> 00:33:18,906
+diagnostic feature based on deep
+
+
+1063
+00:33:18,906 --> 00:33:19,966
+code analysis.
+
+
+1064
+00:33:20,746 --> 00:33:23,226
+The SWF compiler guarantees that
+
+
+1065
+00:33:23,226 --> 00:33:26,276
+values are initialized before
+
+
+1066
+00:33:26,276 --> 00:33:27,266
+they are being used.
+
+
+1067
+00:33:28,236 --> 00:33:30,206
+And this checking is done along
+
+
+1068
+00:33:30,206 --> 00:33:32,166
+all branches through your
+
+
+1069
+00:33:32,166 --> 00:33:32,606
+program.
+
+
+1070
+00:33:33,096 --> 00:33:34,406
+Let's look at this example.
+
+
+1071
+00:33:34,976 --> 00:33:36,746
+Here, the compiler will check
+
+
+1072
+00:33:36,786 --> 00:33:39,246
+that my instance is initialized
+
+
+1073
+00:33:39,586 --> 00:33:42,276
+on both the if and the else
+
+
+1074
+00:33:42,736 --> 00:33:44,446
+branch of this code snippet
+
+
+1075
+00:33:44,736 --> 00:33:47,056
+before it allows you to go on
+
+
+1076
+00:33:47,056 --> 00:33:49,646
+and use this value.
+
+
+1077
+00:33:49,646 --> 00:33:51,246
+Now, let's talk about buffer and
+
+
+1078
+00:33:51,246 --> 00:33:52,886
+integer overflows, which are the
+
+
+1079
+00:33:52,886 --> 00:33:55,196
+biggest sources of security
+
+
+1080
+00:33:55,196 --> 00:33:55,506
+issues.
+
+
+1081
+00:33:56,526 --> 00:33:58,166
+Overflows only raise an integer
+
+
+1082
+00:33:58,286 --> 00:34:00,596
+and SWF terminate the execution
+
+
+1083
+00:34:00,596 --> 00:34:01,246
+of the program.
+
+
+1084
+00:34:02,826 --> 00:34:04,126
+You might ask this question.
+
+
+1085
+00:34:04,346 --> 00:34:05,866
+Why is Runtime checking good?
+
+
+1086
+00:34:05,946 --> 00:34:07,926
+Well, while your program will
+
+
+1087
+00:34:07,926 --> 00:34:10,766
+still stop if you have a bug and
+
+
+1088
+00:34:10,766 --> 00:34:12,706
+your buffer overflows, this
+
+
+1089
+00:34:12,706 --> 00:34:14,186
+behavior is much better than the
+
+
+1090
+00:34:14,186 --> 00:34:14,815
+alternative.
+
+
+1091
+00:34:15,496 --> 00:34:17,516
+The behavior in SWF is much more
+
+
+1092
+00:34:17,516 --> 00:34:20,005
+consistent and debuggable than
+
+
+1093
+00:34:20,005 --> 00:34:21,315
+what you get in C and most
+
+
+1094
+00:34:21,315 --> 00:34:23,376
+importantly, it gives very high
+
+
+1095
+00:34:23,376 --> 00:34:24,876
+security guarantees.
+
+
+1096
+00:34:25,476 --> 00:34:26,946
+The buffer overflow is not
+
+
+1097
+00:34:26,946 --> 00:34:27,746
+exploitable.
+
+
+1098
+00:34:28,536 --> 00:34:30,096
+It will not lead to the attacker
+
+
+1099
+00:34:30,096 --> 00:34:31,946
+getting execution control of
+
+
+1100
+00:34:31,946 --> 00:34:33,255
+your program.
+
+
+1101
+00:34:34,775 --> 00:34:36,235
+Note that if you need to use
+
+
+1102
+00:34:36,235 --> 00:34:38,005
+integer-wrapping behavior, you
+
+
+1103
+00:34:38,005 --> 00:34:41,065
+can still do it using overflow
+
+
+1104
+00:34:41,065 --> 00:34:43,356
+operators, which are also safe
+
+
+1105
+00:34:43,356 --> 00:34:44,806
+and just perform modular
+
+
+1106
+00:34:44,806 --> 00:34:45,255
+arithmetic.
+
+
+1107
+00:34:45,696 --> 00:34:49,926
+Now, a question a lot of you
+
+
+1108
+00:34:49,926 --> 00:34:51,525
+might be thinking about now is
+
+
+1109
+00:34:51,525 --> 00:34:53,585
+does undefined behavior exist in
+
+
+1110
+00:34:53,585 --> 00:34:54,000
+SWF?
+
+
+1111
+00:34:55,275 --> 00:34:57,085
+And the answer is yes, but this
+
+
+1112
+00:34:57,085 --> 00:35:00,216
+case is much rarer and often we
+
+
+1113
+00:35:00,216 --> 00:35:01,876
+know that we are opting into
+
+
+1114
+00:35:01,876 --> 00:35:02,876
+unsafe behavior.
+
+
+1115
+00:35:03,396 --> 00:35:06,676
+So, for example we needed C
+
+
+1116
+00:35:06,676 --> 00:35:07,656
+interoperability.
+
+
+1117
+00:35:07,656 --> 00:35:09,226
+So, we needed to traffic in
+
+
+1118
+00:35:09,226 --> 00:35:09,906
+these types.
+
+
+1119
+00:35:10,306 --> 00:35:12,276
+Unsafe pointer, unsafe mutable
+
+
+1120
+00:35:12,276 --> 00:35:13,476
+raw buffer pointer.
+
+
+1121
+00:35:14,256 --> 00:35:15,946
+Note that you can tell that
+
+
+1122
+00:35:15,946 --> 00:35:17,726
+these types are unsafe by just
+
+
+1123
+00:35:17,726 --> 00:35:18,786
+looking at their names.
+
+
+1124
+00:35:18,786 --> 00:35:22,336
+So, if your applications use C
+
+
+1125
+00:35:22,546 --> 00:35:24,746
+or Objective C or otherwise
+
+
+1126
+00:35:24,746 --> 00:35:25,916
+they're using these types, I
+
+
+1127
+00:35:25,916 --> 00:35:27,296
+highly recommend using Address
+
+
+1128
+00:35:27,296 --> 00:35:28,336
+Sanitizer too.
+
+
+1129
+00:35:28,576 --> 00:35:30,926
+It will find memory corruptions
+
+
+1130
+00:35:31,226 --> 00:35:33,296
+that this unsafety could bring
+
+
+1131
+00:35:33,296 --> 00:35:34,176
+to your code.
+
+
+1132
+00:35:34,436 --> 00:35:38,266
+Now, another example of unsafety
+
+
+1133
+00:35:38,326 --> 00:35:39,566
+in SWF are simultaneous
+
+
+1134
+00:35:39,606 --> 00:35:40,366
+accesses.
+
+
+1135
+00:35:40,956 --> 00:35:42,676
+And SWF is nailing the model
+
+
+1136
+00:35:42,676 --> 00:35:44,006
+down in this release with
+
+
+1137
+00:35:44,006 --> 00:35:45,666
+enforcement of exclusive memory
+
+
+1138
+00:35:45,666 --> 00:35:46,136
+access.
+
+
+1139
+00:35:46,846 --> 00:35:48,126
+Let's look at a very simple
+
+
+1140
+00:35:48,126 --> 00:35:49,566
+example to understand what this
+
+
+1141
+00:35:49,566 --> 00:35:50,276
+is all about.
+
+
+1142
+00:35:50,276 --> 00:35:54,006
+So, here we have a function that
+
+
+1143
+00:35:54,006 --> 00:35:55,726
+takes two in out arguments.
+
+
+1144
+00:35:56,306 --> 00:35:57,676
+In out means that the function
+
+
+1145
+00:35:57,676 --> 00:35:58,886
+may change the value of these
+
+
+1146
+00:35:58,886 --> 00:35:59,446
+arguments.
+
+
+1147
+00:36:00,216 --> 00:36:02,206
+Calling this function and
+
+
+1148
+00:36:02,206 --> 00:36:04,066
+passing it two values that point
+
+
+1149
+00:36:04,066 --> 00:36:06,436
+to the same memory could result
+
+
+1150
+00:36:06,436 --> 00:36:07,826
+in unpredictable behavior.
+
+
+1151
+00:36:09,176 --> 00:36:10,846
+For those of you who are
+
+
+1152
+00:36:10,846 --> 00:36:12,396
+familiar with restrictive work
+
+
+1153
+00:36:12,396 --> 00:36:14,266
+in C, this is very similar.
+
+
+1154
+00:36:14,446 --> 00:36:16,666
+But in SWF, this behavior is on
+
+
+1155
+00:36:16,666 --> 00:36:17,256
+by default.
+
+
+1156
+00:36:17,736 --> 00:36:20,646
+Now, this one, this is a very
+
+
+1157
+00:36:20,646 --> 00:36:23,116
+simple and abstract example of
+
+
+1158
+00:36:23,116 --> 00:36:23,716
+this problem.
+
+
+1159
+00:36:23,716 --> 00:36:25,046
+However, I highly encourage you
+
+
+1160
+00:36:25,046 --> 00:36:26,716
+to watch Watch New in SWF talk
+
+
+1161
+00:36:26,716 --> 00:36:28,596
+for more examples of how this
+
+
+1162
+00:36:28,596 --> 00:36:30,706
+could be visible in your code
+
+
+1163
+00:36:30,706 --> 00:36:32,766
+and how it relates to your code.
+
+
+1164
+00:36:33,716 --> 00:36:36,206
+So, to address this problem, SWF
+
+
+1165
+00:36:36,396 --> 00:36:38,336
+could have chose to declare this
+
+
+1166
+00:36:38,336 --> 00:36:39,986
+to be undefined behavior.
+
+
+1167
+00:36:41,036 --> 00:36:43,716
+However, instead it decided to
+
+
+1168
+00:36:43,716 --> 00:36:44,766
+follow its mantra, that
+
+
+1169
+00:36:44,766 --> 00:36:46,376
+undefined behavior is the enemy
+
+
+1170
+00:36:46,376 --> 00:36:47,546
+of safety and implement
+
+
+1171
+00:36:47,546 --> 00:36:49,246
+solutions in the language that
+
+
+1172
+00:36:49,276 --> 00:36:50,976
+provide stronger guarantees.
+
+
+1173
+00:36:51,456 --> 00:36:54,506
+Coming up with the right
+
+
+1174
+00:36:54,506 --> 00:36:55,736
+solution here is a balancing
+
+
+1175
+00:36:55,736 --> 00:36:55,986
+act.
+
+
+1176
+00:36:56,436 --> 00:36:58,036
+It's best to diagnose everything
+
+
+1177
+00:36:58,036 --> 00:37:00,156
+statically but often that's not
+
+
+1178
+00:37:00,156 --> 00:37:01,606
+possible without making the type
+
+
+1179
+00:37:01,606 --> 00:37:03,436
+system too difficult to use.
+
+
+1180
+00:37:04,126 --> 00:37:05,506
+Another solution are Runtime
+
+
+1181
+00:37:05,506 --> 00:37:05,976
+checks.
+
+
+1182
+00:37:05,976 --> 00:37:07,986
+However, the language Runtime
+
+
+1183
+00:37:07,986 --> 00:37:09,146
+has to be performant.
+
+
+1184
+00:37:09,716 --> 00:37:10,836
+And efficient.
+
+
+1185
+00:37:10,976 --> 00:37:12,576
+And the overhead of any extra
+
+
+1186
+00:37:12,576 --> 00:37:13,906
+checking cannot be too high.
+
+
+1187
+00:37:14,446 --> 00:37:17,366
+So, the solution that the SWF
+
+
+1188
+00:37:17,366 --> 00:37:19,626
+Project came up with consists of
+
+
+1189
+00:37:19,756 --> 00:37:20,986
+tightening the language to
+
+
+1190
+00:37:20,986 --> 00:37:22,876
+follow a slightly stricter rule
+
+
+1191
+00:37:23,576 --> 00:37:24,856
+and using a combination of
+
+
+1192
+00:37:24,856 --> 00:37:27,176
+static and dynamic checks to
+
+
+1193
+00:37:27,176 --> 00:37:29,876
+ensure that unintended sharing
+
+
+1194
+00:37:29,876 --> 00:37:31,436
+does not happen within the same
+
+
+1195
+00:37:31,866 --> 00:37:32,000
+thread.
+
+
+1196
+00:37:34,296 --> 00:37:35,666
+Unfortunately, checking for
+
+
+1197
+00:37:35,666 --> 00:37:37,606
+exclusivity of accesses across
+
+
+1198
+00:37:37,606 --> 00:37:39,566
+threads is too expensive.
+
+
+1199
+00:37:40,146 --> 00:37:41,276
+And the tradeoff that was made
+
+
+1200
+00:37:41,276 --> 00:37:43,196
+here was to rely on tools,
+
+
+1201
+00:37:43,586 --> 00:37:45,116
+specifically Thread Sanitizer,
+
+
+1202
+00:37:45,396 --> 00:37:47,306
+to catch violations involving
+
+
+1203
+00:37:47,306 --> 00:37:50,326
+accesses from multiple threads.
+
+
+1204
+00:37:50,496 --> 00:37:51,736
+In general, using Thread
+
+
+1205
+00:37:51,736 --> 00:37:53,366
+Sanitizer is very beneficial for
+
+
+1206
+00:37:53,366 --> 00:37:55,346
+your SWF code because data races
+
+
+1207
+00:37:55,346 --> 00:37:57,686
+and access races are undefined
+
+
+1208
+00:37:57,686 --> 00:37:59,406
+behavior in SWF and they could
+
+
+1209
+00:37:59,406 --> 00:38:00,596
+lead to memory corruptions.
+
+
+1210
+00:38:01,196 --> 00:38:02,846
+For more information about this
+
+
+1211
+00:38:02,846 --> 00:38:05,106
+tool, watch the Finding Bugs
+
+
+1212
+00:38:05,316 --> 00:38:06,986
+Using Xcode Runtime Tools talk.
+
+
+1213
+00:38:07,386 --> 00:38:10,626
+Now, safety is a design choice
+
+
+1214
+00:38:10,626 --> 00:38:11,156
+in SWF.
+
+
+1215
+00:38:11,396 --> 00:38:12,716
+The language provides many
+
+
+1216
+00:38:12,716 --> 00:38:14,426
+solutions to avoid undefined
+
+
+1217
+00:38:14,426 --> 00:38:16,466
+behavior and prevent developers
+
+
+1218
+00:38:16,466 --> 00:38:18,836
+from introducing subtle and
+
+
+1219
+00:38:18,836 --> 00:38:19,906
+exploitable bugs.
+
+
+1220
+00:38:20,596 --> 00:38:24,266
+Today we talked about undefined
+
+
+1221
+00:38:24,266 --> 00:38:25,906
+behavior and how different
+
+
+1222
+00:38:25,906 --> 00:38:26,986
+languages approach it.
+
+
+1223
+00:38:27,536 --> 00:38:29,866
+C languages use undefined
+
+
+1224
+00:38:30,036 --> 00:38:31,916
+behavior for portability and
+
+
+1225
+00:38:31,916 --> 00:38:32,806
+optimizations.
+
+
+1226
+00:38:33,436 --> 00:38:34,736
+However, we've seen that that
+
+
+1227
+00:38:34,736 --> 00:38:36,486
+could lead to very subtle and
+
+
+1228
+00:38:36,486 --> 00:38:38,306
+hard to debug bugs and even
+
+
+1229
+00:38:38,306 --> 00:38:39,806
+introduce security exploits.
+
+
+1230
+00:38:40,366 --> 00:38:42,386
+SWF chose to follow a different
+
+
+1231
+00:38:42,606 --> 00:38:44,116
+path and was designed to be
+
+
+1232
+00:38:44,116 --> 00:38:45,176
+safer by default.
+
+
+1233
+00:38:46,596 --> 00:38:48,036
+Finally, regardless of your
+
+
+1234
+00:38:48,036 --> 00:38:49,646
+language of choice, use all the
+
+
+1235
+00:38:49,646 --> 00:38:51,156
+tools at your disposal as part
+
+
+1236
+00:38:51,156 --> 00:38:52,516
+of your app release and testing
+
+
+1237
+00:38:52,516 --> 00:38:52,946
+process.
+
+
+1238
+00:38:53,416 --> 00:38:55,076
+That will make your apps more
+
+
+1239
+00:38:55,076 --> 00:38:57,000
+secure and robust.
+
+
+1240
+00:39:00,086 --> 00:39:01,136
+Here are some of the related
+
+
+1241
+00:39:01,136 --> 00:39:02,226
+sessions that we've mentioned
+
+
+1242
+00:39:02,226 --> 00:39:02,636
+today.
+
+
+1243
+00:39:03,176 --> 00:39:04,896
+Thank you very much and enjoy
+
+
+1244
+00:39:04,896 --> 00:39:06,660
+the rest of your day.
+
+
+1245
+00:39:07,516 --> 00:39:10,500
+[ Applause ]
+

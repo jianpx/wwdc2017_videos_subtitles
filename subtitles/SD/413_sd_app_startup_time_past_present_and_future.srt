@@ -1,0 +1,5529 @@
+1
+00:00:21,056 --> 00:00:21,976
+>> Hello everybody.
+
+
+2
+00:00:22,516 --> 00:00:26,596
+[ Applause ]
+
+
+3
+00:00:27,096 --> 00:00:27,916
+Thanks for coming out this
+
+
+4
+00:00:27,916 --> 00:00:28,366
+morning.
+
+
+5
+00:00:28,806 --> 00:00:29,956
+I'm Louis Gerbarg.
+
+
+6
+00:00:29,956 --> 00:00:31,626
+I work on the dyld Team, and
+
+
+7
+00:00:31,926 --> 00:00:33,066
+today we're going to talk about
+
+
+8
+00:00:33,066 --> 00:00:34,896
+App Startup, Past, Present and
+
+
+9
+00:00:34,896 --> 00:00:35,296
+Future.
+
+
+10
+00:00:36,446 --> 00:00:37,676
+So we got a lot to go through,
+
+
+11
+00:00:37,676 --> 00:00:38,596
+so I'm just going to get into
+
+
+12
+00:00:38,596 --> 00:00:38,716
+it.
+
+
+13
+00:00:39,796 --> 00:00:40,666
+So first off I want to do an
+
+
+14
+00:00:40,666 --> 00:00:41,566
+overview of what we're going to
+
+
+15
+00:00:41,566 --> 00:00:42,426
+be talking about today.
+
+
+16
+00:00:43,506 --> 00:00:46,346
+So first we're going to review
+
+
+17
+00:00:46,346 --> 00:00:47,856
+some advice we gave from last
+
+
+18
+00:00:47,856 --> 00:00:48,116
+year.
+
+
+19
+00:00:49,186 --> 00:00:50,246
+Then I want to talk about some
+
+
+20
+00:00:50,246 --> 00:00:52,126
+new tooling we've developed to
+
+
+21
+00:00:52,126 --> 00:00:53,816
+make finding certain types of
+
+
+22
+00:00:53,816 --> 00:00:55,316
+app startup time problems
+
+
+23
+00:00:55,316 --> 00:00:55,716
+easier.
+
+
+24
+00:00:56,846 --> 00:00:58,396
+After that I want to take a side
+
+
+25
+00:00:58,396 --> 00:00:59,946
+tour into a brief history of
+
+
+26
+00:00:59,946 --> 00:01:02,766
+dyld on our platforms, and then
+
+
+27
+00:01:02,766 --> 00:01:03,976
+I want to discuss the all new
+
+
+28
+00:01:03,976 --> 00:01:06,546
+dyld that we're going to be
+
+
+29
+00:01:06,796 --> 00:01:08,656
+shipping in macOS High Sierra
+
+
+30
+00:01:08,656 --> 00:01:10,216
+and iOS 11.
+
+
+31
+00:01:10,216 --> 00:01:11,896
+And then finally, I want to talk
+
+
+32
+00:01:11,896 --> 00:01:13,476
+about best practices for this
+
+
+33
+00:01:13,476 --> 00:01:15,966
+new dyld.
+
+
+34
+00:01:16,096 --> 00:01:18,966
+So before that I just want to do
+
+
+35
+00:01:18,966 --> 00:01:20,176
+a little bit of bookkeeping.
+
+
+36
+00:01:21,616 --> 00:01:23,086
+So first off, we want your
+
+
+37
+00:01:23,086 --> 00:01:23,796
+feedback.
+
+
+38
+00:01:24,206 --> 00:01:27,326
+So if you have anything you want
+
+
+39
+00:01:27,326 --> 00:01:28,606
+to tell us, please file bugs
+
+
+40
+00:01:28,606 --> 00:01:30,676
+with the title DYLD USAGE, and
+
+
+41
+00:01:30,676 --> 00:01:31,746
+hopefully they will get back to
+
+
+42
+00:01:31,746 --> 00:01:32,056
+us.
+
+
+43
+00:01:32,056 --> 00:01:35,296
+And now I want to talk about
+
+
+44
+00:01:35,296 --> 00:01:36,396
+some terminology that I'm going
+
+
+45
+00:01:36,396 --> 00:01:37,356
+to use in the rest of this talk.
+
+
+46
+00:01:38,776 --> 00:01:41,946
+So first off, what does startup
+
+
+47
+00:01:41,946 --> 00:01:42,706
+time mean?
+
+
+48
+00:01:43,816 --> 00:01:44,916
+And startup time for the
+
+
+49
+00:01:44,916 --> 00:01:47,676
+purposes of this talk means time
+
+
+50
+00:01:47,676 --> 00:01:49,446
+spent before main.
+
+
+51
+00:01:49,836 --> 00:01:52,396
+Now, if you are writing an app,
+
+
+52
+00:01:52,396 --> 00:01:53,676
+you have to do more than that.
+
+
+53
+00:01:53,676 --> 00:01:55,146
+After that happens, there will
+
+
+54
+00:01:55,146 --> 00:01:56,536
+be nib loading and other things
+
+
+55
+00:01:56,536 --> 00:01:58,596
+like that and you have codes to
+
+
+56
+00:01:58,596 --> 00:02:00,736
+run after you -- in UI
+
+
+57
+00:02:00,736 --> 00:02:02,086
+application delegates and what
+
+
+58
+00:02:02,806 --> 00:02:04,316
+not, but you have more
+
+
+59
+00:02:04,316 --> 00:02:05,836
+visibility into that and there
+
+
+60
+00:02:05,836 --> 00:02:07,446
+are many other talks about that.
+
+
+61
+00:02:07,596 --> 00:02:08,795
+Today we just want to talk about
+
+
+62
+00:02:08,795 --> 00:02:09,735
+what happens before your main
+
+
+63
+00:02:09,735 --> 00:02:11,056
+executes and how you can speed
+
+
+64
+00:02:11,056 --> 00:02:11,356
+that up.
+
+
+65
+00:02:12,786 --> 00:02:15,356
+Additionally, I want to define a
+
+
+66
+00:02:15,356 --> 00:02:16,736
+launch closure, and this is a
+
+
+67
+00:02:16,736 --> 00:02:17,496
+new term.
+
+
+68
+00:02:18,076 --> 00:02:21,046
+And a launch closure is all of
+
+
+69
+00:02:21,046 --> 00:02:22,226
+the information necessary to
+
+
+70
+00:02:22,226 --> 00:02:23,356
+launch your application.
+
+
+71
+00:02:23,666 --> 00:02:25,556
+So what dylibs it uses, what the
+
+
+72
+00:02:25,596 --> 00:02:27,296
+offsets in them are for various
+
+
+73
+00:02:27,296 --> 00:02:28,716
+symbols, where their code
+
+
+74
+00:02:28,716 --> 00:02:29,436
+signatures are.
+
+
+75
+00:02:30,656 --> 00:02:33,206
+And with that, let's go into the
+
+
+76
+00:02:33,206 --> 00:02:35,446
+main body of the talk.
+
+
+77
+00:02:35,676 --> 00:02:39,386
+So last year I said do less, and
+
+
+78
+00:02:39,386 --> 00:02:40,386
+I'm going to say that again this
+
+
+79
+00:02:40,386 --> 00:02:41,376
+year and I'm always going to say
+
+
+80
+00:02:41,376 --> 00:02:43,576
+that because the less you do,
+
+
+81
+00:02:44,296 --> 00:02:45,546
+the faster we can launch.
+
+
+82
+00:02:45,796 --> 00:02:47,416
+And no matter how much we speed
+
+
+83
+00:02:47,416 --> 00:02:49,116
+things up, if we have less work,
+
+
+84
+00:02:49,586 --> 00:02:50,586
+it's going to go faster.
+
+
+85
+00:02:51,766 --> 00:02:53,056
+And the advice is basically the
+
+
+86
+00:02:53,056 --> 00:02:53,496
+same.
+
+
+87
+00:02:54,646 --> 00:02:57,366
+You should use fewer dylibs, if
+
+
+88
+00:02:57,366 --> 00:02:59,146
+you can, you should embed fewer
+
+
+89
+00:02:59,146 --> 00:02:59,626
+dylibs.
+
+
+90
+00:02:59,846 --> 00:03:01,716
+System ones are better in
+
+
+91
+00:03:01,716 --> 00:03:03,056
+certain ways from a time
+
+
+92
+00:03:03,056 --> 00:03:03,856
+perspective, and we'll go into
+
+
+93
+00:03:03,856 --> 00:03:04,056
+that.
+
+
+94
+00:03:05,506 --> 00:03:06,896
+You should declare fewer classes
+
+
+95
+00:03:06,896 --> 00:03:09,956
+and methods and you should run
+
+
+96
+00:03:09,956 --> 00:03:11,546
+fewer initializers.
+
+
+97
+00:03:13,396 --> 00:03:15,166
+Finally, I'm going to tell you
+
+
+98
+00:03:15,166 --> 00:03:16,266
+you can do a little bit more of
+
+
+99
+00:03:16,266 --> 00:03:16,546
+something.
+
+
+100
+00:03:16,546 --> 00:03:18,416
+You can use more Swift, and the
+
+
+101
+00:03:18,416 --> 00:03:21,356
+reason is Swift is designed in
+
+
+102
+00:03:21,356 --> 00:03:23,506
+such a way that it avoids a lot
+
+
+103
+00:03:23,506 --> 00:03:25,456
+of pitfalls that C, C++ and
+
+
+104
+00:03:25,456 --> 00:03:27,026
+Objective-C allow you to do.
+
+
+105
+00:03:27,486 --> 00:03:28,476
+Swift does not have
+
+
+106
+00:03:28,476 --> 00:03:29,456
+initializers.
+
+
+107
+00:03:29,926 --> 00:03:31,216
+Swift does not allow certain
+
+
+108
+00:03:31,216 --> 00:03:32,236
+types of misaligned data
+
+
+109
+00:03:32,236 --> 00:03:33,776
+structures that cost us time in
+
+
+110
+00:03:33,776 --> 00:03:34,206
+launch.
+
+
+111
+00:03:34,626 --> 00:03:36,516
+So, in general, moving to Swift
+
+
+112
+00:03:36,716 --> 00:03:39,066
+will make it easier for you to
+
+
+113
+00:03:39,066 --> 00:03:40,996
+get very responsive app startup.
+
+
+114
+00:03:42,406 --> 00:03:44,266
+So also, there are the Swift
+
+
+115
+00:03:44,266 --> 00:03:45,726
+size improvements and smaller is
+
+
+116
+00:03:45,726 --> 00:03:47,576
+better, so please move to this
+
+
+117
+00:03:47,576 --> 00:03:48,586
+new Swift that we've shipped
+
+
+118
+00:03:48,586 --> 00:03:49,336
+this year with the size
+
+
+119
+00:03:49,336 --> 00:03:50,316
+improvements and that's going to
+
+
+120
+00:03:50,316 --> 00:03:50,986
+help you out.
+
+
+121
+00:03:51,976 --> 00:03:53,646
+So now let me talk about some
+
+
+122
+00:03:53,646 --> 00:03:57,146
+new tooling we have.
+
+
+123
+00:03:57,356 --> 00:04:00,456
+So new in iOS 11 and macOS High
+
+
+124
+00:04:00,456 --> 00:04:02,556
+Sierra, we've added Static
+
+
+125
+00:04:02,556 --> 00:04:03,746
+Initializer Tracing to
+
+
+126
+00:04:03,746 --> 00:04:05,126
+Instruments.
+
+
+127
+00:04:06,216 --> 00:04:07,886
+So, yes, this is pretty exciting
+
+
+128
+00:04:07,886 --> 00:04:09,876
+stuff because initializers are
+
+
+129
+00:04:09,876 --> 00:04:11,046
+code that have to run before
+
+
+130
+00:04:11,046 --> 00:04:12,926
+main to set up objects for you,
+
+
+131
+00:04:13,616 --> 00:04:14,616
+and you haven't had much
+
+
+132
+00:04:14,616 --> 00:04:15,736
+visibility into what happens
+
+
+133
+00:04:15,736 --> 00:04:16,386
+before main.
+
+
+134
+00:04:17,375 --> 00:04:19,106
+So they're available through
+
+
+135
+00:04:19,106 --> 00:04:20,276
+Instruments and they provide
+
+
+136
+00:04:20,276 --> 00:04:21,745
+precise timing for each static
+
+
+137
+00:04:21,745 --> 00:04:22,326
+initializer.
+
+
+138
+00:04:22,736 --> 00:04:24,596
+So with that, I'd like to go to
+
+
+139
+00:04:24,596 --> 00:04:25,326
+a demo right now.
+
+
+140
+00:04:25,746 --> 00:04:27,546
+So over here I have an
+
+
+141
+00:04:27,546 --> 00:04:29,796
+application, and as most
+
+
+142
+00:04:29,796 --> 00:04:31,706
+applications at WWDC are, it's a
+
+
+143
+00:04:31,706 --> 00:04:33,636
+way of sharing cute pictures of
+
+
+144
+00:04:33,636 --> 00:04:34,086
+animals.
+
+
+145
+00:04:35,156 --> 00:04:36,206
+So here, let me launch it.
+
+
+146
+00:04:36,786 --> 00:04:39,586
+And, you know, it's taking a
+
+
+147
+00:04:39,936 --> 00:04:44,066
+little while here, but it's
+
+
+148
+00:04:44,066 --> 00:04:45,826
+still taking a while and it gets
+
+
+149
+00:04:45,826 --> 00:04:47,376
+up and we can see some
+
+
+150
+00:04:47,376 --> 00:04:50,826
+chinchillas and some cats.
+
+
+151
+00:04:50,826 --> 00:04:53,346
+And so let's take a look at why
+
+
+152
+00:04:53,346 --> 00:04:54,826
+it took that time.
+
+
+153
+00:04:54,946 --> 00:04:56,636
+So I'm going to go and I'm going
+
+
+154
+00:04:56,636 --> 00:04:58,056
+to rerun it under Instruments.
+
+
+155
+00:04:58,916 --> 00:05:01,966
+So we'll stop the execution of
+
+
+156
+00:05:01,966 --> 00:05:06,306
+the current one and run it.
+
+
+157
+00:05:06,306 --> 00:05:08,076
+And now if we go in, I'm going
+
+
+158
+00:05:08,076 --> 00:05:09,526
+to start with a blank template
+
+
+159
+00:05:09,896 --> 00:05:12,266
+and we can add the new Static
+
+
+160
+00:05:12,266 --> 00:05:16,946
+Initializer tool, which is right
+
+
+161
+00:05:16,946 --> 00:05:17,346
+there.
+
+
+162
+00:05:17,606 --> 00:05:18,406
+And while we're at it, I'm also
+
+
+163
+00:05:18,406 --> 00:05:19,506
+going to add a Time Profiler
+
+
+164
+00:05:19,506 --> 00:05:20,386
+because it's always kind of nice
+
+
+165
+00:05:20,386 --> 00:05:20,976
+to see what's going on.
+
+
+166
+00:05:28,296 --> 00:05:28,766
+There we go.
+
+
+167
+00:05:29,876 --> 00:05:31,596
+Okay. So now that we have those,
+
+
+168
+00:05:31,596 --> 00:05:32,596
+let's start running our
+
+
+169
+00:05:32,596 --> 00:05:33,136
+application.
+
+
+170
+00:05:34,956 --> 00:05:36,976
+So we're getting in our trace
+
+
+171
+00:05:36,976 --> 00:05:41,516
+data, and it's still not up, but
+
+
+172
+00:05:41,516 --> 00:05:42,706
+it just came up and as you can
+
+
+173
+00:05:42,706 --> 00:05:46,006
+see in the background there, we
+
+
+174
+00:05:46,006 --> 00:05:47,076
+had something fill in there.
+
+
+175
+00:05:47,076 --> 00:05:48,686
+So I'm going to just zoom in so
+
+
+176
+00:05:48,686 --> 00:05:51,026
+you can get a look, and I have a
+
+
+177
+00:05:51,026 --> 00:05:51,686
+function there called
+
+
+178
+00:05:51,686 --> 00:05:53,766
+waitForNetworkDebugger, and
+
+
+179
+00:05:53,766 --> 00:05:54,556
+that's right, because I was
+
+
+180
+00:05:54,556 --> 00:05:56,086
+loading these off of an adjacent
+
+
+181
+00:05:56,086 --> 00:05:57,736
+feed that we had up on our site.
+
+
+182
+00:05:57,736 --> 00:05:59,776
+I was trying to debug that.
+
+
+183
+00:05:59,846 --> 00:06:01,816
+So let's go and -- I just want
+
+
+184
+00:06:01,816 --> 00:06:02,876
+to actually take a quick look
+
+
+185
+00:06:02,876 --> 00:06:04,496
+here in the CPU Usage tool.
+
+
+186
+00:06:04,616 --> 00:06:07,406
+So you can see that that
+
+
+187
+00:06:07,406 --> 00:06:08,776
+initializer's roughly the same
+
+
+188
+00:06:08,776 --> 00:06:10,776
+length as my CPU usage.
+
+
+189
+00:06:11,276 --> 00:06:12,276
+So if I go down there, I can
+
+
+190
+00:06:12,276 --> 00:06:15,236
+actually drill down into dyld,
+
+
+191
+00:06:15,646 --> 00:06:18,436
+and if I do that, we're actually
+
+
+192
+00:06:18,436 --> 00:06:19,326
+going to see what was taking all
+
+
+193
+00:06:19,326 --> 00:06:24,446
+that time, and that time is 9.5
+
+
+194
+00:06:24,446 --> 00:06:28,686
+seconds, 9.5 seconds into the
+
+
+195
+00:06:28,686 --> 00:06:29,266
+initializer.
+
+
+196
+00:06:29,266 --> 00:06:29,916
+It's pretty deep.
+
+
+197
+00:06:29,916 --> 00:06:30,986
+You don't usually have to do
+
+
+198
+00:06:30,986 --> 00:06:31,816
+this, but I want to show you
+
+
+199
+00:06:31,816 --> 00:06:33,856
+what's going on.
+
+
+200
+00:06:34,756 --> 00:06:36,296
+And down in here I can finally
+
+
+201
+00:06:36,296 --> 00:06:38,386
+see waitForNetworkDebugger,
+
+
+202
+00:06:38,386 --> 00:06:39,226
+which is what we saw up in the
+
+
+203
+00:06:39,226 --> 00:06:40,636
+initializer call, but now it's
+
+
+204
+00:06:40,636 --> 00:06:41,976
+very easy for you to find that.
+
+
+205
+00:06:42,706 --> 00:06:45,076
+So now that we've done that, I'm
+
+
+206
+00:06:45,076 --> 00:06:49,816
+going to go back over into Xcode
+
+
+207
+00:06:49,816 --> 00:06:51,626
+and, oh, yeah, that's the
+
+
+208
+00:06:51,626 --> 00:06:52,856
+waitForNetworkDebugger call that
+
+
+209
+00:06:52,856 --> 00:06:53,376
+I implemented.
+
+
+210
+00:06:53,376 --> 00:06:54,516
+I implemented it in C because
+
+
+211
+00:06:54,516 --> 00:06:55,516
+Swift won't even let you do
+
+
+212
+00:06:55,516 --> 00:06:57,616
+something like this, which is
+
+
+213
+00:06:57,676 --> 00:06:59,686
+because this is a bad idea, but
+
+
+214
+00:06:59,686 --> 00:07:01,156
+I created a constructor there.
+
+
+215
+00:07:01,156 --> 00:07:02,636
+So if I go back to my source
+
+
+216
+00:07:02,636 --> 00:07:06,276
+code -- if I go back to my
+
+
+217
+00:07:06,276 --> 00:07:08,786
+source code, I can just delete
+
+
+218
+00:07:08,786 --> 00:07:11,426
+that function because it was
+
+
+219
+00:07:11,426 --> 00:07:12,326
+just for debugging anyway.
+
+
+220
+00:07:13,196 --> 00:07:16,656
+If I run it, my app's going to
+
+
+221
+00:07:16,656 --> 00:07:17,836
+come up almost instantly.
+
+
+222
+00:07:18,916 --> 00:07:21,226
+So we just saw how to quickly
+
+
+223
+00:07:21,226 --> 00:07:23,276
+find what stack initializers are
+
+
+224
+00:07:23,276 --> 00:07:24,206
+causing you slowdowns.
+
+
+225
+00:07:24,206 --> 00:07:26,486
+This will work across multiple
+
+
+226
+00:07:26,486 --> 00:07:28,246
+dylibs, including system dylibs
+
+
+227
+00:07:28,246 --> 00:07:29,506
+that may be taking a long time
+
+
+228
+00:07:29,506 --> 00:07:30,656
+because of inputs you've given
+
+
+229
+00:07:30,656 --> 00:07:32,036
+them, such as complicated nibs.
+
+
+230
+00:07:32,036 --> 00:07:35,356
+It depends on new infrastructure
+
+
+231
+00:07:35,356 --> 00:07:39,376
+in High Sierra and iOS 11's
+
+
+232
+00:07:39,376 --> 00:07:41,766
+kernel and dyld, so you need to
+
+
+233
+00:07:41,766 --> 00:07:42,966
+be running the new builds to see
+
+
+234
+00:07:42,966 --> 00:07:43,236
+this.
+
+
+235
+00:07:43,906 --> 00:07:45,986
+And it catches most initializers
+
+
+236
+00:07:45,986 --> 00:07:47,036
+now and there's some edge cases
+
+
+237
+00:07:47,036 --> 00:07:48,166
+we're still working on adding,
+
+
+238
+00:07:48,656 --> 00:07:50,216
+but we think this is going to
+
+
+239
+00:07:50,216 --> 00:07:52,406
+allow you to quickly find out
+
+
+240
+00:07:52,606 --> 00:07:54,286
+what is taking time during your
+
+
+241
+00:07:54,286 --> 00:07:55,266
+app launch so that you get
+
+
+242
+00:07:55,266 --> 00:07:56,846
+quicker, more responsive
+
+
+243
+00:07:56,846 --> 00:07:58,006
+application launches that will
+
+
+244
+00:07:58,006 --> 00:07:58,866
+make your users happy.
+
+
+245
+00:07:59,646 --> 00:07:59,956
+Thank you.
+
+
+246
+00:08:00,516 --> 00:08:05,106
+[ Applause ]
+
+
+247
+00:08:05,606 --> 00:08:07,286
+Okay. So now I said we'd do a
+
+
+248
+00:08:07,286 --> 00:08:10,016
+brief history of dyld.
+
+
+249
+00:08:10,016 --> 00:08:11,676
+So Dynamic Linking Through the
+
+
+250
+00:08:11,676 --> 00:08:12,256
+Ages.
+
+
+251
+00:08:12,886 --> 00:08:14,206
+So originally we shipped the
+
+
+252
+00:08:14,206 --> 00:08:16,346
+first dyld -- these didn't have
+
+
+253
+00:08:16,346 --> 00:08:16,986
+version numbers, but
+
+
+254
+00:08:16,986 --> 00:08:18,086
+retroactively we're giving them
+
+
+255
+00:08:18,086 --> 00:08:18,236
+them.
+
+
+256
+00:08:19,336 --> 00:08:21,006
+And this was dyld 1 and it
+
+
+257
+00:08:21,006 --> 00:08:23,306
+shipped as part of NeXTStep 3.3
+
+
+258
+00:08:24,276 --> 00:08:26,566
+back in 1996.
+
+
+259
+00:08:26,566 --> 00:08:30,806
+Before that, NeXT used static
+
+
+260
+00:08:30,806 --> 00:08:31,276
+binaries.
+
+
+261
+00:08:32,556 --> 00:08:34,265
+And it's worth noting this
+
+
+262
+00:08:34,376 --> 00:08:37,535
+predates the POSIX dlopen calls
+
+
+263
+00:08:37,535 --> 00:08:38,496
+being standardized.
+
+
+264
+00:08:38,676 --> 00:08:40,556
+Now, dlopen did exist on some
+
+
+265
+00:08:40,556 --> 00:08:40,916
+Unix.
+
+
+266
+00:08:40,916 --> 00:08:42,385
+They were proprietary extensions
+
+
+267
+00:08:42,816 --> 00:08:44,576
+that later people adopted.
+
+
+268
+00:08:45,136 --> 00:08:46,666
+And NeXTStep had different
+
+
+269
+00:08:46,726 --> 00:08:48,696
+proprietary extensions, so
+
+
+270
+00:08:49,486 --> 00:08:50,396
+people wrote third-party
+
+
+271
+00:08:50,396 --> 00:08:51,706
+wrappers on the early versions
+
+
+272
+00:08:51,706 --> 00:08:53,556
+of macOS 10 to support standard
+
+
+273
+00:08:53,556 --> 00:08:54,296
+Unix software.
+
+
+274
+00:08:54,796 --> 00:08:56,786
+The problem was they didn't
+
+
+275
+00:08:56,786 --> 00:08:57,626
+quite support the same
+
+
+276
+00:08:57,626 --> 00:08:58,126
+semantics.
+
+
+277
+00:08:58,126 --> 00:08:59,166
+There were some weird edge cases
+
+
+278
+00:08:59,166 --> 00:09:01,046
+where it didn't work, and
+
+
+279
+00:09:01,046 --> 00:09:01,916
+ultimately they were kind of
+
+
+280
+00:09:01,916 --> 00:09:02,336
+slow.
+
+
+281
+00:09:03,166 --> 00:09:05,176
+It also was written before most
+
+
+282
+00:09:05,176 --> 00:09:07,516
+systems used large C++ dynamic
+
+
+283
+00:09:07,516 --> 00:09:08,326
+libraries, and this is
+
+
+284
+00:09:08,326 --> 00:09:08,896
+important.
+
+
+285
+00:09:09,546 --> 00:09:11,436
+C++ has a number of features,
+
+
+286
+00:09:11,436 --> 00:09:12,616
+such as how its initializer
+
+
+287
+00:09:12,616 --> 00:09:13,586
+ordering works.
+
+
+288
+00:09:13,586 --> 00:09:16,556
+And one definition rule; they
+
+
+289
+00:09:16,556 --> 00:09:17,456
+work well in a static
+
+
+290
+00:09:17,456 --> 00:09:18,556
+environment, but are actually
+
+
+291
+00:09:18,556 --> 00:09:20,836
+fairly hard to do, at least with
+
+
+292
+00:09:20,896 --> 00:09:22,086
+good performance, in a dynamic
+
+
+293
+00:09:22,086 --> 00:09:22,576
+environment.
+
+
+294
+00:09:23,046 --> 00:09:25,006
+So large C++ code bases cause
+
+
+295
+00:09:25,006 --> 00:09:26,096
+the dynamic linker to have to do
+
+
+296
+00:09:26,096 --> 00:09:28,796
+a lot of work and it was quite
+
+
+297
+00:09:28,796 --> 00:09:29,076
+slow.
+
+
+298
+00:09:32,856 --> 00:09:35,096
+We also added one other feature
+
+
+299
+00:09:35,376 --> 00:09:37,746
+before we shipped macOS 10.0,
+
+
+300
+00:09:37,746 --> 00:09:39,156
+Cheetah, and that's called
+
+
+301
+00:09:39,156 --> 00:09:39,806
+prebinding.
+
+
+302
+00:09:40,596 --> 00:09:41,606
+And for those of you in the
+
+
+303
+00:09:41,606 --> 00:09:43,456
+audience who know what
+
+
+304
+00:09:43,456 --> 00:09:45,656
+prebinding is, I know it was
+
+
+305
+00:09:46,266 --> 00:09:47,666
+kind of painful; and for the
+
+
+306
+00:09:47,666 --> 00:09:49,306
+rest of you, prebinding was a
+
+
+307
+00:09:49,306 --> 00:09:51,346
+technology where we would try to
+
+
+308
+00:09:51,346 --> 00:09:52,996
+find fixed addresses for every
+
+
+309
+00:09:52,996 --> 00:09:55,236
+dylib in the system and for your
+
+
+310
+00:09:55,236 --> 00:09:58,286
+application, and the dynamic
+
+
+311
+00:09:58,286 --> 00:09:59,076
+loader would try to load
+
+
+312
+00:09:59,076 --> 00:10:00,036
+everything at those addresses
+
+
+313
+00:10:00,036 --> 00:10:01,886
+and if it succeeded, it would
+
+
+314
+00:10:01,926 --> 00:10:04,316
+edit all of those binaries to
+
+
+315
+00:10:04,316 --> 00:10:05,726
+have those precalculated
+
+
+316
+00:10:05,726 --> 00:10:06,876
+addresses in it, and then the
+
+
+317
+00:10:06,876 --> 00:10:07,936
+next time when it put them in
+
+
+318
+00:10:07,936 --> 00:10:09,126
+the same addresses, it didn't
+
+
+319
+00:10:09,126 --> 00:10:10,356
+have to do any additional work.
+
+
+320
+00:10:11,206 --> 00:10:13,196
+And that sped up launch a lot,
+
+
+321
+00:10:14,086 --> 00:10:16,486
+but it meant that we were
+
+
+322
+00:10:16,566 --> 00:10:18,066
+editing your binaries on every
+
+
+323
+00:10:18,066 --> 00:10:20,916
+launch, and that's not great for
+
+
+324
+00:10:20,916 --> 00:10:22,676
+all sorts of reasons, not the
+
+
+325
+00:10:22,676 --> 00:10:23,716
+least of which is security.
+
+
+326
+00:10:24,276 --> 00:10:27,506
+So then came dyld 2, and we
+
+
+327
+00:10:27,506 --> 00:10:28,576
+shipped that as part of macOS
+
+
+328
+00:10:28,706 --> 00:10:29,096
+Tiger.
+
+
+329
+00:10:30,296 --> 00:10:32,696
+And dyld 2 was a complete
+
+
+330
+00:10:32,696 --> 00:10:33,526
+rewrite of dyld.
+
+
+331
+00:10:33,526 --> 00:10:37,816
+It had correct support for C++
+
+
+332
+00:10:37,816 --> 00:10:39,086
+initializer semantics, so we
+
+
+333
+00:10:39,086 --> 00:10:40,126
+slightly extended the mach-o
+
+
+334
+00:10:40,126 --> 00:10:43,606
+format and we updated dyld so
+
+
+335
+00:10:43,606 --> 00:10:46,126
+that we could get efficient C++
+
+
+336
+00:10:46,126 --> 00:10:47,026
+library support.
+
+
+337
+00:10:47,836 --> 00:10:49,536
+It also has a full native dlopen
+
+
+338
+00:10:49,536 --> 00:10:51,586
+and dlsym implementation with
+
+
+339
+00:10:51,586 --> 00:10:52,566
+correct semantics, at which
+
+
+340
+00:10:52,566 --> 00:10:54,206
+point we deprecated the Legacy
+
+
+341
+00:10:54,206 --> 00:10:54,626
+API's.
+
+
+342
+00:10:55,066 --> 00:10:56,226
+They are still on macOS.
+
+
+343
+00:10:56,306 --> 00:10:57,536
+They have never shipped on any
+
+
+344
+00:10:57,536 --> 00:10:58,666
+of our other platforms.
+
+
+345
+00:10:59,216 --> 00:11:03,776
+It was designed for speed and
+
+
+346
+00:11:03,776 --> 00:11:04,666
+because it was designed for
+
+
+347
+00:11:04,666 --> 00:11:06,656
+speed, it had limited sanity
+
+
+348
+00:11:06,656 --> 00:11:06,996
+checking.
+
+
+349
+00:11:06,996 --> 00:11:08,696
+We did not have the malware
+
+
+350
+00:11:08,696 --> 00:11:09,816
+environment we have today.
+
+
+351
+00:11:11,256 --> 00:11:13,246
+It also has security issues
+
+
+352
+00:11:13,246 --> 00:11:14,836
+because of that, that we had to
+
+
+353
+00:11:14,836 --> 00:11:16,426
+go back and retrofit in a number
+
+
+354
+00:11:16,426 --> 00:11:18,326
+of features to make it safer on
+
+
+355
+00:11:18,516 --> 00:11:20,096
+today's platforms.
+
+
+356
+00:11:21,216 --> 00:11:23,296
+Finally, because it was so much
+
+
+357
+00:11:23,296 --> 00:11:24,296
+faster we could reduce the
+
+
+358
+00:11:24,296 --> 00:11:25,246
+amount of prebinding.
+
+
+359
+00:11:25,246 --> 00:11:26,536
+Rather than editing your
+
+
+360
+00:11:26,536 --> 00:11:29,716
+applications, we just edited the
+
+
+361
+00:11:29,716 --> 00:11:31,046
+system libraries and we could do
+
+
+362
+00:11:31,046 --> 00:11:33,106
+that just at software update
+
+
+363
+00:11:33,106 --> 00:11:33,506
+times.
+
+
+364
+00:11:33,506 --> 00:11:34,776
+And if you've ever seen the
+
+
+365
+00:11:34,776 --> 00:11:36,416
+phrase optimizing system
+
+
+366
+00:11:36,416 --> 00:11:37,826
+performance appear in your
+
+
+367
+00:11:37,826 --> 00:11:39,996
+software update, that was added
+
+
+368
+00:11:40,486 --> 00:11:43,396
+to the installer to be displayed
+
+
+369
+00:11:43,396 --> 00:11:45,696
+during the time we were updating
+
+
+370
+00:11:45,756 --> 00:11:46,276
+prebinding.
+
+
+371
+00:11:46,566 --> 00:11:48,316
+Nowadays it is used for all the
+
+
+372
+00:11:48,316 --> 00:11:50,756
+optimizations, but that was the
+
+
+373
+00:11:51,406 --> 00:11:51,616
+impetus.
+
+
+374
+00:11:51,756 --> 00:11:53,996
+So we shipped dyld 2 back then
+
+
+375
+00:11:55,256 --> 00:11:57,036
+and we've done a number of
+
+
+376
+00:11:57,036 --> 00:11:58,076
+improvements over the years,
+
+
+377
+00:11:58,076 --> 00:11:59,286
+significant improvements.
+
+
+378
+00:11:59,446 --> 00:12:01,066
+First off, we've added a ton of
+
+
+379
+00:12:01,066 --> 00:12:02,166
+more architectures and
+
+
+380
+00:12:02,166 --> 00:12:02,896
+platforms.
+
+
+381
+00:12:02,896 --> 00:12:08,066
+Since dyld 2 shipped on PowerPC,
+
+
+382
+00:12:08,066 --> 00:12:10,466
+we've added x86, x86 64 arm,
+
+
+383
+00:12:10,466 --> 00:12:11,576
+arm64, and a number of
+
+
+384
+00:12:11,576 --> 00:12:12,656
+subvariants of those.
+
+
+385
+00:12:13,686 --> 00:12:15,386
+We've also shipped iOS, tvOS,
+
+
+386
+00:12:15,386 --> 00:12:16,746
+and watchOS, all of which
+
+
+387
+00:12:16,746 --> 00:12:18,096
+required significant new work in
+
+
+388
+00:12:18,096 --> 00:12:18,336
+dyld.
+
+
+389
+00:12:18,336 --> 00:12:21,766
+We've improved security in a
+
+
+390
+00:12:21,766 --> 00:12:22,836
+number of ways.
+
+
+391
+00:12:23,696 --> 00:12:25,696
+We added codesigning support, we
+
+
+392
+00:12:25,696 --> 00:12:27,386
+added some for ASLR, which is a
+
+
+393
+00:12:27,386 --> 00:12:29,006
+technology Address Space Layout
+
+
+394
+00:12:29,006 --> 00:12:32,166
+Randomization, which means that
+
+
+395
+00:12:32,166 --> 00:12:33,006
+every time you loaded the
+
+
+396
+00:12:33,006 --> 00:12:33,746
+libraries it may be at a
+
+
+397
+00:12:33,746 --> 00:12:34,686
+different address.
+
+
+398
+00:12:34,686 --> 00:12:36,446
+If you want more details on
+
+
+399
+00:12:36,446 --> 00:12:38,626
+that, last year's talk where
+
+
+400
+00:12:38,626 --> 00:12:41,646
+Nick went into extreme detail on
+
+
+401
+00:12:41,646 --> 00:12:43,276
+how we launch an app, goes into
+
+
+402
+00:12:43,276 --> 00:12:43,476
+that.
+
+
+403
+00:12:43,476 --> 00:12:44,756
+And finally, we added a
+
+
+404
+00:12:44,756 --> 00:12:46,456
+significant bounds checking to a
+
+
+405
+00:12:46,456 --> 00:12:47,626
+number of things in the mach-o
+
+
+406
+00:12:47,626 --> 00:12:49,466
+header so that you couldn't do
+
+
+407
+00:12:49,466 --> 00:12:50,446
+certain types of attach with
+
+
+408
+00:12:50,446 --> 00:12:51,396
+malformed binaries.
+
+
+409
+00:12:52,656 --> 00:12:54,396
+Finally, we improved
+
+
+410
+00:12:54,396 --> 00:12:56,446
+performance, and because we
+
+
+411
+00:12:56,446 --> 00:12:58,406
+improved performance, we could
+
+
+412
+00:12:58,406 --> 00:12:59,766
+get rid of prebinding and
+
+
+413
+00:12:59,766 --> 00:13:01,096
+replace it with something called
+
+
+414
+00:13:01,096 --> 00:13:02,156
+the shared cache.
+
+
+415
+00:13:03,146 --> 00:13:04,776
+So what is the shared cache?
+
+
+416
+00:13:05,326 --> 00:13:08,666
+Well, it was introduced in iOS
+
+
+417
+00:13:08,666 --> 00:13:11,606
+3.1 and macOS Snow Leopard, and
+
+
+418
+00:13:11,876 --> 00:13:13,326
+it completely replaced
+
+
+419
+00:13:13,326 --> 00:13:13,806
+prebinding.
+
+
+420
+00:13:14,896 --> 00:13:16,676
+It's a single file containing
+
+
+421
+00:13:16,676 --> 00:13:18,566
+most of the system dylibs.
+
+
+422
+00:13:18,936 --> 00:13:20,106
+And because we merged them into
+
+
+423
+00:13:20,106 --> 00:13:21,356
+a single file, we can do certain
+
+
+424
+00:13:21,356 --> 00:13:22,466
+types of optimizations.
+
+
+425
+00:13:22,986 --> 00:13:24,496
+We can rearrange all of their
+
+
+426
+00:13:24,496 --> 00:13:25,726
+text segments and all of their
+
+
+427
+00:13:25,726 --> 00:13:27,116
+data segments and rewrite their
+
+
+428
+00:13:27,116 --> 00:13:29,266
+entire symbol tables to reduce
+
+
+429
+00:13:29,266 --> 00:13:31,316
+the size and to make it so we
+
+
+430
+00:13:31,316 --> 00:13:33,456
+need to mount fewer regions in
+
+
+431
+00:13:33,456 --> 00:13:34,486
+each process.
+
+
+432
+00:13:35,326 --> 00:13:36,766
+It also allows us to pack binary
+
+
+433
+00:13:36,766 --> 00:13:39,866
+segments and save a lot of RAM.
+
+
+434
+00:13:39,866 --> 00:13:41,486
+It effectively is a prelinker
+
+
+435
+00:13:41,486 --> 00:13:42,516
+for the dylibs.
+
+
+436
+00:13:43,456 --> 00:13:44,996
+And while I'm not going to go
+
+
+437
+00:13:44,996 --> 00:13:45,806
+into any particular
+
+
+438
+00:13:45,806 --> 00:13:48,166
+optimizations here, the RAM
+
+
+439
+00:13:48,166 --> 00:13:49,776
+savings are substantial.
+
+
+440
+00:13:49,776 --> 00:13:51,316
+On an average iOS system, this
+
+
+441
+00:13:51,316 --> 00:13:53,246
+is the difference in about 500
+
+
+442
+00:13:53,246 --> 00:13:54,986
+megs to a gigabyte of RAM at
+
+
+443
+00:13:54,986 --> 00:13:55,496
+runtime.
+
+
+444
+00:13:57,296 --> 00:13:59,076
+It also prebuilds data
+
+
+445
+00:13:59,076 --> 00:14:01,326
+structures that dyld and Ob-C
+
+
+446
+00:14:01,326 --> 00:14:02,536
+are going to use at runtime so
+
+
+447
+00:14:02,536 --> 00:14:03,696
+that we don't have to do it on
+
+
+448
+00:14:03,696 --> 00:14:04,066
+launch.
+
+
+449
+00:14:04,066 --> 00:14:05,136
+And again, that saves more RAM
+
+
+450
+00:14:05,136 --> 00:14:07,556
+and a lot of time.
+
+
+451
+00:14:07,766 --> 00:14:09,426
+It's built locally on macOS, so
+
+
+452
+00:14:09,426 --> 00:14:10,836
+when you see optimizing system
+
+
+453
+00:14:11,066 --> 00:14:12,896
+performance, we are running
+
+
+454
+00:14:12,896 --> 00:14:15,196
+update dyld shared cache, among
+
+
+455
+00:14:15,196 --> 00:14:17,856
+things that happen, but on all
+
+
+456
+00:14:17,856 --> 00:14:18,806
+of our other platforms we
+
+
+457
+00:14:18,806 --> 00:14:20,096
+actually build it at Apple and
+
+
+458
+00:14:20,096 --> 00:14:20,816
+ship it to you.
+
+
+459
+00:14:21,356 --> 00:14:23,526
+So now that I've talked about
+
+
+460
+00:14:23,526 --> 00:14:25,666
+the shared cache, I want to move
+
+
+461
+00:14:25,666 --> 00:14:27,346
+into dyld 3.
+
+
+462
+00:14:28,736 --> 00:14:30,936
+dyld 3 is a brand-new dynamic
+
+
+463
+00:14:30,936 --> 00:14:32,626
+linker, and we're announcing it
+
+
+464
+00:14:32,626 --> 00:14:32,956
+today.
+
+
+465
+00:14:33,556 --> 00:14:36,036
+It's a complete rethink of how
+
+
+466
+00:14:36,036 --> 00:14:38,756
+we do dynamic linking and it's
+
+
+467
+00:14:38,756 --> 00:14:41,306
+going to be on by default for
+
+
+468
+00:14:41,306 --> 00:14:43,426
+most macOS system apps in this
+
+
+469
+00:14:43,426 --> 00:14:46,556
+week's seed, and it will be on
+
+
+470
+00:14:46,556 --> 00:14:48,186
+by default for all system apps
+
+
+471
+00:14:48,476 --> 00:14:51,676
+on 2017 Apple OS platforms.
+
+
+472
+00:14:53,376 --> 00:14:55,046
+We will completely replace dyld
+
+
+473
+00:14:55,046 --> 00:14:57,146
+2 in future Apple OS platforms
+
+
+474
+00:14:57,356 --> 00:14:58,506
+for all third-party apps as
+
+
+475
+00:14:58,506 --> 00:14:58,926
+well.
+
+
+476
+00:15:00,306 --> 00:15:02,086
+So why did we rewrite the
+
+
+477
+00:15:02,086 --> 00:15:03,806
+dynamic linker again?
+
+
+478
+00:15:06,116 --> 00:15:08,296
+Well, first off, performance.
+
+
+479
+00:15:08,776 --> 00:15:09,816
+In case that's not a recurring
+
+
+480
+00:15:09,856 --> 00:15:12,106
+theme, we want every ounce of
+
+
+481
+00:15:12,106 --> 00:15:13,936
+launch speed we can get.
+
+
+482
+00:15:14,366 --> 00:15:16,616
+Additionally, we thought what is
+
+
+483
+00:15:16,616 --> 00:15:17,726
+the minimum, what is the
+
+
+484
+00:15:17,906 --> 00:15:19,006
+theoretical minimum that we
+
+
+485
+00:15:19,006 --> 00:15:20,246
+could do to get an app up and
+
+
+486
+00:15:20,246 --> 00:15:21,896
+running and how could we achieve
+
+
+487
+00:15:21,896 --> 00:15:22,146
+that.
+
+
+488
+00:15:23,446 --> 00:15:26,496
+Security. So as I said, we
+
+
+489
+00:15:26,496 --> 00:15:27,796
+retrofitted a number of security
+
+
+490
+00:15:27,796 --> 00:15:29,726
+features into dyld 2, but it's
+
+
+491
+00:15:29,726 --> 00:15:31,276
+really hard to add that kind of
+
+
+492
+00:15:31,276 --> 00:15:32,176
+stuff after the fact.
+
+
+493
+00:15:32,576 --> 00:15:33,586
+I think we've done a good job
+
+
+494
+00:15:33,586 --> 00:15:36,006
+with it in recent years, but
+
+
+495
+00:15:36,676 --> 00:15:37,996
+it's really, really difficult to
+
+
+496
+00:15:37,996 --> 00:15:38,396
+do that.
+
+
+497
+00:15:38,396 --> 00:15:40,496
+And so can we have more
+
+
+498
+00:15:40,496 --> 00:15:42,346
+aggressive security checking and
+
+
+499
+00:15:42,346 --> 00:15:43,356
+be designed for security up
+
+
+500
+00:15:43,356 --> 00:15:43,706
+front?
+
+
+501
+00:15:44,646 --> 00:15:47,076
+Finally, testability and
+
+
+502
+00:15:47,076 --> 00:15:47,916
+reliability.
+
+
+503
+00:15:48,486 --> 00:15:50,376
+Can we make dyld easier to test?
+
+
+504
+00:15:50,376 --> 00:15:52,686
+So Apple ships a ton of great
+
+
+505
+00:15:52,686 --> 00:15:53,846
+testing frameworks, like XCTest,
+
+
+506
+00:15:53,846 --> 00:15:55,316
+that you should be using, and we
+
+
+507
+00:15:55,316 --> 00:15:57,766
+should be using, but they depend
+
+
+508
+00:15:57,766 --> 00:15:59,216
+on low level features of dynamic
+
+
+509
+00:15:59,216 --> 00:16:00,786
+linker to insert those libraries
+
+
+510
+00:16:00,786 --> 00:16:02,506
+into processes, so they
+
+
+511
+00:16:02,616 --> 00:16:04,276
+fundamentally cannot be used for
+
+
+512
+00:16:04,276 --> 00:16:05,616
+testing the existing dyld code,
+
+
+513
+00:16:05,616 --> 00:16:06,926
+and that also makes it harder
+
+
+514
+00:16:06,926 --> 00:16:08,426
+for us to test security and
+
+
+515
+00:16:08,426 --> 00:16:09,296
+performance features.
+
+
+516
+00:16:10,676 --> 00:16:13,566
+And so how did we do that?
+
+
+517
+00:16:13,566 --> 00:16:15,916
+Well, we've moved most of dyld
+
+
+518
+00:16:15,916 --> 00:16:17,176
+out of process.
+
+
+519
+00:16:17,736 --> 00:16:20,526
+It's now mostly just a regular
+
+
+520
+00:16:20,526 --> 00:16:22,296
+daemon and we can test that just
+
+
+521
+00:16:22,296 --> 00:16:23,856
+like everybody else does with
+
+
+522
+00:16:23,856 --> 00:16:25,666
+standard testing tools, which is
+
+
+523
+00:16:25,666 --> 00:16:26,666
+going to allow us to move even
+
+
+524
+00:16:26,666 --> 00:16:27,766
+faster in the future in
+
+
+525
+00:16:27,766 --> 00:16:30,026
+improving this.
+
+
+526
+00:16:30,226 --> 00:16:32,756
+It also lets the bit of dyld
+
+
+527
+00:16:32,866 --> 00:16:35,416
+that stays in process be as
+
+
+528
+00:16:35,416 --> 00:16:36,966
+small as possible and that
+
+
+529
+00:16:36,966 --> 00:16:38,786
+reduces the attack surface in
+
+
+530
+00:16:38,786 --> 00:16:39,926
+your applications.
+
+
+531
+00:16:41,856 --> 00:16:44,276
+It also speeds up launch because
+
+
+532
+00:16:44,276 --> 00:16:46,506
+the fastest code is code you
+
+
+533
+00:16:46,506 --> 00:16:49,536
+never write, followed closely by
+
+
+534
+00:16:49,536 --> 00:16:51,096
+code you almost never execute.
+
+
+535
+00:16:52,486 --> 00:16:53,726
+So to tell you how we did this
+
+
+536
+00:16:53,916 --> 00:16:56,086
+I'm going to briefly show how
+
+
+537
+00:16:56,086 --> 00:16:57,696
+dyld 2 launches an app.
+
+
+538
+00:16:58,016 --> 00:16:59,736
+And again, we went into this in
+
+
+539
+00:16:59,736 --> 00:17:01,636
+much more detail in last year's
+
+
+540
+00:17:01,636 --> 00:17:02,896
+talk, Optimizing App Startup
+
+
+541
+00:17:02,896 --> 00:17:04,566
+Time, so if you want to pause,
+
+
+542
+00:17:04,566 --> 00:17:05,236
+if you're watching this on
+
+
+543
+00:17:05,236 --> 00:17:06,906
+video, and go watch that, that
+
+
+544
+00:17:06,906 --> 00:17:07,685
+might be a good idea.
+
+
+545
+00:17:07,685 --> 00:17:09,195
+Or if you just want to follow
+
+
+546
+00:17:09,195 --> 00:17:11,016
+along here, I'm going to go
+
+
+547
+00:17:11,016 --> 00:17:11,586
+through it briefly.
+
+
+548
+00:17:12,756 --> 00:17:14,326
+So first off we have dyld 2 and
+
+
+549
+00:17:15,016 --> 00:17:15,976
+your app starts launching.
+
+
+550
+00:17:16,726 --> 00:17:18,496
+So we have to parse your mach-o,
+
+
+551
+00:17:18,496 --> 00:17:20,616
+and as we parse your mach-o we
+
+
+552
+00:17:20,616 --> 00:17:21,786
+find what libraries you need,
+
+
+553
+00:17:22,846 --> 00:17:24,746
+and then they may have other
+
+
+554
+00:17:24,746 --> 00:17:26,036
+libraries that they need, and we
+
+
+555
+00:17:26,116 --> 00:17:27,915
+do that recursively until we
+
+
+556
+00:17:27,915 --> 00:17:29,006
+have a complete graph of all
+
+
+557
+00:17:29,006 --> 00:17:30,366
+your dylibs, and for an average
+
+
+558
+00:17:30,746 --> 00:17:32,326
+graph of application on iOS
+
+
+559
+00:17:32,326 --> 00:17:33,556
+that's between 3- and 600
+
+
+560
+00:17:33,556 --> 00:17:34,506
+dylibs, so it's a lot of them
+
+
+561
+00:17:34,506 --> 00:17:36,716
+and a lot of work.
+
+
+562
+00:17:36,916 --> 00:17:38,196
+We then map in all the mach-o
+
+
+563
+00:17:38,196 --> 00:17:40,226
+files so we get them into your
+
+
+564
+00:17:40,226 --> 00:17:40,966
+address space.
+
+
+565
+00:17:41,556 --> 00:17:43,996
+We then perform symbol lookups,
+
+
+566
+00:17:43,996 --> 00:17:45,756
+so we actually look and say if
+
+
+567
+00:17:45,756 --> 00:17:47,406
+your application uses printf, we
+
+
+568
+00:17:47,406 --> 00:17:48,726
+go and look and see that printf
+
+
+569
+00:17:48,726 --> 00:17:51,376
+is in lib system, and we find
+
+
+570
+00:17:51,376 --> 00:17:52,206
+the address of it and we
+
+
+571
+00:17:52,206 --> 00:17:53,306
+basically copy that into a
+
+
+572
+00:17:53,306 --> 00:17:54,206
+function pointer in your
+
+
+573
+00:17:54,206 --> 00:17:54,746
+application.
+
+
+574
+00:17:56,296 --> 00:17:57,836
+Then we do what's called binding
+
+
+575
+00:17:57,836 --> 00:17:58,786
+and rebasing, which is where we
+
+
+576
+00:17:58,866 --> 00:18:00,276
+copy those pointers in and we
+
+
+577
+00:18:00,276 --> 00:18:02,136
+also -- because you're at a
+
+
+578
+00:18:02,136 --> 00:18:03,736
+random address all of your
+
+
+579
+00:18:03,736 --> 00:18:05,286
+pointers have to have that base
+
+
+580
+00:18:05,286 --> 00:18:05,976
+address added to them.
+
+
+581
+00:18:06,156 --> 00:18:08,816
+And then finally, we can run all
+
+
+582
+00:18:08,816 --> 00:18:09,846
+of your initializers, which is
+
+
+583
+00:18:09,846 --> 00:18:10,806
+what I showed the tooling for
+
+
+584
+00:18:10,806 --> 00:18:12,546
+earlier, and at that point we're
+
+
+585
+00:18:12,546 --> 00:18:13,516
+ready to call your main in
+
+
+586
+00:18:13,516 --> 00:18:14,576
+launch, and that's a lot of
+
+
+587
+00:18:14,576 --> 00:18:14,906
+work.
+
+
+588
+00:18:15,926 --> 00:18:17,596
+So how can we make this faster
+
+
+589
+00:18:17,776 --> 00:18:18,916
+and how can we move it out of
+
+
+590
+00:18:18,916 --> 00:18:19,356
+process?
+
+
+591
+00:18:19,356 --> 00:18:21,656
+Well, first off we identify the
+
+
+592
+00:18:21,656 --> 00:18:23,356
+security sensitive components.
+
+
+593
+00:18:23,896 --> 00:18:25,186
+And from our perspective the
+
+
+594
+00:18:25,446 --> 00:18:27,096
+biggest ones of those are
+
+
+595
+00:18:27,096 --> 00:18:28,356
+parsing mach-o headers and
+
+
+596
+00:18:28,356 --> 00:18:30,486
+finding dependencies because
+
+
+597
+00:18:30,836 --> 00:18:32,266
+malformed mach-o headers allow
+
+
+598
+00:18:32,266 --> 00:18:34,466
+people to do certain attacks and
+
+
+599
+00:18:35,266 --> 00:18:36,916
+your applications may use
+
+
+600
+00:18:37,196 --> 00:18:39,216
+@rpaths, which are search paths,
+
+
+601
+00:18:39,216 --> 00:18:41,886
+and by malforming those or
+
+
+602
+00:18:41,886 --> 00:18:42,896
+inserting libraries in the right
+
+
+603
+00:18:42,896 --> 00:18:44,166
+places, people can subvert
+
+
+604
+00:18:44,166 --> 00:18:45,016
+applications.
+
+
+605
+00:18:45,446 --> 00:18:47,656
+So we do all of that out of
+
+
+606
+00:18:47,656 --> 00:18:49,886
+process in the daemon, and then
+
+
+607
+00:18:49,886 --> 00:18:51,456
+we identify the expensive parts
+
+
+608
+00:18:51,456 --> 00:18:53,996
+of it, which are cache-able, and
+
+
+609
+00:18:53,996 --> 00:18:55,106
+those are the symbol lookups.
+
+
+610
+00:18:55,146 --> 00:18:57,066
+Because in a given library,
+
+
+611
+00:18:57,066 --> 00:18:58,246
+unless you perform the software
+
+
+612
+00:18:58,246 --> 00:19:00,246
+update or change the library on
+
+
+613
+00:19:00,246 --> 00:19:01,946
+disk, the symbols will always be
+
+
+614
+00:19:01,946 --> 00:19:02,986
+at the same offset in that
+
+
+615
+00:19:02,986 --> 00:19:03,466
+library.
+
+
+616
+00:19:04,306 --> 00:19:05,486
+So we've identified these.
+
+
+617
+00:19:05,736 --> 00:19:06,706
+Let me show you how they look in
+
+
+618
+00:19:06,706 --> 00:19:06,976
+dyld 3.
+
+
+619
+00:19:11,546 --> 00:19:13,786
+So we moved those all up front,
+
+
+620
+00:19:13,926 --> 00:19:15,196
+at which point we write a
+
+
+621
+00:19:15,196 --> 00:19:16,026
+closure to disk.
+
+
+622
+00:19:16,026 --> 00:19:17,266
+So as I said earlier, a launch
+
+
+623
+00:19:17,266 --> 00:19:19,346
+closure is everything you need
+
+
+624
+00:19:19,346 --> 00:19:22,526
+to launch the app.
+
+
+625
+00:19:22,526 --> 00:19:25,596
+And then we move it -- we can
+
+
+626
+00:19:25,596 --> 00:19:26,876
+use that in process later.
+
+
+627
+00:19:26,876 --> 00:19:28,956
+So dyld 3 is three components.
+
+
+628
+00:19:30,166 --> 00:19:32,076
+It's an out-of-process mach-o
+
+
+629
+00:19:32,076 --> 00:19:33,106
+parser and compiler.
+
+
+630
+00:19:34,176 --> 00:19:35,806
+It's an in-process engine that
+
+
+631
+00:19:35,806 --> 00:19:39,126
+runs launch closures, and it's a
+
+
+632
+00:19:39,166 --> 00:19:41,096
+launch closer caching service.
+
+
+633
+00:19:42,896 --> 00:19:44,706
+Most launches use the cache and
+
+
+634
+00:19:44,706 --> 00:19:46,046
+never have to invoke the
+
+
+635
+00:19:46,046 --> 00:19:47,706
+out-of-process mach-o parser or
+
+
+636
+00:19:47,706 --> 00:19:48,306
+compiler.
+
+
+637
+00:19:50,236 --> 00:19:52,366
+And launch closures are much
+
+
+638
+00:19:52,366 --> 00:19:53,436
+simpler than mach-o.
+
+
+639
+00:19:54,276 --> 00:19:55,746
+They are memory map files we
+
+
+640
+00:19:55,876 --> 00:19:57,026
+don't have to parse in any
+
+
+641
+00:19:57,026 --> 00:19:57,856
+complicated way.
+
+
+642
+00:19:57,856 --> 00:19:59,126
+We can validate them simply.
+
+
+643
+00:19:59,126 --> 00:20:00,526
+They are built for speed.
+
+
+644
+00:20:01,096 --> 00:20:04,606
+And so let's talk about each one
+
+
+645
+00:20:04,606 --> 00:20:05,306
+of those parts a little bit
+
+
+646
+00:20:05,306 --> 00:20:05,496
+more.
+
+
+647
+00:20:06,416 --> 00:20:09,236
+So dyld 3 is an out-of-process
+
+
+648
+00:20:09,236 --> 00:20:09,996
+mach-o parser.
+
+
+649
+00:20:10,856 --> 00:20:11,636
+So what does that do?
+
+
+650
+00:20:11,636 --> 00:20:12,936
+It resolves all the search
+
+
+651
+00:20:12,936 --> 00:20:15,586
+paths, all the rpaths, all the
+
+
+652
+00:20:15,586 --> 00:20:16,796
+environment variables that can
+
+
+653
+00:20:16,796 --> 00:20:17,656
+affect your launch.
+
+
+654
+00:20:18,336 --> 00:20:19,596
+Then it parses the mach-o
+
+
+655
+00:20:19,596 --> 00:20:22,156
+binaries and it performs all of
+
+
+656
+00:20:22,156 --> 00:20:23,226
+those symbol lookups.
+
+
+657
+00:20:24,936 --> 00:20:26,456
+Finally, it creates the closure
+
+
+658
+00:20:26,456 --> 00:20:29,046
+with the results, and it's that
+
+
+659
+00:20:29,046 --> 00:20:30,466
+normal daemon so that we can get
+
+
+660
+00:20:30,466 --> 00:20:31,626
+that improved testing
+
+
+661
+00:20:31,626 --> 00:20:32,266
+infrastructure.
+
+
+662
+00:20:34,536 --> 00:20:36,476
+dyld is a small in-process
+
+
+663
+00:20:36,476 --> 00:20:38,246
+engine as well, and this is the
+
+
+664
+00:20:38,246 --> 00:20:39,246
+part that will be in your
+
+
+665
+00:20:39,246 --> 00:20:40,666
+process and this is what you
+
+
+666
+00:20:40,666 --> 00:20:41,376
+will mostly see.
+
+
+667
+00:20:42,456 --> 00:20:43,836
+So all it does is it validates
+
+
+668
+00:20:43,836 --> 00:20:45,336
+that the launch closure is
+
+
+669
+00:20:45,336 --> 00:20:48,186
+correct and then it just maps in
+
+
+670
+00:20:48,186 --> 00:20:50,696
+the dylibs and jumps to main.
+
+
+671
+00:20:50,696 --> 00:20:51,596
+And one of the things you may
+
+
+672
+00:20:51,596 --> 00:20:54,416
+notice is it never needs to pars
+
+
+673
+00:20:54,416 --> 00:20:55,926
+a mach-o header or perform a
+
+
+674
+00:20:55,926 --> 00:20:56,616
+symbol lookup.
+
+
+675
+00:20:56,666 --> 00:20:57,856
+We don't have to do those to
+
+
+676
+00:20:57,856 --> 00:20:58,846
+launch your app anymore.
+
+
+677
+00:20:58,896 --> 00:21:00,056
+And since that's where we're
+
+
+678
+00:21:00,056 --> 00:21:02,496
+spending most of our time, it's
+
+
+679
+00:21:02,496 --> 00:21:03,796
+going to result in much faster
+
+
+680
+00:21:03,796 --> 00:21:04,666
+app launches for you.
+
+
+681
+00:21:06,336 --> 00:21:09,416
+Finally, dyld 3 is a launch
+
+
+682
+00:21:09,416 --> 00:21:10,966
+closure caching service.
+
+
+683
+00:21:11,486 --> 00:21:14,386
+So what does that mean?
+
+
+684
+00:21:14,386 --> 00:21:16,406
+Well, system app closures we're
+
+
+685
+00:21:16,476 --> 00:21:18,436
+just building directly into the
+
+
+686
+00:21:18,436 --> 00:21:18,996
+shared cache.
+
+
+687
+00:21:18,996 --> 00:21:20,036
+We already have this tool that
+
+
+688
+00:21:20,036 --> 00:21:21,416
+runs and analyzes every mach-o
+
+
+689
+00:21:21,416 --> 00:21:21,966
+in the system.
+
+
+690
+00:21:23,076 --> 00:21:24,396
+We can just put them directly
+
+
+691
+00:21:24,396 --> 00:21:25,746
+into the shared cache, so it's
+
+
+692
+00:21:25,746 --> 00:21:27,306
+mapped in with all the dylibs to
+
+
+693
+00:21:27,306 --> 00:21:27,716
+start with.
+
+
+694
+00:21:27,716 --> 00:21:29,076
+We don't even need to open
+
+
+695
+00:21:29,076 --> 00:21:30,036
+another file.
+
+
+696
+00:21:31,296 --> 00:21:33,766
+For third-party apps we're going
+
+
+697
+00:21:33,766 --> 00:21:35,806
+to build your closure during app
+
+
+698
+00:21:35,996 --> 00:21:38,856
+install or system updates
+
+
+699
+00:21:39,286 --> 00:21:40,576
+because at that point the system
+
+
+700
+00:21:40,576 --> 00:21:41,356
+library has changed.
+
+
+701
+00:21:41,816 --> 00:21:44,276
+So by default these will all be
+
+
+702
+00:21:44,276 --> 00:21:46,606
+prebuilt for you on iOS and tvOS
+
+
+703
+00:21:46,606 --> 00:21:48,776
+and watchOS before you even run.
+
+
+704
+00:21:49,886 --> 00:21:51,396
+On macOS, because you can side
+
+
+705
+00:21:51,396 --> 00:21:53,296
+load applications, the
+
+
+706
+00:21:53,296 --> 00:21:55,656
+in-process engine can RPC out to
+
+
+707
+00:21:55,656 --> 00:21:57,186
+the daemon if necessary on first
+
+
+708
+00:21:57,186 --> 00:22:00,006
+launch, and then after that it
+
+
+709
+00:22:00,236 --> 00:22:02,146
+will be able to use a cached
+
+
+710
+00:22:02,146 --> 00:22:03,166
+closure just like everything
+
+
+711
+00:22:03,166 --> 00:22:03,566
+else.
+
+
+712
+00:22:04,916 --> 00:22:06,476
+But like I said, that is not
+
+
+713
+00:22:06,476 --> 00:22:08,856
+necessary on any of our other
+
+
+714
+00:22:08,856 --> 00:22:09,516
+platforms.
+
+
+715
+00:22:10,666 --> 00:22:11,696
+So now that I've talked about
+
+
+716
+00:22:11,696 --> 00:22:13,176
+this dynamic linker that we'll
+
+
+717
+00:22:13,176 --> 00:22:14,436
+be using for system apps this
+
+
+718
+00:22:14,436 --> 00:22:15,366
+year and for your apps in the
+
+
+719
+00:22:15,366 --> 00:22:17,016
+future, I want to talk to you
+
+
+720
+00:22:17,016 --> 00:22:18,176
+about some potential issues you
+
+
+721
+00:22:18,176 --> 00:22:19,066
+might see with it so that you
+
+
+722
+00:22:19,066 --> 00:22:20,596
+can start updating your apps for
+
+
+723
+00:22:20,596 --> 00:22:20,966
+it now.
+
+
+724
+00:22:24,046 --> 00:22:25,336
+So first off, it is fully
+
+
+725
+00:22:25,336 --> 00:22:28,526
+compatible with dyld 2.x. So
+
+
+726
+00:22:29,666 --> 00:22:32,596
+some existing API's will cause
+
+
+727
+00:22:32,816 --> 00:22:34,006
+you to run slower or use
+
+
+728
+00:22:34,006 --> 00:22:35,766
+fallback modes in dyld 3 though,
+
+
+729
+00:22:36,076 --> 00:22:37,636
+so we'd like you to avoid those,
+
+
+730
+00:22:37,636 --> 00:22:38,376
+and we'll go into those in a
+
+
+731
+00:22:38,376 --> 00:22:38,746
+second.
+
+
+732
+00:22:39,346 --> 00:22:40,296
+Also, some existing
+
+
+733
+00:22:40,296 --> 00:22:42,006
+optimizations that you are doing
+
+
+734
+00:22:42,006 --> 00:22:44,126
+may not be necessary anymore, so
+
+
+735
+00:22:44,126 --> 00:22:45,946
+you don't have to rip them out
+
+
+736
+00:22:46,036 --> 00:22:47,226
+but, you know, it may not be
+
+
+737
+00:22:47,226 --> 00:22:48,796
+worth putting in a lot of
+
+
+738
+00:22:48,796 --> 00:22:49,026
+effort.
+
+
+739
+00:22:49,026 --> 00:22:49,706
+The other thing I want to talk
+
+
+740
+00:22:49,776 --> 00:22:51,016
+about is that we're going to
+
+
+741
+00:22:51,016 --> 00:22:52,986
+have stricter linking semantics.
+
+
+742
+00:22:52,986 --> 00:22:53,966
+So what do I mean by that?
+
+
+743
+00:22:53,966 --> 00:22:56,106
+Well, there's a lot of things
+
+
+744
+00:22:56,106 --> 00:22:58,836
+that maybe work most of the
+
+
+745
+00:22:58,836 --> 00:23:00,986
+time, but aren't actually
+
+
+746
+00:23:00,986 --> 00:23:03,196
+correct even today and so we've
+
+
+747
+00:23:03,196 --> 00:23:04,566
+identified a lot of those.
+
+
+748
+00:23:04,566 --> 00:23:06,266
+As we've been putting the new
+
+
+749
+00:23:06,266 --> 00:23:07,656
+dynamic linker in, that tends to
+
+
+750
+00:23:07,656 --> 00:23:08,916
+find all these edge cases.
+
+
+751
+00:23:08,916 --> 00:23:10,646
+So what we've been doing is
+
+
+752
+00:23:10,646 --> 00:23:11,196
+we've been putting in
+
+
+753
+00:23:11,196 --> 00:23:12,876
+workarounds for old binaries,
+
+
+754
+00:23:13,196 --> 00:23:15,656
+but we do not intend to carry
+
+
+755
+00:23:15,656 --> 00:23:16,396
+those forward.
+
+
+756
+00:23:16,396 --> 00:23:17,956
+We will do linked on or after
+
+
+757
+00:23:17,956 --> 00:23:19,056
+checks to see what SDK you were
+
+
+758
+00:23:19,056 --> 00:23:20,646
+built with and we will disable
+
+
+759
+00:23:20,646 --> 00:23:21,556
+those workarounds for new
+
+
+760
+00:23:21,556 --> 00:23:23,916
+binaries so that you move to
+
+
+761
+00:23:23,916 --> 00:23:26,706
+these improved -- you fix these
+
+
+762
+00:23:26,706 --> 00:23:27,056
+issues.
+
+
+763
+00:23:28,406 --> 00:23:29,406
+So new binaries will cause
+
+
+764
+00:23:29,406 --> 00:23:30,046
+linker issues.
+
+
+765
+00:23:30,046 --> 00:23:33,506
+So, first off, I want to talk
+
+
+766
+00:23:33,506 --> 00:23:35,516
+about unaligned pointers in your
+
+
+767
+00:23:35,516 --> 00:23:36,236
+data segments.
+
+
+768
+00:23:36,236 --> 00:23:37,416
+So what do I mean by this?
+
+
+769
+00:23:37,416 --> 00:23:39,596
+Well, when you have a global
+
+
+770
+00:23:39,596 --> 00:23:41,106
+structure that points to a
+
+
+771
+00:23:41,106 --> 00:23:42,586
+function or another global
+
+
+772
+00:23:42,586 --> 00:23:44,666
+structure, that's a pointer that
+
+
+773
+00:23:44,666 --> 00:23:45,826
+we have to fix up before you
+
+
+774
+00:23:45,826 --> 00:23:49,226
+launch, and pointers must be
+
+
+775
+00:23:49,226 --> 00:23:50,526
+naturally aligned on our system
+
+
+776
+00:23:50,556 --> 00:23:52,426
+for best performance.
+
+
+777
+00:23:53,166 --> 00:23:56,166
+And fixing up unaligned pointers
+
+
+778
+00:23:56,236 --> 00:23:57,406
+is much more complex.
+
+
+779
+00:23:57,406 --> 00:23:59,726
+They can span multiple pages,
+
+
+780
+00:23:59,726 --> 00:24:01,106
+which can cause more page faults
+
+
+781
+00:24:01,106 --> 00:24:02,476
+and other issues, and they can
+
+
+782
+00:24:02,476 --> 00:24:05,146
+have atomicity issues related to
+
+
+783
+00:24:05,386 --> 00:24:06,496
+multiprocessors.
+
+
+784
+00:24:07,656 --> 00:24:09,576
+The static linker already emits
+
+
+785
+00:24:09,576 --> 00:24:13,226
+a warning for this, ld warning,
+
+
+786
+00:24:13,226 --> 00:24:14,716
+pointer not aligned at address,
+
+
+787
+00:24:14,716 --> 00:24:15,876
+and that's an address, often
+
+
+788
+00:24:15,876 --> 00:24:17,716
+your data segments.
+
+
+789
+00:24:18,416 --> 00:24:19,436
+And if you're fixing all
+
+
+790
+00:24:19,436 --> 00:24:20,596
+warnings, you should --
+
+
+791
+00:24:20,596 --> 00:24:22,116
+hopefully you've already taken
+
+
+792
+00:24:22,116 --> 00:24:23,306
+care of this.
+
+
+793
+00:24:23,306 --> 00:24:24,256
+The seeds that we have out this
+
+
+794
+00:24:24,256 --> 00:24:25,876
+week have some issues with Swift
+
+
+795
+00:24:25,876 --> 00:24:27,456
+keypaths, but they will be fixed
+
+
+796
+00:24:27,546 --> 00:24:28,916
+so you can ignore those, but
+
+
+797
+00:24:28,916 --> 00:24:30,096
+other than that, please go and
+
+
+798
+00:24:30,096 --> 00:24:30,856
+fix these issues.
+
+
+799
+00:24:31,566 --> 00:24:32,686
+So for those of you who are
+
+
+800
+00:24:32,686 --> 00:24:33,696
+asking how would you get
+
+
+801
+00:24:33,696 --> 00:24:34,826
+something like this, I'm going
+
+
+802
+00:24:34,826 --> 00:24:35,866
+to just show you real quick.
+
+
+803
+00:24:36,346 --> 00:24:38,146
+If you don't know how, it takes
+
+
+804
+00:24:38,146 --> 00:24:38,956
+a lot of work.
+
+
+805
+00:24:38,956 --> 00:24:40,346
+You can't do it in Swift.
+
+
+806
+00:24:40,346 --> 00:24:41,466
+So again, use more Swift.
+
+
+807
+00:24:42,306 --> 00:24:44,166
+This code here will do it, so
+
+
+808
+00:24:44,166 --> 00:24:45,296
+let me show you what's going on.
+
+
+809
+00:24:46,566 --> 00:24:49,546
+First off, I have attributes
+
+
+810
+00:24:49,816 --> 00:24:51,126
+forcing specific alignment.
+
+
+811
+00:24:51,126 --> 00:24:52,376
+So by default the compiler's
+
+
+812
+00:24:52,376 --> 00:24:53,536
+going to align it correctly for
+
+
+813
+00:24:53,536 --> 00:24:53,756
+you.
+
+
+814
+00:24:54,316 --> 00:24:55,496
+But sometimes you may need
+
+
+815
+00:24:55,496 --> 00:24:56,836
+special alignments and this case
+
+
+816
+00:24:56,836 --> 00:24:58,376
+I've said change whatever the
+
+
+817
+00:24:58,376 --> 00:24:59,986
+default alignment rules are to
+
+
+818
+00:24:59,986 --> 00:25:01,126
+one, and I've done that in two
+
+
+819
+00:25:01,126 --> 00:25:02,466
+different ways just to be
+
+
+820
+00:25:02,496 --> 00:25:03,726
+really, really bad, so you have
+
+
+821
+00:25:03,726 --> 00:25:04,876
+to fix both of these.
+
+
+822
+00:25:05,776 --> 00:25:08,726
+Then I constructed a global
+
+
+823
+00:25:08,726 --> 00:25:09,356
+variable.
+
+
+824
+00:25:09,356 --> 00:25:11,256
+That global variable sets a
+
+
+825
+00:25:11,256 --> 00:25:12,356
+pointer in with the structures
+
+
+826
+00:25:12,356 --> 00:25:13,936
+and that's going to force the
+
+
+827
+00:25:13,936 --> 00:25:15,766
+dynamic linker to fix up that
+
+
+828
+00:25:15,766 --> 00:25:16,646
+pointer on launch.
+
+
+829
+00:25:17,216 --> 00:25:19,296
+So if you see code like this,
+
+
+830
+00:25:19,296 --> 00:25:20,576
+you can just remove the
+
+
+831
+00:25:20,576 --> 00:25:21,436
+alignments.
+
+
+832
+00:25:21,796 --> 00:25:22,826
+You could rearrange the
+
+
+833
+00:25:22,826 --> 00:25:24,336
+structure so that the pointer
+
+
+834
+00:25:24,336 --> 00:25:25,846
+goes first, because that's a
+
+
+835
+00:25:26,046 --> 00:25:26,766
+better alignment thing.
+
+
+836
+00:25:27,126 --> 00:25:28,066
+And there's plenty of guides
+
+
+837
+00:25:28,066 --> 00:25:29,286
+online about C structure
+
+
+838
+00:25:29,286 --> 00:25:30,036
+alignment if you want to get
+
+
+839
+00:25:30,036 --> 00:25:31,986
+into the nitty-gritty, but
+
+
+840
+00:25:32,466 --> 00:25:33,526
+hopefully you don't have to deal
+
+
+841
+00:25:33,526 --> 00:25:34,786
+with this, and if you write
+
+
+842
+00:25:34,786 --> 00:25:35,866
+Swift, you definitely don't have
+
+
+843
+00:25:35,866 --> 00:25:35,976
+to.
+
+
+844
+00:25:38,786 --> 00:25:41,516
+So next off, eager symbol
+
+
+845
+00:25:41,516 --> 00:25:42,116
+resolution.
+
+
+846
+00:25:42,576 --> 00:25:43,566
+So what do I mean by this?
+
+
+847
+00:25:44,196 --> 00:25:46,316
+So dyld 2 performs what we call
+
+
+848
+00:25:46,316 --> 00:25:47,486
+lazy symbol resolution.
+
+
+849
+00:25:48,026 --> 00:25:50,016
+So I said up front that dyld has
+
+
+850
+00:25:50,016 --> 00:25:51,406
+to load all those symbols and
+
+
+851
+00:25:51,406 --> 00:25:52,406
+that's something expensive that
+
+
+852
+00:25:52,406 --> 00:25:53,316
+we want to cache.
+
+
+853
+00:25:53,786 --> 00:25:56,876
+It's actually too expensive to
+
+
+854
+00:25:56,876 --> 00:25:59,786
+run up front on existing
+
+
+855
+00:25:59,786 --> 00:26:00,386
+applications.
+
+
+856
+00:26:00,386 --> 00:26:01,326
+It would take too long.
+
+
+857
+00:26:01,776 --> 00:26:03,756
+So instead, we use a mechanism
+
+
+858
+00:26:03,756 --> 00:26:05,186
+we call lazy symbol resolution,
+
+
+859
+00:26:05,186 --> 00:26:08,576
+where, by default, the function
+
+
+860
+00:26:08,576 --> 00:26:10,056
+pointer in your binary for,
+
+
+861
+00:26:10,056 --> 00:26:11,276
+let's say, printf, doesn't point
+
+
+862
+00:26:11,276 --> 00:26:11,906
+to printf.
+
+
+863
+00:26:12,466 --> 00:26:14,566
+By default it points to a
+
+
+864
+00:26:14,566 --> 00:26:17,886
+function in dyld that returns a
+
+
+865
+00:26:17,976 --> 00:26:19,566
+function pointer to printf.
+
+
+866
+00:26:20,166 --> 00:26:22,836
+And so when we launch, you'll
+
+
+867
+00:26:22,836 --> 00:26:24,466
+call printf, it goes into dyld,
+
+
+868
+00:26:24,466 --> 00:26:26,596
+we return what we call the
+
+
+869
+00:26:26,596 --> 00:26:27,656
+printf and call it on your
+
+
+870
+00:26:27,656 --> 00:26:28,626
+behalf the first time and then
+
+
+871
+00:26:28,626 --> 00:26:30,116
+on the second time you go
+
+
+872
+00:26:30,116 --> 00:26:30,966
+straight to printf.
+
+
+873
+00:26:31,976 --> 00:26:33,546
+But since we are caching and
+
+
+874
+00:26:33,546 --> 00:26:34,846
+calculating all these symbols up
+
+
+875
+00:26:34,846 --> 00:26:36,326
+front now, there's no additional
+
+
+876
+00:26:36,326 --> 00:26:37,796
+cost at app launch time to find
+
+
+877
+00:26:37,796 --> 00:26:39,376
+them all up front, so we are
+
+
+878
+00:26:39,376 --> 00:26:41,856
+going to do that.
+
+
+879
+00:26:42,046 --> 00:26:44,666
+Now, having said that, missing
+
+
+880
+00:26:44,666 --> 00:26:46,126
+symbols behave differently when
+
+
+881
+00:26:46,126 --> 00:26:46,746
+you do this.
+
+
+882
+00:26:47,356 --> 00:26:49,576
+On existing lazy systems, if you
+
+
+883
+00:26:49,576 --> 00:26:51,646
+are missing a symbol, the first
+
+
+884
+00:26:51,646 --> 00:26:53,516
+call -- you'll launch correctly
+
+
+885
+00:26:53,516 --> 00:26:54,666
+and the first time you call that
+
+
+886
+00:26:54,666 --> 00:26:55,726
+symbol, you'll crash.
+
+
+887
+00:26:56,406 --> 00:26:57,516
+With eager symbols you'll crash
+
+
+888
+00:26:57,666 --> 00:26:57,976
+up front.
+
+
+889
+00:27:03,656 --> 00:27:04,946
+So we do have a compatibility
+
+
+890
+00:27:04,946 --> 00:27:06,656
+mode for this, and the way we're
+
+
+891
+00:27:06,656 --> 00:27:09,206
+going to do that is that we are
+
+
+892
+00:27:09,206 --> 00:27:12,586
+going to just have a symbol
+
+
+893
+00:27:12,636 --> 00:27:14,286
+inside dyld 3 that automatically
+
+
+894
+00:27:14,286 --> 00:27:16,166
+crashes, and if we can't find
+
+
+895
+00:27:16,166 --> 00:27:17,616
+your symbol, we will bind that
+
+
+896
+00:27:17,616 --> 00:27:18,846
+symbol, so on first call you
+
+
+897
+00:27:18,846 --> 00:27:19,566
+will crash.
+
+
+898
+00:27:20,196 --> 00:27:21,986
+But again, that's how it works
+
+
+899
+00:27:21,986 --> 00:27:22,706
+on today's SDK.
+
+
+900
+00:27:22,706 --> 00:27:25,006
+If future SDK's we are going to
+
+
+901
+00:27:25,006 --> 00:27:26,546
+force all symbol resolution to
+
+
+902
+00:27:26,546 --> 00:27:27,116
+be up front.
+
+
+903
+00:27:27,116 --> 00:27:28,116
+So if you are missing a symbol,
+
+
+904
+00:27:28,116 --> 00:27:29,666
+you will crash, and that should
+
+
+905
+00:27:29,666 --> 00:27:31,176
+hopefully result in you
+
+
+906
+00:27:31,176 --> 00:27:32,136
+discovering crashes during
+
+
+907
+00:27:32,136 --> 00:27:33,466
+development instead of your
+
+
+908
+00:27:33,466 --> 00:27:34,506
+users discovering them at
+
+
+909
+00:27:34,506 --> 00:27:35,246
+runtime.
+
+
+910
+00:27:36,056 --> 00:27:37,476
+And you can simulate that
+
+
+911
+00:27:37,476 --> 00:27:38,456
+behavior now today.
+
+
+912
+00:27:38,456 --> 00:27:39,646
+There's a special linker flag
+
+
+913
+00:27:40,666 --> 00:27:43,736
+which is dyld bind at load, so
+
+
+914
+00:27:43,736 --> 00:27:45,346
+if you add this to your debug
+
+
+915
+00:27:45,346 --> 00:27:46,576
+build, as I said, it's much
+
+
+916
+00:27:46,576 --> 00:27:47,866
+slower, so please only put it in
+
+
+917
+00:27:47,866 --> 00:27:49,666
+your debug builds, but add this
+
+
+918
+00:27:49,666 --> 00:27:50,806
+to your debug builds and you'll
+
+
+919
+00:27:50,806 --> 00:27:53,396
+get more reliable behavior today
+
+
+920
+00:27:53,396 --> 00:27:54,526
+and it will get you ready for
+
+
+921
+00:27:54,526 --> 00:27:55,296
+what we're going to be doing in
+
+
+922
+00:27:55,296 --> 00:27:56,086
+dyld 3.
+
+
+923
+00:27:57,616 --> 00:27:59,016
+Again, only use that in your
+
+
+924
+00:27:59,016 --> 00:27:59,606
+test builds.
+
+
+925
+00:28:00,696 --> 00:28:03,386
+Dlopen, dlsym and dladdr.
+
+
+926
+00:28:04,006 --> 00:28:05,106
+So last year I got up here and
+
+
+927
+00:28:05,106 --> 00:28:06,716
+said please don't use them
+
+
+928
+00:28:06,716 --> 00:28:07,816
+unless you have to, but we
+
+
+929
+00:28:07,816 --> 00:28:09,006
+understand that you may have to,
+
+
+930
+00:28:09,006 --> 00:28:10,686
+and that's the same thing I'm
+
+
+931
+00:28:10,686 --> 00:28:11,326
+saying this year.
+
+
+932
+00:28:11,906 --> 00:28:13,006
+They have some problematic
+
+
+933
+00:28:13,006 --> 00:28:15,346
+semantics, but they are still
+
+
+934
+00:28:15,346 --> 00:28:16,396
+necessary in some cases.
+
+
+935
+00:28:16,976 --> 00:28:18,306
+Particularly, symbols found with
+
+
+936
+00:28:18,306 --> 00:28:19,456
+dlsym, we need to find it at
+
+
+937
+00:28:19,456 --> 00:28:19,986
+runtime.
+
+
+938
+00:28:19,986 --> 00:28:21,036
+We don't know ahead of time what
+
+
+939
+00:28:21,036 --> 00:28:21,276
+they are.
+
+
+940
+00:28:21,276 --> 00:28:22,946
+We can't do all that prefetching
+
+
+941
+00:28:22,946 --> 00:28:24,166
+and presearching.
+
+
+942
+00:28:24,576 --> 00:28:26,126
+So as soon as you use dlopen or
+
+
+943
+00:28:26,126 --> 00:28:27,416
+dlsym, we're going and we're
+
+
+944
+00:28:27,416 --> 00:28:28,596
+reading in all the pages for
+
+
+945
+00:28:28,596 --> 00:28:29,856
+your symbol table that we didn't
+
+
+946
+00:28:29,856 --> 00:28:31,076
+have to touch before.
+
+
+947
+00:28:31,296 --> 00:28:32,916
+So it's going to be a lot more
+
+
+948
+00:28:32,916 --> 00:28:33,446
+expensive.
+
+
+949
+00:28:33,446 --> 00:28:35,366
+Additionally, we might have to
+
+
+950
+00:28:35,366 --> 00:28:39,236
+RPC out to the daemon, depending
+
+
+951
+00:28:39,236 --> 00:28:40,556
+on how complicated it is.
+
+
+952
+00:28:41,106 --> 00:28:42,186
+So we're working on some better
+
+
+953
+00:28:42,186 --> 00:28:43,136
+alternatives.
+
+
+954
+00:28:43,926 --> 00:28:45,346
+We don't have those yet.
+
+
+955
+00:28:45,506 --> 00:28:46,936
+But we also need to hear about
+
+
+956
+00:28:46,936 --> 00:28:48,086
+your use cases to make sure
+
+
+957
+00:28:48,086 --> 00:28:48,966
+we're designing something that
+
+
+958
+00:28:48,966 --> 00:28:49,926
+will work for you.
+
+
+959
+00:28:50,536 --> 00:28:52,636
+So please, again, they're not
+
+
+960
+00:28:52,636 --> 00:28:53,886
+going away, but they will be
+
+
+961
+00:28:53,886 --> 00:28:55,016
+slower and we want your
+
+
+962
+00:28:55,016 --> 00:28:55,586
+feedback.
+
+
+963
+00:28:55,746 --> 00:28:58,666
+I want to take a second to talk
+
+
+964
+00:28:58,666 --> 00:28:59,956
+about dlclose specifically.
+
+
+965
+00:28:59,956 --> 00:29:01,506
+And so dlclose is a bit of a
+
+
+966
+00:29:01,506 --> 00:29:02,196
+misnomer.
+
+
+967
+00:29:02,656 --> 00:29:03,916
+It's a Unix API, so that's the
+
+
+968
+00:29:03,916 --> 00:29:05,216
+name, but on our system, if we
+
+
+969
+00:29:05,216 --> 00:29:06,336
+had been writing it, it probably
+
+
+970
+00:29:06,336 --> 00:29:08,126
+would be called dlrelease
+
+
+971
+00:29:08,736 --> 00:29:10,456
+because it doesn't actually
+
+
+972
+00:29:10,546 --> 00:29:11,406
+close the dylib.
+
+
+973
+00:29:11,406 --> 00:29:13,036
+It decrements a refcount and if
+
+
+974
+00:29:13,036 --> 00:29:15,096
+the refcount hits zero, it
+
+
+975
+00:29:15,096 --> 00:29:15,666
+closes it.
+
+
+976
+00:29:15,666 --> 00:29:17,206
+And why is that important?
+
+
+977
+00:29:18,216 --> 00:29:19,826
+Well, it's not appropriate for
+
+
+978
+00:29:19,826 --> 00:29:20,586
+resource management.
+
+
+979
+00:29:20,586 --> 00:29:22,636
+If you have a library that
+
+
+980
+00:29:22,636 --> 00:29:23,866
+attaches to a piece of hardware,
+
+
+981
+00:29:24,516 --> 00:29:25,986
+you shouldn't shut down the
+
+
+982
+00:29:25,986 --> 00:29:27,276
+hardware in response to a
+
+
+983
+00:29:27,276 --> 00:29:30,126
+dlclose because some other code
+
+
+984
+00:29:30,126 --> 00:29:31,256
+in your app may have opened it
+
+
+985
+00:29:31,256 --> 00:29:32,606
+behind your back and so now your
+
+
+986
+00:29:32,606 --> 00:29:33,576
+hardware's not shutting down.
+
+
+987
+00:29:33,576 --> 00:29:34,396
+You should have explicit
+
+
+988
+00:29:35,096 --> 00:29:35,906
+resource management.
+
+
+989
+00:29:36,576 --> 00:29:38,106
+There are also a number of
+
+
+990
+00:29:38,106 --> 00:29:39,496
+features on our platforms that
+
+
+991
+00:29:39,496 --> 00:29:41,546
+prevent dylibs from unloading,
+
+
+992
+00:29:41,546 --> 00:29:42,616
+and I'd like to go through a few
+
+
+993
+00:29:42,616 --> 00:29:44,436
+of those because maybe you do
+
+
+994
+00:29:44,436 --> 00:29:44,626
+them.
+
+
+995
+00:29:45,596 --> 00:29:47,176
+You can have Objective-C classes
+
+
+996
+00:29:47,176 --> 00:29:47,746
+in your dylib.
+
+
+997
+00:29:47,746 --> 00:29:48,976
+That will make it not
+
+
+998
+00:29:48,976 --> 00:29:49,876
+unloadable.
+
+
+999
+00:29:51,016 --> 00:29:52,066
+You could have Swift classes.
+
+
+1000
+00:29:52,066 --> 00:29:53,296
+That will also make it not
+
+
+1001
+00:29:53,296 --> 00:29:53,826
+unloadable.
+
+
+1002
+00:29:53,826 --> 00:29:56,346
+And you can have C under bar
+
+
+1003
+00:29:56,346 --> 00:29:57,816
+thread or C++ thread local
+
+
+1004
+00:29:57,816 --> 00:29:59,256
+variables, all of which make it
+
+
+1005
+00:29:59,256 --> 00:30:00,566
+impossible to unload a dylib.
+
+
+1006
+00:30:01,526 --> 00:30:03,686
+So on macOS, where there's a
+
+
+1007
+00:30:03,686 --> 00:30:05,646
+number of existing Unix apps,
+
+
+1008
+00:30:05,646 --> 00:30:07,876
+obviously we will keep this
+
+
+1009
+00:30:07,876 --> 00:30:09,986
+working, but because almost
+
+
+1010
+00:30:09,986 --> 00:30:11,586
+every dylib on all of our other
+
+
+1011
+00:30:11,586 --> 00:30:12,706
+platforms does one of these
+
+
+1012
+00:30:12,706 --> 00:30:14,316
+things, effectively it hasn't
+
+
+1013
+00:30:14,666 --> 00:30:16,256
+really worked on any of them
+
+
+1014
+00:30:16,256 --> 00:30:16,626
+ever.
+
+
+1015
+00:30:17,406 --> 00:30:19,006
+So we are considering making it
+
+
+1016
+00:30:19,006 --> 00:30:20,366
+just a straight up no-op, that
+
+
+1017
+00:30:20,366 --> 00:30:22,466
+will not do anything on any of
+
+
+1018
+00:30:22,466 --> 00:30:23,256
+those platforms.
+
+
+1019
+00:30:23,886 --> 00:30:25,926
+If there's a reason why that's a
+
+
+1020
+00:30:25,926 --> 00:30:27,656
+problem, please, we want to hear
+
+
+1021
+00:30:27,656 --> 00:30:28,826
+about it.
+
+
+1022
+00:30:29,816 --> 00:30:31,266
+Finally, I want to talk about
+
+
+1023
+00:30:31,266 --> 00:30:33,296
+the dyld all image infos.
+
+
+1024
+00:30:34,166 --> 00:30:35,706
+So this is an interface for
+
+
+1025
+00:30:35,766 --> 00:30:36,846
+introspecting dylibs in a
+
+
+1026
+00:30:36,846 --> 00:30:38,176
+process, and it comes from the
+
+
+1027
+00:30:38,176 --> 00:30:39,296
+original dyld 1.
+
+
+1028
+00:30:40,626 --> 00:30:42,806
+But it's just a struct in
+
+
+1029
+00:30:42,806 --> 00:30:44,356
+memory, it's not an API, and
+
+
+1030
+00:30:44,866 --> 00:30:47,026
+that was okay when we had five,
+
+
+1031
+00:30:47,156 --> 00:30:48,046
+ten dylibs.
+
+
+1032
+00:30:48,446 --> 00:30:50,466
+But as we've gotten to 300, 400,
+
+
+1033
+00:30:50,466 --> 00:30:51,766
+500 dylibs, the way it's
+
+
+1034
+00:30:51,766 --> 00:30:53,556
+designed wastes a lot of memory,
+
+
+1035
+00:30:53,556 --> 00:30:54,636
+and we want that memory back.
+
+
+1036
+00:30:54,916 --> 00:30:55,986
+We always want our performance
+
+
+1037
+00:30:55,986 --> 00:30:57,096
+and we always want our memory.
+
+
+1038
+00:30:58,186 --> 00:30:59,426
+So we're going to take it away
+
+
+1039
+00:30:59,426 --> 00:31:01,716
+in future releases, but we will
+
+
+1040
+00:31:01,716 --> 00:31:03,776
+be providing replacement API's
+
+
+1041
+00:31:03,776 --> 00:31:04,106
+for it.
+
+
+1042
+00:31:04,926 --> 00:31:07,206
+And so it's very rarely used,
+
+
+1043
+00:31:07,296 --> 00:31:08,776
+but if you're using it, again, I
+
+
+1044
+00:31:08,776 --> 00:31:10,436
+want to know why you're using it
+
+
+1045
+00:31:10,436 --> 00:31:11,266
+and how you're using it and make
+
+
+1046
+00:31:11,266 --> 00:31:13,026
+sure we design API's that fit
+
+
+1047
+00:31:13,026 --> 00:31:13,926
+your use case.
+
+
+1048
+00:31:14,246 --> 00:31:15,076
+There are a number of bits of it
+
+
+1049
+00:31:15,076 --> 00:31:16,306
+that are vestigial and don't
+
+
+1050
+00:31:16,486 --> 00:31:17,706
+quite do what you expect or work
+
+
+1051
+00:31:17,706 --> 00:31:20,226
+anyway today, so if you aren't
+
+
+1052
+00:31:20,226 --> 00:31:21,156
+using those, they may just go
+
+
+1053
+00:31:21,156 --> 00:31:22,196
+away and we need to hear about
+
+
+1054
+00:31:22,196 --> 00:31:22,436
+that.
+
+
+1055
+00:31:23,566 --> 00:31:24,536
+So please let us know how you
+
+
+1056
+00:31:24,536 --> 00:31:24,856
+use it.
+
+
+1057
+00:31:25,856 --> 00:31:26,856
+So finally, let's talk about
+
+
+1058
+00:31:26,856 --> 00:31:27,776
+best practices.
+
+
+1059
+00:31:28,476 --> 00:31:30,996
+First, make sure you launch your
+
+
+1060
+00:31:30,996 --> 00:31:32,796
+app with bind at load in your LD
+
+
+1061
+00:31:32,796 --> 00:31:34,986
+FLAGS for debug builds only.
+
+
+1062
+00:31:36,356 --> 00:31:39,026
+Fix any unaligned pointers in
+
+
+1063
+00:31:39,026 --> 00:31:39,906
+your data segments.
+
+
+1064
+00:31:40,156 --> 00:31:42,906
+Again, this warning is there.
+
+
+1065
+00:31:42,906 --> 00:31:43,806
+You should try to be fixing all
+
+
+1066
+00:31:43,806 --> 00:31:44,536
+of your warnings.
+
+
+1067
+00:31:44,826 --> 00:31:47,276
+If you see it with the new Swift
+
+
+1068
+00:31:47,276 --> 00:31:48,626
+keypath feature, you can ignore
+
+
+1069
+00:31:48,626 --> 00:31:51,146
+that because we'll fix that.
+
+
+1070
+00:31:51,356 --> 00:31:52,356
+You can make sure you are not
+
+
+1071
+00:31:52,356 --> 00:31:53,656
+depending on any terminators
+
+
+1072
+00:31:53,656 --> 00:31:55,976
+running when you call dlclose.
+
+
+1073
+00:31:56,506 --> 00:32:00,376
+And we want you to let us know
+
+
+1074
+00:32:00,376 --> 00:32:02,696
+why you're using dlopen, dlsym,
+
+
+1075
+00:32:02,836 --> 00:32:04,996
+dladdr, and the all image info
+
+
+1076
+00:32:04,996 --> 00:32:06,256
+structures to make sure that our
+
+
+1077
+00:32:06,256 --> 00:32:09,296
+replacements are going to suit
+
+
+1078
+00:32:09,296 --> 00:32:09,706
+your needs.
+
+
+1079
+00:32:09,986 --> 00:32:10,846
+In the case of the ones that are
+
+
+1080
+00:32:10,846 --> 00:32:12,016
+part of POSIX, they will stay
+
+
+1081
+00:32:12,016 --> 00:32:13,306
+around, they will just be lower
+
+
+1082
+00:32:13,306 --> 00:32:13,836
+performance.
+
+
+1083
+00:32:13,836 --> 00:32:14,896
+In the case of all image infos,
+
+
+1084
+00:32:14,896 --> 00:32:16,556
+it is going to go away to save
+
+
+1085
+00:32:16,556 --> 00:32:17,056
+that memory.
+
+
+1086
+00:32:18,276 --> 00:32:20,056
+Please file bug reports using
+
+
+1087
+00:32:20,056 --> 00:32:21,886
+DYLD USAGE in their titles so
+
+
+1088
+00:32:21,886 --> 00:32:22,876
+that they get to us so that we
+
+
+1089
+00:32:22,876 --> 00:32:24,156
+can find out all of your usage
+
+
+1090
+00:32:24,156 --> 00:32:25,456
+cases that we need to support.
+
+
+1091
+00:32:26,276 --> 00:32:28,076
+And for more information, you
+
+
+1092
+00:32:28,076 --> 00:32:28,956
+can go to this URL.
+
+
+1093
+00:32:30,096 --> 00:32:31,446
+Related sessions.
+
+
+1094
+00:32:31,446 --> 00:32:33,666
+So last year we did Optimizing
+
+
+1095
+00:32:33,666 --> 00:32:35,636
+App Startup Time, so you may
+
+
+1096
+00:32:35,636 --> 00:32:38,156
+want to go and watch that for a
+
+
+1097
+00:32:38,196 --> 00:32:39,476
+refresher on how traditional
+
+
+1098
+00:32:39,476 --> 00:32:40,846
+dynamic linking works.
+
+
+1099
+00:32:41,076 --> 00:32:42,866
+It goes into much more detail
+
+
+1100
+00:32:42,866 --> 00:32:43,886
+than I did here since I was
+
+
+1101
+00:32:43,886 --> 00:32:44,966
+trying to discuss all the new
+
+
+1102
+00:32:44,966 --> 00:32:45,636
+stuff we're doing.
+
+
+1103
+00:32:46,366 --> 00:32:47,566
+So thank you everybody for
+
+
+1104
+00:32:47,566 --> 00:32:47,866
+coming.
+
+
+1105
+00:32:47,866 --> 00:32:48,976
+I hope you've had a great WWDC.
+
+
+1106
+00:32:49,516 --> 00:32:55,710
+[ Applause ]
+

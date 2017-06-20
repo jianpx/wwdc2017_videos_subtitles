@@ -1,0 +1,5449 @@
+1
+00:00:24,046 --> 00:00:24,556
+>> Morning everyone.
+
+
+2
+00:00:25,516 --> 00:00:29,546
+[ Applause ]
+
+
+3
+00:00:30,046 --> 00:00:30,476
+I'm Ross Dexter.
+
+
+4
+00:00:30,476 --> 00:00:31,186
+I'm an engineer on the Games
+
+
+5
+00:00:31,186 --> 00:00:32,176
+Technologies Team at Apple.
+
+
+6
+00:00:32,256 --> 00:00:33,196
+And I'd like to welcome you to
+
+
+7
+00:00:33,196 --> 00:00:35,096
+going beyond 2D with SpriteKit.
+
+
+8
+00:00:37,016 --> 00:00:38,386
+So before we dive in I'd like to
+
+
+9
+00:00:38,386 --> 00:00:39,596
+quickly talk about what
+
+
+10
+00:00:39,596 --> 00:00:41,056
+SpriteKit is and where it fits
+
+
+11
+00:00:41,056 --> 00:00:42,196
+in the Apple rendering picture.
+
+
+12
+00:00:42,766 --> 00:00:44,486
+SpriteKit is Apple's 2D graphics
+
+
+13
+00:00:44,486 --> 00:00:45,606
+framework for games.
+
+
+14
+00:00:45,856 --> 00:00:46,486
+And it's designed to be
+
+
+15
+00:00:46,486 --> 00:00:48,826
+flexible, fast, and easy to use.
+
+
+16
+00:00:48,826 --> 00:00:50,456
+It's supported across all of our
+
+
+17
+00:00:50,456 --> 00:00:51,926
+platforms and has an Xcode
+
+
+18
+00:00:51,926 --> 00:00:53,486
+integrated life editor to make
+
+
+19
+00:00:53,486 --> 00:00:54,896
+lying out and previewing your
+
+
+20
+00:00:54,896 --> 00:00:56,616
+game content quick and easy.
+
+
+21
+00:00:58,106 --> 00:00:59,876
+SpriteKit sits along SceneKit or
+
+
+22
+00:00:59,876 --> 00:01:01,326
+other games oriented graphics
+
+
+23
+00:01:01,326 --> 00:01:02,836
+framework and both sit on top of
+
+
+24
+00:01:02,836 --> 00:01:03,136
+Metal.
+
+
+25
+00:01:03,876 --> 00:01:04,796
+Traditionally they've all been
+
+
+26
+00:01:04,796 --> 00:01:06,156
+used separately in different
+
+
+27
+00:01:06,156 --> 00:01:06,896
+contexts.
+
+
+28
+00:01:07,436 --> 00:01:09,446
+SpriteKit for quick and easy 2D,
+
+
+29
+00:01:09,446 --> 00:01:10,956
+SceneKit as all ready to use 3D
+
+
+30
+00:01:10,956 --> 00:01:12,756
+engine, and Metal to give you
+
+
+31
+00:01:12,756 --> 00:01:14,236
+direct access to your devices
+
+
+32
+00:01:14,346 --> 00:01:15,116
+rendering hardware.
+
+
+33
+00:01:15,586 --> 00:01:16,926
+Instead of keeping all three
+
+
+34
+00:01:16,926 --> 00:01:18,766
+separate we think it's time that
+
+
+35
+00:01:18,766 --> 00:01:20,146
+SpriteKit breaks out of its 2D
+
+
+36
+00:01:20,146 --> 00:01:20,476
+mold.
+
+
+37
+00:01:21,506 --> 00:01:22,736
+SpriteKit has a great deal to
+
+
+38
+00:01:22,736 --> 00:01:23,776
+offer to make using it in
+
+
+39
+00:01:23,776 --> 00:01:24,986
+combination with SceneKit and
+
+
+40
+00:01:24,986 --> 00:01:25,836
+Metal attractive.
+
+
+41
+00:01:26,466 --> 00:01:27,626
+Since they both use Metal under
+
+
+42
+00:01:27,626 --> 00:01:28,846
+the hood, it should be trivial
+
+
+43
+00:01:28,846 --> 00:01:30,446
+to render SpriteKit content in
+
+
+44
+00:01:30,446 --> 00:01:32,866
+SceneKit or be able to pipe it
+
+
+45
+00:01:32,896 --> 00:01:34,396
+back into Metal use however you
+
+
+46
+00:01:34,396 --> 00:01:34,806
+wish.
+
+
+47
+00:01:36,046 --> 00:01:37,116
+Lots of 3D games and apps
+
+
+48
+00:01:37,116 --> 00:01:38,916
+feature 2D content and SpriteKit
+
+
+49
+00:01:38,916 --> 00:01:40,036
+provides the perfects means for
+
+
+50
+00:01:40,036 --> 00:01:41,036
+creating and rendering that
+
+
+51
+00:01:41,036 --> 00:01:41,476
+content.
+
+
+52
+00:01:42,156 --> 00:01:45,756
+On top of that this year Apple
+
+
+53
+00:01:45,756 --> 00:01:47,216
+is introducing ARKit, which
+
+
+54
+00:01:47,216 --> 00:01:48,136
+takes all the hard work out of
+
+
+55
+00:01:48,136 --> 00:01:49,576
+creating augmented reality apps.
+
+
+56
+00:01:50,186 --> 00:01:51,006
+The addition of this new
+
+
+57
+00:01:51,006 --> 00:01:52,296
+framework provides one more
+
+
+58
+00:01:52,296 --> 00:01:53,096
+reason why it's time for
+
+
+59
+00:01:53,096 --> 00:01:55,336
+SpriteKit to go beyond 2D and
+
+
+60
+00:01:55,336 --> 00:01:56,316
+into the third dimension.
+
+
+61
+00:01:56,946 --> 00:01:57,696
+And today we're going to show
+
+
+62
+00:01:57,696 --> 00:01:59,386
+you how to do it and what you
+
+
+63
+00:02:00,796 --> 00:02:02,916
+can achieve.
+
+
+64
+00:02:03,106 --> 00:02:04,526
+In this session we're going to
+
+
+65
+00:02:04,526 --> 00:02:05,886
+cover how to render SpriteKit
+
+
+66
+00:02:05,886 --> 00:02:07,616
+content in ARKit, bringing
+
+
+67
+00:02:07,616 --> 00:02:08,406
+SpriteKit to the world of
+
+
+68
+00:02:08,406 --> 00:02:09,186
+augmented reality.
+
+
+69
+00:02:10,175 --> 00:02:11,236
+Next, we'll show you how to get
+
+
+70
+00:02:11,236 --> 00:02:12,406
+your SpriteKit scenes into
+
+
+71
+00:02:12,406 --> 00:02:13,946
+SceneKit and how that can
+
+
+72
+00:02:13,946 --> 00:02:15,096
+improve your augmented reality
+
+
+73
+00:02:15,096 --> 00:02:15,556
+apps.
+
+
+74
+00:02:16,226 --> 00:02:17,376
+And then finally we'll introduce
+
+
+75
+00:02:17,376 --> 00:02:18,986
+you to SKRenderer, which allows
+
+
+76
+00:02:18,986 --> 00:02:20,206
+you to take more control of how
+
+
+77
+00:02:20,206 --> 00:02:21,966
+SpriteKit updates and renders.
+
+
+78
+00:02:22,366 --> 00:02:25,116
+All right, let's dive right in
+
+
+79
+00:02:25,116 --> 00:02:26,726
+with how you can use SpriteKit
+
+
+80
+00:02:26,726 --> 00:02:27,726
+and ARKit together.
+
+
+81
+00:02:29,986 --> 00:02:30,826
+But first we should talk about
+
+
+82
+00:02:30,826 --> 00:02:31,976
+what augmented reality actually
+
+
+83
+00:02:32,146 --> 00:02:36,486
+is. Augmented reality combines a
+
+
+84
+00:02:36,566 --> 00:02:38,046
+real world view with computer
+
+
+85
+00:02:38,046 --> 00:02:38,856
+rendered content.
+
+
+86
+00:02:39,556 --> 00:02:40,586
+That content gets attached to
+
+
+87
+00:02:40,586 --> 00:02:42,326
+locations in the real world so
+
+
+88
+00:02:42,326 --> 00:02:43,836
+that as you move your device and
+
+
+89
+00:02:43,836 --> 00:02:45,336
+the view shifts, the content
+
+
+90
+00:02:45,336 --> 00:02:46,696
+appears to remain in place.
+
+
+91
+00:02:47,446 --> 00:02:49,606
+That allows you to inspect the
+
+
+92
+00:02:49,606 --> 00:02:51,546
+content from different angels as
+
+
+93
+00:02:51,546 --> 00:02:52,796
+if it were a physical object in
+
+
+94
+00:02:52,796 --> 00:02:53,976
+front of your device.
+
+
+95
+00:02:54,606 --> 00:02:55,816
+And this requires a lot of
+
+
+96
+00:02:55,816 --> 00:02:57,226
+complex tracking and is a real
+
+
+97
+00:02:57,226 --> 00:02:58,866
+challenge to implement.
+
+
+98
+00:03:01,076 --> 00:03:03,316
+Thankfully ARKit does all the
+
+
+99
+00:03:03,316 --> 00:03:04,136
+hard work for you.
+
+
+100
+00:03:04,866 --> 00:03:06,426
+When you use ARKit it leverages
+
+
+101
+00:03:06,426 --> 00:03:07,276
+your devices camera,
+
+
+102
+00:03:07,276 --> 00:03:09,446
+accelerometer and other hardware
+
+
+103
+00:03:09,636 --> 00:03:11,326
+to track its position and
+
+
+104
+00:03:11,816 --> 00:03:13,186
+orientation in the real world.
+
+
+105
+00:03:13,586 --> 00:03:14,826
+All you have to do is provide it
+
+
+106
+00:03:14,826 --> 00:03:15,896
+the content you want to appear
+
+
+107
+00:03:15,896 --> 00:03:17,906
+in AR, and ARKit automatically
+
+
+108
+00:03:17,906 --> 00:03:19,316
+updates the relative positioning
+
+
+109
+00:03:19,426 --> 00:03:20,646
+of your content as your device
+
+
+110
+00:03:20,646 --> 00:03:21,066
+moves.
+
+
+111
+00:03:21,956 --> 00:03:23,076
+If you like a deeper dive into
+
+
+112
+00:03:23,076 --> 00:03:24,386
+exactly how this all works, I
+
+
+113
+00:03:24,386 --> 00:03:25,356
+highly recommend checking out
+
+
+114
+00:03:25,606 --> 00:03:26,856
+the Introducing ARKit session
+
+
+115
+00:03:26,856 --> 00:03:27,886
+that happened earlier this week.
+
+
+116
+00:03:28,526 --> 00:03:31,796
+ARKit is able to track and
+
+
+117
+00:03:31,796 --> 00:03:32,686
+update the position of your
+
+
+118
+00:03:32,686 --> 00:03:33,916
+content through the use of
+
+
+119
+00:03:33,916 --> 00:03:34,556
+anchors.
+
+
+120
+00:03:34,736 --> 00:03:35,906
+They are what make AR work.
+
+
+121
+00:03:37,596 --> 00:03:39,306
+Anchors are 3D points that
+
+
+122
+00:03:39,306 --> 00:03:40,596
+correspond to real world
+
+
+123
+00:03:40,596 --> 00:03:42,076
+features that ARKit detects
+
+
+124
+00:03:42,356 --> 00:03:43,426
+through Scene and understanding,
+
+
+125
+00:03:43,776 --> 00:03:45,356
+which uses your devices camera
+
+
+126
+00:03:45,356 --> 00:03:47,456
+to perceive and process the
+
+
+127
+00:03:47,456 --> 00:03:48,526
+world around you.
+
+
+128
+00:03:49,456 --> 00:03:50,616
+Anchors are easy to create.
+
+
+129
+00:03:51,036 --> 00:03:52,606
+You can request ARKit to detect
+
+
+130
+00:03:52,606 --> 00:03:54,036
+one at anytime through the API.
+
+
+131
+00:03:54,406 --> 00:03:55,696
+Or you can create one manually
+
+
+132
+00:03:55,696 --> 00:03:57,176
+using your devices position and
+
+
+133
+00:03:57,176 --> 00:03:57,756
+orientation.
+
+
+134
+00:03:58,086 --> 00:04:01,646
+So how do we get ARKit working
+
+
+135
+00:04:01,646 --> 00:04:02,506
+with SpriteKit content?
+
+
+136
+00:04:03,796 --> 00:04:05,586
+ARKit is designed to interact
+
+
+137
+00:04:05,586 --> 00:04:06,576
+directly with SpriteKit.
+
+
+138
+00:04:07,286 --> 00:04:08,476
+ARKit will ask that your -- ask
+
+
+139
+00:04:08,546 --> 00:04:09,896
+your first SpriteKit nodes is
+
+
+140
+00:04:09,896 --> 00:04:11,336
+attached to anchors and then
+
+
+141
+00:04:11,336 --> 00:04:12,526
+will automatically position,
+
+
+142
+00:04:12,836 --> 00:04:14,736
+rotate, and scale those nodes as
+
+
+143
+00:04:14,736 --> 00:04:15,556
+the device moves.
+
+
+144
+00:04:16,426 --> 00:04:17,946
+It does this so your SpriteKit
+
+
+145
+00:04:17,946 --> 00:04:19,536
+content will stay aligned with
+
+
+146
+00:04:19,536 --> 00:04:20,805
+the anchors giving the
+
+
+147
+00:04:20,836 --> 00:04:22,236
+appearance that your content is
+
+
+148
+00:04:22,236 --> 00:04:23,346
+rooted in the real world.
+
+
+149
+00:04:24,666 --> 00:04:25,596
+Sprites are rendered so they are
+
+
+150
+00:04:25,596 --> 00:04:26,806
+always facing the camera.
+
+
+151
+00:04:26,906 --> 00:04:28,016
+So no matter what angle you view
+
+
+152
+00:04:28,016 --> 00:04:30,246
+them from they're always facing
+
+
+153
+00:04:30,296 --> 00:04:30,656
+the camera.
+
+
+154
+00:04:31,436 --> 00:04:32,556
+This is a technique known as
+
+
+155
+00:04:32,556 --> 00:04:33,576
+billboarding and it's commonly
+
+
+156
+00:04:33,576 --> 00:04:34,766
+used in early 3D games.
+
+
+157
+00:04:36,466 --> 00:04:37,526
+So you may not be familiar with
+
+
+158
+00:04:37,526 --> 00:04:38,726
+how billboarding works, so let's
+
+
+159
+00:04:38,726 --> 00:04:40,356
+go over a few quick examples of
+
+
+160
+00:04:40,356 --> 00:04:41,676
+how you can use it, it lets you
+
+
+161
+00:04:41,676 --> 00:04:43,166
+use 2D content in 3D space.
+
+
+162
+00:04:44,046 --> 00:04:45,746
+So say we have sprite position
+
+
+163
+00:04:45,746 --> 00:04:47,186
+in 3D space and a camera
+
+
+164
+00:04:47,186 --> 00:04:47,686
+observing it.
+
+
+165
+00:04:48,806 --> 00:04:50,316
+As the camera moves closer to
+
+
+166
+00:04:50,316 --> 00:04:51,446
+the sprite the sprite grows
+
+
+167
+00:04:51,446 --> 00:04:53,006
+larger as you'd expect taking
+
+
+168
+00:04:53,006 --> 00:04:53,536
+more of the view.
+
+
+169
+00:04:54,296 --> 00:04:56,516
+As the camera moves further
+
+
+170
+00:04:56,516 --> 00:04:57,856
+away, the sprite shrinks.
+
+
+171
+00:04:58,876 --> 00:04:59,906
+Now I'll rotate the camera.
+
+
+172
+00:05:00,576 --> 00:05:03,286
+As the camera changes its point
+
+
+173
+00:05:03,286 --> 00:05:04,596
+of view, the sprite continues to
+
+
+174
+00:05:04,596 --> 00:05:05,986
+face the camera at all times.
+
+
+175
+00:05:06,666 --> 00:05:07,616
+And this should be the case from
+
+
+176
+00:05:07,616 --> 00:05:08,576
+any angle we view it from.
+
+
+177
+00:05:09,546 --> 00:05:10,896
+Let's add another sprite to our
+
+
+178
+00:05:10,896 --> 00:05:11,956
+3D scene here to show how this
+
+
+179
+00:05:11,956 --> 00:05:13,686
+works with multiple 2D objects.
+
+
+180
+00:05:14,186 --> 00:05:17,136
+Sprites that are further away
+
+
+181
+00:05:17,366 --> 00:05:18,706
+are rendered behind sprites that
+
+
+182
+00:05:18,706 --> 00:05:19,516
+are closer to the camera.
+
+
+183
+00:05:20,236 --> 00:05:22,616
+As the camera moves the more
+
+
+184
+00:05:22,616 --> 00:05:24,616
+distant sprite comes into view.
+
+
+185
+00:05:26,156 --> 00:05:27,586
+Both sprites always face the
+
+
+186
+00:05:27,586 --> 00:05:31,446
+camera and this simple technique
+
+
+187
+00:05:31,446 --> 00:05:33,166
+allows your 2D sprite content to
+
+
+188
+00:05:33,166 --> 00:05:34,466
+work in a 3D spaces.
+
+
+189
+00:05:35,106 --> 00:05:38,566
+So now that we've shown you how
+
+
+190
+00:05:38,696 --> 00:05:39,956
+ARKit and SpriteKit work
+
+
+191
+00:05:39,956 --> 00:05:41,916
+together at a conceptual level,
+
+
+192
+00:05:41,956 --> 00:05:43,176
+let's talk about the actual
+
+
+193
+00:05:43,176 --> 00:05:44,226
+objects you'll need to implement
+
+
+194
+00:05:44,506 --> 00:05:45,186
+your app.
+
+
+195
+00:05:45,526 --> 00:05:47,286
+To work with ARKit and SpriteKit
+
+
+196
+00:05:47,286 --> 00:05:48,566
+there are four important objects
+
+
+197
+00:05:48,566 --> 00:05:49,246
+for you to know about --
+
+
+198
+00:05:50,116 --> 00:05:51,956
+ARSession, ARAnchor, ARSKView,
+
+
+199
+00:05:51,956 --> 00:05:54,146
+and ARSKViewDelegate.
+
+
+200
+00:05:54,146 --> 00:05:59,096
+ARSession is the heart of ARKit.
+
+
+201
+00:05:59,096 --> 00:06:00,636
+It handles all the device
+
+
+202
+00:06:00,636 --> 00:06:02,426
+tracking and orchestrates the
+
+
+203
+00:06:02,426 --> 00:06:03,856
+interactions between ARKit and
+
+
+204
+00:06:03,856 --> 00:06:04,336
+SpriteKit.
+
+
+205
+00:06:05,286 --> 00:06:06,696
+It has methods for adding and
+
+
+206
+00:06:06,696 --> 00:06:08,446
+removing anchors that you create
+
+
+207
+00:06:08,446 --> 00:06:08,866
+in your app.
+
+
+208
+00:06:09,346 --> 00:06:10,846
+To get started up, you just call
+
+
+209
+00:06:10,846 --> 00:06:12,086
+the Run method and ARSession
+
+
+210
+00:06:12,086 --> 00:06:13,496
+will began tracking your device.
+
+
+211
+00:06:14,066 --> 00:06:16,376
+You just need to provide it an
+
+
+212
+00:06:16,376 --> 00:06:17,966
+ARSession Configuration which
+
+
+213
+00:06:17,966 --> 00:06:19,186
+tells the ARKit which AR
+
+
+214
+00:06:19,186 --> 00:06:20,586
+techniques it should use.
+
+
+215
+00:06:21,056 --> 00:06:22,136
+So in working with SpriteKit you
+
+
+216
+00:06:22,136 --> 00:06:23,396
+should just use the AR World
+
+
+217
+00:06:23,396 --> 00:06:24,836
+Tracking Session Configuration,
+
+
+218
+00:06:24,836 --> 00:06:25,626
+which enables all the
+
+
+219
+00:06:25,626 --> 00:06:27,076
+functionality you'll need from
+
+
+220
+00:06:27,116 --> 00:06:27,576
+ARKit.
+
+
+221
+00:06:27,986 --> 00:06:31,546
+ARKit defines real-world
+
+
+222
+00:06:31,546 --> 00:06:33,026
+features through ARAnchor.
+
+
+223
+00:06:33,486 --> 00:06:34,626
+It represents a position in the
+
+
+224
+00:06:34,626 --> 00:06:35,716
+real world and contains
+
+
+225
+00:06:35,716 --> 00:06:36,786
+transform data as well as a
+
+
+226
+00:06:36,786 --> 00:06:37,626
+unique identifier.
+
+
+227
+00:06:38,746 --> 00:06:40,596
+ARKit maps ARAnchors to the
+
+
+228
+00:06:40,596 --> 00:06:42,186
+SKNodes that we provided to
+
+
+229
+00:06:42,186 --> 00:06:45,586
+render our contents.
+
+
+230
+00:06:45,846 --> 00:06:47,136
+ARKit interacts with SpriteKit
+
+
+231
+00:06:47,136 --> 00:06:48,926
+through ARSKView, which is
+
+
+232
+00:06:48,926 --> 00:06:50,126
+derived from SKView.
+
+
+233
+00:06:51,096 --> 00:06:52,026
+It creates and contains the
+
+
+234
+00:06:52,026 --> 00:06:53,346
+ARSession so you don't need to
+
+
+235
+00:06:53,346 --> 00:06:54,206
+create it manually.
+
+
+236
+00:06:54,206 --> 00:06:55,386
+And it has methods for getting
+
+
+237
+00:06:55,386 --> 00:06:56,656
+related anchors and nodes.
+
+
+238
+00:06:56,856 --> 00:06:58,066
+So you need to manually track
+
+
+239
+00:06:58,436 --> 00:06:59,706
+which node corresponds to what
+
+
+240
+00:06:59,706 --> 00:07:00,996
+anchor and vise versa.
+
+
+241
+00:07:01,576 --> 00:07:03,086
+It also has a hitTest method,
+
+
+242
+00:07:03,446 --> 00:07:04,936
+which is your primary way of
+
+
+243
+00:07:04,936 --> 00:07:05,866
+creating anchors.
+
+
+244
+00:07:06,206 --> 00:07:07,246
+It takes a point on your devices
+
+
+245
+00:07:07,246 --> 00:07:08,736
+screen and shoots a ray through
+
+
+246
+00:07:08,736 --> 00:07:08,916
+it.
+
+
+247
+00:07:09,216 --> 00:07:10,366
+So looking for the nearest point
+
+
+248
+00:07:10,366 --> 00:07:12,686
+in the real world for you to
+
+
+249
+00:07:12,686 --> 00:07:15,096
+attach stuff to.
+
+
+250
+00:07:15,546 --> 00:07:16,286
+Finally, there's
+
+
+251
+00:07:16,386 --> 00:07:17,686
+ARSKViewDelegate.
+
+
+252
+00:07:17,876 --> 00:07:18,966
+A protocol derived from
+
+
+253
+00:07:18,966 --> 00:07:20,916
+SKViewDelegate, which helps you
+
+
+254
+00:07:20,916 --> 00:07:22,126
+react to anchors being added,
+
+
+255
+00:07:22,466 --> 00:07:23,766
+updated, and removed from the
+
+
+256
+00:07:23,766 --> 00:07:24,196
+session.
+
+
+257
+00:07:25,366 --> 00:07:26,566
+All of its methods are optional
+
+
+258
+00:07:26,676 --> 00:07:27,596
+and they're the key to using
+
+
+259
+00:07:27,596 --> 00:07:29,156
+SpriteKit and ARKit together.
+
+
+260
+00:07:29,156 --> 00:07:32,166
+But we'll come back to that in a
+
+
+261
+00:07:32,836 --> 00:07:32,936
+bit.
+
+
+262
+00:07:33,146 --> 00:07:34,256
+Let's get started on creating
+
+
+263
+00:07:34,256 --> 00:07:36,016
+our first ARKit app with
+
+
+264
+00:07:36,016 --> 00:07:36,476
+SpriteKit.
+
+
+265
+00:07:37,496 --> 00:07:39,066
+First we'll create a new iOS
+
+
+266
+00:07:39,066 --> 00:07:40,576
+project in Xcode.
+
+
+267
+00:07:41,276 --> 00:07:42,416
+You'll see that in Xcode 9,
+
+
+268
+00:07:42,496 --> 00:07:43,716
+there's a new augmented reality
+
+
+269
+00:07:43,716 --> 00:07:47,366
+app template for you to choose.
+
+
+270
+00:07:47,556 --> 00:07:49,026
+Once you choose the app template
+
+
+271
+00:07:49,336 --> 00:07:50,616
+to get started with SpriteKit
+
+
+272
+00:07:50,706 --> 00:07:51,676
+select it as your content
+
+
+273
+00:07:51,676 --> 00:07:52,256
+technology.
+
+
+274
+00:07:52,836 --> 00:07:56,146
+And that's all there is to it.
+
+
+275
+00:07:56,186 --> 00:07:57,496
+You're now ready to enter
+
+
+276
+00:07:57,496 --> 00:07:58,306
+augmented reality.
+
+
+277
+00:07:59,326 --> 00:08:00,586
+The resulting project looks
+
+
+278
+00:08:00,586 --> 00:08:02,056
+pretty standard for an iOS app,
+
+
+279
+00:08:02,056 --> 00:08:03,316
+but let's go through the files
+
+
+280
+00:08:03,316 --> 00:08:04,006
+that are important to using
+
+
+281
+00:08:04,006 --> 00:08:05,356
+SpriteKit and ARKit together.
+
+
+282
+00:08:07,426 --> 00:08:09,016
+First there's Scene.sks.
+
+
+283
+00:08:09,056 --> 00:08:11,036
+This is a standard SpriteKit
+
+
+284
+00:08:11,036 --> 00:08:12,276
+scene and it's where you create
+
+
+285
+00:08:12,276 --> 00:08:13,736
+and layout any non-AR content
+
+
+286
+00:08:13,736 --> 00:08:14,596
+that you want to appear in your
+
+
+287
+00:08:14,596 --> 00:08:14,826
+app.
+
+
+288
+00:08:15,536 --> 00:08:17,106
+It will act like an overlay for
+
+
+289
+00:08:17,106 --> 00:08:17,976
+the AR content.
+
+
+290
+00:08:17,976 --> 00:08:18,846
+And so it's useful for things
+
+
+291
+00:08:18,846 --> 00:08:20,346
+like HUD elements, help text,
+
+
+292
+00:08:20,526 --> 00:08:21,086
+stuff like that.
+
+
+293
+00:08:22,396 --> 00:08:23,466
+Nodes that have a Z position
+
+
+294
+00:08:23,466 --> 00:08:24,836
+greater than or equal to 0 will
+
+
+295
+00:08:24,836 --> 00:08:26,766
+draw over any AR content that
+
+
+296
+00:08:26,766 --> 00:08:28,226
+ARKit adds to the scene.
+
+
+297
+00:08:29,096 --> 00:08:30,666
+All nodes are managed by -- that
+
+
+298
+00:08:30,666 --> 00:08:31,996
+are managed by ARKit have Z
+
+
+299
+00:08:31,996 --> 00:08:33,606
+positions that are less than 0.
+
+
+300
+00:08:35,356 --> 00:08:37,706
+Next, Scene.swift.
+
+
+301
+00:08:38,436 --> 00:08:39,686
+This is a SpriteKit scene's
+
+
+302
+00:08:39,726 --> 00:08:40,905
+corresponding source file.
+
+
+303
+00:08:41,666 --> 00:08:42,686
+As with normal SpriteKit apps,
+
+
+304
+00:08:42,686 --> 00:08:44,386
+this is where you put code to
+
+
+305
+00:08:44,416 --> 00:08:46,236
+manage your scene and Gameplay
+
+
+306
+00:08:46,236 --> 00:08:47,386
+and logic and is a good place to
+
+
+307
+00:08:47,386 --> 00:08:48,876
+leverage gameplay kits various
+
+
+308
+00:08:48,876 --> 00:08:49,306
+features.
+
+
+309
+00:08:49,986 --> 00:08:53,006
+And finally we have
+
+
+310
+00:08:53,006 --> 00:08:54,306
+ViewController.swift.
+
+
+311
+00:08:54,806 --> 00:08:56,206
+The view controller conforms to
+
+
+312
+00:08:56,206 --> 00:08:58,096
+ARSKViewDelegate and its
+
+
+313
+00:08:58,096 --> 00:08:59,206
+sceneView property is an
+
+
+314
+00:08:59,236 --> 00:09:00,906
+instance of ARSKView, which
+
+
+315
+00:09:00,906 --> 00:09:02,206
+contains the ARSession.
+
+
+316
+00:09:03,226 --> 00:09:04,586
+The view controller class is
+
+
+317
+00:09:04,586 --> 00:09:05,456
+your primary means of
+
+
+318
+00:09:05,456 --> 00:09:06,686
+interacting with ARKit.
+
+
+319
+00:09:07,396 --> 00:09:08,436
+In the template it's
+
+
+320
+00:09:08,436 --> 00:09:10,256
+automatically set up to call run
+
+
+321
+00:09:10,256 --> 00:09:11,996
+on ARSession with an AR World
+
+
+322
+00:09:11,996 --> 00:09:13,366
+Tracking Session Configuration.
+
+
+323
+00:09:13,716 --> 00:09:14,496
+So you don't need to add it
+
+
+324
+00:09:14,496 --> 00:09:15,006
+yourself.
+
+
+325
+00:09:15,776 --> 00:09:16,926
+This is also where you implement
+
+
+326
+00:09:16,926 --> 00:09:18,216
+the ARSKView Delegate Methods
+
+
+327
+00:09:18,316 --> 00:09:19,366
+that are relevant to you.
+
+
+328
+00:09:19,366 --> 00:09:23,406
+Now let's talk about the ARKit
+
+
+329
+00:09:23,406 --> 00:09:24,996
+Events that the view controller
+
+
+330
+00:09:24,996 --> 00:09:25,876
+would need to react to.
+
+
+331
+00:09:26,946 --> 00:09:28,546
+The first event is when a new
+
+
+332
+00:09:28,546 --> 00:09:30,516
+anchor gets added to SKSession.
+
+
+333
+00:09:32,006 --> 00:09:33,516
+When this happens ARKit will ask
+
+
+334
+00:09:33,516 --> 00:09:34,516
+the view controller for the
+
+
+335
+00:09:34,516 --> 00:09:35,586
+SpriteKit nodes you want to
+
+
+336
+00:09:35,586 --> 00:09:37,096
+associate with an anchor.
+
+
+337
+00:09:37,636 --> 00:09:39,436
+So this is when we create our AR
+
+
+338
+00:09:39,436 --> 00:09:39,856
+content.
+
+
+339
+00:09:41,766 --> 00:09:42,906
+The second event is when an
+
+
+340
+00:09:42,906 --> 00:09:44,876
+existing anchor is updated by
+
+
+341
+00:09:44,876 --> 00:09:45,396
+the session.
+
+
+342
+00:09:46,516 --> 00:09:47,836
+When this occurs ARKit informs a
+
+
+343
+00:09:47,836 --> 00:09:49,796
+view controller so you can react
+
+
+344
+00:09:49,796 --> 00:09:50,336
+to the update.
+
+
+345
+00:09:51,736 --> 00:09:52,926
+And the third and final event is
+
+
+346
+00:09:52,926 --> 00:09:54,416
+when an anchor is removed from
+
+
+347
+00:09:54,416 --> 00:09:54,886
+the session.
+
+
+348
+00:09:56,126 --> 00:09:57,336
+ARKit tells the view controller
+
+
+349
+00:09:57,336 --> 00:09:58,526
+so you can form any necessary
+
+
+350
+00:09:58,526 --> 00:09:59,696
+cleanup in your app.
+
+
+351
+00:10:04,046 --> 00:10:04,896
+ARSKViewDelegate provides
+
+
+352
+00:10:04,896 --> 00:10:06,016
+methods tied to each of these
+
+
+353
+00:10:06,016 --> 00:10:06,476
+events.
+
+
+354
+00:10:07,226 --> 00:10:08,596
+As we mentioned, each of these
+
+
+355
+00:10:08,596 --> 00:10:10,676
+methods is optional so you only
+
+
+356
+00:10:10,676 --> 00:10:11,786
+need to implement the ones that
+
+
+357
+00:10:11,786 --> 00:10:12,366
+matter to you.
+
+
+358
+00:10:12,876 --> 00:10:14,076
+Let's go over each one.
+
+
+359
+00:10:14,776 --> 00:10:18,746
+First is the node for anchor
+
+
+360
+00:10:18,746 --> 00:10:19,136
+method.
+
+
+361
+00:10:20,006 --> 00:10:21,126
+This gets called when a new
+
+
+362
+00:10:21,126 --> 00:10:22,426
+anchor is added to the session.
+
+
+363
+00:10:22,426 --> 00:10:24,636
+An ARKit maps that node return
+
+
+364
+00:10:24,636 --> 00:10:26,656
+from this method to the anchor
+
+
+365
+00:10:26,656 --> 00:10:27,396
+that's passed in.
+
+
+366
+00:10:28,326 --> 00:10:29,286
+You should implement this if you
+
+
+367
+00:10:29,286 --> 00:10:30,946
+want to create a custom node for
+
+
+368
+00:10:30,946 --> 00:10:31,386
+an anchor.
+
+
+369
+00:10:31,506 --> 00:10:33,266
+If you don't implement the
+
+
+370
+00:10:33,266 --> 00:10:35,446
+method a default empty SKNode is
+
+
+371
+00:10:35,446 --> 00:10:36,706
+created for you automatically.
+
+
+372
+00:10:37,246 --> 00:10:39,196
+The node that gets returned from
+
+
+373
+00:10:39,196 --> 00:10:40,226
+this method will be moved,
+
+
+374
+00:10:40,506 --> 00:10:42,576
+rotated, and scaled by ARKit to
+
+
+375
+00:10:42,576 --> 00:10:43,756
+match its anchor.
+
+
+376
+00:10:44,116 --> 00:10:45,116
+So if you try and make any
+
+
+377
+00:10:45,116 --> 00:10:46,676
+changes to the transform they'll
+
+
+378
+00:10:46,676 --> 00:10:48,016
+likely be overwritten by ARKit
+
+
+379
+00:10:48,016 --> 00:10:49,166
+when the device moves.
+
+
+380
+00:10:50,116 --> 00:10:50,946
+It's useful to know that any
+
+
+381
+00:10:50,976 --> 00:10:51,976
+children that are assigned to
+
+
+382
+00:10:51,976 --> 00:10:53,006
+this node won't have their
+
+
+383
+00:10:53,006 --> 00:10:53,946
+transforms modified.
+
+
+384
+00:10:53,996 --> 00:10:55,486
+But we'll talk more about this
+
+
+385
+00:10:55,586 --> 00:10:56,286
+with our next method.
+
+
+386
+00:10:57,986 --> 00:10:59,036
+Also know that ARKit
+
+
+387
+00:10:59,036 --> 00:11:00,336
+automatically adds this node to
+
+
+388
+00:11:00,336 --> 00:11:02,046
+the scene graph so you don't
+
+
+389
+00:11:02,666 --> 00:11:04,336
+have to.
+
+
+390
+00:11:04,576 --> 00:11:06,376
+Next, we have didAdd node for
+
+
+391
+00:11:06,376 --> 00:11:06,686
+anchor.
+
+
+392
+00:11:06,776 --> 00:11:09,076
+This is called after an SKNode
+
+
+393
+00:11:09,076 --> 00:11:10,436
+is mapped to an anchor, so after
+
+
+394
+00:11:10,436 --> 00:11:11,916
+the previous node for anchor
+
+
+395
+00:11:11,916 --> 00:11:13,336
+method is executed.
+
+
+396
+00:11:14,746 --> 00:11:15,896
+If you implemented the node for
+
+
+397
+00:11:15,896 --> 00:11:17,256
+anchor method, the node that
+
+
+398
+00:11:17,256 --> 00:11:18,616
+gets passed in here will be the
+
+
+399
+00:11:18,616 --> 00:11:20,126
+one you returned from there.
+
+
+400
+00:11:20,126 --> 00:11:22,026
+If you didn't implement it, it
+
+
+401
+00:11:22,026 --> 00:11:23,286
+will be a default empty node.
+
+
+402
+00:11:23,286 --> 00:11:25,656
+As we mentioned in the previous
+
+
+403
+00:11:25,656 --> 00:11:27,176
+slide the node that's mapped to
+
+
+404
+00:11:27,176 --> 00:11:28,166
+the anchor has it transformed
+
+
+405
+00:11:28,166 --> 00:11:30,086
+modified ARKit to follow the
+
+
+406
+00:11:30,086 --> 00:11:31,396
+anchor as the device moves.
+
+
+407
+00:11:32,336 --> 00:11:33,686
+As such, if you want to modify
+
+
+408
+00:11:33,686 --> 00:11:34,986
+the transforms of your content,
+
+
+409
+00:11:34,986 --> 00:11:36,326
+you should add them as children
+
+
+410
+00:11:36,326 --> 00:11:39,116
+in here as ARKit won't modify
+
+
+411
+00:11:41,496 --> 00:11:41,716
+them.
+
+
+412
+00:11:42,076 --> 00:11:43,446
+Next, we'll update node for
+
+
+413
+00:11:43,446 --> 00:11:44,866
+anchor and didUpdate node for
+
+
+414
+00:11:44,866 --> 00:11:45,166
+anchor.
+
+
+415
+00:11:46,116 --> 00:11:47,366
+These methods are called before
+
+
+416
+00:11:47,366 --> 00:11:48,846
+and after the node is updated
+
+
+417
+00:11:48,906 --> 00:11:49,946
+with a given anchors data.
+
+
+418
+00:11:51,056 --> 00:11:52,316
+True to their names willUpdate
+
+
+419
+00:11:52,316 --> 00:11:53,426
+node for anchor is called before
+
+
+420
+00:11:53,426 --> 00:11:55,016
+the update, and didUpdate node
+
+
+421
+00:11:55,066 --> 00:11:56,116
+for anchor is called after the
+
+
+422
+00:11:56,116 --> 00:11:56,486
+update.
+
+
+423
+00:11:57,396 --> 00:11:58,246
+This occurs when the device
+
+
+424
+00:11:58,246 --> 00:11:59,736
+moves and the view changes.
+
+
+425
+00:12:00,816 --> 00:12:01,996
+The nodes position, rotation,
+
+
+426
+00:12:01,996 --> 00:12:03,046
+and or scale is subject to
+
+
+427
+00:12:03,046 --> 00:12:04,556
+change between calls to these
+
+
+428
+00:12:04,556 --> 00:12:04,916
+methods.
+
+
+429
+00:12:06,156 --> 00:12:09,986
+Finally, didRemove node for
+
+
+430
+00:12:09,986 --> 00:12:10,326
+anchor.
+
+
+431
+00:12:11,196 --> 00:12:12,316
+This gets called the node is
+
+
+432
+00:12:12,316 --> 00:12:13,496
+removed from the scene graph,
+
+
+433
+00:12:13,976 --> 00:12:15,496
+which occurs when its course on
+
+
+434
+00:12:15,496 --> 00:12:16,796
+the anchor is removed from
+
+
+435
+00:12:16,796 --> 00:12:17,336
+ARSession.
+
+
+436
+00:12:18,756 --> 00:12:19,826
+All right, that covers the
+
+
+437
+00:12:19,826 --> 00:12:21,336
+important parts of the API.
+
+
+438
+00:12:21,336 --> 00:12:23,766
+Let's take a look at some code.
+
+
+439
+00:12:23,996 --> 00:12:24,826
+So let's cover creating an
+
+
+440
+00:12:24,826 --> 00:12:25,186
+anchor.
+
+
+441
+00:12:25,556 --> 00:12:27,206
+Here we're looking at a handler
+
+
+442
+00:12:27,206 --> 00:12:28,286
+for the touches began event.
+
+
+443
+00:12:28,956 --> 00:12:33,216
+When the device reports a touch,
+
+
+444
+00:12:33,216 --> 00:12:34,516
+we get the location of the touch
+
+
+445
+00:12:34,586 --> 00:12:35,936
+in our ARSKView.
+
+
+446
+00:12:36,626 --> 00:12:39,946
+We then provide the touch
+
+
+447
+00:12:39,946 --> 00:12:42,556
+location to the ARSKView's hit
+
+
+448
+00:12:42,556 --> 00:12:44,376
+test method, which shoots a ray
+
+
+449
+00:12:44,376 --> 00:12:45,896
+out into the real world looking
+
+
+450
+00:12:45,896 --> 00:12:47,126
+for feature points that we can
+
+
+451
+00:12:47,126 --> 00:12:48,346
+turn into anchors.
+
+
+452
+00:12:49,366 --> 00:12:50,626
+It returns an array of all the
+
+
+453
+00:12:50,626 --> 00:12:52,316
+hits that it registers sorted
+
+
+454
+00:12:52,316 --> 00:12:53,686
+from nearest to furthest.
+
+
+455
+00:12:53,686 --> 00:12:58,626
+We take the nearest hit and we
+
+
+456
+00:12:58,626 --> 00:13:00,006
+use this world transform to
+
+
+457
+00:13:00,006 --> 00:13:02,056
+create and ARAnchor, which we
+
+
+458
+00:13:02,056 --> 00:13:02,896
+then add to the session.
+
+
+459
+00:13:02,896 --> 00:13:05,606
+And that's all there is to it.
+
+
+460
+00:13:05,606 --> 00:13:06,786
+Creating anchors could not be
+
+
+461
+00:13:06,786 --> 00:13:07,186
+simpler.
+
+
+462
+00:13:07,316 --> 00:13:12,246
+So now that we've added a new
+
+
+463
+00:13:12,246 --> 00:13:13,506
+anchor to the session, the
+
+
+464
+00:13:13,506 --> 00:13:14,436
+session will ask the view
+
+
+465
+00:13:14,436 --> 00:13:15,606
+controller for the SpriteKit
+
+
+466
+00:13:15,606 --> 00:13:16,616
+content that we want to attach
+
+
+467
+00:13:16,616 --> 00:13:17,726
+to it.
+
+
+468
+00:13:19,116 --> 00:13:21,386
+To do this we've implemented
+
+
+469
+00:13:21,386 --> 00:13:22,996
+ARSKView Delegates didAdd node
+
+
+470
+00:13:22,996 --> 00:13:23,766
+for anchor method.
+
+
+471
+00:13:24,646 --> 00:13:26,066
+We haven't implemented node for
+
+
+472
+00:13:26,066 --> 00:13:27,556
+anchor, so default empty node
+
+
+473
+00:13:27,556 --> 00:13:28,746
+was created for us.
+
+
+474
+00:13:28,986 --> 00:13:29,686
+And that's [inaudible] of this
+
+
+475
+00:13:29,926 --> 00:13:30,606
+method.
+
+
+476
+00:13:33,406 --> 00:13:34,476
+So now all we need to do is
+
+
+477
+00:13:34,476 --> 00:13:35,426
+create the content we want to
+
+
+478
+00:13:35,426 --> 00:13:37,756
+attach to the anchor and then
+
+
+479
+00:13:38,816 --> 00:13:40,546
+add it as a child of the node
+
+
+480
+00:13:40,546 --> 00:13:41,586
+that's passed into this method.
+
+
+481
+00:13:42,586 --> 00:13:43,846
+ARKit will automatically update
+
+
+482
+00:13:43,846 --> 00:13:45,236
+the node so that it will follow
+
+
+483
+00:13:45,236 --> 00:13:46,586
+the anchor as the device moves
+
+
+484
+00:13:46,876 --> 00:13:47,816
+so you don't need to do anything
+
+
+485
+00:13:47,816 --> 00:13:48,186
+else.
+
+
+486
+00:13:48,186 --> 00:13:52,146
+So now that we've shown you
+
+
+487
+00:13:52,146 --> 00:13:53,816
+exactly how to use the ARKit API
+
+
+488
+00:13:53,816 --> 00:13:55,196
+with SpriteKit, let's enter
+
+
+489
+00:13:55,196 --> 00:13:57,266
+augmented reality.
+
+
+490
+00:13:58,516 --> 00:14:07,546
+[ Applause ]
+
+
+491
+00:14:08,046 --> 00:14:10,936
+Let's open our app here.
+
+
+492
+00:14:11,126 --> 00:14:12,446
+So we see we're doing our video
+
+
+493
+00:14:12,446 --> 00:14:13,266
+pass through now.
+
+
+494
+00:14:13,266 --> 00:14:15,196
+We can see our lovely audience
+
+
+495
+00:14:15,196 --> 00:14:15,656
+out there.
+
+
+496
+00:14:15,986 --> 00:14:17,046
+You're all famous now.
+
+
+497
+00:14:18,046 --> 00:14:19,456
+So let's start placing some
+
+
+498
+00:14:19,456 --> 00:14:20,956
+content in augmented reality.
+
+
+499
+00:14:21,546 --> 00:14:23,786
+As I tap on my screen I'm
+
+
+500
+00:14:24,596 --> 00:14:28,276
+placing content half a meter out
+
+
+501
+00:14:28,276 --> 00:14:29,196
+in front of me.
+
+
+502
+00:14:29,716 --> 00:14:30,636
+Here I'm just placing
+
+
+503
+00:14:30,826 --> 00:14:32,856
+SKLabelNode's with Emoji.
+
+
+504
+00:14:33,006 --> 00:14:34,896
+Fun fact -- you can use emoji in
+
+
+505
+00:14:34,896 --> 00:14:35,786
+your SpriteKit apps by just
+
+
+506
+00:14:35,786 --> 00:14:36,446
+using labels.
+
+
+507
+00:14:36,556 --> 00:14:37,416
+Just paste them in there.
+
+
+508
+00:14:37,416 --> 00:14:39,446
+And you see they have them
+
+
+509
+00:14:39,576 --> 00:14:40,886
+floating in 3D space.
+
+
+510
+00:14:40,886 --> 00:14:43,786
+And as I move the camera around
+
+
+511
+00:14:45,536 --> 00:14:46,796
+they move relative to one
+
+
+512
+00:14:46,796 --> 00:14:47,136
+another.
+
+
+513
+00:14:47,716 --> 00:14:50,196
+Just placing them in space is a
+
+
+514
+00:14:50,196 --> 00:14:50,936
+little boring.
+
+
+515
+00:14:50,936 --> 00:14:52,926
+I can also place them on a
+
+
+516
+00:14:52,926 --> 00:14:53,506
+surface.
+
+
+517
+00:14:54,746 --> 00:14:57,426
+And it will detect intersection
+
+
+518
+00:14:57,426 --> 00:14:59,756
+with the surface with the
+
+
+519
+00:14:59,756 --> 00:15:00,656
+HitTest method that we were
+
+
+520
+00:15:00,656 --> 00:15:01,566
+talking about before.
+
+
+521
+00:15:01,566 --> 00:15:06,276
+And then it places the emoji on
+
+
+522
+00:15:06,276 --> 00:15:07,526
+the surface of the table that
+
+
+523
+00:15:07,526 --> 00:15:08,026
+it's detected.
+
+
+524
+00:15:08,666 --> 00:15:10,636
+But placing emoji is just a
+
+
+525
+00:15:10,636 --> 00:15:11,786
+little boring.
+
+
+526
+00:15:12,086 --> 00:15:13,296
+So now we're going to switch
+
+
+527
+00:15:13,296 --> 00:15:16,676
+into blasting mode and then we
+
+
+528
+00:15:16,676 --> 00:15:18,636
+can blow up our emoji, which is
+
+
+529
+00:15:19,166 --> 00:15:20,296
+a little bit more fun.
+
+
+530
+00:15:21,486 --> 00:15:23,546
+Also pay attention to the text
+
+
+531
+00:15:23,546 --> 00:15:25,216
+in our -- in the lower left hand
+
+
+532
+00:15:25,216 --> 00:15:27,786
+corner here and the way that our
+
+
+533
+00:15:27,786 --> 00:15:31,146
+emoji are flipping around when
+
+
+534
+00:15:31,146 --> 00:15:32,646
+we destroy them, because that's
+
+
+535
+00:15:32,726 --> 00:15:33,816
+going to become relevant in a
+
+
+536
+00:15:33,816 --> 00:15:34,166
+moment.
+
+
+537
+00:15:34,926 --> 00:15:37,256
+So you see how easy it is to
+
+
+538
+00:15:37,256 --> 00:15:41,156
+quickly create an app and use a
+
+
+539
+00:15:41,156 --> 00:15:43,346
+SpriteKit content to enter
+
+
+540
+00:15:43,346 --> 00:15:44,056
+augmented realty.
+
+
+541
+00:15:44,266 --> 00:15:45,386
+This is just a slightly tweaked
+
+
+542
+00:15:45,386 --> 00:15:47,736
+version of the template app that
+
+
+543
+00:15:47,736 --> 00:15:49,416
+you can create right now using
+
+
+544
+00:15:49,416 --> 00:15:50,066
+Xcode 9.
+
+
+545
+00:15:51,236 --> 00:15:53,526
+And that's SpriteKit with ARKit.
+
+
+546
+00:15:54,516 --> 00:15:58,696
+[ Applause ]
+
+
+547
+00:15:59,196 --> 00:16:00,316
+So you see how easy it is to
+
+
+548
+00:16:00,316 --> 00:16:01,316
+enter augmented reality when
+
+
+549
+00:16:01,316 --> 00:16:02,546
+using ARKit and SpriteKit
+
+
+550
+00:16:02,546 --> 00:16:02,936
+together.
+
+
+551
+00:16:03,746 --> 00:16:04,816
+As I mentioned there are a few
+
+
+552
+00:16:04,816 --> 00:16:06,016
+other SpriteKit features in
+
+
+553
+00:16:06,016 --> 00:16:06,946
+there, some of which that were
+
+
+554
+00:16:06,946 --> 00:16:07,926
+present in the demo that I'd
+
+
+555
+00:16:07,926 --> 00:16:08,716
+like to quickly cover.
+
+
+556
+00:16:10,056 --> 00:16:11,996
+So hopefully you notice the text
+
+
+557
+00:16:11,996 --> 00:16:13,156
+on the bottom of our screen in
+
+
+558
+00:16:13,156 --> 00:16:14,316
+the demo app animating.
+
+
+559
+00:16:14,756 --> 00:16:15,936
+This was done with a single
+
+
+560
+00:16:15,986 --> 00:16:17,306
+SKLabelNode, thanks to the fact
+
+
+561
+00:16:17,306 --> 00:16:18,586
+that they now support attributed
+
+
+562
+00:16:18,586 --> 00:16:19,026
+strings.
+
+
+563
+00:16:20,146 --> 00:16:21,096
+Attributed strings allows you to
+
+
+564
+00:16:21,096 --> 00:16:23,376
+specify the attributes of each
+
+
+565
+00:16:23,376 --> 00:16:25,026
+character in a string, letting
+
+
+566
+00:16:25,026 --> 00:16:26,206
+you mix things like different
+
+
+567
+00:16:26,206 --> 00:16:27,946
+colors and fonts in the same
+
+
+568
+00:16:27,946 --> 00:16:28,326
+label.
+
+
+569
+00:16:28,326 --> 00:16:30,856
+It uses NSAAttributedString and
+
+
+570
+00:16:30,856 --> 00:16:31,976
+all you have to do is set it on
+
+
+571
+00:16:31,976 --> 00:16:34,226
+SKLabelNodes new attributedText
+
+
+572
+00:16:34,226 --> 00:16:34,666
+property.
+
+
+573
+00:16:36,996 --> 00:16:38,816
+The emoji in our augmented
+
+
+574
+00:16:38,816 --> 00:16:40,026
+reality apps spun about in ways
+
+
+575
+00:16:40,026 --> 00:16:41,276
+that weren't possible until now
+
+
+576
+00:16:41,276 --> 00:16:42,316
+thanks to the new
+
+
+577
+00:16:42,316 --> 00:16:43,096
+SKTransformNode.
+
+
+578
+00:16:44,556 --> 00:16:46,886
+SKNode already had z rotation,
+
+
+579
+00:16:47,746 --> 00:16:49,176
+but SKTransformNode adds the
+
+
+580
+00:16:49,176 --> 00:16:50,436
+ability for you to rotate around
+
+
+581
+00:16:50,436 --> 00:16:52,326
+the x and y-axis as well.
+
+
+582
+00:16:53,096 --> 00:16:54,646
+Aligned for full 3D rotations
+
+
+583
+00:16:54,646 --> 00:16:55,706
+for SpriteKit content.
+
+
+584
+00:16:56,526 --> 00:16:58,116
+And these rotations apply to all
+
+
+585
+00:16:58,116 --> 00:16:59,006
+child nodes as well.
+
+
+586
+00:17:00,006 --> 00:17:01,736
+SKTransformNode uses
+
+
+587
+00:17:01,736 --> 00:17:02,956
+orthographic projection.
+
+
+588
+00:17:03,256 --> 00:17:04,205
+So it doesn't apply any
+
+
+589
+00:17:04,266 --> 00:17:05,316
+perspective skewing to your
+
+
+590
+00:17:05,316 --> 00:17:05,846
+nodes.
+
+
+591
+00:17:06,736 --> 00:17:08,156
+You can specify your rotations
+
+
+592
+00:17:08,156 --> 00:17:10,106
+through the x, y, and z rotation
+
+
+593
+00:17:10,106 --> 00:17:11,705
+properties or you can use a
+
+
+594
+00:17:11,705 --> 00:17:12,866
+specialized getters and setters
+
+
+595
+00:17:12,866 --> 00:17:14,606
+for Euler angles, rotation
+
+
+596
+00:17:14,806 --> 00:17:18,185
+matrices, and quaternions.
+
+
+597
+00:17:18,616 --> 00:17:19,636
+Finally, on the ender side of
+
+
+598
+00:17:19,675 --> 00:17:20,856
+things, SpriteKit is fully
+
+
+599
+00:17:20,856 --> 00:17:22,766
+compatible with Xcode's View
+
+
+600
+00:17:22,766 --> 00:17:23,205
+Debugger.
+
+
+601
+00:17:24,175 --> 00:17:25,415
+It displays the entire scene
+
+
+602
+00:17:25,415 --> 00:17:26,796
+graph and gives you the neat
+
+
+603
+00:17:26,796 --> 00:17:28,476
+exploded 3D view of your scene,
+
+
+604
+00:17:28,806 --> 00:17:29,926
+which can be a great help when
+
+
+605
+00:17:29,926 --> 00:17:31,676
+you're trying to debug layout --
+
+
+606
+00:17:31,676 --> 00:17:33,176
+content layout issues.
+
+
+607
+00:17:33,416 --> 00:17:34,726
+It also allows you to inspect
+
+
+608
+00:17:34,726 --> 00:17:35,946
+all of your node properties so
+
+
+609
+00:17:36,286 --> 00:17:37,096
+you can see the state of
+
+
+610
+00:17:37,096 --> 00:17:38,026
+everything in your scene as the
+
+
+611
+00:17:38,026 --> 00:17:39,216
+moment the app was paused.
+
+
+612
+00:17:39,556 --> 00:17:40,836
+This is a really great new
+
+
+613
+00:17:40,836 --> 00:17:41,816
+feature, so please check out the
+
+
+614
+00:17:41,816 --> 00:17:43,136
+debugging with Xcode 9 session
+
+
+615
+00:17:43,136 --> 00:17:44,726
+for more information on it.
+
+
+616
+00:17:46,356 --> 00:17:48,116
+We've shown you how quick and
+
+
+617
+00:17:48,116 --> 00:17:49,976
+easy it is to get started with
+
+
+618
+00:17:49,976 --> 00:17:51,736
+using ARKit and SpriteKit to
+
+
+619
+00:17:51,736 --> 00:17:53,256
+create an augmented reality app.
+
+
+620
+00:17:54,206 --> 00:17:55,586
+ARKit handles all of the hard
+
+
+621
+00:17:55,586 --> 00:17:56,916
+parts of augmented reality for
+
+
+622
+00:17:56,916 --> 00:17:58,636
+you and SpriteKit makes
+
+
+623
+00:17:58,636 --> 00:17:59,916
+rendering content a snap.
+
+
+624
+00:18:01,606 --> 00:18:02,396
+We've also introduced new
+
+
+625
+00:18:02,396 --> 00:18:03,566
+features to SpriteKit that give
+
+
+626
+00:18:03,566 --> 00:18:04,716
+you greater flexibility in
+
+
+627
+00:18:04,716 --> 00:18:05,906
+developing your apps and give
+
+
+628
+00:18:05,906 --> 00:18:07,206
+you new options for debugging
+
+
+629
+00:18:07,206 --> 00:18:08,036
+SpriteKit content.
+
+
+630
+00:18:08,726 --> 00:18:12,116
+But you may have a few lingering
+
+
+631
+00:18:12,116 --> 00:18:12,786
+questions.
+
+
+632
+00:18:13,196 --> 00:18:14,036
+What if we don't want
+
+
+633
+00:18:14,036 --> 00:18:15,066
+billboarded sprites?
+
+
+634
+00:18:15,636 --> 00:18:16,736
+What if we want our SpriteKit
+
+
+635
+00:18:16,736 --> 00:18:17,636
+content to be effective by
+
+
+636
+00:18:17,636 --> 00:18:18,156
+perspective?
+
+
+637
+00:18:18,156 --> 00:18:21,886
+What if we want to mix 2D and 3D
+
+
+638
+00:18:22,126 --> 00:18:23,596
+content in augmented reality?
+
+
+639
+00:18:24,286 --> 00:18:26,236
+What if wanted to take SpriteKit
+
+
+640
+00:18:26,236 --> 00:18:27,216
+further into 3D?
+
+
+641
+00:18:29,056 --> 00:18:31,186
+The answer lies in combining
+
+
+642
+00:18:31,186 --> 00:18:33,236
+SceneKit, SpriteKit, and ARKit
+
+
+643
+00:18:33,536 --> 00:18:36,206
+all at once.
+
+
+644
+00:18:36,736 --> 00:18:38,286
+SceneKit and SpriteKit's 3D
+
+
+645
+00:18:38,286 --> 00:18:40,046
+counterpart, it's a ready to use
+
+
+646
+00:18:40,076 --> 00:18:41,626
+3D engine with it's own Xcode
+
+
+647
+00:18:41,626 --> 00:18:42,866
+integrated live editor.
+
+
+648
+00:18:43,866 --> 00:18:44,956
+What you may not know is that
+
+
+649
+00:18:44,956 --> 00:18:47,576
+you can use SpriteKit Scenes as
+
+
+650
+00:18:47,576 --> 00:18:49,296
+the material on geometry in
+
+
+651
+00:18:49,296 --> 00:18:49,876
+SceneKit.
+
+
+652
+00:18:50,796 --> 00:18:51,556
+That allows you to render
+
+
+653
+00:18:51,556 --> 00:18:53,326
+SpriteKit content with complex
+
+
+654
+00:18:53,326 --> 00:18:54,936
+3D transforms and perspective
+
+
+655
+00:18:54,936 --> 00:18:55,276
+effect.
+
+
+656
+00:18:56,306 --> 00:18:57,726
+Additionally you can easily mix
+
+
+657
+00:18:57,726 --> 00:18:59,506
+2D SpriteKit content with 3D
+
+
+658
+00:18:59,936 --> 00:19:04,176
+SceneKit content in the same
+
+
+659
+00:19:04,256 --> 00:19:04,506
+context.
+
+
+660
+00:19:04,936 --> 00:19:06,326
+Like SpriteKit, SceneKit is also
+
+
+661
+00:19:06,326 --> 00:19:08,476
+integrated with ARKit, creating
+
+
+662
+00:19:08,476 --> 00:19:10,456
+a project that uses SceneKit in
+
+
+663
+00:19:10,456 --> 00:19:12,286
+an augmented reality app is the
+
+
+664
+00:19:12,286 --> 00:19:13,346
+same as with SpriteKit.
+
+
+665
+00:19:14,296 --> 00:19:15,376
+Just change the content
+
+
+666
+00:19:15,376 --> 00:19:16,696
+technology to SceneKit.
+
+
+667
+00:19:17,146 --> 00:19:21,386
+The API is designed to be very
+
+
+668
+00:19:21,386 --> 00:19:22,436
+similar to the one you use with
+
+
+669
+00:19:22,436 --> 00:19:22,906
+SpriteKit.
+
+
+670
+00:19:23,196 --> 00:19:24,836
+Only the names of few objects
+
+
+671
+00:19:25,456 --> 00:19:27,496
+are different.
+
+
+672
+00:19:27,496 --> 00:19:30,226
+ARSKView becomes ARSCNView and
+
+
+673
+00:19:30,226 --> 00:19:31,726
+ARSKViewDelegate becomes
+
+
+674
+00:19:31,786 --> 00:19:32,936
+ARSCNViewDelegate.
+
+
+675
+00:19:33,856 --> 00:19:34,866
+As with SpriteKit the template
+
+
+676
+00:19:34,896 --> 00:19:37,026
+creates ARSCNView for you and
+
+
+677
+00:19:37,026 --> 00:19:38,606
+the ViewController conforms to
+
+
+678
+00:19:38,606 --> 00:19:39,636
+ARSCNViewDelegate.
+
+
+679
+00:19:40,376 --> 00:19:41,596
+Now in the interest in brevity
+
+
+680
+00:19:41,596 --> 00:19:42,456
+and because the API is so
+
+
+681
+00:19:42,456 --> 00:19:43,416
+similar, we won't bother
+
+
+682
+00:19:43,416 --> 00:19:44,186
+covering the rest here.
+
+
+683
+00:19:44,886 --> 00:19:48,356
+So next we want to get out
+
+
+684
+00:19:48,356 --> 00:19:49,596
+SpriteKit content rendering
+
+
+685
+00:19:49,596 --> 00:19:50,656
+within a SceneKit scene.
+
+
+686
+00:19:51,596 --> 00:19:53,226
+Normally with SpriteKit you have
+
+
+687
+00:19:53,226 --> 00:19:54,816
+your scene and you set it on an
+
+
+688
+00:19:54,816 --> 00:19:55,296
+SKView.
+
+
+689
+00:19:56,256 --> 00:19:58,406
+SKView then works with UIKit or
+
+
+690
+00:19:58,406 --> 00:20:00,386
+AppKit on Mac OS to get your
+
+
+691
+00:20:00,386 --> 00:20:03,236
+content on screen.
+
+
+692
+00:20:04,046 --> 00:20:04,886
+To get your content rendering in
+
+
+693
+00:20:05,036 --> 00:20:06,336
+SceneKit things are handled a
+
+
+694
+00:20:06,336 --> 00:20:07,076
+little differently.
+
+
+695
+00:20:07,726 --> 00:20:08,856
+Instead of setting your scene on
+
+
+696
+00:20:08,856 --> 00:20:10,406
+the view, you set it on the
+
+
+697
+00:20:10,406 --> 00:20:11,986
+material property of the
+
+
+698
+00:20:11,986 --> 00:20:13,056
+geometry on which you want the
+
+
+699
+00:20:13,056 --> 00:20:14,906
+SpriteKit content to appear.
+
+
+700
+00:20:14,906 --> 00:20:17,336
+And then that material works
+
+
+701
+00:20:17,336 --> 00:20:18,786
+with SceneKit to render you
+
+
+702
+00:20:18,786 --> 00:20:20,346
+SpriteKit content and then
+
+
+703
+00:20:20,346 --> 00:20:22,026
+texture map it onto the geometry
+
+
+704
+00:20:22,116 --> 00:20:23,276
+the material is associated with.
+
+
+705
+00:20:23,456 --> 00:20:27,566
+So let's go over a few examples
+
+
+706
+00:20:27,566 --> 00:20:29,086
+of rendering SpriteKit content
+
+
+707
+00:20:29,206 --> 00:20:30,426
+on SceneKit Geometry.
+
+
+708
+00:20:31,306 --> 00:20:32,856
+Here was have a basic SpriteKit
+
+
+709
+00:20:32,856 --> 00:20:33,226
+scene.
+
+
+710
+00:20:33,826 --> 00:20:35,866
+And here's what we get when we
+
+
+711
+00:20:35,866 --> 00:20:37,426
+render that on a scene on a
+
+
+712
+00:20:37,426 --> 00:20:39,226
+plane in scene kit.
+
+
+713
+00:20:40,996 --> 00:20:42,606
+We also apply the SpriteKit's
+
+
+714
+00:20:42,606 --> 00:20:45,366
+scene to a cube or even a
+
+
+715
+00:20:45,366 --> 00:20:45,766
+sphere.
+
+
+716
+00:20:45,856 --> 00:20:47,286
+You can use it just like a
+
+
+717
+00:20:47,286 --> 00:20:48,756
+regular texture and the
+
+
+718
+00:20:48,756 --> 00:20:49,906
+SpriteKit -- as the SpriteKit
+
+
+719
+00:20:49,906 --> 00:20:51,416
+scene updates, your texture will
+
+
+720
+00:20:51,416 --> 00:20:52,906
+be updated along with it.
+
+
+721
+00:20:54,536 --> 00:20:56,226
+So now I'd like to quickly show
+
+
+722
+00:20:56,226 --> 00:20:57,476
+you how easy it is to use
+
+
+723
+00:20:57,476 --> 00:20:58,856
+SpriteKit with SceneKit.
+
+
+724
+00:21:00,986 --> 00:21:03,056
+First, get the SpriteKit scene
+
+
+725
+00:21:03,056 --> 00:21:04,316
+that you want to use in
+
+
+726
+00:21:04,316 --> 00:21:04,766
+SceneKit.
+
+
+727
+00:21:05,366 --> 00:21:08,766
+Next, create the geometry you
+
+
+728
+00:21:08,766 --> 00:21:09,856
+want the SpriteKit scene to be
+
+
+729
+00:21:09,856 --> 00:21:10,356
+rendered on.
+
+
+730
+00:21:11,086 --> 00:21:12,246
+Here we're creating a simple
+
+
+731
+00:21:12,246 --> 00:21:12,686
+plane.
+
+
+732
+00:21:14,416 --> 00:21:16,466
+Then you just need to set the
+
+
+733
+00:21:16,466 --> 00:21:17,996
+SpriteKit scene as the contents
+
+
+734
+00:21:17,996 --> 00:21:19,556
+of the diffuse property of the
+
+
+735
+00:21:19,556 --> 00:21:20,386
+planes material.
+
+
+736
+00:21:21,356 --> 00:21:22,726
+That will cause the SceneKit to
+
+
+737
+00:21:22,726 --> 00:21:23,766
+render the SpriteKit Scene to a
+
+
+738
+00:21:23,766 --> 00:21:25,496
+texture and then apply it to the
+
+
+739
+00:21:25,496 --> 00:21:25,996
+geometry.
+
+
+740
+00:21:25,996 --> 00:21:30,686
+Here we're setting the material
+
+
+741
+00:21:30,686 --> 00:21:31,796
+to be double-sided.
+
+
+742
+00:21:32,286 --> 00:21:33,416
+This causes the SpriteKit Scene
+
+
+743
+00:21:33,416 --> 00:21:34,756
+to appear on both sides of the
+
+
+744
+00:21:34,756 --> 00:21:35,156
+plane.
+
+
+745
+00:21:35,786 --> 00:21:38,826
+Then we just need to create a
+
+
+746
+00:21:38,866 --> 00:21:40,196
+SceneKit node for the plane and
+
+
+747
+00:21:40,196 --> 00:21:44,146
+add it to the SceneKit scene.
+
+
+748
+00:21:44,696 --> 00:21:45,606
+Now the plane will show up in
+
+
+749
+00:21:45,606 --> 00:21:46,716
+the scene with the contents of
+
+
+750
+00:21:46,716 --> 00:21:48,156
+your SpriteKit scene texture
+
+
+751
+00:21:48,156 --> 00:21:49,746
+mapped onto it.
+
+
+752
+00:21:51,236 --> 00:21:53,176
+So now I'd like to show you demo
+
+
+753
+00:21:53,176 --> 00:21:54,226
+of some of the things you can do
+
+
+754
+00:21:54,226 --> 00:21:55,256
+when you use SpriteKit and
+
+
+755
+00:21:55,256 --> 00:21:56,746
+SceneKit together with ARKit.
+
+
+756
+00:21:58,516 --> 00:22:08,036
+[ Applause ]
+
+
+757
+00:22:08,536 --> 00:22:08,926
+All right.
+
+
+758
+00:22:11,216 --> 00:22:13,476
+So here I have a demo that I've
+
+
+759
+00:22:13,476 --> 00:22:16,546
+built on top of the sample code
+
+
+760
+00:22:16,546 --> 00:22:18,036
+that ARKit has released, that
+
+
+761
+00:22:18,036 --> 00:22:19,286
+you can find to their session
+
+
+762
+00:22:19,286 --> 00:22:19,766
+website.
+
+
+763
+00:22:19,766 --> 00:22:23,006
+And here I just is detecting a
+
+
+764
+00:22:23,006 --> 00:22:23,896
+plane for us.
+
+
+765
+00:22:24,406 --> 00:22:27,116
+Now if I tap on the screen it
+
+
+766
+00:22:27,116 --> 00:22:29,696
+places a SpriteKit scene for us
+
+
+767
+00:22:29,696 --> 00:22:30,416
+in the world here.
+
+
+768
+00:22:30,576 --> 00:22:32,666
+And you see that this a fully
+
+
+769
+00:22:32,666 --> 00:22:34,166
+live SpriteKit scene.
+
+
+770
+00:22:34,166 --> 00:22:35,926
+You see the trees are animating.
+
+
+771
+00:22:36,346 --> 00:22:38,936
+And in fact I can actually
+
+
+772
+00:22:38,936 --> 00:22:40,286
+interact with this directly.
+
+
+773
+00:22:40,326 --> 00:22:41,796
+Well, here let's actually --
+
+
+774
+00:22:41,796 --> 00:22:44,346
+let's blow it up a little bit.
+
+
+775
+00:22:44,346 --> 00:22:45,756
+Since we are in 3D we can do all
+
+
+776
+00:22:45,756 --> 00:22:46,536
+kinds of cool things.
+
+
+777
+00:22:46,536 --> 00:22:48,316
+We can move this guy around, we
+
+
+778
+00:22:48,696 --> 00:22:51,286
+can rotate, and we can scale,
+
+
+779
+00:22:51,286 --> 00:22:53,216
+make it a little bigger.
+
+
+780
+00:22:54,056 --> 00:22:55,786
+So now I can actually interact
+
+
+781
+00:22:55,786 --> 00:22:56,726
+with this scene directly.
+
+
+782
+00:22:56,726 --> 00:22:58,686
+I have controls on my device
+
+
+783
+00:22:58,686 --> 00:23:00,986
+here, I can move my character
+
+
+784
+00:23:00,986 --> 00:23:03,166
+around, you can jump around.
+
+
+785
+00:23:04,476 --> 00:23:06,336
+Hard to get over that thing.
+
+
+786
+00:23:06,696 --> 00:23:07,816
+Yeah. And so we can jump around
+
+
+787
+00:23:07,816 --> 00:23:09,576
+in real time, interact with this
+
+
+788
+00:23:09,576 --> 00:23:10,716
+just like a normal SpriteKit
+
+
+789
+00:23:10,716 --> 00:23:12,996
+scene rendered in 3D.
+
+
+790
+00:23:13,856 --> 00:23:15,236
+But just having it sit here on
+
+
+791
+00:23:15,236 --> 00:23:16,886
+the surface is a little boring.
+
+
+792
+00:23:17,086 --> 00:23:17,986
+We should do something a little
+
+
+793
+00:23:17,986 --> 00:23:19,076
+more interesting, it a little
+
+
+794
+00:23:19,076 --> 00:23:19,936
+more 3D.
+
+
+795
+00:23:20,336 --> 00:23:21,466
+So if I actually touch this
+
+
+796
+00:23:21,466 --> 00:23:24,046
+button up here, the scene flips
+
+
+797
+00:23:24,046 --> 00:23:26,396
+up and --
+
+
+798
+00:23:27,516 --> 00:23:30,576
+[ Applause ]
+
+
+799
+00:23:31,076 --> 00:23:32,946
+If I touch it again it separates
+
+
+800
+00:23:32,946 --> 00:23:34,146
+the different layers that I have
+
+
+801
+00:23:34,146 --> 00:23:34,436
+in here.
+
+
+802
+00:23:34,436 --> 00:23:35,566
+So we don't actually have just
+
+
+803
+00:23:35,606 --> 00:23:36,706
+one SpriteKit scene --
+
+
+804
+00:23:37,516 --> 00:23:40,546
+[ Applause ]
+
+
+805
+00:23:41,046 --> 00:23:41,706
+We actually have three
+
+
+806
+00:23:41,706 --> 00:23:42,706
+SpriteKit's scenes here, one for
+
+
+807
+00:23:42,706 --> 00:23:43,276
+each layer here.
+
+
+808
+00:23:43,276 --> 00:23:44,866
+One for the middle -- front,
+
+
+809
+00:23:44,866 --> 00:23:46,136
+middle, and background.
+
+
+810
+00:23:47,616 --> 00:23:49,436
+So this shows you the kind of
+
+
+811
+00:23:49,436 --> 00:23:50,546
+stuff that you can do when you
+
+
+812
+00:23:50,546 --> 00:23:51,756
+use SpriteKit and SceneKit
+
+
+813
+00:23:51,756 --> 00:23:54,346
+together with ARKit but maybe
+
+
+814
+00:23:54,346 --> 00:23:55,366
+you start to feel a little
+
+
+815
+00:23:55,366 --> 00:23:58,336
+constrained by the level here.
+
+
+816
+00:23:59,146 --> 00:24:00,356
+And maybe we want to have our
+
+
+817
+00:24:00,356 --> 00:24:02,176
+little guy go out on an
+
+
+818
+00:24:02,176 --> 00:24:02,946
+adventure on his own.
+
+
+819
+00:24:03,116 --> 00:24:03,906
+He can run out into the real
+
+
+820
+00:24:03,906 --> 00:24:04,386
+world here.
+
+
+821
+00:24:04,656 --> 00:24:06,576
+Oh this button looks kind of
+
+
+822
+00:24:06,576 --> 00:24:07,056
+tempting.
+
+
+823
+00:24:09,446 --> 00:24:11,216
+Yay.
+
+
+824
+00:24:12,516 --> 00:24:18,556
+[ Applause ]
+
+
+825
+00:24:19,056 --> 00:24:19,826
+So that gives you an idea of
+
+
+826
+00:24:19,826 --> 00:24:20,736
+what you can do when you use
+
+
+827
+00:24:20,736 --> 00:24:22,606
+SpriteKit in a 3D context with
+
+
+828
+00:24:22,606 --> 00:24:24,586
+SceneKit together with ARKit.
+
+
+829
+00:24:27,306 --> 00:24:28,946
+So as you saw using SpriteKit
+
+
+830
+00:24:28,946 --> 00:24:30,156
+with SceneKit allows for full 3D
+
+
+831
+00:24:30,156 --> 00:24:31,456
+transforms and perspective,
+
+
+832
+00:24:31,756 --> 00:24:32,436
+which allows you to do some
+
+
+833
+00:24:32,436 --> 00:24:33,216
+pretty neat things.
+
+
+834
+00:24:33,836 --> 00:24:35,376
+It allows you to mix 2D and 3D
+
+
+835
+00:24:35,376 --> 00:24:36,926
+content within the same context
+
+
+836
+00:24:37,516 --> 00:24:38,926
+and it's fully compatible with
+
+
+837
+00:24:38,926 --> 00:24:41,116
+the ARKit and it works great in
+
+
+838
+00:24:41,116 --> 00:24:42,286
+general 3D apps as well.
+
+
+839
+00:24:42,286 --> 00:24:46,556
+So now that we've covered how to
+
+
+840
+00:24:46,556 --> 00:24:48,176
+work with ARKit and SceneKit, I
+
+
+841
+00:24:48,176 --> 00:24:49,106
+would like to introduce you to a
+
+
+842
+00:24:49,106 --> 00:24:50,646
+another new SpriteKit feature --
+
+
+843
+00:24:51,086 --> 00:24:51,976
+SKRenderer.
+
+
+844
+00:24:53,136 --> 00:24:56,056
+Let's talk a bit about how
+
+
+845
+00:24:56,056 --> 00:24:57,496
+SpriteKit works under the hood.
+
+
+846
+00:24:58,376 --> 00:24:59,006
+As we've mentioned in the
+
+
+847
+00:24:59,006 --> 00:25:00,796
+previous section, with normal
+
+
+848
+00:25:00,796 --> 00:25:02,046
+SpriteKit Rendering you have
+
+
+849
+00:25:02,046 --> 00:25:03,616
+your scene and you set it on an
+
+
+850
+00:25:03,616 --> 00:25:05,566
+SKView, which then works with
+
+
+851
+00:25:05,566 --> 00:25:07,736
+UIKit and AppKit to get your
+
+
+852
+00:25:07,736 --> 00:25:09,046
+content on the screen.
+
+
+853
+00:25:10,296 --> 00:25:11,346
+SKView handles all of the
+
+
+854
+00:25:11,346 --> 00:25:12,826
+updating and rendering for you.
+
+
+855
+00:25:13,926 --> 00:25:14,796
+The upside of this is that it
+
+
+856
+00:25:14,796 --> 00:25:15,906
+makes it very easy to get
+
+
+857
+00:25:15,906 --> 00:25:16,826
+started with SpriteKit.
+
+
+858
+00:25:17,736 --> 00:25:18,666
+But what if you want to render
+
+
+859
+00:25:18,666 --> 00:25:20,256
+SpriteKit content in a 3D
+
+
+860
+00:25:20,256 --> 00:25:20,776
+context?
+
+
+861
+00:25:21,516 --> 00:25:24,276
+One solution as we showed you is
+
+
+862
+00:25:24,546 --> 00:25:26,306
+to use SpriteKit with SceneKit.
+
+
+863
+00:25:26,806 --> 00:25:28,356
+Instead of setting your scene on
+
+
+864
+00:25:28,356 --> 00:25:29,586
+the view, you use it as a
+
+
+865
+00:25:29,586 --> 00:25:31,056
+material in SceneKit.
+
+
+866
+00:25:31,936 --> 00:25:33,006
+And this let's you do all kinds
+
+
+867
+00:25:33,006 --> 00:25:33,616
+of cool stuff.
+
+
+868
+00:25:33,616 --> 00:25:35,976
+But when SpriteKit updates and
+
+
+869
+00:25:35,976 --> 00:25:37,226
+renders is still out of your
+
+
+870
+00:25:37,226 --> 00:25:37,796
+hands.
+
+
+871
+00:25:38,796 --> 00:25:40,896
+What if you want more control?
+
+
+872
+00:25:41,436 --> 00:25:42,416
+Maybe you want to update with
+
+
+873
+00:25:42,416 --> 00:25:45,396
+exact fixed time steps or update
+
+
+874
+00:25:45,396 --> 00:25:46,756
+without rendering or render
+
+
+875
+00:25:46,756 --> 00:25:48,866
+without updating or update once
+
+
+876
+00:25:48,866 --> 00:25:50,346
+and render twice, each time from
+
+
+877
+00:25:50,346 --> 00:25:51,076
+a different viewpoint.
+
+
+878
+00:25:52,286 --> 00:25:53,596
+What if we wanted to work
+
+
+879
+00:25:53,596 --> 00:25:56,186
+directly with Metal?
+
+
+880
+00:25:56,306 --> 00:25:57,676
+Enter SKRenderer.
+
+
+881
+00:26:00,026 --> 00:26:02,026
+You use it instead of SKView to
+
+
+882
+00:26:02,026 --> 00:26:03,196
+gain more control over
+
+
+883
+00:26:03,196 --> 00:26:03,866
+SpriteKit.
+
+
+884
+00:26:04,686 --> 00:26:07,986
+Like SKView, to use it you just
+
+
+885
+00:26:07,986 --> 00:26:09,926
+set it your scene -- you set
+
+
+886
+00:26:09,926 --> 00:26:10,876
+your scene on it on the
+
+
+887
+00:26:10,876 --> 00:26:11,236
+renderer.
+
+
+888
+00:26:11,886 --> 00:26:13,196
+Unlike SKView however,
+
+
+889
+00:26:13,526 --> 00:26:15,026
+SKRenderer let's you determine
+
+
+890
+00:26:15,026 --> 00:26:16,586
+when SpriteKit performs updating
+
+
+891
+00:26:16,586 --> 00:26:17,176
+and rendering.
+
+
+892
+00:26:18,136 --> 00:26:19,326
+It allows you to work directly
+
+
+893
+00:26:19,326 --> 00:26:20,956
+with Metal and then you can do
+
+
+894
+00:26:20,956 --> 00:26:22,326
+things like render SpriteKit
+
+
+895
+00:26:22,326 --> 00:26:23,436
+into an off screen texture to
+
+
+896
+00:26:23,656 --> 00:26:24,526
+use however you want.
+
+
+897
+00:26:25,466 --> 00:26:26,956
+This by the way is how SceneKit
+
+
+898
+00:26:26,956 --> 00:26:28,596
+is able to efficiently render
+
+
+899
+00:26:28,596 --> 00:26:30,356
+SpriteKit content in 3D.
+
+
+900
+00:26:30,386 --> 00:26:32,396
+It uses SKRenderer under the
+
+
+901
+00:26:32,966 --> 00:26:33,086
+hood.
+
+
+902
+00:26:34,716 --> 00:26:36,486
+There are four stages to using
+
+
+903
+00:26:36,556 --> 00:26:38,666
+SKRenderer -- initialization,
+
+
+904
+00:26:39,136 --> 00:26:41,756
+setting the scene, updating, and
+
+
+905
+00:26:41,756 --> 00:26:42,116
+rendering.
+
+
+906
+00:26:43,296 --> 00:26:44,616
+Initialization occurs once.
+
+
+907
+00:26:45,256 --> 00:26:46,406
+You set your scene at the start
+
+
+908
+00:26:46,406 --> 00:26:47,516
+and again we want the transition
+
+
+909
+00:26:47,516 --> 00:26:49,666
+to a new scene and update and
+
+
+910
+00:26:49,666 --> 00:26:51,386
+renderer repeat every frame in
+
+
+911
+00:26:51,386 --> 00:26:51,626
+your app.
+
+
+912
+00:26:51,626 --> 00:26:54,846
+Let's look at some code for each
+
+
+913
+00:26:55,706 --> 00:26:57,416
+of these stages.
+
+
+914
+00:26:57,506 --> 00:26:59,206
+Stage one Initialization.
+
+
+915
+00:26:59,756 --> 00:27:01,796
+To initialize SKRenderer, all
+
+
+916
+00:27:01,796 --> 00:27:02,716
+you need to do is provide it
+
+
+917
+00:27:02,836 --> 00:27:05,906
+with a Metal device.
+
+
+918
+00:27:06,656 --> 00:27:08,656
+Stage Two, setting the scene.
+
+
+919
+00:27:09,346 --> 00:27:10,556
+This works exactly the same as
+
+
+920
+00:27:10,556 --> 00:27:12,076
+with SKView, just that your
+
+
+921
+00:27:12,076 --> 00:27:13,726
+scene on SKRenderer's scene
+
+
+922
+00:27:13,726 --> 00:27:14,116
+property.
+
+
+923
+00:27:17,376 --> 00:27:18,866
+Stage Three, updating.
+
+
+924
+00:27:19,596 --> 00:27:21,096
+Also very simple, all you need
+
+
+925
+00:27:21,096 --> 00:27:23,386
+to do is pass in the current
+
+
+926
+00:27:25,176 --> 00:27:25,286
+time.
+
+
+927
+00:27:25,806 --> 00:27:27,166
+Stage four, rendering.
+
+
+928
+00:27:27,776 --> 00:27:28,676
+This is done by calling the
+
+
+929
+00:27:28,676 --> 00:27:29,786
+render method of which there are
+
+
+930
+00:27:29,786 --> 00:27:30,516
+two flavors.
+
+
+931
+00:27:31,266 --> 00:27:32,286
+Which one you want to use is
+
+
+932
+00:27:32,326 --> 00:27:33,446
+situational, depending on how
+
+
+933
+00:27:33,446 --> 00:27:34,776
+you want to use your SpriteKit
+
+
+934
+00:27:34,776 --> 00:27:35,816
+content with Metal.
+
+
+935
+00:27:36,506 --> 00:27:39,346
+Both methods ask you to specify
+
+
+936
+00:27:39,376 --> 00:27:40,466
+your viewport you like to render
+
+
+937
+00:27:40,466 --> 00:27:42,106
+into, which is just the CGrect
+
+
+938
+00:27:42,146 --> 00:27:43,076
+that defines the area of
+
+
+939
+00:27:43,076 --> 00:27:45,026
+SpriteKit will draw into in the
+
+
+940
+00:27:45,026 --> 00:27:48,456
+render target.
+
+
+941
+00:27:49,296 --> 00:27:50,886
+And they both take a Metal
+
+
+942
+00:27:50,886 --> 00:27:51,986
+render pass descriptor, which
+
+
+943
+00:27:51,986 --> 00:27:53,266
+describes that render target
+
+
+944
+00:27:53,266 --> 00:27:54,476
+that you want the SpriteKit
+
+
+945
+00:27:54,476 --> 00:27:58,616
+content to draw into.
+
+
+946
+00:27:59,076 --> 00:28:00,246
+Now the first method allows you
+
+
+947
+00:28:00,246 --> 00:28:01,986
+to specify the command buffer to
+
+
+948
+00:28:01,986 --> 00:28:03,346
+which SpriteKit will schedule
+
+
+949
+00:28:03,576 --> 00:28:04,376
+rendering commands.
+
+
+950
+00:28:05,396 --> 00:28:06,436
+A good case in which to call
+
+
+951
+00:28:06,436 --> 00:28:07,366
+this method is if you're not
+
+
+952
+00:28:07,446 --> 00:28:08,956
+directly mixing SpriteKit
+
+
+953
+00:28:08,956 --> 00:28:10,726
+content with other Metal content
+
+
+954
+00:28:10,846 --> 00:28:11,966
+in the same render target.
+
+
+955
+00:28:12,576 --> 00:28:13,646
+If you want to render a
+
+
+956
+00:28:13,646 --> 00:28:15,086
+SpriteKit scene into a texture
+
+
+957
+00:28:15,086 --> 00:28:16,176
+and then apply it through some
+
+
+958
+00:28:16,176 --> 00:28:17,846
+3D geometry like we did in the
+
+
+959
+00:28:17,846 --> 00:28:19,196
+second demo we showed you this
+
+
+960
+00:28:19,406 --> 00:28:20,326
+is the method you'd want to
+
+
+961
+00:28:20,326 --> 00:28:20,556
+call.
+
+
+962
+00:28:23,196 --> 00:28:25,276
+The second method gives you more
+
+
+963
+00:28:25,276 --> 00:28:26,656
+granularity by allowing you to
+
+
+964
+00:28:26,656 --> 00:28:28,956
+direct which render command
+
+
+965
+00:28:28,956 --> 00:28:30,516
+encoder SpriteKit will encode
+
+
+966
+00:28:30,566 --> 00:28:31,356
+its render commands.
+
+
+967
+00:28:31,886 --> 00:28:33,136
+This is good if you want to
+
+
+968
+00:28:33,136 --> 00:28:34,486
+directly mix SpriteKit and metal
+
+
+969
+00:28:34,486 --> 00:28:35,966
+content in the same render
+
+
+970
+00:28:35,966 --> 00:28:36,376
+target.
+
+
+971
+00:28:36,936 --> 00:28:38,326
+So you want to render some 2D
+
+
+972
+00:28:38,326 --> 00:28:39,636
+Metal content along with your
+
+
+973
+00:28:39,636 --> 00:28:41,266
+SpriteKit content or maybe you
+
+
+974
+00:28:41,266 --> 00:28:43,036
+want to overlay SpriteKit on top
+
+
+975
+00:28:43,036 --> 00:28:44,456
+of a Metal scene to display HUD
+
+
+976
+00:28:44,456 --> 00:28:44,966
+elements.
+
+
+977
+00:28:45,706 --> 00:28:47,116
+By using the same render command
+
+
+978
+00:28:47,116 --> 00:28:48,436
+and coder, you can do this much
+
+
+979
+00:28:48,436 --> 00:28:49,366
+more efficiently than if you
+
+
+980
+00:28:49,366 --> 00:28:50,376
+were using the first method.
+
+
+981
+00:28:50,376 --> 00:28:54,356
+All right, that's enough of an
+
+
+982
+00:28:54,356 --> 00:28:55,076
+API crawl.
+
+
+983
+00:28:55,346 --> 00:28:56,286
+Let's jump into a quick demo
+
+
+984
+00:28:56,286 --> 00:28:57,366
+showing SpriteKit rendering in
+
+
+985
+00:28:57,366 --> 00:28:59,986
+3D with Metal.
+
+
+986
+00:29:01,516 --> 00:29:08,836
+[ Applause ]
+
+
+987
+00:29:09,336 --> 00:29:11,986
+SO here we have a 3D scene in
+
+
+988
+00:29:11,986 --> 00:29:12,416
+Metal.
+
+
+989
+00:29:13,136 --> 00:29:14,446
+See we've got some nice lighting
+
+
+990
+00:29:14,446 --> 00:29:16,626
+and some shadows going on here
+
+
+991
+00:29:16,936 --> 00:29:18,246
+and we have this very tempting
+
+
+992
+00:29:18,246 --> 00:29:20,566
+looking arcade cabinet with our
+
+
+993
+00:29:20,866 --> 00:29:22,176
+beautiful SpriteKit framework
+
+
+994
+00:29:22,176 --> 00:29:22,766
+logo on it.
+
+
+995
+00:29:23,896 --> 00:29:26,996
+We walk up to it, Insert Coin,
+
+
+996
+00:29:27,296 --> 00:29:28,296
+that sounds like of tempting.
+
+
+997
+00:29:28,296 --> 00:29:29,076
+I've got a quarter here.
+
+
+998
+00:29:29,076 --> 00:29:30,126
+Let's plop that baby in.
+
+
+999
+00:29:30,126 --> 00:29:34,206
+Oh, you see we've got a full
+
+
+1000
+00:29:34,206 --> 00:29:36,416
+SpriteKit scene rendering on
+
+
+1001
+00:29:36,846 --> 00:29:38,786
+this 3D Metal scene.
+
+
+1002
+00:29:39,376 --> 00:29:41,296
+And see we're using SKRenderer
+
+
+1003
+00:29:41,666 --> 00:29:43,466
+to render SpriteKit into a
+
+
+1004
+00:29:43,466 --> 00:29:44,936
+texture, which we're then
+
+
+1005
+00:29:44,936 --> 00:29:46,746
+mapping onto the front of our
+
+
+1006
+00:29:46,746 --> 00:29:47,836
+arcade cabinet here.
+
+
+1007
+00:29:47,906 --> 00:29:49,956
+And then we're just applying a
+
+
+1008
+00:29:49,956 --> 00:29:53,116
+cool CRT shader to an in Metal
+
+
+1009
+00:29:53,426 --> 00:29:55,316
+to give it this old school look.
+
+
+1010
+00:29:55,376 --> 00:29:57,166
+I can actually move around from
+
+
+1011
+00:29:57,166 --> 00:29:58,516
+any angle I want to here and I
+
+
+1012
+00:29:58,516 --> 00:30:00,926
+can interact with it like this.
+
+
+1013
+00:30:01,046 --> 00:30:01,806
+It's a little bit of askew, but
+
+
+1014
+00:30:01,806 --> 00:30:02,766
+you know, maybe this gives you
+
+
+1015
+00:30:02,766 --> 00:30:04,206
+some memories of playing on an
+
+
+1016
+00:30:04,206 --> 00:30:05,116
+arcade cabinet with your
+
+
+1017
+00:30:05,116 --> 00:30:06,016
+friends, you're all crowded up
+
+
+1018
+00:30:06,016 --> 00:30:06,436
+against it.
+
+
+1019
+00:30:06,436 --> 00:30:08,716
+And you can view this from any
+
+
+1020
+00:30:08,716 --> 00:30:10,246
+angle, you can view this all
+
+
+1021
+00:30:10,246 --> 00:30:14,346
+from a distance, and it shows
+
+
+1022
+00:30:14,346 --> 00:30:15,836
+you some of the things that you
+
+
+1023
+00:30:15,896 --> 00:30:17,556
+can do with SpriteKit when you
+
+
+1024
+00:30:17,556 --> 00:30:18,386
+use it with Metal.
+
+
+1025
+00:30:18,656 --> 00:30:20,516
+It let's you use it 3D and then
+
+
+1026
+00:30:20,516 --> 00:30:21,676
+you can do whatever you want
+
+
+1027
+00:30:21,676 --> 00:30:22,396
+with that texture.
+
+
+1028
+00:30:29,046 --> 00:30:29,766
+So that's SpriteKit and Metal
+
+
+1029
+00:30:29,856 --> 00:30:30,456
+working together.
+
+
+1030
+00:30:31,516 --> 00:30:35,776
+[ Applause ]
+
+
+1031
+00:30:36,276 --> 00:30:37,446
+SKRenderer gives you more
+
+
+1032
+00:30:37,446 --> 00:30:38,936
+control over SpriteKit than ever
+
+
+1033
+00:30:38,936 --> 00:30:39,366
+before.
+
+
+1034
+00:30:39,816 --> 00:30:40,716
+It allows you to determine
+
+
+1035
+00:30:40,716 --> 00:30:41,956
+exactly when it updates and
+
+
+1036
+00:30:41,956 --> 00:30:43,386
+renders and by interacting
+
+
+1037
+00:30:43,386 --> 00:30:44,936
+directly with Metal you can use
+
+
+1038
+00:30:44,936 --> 00:30:46,116
+rendered SpriteKit content
+
+
+1039
+00:30:46,566 --> 00:30:47,496
+anyway you see fit.
+
+
+1040
+00:30:50,846 --> 00:30:52,066
+As you've seen today SpriteKit
+
+
+1041
+00:30:52,066 --> 00:30:54,086
+is useful in both 2D and 3D.
+
+
+1042
+00:30:54,896 --> 00:30:55,976
+It's built to work well with
+
+
+1043
+00:30:55,976 --> 00:30:57,216
+other graphics frameworks like
+
+
+1044
+00:30:57,216 --> 00:30:58,436
+SceneKit and Metal.
+
+
+1045
+00:30:58,436 --> 00:31:00,086
+And it's closely integrated with
+
+
+1046
+00:31:00,086 --> 00:31:01,266
+ARKit, so that creating
+
+
+1047
+00:31:01,266 --> 00:31:02,956
+augmented reality apps is as
+
+
+1048
+00:31:03,056 --> 00:31:04,226
+easy as possible.
+
+
+1049
+00:31:04,726 --> 00:31:06,306
+We've introduced new features
+
+
+1050
+00:31:06,306 --> 00:31:07,586
+that give you more control than
+
+
+1051
+00:31:07,586 --> 00:31:08,826
+ever allowing you to view
+
+
+1052
+00:31:08,826 --> 00:31:09,916
+SpriteKit content in the View
+
+
+1053
+00:31:09,916 --> 00:31:11,706
+Debugger and also giving you the
+
+
+1054
+00:31:11,706 --> 00:31:13,386
+ability to take direct control
+
+
+1055
+00:31:13,386 --> 00:31:14,646
+over when and how SpriteKit
+
+
+1056
+00:31:14,646 --> 00:31:15,876
+updates and renders with a new
+
+
+1057
+00:31:15,986 --> 00:31:16,656
+SKRenderer.
+
+
+1058
+00:31:17,206 --> 00:31:19,006
+Today we've shown SpriteKit in
+
+
+1059
+00:31:19,006 --> 00:31:20,156
+an entirely new light and we
+
+
+1060
+00:31:20,156 --> 00:31:21,226
+hope that it's given you some
+
+
+1061
+00:31:21,426 --> 00:31:23,036
+perspective on how you can use
+
+
+1062
+00:31:23,036 --> 00:31:24,166
+it in ways that you may have
+
+
+1063
+00:31:24,166 --> 00:31:25,136
+never thought of before.
+
+
+1064
+00:31:26,776 --> 00:31:28,756
+So for information and access to
+
+
+1065
+00:31:28,756 --> 00:31:29,916
+this session video please visit
+
+
+1066
+00:31:30,006 --> 00:31:34,246
+developer.apple.com/wwdc17/609.
+
+
+1067
+00:31:34,246 --> 00:31:36,886
+And please check out these
+
+
+1068
+00:31:36,886 --> 00:31:37,736
+related sessions.
+
+
+1069
+00:31:38,106 --> 00:31:39,236
+We gave just a small taste of
+
+
+1070
+00:31:39,236 --> 00:31:40,206
+metal in today's section.
+
+
+1071
+00:31:40,406 --> 00:31:41,866
+So please check out Introducing
+
+
+1072
+00:31:41,866 --> 00:31:42,996
+Metal 2 if you're interested in
+
+
+1073
+00:31:42,996 --> 00:31:43,566
+learning more.
+
+
+1074
+00:31:43,636 --> 00:31:45,586
+I highly recommend watching
+
+
+1075
+00:31:45,656 --> 00:31:46,796
+"Introducing ARKit" to learn
+
+
+1076
+00:31:46,796 --> 00:31:48,336
+more about how it works in
+
+
+1077
+00:31:48,336 --> 00:31:48,886
+detail.
+
+
+1078
+00:31:48,976 --> 00:31:50,776
+And if our quick look at
+
+
+1079
+00:31:50,776 --> 00:31:52,346
+SceneKit got your attention you
+
+
+1080
+00:31:52,346 --> 00:31:53,136
+should look at their main
+
+
+1081
+00:31:53,136 --> 00:31:53,816
+session this year.
+
+
+1082
+00:31:54,906 --> 00:31:56,296
+And there's a lot of great stuff
+
+
+1083
+00:31:56,296 --> 00:31:57,986
+in the Debugging with Xcode 9 on
+
+
+1084
+00:31:57,986 --> 00:32:00,266
+top of SpriteKit working with a
+
+
+1085
+00:32:00,266 --> 00:32:01,346
+new View Debugger.
+
+
+1086
+00:32:01,806 --> 00:32:03,076
+Like wireless debugging which is
+
+
+1087
+00:32:03,076 --> 00:32:04,386
+really awesome, so I recommend
+
+
+1088
+00:32:04,386 --> 00:32:05,176
+watching that as well.
+
+
+1089
+00:32:06,586 --> 00:32:07,756
+Thanks everyone and please enjoy
+
+
+1090
+00:32:07,756 --> 00:32:08,716
+the rest of the conference.
+

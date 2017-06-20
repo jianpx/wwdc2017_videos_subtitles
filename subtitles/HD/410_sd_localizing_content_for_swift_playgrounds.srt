@@ -1,0 +1,6159 @@
+1
+00:00:18,516 --> 00:00:20,886
+[ Applause ]
+
+
+2
+00:00:21,386 --> 00:00:23,766
+>> Good afternoon and welcome to
+
+
+3
+00:00:23,766 --> 00:00:25,246
+Localizing Content for Swift
+
+
+4
+00:00:25,246 --> 00:00:25,956
+Playgrounds.
+
+
+5
+00:00:26,316 --> 00:00:27,356
+I am Alex Kuhn.
+
+
+6
+00:00:27,476 --> 00:00:28,806
+I'm an engineer on the Content
+
+
+7
+00:00:28,806 --> 00:00:29,886
+team, developing content for
+
+
+8
+00:00:29,886 --> 00:00:31,366
+Swift Playgrounds, and I'll be
+
+
+9
+00:00:31,366 --> 00:00:32,695
+joined later by Aaltan Ahmad
+
+
+10
+00:00:32,695 --> 00:00:33,926
+from the Internationalization
+
+
+11
+00:00:33,926 --> 00:00:34,206
+Team.
+
+
+12
+00:00:35,556 --> 00:00:37,686
+Now it's a big world out there
+
+
+13
+00:00:38,086 --> 00:00:39,646
+full of many different diverse
+
+
+14
+00:00:39,646 --> 00:00:40,836
+people that would love to use
+
+
+15
+00:00:40,836 --> 00:00:42,276
+the amazing content that you
+
+
+16
+00:00:42,276 --> 00:00:43,846
+build in Swift Playgrounds.
+
+
+17
+00:00:44,296 --> 00:00:46,536
+However, at Swift Playgrounds,
+
+
+18
+00:00:46,536 --> 00:00:47,816
+right now we have over a million
+
+
+19
+00:00:47,816 --> 00:00:48,416
+users.
+
+
+20
+00:00:48,776 --> 00:00:50,166
+Except nearly two-thirds of them
+
+
+21
+00:00:50,166 --> 00:00:51,186
+are outside the US.
+
+
+22
+00:00:51,596 --> 00:00:52,736
+So for them to be able to use
+
+
+23
+00:00:52,736 --> 00:00:54,376
+your amazing content you need to
+
+
+24
+00:00:54,376 --> 00:00:56,226
+localize it to hit this whole
+
+
+25
+00:00:56,226 --> 00:00:58,066
+world, is what we'll talk about
+
+
+26
+00:00:58,066 --> 00:00:58,366
+today.
+
+
+27
+00:00:58,946 --> 00:01:01,146
+So a little bit of history on
+
+
+28
+00:01:01,146 --> 00:01:02,056
+Swift Playgrounds.
+
+
+29
+00:01:02,326 --> 00:01:04,206
+This is an iPad app that enables
+
+
+30
+00:01:04,206 --> 00:01:06,016
+you to write Swift code and see
+
+
+31
+00:01:06,016 --> 00:01:07,516
+the results of it executed live.
+
+
+32
+00:01:08,216 --> 00:01:09,866
+And along with Swift Playgrounds
+
+
+33
+00:01:10,156 --> 00:01:11,256
+we've released a curriculum
+
+
+34
+00:01:11,536 --> 00:01:12,986
+teaching a beginner the basics
+
+
+35
+00:01:12,986 --> 00:01:13,876
+of learning the code.
+
+
+36
+00:01:14,546 --> 00:01:16,216
+And also, there is different
+
+
+37
+00:01:16,216 --> 00:01:17,906
+coding challenges such as
+
+
+38
+00:01:17,906 --> 00:01:19,356
+writing the logic for the game
+
+
+39
+00:01:19,356 --> 00:01:19,956
+of Battleship.
+
+
+40
+00:01:21,866 --> 00:01:23,956
+Now this was initially released
+
+
+41
+00:01:23,956 --> 00:01:25,996
+in English, but we have since
+
+
+42
+00:01:25,996 --> 00:01:27,726
+translated that into five
+
+
+43
+00:01:27,786 --> 00:01:28,896
+additional languages.
+
+
+44
+00:01:29,426 --> 00:01:30,966
+Spanish. French.
+
+
+45
+00:01:31,316 --> 00:01:33,786
+German. Simplified Chinese and
+
+
+46
+00:01:33,786 --> 00:01:34,476
+Japanese.
+
+
+47
+00:01:34,936 --> 00:01:36,306
+And we have more coming soon.
+
+
+48
+00:01:37,216 --> 00:01:39,226
+And in localizing the content,
+
+
+49
+00:01:39,576 --> 00:01:40,586
+we had a number of different
+
+
+50
+00:01:40,586 --> 00:01:42,486
+challenges and issues that we
+
+
+51
+00:01:42,486 --> 00:01:43,536
+had to encounter and work
+
+
+52
+00:01:43,536 --> 00:01:45,366
+through in order to have a great
+
+
+53
+00:01:45,366 --> 00:01:46,926
+experience for our users.
+
+
+54
+00:01:47,576 --> 00:01:48,766
+And so this is what we want to
+
+
+55
+00:01:48,766 --> 00:01:49,966
+talk about some of the lessons
+
+
+56
+00:01:49,966 --> 00:01:52,176
+learned for you, when you make
+
+
+57
+00:01:52,176 --> 00:01:52,886
+your own content.
+
+
+58
+00:01:52,886 --> 00:01:55,086
+So today we'll give an overview
+
+
+59
+00:01:55,086 --> 00:01:56,736
+of what is content and Swift
+
+
+60
+00:01:56,736 --> 00:01:57,946
+Playgrounds and some of the
+
+
+61
+00:01:57,946 --> 00:01:58,816
+challenges around it.
+
+
+62
+00:01:58,816 --> 00:02:00,726
+And we'll talk through some of
+
+
+63
+00:02:00,726 --> 00:02:02,336
+the localization considerations
+
+
+64
+00:02:02,616 --> 00:02:03,906
+when you are making your own
+
+
+65
+00:02:03,906 --> 00:02:05,076
+content and localizing it.
+
+
+66
+00:02:05,546 --> 00:02:07,866
+And lastly, we'll go through
+
+
+67
+00:02:07,866 --> 00:02:08,985
+what is the structure of a
+
+
+68
+00:02:08,985 --> 00:02:10,386
+localized Playground book so
+
+
+69
+00:02:10,545 --> 00:02:11,826
+that you can make your books
+
+
+70
+00:02:11,826 --> 00:02:12,916
+localizable today.
+
+
+71
+00:02:15,366 --> 00:02:16,956
+Now before we begin talking
+
+
+72
+00:02:16,956 --> 00:02:18,486
+about localization, it's
+
+
+73
+00:02:18,486 --> 00:02:19,976
+something that's really critical
+
+
+74
+00:02:20,026 --> 00:02:22,276
+is to define your content goals.
+
+
+75
+00:02:22,746 --> 00:02:24,426
+And this is important because
+
+
+76
+00:02:24,426 --> 00:02:25,376
+when you build the content
+
+
+77
+00:02:25,376 --> 00:02:26,876
+initially, when it goes to
+
+
+78
+00:02:26,876 --> 00:02:28,226
+localization, you need to be
+
+
+79
+00:02:28,226 --> 00:02:29,646
+able to tell someone else what
+
+
+80
+00:02:29,646 --> 00:02:31,176
+exactly your goals were, and
+
+
+81
+00:02:31,176 --> 00:02:32,476
+what do you want the experience
+
+
+82
+00:02:32,476 --> 00:02:34,226
+for that user to be like in any
+
+
+83
+00:02:34,296 --> 00:02:35,726
+language, since it's not going
+
+
+84
+00:02:35,726 --> 00:02:37,496
+to be you necessarily doing all
+
+
+85
+00:02:37,496 --> 00:02:38,446
+of the translations.
+
+
+86
+00:02:39,026 --> 00:02:41,956
+So to give an example of the
+
+
+87
+00:02:41,956 --> 00:02:44,336
+content goals we had and learned
+
+
+88
+00:02:44,956 --> 00:02:47,166
+at code.
+
+
+89
+00:02:47,356 --> 00:02:48,856
+For one, it was instructional.
+
+
+90
+00:02:49,476 --> 00:02:50,126
+We're trying to teach the
+
+
+91
+00:02:50,126 --> 00:02:51,926
+beginner the basics of coding in
+
+
+92
+00:02:51,926 --> 00:02:53,766
+Swift, assuming no prior
+
+
+93
+00:02:53,766 --> 00:02:54,366
+knowledge.
+
+
+94
+00:02:55,456 --> 00:02:56,766
+However, we also want it to be
+
+
+95
+00:02:56,766 --> 00:02:57,756
+fun and engaging.
+
+
+96
+00:02:58,226 --> 00:02:59,156
+It shouldn't be like a dry
+
+
+97
+00:02:59,156 --> 00:03:00,656
+textbook, but rather something
+
+
+98
+00:03:00,656 --> 00:03:02,756
+the user wants to use and is
+
+
+99
+00:03:02,756 --> 00:03:04,206
+engaged with coding and learning
+
+
+100
+00:03:04,206 --> 00:03:04,636
+more.
+
+
+101
+00:03:05,216 --> 00:03:07,826
+And we chose to target the ages
+
+
+102
+00:03:07,826 --> 00:03:08,606
+of 12 and up.
+
+
+103
+00:03:09,156 --> 00:03:11,616
+So whether you're 12 or 112,
+
+
+104
+00:03:12,176 --> 00:03:12,876
+we'd love for you to have a
+
+
+105
+00:03:12,876 --> 00:03:14,436
+great experience using our
+
+
+106
+00:03:14,436 --> 00:03:14,896
+content.
+
+
+107
+00:03:14,926 --> 00:03:17,806
+Now just to get an overview of
+
+
+108
+00:03:17,806 --> 00:03:19,296
+what this translates to and
+
+
+109
+00:03:19,296 --> 00:03:21,076
+learn the code, here you see
+
+
+110
+00:03:21,076 --> 00:03:22,476
+this page is about learning
+
+
+111
+00:03:22,476 --> 00:03:24,046
+about debugging and finding and
+
+
+112
+00:03:24,046 --> 00:03:24,846
+fixing bugs.
+
+
+113
+00:03:25,386 --> 00:03:26,626
+Something I'm sure many of you
+
+
+114
+00:03:26,666 --> 00:03:27,666
+are quite familiar with.
+
+
+115
+00:03:28,376 --> 00:03:29,676
+However, to a learner this is
+
+
+116
+00:03:29,676 --> 00:03:30,526
+the first time they're being
+
+
+117
+00:03:30,526 --> 00:03:31,686
+introduced to the concept.
+
+
+118
+00:03:32,846 --> 00:03:34,176
+Now on the right here we have a
+
+
+119
+00:03:34,176 --> 00:03:34,866
+live view.
+
+
+120
+00:03:35,426 --> 00:03:37,536
+In this case it's a 3D animated
+
+
+121
+00:03:37,536 --> 00:03:39,166
+puzzle world where you're trying
+
+
+122
+00:03:39,166 --> 00:03:40,446
+to write code to solve different
+
+
+123
+00:03:40,446 --> 00:03:41,716
+puzzles and collect gems.
+
+
+124
+00:03:42,436 --> 00:03:44,926
+There's also a prose area that
+
+
+125
+00:03:44,926 --> 00:03:46,476
+provides instructional content
+
+
+126
+00:03:46,476 --> 00:03:48,166
+and the goals on a page and the
+
+
+127
+00:03:48,166 --> 00:03:49,126
+tasks a learner needs to
+
+
+128
+00:03:49,126 --> 00:03:49,616
+perform.
+
+
+129
+00:03:50,166 --> 00:03:52,716
+And then, of course, the coding
+
+
+130
+00:03:52,716 --> 00:03:53,856
+area where they can write and
+
+
+131
+00:03:53,856 --> 00:03:55,226
+edit Swift code to solve the
+
+
+132
+00:03:55,226 --> 00:03:55,606
+puzzle.
+
+
+133
+00:03:56,486 --> 00:03:58,336
+So going back to those goals,
+
+
+134
+00:03:58,876 --> 00:03:59,556
+one of ours is to be
+
+
+135
+00:03:59,556 --> 00:04:00,316
+instructional.
+
+
+136
+00:04:00,696 --> 00:04:02,346
+So we are actually defining what
+
+
+137
+00:04:02,346 --> 00:04:04,016
+the term "bug" and "debugging"
+
+
+138
+00:04:04,016 --> 00:04:05,306
+means to a learner who might
+
+
+139
+00:04:05,306 --> 00:04:06,326
+never have experienced this
+
+
+140
+00:04:06,326 --> 00:04:06,796
+before.
+
+
+141
+00:04:06,796 --> 00:04:07,906
+And this is something that needs
+
+
+142
+00:04:07,906 --> 00:04:08,896
+to be kept into mind with
+
+
+143
+00:04:08,896 --> 00:04:10,596
+localization which I'll tie back
+
+
+144
+00:04:10,596 --> 00:04:11,076
+to later.
+
+
+145
+00:04:11,816 --> 00:04:12,756
+And throughout the course of the
+
+
+146
+00:04:12,756 --> 00:04:14,466
+curriculum, there are many such
+
+
+147
+00:04:14,466 --> 00:04:15,616
+definitions that occur
+
+
+148
+00:04:15,616 --> 00:04:16,446
+gradually.
+
+
+149
+00:04:17,356 --> 00:04:18,956
+And in the end, there's a whole
+
+
+150
+00:04:18,956 --> 00:04:20,176
+glossary of terms that the
+
+
+151
+00:04:20,176 --> 00:04:21,926
+learner gets exposed to when
+
+
+152
+00:04:21,926 --> 00:04:22,926
+they go through the curriculum
+
+
+153
+00:04:22,926 --> 00:04:24,336
+that has gradually built up to,
+
+
+154
+00:04:24,726 --> 00:04:25,846
+and this needs to be taken into
+
+
+155
+00:04:25,846 --> 00:04:27,786
+account when you localize it.
+
+
+156
+00:04:28,806 --> 00:04:30,716
+Now one other feature in the
+
+
+157
+00:04:30,716 --> 00:04:32,546
+system is that when the learner
+
+
+158
+00:04:32,546 --> 00:04:34,536
+runs their code, the system is
+
+
+159
+00:04:34,536 --> 00:04:36,216
+analyzing what the learner has
+
+
+160
+00:04:36,216 --> 00:04:37,586
+done and is trying to help
+
+
+161
+00:04:37,586 --> 00:04:39,026
+provide corrective feedback.
+
+
+162
+00:04:39,226 --> 00:04:40,396
+Trying to give him instruction
+
+
+163
+00:04:40,396 --> 00:04:41,596
+of how to improve or fix what
+
+
+164
+00:04:41,596 --> 00:04:41,976
+they did.
+
+
+165
+00:04:42,466 --> 00:04:43,976
+So here you'll see that animated
+
+
+166
+00:04:43,976 --> 00:04:45,396
+character, Byte, failed to
+
+
+167
+00:04:45,396 --> 00:04:46,166
+collect the gem.
+
+
+168
+00:04:47,036 --> 00:04:48,176
+And the learner tapped on the
+
+
+169
+00:04:48,176 --> 00:04:49,606
+hint saying, "Did you notice
+
+
+170
+00:04:49,606 --> 00:04:50,216
+that bug?
+
+
+171
+00:04:50,526 --> 00:04:51,576
+Byte tried to collect a gem that
+
+
+172
+00:04:51,576 --> 00:04:52,246
+wasn't there."
+
+
+173
+00:04:52,806 --> 00:04:54,226
+So here we're taking a
+
+
+174
+00:04:54,226 --> 00:04:56,026
+conversational tone trying to be
+
+
+175
+00:04:56,026 --> 00:04:56,896
+a little bit more fun and
+
+
+176
+00:04:56,896 --> 00:04:58,776
+engaging, while at the same time
+
+
+177
+00:04:58,776 --> 00:05:00,266
+giving instructional feedback
+
+
+178
+00:05:00,586 --> 00:05:01,546
+saying that they need to use
+
+
+179
+00:05:01,546 --> 00:05:03,666
+collect gem, the function, when
+
+
+180
+00:05:03,666 --> 00:05:05,336
+they're under a particular gem.
+
+
+181
+00:05:07,676 --> 00:05:09,136
+So when this page is put into
+
+
+182
+00:05:09,136 --> 00:05:10,966
+Chinese, you'll notice that
+
+
+183
+00:05:10,966 --> 00:05:12,096
+while the code is in English
+
+
+184
+00:05:12,396 --> 00:05:13,986
+everything else is localized.
+
+
+185
+00:05:13,986 --> 00:05:15,076
+And we're still teaching these
+
+
+186
+00:05:15,076 --> 00:05:16,916
+exact same concepts, but in a
+
+
+187
+00:05:16,916 --> 00:05:18,446
+way that is appropriate to the
+
+
+188
+00:05:18,446 --> 00:05:19,096
+language.
+
+
+189
+00:05:19,446 --> 00:05:20,306
+So they're still learning about
+
+
+190
+00:05:20,306 --> 00:05:21,466
+bugs and debugging, but they
+
+
+191
+00:05:21,596 --> 00:05:22,756
+need to be able to relate it
+
+
+192
+00:05:22,756 --> 00:05:24,266
+back to the code that they're
+
+
+193
+00:05:24,266 --> 00:05:25,306
+seeing on the page.
+
+
+194
+00:05:26,366 --> 00:05:29,216
+And similarly, those hints -- we
+
+
+195
+00:05:29,306 --> 00:05:30,566
+want to maintain that similar
+
+
+196
+00:05:30,566 --> 00:05:32,426
+style, but you'll notice that
+
+
+197
+00:05:32,426 --> 00:05:33,896
+we're referencing to the collect
+
+
+198
+00:05:33,896 --> 00:05:35,626
+gem command in English.
+
+
+199
+00:05:35,726 --> 00:05:36,936
+So this is one of the things
+
+
+200
+00:05:36,936 --> 00:05:37,956
+that challenges around
+
+
+201
+00:05:37,956 --> 00:05:39,846
+localization of dealing with
+
+
+202
+00:05:39,876 --> 00:05:40,716
+these various different
+
+
+203
+00:05:40,716 --> 00:05:42,886
+technical terms as well as code
+
+
+204
+00:05:42,886 --> 00:05:44,286
+in English that we'll talk more
+
+
+205
+00:05:44,286 --> 00:05:44,866
+about later.
+
+
+206
+00:05:47,376 --> 00:05:49,406
+Now one other feature in Swift
+
+
+207
+00:05:49,406 --> 00:05:50,976
+Playgrounds is we use animated
+
+
+208
+00:05:50,976 --> 00:05:52,406
+cut scenes to introduce a
+
+
+209
+00:05:52,406 --> 00:05:54,536
+concept at high level before the
+
+
+210
+00:05:54,536 --> 00:05:55,796
+learner dives into coding.
+
+
+211
+00:05:56,476 --> 00:05:57,866
+So in this case, learner is
+
+
+212
+00:05:57,866 --> 00:05:58,656
+learning about what an "if
+
+
+213
+00:05:58,656 --> 00:05:59,786
+statement" is before they
+
+
+214
+00:05:59,786 --> 00:06:00,686
+proceed to use it.
+
+
+215
+00:06:01,866 --> 00:06:04,706
+And when this is localized, the
+
+
+216
+00:06:04,706 --> 00:06:06,056
+localization has to take into
+
+
+217
+00:06:06,056 --> 00:06:08,126
+account how helping the learner
+
+
+218
+00:06:08,186 --> 00:06:09,336
+to actually do the task.
+
+
+219
+00:06:09,666 --> 00:06:10,846
+So we're still mentioning if
+
+
+220
+00:06:10,846 --> 00:06:13,146
+statement -- the if command in
+
+
+221
+00:06:13,146 --> 00:06:15,426
+English, even though everything
+
+
+222
+00:06:15,426 --> 00:06:17,116
+else is in Chinese because
+
+
+223
+00:06:17,116 --> 00:06:17,936
+that's how they're going to need
+
+
+224
+00:06:17,936 --> 00:06:19,316
+to solve the puzzles later when
+
+
+225
+00:06:19,316 --> 00:06:20,136
+they write Swift Code.
+
+
+226
+00:06:20,726 --> 00:06:23,456
+So that's a little overview of
+
+
+227
+00:06:23,456 --> 00:06:23,906
+the content.
+
+
+228
+00:06:23,906 --> 00:06:25,626
+But I'm just going to step back
+
+
+229
+00:06:25,626 --> 00:06:26,576
+a moment and talk about the
+
+
+230
+00:06:26,576 --> 00:06:28,106
+process of building localized
+
+
+231
+00:06:28,106 --> 00:06:28,506
+content.
+
+
+232
+00:06:29,716 --> 00:06:31,366
+And a common approach that many
+
+
+233
+00:06:31,366 --> 00:06:33,746
+people might take is that you
+
+
+234
+00:06:33,746 --> 00:06:35,286
+define your goals and you build
+
+
+235
+00:06:35,286 --> 00:06:36,936
+up the content in one language;
+
+
+236
+00:06:37,076 --> 00:06:38,346
+testing and iterating it.
+
+
+237
+00:06:38,346 --> 00:06:39,946
+Testing it with your users and
+
+
+238
+00:06:39,946 --> 00:06:40,726
+making sure you have a great
+
+
+239
+00:06:40,726 --> 00:06:41,496
+experience.
+
+
+240
+00:06:41,936 --> 00:06:42,826
+Then you decide you want to
+
+
+241
+00:06:42,826 --> 00:06:43,496
+localize it.
+
+
+242
+00:06:43,496 --> 00:06:44,896
+So then you send it off to your
+
+
+243
+00:06:44,896 --> 00:06:47,286
+translators and localize it and
+
+
+244
+00:06:47,286 --> 00:06:48,646
+then you get it back and ship
+
+
+245
+00:06:48,646 --> 00:06:48,786
+it.
+
+
+246
+00:06:49,166 --> 00:06:49,896
+You're done, right?
+
+
+247
+00:06:51,466 --> 00:06:52,906
+Unfortunately, this has many
+
+
+248
+00:06:52,906 --> 00:06:53,506
+problems.
+
+
+249
+00:06:54,006 --> 00:06:55,046
+You may find when you send it
+
+
+250
+00:06:55,046 --> 00:06:56,306
+off to be translated that your
+
+
+251
+00:06:56,306 --> 00:06:57,926
+content isn't localizable.
+
+
+252
+00:06:58,466 --> 00:07:00,496
+Or that there are different
+
+
+253
+00:07:00,496 --> 00:07:02,176
+issues in the translation, and
+
+
+254
+00:07:02,176 --> 00:07:03,336
+it's not actually hitting the
+
+
+255
+00:07:03,336 --> 00:07:05,026
+goals you're seeking at the same
+
+
+256
+00:07:05,026 --> 00:07:05,866
+level as when you first
+
+
+257
+00:07:05,866 --> 00:07:07,676
+developed it in one language.
+
+
+258
+00:07:09,086 --> 00:07:10,716
+So what is the better approach?
+
+
+259
+00:07:11,196 --> 00:07:14,726
+Well, for one, localization is
+
+
+260
+00:07:14,726 --> 00:07:16,146
+part of the design process.
+
+
+261
+00:07:16,906 --> 00:07:17,866
+You should be thinking about
+
+
+262
+00:07:17,866 --> 00:07:19,156
+localization when you are
+
+
+263
+00:07:19,156 --> 00:07:20,696
+designing out your content goals
+
+
+264
+00:07:20,696 --> 00:07:21,666
+and the initial design of the
+
+
+265
+00:07:21,666 --> 00:07:24,426
+product in order to avoid costly
+
+
+266
+00:07:24,426 --> 00:07:26,666
+mistakes later that prevent
+
+
+267
+00:07:26,666 --> 00:07:28,286
+content from being localized.
+
+
+268
+00:07:28,766 --> 00:07:30,396
+And this is no different than
+
+
+269
+00:07:30,396 --> 00:07:31,036
+what you should do with
+
+
+270
+00:07:31,036 --> 00:07:31,866
+accessibility.
+
+
+271
+00:07:32,236 --> 00:07:33,726
+Thinking about it during the
+
+
+272
+00:07:33,726 --> 00:07:35,066
+design process instead of
+
+
+273
+00:07:35,116 --> 00:07:35,866
+afterwards.
+
+
+274
+00:07:36,196 --> 00:07:37,276
+Which is what enables you to
+
+
+275
+00:07:37,276 --> 00:07:38,276
+make it a really amazing
+
+
+276
+00:07:38,276 --> 00:07:38,746
+product.
+
+
+277
+00:07:40,156 --> 00:07:41,966
+So a better way to think about
+
+
+278
+00:07:41,966 --> 00:07:44,316
+this diagram, is -- the process
+
+
+279
+00:07:44,316 --> 00:07:46,676
+is to define your goals and
+
+
+280
+00:07:46,676 --> 00:07:48,346
+design out the content thinking
+
+
+281
+00:07:48,346 --> 00:07:49,376
+about localization.
+
+
+282
+00:07:50,066 --> 00:07:52,346
+And then when you send it off to
+
+
+283
+00:07:52,346 --> 00:07:53,826
+be localized, you make sure that
+
+
+284
+00:07:53,826 --> 00:07:54,966
+your translators really
+
+
+285
+00:07:54,966 --> 00:07:57,196
+understand your goals and what
+
+
+286
+00:07:57,196 --> 00:07:59,136
+your content is, so that they
+
+
+287
+00:07:59,136 --> 00:08:00,716
+can translate it appropriately
+
+
+288
+00:08:00,916 --> 00:08:02,196
+for each language to
+
+
+289
+00:08:02,196 --> 00:08:03,886
+consistently hit those goals.
+
+
+290
+00:08:04,426 --> 00:08:05,716
+And this may take several rounds
+
+
+291
+00:08:05,716 --> 00:08:07,136
+of iteration when you translate
+
+
+292
+00:08:07,136 --> 00:08:07,276
+it.
+
+
+293
+00:08:07,766 --> 00:08:09,236
+So during this time it's really
+
+
+294
+00:08:09,236 --> 00:08:10,726
+critical to test with actual
+
+
+295
+00:08:10,726 --> 00:08:12,616
+users, as they're the ones who
+
+
+296
+00:08:12,616 --> 00:08:14,006
+you're trying to serve and they
+
+
+297
+00:08:14,006 --> 00:08:14,976
+can tell you if you're doing it
+
+
+298
+00:08:14,976 --> 00:08:16,196
+right or wrong or if it's
+
+
+299
+00:08:16,196 --> 00:08:17,346
+actually meeting their needs and
+
+
+300
+00:08:17,346 --> 00:08:18,026
+understandable.
+
+
+301
+00:08:19,006 --> 00:08:20,776
+And of course, during this
+
+
+302
+00:08:20,776 --> 00:08:22,576
+process you may find you need to
+
+
+303
+00:08:22,576 --> 00:08:23,896
+go back and adapt your original
+
+
+304
+00:08:23,896 --> 00:08:25,686
+content due to some issues you
+
+
+305
+00:08:25,686 --> 00:08:26,916
+found that prevent it from being
+
+
+306
+00:08:26,916 --> 00:08:27,826
+localized fully.
+
+
+307
+00:08:28,326 --> 00:08:29,636
+But hopefully because you've
+
+
+308
+00:08:29,636 --> 00:08:30,356
+considered this in the
+
+
+309
+00:08:30,356 --> 00:08:31,806
+beginning, these changes are
+
+
+310
+00:08:31,806 --> 00:08:32,716
+relatively minor.
+
+
+311
+00:08:33,446 --> 00:08:34,956
+So this is a much better
+
+
+312
+00:08:34,956 --> 00:08:36,256
+approach to taking and thinking
+
+
+313
+00:08:36,256 --> 00:08:37,256
+about building localized
+
+
+314
+00:08:37,256 --> 00:08:37,756
+content.
+
+
+315
+00:08:38,946 --> 00:08:40,666
+Now I'll hand it over to Aaltan
+
+
+316
+00:08:40,666 --> 00:08:41,746
+to talk about localization
+
+
+317
+00:08:41,746 --> 00:08:42,576
+considerations.
+
+
+318
+00:08:43,265 --> 00:08:43,946
+>> Thank you Alex.
+
+
+319
+00:08:44,646 --> 00:08:46,226
+So today I'm going to talk to
+
+
+320
+00:08:46,226 --> 00:08:48,916
+you about the process that we
+
+
+321
+00:08:49,076 --> 00:08:50,336
+went through when we localized
+
+
+322
+00:08:50,336 --> 00:08:52,236
+Swift Playgrounds, and some of
+
+
+323
+00:08:52,236 --> 00:08:53,666
+the key areas that you should be
+
+
+324
+00:08:53,666 --> 00:08:55,006
+thinking about when you are
+
+
+325
+00:08:55,006 --> 00:08:55,976
+localizing your own Swift
+
+
+326
+00:08:55,976 --> 00:08:56,556
+Playgrounds.
+
+
+327
+00:08:58,006 --> 00:08:59,996
+So let's go back to that diagram
+
+
+328
+00:08:59,996 --> 00:09:02,156
+that Alex introduced to you and
+
+
+329
+00:09:02,226 --> 00:09:03,516
+let's talk first about the
+
+
+330
+00:09:03,516 --> 00:09:06,406
+process of actually adapting our
+
+
+331
+00:09:06,406 --> 00:09:09,296
+own content and goals while
+
+
+332
+00:09:09,296 --> 00:09:10,596
+thinking about localization to
+
+
+333
+00:09:10,596 --> 00:09:12,146
+begin with before we even start
+
+
+334
+00:09:12,146 --> 00:09:13,106
+the actual process of
+
+
+335
+00:09:13,106 --> 00:09:13,706
+translation.
+
+
+336
+00:09:15,156 --> 00:09:16,076
+and the important thing to
+
+
+337
+00:09:16,076 --> 00:09:17,376
+remember here is that your
+
+
+338
+00:09:17,376 --> 00:09:19,156
+content choices affect your
+
+
+339
+00:09:19,156 --> 00:09:20,406
+localizability of your
+
+
+340
+00:09:20,406 --> 00:09:20,986
+playground.
+
+
+341
+00:09:21,626 --> 00:09:23,546
+So, for example, if you have a
+
+
+342
+00:09:23,546 --> 00:09:24,836
+storyline running through your
+
+
+343
+00:09:24,836 --> 00:09:27,246
+prose, or a particular style of
+
+
+344
+00:09:27,286 --> 00:09:29,216
+writing that involves wordplay
+
+
+345
+00:09:29,216 --> 00:09:31,116
+or puns, this is something that
+
+
+346
+00:09:31,116 --> 00:09:32,126
+is really important to
+
+
+347
+00:09:32,126 --> 00:09:33,306
+communicate to the people who
+
+
+348
+00:09:33,306 --> 00:09:35,086
+are actually translating your
+
+
+349
+00:09:35,086 --> 00:09:36,236
+playground, so that they can
+
+
+350
+00:09:36,236 --> 00:09:37,576
+maintain that feeling in their
+
+
+351
+00:09:37,576 --> 00:09:38,316
+own languages.
+
+
+352
+00:09:39,036 --> 00:09:41,306
+Additionally, there may -- the
+
+
+353
+00:09:41,306 --> 00:09:42,446
+concepts that you are trying to
+
+
+354
+00:09:42,446 --> 00:09:43,756
+teach may be tied to a
+
+
+355
+00:09:43,756 --> 00:09:45,046
+particular language in the first
+
+
+356
+00:09:45,046 --> 00:09:45,476
+place.
+
+
+357
+00:09:45,926 --> 00:09:47,176
+And so you're going to need to
+
+
+358
+00:09:47,176 --> 00:09:49,356
+think about adapting these for
+
+
+359
+00:09:50,176 --> 00:09:50,996
+localization.
+
+
+360
+00:09:52,296 --> 00:09:54,036
+And we can take the example of
+
+
+361
+00:09:54,036 --> 00:09:55,846
+Cipher, which is a playground
+
+
+362
+00:09:55,846 --> 00:09:57,206
+that we developed where we try
+
+
+363
+00:09:57,206 --> 00:09:59,176
+to teach the learner about coded
+
+
+364
+00:09:59,476 --> 00:10:02,506
+messages and encryption through
+
+
+365
+00:10:02,506 --> 00:10:04,616
+a very story-like setting where
+
+
+366
+00:10:04,616 --> 00:10:06,236
+their place is a detective and
+
+
+367
+00:10:06,236 --> 00:10:07,506
+follow clues to solve the
+
+
+368
+00:10:07,506 --> 00:10:07,976
+mystery.
+
+
+369
+00:10:08,486 --> 00:10:09,696
+So here their adding style is
+
+
+370
+00:10:09,696 --> 00:10:12,366
+actually kind of unique where we
+
+
+371
+00:10:12,366 --> 00:10:13,776
+really place the reader in the
+
+
+372
+00:10:13,776 --> 00:10:15,446
+setting of the storyline.
+
+
+373
+00:10:15,446 --> 00:10:17,276
+So here we say, "The library is
+
+
+374
+00:10:17,276 --> 00:10:18,016
+warm and quiet.
+
+
+375
+00:10:18,016 --> 00:10:19,076
+A welcome relief from the
+
+
+376
+00:10:19,076 --> 00:10:20,506
+howling snowstorm outside."
+
+
+377
+00:10:21,196 --> 00:10:22,386
+And this will be something that
+
+
+378
+00:10:22,386 --> 00:10:23,416
+you want to communicate to
+
+
+379
+00:10:23,416 --> 00:10:24,446
+translators so that they can
+
+
+380
+00:10:24,446 --> 00:10:26,056
+maintain that same narrative
+
+
+381
+00:10:26,056 --> 00:10:28,196
+feel, otherwise that friendly,
+
+
+382
+00:10:28,196 --> 00:10:30,976
+playful feeling might get lost.
+
+
+383
+00:10:31,406 --> 00:10:34,776
+Another part about Cipher is the
+
+
+384
+00:10:34,776 --> 00:10:35,416
+clues.
+
+
+385
+00:10:35,946 --> 00:10:38,526
+So we have a clue where often
+
+
+386
+00:10:38,896 --> 00:10:40,386
+you can bring one of the coded
+
+
+387
+00:10:40,386 --> 00:10:42,576
+messages, the learner is told to
+
+
+388
+00:10:42,576 --> 00:10:44,516
+look to N for the answer to the
+
+
+389
+00:10:44,516 --> 00:10:45,536
+next challenges.
+
+
+390
+00:10:46,356 --> 00:10:47,516
+And we actually call this out in
+
+
+391
+00:10:47,516 --> 00:10:48,776
+the prose as well, where we say
+
+
+392
+00:10:48,776 --> 00:10:50,116
+the message says, "look to N."
+
+
+393
+00:10:50,426 --> 00:10:51,586
+Who or what is N?
+
+
+394
+00:10:52,876 --> 00:10:54,656
+And right here you can see that
+
+
+395
+00:10:54,656 --> 00:10:55,896
+there's an interesting challenge
+
+
+396
+00:10:55,896 --> 00:10:57,086
+with the letter N itself.
+
+
+397
+00:10:57,556 --> 00:10:58,866
+Different languages have
+
+
+398
+00:10:58,866 --> 00:11:01,206
+different alphabets, and some
+
+
+399
+00:11:01,206 --> 00:11:02,546
+languages may not even have the
+
+
+400
+00:11:02,546 --> 00:11:03,636
+letter N in their alphabet.
+
+
+401
+00:11:04,076 --> 00:11:04,996
+And so this is something you'll
+
+
+402
+00:11:04,996 --> 00:11:05,726
+want to consider.
+
+
+403
+00:11:06,166 --> 00:11:08,786
+If the letter N is particularly
+
+
+404
+00:11:08,866 --> 00:11:10,146
+tied to your challenge or
+
+
+405
+00:11:10,146 --> 00:11:11,876
+finding clues or investigating
+
+
+406
+00:11:11,876 --> 00:11:13,916
+certain things in the puzzle,
+
+
+407
+00:11:13,996 --> 00:11:15,246
+that might be a problem down the
+
+
+408
+00:11:15,246 --> 00:11:16,596
+road for localizability.
+
+
+409
+00:11:17,056 --> 00:11:18,416
+So you want to give translators
+
+
+410
+00:11:18,416 --> 00:11:20,216
+the freedom to take this letter
+
+
+411
+00:11:20,216 --> 00:11:22,456
+N and actually adapt it to what
+
+
+412
+00:11:22,496 --> 00:11:23,576
+feels most comfortable and
+
+
+413
+00:11:23,576 --> 00:11:27,256
+natural for their language.
+
+
+414
+00:11:28,716 --> 00:11:30,626
+So in Cipher we actually try to
+
+
+415
+00:11:30,626 --> 00:11:32,026
+teach the learner about
+
+
+416
+00:11:32,446 --> 00:11:33,246
+encryption.
+
+
+417
+00:11:33,246 --> 00:11:35,206
+And we do this through a simple
+
+
+418
+00:11:35,206 --> 00:11:36,386
+substitution cipher.
+
+
+419
+00:11:36,866 --> 00:11:38,196
+And in a substitution cipher you
+
+
+420
+00:11:38,196 --> 00:11:40,006
+take your alphabet and you shift
+
+
+421
+00:11:40,006 --> 00:11:41,466
+it by a certain number of
+
+
+422
+00:11:41,466 --> 00:11:43,376
+letters to create a new mapping.
+
+
+423
+00:11:43,926 --> 00:11:45,246
+And using that mapping you can
+
+
+424
+00:11:45,246 --> 00:11:47,106
+take a plain text word like
+
+
+425
+00:11:47,106 --> 00:11:49,746
+Cipher and encrypt it so it
+
+
+426
+00:11:49,746 --> 00:11:51,106
+can't be deciphered without the
+
+
+427
+00:11:51,106 --> 00:11:51,596
+right key.
+
+
+428
+00:11:52,986 --> 00:11:54,496
+And This works great in English.
+
+
+429
+00:11:55,136 --> 00:11:56,106
+But when you translate your
+
+
+430
+00:11:56,106 --> 00:11:57,676
+playground and hand it to
+
+
+431
+00:11:57,676 --> 00:11:59,036
+someone who's a Spanish speaker,
+
+
+432
+00:11:59,706 --> 00:12:00,946
+probably they're going to end up
+
+
+433
+00:12:00,946 --> 00:12:03,206
+typing a letter enye, which was
+
+
+434
+00:12:03,206 --> 00:12:04,546
+not in your original alphabet.
+
+
+435
+00:12:05,466 --> 00:12:06,846
+And if you hadn't thought about
+
+
+436
+00:12:06,846 --> 00:12:08,266
+this beforehand, you're going to
+
+
+437
+00:12:08,266 --> 00:12:09,606
+be in a situation where maybe a
+
+
+438
+00:12:09,606 --> 00:12:10,996
+learner can't solve the next
+
+
+439
+00:12:11,326 --> 00:12:12,946
+step of the puzzle, or decrypt
+
+
+440
+00:12:12,946 --> 00:12:14,386
+the particular message because
+
+
+441
+00:12:14,386 --> 00:12:15,116
+it doesn't work in their
+
+
+442
+00:12:15,116 --> 00:12:15,586
+language.
+
+
+443
+00:12:16,466 --> 00:12:17,576
+So really, these are the kinds
+
+
+444
+00:12:17,576 --> 00:12:18,486
+of things you want to look out
+
+
+445
+00:12:18,486 --> 00:12:19,456
+for when you're planning your
+
+
+446
+00:12:19,496 --> 00:12:20,476
+content and your puzzles.
+
+
+447
+00:12:23,236 --> 00:12:24,746
+Another strategy you can take
+
+
+448
+00:12:25,046 --> 00:12:27,036
+when planning out your content
+
+
+449
+00:12:27,036 --> 00:12:28,756
+is to actually make it language
+
+
+450
+00:12:28,756 --> 00:12:29,926
+agnostic to begin with.
+
+
+451
+00:12:30,586 --> 00:12:32,976
+So if you plan it out in a way
+
+
+452
+00:12:32,976 --> 00:12:34,166
+that doesn't -- is not
+
+
+453
+00:12:34,166 --> 00:12:35,336
+particularly tied to any
+
+
+454
+00:12:35,396 --> 00:12:36,846
+particular language or culture,
+
+
+455
+00:12:36,846 --> 00:12:39,446
+you can avoid that problem to
+
+
+456
+00:12:39,446 --> 00:12:39,986
+begin with.
+
+
+457
+00:12:40,056 --> 00:12:41,536
+And that's exactly what we did
+
+
+458
+00:12:41,536 --> 00:12:43,296
+with Learn to Code.
+
+
+459
+00:12:43,886 --> 00:12:45,036
+We have a made up character,
+
+
+460
+00:12:45,036 --> 00:12:46,526
+Byte, in a made up world, that
+
+
+461
+00:12:46,526 --> 00:12:47,436
+is free from any kind of
+
+
+462
+00:12:47,526 --> 00:12:49,546
+cultural or linguistic ties.
+
+
+463
+00:12:50,076 --> 00:12:51,916
+So the translation and
+
+
+464
+00:12:51,916 --> 00:12:53,336
+localization process becomes a
+
+
+465
+00:12:53,336 --> 00:12:54,816
+lot easier because this puzzle
+
+
+466
+00:12:54,816 --> 00:12:55,976
+is pretty much the same, no
+
+
+467
+00:12:55,976 --> 00:12:56,956
+matter what language it's
+
+
+468
+00:12:56,956 --> 00:12:57,336
+running in.
+
+
+469
+00:12:57,686 --> 00:12:59,176
+Collecting a gem is collecting a
+
+
+470
+00:12:59,176 --> 00:12:59,496
+gem.
+
+
+471
+00:13:00,076 --> 00:13:01,496
+Whether it's in English or in
+
+
+472
+00:13:01,496 --> 00:13:02,016
+Spanish.
+
+
+473
+00:13:03,636 --> 00:13:05,606
+So that's another strategy you
+
+
+474
+00:13:06,276 --> 00:13:07,596
+can use.
+
+
+475
+00:13:08,276 --> 00:13:11,376
+Once you've actually planned out
+
+
+476
+00:13:11,376 --> 00:13:12,496
+your goals and your content, and
+
+
+477
+00:13:12,496 --> 00:13:13,596
+you feel like you're in a good
+
+
+478
+00:13:13,646 --> 00:13:15,726
+place with localization and
+
+
+479
+00:13:15,726 --> 00:13:16,656
+you're ready to actually
+
+
+480
+00:13:16,656 --> 00:13:19,156
+translate, there are a few key
+
+
+481
+00:13:19,156 --> 00:13:20,526
+areas that you should keep in
+
+
+482
+00:13:20,526 --> 00:13:22,096
+mind when doing this.
+
+
+483
+00:13:22,256 --> 00:13:23,606
+So let's talk about the actual
+
+
+484
+00:13:23,606 --> 00:13:24,736
+translation process.
+
+
+485
+00:13:26,566 --> 00:13:27,566
+The first important thing to
+
+
+486
+00:13:27,566 --> 00:13:29,636
+consider is your audience.
+
+
+487
+00:13:30,146 --> 00:13:32,536
+So different languages have
+
+
+488
+00:13:32,536 --> 00:13:33,946
+different levels of formality.
+
+
+489
+00:13:34,146 --> 00:13:36,986
+In English you are you, no
+
+
+490
+00:13:36,986 --> 00:13:38,276
+matter what the context.
+
+
+491
+00:13:38,386 --> 00:13:39,926
+We don't make any distinction
+
+
+492
+00:13:40,266 --> 00:13:42,176
+between addressing someone using
+
+
+493
+00:13:42,176 --> 00:13:42,796
+the word, "you".
+
+
+494
+00:13:43,326 --> 00:13:45,506
+However, most languages other
+
+
+495
+00:13:45,506 --> 00:13:46,876
+than English actually do make a
+
+
+496
+00:13:46,876 --> 00:13:48,416
+distinction here such as German
+
+
+497
+00:13:48,416 --> 00:13:49,036
+and French.
+
+
+498
+00:13:49,486 --> 00:13:50,766
+You can see in German, in an
+
+
+499
+00:13:50,766 --> 00:13:52,236
+informal context you would refer
+
+
+500
+00:13:52,236 --> 00:13:53,146
+to someone as du.
+
+
+501
+00:13:53,696 --> 00:13:55,196
+And in informal context, you
+
+
+502
+00:13:55,196 --> 00:13:56,796
+would refer to someone as Sie.
+
+
+503
+00:13:57,436 --> 00:13:58,266
+and same for French.
+
+
+504
+00:13:59,276 --> 00:14:01,316
+And an important thing to note
+
+
+505
+00:14:01,316 --> 00:14:02,996
+about these languages is that
+
+
+506
+00:14:02,996 --> 00:14:05,086
+children's texts here are
+
+
+507
+00:14:05,086 --> 00:14:07,666
+actually written in the informal
+
+
+508
+00:14:07,666 --> 00:14:08,096
+voice.
+
+
+509
+00:14:08,156 --> 00:14:09,456
+And this goes a long way to
+
+
+510
+00:14:09,456 --> 00:14:11,206
+creating a kind of informal,
+
+
+511
+00:14:11,206 --> 00:14:12,906
+comfortable feeling for the
+
+
+512
+00:14:13,536 --> 00:14:14,116
+children.
+
+
+513
+00:14:14,176 --> 00:14:15,856
+And if you're targeting your
+
+
+514
+00:14:15,856 --> 00:14:17,326
+Swift Playground to a younger
+
+
+515
+00:14:17,326 --> 00:14:20,696
+audience as we were, using the
+
+
+516
+00:14:20,696 --> 00:14:22,316
+informal voice is going to be a
+
+
+517
+00:14:22,316 --> 00:14:23,996
+key piece in making this feel
+
+
+518
+00:14:24,046 --> 00:14:25,556
+comfortable to them, and like
+
+
+519
+00:14:25,556 --> 00:14:26,666
+something they're already used
+
+
+520
+00:14:26,666 --> 00:14:28,346
+to reading with from school.
+
+
+521
+00:14:30,196 --> 00:14:31,376
+There's an important distinction
+
+
+522
+00:14:31,376 --> 00:14:32,756
+here to be made between the
+
+
+523
+00:14:32,756 --> 00:14:34,156
+formal and informal voice.
+
+
+524
+00:14:34,156 --> 00:14:36,926
+Because in iOS, for alerts or
+
+
+525
+00:14:36,926 --> 00:14:38,626
+other messages we actually use
+
+
+526
+00:14:38,626 --> 00:14:40,346
+the formal tone.
+
+
+527
+00:14:40,346 --> 00:14:41,796
+This is because it's more
+
+
+528
+00:14:41,796 --> 00:14:43,676
+appropriate when your phone or
+
+
+529
+00:14:43,676 --> 00:14:45,116
+computer is delivering you a
+
+
+530
+00:14:45,116 --> 00:14:47,326
+message in a matter-of-fact way,
+
+
+531
+00:14:47,816 --> 00:14:49,556
+to have a formal tone of voice.
+
+
+532
+00:14:50,206 --> 00:14:51,496
+And of course this contrasts
+
+
+533
+00:14:51,496 --> 00:14:52,546
+with Swift Playgrounds.
+
+
+534
+00:14:53,446 --> 00:14:55,316
+So this is an important factor
+
+
+535
+00:14:55,316 --> 00:14:56,596
+to consider, depending on the
+
+
+536
+00:14:56,596 --> 00:14:57,806
+age you're targeting.
+
+
+537
+00:14:58,616 --> 00:15:00,736
+Another part of your audience is
+
+
+538
+00:15:00,736 --> 00:15:02,026
+going to be how old they are.
+
+
+539
+00:15:02,026 --> 00:15:04,356
+And Japanese gives us a good
+
+
+540
+00:15:04,686 --> 00:15:06,426
+example to understand this
+
+
+541
+00:15:06,426 --> 00:15:08,286
+distinction between older and
+
+
+542
+00:15:08,286 --> 00:15:09,126
+younger readers.
+
+
+543
+00:15:09,666 --> 00:15:11,736
+So Japanese uses three different
+
+
+544
+00:15:11,736 --> 00:15:12,966
+writing systems, and one of
+
+
+545
+00:15:12,966 --> 00:15:14,586
+those writing systems is called
+
+
+546
+00:15:14,586 --> 00:15:15,086
+Kan ji.
+
+
+547
+00:15:15,726 --> 00:15:17,536
+And Kan ji is a pictographical
+
+
+548
+00:15:17,536 --> 00:15:19,066
+alphabet that has thousands of
+
+
+549
+00:15:19,066 --> 00:15:19,716
+characters.
+
+
+550
+00:15:20,836 --> 00:15:22,566
+And the point here is that
+
+
+551
+00:15:22,776 --> 00:15:24,606
+children learn these characters
+
+
+552
+00:15:24,606 --> 00:15:26,006
+as they grow older, and a
+
+
+553
+00:15:26,006 --> 00:15:27,336
+younger person is going to be
+
+
+554
+00:15:27,386 --> 00:15:29,746
+familiar with less Kan ji than
+
+
+555
+00:15:29,746 --> 00:15:30,926
+an older person.
+
+
+556
+00:15:31,456 --> 00:15:32,426
+And they're going to be familiar
+
+
+557
+00:15:32,426 --> 00:15:34,046
+with simpler Kan ji rather than
+
+
+558
+00:15:34,046 --> 00:15:35,066
+more complex ones.
+
+
+559
+00:15:36,006 --> 00:15:37,876
+So how does this factor into
+
+
+560
+00:15:37,876 --> 00:15:38,856
+sort of playgrounds?
+
+
+561
+00:15:39,616 --> 00:15:40,756
+let's take the example of the
+
+
+562
+00:15:40,756 --> 00:15:43,046
+term, "Code area" which we use
+
+
+563
+00:15:43,046 --> 00:15:44,316
+to refer to the code editor
+
+
+564
+00:15:44,316 --> 00:15:45,616
+where you can input your Swift.
+
+
+565
+00:15:46,606 --> 00:15:48,356
+If you handed this off to a
+
+
+566
+00:15:48,356 --> 00:15:49,956
+translator without any prior
+
+
+567
+00:15:49,956 --> 00:15:52,256
+explanation, or instructions
+
+
+568
+00:15:52,256 --> 00:15:53,636
+about what age you're trying to
+
+
+569
+00:15:53,636 --> 00:15:55,126
+target, they might choose a
+
+
+570
+00:15:55,126 --> 00:15:56,796
+standard Japanese translation of
+
+
+571
+00:15:56,856 --> 00:15:58,186
+this, which sort of roughly
+
+
+572
+00:15:58,186 --> 00:15:59,616
+sounds like code sphere or
+
+
+573
+00:15:59,616 --> 00:16:00,216
+territory.
+
+
+574
+00:16:01,536 --> 00:16:04,076
+However, when you inform them
+
+
+575
+00:16:04,076 --> 00:16:05,446
+about these goals and the
+
+
+576
+00:16:05,486 --> 00:16:06,366
+younger audience that you're
+
+
+577
+00:16:06,366 --> 00:16:08,266
+targeting, a better translation
+
+
+578
+00:16:08,266 --> 00:16:09,666
+comes out, which is a place to
+
+
+579
+00:16:09,666 --> 00:16:10,256
+write code.
+
+
+580
+00:16:10,906 --> 00:16:11,656
+And there's a couple of
+
+
+581
+00:16:11,656 --> 00:16:12,736
+important points that I want to
+
+
+582
+00:16:12,736 --> 00:16:13,866
+highlight between these two
+
+
+583
+00:16:13,866 --> 00:16:14,666
+translations.
+
+
+584
+00:16:15,036 --> 00:16:16,166
+The first is the usage of the
+
+
+585
+00:16:16,166 --> 00:16:18,426
+word "place" versus "fear" or
+
+
+586
+00:16:18,426 --> 00:16:19,036
+"territory".
+
+
+587
+00:16:19,586 --> 00:16:22,836
+Place is a very common Kan ji,
+
+
+588
+00:16:23,106 --> 00:16:25,276
+and so a younger reader is much
+
+
+589
+00:16:25,276 --> 00:16:26,526
+more likely to be able to -- to
+
+
+590
+00:16:26,526 --> 00:16:28,336
+be familiar with this -- with
+
+
+591
+00:16:28,336 --> 00:16:28,966
+these words.
+
+
+592
+00:16:29,696 --> 00:16:31,036
+Additionally, we also chose to
+
+
+593
+00:16:31,036 --> 00:16:32,386
+include the verb for, "to
+
+
+594
+00:16:32,386 --> 00:16:32,716
+write".
+
+
+595
+00:16:33,166 --> 00:16:34,776
+To really make it explicit what
+
+
+596
+00:16:34,776 --> 00:16:36,316
+the purpose of this area or
+
+
+597
+00:16:36,316 --> 00:16:37,276
+place is.
+
+
+598
+00:16:38,436 --> 00:16:39,906
+So that can go a long way in
+
+
+599
+00:16:39,906 --> 00:16:41,166
+making your Playgrounds easy to
+
+
+600
+00:16:41,166 --> 00:16:41,726
+understand.
+
+
+601
+00:16:44,026 --> 00:16:45,716
+Technical terms are another area
+
+
+602
+00:16:45,716 --> 00:16:46,976
+where you should pay a lot of
+
+
+603
+00:16:46,976 --> 00:16:48,926
+attention when writing and
+
+
+604
+00:16:48,926 --> 00:16:49,806
+translating your Swift
+
+
+605
+00:16:49,806 --> 00:16:50,306
+Playgrounds.
+
+
+606
+00:16:50,816 --> 00:16:52,036
+So these can include computer
+
+
+607
+00:16:52,036 --> 00:16:54,296
+science terms, math terms, and
+
+
+608
+00:16:54,366 --> 00:16:57,866
+of course, the Swift language
+
+
+609
+00:16:57,866 --> 00:17:00,386
+keyword, enums, functions and
+
+
+610
+00:17:00,386 --> 00:17:02,316
+other code that you include in
+
+
+611
+00:17:02,316 --> 00:17:03,016
+your prose.
+
+
+612
+00:17:04,126 --> 00:17:05,226
+And to understand this, let's
+
+
+613
+00:17:05,226 --> 00:17:06,776
+look at the example that Alex
+
+
+614
+00:17:06,776 --> 00:17:08,246
+mentioned earlier about
+
+
+615
+00:17:08,246 --> 00:17:09,886
+introducing debugging.
+
+
+616
+00:17:10,586 --> 00:17:11,756
+And in order to introduce
+
+
+617
+00:17:11,756 --> 00:17:13,526
+debugging, we have to introduce
+
+
+618
+00:17:13,526 --> 00:17:14,796
+the concept of a bug.
+
+
+619
+00:17:16,246 --> 00:17:18,116
+And in English, we have a simple
+
+
+620
+00:17:18,336 --> 00:17:19,346
+phrase here that says, "A
+
+
+621
+00:17:19,346 --> 00:17:20,746
+mistake that keeps your program
+
+
+622
+00:17:20,816 --> 00:17:22,596
+from running correctly is called
+
+
+623
+00:17:22,596 --> 00:17:22,925
+a bug."
+
+
+624
+00:17:23,646 --> 00:17:24,856
+And the highlight here is on the
+
+
+625
+00:17:24,856 --> 00:17:26,656
+term bug, because that's what
+
+
+626
+00:17:26,656 --> 00:17:27,386
+we're going to take and
+
+
+627
+00:17:27,425 --> 00:17:28,756
+translate into our various
+
+
+628
+00:17:28,756 --> 00:17:29,846
+languages.
+
+
+629
+00:17:30,476 --> 00:17:34,976
+So in French we discovered that
+
+
+630
+00:17:35,246 --> 00:17:36,756
+while learning programming in
+
+
+631
+00:17:36,756 --> 00:17:39,076
+French, the word bug is actually
+
+
+632
+00:17:39,076 --> 00:17:40,216
+left untranslated.
+
+
+633
+00:17:40,216 --> 00:17:42,306
+And that is the standard for
+
+
+634
+00:17:42,606 --> 00:17:44,676
+learning how to program.
+
+
+635
+00:17:45,256 --> 00:17:47,996
+So this is, you know, what feels
+
+
+636
+00:17:47,996 --> 00:17:49,526
+most natural and comfortable to
+
+
+637
+00:17:49,526 --> 00:17:50,686
+a speaker of French, and what's
+
+
+638
+00:17:50,686 --> 00:17:51,646
+most appropriate for the
+
+
+639
+00:17:51,646 --> 00:17:52,166
+context.
+
+
+640
+00:17:52,606 --> 00:17:53,956
+And so in this case, actually
+
+
+641
+00:17:54,196 --> 00:17:55,596
+not translating that word and
+
+
+642
+00:17:55,596 --> 00:17:57,416
+leaving it in English was the
+
+
+643
+00:17:57,416 --> 00:17:58,796
+most appropriate choice.
+
+
+644
+00:17:59,786 --> 00:18:01,556
+However, for a language like
+
+
+645
+00:18:01,556 --> 00:18:03,546
+Spanish, using a native term,
+
+
+646
+00:18:03,546 --> 00:18:07,086
+"error" was through our research
+
+
+647
+00:18:07,086 --> 00:18:08,476
+and understanding, a more
+
+
+648
+00:18:08,476 --> 00:18:09,516
+appropriate choice here.
+
+
+649
+00:18:09,986 --> 00:18:11,176
+And an interesting fact about
+
+
+650
+00:18:11,176 --> 00:18:12,436
+the Spanish translation is that
+
+
+651
+00:18:12,436 --> 00:18:13,626
+in parentheses, we actually
+
+
+652
+00:18:13,626 --> 00:18:15,846
+point out that in English, the
+
+
+653
+00:18:15,846 --> 00:18:17,846
+word "error" is called, "bug".
+
+
+654
+00:18:18,426 --> 00:18:20,566
+And this allows the learner to
+
+
+655
+00:18:20,886 --> 00:18:22,476
+sort of see that term -- see the
+
+
+656
+00:18:22,476 --> 00:18:23,826
+term bug outside a Swift
+
+
+657
+00:18:23,826 --> 00:18:25,256
+Playground, perhaps, and
+
+
+658
+00:18:25,256 --> 00:18:26,556
+actually be able to relate it
+
+
+659
+00:18:26,556 --> 00:18:28,366
+back to what they learned in
+
+
+660
+00:18:28,516 --> 00:18:29,206
+Swift Playgrounds.
+
+
+661
+00:18:29,206 --> 00:18:32,676
+So that's terms that you
+
+
+662
+00:18:32,676 --> 00:18:34,346
+actually have a freedom to
+
+
+663
+00:18:34,346 --> 00:18:34,906
+translate.
+
+
+664
+00:18:35,096 --> 00:18:36,266
+But what about terms that you
+
+
+665
+00:18:36,266 --> 00:18:37,546
+can't translate like code?
+
+
+666
+00:18:38,396 --> 00:18:40,016
+Here we have the example of the
+
+
+667
+00:18:40,016 --> 00:18:42,056
+function moveForward in the
+
+
+668
+00:18:42,056 --> 00:18:43,306
+Japanese version of Swift
+
+
+669
+00:18:43,306 --> 00:18:43,926
+Playgrounds.
+
+
+670
+00:18:44,266 --> 00:18:45,956
+And we needed to mention this
+
+
+671
+00:18:45,956 --> 00:18:48,076
+function in the prose to sort of
+
+
+672
+00:18:48,076 --> 00:18:49,516
+explain certain concepts.
+
+
+673
+00:18:50,066 --> 00:18:51,576
+And Japanese is an interesting
+
+
+674
+00:18:51,576 --> 00:18:52,536
+language because it has a
+
+
+675
+00:18:52,536 --> 00:18:54,116
+relatively low tolerance for
+
+
+676
+00:18:54,116 --> 00:18:55,536
+English words being introduced
+
+
+677
+00:18:55,536 --> 00:18:56,326
+into the language.
+
+
+678
+00:18:57,156 --> 00:18:59,996
+So it's important that we call
+
+
+679
+00:18:59,996 --> 00:19:02,876
+out the simple explanation for
+
+
+680
+00:19:02,876 --> 00:19:04,986
+this function moveForward, or
+
+
+681
+00:19:05,126 --> 00:19:07,416
+susumo or move in Japanese, in
+
+
+682
+00:19:07,416 --> 00:19:09,466
+parentheses following the
+
+
+683
+00:19:09,466 --> 00:19:10,556
+occurrence of the function name.
+
+
+684
+00:19:10,556 --> 00:19:11,936
+And this really helps the
+
+
+685
+00:19:11,936 --> 00:19:14,526
+learner draw a parallel between
+
+
+686
+00:19:14,526 --> 00:19:15,516
+the English term and the
+
+
+687
+00:19:15,516 --> 00:19:17,106
+Japanese term so that they can
+
+
+688
+00:19:17,306 --> 00:19:18,816
+sort of internalize the meaning
+
+
+689
+00:19:18,816 --> 00:19:19,146
+of it.
+
+
+690
+00:19:20,036 --> 00:19:21,306
+And another interesting thing
+
+
+691
+00:19:21,306 --> 00:19:22,936
+about Japanese is because of
+
+
+692
+00:19:22,936 --> 00:19:25,426
+this familiarity with English,
+
+
+693
+00:19:25,716 --> 00:19:26,996
+or lack of familiarity with
+
+
+694
+00:19:26,996 --> 00:19:28,956
+English, we make it a point to
+
+
+695
+00:19:28,956 --> 00:19:30,846
+mention these parenthesized
+
+
+696
+00:19:30,846 --> 00:19:32,356
+explanations for function names
+
+
+697
+00:19:32,356 --> 00:19:35,446
+and other variables throughout
+
+
+698
+00:19:35,726 --> 00:19:37,886
+the entire prose instead of
+
+
+699
+00:19:37,916 --> 00:19:39,396
+mentioning them when the term is
+
+
+700
+00:19:39,396 --> 00:19:41,186
+introduced and then phasing them
+
+
+701
+00:19:41,186 --> 00:19:41,426
+out.
+
+
+702
+00:19:42,106 --> 00:19:43,526
+And that's a strategy that
+
+
+703
+00:19:43,676 --> 00:19:45,056
+varies per language because
+
+
+704
+00:19:45,056 --> 00:19:47,196
+different language are familiar
+
+
+705
+00:19:47,286 --> 00:19:48,236
+differently with English.
+
+
+706
+00:19:49,296 --> 00:19:50,486
+So it's another important thing
+
+
+707
+00:19:50,486 --> 00:19:51,006
+to consider.
+
+
+708
+00:19:53,376 --> 00:19:54,526
+Your translators will also have
+
+
+709
+00:19:54,526 --> 00:19:55,976
+a lot of editorial freedom when
+
+
+710
+00:19:55,976 --> 00:19:57,396
+translating Swift Playgrounds.
+
+
+711
+00:19:57,926 --> 00:20:00,686
+So here we are introducing and
+
+
+712
+00:20:00,686 --> 00:20:03,366
+learn to code three, the concept
+
+
+713
+00:20:03,366 --> 00:20:05,226
+of a quadrant and the fact that
+
+
+714
+00:20:05,286 --> 00:20:07,056
+the learner can place different
+
+
+715
+00:20:07,056 --> 00:20:08,106
+objects at a different
+
+
+716
+00:20:08,106 --> 00:20:09,466
+coordinate in the space.
+
+
+717
+00:20:10,276 --> 00:20:11,276
+And to do this, of course we
+
+
+718
+00:20:11,276 --> 00:20:12,316
+need to talk about the term
+
+
+719
+00:20:12,316 --> 00:20:12,826
+quadrant.
+
+
+720
+00:20:14,066 --> 00:20:15,766
+So in English, we introduce the
+
+
+721
+00:20:15,766 --> 00:20:17,486
+term quadrant by relating it to
+
+
+722
+00:20:17,566 --> 00:20:18,246
+quarters.
+
+
+723
+00:20:18,636 --> 00:20:20,006
+And there is a nice alliteration
+
+
+724
+00:20:20,006 --> 00:20:22,666
+here, and that makes it a little
+
+
+725
+00:20:22,666 --> 00:20:24,596
+bit easier for the term to get
+
+
+726
+00:20:24,596 --> 00:20:25,246
+introduced.
+
+
+727
+00:20:26,076 --> 00:20:27,446
+However, in Japanese we don't
+
+
+728
+00:20:27,526 --> 00:20:29,996
+have the advantage of having
+
+
+729
+00:20:29,996 --> 00:20:31,176
+this alliteration.
+
+
+730
+00:20:31,486 --> 00:20:32,726
+And so the translator here
+
+
+731
+00:20:32,726 --> 00:20:35,306
+adopted a different strategy to
+
+
+732
+00:20:35,306 --> 00:20:37,806
+use a simple word for area or
+
+
+733
+00:20:38,526 --> 00:20:39,796
+[inaudible] outside parentheses.
+
+
+734
+00:20:40,096 --> 00:20:42,036
+And then inside parentheses, use
+
+
+735
+00:20:42,036 --> 00:20:43,606
+the more technical; complicated
+
+
+736
+00:20:43,606 --> 00:20:46,776
+term or shogan for quadrant.
+
+
+737
+00:20:46,776 --> 00:20:49,076
+The English translations there
+
+
+738
+00:20:49,076 --> 00:20:50,606
+are for your reference below.
+
+
+739
+00:20:51,566 --> 00:20:52,606
+So the translator -- an
+
+
+740
+00:20:52,606 --> 00:20:53,976
+important thing to note here is
+
+
+741
+00:20:53,976 --> 00:20:55,176
+that the translator didn't stick
+
+
+742
+00:20:55,176 --> 00:20:57,336
+verbatim to what was in English.
+
+
+743
+00:20:57,846 --> 00:20:59,536
+Which might be the default case
+
+
+744
+00:20:59,536 --> 00:21:00,626
+if you didn't give them any
+
+
+745
+00:21:00,626 --> 00:21:01,216
+instructions.
+
+
+746
+00:21:01,216 --> 00:21:02,756
+They might try to stick very
+
+
+747
+00:21:02,756 --> 00:21:04,076
+closely to the English text.
+
+
+748
+00:21:04,906 --> 00:21:06,266
+So it's important to let them
+
+
+749
+00:21:06,266 --> 00:21:08,036
+know that they have the freedom
+
+
+750
+00:21:08,296 --> 00:21:09,776
+to do what is most appropriate
+
+
+751
+00:21:10,106 --> 00:21:11,606
+and most comfortable for their
+
+
+752
+00:21:11,606 --> 00:21:12,236
+own language.
+
+
+753
+00:21:13,616 --> 00:21:16,076
+Additionally, because Swift
+
+
+754
+00:21:16,076 --> 00:21:17,726
+Playgrounds prose is written in
+
+
+755
+00:21:17,726 --> 00:21:19,376
+a variant of Markdown, they
+
+
+756
+00:21:19,376 --> 00:21:20,836
+actually have the freedom to add
+
+
+757
+00:21:21,386 --> 00:21:23,726
+extra formatting, bold or
+
+
+758
+00:21:23,726 --> 00:21:25,466
+italic, or even extra glossary
+
+
+759
+00:21:25,466 --> 00:21:27,056
+links to their particular
+
+
+760
+00:21:27,056 --> 00:21:28,986
+language if they deem that to be
+
+
+761
+00:21:29,086 --> 00:21:29,716
+appropriate.
+
+
+762
+00:21:32,886 --> 00:21:34,226
+So when thinking about technical
+
+
+763
+00:21:34,226 --> 00:21:35,396
+terms, it's important to keep in
+
+
+764
+00:21:35,396 --> 00:21:37,526
+mind that unfamiliar terms are
+
+
+765
+00:21:37,526 --> 00:21:39,356
+confusing, and you should be
+
+
+766
+00:21:39,356 --> 00:21:40,906
+aware of that when using them in
+
+
+767
+00:21:40,906 --> 00:21:42,666
+your prose.
+
+
+768
+00:21:42,666 --> 00:21:43,656
+Different languages have
+
+
+769
+00:21:43,656 --> 00:21:44,926
+different levels of comfort with
+
+
+770
+00:21:44,926 --> 00:21:45,346
+English.
+
+
+771
+00:21:45,826 --> 00:21:47,486
+So what works for one language
+
+
+772
+00:21:47,616 --> 00:21:48,906
+will not always work for
+
+
+773
+00:21:48,906 --> 00:21:49,246
+another.
+
+
+774
+00:21:50,656 --> 00:21:52,196
+And lastly, consistency is
+
+
+775
+00:21:52,196 --> 00:21:53,506
+really, really important here.
+
+
+776
+00:21:54,036 --> 00:21:55,566
+Especially because we're dealing
+
+
+777
+00:21:55,566 --> 00:21:56,616
+with terms that might be from a
+
+
+778
+00:21:56,616 --> 00:21:57,896
+foreign language or might be
+
+
+779
+00:21:57,896 --> 00:21:58,876
+highly technical.
+
+
+780
+00:21:59,186 --> 00:22:00,456
+It's important to maintain a
+
+
+781
+00:22:00,696 --> 00:22:02,746
+consistent usage of those terms
+
+
+782
+00:22:02,746 --> 00:22:04,476
+throughout your prose so that a
+
+
+783
+00:22:04,536 --> 00:22:06,026
+person can get more familiar
+
+
+784
+00:22:06,686 --> 00:22:08,126
+with them.
+
+
+785
+00:22:09,316 --> 00:22:11,816
+So we looked at a lot of
+
+
+786
+00:22:12,306 --> 00:22:13,376
+examples of different
+
+
+787
+00:22:13,906 --> 00:22:15,626
+localization strategies and
+
+
+788
+00:22:15,626 --> 00:22:17,136
+different localization pitfalls
+
+
+789
+00:22:17,136 --> 00:22:18,076
+and Swift Playgrounds, and
+
+
+790
+00:22:18,076 --> 00:22:19,126
+there's a few things that I want
+
+
+791
+00:22:19,126 --> 00:22:20,206
+you to take away from this.
+
+
+792
+00:22:21,576 --> 00:22:23,496
+Firstly, your content goals and
+
+
+793
+00:22:23,496 --> 00:22:24,756
+your audience are really going
+
+
+794
+00:22:24,756 --> 00:22:26,066
+to influence your localization
+
+
+795
+00:22:26,066 --> 00:22:27,856
+here, perhaps even more so than
+
+
+796
+00:22:27,856 --> 00:22:30,166
+a standard iOS application.
+
+
+797
+00:22:30,416 --> 00:22:32,406
+So it's really important to plan
+
+
+798
+00:22:32,406 --> 00:22:33,916
+those out with localization in
+
+
+799
+00:22:33,916 --> 00:22:34,956
+mind beforehand.
+
+
+800
+00:22:36,356 --> 00:22:37,376
+Different languages have
+
+
+801
+00:22:37,376 --> 00:22:39,356
+different language features, and
+
+
+802
+00:22:40,136 --> 00:22:41,366
+your translators are going to
+
+
+803
+00:22:41,366 --> 00:22:43,626
+need to have the freedom to do
+
+
+804
+00:22:43,626 --> 00:22:45,446
+what's most appropriate for
+
+
+805
+00:22:45,446 --> 00:22:46,666
+their particular language.
+
+
+806
+00:22:48,756 --> 00:22:49,996
+Maintaining a style guide or
+
+
+807
+00:22:49,996 --> 00:22:52,046
+some kind of document for your
+
+
+808
+00:22:52,146 --> 00:22:53,596
+translation process is going to
+
+
+809
+00:22:53,596 --> 00:22:55,026
+be really helpful for you here.
+
+
+810
+00:22:55,446 --> 00:22:58,076
+Both in, you know, explaining to
+
+
+811
+00:22:58,076 --> 00:23:00,326
+your translators how -- what
+
+
+812
+00:23:00,326 --> 00:23:01,266
+your goals are; what your
+
+
+813
+00:23:01,266 --> 00:23:02,796
+content goals are and how you
+
+
+814
+00:23:02,796 --> 00:23:04,306
+want the translations to sound
+
+
+815
+00:23:04,306 --> 00:23:05,966
+and feel, as well as any
+
+
+816
+00:23:05,966 --> 00:23:07,226
+language-specific issues that
+
+
+817
+00:23:07,226 --> 00:23:08,176
+they may encounter and
+
+
+818
+00:23:08,176 --> 00:23:09,596
+strategies they want to -- may
+
+
+819
+00:23:09,596 --> 00:23:11,136
+want to develop to maintain
+
+
+820
+00:23:11,136 --> 00:23:12,696
+consistency throughout your
+
+
+821
+00:23:12,996 --> 00:23:13,796
+translations.
+
+
+822
+00:23:14,186 --> 00:23:17,566
+And user testing is really your
+
+
+823
+00:23:17,566 --> 00:23:18,186
+friend here.
+
+
+824
+00:23:18,496 --> 00:23:20,616
+It might be resource intensive
+
+
+825
+00:23:20,616 --> 00:23:22,136
+and difficult to find people
+
+
+826
+00:23:22,136 --> 00:23:23,206
+that you are targeting with your
+
+
+827
+00:23:23,206 --> 00:23:24,806
+playgrounds, but the effort
+
+
+828
+00:23:24,806 --> 00:23:26,236
+really, really pays off here.
+
+
+829
+00:23:26,516 --> 00:23:28,356
+Because your users of your
+
+
+830
+00:23:28,356 --> 00:23:29,876
+target are the audience are the
+
+
+831
+00:23:29,876 --> 00:23:31,146
+only people who can really tell
+
+
+832
+00:23:31,146 --> 00:23:32,976
+you how effective your
+
+
+833
+00:23:32,976 --> 00:23:34,426
+playground is being at teaching
+
+
+834
+00:23:34,426 --> 00:23:35,826
+them these concepts.
+
+
+835
+00:23:37,736 --> 00:23:40,186
+So lastly, I'd like to bring you
+
+
+836
+00:23:40,186 --> 00:23:43,186
+back to this picture of
+
+
+837
+00:23:43,186 --> 00:23:44,736
+localization and kind of the
+
+
+838
+00:23:44,736 --> 00:23:46,986
+holistic idea here where your
+
+
+839
+00:23:46,986 --> 00:23:48,916
+goals -- your original goals and
+
+
+840
+00:23:48,916 --> 00:23:50,326
+the localized content are not
+
+
+841
+00:23:50,326 --> 00:23:52,016
+really separate entities that
+
+
+842
+00:23:52,096 --> 00:23:53,526
+feedback into each other and
+
+
+843
+00:23:53,526 --> 00:23:54,926
+really influence each others
+
+
+844
+00:23:54,926 --> 00:23:55,526
+development.
+
+
+845
+00:23:56,056 --> 00:23:57,866
+It's really important to keep
+
+
+846
+00:23:57,866 --> 00:23:59,856
+this in mind when you're taking
+
+
+847
+00:23:59,856 --> 00:24:01,586
+your content from English or
+
+
+848
+00:24:01,586 --> 00:24:03,416
+whatever you're -- the language
+
+
+849
+00:24:03,416 --> 00:24:05,456
+that you wrote it in is into
+
+
+850
+00:24:05,636 --> 00:24:07,736
+translated Playgrounds.
+
+
+851
+00:24:08,216 --> 00:24:10,306
+Because localization is so often
+
+
+852
+00:24:10,306 --> 00:24:12,296
+overlooked as a part of software
+
+
+853
+00:24:12,296 --> 00:24:14,566
+development, you have no idea
+
+
+854
+00:24:14,566 --> 00:24:16,966
+how much users really appreciate
+
+
+855
+00:24:16,966 --> 00:24:18,866
+a well-localized, well-thought
+
+
+856
+00:24:18,866 --> 00:24:19,546
+out product.
+
+
+857
+00:24:20,046 --> 00:24:21,566
+And I'm confident that if you
+
+
+858
+00:24:21,696 --> 00:24:23,156
+try to follow these guidelines
+
+
+859
+00:24:23,156 --> 00:24:24,216
+and stick to what we talked
+
+
+860
+00:24:24,216 --> 00:24:25,956
+about here, you'll really be
+
+
+861
+00:24:25,956 --> 00:24:27,136
+able to give people an amazing
+
+
+862
+00:24:27,136 --> 00:24:28,266
+experience in their native
+
+
+863
+00:24:28,266 --> 00:24:28,696
+language.
+
+
+864
+00:24:29,466 --> 00:24:31,506
+So with that I'll hand it back
+
+
+865
+00:24:31,506 --> 00:24:33,846
+to Alex, and he'll take you
+
+
+866
+00:24:33,846 --> 00:24:35,656
+through the process of actually
+
+
+867
+00:24:35,656 --> 00:24:37,046
+localizing your Playground book.
+
+
+868
+00:24:37,576 --> 00:24:37,886
+Thank you.
+
+
+869
+00:24:38,516 --> 00:24:44,416
+[ Applause ]
+
+
+870
+00:24:44,916 --> 00:24:45,556
+>> Thank you Aaltan.
+
+
+871
+00:24:46,356 --> 00:24:47,566
+So now we're going to dive into
+
+
+872
+00:24:47,566 --> 00:24:49,076
+some of the technical details to
+
+
+873
+00:24:49,076 --> 00:24:50,436
+make your book localizable.
+
+
+874
+00:24:50,786 --> 00:24:52,496
+And along with this talk there's
+
+
+875
+00:24:52,496 --> 00:24:54,346
+also sample code which you can
+
+
+876
+00:24:54,346 --> 00:24:55,536
+explore in detail all of the
+
+
+877
+00:24:55,536 --> 00:24:56,636
+things we're talking about
+
+
+878
+00:24:56,756 --> 00:24:57,076
+today.
+
+
+879
+00:24:57,676 --> 00:25:00,706
+Now, this is a page in "Learn to
+
+
+880
+00:25:00,706 --> 00:25:01,966
+Code" that's expanded out to
+
+
+881
+00:25:01,966 --> 00:25:03,416
+show off all the different areas
+
+
+882
+00:25:03,416 --> 00:25:04,376
+that you have to worry about
+
+
+883
+00:25:04,376 --> 00:25:05,366
+when you localize.
+
+
+884
+00:25:06,446 --> 00:25:07,766
+So on the right you'll see the
+
+
+885
+00:25:07,766 --> 00:25:09,126
+live view, but you can have
+
+
+886
+00:25:09,126 --> 00:25:10,556
+strings presented to the user.
+
+
+887
+00:25:10,916 --> 00:25:12,646
+In this case the audio controls.
+
+
+888
+00:25:14,236 --> 00:25:15,956
+There's also prose providing
+
+
+889
+00:25:15,956 --> 00:25:17,156
+instructional text.
+
+
+890
+00:25:18,336 --> 00:25:21,706
+The editable code area which is
+
+
+891
+00:25:21,706 --> 00:25:22,916
+a text that is displayed to the
+
+
+892
+00:25:22,916 --> 00:25:24,666
+user before they begin writing
+
+
+893
+00:25:24,666 --> 00:25:27,696
+codes to provide a prompt.
+
+
+894
+00:25:27,826 --> 00:25:28,936
+Each page can have a title.
+
+
+895
+00:25:30,456 --> 00:25:31,916
+Then also different glossary
+
+
+896
+00:25:31,916 --> 00:25:33,726
+terms which have definitions for
+
+
+897
+00:25:33,726 --> 00:25:34,866
+the learner to learn more about
+
+
+898
+00:25:34,866 --> 00:25:35,906
+if they forgot a term.
+
+
+899
+00:25:36,476 --> 00:25:39,266
+And a page can have one or more
+
+
+900
+00:25:39,266 --> 00:25:40,816
+hints if you want to provide
+
+
+901
+00:25:40,816 --> 00:25:42,316
+help for your learner as they're
+
+
+902
+00:25:42,316 --> 00:25:44,336
+going through and learning a
+
+
+903
+00:25:46,536 --> 00:25:46,766
+concept.
+
+
+904
+00:25:46,846 --> 00:25:48,376
+So these are all the different
+
+
+905
+00:25:48,376 --> 00:25:49,876
+parts we'll talk about showing
+
+
+906
+00:25:49,876 --> 00:25:51,416
+how to localize and what you
+
+
+907
+00:25:51,416 --> 00:25:53,246
+need to do for each of them.
+
+
+908
+00:25:53,246 --> 00:25:54,256
+And these come in a few
+
+
+909
+00:25:54,256 --> 00:25:56,126
+different types of files for
+
+
+910
+00:25:56,126 --> 00:25:56,956
+Playgrounds.
+
+
+911
+00:25:57,296 --> 00:25:58,376
+You might use a string in a
+
+
+912
+00:25:58,376 --> 00:26:00,276
+stringsdict file as well as an
+
+
+913
+00:26:00,276 --> 00:26:01,326
+xml plist.
+
+
+914
+00:26:01,846 --> 00:26:03,846
+And the cut scenes are written
+
+
+915
+00:26:03,846 --> 00:26:04,606
+in html.
+
+
+916
+00:26:05,236 --> 00:26:06,656
+And you may also have localized
+
+
+917
+00:26:06,656 --> 00:26:07,226
+assets.
+
+
+918
+00:26:07,496 --> 00:26:08,486
+So just do a change in each
+
+
+919
+00:26:08,486 --> 00:26:10,546
+image for each language to adapt
+
+
+920
+00:26:11,076 --> 00:26:11,146
+it.
+
+
+921
+00:26:12,436 --> 00:26:13,926
+Now one other detail before we
+
+
+922
+00:26:13,926 --> 00:26:15,606
+begin diving into the details is
+
+
+923
+00:26:15,606 --> 00:26:16,866
+understanding the overall
+
+
+924
+00:26:16,866 --> 00:26:18,806
+structure of a playground book.
+
+
+925
+00:26:19,336 --> 00:26:21,336
+So at a base level here, you see
+
+
+926
+00:26:21,336 --> 00:26:22,766
+you have a sources directory and
+
+
+927
+00:26:22,766 --> 00:26:24,226
+a private resources directory.
+
+
+928
+00:26:24,836 --> 00:26:26,166
+And the thing to note here is
+
+
+929
+00:26:26,166 --> 00:26:27,326
+that in the private resources
+
+
+930
+00:26:27,326 --> 00:26:29,216
+directory, you'll have an lproj
+
+
+931
+00:26:29,416 --> 00:26:30,156
+for each language you're
+
+
+932
+00:26:30,156 --> 00:26:30,666
+supporting.
+
+
+933
+00:26:31,216 --> 00:26:32,266
+In this example we're doing
+
+
+934
+00:26:32,266 --> 00:26:33,706
+English and Spanish, with
+
+
+935
+00:26:33,706 --> 00:26:35,106
+English being our development
+
+
+936
+00:26:35,106 --> 00:26:35,536
+language.
+
+
+937
+00:26:36,716 --> 00:26:39,086
+Then there is one or more
+
+
+938
+00:26:39,206 --> 00:26:41,016
+chapters in each book.
+
+
+939
+00:26:41,476 --> 00:26:43,986
+And each chapter has one or more
+
+
+940
+00:26:43,986 --> 00:26:44,466
+pages.
+
+
+941
+00:26:44,846 --> 00:26:46,096
+And this is an example in one of
+
+
+942
+00:26:46,096 --> 00:26:47,616
+the pages in a book.
+
+
+943
+00:26:48,116 --> 00:26:49,236
+And again, the thing to note
+
+
+944
+00:26:49,236 --> 00:26:50,556
+here is that the private
+
+
+945
+00:26:50,556 --> 00:26:52,156
+resource directory has those
+
+
+946
+00:26:52,156 --> 00:26:53,876
+same lproj's for each language
+
+
+947
+00:26:53,876 --> 00:26:54,536
+you are supporting.
+
+
+948
+00:26:55,646 --> 00:26:57,446
+So what does this look like for
+
+
+949
+00:26:57,446 --> 00:26:58,126
+each of the things?
+
+
+950
+00:26:58,306 --> 00:27:00,166
+Well, the strings that you have
+
+
+951
+00:27:00,166 --> 00:27:01,996
+in the live view, these you
+
+
+952
+00:27:01,996 --> 00:27:03,616
+should use in this localized
+
+
+953
+00:27:03,616 --> 00:27:05,426
+string for any time you are
+
+
+954
+00:27:05,836 --> 00:27:06,846
+using a string that will be
+
+
+955
+00:27:06,846 --> 00:27:07,946
+presented to the user.
+
+
+956
+00:27:08,736 --> 00:27:10,836
+And a thing to note here is that
+
+
+957
+00:27:10,836 --> 00:27:12,316
+it's not just things that
+
+
+958
+00:27:12,316 --> 00:27:13,376
+visually appear in the Live
+
+
+959
+00:27:13,376 --> 00:27:15,036
+View, but this also is important
+
+
+960
+00:27:15,036 --> 00:27:16,016
+for accessibility.
+
+
+961
+00:27:16,506 --> 00:27:18,046
+All of your accessibility labels
+
+
+962
+00:27:18,046 --> 00:27:20,336
+should use NSLocalizedString, so
+
+
+963
+00:27:20,336 --> 00:27:21,806
+that when someone is using the
+
+
+964
+00:27:21,806 --> 00:27:23,026
+accessibility features in
+
+
+965
+00:27:23,026 --> 00:27:24,796
+another language, they can get
+
+
+966
+00:27:24,796 --> 00:27:26,466
+the proper voiceover in their
+
+
+967
+00:27:26,466 --> 00:27:27,456
+language and have a great
+
+
+968
+00:27:27,456 --> 00:27:28,646
+experience with your content.
+
+
+969
+00:27:29,246 --> 00:27:32,196
+Now once you use
+
+
+970
+00:27:32,196 --> 00:27:33,856
+NSLocalizedString you would
+
+
+971
+00:27:33,856 --> 00:27:35,326
+extract this into the strings
+
+
+972
+00:27:35,326 --> 00:27:36,766
+file with a tool we made called
+
+
+973
+00:27:36,766 --> 00:27:37,376
+genstrings.
+
+
+974
+00:27:37,376 --> 00:27:39,576
+And there's more information on
+
+
+975
+00:27:39,576 --> 00:27:41,016
+the developers site of how to
+
+
+976
+00:27:41,016 --> 00:27:42,986
+use this tool and extract it.
+
+
+977
+00:27:44,806 --> 00:27:46,516
+And there was also a talk
+
+
+978
+00:27:46,856 --> 00:27:48,156
+earlier this week on localizing
+
+
+979
+00:27:48,156 --> 00:27:49,766
+with Xcode 9 that goes through a
+
+
+980
+00:27:49,766 --> 00:27:51,346
+lot of general best practices
+
+
+981
+00:27:51,346 --> 00:27:54,306
+with localizing in Xcode.
+
+
+982
+00:27:54,706 --> 00:27:56,396
+Now one key thing to note that
+
+
+983
+00:27:56,396 --> 00:27:57,626
+you might do in your playground
+
+
+984
+00:27:58,066 --> 00:28:00,386
+is using an image with text.
+
+
+985
+00:28:00,566 --> 00:28:02,526
+And it's really critical here to
+
+
+986
+00:28:02,526 --> 00:28:04,256
+not hardcode the text into the
+
+
+987
+00:28:04,256 --> 00:28:06,126
+image, as this will make it very
+
+
+988
+00:28:06,126 --> 00:28:07,846
+difficult to localize, requiring
+
+
+989
+00:28:07,846 --> 00:28:09,636
+you to remake the image for each
+
+
+990
+00:28:09,636 --> 00:28:10,176
+language.
+
+
+991
+00:28:10,746 --> 00:28:12,406
+Instead, you can layer the text
+
+
+992
+00:28:12,406 --> 00:28:14,566
+on top of it to enable the
+
+
+993
+00:28:14,566 --> 00:28:16,146
+translator just to translate the
+
+
+994
+00:28:16,146 --> 00:28:17,956
+strings and take advantage of
+
+
+995
+00:28:17,956 --> 00:28:19,716
+all of iOS's layout capabilities
+
+
+996
+00:28:19,746 --> 00:28:21,716
+to have a great experience for
+
+
+997
+00:28:23,956 --> 00:28:24,366
+the learner.
+
+
+998
+00:28:24,366 --> 00:28:26,396
+Now once you have these files,
+
+
+999
+00:28:26,396 --> 00:28:27,366
+the string file will get
+
+
+1000
+00:28:27,366 --> 00:28:29,256
+extracted into the base level
+
+
+1001
+00:28:29,506 --> 00:28:30,906
+private resources folder in the
+
+
+1002
+00:28:30,906 --> 00:28:31,336
+project.
+
+
+1003
+00:28:32,446 --> 00:28:33,986
+And optionally for using a
+
+
+1004
+00:28:33,986 --> 00:28:35,846
+stringsdict file to dynamically
+
+
+1005
+00:28:35,846 --> 00:28:37,226
+reference a number, such as how
+
+
+1006
+00:28:37,226 --> 00:28:38,336
+many lines of code the learner
+
+
+1007
+00:28:38,336 --> 00:28:39,766
+has written, you would create a
+
+
+1008
+00:28:39,766 --> 00:28:41,106
+stringsdict file for that as
+
+
+1009
+00:28:41,106 --> 00:28:42,236
+well in the same directory.
+
+
+1010
+00:28:43,466 --> 00:28:47,206
+So the next piece is the prose.
+
+
+1011
+00:28:48,066 --> 00:28:50,206
+And this is rendered in markups
+
+
+1012
+00:28:50,466 --> 00:28:51,536
+to the form of markdown.
+
+
+1013
+00:28:52,536 --> 00:28:53,716
+And this enables page level
+
+
+1014
+00:28:53,716 --> 00:28:54,306
+formatting.
+
+
+1015
+00:28:54,566 --> 00:28:56,766
+You can do bolding, italics, you
+
+
+1016
+00:28:56,766 --> 00:28:58,946
+can create glossary terms or
+
+
+1017
+00:28:58,946 --> 00:29:00,116
+link to another page in the
+
+
+1018
+00:29:00,116 --> 00:29:00,416
+book.
+
+
+1019
+00:29:01,086 --> 00:29:03,106
+And because of this, you have
+
+
+1020
+00:29:03,106 --> 00:29:04,406
+this different markup format
+
+
+1021
+00:29:04,466 --> 00:29:05,506
+that your translators will need
+
+
+1022
+00:29:05,506 --> 00:29:07,046
+to be aware of to take advantage
+
+
+1023
+00:29:07,046 --> 00:29:07,236
+of.
+
+
+1024
+00:29:07,766 --> 00:29:09,826
+So as Aaltan said, you want to
+
+
+1025
+00:29:09,826 --> 00:29:11,046
+tell all of your translators to
+
+
+1026
+00:29:11,046 --> 00:29:13,606
+have editorial freedom to adjust
+
+
+1027
+00:29:13,606 --> 00:29:15,316
+maybe the bolding or the style
+
+
+1028
+00:29:15,426 --> 00:29:16,326
+per language.
+
+
+1029
+00:29:16,756 --> 00:29:17,576
+And so they really need to
+
+
+1030
+00:29:17,576 --> 00:29:19,206
+understand the format in order
+
+
+1031
+00:29:19,206 --> 00:29:20,196
+to be able to do so.
+
+
+1032
+00:29:21,196 --> 00:29:22,856
+And it's also important that
+
+
+1033
+00:29:22,856 --> 00:29:24,406
+they be aware of what terms
+
+
+1034
+00:29:24,406 --> 00:29:26,186
+cannot be translated that are
+
+
+1035
+00:29:26,186 --> 00:29:28,066
+actually part of the format so
+
+
+1036
+00:29:28,066 --> 00:29:29,146
+that they don't accidentally
+
+
+1037
+00:29:29,146 --> 00:29:30,496
+introduce errors in the code
+
+
+1038
+00:29:30,766 --> 00:29:31,896
+when they go to localize it.
+
+
+1039
+00:29:32,996 --> 00:29:35,816
+now how do you make your prose
+
+
+1040
+00:29:35,816 --> 00:29:36,446
+localizable?
+
+
+1041
+00:29:36,876 --> 00:29:39,116
+Well, you start a prose block by
+
+
+1042
+00:29:39,116 --> 00:29:40,416
+this little opening comment
+
+
+1043
+00:29:40,416 --> 00:29:42,336
+here, and then you add a
+
+
+1044
+00:29:42,336 --> 00:29:43,436
+localized key.
+
+
+1045
+00:29:43,636 --> 00:29:44,566
+In this case we're calling it
+
+
+1046
+00:29:44,566 --> 00:29:46,096
+firstproseblock as a name for
+
+
+1047
+00:29:46,096 --> 00:29:46,556
+this key.
+
+
+1048
+00:29:46,916 --> 00:29:48,056
+This will enable it to be
+
+
+1049
+00:29:48,056 --> 00:29:48,666
+localized.
+
+
+1050
+00:29:50,056 --> 00:29:51,686
+And then in your lproj you'll
+
+
+1051
+00:29:51,686 --> 00:29:53,656
+create a prose.strings file and
+
+
+1052
+00:29:53,856 --> 00:29:56,376
+put that same key there and then
+
+
+1053
+00:29:56,646 --> 00:29:57,996
+set the value for whatever the
+
+
+1054
+00:29:57,996 --> 00:29:58,826
+markup that should be
+
+
+1055
+00:29:58,826 --> 00:29:59,896
+substituted in for that
+
+
+1056
+00:29:59,896 --> 00:30:00,596
+language.
+
+
+1057
+00:30:01,116 --> 00:30:05,856
+And the contents.swift resides
+
+
+1058
+00:30:05,856 --> 00:30:07,016
+at the base directory for each
+
+
+1059
+00:30:07,016 --> 00:30:07,566
+page.
+
+
+1060
+00:30:08,026 --> 00:30:10,076
+But the prose.strings file will
+
+
+1061
+00:30:10,076 --> 00:30:12,056
+be in the private resources for
+
+
+1062
+00:30:12,056 --> 00:30:12,666
+each language that you're
+
+
+1063
+00:30:12,666 --> 00:30:12,956
+supporting.
+
+
+1064
+00:30:18,866 --> 00:30:20,626
+Next is the editable text field
+
+
+1065
+00:30:20,626 --> 00:30:21,406
+placeholders.
+
+
+1066
+00:30:21,946 --> 00:30:24,046
+So these are another strings
+
+
+1067
+00:30:24,046 --> 00:30:24,456
+file.
+
+
+1068
+00:30:24,456 --> 00:30:25,846
+And you see here the tap to
+
+
+1069
+00:30:25,846 --> 00:30:26,506
+tenter code.
+
+
+1070
+00:30:27,476 --> 00:30:28,726
+So how this is defined in the
+
+
+1071
+00:30:28,726 --> 00:30:30,376
+initial language is just in a
+
+
+1072
+00:30:30,376 --> 00:30:31,176
+code comment.
+
+
+1073
+00:30:31,666 --> 00:30:32,576
+Where you see in the
+
+
+1074
+00:30:32,576 --> 00:30:34,166
+contents.swift tap to enter
+
+
+1075
+00:30:34,166 --> 00:30:34,516
+code.
+
+
+1076
+00:30:35,086 --> 00:30:38,086
+And for this to be localizable,
+
+
+1077
+00:30:38,376 --> 00:30:39,286
+you'll create an editable
+
+
+1078
+00:30:39,286 --> 00:30:41,936
+field.strings file using the key
+
+
+1079
+00:30:42,216 --> 00:30:43,666
+being the initial phrase you
+
+
+1080
+00:30:43,666 --> 00:30:45,526
+created in your contents.swift.
+
+
+1081
+00:30:46,016 --> 00:30:48,066
+So again, tap to enter code, but
+
+
+1082
+00:30:48,066 --> 00:30:49,326
+you put in the appropriate
+
+
+1083
+00:30:49,326 --> 00:30:50,606
+translation for each other
+
+
+1084
+00:30:50,606 --> 00:30:51,636
+language you're supporting.
+
+
+1085
+00:30:52,106 --> 00:30:56,036
+And this is done at the base
+
+
+1086
+00:30:56,036 --> 00:30:57,766
+directory of the Playground book
+
+
+1087
+00:30:57,766 --> 00:30:59,306
+in the private resources for the
+
+
+1088
+00:30:59,306 --> 00:31:00,806
+associated languages.
+
+
+1089
+00:31:01,306 --> 00:31:05,266
+Next up is a page and chapter
+
+
+1090
+00:31:05,266 --> 00:31:05,766
+titles.
+
+
+1091
+00:31:06,806 --> 00:31:09,046
+And so here there is a manifest
+
+
+1092
+00:31:09,046 --> 00:31:10,526
+plist.strings file that you'll
+
+
+1093
+00:31:10,526 --> 00:31:12,166
+need to create for each page or
+
+
+1094
+00:31:12,166 --> 00:31:14,866
+chapter, and in this the app is
+
+
+1095
+00:31:14,866 --> 00:31:16,846
+looking for the key name to
+
+
+1096
+00:31:16,846 --> 00:31:18,626
+substitute in the new name for
+
+
+1097
+00:31:18,626 --> 00:31:20,506
+the localized title for your
+
+
+1098
+00:31:20,506 --> 00:31:20,836
+book.
+
+
+1099
+00:31:21,266 --> 00:31:26,246
+And this is put in, again, the
+
+
+1100
+00:31:26,246 --> 00:31:28,176
+private resources for that
+
+
+1101
+00:31:28,176 --> 00:31:29,866
+particular page for each
+
+
+1102
+00:31:29,866 --> 00:31:30,796
+language project.
+
+
+1103
+00:31:32,516 --> 00:31:35,016
+So next up is the glossary.
+
+
+1104
+00:31:35,016 --> 00:31:36,696
+And this is changing the format
+
+
+1105
+00:31:36,696 --> 00:31:37,976
+as it's using XML.
+
+
+1106
+00:31:38,366 --> 00:31:39,666
+And you'll need to make a copy
+
+
+1107
+00:31:39,666 --> 00:31:40,596
+for this for each language
+
+
+1108
+00:31:40,596 --> 00:31:41,276
+you're supporting.
+
+
+1109
+00:31:41,906 --> 00:31:43,566
+But here is an example of the
+
+
+1110
+00:31:43,566 --> 00:31:44,606
+English glossary.
+
+
+1111
+00:31:45,456 --> 00:31:46,476
+And we're looking at what the
+
+
+1112
+00:31:46,476 --> 00:31:48,666
+command definition is in
+
+
+1113
+00:31:48,666 --> 00:31:49,156
+English.
+
+
+1114
+00:31:50,026 --> 00:31:52,256
+So one thing to note here is
+
+
+1115
+00:31:52,256 --> 00:31:54,166
+that the top level key command
+
+
+1116
+00:31:54,636 --> 00:31:56,246
+is going to be the same across
+
+
+1117
+00:31:56,246 --> 00:31:57,136
+every language.
+
+
+1118
+00:31:57,626 --> 00:31:58,546
+This will be how the [applause]
+
+
+1119
+00:31:58,546 --> 00:32:00,166
+looks up the glossary definition
+
+
+1120
+00:32:00,166 --> 00:32:01,646
+and will not change.
+
+
+1121
+00:32:02,746 --> 00:32:04,816
+Similarly, the page reference
+
+
+1122
+00:32:05,076 --> 00:32:07,046
+should use a -- be by file
+
+
+1123
+00:32:07,046 --> 00:32:08,776
+reference and not be page
+
+
+1124
+00:32:08,776 --> 00:32:10,576
+referencing the title, which can
+
+
+1125
+00:32:10,576 --> 00:32:11,416
+cause it to break in
+
+
+1126
+00:32:11,416 --> 00:32:12,796
+localization if you were to
+
+
+1127
+00:32:12,796 --> 00:32:13,576
+change the title.
+
+
+1128
+00:32:14,116 --> 00:32:17,236
+And then there are several
+
+
+1129
+00:32:17,236 --> 00:32:18,436
+different strings that you will
+
+
+1130
+00:32:18,436 --> 00:32:19,926
+send off to your translator to
+
+
+1131
+00:32:19,926 --> 00:32:21,656
+localize that you see here.
+
+
+1132
+00:32:22,576 --> 00:32:24,216
+So if this is put into Spanish,
+
+
+1133
+00:32:25,096 --> 00:32:26,696
+you then see the -- that overall
+
+
+1134
+00:32:26,696 --> 00:32:28,016
+everything is the same, except
+
+
+1135
+00:32:28,016 --> 00:32:29,666
+for those three strings get
+
+
+1136
+00:32:29,666 --> 00:32:31,476
+localized and will be displayed
+
+
+1137
+00:32:31,476 --> 00:32:33,426
+appropriately when the user runs
+
+
+1138
+00:32:33,736 --> 00:32:35,346
+the app in Spanish.
+
+
+1139
+00:32:35,866 --> 00:32:38,966
+And this glossary is stored at
+
+
+1140
+00:32:38,966 --> 00:32:40,656
+the base-level private resources
+
+
+1141
+00:32:40,946 --> 00:32:41,636
+in the project.
+
+
+1142
+00:32:41,696 --> 00:32:43,506
+So you'd have one in your
+
+
+1143
+00:32:43,506 --> 00:32:45,996
+English lproj, and then also a
+
+
+1144
+00:32:45,996 --> 00:32:47,886
+copy that's been translated for
+
+
+1145
+00:32:47,886 --> 00:32:48,766
+your Spanish project.
+
+
+1146
+00:32:51,256 --> 00:32:54,006
+Hints follow a similar format as
+
+
+1147
+00:32:54,006 --> 00:32:55,776
+the glossary in that they are
+
+
+1148
+00:32:55,776 --> 00:32:56,966
+using XML as well.
+
+
+1149
+00:32:57,296 --> 00:32:58,646
+But these are done on a per page
+
+
+1150
+00:32:58,646 --> 00:32:58,956
+level.
+
+
+1151
+00:32:59,486 --> 00:33:02,456
+And each page can have one or
+
+
+1152
+00:33:02,456 --> 00:33:03,706
+more hints if desired.
+
+
+1153
+00:33:04,386 --> 00:33:05,906
+And this is an example of what a
+
+
+1154
+00:33:05,906 --> 00:33:06,906
+hint file looks like.
+
+
+1155
+00:33:07,606 --> 00:33:09,136
+And in it are several different
+
+
+1156
+00:33:09,136 --> 00:33:10,566
+strings that your translators
+
+
+1157
+00:33:10,566 --> 00:33:11,526
+will need to translate.
+
+
+1158
+00:33:12,566 --> 00:33:13,796
+And so to -- you would make a
+
+
+1159
+00:33:13,796 --> 00:33:16,076
+copy of this file and have them
+
+
+1160
+00:33:16,076 --> 00:33:18,096
+localize these strings, and then
+
+
+1161
+00:33:18,096 --> 00:33:19,066
+you would get this output.
+
+
+1162
+00:33:19,626 --> 00:33:22,746
+And this new hintplist, this
+
+
+1163
+00:33:22,746 --> 00:33:24,056
+goes in the private resources
+
+
+1164
+00:33:24,056 --> 00:33:25,836
+directory for that page, as they
+
+
+1165
+00:33:25,836 --> 00:33:26,946
+only apply to that particular
+
+
+1166
+00:33:26,946 --> 00:33:27,456
+page.
+
+
+1167
+00:33:27,926 --> 00:33:29,136
+And you'd have both the English
+
+
+1168
+00:33:29,136 --> 00:33:31,436
+version and the Spanish version.
+
+
+1169
+00:33:31,996 --> 00:33:36,206
+And so last up are the animated
+
+
+1170
+00:33:36,206 --> 00:33:38,026
+cut scenes, which are html
+
+
+1171
+00:33:38,026 --> 00:33:38,606
+files.
+
+
+1172
+00:33:39,176 --> 00:33:40,996
+And these, your translators will
+
+
+1173
+00:33:40,996 --> 00:33:42,226
+need to make a copy for each
+
+
+1174
+00:33:42,226 --> 00:33:43,786
+language and appropriately
+
+
+1175
+00:33:43,786 --> 00:33:45,796
+localize the strings, as well as
+
+
+1176
+00:33:45,796 --> 00:33:47,236
+potentially change any of the
+
+
+1177
+00:33:47,236 --> 00:33:50,076
+concepts or images as needed per
+
+
+1178
+00:33:50,076 --> 00:33:50,906
+each language.
+
+
+1179
+00:33:51,416 --> 00:33:54,426
+And when they do this, you will
+
+
+1180
+00:33:54,426 --> 00:33:56,296
+need to put it in the cut scene
+
+
+1181
+00:33:56,296 --> 00:33:57,726
+pages private resources
+
+
+1182
+00:33:57,726 --> 00:33:58,216
+directory.
+
+
+1183
+00:33:58,836 --> 00:34:00,116
+So here we see the English
+
+
+1184
+00:34:00,116 --> 00:34:01,396
+version is called
+
+
+1185
+00:34:01,396 --> 00:34:03,476
+conditionalcode.html.
+
+
+1186
+00:34:03,476 --> 00:34:05,776
+And the initial html file for
+
+
+1187
+00:34:05,776 --> 00:34:07,206
+each other language needs to
+
+
+1188
+00:34:07,206 --> 00:34:08,826
+follow that exact same name.
+
+
+1189
+00:34:09,286 --> 00:34:10,835
+So for Spanish, even though
+
+
+1190
+00:34:10,835 --> 00:34:11,795
+it'll have all the localized
+
+
+1191
+00:34:11,795 --> 00:34:13,505
+terms, the file name should be
+
+
+1192
+00:34:13,536 --> 00:34:15,025
+conditionalcode.html.
+
+
+1193
+00:34:15,626 --> 00:34:20,036
+So in summary today, we covered
+
+
+1194
+00:34:20,036 --> 00:34:21,456
+a lot about localization.
+
+
+1195
+00:34:21,856 --> 00:34:23,025
+And one thing that's really key
+
+
+1196
+00:34:23,025 --> 00:34:25,166
+to remember is to define who
+
+
+1197
+00:34:25,166 --> 00:34:26,886
+your audience is, and be sure to
+
+
+1198
+00:34:26,886 --> 00:34:28,565
+understand them when you're
+
+
+1199
+00:34:28,565 --> 00:34:29,706
+going into each different
+
+
+1200
+00:34:29,706 --> 00:34:31,045
+language and trying to adapt the
+
+
+1201
+00:34:31,045 --> 00:34:31,646
+content.
+
+
+1202
+00:34:32,996 --> 00:34:34,856
+Localization is really nuance
+
+
+1203
+00:34:34,856 --> 00:34:35,596
+and complex.
+
+
+1204
+00:34:35,906 --> 00:34:37,406
+It requires a lot of research
+
+
+1205
+00:34:37,406 --> 00:34:39,266
+and testing with actual users,
+
+
+1206
+00:34:39,536 --> 00:34:40,636
+and understanding what are the
+
+
+1207
+00:34:40,636 --> 00:34:42,636
+standards for each country or
+
+
+1208
+00:34:42,636 --> 00:34:44,076
+language or region that you want
+
+
+1209
+00:34:44,076 --> 00:34:44,676
+to go into.
+
+
+1210
+00:34:45,226 --> 00:34:48,606
+And one thing to keep in mind of
+
+
+1211
+00:34:48,606 --> 00:34:51,096
+all this is that localization is
+
+
+1212
+00:34:51,176 --> 00:34:52,166
+really part of the design
+
+
+1213
+00:34:52,166 --> 00:34:53,056
+process.
+
+
+1214
+00:34:53,216 --> 00:34:54,516
+And so you should be thinking
+
+
+1215
+00:34:54,516 --> 00:34:56,426
+about localization up front if
+
+
+1216
+00:34:56,426 --> 00:34:57,386
+you want to have an amazing
+
+
+1217
+00:34:57,386 --> 00:34:58,726
+experience for your users.
+
+
+1218
+00:34:59,166 --> 00:35:01,026
+And I encourage you all to do
+
+
+1219
+00:35:01,026 --> 00:35:02,596
+so, and make amazing content
+
+
+1220
+00:35:02,876 --> 00:35:03,876
+that everyone in the world can
+
+
+1221
+00:35:03,876 --> 00:35:04,626
+experience.
+
+
+1222
+00:35:06,656 --> 00:35:08,016
+There's more information on the
+
+
+1223
+00:35:08,016 --> 00:35:09,316
+developer website, as well as
+
+
+1224
+00:35:09,316 --> 00:35:10,536
+the sample code that goes along
+
+
+1225
+00:35:10,536 --> 00:35:10,986
+with this.
+
+
+1226
+00:35:11,516 --> 00:35:14,026
+And there's some fantastic
+
+
+1227
+00:35:14,026 --> 00:35:15,236
+related sessions on both
+
+
+1228
+00:35:15,236 --> 00:35:17,206
+localization as well as using
+
+
+1229
+00:35:17,206 --> 00:35:18,386
+Swift Playgrounds and teaching
+
+
+1230
+00:35:18,386 --> 00:35:19,326
+with it.
+
+
+1231
+00:35:19,896 --> 00:35:20,556
+Thank you.
+
+
+1232
+00:35:21,508 --> 00:35:23,508
+[ Applause and Cheers ]
+

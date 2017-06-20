@@ -1,0 +1,4844 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Background Conversations ]
+
+
+2
+00:00:21,516 --> 00:00:25,586
+[ Applause ]
+
+
+3
+00:00:26,086 --> 00:00:28,446
+>> Hello. Welcome to What's New
+
+
+4
+00:00:28,446 --> 00:00:29,016
+in LLVM.
+
+
+5
+00:00:29,736 --> 00:00:31,396
+I'm Devin, an engineer on the
+
+
+6
+00:00:31,396 --> 00:00:32,646
+Program Analysis Team.
+
+
+7
+00:00:33,636 --> 00:00:35,656
+We've got a lot of great, new
+
+
+8
+00:00:35,656 --> 00:00:36,766
+features to tell you about
+
+
+9
+00:00:36,766 --> 00:00:37,076
+today.
+
+
+10
+00:00:38,266 --> 00:00:39,616
+We'll start by introducing you
+
+
+11
+00:00:39,846 --> 00:00:41,306
+to availability checking for
+
+
+12
+00:00:41,306 --> 00:00:41,976
+Objective-C.
+
+
+13
+00:00:41,976 --> 00:00:44,086
+This will help you safely deploy
+
+
+14
+00:00:44,086 --> 00:00:46,136
+your apps back to older OS's.
+
+
+15
+00:00:47,186 --> 00:00:48,246
+Then, we'll describe new static
+
+
+16
+00:00:48,246 --> 00:00:49,626
+analyzer checks and compiler
+
+
+17
+00:00:49,626 --> 00:00:51,506
+warnings to help you find bugs.
+
+
+18
+00:00:52,676 --> 00:00:54,336
+We'll dive into some fantastic,
+
+
+19
+00:00:54,336 --> 00:00:56,196
+new features for C++ developers,
+
+
+20
+00:00:56,646 --> 00:00:58,366
+including a tour of refactoring
+
+
+21
+00:00:58,366 --> 00:01:01,056
+support for C++ in Xcode, and
+
+
+22
+00:01:01,056 --> 00:01:02,866
+wrap up with an update on
+
+
+23
+00:01:02,866 --> 00:01:03,996
+link-time optimization.
+
+
+24
+00:01:04,506 --> 00:01:07,786
+Let's start with availability
+
+
+25
+00:01:07,786 --> 00:01:08,000
+checking.
+
+
+26
+00:01:10,556 --> 00:01:12,316
+Every major OS release comes
+
+
+27
+00:01:12,606 --> 00:01:14,556
+with great, new features, and
+
+
+28
+00:01:14,556 --> 00:01:16,096
+your customers expect you to
+
+
+29
+00:01:16,096 --> 00:01:18,046
+adopt these APIs in your apps.
+
+
+30
+00:01:19,086 --> 00:01:20,256
+But you still have to support
+
+
+31
+00:01:20,256 --> 00:01:22,626
+your users on older OS's where
+
+
+32
+00:01:22,626 --> 00:01:24,136
+those APIs aren't available.
+
+
+33
+00:01:24,136 --> 00:01:29,246
+On our platforms, we support
+
+
+34
+00:01:29,246 --> 00:01:30,766
+backwards deployment by
+
+
+35
+00:01:30,766 --> 00:01:32,686
+separating the Base SDK version
+
+
+36
+00:01:32,946 --> 00:01:34,026
+from the deployment target
+
+
+37
+00:01:34,026 --> 00:01:34,456
+version.
+
+
+38
+00:01:35,296 --> 00:01:36,716
+What this means is that you will
+
+
+39
+00:01:36,716 --> 00:01:38,586
+always compile against the
+
+
+40
+00:01:38,586 --> 00:01:41,286
+newest SDK, even when deploying
+
+
+41
+00:01:41,286 --> 00:01:42,496
+back to older OS's.
+
+
+42
+00:01:43,266 --> 00:01:45,736
+So for example, in Xcode 9, you
+
+
+43
+00:01:45,736 --> 00:01:49,326
+use the iOS 11 SDK, and if your
+
+
+44
+00:01:49,326 --> 00:01:52,086
+app only targets iOS 11, you'll
+
+
+45
+00:01:52,086 --> 00:01:53,716
+use that as the deployment
+
+
+46
+00:01:53,716 --> 00:01:54,596
+target as well.
+
+
+47
+00:01:55,146 --> 00:01:57,666
+But I know a lot of you will
+
+
+48
+00:01:57,666 --> 00:01:59,466
+want to support your users on
+
+
+49
+00:01:59,546 --> 00:02:01,606
+iOS 10 to give them a chance to
+
+
+50
+00:02:01,606 --> 00:02:02,216
+upgrade.
+
+
+51
+00:02:03,416 --> 00:02:04,406
+To do that, you can go to your
+
+
+52
+00:02:04,406 --> 00:02:07,126
+Build settings and select 10.0
+
+
+53
+00:02:07,516 --> 00:02:08,656
+for your deployment target.
+
+
+54
+00:02:09,756 --> 00:02:11,346
+This is a promise on the part of
+
+
+55
+00:02:11,346 --> 00:02:12,886
+your app that it will support
+
+
+56
+00:02:12,886 --> 00:02:15,296
+all versions of iOS 10 and
+
+
+57
+00:02:15,296 --> 00:02:15,746
+greater.
+
+
+58
+00:02:15,746 --> 00:02:20,976
+Now, this can be tricky because
+
+
+59
+00:02:21,136 --> 00:02:23,416
+it's only safe to call APIs that
+
+
+60
+00:02:23,486 --> 00:02:25,656
+are actually available on the
+
+
+61
+00:02:25,656 --> 00:02:26,496
+running OS.
+
+
+62
+00:02:27,236 --> 00:02:29,476
+If you call in newer API on an
+
+
+63
+00:02:29,476 --> 00:02:31,486
+older OS, then your app could
+
+
+64
+00:02:31,486 --> 00:02:33,146
+crash or have other unexpected
+
+
+65
+00:02:33,146 --> 00:02:33,646
+behavior.
+
+
+66
+00:02:33,646 --> 00:02:37,766
+In the past, we've recommended
+
+
+67
+00:02:37,766 --> 00:02:39,676
+querying the Objective-C runtime
+
+
+68
+00:02:40,106 --> 00:02:41,896
+to determine whether an API is
+
+
+69
+00:02:41,896 --> 00:02:42,386
+available.
+
+
+70
+00:02:43,496 --> 00:02:45,236
+But this was easy to get wrong
+
+
+71
+00:02:45,236 --> 00:02:47,346
+or even forget, and it was hard
+
+
+72
+00:02:47,346 --> 00:02:47,836
+to test.
+
+
+73
+00:02:49,286 --> 00:02:51,336
+Further, it required a different
+
+
+74
+00:02:51,436 --> 00:02:54,586
+syntax for checking each of
+
+
+75
+00:02:55,136 --> 00:02:58,066
+globals, functions, classes,
+
+
+76
+00:02:58,576 --> 00:03:00,296
+instance methods, and class
+
+
+77
+00:03:00,296 --> 00:03:00,666
+methods.
+
+
+78
+00:03:01,286 --> 00:03:04,956
+Now, those of you using Swift
+
+
+79
+00:03:04,956 --> 00:03:06,896
+may be wondering, what's the big
+
+
+80
+00:03:06,896 --> 00:03:07,696
+deal here?
+
+
+81
+00:03:07,956 --> 00:03:09,426
+Swift has a unified syntax,
+
+
+82
+00:03:09,476 --> 00:03:11,516
+#available, for querying API
+
+
+83
+00:03:11,516 --> 00:03:13,466
+availability at runtime, and the
+
+
+84
+00:03:13,466 --> 00:03:16,176
+compiler can even catch missing
+
+
+85
+00:03:16,176 --> 00:03:18,346
+availability checks at compile
+
+
+86
+00:03:18,786 --> 00:03:18,876
+time.
+
+
+87
+00:03:20,656 --> 00:03:21,936
+For more information on
+
+
+88
+00:03:21,936 --> 00:03:22,996
+availability in Swift, you
+
+
+89
+00:03:22,996 --> 00:03:24,406
+should check out the Swift in
+
+
+90
+00:03:24,406 --> 00:03:29,276
+Practice talk from WWDC 2015.
+
+
+91
+00:03:29,376 --> 00:03:31,396
+Today we brought Swift-style
+
+
+92
+00:03:31,396 --> 00:03:32,816
+availability checking to
+
+
+93
+00:03:32,816 --> 00:03:33,516
+Objective-C.
+
+
+94
+00:03:34,516 --> 00:03:39,406
+[ Applause ]
+
+
+95
+00:03:39,906 --> 00:03:41,096
+I would love to tell you about
+
+
+96
+00:03:41,946 --> 00:03:42,000
+it.
+
+
+97
+00:03:43,046 --> 00:03:44,726
+So suppose you have an app that
+
+
+98
+00:03:44,896 --> 00:03:46,796
+you're deploying back to iOS 10
+
+
+99
+00:03:47,726 --> 00:03:49,536
+and you decide to take advantage
+
+
+100
+00:03:49,716 --> 00:03:51,956
+of the fantastic, new face
+
+
+101
+00:03:51,956 --> 00:03:53,806
+detection APIs from the Vision
+
+
+102
+00:03:53,806 --> 00:03:55,426
+framework in iOS 11.
+
+
+103
+00:03:56,626 --> 00:03:57,886
+When you add these APIs to your
+
+
+104
+00:03:57,886 --> 00:04:00,606
+app and then build, you will now
+
+
+105
+00:04:00,606 --> 00:04:02,706
+get a compiler warning telling
+
+
+106
+00:04:02,706 --> 00:04:04,736
+you that these APIs are only
+
+
+107
+00:04:04,736 --> 00:04:07,046
+available in iOS 11 or newer.
+
+
+108
+00:04:07,576 --> 00:04:10,336
+You can address these warnings
+
+
+109
+00:04:10,696 --> 00:04:12,866
+by using the new @available
+
+
+110
+00:04:12,866 --> 00:04:14,826
+construct to query for API
+
+
+111
+00:04:14,826 --> 00:04:15,486
+availability.
+
+
+112
+00:04:16,565 --> 00:04:18,656
+This will return true when iOS
+
+
+113
+00:04:18,656 --> 00:04:20,466
+11 APIs are available.
+
+
+114
+00:04:20,916 --> 00:04:23,076
+It's safe to call them.
+
+
+115
+00:04:23,266 --> 00:04:24,266
+And if they're not, you can
+
+
+116
+00:04:24,266 --> 00:04:25,236
+provide a fallback.
+
+
+117
+00:04:26,516 --> 00:04:28,636
+Let's take a closer look at the
+
+
+118
+00:04:28,856 --> 00:04:29,000
+query.
+
+
+119
+00:04:31,046 --> 00:04:35,046
+As I mentioned, on iOS 11 or
+
+
+120
+00:04:35,046 --> 00:04:37,176
+greater, this will return true.
+
+
+121
+00:04:37,736 --> 00:04:40,026
+The star is required.
+
+
+122
+00:04:40,996 --> 00:04:42,676
+It indicates that on all other
+
+
+123
+00:04:42,676 --> 00:04:44,976
+platforms, the query always
+
+
+124
+00:04:44,976 --> 00:04:45,796
+returns true.
+
+
+125
+00:04:47,166 --> 00:04:48,316
+What this means is that if you
+
+
+126
+00:04:48,316 --> 00:04:49,906
+decide to port your app to
+
+
+127
+00:04:49,906 --> 00:04:51,806
+another platform -- say, macOS
+
+
+128
+00:04:52,486 --> 00:04:54,286
+-- then by default it will take
+
+
+129
+00:04:54,286 --> 00:04:55,626
+advantage of the new face
+
+
+130
+00:04:55,626 --> 00:04:56,676
+detection APIs.
+
+
+131
+00:04:57,736 --> 00:04:58,656
+Of course, the compiler will
+
+
+132
+00:04:58,656 --> 00:05:00,276
+still warn you if your port to
+
+
+133
+00:05:00,276 --> 00:05:02,146
+macOS supports an earlier
+
+
+134
+00:05:02,146 --> 00:05:03,406
+deployment target where those
+
+
+135
+00:05:03,406 --> 00:05:04,696
+APIs aren't available.
+
+
+136
+00:05:04,986 --> 00:05:08,786
+So you'll need to add a check.
+
+
+137
+00:05:10,066 --> 00:05:11,166
+Once you've been working with
+
+
+138
+00:05:11,166 --> 00:05:12,756
+availability for a while, you
+
+
+139
+00:05:12,756 --> 00:05:14,476
+will find that it's really
+
+
+140
+00:05:14,476 --> 00:05:16,536
+useful to write entire methods
+
+
+141
+00:05:16,846 --> 00:05:18,956
+that will only be called on iOS
+
+
+142
+00:05:18,956 --> 00:05:19,726
+11 or greater.
+
+
+143
+00:05:19,786 --> 00:05:23,236
+You can annotate these methods
+
+
+144
+00:05:23,236 --> 00:05:25,056
+with the new API availability
+
+
+145
+00:05:25,056 --> 00:05:25,516
+macro.
+
+
+146
+00:05:26,936 --> 00:05:29,316
+Then, inside that method, you
+
+
+147
+00:05:29,316 --> 00:05:31,216
+don't need to use @available to
+
+
+148
+00:05:31,216 --> 00:05:33,356
+check for availability, but
+
+
+149
+00:05:33,356 --> 00:05:35,386
+anyone who calls the method will
+
+
+150
+00:05:35,386 --> 00:05:36,166
+need to do so.
+
+
+151
+00:05:36,526 --> 00:05:37,366
+Otherwise, they'll get a
+
+
+152
+00:05:37,366 --> 00:05:37,776
+warning.
+
+
+153
+00:05:38,136 --> 00:05:42,026
+You can similarly apply this to
+
+
+154
+00:05:42,026 --> 00:05:42,886
+entire classes.
+
+
+155
+00:05:43,476 --> 00:05:44,216
+Then, you don't need to use
+
+
+156
+00:05:44,216 --> 00:05:46,266
+@available inside the class, but
+
+
+157
+00:05:46,266 --> 00:05:48,046
+anyone who instantiates it will
+
+
+158
+00:05:48,046 --> 00:05:48,766
+need to do so.
+
+
+159
+00:05:52,756 --> 00:05:54,446
+Now, availability checking is
+
+
+160
+00:05:54,446 --> 00:05:55,946
+not just for Objective-C.
+
+
+161
+00:05:56,706 --> 00:05:59,286
+We also support C and C++ with
+
+
+162
+00:05:59,286 --> 00:06:00,916
+the builtin available query.
+
+
+163
+00:06:01,856 --> 00:06:03,456
+This acts exactly like
+
+
+164
+00:06:03,456 --> 00:06:04,346
+@available.
+
+
+165
+00:06:04,656 --> 00:06:05,786
+It has the same syntax.
+
+
+166
+00:06:06,356 --> 00:06:07,576
+It just has a different name
+
+
+167
+00:06:07,746 --> 00:06:08,926
+that's compatible with C and
+
+
+168
+00:06:08,926 --> 00:06:09,626
+C++.
+
+
+169
+00:06:10,156 --> 00:06:13,176
+You can also use the API
+
+
+170
+00:06:13,176 --> 00:06:15,196
+availability macro in C, but you
+
+
+171
+00:06:15,196 --> 00:06:16,366
+will need to include the os
+
+
+172
+00:06:16,366 --> 00:06:18,836
+availability.h header to get
+
+
+173
+00:06:18,836 --> 00:06:19,646
+access to it.
+
+
+174
+00:06:20,096 --> 00:06:23,186
+And you can even annotate your
+
+
+175
+00:06:23,186 --> 00:06:24,756
+C++ class definitions.
+
+
+176
+00:06:24,756 --> 00:06:28,396
+All right, so how's this going
+
+
+177
+00:06:28,716 --> 00:06:31,716
+to work in practice?
+
+
+178
+00:06:31,716 --> 00:06:33,736
+For existing projects, we will
+
+
+179
+00:06:33,736 --> 00:06:35,566
+warn starting with APIs
+
+
+180
+00:06:35,566 --> 00:06:38,816
+introduced in iOS 11, tvOS 11,
+
+
+181
+00:06:38,816 --> 00:06:41,396
+macOS 10.13, and watchOS 4.
+
+
+182
+00:06:42,496 --> 00:06:45,226
+APIs from older SDKs will not be
+
+
+183
+00:06:45,226 --> 00:06:46,406
+checked at compile time.
+
+
+184
+00:06:47,676 --> 00:06:48,866
+This means that you won't need
+
+
+185
+00:06:48,866 --> 00:06:51,576
+to change any existing code, but
+
+
+186
+00:06:51,576 --> 00:06:53,596
+if you do decide to adopt the
+
+
+187
+00:06:53,596 --> 00:06:55,856
+new APIs, you'll need to use
+
+
+188
+00:06:55,856 --> 00:06:57,466
+@available to check for them.
+
+
+189
+00:06:58,656 --> 00:06:59,726
+We think this is the best and
+
+
+190
+00:06:59,726 --> 00:07:00,726
+safest way to check for
+
+
+191
+00:07:00,726 --> 00:07:02,386
+availability, and so we highly
+
+
+192
+00:07:02,386 --> 00:07:03,966
+encourage you to use it.
+
+
+193
+00:07:05,726 --> 00:07:08,896
+For new projects, all APIs will
+
+
+194
+00:07:08,896 --> 00:07:10,196
+be checked at compile time.
+
+
+195
+00:07:11,026 --> 00:07:12,376
+This means you'll need to use
+
+
+196
+00:07:12,376 --> 00:07:13,986
+@available for all APIs
+
+
+197
+00:07:13,986 --> 00:07:15,976
+introduced after your deployment
+
+
+198
+00:07:16,376 --> 00:07:16,566
+target.
+
+
+199
+00:07:17,736 --> 00:07:20,036
+Existing projects can opt in to
+
+
+200
+00:07:20,036 --> 00:07:22,316
+this all-API behavior by going
+
+
+201
+00:07:22,316 --> 00:07:23,686
+to the Build settings and
+
+
+202
+00:07:23,686 --> 00:07:25,926
+selecting Yes (All Versions) for
+
+
+203
+00:07:25,926 --> 00:07:27,036
+the Unguarded availability
+
+
+204
+00:07:27,036 --> 00:07:27,386
+setting.
+
+
+205
+00:07:28,186 --> 00:07:30,006
+This is going to make it a lot
+
+
+206
+00:07:30,006 --> 00:07:31,846
+easier to safely deploy your
+
+
+207
+00:07:31,846 --> 00:07:33,326
+apps back to older OS's.
+
+
+208
+00:07:33,886 --> 00:07:36,376
+So that's availability checking.
+
+
+209
+00:07:36,726 --> 00:07:37,606
+You could say it's now
+
+
+210
+00:07:37,606 --> 00:07:40,506
+@available for C, C++, and
+
+
+211
+00:07:40,506 --> 00:07:41,156
+Objective-C.
+
+
+212
+00:07:42,516 --> 00:07:47,686
+[ Applause ]
+
+
+213
+00:07:48,186 --> 00:07:49,896
+All right, let's move on to the
+
+
+214
+00:07:49,896 --> 00:07:50,716
+static analyzer.
+
+
+215
+00:07:52,096 --> 00:07:54,976
+The analyzer is great at
+
+
+216
+00:07:54,976 --> 00:07:56,426
+catching hard-to-reproduce
+
+
+217
+00:07:56,526 --> 00:07:58,706
+edge-case bugs, and it can even
+
+
+218
+00:07:58,706 --> 00:07:59,876
+show you the sequence of
+
+
+219
+00:07:59,876 --> 00:08:01,936
+corner-case events that led to
+
+
+220
+00:08:02,016 --> 00:08:03,276
+those bugs.
+
+
+221
+00:08:03,556 --> 00:08:04,406
+Today I'm going to tell you
+
+
+222
+00:08:04,406 --> 00:08:05,656
+about three new checks that
+
+
+223
+00:08:05,656 --> 00:08:07,926
+we've added to the analyzer: a
+
+
+224
+00:08:07,926 --> 00:08:09,426
+check for suspicious comparison
+
+
+225
+00:08:09,426 --> 00:08:11,466
+of NSNumber, a check for use of
+
+
+226
+00:08:11,466 --> 00:08:12,756
+dispatch once on instance
+
+
+227
+00:08:12,756 --> 00:08:14,546
+variables, and a check for
+
+
+228
+00:08:14,546 --> 00:08:16,346
+auto-synthesized copy properties
+
+
+229
+00:08:16,636 --> 00:08:18,346
+of NSMutable type.
+
+
+230
+00:08:20,756 --> 00:08:24,596
+A particularly pernicious bug is
+
+
+231
+00:08:24,596 --> 00:08:26,506
+to mistakenly compare an
+
+
+232
+00:08:26,506 --> 00:08:28,396
+NSNumber pointer value to the
+
+
+233
+00:08:28,396 --> 00:08:30,836
+scalar zero because this
+
+
+234
+00:08:31,036 --> 00:08:33,486
+actually compares to nil and not
+
+
+235
+00:08:33,486 --> 00:08:34,976
+the zero NSNumber instance.
+
+
+236
+00:08:36,025 --> 00:08:37,006
+Here's an example of how this
+
+
+237
+00:08:37,006 --> 00:08:37,936
+can be a problem.
+
+
+238
+00:08:39,116 --> 00:08:40,885
+In the hasPhotos method, the
+
+
+239
+00:08:40,885 --> 00:08:43,706
+programmer intends to return no
+
+
+240
+00:08:43,856 --> 00:08:45,156
+when the photo album is empty,
+
+
+241
+00:08:46,136 --> 00:08:47,236
+but because they're comparing
+
+
+242
+00:08:47,236 --> 00:08:49,866
+the photo count to nil, this
+
+
+243
+00:08:49,866 --> 00:08:52,216
+will actually return yes, even
+
+
+244
+00:08:52,216 --> 00:08:54,266
+when photo count holds the zero
+
+
+245
+00:08:54,316 --> 00:08:55,356
+NSNumber instance.
+
+
+246
+00:08:56,036 --> 00:08:57,206
+And so the analyzer will now
+
+
+247
+00:08:57,206 --> 00:08:59,876
+warn about this.
+
+
+248
+00:09:00,106 --> 00:09:02,336
+You can fix this error by
+
+
+249
+00:09:02,336 --> 00:09:03,986
+instead calling the integerValue
+
+
+250
+00:09:03,986 --> 00:09:06,196
+property to compare integers to
+
+
+251
+00:09:06,196 --> 00:09:06,756
+integers.
+
+
+252
+00:09:07,106 --> 00:09:07,686
+This is safe.
+
+
+253
+00:09:08,236 --> 00:09:11,626
+There's a similar problem with
+
+
+254
+00:09:11,626 --> 00:09:14,056
+implicit conversions to Booleans
+
+
+255
+00:09:14,446 --> 00:09:16,466
+because these also check for nil
+
+
+256
+00:09:16,496 --> 00:09:17,746
+and not the zero number.
+
+
+257
+00:09:18,276 --> 00:09:20,956
+This method counts the number of
+
+
+258
+00:09:21,046 --> 00:09:23,286
+faces in a photo, and since this
+
+
+259
+00:09:23,286 --> 00:09:24,966
+is an expensive operation, it
+
+
+260
+00:09:24,966 --> 00:09:26,576
+returns early if they've already
+
+
+261
+00:09:26,576 --> 00:09:27,216
+been counted.
+
+
+262
+00:09:28,276 --> 00:09:29,776
+But someone reading this code
+
+
+263
+00:09:30,066 --> 00:09:31,436
+might find it ambiguous.
+
+
+264
+00:09:32,356 --> 00:09:33,546
+Did the programmer intend to
+
+
+265
+00:09:33,546 --> 00:09:35,656
+return early if face count was
+
+
+266
+00:09:35,656 --> 00:09:37,806
+non-nil or non-zero?
+
+
+267
+00:09:38,806 --> 00:09:40,396
+The analyzer will now warn about
+
+
+268
+00:09:40,396 --> 00:09:41,546
+this kind of ambiguity.
+
+
+269
+00:09:41,976 --> 00:09:44,446
+In this case, the programmer
+
+
+270
+00:09:44,446 --> 00:09:47,386
+meant non-nil, and so she can
+
+
+271
+00:09:47,476 --> 00:09:49,136
+express her intent directly in
+
+
+272
+00:09:49,136 --> 00:09:51,126
+the code and silence the
+
+
+273
+00:09:51,126 --> 00:09:53,476
+analyzer warning by adding the
+
+
+274
+00:09:53,476 --> 00:09:54,896
+comparison explicitly.
+
+
+275
+00:09:55,456 --> 00:09:59,106
+You can control the level of
+
+
+276
+00:09:59,106 --> 00:10:00,316
+this check in your Build
+
+
+277
+00:10:00,316 --> 00:10:00,656
+setting.
+
+
+278
+00:10:01,486 --> 00:10:02,956
+If you choose Yes (Aggressive),
+
+
+279
+00:10:03,606 --> 00:10:05,566
+then the analyzer will warn when
+
+
+280
+00:10:05,566 --> 00:10:06,786
+it's not sure that you've made a
+
+
+281
+00:10:06,786 --> 00:10:08,486
+mistake, but it does think your
+
+
+282
+00:10:08,486 --> 00:10:09,326
+code is ambiguous.
+
+
+283
+00:10:09,946 --> 00:10:13,696
+Let's move on to dispatch once.
+
+
+284
+00:10:16,076 --> 00:10:17,776
+Grand Central Dispatch provides
+
+
+285
+00:10:17,866 --> 00:10:20,896
+a fantastic API, dispatch once,
+
+
+286
+00:10:21,096 --> 00:10:22,306
+that guarantees that a block is
+
+
+287
+00:10:22,306 --> 00:10:24,256
+called once and only once.
+
+
+288
+00:10:24,896 --> 00:10:27,276
+It is really useful for safely
+
+
+289
+00:10:27,276 --> 00:10:28,436
+initializing shared global
+
+
+290
+00:10:28,436 --> 00:10:28,836
+state.
+
+
+291
+00:10:29,946 --> 00:10:31,576
+In this example, the programmer
+
+
+292
+00:10:32,186 --> 00:10:34,186
+uses it to load and initialize a
+
+
+293
+00:10:34,186 --> 00:10:36,136
+shared array of photos.
+
+
+294
+00:10:37,616 --> 00:10:39,516
+The first argument to dispatch
+
+
+295
+00:10:39,516 --> 00:10:41,336
+once is the address of a
+
+
+296
+00:10:41,336 --> 00:10:43,176
+variable of a special type,
+
+
+297
+00:10:43,506 --> 00:10:44,696
+dispatch once t.
+
+
+298
+00:10:45,546 --> 00:10:46,846
+Grand Central Dispatch uses this
+
+
+299
+00:10:47,156 --> 00:10:48,926
+to make sure that the block is
+
+
+300
+00:10:48,926 --> 00:10:51,606
+only called once.
+
+
+301
+00:10:51,686 --> 00:10:53,846
+Now, it's really important that
+
+
+302
+00:10:53,846 --> 00:10:56,046
+this variable be either a static
+
+
+303
+00:10:56,266 --> 00:10:57,276
+or a global variable.
+
+
+304
+00:10:58,276 --> 00:10:59,756
+That's because if it's ever been
+
+
+305
+00:10:59,756 --> 00:11:01,556
+the case that the variable held
+
+
+306
+00:11:01,556 --> 00:11:03,266
+a non-zero value in the past,
+
+
+307
+00:11:04,086 --> 00:11:05,206
+then Grand Central Dispatch
+
+
+308
+00:11:05,426 --> 00:11:06,916
+might not be able to make the
+
+
+309
+00:11:06,916 --> 00:11:09,006
+once and only once guarantee in
+
+
+310
+00:11:09,006 --> 00:11:09,986
+multithreaded code.
+
+
+311
+00:11:10,506 --> 00:11:14,356
+What this means is that it's not
+
+
+312
+00:11:14,576 --> 00:11:17,306
+safe to use dispatch once t in
+
+
+313
+00:11:17,306 --> 00:11:19,146
+instance variables or, indeed,
+
+
+314
+00:11:19,146 --> 00:11:21,696
+in any other memory on the heap
+
+
+315
+00:11:22,156 --> 00:11:23,316
+that might have been reused.
+
+
+316
+00:11:23,986 --> 00:11:25,056
+And so the analyzer will now
+
+
+317
+00:11:25,056 --> 00:11:26,486
+warn about this.
+
+
+318
+00:11:27,296 --> 00:11:29,686
+To fix this, you can use your
+
+
+319
+00:11:29,786 --> 00:11:31,496
+favorite non-recursive lock.
+
+
+320
+00:11:32,306 --> 00:11:34,076
+Here I'll use NSLock, but you
+
+
+321
+00:11:34,076 --> 00:11:35,916
+could use OSUnfairLock or a
+
+
+322
+00:11:35,916 --> 00:11:37,016
+pthread mutex as well.
+
+
+323
+00:11:38,416 --> 00:11:41,316
+After acquiring the lock, check
+
+
+324
+00:11:41,316 --> 00:11:42,346
+to see whether the data's
+
+
+325
+00:11:42,346 --> 00:11:43,506
+initialized, and if not,
+
+
+326
+00:11:43,506 --> 00:11:46,336
+initialize it, and then don't
+
+
+327
+00:11:46,406 --> 00:11:48,346
+forget to release the lock.
+
+
+328
+00:11:49,236 --> 00:11:50,706
+This will guarantee that the
+
+
+329
+00:11:50,706 --> 00:11:52,376
+data's initialized once and only
+
+
+330
+00:11:52,376 --> 00:11:54,056
+once, exactly like you expect.
+
+
+331
+00:11:54,416 --> 00:12:00,026
+Finally, I'm going to tell you
+
+
+332
+00:12:00,026 --> 00:12:01,576
+about a check that we've added
+
+
+333
+00:12:01,876 --> 00:12:03,786
+for auto-synthesized copy
+
+
+334
+00:12:03,786 --> 00:12:05,766
+properties of NSMutable types.
+
+
+335
+00:12:07,236 --> 00:12:09,066
+Copy properties call the copy
+
+
+336
+00:12:09,066 --> 00:12:11,096
+method in their setter on the
+
+
+337
+00:12:11,096 --> 00:12:12,976
+passed-in value to story a copy.
+
+
+338
+00:12:14,006 --> 00:12:16,736
+But calling copy on a mutable
+
+
+339
+00:12:16,736 --> 00:12:18,916
+array results in an immutable
+
+
+340
+00:12:18,916 --> 00:12:19,346
+copy.
+
+
+341
+00:12:20,416 --> 00:12:21,166
+Here's how this can be a
+
+
+342
+00:12:21,166 --> 00:12:21,676
+problem.
+
+
+343
+00:12:22,606 --> 00:12:25,296
+It, this method tries to reset
+
+
+344
+00:12:25,296 --> 00:12:27,306
+the photos property by setting
+
+
+345
+00:12:27,306 --> 00:12:29,406
+it to an empty mutable array and
+
+
+346
+00:12:29,406 --> 00:12:31,896
+then adding in a single photo.
+
+
+347
+00:12:33,196 --> 00:12:34,866
+Unfortunately, this will lead to
+
+
+348
+00:12:34,866 --> 00:12:37,236
+a really nasty surprise at
+
+
+349
+00:12:37,236 --> 00:12:39,856
+runtime because you can't add an
+
+
+350
+00:12:39,856 --> 00:12:41,766
+object to an immutable array.
+
+
+351
+00:12:42,596 --> 00:12:43,496
+You'll get an exception.
+
+
+352
+00:12:44,056 --> 00:12:46,826
+The analyzer will now warn you
+
+
+353
+00:12:46,826 --> 00:12:48,166
+about these kinds of properties
+
+
+354
+00:12:48,216 --> 00:12:50,156
+to help you prevent this runtime
+
+
+355
+00:12:50,156 --> 00:12:50,666
+exception.
+
+
+356
+00:12:51,216 --> 00:12:53,666
+The fix here is simple.
+
+
+357
+00:12:54,116 --> 00:12:55,716
+All you need to do is write the
+
+
+358
+00:12:55,716 --> 00:12:57,516
+setter explicitly to have it
+
+
+359
+00:12:57,516 --> 00:12:58,626
+call mutableCopy.
+
+
+360
+00:12:59,426 --> 00:13:00,326
+This guarantees that your
+
+
+361
+00:13:00,326 --> 00:13:02,946
+property always holds a mutable
+
+
+362
+00:13:02,946 --> 00:13:03,000
+array.
+
+
+363
+00:13:06,236 --> 00:13:07,706
+So those are just three of the
+
+
+364
+00:13:07,706 --> 00:13:08,736
+new checks that we've added to
+
+
+365
+00:13:08,736 --> 00:13:09,746
+the analyzer this year.
+
+
+366
+00:13:10,606 --> 00:13:11,776
+You should run it on your code.
+
+
+367
+00:13:11,776 --> 00:13:13,186
+It will help you find bugs.
+
+
+368
+00:13:14,556 --> 00:13:16,656
+To do that, choose Analyze from
+
+
+369
+00:13:16,656 --> 00:13:17,626
+Xcode's Product menu.
+
+
+370
+00:13:19,086 --> 00:13:20,606
+You could even have Xcode run
+
+
+371
+00:13:20,606 --> 00:13:23,566
+the analyzer on every compile by
+
+
+372
+00:13:23,566 --> 00:13:25,186
+going to your Build settings and
+
+
+373
+00:13:25,186 --> 00:13:27,096
+enabling Analyze During 'Build.'
+
+
+374
+00:13:27,096 --> 00:13:29,086
+This will help you catch your
+
+
+375
+00:13:29,086 --> 00:13:30,336
+bugs early and often.
+
+
+376
+00:13:30,976 --> 00:13:33,136
+If you're interested in other
+
+
+377
+00:13:33,136 --> 00:13:34,626
+tools to help you find bugs, I
+
+
+378
+00:13:34,956 --> 00:13:36,496
+highly encourage you to check
+
+
+379
+00:13:36,496 --> 00:13:38,266
+out finding bugs using Xcode
+
+
+380
+00:13:38,266 --> 00:13:39,566
+runtime tools online.
+
+
+381
+00:13:39,566 --> 00:13:41,916
+So that's what's new in the
+
+
+382
+00:13:41,916 --> 00:13:42,466
+analyzer.
+
+
+383
+00:13:42,916 --> 00:13:44,616
+I'm not going to hand it over to
+
+
+384
+00:13:44,616 --> 00:13:46,266
+Duncan, who will tell us about
+
+
+385
+00:13:46,266 --> 00:13:47,316
+new compiler warnings.
+
+
+386
+00:13:48,516 --> 00:13:54,046
+[ Applause ]
+
+
+387
+00:13:54,546 --> 00:13:57,766
+>> Thanks, Devin.
+
+
+388
+00:13:58,576 --> 00:14:00,986
+Xcode 9 comes with over 100 new
+
+
+389
+00:14:00,986 --> 00:14:02,526
+errors and warnings to help find
+
+
+390
+00:14:02,526 --> 00:14:03,426
+bugs in your code.
+
+
+391
+00:14:03,746 --> 00:14:05,626
+Let's talk about two warnings
+
+
+392
+00:14:05,626 --> 00:14:06,466
+that are important for
+
+
+393
+00:14:06,466 --> 00:14:07,166
+Objective-C.
+
+
+394
+00:14:09,686 --> 00:14:11,896
+Under ARC, most parameters are
+
+
+395
+00:14:11,896 --> 00:14:13,346
+safe to capture in blocks.
+
+
+396
+00:14:13,876 --> 00:14:16,356
+In this example, the
+
+
+397
+00:14:16,356 --> 00:14:18,256
+validateDictionary usingChecker
+
+
+398
+00:14:18,256 --> 00:14:21,036
+method takes an NSDictionary and
+
+
+399
+00:14:21,036 --> 00:14:22,716
+visits every entry by calling
+
+
+400
+00:14:22,716 --> 00:14:24,256
+enumerateKeysAndObjects
+
+
+401
+00:14:24,256 --> 00:14:24,886
+UsingBlock.
+
+
+402
+00:14:26,336 --> 00:14:28,216
+Block captures the checker
+
+
+403
+00:14:28,216 --> 00:14:28,746
+parameter.
+
+
+404
+00:14:29,466 --> 00:14:30,846
+This is safe and works really
+
+
+405
+00:14:30,846 --> 00:14:31,096
+well.
+
+
+406
+00:14:32,906 --> 00:14:34,796
+Notice the checkObject forKey
+
+
+407
+00:14:35,066 --> 00:14:35,536
+can fail.
+
+
+408
+00:14:36,376 --> 00:14:38,856
+The block sets stop to yes to
+
+
+409
+00:14:38,856 --> 00:14:40,226
+abort the enumeration early.
+
+
+410
+00:14:41,576 --> 00:14:43,546
+Since this is a validation
+
+
+411
+00:14:43,546 --> 00:14:45,016
+method, it should also return
+
+
+412
+00:14:45,016 --> 00:14:46,546
+BOOL and create an NS error.
+
+
+413
+00:14:47,116 --> 00:14:48,066
+Let's make that change.
+
+
+414
+00:14:49,636 --> 00:14:52,006
+OK. Let's walk through the code.
+
+
+415
+00:14:52,356 --> 00:14:54,196
+Before enumerating, isValid is
+
+
+416
+00:14:54,196 --> 00:14:54,896
+set to yes.
+
+
+417
+00:14:55,586 --> 00:14:57,716
+The block runs the checker and
+
+
+418
+00:14:57,716 --> 00:14:58,856
+returns on success.
+
+
+419
+00:14:59,906 --> 00:15:02,326
+If the checker fails, isValid is
+
+
+420
+00:15:02,326 --> 00:15:04,356
+set to no and an NS error is
+
+
+421
+00:15:04,356 --> 00:15:04,796
+created.
+
+
+422
+00:15:06,236 --> 00:15:08,616
+After enumerating, isValid is
+
+
+423
+00:15:08,616 --> 00:15:10,916
+returned, but there's a bug
+
+
+424
+00:15:10,916 --> 00:15:11,156
+here.
+
+
+425
+00:15:12,596 --> 00:15:14,626
+Out parameters like error are
+
+
+426
+00:15:14,626 --> 00:15:16,066
+implicitly autoreleasing.
+
+
+427
+00:15:16,676 --> 00:15:18,826
+Assigning to them is not safe in
+
+
+428
+00:15:19,566 --> 00:15:20,316
+a block.
+
+
+429
+00:15:20,926 --> 00:15:22,266
+enumerateKeysAndObjects
+
+
+430
+00:15:22,266 --> 00:15:24,236
+UsingBlock calls the block
+
+
+431
+00:15:24,236 --> 00:15:25,586
+inside an autorelease pool.
+
+
+432
+00:15:26,536 --> 00:15:28,476
+When it returns, the NS error
+
+
+433
+00:15:28,476 --> 00:15:29,696
+will get destroyed as well.
+
+
+434
+00:15:30,416 --> 00:15:31,796
+It isn't safe to use.
+
+
+435
+00:15:32,316 --> 00:15:36,336
+In Xcode 9, this unsafe capture
+
+
+436
+00:15:36,336 --> 00:15:37,266
+will trigger a warning.
+
+
+437
+00:15:38,496 --> 00:15:40,696
+The easiest fix is to make the
+
+
+438
+00:15:40,696 --> 00:15:41,866
+out parameter a strong
+
+
+439
+00:15:41,866 --> 00:15:42,496
+reference.
+
+
+440
+00:15:43,156 --> 00:15:44,576
+This will keep the value alive
+
+
+441
+00:15:44,816 --> 00:15:46,606
+across any autorelease pools.
+
+
+442
+00:15:47,856 --> 00:15:49,286
+This works as long as all
+
+
+443
+00:15:49,286 --> 00:15:50,876
+callers of validateDictionary
+
+
+444
+00:15:50,876 --> 00:15:52,496
+usingChecker are using ARC.
+
+
+445
+00:15:54,026 --> 00:15:55,556
+The other option is to use a
+
+
+446
+00:15:55,556 --> 00:15:56,756
+local block variable.
+
+
+447
+00:15:57,836 --> 00:16:00,036
+Here strongError is initialized
+
+
+448
+00:16:00,036 --> 00:16:00,406
+to nil.
+
+
+449
+00:16:01,126 --> 00:16:03,316
+If the enumeration stops early,
+
+
+450
+00:16:03,566 --> 00:16:05,886
+strongError safely stores the NS
+
+
+451
+00:16:05,886 --> 00:16:06,226
+error.
+
+
+452
+00:16:07,466 --> 00:16:09,186
+Then, the out parameter is
+
+
+453
+00:16:09,186 --> 00:16:11,056
+updated after the enumeration is
+
+
+454
+00:16:11,056 --> 00:16:11,516
+complete.
+
+
+455
+00:16:12,006 --> 00:16:14,816
+That's the first warning.
+
+
+456
+00:16:15,656 --> 00:16:16,676
+Let's move on to the second.
+
+
+457
+00:16:17,976 --> 00:16:19,786
+In this example, the function
+
+
+458
+00:16:19,786 --> 00:16:21,476
+foo is declared without any
+
+
+459
+00:16:21,476 --> 00:16:22,106
+parameters.
+
+
+460
+00:16:23,686 --> 00:16:25,876
+In C and Objective-C, that means
+
+
+461
+00:16:25,876 --> 00:16:27,296
+that foo can be called with any
+
+
+462
+00:16:27,296 --> 00:16:28,976
+number or type of argument.
+
+
+463
+00:16:30,026 --> 00:16:31,236
+A function with an empty
+
+
+464
+00:16:31,236 --> 00:16:32,696
+parameter list is called a
+
+
+465
+00:16:32,696 --> 00:16:34,366
+non-prototype declaration.
+
+
+466
+00:16:35,646 --> 00:16:36,926
+This behavior dates from the
+
+
+467
+00:16:36,996 --> 00:16:38,886
+early days of C where parameters
+
+
+468
+00:16:38,886 --> 00:16:40,256
+were only listed at function
+
+
+469
+00:16:40,256 --> 00:16:41,716
+definitions, but this
+
+
+470
+00:16:41,716 --> 00:16:43,496
+declaration is not type safe.
+
+
+471
+00:16:44,026 --> 00:16:45,416
+This is never really what you
+
+
+472
+00:16:45,416 --> 00:16:45,766
+want.
+
+
+473
+00:16:46,446 --> 00:16:47,406
+Calls that don't match the
+
+
+474
+00:16:47,406 --> 00:16:49,826
+definition can crash at runtime.
+
+
+475
+00:16:50,796 --> 00:16:52,866
+In Xcode 9, the compiler has a
+
+
+476
+00:16:52,866 --> 00:16:54,416
+new warning that enforces strict
+
+
+477
+00:16:54,416 --> 00:16:55,026
+prototypes.
+
+
+478
+00:16:57,696 --> 00:17:00,126
+Usually, the fix is to add void.
+
+
+479
+00:17:00,806 --> 00:17:02,656
+This specifies exactly zero
+
+
+480
+00:17:02,656 --> 00:17:03,366
+parameters.
+
+
+481
+00:17:03,766 --> 00:17:05,496
+Any calls with arguments will
+
+
+482
+00:17:05,496 --> 00:17:06,116
+give an error.
+
+
+483
+00:17:07,656 --> 00:17:08,965
+Since function pointers and
+
+
+484
+00:17:08,965 --> 00:17:10,756
+blocks have a common declaration
+
+
+485
+00:17:10,756 --> 00:17:12,796
+syntax with functions, you'll
+
+
+486
+00:17:12,796 --> 00:17:14,086
+also see this if you have a
+
+
+487
+00:17:14,086 --> 00:17:15,896
+function or method that takes a
+
+
+488
+00:17:15,896 --> 00:17:16,976
+block as an argument.
+
+
+489
+00:17:18,236 --> 00:17:19,836
+The fix is the same as with
+
+
+490
+00:17:19,836 --> 00:17:20,955
+function declarations.
+
+
+491
+00:17:21,445 --> 00:17:23,715
+Add void to specify exactly zero
+
+
+492
+00:17:23,715 --> 00:17:24,496
+parameters.
+
+
+493
+00:17:25,346 --> 00:17:26,846
+Then, you'll get an error if you
+
+
+494
+00:17:26,846 --> 00:17:28,566
+pass in a block with the wrong
+
+
+495
+00:17:29,456 --> 00:17:29,566
+type.
+
+
+496
+00:17:30,256 --> 00:17:32,286
+Xcode's project modernization
+
+
+497
+00:17:32,366 --> 00:17:33,826
+will turn these warnings on in
+
+
+498
+00:17:33,826 --> 00:17:35,816
+your Build settings, or you can
+
+
+499
+00:17:35,846 --> 00:17:37,356
+upgrade later by selecting your
+
+
+500
+00:17:37,356 --> 00:17:39,026
+project and choosing Validate
+
+
+501
+00:17:39,026 --> 00:17:40,346
+Settings from the Editor menu.
+
+
+502
+00:17:40,916 --> 00:17:43,816
+You can also upgrade new
+
+
+503
+00:17:43,816 --> 00:17:45,486
+warnings to errors by selecting
+
+
+504
+00:17:45,676 --> 00:17:47,266
+Yes (Error) in the Build
+
+
+505
+00:17:47,266 --> 00:17:47,716
+settings.
+
+
+506
+00:17:49,196 --> 00:17:50,146
+That's it today for new
+
+
+507
+00:17:50,146 --> 00:17:50,706
+warnings.
+
+
+508
+00:17:52,146 --> 00:17:53,516
+Let's move on to C++.
+
+
+509
+00:17:55,036 --> 00:17:57,466
+This year, we've put a lot of
+
+
+510
+00:17:57,466 --> 00:17:59,286
+effort into improving the C++
+
+
+511
+00:17:59,286 --> 00:18:00,426
+experience in Xcode.
+
+
+512
+00:18:01,856 --> 00:18:02,996
+That includes refactoring
+
+
+513
+00:18:02,996 --> 00:18:03,426
+support.
+
+
+514
+00:18:04,106 --> 00:18:05,866
+We support a lot of operations.
+
+
+515
+00:18:06,406 --> 00:18:08,286
+I'd like to give a short tour of
+
+
+516
+00:18:08,286 --> 00:18:10,536
+using Xcode to refactor LLVM.
+
+
+517
+00:18:10,536 --> 00:18:13,976
+This is a large C++ code base
+
+
+518
+00:18:13,976 --> 00:18:15,076
+that shows off the engine.
+
+
+519
+00:18:16,336 --> 00:18:18,316
+But even if you're not a C++
+
+
+520
+00:18:18,316 --> 00:18:19,796
+developer, you could still get
+
+
+521
+00:18:19,796 --> 00:18:21,596
+an idea of how refactoring in
+
+
+522
+00:18:21,626 --> 00:18:23,096
+Xcode can improve your work
+
+
+523
+00:18:23,096 --> 00:18:23,336
+flow.
+
+
+524
+00:18:23,906 --> 00:18:27,136
+I started at a member function
+
+
+525
+00:18:27,136 --> 00:18:28,646
+definition from the InstCombiner
+
+
+526
+00:18:28,646 --> 00:18:29,146
+class.
+
+
+527
+00:18:30,276 --> 00:18:31,746
+This is a utility for combining
+
+
+528
+00:18:31,746 --> 00:18:32,466
+instructions.
+
+
+529
+00:18:33,766 --> 00:18:35,546
+I never liked the Inst short
+
+
+530
+00:18:35,546 --> 00:18:37,376
+form for instruction, so I
+
+
+531
+00:18:37,376 --> 00:18:39,026
+Command-clicked in Xcode and
+
+
+532
+00:18:39,026 --> 00:18:39,796
+selected Rename.
+
+
+533
+00:18:41,686 --> 00:18:43,576
+This worked even though I wasn't
+
+
+534
+00:18:43,576 --> 00:18:44,746
+at the class declaration.
+
+
+535
+00:18:46,446 --> 00:18:48,026
+InstructionCombiner is more
+
+
+536
+00:18:48,026 --> 00:18:48,516
+clear to me.
+
+
+537
+00:18:50,416 --> 00:18:52,406
+Xcode updated the name in place.
+
+
+538
+00:18:52,406 --> 00:18:53,856
+This saved me a lot of hunting
+
+
+539
+00:18:53,856 --> 00:18:54,096
+around.
+
+
+540
+00:18:54,726 --> 00:18:57,096
+I double-checked the class
+
+
+541
+00:18:57,096 --> 00:18:57,736
+declaration.
+
+
+542
+00:18:58,266 --> 00:18:59,266
+It was updated too.
+
+
+543
+00:19:00,346 --> 00:19:02,846
+So was its use in the CRTP base
+
+
+544
+00:19:02,846 --> 00:19:04,216
+class, InstVisitor.
+
+
+545
+00:19:05,556 --> 00:19:07,496
+InstVisitor uses the same short
+
+
+546
+00:19:07,496 --> 00:19:08,746
+form, and so does
+
+
+547
+00:19:08,806 --> 00:19:10,036
+InstCombineWorklist.
+
+
+548
+00:19:10,636 --> 00:19:11,726
+But I had better leave those for
+
+
+549
+00:19:11,726 --> 00:19:12,336
+a separate commit.
+
+
+550
+00:19:14,216 --> 00:19:15,796
+Since changing a class name from
+
+
+551
+00:19:15,796 --> 00:19:17,046
+one of its member functions
+
+
+552
+00:19:17,046 --> 00:19:18,766
+worked, I moved on to something
+
+
+553
+00:19:18,796 --> 00:19:19,856
+even more complicated.
+
+
+554
+00:19:20,596 --> 00:19:21,556
+I went to a template
+
+
+555
+00:19:21,556 --> 00:19:23,176
+specialization for simplified
+
+
+556
+00:19:23,176 --> 00:19:26,026
+type, a utility we use on smart
+
+
+557
+00:19:26,026 --> 00:19:27,646
+pointers and custom iterators.
+
+
+558
+00:19:28,156 --> 00:19:30,746
+I think the function
+
+
+559
+00:19:30,816 --> 00:19:32,956
+getSimplifiedValue is named
+
+
+560
+00:19:32,956 --> 00:19:33,406
+wrong.
+
+
+561
+00:19:34,066 --> 00:19:35,626
+It should use STL naming
+
+
+562
+00:19:35,626 --> 00:19:37,396
+conventions like its class name.
+
+
+563
+00:19:38,416 --> 00:19:39,526
+I selected Rename again.
+
+
+564
+00:19:40,886 --> 00:19:42,056
+Tying together template
+
+
+565
+00:19:42,056 --> 00:19:43,826
+specializations from across the
+
+
+566
+00:19:43,826 --> 00:19:46,146
+project is complicated, but
+
+
+567
+00:19:46,146 --> 00:19:47,586
+Xcode can handle it.
+
+
+568
+00:19:48,256 --> 00:19:50,466
+The specialization I was looking
+
+
+569
+00:19:50,466 --> 00:19:52,656
+at was updated and so was the
+
+
+570
+00:19:52,656 --> 00:19:53,846
+main template declaration.
+
+
+571
+00:19:54,996 --> 00:19:56,326
+There's another specialization
+
+
+572
+00:19:56,326 --> 00:19:58,246
+right below, and it was fixed
+
+
+573
+00:19:58,926 --> 00:19:59,000
+too.
+
+
+574
+00:20:01,396 --> 00:20:03,386
+Next, I moved to Constants.h,
+
+
+575
+00:20:03,676 --> 00:20:04,856
+where we have a class called
+
+
+576
+00:20:04,896 --> 00:20:06,556
+ConstantInt for representing
+
+
+577
+00:20:06,736 --> 00:20:07,616
+constant integers.
+
+
+578
+00:20:08,736 --> 00:20:09,816
+It has nice convenience
+
+
+579
+00:20:09,816 --> 00:20:11,476
+functions for getting true and
+
+
+580
+00:20:11,476 --> 00:20:12,466
+false values.
+
+
+581
+00:20:13,666 --> 00:20:15,516
+I added declarations for a
+
+
+582
+00:20:15,516 --> 00:20:17,406
+getMax function to get the
+
+
+583
+00:20:17,406 --> 00:20:18,816
+maximum integer value.
+
+
+584
+00:20:20,296 --> 00:20:21,976
+Then, I Command-clicked and
+
+
+585
+00:20:21,976 --> 00:20:23,146
+generated the missing function
+
+
+586
+00:20:23,146 --> 00:20:26,086
+definitions for each of them.
+
+
+587
+00:20:26,686 --> 00:20:28,476
+Here they are in Constants.cpp.
+
+
+588
+00:20:29,576 --> 00:20:31,486
+What I like about this is where
+
+
+589
+00:20:31,486 --> 00:20:32,666
+the functions showed up in the
+
+
+590
+00:20:32,666 --> 00:20:33,076
+file.
+
+
+591
+00:20:34,276 --> 00:20:35,556
+My new definitions were
+
+
+592
+00:20:35,556 --> 00:20:37,356
+generated after the last member
+
+
+593
+00:20:37,356 --> 00:20:38,926
+functions defined for the same
+
+
+594
+00:20:38,926 --> 00:20:42,186
+class, ConstantInt, but before
+
+
+595
+00:20:42,186 --> 00:20:43,476
+the member functions for the
+
+
+596
+00:20:43,476 --> 00:20:44,196
+next class.
+
+
+597
+00:20:45,496 --> 00:20:46,996
+This is exactly where I want
+
+
+598
+00:20:46,996 --> 00:20:47,196
+them.
+
+
+599
+00:20:48,516 --> 00:20:53,826
+[ Applause ]
+
+
+600
+00:20:54,326 --> 00:20:56,006
+LVM has lots of code for
+
+
+601
+00:20:56,006 --> 00:20:57,076
+representing integers.
+
+
+602
+00:20:57,626 --> 00:20:58,896
+I had a look at this greatest
+
+
+603
+00:20:58,896 --> 00:21:00,636
+common divisor function, and I
+
+
+604
+00:21:00,636 --> 00:21:02,996
+noticed a local variable, Pow2,
+
+
+605
+00:21:02,996 --> 00:21:03,916
+that is complicated to
+
+
+606
+00:21:03,916 --> 00:21:04,466
+calculate.
+
+
+607
+00:21:05,836 --> 00:21:07,686
+Its computation really belongs
+
+
+608
+00:21:07,686 --> 00:21:08,546
+in its own function.
+
+
+609
+00:21:10,346 --> 00:21:11,856
+I selected the code and opened
+
+
+610
+00:21:11,856 --> 00:21:13,566
+the contextual menu, where I
+
+
+611
+00:21:13,566 --> 00:21:15,276
+clicked on Extract Function.
+
+
+612
+00:21:15,276 --> 00:21:17,156
+I was a little sloppy with my
+
+
+613
+00:21:17,156 --> 00:21:19,016
+selection, but Xcode is smart
+
+
+614
+00:21:19,016 --> 00:21:20,136
+enough that it worked anyway.
+
+
+615
+00:21:21,466 --> 00:21:23,116
+That entered me straight into
+
+
+616
+00:21:23,116 --> 00:21:24,266
+rename at the bottom of the
+
+
+617
+00:21:24,266 --> 00:21:24,656
+screen.
+
+
+618
+00:21:25,466 --> 00:21:27,976
+I chose countCommonPowersOf2.
+
+
+619
+00:21:29,276 --> 00:21:30,496
+Let's scroll up and look at the
+
+
+620
+00:21:30,496 --> 00:21:31,036
+definition.
+
+
+621
+00:21:31,776 --> 00:21:33,886
+The key thing here is that the
+
+
+622
+00:21:33,886 --> 00:21:35,626
+arguments A and B were
+
+
+623
+00:21:35,656 --> 00:21:36,926
+automatically captured by
+
+
+624
+00:21:36,926 --> 00:21:37,626
+reference.
+
+
+625
+00:21:38,696 --> 00:21:40,286
+That's important because they're
+
+
+626
+00:21:40,286 --> 00:21:41,046
+being modified.
+
+
+627
+00:21:41,826 --> 00:21:45,206
+Extract Function got it right.
+
+
+628
+00:21:45,856 --> 00:21:47,336
+Extracting the function was a
+
+
+629
+00:21:47,336 --> 00:21:49,336
+nice opportunity to clean up the
+
+
+630
+00:21:49,336 --> 00:21:50,996
+code to use early returns.
+
+
+631
+00:21:53,496 --> 00:21:55,466
+That got me bouncing around a
+
+
+632
+00:21:55,466 --> 00:21:56,996
+little, and I found this code in
+
+
+633
+00:21:56,996 --> 00:21:58,386
+the optimizer for unrolling
+
+
+634
+00:21:58,386 --> 00:21:58,866
+loops.
+
+
+635
+00:21:59,976 --> 00:22:02,666
+I noticed a call to getLoopFor
+
+
+636
+00:22:02,736 --> 00:22:03,686
+and an if statement.
+
+
+637
+00:22:05,066 --> 00:22:06,586
+The same function is called with
+
+
+638
+00:22:06,586 --> 00:22:08,696
+the same argument again right
+
+
+639
+00:22:08,696 --> 00:22:11,206
+below in a while loop.
+
+
+640
+00:22:11,776 --> 00:22:13,446
+getLoopFor does a hash table
+
+
+641
+00:22:13,446 --> 00:22:14,786
+lookup, which isn't free.
+
+
+642
+00:22:15,596 --> 00:22:17,146
+Since the while loop doesn't
+
+
+643
+00:22:17,146 --> 00:22:18,816
+change the hash table, I
+
+
+644
+00:22:18,816 --> 00:22:20,446
+Command-clicked and selected
+
+
+645
+00:22:20,546 --> 00:22:22,356
+Extract Repeated Expression.
+
+
+646
+00:22:24,286 --> 00:22:25,526
+This stored the result of the
+
+
+647
+00:22:25,526 --> 00:22:27,056
+function call in a local
+
+
+648
+00:22:27,056 --> 00:22:28,896
+variable, so it was only called
+
+
+649
+00:22:28,896 --> 00:22:30,636
+once, and then I immediately
+
+
+650
+00:22:30,636 --> 00:22:31,676
+used Rename.
+
+
+651
+00:22:32,286 --> 00:22:35,036
+I chose the name LoopLatch.
+
+
+652
+00:22:35,606 --> 00:22:37,566
+That was easy.
+
+
+653
+00:22:38,066 --> 00:22:39,856
+Extract and Rename work cleanly
+
+
+654
+00:22:39,856 --> 00:22:40,256
+together.
+
+
+655
+00:22:42,676 --> 00:22:44,706
+After all that refactoring, I
+
+
+656
+00:22:44,706 --> 00:22:45,846
+thought I'd write some new code.
+
+
+657
+00:22:47,266 --> 00:22:48,856
+ArrayRef is a generalized
+
+
+658
+00:22:48,856 --> 00:22:50,526
+reference to contiguous values,
+
+
+659
+00:22:50,996 --> 00:22:52,776
+whether they're in an STL vector
+
+
+660
+00:22:52,886 --> 00:22:54,806
+or in one of LVM's custom data
+
+
+661
+00:22:54,806 --> 00:22:55,466
+structures.
+
+
+662
+00:22:56,466 --> 00:22:58,016
+Notice that ArrayRef is
+
+
+663
+00:22:58,016 --> 00:22:59,886
+templated on the value type in
+
+
+664
+00:22:59,886 --> 00:23:00,286
+the array.
+
+
+665
+00:23:01,356 --> 00:23:03,116
+I thought it might be useful to
+
+
+666
+00:23:03,116 --> 00:23:04,626
+compare two ArrayRefs.
+
+
+667
+00:23:05,486 --> 00:23:06,886
+Why not implement a string like
+
+
+668
+00:23:06,886 --> 00:23:07,476
+comparison?
+
+
+669
+00:23:08,466 --> 00:23:09,896
+I need to loop from zero to the
+
+
+670
+00:23:09,896 --> 00:23:11,416
+minimum size between left-hand
+
+
+671
+00:23:11,416 --> 00:23:12,766
+side and right-hand side.
+
+
+672
+00:23:13,586 --> 00:23:14,756
+When I hit the dot after
+
+
+673
+00:23:14,756 --> 00:23:16,796
+left-hand side, code completion
+
+
+674
+00:23:16,796 --> 00:23:17,276
+kicked in.
+
+
+675
+00:23:18,286 --> 00:23:20,666
+Remember, left-hand side is
+
+
+676
+00:23:20,706 --> 00:23:21,886
+templated on T here.
+
+
+677
+00:23:22,366 --> 00:23:24,866
+That's pretty cool.
+
+
+678
+00:23:25,626 --> 00:23:27,676
+Code completion works with
+
+
+679
+00:23:27,676 --> 00:23:29,716
+templates, new in Xcode 9.
+
+
+680
+00:23:30,516 --> 00:23:36,226
+[ Applause ]
+
+
+681
+00:23:36,726 --> 00:23:38,526
+And that's C++ refactoring and
+
+
+682
+00:23:38,526 --> 00:23:39,966
+code completion in Xcode.
+
+
+683
+00:23:40,316 --> 00:23:43,226
+Let's talk about a few features
+
+
+684
+00:23:43,226 --> 00:23:44,926
+from the C++17 standard.
+
+
+685
+00:23:45,436 --> 00:23:49,056
+I'll start with STL's tuple, a
+
+
+686
+00:23:49,056 --> 00:23:51,476
+useful type from C++11 that
+
+
+687
+00:23:51,476 --> 00:23:53,166
+enables multiple return values.
+
+
+688
+00:23:54,126 --> 00:23:55,536
+But decomposing it is awkward.
+
+
+689
+00:23:56,386 --> 00:23:58,176
+Decomposition requires a tie
+
+
+690
+00:23:58,176 --> 00:24:00,706
+around the variables, the types
+
+
+691
+00:24:00,706 --> 00:24:02,716
+can't be inferred, and the
+
+
+692
+00:24:02,716 --> 00:24:03,856
+variable names need to be
+
+
+693
+00:24:03,856 --> 00:24:04,486
+duplicated.
+
+
+694
+00:24:05,746 --> 00:24:07,906
+C++17 solves this with
+
+
+695
+00:24:07,906 --> 00:24:10,136
+structured binding, which binds
+
+
+696
+00:24:10,136 --> 00:24:11,676
+names directly to the returned
+
+
+697
+00:24:11,836 --> 00:24:12,886
+tuple elements.
+
+
+698
+00:24:14,666 --> 00:24:16,066
+This is a great feature.
+
+
+699
+00:24:16,226 --> 00:24:17,436
+Now, it's much easier to work
+
+
+700
+00:24:17,436 --> 00:24:18,126
+with tuples.
+
+
+701
+00:24:18,706 --> 00:24:20,016
+Structured binding can be used
+
+
+702
+00:24:20,016 --> 00:24:21,526
+anywhere get can be used.
+
+
+703
+00:24:22,246 --> 00:24:23,976
+It also works out of the box
+
+
+704
+00:24:24,016 --> 00:24:25,316
+with plain-old data types like
+
+
+705
+00:24:25,416 --> 00:24:25,676
+Point.
+
+
+706
+00:24:26,726 --> 00:24:28,476
+The syntax is exactly the same
+
+
+707
+00:24:28,476 --> 00:24:29,316
+as with tuples.
+
+
+708
+00:24:29,596 --> 00:24:32,486
+That's structured binding.
+
+
+709
+00:24:33,136 --> 00:24:35,656
+The next feature is initializers
+
+
+710
+00:24:35,656 --> 00:24:36,586
+in if statements.
+
+
+711
+00:24:38,216 --> 00:24:39,006
+Here's an example.
+
+
+712
+00:24:39,806 --> 00:24:41,656
+The initializer finds the last
+
+
+713
+00:24:41,656 --> 00:24:43,176
+slash in a path string.
+
+
+714
+00:24:43,876 --> 00:24:45,616
+The slash variable scope is
+
+
+715
+00:24:45,616 --> 00:24:46,906
+limited to the if statement.
+
+
+716
+00:24:48,626 --> 00:24:50,016
+Then, the condition checks
+
+
+717
+00:24:50,176 --> 00:24:51,456
+whether slash was found.
+
+
+718
+00:24:52,926 --> 00:24:55,296
+If so, then slash is used to
+
+
+719
+00:24:55,296 --> 00:24:57,556
+split the path.
+
+
+720
+00:24:58,036 --> 00:24:59,086
+The same feature works for
+
+
+721
+00:24:59,086 --> 00:24:59,906
+switch statements.
+
+
+722
+00:25:01,406 --> 00:25:02,786
+Minimizing the scope of the
+
+
+723
+00:25:02,786 --> 00:25:04,946
+slash variable helps to prevent
+
+
+724
+00:25:04,946 --> 00:25:05,406
+bugs.
+
+
+725
+00:25:06,136 --> 00:25:07,656
+If this function continues,
+
+
+726
+00:25:07,896 --> 00:25:09,606
+we'll get an error if we try to
+
+
+727
+00:25:09,666 --> 00:25:11,086
+reuse the slash variable.
+
+
+728
+00:25:11,926 --> 00:25:13,866
+This is good because the logic
+
+
+729
+00:25:13,866 --> 00:25:14,506
+is unrelated.
+
+
+730
+00:25:15,026 --> 00:25:18,756
+Let's move on to a feature for
+
+
+731
+00:25:18,756 --> 00:25:19,806
+templated functions.
+
+
+732
+00:25:21,556 --> 00:25:23,356
+Advance is a simple template
+
+
+733
+00:25:23,356 --> 00:25:24,736
+algorithm for in advancing an
+
+
+734
+00:25:24,736 --> 00:25:25,226
+iterator.
+
+
+735
+00:25:26,006 --> 00:25:27,446
+It has been in the STL for a
+
+
+736
+00:25:27,446 --> 00:25:29,546
+long time, but let's use it as
+
+
+737
+00:25:29,546 --> 00:25:30,076
+an example.
+
+
+738
+00:25:31,166 --> 00:25:32,616
+For n greater than 0, it moves
+
+
+739
+00:25:32,616 --> 00:25:35,086
+the iterator forward, and for n
+
+
+740
+00:25:35,086 --> 00:25:36,076
+less than 0, it moves the
+
+
+741
+00:25:36,076 --> 00:25:37,566
+iterator backward.
+
+
+742
+00:25:38,776 --> 00:25:40,536
+For example, you might want to
+
+
+743
+00:25:40,536 --> 00:25:42,376
+look ahead five nodes in a
+
+
+744
+00:25:42,376 --> 00:25:43,036
+linked list.
+
+
+745
+00:25:43,766 --> 00:25:45,546
+Advance will count forward one
+
+
+746
+00:25:45,546 --> 00:25:46,026
+by one.
+
+
+747
+00:25:47,936 --> 00:25:50,406
+The same code works for getting
+
+
+748
+00:25:50,406 --> 00:25:51,706
+the fifth character in a string.
+
+
+749
+00:25:52,346 --> 00:25:53,826
+It's powerful to have the same
+
+
+750
+00:25:53,826 --> 00:25:55,496
+interface for advancing in both
+
+
+751
+00:25:55,496 --> 00:25:56,276
+data structures.
+
+
+752
+00:25:57,486 --> 00:25:59,656
+But this code is really slow for
+
+
+753
+00:25:59,656 --> 00:26:00,236
+strings.
+
+
+754
+00:26:00,676 --> 00:26:02,156
+For strings in arrays, which
+
+
+755
+00:26:02,156 --> 00:26:03,976
+have random access iterators, we
+
+
+756
+00:26:03,976 --> 00:26:04,616
+don't need a loop.
+
+
+757
+00:26:05,416 --> 00:26:06,946
+Operator + will jump ahead in
+
+
+758
+00:26:06,946 --> 00:26:07,636
+concept time.
+
+
+759
+00:26:08,186 --> 00:26:11,516
+But adding a simple if statement
+
+
+760
+00:26:11,516 --> 00:26:13,116
+won't work because it's just a
+
+
+761
+00:26:13,156 --> 00:26:14,076
+runtime check.
+
+
+762
+00:26:15,196 --> 00:26:17,146
+Its body is required to compile
+
+
+763
+00:26:17,146 --> 00:26:19,166
+for all template instantiations,
+
+
+764
+00:26:19,506 --> 00:26:21,016
+but linked list iterators don't
+
+
+765
+00:26:21,016 --> 00:26:22,516
+have operator +.
+
+
+766
+00:26:23,016 --> 00:26:25,766
+We have a problem.
+
+
+767
+00:26:27,246 --> 00:26:29,246
+Advance needs a common interface
+
+
+768
+00:26:29,246 --> 00:26:30,906
+that compiles for linked lists
+
+
+769
+00:26:31,696 --> 00:26:34,386
+and a fast path for strings and
+
+
+770
+00:26:34,566 --> 00:26:34,666
+arrays.
+
+
+771
+00:26:34,966 --> 00:26:36,206
+The classic solution is a
+
+
+772
+00:26:36,206 --> 00:26:37,666
+technique called compile time
+
+
+773
+00:26:37,666 --> 00:26:39,366
+dispatch, where the logic is
+
+
+774
+00:26:39,366 --> 00:26:40,686
+split into overloaded helper
+
+
+775
+00:26:40,686 --> 00:26:42,436
+functions and advance calls the
+
+
+776
+00:26:42,436 --> 00:26:44,146
+right overload based on a
+
+
+777
+00:26:44,146 --> 00:26:45,426
+compile time type trait.
+
+
+778
+00:26:45,946 --> 00:26:48,496
+And compile time dispatch works.
+
+
+779
+00:26:48,866 --> 00:26:50,566
+It's what C++ Library authors
+
+
+780
+00:26:50,566 --> 00:26:51,656
+have been doing for decades.
+
+
+781
+00:26:52,816 --> 00:26:54,236
+But it's an advanced technique,
+
+
+782
+00:26:54,536 --> 00:26:55,986
+and what we're trying to do is
+
+
+783
+00:26:56,036 --> 00:26:56,566
+pretty simple.
+
+
+784
+00:26:58,276 --> 00:27:00,376
+The original not working code
+
+
+785
+00:27:00,586 --> 00:27:01,746
+was easy to understand.
+
+
+786
+00:27:03,016 --> 00:27:06,876
+In C++17, constexpr if allows
+
+
+787
+00:27:06,876 --> 00:27:08,076
+you to express this logic
+
+
+788
+00:27:08,316 --> 00:27:08,906
+naturally.
+
+
+789
+00:27:10,826 --> 00:27:12,796
+constexpr if discards the not
+
+
+790
+00:27:12,796 --> 00:27:14,276
+taken paths when instantiating
+
+
+791
+00:27:14,276 --> 00:27:16,256
+temples, so the linked list code
+
+
+792
+00:27:16,256 --> 00:27:18,896
+will still compile, but advance
+
+
+793
+00:27:18,896 --> 00:27:20,276
+will use the fast path for
+
+
+794
+00:27:20,276 --> 00:27:22,586
+strings and arrays.
+
+
+795
+00:27:23,266 --> 00:27:25,616
+constexpr if makes reading and
+
+
+796
+00:27:25,616 --> 00:27:27,636
+writing generic code much
+
+
+797
+00:27:27,636 --> 00:27:28,006
+simpler.
+
+
+798
+00:27:30,956 --> 00:27:32,726
+Let's finish with a new library
+
+
+799
+00:27:32,726 --> 00:27:34,016
+facility for strings.
+
+
+800
+00:27:35,276 --> 00:27:38,146
+The STL string class has a rich
+
+
+801
+00:27:38,146 --> 00:27:40,136
+API, but it's not always the
+
+
+802
+00:27:40,136 --> 00:27:40,656
+right tool.
+
+
+803
+00:27:41,716 --> 00:27:43,136
+This example might look
+
+
+804
+00:27:43,136 --> 00:27:43,636
+familiar.
+
+
+805
+00:27:44,486 --> 00:27:46,456
+The function split searches for
+
+
+806
+00:27:46,456 --> 00:27:48,036
+the last slash in the path
+
+
+807
+00:27:48,036 --> 00:27:48,456
+argument.
+
+
+808
+00:27:48,996 --> 00:27:51,816
+If it finds a slash, it splits
+
+
+809
+00:27:51,816 --> 00:27:53,686
+the path into directory and
+
+
+810
+00:27:53,686 --> 00:27:54,236
+filename.
+
+
+811
+00:27:55,556 --> 00:27:57,116
+Without a slash, it returns the
+
+
+812
+00:27:57,116 --> 00:27:58,466
+full path as the filename.
+
+
+813
+00:27:59,996 --> 00:28:02,436
+Because of string's API, this
+
+
+814
+00:28:02,436 --> 00:28:04,386
+code was easy to write, but
+
+
+815
+00:28:04,866 --> 00:28:06,126
+there's a performance problem
+
+
+816
+00:28:06,126 --> 00:28:06,436
+lurking.
+
+
+817
+00:28:07,836 --> 00:28:09,986
+Split is returning copies of the
+
+
+818
+00:28:09,986 --> 00:28:10,386
+string.
+
+
+819
+00:28:11,586 --> 00:28:12,986
+Heavy use of functions like
+
+
+820
+00:28:12,986 --> 00:28:15,046
+split can introduce expensive
+
+
+821
+00:28:15,046 --> 00:28:15,776
+allocations.
+
+
+822
+00:28:17,686 --> 00:28:20,206
+C++17 has a new facility for
+
+
+823
+00:28:20,206 --> 00:28:21,266
+referencing strings.
+
+
+824
+00:28:22,206 --> 00:28:23,106
+It's called string view.
+
+
+825
+00:28:24,396 --> 00:28:26,076
+A string view encapsulates a raw
+
+
+826
+00:28:26,076 --> 00:28:27,266
+const char [inaudible] and a
+
+
+827
+00:28:27,266 --> 00:28:27,876
+size.
+
+
+828
+00:28:29,066 --> 00:28:30,666
+It has a rich API, just like
+
+
+829
+00:28:30,666 --> 00:28:32,486
+string, so it's convenient for
+
+
+830
+00:28:32,486 --> 00:28:33,426
+string manipulation.
+
+
+831
+00:28:34,856 --> 00:28:36,476
+And as the name suggests, it's
+
+
+832
+00:28:36,506 --> 00:28:37,046
+just a view.
+
+
+833
+00:28:37,936 --> 00:28:40,106
+It doesn't own any storage, and
+
+
+834
+00:28:40,106 --> 00:28:43,036
+so it never makes a copy.
+
+
+835
+00:28:43,486 --> 00:28:44,706
+String view is great for
+
+
+836
+00:28:44,706 --> 00:28:46,286
+performance, but there is a
+
+
+837
+00:28:46,286 --> 00:28:48,866
+caveat: String view isn't always
+
+
+838
+00:28:48,866 --> 00:28:49,406
+safe.
+
+
+839
+00:28:51,156 --> 00:28:52,306
+Because it doesn't own its
+
+
+840
+00:28:52,306 --> 00:28:54,426
+storage, using a string view
+
+
+841
+00:28:54,456 --> 00:28:56,036
+after the original string is
+
+
+842
+00:28:56,036 --> 00:28:58,206
+destroyed or modified can cause
+
+
+843
+00:28:58,206 --> 00:28:59,236
+a use after free.
+
+
+844
+00:29:01,336 --> 00:29:02,876
+Referencing a raw string literal
+
+
+845
+00:29:02,946 --> 00:29:05,936
+like resources/images is always
+
+
+846
+00:29:05,936 --> 00:29:08,396
+safe because raw string literals
+
+
+847
+00:29:08,426 --> 00:29:09,306
+have the lifetime of the
+
+
+848
+00:29:09,306 --> 00:29:09,826
+program.
+
+
+849
+00:29:12,036 --> 00:29:13,146
+Taking a string view as an
+
+
+850
+00:29:13,146 --> 00:29:15,556
+argument is safe, but avoid
+
+
+851
+00:29:15,556 --> 00:29:16,956
+storing a string view argument
+
+
+852
+00:29:17,086 --> 00:29:18,336
+past the function return.
+
+
+853
+00:29:21,056 --> 00:29:23,286
+Be careful of return values.
+
+
+854
+00:29:23,826 --> 00:29:25,466
+If a string view is derived from
+
+
+855
+00:29:25,466 --> 00:29:26,916
+an argument, it will be safe to
+
+
+856
+00:29:26,916 --> 00:29:28,406
+use as long as the argument
+
+
+857
+00:29:28,576 --> 00:29:30,046
+isn't changed or destroyed.
+
+
+858
+00:29:31,186 --> 00:29:32,956
+In this example, directory and
+
+
+859
+00:29:32,956 --> 00:29:35,446
+filename are safe to use as long
+
+
+860
+00:29:35,446 --> 00:29:38,236
+as path remains constant and
+
+
+861
+00:29:38,236 --> 00:29:38,616
+valid.
+
+
+862
+00:29:39,126 --> 00:29:42,546
+But if we replace path with a
+
+
+863
+00:29:42,546 --> 00:29:44,806
+computed string, then accessing
+
+
+864
+00:29:44,916 --> 00:29:46,666
+either directory or filename
+
+
+865
+00:29:46,746 --> 00:29:48,216
+will cause a use after free.
+
+
+866
+00:29:49,816 --> 00:29:52,226
+The root cause is that split was
+
+
+867
+00:29:52,226 --> 00:29:53,476
+passed a temporary.
+
+
+868
+00:29:54,136 --> 00:29:56,006
+The temporary is destroyed after
+
+
+869
+00:29:56,006 --> 00:29:57,566
+the call to split, and its
+
+
+870
+00:29:57,566 --> 00:29:59,116
+references are invalidated.
+
+
+871
+00:30:01,156 --> 00:30:03,276
+Accessing the temporary invokes
+
+
+872
+00:30:03,276 --> 00:30:04,316
+undefined behavior.
+
+
+873
+00:30:05,156 --> 00:30:06,696
+AddressSanitizer can catch this
+
+
+874
+00:30:06,746 --> 00:30:06,966
+bug.
+
+
+875
+00:30:08,176 --> 00:30:09,706
+Watch Understanding Undefined
+
+
+876
+00:30:09,706 --> 00:30:11,226
+Behavior to learn more about
+
+
+877
+00:30:11,226 --> 00:30:13,196
+this kind of bug and Finding
+
+
+878
+00:30:13,196 --> 00:30:15,236
+Bugs Using Xcode Runtime Tools
+
+
+879
+00:30:15,236 --> 00:30:16,656
+to learn about tools to combat
+
+
+880
+00:30:16,916 --> 00:30:17,000
+them.
+
+
+881
+00:30:18,476 --> 00:30:20,386
+String view is the last C++17
+
+
+882
+00:30:20,386 --> 00:30:21,526
+feature I'll show you today.
+
+
+883
+00:30:22,656 --> 00:30:26,426
+To try out C++17, set the C++
+
+
+884
+00:30:26,426 --> 00:30:27,996
+language dialect in your Build
+
+
+885
+00:30:27,996 --> 00:30:28,456
+settings.
+
+
+886
+00:30:29,236 --> 00:30:32,086
+C++17 gives you the standardized
+
+
+887
+00:30:32,086 --> 00:30:33,786
+language without extensions.
+
+
+888
+00:30:34,646 --> 00:30:37,056
+GNU++17 adds the usual
+
+
+889
+00:30:37,056 --> 00:30:37,716
+extensions.
+
+
+890
+00:30:38,216 --> 00:30:40,726
+Now, I have a quick update on
+
+
+891
+00:30:40,726 --> 00:30:41,766
+link-time optimization.
+
+
+892
+00:30:43,136 --> 00:30:45,196
+Link-time optimization, or LTO,
+
+
+893
+00:30:45,826 --> 00:30:47,576
+optimizes the executable at link
+
+
+894
+00:30:47,576 --> 00:30:49,386
+time, blurring the line between
+
+
+895
+00:30:49,386 --> 00:30:50,716
+source files and enabling
+
+
+896
+00:30:50,716 --> 00:30:52,106
+powerful optimizations.
+
+
+897
+00:30:53,076 --> 00:30:54,516
+Incremental LTO, which we
+
+
+898
+00:30:54,516 --> 00:30:55,996
+introduced last year, is the
+
+
+899
+00:30:55,996 --> 00:30:56,866
+state of the art.
+
+
+900
+00:30:57,766 --> 00:30:59,636
+For more information, watch last
+
+
+901
+00:30:59,636 --> 00:31:01,176
+year's talk, What's New in LLVM.
+
+
+902
+00:31:02,146 --> 00:31:06,036
+In the past, when using LTO on
+
+
+903
+00:31:06,036 --> 00:31:08,346
+large C++ programs, we've
+
+
+904
+00:31:08,346 --> 00:31:10,476
+recommended changing the Debug
+
+
+905
+00:31:10,476 --> 00:31:12,906
+Info Level Build setting to Line
+
+
+906
+00:31:12,906 --> 00:31:13,746
+Tables Only.
+
+
+907
+00:31:14,846 --> 00:31:16,306
+But in Xcode 9, we took
+
+
+908
+00:31:16,306 --> 00:31:17,946
+incremental LTO to the next
+
+
+909
+00:31:17,946 --> 00:31:18,356
+level.
+
+
+910
+00:31:19,666 --> 00:31:20,926
+Let's look at the time to link
+
+
+911
+00:31:20,996 --> 00:31:23,296
+the Apple LLVM compiler itself.
+
+
+912
+00:31:24,166 --> 00:31:26,716
+In Xcode 8, a clean link with
+
+
+913
+00:31:26,716 --> 00:31:28,596
+full debug info took almost six
+
+
+914
+00:31:28,596 --> 00:31:29,056
+minutes.
+
+
+915
+00:31:29,706 --> 00:31:30,796
+Line Tables Only was
+
+
+916
+00:31:30,796 --> 00:31:32,296
+three-and-a-half minutes faster.
+
+
+917
+00:31:33,706 --> 00:31:35,506
+We sped up incremental LTO with
+
+
+918
+00:31:35,506 --> 00:31:38,266
+full debug info by 35% in Xcode
+
+
+919
+00:31:38,266 --> 00:31:38,566
+9.
+
+
+920
+00:31:39,406 --> 00:31:40,616
+Line Tables Only is still
+
+
+921
+00:31:40,616 --> 00:31:42,756
+faster, but the overhead is now
+
+
+922
+00:31:42,756 --> 00:31:44,036
+only 90 seconds.
+
+
+923
+00:31:44,516 --> 00:31:46,906
+That was a clean link.
+
+
+924
+00:31:47,616 --> 00:31:50,006
+The true power of incremental
+
+
+925
+00:31:50,006 --> 00:31:52,236
+LTO is its fast incremental
+
+
+926
+00:31:52,236 --> 00:31:52,776
+builds.
+
+
+927
+00:31:53,356 --> 00:31:55,446
+When only one file changes, the
+
+
+928
+00:31:55,446 --> 00:31:56,346
+link doesn't repeat
+
+
+929
+00:31:56,346 --> 00:31:58,206
+optimizations unnecessarily.
+
+
+930
+00:31:59,456 --> 00:32:01,426
+In Xcode 8, an incremental link
+
+
+931
+00:32:01,426 --> 00:32:02,816
+of the Apple LLVM compiler
+
+
+932
+00:32:02,816 --> 00:32:05,716
+itself took 21 seconds with full
+
+
+933
+00:32:05,716 --> 00:32:08,126
+debug info, more than two times
+
+
+934
+00:32:08,126 --> 00:32:09,526
+longer than Line Tables Only.
+
+
+935
+00:32:10,376 --> 00:32:12,436
+This is why we recommended
+
+
+936
+00:32:12,436 --> 00:32:14,186
+changing the debug info level in
+
+
+937
+00:32:15,096 --> 00:32:16,746
+the past.
+
+
+938
+00:32:16,916 --> 00:32:18,236
+But in Xcode 9, the same
+
+
+939
+00:32:18,236 --> 00:32:19,456
+incremental link is
+
+
+940
+00:32:19,506 --> 00:32:21,046
+two-and-a-half times faster.
+
+
+941
+00:32:21,556 --> 00:32:23,186
+At just over eight seconds, it's
+
+
+942
+00:32:23,186 --> 00:32:24,816
+even faster than Line Tables
+
+
+943
+00:32:24,816 --> 00:32:26,116
+Only mode was last year.
+
+
+944
+00:32:26,986 --> 00:32:28,716
+If you looked at incremental LTO
+
+
+945
+00:32:28,716 --> 00:32:30,226
+but didn't want to change your
+
+
+946
+00:32:30,226 --> 00:32:32,236
+debug info level, it's time to
+
+
+947
+00:32:32,236 --> 00:32:32,746
+look again.
+
+
+948
+00:32:33,516 --> 00:32:39,156
+[ Applause ]
+
+
+949
+00:32:39,656 --> 00:32:40,876
+We recommend turning on
+
+
+950
+00:32:40,906 --> 00:32:43,806
+incremental LTO today, even if
+
+
+951
+00:32:43,806 --> 00:32:45,246
+you're using full debug info.
+
+
+952
+00:32:45,846 --> 00:32:49,366
+So that's what's new in LLVM.
+
+
+953
+00:32:50,596 --> 00:32:52,876
+Use @available to safely use new
+
+
+954
+00:32:52,876 --> 00:32:54,986
+APIs when supporting older OS's.
+
+
+955
+00:32:55,816 --> 00:32:57,146
+Run the static analyzer while
+
+
+956
+00:32:57,146 --> 00:32:57,616
+you build.
+
+
+957
+00:32:58,916 --> 00:33:00,846
+Use Xcode to refactor your code.
+
+
+958
+00:33:01,906 --> 00:33:03,326
+Try out the new features in
+
+
+959
+00:33:03,326 --> 00:33:04,556
+C++17.
+
+
+960
+00:33:05,336 --> 00:33:07,656
+And turn on incremental LTO to
+
+
+961
+00:33:07,656 --> 00:33:09,116
+upgrade your performance without
+
+
+962
+00:33:09,116 --> 00:33:10,766
+sacrificing incremental build
+
+
+963
+00:33:10,766 --> 00:33:11,046
+time.
+
+
+964
+00:33:12,126 --> 00:33:13,796
+For more information, see the
+
+
+965
+00:33:13,796 --> 00:33:14,296
+website.
+
+
+966
+00:33:15,406 --> 00:33:16,516
+I recommend you watch the
+
+
+967
+00:33:16,516 --> 00:33:17,446
+related sessions.
+
+
+968
+00:33:18,246 --> 00:33:18,576
+Thank you.
+
+
+969
+00:33:19,516 --> 00:33:22,500
+[ Applause ]
+

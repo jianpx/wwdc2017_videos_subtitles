@@ -1,0 +1,6924 @@
+1
+00:00:22,626 --> 00:00:24,086
+>> Battery life is very
+
+
+2
+00:00:24,086 --> 00:00:25,416
+important to your users.
+
+
+3
+00:00:25,906 --> 00:00:27,466
+And apps are directly tied to
+
+
+4
+00:00:27,466 --> 00:00:28,126
+battery life.
+
+
+5
+00:00:28,666 --> 00:00:30,066
+So as developers, it's very
+
+
+6
+00:00:30,066 --> 00:00:31,486
+important that we're careful
+
+
+7
+00:00:31,486 --> 00:00:32,536
+about how we write our code.
+
+
+8
+00:00:33,336 --> 00:00:35,546
+And the reason for this is if
+
+
+9
+00:00:35,546 --> 00:00:37,196
+I'm a user and I'm having bad
+
+
+10
+00:00:37,196 --> 00:00:38,746
+battery life, the first thing
+
+
+11
+00:00:38,746 --> 00:00:40,306
+I'm going to do is I'm going to
+
+
+12
+00:00:40,306 --> 00:00:41,826
+go to the Battery Usage screen.
+
+
+13
+00:00:42,226 --> 00:00:44,036
+I'm going to take a look at what
+
+
+14
+00:00:44,036 --> 00:00:45,066
+apps are using a lot of my
+
+
+15
+00:00:45,066 --> 00:00:45,486
+energy.
+
+
+16
+00:00:46,486 --> 00:00:48,096
+If I notice that your app is
+
+
+17
+00:00:48,096 --> 00:00:49,406
+near the top and I don't expect
+
+
+18
+00:00:49,406 --> 00:00:50,906
+it to be there, I'm not going to
+
+
+19
+00:00:50,906 --> 00:00:52,626
+be very happy about that and I
+
+
+20
+00:00:52,626 --> 00:00:53,976
+may even delete your app.
+
+
+21
+00:00:54,236 --> 00:00:57,936
+And so today, I'm going to talk
+
+
+22
+00:00:57,936 --> 00:00:59,376
+about some battery life
+
+
+23
+00:00:59,376 --> 00:00:59,986
+concepts.
+
+
+24
+00:01:00,626 --> 00:01:01,366
+Then, we're going to move on and
+
+
+25
+00:01:01,366 --> 00:01:02,466
+we're going to talk about energy
+
+
+26
+00:01:02,466 --> 00:01:03,606
+efficient coding practices.
+
+
+27
+00:01:04,146 --> 00:01:04,855
+From there, my colleague will
+
+
+28
+00:01:04,855 --> 00:01:06,246
+come up and talk to you about
+
+
+29
+00:01:06,246 --> 00:01:07,746
+energy debugging tools that are
+
+
+30
+00:01:07,746 --> 00:01:09,076
+available to you as well as give
+
+
+31
+00:01:09,076 --> 00:01:09,636
+you a demo.
+
+
+32
+00:01:09,636 --> 00:01:11,166
+And then we'll wrap it up with
+
+
+33
+00:01:11,166 --> 00:01:11,896
+some final thoughts.
+
+
+34
+00:01:13,376 --> 00:01:14,156
+So let's get started.
+
+
+35
+00:01:15,436 --> 00:01:16,696
+What is energy?
+
+
+36
+00:01:17,326 --> 00:01:18,956
+Well, energy is the product of
+
+
+37
+00:01:18,956 --> 00:01:19,886
+power and time.
+
+
+38
+00:01:19,986 --> 00:01:21,086
+And I'd like to illustrate this
+
+
+39
+00:01:21,086 --> 00:01:21,756
+with an example.
+
+
+40
+00:01:22,286 --> 00:01:25,336
+As you can see here, when the
+
+
+41
+00:01:25,336 --> 00:01:26,976
+device is idle, the power is
+
+
+42
+00:01:26,976 --> 00:01:27,566
+very low.
+
+
+43
+00:01:28,246 --> 00:01:29,586
+Yet when the device is active,
+
+
+44
+00:01:29,736 --> 00:01:30,756
+the power is very high.
+
+
+45
+00:01:30,946 --> 00:01:32,936
+And you also notice that the
+
+
+46
+00:01:32,936 --> 00:01:34,126
+power can be even higher and
+
+
+47
+00:01:34,126 --> 00:01:35,276
+that depends on how much work
+
+
+48
+00:01:35,276 --> 00:01:36,386
+you're doing or the type of work
+
+
+49
+00:01:36,386 --> 00:01:36,896
+that you're doing.
+
+
+50
+00:01:37,726 --> 00:01:39,256
+You'll also notice that there's
+
+
+51
+00:01:39,256 --> 00:01:42,356
+overhead and that's the amount
+
+
+52
+00:01:42,356 --> 00:01:44,166
+of power that's needed to bring
+
+
+53
+00:01:44,266 --> 00:01:46,336
+the hardware up to be able to do
+
+
+54
+00:01:46,336 --> 00:01:47,436
+your work as well as put it back
+
+
+55
+00:01:47,436 --> 00:01:47,836
+to sleep.
+
+
+56
+00:01:48,316 --> 00:01:51,326
+And so as I said before, energy
+
+
+57
+00:01:51,326 --> 00:01:52,786
+is the product of power and time
+
+
+58
+00:01:53,386 --> 00:01:54,446
+and that's the area under the
+
+
+59
+00:01:54,446 --> 00:01:54,726
+curve.
+
+
+60
+00:01:55,626 --> 00:01:56,666
+And I'd like to take this one
+
+
+61
+00:01:56,666 --> 00:01:57,226
+step further.
+
+
+62
+00:01:59,456 --> 00:02:01,676
+The energy that you have is
+
+
+63
+00:02:01,676 --> 00:02:03,556
+split into two regions: fixed
+
+
+64
+00:02:03,556 --> 00:02:05,546
+costs and dynamic costs.
+
+
+65
+00:02:06,216 --> 00:02:07,956
+The dynamic costs are the work
+
+
+66
+00:02:07,956 --> 00:02:10,066
+that you're doing and the fixed
+
+
+67
+00:02:10,066 --> 00:02:12,546
+costs are that overhead that we
+
+
+68
+00:02:12,546 --> 00:02:14,446
+talked about earlier, the amount
+
+
+69
+00:02:14,446 --> 00:02:16,096
+of energy needed to bring the
+
+
+70
+00:02:16,096 --> 00:02:17,636
+hardware up to do your work in
+
+
+71
+00:02:17,636 --> 00:02:18,226
+the first place.
+
+
+72
+00:02:18,576 --> 00:02:19,856
+So even if you're doing a small
+
+
+73
+00:02:19,856 --> 00:02:21,316
+amount of work, you're still
+
+
+74
+00:02:21,316 --> 00:02:21,976
+going to have to pay those
+
+
+75
+00:02:21,976 --> 00:02:22,606
+overhead costs.
+
+
+76
+00:02:23,156 --> 00:02:24,616
+And we'll talk more about this
+
+
+77
+00:02:24,616 --> 00:02:24,886
+later.
+
+
+78
+00:02:25,296 --> 00:02:28,796
+So our devices are very powerful
+
+
+79
+00:02:28,796 --> 00:02:30,606
+and so it's important that as
+
+
+80
+00:02:30,606 --> 00:02:32,316
+developers we're very careful
+
+
+81
+00:02:33,426 --> 00:02:34,806
+about when we use that power.
+
+
+82
+00:02:35,366 --> 00:02:36,666
+We need to really think about,
+
+
+83
+00:02:37,116 --> 00:02:38,236
+do we need to use this power to
+
+
+84
+00:02:38,236 --> 00:02:40,106
+deliver a great experience to
+
+
+85
+00:02:40,106 --> 00:02:40,646
+our users.
+
+
+86
+00:02:40,756 --> 00:02:42,276
+And if we do, we should go ahead
+
+
+87
+00:02:42,276 --> 00:02:43,076
+and use that power.
+
+
+88
+00:02:43,076 --> 00:02:44,376
+But maybe there're other times
+
+
+89
+00:02:44,376 --> 00:02:45,866
+where we can conserve it.
+
+
+90
+00:02:46,996 --> 00:02:48,296
+So now you might be thinking,
+
+
+91
+00:02:48,576 --> 00:02:49,526
+what consumes energy.
+
+
+92
+00:02:50,236 --> 00:02:51,886
+Well, actually nearly everything
+
+
+93
+00:02:51,886 --> 00:02:53,316
+in our devices consume energy
+
+
+94
+00:02:53,716 --> 00:02:55,236
+but today I really want to focus
+
+
+95
+00:02:55,526 --> 00:02:56,506
+on four main things.
+
+
+96
+00:02:57,586 --> 00:03:00,016
+And these are processing,
+
+
+97
+00:03:01,106 --> 00:03:04,206
+networking, location, and
+
+
+98
+00:03:04,206 --> 00:03:04,936
+finally graphics.
+
+
+99
+00:03:04,986 --> 00:03:06,436
+These are the four main things I
+
+
+100
+00:03:06,436 --> 00:03:07,386
+really want you to think about
+
+
+101
+00:03:07,386 --> 00:03:09,046
+when you're writing your apps.
+
+
+102
+00:03:12,036 --> 00:03:15,046
+So how can I reduce my energy
+
+
+103
+00:03:15,046 --> 00:03:15,626
+consumption?
+
+
+104
+00:03:16,816 --> 00:03:18,886
+First, I want to identify the
+
+
+105
+00:03:18,886 --> 00:03:20,466
+work that I need to do, really
+
+
+106
+00:03:20,466 --> 00:03:22,346
+think about will this work, help
+
+
+107
+00:03:22,456 --> 00:03:23,466
+your user.
+
+
+108
+00:03:24,586 --> 00:03:26,736
+And if it won't, don't do it at
+
+
+109
+00:03:26,736 --> 00:03:28,186
+all or maybe defer it to a later
+
+
+110
+00:03:28,186 --> 00:03:28,486
+time.
+
+
+111
+00:03:29,346 --> 00:03:30,286
+Next, you'll want to optimize
+
+
+112
+00:03:30,286 --> 00:03:30,796
+your work.
+
+
+113
+00:03:31,086 --> 00:03:32,126
+Once you've identified the work
+
+
+114
+00:03:32,156 --> 00:03:34,046
+that you do need to do, try to
+
+
+115
+00:03:34,046 --> 00:03:35,226
+do it as quickly and efficiently
+
+
+116
+00:03:35,226 --> 00:03:35,786
+as possible.
+
+
+117
+00:03:36,856 --> 00:03:37,886
+Next, you'll want to coalesce,
+
+
+118
+00:03:38,316 --> 00:03:39,326
+try to batch up your
+
+
+119
+00:03:39,326 --> 00:03:40,056
+transactions.
+
+
+120
+00:03:40,336 --> 00:03:41,586
+Don't do them spaced apart.
+
+
+121
+00:03:42,406 --> 00:03:43,486
+And finally, reduce the
+
+
+122
+00:03:43,486 --> 00:03:45,406
+frequency of your work.
+
+
+123
+00:03:46,596 --> 00:03:48,236
+So let's see how we can apply
+
+
+124
+00:03:48,236 --> 00:03:50,066
+these principles to your apps.
+
+
+125
+00:03:50,646 --> 00:03:52,576
+And first I want to start with
+
+
+126
+00:03:52,576 --> 00:03:53,056
+networking.
+
+
+127
+00:03:53,606 --> 00:03:54,796
+So if you're developing an app
+
+
+128
+00:03:54,796 --> 00:03:56,366
+that uses networking or you have
+
+
+129
+00:03:56,366 --> 00:03:57,326
+an app that does networking,
+
+
+130
+00:03:57,386 --> 00:03:58,066
+you'll really want to pay
+
+
+131
+00:03:58,066 --> 00:03:58,646
+attention here.
+
+
+132
+00:03:59,156 --> 00:04:02,446
+And so I'd like to start with an
+
+
+133
+00:04:02,446 --> 00:04:02,946
+example.
+
+
+134
+00:04:03,646 --> 00:04:04,806
+I've been working on a social
+
+
+135
+00:04:04,806 --> 00:04:07,326
+networking app and this app has
+
+
+136
+00:04:07,366 --> 00:04:10,466
+three parts: a main feed, it has
+
+
+137
+00:04:10,466 --> 00:04:12,726
+the ability to post a photo, and
+
+
+138
+00:04:12,726 --> 00:04:14,696
+finally the ability to send some
+
+
+139
+00:04:14,696 --> 00:04:15,666
+analytics data.
+
+
+140
+00:04:16,226 --> 00:04:19,286
+And so let's start with the main
+
+
+141
+00:04:19,286 --> 00:04:19,596
+feed.
+
+
+142
+00:04:20,526 --> 00:04:21,815
+In my current implementation,
+
+
+143
+00:04:21,995 --> 00:04:23,776
+I'm just reloading on a fixed
+
+
+144
+00:04:23,776 --> 00:04:25,536
+timer over and over again.
+
+
+145
+00:04:26,376 --> 00:04:27,206
+And let's take a look at the
+
+
+146
+00:04:27,206 --> 00:04:28,976
+energy impact in doing so.
+
+
+147
+00:04:29,966 --> 00:04:31,056
+Here you can see that at first
+
+
+148
+00:04:31,056 --> 00:04:33,186
+glance doesn't look to be that
+
+
+149
+00:04:33,186 --> 00:04:35,796
+energy intensive; however, as we
+
+
+150
+00:04:35,796 --> 00:04:37,396
+talked about earlier, they're
+
+
+151
+00:04:37,396 --> 00:04:39,496
+actually those overhead costs
+
+
+152
+00:04:40,596 --> 00:04:42,486
+and that's the cost to bring up
+
+
+153
+00:04:42,486 --> 00:04:43,536
+the radio and put it back to
+
+
+154
+00:04:43,536 --> 00:04:44,886
+sleep in this case.
+
+
+155
+00:04:45,326 --> 00:04:47,676
+And so even though you're just
+
+
+156
+00:04:47,676 --> 00:04:48,756
+doing a small amount of work,
+
+
+157
+00:04:48,796 --> 00:04:49,836
+you're paying those overhead
+
+
+158
+00:04:49,836 --> 00:04:51,596
+costs and this is really
+
+
+159
+00:04:51,596 --> 00:04:52,896
+resulting in a big energy
+
+
+160
+00:04:52,896 --> 00:04:53,276
+impact.
+
+
+161
+00:04:54,116 --> 00:04:56,246
+So how can we optimize this?
+
+
+162
+00:04:57,256 --> 00:04:59,636
+First, we'll want to reload only
+
+
+163
+00:04:59,636 --> 00:05:02,216
+on user interaction or maybe a
+
+
+164
+00:05:02,216 --> 00:05:03,656
+notification such as an urgent
+
+
+165
+00:05:03,656 --> 00:05:03,976
+news alert.
+
+
+166
+00:05:05,566 --> 00:05:06,896
+Next, you'll want to use NSURL
+
+
+167
+00:05:06,896 --> 00:05:08,716
+Session Default Session and
+
+
+168
+00:05:08,716 --> 00:05:10,766
+there's a new property called
+
+
+169
+00:05:10,766 --> 00:05:11,736
+Waits for Connectivity.
+
+
+170
+00:05:12,656 --> 00:05:14,266
+This will allow you the ability
+
+
+171
+00:05:14,266 --> 00:05:16,146
+to know when you can connect to
+
+
+172
+00:05:16,146 --> 00:05:17,216
+the server of your choice.
+
+
+173
+00:05:17,976 --> 00:05:19,646
+Additionally, you'll want to use
+
+
+174
+00:05:19,646 --> 00:05:21,246
+NSURL Session Cache as well.
+
+
+175
+00:05:22,396 --> 00:05:24,086
+This will allow you to not
+
+
+176
+00:05:24,086 --> 00:05:26,366
+re-download the same pieces of
+
+
+177
+00:05:26,366 --> 00:05:28,276
+your main feed over and over
+
+
+178
+00:05:28,276 --> 00:05:29,836
+again and incur those extra
+
+
+179
+00:05:30,016 --> 00:05:30,516
+costs.
+
+
+180
+00:05:30,696 --> 00:05:34,216
+So, let's take a look at the
+
+
+181
+00:05:34,216 --> 00:05:35,166
+energy impact with these
+
+
+182
+00:05:35,166 --> 00:05:35,916
+optimizations.
+
+
+183
+00:05:37,066 --> 00:05:38,766
+As you can see here, we've
+
+
+184
+00:05:38,766 --> 00:05:41,026
+removed that recurring spike.
+
+
+185
+00:05:41,546 --> 00:05:42,676
+Now you're only reloading on
+
+
+186
+00:05:42,676 --> 00:05:44,266
+user interaction and
+
+
+187
+00:05:44,266 --> 00:05:44,996
+notification.
+
+
+188
+00:05:45,536 --> 00:05:46,956
+And you also removed that
+
+
+189
+00:05:46,956 --> 00:05:47,916
+overhead cost as well.
+
+
+190
+00:05:48,906 --> 00:05:49,896
+This is great for battery life.
+
+
+191
+00:05:51,716 --> 00:05:53,336
+So let's see how we can set this
+
+
+192
+00:05:53,336 --> 00:05:53,536
+up.
+
+
+193
+00:05:54,236 --> 00:05:55,166
+First, we'll want to go ahead
+
+
+194
+00:05:55,236 --> 00:05:57,166
+and create a default session
+
+
+195
+00:05:57,166 --> 00:05:57,856
+configuration.
+
+
+196
+00:05:59,206 --> 00:06:00,906
+Then, we'll move on and we'll
+
+
+197
+00:06:00,906 --> 00:06:02,006
+set the waits connectivity
+
+
+198
+00:06:02,006 --> 00:06:03,736
+property to true.
+
+
+199
+00:06:05,136 --> 00:06:06,346
+And finally, we'll configure our
+
+
+200
+00:06:06,346 --> 00:06:06,726
+cache.
+
+
+201
+00:06:06,726 --> 00:06:10,386
+So that was the main feed.
+
+
+202
+00:06:10,976 --> 00:06:12,186
+Now let's move on and talk about
+
+
+203
+00:06:12,186 --> 00:06:13,366
+how we can post a photo.
+
+
+204
+00:06:14,126 --> 00:06:15,436
+So in my current implementation,
+
+
+205
+00:06:16,196 --> 00:06:17,366
+right now I'm just going to send
+
+
+206
+00:06:17,366 --> 00:06:19,016
+this photo immediately and I'm
+
+
+207
+00:06:19,016 --> 00:06:20,636
+going to retry on every failure.
+
+
+208
+00:06:21,376 --> 00:06:22,326
+That's because I really want to
+
+
+209
+00:06:22,326 --> 00:06:23,406
+get this photo to my server.
+
+
+210
+00:06:24,246 --> 00:06:25,006
+And let's take a look at the
+
+
+211
+00:06:25,006 --> 00:06:26,396
+energy impact in doing so.
+
+
+212
+00:06:27,496 --> 00:06:28,776
+As you can see here, the energy
+
+
+213
+00:06:28,776 --> 00:06:29,896
+impact is very high.
+
+
+214
+00:06:30,166 --> 00:06:31,956
+We're spending a lot of time to
+
+
+215
+00:06:31,956 --> 00:06:32,866
+send up our photo.
+
+
+216
+00:06:32,866 --> 00:06:34,316
+And finally it times-out, maybe
+
+
+217
+00:06:34,316 --> 00:06:35,076
+because the networking
+
+
+218
+00:06:35,076 --> 00:06:35,916
+conditions are poor.
+
+
+219
+00:06:36,036 --> 00:06:39,516
+And again, we retry because we
+
+
+220
+00:06:39,516 --> 00:06:40,836
+really want to get this photo to
+
+
+221
+00:06:40,836 --> 00:06:41,586
+our server.
+
+
+222
+00:06:41,586 --> 00:06:42,506
+And again, we spend a lot of
+
+
+223
+00:06:42,506 --> 00:06:44,716
+energy while we're not providing
+
+
+224
+00:06:44,926 --> 00:06:46,076
+much utility for our user
+
+
+225
+00:06:46,076 --> 00:06:47,096
+because this photo is still not
+
+
+226
+00:06:47,096 --> 00:06:47,856
+getting to our server.
+
+
+227
+00:06:48,366 --> 00:06:49,856
+And this may repeat over and
+
+
+228
+00:06:49,856 --> 00:06:50,376
+over again.
+
+
+229
+00:06:51,546 --> 00:06:52,786
+So how can we optimize this?
+
+
+230
+00:06:53,816 --> 00:06:55,026
+First, we'll want to make sure
+
+
+231
+00:06:55,026 --> 00:06:56,596
+we really minimize our retries.
+
+
+232
+00:06:57,436 --> 00:06:58,616
+Only retry maybe two or three
+
+
+233
+00:06:58,616 --> 00:06:59,026
+times.
+
+
+234
+00:06:59,936 --> 00:07:01,956
+Next, set reasonable timeouts,
+
+
+235
+00:07:02,026 --> 00:07:03,426
+maybe 30 seconds or a minute.
+
+
+236
+00:07:03,576 --> 00:07:04,856
+Don't spend too much time trying
+
+
+237
+00:07:04,996 --> 00:07:05,986
+in case you're in those bad
+
+
+238
+00:07:05,986 --> 00:07:06,856
+networking conditions.
+
+
+239
+00:07:08,286 --> 00:07:09,426
+Finally, you'll want to batch
+
+
+240
+00:07:09,426 --> 00:07:10,806
+your transactions, so if you
+
+
+241
+00:07:10,806 --> 00:07:12,006
+have other photos to post at the
+
+
+242
+00:07:12,006 --> 00:07:13,836
+same time, go ahead and post
+
+
+243
+00:07:13,836 --> 00:07:14,316
+those as well.
+
+
+244
+00:07:15,296 --> 00:07:16,906
+Finally, if your retry limit is
+
+
+245
+00:07:16,906 --> 00:07:18,656
+hit, and you're not sure what to
+
+
+246
+00:07:18,656 --> 00:07:20,276
+do, maybe create a background
+
+
+247
+00:07:20,276 --> 00:07:20,666
+session.
+
+
+248
+00:07:21,296 --> 00:07:22,526
+This will allow you to hand off
+
+
+249
+00:07:22,526 --> 00:07:24,126
+your photo upload to the system
+
+
+250
+00:07:24,196 --> 00:07:25,356
+and it can find a good time to
+
+
+251
+00:07:25,356 --> 00:07:26,506
+do your work.
+
+
+252
+00:07:27,096 --> 00:07:28,706
+So let's take a look at the
+
+
+253
+00:07:28,706 --> 00:07:29,656
+energy impact with these
+
+
+254
+00:07:29,766 --> 00:07:30,446
+optimizations.
+
+
+255
+00:07:31,776 --> 00:07:33,446
+As we can see here, now we've
+
+
+256
+00:07:33,446 --> 00:07:34,626
+really reduced the amount of
+
+
+257
+00:07:34,626 --> 00:07:35,676
+energy that we're spending both
+
+
+258
+00:07:35,676 --> 00:07:37,896
+in the cost to send our photo as
+
+
+259
+00:07:37,896 --> 00:07:39,206
+well as that overhead cost.
+
+
+260
+00:07:40,316 --> 00:07:41,576
+Additionally, you might see that
+
+
+261
+00:07:41,576 --> 00:07:42,576
+we're still timing out, maybe
+
+
+262
+00:07:42,576 --> 00:07:43,416
+because those bad networking
+
+
+263
+00:07:43,416 --> 00:07:45,056
+conditions are still there, but
+
+
+264
+00:07:45,056 --> 00:07:46,656
+yet the second time we retry, we
+
+
+265
+00:07:46,656 --> 00:07:47,656
+just go ahead and create a
+
+
+266
+00:07:47,656 --> 00:07:48,666
+background session and now we're
+
+
+267
+00:07:48,666 --> 00:07:50,236
+going to let the system handle
+
+
+268
+00:07:50,686 --> 00:07:51,576
+uploading our photo.
+
+
+269
+00:07:51,846 --> 00:07:53,406
+So that was how we can post a
+
+
+270
+00:07:53,406 --> 00:07:54,256
+photo efficiently.
+
+
+271
+00:07:54,826 --> 00:07:55,626
+Now let's talk a little bit
+
+
+272
+00:07:55,626 --> 00:07:57,116
+about how we can send up
+
+
+273
+00:07:57,116 --> 00:07:57,856
+analytics data.
+
+
+274
+00:07:57,956 --> 00:07:59,686
+And as developers, we all really
+
+
+275
+00:07:59,686 --> 00:08:01,426
+care about how users are using
+
+
+276
+00:08:01,426 --> 00:08:01,796
+our apps.
+
+
+277
+00:08:01,796 --> 00:08:03,066
+So we want to make sure that the
+
+
+278
+00:08:03,066 --> 00:08:04,876
+data that we're sending does not
+
+
+279
+00:08:04,876 --> 00:08:07,556
+have an energy impact and we can
+
+
+280
+00:08:07,556 --> 00:08:09,006
+do that by using Background
+
+
+281
+00:08:09,006 --> 00:08:09,366
+Session.
+
+
+282
+00:08:10,086 --> 00:08:11,376
+This provides the ability to
+
+
+283
+00:08:11,376 --> 00:08:13,246
+hand off your upload or download
+
+
+284
+00:08:13,246 --> 00:08:14,536
+to the system to do it at a good
+
+
+285
+00:08:14,536 --> 00:08:14,846
+time.
+
+
+286
+00:08:15,396 --> 00:08:16,486
+Additionally, it provides
+
+
+287
+00:08:16,486 --> 00:08:17,586
+automatic retries so you don't
+
+
+288
+00:08:17,586 --> 00:08:19,906
+have to worry about handling
+
+
+289
+00:08:20,366 --> 00:08:22,046
+that retry policy yourself.
+
+
+290
+00:08:22,566 --> 00:08:25,276
+Next, it also provides
+
+
+291
+00:08:25,276 --> 00:08:26,256
+throughput monitoring which
+
+
+292
+00:08:26,256 --> 00:08:28,396
+means that if your throughput is
+
+
+293
+00:08:28,396 --> 00:08:29,666
+very low, for instance you're in
+
+
+294
+00:08:29,666 --> 00:08:31,186
+those poor network conditions,
+
+
+295
+00:08:31,886 --> 00:08:33,876
+your task will be stopped and
+
+
+296
+00:08:33,876 --> 00:08:35,366
+retried at a later time when it
+
+
+297
+00:08:35,366 --> 00:08:36,166
+thinks it will succeed.
+
+
+298
+00:08:36,546 --> 00:08:38,385
+Finally, there's some new
+
+
+299
+00:08:38,385 --> 00:08:40,596
+properties called start time and
+
+
+300
+00:08:40,596 --> 00:08:41,336
+workload size.
+
+
+301
+00:08:41,785 --> 00:08:43,035
+This will help you indicate to
+
+
+302
+00:08:43,035 --> 00:08:44,226
+the system the best time to do
+
+
+303
+00:08:44,226 --> 00:08:45,326
+your work.
+
+
+304
+00:08:46,336 --> 00:08:48,446
+And finally, you'll also want to
+
+
+305
+00:08:48,446 --> 00:08:49,516
+set the discretionary property
+
+
+306
+00:08:49,516 --> 00:08:50,496
+whenever you're doing work
+
+
+307
+00:08:50,496 --> 00:08:51,926
+that's not immediately relevant
+
+
+308
+00:08:51,926 --> 00:08:52,556
+to your user.
+
+
+309
+00:08:53,406 --> 00:08:54,316
+This will allow the system to
+
+
+310
+00:08:54,316 --> 00:08:55,476
+find the most energy efficient
+
+
+311
+00:08:55,476 --> 00:08:59,626
+time to do your work as well.
+
+
+312
+00:08:59,806 --> 00:09:00,646
+So let's take a look at an
+
+
+313
+00:09:00,646 --> 00:09:01,116
+example.
+
+
+314
+00:09:01,926 --> 00:09:03,906
+Here, we can see that right now
+
+
+315
+00:09:03,906 --> 00:09:04,876
+I'm not using Background
+
+
+316
+00:09:04,876 --> 00:09:05,216
+Session.
+
+
+317
+00:09:05,246 --> 00:09:06,786
+I'm just going ahead and sending
+
+
+318
+00:09:07,086 --> 00:09:08,516
+my data as soon as I have it
+
+
+319
+00:09:08,516 --> 00:09:09,566
+ready to send to my server.
+
+
+320
+00:09:10,216 --> 00:09:11,216
+Additionally, there's some other
+
+
+321
+00:09:11,216 --> 00:09:12,836
+networking that's occurring in
+
+
+322
+00:09:12,836 --> 00:09:13,296
+the future.
+
+
+323
+00:09:14,466 --> 00:09:15,886
+And right now we're paying two
+
+
+324
+00:09:15,886 --> 00:09:16,806
+overhead costs.
+
+
+325
+00:09:17,376 --> 00:09:18,286
+So let's say that we use
+
+
+326
+00:09:18,286 --> 00:09:19,536
+Background Session.
+
+
+327
+00:09:20,076 --> 00:09:22,416
+Now we can see that Background
+
+
+328
+00:09:22,416 --> 00:09:24,676
+Session has allowed these events
+
+
+329
+00:09:24,676 --> 00:09:26,356
+to coalesce together and saved
+
+
+330
+00:09:26,356 --> 00:09:28,316
+us that extra overhead by
+
+
+331
+00:09:28,316 --> 00:09:29,286
+combining it with the other
+
+
+332
+00:09:29,286 --> 00:09:30,026
+networking that was already
+
+
+333
+00:09:30,026 --> 00:09:30,926
+going to happen at a future
+
+
+334
+00:09:30,926 --> 00:09:31,176
+time.
+
+
+335
+00:09:32,206 --> 00:09:33,106
+This will really help battery
+
+
+336
+00:09:33,106 --> 00:09:33,976
+life for your users.
+
+
+337
+00:09:38,046 --> 00:09:38,736
+So let's take a look at how we
+
+
+338
+00:09:38,736 --> 00:09:39,416
+can set this up.
+
+
+339
+00:09:40,116 --> 00:09:40,826
+First, we'll want to go ahead
+
+
+340
+00:09:40,826 --> 00:09:41,766
+and create our Background
+
+
+341
+00:09:41,766 --> 00:09:42,856
+Session configuration.
+
+
+342
+00:09:43,386 --> 00:09:44,156
+Then, we'll move on and we'll
+
+
+343
+00:09:44,156 --> 00:09:46,056
+set the discretionary property
+
+
+344
+00:09:46,626 --> 00:09:47,916
+to true.
+
+
+345
+00:09:48,136 --> 00:09:49,926
+Next, we'll go ahead and we'll
+
+
+346
+00:09:49,926 --> 00:09:51,456
+set some properties like start
+
+
+347
+00:09:51,456 --> 00:09:53,706
+time and the expected workload
+
+
+348
+00:09:53,706 --> 00:09:53,966
+size.
+
+
+349
+00:09:54,386 --> 00:09:56,366
+And finally, we'll resume our
+
+
+350
+00:09:56,366 --> 00:09:56,676
+task.
+
+
+351
+00:09:56,676 --> 00:09:58,476
+So that was how we can send up
+
+
+352
+00:09:58,476 --> 00:09:59,576
+our analytics data in an
+
+
+353
+00:09:59,576 --> 00:09:59,976
+efficient way.
+
+
+354
+00:10:00,066 --> 00:10:01,646
+Now I want to talk to you a
+
+
+355
+00:10:01,726 --> 00:10:03,276
+little bit about watchOS.
+
+
+356
+00:10:04,566 --> 00:10:06,286
+So, networking on the watch can
+
+
+357
+00:10:06,286 --> 00:10:07,876
+be very expensive and so it's
+
+
+358
+00:10:07,876 --> 00:10:08,596
+important that you use
+
+
+359
+00:10:08,596 --> 00:10:10,626
+background session for any work
+
+
+360
+00:10:10,626 --> 00:10:11,806
+that you want to occur when the
+
+
+361
+00:10:11,806 --> 00:10:12,456
+screen is off.
+
+
+362
+00:10:13,566 --> 00:10:14,536
+You want to also use this for
+
+
+363
+00:10:14,536 --> 00:10:15,976
+complication updates or
+
+
+364
+00:10:15,976 --> 00:10:17,496
+background app refresh as well
+
+
+365
+00:10:17,496 --> 00:10:19,206
+and that's because you'll be
+
+
+366
+00:10:19,206 --> 00:10:20,196
+able to get runtime when the
+
+
+367
+00:10:20,196 --> 00:10:22,046
+task completes so it can go off
+
+
+368
+00:10:22,046 --> 00:10:23,576
+and doing your networking and
+
+
+369
+00:10:23,576 --> 00:10:26,836
+let you know when it's done.
+
+
+370
+00:10:27,036 --> 00:10:28,546
+So, to recap.
+
+
+371
+00:10:29,126 --> 00:10:30,256
+First, you want to identify the
+
+
+372
+00:10:30,256 --> 00:10:31,236
+work that you're doing.
+
+
+373
+00:10:31,236 --> 00:10:32,756
+This will help you ensure that
+
+
+374
+00:10:32,756 --> 00:10:33,366
+you're not repeating
+
+
+375
+00:10:33,366 --> 00:10:34,756
+transactions again and again.
+
+
+376
+00:10:35,426 --> 00:10:36,566
+Next, you want to optimize your
+
+
+377
+00:10:36,566 --> 00:10:38,426
+work by using Background Session
+
+
+378
+00:10:38,426 --> 00:10:39,496
+wherever appropriate.
+
+
+379
+00:10:40,366 --> 00:10:41,366
+Next, you want to coalesce your
+
+
+380
+00:10:41,366 --> 00:10:41,576
+work.
+
+
+381
+00:10:41,906 --> 00:10:43,156
+Really batch those transactions
+
+
+382
+00:10:43,156 --> 00:10:45,256
+up to save that overhead.
+
+
+383
+00:10:45,826 --> 00:10:47,796
+And finally, reduce your work my
+
+
+384
+00:10:47,796 --> 00:10:49,656
+minimizing retries and setting
+
+
+385
+00:10:49,656 --> 00:10:50,576
+reasonable timeouts.
+
+
+386
+00:10:52,116 --> 00:10:54,036
+So that was networking.
+
+
+387
+00:10:54,376 --> 00:10:55,436
+Now I want to talk to you a
+
+
+388
+00:10:55,436 --> 00:10:56,866
+little bit about location.
+
+
+389
+00:10:57,426 --> 00:10:59,746
+And so as a developer, you have
+
+
+390
+00:10:59,746 --> 00:11:01,296
+many APIs to choose from when it
+
+
+391
+00:11:01,296 --> 00:11:02,116
+comes to location.
+
+
+392
+00:11:02,596 --> 00:11:03,666
+But today I really want to focus
+
+
+393
+00:11:03,666 --> 00:11:05,376
+on the energy impact of these
+
+
+394
+00:11:05,376 --> 00:11:05,736
+APIs.
+
+
+395
+00:11:06,326 --> 00:11:10,226
+So to start off, let's talk
+
+
+396
+00:11:10,226 --> 00:11:11,406
+about if I wanted to add the
+
+
+397
+00:11:11,406 --> 00:11:13,936
+ability to add navigation to my
+
+
+398
+00:11:14,126 --> 00:11:14,696
+app.
+
+
+399
+00:11:15,226 --> 00:11:16,426
+To do this, I'll want to use
+
+
+400
+00:11:16,426 --> 00:11:17,826
+continuous location updates and
+
+
+401
+00:11:18,126 --> 00:11:19,376
+the reason for that is I'll need
+
+
+402
+00:11:19,376 --> 00:11:20,826
+to know if the user deviates
+
+
+403
+00:11:20,826 --> 00:11:21,546
+from my course.
+
+
+404
+00:11:22,266 --> 00:11:23,496
+That way I can provide them new
+
+
+405
+00:11:23,496 --> 00:11:24,986
+instructions for how to get to
+
+
+406
+00:11:24,986 --> 00:11:25,676
+their destination.
+
+
+407
+00:11:26,206 --> 00:11:28,316
+But one thing you want to be
+
+
+408
+00:11:28,316 --> 00:11:30,096
+cautioned of is that this does
+
+
+409
+00:11:30,096 --> 00:11:30,866
+prevent the device from
+
+
+410
+00:11:30,866 --> 00:11:32,476
+sleeping, so it will have a high
+
+
+411
+00:11:32,476 --> 00:11:34,216
+energy impact on your users.
+
+
+412
+00:11:35,716 --> 00:11:37,596
+So really, as soon as your user
+
+
+413
+00:11:37,596 --> 00:11:38,656
+gets to their destination,
+
+
+414
+00:11:39,066 --> 00:11:40,016
+you'll want to make sure you
+
+
+415
+00:11:40,016 --> 00:11:42,696
+stop these location updates and
+
+
+416
+00:11:42,696 --> 00:11:43,856
+make sure the device can sleep
+
+
+417
+00:11:43,856 --> 00:11:44,126
+again.
+
+
+418
+00:11:45,146 --> 00:11:46,036
+So let's take a look at how we
+
+
+419
+00:11:46,036 --> 00:11:46,866
+can do this.
+
+
+420
+00:11:47,346 --> 00:11:48,296
+First, we'll create a location
+
+
+421
+00:11:48,296 --> 00:11:48,746
+manager.
+
+
+422
+00:11:49,716 --> 00:11:50,836
+Then, we'll move on and we'll
+
+
+423
+00:11:50,836 --> 00:11:51,656
+set some properties.
+
+
+424
+00:11:51,656 --> 00:11:52,556
+And the property I really want
+
+
+425
+00:11:52,556 --> 00:11:54,436
+to focus on today is desired
+
+
+426
+00:11:54,436 --> 00:11:54,986
+accuracy.
+
+
+427
+00:11:55,326 --> 00:11:56,586
+Really think about the accuracy
+
+
+428
+00:11:56,586 --> 00:11:57,646
+that you need and the reason for
+
+
+429
+00:11:57,646 --> 00:11:59,736
+that is higher accuracy is
+
+
+430
+00:11:59,736 --> 00:12:00,356
+higher power.
+
+
+431
+00:12:01,346 --> 00:12:02,466
+So really make sure that you do
+
+
+432
+00:12:02,466 --> 00:12:03,586
+need that high accuracy if you
+
+
+433
+00:12:03,586 --> 00:12:04,296
+go ahead and set it.
+
+
+434
+00:12:04,296 --> 00:12:07,236
+And then next, you'll want to go
+
+
+435
+00:12:07,236 --> 00:12:08,576
+ahead and start updating
+
+
+436
+00:12:08,626 --> 00:12:09,086
+location.
+
+
+437
+00:12:09,526 --> 00:12:12,836
+Once you're done, for instance
+
+
+438
+00:12:12,836 --> 00:12:13,786
+as soon as the user gets to
+
+
+439
+00:12:13,786 --> 00:12:15,846
+their destination, stop updating
+
+
+440
+00:12:15,846 --> 00:12:17,816
+location, again so that you can
+
+
+441
+00:12:17,816 --> 00:12:18,976
+let the device go back to sleep.
+
+
+442
+00:12:22,376 --> 00:12:24,166
+So that was continuous location.
+
+
+443
+00:12:24,826 --> 00:12:25,816
+Now let's move on and talk about
+
+
+444
+00:12:25,816 --> 00:12:27,236
+some other APIs that will allow
+
+
+445
+00:12:27,236 --> 00:12:28,776
+your device to sleep more often.
+
+
+446
+00:12:29,756 --> 00:12:31,306
+The first one is request
+
+
+447
+00:12:31,306 --> 00:12:33,156
+Location and this allows the
+
+
+448
+00:12:33,156 --> 00:12:34,496
+ability to get the user's
+
+
+449
+00:12:34,606 --> 00:12:35,706
+current location, maybe if you
+
+
+450
+00:12:35,706 --> 00:12:38,486
+want to update content based on
+
+
+451
+00:12:38,696 --> 00:12:40,686
+their current location without
+
+
+452
+00:12:40,686 --> 00:12:41,636
+having to worry about calling
+
+
+453
+00:12:41,636 --> 00:12:43,356
+start location and stop location
+
+
+454
+00:12:43,356 --> 00:12:46,286
+and managing calling both of
+
+
+455
+00:12:47,256 --> 00:12:47,376
+those.
+
+
+456
+00:12:47,576 --> 00:12:48,836
+Next, there is region
+
+
+457
+00:12:48,836 --> 00:12:49,336
+monitoring.
+
+
+458
+00:12:49,886 --> 00:12:50,896
+Region monitoring provides you
+
+
+459
+00:12:50,896 --> 00:12:52,376
+the ability to know, let's say,
+
+
+460
+00:12:52,376 --> 00:12:54,036
+if you want to update content
+
+
+461
+00:12:54,036 --> 00:12:55,316
+when the user arrives home.
+
+
+462
+00:12:55,416 --> 00:12:56,396
+You don't have to track their
+
+
+463
+00:12:56,396 --> 00:12:57,286
+location all the time.
+
+
+464
+00:12:57,356 --> 00:12:59,126
+You can just create a region and
+
+
+465
+00:12:59,126 --> 00:13:00,306
+when they cross that region,
+
+
+466
+00:13:00,306 --> 00:13:00,976
+you'll be able to get some
+
+
+467
+00:13:00,976 --> 00:13:02,886
+runtime to do your work.
+
+
+468
+00:13:04,256 --> 00:13:06,296
+Similarly is visit monitoring.
+
+
+469
+00:13:06,926 --> 00:13:08,016
+Visit monitoring allows you to
+
+
+470
+00:13:08,016 --> 00:13:09,476
+know when users go to frequently
+
+
+471
+00:13:09,476 --> 00:13:10,286
+visited locations.
+
+
+472
+00:13:10,896 --> 00:13:12,216
+You'll also get some runtime at
+
+
+473
+00:13:12,216 --> 00:13:13,386
+that time as well without having
+
+
+474
+00:13:13,386 --> 00:13:14,696
+to continuously track their
+
+
+475
+00:13:14,696 --> 00:13:15,166
+location.
+
+
+476
+00:13:15,716 --> 00:13:18,736
+You can set that up as follows.
+
+
+477
+00:13:19,256 --> 00:13:21,826
+And finally there's significant
+
+
+478
+00:13:21,826 --> 00:13:22,536
+location change.
+
+
+479
+00:13:22,536 --> 00:13:24,616
+So significant location change
+
+
+480
+00:13:24,836 --> 00:13:26,176
+can be used if you want to know
+
+
+481
+00:13:26,176 --> 00:13:27,566
+when the user is moving a
+
+
+482
+00:13:27,566 --> 00:13:29,146
+significant distance but you
+
+
+483
+00:13:29,146 --> 00:13:30,426
+don't want to use continuous
+
+
+484
+00:13:30,426 --> 00:13:31,706
+location because continuous
+
+
+485
+00:13:31,706 --> 00:13:33,006
+location prevents the device
+
+
+486
+00:13:33,006 --> 00:13:33,496
+from sleeping.
+
+
+487
+00:13:34,896 --> 00:13:36,516
+Significant location change
+
+
+488
+00:13:36,786 --> 00:13:37,786
+doesn't prevent the device from
+
+
+489
+00:13:37,786 --> 00:13:38,166
+sleeping.
+
+
+490
+00:13:38,346 --> 00:13:39,796
+It can still sleep between those
+
+
+491
+00:13:39,796 --> 00:13:40,266
+updates.
+
+
+492
+00:13:40,896 --> 00:13:41,666
+And so you can really make a
+
+
+493
+00:13:41,666 --> 00:13:43,126
+good optimization if you're able
+
+
+494
+00:13:43,126 --> 00:13:44,336
+to move from continuous location
+
+
+495
+00:13:44,336 --> 00:13:45,656
+to significant location change.
+
+
+496
+00:13:45,966 --> 00:13:47,036
+One example is maybe you have a
+
+
+497
+00:13:47,036 --> 00:13:47,526
+weather app.
+
+
+498
+00:13:47,806 --> 00:13:48,726
+You need to know when the user
+
+
+499
+00:13:48,726 --> 00:13:49,946
+moves significantly and update
+
+
+500
+00:13:50,226 --> 00:13:51,206
+the weather at those times.
+
+
+501
+00:13:52,526 --> 00:13:54,526
+And here is how you can set that
+
+
+502
+00:13:56,126 --> 00:13:56,216
+up.
+
+
+503
+00:13:56,466 --> 00:13:58,466
+So to summarize, first you want
+
+
+504
+00:13:58,466 --> 00:13:59,986
+to identify the accuracy level
+
+
+505
+00:13:59,986 --> 00:14:00,506
+that you need.
+
+
+506
+00:14:00,716 --> 00:14:01,896
+Really think about do I need
+
+
+507
+00:14:01,896 --> 00:14:02,816
+that high accuracy.
+
+
+508
+00:14:02,876 --> 00:14:04,296
+And if you don't, use something
+
+
+509
+00:14:04,296 --> 00:14:04,566
+lower.
+
+
+510
+00:14:05,396 --> 00:14:06,986
+Next, you'll want to optimize
+
+
+511
+00:14:06,986 --> 00:14:08,276
+your work by using alternatives
+
+
+512
+00:14:08,276 --> 00:14:09,896
+to continuous location wherever
+
+
+513
+00:14:09,896 --> 00:14:10,916
+you can and wherever it makes
+
+
+514
+00:14:10,916 --> 00:14:11,286
+sense.
+
+
+515
+00:14:12,356 --> 00:14:14,126
+Next, you'll want to reduce your
+
+
+516
+00:14:14,126 --> 00:14:15,676
+work by stopping location
+
+
+517
+00:14:15,676 --> 00:14:16,626
+updates as soon as you're done
+
+
+518
+00:14:16,626 --> 00:14:16,886
+with them.
+
+
+519
+00:14:17,296 --> 00:14:19,176
+Again, if you let those location
+
+
+520
+00:14:19,176 --> 00:14:20,306
+updates keep coming, you might
+
+
+521
+00:14:20,306 --> 00:14:20,946
+prevent the device from
+
+
+522
+00:14:20,946 --> 00:14:21,256
+sleeping.
+
+
+523
+00:14:22,156 --> 00:14:23,376
+And finally, you'll want to
+
+
+524
+00:14:23,376 --> 00:14:25,196
+coalesce your work by deferring
+
+
+525
+00:14:25,196 --> 00:14:26,006
+location updates.
+
+
+526
+00:14:26,146 --> 00:14:27,176
+Maybe in the future you'll need
+
+
+527
+00:14:27,176 --> 00:14:28,746
+that location, you'll really
+
+
+528
+00:14:28,746 --> 00:14:29,686
+need it and maybe you don't need
+
+
+529
+00:14:29,686 --> 00:14:30,036
+it right now.
+
+
+530
+00:14:30,546 --> 00:14:32,516
+So that was location.
+
+
+531
+00:14:33,626 --> 00:14:34,536
+Now I want to talk to you about
+
+
+532
+00:14:34,596 --> 00:14:35,086
+graphics.
+
+
+533
+00:14:35,456 --> 00:14:37,276
+And graphics can be very energy
+
+
+534
+00:14:37,276 --> 00:14:37,736
+intensive.
+
+
+535
+00:14:38,406 --> 00:14:40,926
+So here are some good guidelines
+
+
+536
+00:14:40,926 --> 00:14:41,346
+to follow.
+
+
+537
+00:14:42,156 --> 00:14:43,606
+First, you'll want to minimize
+
+
+538
+00:14:43,606 --> 00:14:45,626
+your screen updates, really
+
+
+539
+00:14:45,626 --> 00:14:46,576
+ensure that these are providing
+
+
+540
+00:14:46,576 --> 00:14:47,836
+needed changes for your user.
+
+
+541
+00:14:49,316 --> 00:14:50,236
+Next, you'll want to review your
+
+
+542
+00:14:50,236 --> 00:14:51,006
+blur usage.
+
+
+543
+00:14:51,356 --> 00:14:52,426
+If you're placing blurs on top
+
+
+544
+00:14:52,426 --> 00:14:53,586
+of updating elements, this is
+
+
+545
+00:14:53,586 --> 00:14:55,976
+very expensive for battery life.
+
+
+546
+00:14:57,206 --> 00:14:57,976
+So be very cautious of that.
+
+
+547
+00:15:00,046 --> 00:15:00,766
+So those are some general
+
+
+548
+00:15:00,766 --> 00:15:01,346
+guidelines.
+
+
+549
+00:15:01,606 --> 00:15:02,636
+Now let's talk specifically
+
+
+550
+00:15:02,636 --> 00:15:03,256
+about the Mac.
+
+
+551
+00:15:04,246 --> 00:15:05,136
+So if you're developing on the
+
+
+552
+00:15:05,136 --> 00:15:06,976
+Mac, you'll want to be aware
+
+
+553
+00:15:07,166 --> 00:15:08,386
+that some MacBooks have a
+
+
+554
+00:15:08,386 --> 00:15:10,416
+discrete GPU and this discrete
+
+
+555
+00:15:10,416 --> 00:15:12,156
+GPU is great at delivering
+
+
+556
+00:15:12,156 --> 00:15:13,316
+awesome graphics and awesome
+
+
+557
+00:15:13,316 --> 00:15:15,206
+performance for your users but
+
+
+558
+00:15:15,206 --> 00:15:17,106
+it also has a high power cost
+
+
+559
+00:15:17,106 --> 00:15:18,406
+over the integrated GPU.
+
+
+560
+00:15:18,906 --> 00:15:20,266
+And so you'll really want to
+
+
+561
+00:15:20,266 --> 00:15:21,846
+make sure that you're only using
+
+
+562
+00:15:21,846 --> 00:15:23,366
+the discrete GPU when your
+
+
+563
+00:15:23,366 --> 00:15:24,486
+animation performance really
+
+
+564
+00:15:24,486 --> 00:15:26,856
+suffers over the integrated GPU,
+
+
+565
+00:15:27,366 --> 00:15:28,866
+or if the functionality isn't
+
+
+566
+00:15:28,866 --> 00:15:31,666
+provided there.
+
+
+567
+00:15:31,876 --> 00:15:32,586
+Additionally, if you're
+
+
+568
+00:15:33,116 --> 00:15:34,906
+developing on the Mac, you might
+
+
+569
+00:15:34,906 --> 00:15:37,256
+be using Metal or OpenGL.
+
+
+570
+00:15:37,356 --> 00:15:38,946
+And if you're using Metal,
+
+
+571
+00:15:39,306 --> 00:15:40,446
+you'll really want to be aware
+
+
+572
+00:15:40,446 --> 00:15:41,566
+that by just calling Create
+
+
+573
+00:15:41,566 --> 00:15:42,796
+System Default Device, you're
+
+
+574
+00:15:42,796 --> 00:15:44,146
+going to trigger the Discrete
+
+
+575
+00:15:44,146 --> 00:15:45,106
+GPU automatically.
+
+
+576
+00:15:46,416 --> 00:15:47,226
+And so if you don't need the
+
+
+577
+00:15:47,226 --> 00:15:48,786
+discrete GPU, instead you'll
+
+
+578
+00:15:48,786 --> 00:15:50,366
+want to call Copy All Devices
+
+
+579
+00:15:50,366 --> 00:15:52,136
+and pick that device with the
+
+
+580
+00:15:52,136 --> 00:15:53,306
+low power attribute set.
+
+
+581
+00:15:53,836 --> 00:15:54,756
+This will ensure that you can
+
+
+582
+00:15:54,756 --> 00:15:56,446
+use the integrated GPU whenever
+
+
+583
+00:15:56,446 --> 00:15:56,896
+possible.
+
+
+584
+00:15:57,426 --> 00:16:00,106
+For those of you that are
+
+
+585
+00:16:00,106 --> 00:16:01,556
+developing using OpenGL, you'll
+
+
+586
+00:16:02,286 --> 00:16:03,656
+want to make sure that your app
+
+
+587
+00:16:03,656 --> 00:16:06,346
+is mux-aware by setting the
+
+
+588
+00:16:06,516 --> 00:16:07,836
+Automatic Graphics Switching
+
+
+589
+00:16:07,836 --> 00:16:09,046
+property either in your
+
+
+590
+00:16:09,046 --> 00:16:11,996
+Info.plist or using the sample
+
+
+591
+00:16:11,996 --> 00:16:12,296
+below.
+
+
+592
+00:16:13,686 --> 00:16:15,426
+And the reason for this is if
+
+
+593
+00:16:15,426 --> 00:16:16,866
+you don't need the discrete GPU,
+
+
+594
+00:16:16,966 --> 00:16:18,506
+you don't want to be the one to
+
+
+595
+00:16:18,506 --> 00:16:21,086
+keep it up and automatically you
+
+
+596
+00:16:21,086 --> 00:16:22,336
+will keep it up unless you set
+
+
+597
+00:16:22,796 --> 00:16:23,326
+this property.
+
+
+598
+00:16:23,776 --> 00:16:27,536
+So to summarize, first you'll
+
+
+599
+00:16:27,536 --> 00:16:29,266
+want to identify the work that
+
+
+600
+00:16:29,266 --> 00:16:30,776
+you need to do by looking at
+
+
+601
+00:16:30,776 --> 00:16:31,896
+your burry usage.
+
+
+602
+00:16:32,256 --> 00:16:33,046
+Make sure you're not placing
+
+
+603
+00:16:33,046 --> 00:16:34,046
+those blurs over updating
+
+
+604
+00:16:34,046 --> 00:16:34,526
+elements.
+
+
+605
+00:16:35,406 --> 00:16:36,506
+Next, you'll want to optimize
+
+
+606
+00:16:36,506 --> 00:16:36,846
+your work.
+
+
+607
+00:16:36,846 --> 00:16:38,616
+If you're developing on the Mac,
+
+
+608
+00:16:38,776 --> 00:16:40,076
+really ensure that you're only
+
+
+609
+00:16:40,076 --> 00:16:41,536
+using the discrete GPU whenever
+
+
+610
+00:16:41,536 --> 00:16:42,646
+you really need it to deliver
+
+
+611
+00:16:42,646 --> 00:16:43,646
+that great performance.
+
+
+612
+00:16:44,516 --> 00:16:46,366
+And finally, reduce your work by
+
+
+613
+00:16:46,366 --> 00:16:47,646
+minimizing screen updates
+
+
+614
+00:16:47,746 --> 00:16:48,456
+whenever possible.
+
+
+615
+00:16:49,036 --> 00:16:50,896
+So that was graphics.
+
+
+616
+00:16:51,276 --> 00:16:52,126
+Now let's talk a little bit
+
+
+617
+00:16:52,126 --> 00:16:53,136
+about processing.
+
+
+618
+00:16:53,456 --> 00:16:54,546
+And again, processing can be
+
+
+619
+00:16:54,546 --> 00:16:56,006
+very energy intensive as well.
+
+
+620
+00:16:56,086 --> 00:17:00,176
+So here are some guidelines to
+
+
+621
+00:17:00,176 --> 00:17:00,726
+follow.
+
+
+622
+00:17:01,036 --> 00:17:02,116
+First, you'll want to identify
+
+
+623
+00:17:02,116 --> 00:17:04,165
+the tasks that you need to do.
+
+
+624
+00:17:05,195 --> 00:17:06,205
+Next, you'll want to do that
+
+
+625
+00:17:06,205 --> 00:17:07,406
+work very quickly and
+
+
+626
+00:17:07,406 --> 00:17:08,286
+efficiently once you've
+
+
+627
+00:17:08,286 --> 00:17:09,316
+identified those tasks.
+
+
+628
+00:17:10,406 --> 00:17:11,675
+You'll also want to avoid timers
+
+
+629
+00:17:11,675 --> 00:17:12,415
+whenever possible.
+
+
+630
+00:17:12,656 --> 00:17:13,826
+Try to do your work based on
+
+
+631
+00:17:13,996 --> 00:17:16,215
+user interaction rather than a
+
+
+632
+00:17:16,215 --> 00:17:17,766
+fixed timer over and over again.
+
+
+633
+00:17:18,675 --> 00:17:20,126
+But if you really do need to use
+
+
+634
+00:17:20,126 --> 00:17:21,836
+those timers, try to set a
+
+
+635
+00:17:21,836 --> 00:17:22,705
+pretty long leeway.
+
+
+636
+00:17:22,705 --> 00:17:24,086
+That will let the system
+
+
+637
+00:17:24,086 --> 00:17:25,425
+coalesce your timers with other
+
+
+638
+00:17:25,425 --> 00:17:25,685
+work.
+
+
+639
+00:17:26,296 --> 00:17:28,445
+So that was some general
+
+
+640
+00:17:28,445 --> 00:17:29,576
+guidelines for processing.
+
+
+641
+00:17:29,806 --> 00:17:31,016
+Today I really want to focus on
+
+
+642
+00:17:31,366 --> 00:17:32,376
+background processing.
+
+
+643
+00:17:33,436 --> 00:17:35,116
+And background processing can be
+
+
+644
+00:17:35,116 --> 00:17:36,896
+very expensive for your users
+
+
+645
+00:17:37,126 --> 00:17:38,116
+and so it's important to think
+
+
+646
+00:17:38,116 --> 00:17:39,256
+about what you're doing in the
+
+
+647
+00:17:39,256 --> 00:17:39,756
+background.
+
+
+648
+00:17:40,046 --> 00:17:41,496
+The main reason for this is the
+
+
+649
+00:17:41,496 --> 00:17:44,076
+user is not looking at your app.
+
+
+650
+00:17:44,806 --> 00:17:45,486
+In the foreground, they're
+
+
+651
+00:17:45,486 --> 00:17:46,226
+looking at your app.
+
+
+652
+00:17:46,226 --> 00:17:47,436
+So if you're using some energy
+
+
+653
+00:17:47,436 --> 00:17:49,276
+there, they might not be as
+
+
+654
+00:17:49,276 --> 00:17:49,566
+worried.
+
+
+655
+00:17:49,566 --> 00:17:50,456
+But if you're using a lot of
+
+
+656
+00:17:50,456 --> 00:17:51,736
+energy in the background, your
+
+
+657
+00:17:52,356 --> 00:17:53,836
+users might not be happy about
+
+
+658
+00:17:55,536 --> 00:17:55,646
+this.
+
+
+659
+00:17:55,806 --> 00:17:58,066
+And so here are some general
+
+
+660
+00:17:58,066 --> 00:17:58,506
+guidelines.
+
+
+661
+00:17:59,126 --> 00:18:00,286
+First, we'll want to finish our
+
+
+662
+00:18:00,286 --> 00:18:01,556
+work as quickly as possible.
+
+
+663
+00:18:02,366 --> 00:18:03,716
+First think, do I really need to
+
+
+664
+00:18:03,716 --> 00:18:04,786
+do this work in the background.
+
+
+665
+00:18:05,036 --> 00:18:06,766
+And if so, find the most
+
+
+666
+00:18:06,766 --> 00:18:07,576
+efficient way to do it.
+
+
+667
+00:18:08,176 --> 00:18:09,486
+Next, if you want to update your
+
+
+668
+00:18:09,486 --> 00:18:11,386
+content, try to use the
+
+
+669
+00:18:11,386 --> 00:18:12,666
+background app refresh API.
+
+
+670
+00:18:13,666 --> 00:18:14,816
+This will really help you find
+
+
+671
+00:18:14,816 --> 00:18:15,996
+the best time to update your
+
+
+672
+00:18:15,996 --> 00:18:16,426
+content.
+
+
+673
+00:18:16,946 --> 00:18:19,816
+And finally, you'll want to make
+
+
+674
+00:18:19,816 --> 00:18:20,446
+sure that you call the
+
+
+675
+00:18:20,446 --> 00:18:22,136
+completion handler for whatever
+
+
+676
+00:18:22,136 --> 00:18:23,136
+API that you're using.
+
+
+677
+00:18:23,616 --> 00:18:24,606
+This will make sure that you
+
+
+678
+00:18:24,606 --> 00:18:25,806
+allow the device to sleep as
+
+
+679
+00:18:25,806 --> 00:18:27,026
+quickly as possible and you
+
+
+680
+00:18:27,026 --> 00:18:28,896
+don't end up paying any fixed
+
+
+681
+00:18:31,776 --> 00:18:31,936
+cost.
+
+
+682
+00:18:32,066 --> 00:18:35,386
+So new in iOS 11, there's a
+
+
+683
+00:18:35,386 --> 00:18:36,486
+completion handler in the
+
+
+684
+00:18:36,486 --> 00:18:37,096
+PushKit API.
+
+
+685
+00:18:37,936 --> 00:18:40,146
+This will allow the device to go
+
+
+686
+00:18:40,146 --> 00:18:41,626
+back to sleep very quickly after
+
+
+687
+00:18:41,626 --> 00:18:42,936
+you handle your incoming push if
+
+
+688
+00:18:42,936 --> 00:18:43,476
+you call this.
+
+
+689
+00:18:44,806 --> 00:18:45,756
+And so you'll really want to
+
+
+690
+00:18:45,756 --> 00:18:46,866
+make sure that you adopt this if
+
+
+691
+00:18:46,866 --> 00:18:47,546
+you're using PushKit.
+
+
+692
+00:18:47,836 --> 00:18:49,906
+And let's take a look at an
+
+
+693
+00:18:49,906 --> 00:18:50,366
+example.
+
+
+694
+00:18:51,506 --> 00:18:53,766
+Here, we can see I'm not calling
+
+
+695
+00:18:54,246 --> 00:18:55,316
+the completion handler in this
+
+
+696
+00:18:55,316 --> 00:18:56,386
+case when I receive my incoming
+
+
+697
+00:18:56,386 --> 00:18:56,756
+push.
+
+
+698
+00:18:56,916 --> 00:18:58,326
+I'm just doing some processing
+
+
+699
+00:18:58,326 --> 00:18:59,466
+and then I'm letting the device
+
+
+700
+00:18:59,926 --> 00:19:01,096
+just go to sleep after a fixed
+
+
+701
+00:19:01,096 --> 00:19:03,666
+period of time.
+
+
+702
+00:19:03,866 --> 00:19:05,976
+But now let's take a look at the
+
+
+703
+00:19:06,216 --> 00:19:07,386
+energy impact with the
+
+
+704
+00:19:07,386 --> 00:19:08,056
+optimization.
+
+
+705
+00:19:08,466 --> 00:19:09,346
+By calling the completion
+
+
+706
+00:19:09,346 --> 00:19:11,256
+handler, we are allowing the
+
+
+707
+00:19:11,256 --> 00:19:12,606
+device to sleep more quickly and
+
+
+708
+00:19:12,606 --> 00:19:14,156
+not only have we saved that
+
+
+709
+00:19:14,156 --> 00:19:15,426
+energy that we're using in the
+
+
+710
+00:19:15,426 --> 00:19:16,496
+background but also that
+
+
+711
+00:19:16,496 --> 00:19:17,466
+overhead cost as well.
+
+
+712
+00:19:17,596 --> 00:19:19,956
+That will really help the
+
+
+713
+00:19:19,956 --> 00:19:21,486
+battery life of your users if
+
+
+714
+00:19:21,486 --> 00:19:21,976
+you're using PushKit.
+
+
+715
+00:19:25,106 --> 00:19:26,116
+So let's talk a little bit about
+
+
+716
+00:19:26,116 --> 00:19:27,026
+background processing on the
+
+
+717
+00:19:27,026 --> 00:19:27,396
+Watch.
+
+
+718
+00:19:28,086 --> 00:19:30,786
+So new is the background
+
+
+719
+00:19:30,786 --> 00:19:31,636
+navigation mode.
+
+
+720
+00:19:32,196 --> 00:19:33,666
+This also has CPU limits like
+
+
+721
+00:19:33,666 --> 00:19:35,406
+other background modes on the
+
+
+722
+00:19:35,406 --> 00:19:35,766
+watch.
+
+
+723
+00:19:36,806 --> 00:19:38,236
+Additionally, you'll want to
+
+
+724
+00:19:38,236 --> 00:19:38,966
+really make sure that you
+
+
+725
+00:19:38,966 --> 00:19:40,206
+minimize any networking that
+
+
+726
+00:19:40,206 --> 00:19:41,866
+you're doing when in this
+
+
+727
+00:19:41,866 --> 00:19:42,466
+background mode.
+
+
+728
+00:19:42,716 --> 00:19:44,256
+Really think about, do I need to
+
+
+729
+00:19:44,256 --> 00:19:47,726
+do this or will my user care
+
+
+730
+00:19:48,336 --> 00:19:50,016
+about this networking update
+
+
+731
+00:19:50,016 --> 00:19:50,456
+that I'm doing.
+
+
+732
+00:19:51,676 --> 00:19:52,696
+Maybe do it for things like
+
+
+733
+00:19:52,966 --> 00:19:55,666
+traffic reroute or important
+
+
+734
+00:19:55,666 --> 00:19:56,386
+traffic information.
+
+
+735
+00:19:57,626 --> 00:19:59,766
+And finally, use background app
+
+
+736
+00:19:59,766 --> 00:20:01,266
+refresh and complication updates
+
+
+737
+00:20:01,266 --> 00:20:02,106
+to update your data.
+
+
+738
+00:20:02,716 --> 00:20:04,006
+And when you're using these
+
+
+739
+00:20:04,006 --> 00:20:05,726
+APIs, make sure that you use
+
+
+740
+00:20:05,726 --> 00:20:06,786
+Background Session, as we talked
+
+
+741
+00:20:06,786 --> 00:20:08,446
+about earlier, to get that data
+
+
+742
+00:20:08,446 --> 00:20:09,396
+so you don't have to wait around
+
+
+743
+00:20:09,396 --> 00:20:10,956
+for the data to come through.
+
+
+744
+00:20:13,046 --> 00:20:15,276
+So to summarize, first you'll
+
+
+745
+00:20:15,276 --> 00:20:16,316
+want to identify the work that
+
+
+746
+00:20:16,316 --> 00:20:17,256
+you're doing in the background.
+
+
+747
+00:20:17,716 --> 00:20:19,436
+Really make sure it's providing
+
+
+748
+00:20:19,936 --> 00:20:22,536
+useful content for your user.
+
+
+749
+00:20:23,626 --> 00:20:24,596
+Next, you'll want to optimize
+
+
+750
+00:20:24,596 --> 00:20:25,666
+your work by using Background
+
+
+751
+00:20:25,666 --> 00:20:28,606
+App Refresh whenever you can.
+
+
+752
+00:20:28,826 --> 00:20:30,086
+Next, reduce your work by
+
+
+753
+00:20:30,086 --> 00:20:31,276
+limiting the transactions that
+
+
+754
+00:20:31,276 --> 00:20:32,206
+you're doing in the background.
+
+
+755
+00:20:33,176 --> 00:20:34,536
+And finally, using background
+
+
+756
+00:20:34,536 --> 00:20:36,176
+Session whenever possible.
+
+
+757
+00:20:38,496 --> 00:20:40,366
+So now my colleague is going to
+
+
+758
+00:20:40,366 --> 00:20:41,836
+come up and talk to you about
+
+
+759
+00:20:41,836 --> 00:20:43,016
+the energy tools available to
+
+
+760
+00:20:43,016 --> 00:20:43,886
+you as well as give you a demo.
+
+
+761
+00:20:44,516 --> 00:20:47,566
+[ Applause ]
+
+
+762
+00:20:48,066 --> 00:20:48,706
+>> Thanks, Daniel.
+
+
+763
+00:20:52,236 --> 00:20:53,256
+Good morning, everyone.
+
+
+764
+00:20:53,676 --> 00:20:54,956
+I am Prajakta Karandikar.
+
+
+765
+00:20:55,396 --> 00:20:56,666
+I'm an engineer in the power
+
+
+766
+00:20:56,666 --> 00:20:57,006
+team.
+
+
+767
+00:20:58,506 --> 00:21:00,116
+So you heard about all the best
+
+
+768
+00:21:00,116 --> 00:21:01,696
+practices for writing energy
+
+
+769
+00:21:01,696 --> 00:21:02,406
+efficient code.
+
+
+770
+00:21:02,846 --> 00:21:04,816
+Now I'm going to talk about the
+
+
+771
+00:21:04,816 --> 00:21:06,636
+various energy debugging tools
+
+
+772
+00:21:06,636 --> 00:21:07,576
+that we have developed.
+
+
+773
+00:21:08,576 --> 00:21:10,016
+We will see how you can use
+
+
+774
+00:21:10,016 --> 00:21:11,676
+these tools to measure the
+
+
+775
+00:21:11,676 --> 00:21:13,626
+energy efficiency or energy
+
+
+776
+00:21:13,626 --> 00:21:15,016
+impact of your applications.
+
+
+777
+00:21:16,196 --> 00:21:18,026
+These tools will help you find
+
+
+778
+00:21:18,346 --> 00:21:19,846
+the high-level problems within
+
+
+779
+00:21:19,846 --> 00:21:21,256
+your application pertaining to
+
+
+780
+00:21:21,256 --> 00:21:23,476
+energy or the major problem
+
+
+781
+00:21:23,476 --> 00:21:25,046
+areas and will help you fix
+
+
+782
+00:21:25,046 --> 00:21:25,876
+these problems.
+
+
+783
+00:21:26,946 --> 00:21:28,286
+Finally, we will move on to a
+
+
+784
+00:21:28,286 --> 00:21:30,366
+demo where I'll take some sample
+
+
+785
+00:21:30,366 --> 00:21:32,376
+applications and debug them for
+
+
+786
+00:21:32,376 --> 00:21:34,556
+energy issues using our new
+
+
+787
+00:21:34,616 --> 00:21:36,886
+tools so that it establishes a
+
+
+788
+00:21:36,886 --> 00:21:38,606
+debugging workflow for you to
+
+
+789
+00:21:38,606 --> 00:21:40,026
+debug your own applications.
+
+
+790
+00:21:40,686 --> 00:21:43,726
+But first, let us see why it is
+
+
+791
+00:21:43,726 --> 00:21:45,046
+important to measure your app's
+
+
+792
+00:21:45,046 --> 00:21:45,606
+efficiency.
+
+
+793
+00:21:46,686 --> 00:21:48,076
+Say you develop this awesome
+
+
+794
+00:21:48,076 --> 00:21:49,436
+application with some great
+
+
+795
+00:21:49,436 --> 00:21:50,926
+functionality but did not
+
+
+796
+00:21:50,926 --> 00:21:52,176
+measure its energy impact.
+
+
+797
+00:21:52,946 --> 00:21:54,836
+Turns out the energy impact of
+
+
+798
+00:21:54,836 --> 00:21:56,506
+the application is pretty high
+
+
+799
+00:21:57,026 --> 00:21:58,756
+even with usage for a very small
+
+
+800
+00:21:58,756 --> 00:21:59,596
+period of time.
+
+
+801
+00:22:00,726 --> 00:22:03,166
+Naturally, battery usage UI is
+
+
+802
+00:22:03,166 --> 00:22:04,596
+going to flag this application
+
+
+803
+00:22:04,596 --> 00:22:05,756
+as one of the top energy
+
+
+804
+00:22:05,756 --> 00:22:08,386
+drainers and any customer who is
+
+
+805
+00:22:08,386 --> 00:22:10,276
+using your application is going
+
+
+806
+00:22:10,276 --> 00:22:11,636
+to experience a significant
+
+
+807
+00:22:11,636 --> 00:22:13,146
+battery drain even with
+
+
+808
+00:22:13,206 --> 00:22:14,426
+small-usage periods.
+
+
+809
+00:22:15,266 --> 00:22:16,746
+It could be possible that the
+
+
+810
+00:22:16,746 --> 00:22:17,716
+customer deletes your
+
+
+811
+00:22:17,716 --> 00:22:19,306
+application and that is
+
+
+812
+00:22:19,306 --> 00:22:20,686
+definitely not something that
+
+
+813
+00:22:20,686 --> 00:22:21,326
+you desired.
+
+
+814
+00:22:22,356 --> 00:22:23,956
+So as an app developer, it is
+
+
+815
+00:22:23,956 --> 00:22:25,226
+really important that you
+
+
+816
+00:22:25,226 --> 00:22:27,066
+measure your app's efficiency
+
+
+817
+00:22:27,066 --> 00:22:28,626
+pertaining to energy or its
+
+
+818
+00:22:28,626 --> 00:22:29,546
+energy impact.
+
+
+819
+00:22:30,666 --> 00:22:31,786
+And to help you with this
+
+
+820
+00:22:31,786 --> 00:22:33,826
+measurement, we have the new and
+
+
+821
+00:22:33,826 --> 00:22:35,286
+improved Energy Gauges.
+
+
+822
+00:22:36,386 --> 00:22:37,856
+These are included as a part of
+
+
+823
+00:22:37,856 --> 00:22:39,276
+Xcode, which you all are
+
+
+824
+00:22:39,276 --> 00:22:40,056
+familiar with.
+
+
+825
+00:22:41,476 --> 00:22:43,416
+Energy Gauges are designed to
+
+
+826
+00:22:43,416 --> 00:22:45,066
+give you a high-level overview
+
+
+827
+00:22:45,406 --> 00:22:46,696
+of the problems within your
+
+
+828
+00:22:46,696 --> 00:22:47,926
+application pertaining to
+
+
+829
+00:22:47,926 --> 00:22:48,356
+energy.
+
+
+830
+00:22:49,046 --> 00:22:50,116
+They will tell you what are the
+
+
+831
+00:22:50,116 --> 00:22:52,066
+energy-heavy areas within your
+
+
+832
+00:22:52,066 --> 00:22:52,336
+app.
+
+
+833
+00:22:53,386 --> 00:22:55,116
+They will also guide you to the
+
+
+834
+00:22:55,116 --> 00:22:56,866
+right set of instruments to
+
+
+835
+00:22:56,866 --> 00:22:58,616
+drill down deeper within these
+
+
+836
+00:22:58,686 --> 00:23:00,586
+problem areas and fix these
+
+
+837
+00:23:00,586 --> 00:23:01,246
+problems.
+
+
+838
+00:23:02,736 --> 00:23:04,876
+So where can you access Energy
+
+
+839
+00:23:04,876 --> 00:23:05,996
+Gauges within Xcode?
+
+
+840
+00:23:07,136 --> 00:23:08,536
+When you launch your application
+
+
+841
+00:23:08,536 --> 00:23:11,096
+with Xcode, click on the Debug
+
+
+842
+00:23:11,096 --> 00:23:11,786
+navigator.
+
+
+843
+00:23:12,916 --> 00:23:14,826
+A series of performance gauges
+
+
+844
+00:23:15,156 --> 00:23:16,386
+open to the left-hand side of
+
+
+845
+00:23:16,386 --> 00:23:16,956
+the screen.
+
+
+846
+00:23:17,896 --> 00:23:19,736
+These are for the basic metrics
+
+
+847
+00:23:19,776 --> 00:23:22,506
+in the system like CPU, memory,
+
+
+848
+00:23:22,906 --> 00:23:24,526
+network, and disk.
+
+
+849
+00:23:25,526 --> 00:23:28,056
+In iOS and macOS, one of these
+
+
+850
+00:23:28,056 --> 00:23:29,946
+gauges is for energy impact.
+
+
+851
+00:23:31,256 --> 00:23:32,746
+When you click on this energy
+
+
+852
+00:23:32,746 --> 00:23:35,206
+impact gauge, the energy report
+
+
+853
+00:23:35,526 --> 00:23:36,826
+opens to the right-hand side of
+
+
+854
+00:23:36,826 --> 00:23:37,356
+the screen.
+
+
+855
+00:23:38,516 --> 00:23:39,636
+Let me walk you through the
+
+
+856
+00:23:39,636 --> 00:23:41,126
+various parts of this report.
+
+
+857
+00:23:41,736 --> 00:23:44,906
+At the top left corner of the
+
+
+858
+00:23:44,936 --> 00:23:47,516
+report, you will see a value
+
+
+859
+00:23:48,006 --> 00:23:49,466
+which indicates the overall
+
+
+860
+00:23:49,466 --> 00:23:51,346
+energy rating or the overall
+
+
+861
+00:23:51,346 --> 00:23:52,416
+energy score for your
+
+
+862
+00:23:52,416 --> 00:23:53,126
+application.
+
+
+863
+00:23:54,476 --> 00:23:57,846
+Alongside it lies a meter which
+
+
+864
+00:23:57,846 --> 00:23:59,456
+is three regions: the green,
+
+
+865
+00:23:59,516 --> 00:24:01,376
+yellow, and the red region
+
+
+866
+00:24:01,496 --> 00:24:03,226
+corresponding to low, high, and
+
+
+867
+00:24:03,226 --> 00:24:05,306
+very high energy impact.
+
+
+868
+00:24:05,856 --> 00:24:08,146
+So the bad news for this
+
+
+869
+00:24:08,146 --> 00:24:10,706
+particular report is that this
+
+
+870
+00:24:10,706 --> 00:24:11,906
+application which is being
+
+
+871
+00:24:11,906 --> 00:24:14,056
+debugged has a high average
+
+
+872
+00:24:14,056 --> 00:24:14,746
+energy impact.
+
+
+873
+00:24:16,016 --> 00:24:18,046
+The good news, however, is that
+
+
+874
+00:24:18,046 --> 00:24:19,496
+as you make improvements or
+
+
+875
+00:24:19,496 --> 00:24:20,586
+optimization to your
+
+
+876
+00:24:20,586 --> 00:24:23,006
+application, this meter will
+
+
+877
+00:24:23,006 --> 00:24:24,016
+help you know whether you're
+
+
+878
+00:24:24,016 --> 00:24:25,276
+moving in the right direction,
+
+
+879
+00:24:25,656 --> 00:24:27,216
+that is towards the green or the
+
+
+880
+00:24:27,216 --> 00:24:29,176
+low energy impact zone, or are
+
+
+881
+00:24:29,176 --> 00:24:30,126
+you moving to the wrong
+
+
+882
+00:24:30,126 --> 00:24:31,456
+direction, which is the red or
+
+
+883
+00:24:31,456 --> 00:24:32,706
+the very high energy impact
+
+
+884
+00:24:32,706 --> 00:24:33,036
+zone.
+
+
+885
+00:24:34,326 --> 00:24:35,366
+So if you see that your
+
+
+886
+00:24:35,366 --> 00:24:37,516
+application lies anywhere within
+
+
+887
+00:24:37,516 --> 00:24:39,176
+the yellow or the high regions,
+
+
+888
+00:24:39,886 --> 00:24:41,246
+you definitely want to take a
+
+
+889
+00:24:41,246 --> 00:24:43,176
+look at the pie chart which is
+
+
+890
+00:24:43,176 --> 00:24:44,586
+at the top right corner of the
+
+
+891
+00:24:44,586 --> 00:24:44,956
+report.
+
+
+892
+00:24:46,246 --> 00:24:48,266
+So this pie chart tells you what
+
+
+893
+00:24:48,266 --> 00:24:49,586
+does the average component
+
+
+894
+00:24:49,586 --> 00:24:51,756
+utilization for the primary
+
+
+895
+00:24:51,756 --> 00:24:53,826
+components which consume energy
+
+
+896
+00:24:53,826 --> 00:24:56,156
+on iOS as were described to you
+
+
+897
+00:24:56,156 --> 00:24:56,776
+by Daniel.
+
+
+898
+00:24:58,006 --> 00:25:00,386
+Ask yourself, do you expect your
+
+
+899
+00:25:00,386 --> 00:25:02,236
+application to be using this
+
+
+900
+00:25:02,236 --> 00:25:04,626
+much CPU, GPU, networking,
+
+
+901
+00:25:04,626 --> 00:25:04,976
+location.
+
+
+902
+00:25:05,446 --> 00:25:09,116
+You can start by eliminating
+
+
+903
+00:25:09,336 --> 00:25:10,996
+whatever you did not expect your
+
+
+904
+00:25:10,996 --> 00:25:12,246
+application to be using.
+
+
+905
+00:25:12,846 --> 00:25:14,696
+Those could be some leaks within
+
+
+906
+00:25:14,696 --> 00:25:16,566
+your application which have left
+
+
+907
+00:25:16,566 --> 00:25:17,586
+some hardware running
+
+
+908
+00:25:17,586 --> 00:25:19,026
+indefinitely and which are
+
+
+909
+00:25:19,026 --> 00:25:20,576
+resulting in a greater energy
+
+
+910
+00:25:20,576 --> 00:25:21,046
+impact.
+
+
+911
+00:25:22,216 --> 00:25:24,246
+For example, say you have
+
+
+912
+00:25:24,246 --> 00:25:26,056
+developed a gaming application
+
+
+913
+00:25:26,416 --> 00:25:28,826
+which uses only the CPU and GPU
+
+
+914
+00:25:29,316 --> 00:25:30,936
+and it requires very little
+
+
+915
+00:25:30,936 --> 00:25:32,796
+location that is to access the
+
+
+916
+00:25:32,796 --> 00:25:34,046
+location of the user when the
+
+
+917
+00:25:34,046 --> 00:25:35,416
+user starts playing a game.
+
+
+918
+00:25:36,326 --> 00:25:38,196
+But if you see from the energy
+
+
+919
+00:25:38,196 --> 00:25:39,806
+report that the pie chart tells
+
+
+920
+00:25:39,806 --> 00:25:40,886
+you that your location
+
+
+921
+00:25:40,886 --> 00:25:42,996
+utilization is very high, that
+
+
+922
+00:25:43,046 --> 00:25:44,356
+could be a possible leak within
+
+
+923
+00:25:44,356 --> 00:25:46,306
+your application where you're
+
+
+924
+00:25:46,306 --> 00:25:48,216
+continuously accessing location
+
+
+925
+00:25:48,656 --> 00:25:50,086
+and that could be something
+
+
+926
+00:25:50,086 --> 00:25:51,436
+which is resulting in excessive
+
+
+927
+00:25:51,436 --> 00:25:52,166
+energy drain.
+
+
+928
+00:25:52,946 --> 00:25:55,426
+So once you have eliminated
+
+
+929
+00:25:55,426 --> 00:25:57,066
+whatever you did not expect your
+
+
+930
+00:25:57,066 --> 00:25:59,416
+application to be using, next
+
+
+931
+00:25:59,476 --> 00:26:00,896
+you should try to optimize
+
+
+932
+00:26:00,966 --> 00:26:02,886
+whatever stands out or is the
+
+
+933
+00:26:02,886 --> 00:26:04,266
+biggest portion within the pie
+
+
+934
+00:26:04,306 --> 00:26:04,616
+chart.
+
+
+935
+00:26:05,596 --> 00:26:07,316
+So for this particular example,
+
+
+936
+00:26:07,886 --> 00:26:09,736
+we see that the red region,
+
+
+937
+00:26:09,736 --> 00:26:11,316
+which stands for overhead, is
+
+
+938
+00:26:11,316 --> 00:26:12,456
+the biggest piece in the pie
+
+
+939
+00:26:12,516 --> 00:26:12,826
+chart.
+
+
+940
+00:26:13,816 --> 00:26:15,396
+We know that overhead is the
+
+
+941
+00:26:15,396 --> 00:26:17,716
+energy that is required to bring
+
+
+942
+00:26:17,716 --> 00:26:19,836
+up the radios and all the other
+
+
+943
+00:26:19,836 --> 00:26:21,436
+system hardware which is
+
+
+944
+00:26:21,436 --> 00:26:23,136
+required for your application to
+
+
+945
+00:26:23,136 --> 00:26:23,946
+perform work.
+
+
+946
+00:26:24,456 --> 00:26:26,156
+And this seems about right
+
+
+947
+00:26:26,156 --> 00:26:27,236
+considering that your
+
+
+948
+00:26:27,236 --> 00:26:29,276
+application is also utilizing
+
+
+949
+00:26:29,276 --> 00:26:30,406
+the networking component.
+
+
+950
+00:26:31,086 --> 00:26:32,436
+Networking is going to bring up
+
+
+951
+00:26:32,436 --> 00:26:34,566
+the radios which will require
+
+
+952
+00:26:34,566 --> 00:26:36,246
+power for prolonged periods.
+
+
+953
+00:26:37,356 --> 00:26:38,806
+So in this case you can try to
+
+
+954
+00:26:38,806 --> 00:26:40,396
+optimize your networking
+
+
+955
+00:26:40,396 --> 00:26:41,316
+utilization.
+
+
+956
+00:26:41,866 --> 00:26:43,096
+Try to batch up all your
+
+
+957
+00:26:43,096 --> 00:26:44,526
+networking activity within your
+
+
+958
+00:26:44,526 --> 00:26:46,766
+application whenever possible so
+
+
+959
+00:26:46,766 --> 00:26:48,506
+that it reduces the impact on
+
+
+960
+00:26:48,506 --> 00:26:50,176
+the networking as well as the
+
+
+961
+00:26:50,176 --> 00:26:51,966
+corresponding overhead which has
+
+
+962
+00:26:51,966 --> 00:26:54,286
+resulted from it.
+
+
+963
+00:26:54,566 --> 00:26:55,776
+Once you know which is the
+
+
+964
+00:26:55,776 --> 00:26:57,306
+primary component that you want
+
+
+965
+00:26:57,306 --> 00:26:58,836
+to try to optimize or improve
+
+
+966
+00:26:58,836 --> 00:27:00,426
+first within your application,
+
+
+967
+00:27:01,336 --> 00:27:02,406
+you should look into the
+
+
+968
+00:27:02,406 --> 00:27:03,826
+segmented bar chart or the
+
+
+969
+00:27:03,826 --> 00:27:05,116
+instantaneous section of the
+
+
+970
+00:27:05,116 --> 00:27:05,556
+report.
+
+
+971
+00:27:06,836 --> 00:27:08,326
+This gets refreshed every
+
+
+972
+00:27:08,326 --> 00:27:08,796
+second.
+
+
+973
+00:27:09,836 --> 00:27:11,726
+This is great to find whether
+
+
+974
+00:27:11,726 --> 00:27:13,756
+what your application is doing
+
+
+975
+00:27:13,756 --> 00:27:15,426
+over time makes sense.
+
+
+976
+00:27:15,826 --> 00:27:18,216
+So when you execute certain
+
+
+977
+00:27:18,216 --> 00:27:19,896
+actions or scenarios while
+
+
+978
+00:27:19,896 --> 00:27:20,886
+you're trying to debug your
+
+
+979
+00:27:20,886 --> 00:27:22,666
+application using energy gauges,
+
+
+980
+00:27:23,406 --> 00:27:25,536
+you can see here what is the
+
+
+981
+00:27:25,536 --> 00:27:27,526
+exact point of time when you
+
+
+982
+00:27:27,526 --> 00:27:29,886
+consumed energy, which are the
+
+
+983
+00:27:29,886 --> 00:27:31,636
+various components on which you
+
+
+984
+00:27:31,636 --> 00:27:32,776
+generated a workload.
+
+
+985
+00:27:34,106 --> 00:27:35,736
+This region also tells you
+
+
+986
+00:27:36,046 --> 00:27:37,226
+whether that workload was
+
+
+987
+00:27:37,226 --> 00:27:39,026
+generated while the application
+
+
+988
+00:27:39,026 --> 00:27:40,766
+was running in the foreground,
+
+
+989
+00:27:40,906 --> 00:27:43,136
+background, or suspended states.
+
+
+990
+00:27:44,096 --> 00:27:45,586
+So here you can verify whether
+
+
+991
+00:27:45,586 --> 00:27:46,736
+you're adhering to the good
+
+
+992
+00:27:46,736 --> 00:27:49,016
+principles of doing as little
+
+
+993
+00:27:49,016 --> 00:27:51,286
+work as possible or no work if
+
+
+994
+00:27:51,286 --> 00:27:52,806
+possible in the background state
+
+
+995
+00:27:53,156 --> 00:27:54,666
+and moving immediately into the
+
+
+996
+00:27:54,666 --> 00:27:56,446
+suspected state whenever your
+
+
+997
+00:27:56,446 --> 00:27:57,436
+app is backgrounded.
+
+
+998
+00:27:57,956 --> 00:28:01,666
+If you do an extended click on
+
+
+999
+00:28:01,666 --> 00:28:03,866
+any one of these bar charts, it
+
+
+1000
+00:28:03,866 --> 00:28:05,466
+will give you a breakdown of the
+
+
+1001
+00:28:05,466 --> 00:28:07,276
+component utilization for that
+
+
+1002
+00:28:07,276 --> 00:28:07,816
+instant.
+
+
+1003
+00:28:09,146 --> 00:28:11,366
+So this section is great to find
+
+
+1004
+00:28:11,666 --> 00:28:13,046
+what are the opportunities
+
+
+1005
+00:28:13,046 --> 00:28:14,956
+within your application to
+
+
+1006
+00:28:14,956 --> 00:28:17,026
+reduce or to coalesce work.
+
+
+1007
+00:28:18,126 --> 00:28:20,196
+In this particular example, you
+
+
+1008
+00:28:20,196 --> 00:28:21,816
+see that you're repeatedly doing
+
+
+1009
+00:28:21,816 --> 00:28:23,716
+networking activity and that's
+
+
+1010
+00:28:23,786 --> 00:28:25,386
+why time and time again you have
+
+
+1011
+00:28:25,386 --> 00:28:27,066
+the networking impact as well as
+
+
+1012
+00:28:27,066 --> 00:28:28,346
+the overhead impact which is
+
+
+1013
+00:28:28,346 --> 00:28:29,216
+generating from it.
+
+
+1014
+00:28:29,846 --> 00:28:31,726
+So this is a great example that
+
+
+1015
+00:28:31,726 --> 00:28:32,596
+you can batch all your
+
+
+1016
+00:28:32,596 --> 00:28:34,116
+networking work and that is
+
+
+1017
+00:28:34,116 --> 00:28:35,796
+going to lower the energy impact
+
+
+1018
+00:28:35,796 --> 00:28:36,826
+for your application.
+
+
+1019
+00:28:37,336 --> 00:28:42,176
+At the bottom of the report, you
+
+
+1020
+00:28:42,176 --> 00:28:43,936
+have information regarding the
+
+
+1021
+00:28:43,936 --> 00:28:45,956
+various components which consume
+
+
+1022
+00:28:45,956 --> 00:28:48,206
+energy on iOS and some useful
+
+
+1023
+00:28:48,206 --> 00:28:49,876
+tips regarding how you can
+
+
+1024
+00:28:49,876 --> 00:28:51,816
+reduce your application's impact
+
+
+1025
+00:28:52,236 --> 00:28:53,866
+on each one of these components.
+
+
+1026
+00:28:55,496 --> 00:28:56,896
+To the right of these tips,
+
+
+1027
+00:28:57,216 --> 00:28:58,576
+there are buttons to click into
+
+
+1028
+00:28:58,576 --> 00:28:59,296
+instruments.
+
+
+1029
+00:29:00,346 --> 00:29:02,066
+So say from the energy gauge's
+
+
+1030
+00:29:02,066 --> 00:29:04,876
+report, you saw the CPU
+
+
+1031
+00:29:04,876 --> 00:29:06,826
+utilization for your application
+
+
+1032
+00:29:06,826 --> 00:29:08,916
+is maximum and that is something
+
+
+1033
+00:29:08,916 --> 00:29:09,766
+that you want to try to
+
+
+1034
+00:29:09,766 --> 00:29:10,486
+optimize.
+
+
+1035
+00:29:11,086 --> 00:29:12,716
+So you can click on the Time
+
+
+1036
+00:29:12,716 --> 00:29:14,836
+Profiler instrument and this
+
+
+1037
+00:29:14,836 --> 00:29:16,336
+will move your debugging session
+
+
+1038
+00:29:16,686 --> 00:29:18,486
+into instruments time profiler.
+
+
+1039
+00:29:19,366 --> 00:29:21,436
+So Time Profiler basically
+
+
+1040
+00:29:21,436 --> 00:29:23,156
+watches all the running threads
+
+
+1041
+00:29:23,156 --> 00:29:25,566
+of your process and it generates
+
+
+1042
+00:29:25,776 --> 00:29:27,956
+samples at regular intervals.
+
+
+1043
+00:29:28,806 --> 00:29:30,176
+You have a complete back-trace
+
+
+1044
+00:29:30,176 --> 00:29:31,586
+available for each of these
+
+
+1045
+00:29:31,586 --> 00:29:33,946
+samples and that can be seen on
+
+
+1046
+00:29:33,946 --> 00:29:34,986
+the right-hand side in the
+
+
+1047
+00:29:34,986 --> 00:29:36,166
+Extended View section.
+
+
+1048
+00:29:37,146 --> 00:29:38,846
+So this helps you find what are
+
+
+1049
+00:29:38,846 --> 00:29:40,656
+the exact lines of code within
+
+
+1050
+00:29:40,656 --> 00:29:42,626
+your application which are
+
+
+1051
+00:29:42,626 --> 00:29:45,296
+extremely time intensive, where
+
+
+1052
+00:29:45,296 --> 00:29:46,916
+was most time spent within your
+
+
+1053
+00:29:46,916 --> 00:29:49,146
+application, which functions
+
+
+1054
+00:29:49,146 --> 00:29:50,456
+within your application were
+
+
+1055
+00:29:50,456 --> 00:29:52,716
+extremely CPU intensive, and you
+
+
+1056
+00:29:52,716 --> 00:29:54,536
+can try to optimize that part of
+
+
+1057
+00:29:54,566 --> 00:29:57,186
+your code and rerun it for
+
+
+1058
+00:29:57,186 --> 00:29:58,726
+debugging using Energy Gauges.
+
+
+1059
+00:30:00,926 --> 00:30:03,166
+Similarly, if Energy Gauges
+
+
+1060
+00:30:03,166 --> 00:30:04,506
+report told you that your
+
+
+1061
+00:30:04,506 --> 00:30:05,916
+location utilization is
+
+
+1062
+00:30:06,076 --> 00:30:07,966
+extremely high and that is
+
+
+1063
+00:30:07,966 --> 00:30:09,106
+something that you want to go
+
+
+1064
+00:30:09,106 --> 00:30:11,336
+and optimize, you can click on
+
+
+1065
+00:30:11,336 --> 00:30:12,676
+the Location Profiler.
+
+
+1066
+00:30:13,836 --> 00:30:15,726
+This tells you what are the
+
+
+1067
+00:30:15,776 --> 00:30:17,536
+points in code where you have
+
+
+1068
+00:30:17,536 --> 00:30:19,356
+made access to core location
+
+
+1069
+00:30:19,356 --> 00:30:19,876
+manager.
+
+
+1070
+00:30:21,106 --> 00:30:22,676
+You can also see what was the
+
+
+1071
+00:30:22,676 --> 00:30:24,576
+accuracy that is demanded for
+
+
+1072
+00:30:24,576 --> 00:30:26,696
+each of these calls and what is
+
+
+1073
+00:30:26,696 --> 00:30:28,546
+the resulting energy impact from
+
+
+1074
+00:30:28,546 --> 00:30:29,266
+these calls.
+
+
+1075
+00:30:30,036 --> 00:30:32,206
+So in this particular case, we
+
+
+1076
+00:30:32,206 --> 00:30:34,356
+see that the location manager is
+
+
+1077
+00:30:34,356 --> 00:30:35,726
+being accessed time and time
+
+
+1078
+00:30:35,726 --> 00:30:37,716
+again with the best accuracy
+
+
+1079
+00:30:37,716 --> 00:30:39,436
+possible and, hence, there is a
+
+
+1080
+00:30:39,436 --> 00:30:40,936
+high energy impact that is
+
+
+1081
+00:30:40,936 --> 00:30:42,196
+resulting from each of these
+
+
+1082
+00:30:42,196 --> 00:30:43,166
+location calls.
+
+
+1083
+00:30:44,426 --> 00:30:45,996
+This is also a great place to
+
+
+1084
+00:30:45,996 --> 00:30:47,696
+find out whether you have left
+
+
+1085
+00:30:47,696 --> 00:30:48,926
+any leaks in the system.
+
+
+1086
+00:30:49,476 --> 00:30:51,126
+That is whether all calls to
+
+
+1087
+00:30:51,126 --> 00:30:52,476
+locations manager have been
+
+
+1088
+00:30:52,476 --> 00:30:53,656
+successfully released.
+
+
+1089
+00:30:54,896 --> 00:30:56,846
+You can also try to incorporate
+
+
+1090
+00:30:56,846 --> 00:30:59,266
+the good practice of using lower
+
+
+1091
+00:30:59,266 --> 00:31:00,976
+accuracy whenever possible
+
+
+1092
+00:31:00,976 --> 00:31:03,016
+within your application so that
+
+
+1093
+00:31:03,016 --> 00:31:04,696
+it lowers the energy impact
+
+
+1094
+00:31:04,696 --> 00:31:05,556
+resulting from it.
+
+
+1095
+00:31:05,846 --> 00:31:09,996
+Now that we have familiarized
+
+
+1096
+00:31:09,996 --> 00:31:11,996
+our self with the various tools
+
+
+1097
+00:31:12,026 --> 00:31:13,416
+that are available for energy
+
+
+1098
+00:31:13,416 --> 00:31:15,636
+debugging, let us look at some
+
+
+1099
+00:31:15,636 --> 00:31:17,086
+of the scenarios that you should
+
+
+1100
+00:31:17,086 --> 00:31:18,736
+execute on your applications
+
+
+1101
+00:31:19,126 --> 00:31:20,786
+while debugging them for energy
+
+
+1102
+00:31:20,786 --> 00:31:21,236
+issues.
+
+
+1103
+00:31:22,586 --> 00:31:24,336
+So there are some scenarios that
+
+
+1104
+00:31:24,406 --> 00:31:25,466
+could apply to every
+
+
+1105
+00:31:25,466 --> 00:31:26,206
+application.
+
+
+1106
+00:31:26,646 --> 00:31:28,786
+For example, there is the launch
+
+
+1107
+00:31:28,786 --> 00:31:30,206
+and idle scenario, whether the
+
+
+1108
+00:31:30,206 --> 00:31:31,926
+user launches your application
+
+
+1109
+00:31:31,926 --> 00:31:33,296
+but does not interact with it.
+
+
+1110
+00:31:34,266 --> 00:31:35,126
+Secondly, there is a
+
+
+1111
+00:31:35,126 --> 00:31:36,236
+backgrounding scenario.
+
+
+1112
+00:31:36,666 --> 00:31:38,486
+So you should try to run these
+
+
+1113
+00:31:38,486 --> 00:31:40,236
+scenarios using Energy Gauges
+
+
+1114
+00:31:40,456 --> 00:31:41,786
+and see what is the resulting
+
+
+1115
+00:31:41,786 --> 00:31:43,956
+energy impact that is generated
+
+
+1116
+00:31:43,956 --> 00:31:45,686
+from performing these actions on
+
+
+1117
+00:31:45,686 --> 00:31:46,546
+your application.
+
+
+1118
+00:31:47,996 --> 00:31:50,096
+Next, depending on the type of
+
+
+1119
+00:31:50,126 --> 00:31:51,456
+application that you are
+
+
+1120
+00:31:51,456 --> 00:31:53,016
+developing, there will be
+
+
+1121
+00:31:53,016 --> 00:31:54,506
+certain application-specific
+
+
+1122
+00:31:54,506 --> 00:31:55,046
+scenarios.
+
+
+1123
+00:31:56,006 --> 00:31:57,966
+For example, if you're
+
+
+1124
+00:31:57,966 --> 00:31:59,406
+developing a navigation app,
+
+
+1125
+00:31:59,906 --> 00:32:01,266
+some scenarios that would be
+
+
+1126
+00:32:01,266 --> 00:32:02,856
+specific to your application
+
+
+1127
+00:32:03,436 --> 00:32:04,846
+would be looking for a
+
+
+1128
+00:32:04,846 --> 00:32:06,686
+particular location or address
+
+
+1129
+00:32:07,156 --> 00:32:08,636
+and then getting the directions
+
+
+1130
+00:32:08,636 --> 00:32:10,576
+for that address and actually
+
+
+1131
+00:32:10,576 --> 00:32:11,946
+navigating to that particular
+
+
+1132
+00:32:11,946 --> 00:32:12,506
+location.
+
+
+1133
+00:32:13,276 --> 00:32:14,986
+So you should try running these
+
+
+1134
+00:32:15,026 --> 00:32:17,726
+scenarios on energy gauges for
+
+
+1135
+00:32:17,726 --> 00:32:19,706
+your applications, see what is
+
+
+1136
+00:32:19,706 --> 00:32:21,266
+the corresponding energy impact,
+
+
+1137
+00:32:21,896 --> 00:32:23,646
+then try to make improvements or
+
+
+1138
+00:32:23,646 --> 00:32:25,236
+optimization when you find the
+
+
+1139
+00:32:25,236 --> 00:32:26,626
+major problems pertaining to
+
+
+1140
+00:32:26,626 --> 00:32:28,856
+energy and then rerun these
+
+
+1141
+00:32:28,856 --> 00:32:30,726
+scenarios to ensure that Energy
+
+
+1142
+00:32:30,726 --> 00:32:32,076
+Gauges tells you that you're
+
+
+1143
+00:32:32,076 --> 00:32:33,666
+moving towards the lower energy
+
+
+1144
+00:32:33,666 --> 00:32:35,106
+impact or the green zone.
+
+
+1145
+00:32:36,236 --> 00:32:38,126
+So with that, let me move on to
+
+
+1146
+00:32:38,126 --> 00:32:40,156
+a demo where we'll try to run
+
+
+1147
+00:32:40,156 --> 00:32:41,716
+these scenarios on some sample
+
+
+1148
+00:32:41,716 --> 00:32:43,476
+applications so that it
+
+
+1149
+00:32:43,476 --> 00:32:45,386
+establishes a debugging workflow
+
+
+1150
+00:32:45,386 --> 00:32:46,646
+for you to debug your own set of
+
+
+1151
+00:32:46,646 --> 00:32:46,976
+applications.
+
+
+1152
+00:32:53,156 --> 00:32:55,576
+So the first application that
+
+
+1153
+00:32:55,576 --> 00:32:57,356
+I'm going to try to debug is
+
+
+1154
+00:32:57,356 --> 00:32:58,166
+DemoBots.
+
+
+1155
+00:32:59,156 --> 00:33:01,266
+So let me launch DemoBots on my
+
+
+1156
+00:33:01,266 --> 00:33:02,776
+device using Xcode.
+
+
+1157
+00:33:03,536 --> 00:33:05,666
+So this is a simple game that we
+
+
+1158
+00:33:05,666 --> 00:33:06,386
+have developed.
+
+
+1159
+00:33:06,996 --> 00:33:08,286
+We expect the game to be
+
+
+1160
+00:33:08,286 --> 00:33:10,886
+utilizing only the CPU and GPU.
+
+
+1161
+00:33:11,446 --> 00:33:13,626
+Let me click on the Debug
+
+
+1162
+00:33:13,626 --> 00:33:15,856
+Navigator and click on the
+
+
+1163
+00:33:15,856 --> 00:33:16,886
+Energy Impact gauge.
+
+
+1164
+00:33:16,886 --> 00:33:20,076
+This is the first scenario that
+
+
+1165
+00:33:20,076 --> 00:33:21,596
+we're executing, which is the
+
+
+1166
+00:33:21,596 --> 00:33:22,756
+launch and idle scenario.
+
+
+1167
+00:33:23,616 --> 00:33:24,846
+You want to see what is the
+
+
+1168
+00:33:24,846 --> 00:33:26,506
+corresponding energy impact from
+
+
+1169
+00:33:26,506 --> 00:33:28,486
+executing this action on the
+
+
+1170
+00:33:28,486 --> 00:33:29,166
+application.
+
+
+1171
+00:33:29,866 --> 00:33:32,476
+So here, we see that the overall
+
+
+1172
+00:33:32,476 --> 00:33:34,776
+score for our application is
+
+
+1173
+00:33:34,776 --> 00:33:35,146
+high.
+
+
+1174
+00:33:35,406 --> 00:33:36,886
+That is it has high average
+
+
+1175
+00:33:36,886 --> 00:33:37,706
+energy impact.
+
+
+1176
+00:33:38,566 --> 00:33:40,196
+So next, we want to see what are
+
+
+1177
+00:33:40,196 --> 00:33:41,166
+the components that we are
+
+
+1178
+00:33:41,166 --> 00:33:42,106
+trying to utilize.
+
+
+1179
+00:33:42,776 --> 00:33:44,166
+As expected, we are only
+
+
+1180
+00:33:44,166 --> 00:33:45,966
+utilizing the CPU and GPU.
+
+
+1181
+00:33:46,056 --> 00:33:47,136
+There are no unexpected
+
+
+1182
+00:33:47,136 --> 00:33:48,496
+components being utilized, which
+
+
+1183
+00:33:48,496 --> 00:33:48,976
+is great.
+
+
+1184
+00:33:49,956 --> 00:33:51,566
+So next, let us look at which is
+
+
+1185
+00:33:51,566 --> 00:33:53,226
+the largest part of this pie
+
+
+1186
+00:33:53,276 --> 00:33:54,856
+chart and what it is that we can
+
+
+1187
+00:33:54,856 --> 00:33:55,826
+optimize first.
+
+
+1188
+00:33:56,766 --> 00:33:58,886
+So we see that our GPU component
+
+
+1189
+00:33:58,886 --> 00:34:00,716
+is being extensively used at
+
+
+1190
+00:34:00,716 --> 00:34:01,986
+about 88%.
+
+
+1191
+00:34:02,526 --> 00:34:04,276
+So if you try to bring about any
+
+
+1192
+00:34:04,276 --> 00:34:06,416
+optimization or improvement
+
+
+1193
+00:34:06,416 --> 00:34:08,846
+within the GPU in your usage in
+
+
+1194
+00:34:08,846 --> 00:34:10,656
+your application, that is going
+
+
+1195
+00:34:10,656 --> 00:34:12,166
+to give you maximum benefits.
+
+
+1196
+00:34:13,246 --> 00:34:14,616
+Some of the good principles that
+
+
+1197
+00:34:14,616 --> 00:34:16,126
+you could adhere to here are
+
+
+1198
+00:34:16,696 --> 00:34:18,235
+reducing the number of screen
+
+
+1199
+00:34:18,235 --> 00:34:21,045
+updates or reviewing your usage
+
+
+1200
+00:34:21,045 --> 00:34:24,636
+of blurs or using less opacity
+
+
+1201
+00:34:24,636 --> 00:34:25,606
+whenever possible.
+
+
+1202
+00:34:26,416 --> 00:34:27,686
+And this could bring down your
+
+
+1203
+00:34:27,686 --> 00:34:29,576
+GPU utilization and the
+
+
+1204
+00:34:29,576 --> 00:34:31,255
+corresponding energy impact
+
+
+1205
+00:34:31,255 --> 00:34:32,706
+generating from it.
+
+
+1206
+00:34:33,696 --> 00:34:35,366
+Now let us perform another
+
+
+1207
+00:34:35,366 --> 00:34:37,335
+scenario which is backgrounding.
+
+
+1208
+00:34:37,886 --> 00:34:39,286
+Let me try to background this
+
+
+1209
+00:34:39,286 --> 00:34:40,016
+application.
+
+
+1210
+00:34:41,226 --> 00:34:42,496
+So we want to see whether it
+
+
+1211
+00:34:42,496 --> 00:34:43,706
+moves into the backgrounding
+
+
+1212
+00:34:43,706 --> 00:34:45,326
+state or immediately moves to
+
+
+1213
+00:34:45,326 --> 00:34:46,306
+the suspended state.
+
+
+1214
+00:34:47,156 --> 00:34:48,596
+So in this particular case, the
+
+
+1215
+00:34:48,666 --> 00:34:50,306
+application is immediately moved
+
+
+1216
+00:34:50,376 --> 00:34:52,246
+to the suspended state, which is
+
+
+1217
+00:34:52,246 --> 00:34:54,085
+great, because that lets the
+
+
+1218
+00:34:54,085 --> 00:34:55,556
+device actually sleep.
+
+
+1219
+00:34:56,235 --> 00:34:57,726
+And you're not incurring any
+
+
+1220
+00:34:57,726 --> 00:34:59,366
+energy cost on your device.
+
+
+1221
+00:35:00,696 --> 00:35:02,826
+Let us shift gears and move to
+
+
+1222
+00:35:02,826 --> 00:35:04,086
+another application.
+
+
+1223
+00:35:05,386 --> 00:35:06,786
+The second application that we
+
+
+1224
+00:35:06,786 --> 00:35:08,186
+are going to try to debug here
+
+
+1225
+00:35:09,406 --> 00:35:10,456
+is EnergyBuddy.
+
+
+1226
+00:35:10,966 --> 00:35:14,846
+Let me launch EnergyBuddy on my
+
+
+1227
+00:35:14,846 --> 00:35:16,066
+device using Xcode.
+
+
+1228
+00:35:17,226 --> 00:35:18,586
+So this is a simple application
+
+
+1229
+00:35:18,586 --> 00:35:20,016
+which we have developed which
+
+
+1230
+00:35:20,016 --> 00:35:21,726
+lets you take pictures of energy
+
+
+1231
+00:35:21,726 --> 00:35:22,166
+meters.
+
+
+1232
+00:35:23,026 --> 00:35:25,606
+It gets the reading from that
+
+
+1233
+00:35:25,766 --> 00:35:26,866
+picture for the meter.
+
+
+1234
+00:35:27,586 --> 00:35:28,976
+It then accesses your core
+
+
+1235
+00:35:28,976 --> 00:35:31,086
+location and uses your location
+
+
+1236
+00:35:31,086 --> 00:35:32,396
+to get the weather for that
+
+
+1237
+00:35:32,396 --> 00:35:33,376
+particular location.
+
+
+1238
+00:35:33,916 --> 00:35:35,826
+All of this information is later
+
+
+1239
+00:35:35,826 --> 00:35:37,166
+stored in the database, which
+
+
+1240
+00:35:37,166 --> 00:35:37,826
+you can retrieve.
+
+
+1241
+00:35:38,406 --> 00:35:41,056
+So let me click on the Debug
+
+
+1242
+00:35:41,056 --> 00:35:43,156
+Navigator and go to the Memory
+
+
+1243
+00:35:43,156 --> 00:35:46,006
+Impact gauge, sorry, the Energy
+
+
+1244
+00:35:46,006 --> 00:35:48,156
+Impact gauge.
+
+
+1245
+00:35:48,156 --> 00:35:49,126
+So here, this is our first
+
+
+1246
+00:35:49,126 --> 00:35:50,596
+scenario that we're executing,
+
+
+1247
+00:35:51,056 --> 00:35:52,216
+which is the launch and idle.
+
+
+1248
+00:35:53,016 --> 00:35:55,556
+So our -- From here, we see that
+
+
+1249
+00:35:55,556 --> 00:35:56,856
+right now our energy impact is
+
+
+1250
+00:35:56,856 --> 00:35:58,026
+zero, which is great.
+
+
+1251
+00:35:58,196 --> 00:35:59,806
+The only component that we are
+
+
+1252
+00:35:59,806 --> 00:36:01,896
+utilizing is CPU that was
+
+
+1253
+00:36:01,896 --> 00:36:03,166
+required for the launch.
+
+
+1254
+00:36:03,716 --> 00:36:05,496
+Now let us perform one
+
+
+1255
+00:36:05,496 --> 00:36:07,186
+application-specific scenario.
+
+
+1256
+00:36:08,266 --> 00:36:10,416
+Let me try to import a photo and
+
+
+1257
+00:36:10,416 --> 00:36:11,906
+see what is the corresponding
+
+
+1258
+00:36:12,686 --> 00:36:14,136
+impact from this particular
+
+
+1259
+00:36:14,136 --> 00:36:16,106
+action being executed on my
+
+
+1260
+00:36:16,106 --> 00:36:16,816
+application.
+
+
+1261
+00:36:18,096 --> 00:36:19,816
+So when I import a photo, I'm
+
+
+1262
+00:36:19,976 --> 00:36:21,206
+going to accept one of the
+
+
+1263
+00:36:21,206 --> 00:36:24,266
+photos and allow EnergyBuddy to
+
+
+1264
+00:36:24,266 --> 00:36:25,296
+access location.
+
+
+1265
+00:36:26,846 --> 00:36:28,526
+So this generates a graph from
+
+
+1266
+00:36:28,526 --> 00:36:29,726
+the meter reading that it has
+
+
+1267
+00:36:29,726 --> 00:36:30,076
+got.
+
+
+1268
+00:36:31,296 --> 00:36:32,406
+So as we see in the
+
+
+1269
+00:36:32,406 --> 00:36:34,586
+instantaneous section here, on
+
+
+1270
+00:36:34,586 --> 00:36:35,916
+executing this particular
+
+
+1271
+00:36:35,916 --> 00:36:38,956
+action, my application is
+
+
+1272
+00:36:38,956 --> 00:36:41,646
+utilizing CPU for processing and
+
+
+1273
+00:36:41,646 --> 00:36:43,496
+it is also utilizing the
+
+
+1274
+00:36:43,496 --> 00:36:44,566
+location component.
+
+
+1275
+00:36:45,896 --> 00:36:47,926
+So this was expected because we
+
+
+1276
+00:36:47,926 --> 00:36:49,906
+wanted as soon as we import this
+
+
+1277
+00:36:49,906 --> 00:36:51,736
+particular photo, it takes the
+
+
+1278
+00:36:51,736 --> 00:36:53,696
+location and then uses that
+
+
+1279
+00:36:53,696 --> 00:36:54,766
+location to get the weather
+
+
+1280
+00:36:54,766 --> 00:36:55,396
+information.
+
+
+1281
+00:36:56,596 --> 00:36:58,776
+However, here we can see that it
+
+
+1282
+00:36:58,776 --> 00:37:00,426
+is continuously accessing core
+
+
+1283
+00:37:00,456 --> 00:37:02,646
+location and that could be a
+
+
+1284
+00:37:02,646 --> 00:37:04,846
+leak within my code where I have
+
+
+1285
+00:37:04,846 --> 00:37:06,736
+left accessing core location
+
+
+1286
+00:37:06,736 --> 00:37:07,516
+continuously.
+
+
+1287
+00:37:08,076 --> 00:37:09,226
+So that is something that you
+
+
+1288
+00:37:09,226 --> 00:37:11,096
+can fix within your application
+
+
+1289
+00:37:11,586 --> 00:37:12,946
+and then try to rerun this
+
+
+1290
+00:37:12,986 --> 00:37:14,556
+particular scenario of importing
+
+
+1291
+00:37:14,556 --> 00:37:16,666
+a photo to ensure that your
+
+
+1292
+00:37:16,666 --> 00:37:18,346
+energy impact has gone down.
+
+
+1293
+00:37:20,196 --> 00:37:22,016
+So now let us try backgrounding
+
+
+1294
+00:37:22,016 --> 00:37:22,856
+this application.
+
+
+1295
+00:37:24,426 --> 00:37:25,496
+So when I background this
+
+
+1296
+00:37:25,496 --> 00:37:27,306
+application, we want it to move
+
+
+1297
+00:37:27,306 --> 00:37:28,906
+into the suspended state as soon
+
+
+1298
+00:37:28,906 --> 00:37:29,606
+as possible.
+
+
+1299
+00:37:30,946 --> 00:37:33,006
+However, here we see that the
+
+
+1300
+00:37:33,006 --> 00:37:34,536
+application has moved to the
+
+
+1301
+00:37:34,536 --> 00:37:36,316
+background state and it
+
+
+1302
+00:37:36,376 --> 00:37:38,296
+continues to access location
+
+
+1303
+00:37:38,296 --> 00:37:39,526
+while in the background state.
+
+
+1304
+00:37:40,296 --> 00:37:41,776
+So this is not providing any
+
+
+1305
+00:37:41,776 --> 00:37:43,596
+utility to the user and this can
+
+
+1306
+00:37:43,596 --> 00:37:45,206
+definitely be optimized within
+
+
+1307
+00:37:45,206 --> 00:37:46,016
+the application.
+
+
+1308
+00:37:47,326 --> 00:37:49,106
+We are accessing core location
+
+
+1309
+00:37:49,386 --> 00:37:51,296
+and that call is not getting
+
+
+1310
+00:37:51,446 --> 00:37:52,756
+ended and that's why core
+
+
+1311
+00:37:52,756 --> 00:37:54,326
+location is continuously being
+
+
+1312
+00:37:54,326 --> 00:37:56,196
+utilized resulting in the very
+
+
+1313
+00:37:56,196 --> 00:37:58,366
+high utilization for location as
+
+
+1314
+00:37:58,366 --> 00:37:59,706
+you can see in the pie chart.
+
+
+1315
+00:38:00,706 --> 00:38:02,846
+You also see a gray portion on
+
+
+1316
+00:38:02,846 --> 00:38:04,586
+the backgrounding section which
+
+
+1317
+00:38:04,586 --> 00:38:06,696
+is the static costs associated
+
+
+1318
+00:38:06,926 --> 00:38:08,516
+with keeping your device awake.
+
+
+1319
+00:38:08,996 --> 00:38:10,956
+So as long as your devices
+
+
+1320
+00:38:10,956 --> 00:38:12,096
+continues to be in the
+
+
+1321
+00:38:12,096 --> 00:38:13,456
+background state because of this
+
+
+1322
+00:38:13,456 --> 00:38:15,016
+application, there is going to
+
+
+1323
+00:38:15,016 --> 00:38:16,526
+be certain cost that is going to
+
+
+1324
+00:38:16,526 --> 00:38:17,766
+be built to your particular
+
+
+1325
+00:38:17,766 --> 00:38:18,466
+application.
+
+
+1326
+00:38:20,116 --> 00:38:21,356
+So these are some of the
+
+
+1327
+00:38:21,356 --> 00:38:23,716
+scenarios that we want you to
+
+
+1328
+00:38:23,716 --> 00:38:25,436
+run on your applications when
+
+
+1329
+00:38:25,436 --> 00:38:26,666
+you're trying to debug it for
+
+
+1330
+00:38:26,666 --> 00:38:32,236
+energy issues, identify what are
+
+
+1331
+00:38:32,236 --> 00:38:33,326
+the scenarios which are
+
+
+1332
+00:38:33,326 --> 00:38:34,726
+meaningful to your particular
+
+
+1333
+00:38:34,726 --> 00:38:37,436
+application, run those scenarios
+
+
+1334
+00:38:37,606 --> 00:38:39,636
+using Energy Gauges, and see
+
+
+1335
+00:38:39,636 --> 00:38:40,836
+what does the report tell you
+
+
+1336
+00:38:40,836 --> 00:38:42,196
+about the energy impact from
+
+
+1337
+00:38:42,196 --> 00:38:43,576
+executing each one of them.
+
+
+1338
+00:38:44,326 --> 00:38:45,956
+Make the necessary improvements
+
+
+1339
+00:38:45,956 --> 00:38:47,506
+or optimization within your
+
+
+1340
+00:38:47,506 --> 00:38:48,316
+application.
+
+
+1341
+00:38:48,766 --> 00:38:50,376
+Use instruments to drill down
+
+
+1342
+00:38:50,376 --> 00:38:50,796
+deeper.
+
+
+1343
+00:38:51,256 --> 00:38:52,306
+And solve the problems
+
+
+1344
+00:38:52,306 --> 00:38:53,336
+pertaining to energy.
+
+
+1345
+00:38:54,216 --> 00:38:55,686
+Rerun these scenarios in your
+
+
+1346
+00:38:55,686 --> 00:38:57,126
+application after you have
+
+
+1347
+00:38:57,126 --> 00:38:59,476
+improved your code and verify
+
+
+1348
+00:38:59,476 --> 00:39:01,066
+that Energy Gauges tells you
+
+
+1349
+00:39:01,066 --> 00:39:02,646
+that now you have moved towards
+
+
+1350
+00:39:02,646 --> 00:39:04,236
+the lower energy impact or the
+
+
+1351
+00:39:04,236 --> 00:39:04,856
+green zone.
+
+
+1352
+00:39:06,046 --> 00:39:07,936
+With that, I would like to hand
+
+
+1353
+00:39:07,936 --> 00:39:09,936
+it over to Daniel for the final
+
+
+1354
+00:39:09,936 --> 00:39:11,256
+thoughts and wrap-up of this
+
+
+1355
+00:39:11,256 --> 00:39:11,956
+presentation.
+
+
+1356
+00:39:12,516 --> 00:39:17,056
+[ Applause ]
+
+
+1357
+00:39:17,556 --> 00:39:18,256
+>> As you guys saw, you'll
+
+
+1358
+00:39:18,256 --> 00:39:18,906
+definitely want to check out
+
+
+1359
+00:39:18,906 --> 00:39:19,566
+Energy Gauges.
+
+
+1360
+00:39:19,566 --> 00:39:21,096
+It'll help you find great energy
+
+
+1361
+00:39:21,096 --> 00:39:22,126
+improvements to your apps.
+
+
+1362
+00:39:22,506 --> 00:39:23,776
+So let's wrap it up with some
+
+
+1363
+00:39:23,776 --> 00:39:24,356
+final thoughts.
+
+
+1364
+00:39:25,766 --> 00:39:27,006
+First, you'll want to use NSURL
+
+
+1365
+00:39:27,006 --> 00:39:28,186
+Session Background Session
+
+
+1366
+00:39:28,246 --> 00:39:29,676
+whenever applicable.
+
+
+1367
+00:39:29,836 --> 00:39:31,746
+It'll really help the system
+
+
+1368
+00:39:31,746 --> 00:39:32,786
+find the best time to do your
+
+
+1369
+00:39:32,786 --> 00:39:32,996
+work.
+
+
+1370
+00:39:34,146 --> 00:39:35,226
+Next, make sure you minimize
+
+
+1371
+00:39:35,226 --> 00:39:36,536
+your use of continuous location.
+
+
+1372
+00:39:37,126 --> 00:39:38,356
+Remember that this will cause
+
+
+1373
+00:39:38,356 --> 00:39:39,266
+your device to stay awake.
+
+
+1374
+00:39:40,526 --> 00:39:41,616
+Next, avoid timers.
+
+
+1375
+00:39:42,266 --> 00:39:43,706
+If you need timers, set leeway
+
+
+1376
+00:39:43,956 --> 00:39:44,636
+to ensure that they're
+
+
+1377
+00:39:44,636 --> 00:39:45,166
+coalesced.
+
+
+1378
+00:39:45,586 --> 00:39:47,446
+And finally, use Energy Gauges.
+
+
+1379
+00:39:47,716 --> 00:39:48,836
+It'll definitely help you find
+
+
+1380
+00:39:48,876 --> 00:39:49,726
+great optimizations.
+
+
+1381
+00:39:50,686 --> 00:39:51,716
+Here're some related sessions.
+
+
+1382
+00:39:51,806 --> 00:39:52,866
+You'll definitely want to watch
+
+
+1383
+00:39:52,866 --> 00:39:53,796
+the videos for these.
+
+
+1384
+00:39:54,136 --> 00:39:54,936
+Thank you very much.
+
+
+1385
+00:39:55,016 --> 00:39:57,000
+[ Applause ]
+

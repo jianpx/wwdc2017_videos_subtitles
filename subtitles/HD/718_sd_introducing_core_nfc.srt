@@ -1,0 +1,1564 @@
+1
+00:00:07,516 --> 00:00:17,146
+[ Background Conversations ]
+
+
+2
+00:00:17,646 --> 00:00:18,116
+>> Welcome.
+
+
+3
+00:00:19,106 --> 00:00:20,796
+This year, we are delighted to
+
+
+4
+00:00:20,796 --> 00:00:22,896
+introduce a new framework in iOS
+
+
+5
+00:00:22,896 --> 00:00:25,756
+11 called Core NFC, that would
+
+
+6
+00:00:25,756 --> 00:00:27,946
+allow your apps to integrate NFC
+
+
+7
+00:00:27,946 --> 00:00:30,466
+on iPhone 7 and iPhone 7 Plus.
+
+
+8
+00:00:31,606 --> 00:00:34,126
+Using Core NFC, apps can
+
+
+9
+00:00:34,216 --> 00:00:35,486
+interact with their physical
+
+
+10
+00:00:35,486 --> 00:00:37,076
+environment and the real-world
+
+
+11
+00:00:37,076 --> 00:00:38,046
+objects within it.
+
+
+12
+00:00:38,756 --> 00:00:41,056
+You may already know that Apple
+
+
+13
+00:00:41,166 --> 00:00:43,736
+Pay uses NFC for complex
+
+
+14
+00:00:43,766 --> 00:00:44,376
+payment.
+
+
+15
+00:00:45,376 --> 00:00:46,966
+Now, with the introduction of
+
+
+16
+00:00:47,546 --> 00:00:49,656
+Core NFC, you will be able to
+
+
+17
+00:00:49,656 --> 00:00:52,716
+use NFC in your applications to
+
+
+18
+00:00:52,716 --> 00:00:54,576
+create new and innovative user
+
+
+19
+00:00:54,576 --> 00:00:58,676
+experiences with the iPhone.
+
+
+20
+00:00:59,116 --> 00:01:00,686
+In this session, we will give
+
+
+21
+00:01:00,686 --> 00:01:02,436
+you a brief overview of new
+
+
+22
+00:01:02,436 --> 00:01:04,476
+field communications, what is
+
+
+23
+00:01:04,476 --> 00:01:06,576
+supported in the Core NFC
+
+
+24
+00:01:06,576 --> 00:01:08,916
+framework, the requirements and
+
+
+25
+00:01:08,916 --> 00:01:11,236
+details for using it, and some
+
+
+26
+00:01:11,236 --> 00:01:12,096
+example code.
+
+
+27
+00:01:12,706 --> 00:01:16,056
+To start off, let's talk a
+
+
+28
+00:01:16,056 --> 00:01:17,616
+little bit about Near Field
+
+
+29
+00:01:17,616 --> 00:01:18,346
+Communication.
+
+
+30
+00:01:18,666 --> 00:01:22,736
+Near Field Communication, known
+
+
+31
+00:01:22,736 --> 00:01:25,686
+simply as NFC, is a wireless
+
+
+32
+00:01:25,686 --> 00:01:27,126
+technology that allows the
+
+
+33
+00:01:27,126 --> 00:01:28,926
+exchange of information between
+
+
+34
+00:01:28,926 --> 00:01:30,576
+devices that are within close
+
+
+35
+00:01:30,606 --> 00:01:31,276
+proximity.
+
+
+36
+00:01:31,976 --> 00:01:33,986
+Limited to a range of just a few
+
+
+37
+00:01:33,986 --> 00:01:34,796
+centimeters.
+
+
+38
+00:01:35,706 --> 00:01:38,366
+NFC is actually a collection of
+
+
+39
+00:01:38,406 --> 00:01:39,936
+a number of different standards
+
+
+40
+00:01:39,936 --> 00:01:40,846
+and protocols.
+
+
+41
+00:01:41,506 --> 00:01:43,696
+All of these standards coexist
+
+
+42
+00:01:43,696 --> 00:01:45,066
+and are used in different
+
+
+43
+00:01:45,066 --> 00:01:45,896
+applications.
+
+
+44
+00:01:46,896 --> 00:01:48,316
+You may have seen or had
+
+
+45
+00:01:48,316 --> 00:01:50,156
+experience with NFC text.
+
+
+46
+00:01:50,666 --> 00:01:51,926
+The small little stickers or
+
+
+47
+00:01:51,926 --> 00:01:53,706
+cards which can be read
+
+
+48
+00:01:54,086 --> 00:01:56,066
+wirelessly by an NFC reader.
+
+
+49
+00:01:56,716 --> 00:01:59,396
+NFC text comes in a wide variety
+
+
+50
+00:01:59,396 --> 00:02:01,326
+of shapes, sizes, and
+
+
+51
+00:02:01,326 --> 00:02:02,056
+capacities.
+
+
+52
+00:02:02,916 --> 00:02:04,496
+They are classified into five
+
+
+53
+00:02:04,536 --> 00:02:06,286
+categories, known as Type 1
+
+
+54
+00:02:06,536 --> 00:02:07,306
+through Type 5.
+
+
+55
+00:02:08,175 --> 00:02:09,636
+Each one corresponding to a
+
+
+56
+00:02:09,636 --> 00:02:10,466
+different standard.
+
+
+57
+00:02:11,376 --> 00:02:13,896
+For example, Type 3 texts are
+
+
+58
+00:02:13,896 --> 00:02:14,956
+based on FEDECA [assumed
+
+
+59
+00:02:15,716 --> 00:02:17,256
+spelling] and Type 4 is based on
+
+
+60
+00:02:17,556 --> 00:02:21,486
+ISO-14443.
+
+
+61
+00:02:21,486 --> 00:02:23,856
+The NFC Forum has defined the
+
+
+62
+00:02:23,856 --> 00:02:26,576
+NFC Data Exchange Format, or
+
+
+63
+00:02:26,666 --> 00:02:28,726
+NDEF for short, as a common
+
+
+64
+00:02:28,726 --> 00:02:30,526
+messaging format for exchanging
+
+
+65
+00:02:30,526 --> 00:02:32,646
+data in a standardized way among
+
+
+66
+00:02:32,646 --> 00:02:34,356
+the different text types.
+
+
+67
+00:02:36,586 --> 00:02:38,036
+Now that we have covered some
+
+
+68
+00:02:38,036 --> 00:02:40,586
+NFC basics, let's take a look at
+
+
+69
+00:02:40,586 --> 00:02:43,086
+what you can do with Core NFC.
+
+
+70
+00:02:44,676 --> 00:02:47,016
+For the initial launch of Core
+
+
+71
+00:02:47,076 --> 00:02:49,626
+NFC, we have focused on NFC Tag
+
+
+72
+00:02:49,626 --> 00:02:51,146
+Reading, which can be used to
+
+
+73
+00:02:51,146 --> 00:02:52,886
+enhance the user experience in a
+
+
+74
+00:02:52,886 --> 00:02:54,516
+wide variety of ways.
+
+
+75
+00:02:55,686 --> 00:02:57,516
+Potential applications include
+
+
+76
+00:02:59,196 --> 00:03:01,606
+connecting user to location or
+
+
+77
+00:03:01,606 --> 00:03:03,586
+context-specific content,
+
+
+78
+00:03:04,686 --> 00:03:06,026
+connecting physical hardware
+
+
+79
+00:03:06,026 --> 00:03:09,086
+with your application, and even
+
+
+80
+00:03:09,086 --> 00:03:10,666
+for in-store product information
+
+
+81
+00:03:10,666 --> 00:03:11,886
+or inventory tracking.
+
+
+82
+00:03:12,776 --> 00:03:15,306
+In addition, NFC Tags can be
+
+
+83
+00:03:15,306 --> 00:03:17,206
+used in place of QR codes.
+
+
+84
+00:03:17,206 --> 00:03:21,876
+Core NFC will allow your
+
+
+85
+00:03:21,876 --> 00:03:23,686
+application to read any NDEF
+
+
+86
+00:03:23,686 --> 00:03:24,626
+formatted tag.
+
+
+87
+00:03:25,496 --> 00:03:27,066
+This greatly simplifies the
+
+
+88
+00:03:27,066 --> 00:03:28,586
+process of reading tags within
+
+
+89
+00:03:28,586 --> 00:03:30,056
+your application or for having
+
+
+90
+00:03:30,056 --> 00:03:31,196
+to deal with the different
+
+
+91
+00:03:31,196 --> 00:03:31,936
+standards.
+
+
+92
+00:03:32,866 --> 00:03:34,366
+Tag reading is supported on
+
+
+93
+00:03:34,496 --> 00:03:36,416
+iPhone 7 and iPhone 7 Plus.
+
+
+94
+00:03:37,586 --> 00:03:39,806
+At this time, Core NFC does not
+
+
+95
+00:03:39,806 --> 00:03:41,576
+support writing or formatting
+
+
+96
+00:03:41,576 --> 00:03:42,406
+operations.
+
+
+97
+00:03:42,916 --> 00:03:46,886
+There are two requirements for
+
+
+98
+00:03:46,886 --> 00:03:48,386
+using Core NFC in your
+
+
+99
+00:03:48,386 --> 00:03:49,616
+application.
+
+
+100
+00:03:51,896 --> 00:03:53,816
+First, Core NFC is an
+
+
+101
+00:03:53,816 --> 00:03:54,966
+entitlement-protective
+
+
+102
+00:03:54,966 --> 00:03:55,486
+framework.
+
+
+103
+00:03:56,416 --> 00:03:58,216
+You will need to turn on the
+
+
+104
+00:03:58,216 --> 00:04:00,116
+Near Field Communication Tag
+
+
+105
+00:04:00,116 --> 00:04:02,406
+Reading Capability from Xcode to
+
+
+106
+00:04:02,406 --> 00:04:03,476
+get this entitlement.
+
+
+107
+00:04:03,786 --> 00:04:05,856
+However, this capability would
+
+
+108
+00:04:05,856 --> 00:04:07,426
+not be in Xcode for the first
+
+
+109
+00:04:07,426 --> 00:04:09,216
+[inaudible] released at WWDC.
+
+
+110
+00:04:09,216 --> 00:04:11,966
+In the meantime, you can
+
+
+111
+00:04:11,966 --> 00:04:13,326
+manually request this
+
+
+112
+00:04:13,326 --> 00:04:14,756
+entitlement by visiting the
+
+
+113
+00:04:14,756 --> 00:04:17,016
+Certificates, Identifiers and
+
+
+114
+00:04:17,016 --> 00:04:19,185
+Profiles page on the Apple
+
+
+115
+00:04:19,185 --> 00:04:20,196
+Developer website.
+
+
+116
+00:04:23,916 --> 00:04:25,796
+The second requirement for Core
+
+
+117
+00:04:25,826 --> 00:04:28,056
+NFC is a Scan Usage Description.
+
+
+118
+00:04:29,346 --> 00:04:30,976
+This string is required in your
+
+
+119
+00:04:30,976 --> 00:04:33,016
+application's info P-list file,
+
+
+120
+00:04:33,346 --> 00:04:34,786
+and it will be displayed to the
+
+
+121
+00:04:34,786 --> 00:04:36,126
+user when your application
+
+
+122
+00:04:36,126 --> 00:04:38,426
+starts NFC scanning.
+
+
+123
+00:04:39,386 --> 00:04:40,716
+For more information, you can
+
+
+124
+00:04:40,716 --> 00:04:43,986
+watch the WWDC session, Privacy
+
+
+125
+00:04:44,076 --> 00:04:44,956
+and Your Apps.
+
+
+126
+00:04:45,526 --> 00:04:49,656
+Now that you have configured
+
+
+127
+00:04:49,656 --> 00:04:51,666
+your project correctly, let's
+
+
+128
+00:04:51,666 --> 00:04:53,066
+review some additional details
+
+
+129
+00:04:53,066 --> 00:04:54,846
+about tag reading with the Core
+
+
+130
+00:04:54,846 --> 00:04:55,706
+NFC framework.
+
+
+131
+00:04:58,446 --> 00:05:00,856
+First, tag reading is an
+
+
+132
+00:05:00,856 --> 00:05:02,916
+on-demand process, meaning that
+
+
+133
+00:05:02,916 --> 00:05:04,656
+your application has to initiate
+
+
+134
+00:05:04,656 --> 00:05:06,496
+a tag reading activity using a
+
+
+135
+00:05:06,496 --> 00:05:06,986
+session.
+
+
+136
+00:05:09,016 --> 00:05:11,086
+Second, your application has to
+
+
+137
+00:05:11,086 --> 00:05:12,906
+be visible and foregrounded in
+
+
+138
+00:05:12,906 --> 00:05:14,436
+order to start a tag reading
+
+
+139
+00:05:14,436 --> 00:05:14,996
+activity.
+
+
+140
+00:05:15,356 --> 00:05:17,096
+A tag reading session will be
+
+
+141
+00:05:17,096 --> 00:05:18,596
+ended if your application is
+
+
+142
+00:05:18,596 --> 00:05:20,146
+backgrounded or ceases to be
+
+
+143
+00:05:20,146 --> 00:05:20,566
+visible.
+
+
+144
+00:05:22,466 --> 00:05:24,596
+Next, each tag reading activity
+
+
+145
+00:05:24,596 --> 00:05:26,326
+is limited to 60 seconds at a
+
+
+146
+00:05:26,326 --> 00:05:26,746
+time.
+
+
+147
+00:05:26,986 --> 00:05:28,956
+If a session has timed out or
+
+
+148
+00:05:28,956 --> 00:05:30,586
+invalidated, your application
+
+
+149
+00:05:30,586 --> 00:05:31,936
+must create a new session to
+
+
+150
+00:05:31,936 --> 00:05:33,646
+initiate another tag reading
+
+
+151
+00:05:33,646 --> 00:05:34,206
+activity.
+
+
+152
+00:05:34,736 --> 00:05:38,246
+You can configure a session to
+
+
+153
+00:05:38,246 --> 00:05:40,096
+read either a single tag or
+
+
+154
+00:05:40,096 --> 00:05:41,126
+multiple tags.
+
+
+155
+00:05:41,616 --> 00:05:43,596
+In a single tag reading mode,
+
+
+156
+00:05:44,506 --> 00:05:45,516
+the session will be ended
+
+
+157
+00:05:45,516 --> 00:05:47,316
+automatically after a tag is
+
+
+158
+00:05:47,316 --> 00:05:47,676
+read.
+
+
+159
+00:05:48,276 --> 00:05:50,296
+On the other hand, a multi-tag
+
+
+160
+00:05:50,296 --> 00:05:51,636
+reading session will remain
+
+
+161
+00:05:51,636 --> 00:05:53,096
+active until canceled by the
+
+
+162
+00:05:53,096 --> 00:05:54,966
+user, or the 60-second timeout
+
+
+163
+00:05:54,966 --> 00:05:55,606
+is reached.
+
+
+164
+00:05:58,246 --> 00:06:00,156
+Finally, as mentioned
+
+
+165
+00:06:00,156 --> 00:06:02,996
+previously, the NFC Usage String
+
+
+166
+00:06:04,176 --> 00:06:06,136
+defined in your info P-list will
+
+
+167
+00:06:06,136 --> 00:06:07,706
+be displayed to the user while
+
+
+168
+00:06:07,706 --> 00:06:09,166
+the tag reading activity is in
+
+
+169
+00:06:09,166 --> 00:06:09,746
+progress.
+
+
+170
+00:06:10,296 --> 00:06:13,926
+We have provided a sample
+
+
+171
+00:06:13,926 --> 00:06:15,126
+application along with this
+
+
+172
+00:06:15,126 --> 00:06:16,436
+presentation to demonstrate the
+
+
+173
+00:06:16,436 --> 00:06:19,126
+use of Core NFC.
+
+
+174
+00:06:19,126 --> 00:06:20,396
+Consider the case where you want
+
+
+175
+00:06:20,396 --> 00:06:21,566
+to take a physical kind of
+
+
+176
+00:06:21,566 --> 00:06:22,266
+inventory.
+
+
+177
+00:06:22,716 --> 00:06:24,666
+Here, we are showing you the key
+
+
+178
+00:06:24,666 --> 00:06:26,446
+user interaction sequence of the
+
+
+179
+00:06:26,446 --> 00:06:27,466
+sample application.
+
+
+180
+00:06:27,796 --> 00:06:29,936
+The sample application consists
+
+
+181
+00:06:29,936 --> 00:06:31,806
+of a main table view, and a Scan
+
+
+182
+00:06:31,806 --> 00:06:32,266
+button.
+
+
+183
+00:06:32,846 --> 00:06:34,686
+Every time an inventory item is
+
+
+184
+00:06:34,686 --> 00:06:36,486
+scanned, it is displayed as a
+
+
+185
+00:06:36,486 --> 00:06:38,086
+role entry in this main table
+
+
+186
+00:06:38,086 --> 00:06:38,416
+view.
+
+
+187
+00:06:39,186 --> 00:06:40,906
+Just click on the Scan button to
+
+
+188
+00:06:40,906 --> 00:06:44,876
+start a tag scanning.
+
+
+189
+00:06:45,036 --> 00:06:46,816
+This UI will be presented to the
+
+
+190
+00:06:46,816 --> 00:06:48,836
+user hopefully on top of your
+
+
+191
+00:06:48,836 --> 00:06:50,836
+application once tag scanning
+
+
+192
+00:06:50,836 --> 00:06:51,476
+has begun.
+
+
+193
+00:06:52,636 --> 00:06:54,406
+During tag scanning, the user's
+
+
+194
+00:06:54,406 --> 00:06:56,076
+description string is displayed
+
+
+195
+00:06:56,076 --> 00:06:56,986
+within the UI.
+
+
+196
+00:06:57,986 --> 00:06:59,496
+At any time, the user can hit
+
+
+197
+00:06:59,496 --> 00:07:01,106
+the Cancel button to stop a tag
+
+
+198
+00:07:01,106 --> 00:07:03,146
+scanning, which will invalidate
+
+
+199
+00:07:03,146 --> 00:07:03,886
+the reader session.
+
+
+200
+00:07:04,416 --> 00:07:09,106
+The UI will get updated once an
+
+
+201
+00:07:09,146 --> 00:07:11,116
+NFC tag has been successfully
+
+
+202
+00:07:11,116 --> 00:07:11,476
+read.
+
+
+203
+00:07:12,846 --> 00:07:14,196
+Here, we have configured our
+
+
+204
+00:07:14,196 --> 00:07:15,916
+reader session to be single tag
+
+
+205
+00:07:15,916 --> 00:07:16,516
+read mode.
+
+
+206
+00:07:19,786 --> 00:07:22,026
+Finally, the overlaid UI will be
+
+
+207
+00:07:22,026 --> 00:07:23,526
+dismissed, and the application
+
+
+208
+00:07:23,526 --> 00:07:25,136
+will be foregrounded once the
+
+
+209
+00:07:25,276 --> 00:07:26,886
+tag reading session has ended.
+
+
+210
+00:07:27,356 --> 00:07:30,966
+All right.
+
+
+211
+00:07:31,106 --> 00:07:32,136
+Let's walk through the code
+
+
+212
+00:07:32,136 --> 00:07:33,146
+together from the sample
+
+
+213
+00:07:33,146 --> 00:07:34,536
+application we have just shown.
+
+
+214
+00:07:35,136 --> 00:07:38,336
+At a high level, you would need
+
+
+215
+00:07:38,336 --> 00:07:39,766
+to perform these three easy
+
+
+216
+00:07:39,766 --> 00:07:41,916
+steps to enable tag reading in
+
+
+217
+00:07:41,916 --> 00:07:42,676
+your application.
+
+
+218
+00:07:43,636 --> 00:07:47,326
+First, adopt the NFC NDEF Reader
+
+
+219
+00:07:47,326 --> 00:07:48,836
+Session Delegate Protocol.
+
+
+220
+00:07:50,116 --> 00:07:52,596
+Next, create an instance of the
+
+
+221
+00:07:52,596 --> 00:07:54,626
+NFC NDEF Reader Session Class,
+
+
+222
+00:07:54,966 --> 00:07:56,546
+and provide it with your
+
+
+223
+00:07:56,546 --> 00:07:57,066
+delegate.
+
+
+224
+00:07:58,826 --> 00:08:01,086
+Finally, start a reader session
+
+
+225
+00:08:01,086 --> 00:08:02,506
+using the Begin method, and
+
+
+226
+00:08:02,506 --> 00:08:04,116
+handle the delegate callbacks.
+
+
+227
+00:08:04,686 --> 00:08:09,156
+Here is a cool snippet from the
+
+
+228
+00:08:09,156 --> 00:08:10,676
+sample application, illustrating
+
+
+229
+00:08:10,676 --> 00:08:11,836
+the three-step approach.
+
+
+230
+00:08:13,046 --> 00:08:14,846
+To start off, we import the Core
+
+
+231
+00:08:14,846 --> 00:08:16,986
+NFC framework into the code.
+
+
+232
+00:08:20,456 --> 00:08:22,386
+Here we adopt the delegate
+
+
+233
+00:08:22,386 --> 00:08:23,706
+protocol in Table View
+
+
+234
+00:08:23,706 --> 00:08:25,016
+Controller, which will handle
+
+
+235
+00:08:25,016 --> 00:08:26,716
+the two required callbacks.
+
+
+236
+00:08:27,736 --> 00:08:30,996
+They invalidate with error and
+
+
+237
+00:08:31,516 --> 00:08:33,236
+detect NDEF.
+
+
+238
+00:08:33,836 --> 00:08:38,385
+The invalidate with error
+
+
+239
+00:08:38,385 --> 00:08:39,986
+callback will notify your
+
+
+240
+00:08:39,986 --> 00:08:41,486
+application when a tag reading
+
+
+241
+00:08:41,486 --> 00:08:42,616
+activity has stopped.
+
+
+242
+00:08:43,306 --> 00:08:45,746
+This can happen for a variety of
+
+
+243
+00:08:45,786 --> 00:08:46,326
+reasons.
+
+
+244
+00:08:46,886 --> 00:08:48,556
+For example, a tag has been
+
+
+245
+00:08:48,556 --> 00:08:50,246
+successfully read in a single
+
+
+246
+00:08:50,246 --> 00:08:51,116
+tag read session.
+
+
+247
+00:08:52,056 --> 00:08:53,536
+The user has chosen to stop the
+
+
+248
+00:08:53,536 --> 00:08:54,696
+tag scanning activity.
+
+
+249
+00:08:54,996 --> 00:08:57,716
+The 3-second timeout has expired
+
+
+250
+00:08:58,646 --> 00:09:00,056
+or the application is no longer
+
+
+251
+00:09:00,056 --> 00:09:00,756
+in the foreground.
+
+
+252
+00:09:01,526 --> 00:09:03,766
+The specific session object
+
+
+253
+00:09:03,766 --> 00:09:05,186
+provided in the first parameter
+
+
+254
+00:09:05,376 --> 00:09:06,896
+will be invalidated after the
+
+
+255
+00:09:06,896 --> 00:09:07,926
+function exits.
+
+
+256
+00:09:08,296 --> 00:09:10,276
+A new reader session instance is
+
+
+257
+00:09:10,276 --> 00:09:12,146
+required for additional tag
+
+
+258
+00:09:12,146 --> 00:09:12,446
+reading.
+
+
+259
+00:09:14,396 --> 00:09:17,166
+The detect NDEFs will be invoked
+
+
+260
+00:09:17,286 --> 00:09:19,136
+every time an NDEF has been read
+
+
+261
+00:09:19,136 --> 00:09:20,226
+from an NFC tag.
+
+
+262
+00:09:21,426 --> 00:09:22,816
+Your application can then grab
+
+
+263
+00:09:22,816 --> 00:09:23,946
+the payload from the NDEF
+
+
+264
+00:09:23,946 --> 00:09:26,706
+message, decode it, and handle
+
+
+265
+00:09:26,706 --> 00:09:27,996
+the message as appropriate.
+
+
+266
+00:09:31,746 --> 00:09:33,846
+Finally, we have an extra method
+
+
+267
+00:09:33,846 --> 00:09:35,236
+that links to the Scan button
+
+
+268
+00:09:35,236 --> 00:09:36,736
+for starting a single tag read
+
+
+269
+00:09:36,736 --> 00:09:37,226
+session.
+
+
+270
+00:09:38,476 --> 00:09:40,196
+All you need to do is create an
+
+
+271
+00:09:40,246 --> 00:09:42,136
+instance of NFC NDEF Reader
+
+
+272
+00:09:42,136 --> 00:09:43,786
+Session with your data gate,
+
+
+273
+00:09:44,316 --> 00:09:45,636
+then invoke to begin method to
+
+
+274
+00:09:45,636 --> 00:09:46,776
+start tag scanning.
+
+
+275
+00:09:47,286 --> 00:09:48,926
+If you wish to create a
+
+
+276
+00:09:48,926 --> 00:09:51,326
+multi-tag reading session, set
+
+
+277
+00:09:51,326 --> 00:09:53,126
+the invalidate at the first read
+
+
+278
+00:09:53,186 --> 00:09:54,316
+parameter to False.
+
+
+279
+00:09:54,736 --> 00:09:56,606
+If you need to stop an ongoing
+
+
+280
+00:09:56,606 --> 00:09:58,296
+session programmatically, you
+
+
+281
+00:09:58,296 --> 00:09:59,886
+can call the invalidate method.
+
+
+282
+00:10:01,066 --> 00:10:02,116
+This will trigger your
+
+
+283
+00:10:02,186 --> 00:10:04,096
+invalidate with error callback,
+
+
+284
+00:10:04,576 --> 00:10:05,476
+letting you know that the
+
+
+285
+00:10:05,476 --> 00:10:06,396
+session has ended.
+
+
+286
+00:10:11,566 --> 00:10:13,386
+In summary, it is very simple to
+
+
+287
+00:10:13,386 --> 00:10:15,276
+enable NFC tag reading with Core
+
+
+288
+00:10:15,516 --> 00:10:17,766
+NFC by following these steps.
+
+
+289
+00:10:20,276 --> 00:10:22,116
+Enable the NFC tag reading
+
+
+290
+00:10:22,116 --> 00:10:22,846
+capability.
+
+
+291
+00:10:23,386 --> 00:10:26,676
+Make sure your Scan Usage
+
+
+292
+00:10:26,676 --> 00:10:28,336
+Description String is set in
+
+
+293
+00:10:28,336 --> 00:10:30,426
+your info P-list.
+
+
+294
+00:10:32,116 --> 00:10:33,906
+Integrate the Core NFC framework
+
+
+295
+00:10:33,906 --> 00:10:34,566
+in your code.
+
+
+296
+00:10:35,146 --> 00:10:37,776
+And start reading tags.
+
+
+297
+00:10:41,576 --> 00:10:43,046
+For more information about this
+
+
+298
+00:10:43,046 --> 00:10:44,636
+presentation and our sample
+
+
+299
+00:10:44,636 --> 00:10:47,286
+code, please visit this online
+
+
+300
+00:10:47,946 --> 00:10:48,086
+link.
+
+
+301
+00:10:49,556 --> 00:10:51,436
+Also, here are some related
+
+
+302
+00:10:51,436 --> 00:10:52,736
+sessions you might be interested
+
+
+303
+00:10:52,736 --> 00:10:52,976
+in.
+
+
+304
+00:10:54,356 --> 00:10:56,256
+Privacy and Your Apps will
+
+
+305
+00:10:56,256 --> 00:10:57,136
+discuss important
+
+
+306
+00:10:57,136 --> 00:10:59,456
+privacy-related topics, and
+
+
+307
+00:10:59,946 --> 00:11:01,526
+What's New In Apple Pay and
+
+
+308
+00:11:01,526 --> 00:11:03,226
+Wallet will talk about all the
+
+
+309
+00:11:03,226 --> 00:11:04,556
+exciting Apple Pay features
+
+
+310
+00:11:04,556 --> 00:11:09,266
+coming to iOS and Mac OS.
+
+
+311
+00:11:10,016 --> 00:11:11,276
+Thank you for watching this
+
+
+312
+00:11:11,276 --> 00:11:13,236
+presentation on Core NFC
+
+
+313
+00:11:13,236 --> 00:11:13,766
+Framework.
+

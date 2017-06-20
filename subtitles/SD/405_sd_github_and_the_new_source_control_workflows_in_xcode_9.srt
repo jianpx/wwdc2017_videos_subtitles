@@ -1,0 +1,5394 @@
+1
+00:00:07,516 --> 00:00:19,516
+[ Background Sounds ]
+
+
+2
+00:00:20,508 --> 00:00:22,508
+[ Applause ]
+
+
+3
+00:00:23,056 --> 00:00:24,386
+>> Hello. Good afternoon.
+
+
+4
+00:00:24,506 --> 00:00:26,546
+Welcome. My name's Kieron
+
+
+5
+00:00:26,616 --> 00:00:26,946
+Seenya.
+
+
+6
+00:00:27,156 --> 00:00:29,466
+I'm an Xcode engineer at Apple.
+
+
+7
+00:00:30,126 --> 00:00:31,616
+I'm really excited to share with
+
+
+8
+00:00:31,616 --> 00:00:33,286
+you some of the new source
+
+
+9
+00:00:33,286 --> 00:00:35,456
+control features of Xcode 9.
+
+
+10
+00:00:35,866 --> 00:00:38,106
+In fact, I'm so excited about it
+
+
+11
+00:00:38,106 --> 00:00:40,336
+it's now a first class citizen
+
+
+12
+00:00:40,336 --> 00:00:40,686
+of Xcode.
+
+
+13
+00:00:40,686 --> 00:00:42,856
+Today you're going to learn
+
+
+14
+00:00:42,856 --> 00:00:44,526
+about some of the great concepts
+
+
+15
+00:00:44,576 --> 00:00:46,736
+of SCM and how they fit in with
+
+
+16
+00:00:46,736 --> 00:00:47,316
+Xcode 9.
+
+
+17
+00:00:47,966 --> 00:00:48,806
+So let's get started.
+
+
+18
+00:00:48,806 --> 00:00:51,426
+So I've got a lot of work to get
+
+
+19
+00:00:51,456 --> 00:00:52,106
+done today.
+
+
+20
+00:00:52,906 --> 00:00:54,486
+The first thing I need to do is
+
+
+21
+00:00:54,486 --> 00:00:56,736
+to get my project and to do that
+
+
+22
+00:00:57,206 --> 00:00:58,066
+I need to clone it.
+
+
+23
+00:00:58,726 --> 00:01:02,266
+Next up I'm going to review some
+
+
+24
+00:01:02,266 --> 00:01:03,876
+recent changes that happened in
+
+
+25
+00:01:03,876 --> 00:01:04,465
+the project.
+
+
+26
+00:01:04,506 --> 00:01:05,646
+So I'm going to look at some
+
+
+27
+00:01:05,646 --> 00:01:06,216
+commits.
+
+
+28
+00:01:06,786 --> 00:01:09,406
+After that I've got some feature
+
+
+29
+00:01:09,406 --> 00:01:10,376
+work I need to do.
+
+
+30
+00:01:10,466 --> 00:01:12,186
+So I'm going to create a branch
+
+
+31
+00:01:12,316 --> 00:01:13,856
+to make sure my changes aren't
+
+
+32
+00:01:13,856 --> 00:01:15,186
+affecting the rest of my team.
+
+
+33
+00:01:15,746 --> 00:01:18,946
+And then I'm going to release my
+
+
+34
+00:01:19,076 --> 00:01:19,936
+app to the App Store.
+
+
+35
+00:01:20,506 --> 00:01:22,026
+So I'll create a tag to make
+
+
+36
+00:01:22,026 --> 00:01:24,126
+sure I know when that happened.
+
+
+37
+00:01:25,756 --> 00:01:27,056
+The first thing I need to do
+
+
+38
+00:01:27,056 --> 00:01:28,436
+though is clone the project.
+
+
+39
+00:01:29,386 --> 00:01:30,126
+So let's take a look at what
+
+
+40
+00:01:30,126 --> 00:01:31,406
+that is, if you're unfamiliar.
+
+
+41
+00:01:31,406 --> 00:01:34,646
+In most cases you're going to
+
+
+42
+00:01:34,736 --> 00:01:37,036
+have a single, centralized copy
+
+
+43
+00:01:37,076 --> 00:01:37,916
+of your source code.
+
+
+44
+00:01:38,436 --> 00:01:39,956
+This is known as a remote
+
+
+45
+00:01:39,956 --> 00:01:40,616
+repository.
+
+
+46
+00:01:40,616 --> 00:01:43,006
+And this stores all the history
+
+
+47
+00:01:43,006 --> 00:01:44,376
+of your projects and all the
+
+
+48
+00:01:44,376 --> 00:01:45,746
+changes that make up that
+
+
+49
+00:01:45,746 --> 00:01:46,176
+history.
+
+
+50
+00:01:46,726 --> 00:01:49,906
+And just like it sounds, cloning
+
+
+51
+00:01:49,906 --> 00:01:52,326
+creates an exact copy of all the
+
+
+52
+00:01:52,326 --> 00:01:53,986
+code and brings it down onto
+
+
+53
+00:01:53,986 --> 00:01:55,656
+your MacBook and you can start
+
+
+54
+00:01:55,656 --> 00:01:56,066
+working.
+
+
+55
+00:01:56,956 --> 00:01:58,526
+So how does this fit into Xcode
+
+
+56
+00:01:58,526 --> 00:01:59,000
+9?
+
+
+57
+00:02:00,776 --> 00:02:02,986
+Well, with your GitHub account
+
+
+58
+00:02:02,986 --> 00:02:04,916
+connected we've introduced an
+
+
+59
+00:02:04,916 --> 00:02:07,076
+entirely new clone workflow.
+
+
+60
+00:02:08,395 --> 00:02:09,346
+When you've added your GitHub
+
+
+61
+00:02:09,346 --> 00:02:10,596
+account you'll get a list of
+
+
+62
+00:02:10,596 --> 00:02:11,916
+your personal repositories.
+
+
+63
+00:02:12,276 --> 00:02:13,326
+You'll also get a list of the
+
+
+64
+00:02:13,326 --> 00:02:15,246
+starred ones and all of those
+
+
+65
+00:02:15,246 --> 00:02:16,796
+belonging to your organization.
+
+
+66
+00:02:18,156 --> 00:02:19,696
+And it is really easy to find
+
+
+67
+00:02:19,696 --> 00:02:20,696
+what you're looking for from
+
+
+68
+00:02:20,696 --> 00:02:21,016
+here.
+
+
+69
+00:02:21,526 --> 00:02:23,266
+Immediately I can see all of my
+
+
+70
+00:02:23,266 --> 00:02:24,006
+repositories.
+
+
+71
+00:02:26,436 --> 00:02:28,066
+There's also a detail pane at
+
+
+72
+00:02:28,066 --> 00:02:28,666
+the bottom.
+
+
+73
+00:02:28,826 --> 00:02:30,066
+So I can see more information
+
+
+74
+00:02:30,066 --> 00:02:31,226
+about those repositories.
+
+
+75
+00:02:31,526 --> 00:02:33,096
+And from here I can even star an
+
+
+76
+00:02:33,096 --> 00:02:34,096
+interesting repository.
+
+
+77
+00:02:34,096 --> 00:02:35,326
+So I can come back to it later.
+
+
+78
+00:02:36,286 --> 00:02:37,856
+There's full search capability
+
+
+79
+00:02:37,856 --> 00:02:38,226
+in here.
+
+
+80
+00:02:38,576 --> 00:02:40,146
+So using the address bar at the
+
+
+81
+00:02:40,146 --> 00:02:41,536
+top, I can enter some search
+
+
+82
+00:02:41,536 --> 00:02:43,166
+criteria and search across
+
+
+83
+00:02:43,206 --> 00:02:43,626
+GitHub.
+
+
+84
+00:02:43,976 --> 00:02:45,256
+This saves you having to jump to
+
+
+85
+00:02:45,256 --> 00:02:46,926
+GitHub to find the repository
+
+
+86
+00:02:46,926 --> 00:02:47,686
+you're looking for.
+
+
+87
+00:02:48,286 --> 00:02:51,666
+So I go ahead and select this
+
+
+88
+00:02:51,666 --> 00:02:55,366
+TOTP app, but I can also clone
+
+
+89
+00:02:55,366 --> 00:02:57,006
+any other repository that's not
+
+
+90
+00:02:57,006 --> 00:02:58,696
+part of GitHub by just entering
+
+
+91
+00:02:58,696 --> 00:03:00,246
+the URL of it in that address
+
+
+92
+00:03:00,326 --> 00:03:00,716
+bar there.
+
+
+93
+00:03:02,046 --> 00:03:02,826
+So when I've found what I'm
+
+
+94
+00:03:02,826 --> 00:03:04,106
+looking for I hit the "clone"
+
+
+95
+00:03:04,106 --> 00:03:06,776
+button and it asks me where I
+
+
+96
+00:03:06,776 --> 00:03:07,416
+want to save it.
+
+
+97
+00:03:08,466 --> 00:03:10,376
+I choose here, click clone, and
+
+
+98
+00:03:10,376 --> 00:03:11,546
+it just goes ahead and clones
+
+
+99
+00:03:11,546 --> 00:03:11,686
+it.
+
+
+100
+00:03:11,686 --> 00:03:12,546
+It's that simple.
+
+
+101
+00:03:13,166 --> 00:03:16,546
+Now in the mornings when I'm
+
+
+102
+00:03:16,546 --> 00:03:18,906
+sipping my cup of earl gray I
+
+
+103
+00:03:18,906 --> 00:03:20,096
+need to get access to my
+
+
+104
+00:03:20,096 --> 00:03:20,676
+repository.
+
+
+105
+00:03:20,676 --> 00:03:22,456
+I don't want to flip back to
+
+
+106
+00:03:22,456 --> 00:03:23,016
+Xcodes to do that.
+
+
+107
+00:03:23,016 --> 00:03:23,886
+I don't want to have to search
+
+
+108
+00:03:23,886 --> 00:03:24,126
+for it.
+
+
+109
+00:03:24,826 --> 00:03:26,386
+So now we work closely with
+
+
+110
+00:03:26,386 --> 00:03:28,656
+GitHub so you can clone your
+
+
+111
+00:03:28,656 --> 00:03:30,396
+Xcode projects right from
+
+
+112
+00:03:30,396 --> 00:03:31,226
+github.com.
+
+
+113
+00:03:31,816 --> 00:03:33,286
+You find the repo you're looking
+
+
+114
+00:03:33,286 --> 00:03:34,996
+for, hit the clone or download
+
+
+115
+00:03:34,996 --> 00:03:37,016
+button, and here you'll see an
+
+
+116
+00:03:37,016 --> 00:03:37,976
+"open in Xcode" button.
+
+
+117
+00:03:38,636 --> 00:03:39,496
+It's really easy.
+
+
+118
+00:03:39,496 --> 00:03:39,976
+It's really handy.
+
+
+119
+00:03:40,516 --> 00:03:45,546
+[ Applause ]
+
+
+120
+00:03:46,046 --> 00:03:47,366
+So that's cloning in Xcode 9.
+
+
+121
+00:03:48,746 --> 00:03:50,166
+So next up I want to review some
+
+
+122
+00:03:50,166 --> 00:03:51,206
+changes that have happened
+
+
+123
+00:03:51,206 --> 00:03:51,876
+recently.
+
+
+124
+00:03:52,746 --> 00:03:53,646
+So I'm going to look at some
+
+
+125
+00:03:53,646 --> 00:03:54,136
+commits.
+
+
+126
+00:03:54,786 --> 00:03:55,906
+Now if you're unfamiliar let's
+
+
+127
+00:03:55,936 --> 00:03:56,546
+take a look at this.
+
+
+128
+00:03:57,196 --> 00:03:59,306
+And this star represents a
+
+
+129
+00:03:59,306 --> 00:04:00,376
+single commit.
+
+
+130
+00:04:00,756 --> 00:04:02,666
+It is a snapshot of all the
+
+
+131
+00:04:02,666 --> 00:04:03,696
+changes that have happened in my
+
+
+132
+00:04:03,786 --> 00:04:07,526
+project at that point in time.
+
+
+133
+00:04:07,986 --> 00:04:09,636
+Committing changes to a project
+
+
+134
+00:04:09,846 --> 00:04:10,806
+is something you're probably
+
+
+135
+00:04:10,806 --> 00:04:12,476
+going to do many times a day and
+
+
+136
+00:04:13,516 --> 00:04:15,766
+each commit adds history to your
+
+
+137
+00:04:15,766 --> 00:04:16,245
+project.
+
+
+138
+00:04:16,245 --> 00:04:19,226
+And this history's invaluable
+
+
+139
+00:04:19,596 --> 00:04:21,036
+for keeping track of your code
+
+
+140
+00:04:21,036 --> 00:04:22,586
+base, knowing who is changing
+
+
+141
+00:04:22,586 --> 00:04:23,606
+what and why.
+
+
+142
+00:04:24,936 --> 00:04:27,496
+Now every commit has an author.
+
+
+143
+00:04:28,646 --> 00:04:29,836
+This lets you know who to blame.
+
+
+144
+00:04:30,746 --> 00:04:33,396
+It also has a description so you
+
+
+145
+00:04:33,396 --> 00:04:34,856
+know why that change happened.
+
+
+146
+00:04:35,846 --> 00:04:37,766
+There's also a date just to let
+
+
+147
+00:04:37,766 --> 00:04:38,536
+you know when it happened.
+
+
+148
+00:04:38,536 --> 00:04:39,796
+And finally something called a
+
+
+149
+00:04:39,796 --> 00:04:41,096
+shar, which is the unique
+
+
+150
+00:04:41,096 --> 00:04:42,456
+identifier for that commit.
+
+
+151
+00:04:43,246 --> 00:04:44,756
+It lets you reference it later
+
+
+152
+00:04:44,756 --> 00:04:45,596
+on if you need to.
+
+
+153
+00:04:46,896 --> 00:04:48,746
+So, as this information, along
+
+
+154
+00:04:48,746 --> 00:04:50,056
+with the changes captured by the
+
+
+155
+00:04:50,056 --> 00:04:52,016
+commit, this makes up the rich
+
+
+156
+00:04:52,016 --> 00:04:53,306
+history of your project.
+
+
+157
+00:04:53,466 --> 00:04:55,496
+So how does this fit into Xcode
+
+
+158
+00:04:55,496 --> 00:04:55,816
+9?
+
+
+159
+00:04:56,836 --> 00:04:58,076
+Well, we can see here.
+
+
+160
+00:04:58,706 --> 00:05:02,796
+In Xcode 9 there's entirely new
+
+
+161
+00:05:02,796 --> 00:05:04,296
+feature set for source control
+
+
+162
+00:05:04,296 --> 00:05:05,216
+allowing you to see your
+
+
+163
+00:05:05,216 --> 00:05:05,616
+history.
+
+
+164
+00:05:06,566 --> 00:05:07,726
+On the left hand side we've
+
+
+165
+00:05:07,726 --> 00:05:09,376
+introduced an entirely new
+
+
+166
+00:05:09,376 --> 00:05:10,016
+navigator.
+
+
+167
+00:05:10,486 --> 00:05:12,166
+This'll list the working copies
+
+
+168
+00:05:12,166 --> 00:05:13,656
+that are part of your project.
+
+
+169
+00:05:14,506 --> 00:05:15,396
+When you select one of those
+
+
+170
+00:05:15,396 --> 00:05:17,376
+working copies you'll get this
+
+
+171
+00:05:17,376 --> 00:05:18,576
+new history view.
+
+
+172
+00:05:19,396 --> 00:05:20,896
+This lists all of your commits
+
+
+173
+00:05:20,896 --> 00:05:21,976
+and we've been using it in
+
+
+174
+00:05:21,976 --> 00:05:23,086
+Xcode's code base.
+
+
+175
+00:05:23,646 --> 00:05:24,746
+We have around a quarter of a
+
+
+176
+00:05:24,746 --> 00:05:26,076
+million commits and we can
+
+
+177
+00:05:26,076 --> 00:05:28,256
+scroll through really smoothly.
+
+
+178
+00:05:28,256 --> 00:05:29,286
+It's really great.
+
+
+179
+00:05:30,276 --> 00:05:32,656
+For each of these entries there
+
+
+180
+00:05:32,736 --> 00:05:35,456
+is those details you saw before;
+
+
+181
+00:05:35,456 --> 00:05:36,586
+the author, the description.
+
+
+182
+00:05:36,626 --> 00:05:37,446
+This is really useful
+
+
+183
+00:05:37,446 --> 00:05:38,866
+information, but with your
+
+
+184
+00:05:38,866 --> 00:05:40,896
+GitHub account connected we now
+
+
+185
+00:05:40,896 --> 00:05:42,126
+go and get your avatar.
+
+
+186
+00:05:43,006 --> 00:05:45,826
+So you can put a face to the
+
+
+187
+00:05:45,826 --> 00:05:49,196
+name or the name to the face.
+
+
+188
+00:05:49,276 --> 00:05:50,376
+So let's say I'm looking for a
+
+
+189
+00:05:50,416 --> 00:05:52,126
+specific commit, something I
+
+
+190
+00:05:52,126 --> 00:05:53,496
+know my colleague Eric [assumed
+
+
+191
+00:05:53,646 --> 00:05:55,806
+spelling] committed recently and
+
+
+192
+00:05:55,806 --> 00:05:56,856
+I'm not entirely sure what I'm
+
+
+193
+00:05:56,856 --> 00:05:57,506
+looking for.
+
+
+194
+00:05:58,946 --> 00:06:02,656
+So we can now search by token.
+
+
+195
+00:06:03,336 --> 00:06:05,656
+So here I specify I'm looking
+
+
+196
+00:06:05,656 --> 00:06:06,096
+for Eric.
+
+
+197
+00:06:07,026 --> 00:06:08,206
+Now that gives me a big list of
+
+
+198
+00:06:08,206 --> 00:06:08,536
+commits.
+
+
+199
+00:06:08,536 --> 00:06:09,716
+I still need to narrow it down a
+
+
+200
+00:06:09,716 --> 00:06:09,946
+bit further.
+
+
+201
+00:06:09,986 --> 00:06:11,936
+So let's find out what happened
+
+
+202
+00:06:11,936 --> 00:06:13,026
+the last day because I know it
+
+
+203
+00:06:13,026 --> 00:06:13,736
+was that recent.
+
+
+204
+00:06:14,466 --> 00:06:16,666
+So I use this scope bar and
+
+
+205
+00:06:16,666 --> 00:06:18,426
+search for the last 24 hours.
+
+
+206
+00:06:18,716 --> 00:06:19,756
+I still got four results.
+
+
+207
+00:06:19,756 --> 00:06:20,556
+I'm a bit lazy.
+
+
+208
+00:06:20,556 --> 00:06:21,536
+I don't want to read through the
+
+
+209
+00:06:21,536 --> 00:06:22,336
+commit messages.
+
+
+210
+00:06:22,746 --> 00:06:27,846
+So I know it has something to do
+
+
+211
+00:06:27,846 --> 00:06:28,646
+with cofeeing.
+
+
+212
+00:06:29,016 --> 00:06:29,926
+[laughing] So it narrows the
+
+
+213
+00:06:29,926 --> 00:06:31,416
+result down to that individual
+
+
+214
+00:06:31,416 --> 00:06:32,376
+result, and that's the one I was
+
+
+215
+00:06:32,376 --> 00:06:32,976
+looking for.
+
+
+216
+00:06:33,766 --> 00:06:34,996
+And these search results come
+
+
+217
+00:06:34,996 --> 00:06:35,996
+back instantly.
+
+
+218
+00:06:35,996 --> 00:06:37,146
+It's really fast.
+
+
+219
+00:06:37,516 --> 00:06:40,006
+You've got to try it out.
+
+
+220
+00:06:40,336 --> 00:06:42,336
+So that's commit in Xcode 9.
+
+
+221
+00:06:42,906 --> 00:06:46,336
+So now that I've cloned my
+
+
+222
+00:06:46,336 --> 00:06:48,146
+project and I've reviewed commit
+
+
+223
+00:06:48,146 --> 00:06:49,826
+it's time I worked on something
+
+
+224
+00:06:49,826 --> 00:06:51,386
+that's a bit risky maybe.
+
+
+225
+00:06:52,166 --> 00:06:53,246
+To do that I want to create a
+
+
+226
+00:06:53,306 --> 00:06:54,626
+branch and this will help
+
+
+227
+00:06:54,626 --> 00:06:56,796
+isolate my changes from the rest
+
+
+228
+00:06:56,796 --> 00:06:57,996
+of the team's so they don't get
+
+
+229
+00:06:57,996 --> 00:06:58,456
+affected.
+
+
+230
+00:06:58,456 --> 00:07:01,576
+So let's go back to this commit
+
+
+231
+00:07:01,576 --> 00:07:03,076
+docs we saw earlier.
+
+
+232
+00:07:03,196 --> 00:07:04,586
+Now my master branch is in
+
+
+233
+00:07:04,636 --> 00:07:05,606
+pretty good shape.
+
+
+234
+00:07:05,936 --> 00:07:06,836
+Everything's stable.
+
+
+235
+00:07:06,836 --> 00:07:08,836
+My bot's passing their unit
+
+
+236
+00:07:08,836 --> 00:07:09,116
+test.
+
+
+237
+00:07:09,166 --> 00:07:10,646
+So I'm going to go ahead and
+
+
+238
+00:07:10,646 --> 00:07:11,626
+create a branch from there.
+
+
+239
+00:07:12,386 --> 00:07:13,676
+So it goes to new navigator.
+
+
+240
+00:07:14,226 --> 00:07:15,616
+I hit "new branch" from master
+
+
+241
+00:07:15,616 --> 00:07:17,736
+and Xcode goes ahead and just
+
+
+242
+00:07:17,736 --> 00:07:18,216
+creates it.
+
+
+243
+00:07:19,576 --> 00:07:20,956
+Now my new branch is going to be
+
+
+244
+00:07:20,956 --> 00:07:22,096
+pushed to the top of the list
+
+
+245
+00:07:22,386 --> 00:07:23,526
+and marked as "current."
+
+
+246
+00:07:23,896 --> 00:07:24,716
+This lets me know what I'm
+
+
+247
+00:07:24,716 --> 00:07:25,616
+currently working on.
+
+
+248
+00:07:25,616 --> 00:07:26,676
+It's really easy to see.
+
+
+249
+00:07:27,646 --> 00:07:28,826
+And you can see in this diagram
+
+
+250
+00:07:28,826 --> 00:07:30,696
+here; history has now diverged.
+
+
+251
+00:07:30,766 --> 00:07:32,726
+This means my commit is no
+
+
+252
+00:07:32,786 --> 00:07:34,566
+longer part of master.
+
+
+253
+00:07:34,566 --> 00:07:35,846
+So my changes aren't going to
+
+
+254
+00:07:35,846 --> 00:07:38,626
+affect my team and they're going
+
+
+255
+00:07:38,626 --> 00:07:41,116
+to carry on committing and
+
+
+256
+00:07:41,116 --> 00:07:42,056
+they'll carry on committing and
+
+
+257
+00:07:42,056 --> 00:07:43,116
+it won't affect me.
+
+
+258
+00:07:43,116 --> 00:07:44,596
+And as I carry on committing
+
+
+259
+00:07:44,596 --> 00:07:45,386
+it's not going to affect them.
+
+
+260
+00:07:45,386 --> 00:07:47,076
+And this is a good place to be
+
+
+261
+00:07:47,076 --> 00:07:47,946
+when you're working on some
+
+
+262
+00:07:47,946 --> 00:07:48,446
+risky work.
+
+
+263
+00:07:49,956 --> 00:07:51,316
+So now my tests are passing on
+
+
+264
+00:07:51,316 --> 00:07:52,566
+my feature branch and I want to
+
+
+265
+00:07:52,566 --> 00:07:54,566
+land those changes back into the
+
+
+266
+00:07:54,566 --> 00:07:55,386
+master branch.
+
+
+267
+00:07:55,976 --> 00:07:57,596
+So to do that I go to the new
+
+
+268
+00:07:57,686 --> 00:08:00,326
+source control navigator, I hit
+
+
+269
+00:08:00,326 --> 00:08:02,566
+the merge button and my changes
+
+
+270
+00:08:02,776 --> 00:08:04,146
+have landed in.
+
+
+271
+00:08:05,476 --> 00:08:06,876
+The thing is though, those
+
+
+272
+00:08:06,876 --> 00:08:08,436
+changes haven't been published
+
+
+273
+00:08:08,436 --> 00:08:09,646
+to my service so the rest of the
+
+
+274
+00:08:09,746 --> 00:08:11,136
+team can't see them.
+
+
+275
+00:08:12,386 --> 00:08:14,226
+So how does this tie in with
+
+
+276
+00:08:14,226 --> 00:08:15,446
+Xcode's new navigator?
+
+
+277
+00:08:15,746 --> 00:08:16,846
+Well, let's go back to that
+
+
+278
+00:08:16,946 --> 00:08:18,616
+cloud illustration that we saw
+
+
+279
+00:08:18,616 --> 00:08:18,786
+earlier.
+
+
+280
+00:08:19,666 --> 00:08:21,446
+And as I make changes and as
+
+
+281
+00:08:21,446 --> 00:08:22,716
+others make changes we need to
+
+
+282
+00:08:22,716 --> 00:08:24,106
+synchronize those changes.
+
+
+283
+00:08:24,616 --> 00:08:26,686
+And to do that you can pull
+
+
+284
+00:08:26,686 --> 00:08:27,806
+changes from the remote
+
+
+285
+00:08:27,806 --> 00:08:28,486
+repository.
+
+
+286
+00:08:28,486 --> 00:08:30,966
+And when I've made my changes
+
+
+287
+00:08:31,156 --> 00:08:32,316
+I'll go ahead and push those.
+
+
+288
+00:08:32,525 --> 00:08:34,775
+And this is really useful when
+
+
+289
+00:08:34,775 --> 00:08:35,596
+you're working in a team
+
+
+290
+00:08:35,596 --> 00:08:37,306
+environment because you can
+
+
+291
+00:08:37,306 --> 00:08:39,106
+carry on pushing and pulling to
+
+
+292
+00:08:39,106 --> 00:08:39,796
+make sure you have each other's
+
+
+293
+00:08:39,796 --> 00:08:39,976
+changes.
+
+
+294
+00:08:46,056 --> 00:08:48,686
+So after I've merged and I need
+
+
+295
+00:08:49,296 --> 00:08:51,076
+to push those changes I have
+
+
+296
+00:08:51,226 --> 00:08:53,256
+three commits I need to push and
+
+
+297
+00:08:53,386 --> 00:08:55,026
+Xcode will automatically display
+
+
+298
+00:08:55,026 --> 00:08:56,706
+these in the new navigator so I
+
+
+299
+00:08:56,706 --> 00:08:58,166
+know my team can't see them.
+
+
+300
+00:08:58,846 --> 00:09:01,546
+And in Xcode 9 we automatically
+
+
+301
+00:09:01,646 --> 00:09:02,626
+fetch from your remote
+
+
+302
+00:09:02,626 --> 00:09:04,696
+repositories and this lets you
+
+
+303
+00:09:04,696 --> 00:09:06,226
+know if your team have been
+
+
+304
+00:09:06,226 --> 00:09:07,956
+making changes that you need to
+
+
+305
+00:09:08,006 --> 00:09:08,396
+pull.
+
+
+306
+00:09:08,626 --> 00:09:09,766
+And you'll see it with these up
+
+
+307
+00:09:09,766 --> 00:09:10,576
+and down arrows.
+
+
+308
+00:09:10,966 --> 00:09:12,416
+This is good to know because you
+
+
+309
+00:09:12,706 --> 00:09:14,366
+can't go ahead and push until
+
+
+310
+00:09:14,366 --> 00:09:16,416
+you've pulled their changes in.
+
+
+311
+00:09:17,536 --> 00:09:22,656
+So that's branching in Xcode 9.
+
+
+312
+00:09:22,876 --> 00:09:24,346
+So now I'm ready to release a
+
+
+313
+00:09:24,346 --> 00:09:25,376
+beta version of my app.
+
+
+314
+00:09:26,046 --> 00:09:27,066
+The tests are passing, I've
+
+
+315
+00:09:27,066 --> 00:09:28,616
+merged all my work into master.
+
+
+316
+00:09:29,676 --> 00:09:30,956
+So let's go back to those docs
+
+
+317
+00:09:30,956 --> 00:09:31,786
+that we saw earlier.
+
+
+318
+00:09:32,866 --> 00:09:34,506
+At specific points of time in
+
+
+319
+00:09:34,596 --> 00:09:36,306
+your project's history you'll
+
+
+320
+00:09:36,306 --> 00:09:37,316
+want to create a tag.
+
+
+321
+00:09:37,386 --> 00:09:38,976
+This lets you know all of the
+
+
+322
+00:09:38,976 --> 00:09:40,556
+changes that made it up until
+
+
+323
+00:09:40,556 --> 00:09:41,386
+that point in time.
+
+
+324
+00:09:42,106 --> 00:09:43,286
+It's a good idea to do this when
+
+
+325
+00:09:43,286 --> 00:09:44,376
+you release your app to the App
+
+
+326
+00:09:44,376 --> 00:09:45,356
+Store for example.
+
+
+327
+00:09:45,356 --> 00:09:46,956
+So you -- to help you track what
+
+
+328
+00:09:46,956 --> 00:09:48,366
+changes were made.
+
+
+329
+00:09:49,356 --> 00:09:51,066
+So we'll continue to do this and
+
+
+330
+00:09:51,066 --> 00:09:52,636
+here I'm creating my Beta 4 tag
+
+
+331
+00:09:53,336 --> 00:09:54,776
+and you'll continue to do this
+
+
+332
+00:09:54,776 --> 00:09:56,626
+as you release more versions of
+
+
+333
+00:09:56,926 --> 00:10:00,346
+your app to the App Store.
+
+
+334
+00:10:00,596 --> 00:10:02,796
+So now on Xcode 9 we have full
+
+
+335
+00:10:03,126 --> 00:10:04,026
+tagging support.
+
+
+336
+00:10:04,626 --> 00:10:06,086
+You can go to the new history
+
+
+337
+00:10:06,086 --> 00:10:08,066
+view, click on one of your
+
+
+338
+00:10:08,066 --> 00:10:10,326
+commits, and select "tag," and
+
+
+339
+00:10:10,326 --> 00:10:11,556
+you'll see this new pane to
+
+
+340
+00:10:11,556 --> 00:10:12,256
+create your tag.
+
+
+341
+00:10:13,536 --> 00:10:14,606
+Now based on the naming
+
+
+342
+00:10:14,606 --> 00:10:16,726
+conventions of your tag, by
+
+
+343
+00:10:16,726 --> 00:10:19,106
+using forward slashes, Xcode
+
+
+344
+00:10:19,106 --> 00:10:20,766
+will automatically group your
+
+
+345
+00:10:20,766 --> 00:10:22,856
+tags to help organize them
+
+
+346
+00:10:22,856 --> 00:10:23,226
+easier.
+
+
+347
+00:10:24,026 --> 00:10:25,056
+This makes it easier to look
+
+
+348
+00:10:25,056 --> 00:10:26,796
+them up later and in this case
+
+
+349
+00:10:27,096 --> 00:10:28,016
+we're going to create a beta's
+
+
+350
+00:10:28,016 --> 00:10:28,346
+group.
+
+
+351
+00:10:29,066 --> 00:10:30,616
+And when you create your tag it
+
+
+352
+00:10:30,906 --> 00:10:32,466
+will immediately appear in the
+
+
+353
+00:10:32,466 --> 00:10:34,286
+new history view so you can see
+
+
+354
+00:10:34,286 --> 00:10:35,086
+that point in time.
+
+
+355
+00:10:36,616 --> 00:10:37,916
+If we flip open the "tags"
+
+
+356
+00:10:37,996 --> 00:10:40,386
+folder you'll see those tags.
+
+
+357
+00:10:41,246 --> 00:10:42,896
+By selecting the Beta 4 tag here
+
+
+358
+00:10:42,896 --> 00:10:44,916
+I see only the history of that
+
+
+359
+00:10:44,916 --> 00:10:45,000
+tag.
+
+
+360
+00:10:46,226 --> 00:10:47,436
+And you might wonder; why is
+
+
+361
+00:10:47,436 --> 00:10:48,166
+that useful?
+
+
+362
+00:10:48,166 --> 00:10:49,526
+To see just the history of that
+
+
+363
+00:10:49,526 --> 00:10:49,626
+tag?
+
+
+364
+00:10:49,886 --> 00:10:51,816
+Well, it lets you find precisely
+
+
+365
+00:10:51,816 --> 00:10:53,886
+what changes and features were
+
+
+366
+00:10:53,886 --> 00:10:55,426
+introduced in a particular
+
+
+367
+00:10:55,426 --> 00:10:56,236
+version of your app.
+
+
+368
+00:10:56,616 --> 00:10:57,936
+And by using the new searching
+
+
+369
+00:10:57,936 --> 00:10:59,986
+and filtering capabilities you
+
+
+370
+00:10:59,986 --> 00:11:00,816
+can find them easier.
+
+
+371
+00:11:02,076 --> 00:11:03,386
+So I've been told there was a
+
+
+372
+00:11:03,386 --> 00:11:05,536
+bug introduced and it was in
+
+
+373
+00:11:05,536 --> 00:11:06,296
+Beta 3.
+
+
+374
+00:11:07,036 --> 00:11:08,326
+So I go to the new navigator and
+
+
+375
+00:11:08,326 --> 00:11:10,706
+I select the Beta 3 tag and I
+
+
+376
+00:11:10,706 --> 00:11:12,816
+see here that only two changes
+
+
+377
+00:11:12,816 --> 00:11:14,086
+were made since the last Beta.
+
+
+378
+00:11:14,126 --> 00:11:16,096
+One was by Eric; one was by me.
+
+
+379
+00:11:16,096 --> 00:11:18,386
+And this top one here, it's
+
+
+380
+00:11:18,386 --> 00:11:20,366
+looking you know particularly
+
+
+381
+00:11:20,366 --> 00:11:21,716
+sketchy and I'm not sure if it's
+
+
+382
+00:11:21,716 --> 00:11:22,746
+something to do with the author.
+
+
+383
+00:11:22,956 --> 00:11:24,486
+At this point they cease to
+
+
+384
+00:11:24,486 --> 00:11:26,036
+become avatars and instead
+
+
+385
+00:11:26,036 --> 00:11:26,596
+become mugshots.
+
+
+386
+00:11:26,596 --> 00:11:30,116
+So I select this guy and I
+
+
+387
+00:11:31,186 --> 00:11:33,746
+double click on him and I see
+
+
+388
+00:11:33,746 --> 00:11:34,636
+this new view.
+
+
+389
+00:11:34,636 --> 00:11:36,646
+Now you might be familiar with
+
+
+390
+00:11:36,646 --> 00:11:38,226
+this view in previous versions
+
+
+391
+00:11:38,226 --> 00:11:38,726
+of Xcode.
+
+
+392
+00:11:38,956 --> 00:11:40,916
+It used to display as a sheet.
+
+
+393
+00:11:40,916 --> 00:11:42,716
+The problem with that though was
+
+
+394
+00:11:42,716 --> 00:11:44,046
+it blocked your workflow.
+
+
+395
+00:11:44,446 --> 00:11:45,766
+With this you can open a new
+
+
+396
+00:11:45,766 --> 00:11:47,866
+tab, carry on working as usual.
+
+
+397
+00:11:47,866 --> 00:11:49,856
+And with the rich assistance
+
+
+398
+00:11:49,856 --> 00:11:51,336
+support, which Eric's going to
+
+
+399
+00:11:51,336 --> 00:11:53,296
+show us later, we'll see how
+
+
+400
+00:11:53,296 --> 00:11:54,936
+easy it is to review your
+
+
+401
+00:11:54,936 --> 00:11:56,026
+changes in your code.
+
+
+402
+00:11:57,206 --> 00:11:58,326
+So here we can see there's a
+
+
+403
+00:11:58,416 --> 00:11:59,546
+force [inaudible] that I wrote,
+
+
+404
+00:12:00,386 --> 00:12:01,626
+which can crash the app of
+
+
+405
+00:12:01,726 --> 00:12:02,106
+course.
+
+
+406
+00:12:03,216 --> 00:12:05,406
+This new editor is really great
+
+
+407
+00:12:05,406 --> 00:12:06,206
+for other reasons too.
+
+
+408
+00:12:06,246 --> 00:12:07,696
+For example there's full jumper
+
+
+409
+00:12:07,696 --> 00:12:10,716
+support so you can navigate your
+
+
+410
+00:12:10,716 --> 00:12:11,986
+files really quickly.
+
+
+411
+00:12:12,276 --> 00:12:13,436
+You can collapse that list of
+
+
+412
+00:12:13,436 --> 00:12:15,316
+files for more screen space as
+
+
+413
+00:12:15,316 --> 00:12:15,606
+well.
+
+
+414
+00:12:15,606 --> 00:12:17,096
+And at the bottom you have that
+
+
+415
+00:12:17,096 --> 00:12:18,456
+detail pane, just so you know
+
+
+416
+00:12:18,456 --> 00:12:19,266
+you're looking at the right
+
+
+417
+00:12:19,266 --> 00:12:19,500
+commit.
+
+
+418
+00:12:21,746 --> 00:12:23,696
+So that's the all new tagging
+
+
+419
+00:12:23,696 --> 00:12:25,566
+experience in Xcode 9.
+
+
+420
+00:12:27,036 --> 00:12:28,576
+So combining the new, current
+
+
+421
+00:12:28,576 --> 00:12:30,766
+experience the new source
+
+
+422
+00:12:30,766 --> 00:12:33,206
+control navigator, and the great
+
+
+423
+00:12:33,206 --> 00:12:35,146
+new workflows around branching
+
+
+424
+00:12:35,146 --> 00:12:37,126
+and tags makes it easier than
+
+
+425
+00:12:37,126 --> 00:12:39,016
+ever to get real work done with
+
+
+426
+00:12:39,016 --> 00:12:40,386
+source control and Xcode 9.
+
+
+427
+00:12:41,276 --> 00:12:42,356
+So with that I'd like to
+
+
+428
+00:12:42,356 --> 00:12:43,616
+introduce Eric [inaudible] to
+
+
+429
+00:12:43,616 --> 00:12:44,776
+the stage to show us some of
+
+
+430
+00:12:44,776 --> 00:12:45,546
+these new features.
+
+
+431
+00:12:46,516 --> 00:12:51,500
+[ Applause ]
+
+
+432
+00:12:52,396 --> 00:12:53,306
+>> Thank you very much, Kieran.
+
+
+433
+00:12:54,256 --> 00:12:55,716
+So as he said, I'm going to show
+
+
+434
+00:12:55,716 --> 00:12:56,966
+you some of the new features of
+
+
+435
+00:12:57,046 --> 00:12:58,486
+Xcode 9 and source control.
+
+
+436
+00:12:58,486 --> 00:13:01,176
+So I've just set up this machine
+
+
+437
+00:13:01,846 --> 00:13:03,196
+and I've installed Xcode 9 on
+
+
+438
+00:13:03,196 --> 00:13:04,566
+it, but I don't have any of my
+
+
+439
+00:13:04,566 --> 00:13:05,296
+projects yet.
+
+
+440
+00:13:05,296 --> 00:13:07,476
+I want to clone them from GitHub
+
+
+441
+00:13:07,476 --> 00:13:08,706
+and in order to do that I'm
+
+
+442
+00:13:08,706 --> 00:13:10,576
+going to need to sign into my
+
+
+443
+00:13:10,576 --> 00:13:11,236
+GitHub account.
+
+
+444
+00:13:11,236 --> 00:13:13,716
+So I'll just go to Xcode's
+
+
+445
+00:13:13,716 --> 00:13:15,806
+preferences and to the
+
+
+446
+00:13:15,806 --> 00:13:16,556
+"accounts" pane.
+
+
+447
+00:13:17,466 --> 00:13:18,626
+And here we see of course I have
+
+
+448
+00:13:18,626 --> 00:13:19,246
+no accounts.
+
+
+449
+00:13:20,166 --> 00:13:21,536
+So if I just go to the plus
+
+
+450
+00:13:21,536 --> 00:13:24,816
+button in the lower left I get
+
+
+451
+00:13:24,816 --> 00:13:26,136
+an option to add any account
+
+
+452
+00:13:26,136 --> 00:13:27,586
+that Xcode supports, such as my
+
+
+453
+00:13:27,586 --> 00:13:29,036
+Apple ID for doing provisioning
+
+
+454
+00:13:29,036 --> 00:13:30,926
+and signing, Xcode Server for
+
+
+455
+00:13:30,926 --> 00:13:32,536
+continuous integration, or
+
+
+456
+00:13:32,536 --> 00:13:33,736
+GitHub for source control.
+
+
+457
+00:13:33,736 --> 00:13:35,996
+And I want to take a moment here
+
+
+458
+00:13:35,996 --> 00:13:36,966
+and point out that we also
+
+
+459
+00:13:36,966 --> 00:13:38,416
+support GitHub Enterprise.
+
+
+460
+00:13:38,456 --> 00:13:40,396
+So if your company uses a GitHub
+
+
+461
+00:13:40,396 --> 00:13:41,916
+Enterprise server all the
+
+
+462
+00:13:41,916 --> 00:13:42,826
+features that we're showing you
+
+
+463
+00:13:42,826 --> 00:13:44,516
+that work with GitHub work just
+
+
+464
+00:13:44,516 --> 00:13:45,776
+as well with GitHub Enterprise
+
+
+465
+00:13:45,886 --> 00:13:46,956
+on your own company's server.
+
+
+466
+00:13:47,986 --> 00:13:49,756
+But for today, I'm just going to
+
+
+467
+00:13:49,756 --> 00:13:50,716
+use github.com.
+
+
+468
+00:13:51,276 --> 00:13:57,786
+Great, so I'm going to sign in
+
+
+469
+00:13:57,786 --> 00:13:59,186
+and copy my password.
+
+
+470
+00:13:59,186 --> 00:14:00,916
+Make sure that goes in the
+
+
+471
+00:14:00,916 --> 00:14:01,586
+password field.
+
+
+472
+00:14:01,666 --> 00:14:03,566
+[laughs] And I use two factor
+
+
+473
+00:14:03,566 --> 00:14:04,296
+authentication.
+
+
+474
+00:14:04,716 --> 00:14:06,316
+And Xcode 9 supports two factor
+
+
+475
+00:14:06,316 --> 00:14:07,656
+authentication with GitHub.
+
+
+476
+00:14:07,736 --> 00:14:08,786
+This is a great way to secure
+
+
+477
+00:14:08,786 --> 00:14:10,126
+your account and make sure that
+
+
+478
+00:14:10,126 --> 00:14:11,716
+only you can access your source
+
+
+479
+00:14:11,776 --> 00:14:11,976
+code.
+
+
+480
+00:14:19,066 --> 00:14:20,596
+Great! So I've signed into Xcode
+
+
+481
+00:14:20,706 --> 00:14:22,886
+-- or into GitHub in Xcode and
+
+
+482
+00:14:22,886 --> 00:14:23,646
+we see that Xcode has
+
+
+483
+00:14:23,646 --> 00:14:25,856
+automatically detected my SSH
+
+
+484
+00:14:25,886 --> 00:14:26,576
+keys.
+
+
+485
+00:14:27,246 --> 00:14:29,306
+So I can clone using either
+
+
+486
+00:14:29,386 --> 00:14:30,876
+HTTPS or SSH, whichever I
+
+
+487
+00:14:30,876 --> 00:14:31,276
+prefer.
+
+
+488
+00:14:32,276 --> 00:14:33,586
+I'm going to leave it set to
+
+
+489
+00:14:33,586 --> 00:14:35,556
+HTTPS, but before I go clone
+
+
+490
+00:14:35,556 --> 00:14:36,866
+anything let me just go to my
+
+
+491
+00:14:36,866 --> 00:14:37,836
+source control preferences and
+
+
+492
+00:14:37,836 --> 00:14:39,086
+make sure everything is set up
+
+
+493
+00:14:39,086 --> 00:14:40,266
+exactly the way I want.
+
+
+494
+00:14:40,786 --> 00:14:43,046
+So here if I go to source
+
+
+495
+00:14:43,046 --> 00:14:44,766
+control I see that I have source
+
+
+496
+00:14:44,766 --> 00:14:46,056
+control enabled and if I go
+
+
+497
+00:14:46,056 --> 00:14:47,016
+specifically to the "get"
+
+
+498
+00:14:47,086 --> 00:14:48,806
+settings we see that new in
+
+
+499
+00:14:48,836 --> 00:14:50,636
+Xcode 9 you can now configure
+
+
+500
+00:14:50,636 --> 00:14:52,016
+your "get author" and your
+
+
+501
+00:14:52,016 --> 00:14:53,596
+"globally ignored" files right
+
+
+502
+00:14:53,596 --> 00:14:54,206
+in Xcode.
+
+
+503
+00:14:55,206 --> 00:14:56,926
+So your get author, your user
+
+
+504
+00:14:56,926 --> 00:14:59,386
+name, and email are what people
+
+
+505
+00:14:59,386 --> 00:15:01,706
+will see when you make commits.
+
+
+506
+00:15:01,786 --> 00:15:03,056
+So they'll know who to go to
+
+
+507
+00:15:03,056 --> 00:15:04,046
+when they find a bug on that
+
+
+508
+00:15:04,046 --> 00:15:04,386
+line.
+
+
+509
+00:15:06,046 --> 00:15:07,226
+So I think I'm all set up here.
+
+
+510
+00:15:07,726 --> 00:15:08,776
+So let's go back to the welcome
+
+
+511
+00:15:08,776 --> 00:15:09,106
+window.
+
+
+512
+00:15:09,776 --> 00:15:10,766
+And to get to that new clone
+
+
+513
+00:15:10,766 --> 00:15:12,236
+window we saw earlier I just go
+
+
+514
+00:15:12,236 --> 00:15:13,466
+straight to "clone an existing
+
+
+515
+00:15:13,466 --> 00:15:14,806
+project" right from the welcome
+
+
+516
+00:15:14,806 --> 00:15:16,936
+window and immediately it
+
+
+517
+00:15:16,936 --> 00:15:18,126
+populates with a list of
+
+
+518
+00:15:18,126 --> 00:15:19,116
+projects that I might be
+
+
+519
+00:15:19,116 --> 00:15:19,816
+interested in.
+
+
+520
+00:15:20,526 --> 00:15:21,816
+Now this is all the projects
+
+
+521
+00:15:21,846 --> 00:15:23,016
+that I own and maintain on
+
+
+522
+00:15:23,016 --> 00:15:25,286
+GitHub as well as any projects
+
+
+523
+00:15:25,286 --> 00:15:26,746
+that I've starred on GitHub and
+
+
+524
+00:15:26,806 --> 00:15:28,146
+indicated that I have some
+
+
+525
+00:15:28,146 --> 00:15:28,686
+interest in.
+
+
+526
+00:15:29,166 --> 00:15:30,936
+Additionally, if I'm a member of
+
+
+527
+00:15:30,936 --> 00:15:32,886
+any organization that has
+
+
+528
+00:15:32,886 --> 00:15:35,076
+repositories on GitHub, such as
+
+
+529
+00:15:35,076 --> 00:15:37,106
+the Apple organization here, I
+
+
+530
+00:15:37,106 --> 00:15:38,566
+can see those repositories as
+
+
+531
+00:15:38,566 --> 00:15:38,866
+well.
+
+
+532
+00:15:40,496 --> 00:15:41,526
+Now if this isn't what I'm
+
+
+533
+00:15:41,526 --> 00:15:43,256
+looking for I can just search.
+
+
+534
+00:15:43,316 --> 00:15:44,876
+So Kieran was telling me earlier
+
+
+535
+00:15:44,876 --> 00:15:46,216
+that I should really check out
+
+
+536
+00:15:46,216 --> 00:15:46,916
+research kit.
+
+
+537
+00:15:47,456 --> 00:15:49,046
+Research kit is Apple's open
+
+
+538
+00:15:49,046 --> 00:15:51,156
+source framework for creating
+
+
+539
+00:15:51,156 --> 00:15:52,546
+medical research applications
+
+
+540
+00:15:52,546 --> 00:15:53,606
+and it's available on GitHub.
+
+
+541
+00:15:53,936 --> 00:15:56,856
+So I'll just search research kit
+
+
+542
+00:15:56,856 --> 00:15:58,686
+and I'll put that into the
+
+
+543
+00:15:58,686 --> 00:16:00,246
+search field and sure enough
+
+
+544
+00:16:00,766 --> 00:16:02,516
+what comes back is research kit.
+
+
+545
+00:16:03,266 --> 00:16:04,556
+And if I'm not sure this is the
+
+
+546
+00:16:04,556 --> 00:16:05,676
+one I'm looking for I get a
+
+
+547
+00:16:05,676 --> 00:16:07,076
+little bit more information in
+
+
+548
+00:16:07,076 --> 00:16:07,736
+the detail view.
+
+
+549
+00:16:08,166 --> 00:16:09,776
+So if we zoom in on that we see
+
+
+550
+00:16:10,226 --> 00:16:11,486
+I get the full name and if I
+
+
+551
+00:16:11,486 --> 00:16:12,566
+click that I can go right to the
+
+
+552
+00:16:12,566 --> 00:16:13,676
+GitHub page for it.
+
+
+553
+00:16:14,526 --> 00:16:15,466
+But usually everything I need's
+
+
+554
+00:16:15,466 --> 00:16:15,946
+right here.
+
+
+555
+00:16:15,946 --> 00:16:17,516
+I get the description, the
+
+
+556
+00:16:17,516 --> 00:16:19,226
+language, the number of people
+
+
+557
+00:16:19,226 --> 00:16:21,246
+who have forked the project, how
+
+
+558
+00:16:21,246 --> 00:16:22,366
+many people have starred the
+
+
+559
+00:16:22,366 --> 00:16:24,626
+project, and the read me for the
+
+
+560
+00:16:24,626 --> 00:16:25,126
+project.
+
+
+561
+00:16:25,736 --> 00:16:26,876
+So if I click the read me you
+
+
+562
+00:16:27,266 --> 00:16:29,816
+get the read me file that this
+
+
+563
+00:16:29,816 --> 00:16:31,706
+project provides on GitHub and
+
+
+564
+00:16:31,706 --> 00:16:32,886
+usually this has information
+
+
+565
+00:16:32,886 --> 00:16:34,256
+like a bit more about the
+
+
+566
+00:16:34,256 --> 00:16:36,336
+project or how to get started
+
+
+567
+00:16:36,336 --> 00:16:38,286
+with it and even some sample
+
+
+568
+00:16:38,286 --> 00:16:38,566
+code.
+
+
+569
+00:16:38,836 --> 00:16:39,696
+And one of the great things is
+
+
+570
+00:16:39,696 --> 00:16:41,056
+since a lot of these are written
+
+
+571
+00:16:41,056 --> 00:16:42,866
+in markdown, when you do clone a
+
+
+572
+00:16:42,866 --> 00:16:44,696
+project they work great in
+
+
+573
+00:16:44,696 --> 00:16:46,356
+Xcode's new enhanced markdown
+
+
+574
+00:16:46,356 --> 00:16:48,236
+support in our source editor.
+
+
+575
+00:16:48,236 --> 00:16:51,706
+So that is the one I want so
+
+
+576
+00:16:51,706 --> 00:16:52,776
+I'll go ahead and star it.
+
+
+577
+00:16:53,476 --> 00:16:54,566
+And so right in Xcode when I
+
+
+578
+00:16:54,566 --> 00:16:56,236
+click the star button we see the
+
+
+579
+00:16:56,236 --> 00:16:57,896
+star count incremented because
+
+
+580
+00:16:57,896 --> 00:16:58,756
+I'm now starring this
+
+
+581
+00:16:58,756 --> 00:16:59,386
+repository.
+
+
+582
+00:16:59,976 --> 00:17:03,226
+And if I clear out my search we
+
+
+583
+00:17:03,226 --> 00:17:05,066
+see that sure enough, right in
+
+
+584
+00:17:05,066 --> 00:17:06,866
+my default view I see research
+
+
+585
+00:17:06,866 --> 00:17:07,246
+kit now.
+
+
+586
+00:17:07,486 --> 00:17:09,326
+So every machine I sign into I
+
+
+587
+00:17:09,326 --> 00:17:10,566
+can easily get back to research
+
+
+588
+00:17:10,566 --> 00:17:11,596
+kit if I want to check that out
+
+
+589
+00:17:11,596 --> 00:17:12,236
+a little bit later.
+
+
+590
+00:17:13,106 --> 00:17:14,786
+But today I want to check out
+
+
+591
+00:17:14,786 --> 00:17:15,786
+that TOTP app.
+
+
+592
+00:17:15,786 --> 00:17:18,076
+So TOTP is a onetime password
+
+
+593
+00:17:18,076 --> 00:17:18,546
+generator.
+
+
+594
+00:17:18,606 --> 00:17:19,566
+It's actually the app you saw me
+
+
+595
+00:17:19,566 --> 00:17:20,766
+use a little bit earlier to sign
+
+
+596
+00:17:20,766 --> 00:17:21,326
+in to GitHub.
+
+
+597
+00:17:21,326 --> 00:17:24,685
+So I'll just clone that and
+
+
+598
+00:17:24,685 --> 00:17:26,066
+right away I can save it to my
+
+
+599
+00:17:26,066 --> 00:17:26,796
+documents folder.
+
+
+600
+00:17:27,715 --> 00:17:29,816
+And that's it.
+
+
+601
+00:17:29,816 --> 00:17:31,436
+It's super simple in Xcode 9 to
+
+
+602
+00:17:31,436 --> 00:17:32,596
+clone projects from GitHub.
+
+
+603
+00:17:32,826 --> 00:17:34,126
+There's no more off prompts or
+
+
+604
+00:17:34,126 --> 00:17:35,176
+any choices you have to make
+
+
+605
+00:17:35,176 --> 00:17:36,316
+once you've selected a project.
+
+
+606
+00:17:36,896 --> 00:17:39,666
+And immediately upon cloning
+
+
+607
+00:17:39,866 --> 00:17:41,156
+Xcode will open the project and
+
+
+608
+00:17:41,156 --> 00:17:42,586
+you get a very familiar view.
+
+
+609
+00:17:42,786 --> 00:17:44,296
+You get your project navigator
+
+
+610
+00:17:44,996 --> 00:17:46,196
+and your editor area.
+
+
+611
+00:17:46,196 --> 00:17:47,876
+And if we look over in the left,
+
+
+612
+00:17:47,876 --> 00:17:49,526
+sure enough next to the project
+
+
+613
+00:17:49,526 --> 00:17:51,326
+navigator we see the new source
+
+
+614
+00:17:51,326 --> 00:17:52,126
+control navigator.
+
+
+615
+00:17:53,526 --> 00:17:54,576
+So this automatically gets
+
+
+616
+00:17:54,606 --> 00:17:56,086
+populated with every working
+
+
+617
+00:17:56,086 --> 00:17:57,936
+copy that makes up your project.
+
+
+618
+00:17:58,336 --> 00:17:59,826
+In this case I only have one;
+
+
+619
+00:17:59,886 --> 00:18:01,936
+the TOTP working copy.
+
+
+620
+00:18:02,716 --> 00:18:03,976
+And I see the one branch that I
+
+
+621
+00:18:03,976 --> 00:18:05,156
+automatically cloned when I
+
+
+622
+00:18:05,156 --> 00:18:06,716
+cloned from GitHub Master.
+
+
+623
+00:18:07,296 --> 00:18:09,706
+If I select "master" I instantly
+
+
+624
+00:18:09,706 --> 00:18:10,776
+get the full history of the
+
+
+625
+00:18:10,776 --> 00:18:11,286
+project.
+
+
+626
+00:18:12,076 --> 00:18:13,106
+And here we see all the commits
+
+
+627
+00:18:13,106 --> 00:18:14,386
+that make up this project and
+
+
+628
+00:18:14,386 --> 00:18:15,276
+make it what it is.
+
+
+629
+00:18:16,146 --> 00:18:19,106
+Now Kieran was showing something
+
+
+630
+00:18:19,106 --> 00:18:20,386
+a little bit earlier that looked
+
+
+631
+00:18:20,386 --> 00:18:21,326
+like a bug and we should
+
+
+632
+00:18:21,326 --> 00:18:23,766
+probably fix that before we move
+
+
+633
+00:18:23,766 --> 00:18:24,066
+on.
+
+
+634
+00:18:25,516 --> 00:18:26,636
+So I need to find that.
+
+
+635
+00:18:26,636 --> 00:18:27,886
+So I saw that it was made by
+
+
+636
+00:18:27,886 --> 00:18:28,406
+Kieran.
+
+
+637
+00:18:29,996 --> 00:18:31,086
+So I'll just say, "author;
+
+
+638
+00:18:31,086 --> 00:18:31,436
+Kieran."
+
+
+639
+00:18:32,456 --> 00:18:33,326
+And here's all the commits
+
+
+640
+00:18:33,326 --> 00:18:34,046
+Kieran's made.
+
+
+641
+00:18:34,836 --> 00:18:35,966
+And I think it had something to
+
+
+642
+00:18:35,966 --> 00:18:37,846
+do with the generator, if I saw
+
+
+643
+00:18:37,846 --> 00:18:38,316
+correctly.
+
+
+644
+00:18:38,316 --> 00:18:39,196
+So I think it was something
+
+
+645
+00:18:39,196 --> 00:18:40,246
+where in the message he said,
+
+
+646
+00:18:40,936 --> 00:18:41,386
+"Generator."
+
+
+647
+00:18:42,176 --> 00:18:43,816
+Generator -- sorry.
+
+
+648
+00:18:44,606 --> 00:18:45,446
+Ah, that's the one.
+
+
+649
+00:18:46,596 --> 00:18:48,686
+And if I select it I get a lot
+
+
+650
+00:18:48,686 --> 00:18:50,336
+of extra information about that
+
+
+651
+00:18:50,336 --> 00:18:50,616
+commit.
+
+
+652
+00:18:50,996 --> 00:18:51,936
+So in addition to a new source
+
+
+653
+00:18:51,936 --> 00:18:53,386
+control navigator, a new source
+
+
+654
+00:18:53,386 --> 00:18:55,116
+control history view, we also
+
+
+655
+00:18:55,116 --> 00:18:55,936
+have a new source control
+
+
+656
+00:18:55,936 --> 00:18:56,636
+inspector.
+
+
+657
+00:18:56,966 --> 00:18:58,476
+And in the inspector, when I
+
+
+658
+00:18:58,476 --> 00:19:00,066
+select a commit I get additional
+
+
+659
+00:19:00,066 --> 00:19:01,626
+information about that commit
+
+
+660
+00:19:02,286 --> 00:19:04,886
+such as the full shaw, the exact
+
+
+661
+00:19:04,956 --> 00:19:07,046
+commit date and time, the
+
+
+662
+00:19:07,046 --> 00:19:09,316
+author, as well as the full
+
+
+663
+00:19:09,316 --> 00:19:10,066
+commit message.
+
+
+664
+00:19:10,066 --> 00:19:11,826
+I can also see the files that
+
+
+665
+00:19:11,826 --> 00:19:13,236
+were modified in that commit.
+
+
+666
+00:19:13,236 --> 00:19:14,726
+And if I want to review the
+
+
+667
+00:19:14,726 --> 00:19:16,096
+changes made to any file in that
+
+
+668
+00:19:16,096 --> 00:19:17,916
+commit I can click this arrow
+
+
+669
+00:19:17,916 --> 00:19:19,076
+and go straight to them.
+
+
+670
+00:19:19,606 --> 00:19:21,526
+But as Kieran mentioned earlier,
+
+
+671
+00:19:21,526 --> 00:19:22,786
+there's an even better way than
+
+
+672
+00:19:22,786 --> 00:19:24,286
+just double clicking or clicking
+
+
+673
+00:19:24,286 --> 00:19:25,726
+this arrow to get to the dif,
+
+
+674
+00:19:25,796 --> 00:19:26,806
+and that's to make use of
+
+
+675
+00:19:26,806 --> 00:19:27,926
+Xcode's assistant editor.
+
+
+676
+00:19:28,556 --> 00:19:29,966
+So many of you may be familiar
+
+
+677
+00:19:29,966 --> 00:19:31,366
+with Xcode's assistant editor,
+
+
+678
+00:19:31,366 --> 00:19:32,976
+but probably have seen it mostly
+
+
+679
+00:19:32,976 --> 00:19:33,466
+on the right.
+
+
+680
+00:19:33,836 --> 00:19:35,506
+Now I want a little bit of extra
+
+
+681
+00:19:35,706 --> 00:19:37,566
+horizontal space to view dif sen
+
+
+682
+00:19:38,096 --> 00:19:39,286
+so if I click and hold on the
+
+
+683
+00:19:39,286 --> 00:19:41,236
+"assistant editor" button I can
+
+
+684
+00:19:41,236 --> 00:19:42,186
+select to have the assistant
+
+
+685
+00:19:42,186 --> 00:19:43,036
+editor on the bottom.
+
+
+686
+00:19:43,536 --> 00:19:45,016
+And when it opens it
+
+
+687
+00:19:45,066 --> 00:19:46,806
+automatically shows the commit
+
+
+688
+00:19:46,806 --> 00:19:47,856
+details for the commit I have
+
+
+689
+00:19:47,856 --> 00:19:48,866
+selected above.
+
+
+690
+00:19:48,866 --> 00:19:50,626
+So this is great.
+
+
+691
+00:19:50,626 --> 00:19:51,986
+I can go right to the change
+
+
+692
+00:19:51,986 --> 00:19:53,266
+that Kieran made and sure
+
+
+693
+00:19:53,266 --> 00:19:53,976
+enough, there it is.
+
+
+694
+00:19:54,236 --> 00:19:55,756
+Uh, well we should probably fix
+
+
+695
+00:19:55,756 --> 00:19:55,936
+that.
+
+
+696
+00:19:57,016 --> 00:19:57,916
+While I'm here, let me just show
+
+
+697
+00:19:57,916 --> 00:19:59,176
+you -- so even if I want to look
+
+
+698
+00:19:59,176 --> 00:20:01,446
+at some other commits they show
+
+
+699
+00:20:01,446 --> 00:20:01,656
+up.
+
+
+700
+00:20:01,656 --> 00:20:02,806
+The second I click them I get
+
+
+701
+00:20:02,806 --> 00:20:03,776
+all the files and all the
+
+
+702
+00:20:03,776 --> 00:20:05,016
+changes made in those commits.
+
+
+703
+00:20:05,586 --> 00:20:07,636
+So let's close the assistant
+
+
+704
+00:20:07,636 --> 00:20:11,886
+editor and go over to the app
+
+
+705
+00:20:11,886 --> 00:20:12,916
+delegate, where I think that
+
+
+706
+00:20:12,916 --> 00:20:14,686
+change was that broke it.
+
+
+707
+00:20:15,206 --> 00:20:15,866
+Ah, here it is.
+
+
+708
+00:20:16,416 --> 00:20:18,826
+So I'll just go ahead and fix
+
+
+709
+00:20:18,886 --> 00:20:19,586
+that.
+
+
+710
+00:20:20,236 --> 00:20:23,326
+Great. I love magical code
+
+
+711
+00:20:23,326 --> 00:20:24,516
+completion that fixes bugs.
+
+
+712
+00:20:26,606 --> 00:20:28,316
+And I would normally just commit
+
+
+713
+00:20:28,316 --> 00:20:30,106
+this right onto master and be
+
+
+714
+00:20:30,106 --> 00:20:31,466
+done with it, but I think this
+
+
+715
+00:20:31,466 --> 00:20:32,606
+change should use -- could use a
+
+
+716
+00:20:32,606 --> 00:20:33,666
+little bit more testing to make
+
+
+717
+00:20:33,666 --> 00:20:34,646
+sure we've actually fixed this
+
+
+718
+00:20:34,686 --> 00:20:36,226
+bug because I want to be sure.
+
+
+719
+00:20:37,306 --> 00:20:38,486
+So if we go back to the source
+
+
+720
+00:20:38,486 --> 00:20:40,416
+control navigator and I select
+
+
+721
+00:20:40,416 --> 00:20:41,916
+my master branch and control
+
+
+722
+00:20:41,916 --> 00:20:44,696
+click it I can create a new
+
+
+723
+00:20:44,696 --> 00:20:45,876
+branch from master.
+
+
+724
+00:20:46,456 --> 00:20:49,226
+And this new branch I'll just
+
+
+725
+00:20:49,226 --> 00:20:51,446
+call "fix" because I don't have
+
+
+726
+00:20:51,446 --> 00:20:52,526
+any good names.
+
+
+727
+00:20:53,466 --> 00:20:54,406
+[laughs] So this now
+
+
+728
+00:20:54,406 --> 00:20:56,226
+automatically got checked out by
+
+
+729
+00:20:56,226 --> 00:20:58,106
+Xcode and all my uncommitted
+
+
+730
+00:20:58,106 --> 00:20:59,606
+changes are now sitting on top
+
+
+731
+00:20:59,606 --> 00:21:00,646
+of the fix branch.
+
+
+732
+00:21:02,196 --> 00:21:03,696
+So with that I'm ready to
+
+
+733
+00:21:03,696 --> 00:21:04,026
+commit.
+
+
+734
+00:21:04,026 --> 00:21:06,326
+And to do that I just go to
+
+
+735
+00:21:06,326 --> 00:21:07,666
+source control and select
+
+
+736
+00:21:08,336 --> 00:21:09,886
+"commit" and make sure my dif is
+
+
+737
+00:21:09,886 --> 00:21:10,336
+correct.
+
+
+738
+00:21:10,846 --> 00:21:14,000
+Let's see, "fixes a crash."
+
+
+739
+00:21:15,856 --> 00:21:15,976
+Great.
+
+
+740
+00:21:16,506 --> 00:21:17,396
+So now that is one of those
+
+
+741
+00:21:17,396 --> 00:21:18,796
+commits that make up the history
+
+
+742
+00:21:18,796 --> 00:21:19,496
+of my project.
+
+
+743
+00:21:20,136 --> 00:21:21,966
+And I can verify that if I go to
+
+
+744
+00:21:21,966 --> 00:21:23,586
+the "fix" branch in the source
+
+
+745
+00:21:23,586 --> 00:21:24,456
+control navigator.
+
+
+746
+00:21:24,836 --> 00:21:25,786
+Here we see that brand new
+
+
+747
+00:21:25,786 --> 00:21:27,286
+commit I just created today.
+
+
+748
+00:21:27,966 --> 00:21:29,626
+Now one of the things that I
+
+
+749
+00:21:29,626 --> 00:21:31,016
+often find when I'm making
+
+
+750
+00:21:31,016 --> 00:21:32,296
+branches and committing things
+
+
+751
+00:21:32,296 --> 00:21:33,406
+is that I forget what commits
+
+
+752
+00:21:33,406 --> 00:21:34,356
+are on what branches and I
+
+
+753
+00:21:34,356 --> 00:21:36,006
+easily lose track of them and
+
+
+754
+00:21:36,006 --> 00:21:37,236
+it's really annoying to have to
+
+
+755
+00:21:37,236 --> 00:21:38,286
+figure out whether or not a
+
+
+756
+00:21:38,286 --> 00:21:39,596
+commit you've made landed in the
+
+
+757
+00:21:39,596 --> 00:21:40,256
+right branch.
+
+
+758
+00:21:40,976 --> 00:21:42,606
+Well Xcode 9 has a great way to
+
+
+759
+00:21:42,606 --> 00:21:43,246
+figure that out.
+
+
+760
+00:21:43,786 --> 00:21:46,276
+If I select my commit and zoom
+
+
+761
+00:21:46,276 --> 00:21:47,926
+in here on the inspector we see
+
+
+762
+00:21:47,926 --> 00:21:49,396
+that there's a branches area.
+
+
+763
+00:21:49,396 --> 00:21:51,566
+And right now the only branches
+
+
+764
+00:21:51,566 --> 00:21:53,866
+listed for that commit is "fix."
+
+
+765
+00:21:54,296 --> 00:21:55,436
+So this particular commit is
+
+
+766
+00:21:55,486 --> 00:21:56,926
+only in the fix branch.
+
+
+767
+00:21:58,106 --> 00:21:59,376
+If I go back and look at an
+
+
+768
+00:21:59,376 --> 00:22:02,136
+older commit, now if we look at
+
+
+769
+00:22:02,136 --> 00:22:03,516
+it this commit is a bit older
+
+
+770
+00:22:03,516 --> 00:22:04,826
+and was before I branched.
+
+
+771
+00:22:05,216 --> 00:22:06,476
+So it's actually in both the
+
+
+772
+00:22:06,476 --> 00:22:08,106
+"fix" branch and the master
+
+
+773
+00:22:08,106 --> 00:22:08,566
+branch.
+
+
+774
+00:22:08,786 --> 00:22:09,766
+So this is a great way to figure
+
+
+775
+00:22:09,766 --> 00:22:10,906
+out exactly where your commits
+
+
+776
+00:22:10,906 --> 00:22:12,336
+are and know exactly what you're
+
+
+777
+00:22:12,336 --> 00:22:13,506
+shipping to your customers.
+
+
+778
+00:22:14,876 --> 00:22:16,686
+Now normally I create an Xcode
+
+
+779
+00:22:16,686 --> 00:22:18,436
+server bot to integrate this and
+
+
+780
+00:22:18,436 --> 00:22:19,726
+some unit tests and all that,
+
+
+781
+00:22:19,726 --> 00:22:21,536
+but since I just got a thousand
+
+
+782
+00:22:21,536 --> 00:22:23,326
+of my closest friends here to
+
+
+783
+00:22:23,326 --> 00:22:25,556
+code review my change I'm going
+
+
+784
+00:22:25,556 --> 00:22:27,136
+to just merge it into master.
+
+
+785
+00:22:27,806 --> 00:22:29,516
+So again, if I control click
+
+
+786
+00:22:29,516 --> 00:22:32,206
+"master" in the navigator I can
+
+
+787
+00:22:32,206 --> 00:22:34,386
+merge from "fix" into "master"
+
+
+788
+00:22:35,016 --> 00:22:37,966
+and in one step I have merged my
+
+
+789
+00:22:37,966 --> 00:22:39,606
+fix into master and switched to
+
+
+790
+00:22:39,606 --> 00:22:41,896
+the master branch super easily
+
+
+791
+00:22:41,896 --> 00:22:42,606
+from the source control
+
+
+792
+00:22:42,606 --> 00:22:43,186
+navigator.
+
+
+793
+00:22:43,776 --> 00:22:44,626
+And sure enough, the history
+
+
+794
+00:22:44,626 --> 00:22:44,976
+view updates.
+
+
+795
+00:22:45,516 --> 00:22:50,546
+[ Applause ]
+
+
+796
+00:22:51,046 --> 00:22:52,766
+This review updates and I can
+
+
+797
+00:22:52,766 --> 00:22:55,506
+see that my fix is now on the
+
+
+798
+00:22:55,506 --> 00:22:56,996
+master branch as well as "fix."
+
+
+799
+00:22:57,076 --> 00:22:59,196
+And if we zoom in over here, if
+
+
+800
+00:22:59,196 --> 00:23:00,376
+I need to confirm that indeed
+
+
+801
+00:23:00,376 --> 00:23:01,836
+this change made it to master,
+
+
+802
+00:23:02,326 --> 00:23:03,446
+the master branch is listed.
+
+
+803
+00:23:05,426 --> 00:23:06,916
+Now this was a crash that was
+
+
+804
+00:23:06,916 --> 00:23:08,476
+affecting a lot of our users so
+
+
+805
+00:23:08,476 --> 00:23:09,416
+I want to make sure we get this
+
+
+806
+00:23:09,416 --> 00:23:10,376
+app out quickly.
+
+
+807
+00:23:10,566 --> 00:23:11,606
+So I'm going to tag it.
+
+
+808
+00:23:12,266 --> 00:23:13,546
+And if I control click on a
+
+
+809
+00:23:13,546 --> 00:23:14,716
+commit we see that there's a
+
+
+810
+00:23:14,716 --> 00:23:15,986
+bunch of actions I can do on a
+
+
+811
+00:23:15,986 --> 00:23:16,956
+commit as well.
+
+
+812
+00:23:16,956 --> 00:23:18,696
+So just like you can do actions
+
+
+813
+00:23:18,696 --> 00:23:20,406
+on a branch in Xcode 9, you can
+
+
+814
+00:23:20,406 --> 00:23:21,586
+do particular actions on a
+
+
+815
+00:23:21,586 --> 00:23:23,686
+commit such as checking out or
+
+
+816
+00:23:23,686 --> 00:23:24,876
+branching even from an older
+
+
+817
+00:23:24,876 --> 00:23:25,536
+point in time.
+
+
+818
+00:23:26,796 --> 00:23:28,756
+But today I'm going to tag this
+
+
+819
+00:23:28,756 --> 00:23:30,066
+commit so that we know which one
+
+
+820
+00:23:30,066 --> 00:23:31,266
+we want to release as Version
+
+
+821
+00:23:31,266 --> 00:23:31,946
+1.2.
+
+
+822
+00:23:33,536 --> 00:23:35,676
+So I'll select "tag" and select
+
+
+823
+00:23:35,676 --> 00:23:41,916
+"releases/v1.2" and create that
+
+
+824
+00:23:41,916 --> 00:23:42,176
+tag.
+
+
+825
+00:23:42,266 --> 00:23:43,586
+And there we go.
+
+
+826
+00:23:43,586 --> 00:23:45,446
+As soon as I do that the tag is
+
+
+827
+00:23:45,446 --> 00:23:46,926
+automatically upended to that
+
+
+828
+00:23:46,926 --> 00:23:47,296
+commit.
+
+
+829
+00:23:48,156 --> 00:23:49,826
+And I can verify that in the
+
+
+830
+00:23:49,826 --> 00:23:51,946
+"tags" folder of the source
+
+
+831
+00:23:51,946 --> 00:23:52,756
+control navigator.
+
+
+832
+00:23:53,246 --> 00:23:54,086
+And because I've been using
+
+
+833
+00:23:54,086 --> 00:23:56,286
+slashes and names to prefix all
+
+
+834
+00:23:56,286 --> 00:23:58,346
+my tags we see Xcode creates an
+
+
+835
+00:23:58,346 --> 00:24:00,696
+automatic hierarchy for me in
+
+
+836
+00:24:00,696 --> 00:24:02,166
+the navigator, making it super
+
+
+837
+00:24:02,166 --> 00:24:03,646
+easy to organize my project.
+
+
+838
+00:24:04,366 --> 00:24:06,186
+So we'll get that onto the App
+
+
+839
+00:24:06,186 --> 00:24:07,646
+Store to get rid of those one
+
+
+840
+00:24:07,646 --> 00:24:08,786
+star reviews from all that
+
+
+841
+00:24:08,786 --> 00:24:09,416
+crashing.
+
+
+842
+00:24:10,186 --> 00:24:11,426
+But while Kieran was up here I
+
+
+843
+00:24:11,426 --> 00:24:13,136
+had another really cool idea
+
+
+844
+00:24:13,136 --> 00:24:14,506
+that I was just thinking about.
+
+
+845
+00:24:14,506 --> 00:24:15,456
+So I'm going to create a new
+
+
+846
+00:24:15,456 --> 00:24:15,946
+project.
+
+
+847
+00:24:16,586 --> 00:24:20,936
+So let's open up Xcode and let's
+
+
+848
+00:24:20,936 --> 00:24:22,696
+get started with a new Xcode
+
+
+849
+00:24:22,696 --> 00:24:23,076
+project.
+
+
+850
+00:24:23,076 --> 00:24:24,626
+And you know what I was thinking
+
+
+851
+00:24:24,626 --> 00:24:25,716
+would be really fun is if we
+
+
+852
+00:24:25,716 --> 00:24:28,116
+made some SCM centric stickers
+
+
+853
+00:24:28,226 --> 00:24:28,436
+for iOS.
+
+
+854
+00:24:28,436 --> 00:24:30,536
+So I'm going to make a sticker
+
+
+855
+00:24:30,536 --> 00:24:31,036
+pack app.
+
+
+856
+00:24:31,496 --> 00:24:32,976
+So I'll just select that and
+
+
+857
+00:24:32,976 --> 00:24:35,576
+call it "SCM Stickers."
+
+
+858
+00:24:37,406 --> 00:24:38,696
+Now every time you create a new
+
+
+859
+00:24:38,696 --> 00:24:40,516
+project in Xcode, Xcode always
+
+
+860
+00:24:40,516 --> 00:24:41,806
+offers you the option to create
+
+
+861
+00:24:41,806 --> 00:24:43,476
+a git repository right then and
+
+
+862
+00:24:43,476 --> 00:24:45,576
+there as you create the project.
+
+
+863
+00:24:46,046 --> 00:24:47,366
+Now personally I always do this,
+
+
+864
+00:24:47,366 --> 00:24:48,306
+even if I think it's just a
+
+
+865
+00:24:48,306 --> 00:24:49,646
+throwaway project or I'm testing
+
+
+866
+00:24:49,646 --> 00:24:50,986
+some code because you never know
+
+
+867
+00:24:50,986 --> 00:24:52,446
+how long you're going to keep
+
+
+868
+00:24:52,446 --> 00:24:54,236
+working on the same thing and
+
+
+869
+00:24:54,236 --> 00:24:55,406
+this way you always have history
+
+
+870
+00:24:55,406 --> 00:24:57,006
+from the very beginning of time
+
+
+871
+00:24:57,006 --> 00:24:57,776
+for your project.
+
+
+872
+00:24:59,096 --> 00:25:00,196
+So let's create that git
+
+
+873
+00:25:00,196 --> 00:25:01,466
+repository on my Mac.
+
+
+874
+00:25:02,946 --> 00:25:04,176
+And now I have my sticker app.
+
+
+875
+00:25:05,306 --> 00:25:06,166
+If we go to the source control
+
+
+876
+00:25:06,166 --> 00:25:08,316
+navigator from this app we see
+
+
+877
+00:25:08,316 --> 00:25:09,696
+that I have a working copy that
+
+
+878
+00:25:09,696 --> 00:25:11,216
+was automatically created by
+
+
+879
+00:25:11,216 --> 00:25:13,056
+Xcode and it has one branch
+
+
+880
+00:25:13,196 --> 00:25:14,326
+master which is current.
+
+
+881
+00:25:14,646 --> 00:25:16,876
+And it has the initial commit,
+
+
+882
+00:25:16,876 --> 00:25:18,006
+which is essentially just all
+
+
+883
+00:25:18,006 --> 00:25:21,426
+the template stuff from Xcode.
+
+
+884
+00:25:22,226 --> 00:25:23,146
+So now it's time to put my
+
+
+885
+00:25:23,146 --> 00:25:24,686
+stickers into my app.
+
+
+886
+00:25:25,656 --> 00:25:26,856
+So let's go over to the project
+
+
+887
+00:25:26,856 --> 00:25:28,476
+navigator and select the
+
+
+888
+00:25:28,476 --> 00:25:29,266
+"stickers" folder.
+
+
+889
+00:25:31,106 --> 00:25:32,336
+And I already have a few
+
+
+890
+00:25:32,336 --> 00:25:33,396
+stickers here that I like.
+
+
+891
+00:25:33,606 --> 00:25:36,356
+I've got one of a "tag" icon and
+
+
+892
+00:25:36,356 --> 00:25:38,366
+I've got a few emoji peeking out
+
+
+893
+00:25:38,366 --> 00:25:39,036
+from a safe.
+
+
+894
+00:25:39,216 --> 00:25:42,256
+That says "SCM."
+
+
+895
+00:25:42,496 --> 00:25:46,186
+So let's put those all into my
+
+
+896
+00:25:46,186 --> 00:25:49,246
+sticker pack and go to "commit."
+
+
+897
+00:25:49,246 --> 00:25:51,466
+So I'll go ahead and commit all
+
+
+898
+00:25:51,466 --> 00:25:51,976
+those stickers.
+
+
+899
+00:25:57,046 --> 00:25:58,726
+And now they're all part of my
+
+
+900
+00:25:58,916 --> 00:25:59,346
+history.
+
+
+901
+00:26:00,516 --> 00:26:02,006
+And if I look at my branch I
+
+
+902
+00:26:02,006 --> 00:26:02,786
+have two commits.
+
+
+903
+00:26:04,256 --> 00:26:05,106
+But if I open the "remotes"
+
+
+904
+00:26:05,106 --> 00:26:06,956
+folder I don't have a remote.
+
+
+905
+00:26:07,366 --> 00:26:08,966
+In fact this project only exists
+
+
+906
+00:26:08,966 --> 00:26:09,446
+locally.
+
+
+907
+00:26:09,516 --> 00:26:11,166
+So while git is tracking history
+
+
+908
+00:26:11,166 --> 00:26:12,726
+for my project, if I want to
+
+
+909
+00:26:12,726 --> 00:26:14,256
+check it out on another machine,
+
+
+910
+00:26:14,526 --> 00:26:17,206
+share it with somebody else, or
+
+
+911
+00:26:17,206 --> 00:26:19,366
+if I lose this machine, this is
+
+
+912
+00:26:19,366 --> 00:26:20,036
+the only copy.
+
+
+913
+00:26:20,186 --> 00:26:21,526
+So I need to make sure that I
+
+
+914
+00:26:21,526 --> 00:26:23,086
+can put it somewhere where it's
+
+
+915
+00:26:23,086 --> 00:26:24,456
+safe and easy to share with
+
+
+916
+00:26:24,456 --> 00:26:25,036
+other people.
+
+
+917
+00:26:25,516 --> 00:26:26,376
+And for that I'm going to use
+
+
+918
+00:26:26,376 --> 00:26:26,926
+GitHub again.
+
+
+919
+00:26:27,816 --> 00:26:28,966
+So if I control click on the
+
+
+920
+00:26:28,966 --> 00:26:31,076
+"remotes" folder I see that one
+
+
+921
+00:26:31,146 --> 00:26:32,626
+of the options is that I can now
+
+
+922
+00:26:32,626 --> 00:26:34,816
+create the SCM stickers remote
+
+
+923
+00:26:35,076 --> 00:26:35,796
+right on GitHub.
+
+
+924
+00:26:36,166 --> 00:26:39,066
+And if I select that a new sheet
+
+
+925
+00:26:39,066 --> 00:26:40,626
+comes down and asks me all the
+
+
+926
+00:26:40,626 --> 00:26:42,296
+things I want to set up about my
+
+
+927
+00:26:42,296 --> 00:26:43,156
+project on GitHub.
+
+
+928
+00:26:43,766 --> 00:26:44,886
+I get to choose what account
+
+
+929
+00:26:45,216 --> 00:26:45,866
+that I'm going to use.
+
+
+930
+00:26:45,866 --> 00:26:46,556
+So I'll use mine.
+
+
+931
+00:26:47,096 --> 00:26:48,186
+And I can select the owner.
+
+
+932
+00:26:48,186 --> 00:26:49,786
+So if you're a member of
+
+
+933
+00:26:49,786 --> 00:26:51,036
+organizations and have
+
+
+934
+00:26:51,036 --> 00:26:51,716
+permission to create
+
+
+935
+00:26:51,716 --> 00:26:53,636
+repositories for them you can
+
+
+936
+00:26:53,636 --> 00:26:55,876
+actually create repositories for
+
+
+937
+00:26:55,876 --> 00:26:56,816
+your organizations.
+
+
+938
+00:26:57,776 --> 00:26:59,446
+And then I get to select a name
+
+
+939
+00:26:59,446 --> 00:27:00,656
+for my project and by default
+
+
+940
+00:27:00,656 --> 00:27:01,916
+it'll just pick the project
+
+
+941
+00:27:01,916 --> 00:27:03,346
+name; "SCM Stickers."
+
+
+942
+00:27:03,896 --> 00:27:05,706
+If we look closely we see that
+
+
+943
+00:27:05,786 --> 00:27:07,326
+the owner name and repository
+
+
+944
+00:27:07,326 --> 00:27:09,486
+name combine to form the URL
+
+
+945
+00:27:09,486 --> 00:27:10,406
+where you'll be able to check
+
+
+946
+00:27:10,406 --> 00:27:11,636
+this out on the World Wide Web.
+
+
+947
+00:27:12,466 --> 00:27:13,366
+Now let's give it a little bit
+
+
+948
+00:27:13,366 --> 00:27:13,976
+of a description.
+
+
+949
+00:27:17,556 --> 00:27:19,336
+And while I would say check it
+
+
+950
+00:27:19,336 --> 00:27:20,566
+out on the World Wide Web, but I
+
+
+951
+00:27:20,566 --> 00:27:22,056
+can actually make it private so
+
+
+952
+00:27:22,056 --> 00:27:23,336
+that no one but me can see it
+
+
+953
+00:27:23,336 --> 00:27:24,966
+and commit to it because I don't
+
+
+954
+00:27:24,966 --> 00:27:25,926
+think the world's quite ready
+
+
+955
+00:27:25,926 --> 00:27:26,466
+for these yet.
+
+
+956
+00:27:27,156 --> 00:27:28,456
+If I go ahead and select
+
+
+957
+00:27:28,456 --> 00:27:30,226
+"create" that project will get
+
+
+958
+00:27:30,226 --> 00:27:31,416
+created on GitHub under my
+
+
+959
+00:27:31,416 --> 00:27:33,526
+account and all my changes will
+
+
+960
+00:27:33,526 --> 00:27:34,616
+get pushed right up to the
+
+
+961
+00:27:34,616 --> 00:27:35,006
+server.
+
+
+962
+00:27:36,056 --> 00:27:37,636
+Ah, I forgot one of the stickers
+
+
+963
+00:27:37,636 --> 00:27:38,696
+and it's my favorite one!
+
+
+964
+00:27:39,126 --> 00:27:40,166
+Let's go back to the project
+
+
+965
+00:27:40,166 --> 00:27:42,786
+navigator and select "stickers."
+
+
+966
+00:27:43,676 --> 00:27:44,636
+And I don't know if you know
+
+
+967
+00:27:44,636 --> 00:27:45,996
+this, but GitHub's logo is
+
+
+968
+00:27:45,996 --> 00:27:47,206
+actually an octo-cat.
+
+
+969
+00:27:47,586 --> 00:27:49,496
+Well, I thought I'd take my --
+
+
+970
+00:27:49,566 --> 00:27:51,066
+try my hand at making my own
+
+
+971
+00:27:51,106 --> 00:27:51,796
+octo-cat.
+
+
+972
+00:27:52,296 --> 00:27:53,416
+And so let's add that as one of
+
+
+973
+00:27:53,416 --> 00:27:54,086
+the stickers.
+
+
+974
+00:27:55,286 --> 00:27:57,806
+And let's go ahead and go commit
+
+
+975
+00:27:57,806 --> 00:27:58,276
+that.
+
+
+976
+00:27:58,886 --> 00:27:59,906
+Make sure that that gets up on
+
+
+977
+00:27:59,906 --> 00:28:00,916
+the GitHub too.
+
+
+978
+00:28:02,306 --> 00:28:05,146
+Octo-cat. Now, since I now have
+
+
+979
+00:28:05,146 --> 00:28:07,156
+a remote I can go ahead and push
+
+
+980
+00:28:07,156 --> 00:28:08,426
+all my changes right up to
+
+
+981
+00:28:08,426 --> 00:28:09,376
+GitHub where they're safe and
+
+
+982
+00:28:09,376 --> 00:28:11,356
+secure as I commit to skip a
+
+
+983
+00:28:11,356 --> 00:28:13,256
+whole bunch of extra steps of
+
+
+984
+00:28:13,256 --> 00:28:14,096
+having to do it later.
+
+
+985
+00:28:14,096 --> 00:28:15,036
+And this way I don't end up
+
+
+986
+00:28:15,036 --> 00:28:17,816
+behind from my remote branch.
+
+
+987
+00:28:18,476 --> 00:28:19,516
+So I'll just go ahead and commit
+
+
+988
+00:28:19,516 --> 00:28:22,576
+and push those files and that
+
+
+989
+00:28:22,726 --> 00:28:24,466
+sticker now will also be up on
+
+
+990
+00:28:24,466 --> 00:28:24,806
+GitHub.
+
+
+991
+00:28:26,586 --> 00:28:28,376
+If I go to my repository -- or
+
+
+992
+00:28:28,376 --> 00:28:29,046
+sorry -- my source control
+
+
+993
+00:28:29,046 --> 00:28:30,256
+navigator again and look at my
+
+
+994
+00:28:30,256 --> 00:28:32,336
+master branch it now has three
+
+
+995
+00:28:32,336 --> 00:28:33,366
+commits and I see that the
+
+
+996
+00:28:33,366 --> 00:28:35,566
+remote's origin master branch is
+
+
+997
+00:28:35,566 --> 00:28:36,816
+also at the same place.
+
+
+998
+00:28:37,616 --> 00:28:38,946
+If I want to be even further
+
+
+999
+00:28:38,946 --> 00:28:40,346
+sure that this commit made it up
+
+
+1000
+00:28:40,346 --> 00:28:41,756
+onto GitHub or I wanted to look
+
+
+1001
+00:28:41,756 --> 00:28:43,446
+at it on GitHub I can just
+
+
+1002
+00:28:43,446 --> 00:28:45,656
+control click the commit, and
+
+
+1003
+00:28:45,656 --> 00:28:47,256
+like any other object in source
+
+
+1004
+00:28:47,256 --> 00:28:48,426
+control and Xcode, such as a
+
+
+1005
+00:28:48,426 --> 00:28:50,986
+branch or tag or remote, I can
+
+
+1006
+00:28:50,986 --> 00:28:51,816
+view it on GitHub.
+
+
+1007
+00:28:51,896 --> 00:28:54,206
+And if I select that Safari will
+
+
+1008
+00:28:54,206 --> 00:28:55,796
+open up straight to that commit
+
+
+1009
+00:28:55,796 --> 00:28:57,506
+on GitHub and I see my beautiful
+
+
+1010
+00:28:57,506 --> 00:28:57,976
+octo-cat.
+
+
+1011
+00:28:58,516 --> 00:29:05,566
+[ Applause ]
+
+
+1012
+00:29:06,066 --> 00:29:06,786
+Now I want Kieran to be able to
+
+
+1013
+00:29:06,786 --> 00:29:08,406
+check this out to, but I made it
+
+
+1014
+00:29:08,436 --> 00:29:08,856
+private.
+
+
+1015
+00:29:08,856 --> 00:29:10,726
+So let's go to "settings" and
+
+
+1016
+00:29:10,726 --> 00:29:12,056
+add him as a collaborator.
+
+
+1017
+00:29:13,176 --> 00:29:13,816
+And we've got to make sure we're
+
+
+1018
+00:29:13,816 --> 00:29:14,356
+secure.
+
+
+1019
+00:29:17,036 --> 00:29:19,006
+So let's add Kieran.
+
+
+1020
+00:29:19,726 --> 00:29:20,296
+There he is.
+
+
+1021
+00:29:20,836 --> 00:29:22,076
+So we'll add him as a
+
+
+1022
+00:29:22,076 --> 00:29:23,256
+collaborator so now he can see
+
+
+1023
+00:29:23,256 --> 00:29:24,516
+this private repo too.
+
+
+1024
+00:29:24,516 --> 00:29:26,626
+And I want him to check it out
+
+
+1025
+00:29:26,626 --> 00:29:27,826
+as soon as possible.
+
+
+1026
+00:29:27,826 --> 00:29:29,976
+So I'm going to make it really
+
+
+1027
+00:29:29,976 --> 00:29:31,686
+easy for him and I'm going to go
+
+
+1028
+00:29:31,686 --> 00:29:33,616
+ahead and we see on GitHub the
+
+
+1029
+00:29:33,616 --> 00:29:34,906
+"clone" -- or "download" button,
+
+
+1030
+00:29:35,196 --> 00:29:36,576
+just like we showed earlier the
+
+
+1031
+00:29:36,576 --> 00:29:37,796
+"open in Xcode" button is right
+
+
+1032
+00:29:37,796 --> 00:29:40,136
+there and I can even select that
+
+
+1033
+00:29:40,186 --> 00:29:41,746
+and just share that link with
+
+
+1034
+00:29:41,746 --> 00:29:42,936
+him in mail.
+
+
+1035
+00:29:43,536 --> 00:29:44,386
+Let's see here.
+
+
+1036
+00:29:44,916 --> 00:29:46,636
+Let's send that to Kieran.
+
+
+1037
+00:29:47,546 --> 00:29:51,436
+"Check out my stickers."
+
+
+1038
+00:29:52,216 --> 00:29:53,266
+We'll send that to Kieran so he
+
+
+1039
+00:29:53,266 --> 00:29:54,576
+can just click this link right
+
+
+1040
+00:29:54,576 --> 00:29:55,436
+on his machine as soon as he
+
+
+1041
+00:29:55,436 --> 00:29:57,286
+gets it, Xcode will open, clone
+
+
+1042
+00:29:57,286 --> 00:29:58,406
+it, and he can have fun with my
+
+
+1043
+00:29:58,406 --> 00:29:59,000
+octo-cat.
+
+
+1044
+00:30:00,366 --> 00:30:03,506
+Great. So now before he does
+
+
+1045
+00:30:03,506 --> 00:30:04,336
+check that out I want to bring
+
+
+1046
+00:30:04,336 --> 00:30:05,736
+him back on stage to talk a
+
+
+1047
+00:30:05,736 --> 00:30:06,926
+little bit more about source
+
+
+1048
+00:30:06,926 --> 00:30:07,646
+control and Xcode.
+
+
+1049
+00:30:07,646 --> 00:30:07,906
+Thank you.
+
+
+1050
+00:30:08,516 --> 00:30:13,886
+[ Applause ]
+
+
+1051
+00:30:14,386 --> 00:30:14,846
+>> Awesome.
+
+
+1052
+00:30:14,846 --> 00:30:15,796
+Thank you, Eric.
+
+
+1053
+00:30:15,796 --> 00:30:17,026
+I'll be sure to check that out
+
+
+1054
+00:30:17,026 --> 00:30:18,396
+on the World Wide Web later.
+
+
+1055
+00:30:19,216 --> 00:30:20,096
+It's okay; I lived through the
+
+
+1056
+00:30:20,096 --> 00:30:20,666
+'90s.
+
+
+1057
+00:30:22,236 --> 00:30:24,486
+So Eric showed us how easy it is
+
+
+1058
+00:30:24,486 --> 00:30:26,136
+to get started with source
+
+
+1059
+00:30:26,136 --> 00:30:27,466
+control and Xcode.
+
+
+1060
+00:30:27,926 --> 00:30:29,496
+By adding your GitHub account
+
+
+1061
+00:30:29,836 --> 00:30:31,906
+you have quick access to all of
+
+
+1062
+00:30:31,906 --> 00:30:32,816
+your repositories.
+
+
+1063
+00:30:33,526 --> 00:30:34,586
+With the new source control
+
+
+1064
+00:30:34,586 --> 00:30:37,066
+navigator we saw how easy it is
+
+
+1065
+00:30:37,386 --> 00:30:39,066
+to manage your branches, tags,
+
+
+1066
+00:30:39,066 --> 00:30:39,826
+and remotes.
+
+
+1067
+00:30:40,336 --> 00:30:42,686
+And finally, we saw how easy it
+
+
+1068
+00:30:42,686 --> 00:30:44,536
+is to create a new project on
+
+
+1069
+00:30:44,536 --> 00:30:46,286
+GitHub and push all your code
+
+
+1070
+00:30:46,286 --> 00:30:46,546
+up.
+
+
+1071
+00:30:47,226 --> 00:30:49,096
+So for more information check
+
+
+1072
+00:30:49,096 --> 00:30:50,956
+out session 405 on
+
+
+1073
+00:30:50,956 --> 00:30:52,616
+developer.apple.com.
+
+
+1074
+00:30:53,096 --> 00:30:54,286
+There are also some related
+
+
+1075
+00:30:54,286 --> 00:30:55,666
+sessions you can take a look at.
+
+
+1076
+00:30:56,126 --> 00:30:56,856
+You're very welcome.
+
+
+1077
+00:30:57,886 --> 00:30:58,826
+Have a good rest of the week.
+
+
+1078
+00:30:58,826 --> 00:30:58,976
+Thanks!
+
+
+1079
+00:30:59,516 --> 00:31:03,500
+[ Applause ]
+

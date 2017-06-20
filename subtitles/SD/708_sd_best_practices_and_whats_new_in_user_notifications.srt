@@ -1,0 +1,6999 @@
+1
+00:00:20,516 --> 00:00:22,956
+[ Applause ]
+
+
+2
+00:00:23,456 --> 00:00:24,746
+>> Good afternoon, and welcome
+
+
+3
+00:00:24,746 --> 00:00:26,676
+everybody to our session, Best
+
+
+4
+00:00:26,676 --> 00:00:28,566
+Practices and What's New in User
+
+
+5
+00:00:28,566 --> 00:00:29,326
+Notifications.
+
+
+6
+00:00:30,006 --> 00:00:31,616
+I'm Kritharth Jain and a junior
+
+
+7
+00:00:31,706 --> 00:00:33,316
+on the iOS notifications team
+
+
+8
+00:00:33,796 --> 00:00:34,616
+and I'll be joined by my
+
+
+9
+00:00:34,616 --> 00:00:35,756
+colleague, Teja, for this
+
+
+10
+00:00:35,756 --> 00:00:36,306
+session today.
+
+
+11
+00:00:37,476 --> 00:00:39,746
+So, today we're going to start
+
+
+12
+00:00:39,916 --> 00:00:41,206
+by doing an overview of
+
+
+13
+00:00:41,246 --> 00:00:42,896
+notifications and all the
+
+
+14
+00:00:42,896 --> 00:00:44,756
+different APIs that you as app
+
+
+15
+00:00:44,756 --> 00:00:46,106
+developers can use for doing
+
+
+16
+00:00:46,106 --> 00:00:47,536
+notifications for your
+
+
+17
+00:00:47,536 --> 00:00:48,206
+applications.
+
+
+18
+00:00:49,176 --> 00:00:50,676
+Then, we're going to jump into
+
+
+19
+00:00:50,676 --> 00:00:52,286
+four different use cases for
+
+
+20
+00:00:52,286 --> 00:00:53,076
+notifications.
+
+
+21
+00:00:53,856 --> 00:00:54,886
+We're going to start out by
+
+
+22
+00:00:54,886 --> 00:00:56,796
+introducing a new concept for
+
+
+23
+00:00:56,796 --> 00:00:58,856
+iOS notifications about hidden
+
+
+24
+00:00:58,856 --> 00:01:00,926
+notification content which we
+
+
+25
+00:01:00,926 --> 00:01:01,746
+think you're going to be really
+
+
+26
+00:01:01,746 --> 00:01:02,406
+excited about.
+
+
+27
+00:01:03,396 --> 00:01:04,656
+Then we're going to jump into
+
+
+28
+00:01:04,656 --> 00:01:05,926
+our second use case about
+
+
+29
+00:01:05,966 --> 00:01:07,686
+modifying push notification
+
+
+30
+00:01:07,686 --> 00:01:09,286
+content before delivery to the
+
+
+31
+00:01:09,286 --> 00:01:09,626
+user.
+
+
+32
+00:01:10,536 --> 00:01:11,456
+Then we'll talk about
+
+
+33
+00:01:11,456 --> 00:01:13,286
+customizing rich notifications
+
+
+34
+00:01:13,556 --> 00:01:15,056
+and how you can completely own
+
+
+35
+00:01:15,306 --> 00:01:17,016
+the UI and feel of these
+
+
+36
+00:01:17,016 --> 00:01:17,796
+notifications.
+
+
+37
+00:01:18,406 --> 00:01:20,436
+And lastly we'll talk about user
+
+
+38
+00:01:20,436 --> 00:01:22,386
+input customization associated
+
+
+39
+00:01:22,606 --> 00:01:23,896
+with these rich notifications.
+
+
+40
+00:01:25,216 --> 00:01:26,786
+So, let's start with the
+
+
+41
+00:01:26,786 --> 00:01:27,906
+notifications overview.
+
+
+42
+00:01:28,936 --> 00:01:30,426
+Now, I'm sure you all know that
+
+
+43
+00:01:30,426 --> 00:01:31,236
+there are two types of
+
+
+44
+00:01:31,236 --> 00:01:31,926
+notifications.
+
+
+45
+00:01:32,296 --> 00:01:33,506
+There are local notifications.
+
+
+46
+00:01:33,926 --> 00:01:35,306
+These are the ones that are
+
+
+47
+00:01:35,306 --> 00:01:37,346
+scheduled by your application on
+
+
+48
+00:01:37,346 --> 00:01:39,376
+the device itself and then these
+
+
+49
+00:01:39,376 --> 00:01:40,466
+get presented to the user.
+
+
+50
+00:01:41,006 --> 00:01:42,276
+And when the user handles these
+
+
+51
+00:01:42,276 --> 00:01:44,086
+notifications, your app has the
+
+
+52
+00:01:44,086 --> 00:01:45,386
+opportunity to handle its
+
+
+53
+00:01:45,386 --> 00:01:45,876
+response.
+
+
+54
+00:01:47,256 --> 00:01:48,666
+The other kind of notifications
+
+
+55
+00:01:48,936 --> 00:01:50,666
+are remote notifications that
+
+
+56
+00:01:50,666 --> 00:01:52,586
+are associated with your remote
+
+
+57
+00:01:52,586 --> 00:01:54,796
+server which then sends a
+
+
+58
+00:01:54,796 --> 00:01:56,516
+notification payload to the
+
+
+59
+00:01:56,516 --> 00:01:58,276
+Apple push notification service.
+
+
+60
+00:01:58,956 --> 00:02:00,396
+Now, if your payload has
+
+
+61
+00:02:00,396 --> 00:02:02,466
+content, then this notification
+
+
+62
+00:02:02,606 --> 00:02:04,046
+gets delivered to the user's
+
+
+63
+00:02:04,046 --> 00:02:05,456
+device and presented to the
+
+
+64
+00:02:05,456 --> 00:02:05,796
+user.
+
+
+65
+00:02:06,186 --> 00:02:07,666
+And again, if the user handles
+
+
+66
+00:02:07,666 --> 00:02:09,056
+this notification, you can
+
+
+67
+00:02:09,056 --> 00:02:10,186
+handle this response in your
+
+
+68
+00:02:10,186 --> 00:02:10,735
+application.
+
+
+69
+00:02:11,836 --> 00:02:12,796
+The other kind of remote
+
+
+70
+00:02:12,796 --> 00:02:14,076
+notifications are silent
+
+
+71
+00:02:14,076 --> 00:02:14,686
+notifications.
+
+
+72
+00:02:15,136 --> 00:02:16,576
+Now, these don't get presented
+
+
+73
+00:02:16,606 --> 00:02:18,746
+to your application users but
+
+
+74
+00:02:19,146 --> 00:02:20,366
+these allow your application to
+
+
+75
+00:02:20,366 --> 00:02:21,796
+be launched in the background
+
+
+76
+00:02:21,916 --> 00:02:23,816
+and do any extra work that your
+
+
+77
+00:02:23,816 --> 00:02:25,836
+app wants to do associated with
+
+
+78
+00:02:25,836 --> 00:02:27,056
+your remote site application.
+
+
+79
+00:02:28,476 --> 00:02:29,856
+Now, it's important for remote
+
+
+80
+00:02:29,856 --> 00:02:32,366
+notifications to use the latest
+
+
+81
+00:02:32,366 --> 00:02:34,556
+HTTPS2, authentication method,
+
+
+82
+00:02:34,916 --> 00:02:36,016
+wherever you're doing remote
+
+
+83
+00:02:36,016 --> 00:02:36,736
+notifications.
+
+
+84
+00:02:38,276 --> 00:02:39,946
+Now, notification content
+
+
+85
+00:02:39,946 --> 00:02:41,626
+exists, consists of different
+
+
+86
+00:02:41,626 --> 00:02:43,016
+properties that you can set on
+
+
+87
+00:02:43,016 --> 00:02:43,686
+the notification.
+
+
+88
+00:02:44,226 --> 00:02:46,176
+These include the title, the
+
+
+89
+00:02:46,176 --> 00:02:48,906
+subtitle, the body as well as
+
+
+90
+00:02:48,906 --> 00:02:50,086
+media attachments that you can
+
+
+91
+00:02:50,086 --> 00:02:52,000
+set on your notifications.
+
+
+92
+00:02:57,046 --> 00:02:58,696
+Notification triggers determine
+
+
+93
+00:02:58,696 --> 00:03:00,126
+when your notification gets
+
+
+94
+00:03:00,126 --> 00:03:01,286
+delivered to your app users.
+
+
+95
+00:03:01,876 --> 00:03:03,396
+Now, all remote notifications
+
+
+96
+00:03:03,396 --> 00:03:04,786
+are associated with the push
+
+
+97
+00:03:04,786 --> 00:03:06,816
+trigger and for your local
+
+
+98
+00:03:06,816 --> 00:03:08,156
+notifications, you have the
+
+
+99
+00:03:08,156 --> 00:03:09,876
+option of using time interval,
+
+
+100
+00:03:10,006 --> 00:03:11,586
+calendar or location-based
+
+
+101
+00:03:11,586 --> 00:03:11,986
+triggers.
+
+
+102
+00:03:12,536 --> 00:03:15,496
+Now, these notifications get
+
+
+103
+00:03:15,496 --> 00:03:16,726
+presented to your user in
+
+
+104
+00:03:16,726 --> 00:03:17,396
+different ways.
+
+
+105
+00:03:18,136 --> 00:03:19,836
+In iOS 11, we've combined the
+
+
+106
+00:03:19,836 --> 00:03:22,066
+notification list into a single
+
+
+107
+00:03:22,066 --> 00:03:22,496
+list.
+
+
+108
+00:03:23,066 --> 00:03:24,246
+So, if the user wakes their
+
+
+109
+00:03:24,246 --> 00:03:25,696
+device or pulls down from the
+
+
+110
+00:03:25,696 --> 00:03:27,406
+top, they get to go to the same
+
+
+111
+00:03:27,406 --> 00:03:28,446
+notification list.
+
+
+112
+00:03:28,816 --> 00:03:30,246
+And when the user is in that
+
+
+113
+00:03:30,246 --> 00:03:31,976
+state, the notification gets
+
+
+114
+00:03:31,976 --> 00:03:33,096
+added to the list right there
+
+
+115
+00:03:33,096 --> 00:03:33,456
+and then.
+
+
+116
+00:03:33,946 --> 00:03:34,706
+And if you want to see your
+
+
+117
+00:03:34,706 --> 00:03:35,836
+older notifications, then you
+
+
+118
+00:03:35,836 --> 00:03:37,136
+can just slide up on this list
+
+
+119
+00:03:37,136 --> 00:03:38,136
+to see your notification
+
+
+120
+00:03:38,136 --> 00:03:38,526
+history.
+
+
+121
+00:03:39,996 --> 00:03:41,456
+If the user's device is unlocked
+
+
+122
+00:03:41,786 --> 00:03:42,936
+if they're in the home screen or
+
+
+123
+00:03:42,936 --> 00:03:44,676
+in any other app, then the
+
+
+124
+00:03:44,746 --> 00:03:45,956
+notification rolls down as a
+
+
+125
+00:03:45,956 --> 00:03:46,796
+banner from the top.
+
+
+126
+00:03:48,196 --> 00:03:49,646
+And if your application is in
+
+
+127
+00:03:49,646 --> 00:03:51,026
+the foreground, you do have the
+
+
+128
+00:03:51,026 --> 00:03:52,256
+option of presenting the
+
+
+129
+00:03:52,256 --> 00:03:53,726
+notification banner right there
+
+
+130
+00:03:53,726 --> 00:03:54,056
+and then.
+
+
+131
+00:03:55,076 --> 00:03:56,106
+And along with these different
+
+
+132
+00:03:56,106 --> 00:03:57,586
+presentation models, you'll also
+
+
+133
+00:03:57,586 --> 00:03:58,906
+have the option of having a
+
+
+134
+00:03:59,016 --> 00:04:00,546
+sound alert as well as badging
+
+
+135
+00:04:00,596 --> 00:04:01,516
+your application icon.
+
+
+136
+00:04:03,776 --> 00:04:05,466
+Now, notification actions are
+
+
+137
+00:04:05,466 --> 00:04:06,736
+what make your notifications
+
+
+138
+00:04:06,736 --> 00:04:07,596
+really interactable.
+
+
+139
+00:04:08,216 --> 00:04:10,116
+And your user gets to them by 3D
+
+
+140
+00:04:10,116 --> 00:04:11,316
+touching on the notification
+
+
+141
+00:04:11,456 --> 00:04:12,606
+where they see the list of all
+
+
+142
+00:04:12,606 --> 00:04:13,976
+these actions as well as the
+
+
+143
+00:04:13,976 --> 00:04:14,786
+dismiss action.
+
+
+144
+00:04:15,656 --> 00:04:17,315
+And then when the user takes any
+
+
+145
+00:04:17,315 --> 00:04:18,786
+of these actions, then again you
+
+
+146
+00:04:18,786 --> 00:04:20,166
+get the response in your
+
+
+147
+00:04:20,166 --> 00:04:21,685
+application to handle this
+
+
+148
+00:04:21,685 --> 00:04:22,916
+action as you see fit.
+
+
+149
+00:04:23,376 --> 00:04:26,436
+Now, there are different
+
+
+150
+00:04:26,436 --> 00:04:27,896
+mechanisms that you can use with
+
+
+151
+00:04:27,896 --> 00:04:28,796
+these notifications.
+
+
+152
+00:04:29,366 --> 00:04:31,126
+Notification update allows you
+
+
+153
+00:04:31,126 --> 00:04:33,016
+to modify notifications that you
+
+
+154
+00:04:33,016 --> 00:04:34,626
+might have already scheduled or
+
+
+155
+00:04:34,626 --> 00:04:35,666
+published to the user.
+
+
+156
+00:04:36,616 --> 00:04:37,866
+In this example, you can see
+
+
+157
+00:04:37,866 --> 00:04:39,206
+that we're aggregating the
+
+
+158
+00:04:39,206 --> 00:04:40,676
+number of likes that your social
+
+
+159
+00:04:40,676 --> 00:04:41,866
+media posts might have gotten.
+
+
+160
+00:04:42,606 --> 00:04:44,406
+And after a certain time, say
+
+
+161
+00:04:44,726 --> 00:04:46,856
+this count changes, then you can
+
+
+162
+00:04:46,856 --> 00:04:48,516
+just go ahead and update this
+
+
+163
+00:04:48,516 --> 00:04:49,796
+notification in place.
+
+
+164
+00:04:50,296 --> 00:04:52,036
+So, your notification list for
+
+
+165
+00:04:52,036 --> 00:04:53,626
+the user is not cluttered with
+
+
+166
+00:04:53,626 --> 00:04:54,636
+redundant information.
+
+
+167
+00:04:55,216 --> 00:04:58,416
+In the same vein, you also have
+
+
+168
+00:04:58,416 --> 00:04:59,546
+the option of removing
+
+
+169
+00:04:59,546 --> 00:05:00,366
+notifications.
+
+
+170
+00:05:01,056 --> 00:05:02,446
+In this example, there's a
+
+
+171
+00:05:02,446 --> 00:05:04,496
+message about the video that was
+
+
+172
+00:05:04,496 --> 00:05:05,116
+sent to you.
+
+
+173
+00:05:05,526 --> 00:05:07,096
+And once you've seen that video,
+
+
+174
+00:05:07,096 --> 00:05:08,966
+you can just go ahead and remove
+
+
+175
+00:05:08,966 --> 00:05:10,786
+this notification locally by
+
+
+176
+00:05:10,786 --> 00:05:11,556
+your applications.
+
+
+177
+00:05:13,996 --> 00:05:16,676
+Now, with iOS 10, we introduced
+
+
+178
+00:05:16,676 --> 00:05:18,196
+extensions to your notifications
+
+
+179
+00:05:18,746 --> 00:05:19,746
+and there are two types of
+
+
+180
+00:05:19,746 --> 00:05:20,306
+extensions.
+
+
+181
+00:05:20,896 --> 00:05:22,426
+Namely, the first one is service
+
+
+182
+00:05:22,426 --> 00:05:22,966
+extensions.
+
+
+183
+00:05:23,976 --> 00:05:25,546
+Now, what a service extension
+
+
+184
+00:05:25,546 --> 00:05:27,336
+allows your application to do is
+
+
+185
+00:05:27,606 --> 00:05:29,066
+to intercept a notification
+
+
+186
+00:05:29,266 --> 00:05:30,786
+before it gets delivered to the
+
+
+187
+00:05:30,786 --> 00:05:31,196
+user.
+
+
+188
+00:05:32,206 --> 00:05:33,716
+So, you can modify the
+
+
+189
+00:05:33,716 --> 00:05:36,176
+notification content or do other
+
+
+190
+00:05:36,426 --> 00:05:38,516
+background stuff that might be
+
+
+191
+00:05:38,516 --> 00:05:39,186
+associated with this
+
+
+192
+00:05:39,186 --> 00:05:40,296
+notification right in the
+
+
+193
+00:05:40,296 --> 00:05:41,046
+service extension.
+
+
+194
+00:05:41,546 --> 00:05:42,676
+We will take a look at service
+
+
+195
+00:05:42,676 --> 00:05:44,046
+extensions in depth in one of
+
+
+196
+00:05:44,046 --> 00:05:44,916
+our use cases today.
+
+
+197
+00:05:45,456 --> 00:05:48,126
+The other extension points are
+
+
+198
+00:05:48,126 --> 00:05:50,066
+content extensions which allow
+
+
+199
+00:05:50,066 --> 00:05:51,126
+you to customize which
+
+
+200
+00:05:51,126 --> 00:05:51,806
+notifications.
+
+
+201
+00:05:52,016 --> 00:05:53,136
+And again, is one of our use
+
+
+202
+00:05:53,136 --> 00:05:54,446
+cases of the talk today.
+
+
+203
+00:05:55,426 --> 00:05:56,546
+Some examples of content
+
+
+204
+00:05:56,546 --> 00:05:57,716
+extensions from first-party
+
+
+205
+00:05:57,716 --> 00:05:59,306
+applications include the
+
+
+206
+00:05:59,306 --> 00:06:00,996
+messages app which gives you the
+
+
+207
+00:06:00,996 --> 00:06:03,036
+full thread right there in the
+
+
+208
+00:06:03,036 --> 00:06:04,526
+notifications so you can reply
+
+
+209
+00:06:04,826 --> 00:06:06,586
+and get responses right from the
+
+
+210
+00:06:06,586 --> 00:06:08,106
+notification without having to
+
+
+211
+00:06:08,106 --> 00:06:09,106
+go to the application.
+
+
+212
+00:06:10,576 --> 00:06:12,056
+The calendar app shows the full
+
+
+213
+00:06:12,056 --> 00:06:13,356
+schedule as well as gives you
+
+
+214
+00:06:13,356 --> 00:06:15,116
+the option of accepting or
+
+
+215
+00:06:15,116 --> 00:06:16,086
+declining a request.
+
+
+216
+00:06:17,346 --> 00:06:19,376
+And the photos application sends
+
+
+217
+00:06:19,376 --> 00:06:20,596
+you the photo within the
+
+
+218
+00:06:20,596 --> 00:06:22,096
+notification itself and the
+
+
+219
+00:06:22,096 --> 00:06:23,566
+ability to write or comment on
+
+
+220
+00:06:23,566 --> 00:06:23,636
+it.
+
+
+221
+00:06:23,756 --> 00:06:26,716
+And again, we'll look at how you
+
+
+222
+00:06:26,826 --> 00:06:28,036
+can use all these different
+
+
+223
+00:06:28,036 --> 00:06:29,506
+tools for creating these
+
+
+224
+00:06:29,506 --> 00:06:31,086
+notification styles for all your
+
+
+225
+00:06:31,086 --> 00:06:34,256
+applications in this session.
+
+
+226
+00:06:34,406 --> 00:06:36,156
+Now, watchOS notifications work
+
+
+227
+00:06:36,156 --> 00:06:38,136
+in sync with iOS notifications.
+
+
+228
+00:06:38,656 --> 00:06:40,266
+All notifications that are sent
+
+
+229
+00:06:40,266 --> 00:06:42,226
+to the user's phone also get
+
+
+230
+00:06:42,226 --> 00:06:43,976
+delivered to the user's watch if
+
+
+231
+00:06:44,106 --> 00:06:45,096
+the phone is locked at that
+
+
+232
+00:06:45,096 --> 00:06:45,376
+time.
+
+
+233
+00:06:46,476 --> 00:06:48,506
+Now, if the user's watch is not
+
+
+234
+00:06:48,506 --> 00:06:49,906
+in range of the phone, then you
+
+
+235
+00:06:49,906 --> 00:06:51,166
+also have the ability of
+
+
+236
+00:06:51,166 --> 00:06:53,326
+scheduling notifications right
+
+
+237
+00:06:53,326 --> 00:06:54,746
+to your watchOS apps as well.
+
+
+238
+00:06:56,956 --> 00:06:59,596
+So, how do access all these
+
+
+239
+00:06:59,596 --> 00:07:01,226
+different features for
+
+
+240
+00:07:01,226 --> 00:07:01,936
+notifications?
+
+
+241
+00:07:02,156 --> 00:07:03,706
+For this we introduced two new
+
+
+242
+00:07:03,706 --> 00:07:05,436
+frameworks last year, namely
+
+
+243
+00:07:05,436 --> 00:07:06,896
+User Notifications and User
+
+
+244
+00:07:06,896 --> 00:07:07,796
+Notifications UI.
+
+
+245
+00:07:09,356 --> 00:07:11,676
+We went in depth covering all
+
+
+246
+00:07:11,676 --> 00:07:13,036
+those different APIs at last
+
+
+247
+00:07:13,036 --> 00:07:14,916
+year's WWDC and we highly
+
+
+248
+00:07:14,916 --> 00:07:16,286
+encourage you to go check out
+
+
+249
+00:07:16,286 --> 00:07:17,396
+these two sessions from last
+
+
+250
+00:07:17,396 --> 00:07:19,396
+year which contains much more
+
+
+251
+00:07:19,396 --> 00:07:20,736
+information about everything
+
+
+252
+00:07:20,736 --> 00:07:21,786
+we've covered in the overview.
+
+
+253
+00:07:23,416 --> 00:07:25,366
+All right, let's move on and
+
+
+254
+00:07:25,366 --> 00:07:26,746
+jump into our use cases,
+
+
+255
+00:07:26,996 --> 00:07:28,316
+starting with the first one,
+
+
+256
+00:07:28,626 --> 00:07:29,936
+about hidden notification
+
+
+257
+00:07:29,936 --> 00:07:30,396
+content.
+
+
+258
+00:07:30,856 --> 00:07:32,166
+And to tell you all about this,
+
+
+259
+00:07:32,286 --> 00:07:34,326
+let me invite Teja up here.
+
+
+260
+00:07:35,516 --> 00:07:39,626
+[ Applause ]
+
+
+261
+00:07:40,126 --> 00:07:40,846
+>> Hi, everyone.
+
+
+262
+00:07:41,026 --> 00:07:43,036
+My name is Teja Kondapalli and
+
+
+263
+00:07:43,036 --> 00:07:44,076
+I'm also an engineer on the
+
+
+264
+00:07:44,076 --> 00:07:45,136
+notifications team.
+
+
+265
+00:07:45,536 --> 00:07:47,596
+You just heard a great recap of
+
+
+266
+00:07:47,596 --> 00:07:49,146
+the API that we announced last
+
+
+267
+00:07:49,146 --> 00:07:50,876
+year and now I'm here to talk to
+
+
+268
+00:07:50,876 --> 00:07:52,656
+you about the API we want to
+
+
+269
+00:07:52,656 --> 00:07:53,526
+announce this year.
+
+
+270
+00:07:54,636 --> 00:07:57,356
+This year we decided to focus on
+
+
+271
+00:07:57,356 --> 00:07:59,036
+a feature that we call hidden
+
+
+272
+00:07:59,036 --> 00:08:01,426
+notification content which is a
+
+
+273
+00:08:01,426 --> 00:08:04,316
+way for your users to hide the
+
+
+274
+00:08:04,316 --> 00:08:05,896
+private information in their
+
+
+275
+00:08:05,896 --> 00:08:07,826
+notifications when it doesn't
+
+
+276
+00:08:07,826 --> 00:08:08,686
+need to be seen.
+
+
+277
+00:08:11,636 --> 00:08:12,826
+Why do we care about this?
+
+
+278
+00:08:14,866 --> 00:08:16,446
+It's because your users care
+
+
+279
+00:08:16,576 --> 00:08:17,546
+about their privacy.
+
+
+280
+00:08:18,816 --> 00:08:20,376
+We all know notifications are
+
+
+281
+00:08:20,376 --> 00:08:23,036
+very visible and the content in
+
+
+282
+00:08:23,036 --> 00:08:25,136
+them is richer than ever, which
+
+
+283
+00:08:25,136 --> 00:08:26,546
+means we have to be careful
+
+
+284
+00:08:26,916 --> 00:08:28,256
+about protecting the sensitive
+
+
+285
+00:08:28,256 --> 00:08:30,446
+information that may be in them.
+
+
+286
+00:08:30,446 --> 00:08:34,006
+And actually, you all had a
+
+
+287
+00:08:34,006 --> 00:08:35,726
+taste of this in iOS 10.
+
+
+288
+00:08:37,186 --> 00:08:38,986
+A message notification on the
+
+
+289
+00:08:38,986 --> 00:08:40,765
+lock screen could look like
+
+
+290
+00:08:40,826 --> 00:08:41,256
+this.
+
+
+291
+00:08:42,576 --> 00:08:44,866
+If you had gone into your
+
+
+292
+00:08:44,866 --> 00:08:46,926
+settings under notifications,
+
+
+293
+00:08:48,006 --> 00:08:50,576
+set for messages that you only
+
+
+294
+00:08:50,576 --> 00:08:52,666
+want previews to be shown when
+
+
+295
+00:08:52,696 --> 00:08:53,226
+unlocked.
+
+
+296
+00:08:53,906 --> 00:08:58,116
+So, now you can see that the
+
+
+297
+00:08:58,116 --> 00:08:59,636
+message, the content of the
+
+
+298
+00:08:59,636 --> 00:09:01,506
+message is obscured, and that's
+
+
+299
+00:09:01,586 --> 00:09:03,436
+because the user is not
+
+
+300
+00:09:03,436 --> 00:09:04,126
+authenticated.
+
+
+301
+00:09:04,906 --> 00:09:07,026
+Once they've authenticated, the
+
+
+302
+00:09:07,026 --> 00:09:08,776
+content of the message is
+
+
+303
+00:09:08,776 --> 00:09:09,166
+revealed.
+
+
+304
+00:09:10,676 --> 00:09:11,676
+And I'm really excited to
+
+
+305
+00:09:11,676 --> 00:09:13,206
+announce to you that this year
+
+
+306
+00:09:13,206 --> 00:09:14,506
+we've extended the support of
+
+
+307
+00:09:14,506 --> 00:09:17,486
+this to all apps, including
+
+
+308
+00:09:17,616 --> 00:09:19,876
+third-party apps.
+
+
+309
+00:09:21,516 --> 00:09:24,646
+[ Applause ]
+
+
+310
+00:09:25,146 --> 00:09:26,706
+We've also given your users a
+
+
+311
+00:09:26,706 --> 00:09:27,656
+global setting.
+
+
+312
+00:09:28,326 --> 00:09:30,916
+They can simply go into settings
+
+
+313
+00:09:30,916 --> 00:09:33,236
+notifications and right at the
+
+
+314
+00:09:33,236 --> 00:09:34,826
+top they can select whether they
+
+
+315
+00:09:34,826 --> 00:09:36,186
+want their previews to be shown
+
+
+316
+00:09:36,586 --> 00:09:39,096
+always when unlocked or never.
+
+
+317
+00:09:39,096 --> 00:09:41,226
+And this should apply to all
+
+
+318
+00:09:41,226 --> 00:09:42,566
+their notifications for all
+
+
+319
+00:09:42,566 --> 00:09:43,896
+their apps.
+
+
+320
+00:09:44,776 --> 00:09:47,266
+We've also given them a way to
+
+
+321
+00:09:47,266 --> 00:09:49,156
+customize these settings per
+
+
+322
+00:09:49,416 --> 00:09:49,566
+app.
+
+
+323
+00:09:50,126 --> 00:09:53,426
+So again, under settings they
+
+
+324
+00:09:53,426 --> 00:09:54,886
+can simply go to a specific
+
+
+325
+00:09:54,886 --> 00:09:57,936
+application and choose the
+
+
+326
+00:09:57,936 --> 00:09:59,636
+privacy setting for the previews
+
+
+327
+00:09:59,786 --> 00:10:00,756
+for that application.
+
+
+328
+00:10:01,126 --> 00:10:02,326
+And they might want to fine tune
+
+
+329
+00:10:02,326 --> 00:10:04,226
+these because some applications
+
+
+330
+00:10:04,536 --> 00:10:05,546
+may show more sensitive
+
+
+331
+00:10:05,546 --> 00:10:06,786
+information in their
+
+
+332
+00:10:06,786 --> 00:10:08,986
+notifications than others.
+
+
+333
+00:10:11,126 --> 00:10:13,396
+And now, because it's up to your
+
+
+334
+00:10:13,396 --> 00:10:15,306
+users to determine whether a
+
+
+335
+00:10:15,306 --> 00:10:17,766
+notification's content is hidden
+
+
+336
+00:10:17,766 --> 00:10:19,856
+or shown at a certain point, we
+
+
+337
+00:10:19,856 --> 00:10:21,786
+have given you as app developers
+
+
+338
+00:10:22,856 --> 00:10:24,686
+an API to customize what a
+
+
+339
+00:10:24,686 --> 00:10:26,696
+hidden notification might look
+
+
+340
+00:10:27,286 --> 00:10:27,386
+like.
+
+
+341
+00:10:28,556 --> 00:10:30,376
+So, let's take a look at this
+
+
+342
+00:10:30,376 --> 00:10:31,816
+application I've written that
+
+
+343
+00:10:31,816 --> 00:10:33,216
+sends me some notifications.
+
+
+344
+00:10:33,626 --> 00:10:34,666
+And you can see here, this
+
+
+345
+00:10:34,666 --> 00:10:36,516
+notification has some rich
+
+
+346
+00:10:36,516 --> 00:10:38,366
+information in it.
+
+
+347
+00:10:38,366 --> 00:10:40,316
+If my user has previews turned
+
+
+348
+00:10:40,316 --> 00:10:42,266
+off, this is what my
+
+
+349
+00:10:42,266 --> 00:10:43,966
+notification would look like.
+
+
+350
+00:10:44,576 --> 00:10:48,806
+And as you can see, all of the
+
+
+351
+00:10:48,806 --> 00:10:50,706
+content is hidden, the title,
+
+
+352
+00:10:50,706 --> 00:10:52,186
+the subtitle and the body.
+
+
+353
+00:10:52,356 --> 00:10:54,026
+And the body is replaced with a
+
+
+354
+00:10:54,026 --> 00:10:54,696
+placeholder.
+
+
+355
+00:10:54,696 --> 00:10:57,026
+Our default placeholder says
+
+
+356
+00:10:57,026 --> 00:10:57,926
+notification.
+
+
+357
+00:10:58,436 --> 00:11:03,996
+But if I had a bunch of
+
+
+358
+00:11:03,996 --> 00:11:06,826
+notifications associated with
+
+
+359
+00:11:06,826 --> 00:11:08,356
+this app, then you can see here
+
+
+360
+00:11:08,356 --> 00:11:09,446
+clearly that I have two
+
+
+361
+00:11:09,446 --> 00:11:10,696
+different threads going on.
+
+
+362
+00:11:11,116 --> 00:11:13,136
+One about work and the other
+
+
+363
+00:11:13,226 --> 00:11:14,426
+about a Thai vacation.
+
+
+364
+00:11:15,266 --> 00:11:17,006
+If my user has previews turned
+
+
+365
+00:11:17,006 --> 00:11:18,726
+off, this is what my
+
+
+366
+00:11:18,726 --> 00:11:20,306
+notification list could look
+
+
+367
+00:11:20,306 --> 00:11:20,676
+like.
+
+
+368
+00:11:21,456 --> 00:11:23,136
+But in order to prevent that, we
+
+
+369
+00:11:23,136 --> 00:11:25,096
+went one step further and we
+
+
+370
+00:11:25,096 --> 00:11:26,886
+have automatically coalesced
+
+
+371
+00:11:26,886 --> 00:11:28,346
+these for you by thread
+
+
+372
+00:11:28,346 --> 00:11:29,066
+identifier.
+
+
+373
+00:11:29,886 --> 00:11:31,476
+So, if you're already using
+
+
+374
+00:11:31,476 --> 00:11:32,506
+thread identifiers in your
+
+
+375
+00:11:32,506 --> 00:11:34,316
+notifications, this will work
+
+
+376
+00:11:34,436 --> 00:11:35,506
+automatically for you.
+
+
+377
+00:11:36,046 --> 00:11:38,796
+Let's take a look at one of my
+
+
+378
+00:11:38,796 --> 00:11:39,126
+threads.
+
+
+379
+00:11:39,856 --> 00:11:40,896
+You can see here it says two
+
+
+380
+00:11:40,896 --> 00:11:42,506
+notifications of the default
+
+
+381
+00:11:42,506 --> 00:11:43,056
+placeholder.
+
+
+382
+00:11:43,056 --> 00:11:45,476
+And this thread is actually
+
+
+383
+00:11:45,586 --> 00:11:46,856
+about my Thai vacation.
+
+
+384
+00:11:47,846 --> 00:11:49,156
+And these are comments.
+
+
+385
+00:11:49,266 --> 00:11:50,516
+So, I want to customize this
+
+
+386
+00:11:50,516 --> 00:11:53,566
+further and we can do that.
+
+
+387
+00:11:53,786 --> 00:11:54,616
+When I'm setting up my
+
+
+388
+00:11:54,616 --> 00:11:56,726
+notification category that I'm
+
+
+389
+00:11:56,726 --> 00:11:57,926
+going to associate with these
+
+
+390
+00:11:57,926 --> 00:12:00,666
+notifications, I can pass it a
+
+
+391
+00:12:00,666 --> 00:12:03,246
+new, a value for a new property.
+
+
+392
+00:12:03,886 --> 00:12:05,426
+So, here I'm setting up a
+
+
+393
+00:12:05,426 --> 00:12:09,306
+comment category and I am also
+
+
+394
+00:12:09,306 --> 00:12:10,706
+setting the hidden previews body
+
+
+395
+00:12:10,706 --> 00:12:11,296
+placeholder.
+
+
+396
+00:12:11,856 --> 00:12:13,276
+I'm just passing in a regular
+
+
+397
+00:12:13,276 --> 00:12:14,996
+string here and it says comment.
+
+
+398
+00:12:15,526 --> 00:12:17,926
+And now my notification looks
+
+
+399
+00:12:17,926 --> 00:12:18,306
+like this.
+
+
+400
+00:12:19,406 --> 00:12:21,026
+Which is still not quite right
+
+
+401
+00:12:21,386 --> 00:12:22,976
+because I know that there's two
+
+
+402
+00:12:22,976 --> 00:12:24,046
+notifications that have been
+
+
+403
+00:12:24,046 --> 00:12:25,986
+coalesced and this just says
+
+
+404
+00:12:25,986 --> 00:12:26,416
+comment.
+
+
+405
+00:12:27,346 --> 00:12:29,926
+So, instead I decide to pass in
+
+
+406
+00:12:30,556 --> 00:12:31,466
+a format string.
+
+
+407
+00:12:32,016 --> 00:12:34,616
+Which is great.
+
+
+408
+00:12:34,826 --> 00:12:36,716
+Now my notification looks as
+
+
+409
+00:12:36,716 --> 00:12:37,186
+intended.
+
+
+410
+00:12:37,186 --> 00:12:38,416
+It says 2 comments.
+
+
+411
+00:12:39,096 --> 00:12:41,156
+But this is not going to work
+
+
+412
+00:12:41,156 --> 00:12:42,146
+for the singular case.
+
+
+413
+00:12:42,956 --> 00:12:45,716
+It would've said 1 comments if I
+
+
+414
+00:12:45,716 --> 00:12:47,256
+had just one notification.
+
+
+415
+00:12:48,096 --> 00:12:50,516
+Luckily there's already a way to
+
+
+416
+00:12:50,516 --> 00:12:52,696
+account for the singular-plural
+
+
+417
+00:12:53,166 --> 00:12:55,486
+problem that's already supported
+
+
+418
+00:12:55,706 --> 00:12:57,776
+by foundation, and that's a
+
+
+419
+00:12:57,776 --> 00:12:59,136
+strings dictionary.
+
+
+420
+00:12:59,706 --> 00:13:03,126
+A strings dictionary is a p-list
+
+
+421
+00:13:03,126 --> 00:13:04,626
+file that sits in your project.
+
+
+422
+00:13:05,306 --> 00:13:06,316
+And you can, and it looks
+
+
+423
+00:13:06,316 --> 00:13:07,426
+somewhat like this.
+
+
+424
+00:13:07,646 --> 00:13:09,326
+You can see here that the first
+
+
+425
+00:13:09,326 --> 00:13:12,246
+thing I have is a line that says
+
+
+426
+00:13:12,316 --> 00:13:13,196
+comment key.
+
+
+427
+00:13:13,496 --> 00:13:16,286
+And this indicates to a system
+
+
+428
+00:13:16,546 --> 00:13:18,236
+where to find this pluralization
+
+
+429
+00:13:18,236 --> 00:13:18,606
+rule.
+
+
+430
+00:13:19,416 --> 00:13:22,576
+And below that you can see that
+
+
+431
+00:13:22,576 --> 00:13:24,416
+I have a key value mapping for
+
+
+432
+00:13:24,416 --> 00:13:26,586
+the singular and plural rules.
+
+
+433
+00:13:26,886 --> 00:13:28,966
+It says 1 with a format string
+
+
+434
+00:13:28,966 --> 00:13:30,836
+that says comment and other,
+
+
+435
+00:13:31,186 --> 00:13:32,866
+with a format string that says
+
+
+436
+00:13:33,246 --> 00:13:33,616
+comments.
+
+
+437
+00:13:34,376 --> 00:13:36,436
+And it's important to use a
+
+
+438
+00:13:36,436 --> 00:13:38,786
+strings dictionary because not
+
+
+439
+00:13:38,786 --> 00:13:40,946
+all languages have a distinction
+
+
+440
+00:13:40,946 --> 00:13:42,606
+just between singular and
+
+
+441
+00:13:42,606 --> 00:13:42,996
+plural.
+
+
+442
+00:13:43,556 --> 00:13:45,406
+For example, a strings
+
+
+443
+00:13:45,406 --> 00:13:49,146
+dictionary in Arabic looks like
+
+
+444
+00:13:50,536 --> 00:13:50,646
+this.
+
+
+445
+00:13:50,856 --> 00:13:52,726
+And you can see there are a lot
+
+
+446
+00:13:52,726 --> 00:13:54,616
+more options than just singular
+
+
+447
+00:13:54,896 --> 00:13:55,526
+and plural.
+
+
+448
+00:13:55,896 --> 00:13:57,956
+So, to account for pluralization
+
+
+449
+00:13:58,016 --> 00:14:00,306
+as well as localization, it's
+
+
+450
+00:14:00,306 --> 00:14:01,916
+important to use strings
+
+
+451
+00:14:01,916 --> 00:14:02,436
+dictionaries.
+
+
+452
+00:14:03,266 --> 00:14:04,156
+So, now that I've set up my
+
+
+453
+00:14:04,156 --> 00:14:07,246
+strings dictionary, when I'm
+
+
+454
+00:14:07,466 --> 00:14:09,156
+setting up my comment category,
+
+
+455
+00:14:09,156 --> 00:14:10,306
+instead of passing in just a
+
+
+456
+00:14:10,306 --> 00:14:12,376
+format string, I'm passing in an
+
+
+457
+00:14:12,426 --> 00:14:13,486
+NS localized string.
+
+
+458
+00:14:13,736 --> 00:14:15,736
+And the first parameter that I
+
+
+459
+00:14:15,736 --> 00:14:18,026
+pass to it is comment key which
+
+
+460
+00:14:18,026 --> 00:14:19,586
+is what I associated my
+
+
+461
+00:14:19,586 --> 00:14:21,166
+pluralization rule with, the key
+
+
+462
+00:14:21,166 --> 00:14:22,076
+that I associated with.
+
+
+463
+00:14:22,076 --> 00:14:24,816
+And the second parameter that
+
+
+464
+00:14:24,816 --> 00:14:26,466
+I'm passing is just a note about
+
+
+465
+00:14:26,466 --> 00:14:30,806
+what this string is about.
+
+
+466
+00:14:31,006 --> 00:14:32,656
+If you want to know more about
+
+
+467
+00:14:32,656 --> 00:14:35,016
+localization, we had a chat
+
+
+468
+00:14:35,016 --> 00:14:37,956
+earlier during WWDC, so you can
+
+
+469
+00:14:37,956 --> 00:14:39,336
+catch that on video.
+
+
+470
+00:14:39,336 --> 00:14:41,156
+And we also have great resources
+
+
+471
+00:14:41,436 --> 00:14:43,986
+in our docs.
+
+
+472
+00:14:44,126 --> 00:14:45,836
+And now, my notification
+
+
+473
+00:14:45,836 --> 00:14:47,696
+correctly says 2 comments and I
+
+
+474
+00:14:47,696 --> 00:14:48,736
+have confidence that it's going
+
+
+475
+00:14:48,736 --> 00:14:50,956
+to say 1 comment if there had
+
+
+476
+00:14:50,956 --> 00:14:52,526
+only been 1 comment in here.
+
+
+477
+00:14:53,086 --> 00:14:57,446
+But if we look further, actually
+
+
+478
+00:14:58,016 --> 00:15:00,236
+Jane sent me an image.
+
+
+479
+00:15:00,286 --> 00:15:01,766
+She didn't send me a comment,
+
+
+480
+00:15:02,046 --> 00:15:03,416
+and I want to indicate that.
+
+
+481
+00:15:03,896 --> 00:15:05,386
+So, I can do that as well.
+
+
+482
+00:15:05,966 --> 00:15:06,726
+When I'm setting up my
+
+
+483
+00:15:06,726 --> 00:15:08,616
+categories, after I set up my
+
+
+484
+00:15:08,616 --> 00:15:11,086
+comment category, I also set up
+
+
+485
+00:15:11,086 --> 00:15:12,776
+an image category the same way
+
+
+486
+00:15:13,426 --> 00:15:15,606
+and I associate Jane's
+
+
+487
+00:15:15,606 --> 00:15:17,076
+notification with the image
+
+
+488
+00:15:17,076 --> 00:15:19,056
+category and John's notification
+
+
+489
+00:15:19,056 --> 00:15:20,186
+with a comment category.
+
+
+490
+00:15:20,716 --> 00:15:23,116
+Now I have two notifications
+
+
+491
+00:15:23,116 --> 00:15:24,716
+with two different categories
+
+
+492
+00:15:25,106 --> 00:15:26,196
+but they're being sent to the
+
+
+493
+00:15:26,196 --> 00:15:27,146
+same thread.
+
+
+494
+00:15:27,976 --> 00:15:29,666
+So, the coalescing will
+
+
+495
+00:15:29,666 --> 00:15:31,436
+automatically work for me and it
+
+
+496
+00:15:31,436 --> 00:15:33,656
+correctly says 1 image and 1
+
+
+497
+00:15:33,756 --> 00:15:34,146
+comment.
+
+
+498
+00:15:34,686 --> 00:15:38,706
+But if you recall further, this
+
+
+499
+00:15:38,706 --> 00:15:40,256
+is all one thread and maybe I
+
+
+500
+00:15:40,256 --> 00:15:41,606
+want to distinguish this thread
+
+
+501
+00:15:41,966 --> 00:15:44,326
+from another thread that is also
+
+
+502
+00:15:44,326 --> 00:15:46,056
+for the notifications in this
+
+
+503
+00:15:46,056 --> 00:15:46,826
+application.
+
+
+504
+00:15:47,356 --> 00:15:48,076
+And I can do that.
+
+
+505
+00:15:48,276 --> 00:15:50,326
+So if you see here, the title
+
+
+506
+00:15:50,326 --> 00:15:51,736
+says Thai vacation and that's
+
+
+507
+00:15:51,736 --> 00:15:54,146
+indicative of what thread this
+
+
+508
+00:15:54,756 --> 00:15:54,906
+is.
+
+
+509
+00:15:55,066 --> 00:15:56,226
+So, maybe I want to show that.
+
+
+510
+00:15:56,456 --> 00:15:59,566
+And again, when I'm setting up
+
+
+511
+00:15:59,736 --> 00:16:02,926
+my categories, I can pass in one
+
+
+512
+00:16:03,126 --> 00:16:05,036
+or both of two new options that
+
+
+513
+00:16:05,036 --> 00:16:05,426
+we have.
+
+
+514
+00:16:05,886 --> 00:16:07,926
+Hidden previews show title and
+
+
+515
+00:16:07,926 --> 00:16:09,966
+hidden previews shows subtitle.
+
+
+516
+00:16:10,616 --> 00:16:12,776
+So, here I'm just trying to pass
+
+
+517
+00:16:12,776 --> 00:16:15,066
+in, I'm just passing in the
+
+
+518
+00:16:15,066 --> 00:16:15,526
+title.
+
+
+519
+00:16:15,786 --> 00:16:17,976
+Because showing the subtitle is
+
+
+520
+00:16:17,976 --> 00:16:19,456
+revealing too much information.
+
+
+521
+00:16:19,496 --> 00:16:20,826
+I just want to show the title.
+
+
+522
+00:16:22,046 --> 00:16:23,506
+And now my notification
+
+
+523
+00:16:23,506 --> 00:16:25,756
+correctly says Thai vacation,
+
+
+524
+00:16:25,996 --> 00:16:27,976
+which indicates the thread, 1
+
+
+525
+00:16:27,976 --> 00:16:29,276
+image and 1 comment.
+
+
+526
+00:16:29,276 --> 00:16:33,606
+Now that we know how to
+
+
+527
+00:16:33,606 --> 00:16:35,846
+customize hidden notification
+
+
+528
+00:16:35,846 --> 00:16:37,556
+content, it's important to
+
+
+529
+00:16:37,556 --> 00:16:38,506
+remember that this is a
+
+
+530
+00:16:38,506 --> 00:16:39,766
+user-defined setting.
+
+
+531
+00:16:40,186 --> 00:16:41,636
+It's up to your users at any
+
+
+532
+00:16:41,636 --> 00:16:43,326
+point to determine whether a
+
+
+533
+00:16:43,326 --> 00:16:44,776
+notification content is going to
+
+
+534
+00:16:44,776 --> 00:16:46,346
+be hidden or shown.
+
+
+535
+00:16:47,406 --> 00:16:49,886
+We've given you a way to find
+
+
+536
+00:16:50,326 --> 00:16:52,016
+the user's setting and you can
+
+
+537
+00:16:52,016 --> 00:16:53,966
+retrieve it by using the show
+
+
+538
+00:16:53,966 --> 00:16:56,296
+preview setting property in view
+
+
+539
+00:16:56,296 --> 00:16:57,746
+and notification settings.
+
+
+540
+00:16:59,686 --> 00:17:01,176
+It's also important to use
+
+
+541
+00:17:01,226 --> 00:17:02,566
+thread identifiers to take
+
+
+542
+00:17:02,566 --> 00:17:03,776
+advantage of the automatic
+
+
+543
+00:17:03,956 --> 00:17:05,876
+coalescing that we already have
+
+
+544
+00:17:06,455 --> 00:17:07,256
+supported for you.
+
+
+545
+00:17:08,116 --> 00:17:09,796
+And it's important to use
+
+
+546
+00:17:09,796 --> 00:17:11,786
+strings dictionaries to account
+
+
+547
+00:17:11,906 --> 00:17:14,056
+for pluralization as well as
+
+
+548
+00:17:14,056 --> 00:17:14,896
+localization.
+
+
+549
+00:17:15,465 --> 00:17:19,915
+So, we've looked at our first
+
+
+550
+00:17:19,915 --> 00:17:22,096
+use case of hidden notification
+
+
+551
+00:17:22,096 --> 00:17:22,646
+content.
+
+
+552
+00:17:22,976 --> 00:17:24,806
+And the second use case is
+
+
+553
+00:17:24,806 --> 00:17:26,406
+something I know a lot of you
+
+
+554
+00:17:26,406 --> 00:17:27,606
+will be doing, which is sending
+
+
+555
+00:17:27,606 --> 00:17:29,256
+push notifications to your
+
+
+556
+00:17:29,256 --> 00:17:29,916
+applications.
+
+
+557
+00:17:30,206 --> 00:17:31,586
+And we can do some interesting
+
+
+558
+00:17:31,586 --> 00:17:33,236
+things with push notifications
+
+
+559
+00:17:33,596 --> 00:17:35,196
+if only we're able to modify
+
+
+560
+00:17:35,196 --> 00:17:36,576
+them, such as attachments or
+
+
+561
+00:17:36,576 --> 00:17:37,096
+encryption.
+
+
+562
+00:17:37,096 --> 00:17:41,296
+And what I mean by that is
+
+
+563
+00:17:41,516 --> 00:17:42,816
+imagine I want to send some
+
+
+564
+00:17:42,816 --> 00:17:44,246
+media with my remote
+
+
+565
+00:17:44,776 --> 00:17:45,966
+notification.
+
+
+566
+00:17:46,356 --> 00:17:48,036
+But that media doesn't fit in
+
+
+567
+00:17:48,036 --> 00:17:48,936
+the push payload.
+
+
+568
+00:17:49,826 --> 00:17:51,866
+Well, I can instead send some
+
+
+569
+00:17:51,866 --> 00:17:53,846
+metadata about this media such
+
+
+570
+00:17:53,846 --> 00:17:55,406
+as the URL that it can be found
+
+
+571
+00:17:55,406 --> 00:17:58,936
+at and then on the device I can
+
+
+572
+00:17:58,936 --> 00:18:01,706
+download that media and then
+
+
+573
+00:18:01,706 --> 00:18:02,816
+present the notification.
+
+
+574
+00:18:05,616 --> 00:18:08,296
+Another great example is if your
+
+
+575
+00:18:08,296 --> 00:18:10,436
+server side wants to encrypt a
+
+
+576
+00:18:10,436 --> 00:18:12,636
+content in the notification, you
+
+
+577
+00:18:12,636 --> 00:18:13,716
+would want to decrypt it on the
+
+
+578
+00:18:13,716 --> 00:18:15,486
+device before displaying it to
+
+
+579
+00:18:15,486 --> 00:18:16,046
+the user.
+
+
+580
+00:18:16,576 --> 00:18:19,886
+And another great application is
+
+
+581
+00:18:20,376 --> 00:18:21,916
+a pending context-specific
+
+
+582
+00:18:21,916 --> 00:18:24,066
+information to your notification
+
+
+583
+00:18:25,236 --> 00:18:27,446
+such as location or time or
+
+
+584
+00:18:27,446 --> 00:18:28,066
+health data.
+
+
+585
+00:18:29,106 --> 00:18:30,486
+This information may only be
+
+
+586
+00:18:30,486 --> 00:18:31,836
+present on the user's device.
+
+
+587
+00:18:32,196 --> 00:18:33,706
+So, before it's presented to the
+
+
+588
+00:18:33,706 --> 00:18:35,396
+user, you can append these to
+
+
+589
+00:18:35,396 --> 00:18:36,216
+your notification.
+
+
+590
+00:18:36,736 --> 00:18:40,206
+And to do all this, we would a
+
+
+591
+00:18:40,266 --> 00:18:41,816
+service extension, which is
+
+
+592
+00:18:41,816 --> 00:18:43,196
+something we introduced last
+
+
+593
+00:18:43,766 --> 00:18:43,876
+year.
+
+
+594
+00:18:44,876 --> 00:18:46,816
+So, let's deep dive and look at
+
+
+595
+00:18:46,816 --> 00:18:47,526
+an example.
+
+
+596
+00:18:48,206 --> 00:18:50,316
+I want to send a video with my
+
+
+597
+00:18:50,316 --> 00:18:51,456
+remote notification.
+
+
+598
+00:18:52,786 --> 00:18:55,686
+So, my remote server would send
+
+
+599
+00:18:55,686 --> 00:18:56,896
+a push payload to APNS.
+
+
+600
+00:18:56,896 --> 00:18:59,366
+And in the payload, I packaged
+
+
+601
+00:18:59,366 --> 00:19:00,806
+some metadata about my video.
+
+
+602
+00:19:02,546 --> 00:19:03,976
+The notification will then get
+
+
+603
+00:19:03,976 --> 00:19:05,896
+delivered to my device and the
+
+
+604
+00:19:05,896 --> 00:19:07,086
+service extension has the
+
+
+605
+00:19:07,086 --> 00:19:08,976
+opportunity to intercept this
+
+
+606
+00:19:08,976 --> 00:19:09,816
+notification.
+
+
+607
+00:19:09,816 --> 00:19:12,356
+At that point, I can talk to the
+
+
+608
+00:19:12,356 --> 00:19:14,906
+remote server and download a
+
+
+609
+00:19:14,906 --> 00:19:17,286
+video preview before attaching
+
+
+610
+00:19:17,286 --> 00:19:19,536
+it to my notification and
+
+
+611
+00:19:19,536 --> 00:19:21,006
+displaying it to the user.
+
+
+612
+00:19:21,916 --> 00:19:22,976
+Let's see how we do this in
+
+
+613
+00:19:23,706 --> 00:19:23,806
+code.
+
+
+614
+00:19:25,556 --> 00:19:27,466
+The remote payload would look
+
+
+615
+00:19:27,466 --> 00:19:28,366
+something like this.
+
+
+616
+00:19:29,256 --> 00:19:30,796
+It's important to set the
+
+
+617
+00:19:30,796 --> 00:19:32,166
+mutable content flag.
+
+
+618
+00:19:32,556 --> 00:19:33,776
+This is what indicates to the
+
+
+619
+00:19:33,776 --> 00:19:35,646
+device that it needs to launch
+
+
+620
+00:19:35,686 --> 00:19:37,906
+the service extension before
+
+
+621
+00:19:37,906 --> 00:19:39,236
+presenting the notification.
+
+
+622
+00:19:40,156 --> 00:19:42,276
+And I also have some additional
+
+
+623
+00:19:42,276 --> 00:19:44,816
+metadata such as the type of
+
+
+624
+00:19:44,816 --> 00:19:47,286
+this media, the video URL, the
+
+
+625
+00:19:47,286 --> 00:19:49,786
+location that it was shot at and
+
+
+626
+00:19:49,816 --> 00:19:52,856
+also the user that uploaded
+
+
+627
+00:19:55,116 --> 00:19:55,216
+this.
+
+
+628
+00:19:55,436 --> 00:19:56,656
+Now, when setting up the service
+
+
+629
+00:19:56,656 --> 00:19:58,686
+extension, I simply go into
+
+
+630
+00:19:58,686 --> 00:20:00,806
+Xcode, create a new target and
+
+
+631
+00:20:00,806 --> 00:20:02,806
+select the notification service
+
+
+632
+00:20:02,806 --> 00:20:04,016
+extension template.
+
+
+633
+00:20:04,556 --> 00:20:06,696
+And I would get a template that
+
+
+634
+00:20:06,696 --> 00:20:07,756
+looks something like this.
+
+
+635
+00:20:08,676 --> 00:20:10,186
+So, in the service extension,
+
+
+636
+00:20:10,296 --> 00:20:11,676
+when a notification gets
+
+
+637
+00:20:11,676 --> 00:20:14,756
+delivered, you'll receive a call
+
+
+638
+00:20:14,756 --> 00:20:16,136
+to the did receive request with
+
+
+639
+00:20:16,176 --> 00:20:17,536
+content handler function.
+
+
+640
+00:20:18,016 --> 00:20:19,126
+And the first thing I do in
+
+
+641
+00:20:19,126 --> 00:20:21,086
+there is store both the content
+
+
+642
+00:20:21,086 --> 00:20:24,186
+handler and the remote content
+
+
+643
+00:20:24,186 --> 00:20:24,726
+that was sent.
+
+
+644
+00:20:25,376 --> 00:20:26,696
+Just in case I'm not able to
+
+
+645
+00:20:26,696 --> 00:20:28,246
+complete my operation, this is
+
+
+646
+00:20:28,246 --> 00:20:28,696
+my backup.
+
+
+647
+00:20:29,266 --> 00:20:30,486
+So, I've stored those.
+
+
+648
+00:20:31,026 --> 00:20:35,626
+And then I can handle my request
+
+
+649
+00:20:35,996 --> 00:20:36,656
+the way that I want.
+
+
+650
+00:20:36,766 --> 00:20:39,706
+So, the first thing I do here is
+
+
+651
+00:20:39,706 --> 00:20:42,816
+I grab the video URL from the
+
+
+652
+00:20:42,816 --> 00:20:43,686
+remote payload.
+
+
+653
+00:20:44,036 --> 00:20:46,306
+And because this was some custom
+
+
+654
+00:20:46,376 --> 00:20:48,626
+metadata, I use the user info
+
+
+655
+00:20:48,626 --> 00:20:51,186
+dictionary to access this value.
+
+
+656
+00:20:52,716 --> 00:20:54,876
+The next thing I do is download
+
+
+657
+00:20:54,916 --> 00:20:56,576
+from that URL using whatever
+
+
+658
+00:20:56,576 --> 00:20:59,776
+mechanism I want and I pass a
+
+
+659
+00:20:59,776 --> 00:21:01,336
+completion handler to my
+
+
+660
+00:21:01,336 --> 00:21:03,726
+download method that I want to
+
+
+661
+00:21:03,726 --> 00:21:05,346
+execute after the download is
+
+
+662
+00:21:05,346 --> 00:21:05,966
+complete.
+
+
+663
+00:21:06,286 --> 00:21:09,936
+After the download completes, I
+
+
+664
+00:21:09,936 --> 00:21:11,656
+take that file and I create an
+
+
+665
+00:21:11,656 --> 00:21:12,536
+attachment out of it.
+
+
+666
+00:21:13,516 --> 00:21:15,596
+I attach it to my notification
+
+
+667
+00:21:15,596 --> 00:21:17,216
+content and I send my
+
+
+668
+00:21:17,216 --> 00:21:19,736
+notification on its way.
+
+
+669
+00:21:20,316 --> 00:21:23,446
+And now my notification looks
+
+
+670
+00:21:23,446 --> 00:21:23,896
+great.
+
+
+671
+00:21:23,896 --> 00:21:26,516
+It has an attachment, a video
+
+
+672
+00:21:26,516 --> 00:21:27,996
+attachment attached to it.
+
+
+673
+00:21:29,176 --> 00:21:30,646
+But what if I'm not able to
+
+
+674
+00:21:30,646 --> 00:21:32,696
+complete the downloading of the
+
+
+675
+00:21:32,696 --> 00:21:34,636
+video in the set time?
+
+
+676
+00:21:34,636 --> 00:21:36,176
+There is a limit on the amount
+
+
+677
+00:21:36,176 --> 00:21:37,636
+of time that I have to use in my
+
+
+678
+00:21:37,636 --> 00:21:38,556
+service extension.
+
+
+679
+00:21:39,686 --> 00:21:41,126
+So, if I'm not able to do that,
+
+
+680
+00:21:41,126 --> 00:21:43,196
+there is a fallback, and this a
+
+
+681
+00:21:43,196 --> 00:21:45,006
+function that we call also in
+
+
+682
+00:21:45,006 --> 00:21:46,616
+the service extension called
+
+
+683
+00:21:46,706 --> 00:21:48,126
+service extension time will
+
+
+684
+00:21:48,126 --> 00:21:48,616
+expire.
+
+
+685
+00:21:49,746 --> 00:21:52,566
+In here, I can make use of both
+
+
+686
+00:21:52,566 --> 00:21:53,976
+the content handler and the
+
+
+687
+00:21:53,976 --> 00:21:55,216
+content that I had stored
+
+
+688
+00:21:55,216 --> 00:21:55,796
+earlier.
+
+
+689
+00:21:56,296 --> 00:22:01,056
+And the first thing I do is I
+
+
+690
+00:22:01,056 --> 00:22:03,776
+grab the type of media this is
+
+
+691
+00:22:03,776 --> 00:22:05,586
+that I had also packaged with my
+
+
+692
+00:22:05,586 --> 00:22:07,926
+metadata and I just set the
+
+
+693
+00:22:07,926 --> 00:22:10,986
+title to say incoming media, or
+
+
+694
+00:22:10,986 --> 00:22:12,726
+incoming video.
+
+
+695
+00:22:13,346 --> 00:22:15,056
+And I send my notification on
+
+
+696
+00:22:15,056 --> 00:22:15,366
+its way.
+
+
+697
+00:22:15,736 --> 00:22:18,836
+Now that we know how to use
+
+
+698
+00:22:18,986 --> 00:22:21,376
+service extension, let's
+
+
+699
+00:22:21,376 --> 00:22:22,306
+remember few things.
+
+
+700
+00:22:22,306 --> 00:22:24,406
+Which is that there is a short
+
+
+701
+00:22:24,406 --> 00:22:25,306
+execution time.
+
+
+702
+00:22:25,306 --> 00:22:26,446
+There's a limit on execution
+
+
+703
+00:22:26,446 --> 00:22:28,046
+time and there's also a memory
+
+
+704
+00:22:28,046 --> 00:22:28,366
+limit.
+
+
+705
+00:22:29,296 --> 00:22:31,986
+But make use of the fallback in
+
+
+706
+00:22:31,986 --> 00:22:34,216
+order to do the best possible
+
+
+707
+00:22:34,216 --> 00:22:35,966
+thing for that notification if
+
+
+708
+00:22:35,966 --> 00:22:37,286
+you're unable to complete your
+
+
+709
+00:22:37,286 --> 00:22:37,846
+operation.
+
+
+710
+00:22:38,976 --> 00:22:40,296
+It's also important to note the
+
+
+711
+00:22:40,296 --> 00:22:42,326
+notification that can be handled
+
+
+712
+00:22:42,326 --> 00:22:44,286
+by the service extension are UI
+
+
+713
+00:22:44,286 --> 00:22:46,336
+notification and they will be
+
+
+714
+00:22:46,466 --> 00:22:47,006
+presented.
+
+
+715
+00:22:48,156 --> 00:22:49,456
+And these are different from
+
+
+716
+00:22:49,456 --> 00:22:50,716
+silent notifications.
+
+
+717
+00:22:51,776 --> 00:22:55,786
+What I mean by that is when APNS
+
+
+718
+00:22:56,256 --> 00:22:57,346
+delivers the notification to
+
+
+719
+00:22:57,346 --> 00:22:59,016
+your device, the service
+
+
+720
+00:22:59,016 --> 00:23:01,146
+extension has the opportunity to
+
+
+721
+00:23:01,146 --> 00:23:02,506
+intercept it, as we just saw.
+
+
+722
+00:23:03,196 --> 00:23:05,036
+Any and all work done in the
+
+
+723
+00:23:05,036 --> 00:23:07,126
+service extension should pertain
+
+
+724
+00:23:07,126 --> 00:23:08,816
+to this incoming notification.
+
+
+725
+00:23:09,176 --> 00:23:10,226
+There should be no additional
+
+
+726
+00:23:10,226 --> 00:23:12,216
+background work for your
+
+
+727
+00:23:12,216 --> 00:23:13,556
+application that should be done
+
+
+728
+00:23:13,556 --> 00:23:13,946
+here.
+
+
+729
+00:23:14,596 --> 00:23:15,916
+All work should be either about
+
+
+730
+00:23:15,916 --> 00:23:17,666
+modifying or enhancing this
+
+
+731
+00:23:17,666 --> 00:23:18,386
+notification.
+
+
+732
+00:23:19,026 --> 00:23:20,516
+The service extension also
+
+
+733
+00:23:20,516 --> 00:23:23,156
+doesn't have the power to drop
+
+
+734
+00:23:23,156 --> 00:23:24,666
+this notification or prevent it
+
+
+735
+00:23:24,666 --> 00:23:25,896
+from being displayed.
+
+
+736
+00:23:26,196 --> 00:23:27,326
+This notification will get
+
+
+737
+00:23:27,326 --> 00:23:29,536
+delivered to the device.
+
+
+738
+00:23:30,666 --> 00:23:33,366
+If instead you want to launch
+
+
+739
+00:23:33,366 --> 00:23:34,056
+your application in the
+
+
+740
+00:23:34,056 --> 00:23:35,136
+background and run some
+
+
+741
+00:23:35,136 --> 00:23:37,506
+additional processing, you
+
+
+742
+00:23:37,506 --> 00:23:38,926
+should send a silent
+
+
+743
+00:23:38,926 --> 00:23:39,646
+notification.
+
+
+744
+00:23:40,486 --> 00:23:42,226
+You can also send a silent
+
+
+745
+00:23:42,226 --> 00:23:44,516
+notification and launch your app
+
+
+746
+00:23:44,516 --> 00:23:45,546
+in the background and your app
+
+
+747
+00:23:45,836 --> 00:23:47,286
+can determine whether or not to
+
+
+748
+00:23:47,286 --> 00:23:49,436
+schedule a local notification if
+
+
+749
+00:23:49,436 --> 00:23:50,356
+you want to present a
+
+
+750
+00:23:50,356 --> 00:23:51,786
+conditional notification.
+
+
+751
+00:23:52,366 --> 00:23:56,006
+So, now I have my great
+
+
+752
+00:23:56,006 --> 00:23:57,416
+notification with an attachment
+
+
+753
+00:23:57,816 --> 00:23:59,346
+and let's say I 3D touch to go
+
+
+754
+00:23:59,346 --> 00:24:00,826
+into the rich notification.
+
+
+755
+00:24:01,486 --> 00:24:02,696
+Without doing anything, this is
+
+
+756
+00:24:02,696 --> 00:24:04,016
+my default look.
+
+
+757
+00:24:04,596 --> 00:24:06,236
+Which looks good, but I might
+
+
+758
+00:24:06,236 --> 00:24:07,266
+want to customize it.
+
+
+759
+00:24:07,856 --> 00:24:09,706
+And in order to show you guys
+
+
+760
+00:24:09,706 --> 00:24:11,176
+how to customize these views,
+
+
+761
+00:24:11,206 --> 00:24:12,486
+I'm going to invite Kritharth
+
+
+762
+00:24:12,486 --> 00:24:14,976
+back up on stage.
+
+
+763
+00:24:16,516 --> 00:24:19,496
+[ Applause ]
+
+
+764
+00:24:19,996 --> 00:24:20,626
+>> Thank you, Teja.
+
+
+765
+00:24:21,186 --> 00:24:22,656
+So, so far we've looked at our
+
+
+766
+00:24:22,656 --> 00:24:23,736
+first two use cases.
+
+
+767
+00:24:23,926 --> 00:24:25,236
+The first about hidden
+
+
+768
+00:24:25,236 --> 00:24:26,646
+notification content and how we
+
+
+769
+00:24:26,646 --> 00:24:27,586
+can customize them.
+
+
+770
+00:24:28,406 --> 00:24:29,916
+And secondly about modifying
+
+
+771
+00:24:29,916 --> 00:24:31,116
+push notification content.
+
+
+772
+00:24:32,106 --> 00:24:33,596
+Let's move to our third use case
+
+
+773
+00:24:33,596 --> 00:24:34,836
+about customizing rich
+
+
+774
+00:24:34,836 --> 00:24:35,506
+notifications.
+
+
+775
+00:24:36,536 --> 00:24:39,336
+Now, as we just saw, this is the
+
+
+776
+00:24:39,336 --> 00:24:41,946
+default look for a media
+
+
+777
+00:24:41,946 --> 00:24:43,316
+attachment rich notification.
+
+
+778
+00:24:43,916 --> 00:24:45,476
+We overlay the video with the
+
+
+779
+00:24:45,476 --> 00:24:47,196
+play button so that the user can
+
+
+780
+00:24:47,196 --> 00:24:48,686
+play the media right there and
+
+
+781
+00:24:48,686 --> 00:24:51,236
+then as well as default content
+
+
+782
+00:24:51,236 --> 00:24:52,066
+shown right below it.
+
+
+783
+00:24:52,806 --> 00:24:54,006
+And if there was no media
+
+
+784
+00:24:54,006 --> 00:24:55,796
+attached to it, then all that
+
+
+785
+00:24:55,796 --> 00:24:57,176
+the rich notification would show
+
+
+786
+00:24:57,316 --> 00:24:58,546
+would be the default content.
+
+
+787
+00:24:59,676 --> 00:25:01,276
+But what if you want to
+
+
+788
+00:25:01,326 --> 00:25:03,176
+customize this rich notification
+
+
+789
+00:25:03,606 --> 00:25:05,426
+and give it a custom look and
+
+
+790
+00:25:05,426 --> 00:25:06,896
+feel that's specific to your
+
+
+791
+00:25:06,896 --> 00:25:07,496
+application?
+
+
+792
+00:25:08,906 --> 00:25:10,546
+What if you want to completely
+
+
+793
+00:25:10,546 --> 00:25:12,126
+custom9ize the display of this
+
+
+794
+00:25:12,126 --> 00:25:14,186
+notification content as you want
+
+
+795
+00:25:14,186 --> 00:25:14,526
+to do.
+
+
+796
+00:25:15,576 --> 00:25:17,176
+And in the process you make
+
+
+797
+00:25:17,516 --> 00:25:19,046
+these notifications very
+
+
+798
+00:25:19,046 --> 00:25:21,216
+interactive and dynamic for your
+
+
+799
+00:25:21,216 --> 00:25:22,966
+users so that they can complete
+
+
+800
+00:25:22,966 --> 00:25:24,666
+these operations right in the
+
+
+801
+00:25:24,666 --> 00:25:26,306
+notification without having the
+
+
+802
+00:25:26,306 --> 00:25:27,666
+need to go to the application.
+
+
+803
+00:25:28,486 --> 00:25:30,456
+Well, we can achieve all of this
+
+
+804
+00:25:30,456 --> 00:25:32,516
+and for that we use our second
+
+
+805
+00:25:32,516 --> 00:25:34,096
+extension point of content
+
+
+806
+00:25:34,096 --> 00:25:34,646
+extensions.
+
+
+807
+00:25:35,176 --> 00:25:36,606
+So, let's take a look how we can
+
+
+808
+00:25:36,606 --> 00:25:38,246
+set content extensions up.
+
+
+809
+00:25:39,606 --> 00:25:41,006
+So, so far we've seen that the
+
+
+810
+00:25:41,006 --> 00:25:42,386
+service extension was where we
+
+
+811
+00:25:42,386 --> 00:25:44,036
+downloaded the media and then
+
+
+812
+00:25:44,296 --> 00:25:45,586
+the notification was presented
+
+
+813
+00:25:45,586 --> 00:25:46,516
+on the user's device.
+
+
+814
+00:25:47,536 --> 00:25:48,866
+Now, if you have a content
+
+
+815
+00:25:48,866 --> 00:25:51,116
+extension set up having the same
+
+
+816
+00:25:51,116 --> 00:25:52,596
+category identifier as the
+
+
+817
+00:25:52,596 --> 00:25:54,596
+notification, then the system
+
+
+818
+00:25:54,596 --> 00:25:55,596
+will launch this content
+
+
+819
+00:25:55,596 --> 00:25:56,086
+extension.
+
+
+820
+00:25:56,466 --> 00:25:57,796
+And set up all the different
+
+
+821
+00:25:57,796 --> 00:25:59,066
+views and view controllers
+
+
+822
+00:25:59,126 --> 00:26:00,816
+associated with this content
+
+
+823
+00:26:00,816 --> 00:26:03,546
+extension before opening the
+
+
+824
+00:26:03,546 --> 00:26:04,356
+rich notification.
+
+
+825
+00:26:04,516 --> 00:26:05,536
+And then uses these view
+
+
+826
+00:26:05,536 --> 00:26:07,196
+controllers to present that
+
+
+827
+00:26:07,196 --> 00:26:08,886
+custom rich notification user
+
+
+828
+00:26:09,156 --> 00:26:09,846
+interface.
+
+
+829
+00:26:10,366 --> 00:26:13,126
+What are the different things
+
+
+830
+00:26:13,256 --> 00:26:14,976
+that you can customize as part
+
+
+831
+00:26:14,976 --> 00:26:16,106
+of these rich notifications?
+
+
+832
+00:26:16,936 --> 00:26:18,396
+You can change the title that's
+
+
+833
+00:26:18,396 --> 00:26:20,186
+right above the content.
+
+
+834
+00:26:21,316 --> 00:26:22,976
+You can completely customize the
+
+
+835
+00:26:22,976 --> 00:26:24,366
+content and the way it's shown.
+
+
+836
+00:26:25,906 --> 00:26:26,996
+And you also have the option of
+
+
+837
+00:26:26,996 --> 00:26:28,066
+just removing the default
+
+
+838
+00:26:28,066 --> 00:26:29,566
+content if you've already
+
+
+839
+00:26:29,566 --> 00:26:31,166
+included that information in
+
+
+840
+00:26:31,166 --> 00:26:32,026
+your custom section.
+
+
+841
+00:26:32,646 --> 00:26:35,866
+So, to set up a content
+
+
+842
+00:26:35,866 --> 00:26:37,826
+extension, Xcode gives you a
+
+
+843
+00:26:37,826 --> 00:26:39,206
+default template to get you
+
+
+844
+00:26:39,206 --> 00:26:39,626
+started.
+
+
+845
+00:26:40,316 --> 00:26:43,046
+In this customization process,
+
+
+846
+00:26:43,046 --> 00:26:44,356
+the first place where we look is
+
+
+847
+00:26:44,356 --> 00:26:45,176
+the info.plist.
+
+
+848
+00:26:45,956 --> 00:26:46,926
+Now, of course the first thing
+
+
+849
+00:26:46,926 --> 00:26:48,346
+we do is set the correct
+
+
+850
+00:26:48,346 --> 00:26:49,416
+category for all the
+
+
+851
+00:26:49,416 --> 00:26:50,956
+notifications that we want to
+
+
+852
+00:26:50,956 --> 00:26:52,276
+associate with this content
+
+
+853
+00:26:52,276 --> 00:26:52,706
+extension.
+
+
+854
+00:26:53,346 --> 00:26:55,616
+Now, some of the easy ones we
+
+
+855
+00:26:55,616 --> 00:26:57,286
+can get here are by setting the
+
+
+856
+00:26:57,286 --> 00:26:58,986
+default content hidden flag to
+
+
+857
+00:26:58,986 --> 00:26:59,356
+Yes.
+
+
+858
+00:26:59,356 --> 00:27:00,816
+And this, we'll just go ahead
+
+
+859
+00:27:00,816 --> 00:27:02,186
+and remove the default content
+
+
+860
+00:27:02,386 --> 00:27:04,486
+before, below your custom UI.
+
+
+861
+00:27:06,066 --> 00:27:07,686
+And also by overriding the
+
+
+862
+00:27:07,686 --> 00:27:10,146
+default title, you can do that
+
+
+863
+00:27:10,146 --> 00:27:11,596
+by simply setting this flag here
+
+
+864
+00:27:12,376 --> 00:27:14,066
+as well.
+
+
+865
+00:27:14,276 --> 00:27:16,246
+Now, when we look at our code,
+
+
+866
+00:27:16,476 --> 00:27:17,716
+you can see here that our class
+
+
+867
+00:27:17,716 --> 00:27:19,016
+notification view controller
+
+
+868
+00:27:19,106 --> 00:27:20,816
+implements the UN notification
+
+
+869
+00:27:20,996 --> 00:27:22,456
+content extension protocol.
+
+
+870
+00:27:22,866 --> 00:27:25,316
+Now, the entry method into your
+
+
+871
+00:27:25,316 --> 00:27:27,206
+content extension is the did
+
+
+872
+00:27:27,206 --> 00:27:28,736
+receive notification method.
+
+
+873
+00:27:29,376 --> 00:27:30,796
+The UN notification object here
+
+
+874
+00:27:30,796 --> 00:27:32,156
+contains all the information
+
+
+875
+00:27:32,276 --> 00:27:33,406
+that's pertinent to this
+
+
+876
+00:27:33,406 --> 00:27:33,956
+notification.
+
+
+877
+00:27:35,176 --> 00:27:36,486
+So, the first thing that we do
+
+
+878
+00:27:36,486 --> 00:27:37,946
+is go ahead and extract the
+
+
+879
+00:27:37,996 --> 00:27:39,386
+content from this notification.
+
+
+880
+00:27:40,716 --> 00:27:41,916
+And then we can just go ahead
+
+
+881
+00:27:41,916 --> 00:27:43,316
+and get the attachment that we
+
+
+882
+00:27:43,316 --> 00:27:44,556
+had downloaded in our service
+
+
+883
+00:27:44,556 --> 00:27:45,206
+extension here.
+
+
+884
+00:27:45,836 --> 00:27:48,566
+And then we go and set it up in
+
+
+885
+00:27:48,566 --> 00:27:50,156
+our custom media player that we
+
+
+886
+00:27:50,156 --> 00:27:51,936
+set up in our custom UI.
+
+
+887
+00:27:53,056 --> 00:27:54,366
+There are more things we can do
+
+
+888
+00:27:54,366 --> 00:27:55,336
+in this customization.
+
+
+889
+00:27:55,926 --> 00:27:58,216
+One of the things is setting the
+
+
+890
+00:27:58,216 --> 00:27:59,866
+title that we had overridden at
+
+
+891
+00:27:59,866 --> 00:28:01,056
+the top of the content
+
+
+892
+00:28:01,056 --> 00:28:01,456
+extension.
+
+
+893
+00:28:02,046 --> 00:28:05,216
+Now, the user info object is a
+
+
+894
+00:28:05,286 --> 00:28:07,156
+key value pairing that you can
+
+
+895
+00:28:07,156 --> 00:28:08,666
+associate with your notification
+
+
+896
+00:28:08,666 --> 00:28:10,836
+payload which allows you to send
+
+
+897
+00:28:10,836 --> 00:28:12,326
+a lot more information.
+
+
+898
+00:28:12,946 --> 00:28:14,116
+So that you're not restricted to
+
+
+899
+00:28:14,116 --> 00:28:16,266
+just the title, the subtitle as
+
+
+900
+00:28:16,266 --> 00:28:17,116
+well as the body of the
+
+
+901
+00:28:17,116 --> 00:28:17,736
+notification.
+
+
+902
+00:28:18,366 --> 00:28:19,946
+So, in our example here, we
+
+
+903
+00:28:19,946 --> 00:28:21,546
+package different information
+
+
+904
+00:28:21,606 --> 00:28:22,686
+associated with this
+
+
+905
+00:28:22,686 --> 00:28:24,506
+notification such as the user
+
+
+906
+00:28:24,506 --> 00:28:25,666
+who posted this video.
+
+
+907
+00:28:26,006 --> 00:28:26,876
+The location [inaudible] was
+
+
+908
+00:28:26,876 --> 00:28:28,446
+taken as well as a description
+
+
+909
+00:28:28,446 --> 00:28:29,586
+that might be associated with
+
+
+910
+00:28:29,586 --> 00:28:29,666
+it.
+
+
+911
+00:28:30,046 --> 00:28:31,196
+And we can just extract that
+
+
+912
+00:28:31,196 --> 00:28:32,966
+simply from the user info
+
+
+913
+00:28:32,966 --> 00:28:33,396
+object.
+
+
+914
+00:28:34,936 --> 00:28:36,426
+And we use this to set up our
+
+
+915
+00:28:36,426 --> 00:28:38,246
+custom labels which, again,
+
+
+916
+00:28:38,246 --> 00:28:39,846
+we've tied to the storyboard
+
+
+917
+00:28:39,936 --> 00:28:41,386
+associated with our content
+
+
+918
+00:28:41,386 --> 00:28:41,786
+extension.
+
+
+919
+00:28:41,826 --> 00:28:46,586
+So, now that we've set this up
+
+
+920
+00:28:46,586 --> 00:28:48,476
+in Code, let's take a look at
+
+
+921
+00:28:48,476 --> 00:28:49,736
+how our custom UI looks.
+
+
+922
+00:28:50,526 --> 00:28:52,706
+So, the user goes ahead and 3D
+
+
+923
+00:28:52,706 --> 00:28:53,946
+touches in this notification.
+
+
+924
+00:28:54,476 --> 00:28:56,046
+And then you can see that we
+
+
+925
+00:28:56,046 --> 00:28:57,376
+have a completely different UI
+
+
+926
+00:28:57,506 --> 00:28:58,826
+here which might be something
+
+
+927
+00:28:58,826 --> 00:29:00,026
+similar to what our application
+
+
+928
+00:29:00,026 --> 00:29:01,006
+looks like.
+
+
+929
+00:29:02,276 --> 00:29:03,876
+So, we've gone from something
+
+
+930
+00:29:03,876 --> 00:29:06,466
+that looked like this to
+
+
+931
+00:29:06,466 --> 00:29:07,486
+something that's completely
+
+
+932
+00:29:07,486 --> 00:29:08,126
+customized.
+
+
+933
+00:29:08,656 --> 00:29:11,026
+You have your own custom title
+
+
+934
+00:29:11,026 --> 00:29:11,756
+at the top.
+
+
+935
+00:29:12,276 --> 00:29:14,606
+You have your complete custom UI
+
+
+936
+00:29:14,606 --> 00:29:17,776
+where the video is surrounded by
+
+
+937
+00:29:17,776 --> 00:29:19,136
+all the relevant information
+
+
+938
+00:29:19,136 --> 00:29:20,406
+that you want to show as part of
+
+
+939
+00:29:20,406 --> 00:29:21,136
+this notification.
+
+
+940
+00:29:21,726 --> 00:29:23,896
+And we've hidden the default
+
+
+941
+00:29:23,896 --> 00:29:25,186
+content because we've already
+
+
+942
+00:29:25,186 --> 00:29:27,226
+included that information in our
+
+
+943
+00:29:27,526 --> 00:29:28,616
+custom content.
+
+
+944
+00:29:32,856 --> 00:29:35,086
+All right, so let's take a look
+
+
+945
+00:29:35,086 --> 00:29:37,076
+at the transition again and pay
+
+
+946
+00:29:37,076 --> 00:29:39,046
+attention to the initial sizing
+
+
+947
+00:29:39,046 --> 00:29:40,426
+of this content extension as
+
+
+948
+00:29:40,426 --> 00:29:44,436
+it's being loaded here.
+
+
+949
+00:29:44,666 --> 00:29:46,076
+Now, you might have noticed that
+
+
+950
+00:29:46,206 --> 00:29:47,886
+it starts at a larger size and
+
+
+951
+00:29:47,886 --> 00:29:50,386
+then grows smaller to the exact
+
+
+952
+00:29:50,386 --> 00:29:51,506
+size of the content extension.
+
+
+953
+00:29:51,946 --> 00:29:53,126
+Now, this might not be a good
+
+
+954
+00:29:53,126 --> 00:29:54,846
+experience for your user if
+
+
+955
+00:29:54,846 --> 00:29:55,806
+they're going into your content
+
+
+956
+00:29:55,806 --> 00:29:57,406
+extension after 3D touching.
+
+
+957
+00:29:57,956 --> 00:29:59,776
+Well, we do have the option of
+
+
+958
+00:29:59,776 --> 00:30:00,966
+fixing that as well.
+
+
+959
+00:30:01,306 --> 00:30:02,816
+And for that, we go back to our
+
+
+960
+00:30:02,816 --> 00:30:03,616
+info.plist.
+
+
+961
+00:30:04,146 --> 00:30:06,266
+And there we have a property
+
+
+962
+00:30:06,266 --> 00:30:08,266
+that you can set which is the
+
+
+963
+00:30:08,266 --> 00:30:09,256
+content size ratio.
+
+
+964
+00:30:09,936 --> 00:30:11,856
+Now, this ratio is a best guess
+
+
+965
+00:30:12,296 --> 00:30:13,616
+that you want to tell the system
+
+
+966
+00:30:13,846 --> 00:30:15,606
+for the ratio between the width
+
+
+967
+00:30:15,606 --> 00:30:17,116
+and the height of your content
+
+
+968
+00:30:17,116 --> 00:30:17,546
+extension.
+
+
+969
+00:30:18,136 --> 00:30:20,036
+So, the system knows what's the
+
+
+970
+00:30:20,036 --> 00:30:21,576
+starting size it wants to load
+
+
+971
+00:30:21,716 --> 00:30:22,786
+that content extension at.
+
+
+972
+00:30:23,706 --> 00:30:24,716
+So, in our example here we just
+
+
+973
+00:30:24,716 --> 00:30:27,966
+set the value of 0.8 and once
+
+
+974
+00:30:28,076 --> 00:30:31,336
+we've done this, now when we do
+
+
+975
+00:30:31,336 --> 00:30:33,126
+the transition, it loads right
+
+
+976
+00:30:33,346 --> 00:30:34,756
+perfectly to the size of your
+
+
+977
+00:30:34,756 --> 00:30:35,176
+content.
+
+
+978
+00:30:35,576 --> 00:30:36,446
+So, it's a much better
+
+
+979
+00:30:36,446 --> 00:30:38,266
+experience for your users.
+
+
+980
+00:30:40,096 --> 00:30:41,796
+So, before we move on, let's
+
+
+981
+00:30:41,796 --> 00:30:42,866
+take a look at some of the best
+
+
+982
+00:30:42,866 --> 00:30:44,746
+practices for customizing these
+
+
+983
+00:30:44,746 --> 00:30:45,576
+rich notifications.
+
+
+984
+00:30:47,096 --> 00:30:48,566
+Now, as I've emphasized, you can
+
+
+985
+00:30:48,566 --> 00:30:50,806
+have custom UI elements and you
+
+
+986
+00:30:50,806 --> 00:30:52,086
+can display all the relevant
+
+
+987
+00:30:52,086 --> 00:30:53,546
+information using these elements
+
+
+988
+00:30:53,656 --> 00:30:56,066
+as you see fit.
+
+
+989
+00:30:56,346 --> 00:30:58,016
+You can also simply reuse your
+
+
+990
+00:30:58,016 --> 00:30:59,576
+app view controllers in these
+
+
+991
+00:30:59,576 --> 00:31:01,066
+notification content extensions.
+
+
+992
+00:31:01,396 --> 00:31:02,706
+So, you don't have to duplicate
+
+
+993
+00:31:02,706 --> 00:31:03,196
+any work.
+
+
+994
+00:31:03,576 --> 00:31:04,456
+These are simply view
+
+
+995
+00:31:04,456 --> 00:31:05,016
+controllers.
+
+
+996
+00:31:05,636 --> 00:31:08,556
+It's also important to have the
+
+
+997
+00:31:08,556 --> 00:31:10,876
+correct sizing and that the
+
+
+998
+00:31:10,946 --> 00:31:12,576
+starting loading size is also
+
+
+999
+00:31:12,996 --> 00:31:14,096
+what makes sense for your
+
+
+1000
+00:31:14,096 --> 00:31:15,056
+content, for your custom
+
+
+1001
+00:31:15,056 --> 00:31:15,456
+content.
+
+
+1002
+00:31:17,226 --> 00:31:18,706
+And lastly, it's important to
+
+
+1003
+00:31:18,706 --> 00:31:20,936
+have fast loading and layout for
+
+
+1004
+00:31:20,936 --> 00:31:21,506
+your content.
+
+
+1005
+00:31:22,126 --> 00:31:23,386
+Because we do want the
+
+
+1006
+00:31:23,386 --> 00:31:25,556
+transition from the notification
+
+
+1007
+00:31:25,556 --> 00:31:27,216
+into the rich notification to be
+
+
+1008
+00:31:27,216 --> 00:31:28,886
+super smooth for your users.
+
+
+1009
+00:31:31,676 --> 00:31:33,776
+All right, so this is where we
+
+
+1010
+00:31:33,776 --> 00:31:35,386
+ended up with our custom UI.
+
+
+1011
+00:31:36,166 --> 00:31:38,166
+Now, we did attach a video here.
+
+
+1012
+00:31:38,376 --> 00:31:40,366
+However, there's no way to play
+
+
+1013
+00:31:40,366 --> 00:31:40,856
+the media.
+
+
+1014
+00:31:41,806 --> 00:31:43,666
+Also, this post looks like it's
+
+
+1015
+00:31:43,666 --> 00:31:44,686
+coming from a social media
+
+
+1016
+00:31:44,686 --> 00:31:45,926
+stream but there's no way to
+
+
+1017
+00:31:45,926 --> 00:31:46,656
+interact with it.
+
+
+1018
+00:31:47,936 --> 00:31:49,576
+Well, we can add all these
+
+
+1019
+00:31:49,576 --> 00:31:50,836
+different mechanisms to this
+
+
+1020
+00:31:50,836 --> 00:31:52,686
+notification and that leads us
+
+
+1021
+00:31:52,686 --> 00:31:54,576
+to our last use case about user
+
+
+1022
+00:31:54,576 --> 00:31:55,576
+input customization.
+
+
+1023
+00:31:56,166 --> 00:31:58,996
+Now, some of you might be
+
+
+1024
+00:31:58,996 --> 00:32:00,666
+familiar that the content
+
+
+1025
+00:32:00,666 --> 00:32:02,256
+extension body does not allow
+
+
+1026
+00:32:02,296 --> 00:32:02,986
+any touches.
+
+
+1027
+00:32:03,916 --> 00:32:04,816
+However, fear not.
+
+
+1028
+00:32:04,896 --> 00:32:06,686
+We do give you some multiple
+
+
+1029
+00:32:07,196 --> 00:32:08,516
+input mechanisms that you can
+
+
+1030
+00:32:08,516 --> 00:32:10,246
+use here for making these
+
+
+1031
+00:32:10,246 --> 00:32:11,446
+notifications interactable.
+
+
+1032
+00:32:12,346 --> 00:32:14,006
+And these are namely media
+
+
+1033
+00:32:14,006 --> 00:32:16,386
+buttons, notification actions,
+
+
+1034
+00:32:17,096 --> 00:32:18,306
+and custom user inputs.
+
+
+1035
+00:32:18,736 --> 00:32:19,826
+And we'll take a look at all
+
+
+1036
+00:32:19,826 --> 00:32:20,536
+these three different
+
+
+1037
+00:32:20,926 --> 00:32:23,866
+interaction models in the
+
+
+1038
+00:32:25,016 --> 00:32:25,226
+section.
+
+
+1039
+00:32:25,366 --> 00:32:26,966
+Now, wouldn't it be nice that we
+
+
+1040
+00:32:26,966 --> 00:32:28,286
+could just overlay our video
+
+
+1041
+00:32:28,286 --> 00:32:30,266
+here with a play button on top
+
+
+1042
+00:32:30,266 --> 00:32:30,566
+of it?
+
+
+1043
+00:32:31,606 --> 00:32:33,246
+Well, you can do that.
+
+
+1044
+00:32:33,246 --> 00:32:35,276
+Content extensions allow you to
+
+
+1045
+00:32:35,276 --> 00:32:37,016
+overlay your content with media
+
+
+1046
+00:32:37,016 --> 00:32:37,346
+buttons.
+
+
+1047
+00:32:37,976 --> 00:32:39,336
+Let's take a look how we can set
+
+
+1048
+00:32:39,336 --> 00:32:39,956
+this up in code.
+
+
+1049
+00:32:41,606 --> 00:32:43,866
+So, here we are back at our, in
+
+
+1050
+00:32:43,866 --> 00:32:45,306
+our class which implements the
+
+
+1051
+00:32:45,306 --> 00:32:46,426
+content extension protocol.
+
+
+1052
+00:32:47,106 --> 00:32:48,266
+And for getting these media
+
+
+1053
+00:32:48,266 --> 00:32:50,226
+buttons, you have to implement a
+
+
+1054
+00:32:50,226 --> 00:32:50,786
+few methods.
+
+
+1055
+00:32:51,796 --> 00:32:53,576
+The first one is the media play
+
+
+1056
+00:32:53,576 --> 00:32:55,556
+pause button frame which allows
+
+
+1057
+00:32:55,556 --> 00:32:57,066
+you to tell the system exactly
+
+
+1058
+00:32:57,066 --> 00:32:58,566
+where you want this media button
+
+
+1059
+00:32:58,566 --> 00:33:00,096
+to be overlayed over your custom
+
+
+1060
+00:33:00,096 --> 00:33:00,546
+content.
+
+
+1061
+00:33:01,916 --> 00:33:03,426
+You can also customize the look
+
+
+1062
+00:33:03,426 --> 00:33:05,106
+and feel of this media button by
+
+
+1063
+00:33:05,196 --> 00:33:07,396
+specifying the color as well as
+
+
+1064
+00:33:07,396 --> 00:33:07,766
+the type.
+
+
+1065
+00:33:08,226 --> 00:33:09,426
+In this example, we just use
+
+
+1066
+00:33:09,426 --> 00:33:09,776
+default.
+
+
+1067
+00:33:10,426 --> 00:33:14,006
+Now, to know when the user
+
+
+1068
+00:33:14,006 --> 00:33:15,836
+actually pressed the play or the
+
+
+1069
+00:33:15,836 --> 00:33:17,406
+pause button, you also get
+
+
+1070
+00:33:17,406 --> 00:33:19,616
+method callbacks, namely media
+
+
+1071
+00:33:19,616 --> 00:33:20,606
+play and media pause.
+
+
+1072
+00:33:20,996 --> 00:33:22,126
+And in our example, it's
+
+
+1073
+00:33:22,126 --> 00:33:24,496
+important that call to our media
+
+
+1074
+00:33:24,496 --> 00:33:25,796
+player in our custom content.
+
+
+1075
+00:33:29,436 --> 00:33:29,976
+All right.
+
+
+1076
+00:33:29,976 --> 00:33:31,356
+Now that we've set up our media
+
+
+1077
+00:33:31,356 --> 00:33:33,536
+button, let's take a look how it
+
+
+1078
+00:33:33,536 --> 00:33:34,156
+works in action.
+
+
+1079
+00:33:35,776 --> 00:33:37,716
+So, the user goes into our
+
+
+1080
+00:33:37,716 --> 00:33:39,486
+custom content and just by
+
+
+1081
+00:33:39,486 --> 00:33:40,656
+simply pressing the play button,
+
+
+1082
+00:33:40,916 --> 00:33:41,816
+the video starts playing.
+
+
+1083
+00:33:41,926 --> 00:33:46,096
+It's as simple as that.
+
+
+1084
+00:33:46,306 --> 00:33:48,116
+So, let's move to adding more
+
+
+1085
+00:33:48,116 --> 00:33:48,986
+interaction to this
+
+
+1086
+00:33:48,986 --> 00:33:49,576
+notification.
+
+
+1087
+00:33:50,306 --> 00:33:51,346
+And like I said, this was a
+
+
+1088
+00:33:51,346 --> 00:33:54,256
+media post and we want the user
+
+
+1089
+00:33:54,256 --> 00:33:55,996
+to give us feedback to this
+
+
+1090
+00:33:55,996 --> 00:33:57,746
+video post in the form of, say,
+
+
+1091
+00:33:58,236 --> 00:33:59,946
+maybe a like and a comment
+
+
+1092
+00:33:59,946 --> 00:34:00,226
+action.
+
+
+1093
+00:34:01,206 --> 00:34:02,276
+So, let's see how we can set
+
+
+1094
+00:34:02,276 --> 00:34:02,966
+these up.
+
+
+1095
+00:34:04,016 --> 00:34:05,786
+Now, normally action handling
+
+
+1096
+00:34:05,786 --> 00:34:07,306
+works that when the user takes
+
+
+1097
+00:34:07,306 --> 00:34:09,025
+an action, you get the response
+
+
+1098
+00:34:09,096 --> 00:34:10,136
+in your main application.
+
+
+1099
+00:34:11,025 --> 00:34:12,166
+However, if you do have a
+
+
+1100
+00:34:12,166 --> 00:34:14,476
+content extension set up, you do
+
+
+1101
+00:34:14,476 --> 00:34:16,166
+have the option of intercepting
+
+
+1102
+00:34:16,166 --> 00:34:17,666
+this action right in the content
+
+
+1103
+00:34:17,666 --> 00:34:18,065
+extension.
+
+
+1104
+00:34:18,126 --> 00:34:20,466
+So, you can act on this action
+
+
+1105
+00:34:20,466 --> 00:34:22,255
+as well as update your UI the
+
+
+1106
+00:34:22,255 --> 00:34:23,466
+way you want to do it.
+
+
+1107
+00:34:24,266 --> 00:34:25,416
+Also, you have the option of
+
+
+1108
+00:34:25,416 --> 00:34:26,946
+just forwarding this action to
+
+
+1109
+00:34:26,946 --> 00:34:28,456
+the application if you want to
+
+
+1110
+00:34:28,456 --> 00:34:29,596
+centralize all your action
+
+
+1111
+00:34:29,596 --> 00:34:29,926
+handling.
+
+
+1112
+00:34:30,525 --> 00:34:32,846
+Let's see how we can set this
+
+
+1113
+00:34:32,846 --> 00:34:33,436
+all up in code.
+
+
+1114
+00:34:35,056 --> 00:34:36,516
+So, here we create our two
+
+
+1115
+00:34:36,795 --> 00:34:38,466
+actions, one for like which is a
+
+
+1116
+00:34:38,466 --> 00:34:39,946
+simple UN notification action.
+
+
+1117
+00:34:40,876 --> 00:34:42,235
+And for comment action, we
+
+
+1118
+00:34:42,235 --> 00:34:43,976
+create a text input action.
+
+
+1119
+00:34:44,606 --> 00:34:46,985
+And then we set up our category
+
+
+1120
+00:34:46,985 --> 00:34:47,926
+with these two actions that
+
+
+1121
+00:34:47,966 --> 00:34:50,536
+we've created, giving it the
+
+
+1122
+00:34:50,536 --> 00:34:52,025
+same identifier that's
+
+
+1123
+00:34:52,025 --> 00:34:53,306
+associated with the content
+
+
+1124
+00:34:53,306 --> 00:34:53,806
+extension.
+
+
+1125
+00:34:54,016 --> 00:34:57,636
+Now, when we come back to the
+
+
+1126
+00:34:57,636 --> 00:34:59,756
+content extension code, the main
+
+
+1127
+00:34:59,806 --> 00:35:01,186
+method that you implement for
+
+
+1128
+00:35:01,186 --> 00:35:02,846
+handling these actions is the
+
+
+1129
+00:35:03,196 --> 00:35:04,416
+did receive response with
+
+
+1130
+00:35:04,456 --> 00:35:05,406
+completion handler method.
+
+
+1131
+00:35:06,266 --> 00:35:07,486
+Now, here the UN notification
+
+
+1132
+00:35:07,486 --> 00:35:09,336
+response object contains all the
+
+
+1133
+00:35:09,336 --> 00:35:10,966
+information about the action
+
+
+1134
+00:35:10,966 --> 00:35:12,556
+that was taken as well as the
+
+
+1135
+00:35:12,556 --> 00:35:14,076
+notification request on which
+
+
+1136
+00:35:14,076 --> 00:35:14,936
+this action was taken.
+
+
+1137
+00:35:15,526 --> 00:35:17,766
+So, the first thing in our
+
+
+1138
+00:35:17,766 --> 00:35:19,616
+example that we do here is post
+
+
+1139
+00:35:19,616 --> 00:35:20,906
+this response to our server
+
+
+1140
+00:35:21,236 --> 00:35:22,876
+because we just want to handle
+
+
+1141
+00:35:22,876 --> 00:35:23,976
+our action in the content
+
+
+1142
+00:35:23,976 --> 00:35:25,376
+extension without sending it to
+
+
+1143
+00:35:25,376 --> 00:35:26,246
+our app.
+
+
+1144
+00:35:26,916 --> 00:35:28,656
+Then we look at the action
+
+
+1145
+00:35:28,656 --> 00:35:29,816
+identifier and determine it's
+
+
+1146
+00:35:29,816 --> 00:35:30,496
+the like action.
+
+
+1147
+00:35:31,466 --> 00:35:32,906
+And then just go ahead and
+
+
+1148
+00:35:32,906 --> 00:35:34,786
+update our custom UI with the
+
+
+1149
+00:35:34,876 --> 00:35:35,546
+like emoji.
+
+
+1150
+00:35:36,086 --> 00:35:38,206
+And lastly, we call the
+
+
+1151
+00:35:38,206 --> 00:35:39,566
+completion handler with the
+
+
+1152
+00:35:39,566 --> 00:35:40,706
+option do not dismiss.
+
+
+1153
+00:35:41,276 --> 00:35:42,706
+Because we want the user to
+
+
+1154
+00:35:42,706 --> 00:35:44,496
+still interact with the content,
+
+
+1155
+00:35:44,496 --> 00:35:45,746
+because the video might still be
+
+
+1156
+00:35:45,746 --> 00:35:47,066
+playing after they've completed
+
+
+1157
+00:35:47,066 --> 00:35:47,526
+this action.
+
+
+1158
+00:35:49,856 --> 00:35:51,836
+So, once we've set this action
+
+
+1159
+00:35:51,836 --> 00:35:53,416
+up, let's take a look at how
+
+
+1160
+00:35:53,416 --> 00:35:53,846
+this looks.
+
+
+1161
+00:35:54,606 --> 00:35:58,606
+So, the user starts playing the
+
+
+1162
+00:35:58,606 --> 00:35:59,986
+video and just by simply taking
+
+
+1163
+00:35:59,986 --> 00:36:01,736
+the like action, we've updated
+
+
+1164
+00:36:01,736 --> 00:36:03,616
+the UI and it gives a good
+
+
+1165
+00:36:03,616 --> 00:36:05,086
+feedback to the user that
+
+
+1166
+00:36:05,086 --> 00:36:06,116
+they're engaging with this
+
+
+1167
+00:36:06,116 --> 00:36:07,306
+content right there and then.
+
+
+1168
+00:36:07,686 --> 00:36:08,796
+And the video's still playing
+
+
+1169
+00:36:08,876 --> 00:36:09,716
+and the content hasn't
+
+
+1170
+00:36:09,716 --> 00:36:10,166
+dismissed.
+
+
+1171
+00:36:10,616 --> 00:36:13,826
+Let's continue and look at the
+
+
+1172
+00:36:13,826 --> 00:36:14,946
+next action that we've added
+
+
+1173
+00:36:15,016 --> 00:36:16,016
+which was the comment action.
+
+
+1174
+00:36:16,576 --> 00:36:17,626
+And here again we look at the
+
+
+1175
+00:36:17,626 --> 00:36:19,306
+action identifier and determine
+
+
+1176
+00:36:19,386 --> 00:36:20,546
+that it is the comment action.
+
+
+1177
+00:36:21,556 --> 00:36:23,266
+Now, since we know that we'd set
+
+
+1178
+00:36:23,266 --> 00:36:25,166
+it up as a text input action, we
+
+
+1179
+00:36:25,166 --> 00:36:26,576
+first check if the response is
+
+
+1180
+00:36:26,576 --> 00:36:27,976
+associated with a text response.
+
+
+1181
+00:36:29,476 --> 00:36:31,526
+And we extract the user text
+
+
+1182
+00:36:31,526 --> 00:36:32,516
+that the user might have entered
+
+
+1183
+00:36:32,606 --> 00:36:33,556
+as part of this action.
+
+
+1184
+00:36:34,296 --> 00:36:36,146
+And then set it up on our custom
+
+
+1185
+00:36:36,146 --> 00:36:37,796
+label that's again associated
+
+
+1186
+00:36:37,796 --> 00:36:38,526
+with our custom UI.
+
+
+1187
+00:36:38,526 --> 00:36:40,726
+And again, we call the
+
+
+1188
+00:36:40,726 --> 00:36:41,946
+completion handler without
+
+
+1189
+00:36:41,946 --> 00:36:43,136
+dismissing this notification.
+
+
+1190
+00:36:45,296 --> 00:36:47,146
+So, once we've set this up
+
+
+1191
+00:36:47,986 --> 00:36:50,086
+again, now the user starts
+
+
+1192
+00:36:50,086 --> 00:36:51,006
+playing the video, presses the
+
+
+1193
+00:36:51,006 --> 00:36:53,006
+comment button and just adds
+
+
+1194
+00:36:53,006 --> 00:36:54,026
+their comment there.
+
+
+1195
+00:36:54,326 --> 00:36:55,456
+And as soon as you post it, we
+
+
+1196
+00:36:55,456 --> 00:36:57,006
+just update our content right
+
+
+1197
+00:36:57,006 --> 00:36:57,526
+there and then.
+
+
+1198
+00:36:58,696 --> 00:37:00,306
+So, it's, so the user gets
+
+
+1199
+00:37:00,306 --> 00:37:01,436
+real-time feedback of what
+
+
+1200
+00:37:01,436 --> 00:37:02,846
+they're doing and they're super
+
+
+1201
+00:37:02,846 --> 00:37:04,566
+engaged with the content that's
+
+
+1202
+00:37:04,566 --> 00:37:05,216
+associated with the
+
+
+1203
+00:37:05,216 --> 00:37:05,886
+notification.
+
+
+1204
+00:37:06,386 --> 00:37:07,236
+And they don't have to go to
+
+
+1205
+00:37:07,236 --> 00:37:09,506
+your application to do all these
+
+
+1206
+00:37:12,276 --> 00:37:12,406
+things.
+
+
+1207
+00:37:12,596 --> 00:37:15,006
+All right, so we've set up these
+
+
+1208
+00:37:15,006 --> 00:37:18,006
+two actions but sometimes a like
+
+
+1209
+00:37:18,326 --> 00:37:19,666
+is not enough and a comment
+
+
+1210
+00:37:19,666 --> 00:37:20,486
+might be too much.
+
+
+1211
+00:37:21,756 --> 00:37:23,716
+For social media posts maybe, we
+
+
+1212
+00:37:23,716 --> 00:37:25,476
+want to have the user to give
+
+
+1213
+00:37:25,476 --> 00:37:26,936
+their reactions to this post.
+
+
+1214
+00:37:27,736 --> 00:37:29,496
+So, one way we could do that is
+
+
+1215
+00:37:29,806 --> 00:37:30,966
+add all these different
+
+
+1216
+00:37:30,966 --> 00:37:33,406
+reactions as just actions
+
+
+1217
+00:37:33,406 --> 00:37:34,156
+associated with this
+
+
+1218
+00:37:34,156 --> 00:37:34,726
+notification.
+
+
+1219
+00:37:35,386 --> 00:37:36,506
+However, this doesn't look
+
+
+1220
+00:37:36,506 --> 00:37:37,836
+really nice and it's a lot of
+
+
+1221
+00:37:37,836 --> 00:37:39,426
+options that we're duplicating
+
+
+1222
+00:37:39,426 --> 00:37:39,556
+here.
+
+
+1223
+00:37:40,876 --> 00:37:42,206
+What if you could just replace
+
+
+1224
+00:37:42,206 --> 00:37:44,256
+this with a custom user input
+
+
+1225
+00:37:44,296 --> 00:37:44,506
+view?
+
+
+1226
+00:37:45,026 --> 00:37:46,496
+That shows up right where the
+
+
+1227
+00:37:46,496 --> 00:37:48,336
+user's keyboard would've gone.
+
+
+1228
+00:37:49,056 --> 00:37:50,626
+Perhaps something like this?
+
+
+1229
+00:37:51,986 --> 00:37:53,796
+Well, you do have the option of
+
+
+1230
+00:37:53,866 --> 00:37:54,426
+doing this.
+
+
+1231
+00:37:54,806 --> 00:37:56,436
+And for that, we use an existing
+
+
+1232
+00:37:56,436 --> 00:37:58,536
+UI kit API for UI responder.
+
+
+1233
+00:38:00,046 --> 00:38:01,056
+And let's take a look how we can
+
+
+1234
+00:38:01,056 --> 00:38:02,116
+set this up and code them.
+
+
+1235
+00:38:03,256 --> 00:38:05,046
+So, now we create our new action
+
+
+1236
+00:38:05,766 --> 00:38:07,116
+for reactions which is a simple
+
+
+1237
+00:38:07,116 --> 00:38:08,126
+UN notification action.
+
+
+1238
+00:38:08,686 --> 00:38:09,906
+And then update our category
+
+
+1239
+00:38:09,996 --> 00:38:12,326
+with this action that we've
+
+
+1240
+00:38:14,936 --> 00:38:15,146
+created.
+
+
+1241
+00:38:15,246 --> 00:38:18,596
+Now, in the class that's
+
+
+1242
+00:38:18,596 --> 00:38:19,476
+implementing the content
+
+
+1243
+00:38:19,476 --> 00:38:20,996
+extension protocol, what you
+
+
+1244
+00:38:20,996 --> 00:38:22,146
+need to do is override a few
+
+
+1245
+00:38:22,146 --> 00:38:23,706
+methods that tell the system
+
+
+1246
+00:38:23,996 --> 00:38:25,326
+that you're providing your own
+
+
+1247
+00:38:25,326 --> 00:38:26,176
+custom input feed.
+
+
+1248
+00:38:26,576 --> 00:38:28,136
+The first method that you have
+
+
+1249
+00:38:28,136 --> 00:38:29,446
+to override is the can become
+
+
+1250
+00:38:29,446 --> 00:38:31,026
+first responder and you return
+
+
+1251
+00:38:31,026 --> 00:38:31,676
+the value true.
+
+
+1252
+00:38:32,866 --> 00:38:34,516
+And then you override the input
+
+
+1253
+00:38:34,516 --> 00:38:35,536
+view method where you're
+
+
+1254
+00:38:35,536 --> 00:38:36,896
+returning your custom input
+
+
+1255
+00:38:36,896 --> 00:38:37,146
+field.
+
+
+1256
+00:38:38,036 --> 00:38:39,966
+Now, you have complete control
+
+
+1257
+00:38:40,026 --> 00:38:41,216
+of how you're setting this input
+
+
+1258
+00:38:41,216 --> 00:38:41,986
+view up.
+
+
+1259
+00:38:41,986 --> 00:38:44,376
+And all the actions and the
+
+
+1260
+00:38:44,376 --> 00:38:46,226
+different interactions that you
+
+
+1261
+00:38:46,226 --> 00:38:47,456
+might have associated with this.
+
+
+1262
+00:38:47,456 --> 00:38:48,376
+You're not going to go through
+
+
+1263
+00:38:48,376 --> 00:38:50,436
+the default notification action
+
+
+1264
+00:38:50,436 --> 00:38:51,936
+handling for this because this
+
+
+1265
+00:38:51,936 --> 00:38:56,636
+is your custom input view.
+
+
+1266
+00:38:56,846 --> 00:38:58,666
+So, once we've set this up, we
+
+
+1267
+00:38:58,666 --> 00:39:00,506
+come back to the did receive
+
+
+1268
+00:39:00,506 --> 00:39:02,736
+action response method and here
+
+
+1269
+00:39:02,736 --> 00:39:04,256
+determining that it's the action
+
+
+1270
+00:39:04,256 --> 00:39:05,916
+associated with the reaction
+
+
+1271
+00:39:07,016 --> 00:39:07,856
+[inaudible], all we have to do
+
+
+1272
+00:39:07,956 --> 00:39:09,866
+is call self.become first
+
+
+1273
+00:39:09,866 --> 00:39:10,236
+responder.
+
+
+1274
+00:39:11,166 --> 00:39:13,056
+Just simply this call will let
+
+
+1275
+00:39:13,056 --> 00:39:14,616
+the system know to display your
+
+
+1276
+00:39:14,616 --> 00:39:16,056
+custom input view where the
+
+
+1277
+00:39:16,056 --> 00:39:16,836
+keyword would've gone.
+
+
+1278
+00:39:18,266 --> 00:39:19,646
+And in our private method for
+
+
+1279
+00:39:19,736 --> 00:39:21,836
+handling the bottom press for
+
+
+1280
+00:39:21,836 --> 00:39:23,426
+these, we update our custom
+
+
+1281
+00:39:23,426 --> 00:39:25,826
+label and also we just call
+
+
+1282
+00:39:25,826 --> 00:39:27,616
+resign first responder which
+
+
+1283
+00:39:27,686 --> 00:39:29,846
+then dismisses your custom input
+
+
+1284
+00:39:30,626 --> 00:39:30,736
+view.
+
+
+1285
+00:39:30,956 --> 00:39:33,136
+Now, I know that's a lot of
+
+
+1286
+00:39:33,136 --> 00:39:33,366
+code.
+
+
+1287
+00:39:33,366 --> 00:39:34,306
+Let's take a look how this
+
+
+1288
+00:39:34,306 --> 00:39:34,956
+actually works.
+
+
+1289
+00:39:36,086 --> 00:39:37,566
+So, you can see here that we
+
+
+1290
+00:39:37,566 --> 00:39:38,896
+have our new action for
+
+
+1291
+00:39:39,006 --> 00:39:39,536
+reactions.
+
+
+1292
+00:39:40,106 --> 00:39:43,746
+And then when the user presses
+
+
+1293
+00:39:43,776 --> 00:39:45,346
+this, our custom input view just
+
+
+1294
+00:39:45,346 --> 00:39:47,576
+shows up at the button and by
+
+
+1295
+00:39:47,576 --> 00:39:48,916
+pressing either of these emojis,
+
+
+1296
+00:39:49,186 --> 00:39:50,606
+we can just update the UI there.
+
+
+1297
+00:39:51,286 --> 00:39:55,116
+So, it's a very customized way
+
+
+1298
+00:39:55,236 --> 00:39:56,796
+of how you want your users to
+
+
+1299
+00:39:56,796 --> 00:39:57,936
+interact with your content.
+
+
+1300
+00:39:58,236 --> 00:40:00,256
+You're not limited by just
+
+
+1301
+00:40:00,256 --> 00:40:02,226
+simple action button presses.
+
+
+1302
+00:40:02,796 --> 00:40:04,136
+So, we've gone from something
+
+
+1303
+00:40:04,136 --> 00:40:06,586
+that looked like this.
+
+
+1304
+00:40:06,796 --> 00:40:07,856
+To something that's much more
+
+
+1305
+00:40:07,856 --> 00:40:09,556
+concise and a much better user
+
+
+1306
+00:40:09,556 --> 00:40:10,096
+experience.
+
+
+1307
+00:40:10,096 --> 00:40:14,506
+So, what are some of the best
+
+
+1308
+00:40:14,506 --> 00:40:16,066
+practices for this user input
+
+
+1309
+00:40:16,066 --> 00:40:16,756
+customization?
+
+
+1310
+00:40:16,826 --> 00:40:19,796
+Now, let me repeat that media
+
+
+1311
+00:40:19,796 --> 00:40:21,456
+buttons are the only mechanism
+
+
+1312
+00:40:21,456 --> 00:40:22,406
+that you have for overlay
+
+
+1313
+00:40:22,406 --> 00:40:22,826
+controls.
+
+
+1314
+00:40:22,826 --> 00:40:23,996
+So, use them where it makes
+
+
+1315
+00:40:23,996 --> 00:40:24,346
+sense.
+
+
+1316
+00:40:25,016 --> 00:40:26,056
+You can associate them with
+
+
+1317
+00:40:26,116 --> 00:40:27,506
+video as well as some playback.
+
+
+1318
+00:40:28,146 --> 00:40:30,476
+Make sure your actions are
+
+
+1319
+00:40:30,476 --> 00:40:31,896
+specific to the context of the
+
+
+1320
+00:40:31,896 --> 00:40:33,746
+notification so that the user
+
+
+1321
+00:40:33,746 --> 00:40:35,356
+knows exactly what they're doing
+
+
+1322
+00:40:35,356 --> 00:40:36,076
+with these actions.
+
+
+1323
+00:40:36,076 --> 00:40:39,426
+It's up to you to determine
+
+
+1324
+00:40:39,486 --> 00:40:40,336
+whether it makes sense to
+
+
+1325
+00:40:40,336 --> 00:40:42,376
+dismiss the content extension or
+
+
+1326
+00:40:42,496 --> 00:40:43,616
+not depending upon the kind of
+
+
+1327
+00:40:43,616 --> 00:40:44,346
+engagement that you're
+
+
+1328
+00:40:44,346 --> 00:40:45,586
+presenting as part of your
+
+
+1329
+00:40:45,586 --> 00:40:46,066
+notification.
+
+
+1330
+00:40:46,626 --> 00:40:49,476
+And then the custom user input
+
+
+1331
+00:40:49,476 --> 00:40:50,976
+view gives you complete control
+
+
+1332
+00:40:51,446 --> 00:40:53,856
+of your input mechanisms for
+
+
+1333
+00:40:53,856 --> 00:40:54,806
+these notifications.
+
+
+1334
+00:40:55,386 --> 00:40:58,666
+Now, before we go today, we did
+
+
+1335
+00:40:58,786 --> 00:41:01,096
+want to showcase a few apps that
+
+
+1336
+00:41:01,096 --> 00:41:02,916
+we feel have really used these
+
+
+1337
+00:41:02,916 --> 00:41:04,656
+notifications APIs.
+
+
+1338
+00:41:04,656 --> 00:41:05,756
+Most of them that we announced
+
+
+1339
+00:41:05,756 --> 00:41:08,496
+at last year's WWDC and show how
+
+
+1340
+00:41:08,496 --> 00:41:09,476
+they're using these different
+
+
+1341
+00:41:09,476 --> 00:41:10,616
+APIs in different ways.
+
+
+1342
+00:41:12,146 --> 00:41:13,726
+The [inaudible] application
+
+
+1343
+00:41:14,136 --> 00:41:15,906
+provides a very rich interface
+
+
+1344
+00:41:15,906 --> 00:41:18,586
+with the media as well as the
+
+
+1345
+00:41:18,806 --> 00:41:21,266
+news title and a blurb about
+
+
+1346
+00:41:21,266 --> 00:41:22,506
+this content right there and
+
+
+1347
+00:41:22,506 --> 00:41:22,746
+then.
+
+
+1348
+00:41:22,846 --> 00:41:24,176
+And gives you the option of just
+
+
+1349
+00:41:24,176 --> 00:41:25,296
+interacting with this content
+
+
+1350
+00:41:25,386 --> 00:41:25,996
+with actions.
+
+
+1351
+00:41:26,536 --> 00:41:30,126
+The Castro Podcast app shows you
+
+
+1352
+00:41:30,126 --> 00:41:32,216
+your next upcoming podcast as
+
+
+1353
+00:41:32,216 --> 00:41:33,506
+well as gives you the option of
+
+
+1354
+00:41:33,506 --> 00:41:35,036
+just modifying your podcast
+
+
+1355
+00:41:35,036 --> 00:41:36,396
+queue list right there and then,
+
+
+1356
+00:41:36,566 --> 00:41:38,006
+again with notification actions.
+
+
+1357
+00:41:38,576 --> 00:41:41,216
+And then the Shazam content
+
+
+1358
+00:41:41,216 --> 00:41:42,736
+extension gives you a play
+
+
+1359
+00:41:42,736 --> 00:41:44,066
+button so that you can play your
+
+
+1360
+00:41:44,066 --> 00:41:45,676
+last recorded song right from
+
+
+1361
+00:41:45,676 --> 00:41:47,206
+the notification as well as the
+
+
+1362
+00:41:47,206 --> 00:41:49,306
+option to buy and share this
+
+
+1363
+00:41:49,306 --> 00:41:49,556
+media.
+
+
+1364
+00:41:49,976 --> 00:41:53,956
+All right, so let's summarize
+
+
+1365
+00:41:53,956 --> 00:41:55,166
+everything that we've looked in
+
+
+1366
+00:41:55,166 --> 00:41:55,786
+our session today.
+
+
+1367
+00:41:56,826 --> 00:41:58,246
+We started out by doing an
+
+
+1368
+00:41:58,246 --> 00:42:00,036
+overview of notifications and
+
+
+1369
+00:42:00,036 --> 00:42:01,406
+all the different APIs that you
+
+
+1370
+00:42:01,406 --> 00:42:03,176
+can use for doing notifications
+
+
+1371
+00:42:03,176 --> 00:42:04,086
+for your applications.
+
+
+1372
+00:42:05,296 --> 00:42:06,556
+Then we introduced a new concept
+
+
+1373
+00:42:06,556 --> 00:42:07,726
+about hidden notification
+
+
+1374
+00:42:07,726 --> 00:42:09,966
+content and how you can totally
+
+
+1375
+00:42:09,966 --> 00:42:11,996
+customize how that looks to your
+
+
+1376
+00:42:11,996 --> 00:42:12,896
+application users.
+
+
+1377
+00:42:13,476 --> 00:42:16,106
+Then we talked about modifying
+
+
+1378
+00:42:16,106 --> 00:42:17,956
+notification push content using
+
+
+1379
+00:42:17,956 --> 00:42:18,826
+service extension.
+
+
+1380
+00:42:19,466 --> 00:42:22,106
+And we talked about customizing
+
+
+1381
+00:42:22,106 --> 00:42:23,456
+rich notification interfaces
+
+
+1382
+00:42:23,576 --> 00:42:24,976
+using content extensions.
+
+
+1383
+00:42:26,286 --> 00:42:27,616
+And tied to that, we talked
+
+
+1384
+00:42:27,616 --> 00:42:29,406
+about customizing these user
+
+
+1385
+00:42:29,406 --> 00:42:30,896
+input that's associated with
+
+
+1386
+00:42:30,896 --> 00:42:31,986
+these rich notifications.
+
+
+1387
+00:42:32,886 --> 00:42:34,046
+So, we're really excited to see
+
+
+1388
+00:42:34,266 --> 00:42:36,106
+how you go ahead and use all
+
+
+1389
+00:42:36,106 --> 00:42:37,836
+these different tools for making
+
+
+1390
+00:42:37,836 --> 00:42:39,376
+the notification experience much
+
+
+1391
+00:42:39,376 --> 00:42:40,656
+richer for your application
+
+
+1392
+00:42:40,656 --> 00:42:41,066
+users.
+
+
+1393
+00:42:42,346 --> 00:42:43,356
+For more information about this
+
+
+1394
+00:42:43,356 --> 00:42:44,596
+session, do check out this
+
+
+1395
+00:42:44,596 --> 00:42:44,926
+website.
+
+
+1396
+00:42:46,456 --> 00:42:47,666
+That's all for the session
+
+
+1397
+00:42:47,666 --> 00:42:47,946
+today.
+
+
+1398
+00:42:48,066 --> 00:42:49,086
+Thank you so much for coming and
+
+
+1399
+00:42:49,496 --> 00:42:50,646
+have a great WWDC.
+
+
+1400
+00:42:52,016 --> 00:42:54,000
+[ Applause ]
+

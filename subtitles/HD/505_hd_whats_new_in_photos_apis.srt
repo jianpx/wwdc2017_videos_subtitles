@@ -1,0 +1,8674 @@
+1
+00:00:20,316 --> 00:00:21,136
+>> Good afternoon.
+
+
+2
+00:00:21,136 --> 00:00:21,686
+Good afternoon.
+
+
+3
+00:00:21,686 --> 00:00:24,826
+It's so great to see so many of
+
+
+4
+00:00:24,826 --> 00:00:25,806
+you here today.
+
+
+5
+00:00:26,346 --> 00:00:28,546
+for session 505, "What's New in
+
+
+6
+00:00:28,546 --> 00:00:29,446
+Photos API."
+
+
+7
+00:00:29,446 --> 00:00:31,706
+My name is Eric Hanson, I'm the
+
+
+8
+00:00:31,706 --> 00:00:33,936
+Photos Platform evangelist and
+
+
+9
+00:00:33,936 --> 00:00:35,326
+I'm joined here this afternoon
+
+
+10
+00:00:35,326 --> 00:00:36,596
+by two of my colleagues from the
+
+
+11
+00:00:36,596 --> 00:00:38,736
+Photos engineering team to talk
+
+
+12
+00:00:38,736 --> 00:00:39,716
+to you about a whole lot of
+
+
+13
+00:00:39,716 --> 00:00:41,886
+great things new in Photos for
+
+
+14
+00:00:41,886 --> 00:00:44,746
+iOS and for macOS High Sierra.
+
+
+15
+00:00:46,096 --> 00:00:48,026
+So, obviously, we're all here
+
+
+16
+00:00:48,156 --> 00:00:49,296
+because we care about
+
+
+17
+00:00:49,296 --> 00:00:49,976
+photography.
+
+
+18
+00:00:51,506 --> 00:00:53,746
+And our users as I'm sure most
+
+
+19
+00:00:53,746 --> 00:00:55,656
+of you know, care deeply about
+
+
+20
+00:00:55,656 --> 00:00:56,386
+photography.
+
+
+21
+00:00:56,936 --> 00:00:59,916
+Every day around the world
+
+
+22
+00:00:59,916 --> 00:01:01,586
+millions and millions of photos
+
+
+23
+00:01:01,586 --> 00:01:03,946
+are captured on iOS devices.
+
+
+24
+00:01:04,806 --> 00:01:06,906
+Leading to ever-growing
+
+
+25
+00:01:06,906 --> 00:01:10,126
+libraries filled with tremendous
+
+
+26
+00:01:10,126 --> 00:01:12,796
+amount of memory and meaningful
+
+
+27
+00:01:12,796 --> 00:01:15,826
+moments that delight users when
+
+
+28
+00:01:15,826 --> 00:01:17,076
+they reexperience them.
+
+
+29
+00:01:17,886 --> 00:01:19,366
+And so, we want to talk to you
+
+
+30
+00:01:19,366 --> 00:01:21,846
+about creating great experiences
+
+
+31
+00:01:21,846 --> 00:01:24,106
+in your apps and integrating
+
+
+32
+00:01:24,106 --> 00:01:25,386
+with the Photo library.
+
+
+33
+00:01:25,386 --> 00:01:27,786
+And we've got some great new API
+
+
+34
+00:01:27,886 --> 00:01:29,646
+to make this easy for you.
+
+
+35
+00:01:31,066 --> 00:01:32,396
+We also want to talk to you
+
+
+36
+00:01:32,396 --> 00:01:34,916
+about doing this in a way that
+
+
+37
+00:01:34,916 --> 00:01:36,286
+is high-performing within your
+
+
+38
+00:01:36,286 --> 00:01:36,596
+app.
+
+
+39
+00:01:36,596 --> 00:01:39,306
+Ensuring that the responsiveness
+
+
+40
+00:01:39,306 --> 00:01:40,986
+of your application is the best
+
+
+41
+00:01:40,986 --> 00:01:42,066
+it can possibly be.
+
+
+42
+00:01:42,516 --> 00:01:43,396
+So, we're going to talk to you
+
+
+43
+00:01:43,396 --> 00:01:44,286
+about that as well.
+
+
+44
+00:01:45,736 --> 00:01:47,886
+And finally, we want to do this
+
+
+45
+00:01:47,886 --> 00:01:49,476
+in a way that we're not
+
+
+46
+00:01:49,476 --> 00:01:51,306
+violating the trust with the
+
+
+47
+00:01:51,306 --> 00:01:51,786
+user.
+
+
+48
+00:01:52,206 --> 00:01:53,436
+We're not forcing the user to
+
+
+49
+00:01:53,436 --> 00:01:55,736
+give up privacy just because
+
+
+50
+00:01:55,736 --> 00:01:58,056
+they want to integrate with your
+
+
+51
+00:01:58,056 --> 00:01:59,166
+application and with their
+
+
+52
+00:01:59,166 --> 00:01:59,666
+photos.
+
+
+53
+00:02:00,316 --> 00:02:01,296
+We're going to talk to you about
+
+
+54
+00:02:01,296 --> 00:02:01,816
+that too.
+
+
+55
+00:02:02,226 --> 00:02:03,916
+And on this last point, I'd like
+
+
+56
+00:02:03,916 --> 00:02:05,966
+to welcome to the stage, my
+
+
+57
+00:02:05,966 --> 00:02:07,206
+first colleague in the Photos
+
+
+58
+00:02:07,206 --> 00:02:08,705
+Engineering Team, Hasan Adil.
+
+
+59
+00:02:09,526 --> 00:02:09,985
+Hasan.
+
+
+60
+00:02:11,516 --> 00:02:13,646
+[ Applause ]
+
+
+61
+00:02:14,146 --> 00:02:14,686
+>> Thank you, Eric.
+
+
+62
+00:02:16,566 --> 00:02:17,216
+Hello, everybody.
+
+
+63
+00:02:17,356 --> 00:02:21,386
+It's great to see you.
+
+
+64
+00:02:21,456 --> 00:02:23,166
+UI Image Picker Controller is a
+
+
+65
+00:02:23,246 --> 00:02:25,166
+simple and easy to use API for
+
+
+66
+00:02:25,166 --> 00:02:27,556
+selecting photos and videos in
+
+
+67
+00:02:27,556 --> 00:02:28,386
+your app.
+
+
+68
+00:02:29,176 --> 00:02:31,136
+In iOS 11, we have some great
+
+
+69
+00:02:31,136 --> 00:02:33,206
+improvements and new features
+
+
+70
+00:02:33,436 --> 00:02:35,056
+that I'm really excited to share
+
+
+71
+00:02:35,056 --> 00:02:35,656
+with you today.
+
+
+72
+00:02:38,576 --> 00:02:41,576
+At Apple, we care deeply about
+
+
+73
+00:02:41,576 --> 00:02:45,606
+our users' privacy and security.
+
+
+74
+00:02:46,156 --> 00:02:47,776
+Therefore, whenever you
+
+
+75
+00:02:47,776 --> 00:02:48,376
+presented the
+
+
+76
+00:02:48,376 --> 00:02:50,336
+UIMessagesViewController, we
+
+
+77
+00:02:50,336 --> 00:02:52,386
+require you to get the users'
+
+
+78
+00:02:52,386 --> 00:02:54,616
+authorization for their entire
+
+
+79
+00:02:54,616 --> 00:02:56,556
+library in order to select a
+
+
+80
+00:02:56,556 --> 00:02:57,836
+single photo or video.
+
+
+81
+00:02:59,656 --> 00:03:01,296
+I'm sure you all well aware,
+
+
+82
+00:03:01,296 --> 00:03:02,346
+familiar with this alert.
+
+
+83
+00:03:03,846 --> 00:03:05,496
+This cause friction in your app.
+
+
+84
+00:03:05,496 --> 00:03:07,846
+As well as the user giving up a
+
+
+85
+00:03:07,846 --> 00:03:09,596
+level of privacy that perhaps
+
+
+86
+00:03:09,596 --> 00:03:10,516
+they didn't really mean to.
+
+
+87
+00:03:11,406 --> 00:03:13,186
+As well as apps that will fail
+
+
+88
+00:03:13,186 --> 00:03:14,836
+to perform even though there are
+
+
+89
+00:03:14,836 --> 00:03:16,506
+great features, because the user
+
+
+90
+00:03:16,506 --> 00:03:17,646
+didn't want to give them access.
+
+
+91
+00:03:18,466 --> 00:03:20,066
+Well, we thought we could do
+
+
+92
+00:03:20,066 --> 00:03:20,396
+better.
+
+
+93
+00:03:21,356 --> 00:03:24,276
+So, in iOS 11, we have revamped
+
+
+94
+00:03:24,436 --> 00:03:25,616
+the privacy and security
+
+
+95
+00:03:25,616 --> 00:03:26,806
+fundaments of
+
+
+96
+00:03:26,806 --> 00:03:27,966
+UIMessageViewController.
+
+
+97
+00:03:29,196 --> 00:03:30,636
+We started off with three goals.
+
+
+98
+00:03:31,556 --> 00:03:33,346
+Put the user in charge of their
+
+
+99
+00:03:33,346 --> 00:03:33,866
+content.
+
+
+100
+00:03:35,086 --> 00:03:37,176
+Create a great user experience
+
+
+101
+00:03:37,276 --> 00:03:39,636
+in your apps.
+
+
+102
+00:03:39,976 --> 00:03:43,476
+And third, give a higher level
+
+
+103
+00:03:43,476 --> 00:03:44,946
+of privacy to our users.
+
+
+104
+00:03:45,886 --> 00:03:47,646
+So, I'm happy to announce that
+
+
+105
+00:03:47,646 --> 00:03:50,686
+in iOS 11, this alert is no
+
+
+106
+00:03:50,686 --> 00:03:51,336
+longer needed.
+
+
+107
+00:03:52,816 --> 00:03:53,726
+It just works.
+
+
+108
+00:03:54,516 --> 00:03:57,546
+[ Applause ]
+
+
+109
+00:03:58,046 --> 00:03:59,186
+Let's look at a demo and we'll
+
+
+110
+00:03:59,186 --> 00:04:00,286
+get into it.
+
+
+111
+00:04:00,816 --> 00:04:02,446
+So, here's an app I've just
+
+
+112
+00:04:02,446 --> 00:04:03,556
+downloaded from the app store.
+
+
+113
+00:04:03,756 --> 00:04:05,206
+I'm really excited to use it.
+
+
+114
+00:04:05,516 --> 00:04:06,406
+I've filled out, I'm having a
+
+
+115
+00:04:06,406 --> 00:04:08,166
+great day at WWDC, a little bit
+
+
+116
+00:04:08,166 --> 00:04:09,316
+nervous, but that's OK.
+
+
+117
+00:04:09,996 --> 00:04:11,426
+But I'd like to attach a photo.
+
+
+118
+00:04:12,046 --> 00:04:13,526
+Now, let's see what presenting
+
+
+119
+00:04:13,526 --> 00:04:15,306
+UIMessageViewController in iOS
+
+
+120
+00:04:15,306 --> 00:04:15,956
+11 looks like.
+
+
+121
+00:04:17,005 --> 00:04:17,875
+It just works.
+
+
+122
+00:04:18,786 --> 00:04:20,755
+UIMessageViewController in iOS
+
+
+123
+00:04:20,755 --> 00:04:22,876
+11 is now an auto process API.
+
+
+124
+00:04:23,826 --> 00:04:26,196
+What that means is that we
+
+
+125
+00:04:26,196 --> 00:04:28,486
+present the contents of our API
+
+
+126
+00:04:29,016 --> 00:04:31,036
+from an auto process sandbox and
+
+
+127
+00:04:31,036 --> 00:04:31,936
+secure environment.
+
+
+128
+00:04:31,936 --> 00:04:34,886
+And apps no longer get access to
+
+
+129
+00:04:34,886 --> 00:04:35,886
+users' photo library.
+
+
+130
+00:04:37,196 --> 00:04:38,946
+Only the user is able to
+
+
+131
+00:04:38,946 --> 00:04:39,696
+interact with
+
+
+132
+00:04:39,696 --> 00:04:41,176
+UIMessageViewController UI.
+
+
+133
+00:04:41,966 --> 00:04:44,606
+When the user makes a selection,
+
+
+134
+00:04:45,336 --> 00:04:47,876
+we take that photo or video and
+
+
+135
+00:04:47,876 --> 00:04:49,566
+send it over to your app.
+
+
+136
+00:04:50,666 --> 00:04:52,166
+We feel that this removes
+
+
+137
+00:04:52,166 --> 00:04:53,106
+friction from your app.
+
+
+138
+00:04:53,436 --> 00:04:55,356
+As well as gives users a really
+
+
+139
+00:04:55,476 --> 00:04:56,496
+high level of privacy.
+
+
+140
+00:04:57,396 --> 00:04:59,176
+Because no authorization is
+
+
+141
+00:04:59,176 --> 00:05:00,746
+granted, none is asked for.
+
+
+142
+00:05:01,996 --> 00:05:02,916
+We hope you'll like it.
+
+
+143
+00:05:03,246 --> 00:05:04,376
+Using it is really easy.
+
+
+144
+00:05:04,416 --> 00:05:05,886
+You have to make no additions.
+
+
+145
+00:05:06,296 --> 00:05:07,196
+It will just work.
+
+
+146
+00:05:09,116 --> 00:05:11,416
+Photos contain rich metadata
+
+
+147
+00:05:11,416 --> 00:05:11,866
+within them.
+
+
+148
+00:05:12,436 --> 00:05:14,346
+This includes the created date.
+
+
+149
+00:05:14,496 --> 00:05:15,916
+The format of the photo.
+
+
+150
+00:05:16,156 --> 00:05:17,316
+As well as other various
+
+
+151
+00:05:17,316 --> 00:05:17,836
+metadata.
+
+
+152
+00:05:18,506 --> 00:05:20,136
+And we've made it really easy to
+
+
+153
+00:05:20,136 --> 00:05:21,316
+get to this in iOS 11.
+
+
+154
+00:05:22,786 --> 00:05:24,556
+We now provide you a brand0new
+
+
+155
+00:05:24,556 --> 00:05:25,676
+key with every result of
+
+
+156
+00:05:25,676 --> 00:05:26,936
+UIImagePickerController.
+
+
+157
+00:05:27,226 --> 00:05:28,016
+The key is called
+
+
+158
+00:05:28,286 --> 00:05:30,576
+UIImagePickerControllerImageURL.
+
+
+159
+00:05:32,556 --> 00:05:35,826
+This URL is a file URL, which
+
+
+160
+00:05:35,826 --> 00:05:36,856
+points to a file in the
+
+
+161
+00:05:36,856 --> 00:05:38,686
+temporary of your app.
+
+
+162
+00:05:38,936 --> 00:05:40,576
+So, if you would like to work
+
+
+163
+00:05:40,576 --> 00:05:42,416
+with us later, we suggest you
+
+
+164
+00:05:42,416 --> 00:05:43,396
+move the file to a more
+
+
+165
+00:05:43,396 --> 00:05:45,106
+permanent location so it stays
+
+
+166
+00:05:45,106 --> 00:05:45,326
+there.
+
+
+167
+00:05:46,736 --> 00:05:49,406
+You can us a URL as is, or you
+
+
+168
+00:05:49,406 --> 00:05:50,926
+can read the NSDate into your
+
+
+169
+00:05:50,926 --> 00:05:52,816
+app and process as needed.
+
+
+170
+00:05:59,066 --> 00:06:00,856
+In iOS 11 we have introduced a
+
+
+171
+00:06:00,856 --> 00:06:02,556
+new format called HEIF for
+
+
+172
+00:06:02,556 --> 00:06:03,066
+photos.
+
+
+173
+00:06:04,256 --> 00:06:05,936
+Now we realize that it will take
+
+
+174
+00:06:05,936 --> 00:06:07,696
+some time for the ecosystem to
+
+
+175
+00:06:07,696 --> 00:06:08,626
+adopt HEIF fully.
+
+
+176
+00:06:08,996 --> 00:06:10,466
+And we made it really easy to do
+
+
+177
+00:06:10,466 --> 00:06:11,976
+so with UIImagePickerController.
+
+
+178
+00:06:12,896 --> 00:06:15,336
+We have a new property called
+
+
+179
+00:06:15,336 --> 00:06:16,526
+imageExportPresent.
+
+
+180
+00:06:17,466 --> 00:06:19,536
+It could be set to two types.
+
+
+181
+00:06:19,536 --> 00:06:20,906
+It could be compatible mode, or
+
+
+182
+00:06:21,086 --> 00:06:22,376
+we can set it to current mode.
+
+
+183
+00:06:22,666 --> 00:06:25,356
+Let's look at them.
+
+
+184
+00:06:25,556 --> 00:06:28,086
+In compatible mode, if the
+
+
+185
+00:06:28,086 --> 00:06:29,676
+source photo that the user
+
+
+186
+00:06:29,676 --> 00:06:31,636
+selected exists as a HEIF
+
+
+187
+00:06:32,076 --> 00:06:33,946
+formatted photo we will
+
+
+188
+00:06:33,946 --> 00:06:35,846
+transport a Jpeg and give you a
+
+
+189
+00:06:35,846 --> 00:06:36,726
+Jpeg version of it.
+
+
+190
+00:06:37,706 --> 00:06:39,636
+This is also the default value
+
+
+191
+00:06:39,636 --> 00:06:40,326
+for the property.
+
+
+192
+00:06:40,326 --> 00:06:42,466
+And if you don't need anything
+
+
+193
+00:06:42,466 --> 00:06:43,626
+different, you don't need to do
+
+
+194
+00:06:43,626 --> 00:06:44,006
+anything.
+
+
+195
+00:06:45,296 --> 00:06:49,026
+However, if you would like the
+
+
+196
+00:06:49,026 --> 00:06:51,116
+photo as we have it, set the
+
+
+197
+00:06:51,116 --> 00:06:52,826
+value to current and we'll give
+
+
+198
+00:06:52,826 --> 00:06:54,436
+you the photo as we have it in
+
+
+199
+00:06:54,436 --> 00:06:55,826
+Photo library and you might get
+
+
+200
+00:06:55,896 --> 00:06:58,206
+HEIF and you can deal with that.
+
+
+201
+00:06:59,456 --> 00:07:02,066
+We have some great changes when
+
+
+202
+00:07:02,066 --> 00:07:03,546
+it comes to selecting videos.
+
+
+203
+00:07:05,116 --> 00:07:06,766
+But let me step aside for a
+
+
+204
+00:07:06,766 --> 00:07:09,346
+second, the AVFoundation is
+
+
+205
+00:07:09,346 --> 00:07:11,126
+Apple's framework for rich
+
+
+206
+00:07:11,126 --> 00:07:12,916
+editing as well as playback of
+
+
+207
+00:07:12,916 --> 00:07:13,426
+photos.
+
+
+208
+00:07:14,466 --> 00:07:16,416
+And AVFoundation has a rich set
+
+
+209
+00:07:17,006 --> 00:07:18,826
+of export presets, or formats
+
+
+210
+00:07:18,826 --> 00:07:19,226
+you can say.
+
+
+211
+00:07:19,336 --> 00:07:21,736
+And I'm happy to announce
+
+
+212
+00:07:22,136 --> 00:07:24,066
+UIImagePickerController supports
+
+
+213
+00:07:24,146 --> 00:07:24,686
+all of them.
+
+
+214
+00:07:25,236 --> 00:07:27,596
+We have a new property called
+
+
+215
+00:07:27,596 --> 00:07:28,866
+videoExportPreset.
+
+
+216
+00:07:30,636 --> 00:07:32,876
+You can use this as a way to
+
+
+217
+00:07:32,876 --> 00:07:35,326
+tell us what format would you
+
+
+218
+00:07:35,326 --> 00:07:36,476
+like selected with you to be
+
+
+219
+00:07:36,476 --> 00:07:37,666
+given to you.
+
+
+220
+00:07:38,336 --> 00:07:40,086
+Let's look at an example.
+
+
+221
+00:07:42,436 --> 00:07:45,086
+After importAVFoundation you
+
+
+222
+00:07:45,086 --> 00:07:46,286
+will create an instance of
+
+
+223
+00:07:46,286 --> 00:07:48,156
+UIImagePickerController and tell
+
+
+224
+00:07:48,156 --> 00:07:49,696
+us what format you like.
+
+
+225
+00:07:51,036 --> 00:07:52,846
+Here, I'm asking you to give me
+
+
+226
+00:07:52,846 --> 00:07:53,876
+the highest quality video.
+
+
+227
+00:07:54,376 --> 00:07:56,396
+And then you present the picker.
+
+
+228
+00:07:56,476 --> 00:07:57,806
+When the user makes a selection
+
+
+229
+00:07:58,146 --> 00:07:59,376
+regardless of what format it
+
+
+230
+00:07:59,376 --> 00:08:02,396
+was, we're cross coded to a
+
+
+231
+00:08:02,396 --> 00:08:03,516
+matching format and give you
+
+
+232
+00:08:03,516 --> 00:08:04,146
+back the video.
+
+
+233
+00:08:04,446 --> 00:08:06,696
+This is especially great for
+
+
+234
+00:08:06,696 --> 00:08:08,236
+getting the videos back in the
+
+
+235
+00:08:08,236 --> 00:08:09,456
+original format that they
+
+
+236
+00:08:09,456 --> 00:08:10,636
+existed in.
+
+
+237
+00:08:11,716 --> 00:08:14,126
+For a full list of available
+
+
+238
+00:08:14,126 --> 00:08:16,286
+presets, please see this
+
+
+239
+00:08:16,286 --> 00:08:17,226
+interface called
+
+
+240
+00:08:17,226 --> 00:08:20,356
+AVAssetExportSession, or come
+
+
+241
+00:08:20,356 --> 00:08:21,546
+see us in the lab and we'd be
+
+
+242
+00:08:21,546 --> 00:08:24,606
+happy to help you.
+
+
+243
+00:08:25,396 --> 00:08:26,846
+To my earlier point about
+
+
+244
+00:08:26,846 --> 00:08:28,656
+increasing the privacy, we also
+
+
+245
+00:08:28,656 --> 00:08:30,596
+took a deep look at what it
+
+
+246
+00:08:30,636 --> 00:08:32,116
+takes to add content into a
+
+
+247
+00:08:32,116 --> 00:08:32,726
+photo library.
+
+
+248
+00:08:34,086 --> 00:08:35,265
+Now, since we've made picking
+
+
+249
+00:08:35,265 --> 00:08:37,316
+seamless, we thought we would
+
+
+250
+00:08:37,316 --> 00:08:38,626
+make adding awesome also.
+
+
+251
+00:08:39,556 --> 00:08:43,306
+So, in iOS 11, if you are to use
+
+
+252
+00:08:43,336 --> 00:08:45,186
+either of these two methods for
+
+
+253
+00:08:45,186 --> 00:08:48,306
+saving a photo or a video into
+
+
+254
+00:08:48,306 --> 00:08:50,036
+the user's library, we have a
+
+
+255
+00:08:50,036 --> 00:08:51,876
+new security model and a
+
+
+256
+00:08:51,986 --> 00:08:52,646
+permission level.
+
+
+257
+00:08:54,336 --> 00:08:56,986
+The permission level for either
+
+
+258
+00:08:56,986 --> 00:08:57,756
+of these two methods, the
+
+
+259
+00:08:57,756 --> 00:08:59,876
+UIImagePickerController one is
+
+
+260
+00:08:59,876 --> 00:09:01,936
+called UIImageWriteToSave
+
+
+261
+00:09:01,936 --> 00:09:03,226
+ForusAlbum.
+
+
+262
+00:09:03,226 --> 00:09:03,976
+And the other one is
+
+
+263
+00:09:04,586 --> 00:09:06,366
+UISaveVideoAtPath
+
+
+264
+00:09:06,426 --> 00:09:07,816
+ToSavedPhotoAlbum.
+
+
+265
+00:09:08,606 --> 00:09:10,186
+These require add only
+
+
+266
+00:09:10,186 --> 00:09:10,856
+authorization.
+
+
+267
+00:09:11,376 --> 00:09:12,696
+These are really library
+
+
+268
+00:09:12,696 --> 00:09:14,216
+questions to get from the user.
+
+
+269
+00:09:14,566 --> 00:09:16,416
+Because these will allow you to
+
+
+270
+00:09:16,416 --> 00:09:18,756
+add in library and not read.
+
+
+271
+00:09:19,436 --> 00:09:20,786
+So, we feel like users are going
+
+
+272
+00:09:20,786 --> 00:09:22,206
+to be very likely, will give you
+
+
+273
+00:09:22,206 --> 00:09:23,026
+this authorization.
+
+
+274
+00:09:24,546 --> 00:09:26,326
+And like before, come see us in
+
+
+275
+00:09:26,326 --> 00:09:27,196
+the lab if you have any
+
+
+276
+00:09:27,196 --> 00:09:27,676
+questions.
+
+
+277
+00:09:29,216 --> 00:09:31,616
+For our users of PhotoKit, we
+
+
+278
+00:09:31,616 --> 00:09:32,346
+have something great.
+
+
+279
+00:09:33,576 --> 00:09:35,836
+Now, with every result of
+
+
+280
+00:09:35,836 --> 00:09:37,916
+UIImagePickerController, if
+
+
+281
+00:09:38,386 --> 00:09:42,246
+you're a PhotoKit user, we also
+
+
+282
+00:09:42,246 --> 00:09:43,966
+give you back PHAsset object
+
+
+283
+00:09:44,146 --> 00:09:45,336
+matching the user selection.
+
+
+284
+00:09:46,406 --> 00:09:49,106
+This makes it really seamless to
+
+
+285
+00:09:49,106 --> 00:09:51,096
+integrate PhotoKit across APIs.
+
+
+286
+00:09:51,096 --> 00:09:53,016
+Let's look at an example.
+
+
+287
+00:09:53,806 --> 00:09:54,956
+So, here's I've implemented the
+
+
+288
+00:09:54,956 --> 00:09:55,966
+delicate method of
+
+
+289
+00:09:55,966 --> 00:09:57,596
+UImagePickerController delegate.
+
+
+290
+00:09:57,596 --> 00:09:59,906
+And when I get the result
+
+
+291
+00:09:59,906 --> 00:10:01,416
+dictionary, I have a brand new
+
+
+292
+00:10:01,416 --> 00:10:02,626
+key, the key is called
+
+
+293
+00:10:03,096 --> 00:10:04,756
+UIImagePickerController,
+
+
+294
+00:10:04,756 --> 00:10:05,196
+PHAsset.
+
+
+295
+00:10:06,046 --> 00:10:07,606
+You get the value of that key
+
+
+296
+00:10:07,856 --> 00:10:09,296
+and this key will be the asset
+
+
+297
+00:10:09,296 --> 00:10:11,386
+object and you are free to use
+
+
+298
+00:10:12,096 --> 00:10:12,196
+it.
+
+
+299
+00:10:12,406 --> 00:10:16,286
+Now, going along with this, we
+
+
+300
+00:10:16,286 --> 00:10:17,766
+had previously deprecated the
+
+
+301
+00:10:17,766 --> 00:10:19,006
+ALAssets laboratory framework
+
+
+302
+00:10:20,246 --> 00:10:22,646
+and now the ALAssets Library
+
+
+303
+00:10:22,696 --> 00:10:24,256
+reference URLS, which we used to
+
+
+304
+00:10:24,256 --> 00:10:26,406
+pass to you using a key called
+
+
+305
+00:10:26,746 --> 00:10:28,216
+UIImagePickerController
+
+
+306
+00:10:28,416 --> 00:10:29,906
+referenceURL has now be
+
+
+307
+00:10:29,906 --> 00:10:30,706
+deprecated also.
+
+
+308
+00:10:30,816 --> 00:10:34,126
+Yeah, PhotoKit is great and you
+
+
+309
+00:10:34,126 --> 00:10:35,146
+will love it.
+
+
+310
+00:10:35,996 --> 00:10:37,936
+We feel that with these changes
+
+
+311
+00:10:37,936 --> 00:10:39,856
+to enhance the user privacy,
+
+
+312
+00:10:40,606 --> 00:10:41,676
+features to make
+
+
+313
+00:10:41,676 --> 00:10:42,906
+UImagePickerController a
+
+
+314
+00:10:42,906 --> 00:10:44,996
+powerful and full feature API,
+
+
+315
+00:10:45,776 --> 00:10:47,616
+that this will satisfy the needs
+
+
+316
+00:10:47,616 --> 00:10:48,826
+of the majority of apps out
+
+
+317
+00:10:48,826 --> 00:10:49,016
+there.
+
+
+318
+00:10:50,256 --> 00:10:53,046
+However, there are times when
+
+
+319
+00:10:53,046 --> 00:10:54,446
+you do need deep integration
+
+
+320
+00:10:54,446 --> 00:10:55,426
+with the Photos frameworks.
+
+
+321
+00:10:56,326 --> 00:10:57,636
+And for that we recommend
+
+
+322
+00:10:57,636 --> 00:10:58,086
+PhotoKit.
+
+
+323
+00:10:59,036 --> 00:11:00,676
+To tell you what's new in
+
+
+324
+00:11:00,676 --> 00:11:02,566
+PhotoKit in iOS 11, I'd like
+
+
+325
+00:11:02,566 --> 00:11:03,916
+welcome my colleague, Andreas
+
+
+326
+00:11:03,916 --> 00:11:04,326
+Karlsson.
+
+
+327
+00:11:05,516 --> 00:11:07,556
+[ Applause ]
+
+
+328
+00:11:08,056 --> 00:11:12,116
+>> Thank you Hasan.
+
+
+329
+00:11:13,016 --> 00:11:15,026
+So, apps related to photography
+
+
+330
+00:11:15,026 --> 00:11:16,466
+are consistently some of the
+
+
+331
+00:11:16,466 --> 00:11:17,996
+most popular apps on the App
+
+
+332
+00:11:17,996 --> 00:11:18,276
+Store.
+
+
+333
+00:11:19,036 --> 00:11:20,656
+It takes, both great features
+
+
+334
+00:11:20,656 --> 00:11:22,646
+and a great user experience to
+
+
+335
+00:11:22,646 --> 00:11:23,866
+succeed in that market.
+
+
+336
+00:11:24,526 --> 00:11:25,376
+I'm very excited to be here
+
+
+337
+00:11:25,376 --> 00:11:27,086
+today to talk about improvements
+
+
+338
+00:11:27,086 --> 00:11:28,786
+we have made in PhotoKit that we
+
+
+339
+00:11:28,786 --> 00:11:30,486
+hope enable you to write both
+
+
+340
+00:11:30,486 --> 00:11:32,556
+exciting new features and makes
+
+
+341
+00:11:32,556 --> 00:11:34,006
+it easier to improve the user
+
+
+342
+00:11:34,006 --> 00:11:35,286
+experience of your apps.
+
+
+343
+00:11:35,706 --> 00:11:37,036
+So, let's jump right in.
+
+
+344
+00:11:37,036 --> 00:11:38,776
+Let's look at live photo effects
+
+
+345
+00:11:39,126 --> 00:11:39,906
+that were announced in the
+
+
+346
+00:11:39,906 --> 00:11:40,956
+keynote on Monday.
+
+
+347
+00:11:41,646 --> 00:11:43,706
+So, live photo effects include
+
+
+348
+00:11:43,706 --> 00:11:45,766
+these loops, which are created
+
+
+349
+00:11:45,766 --> 00:11:47,536
+by carefully analyzing the video
+
+
+350
+00:11:47,626 --> 00:11:48,806
+and seamlessly stitching them
+
+
+351
+00:11:48,806 --> 00:11:51,686
+together into these endless
+
+
+352
+00:11:51,686 --> 00:11:52,036
+loops.
+
+
+353
+00:11:52,936 --> 00:11:55,586
+Also, include bounce which works
+
+
+354
+00:11:55,586 --> 00:11:56,906
+in a similar way, but as you can
+
+
+355
+00:11:56,906 --> 00:11:58,456
+see, it works better with dogs.
+
+
+356
+00:11:59,426 --> 00:12:01,096
+And finally, there is long
+
+
+357
+00:12:01,096 --> 00:12:03,436
+exposure, which analyzes the
+
+
+358
+00:12:03,436 --> 00:12:05,396
+video frames in a live photo to
+
+
+359
+00:12:05,396 --> 00:12:06,786
+create these amazing looking
+
+
+360
+00:12:06,866 --> 00:12:07,216
+stills.
+
+
+361
+00:12:07,796 --> 00:12:10,446
+So, we believe users are going
+
+
+362
+00:12:10,446 --> 00:12:11,456
+to have a lot of fun with these,
+
+
+363
+00:12:11,456 --> 00:12:12,486
+and we're also really excited
+
+
+364
+00:12:12,486 --> 00:12:13,596
+for what you come up with in
+
+
+365
+00:12:13,596 --> 00:12:14,996
+your apps when integrating with
+
+
+366
+00:12:14,996 --> 00:12:16,356
+these new kind of media types.
+
+
+367
+00:12:17,316 --> 00:12:18,186
+So, let's look at how you would
+
+
+368
+00:12:18,186 --> 00:12:18,576
+do that.
+
+
+369
+00:12:18,576 --> 00:12:22,256
+Let's look at some code.
+
+
+370
+00:12:22,256 --> 00:12:24,216
+So, these are the PhotoKit Media
+
+
+371
+00:12:24,216 --> 00:12:25,516
+types that currently exist.
+
+
+372
+00:12:26,026 --> 00:12:27,556
+They're great, they describe
+
+
+373
+00:12:27,556 --> 00:12:29,386
+what Asset is, but what's even
+
+
+374
+00:12:29,386 --> 00:12:30,996
+more important is how the asset
+
+
+375
+00:12:31,106 --> 00:12:31,886
+gets presented.
+
+
+376
+00:12:32,376 --> 00:12:33,396
+And let me explain what I mean
+
+
+377
+00:12:33,396 --> 00:12:34,006
+by that.
+
+
+378
+00:12:34,636 --> 00:12:36,596
+So, if a user shot a video, they
+
+
+379
+00:12:36,596 --> 00:12:38,226
+would really like to see and use
+
+
+380
+00:12:38,226 --> 00:12:40,056
+that asset as a video in your
+
+
+381
+00:12:40,056 --> 00:12:40,266
+app.
+
+
+382
+00:12:41,026 --> 00:12:43,026
+If they shot a live photo, they
+
+
+383
+00:12:43,026 --> 00:12:45,196
+care equally about the still
+
+
+384
+00:12:45,196 --> 00:12:46,326
+part and the video part.
+
+
+385
+00:12:46,326 --> 00:12:47,666
+So, they would like to see that
+
+
+386
+00:12:47,666 --> 00:12:49,076
+asset as a live photo in your
+
+
+387
+00:12:49,356 --> 00:12:49,806
+app.
+
+
+388
+00:12:50,316 --> 00:12:51,996
+To do this currently, you would
+
+
+389
+00:12:51,996 --> 00:12:53,796
+look at these three media types.
+
+
+390
+00:12:53,796 --> 00:12:55,896
+Image, video and photo live to
+
+
+391
+00:12:55,896 --> 00:12:56,516
+do the right thing.
+
+
+392
+00:12:57,726 --> 00:12:59,176
+With live photo effects this
+
+
+393
+00:12:59,176 --> 00:13:01,416
+become a bit more muddy and to
+
+
+394
+00:13:01,416 --> 00:13:02,876
+make this really easy to get
+
+
+395
+00:13:02,876 --> 00:13:03,946
+right, since it's so important,
+
+
+396
+00:13:04,736 --> 00:13:06,136
+this year in iOS 11, we're
+
+
+397
+00:13:06,136 --> 00:13:07,796
+introducing a new property of
+
+
+398
+00:13:07,796 --> 00:13:10,186
+PHAsset called PlaybackStyle.
+
+
+399
+00:13:11,036 --> 00:13:12,926
+Now, PlaybackStyle is the single
+
+
+400
+00:13:12,926 --> 00:13:13,956
+property you can look at to
+
+
+401
+00:13:13,956 --> 00:13:15,706
+determine which kind of image
+
+
+402
+00:13:15,706 --> 00:13:17,746
+manager API to use, what kind of
+
+
+403
+00:13:17,746 --> 00:13:19,236
+view to present it in, and what
+
+
+404
+00:13:19,236 --> 00:13:20,806
+kind of UI limits should
+
+
+405
+00:13:20,806 --> 00:13:21,736
+accompany the view.
+
+
+406
+00:13:22,206 --> 00:13:24,756
+So, the PhotoKit has been
+
+
+407
+00:13:24,756 --> 00:13:26,226
+updated to cover all these new
+
+
+408
+00:13:26,226 --> 00:13:27,816
+playback styles, but I'd like to
+
+
+409
+00:13:27,816 --> 00:13:29,406
+go into detail on three of them
+
+
+410
+00:13:29,546 --> 00:13:31,356
+that relate to life photo
+
+
+411
+00:13:31,356 --> 00:13:32,686
+affects here in this session.
+
+
+412
+00:13:33,476 --> 00:13:34,606
+So, let's start with image
+
+
+413
+00:13:34,606 --> 00:13:34,986
+animated.
+
+
+414
+00:13:35,566 --> 00:13:38,446
+So, new this year, the built in
+
+
+415
+00:13:38,446 --> 00:13:39,796
+Photos app is afford for
+
+
+416
+00:13:39,796 --> 00:13:42,946
+animated GIF playback.
+
+
+417
+00:13:43,516 --> 00:13:45,546
+[ Applause ]
+
+
+418
+00:13:46,046 --> 00:13:47,716
+To playback GIFs in your own
+
+
+419
+00:13:48,136 --> 00:13:49,196
+apps, you would request the
+
+
+420
+00:13:49,236 --> 00:13:50,696
+image data from the image manger
+
+
+421
+00:13:50,796 --> 00:13:52,406
+and then use image iO and core
+
+
+422
+00:13:52,406 --> 00:13:53,566
+graphics for playback.
+
+
+423
+00:13:53,926 --> 00:13:55,436
+Now, the sample app, does
+
+
+424
+00:13:55,436 --> 00:13:56,806
+include a sample of how to do
+
+
+425
+00:13:56,806 --> 00:13:57,036
+this.
+
+
+426
+00:13:57,286 --> 00:13:58,966
+So, please have a look there in
+
+
+427
+00:13:58,966 --> 00:14:00,326
+case you would like to do GIF
+
+
+428
+00:14:00,326 --> 00:14:00,606
+playback.
+
+
+429
+00:14:01,846 --> 00:14:03,856
+Next, is live photo.
+
+
+430
+00:14:04,986 --> 00:14:06,316
+So, live photos, users care a
+
+
+431
+00:14:06,316 --> 00:14:07,316
+lot about live photos.
+
+
+432
+00:14:07,316 --> 00:14:08,376
+So, getting them presented in
+
+
+433
+00:14:08,376 --> 00:14:09,866
+your app in the right way is
+
+
+434
+00:14:09,866 --> 00:14:10,886
+really important, but also
+
+
+435
+00:14:10,886 --> 00:14:11,596
+really easy.
+
+
+436
+00:14:12,346 --> 00:14:13,476
+So, in this case you would
+
+
+437
+00:14:13,636 --> 00:14:15,016
+request a live photo from the
+
+
+438
+00:14:15,016 --> 00:14:16,576
+image manager and then you say
+
+
+439
+00:14:16,856 --> 00:14:19,176
+PHLivePhotoView for playback.
+
+
+440
+00:14:20,316 --> 00:14:21,086
+You set the live photo, you'll
+
+
+441
+00:14:21,086 --> 00:14:22,566
+get back on the view and users
+
+
+442
+00:14:22,566 --> 00:14:24,486
+can then use three touch to
+
+
+443
+00:14:24,486 --> 00:14:25,696
+playback a live photo.
+
+
+444
+00:14:25,696 --> 00:14:26,856
+Users [inaudible] in the built
+
+
+445
+00:14:26,856 --> 00:14:28,586
+in photo's app inside your app.
+
+
+446
+00:14:29,396 --> 00:14:30,916
+PHLivePhotoView can also be used
+
+
+447
+00:14:30,916 --> 00:14:32,416
+with live photos outside the
+
+
+448
+00:14:32,416 --> 00:14:33,296
+user's photo library.
+
+
+449
+00:14:33,296 --> 00:14:34,606
+For example, if you transfer
+
+
+450
+00:14:34,606 --> 00:14:35,856
+them over web service or
+
+
+451
+00:14:35,856 --> 00:14:36,406
+something similar.
+
+
+452
+00:14:38,256 --> 00:14:40,616
+Finally, there is looping video.
+
+
+453
+00:14:40,716 --> 00:14:42,006
+And these include both the
+
+
+454
+00:14:42,006 --> 00:14:43,426
+bounds and loop live photo
+
+
+455
+00:14:43,426 --> 00:14:45,136
+effects that were introduced
+
+
+456
+00:14:45,136 --> 00:14:45,486
+this year.
+
+
+457
+00:14:45,786 --> 00:14:48,036
+Now, to play these back in your
+
+
+458
+00:14:48,036 --> 00:14:49,376
+apps, it's very similar to
+
+
+459
+00:14:49,376 --> 00:14:50,056
+regular video.
+
+
+460
+00:14:50,056 --> 00:14:51,046
+So, you would request the player
+
+
+461
+00:14:51,046 --> 00:14:52,676
+item, and use AVFoundation for
+
+
+462
+00:14:52,676 --> 00:14:53,106
+play back.
+
+
+463
+00:14:53,576 --> 00:14:54,286
+But you would use an
+
+
+464
+00:14:54,436 --> 00:14:56,046
+AVPlayerLooper to get the
+
+
+465
+00:14:56,046 --> 00:14:56,616
+looping effect.
+
+
+466
+00:14:57,146 --> 00:15:00,366
+So, I hope you have seen how
+
+
+467
+00:15:00,366 --> 00:15:02,156
+easy it is to present the user's
+
+
+468
+00:15:02,156 --> 00:15:03,386
+media how they really wanted to
+
+
+469
+00:15:03,386 --> 00:15:04,056
+be presented.
+
+
+470
+00:15:04,396 --> 00:15:05,726
+And we cannot wait to see what
+
+
+471
+00:15:05,726 --> 00:15:06,986
+you guys come up with in your
+
+
+472
+00:15:06,986 --> 00:15:08,716
+apps related to these new media
+
+
+473
+00:15:08,716 --> 00:15:09,166
+kinds.
+
+
+474
+00:15:10,466 --> 00:15:11,966
+Next, I'd like to talk about
+
+
+475
+00:15:11,966 --> 00:15:12,766
+iCloud Photo Library.
+
+
+476
+00:15:14,776 --> 00:15:17,366
+So, iCloud Photo Library is
+
+
+477
+00:15:17,366 --> 00:15:18,466
+really great because users can
+
+
+478
+00:15:18,466 --> 00:15:20,026
+now put their entire photo
+
+
+479
+00:15:20,026 --> 00:15:21,376
+library in their pocket.
+
+
+480
+00:15:21,826 --> 00:15:23,106
+And this is really great for
+
+
+481
+00:15:23,106 --> 00:15:24,966
+some users who have really large
+
+
+482
+00:15:24,966 --> 00:15:25,476
+libraries.
+
+
+483
+00:15:26,486 --> 00:15:27,366
+Some users have more than
+
+
+484
+00:15:27,366 --> 00:15:29,906
+100,000 photos in their photo
+
+
+485
+00:15:29,906 --> 00:15:31,296
+library, and they're not that
+
+
+486
+00:15:31,296 --> 00:15:32,166
+uncommon actually.
+
+
+487
+00:15:32,756 --> 00:15:34,436
+So, what kind of user has that
+
+
+488
+00:15:34,436 --> 00:15:35,016
+many photos?
+
+
+489
+00:15:35,016 --> 00:15:37,296
+Well, to get 100,000 photos, you
+
+
+490
+00:15:37,296 --> 00:15:39,336
+have to take 28 photos per day,
+
+
+491
+00:15:39,336 --> 00:15:42,046
+every day for 10 years straight.
+
+
+492
+00:15:42,556 --> 00:15:44,256
+So, these users obviously love
+
+
+493
+00:15:44,336 --> 00:15:46,186
+to use the camera and camera
+
+
+494
+00:15:46,186 --> 00:15:47,886
+apps, but they also tend to
+
+
+495
+00:15:47,886 --> 00:15:49,286
+download and use a lot of
+
+
+496
+00:15:49,286 --> 00:15:50,496
+photography-related apps.
+
+
+497
+00:15:51,296 --> 00:15:53,056
+These users are really important
+
+
+498
+00:15:53,116 --> 00:15:56,016
+to all of us in this room.
+
+
+499
+00:15:56,196 --> 00:15:57,726
+Now imagine one of these users,
+
+
+500
+00:15:57,726 --> 00:15:59,736
+after taking their daily 28
+
+
+501
+00:15:59,736 --> 00:16:01,616
+photos, they go to the App Store
+
+
+502
+00:16:01,616 --> 00:16:02,626
+to find an interesting app to
+
+
+503
+00:16:02,626 --> 00:16:02,976
+use.
+
+
+504
+00:16:03,406 --> 00:16:04,896
+They find your app.
+
+
+505
+00:16:05,456 --> 00:16:06,716
+They decide to download it and
+
+
+506
+00:16:06,716 --> 00:16:07,276
+give it a try.
+
+
+507
+00:16:07,386 --> 00:16:08,826
+And the first thing they see
+
+
+508
+00:16:08,826 --> 00:16:09,946
+when they start using your app,
+
+
+509
+00:16:10,416 --> 00:16:10,966
+is this.
+
+
+510
+00:16:14,706 --> 00:16:15,936
+Now, spinner for multiple
+
+
+511
+00:16:15,936 --> 00:16:17,626
+seconds are not a great user
+
+
+512
+00:16:17,626 --> 00:16:18,256
+experience.
+
+
+513
+00:16:18,606 --> 00:16:20,276
+And this user might uninstall
+
+
+514
+00:16:20,276 --> 00:16:22,176
+your app right away, or even
+
+
+515
+00:16:22,176 --> 00:16:23,406
+worse, leave a bad review.
+
+
+516
+00:16:24,066 --> 00:16:26,626
+So, you might be thinking, well
+
+
+517
+00:16:26,836 --> 00:16:28,996
+my app wouldn't do that, or if
+
+
+518
+00:16:28,996 --> 00:16:31,016
+it does, I'm using PhotoKit and
+
+
+519
+00:16:31,016 --> 00:16:32,116
+this user has a really large
+
+
+520
+00:16:32,116 --> 00:16:32,466
+library.
+
+
+521
+00:16:32,466 --> 00:16:33,636
+So, maybe this is to be
+
+
+522
+00:16:33,636 --> 00:16:34,146
+expected.
+
+
+523
+00:16:36,136 --> 00:16:37,566
+PhotoKit was designed from the
+
+
+524
+00:16:37,566 --> 00:16:39,546
+beginning to be really fast and
+
+
+525
+00:16:39,546 --> 00:16:41,286
+efficient with large photo
+
+
+526
+00:16:41,286 --> 00:16:41,786
+libraries.
+
+
+527
+00:16:42,446 --> 00:16:43,286
+But there are some common
+
+
+528
+00:16:43,286 --> 00:16:44,946
+mistakes clients make that can
+
+
+529
+00:16:44,946 --> 00:16:45,916
+mean the difference between
+
+
+530
+00:16:45,916 --> 00:16:47,606
+operation taking 10
+
+
+531
+00:16:47,606 --> 00:16:49,576
+milliseconds, and 10 seconds.
+
+
+532
+00:16:50,876 --> 00:16:52,616
+So, how do I fix this?
+
+
+533
+00:16:52,616 --> 00:16:53,876
+Well, since it's so easy to end
+
+
+534
+00:16:53,876 --> 00:16:54,966
+up with something taking a long
+
+
+535
+00:16:54,966 --> 00:16:58,206
+time, step number 1 is to test
+
+
+536
+00:16:58,206 --> 00:16:59,826
+your app with a large photo
+
+
+537
+00:16:59,826 --> 00:17:00,166
+library.
+
+
+538
+00:17:01,596 --> 00:17:02,726
+Now we already covered, it's
+
+
+539
+00:17:02,726 --> 00:17:03,746
+kind of difficult to get that
+
+
+540
+00:17:03,746 --> 00:17:04,846
+many photos using the camera
+
+
+541
+00:17:04,846 --> 00:17:05,076
+app.
+
+
+542
+00:17:05,656 --> 00:17:07,195
+So, this year we want to make
+
+
+543
+00:17:07,195 --> 00:17:08,116
+that really easy.
+
+
+544
+00:17:08,596 --> 00:17:09,896
+So, we're providing a sample app
+
+
+545
+00:17:09,896 --> 00:17:11,016
+that you can download called
+
+
+546
+00:17:11,146 --> 00:17:12,096
+photo library filler.
+
+
+547
+00:17:13,266 --> 00:17:14,425
+Download this app and install it
+
+
+548
+00:17:14,425 --> 00:17:15,366
+on your test device.
+
+
+549
+00:17:15,665 --> 00:17:17,445
+It will quickly generate a large
+
+
+550
+00:17:17,445 --> 00:17:18,876
+library for you to use for
+
+
+551
+00:17:18,876 --> 00:17:19,326
+testing.
+
+
+552
+00:17:20,766 --> 00:17:21,516
+So, great.
+
+
+553
+00:17:22,516 --> 00:17:26,175
+[ Applause ]
+
+
+554
+00:17:26,675 --> 00:17:28,026
+So, great you have a large
+
+
+555
+00:17:28,026 --> 00:17:29,456
+library, you test your app.
+
+
+556
+00:17:30,036 --> 00:17:31,026
+Chances are you might start
+
+
+557
+00:17:31,026 --> 00:17:31,766
+seeing some delays.
+
+
+558
+00:17:32,666 --> 00:17:34,276
+So, I'd like to talk about two
+
+
+559
+00:17:34,276 --> 00:17:35,876
+common problems clients have
+
+
+560
+00:17:35,876 --> 00:17:36,926
+with PhotoKit and their
+
+
+561
+00:17:36,926 --> 00:17:37,446
+solutions.
+
+
+562
+00:17:38,576 --> 00:17:41,416
+So, let's look at some code.
+
+
+563
+00:17:41,596 --> 00:17:43,076
+So, this is how you fetch assets
+
+
+564
+00:17:43,076 --> 00:17:44,446
+from the users' photos library.
+
+
+565
+00:17:44,446 --> 00:17:45,516
+There are two parts to this.
+
+
+566
+00:17:45,686 --> 00:17:46,896
+There is the database fetching
+
+
+567
+00:17:46,896 --> 00:17:48,296
+part, and then dealing with a
+
+
+568
+00:17:48,296 --> 00:17:48,706
+result.
+
+
+569
+00:17:49,976 --> 00:17:51,256
+Let's focus on the database
+
+
+570
+00:17:51,256 --> 00:17:52,126
+fetching part first.
+
+
+571
+00:17:52,466 --> 00:17:54,566
+So, here we're fetching all
+
+
+572
+00:17:54,566 --> 00:17:55,796
+assets on the library, but we're
+
+
+573
+00:17:55,796 --> 00:17:57,656
+filtering with a filter
+
+
+574
+00:17:57,656 --> 00:17:59,466
+predicate on favorite assets.
+
+
+575
+00:17:59,626 --> 00:18:01,176
+And we're sorting by creating
+
+
+576
+00:18:02,436 --> 00:18:02,526
+day.
+
+
+577
+00:18:02,576 --> 00:18:03,496
+If you're doing this kind of
+
+
+578
+00:18:03,496 --> 00:18:05,096
+custom fetches, they are
+
+
+579
+00:18:05,096 --> 00:18:06,906
+definitely supported, but if you
+
+
+580
+00:18:06,906 --> 00:18:08,306
+start seeing delays in these
+
+
+581
+00:18:08,306 --> 00:18:09,836
+kind of custom fetches, it's
+
+
+582
+00:18:09,866 --> 00:18:11,316
+definitely worth trying to
+
+
+583
+00:18:11,736 --> 00:18:13,076
+simplify the predicate or
+
+
+584
+00:18:13,076 --> 00:18:14,426
+simplify the sort descriptor.
+
+
+585
+00:18:14,816 --> 00:18:16,156
+And that can mean the difference
+
+
+586
+00:18:16,156 --> 00:18:18,626
+between this query taking 10
+
+
+587
+00:18:18,626 --> 00:18:20,066
+milliseconds and 10 seconds.
+
+
+588
+00:18:20,806 --> 00:18:22,196
+The reason for this drastic
+
+
+589
+00:18:22,196 --> 00:18:24,036
+difference is that you might end
+
+
+590
+00:18:24,036 --> 00:18:26,066
+up outside the optimized path in
+
+
+591
+00:18:26,066 --> 00:18:28,426
+the database and trying to get
+
+
+592
+00:18:28,426 --> 00:18:29,806
+back into the optimized path can
+
+
+593
+00:18:29,806 --> 00:18:30,606
+really pay off.
+
+
+594
+00:18:32,126 --> 00:18:33,636
+So, even better than doing these
+
+
+595
+00:18:33,636 --> 00:18:35,416
+kind of custom fetches, is to
+
+
+596
+00:18:35,416 --> 00:18:36,706
+avoid them if it's possible.
+
+
+597
+00:18:37,316 --> 00:18:38,556
+So, in this case we can actually
+
+
+598
+00:18:38,556 --> 00:18:40,326
+fetch the user's favorite smart
+
+
+599
+00:18:40,326 --> 00:18:42,236
+album and then fetch the assets
+
+
+600
+00:18:42,236 --> 00:18:43,356
+inside of the smart album.
+
+
+601
+00:18:43,796 --> 00:18:45,076
+That gives both the predicate
+
+
+602
+00:18:45,136 --> 00:18:46,156
+and the sort descriptor for
+
+
+603
+00:18:46,156 --> 00:18:46,586
+free.
+
+
+604
+00:18:46,866 --> 00:18:48,546
+And you're guaranteed to end up
+
+
+605
+00:18:48,546 --> 00:18:50,246
+in the optimized path in
+
+
+606
+00:18:50,246 --> 00:18:50,636
+PhotoKit.
+
+
+607
+00:18:53,046 --> 00:18:54,626
+So, next, let's look at the
+
+
+608
+00:18:54,626 --> 00:18:56,016
+result you get back from one of
+
+
+609
+00:18:56,016 --> 00:18:57,586
+these kinds of fetches.
+
+
+610
+00:18:57,586 --> 00:18:59,596
+So, this object is a PHFetch
+
+
+611
+00:18:59,596 --> 00:18:59,926
+result.
+
+
+612
+00:19:00,896 --> 00:19:02,566
+Now in a PHFetch result looks a
+
+
+613
+00:19:02,566 --> 00:19:04,186
+lot like an array and you can
+
+
+614
+00:19:04,186 --> 00:19:05,306
+use it a lot like an array.
+
+
+615
+00:19:05,726 --> 00:19:07,846
+You can ask for object and
+
+
+616
+00:19:07,846 --> 00:19:08,396
+index.
+
+
+617
+00:19:08,876 --> 00:19:10,196
+You can ask for its count, and
+
+
+618
+00:19:10,196 --> 00:19:11,206
+you can enumerate it.
+
+
+619
+00:19:11,956 --> 00:19:14,226
+But internally, a fetch result
+
+
+620
+00:19:14,226 --> 00:19:16,216
+works very differently from an
+
+
+621
+00:19:16,216 --> 00:19:17,596
+array, and is part of the reason
+
+
+622
+00:19:17,596 --> 00:19:18,916
+PhotoKit can be so fast and
+
+
+623
+00:19:18,916 --> 00:19:20,416
+efficient with large libraries.
+
+
+624
+00:19:20,416 --> 00:19:21,816
+So, let's look at how it works
+
+
+625
+00:19:21,816 --> 00:19:22,326
+internally.
+
+
+626
+00:19:23,956 --> 00:19:26,496
+So, initially it just contains a
+
+
+627
+00:19:26,496 --> 00:19:27,836
+list of identifiers.
+
+
+628
+00:19:28,166 --> 00:19:29,386
+And this means you can get back
+
+
+629
+00:19:29,386 --> 00:19:30,656
+one fairly quickly.
+
+
+630
+00:19:30,996 --> 00:19:32,146
+But as you start using it,
+
+
+631
+00:19:32,456 --> 00:19:33,656
+additional work has to be
+
+
+632
+00:19:33,656 --> 00:19:34,126
+performed.
+
+
+633
+00:19:34,736 --> 00:19:36,396
+So, let's look at enumeration as
+
+
+634
+00:19:36,396 --> 00:19:36,926
+an example.
+
+
+635
+00:19:37,536 --> 00:19:38,966
+And here we're starting
+
+
+636
+00:19:38,966 --> 00:19:40,226
+enumeration at index 0.
+
+
+637
+00:19:41,456 --> 00:19:42,776
+So you only have an identifier
+
+
+638
+00:19:42,776 --> 00:19:44,186
+so far, so we need to fetch
+
+
+639
+00:19:44,246 --> 00:19:46,146
+metadata form the database in
+
+
+640
+00:19:46,146 --> 00:19:47,696
+order to create a PHAsset object
+
+
+641
+00:19:47,696 --> 00:19:49,716
+to return to you in the block.
+
+
+642
+00:19:51,036 --> 00:19:52,376
+Now, the fetch result is pretty
+
+
+643
+00:19:52,596 --> 00:19:52,966
+smart.
+
+
+644
+00:19:52,966 --> 00:19:54,036
+It's actually going to create a
+
+
+645
+00:19:54,036 --> 00:19:55,366
+batch at the same time.
+
+
+646
+00:19:55,816 --> 00:19:57,326
+So, as we continue enumeration,
+
+
+647
+00:19:57,566 --> 00:19:58,906
+index 1 and 2 are already in
+
+
+648
+00:19:58,906 --> 00:19:59,286
+memory.
+
+
+649
+00:20:00,166 --> 00:20:01,826
+And then enumeration continues
+
+
+650
+00:20:01,826 --> 00:20:02,646
+and you get the idea.
+
+
+651
+00:20:03,176 --> 00:20:04,736
+It's going to access the disk to
+
+
+652
+00:20:04,736 --> 00:20:06,566
+get the metadata for subsequent
+
+
+653
+00:20:08,726 --> 00:20:08,906
+assets.
+
+
+654
+00:20:09,096 --> 00:20:10,276
+So, for this kind of small fetch
+
+
+655
+00:20:10,276 --> 00:20:11,446
+result this doesn't matter.
+
+
+656
+00:20:11,796 --> 00:20:12,836
+But I would image this fetch
+
+
+657
+00:20:12,836 --> 00:20:16,826
+result has 100,000 assets in it.
+
+
+658
+00:20:17,056 --> 00:20:18,316
+Each batch takes a couple of
+
+
+659
+00:20:18,316 --> 00:20:19,356
+kilobytes of memory.
+
+
+660
+00:20:20,086 --> 00:20:21,306
+But when you have 100,000 of
+
+
+661
+00:20:21,306 --> 00:20:22,466
+them you're looking at hundreds
+
+
+662
+00:20:22,466 --> 00:20:24,016
+of megabytes of memory usage.
+
+
+663
+00:20:24,766 --> 00:20:27,136
+And even worse, each batch take
+
+
+664
+00:20:27,136 --> 00:20:28,416
+a couple of milliseconds to
+
+
+665
+00:20:28,416 --> 00:20:28,836
+fetch.
+
+
+666
+00:20:29,196 --> 00:20:30,306
+But when you have 100,000 of
+
+
+667
+00:20:30,306 --> 00:20:31,656
+them, you're looking at 10
+
+
+668
+00:20:31,656 --> 00:20:33,496
+seconds to enumerate a large
+
+
+669
+00:20:33,496 --> 00:20:34,076
+fetch result.
+
+
+670
+00:20:34,536 --> 00:20:36,076
+So, enumeration is clearly
+
+
+671
+00:20:36,076 --> 00:20:37,776
+something we should try to avoid
+
+
+672
+00:20:37,856 --> 00:20:38,636
+if at all possible.
+
+
+673
+00:20:40,026 --> 00:20:41,856
+We have found that it's almost
+
+
+674
+00:20:41,856 --> 00:20:43,206
+always possible to avoid
+
+
+675
+00:20:43,206 --> 00:20:43,776
+enumeration.
+
+
+676
+00:20:43,776 --> 00:20:45,206
+And I would like to look at one
+
+
+677
+00:20:45,206 --> 00:20:46,436
+example of how it can be
+
+
+678
+00:20:46,436 --> 00:20:46,766
+avoided.
+
+
+679
+00:20:49,256 --> 00:20:51,026
+So, in this case, we're trying
+
+
+680
+00:20:51,026 --> 00:20:52,846
+to find the index of an asset
+
+
+681
+00:20:52,846 --> 00:20:54,016
+that inside a fetch result.
+
+
+682
+00:20:54,786 --> 00:20:55,986
+Now, we could enumerate the
+
+
+683
+00:20:55,986 --> 00:20:57,276
+fetch result and compare the
+
+
+684
+00:20:57,276 --> 00:20:59,066
+objects we get back using is
+
+
+685
+00:20:59,066 --> 00:20:59,486
+equal.
+
+
+686
+00:20:59,916 --> 00:21:01,386
+But as we saw enumeration can be
+
+
+687
+00:21:01,386 --> 00:21:01,996
+quite slow.
+
+
+688
+00:21:02,706 --> 00:21:04,706
+So, even better is to actually
+
+
+689
+00:21:04,706 --> 00:21:05,546
+use high level API.
+
+
+690
+00:21:05,676 --> 00:21:07,016
+In this case, we can use index
+
+
+691
+00:21:07,016 --> 00:21:07,496
+of object.
+
+
+692
+00:21:07,606 --> 00:21:09,576
+And that is able to internally,
+
+
+693
+00:21:09,576 --> 00:21:10,526
+in the fetch result be really
+
+
+694
+00:21:10,526 --> 00:21:12,546
+smart and compare the
+
+
+695
+00:21:12,616 --> 00:21:14,396
+identifiers with the object
+
+
+696
+00:21:14,396 --> 00:21:15,066
+you're looking for.
+
+
+697
+00:21:15,506 --> 00:21:17,426
+And array will define this index
+
+
+698
+00:21:17,426 --> 00:21:18,816
+without any additional disk
+
+
+699
+00:21:18,816 --> 00:21:20,826
+access or database fetching at
+
+
+700
+00:21:20,826 --> 00:21:21,036
+all.
+
+
+701
+00:21:22,016 --> 00:21:23,666
+Same goes for contains object.
+
+
+702
+00:21:25,466 --> 00:21:27,196
+So, I hope you have seen how
+
+
+703
+00:21:27,196 --> 00:21:29,086
+easy it is to get a large
+
+
+704
+00:21:29,086 --> 00:21:30,226
+library to test your app with.
+
+
+705
+00:21:30,386 --> 00:21:31,916
+And how easy it can be to really
+
+
+706
+00:21:32,016 --> 00:21:33,756
+make a huge different in the
+
+
+707
+00:21:33,756 --> 00:21:34,646
+performance of your app.
+
+
+708
+00:21:35,356 --> 00:21:37,536
+Small fixes can mean multiple
+
+
+709
+00:21:37,536 --> 00:21:38,736
+seconds of time savings.
+
+
+710
+00:21:39,356 --> 00:21:41,866
+If you do have questions on
+
+
+711
+00:21:41,866 --> 00:21:42,916
+PhotoKit performance, please
+
+
+712
+00:21:42,916 --> 00:21:44,026
+come see us in the lab tomorrow
+
+
+713
+00:21:44,026 --> 00:21:44,426
+morning.
+
+
+714
+00:21:44,736 --> 00:21:46,206
+If you do encounter issues that
+
+
+715
+00:21:46,206 --> 00:21:47,226
+you're not able to resolve,
+
+
+716
+00:21:47,686 --> 00:21:48,156
+please file [inaudible].
+
+
+717
+00:21:48,156 --> 00:21:50,456
+And if there's one thing you
+
+
+718
+00:21:50,456 --> 00:21:51,416
+remember from this part of the
+
+
+719
+00:21:51,416 --> 00:21:53,806
+session, please test your app
+
+
+720
+00:21:53,856 --> 00:21:55,156
+with the large photo library and
+
+
+721
+00:21:55,156 --> 00:21:56,776
+take really good care of these
+
+
+722
+00:21:56,776 --> 00:21:57,906
+really important users.
+
+
+723
+00:21:58,416 --> 00:22:01,126
+Next, I'd like to welcome Eric
+
+
+724
+00:22:01,126 --> 00:22:02,826
+Hanson back to the stage to talk
+
+
+725
+00:22:02,826 --> 00:22:04,196
+about Photo Project Extensions.
+
+
+726
+00:22:04,656 --> 00:22:06,376
+Eric [applause].
+
+
+727
+00:22:06,736 --> 00:22:07,546
+>> Thank you Andreas.
+
+
+728
+00:22:09,416 --> 00:22:10,176
+Thank you very much.
+
+
+729
+00:22:10,176 --> 00:22:13,046
+I am really, really excited to
+
+
+730
+00:22:13,046 --> 00:22:14,176
+finally be able to talk about
+
+
+731
+00:22:14,176 --> 00:22:15,126
+something we've been working
+
+
+732
+00:22:15,126 --> 00:22:17,396
+really hard on this year in High
+
+
+733
+00:22:17,396 --> 00:22:17,846
+Sierra.
+
+
+734
+00:22:17,966 --> 00:22:19,156
+So much so that I need a sip of
+
+
+735
+00:22:19,156 --> 00:22:19,746
+water, sorry.
+
+
+736
+00:22:20,426 --> 00:22:20,746
+All right.
+
+
+737
+00:22:21,476 --> 00:22:26,166
+So, we're going to talk about
+
+
+738
+00:22:26,166 --> 00:22:27,816
+Photos project extension.
+
+
+739
+00:22:28,416 --> 00:22:30,136
+And I think to kick this off we
+
+
+740
+00:22:30,136 --> 00:22:31,066
+have to talk about what are
+
+
+741
+00:22:31,066 --> 00:22:31,836
+projects.
+
+
+742
+00:22:32,816 --> 00:22:34,906
+You know Apple has been allowing
+
+
+743
+00:22:34,906 --> 00:22:38,146
+users to create these really
+
+
+744
+00:22:38,146 --> 00:22:40,156
+rich creative photo centric
+
+
+745
+00:22:40,186 --> 00:22:42,546
+projects in the photos apps for
+
+
+746
+00:22:42,546 --> 00:22:43,466
+a very long time.
+
+
+747
+00:22:43,466 --> 00:22:44,706
+Actually, going all the way back
+
+
+748
+00:22:44,706 --> 00:22:46,616
+to iPhoto 1.0 when we first
+
+
+749
+00:22:46,616 --> 00:22:48,266
+released photobooks.
+
+
+750
+00:22:48,846 --> 00:22:51,466
+But this year, we wanted to do
+
+
+751
+00:22:51,466 --> 00:22:52,236
+something different.
+
+
+752
+00:22:52,736 --> 00:22:55,726
+Because during that time, 14
+
+
+753
+00:22:55,726 --> 00:22:58,236
+years, you as developers have
+
+
+754
+00:22:58,236 --> 00:23:00,086
+been building up some really
+
+
+755
+00:23:00,086 --> 00:23:02,116
+great experiences yourself with
+
+
+756
+00:23:02,116 --> 00:23:02,926
+your own apps.
+
+
+757
+00:23:03,866 --> 00:23:05,526
+And we thought, you know, let's
+
+
+758
+00:23:05,666 --> 00:23:06,506
+bring this together.
+
+
+759
+00:23:06,506 --> 00:23:08,426
+Let's give you an opportunity to
+
+
+760
+00:23:08,426 --> 00:23:10,306
+actually create something that's
+
+
+761
+00:23:10,306 --> 00:23:12,636
+a fantastic experience directly
+
+
+762
+00:23:12,636 --> 00:23:13,606
+within the Photos app.
+
+
+763
+00:23:13,736 --> 00:23:15,376
+And that's exactly what we've
+
+
+764
+00:23:15,376 --> 00:23:16,496
+done with the extensions.
+
+
+765
+00:23:17,026 --> 00:23:19,716
+We started working on the API,
+
+
+766
+00:23:19,716 --> 00:23:22,096
+engage just a few developers to
+
+
+767
+00:23:22,096 --> 00:23:23,086
+kind of see what they would do
+
+
+768
+00:23:23,086 --> 00:23:23,456
+with it.
+
+
+769
+00:23:23,456 --> 00:23:25,596
+Companies like Shutterfly, who
+
+
+770
+00:23:25,596 --> 00:23:26,636
+are going to be launching with
+
+
+771
+00:23:26,636 --> 00:23:27,966
+their own photobooks and photos
+
+
+772
+00:23:27,966 --> 00:23:28,546
+in the fall.
+
+
+773
+00:23:29,796 --> 00:23:31,156
+A company called WhiteWall that
+
+
+774
+00:23:31,156 --> 00:23:32,586
+allows you to do these gallery
+
+
+775
+00:23:32,586 --> 00:23:34,686
+quality framed prints.
+
+
+776
+00:23:35,816 --> 00:23:38,776
+Wix.com that created a brand-new
+
+
+777
+00:23:38,776 --> 00:23:40,676
+feature allowing users to easily
+
+
+778
+00:23:40,676 --> 00:23:42,846
+create web photo albums.
+
+
+779
+00:23:43,836 --> 00:23:46,776
+Animoto, that allows users to
+
+
+780
+00:23:46,776 --> 00:23:48,116
+create these really beautiful
+
+
+781
+00:23:48,116 --> 00:23:49,776
+movies that are server hosted
+
+
+782
+00:23:49,776 --> 00:23:50,896
+and integrated with social
+
+
+783
+00:23:50,896 --> 00:23:51,366
+media.
+
+
+784
+00:23:52,196 --> 00:23:56,206
+And a company called ifolor that
+
+
+785
+00:23:56,596 --> 00:23:58,046
+did something really novel.
+
+
+786
+00:23:58,436 --> 00:24:00,696
+They kind of started from the
+
+
+787
+00:24:00,696 --> 00:24:03,076
+ground floor and looked at this
+
+
+788
+00:24:03,076 --> 00:24:05,016
+as an opportunity for you know
+
+
+789
+00:24:05,016 --> 00:24:06,286
+what could they build that
+
+
+790
+00:24:06,286 --> 00:24:07,776
+really tied into the photos
+
+
+791
+00:24:07,776 --> 00:24:09,386
+ecosystem and really created
+
+
+792
+00:24:09,386 --> 00:24:10,576
+some magic for the user.
+
+
+793
+00:24:11,076 --> 00:24:12,646
+And I think rather than explain
+
+
+794
+00:24:12,646 --> 00:24:13,066
+it.
+
+
+795
+00:24:13,066 --> 00:24:14,566
+I want to show you a quick demo.
+
+
+796
+00:24:14,936 --> 00:24:17,096
+So here we are in the photos app
+
+
+797
+00:24:17,096 --> 00:24:17,906
+on High Sierra.
+
+
+798
+00:24:18,656 --> 00:24:19,996
+And I'm in memories.
+
+
+799
+00:24:19,996 --> 00:24:21,186
+And I've got this favorite
+
+
+800
+00:24:21,186 --> 00:24:22,746
+memory here, together that I'm
+
+
+801
+00:24:22,746 --> 00:24:23,536
+just going to select.
+
+
+802
+00:24:24,396 --> 00:24:26,386
+And I can hover over my project
+
+
+803
+00:24:26,966 --> 00:24:28,266
+section in the side bar and you
+
+
+804
+00:24:28,266 --> 00:24:29,526
+see this little button.
+
+
+805
+00:24:30,126 --> 00:24:31,156
+And you'll notice that in
+
+
+806
+00:24:31,156 --> 00:24:32,556
+addition to the Apple offerings
+
+
+807
+00:24:32,556 --> 00:24:34,966
+we currently have, photos has
+
+
+808
+00:24:34,966 --> 00:24:36,306
+automatically discovered that I
+
+
+809
+00:24:36,306 --> 00:24:37,466
+have another application
+
+
+810
+00:24:37,466 --> 00:24:40,926
+installed, called ifolor wall
+
+
+811
+00:24:40,926 --> 00:24:41,286
+décor.
+
+
+812
+00:24:41,686 --> 00:24:42,836
+So, this extension is now
+
+
+813
+00:24:42,836 --> 00:24:44,606
+exposed to me.
+
+
+814
+00:24:44,906 --> 00:24:46,896
+I simply select that and I'm
+
+
+815
+00:24:46,896 --> 00:24:48,556
+presented with some choices.
+
+
+816
+00:24:48,876 --> 00:24:50,216
+Now these choices are coming
+
+
+817
+00:24:50,216 --> 00:24:52,186
+from the extension itself.
+
+
+818
+00:24:52,746 --> 00:24:53,976
+So, before we've even loaded the
+
+
+819
+00:24:53,976 --> 00:24:55,256
+extension, the extension is
+
+
+820
+00:24:55,256 --> 00:24:56,936
+notifying us that you know,
+
+
+821
+00:24:56,936 --> 00:24:59,216
+before you push a project to me
+
+
+822
+00:24:59,216 --> 00:25:00,886
+I want the user to make a
+
+
+823
+00:25:00,886 --> 00:25:01,376
+choice.
+
+
+824
+00:25:01,376 --> 00:25:03,016
+I want to be able to fork my own
+
+
+825
+00:25:03,066 --> 00:25:03,366
+code.
+
+
+826
+00:25:04,206 --> 00:25:05,526
+So, they give us the title and
+
+
+827
+00:25:05,526 --> 00:25:06,826
+the description and the image.
+
+
+828
+00:25:07,186 --> 00:25:08,336
+Photos actually lays it out
+
+
+829
+00:25:08,336 --> 00:25:09,436
+beautifully in the sheet.
+
+
+830
+00:25:10,356 --> 00:25:11,556
+And I'm just going to pick that
+
+
+831
+00:25:11,556 --> 00:25:12,226
+first option.
+
+
+832
+00:25:12,326 --> 00:25:15,156
+I hit the create button, and
+
+
+833
+00:25:16,146 --> 00:25:18,816
+now, their extension, their view
+
+
+834
+00:25:18,816 --> 00:25:19,966
+controller is going to be pushed
+
+
+835
+00:25:19,966 --> 00:25:21,156
+directly into photos.
+
+
+836
+00:25:21,446 --> 00:25:23,906
+Full view, but this is their UI,
+
+
+837
+00:25:23,906 --> 00:25:25,646
+this is their experience inside
+
+
+838
+00:25:25,646 --> 00:25:26,246
+photos.
+
+
+839
+00:25:27,276 --> 00:25:28,276
+Now, they've leveraged the
+
+
+840
+00:25:28,276 --> 00:25:30,496
+memory in this case and taken
+
+
+841
+00:25:30,496 --> 00:25:32,596
+the hints we provided to lay out
+
+
+842
+00:25:32,596 --> 00:25:33,246
+this grid.
+
+
+843
+00:25:34,106 --> 00:25:36,736
+But they've also taken hints we
+
+
+844
+00:25:36,736 --> 00:25:39,936
+provided to let me get at all of
+
+
+845
+00:25:39,936 --> 00:25:41,276
+the images that were considered
+
+
+846
+00:25:41,276 --> 00:25:42,486
+when the memory was created.
+
+
+847
+00:25:42,906 --> 00:25:44,256
+So, you'll notice over here on
+
+
+848
+00:25:44,256 --> 00:25:45,936
+the bottom right, if you can see
+
+
+849
+00:25:45,936 --> 00:25:46,856
+it, you can't because it's
+
+
+850
+00:25:46,886 --> 00:25:49,016
+behind me, 283 images.
+
+
+851
+00:25:49,766 --> 00:25:51,676
+And what's was really cool about
+
+
+852
+00:25:51,676 --> 00:25:52,716
+that is I can actually
+
+
+853
+00:25:52,716 --> 00:25:53,276
+customize.
+
+
+854
+00:25:53,276 --> 00:25:54,916
+So, I'll switch this to unused
+
+
+855
+00:25:54,916 --> 00:25:57,646
+images, because there's a photo
+
+
+856
+00:25:57,646 --> 00:25:59,426
+that I like a little bit better.
+
+
+857
+00:26:00,616 --> 00:26:03,826
+I'll take this one, that I think
+
+
+858
+00:26:03,826 --> 00:26:04,996
+would be a really great hero
+
+
+859
+00:26:04,996 --> 00:26:05,356
+shot.
+
+
+860
+00:26:05,356 --> 00:26:06,936
+So, I can just drag that up and
+
+
+861
+00:26:06,936 --> 00:26:08,026
+customize this layout.
+
+
+862
+00:26:08,026 --> 00:26:11,226
+And they went a step further
+
+
+863
+00:26:11,226 --> 00:26:11,766
+than that.
+
+
+864
+00:26:11,766 --> 00:26:13,286
+They let me customize the grid
+
+
+865
+00:26:13,286 --> 00:26:15,856
+itself in a really novel way.
+
+
+866
+00:26:16,186 --> 00:26:17,346
+So, I want to give a little more
+
+
+867
+00:26:17,346 --> 00:26:18,636
+emphasis to this row.
+
+
+868
+00:26:18,716 --> 00:26:20,706
+And maybe move this down.
+
+
+869
+00:26:21,676 --> 00:26:22,986
+And I'll move this down to line
+
+
+870
+00:26:22,986 --> 00:26:26,226
+it up and you know let's do one
+
+
+871
+00:26:26,226 --> 00:26:26,736
+more.
+
+
+872
+00:26:26,736 --> 00:26:29,446
+And I really like that.
+
+
+873
+00:26:29,596 --> 00:26:30,556
+So, I could just hit the buy
+
+
+874
+00:26:30,556 --> 00:26:32,516
+button now, still within photos.
+
+
+875
+00:26:33,826 --> 00:26:35,276
+Choose my size, this would show
+
+
+876
+00:26:35,276 --> 00:26:35,966
+up in the mail.
+
+
+877
+00:26:35,966 --> 00:26:36,976
+And I have this memory hanging
+
+
+878
+00:26:36,976 --> 00:26:37,966
+on the wall in my den.
+
+
+879
+00:26:38,496 --> 00:26:39,216
+It's pretty cool.
+
+
+880
+00:26:39,256 --> 00:26:40,626
+That's just a really quick tour
+
+
+881
+00:26:41,426 --> 00:26:42,526
+of ifolor.
+
+
+882
+00:26:43,516 --> 00:26:48,876
+[ Applause ]
+
+
+883
+00:26:49,376 --> 00:26:51,616
+So, what you want to know is how
+
+
+884
+00:26:51,616 --> 00:26:53,126
+does this all work.
+
+
+885
+00:26:54,416 --> 00:26:56,726
+If you're familiar with the
+
+
+886
+00:26:56,726 --> 00:26:58,966
+editing extensions in Photos,
+
+
+887
+00:26:59,736 --> 00:27:02,646
+you already have a good sense of
+
+
+888
+00:27:02,646 --> 00:27:03,356
+how this works.
+
+
+889
+00:27:04,616 --> 00:27:05,976
+We've added a new extension
+
+
+890
+00:27:05,976 --> 00:27:08,276
+point to Photos;
+
+
+891
+00:27:08,496 --> 00:27:10,956
+com.apple.photo-project.
+
+
+892
+00:27:12,046 --> 00:27:14,196
+And we've added a new template
+
+
+893
+00:27:14,196 --> 00:27:17,116
+within Xcode that lets you
+
+
+894
+00:27:17,116 --> 00:27:18,136
+easily create one of these
+
+
+895
+00:27:18,136 --> 00:27:19,226
+extensions in your own app.
+
+
+896
+00:27:20,256 --> 00:27:23,036
+As you saw, in the demo, we
+
+
+897
+00:27:23,036 --> 00:27:24,306
+automatically discovered your
+
+
+898
+00:27:24,306 --> 00:27:25,856
+extension, raising the
+
+
+899
+00:27:25,856 --> 00:27:27,476
+discoverability of your app on
+
+
+900
+00:27:27,476 --> 00:27:28,096
+the system.
+
+
+901
+00:27:28,306 --> 00:27:30,396
+But we took discoverability a
+
+
+902
+00:27:30,396 --> 00:27:31,226
+step further.
+
+
+903
+00:27:32,506 --> 00:27:34,796
+By offering users a direct link
+
+
+904
+00:27:34,796 --> 00:27:37,776
+to the App Store that brings up
+
+
+905
+00:27:37,776 --> 00:27:39,366
+the App Store window, but
+
+
+906
+00:27:39,586 --> 00:27:41,116
+doesn't require them to search
+
+
+907
+00:27:41,116 --> 00:27:43,446
+for an app with that extension.
+
+
+908
+00:27:43,946 --> 00:27:45,716
+It automatically shows only the
+
+
+909
+00:27:45,716 --> 00:27:47,306
+apps that support that extension
+
+
+910
+00:27:47,306 --> 00:27:47,616
+point.
+
+
+911
+00:27:48,286 --> 00:27:49,626
+And we think this is really
+
+
+912
+00:27:49,626 --> 00:27:51,886
+going to heighten the ability
+
+
+913
+00:27:51,886 --> 00:27:53,776
+for users to discover your apps
+
+
+914
+00:27:53,776 --> 00:27:54,896
+and quickly download them, and
+
+
+915
+00:27:54,896 --> 00:27:55,896
+start working with them.
+
+
+916
+00:27:56,806 --> 00:27:58,796
+So much so that we put a similar
+
+
+917
+00:27:58,796 --> 00:28:00,206
+App Store link in edit.
+
+
+918
+00:28:01,066 --> 00:28:02,656
+And so, if you're already doing
+
+
+919
+00:28:02,926 --> 00:28:05,536
+image editing extensions, users
+
+
+920
+00:28:05,536 --> 00:28:06,706
+will have a direct link into the
+
+
+921
+00:28:06,706 --> 00:28:07,836
+App Store to immediately
+
+
+922
+00:28:07,836 --> 00:28:10,136
+discover you editing extensions.
+
+
+923
+00:28:11,196 --> 00:28:13,786
+It's pretty cool.
+
+
+924
+00:28:16,706 --> 00:28:20,196
+So, your extension lives within
+
+
+925
+00:28:20,196 --> 00:28:21,566
+the app, within your app.
+
+
+926
+00:28:22,726 --> 00:28:23,846
+And that's really a great
+
+
+927
+00:28:23,846 --> 00:28:24,776
+opportunity for you.
+
+
+928
+00:28:24,776 --> 00:28:25,726
+Because you may already have an
+
+
+929
+00:28:25,726 --> 00:28:27,506
+app in the App Store that's got
+
+
+930
+00:28:27,506 --> 00:28:29,196
+a lot of app specific code, but
+
+
+931
+00:28:29,196 --> 00:28:31,306
+you probably have some resources
+
+
+932
+00:28:31,486 --> 00:28:32,946
+and some other sharable code
+
+
+933
+00:28:32,946 --> 00:28:34,246
+that you could easily move kind
+
+
+934
+00:28:34,246 --> 00:28:35,936
+of into this extension space and
+
+
+935
+00:28:35,936 --> 00:28:37,966
+leverage those.
+
+
+936
+00:28:37,966 --> 00:28:40,296
+You obviously also have some
+
+
+937
+00:28:40,706 --> 00:28:42,396
+extension specific code that you
+
+
+938
+00:28:42,396 --> 00:28:43,066
+would need to write.
+
+
+939
+00:28:43,066 --> 00:28:44,366
+A very small amount.
+
+
+940
+00:28:44,966 --> 00:28:46,316
+And finally, you just need to
+
+
+941
+00:28:46,316 --> 00:28:48,376
+add a view controller that
+
+
+942
+00:28:48,376 --> 00:28:50,316
+implements this protocol.
+
+
+943
+00:28:50,316 --> 00:28:52,376
+The PH project extension control
+
+
+944
+00:28:52,376 --> 00:28:52,896
+protocol.
+
+
+945
+00:28:53,886 --> 00:28:56,516
+With all that in place, Photos
+
+
+946
+00:28:56,516 --> 00:28:59,146
+can immediately discover your
+
+
+947
+00:28:59,146 --> 00:28:59,676
+extension.
+
+
+948
+00:29:00,626 --> 00:29:02,486
+Let the user choose to you know
+
+
+949
+00:29:02,486 --> 00:29:04,846
+to create a product with that
+
+
+950
+00:29:05,116 --> 00:29:07,216
+and we simply call this protocol
+
+
+951
+00:29:07,216 --> 00:29:08,416
+method begin project.
+
+
+952
+00:29:09,456 --> 00:29:12,806
+And when we do we send over a
+
+
+953
+00:29:12,996 --> 00:29:15,026
+couple bits of data.
+
+
+954
+00:29:15,796 --> 00:29:16,986
+So, in addition to the photos
+
+
+955
+00:29:16,986 --> 00:29:18,246
+we're sending you, the project
+
+
+956
+00:29:18,246 --> 00:29:20,166
+extension context, and we're
+
+
+957
+00:29:20,166 --> 00:29:22,136
+sending you an object called
+
+
+958
+00:29:22,136 --> 00:29:22,986
+PHProjectInfo.
+
+
+959
+00:29:24,046 --> 00:29:25,286
+You can consume that in whatever
+
+
+960
+00:29:25,286 --> 00:29:25,996
+way you want.
+
+
+961
+00:29:27,156 --> 00:29:28,616
+And then you just quickly call
+
+
+962
+00:29:28,616 --> 00:29:30,836
+back the completion closure that
+
+
+963
+00:29:30,836 --> 00:29:31,466
+we hand you.
+
+
+964
+00:29:32,196 --> 00:29:33,606
+And that let's Photos know it
+
+
+965
+00:29:33,606 --> 00:29:34,586
+can install your view
+
+
+966
+00:29:34,586 --> 00:29:37,066
+controller, full view inside the
+
+
+967
+00:29:37,066 --> 00:29:37,636
+Photos app.
+
+
+968
+00:29:37,676 --> 00:29:40,086
+And from that point, as you saw,
+
+
+969
+00:29:40,306 --> 00:29:41,756
+it's totally your UI.
+
+
+970
+00:29:41,756 --> 00:29:43,376
+It's your experience.
+
+
+971
+00:29:43,636 --> 00:29:45,876
+You have all of that API
+
+
+972
+00:29:45,876 --> 00:29:49,966
+available to you on macOS to
+
+
+973
+00:29:50,276 --> 00:29:52,036
+leverage from and build a really
+
+
+974
+00:29:52,036 --> 00:29:53,156
+killed experience for your
+
+
+975
+00:29:53,156 --> 00:29:53,586
+users.
+
+
+976
+00:29:54,146 --> 00:29:58,216
+So, the protocol itself is
+
+
+977
+00:29:58,216 --> 00:29:58,876
+really simple.
+
+
+978
+00:29:59,596 --> 00:30:01,856
+There's an optional property for
+
+
+979
+00:30:01,856 --> 00:30:03,686
+supported project types and you
+
+
+980
+00:30:03,686 --> 00:30:05,366
+saw this in the demo I just did.
+
+
+981
+00:30:06,046 --> 00:30:06,976
+And this lets you quickly
+
+
+982
+00:30:06,976 --> 00:30:08,316
+describe the choices you want a
+
+
+983
+00:30:08,316 --> 00:30:09,006
+user to make.
+
+
+984
+00:30:09,276 --> 00:30:10,746
+And you can opt out of this if
+
+
+985
+00:30:10,746 --> 00:30:11,736
+you want, you just want to
+
+
+986
+00:30:11,736 --> 00:30:12,796
+straight into the extension.
+
+
+987
+00:30:12,796 --> 00:30:14,346
+That's totally possible as well.
+
+
+988
+00:30:14,346 --> 00:30:17,036
+And then there are few required
+
+
+989
+00:30:17,036 --> 00:30:18,286
+functions you need to implement
+
+
+990
+00:30:18,286 --> 00:30:19,296
+in your view controller.
+
+
+991
+00:30:20,236 --> 00:30:21,656
+The first is begin project.
+
+
+992
+00:30:22,676 --> 00:30:23,486
+That's where we hand you the
+
+
+993
+00:30:23,486 --> 00:30:24,106
+context.
+
+
+994
+00:30:24,106 --> 00:30:24,956
+And we hand you the product
+
+
+995
+00:30:24,956 --> 00:30:25,346
+info.
+
+
+996
+00:30:26,576 --> 00:30:28,206
+And that's what we call the
+
+
+997
+00:30:28,206 --> 00:30:30,196
+first time a project is created
+
+
+998
+00:30:30,996 --> 00:30:32,276
+with your extension.
+
+
+999
+00:30:33,206 --> 00:30:35,306
+Now, if a user is coming back to
+
+
+1000
+00:30:35,306 --> 00:30:36,776
+your extension for a project
+
+
+1001
+00:30:36,776 --> 00:30:38,786
+they already created, we instead
+
+
+1002
+00:30:38,786 --> 00:30:40,296
+call resume project.
+
+
+1003
+00:30:40,696 --> 00:30:42,086
+And again, hand you this
+
+
+1004
+00:30:42,086 --> 00:30:43,266
+extension context.
+
+
+1005
+00:30:43,716 --> 00:30:48,586
+And finally, if a user is in
+
+
+1006
+00:30:48,586 --> 00:30:50,596
+your extension and they decide
+
+
+1007
+00:30:50,596 --> 00:30:51,786
+to switch away to do something
+
+
+1008
+00:30:51,786 --> 00:30:53,616
+else within photos, we're simply
+
+
+1009
+00:30:53,616 --> 00:30:54,876
+going to call finishProject.
+
+
+1010
+00:30:54,876 --> 00:30:56,826
+Allowing you to clean up any
+
+
+1011
+00:30:56,826 --> 00:30:57,806
+kind of data you're holding
+
+
+1012
+00:30:57,806 --> 00:30:58,226
+onto.
+
+
+1013
+00:30:58,226 --> 00:31:00,476
+Maybe quiet down any processor
+
+
+1014
+00:31:00,476 --> 00:31:02,336
+intensive tasks or animations
+
+
+1015
+00:31:02,336 --> 00:31:04,286
+thing like that that you might
+
+
+1016
+00:31:07,496 --> 00:31:08,616
+be doing.
+
+
+1017
+00:31:08,616 --> 00:31:10,456
+So, PHProject extension context
+
+
+1018
+00:31:11,186 --> 00:31:13,156
+is a container for two really
+
+
+1019
+00:31:13,156 --> 00:31:14,176
+important objects.
+
+
+1020
+00:31:14,176 --> 00:31:17,396
+One is PHProject, and the other
+
+
+1021
+00:31:17,396 --> 00:31:20,436
+PHPhotoLibrary, which is the
+
+
+1022
+00:31:20,436 --> 00:31:21,616
+library from which you're going
+
+
+1023
+00:31:21,616 --> 00:31:24,066
+to fetch all the assets.
+
+
+1024
+00:31:26,856 --> 00:31:31,736
+PHProject itself is just a
+
+
+1025
+00:31:32,076 --> 00:31:34,286
+subclass of PHAsset collection.
+
+
+1026
+00:31:34,736 --> 00:31:37,226
+You may already be familiar with
+
+
+1027
+00:31:37,226 --> 00:31:38,016
+PHAssetCollection.
+
+
+1028
+00:31:39,296 --> 00:31:41,586
+It's a container.
+
+
+1029
+00:31:41,716 --> 00:31:43,946
+It's got an array of assets.
+
+
+1030
+00:31:44,266 --> 00:31:45,116
+It's got a title.
+
+
+1031
+00:31:45,456 --> 00:31:47,136
+It's got a key asset, key photo.
+
+
+1032
+00:31:47,846 --> 00:31:49,226
+And what we've done in sub
+
+
+1033
+00:31:49,226 --> 00:31:50,446
+classing that, creating
+
+
+1034
+00:31:50,446 --> 00:31:51,856
+PHProject, is we've added just
+
+
+1035
+00:31:51,856 --> 00:31:52,666
+one property.
+
+
+1036
+00:31:53,636 --> 00:31:54,596
+But it's a really, really
+
+
+1037
+00:31:54,706 --> 00:31:56,076
+important property for you.
+
+
+1038
+00:31:56,436 --> 00:31:56,896
+And that is the
+
+
+1039
+00:31:56,896 --> 00:31:58,216
+projectExtensionData.
+
+
+1040
+00:31:58,946 --> 00:32:00,456
+So, this is where you, the
+
+
+1041
+00:32:00,456 --> 00:32:02,676
+extension can save any data you
+
+
+1042
+00:32:02,676 --> 00:32:04,546
+need to that represents the
+
+
+1043
+00:32:04,546 --> 00:32:05,806
+project the user created.
+
+
+1044
+00:32:06,376 --> 00:32:08,036
+So, it's really intended for
+
+
+1045
+00:32:08,036 --> 00:32:09,516
+that critical project data.
+
+
+1046
+00:32:09,516 --> 00:32:11,856
+That is your list of the
+
+
+1047
+00:32:11,856 --> 00:32:13,696
+assetIdenfiers that you're using
+
+
+1048
+00:32:13,696 --> 00:32:15,786
+and that maybe is some basic
+
+
+1049
+00:32:15,786 --> 00:32:17,396
+layout information configuration
+
+
+1050
+00:32:17,396 --> 00:32:18,016
+information.
+
+
+1051
+00:32:18,606 --> 00:32:21,956
+That's not for images and you
+
+
+1052
+00:32:21,956 --> 00:32:23,136
+know cache, thumbnails, and
+
+
+1053
+00:32:23,136 --> 00:32:24,346
+rosters, things like that.
+
+
+1054
+00:32:24,346 --> 00:32:25,496
+Because you can create those on
+
+
+1055
+00:32:25,496 --> 00:32:26,706
+the fly or cache those away
+
+
+1056
+00:32:26,706 --> 00:32:27,366
+somewhere else.
+
+
+1057
+00:32:29,126 --> 00:32:32,386
+So, we want that to be small,
+
+
+1058
+00:32:32,386 --> 00:32:33,056
+but useful.
+
+
+1059
+00:32:33,226 --> 00:32:35,196
+And we settled on this limit of
+
+
+1060
+00:32:35,196 --> 00:32:35,886
+1 megabyte.
+
+
+1061
+00:32:36,606 --> 00:32:38,146
+Because we think you know, an
+
+
+1062
+00:32:38,326 --> 00:32:39,966
+array of assetIdenfiers
+
+
+1063
+00:32:39,966 --> 00:32:41,286
+compressed is really, really
+
+
+1064
+00:32:41,286 --> 00:32:41,416
+easy.
+
+
+1065
+00:32:41,416 --> 00:32:42,686
+They're just strings.
+
+
+1066
+00:32:43,276 --> 00:32:44,666
+And we think you can live within
+
+
+1067
+00:32:44,666 --> 00:32:45,336
+1 megabyte.
+
+
+1068
+00:32:45,336 --> 00:32:47,156
+And by doing that, we're not
+
+
+1069
+00:32:47,156 --> 00:32:48,776
+bloating user's libraries as
+
+
+1070
+00:32:48,776 --> 00:32:49,926
+they create project after
+
+
+1071
+00:32:49,926 --> 00:32:51,746
+project and explore all these
+
+
+1072
+00:32:51,746 --> 00:32:52,976
+amazing extensions that you're
+
+
+1073
+00:32:52,976 --> 00:32:56,966
+going to create.
+
+
+1074
+00:32:57,116 --> 00:32:58,786
+So, setting the data, really
+
+
+1075
+00:32:58,786 --> 00:32:59,106
+easy.
+
+
+1076
+00:33:00,126 --> 00:33:01,196
+We have an object called
+
+
+1077
+00:33:01,196 --> 00:33:03,416
+PHProjectChangeRequest that you
+
+
+1078
+00:33:03,416 --> 00:33:05,926
+simply instantiate and then once
+
+
+1079
+00:33:05,926 --> 00:33:08,196
+you do, you can all this perform
+
+
+1080
+00:33:08,196 --> 00:33:10,406
+changes and weight function on
+
+
+1081
+00:33:10,406 --> 00:33:11,276
+the Photo library.
+
+
+1082
+00:33:11,766 --> 00:33:13,186
+Inside that, set the data to
+
+
+1083
+00:33:13,186 --> 00:33:14,326
+whatever you want it to be.
+
+
+1084
+00:33:14,326 --> 00:33:16,416
+In this case, I'm just using an
+
+
+1085
+00:33:16,416 --> 00:33:19,886
+NSKeyedArchiver archive an array
+
+
+1086
+00:33:19,886 --> 00:33:21,186
+of identifiers.
+
+
+1087
+00:33:21,866 --> 00:33:26,266
+And that's it, it's simple.
+
+
+1088
+00:33:26,356 --> 00:33:27,526
+So, let's get into some fun
+
+
+1089
+00:33:27,526 --> 00:33:27,866
+stuff.
+
+
+1090
+00:33:28,376 --> 00:33:30,406
+I want to talk about where the
+
+
+1091
+00:33:30,406 --> 00:33:31,276
+magic begins.
+
+
+1092
+00:33:33,036 --> 00:33:35,436
+So, you saw in the ifolor demo
+
+
+1093
+00:33:35,506 --> 00:33:37,986
+they really leveraged the
+
+
+1094
+00:33:37,986 --> 00:33:38,926
+memory's feature.
+
+
+1095
+00:33:39,066 --> 00:33:41,496
+The memory's feature is really,
+
+
+1096
+00:33:41,496 --> 00:33:42,266
+really popular.
+
+
+1097
+00:33:43,006 --> 00:33:44,946
+Users love this.
+
+
+1098
+00:33:45,176 --> 00:33:46,326
+Right, while you're sleeping,
+
+
+1099
+00:33:46,326 --> 00:33:49,156
+Photos is working hard all
+
+
+1100
+00:33:49,976 --> 00:33:51,466
+night, going through kind of
+
+
+1101
+00:33:51,466 --> 00:33:53,136
+your photo library, learning
+
+
+1102
+00:33:53,136 --> 00:33:56,696
+sort of about you, right on your
+
+
+1103
+00:33:56,696 --> 00:33:57,156
+device.
+
+
+1104
+00:33:57,156 --> 00:33:58,146
+It's all happening right there
+
+
+1105
+00:33:58,146 --> 00:33:58,786
+locally.
+
+
+1106
+00:33:58,886 --> 00:34:00,426
+And it's building this graph of
+
+
+1107
+00:34:00,426 --> 00:34:02,826
+kind of the events that are
+
+
+1108
+00:34:02,826 --> 00:34:04,366
+meaningful to you and the people
+
+
+1109
+00:34:04,366 --> 00:34:05,656
+in your life that are relevant
+
+
+1110
+00:34:05,656 --> 00:34:06,116
+to you.
+
+
+1111
+00:34:06,566 --> 00:34:07,896
+And through that it's able to
+
+
+1112
+00:34:09,266 --> 00:34:11,576
+serve up these great memories
+
+
+1113
+00:34:11,576 --> 00:34:13,246
+that users just consume on a
+
+
+1114
+00:34:13,246 --> 00:34:14,166
+daily basis.
+
+
+1115
+00:34:14,866 --> 00:34:16,235
+And so we wanted to make sure
+
+
+1116
+00:34:16,235 --> 00:34:18,626
+you had access to that level of
+
+
+1117
+00:34:18,626 --> 00:34:19,815
+data, right .
+
+
+1118
+00:34:19,815 --> 00:34:20,766
+These extensions aren't
+
+
+1119
+00:34:20,766 --> 00:34:22,226
+interesting if we just give you
+
+
+1120
+00:34:22,226 --> 00:34:23,666
+an array of photos.
+
+
+1121
+00:34:23,956 --> 00:34:25,326
+We've got to give you context
+
+
+1122
+00:34:25,326 --> 00:34:26,246
+from which you can create
+
+
+1123
+00:34:26,246 --> 00:34:26,946
+something great.
+
+
+1124
+00:34:27,656 --> 00:34:29,755
+And that's what we've done with
+
+
+1125
+00:34:29,755 --> 00:34:30,545
+PHProjectInfo.
+
+
+1126
+00:34:31,146 --> 00:34:34,525
+So, ProductInfo at the top level
+
+
+1127
+00:34:34,835 --> 00:34:36,476
+is broken into sections.
+
+
+1128
+00:34:36,735 --> 00:34:38,096
+We give you this array of
+
+
+1129
+00:34:38,346 --> 00:34:40,306
+PHProject section objects.
+
+
+1130
+00:34:40,886 --> 00:34:44,226
+And for a given section, we tell
+
+
+1131
+00:34:44,226 --> 00:34:44,916
+you the type.
+
+
+1132
+00:34:45,226 --> 00:34:46,456
+So, you think about a memory,
+
+
+1133
+00:34:46,856 --> 00:34:48,716
+we've got like a key photo at
+
+
+1134
+00:34:48,716 --> 00:34:49,565
+the top.
+
+
+1135
+00:34:50,025 --> 00:34:51,766
+And we call that type cover.
+
+
+1136
+00:34:51,766 --> 00:34:53,036
+And then we've got this
+
+
+1137
+00:34:53,136 --> 00:34:56,036
+editorial grid that we call type
+
+
+1138
+00:34:56,096 --> 00:34:56,755
+content.
+
+
+1139
+00:34:57,656 --> 00:34:59,636
+And then we give you this array
+
+
+1140
+00:34:59,636 --> 00:35:00,626
+of content.
+
+
+1141
+00:35:01,276 --> 00:35:04,636
+It will look something like
+
+
+1142
+00:35:04,636 --> 00:35:05,056
+this.
+
+
+1143
+00:35:05,056 --> 00:35:06,346
+And inside the contents we
+
+
+1144
+00:35:06,346 --> 00:35:07,476
+actually give you access to the
+
+
+1145
+00:35:07,476 --> 00:35:08,596
+elements, and the asset
+
+
+1146
+00:35:08,596 --> 00:35:10,046
+identifiers and some layout
+
+
+1147
+00:35:10,046 --> 00:35:10,766
+information.
+
+
+1148
+00:35:11,716 --> 00:35:12,976
+And you might be asking yourself
+
+
+1149
+00:35:12,976 --> 00:35:14,016
+when you look at this construct,
+
+
+1150
+00:35:14,016 --> 00:35:15,746
+why the array and then the
+
+
+1151
+00:35:15,746 --> 00:35:16,356
+array, right.
+
+
+1152
+00:35:16,356 --> 00:35:17,766
+Why this kind of nested
+
+
+1153
+00:35:17,766 --> 00:35:18,236
+structure.
+
+
+1154
+00:35:19,396 --> 00:35:21,106
+But if you think about the
+
+
+1155
+00:35:21,106 --> 00:35:23,266
+memory feature it makes sense,
+
+
+1156
+00:35:23,876 --> 00:35:24,116
+right.
+
+
+1157
+00:35:24,116 --> 00:35:26,136
+We allow users and memories to
+
+
+1158
+00:35:26,136 --> 00:35:28,186
+toggle between showing a summary
+
+
+1159
+00:35:28,186 --> 00:35:29,546
+of photos and showing all
+
+
+1160
+00:35:29,546 --> 00:35:30,156
+photos.
+
+
+1161
+00:35:30,446 --> 00:35:32,666
+The memory itself is built up
+
+
+1162
+00:35:32,666 --> 00:35:34,806
+from a large pool of assets.
+
+
+1163
+00:35:36,296 --> 00:35:38,526
+We call these curation levels.
+
+
+1164
+00:35:39,026 --> 00:35:40,276
+And we wanted to make sure you
+
+
+1165
+00:35:40,276 --> 00:35:41,636
+had access to these different
+
+
+1166
+00:35:41,636 --> 00:35:43,476
+levels of information, right?
+
+
+1167
+00:35:43,476 --> 00:35:44,836
+We've already done all this hard
+
+
+1168
+00:35:44,836 --> 00:35:45,216
+work.
+
+
+1169
+00:35:45,216 --> 00:35:46,796
+We've run all this intelligence.
+
+
+1170
+00:35:46,796 --> 00:35:48,556
+Let's just share it with you and
+
+
+1171
+00:35:48,556 --> 00:35:49,826
+let you build something on top
+
+
+1172
+00:35:49,826 --> 00:35:50,046
+of it.
+
+
+1173
+00:35:50,876 --> 00:35:53,556
+So, that section content array,
+
+
+1174
+00:35:53,556 --> 00:35:55,566
+is an ordered array, where you
+
+
+1175
+00:35:55,566 --> 00:35:57,286
+always know the object at index
+
+
+1176
+00:35:57,286 --> 00:35:59,456
+0 is going to be the best of the
+
+
+1177
+00:35:59,456 --> 00:35:59,836
+best.
+
+
+1178
+00:35:59,836 --> 00:36:01,026
+The most premium.
+
+
+1179
+00:36:01,346 --> 00:36:04,126
+The most condescended summary of
+
+
+1180
+00:36:04,126 --> 00:36:06,066
+that collection of assets,
+
+
+1181
+00:36:06,596 --> 00:36:08,446
+whereas the object at the very
+
+
+1182
+00:36:08,446 --> 00:36:09,536
+end of the array is going to be
+
+
+1183
+00:36:09,536 --> 00:36:09,976
+the most.
+
+
+1184
+00:36:09,976 --> 00:36:10,736
+It's going to be everything we
+
+
+1185
+00:36:10,736 --> 00:36:11,256
+considered.
+
+
+1186
+00:36:11,846 --> 00:36:13,116
+And you get to decide what you
+
+
+1187
+00:36:13,116 --> 00:36:13,856
+want to use.
+
+
+1188
+00:36:14,596 --> 00:36:16,626
+The fewest, the most, everything
+
+
+1189
+00:36:16,626 --> 00:36:17,336
+in between.
+
+
+1190
+00:36:17,856 --> 00:36:19,026
+Maybe you want to offer your
+
+
+1191
+00:36:19,026 --> 00:36:20,476
+users a choice.
+
+
+1192
+00:36:20,476 --> 00:36:20,976
+You want to give them the
+
+
+1193
+00:36:20,976 --> 00:36:22,496
+ability to switch between these.
+
+
+1194
+00:36:22,736 --> 00:36:25,406
+And you can do that with the
+
+
+1195
+00:36:26,636 --> 00:36:29,346
+context we're giving here.
+
+
+1196
+00:36:29,396 --> 00:36:31,426
+Next up, cloud asset
+
+
+1197
+00:36:31,426 --> 00:36:32,256
+identifiers.
+
+
+1198
+00:36:33,006 --> 00:36:34,376
+This is kind of a new concept.
+
+
+1199
+00:36:34,376 --> 00:36:35,996
+If you're familiar with PhotoKit
+
+
+1200
+00:36:36,276 --> 00:36:38,406
+on iOS, you've not seen this
+
+
+1201
+00:36:38,406 --> 00:36:40,366
+before because it's new.
+
+
+1202
+00:36:40,996 --> 00:36:44,716
+But, we've never had a construct
+
+
+1203
+00:36:44,716 --> 00:36:46,946
+where we wanted you to save data
+
+
+1204
+00:36:46,946 --> 00:36:48,346
+into a user's photo library.
+
+
+1205
+00:36:48,346 --> 00:36:51,226
+Data that represents assets but
+
+
+1206
+00:36:51,226 --> 00:36:52,536
+data that might be synced to
+
+
+1207
+00:36:52,536 --> 00:36:53,986
+other devices, that might appear
+
+
+1208
+00:36:53,986 --> 00:36:55,776
+somewhere else at some point.
+
+
+1209
+00:36:56,176 --> 00:36:57,166
+We want to make sure that the
+
+
+1210
+00:36:57,166 --> 00:37:00,196
+data you're saving is meaningful
+
+
+1211
+00:37:00,196 --> 00:37:01,656
+wherever it shows up.
+
+
+1212
+00:37:01,846 --> 00:37:03,076
+And so, we've introduced a new
+
+
+1213
+00:37:03,076 --> 00:37:03,696
+object called the
+
+
+1214
+00:37:03,696 --> 00:37:05,016
+PHCloudIdentifier.
+
+
+1215
+00:37:06,306 --> 00:37:08,016
+And you can think of this as a
+
+
+1216
+00:37:08,016 --> 00:37:09,846
+global identifier for the asset.
+
+
+1217
+00:37:10,926 --> 00:37:13,036
+But it's not as simple as just a
+
+
+1218
+00:37:13,036 --> 00:37:14,326
+global string.
+
+
+1219
+00:37:15,026 --> 00:37:16,446
+You know, dealing with the cloud
+
+
+1220
+00:37:16,446 --> 00:37:17,626
+and sync states and all that is
+
+
+1221
+00:37:17,766 --> 00:37:19,016
+really, really complicated.
+
+
+1222
+00:37:19,336 --> 00:37:20,816
+And we've solved all that for
+
+
+1223
+00:37:20,816 --> 00:37:21,066
+you.
+
+
+1224
+00:37:21,856 --> 00:37:23,956
+The only thing you have to do
+
+
+1225
+00:37:23,956 --> 00:37:26,166
+with this is just make sure
+
+
+1226
+00:37:26,166 --> 00:37:27,356
+you're always converting from a
+
+
+1227
+00:37:27,356 --> 00:37:29,056
+global identifier to a local
+
+
+1228
+00:37:29,056 --> 00:37:30,916
+identifier before you fetch.
+
+
+1229
+00:37:31,246 --> 00:37:32,426
+And for that we've just given
+
+
+1230
+00:37:32,426 --> 00:37:35,156
+you a convenience method inside
+
+
+1231
+00:37:35,156 --> 00:37:36,616
+PHPhotoLibrary to do that
+
+
+1232
+00:37:36,616 --> 00:37:38,136
+conversion both ways; from
+
+
+1233
+00:37:38,136 --> 00:37:40,576
+global, from pod identifier to
+
+
+1234
+00:37:40,576 --> 00:37:42,326
+local identifier, and vice
+
+
+1235
+00:37:42,326 --> 00:37:42,626
+versa.
+
+
+1236
+00:37:43,106 --> 00:37:47,036
+Next, I want to talk about
+
+
+1237
+00:37:47,036 --> 00:37:47,446
+layout.
+
+
+1238
+00:37:48,106 --> 00:37:50,106
+So, we didn't just want to give
+
+
+1239
+00:37:50,106 --> 00:37:52,996
+you assets and some constructs
+
+
+1240
+00:37:52,996 --> 00:37:53,946
+around the curation.
+
+
+1241
+00:37:53,946 --> 00:37:55,556
+We wanted to give you some hints
+
+
+1242
+00:37:55,556 --> 00:37:58,396
+about how we present those
+
+
+1243
+00:37:58,396 --> 00:38:00,456
+assets to a user right.
+
+
+1244
+00:38:00,456 --> 00:38:02,276
+Help you with some of the
+
+
+1245
+00:38:02,276 --> 00:38:03,686
+difficult problems of things
+
+
+1246
+00:38:03,686 --> 00:38:04,666
+like grid layout.
+
+
+1247
+00:38:04,666 --> 00:38:06,396
+All right, you look at a memory
+
+
+1248
+00:38:07,626 --> 00:38:09,646
+and we've done a lot of hard
+
+
+1249
+00:38:09,646 --> 00:38:12,296
+work already in laying out this
+
+
+1250
+00:38:12,296 --> 00:38:13,526
+curated grid in a really
+
+
+1251
+00:38:13,526 --> 00:38:14,986
+interesting way that's pleasing
+
+
+1252
+00:38:14,986 --> 00:38:15,516
+to the user.
+
+
+1253
+00:38:16,326 --> 00:38:17,686
+Wouldn't it be great if you had
+
+
+1254
+00:38:17,686 --> 00:38:19,116
+access to that layout.
+
+
+1255
+00:38:19,856 --> 00:38:20,906
+And you do.
+
+
+1256
+00:38:21,566 --> 00:38:25,256
+But to do that, we had to
+
+
+1257
+00:38:25,256 --> 00:38:27,376
+establish first kind of set of
+
+
+1258
+00:38:27,376 --> 00:38:28,946
+rules, a coordinate system for
+
+
+1259
+00:38:28,946 --> 00:38:29,136
+you.
+
+
+1260
+00:38:29,136 --> 00:38:31,946
+So, if you look at the memory,
+
+
+1261
+00:38:32,136 --> 00:38:33,826
+you notice everything aligns to
+
+
+1262
+00:38:33,826 --> 00:38:35,006
+a very specific grid.
+
+
+1263
+00:38:35,006 --> 00:38:37,146
+It's grid of 4x3 aspect ratio
+
+
+1264
+00:38:37,146 --> 00:38:37,706
+cells.
+
+
+1265
+00:38:39,116 --> 00:38:42,556
+But that's an odd, non-square
+
+
+1266
+00:38:42,596 --> 00:38:44,496
+kind of dimension to share back
+
+
+1267
+00:38:44,496 --> 00:38:44,976
+and forth.
+
+
+1268
+00:38:44,976 --> 00:38:46,376
+That's a weird multiplier for
+
+
+1269
+00:38:46,376 --> 00:38:46,656
+you.
+
+
+1270
+00:38:47,426 --> 00:38:48,826
+So, we simply divided that yet
+
+
+1271
+00:38:48,826 --> 00:38:49,096
+again.
+
+
+1272
+00:38:49,096 --> 00:38:52,116
+And in this case, this layout is
+
+
+1273
+00:38:52,116 --> 00:38:54,826
+really comprised of 20 uniform
+
+
+1274
+00:38:55,606 --> 00:38:56,226
+columns.
+
+
+1275
+00:38:56,226 --> 00:38:58,596
+What we call our grid spaces.
+
+
+1276
+00:38:59,666 --> 00:39:00,946
+And once we have this coordinate
+
+
+1277
+00:39:00,946 --> 00:39:02,376
+system established, you can
+
+
+1278
+00:39:02,376 --> 00:39:03,706
+scale this however you want.
+
+
+1279
+00:39:03,706 --> 00:39:05,086
+It's just a multiplier for you,
+
+
+1280
+00:39:05,086 --> 00:39:06,366
+for whatever your output is.
+
+
+1281
+00:39:06,866 --> 00:39:08,126
+Right? If you're rescaling on a
+
+
+1282
+00:39:08,126 --> 00:39:10,766
+resizable window, or working
+
+
+1283
+00:39:10,936 --> 00:39:12,796
+with web browsers of different
+
+
+1284
+00:39:12,796 --> 00:39:14,426
+size, you can use this data to
+
+
+1285
+00:39:14,426 --> 00:39:16,056
+know how to layout the content.
+
+
+1286
+00:39:17,336 --> 00:39:19,066
+And it also lets us communicate
+
+
+1287
+00:39:19,066 --> 00:39:20,556
+to you placement information.
+
+
+1288
+00:39:21,126 --> 00:39:22,646
+So, in this example, I have this
+
+
+1289
+00:39:22,726 --> 00:39:24,116
+photo that wants to live in the
+
+
+1290
+00:39:24,116 --> 00:39:25,256
+upper left-hand corner.
+
+
+1291
+00:39:25,626 --> 00:39:27,206
+So, I can now easily tell you
+
+
+1292
+00:39:27,626 --> 00:39:29,316
+it's at position 00.
+
+
+1293
+00:39:29,316 --> 00:39:31,166
+It's 8 grid spaces wide and it's
+
+
+1294
+00:39:31,166 --> 00:39:32,386
+9 grid spaces tall.
+
+
+1295
+00:39:32,816 --> 00:39:37,016
+Next thing I want to talk about
+
+
+1296
+00:39:37,016 --> 00:39:37,826
+are elements.
+
+
+1297
+00:39:40,116 --> 00:39:42,066
+So, inside the section constant
+
+
+1298
+00:39:42,066 --> 00:39:42,836
+we give you an array of
+
+
+1299
+00:39:42,836 --> 00:39:43,386
+elements.
+
+
+1300
+00:39:43,386 --> 00:39:44,726
+And all the elements are
+
+
+1301
+00:39:45,426 --> 00:39:48,356
+subclasses of PHProjectElement.
+
+
+1302
+00:39:49,016 --> 00:39:50,176
+And there's two really important
+
+
+1303
+00:39:50,176 --> 00:39:50,816
+properties there.
+
+
+1304
+00:39:50,816 --> 00:39:52,576
+One, is placement, which we just
+
+
+1305
+00:39:52,576 --> 00:39:55,636
+talked about and the other is
+
+
+1306
+00:39:55,636 --> 00:39:57,346
+something called weight.
+
+
+1307
+00:39:58,416 --> 00:39:59,986
+So, again going back to the
+
+
+1308
+00:39:59,986 --> 00:40:00,746
+memories feature.
+
+
+1309
+00:40:03,236 --> 00:40:04,546
+We talked to you about, like all
+
+
+1310
+00:40:04,546 --> 00:40:05,616
+the intelligence that we're
+
+
+1311
+00:40:05,616 --> 00:40:06,236
+doing, right?
+
+
+1312
+00:40:06,336 --> 00:40:09,816
+And ascertaining the most
+
+
+1313
+00:40:09,816 --> 00:40:11,886
+relevant photos in a large pool
+
+
+1314
+00:40:11,886 --> 00:40:12,756
+of assets.
+
+
+1315
+00:40:13,866 --> 00:40:15,596
+And so, our scoring system.
+
+
+1316
+00:40:16,316 --> 00:40:17,666
+And we wanted to share that with
+
+
+1317
+00:40:17,726 --> 00:40:17,956
+you.
+
+
+1318
+00:40:18,576 --> 00:40:20,876
+And so, we do that by given
+
+
+1319
+00:40:22,126 --> 00:40:24,196
+elements weight, right.
+
+
+1320
+00:40:24,196 --> 00:40:25,946
+it's a normalized weight from 0
+
+
+1321
+00:40:25,946 --> 00:40:30,346
+to 1.0, the default value is 0.5
+
+
+1322
+00:40:30,346 --> 00:40:32,586
+meaning it's not horribly
+
+
+1323
+00:40:32,586 --> 00:40:34,126
+significant, but is not horribly
+
+
+1324
+00:40:34,126 --> 00:40:35,746
+insignificant either, if that
+
+
+1325
+00:40:35,746 --> 00:40:36,556
+makes any sense.
+
+
+1326
+00:40:36,556 --> 00:40:39,696
+But you know it's this
+
+
+1327
+00:40:39,696 --> 00:40:40,726
+normalized score across the
+
+
+1328
+00:40:40,726 --> 00:40:41,376
+entire section.
+
+
+1329
+00:40:41,376 --> 00:40:42,956
+And you can do amazing things
+
+
+1330
+00:40:42,956 --> 00:40:44,246
+with that, right?
+
+
+1331
+00:40:44,246 --> 00:40:45,726
+Just really easily, right?
+
+
+1332
+00:40:45,726 --> 00:40:47,656
+Sort your assets by that.
+
+
+1333
+00:40:47,656 --> 00:40:49,776
+Decide where you want to chop
+
+
+1334
+00:40:49,776 --> 00:40:51,566
+off, you know a large array of
+
+
+1335
+00:40:51,566 --> 00:40:52,846
+assets and only work with the
+
+
+1336
+00:40:52,846 --> 00:40:53,986
+significant ones.
+
+
+1337
+00:40:54,316 --> 00:40:56,016
+Right? Present those as choices
+
+
+1338
+00:40:56,016 --> 00:40:57,656
+to a user where you're serving
+
+
+1339
+00:40:57,656 --> 00:41:00,396
+up the higher weighted assets
+
+
+1340
+00:41:01,506 --> 00:41:02,746
+first.
+
+
+1341
+00:41:02,746 --> 00:41:04,106
+And predicting that that's
+
+
+1342
+00:41:04,106 --> 00:41:05,416
+probably what they're looking
+
+
+1343
+00:41:05,416 --> 00:41:06,236
+for, what they want.
+
+
+1344
+00:41:10,036 --> 00:41:11,496
+And there's one other bit here.
+
+
+1345
+00:41:11,566 --> 00:41:15,616
+And this is specific to one of
+
+
+1346
+00:41:15,616 --> 00:41:16,796
+the elements, which is the
+
+
+1347
+00:41:16,796 --> 00:41:18,186
+PHProjectAssetElement.
+
+
+1348
+00:41:18,886 --> 00:41:20,426
+We have this concept of regions
+
+
+1349
+00:41:20,426 --> 00:41:21,076
+of interest.
+
+
+1350
+00:41:21,626 --> 00:41:27,076
+You know, as you know there are
+
+
+1351
+00:41:27,076 --> 00:41:28,836
+several ways already in the
+
+
+1352
+00:41:28,986 --> 00:41:32,786
+macOS API to run face detection
+
+
+1353
+00:41:32,786 --> 00:41:36,276
+to find faces in an image.
+
+
+1354
+00:41:36,436 --> 00:41:37,796
+But form that you don't know the
+
+
+1355
+00:41:37,796 --> 00:41:39,446
+relevancy of those faces.
+
+
+1356
+00:41:39,636 --> 00:41:41,016
+You don't know if those faces
+
+
+1357
+00:41:41,016 --> 00:41:42,756
+represent someone that is
+
+
+1358
+00:41:42,756 --> 00:41:45,306
+meaningful in someone's life, or
+
+
+1359
+00:41:45,306 --> 00:41:46,796
+it's a face in the crowd.
+
+
+1360
+00:41:46,796 --> 00:41:48,856
+It's the person walking behind
+
+
+1361
+00:41:48,856 --> 00:41:50,626
+you at a theme park, when you're
+
+
+1362
+00:41:50,626 --> 00:41:52,226
+trying to photograph somebody in
+
+
+1363
+00:41:52,226 --> 00:41:53,446
+your family.
+
+
+1364
+00:41:53,446 --> 00:41:55,016
+You really don't have an ability
+
+
+1365
+00:41:55,016 --> 00:41:55,986
+to tell the difference.
+
+
+1366
+00:41:57,306 --> 00:41:59,616
+We wanted to give you something
+
+
+1367
+00:41:59,616 --> 00:42:01,866
+that let you know, and let you
+
+
+1368
+00:42:01,866 --> 00:42:04,466
+trust that if we've marked, if
+
+
+1369
+00:42:04,466 --> 00:42:06,276
+we said it's interesting, it's
+
+
+1370
+00:42:06,276 --> 00:42:07,836
+interesting, right.
+
+
+1371
+00:42:07,836 --> 00:42:10,006
+And if you leverage this, you
+
+
+1372
+00:42:10,006 --> 00:42:12,026
+create magic for your users.
+
+
+1373
+00:42:12,426 --> 00:42:14,026
+Without necessarily even knowing
+
+
+1374
+00:42:14,026 --> 00:42:14,396
+why.
+
+
+1375
+00:42:15,586 --> 00:42:17,206
+And we went one step further.
+
+
+1376
+00:42:17,236 --> 00:42:18,086
+If you notice we have
+
+
+1377
+00:42:18,086 --> 00:42:19,676
+identifiers on these.
+
+
+1378
+00:42:20,376 --> 00:42:21,996
+And we actually repurposed those
+
+
+1379
+00:42:21,996 --> 00:42:23,966
+identifiers across images.
+
+
+1380
+00:42:24,506 --> 00:42:26,116
+So, if we know that this thing
+
+
+1381
+00:42:26,116 --> 00:42:27,516
+that's interesting in this photo
+
+
+1382
+00:42:28,156 --> 00:42:30,686
+is also representing this same
+
+
+1383
+00:42:30,946 --> 00:42:32,306
+thing, or same person in this
+
+
+1384
+00:42:32,306 --> 00:42:33,986
+other photo, we'll give them the
+
+
+1385
+00:42:33,986 --> 00:42:34,946
+same identifier .
+
+
+1386
+00:42:35,406 --> 00:42:36,336
+So, if you're doing like
+
+
+1387
+00:42:36,336 --> 00:42:38,046
+animation, slideshows, things
+
+
+1388
+00:42:38,046 --> 00:42:39,876
+like that, this is tremendously
+
+
+1389
+00:42:39,876 --> 00:42:40,626
+useful to you.
+
+
+1390
+00:42:41,126 --> 00:42:42,396
+Because you now can actually
+
+
+1391
+00:42:42,396 --> 00:42:44,836
+correlated positions of images
+
+
+1392
+00:42:44,966 --> 00:42:45,956
+across a large set.
+
+
+1393
+00:42:46,476 --> 00:42:51,036
+S, I could keep going, in a code
+
+
+1394
+00:42:51,036 --> 00:42:51,376
+walk.
+
+
+1395
+00:42:52,896 --> 00:42:55,976
+But, I'd rather give you a demo.
+
+
+1396
+00:42:57,006 --> 00:42:58,876
+Because I think it's really
+
+
+1397
+00:42:58,876 --> 00:43:00,906
+important to show you just how
+
+
+1398
+00:43:00,906 --> 00:43:02,206
+easy it is to create one of
+
+
+1399
+00:43:02,206 --> 00:43:03,096
+these extensions.
+
+
+1400
+00:43:03,946 --> 00:43:05,096
+So, I'm here in Xcode.
+
+
+1401
+00:43:05,986 --> 00:43:07,456
+And I promise I will zoom in
+
+
+1402
+00:43:07,656 --> 00:43:08,906
+where necessary, so you will be
+
+
+1403
+00:43:08,906 --> 00:43:09,486
+able to read this.
+
+
+1404
+00:43:10,196 --> 00:43:11,756
+So, I'm here in Xcode.
+
+
+1405
+00:43:11,756 --> 00:43:13,776
+And I have a project I started,
+
+
+1406
+00:43:13,776 --> 00:43:15,116
+but it actually does nothing
+
+
+1407
+00:43:15,116 --> 00:43:15,356
+yet.
+
+
+1408
+00:43:15,356 --> 00:43:16,446
+The only thing it has are some
+
+
+1409
+00:43:16,446 --> 00:43:18,016
+assets that a designed gave me.
+
+
+1410
+00:43:18,936 --> 00:43:20,366
+And what we're going to build
+
+
+1411
+00:43:20,926 --> 00:43:23,046
+right now, is a slideshow.
+
+
+1412
+00:43:23,936 --> 00:43:25,176
+And the slideshow is going to be
+
+
+1413
+00:43:25,176 --> 00:43:27,386
+the marriage of the content that
+
+
+1414
+00:43:27,386 --> 00:43:29,706
+Photos is providing and seenkit
+
+
+1415
+00:43:29,836 --> 00:43:31,286
+to do a really compelling kind
+
+
+1416
+00:43:31,286 --> 00:43:32,486
+of 3D animation.
+
+
+1417
+00:43:34,676 --> 00:43:35,446
+So, let's begin.
+
+
+1418
+00:43:36,816 --> 00:43:38,126
+So, the first thing I can do is
+
+
+1419
+00:43:38,126 --> 00:43:40,586
+just, I'm on the project and I
+
+
+1420
+00:43:40,586 --> 00:43:41,526
+have this little plus button
+
+
+1421
+00:43:41,526 --> 00:43:42,956
+here at the bottom add a target.
+
+
+1422
+00:43:44,066 --> 00:43:45,446
+And I'll just add a target here.
+
+
+1423
+00:43:45,446 --> 00:43:47,726
+And you'll notice we've got this
+
+
+1424
+00:43:47,726 --> 00:43:50,826
+new template, right for
+
+
+1425
+00:43:50,826 --> 00:43:52,096
+PhotoProject extension.
+
+
+1426
+00:43:52,096 --> 00:43:53,346
+So, I'm going to select that and
+
+
+1427
+00:43:53,346 --> 00:43:54,606
+I'm going to give this a name.
+
+
+1428
+00:43:56,516 --> 00:43:57,346
+Picture show.
+
+
+1429
+00:43:57,906 --> 00:44:00,426
+Hit the finished button.
+
+
+1430
+00:44:01,386 --> 00:44:03,046
+And yes, I want to activate that
+
+
+1431
+00:44:03,046 --> 00:44:04,506
+as a scheme it makes it really
+
+
+1432
+00:44:04,506 --> 00:44:05,456
+easy to run later.
+
+
+1433
+00:44:06,646 --> 00:44:08,046
+And then, I mentioned that my
+
+
+1434
+00:44:08,046 --> 00:44:09,126
+designer is going to need these
+
+
+1435
+00:44:09,126 --> 00:44:09,796
+assets.
+
+
+1436
+00:44:09,796 --> 00:44:11,566
+So, they're already in the
+
+
+1437
+00:44:11,566 --> 00:44:12,936
+project, I just want them,
+
+
+1438
+00:44:12,936 --> 00:44:14,296
+basically referenced from within
+
+
+1439
+00:44:14,516 --> 00:44:15,586
+the extension as well.
+
+
+1440
+00:44:15,586 --> 00:44:17,536
+So, I'm just going to add those
+
+
+1441
+00:44:17,806 --> 00:44:18,996
+via the copy phase.
+
+
+1442
+00:44:19,576 --> 00:44:23,256
+And that's the whole set of
+
+
+1443
+00:44:23,256 --> 00:44:24,066
+assets.
+
+
+1444
+00:44:24,406 --> 00:44:26,026
+I just hit add and with that
+
+
+1445
+00:44:26,026 --> 00:44:27,226
+we're ready to write some code.
+
+
+1446
+00:44:29,546 --> 00:44:32,506
+Now, if you're looking closely,
+
+
+1447
+00:44:32,506 --> 00:44:34,766
+you'll notice that Xcode has
+
+
+1448
+00:44:34,766 --> 00:44:36,596
+already added this group for me
+
+
+1449
+00:44:36,596 --> 00:44:38,276
+for Picture Show for my target.
+
+
+1450
+00:44:38,786 --> 00:44:40,596
+And inside of it, it's already
+
+
+1451
+00:44:40,596 --> 00:44:42,566
+laid down a view controller for
+
+
+1452
+00:44:42,566 --> 00:44:44,796
+me that conforms to the protocol
+
+
+1453
+00:44:44,796 --> 00:44:47,566
+that we have to implement.
+
+
+1454
+00:44:47,996 --> 00:44:51,066
+So, I'm going to go into that
+
+
+1455
+00:44:51,066 --> 00:44:53,116
+and first going to add some
+
+
+1456
+00:44:53,116 --> 00:44:53,736
+properties.
+
+
+1457
+00:44:54,196 --> 00:44:58,236
+So, just a very small set of
+
+
+1458
+00:44:58,236 --> 00:44:59,076
+properties here.
+
+
+1459
+00:44:59,176 --> 00:45:01,046
+I'm holding on to the context
+
+
+1460
+00:45:01,046 --> 00:45:01,876
+that's handed to me.
+
+
+1461
+00:45:02,446 --> 00:45:04,176
+I have some arrays to
+
+
+1462
+00:45:04,176 --> 00:45:05,446
+differentiate landscape and
+
+
+1463
+00:45:05,446 --> 00:45:06,386
+portrait assets for my
+
+
+1464
+00:45:06,386 --> 00:45:07,096
+slideshow.
+
+
+1465
+00:45:07,596 --> 00:45:08,986
+I have an outlet for my scene
+
+
+1466
+00:45:08,986 --> 00:45:09,346
+view.
+
+
+1467
+00:45:09,426 --> 00:45:11,216
+And I have an animator.
+
+
+1468
+00:45:12,546 --> 00:45:14,426
+And I have two expected
+
+
+1469
+00:45:14,426 --> 00:45:15,346
+compilers.
+
+
+1470
+00:45:15,346 --> 00:45:16,786
+I have not imported seenkit.
+
+
+1471
+00:45:17,756 --> 00:45:21,986
+So, that's an easy one to fix.
+
+
+1472
+00:45:22,176 --> 00:45:24,206
+And animator is my own class.
+
+
+1473
+00:45:24,206 --> 00:45:25,496
+I just haven't created it yet.
+
+
+1474
+00:45:25,496 --> 00:45:27,936
+So, let's go ahead and do that
+
+
+1475
+00:45:28,546 --> 00:45:30,096
+right now.
+
+
+1476
+00:45:31,346 --> 00:45:34,146
+So, I hit new, I want a Swift
+
+
+1477
+00:45:34,146 --> 00:45:34,556
+file.
+
+
+1478
+00:45:34,606 --> 00:45:38,426
+And we will call this animator.
+
+
+1479
+00:45:42,776 --> 00:45:49,276
+And there's my animator.
+
+
+1480
+00:45:50,126 --> 00:45:51,886
+I'm not going to walk you
+
+
+1481
+00:45:51,886 --> 00:45:52,516
+through all of this.
+
+
+1482
+00:45:52,516 --> 00:45:53,816
+But it's really, really simple.
+
+
+1483
+00:45:54,186 --> 00:45:55,076
+So, I'll just tell you a few
+
+
+1484
+00:45:55,076 --> 00:45:56,156
+things it's doing.
+
+
+1485
+00:45:56,966 --> 00:45:57,996
+When I'm initializing the
+
+
+1486
+00:45:57,996 --> 00:45:59,446
+animation I want to kind of
+
+
+1487
+00:45:59,446 --> 00:46:01,776
+reach into the scene and get out
+
+
+1488
+00:46:01,776 --> 00:46:03,116
+some specific elements of the
+
+
+1489
+00:46:03,116 --> 00:46:03,466
+scene.
+
+
+1490
+00:46:03,466 --> 00:46:04,936
+I want to find these tagged
+
+
+1491
+00:46:04,936 --> 00:46:06,786
+photo frames in this 3D scene.
+
+
+1492
+00:46:07,376 --> 00:46:09,276
+And then reach kind of inside
+
+
+1493
+00:46:09,276 --> 00:46:11,026
+them, behind the glass and get
+
+
+1494
+00:46:11,026 --> 00:46:12,626
+at the material that is going to
+
+
+1495
+00:46:12,626 --> 00:46:14,096
+be the photo I'm showing behind
+
+
+1496
+00:46:14,096 --> 00:46:16,056
+the glass of these frames.
+
+
+1497
+00:46:16,586 --> 00:46:17,786
+So, that's really all I'm doing
+
+
+1498
+00:46:17,786 --> 00:46:18,696
+in the initialize.
+
+
+1499
+00:46:19,276 --> 00:46:22,476
+And then from that point, the
+
+
+1500
+00:46:22,476 --> 00:46:23,856
+scene, I know it's just going to
+
+
+1501
+00:46:23,856 --> 00:46:24,666
+be spinning around.
+
+
+1502
+00:46:24,666 --> 00:46:26,276
+It's just this kind of rotation
+
+
+1503
+00:46:26,276 --> 00:46:29,226
+on a table and I have a little
+
+
+1504
+00:46:29,226 --> 00:46:31,056
+trickery that you're like a good
+
+
+1505
+00:46:31,056 --> 00:46:32,796
+magician when you're not looking
+
+
+1506
+00:46:32,796 --> 00:46:33,726
+on switching photos.
+
+
+1507
+00:46:33,726 --> 00:46:35,206
+And so, I'm just doing that
+
+
+1508
+00:46:35,206 --> 00:46:36,186
+through a couple of timers.
+
+
+1509
+00:46:37,006 --> 00:46:38,256
+And that's basically the
+
+
+1510
+00:46:38,256 --> 00:46:38,766
+animation.
+
+
+1511
+00:46:39,436 --> 00:46:41,976
+So, we'll go back to the
+
+
+1512
+00:46:41,976 --> 00:46:43,666
+controller and start filling in
+
+
+1513
+00:46:43,666 --> 00:46:44,536
+the interesting bits.
+
+
+1514
+00:46:45,936 --> 00:46:47,876
+When a user creates one of these
+
+
+1515
+00:46:47,876 --> 00:46:51,356
+projects, I want to save the
+
+
+1516
+00:46:51,356 --> 00:46:51,476
+data.
+
+
+1517
+00:46:51,476 --> 00:46:53,006
+Because I want them to be able
+
+
+1518
+00:46:53,006 --> 00:46:54,586
+to come back to this slide show
+
+
+1519
+00:46:54,586 --> 00:46:55,476
+at any point in time.
+
+
+1520
+00:46:55,476 --> 00:46:57,146
+So, I'm just going to add some
+
+
+1521
+00:46:57,146 --> 00:46:57,926
+data methods.
+
+
+1522
+00:46:57,926 --> 00:46:59,956
+And what I've got here is a
+
+
+1523
+00:46:59,956 --> 00:47:02,886
+SaveProjectDataFunction that
+
+
+1524
+00:47:02,886 --> 00:47:04,096
+does exactly what you saw on the
+
+
+1525
+00:47:04,096 --> 00:47:05,156
+slide, right?
+
+
+1526
+00:47:05,156 --> 00:47:05,936
+So, this should look very
+
+
+1527
+00:47:05,936 --> 00:47:07,146
+familiar with what we just
+
+
+1528
+00:47:07,146 --> 00:47:07,746
+talked about.
+
+
+1529
+00:47:08,996 --> 00:47:10,786
+And then load data, I'm simply
+
+
+1530
+00:47:10,786 --> 00:47:11,746
+reading that back.
+
+
+1531
+00:47:12,986 --> 00:47:14,126
+I'm getting the Cloud asset
+
+
+1532
+00:47:14,126 --> 00:47:15,776
+identifiers by unarchiving my
+
+
+1533
+00:47:15,776 --> 00:47:16,156
+data.
+
+
+1534
+00:47:16,896 --> 00:47:18,286
+And I'm just converting to local
+
+
+1535
+00:47:18,286 --> 00:47:19,216
+identifiers.
+
+
+1536
+00:47:19,526 --> 00:47:22,476
+And from that point, I'm able to
+
+
+1537
+00:47:22,736 --> 00:47:25,746
+do a PHAsset fetch assets
+
+
+1538
+00:47:25,746 --> 00:47:26,826
+request with those local
+
+
+1539
+00:47:26,826 --> 00:47:27,456
+identifiers.
+
+
+1540
+00:47:27,956 --> 00:47:29,706
+All right.
+
+
+1541
+00:47:29,966 --> 00:47:32,176
+Let's go back up to the top and
+
+
+1542
+00:47:32,176 --> 00:47:33,536
+start filling in the rest.
+
+
+1543
+00:47:33,716 --> 00:47:34,636
+So, viewDidLoad.
+
+
+1544
+00:47:35,486 --> 00:47:41,206
+I just need to initialize my
+
+
+1545
+00:47:41,206 --> 00:47:41,616
+animator.
+
+
+1546
+00:47:41,616 --> 00:47:42,506
+We talked about that.
+
+
+1547
+00:47:43,906 --> 00:47:45,156
+Supported project types.
+
+
+1548
+00:47:45,156 --> 00:47:46,786
+In this case, I don't need to
+
+
+1549
+00:47:46,786 --> 00:47:48,096
+ask the user for anything.
+
+
+1550
+00:47:48,206 --> 00:47:49,506
+So, I won't fill that in.
+
+
+1551
+00:47:50,106 --> 00:47:51,106
+It's just a slide show.
+
+
+1552
+00:47:51,726 --> 00:47:54,196
+But begin project, obviously,
+
+
+1553
+00:47:54,196 --> 00:47:55,306
+I've got some work I want to do
+
+
+1554
+00:47:55,306 --> 00:47:55,546
+here.
+
+
+1555
+00:47:56,916 --> 00:47:57,876
+So, we'll fill that in.
+
+
+1556
+00:47:57,876 --> 00:48:00,666
+And what I'm doing in this case
+
+
+1557
+00:48:00,666 --> 00:48:03,946
+is I'm getting at the actual
+
+
+1558
+00:48:03,946 --> 00:48:04,986
+sections array.
+
+
+1559
+00:48:06,036 --> 00:48:07,586
+And I'm looking for the first
+
+
+1560
+00:48:07,586 --> 00:48:09,406
+section of typed content.
+
+
+1561
+00:48:10,026 --> 00:48:11,156
+Right? I'm really designing this
+
+
+1562
+00:48:11,156 --> 00:48:12,636
+around a memory, like we just
+
+
+1563
+00:48:12,636 --> 00:48:13,176
+talk about.
+
+
+1564
+00:48:13,946 --> 00:48:15,856
+And form that, I want the most
+
+
+1565
+00:48:15,856 --> 00:48:16,796
+curated assets.
+
+
+1566
+00:48:16,796 --> 00:48:18,696
+I want the top-level summary.
+
+
+1567
+00:48:19,146 --> 00:48:20,556
+And so, I asked for the first
+
+
+1568
+00:48:20,556 --> 00:48:21,486
+object in that array.
+
+
+1569
+00:48:22,576 --> 00:48:23,506
+From that, get the
+
+
+1570
+00:48:23,506 --> 00:48:26,636
+cloudAssetIdentifiers and I'm
+
+
+1571
+00:48:26,636 --> 00:48:27,166
+good to go.
+
+
+1572
+00:48:28,526 --> 00:48:30,006
+Now, in the background, I am
+
+
+1573
+00:48:30,186 --> 00:48:32,826
+just saving the project data so
+
+
+1574
+00:48:32,826 --> 00:48:33,936
+that it's there later if the
+
+
+1575
+00:48:33,936 --> 00:48:35,136
+user comes back to the slide
+
+
+1576
+00:48:35,136 --> 00:48:35,356
+show.
+
+
+1577
+00:48:36,836 --> 00:48:40,096
+Get into resume project, and
+
+
+1578
+00:48:40,096 --> 00:48:41,736
+that's really easy.
+
+
+1579
+00:48:43,616 --> 00:48:46,936
+I simply hold on to my context
+
+
+1580
+00:48:47,276 --> 00:48:49,186
+load my project data, initialize
+
+
+1581
+00:48:49,186 --> 00:48:49,806
+the animation.
+
+
+1582
+00:48:50,416 --> 00:48:53,396
+And finally, in finish project,
+
+
+1583
+00:48:57,896 --> 00:48:59,706
+I'm just suspending animation.
+
+
+1584
+00:48:59,796 --> 00:49:00,766
+I don't want these timers
+
+
+1585
+00:49:00,766 --> 00:49:01,906
+firing, I don't want the fans
+
+
+1586
+00:49:01,906 --> 00:49:03,076
+running while user's doing
+
+
+1587
+00:49:03,076 --> 00:49:03,766
+something else.
+
+
+1588
+00:49:03,766 --> 00:49:05,486
+I just suspend it.
+
+
+1589
+00:49:06,356 --> 00:49:07,816
+And believe it or not, that is
+
+
+1590
+00:49:07,816 --> 00:49:09,186
+the entirety of the code for
+
+
+1591
+00:49:09,186 --> 00:49:09,846
+this extension.
+
+
+1592
+00:49:09,846 --> 00:49:10,836
+That is my slide show.
+
+
+1593
+00:49:11,356 --> 00:49:12,416
+Now, what I haven't don't is
+
+
+1594
+00:49:12,416 --> 00:49:14,796
+wire up the UI, which I can do
+
+
+1595
+00:49:14,796 --> 00:49:15,386
+really quickly.
+
+
+1596
+00:49:15,386 --> 00:49:16,486
+So, the template gives me the
+
+
+1597
+00:49:16,486 --> 00:49:18,386
+view for my view controlled.
+
+
+1598
+00:49:18,816 --> 00:49:19,866
+I'll just delete the default
+
+
+1599
+00:49:19,866 --> 00:49:20,296
+string.
+
+
+1600
+00:49:21,236 --> 00:49:22,636
+And I'm going to add a scene to
+
+
+1601
+00:49:22,636 --> 00:49:23,296
+this.
+
+
+1602
+00:49:28,476 --> 00:49:30,056
+And so, we add a seenkit view.
+
+
+1603
+00:49:30,236 --> 00:49:34,186
+I'll just resize that and just
+
+
+1604
+00:49:35,446 --> 00:49:37,446
+pop in here, set my auto resize
+
+
+1605
+00:49:37,446 --> 00:49:39,426
+and I just want this to be full
+
+
+1606
+00:49:39,426 --> 00:49:39,756
+view.
+
+
+1607
+00:49:40,356 --> 00:49:44,076
+And the only other thing you
+
+
+1608
+00:49:44,076 --> 00:49:46,456
+need to do to that is choose the
+
+
+1609
+00:49:46,456 --> 00:49:47,786
+scene itself, which I already
+
+
+1610
+00:49:47,786 --> 00:49:48,856
+have in the assets that we
+
+
+1611
+00:49:48,856 --> 00:49:49,426
+loaded in.
+
+
+1612
+00:49:50,236 --> 00:49:51,676
+And I just need to wire it to my
+
+
+1613
+00:49:51,676 --> 00:49:52,306
+view controller.
+
+
+1614
+00:49:53,116 --> 00:49:54,416
+So, I'll control drag form
+
+
+1615
+00:49:54,416 --> 00:49:56,886
+file's owner and I see the
+
+
+1616
+00:49:56,886 --> 00:49:58,036
+outlet that we've already added
+
+
+1617
+00:49:58,036 --> 00:49:59,116
+in properties.
+
+
+1618
+00:50:00,026 --> 00:50:00,806
+And that's it.
+
+
+1619
+00:50:01,906 --> 00:50:04,176
+We're ready to run.
+
+
+1620
+00:50:04,366 --> 00:50:05,516
+So, I'll hit play.
+
+
+1621
+00:50:05,516 --> 00:50:06,946
+It's going to ask me to choose
+
+
+1622
+00:50:06,946 --> 00:50:08,466
+the app, obviously, it's Photos
+
+
+1623
+00:50:08,466 --> 00:50:08,976
+in this case.
+
+
+1624
+00:50:14,336 --> 00:50:16,546
+And that will build, and
+
+
+1625
+00:50:16,546 --> 00:50:17,086
+succeed.
+
+
+1626
+00:50:17,236 --> 00:50:20,786
+Photos launches, and I'm just
+
+
+1627
+00:50:20,786 --> 00:50:21,536
+going to pick a memory.
+
+
+1628
+00:50:21,676 --> 00:50:23,916
+In this case, I want to use,
+
+
+1629
+00:50:24,226 --> 00:50:25,556
+I've got this really cool trip
+
+
+1630
+00:50:25,606 --> 00:50:27,566
+to Hong Kong I'm going to
+
+
+1631
+00:50:27,566 --> 00:50:28,416
+choose.
+
+
+1632
+00:50:28,956 --> 00:50:30,216
+Hit the plus button and look at
+
+
+1633
+00:50:30,216 --> 00:50:31,566
+that, there's the extension
+
+
+1634
+00:50:31,636 --> 00:50:32,716
+showing up in Photos.
+
+
+1635
+00:50:32,716 --> 00:50:34,736
+I choose that.
+
+
+1636
+00:50:34,736 --> 00:50:37,486
+Now, when I do, this is the very
+
+
+1637
+00:50:37,486 --> 00:50:38,876
+first time I run this extension,
+
+
+1638
+00:50:39,386 --> 00:50:41,816
+so I don't have permission as an
+
+
+1639
+00:50:41,816 --> 00:50:43,446
+extension to the entire photo
+
+
+1640
+00:50:43,446 --> 00:50:43,916
+library.
+
+
+1641
+00:50:43,916 --> 00:50:45,936
+You remember the our API is
+
+
+1642
+00:50:46,026 --> 00:50:47,306
+handing the entire photo library
+
+
+1643
+00:50:47,306 --> 00:50:48,056
+to the extension.
+
+
+1644
+00:50:48,566 --> 00:50:50,476
+So, user does have to grant that
+
+
+1645
+00:50:50,476 --> 00:50:51,586
+access once.
+
+
+1646
+00:50:52,166 --> 00:50:52,946
+And just hit okay.
+
+
+1647
+00:50:53,026 --> 00:50:55,456
+And then the slideshow loads.
+
+
+1648
+00:50:57,516 --> 00:51:03,576
+[ Applause ]
+
+
+1649
+00:51:04,076 --> 00:51:06,316
+And I'm just going to show you
+
+
+1650
+00:51:06,316 --> 00:51:08,056
+one additional detail, if you
+
+
+1651
+00:51:08,056 --> 00:51:10,066
+look in the sidebar, there's the
+
+
+1652
+00:51:10,066 --> 00:51:11,356
+project we just created, Hong
+
+
+1653
+00:51:11,356 --> 00:51:13,346
+Kong Island.
+
+
+1654
+00:51:13,346 --> 00:51:14,656
+This is saved inside that
+
+
+1655
+00:51:14,656 --> 00:51:16,036
+library right next to all the
+
+
+1656
+00:51:16,036 --> 00:51:16,776
+other projects.
+
+
+1657
+00:51:17,436 --> 00:51:20,566
+So, I choose that and I can see
+
+
+1658
+00:51:20,826 --> 00:51:22,716
+this was created by an extension
+
+
+1659
+00:51:22,716 --> 00:51:23,566
+called Picture Show.
+
+
+1660
+00:51:24,256 --> 00:51:25,216
+And I can open that.
+
+
+1661
+00:51:25,216 --> 00:51:27,806
+And it will pop right back into
+
+
+1662
+00:51:27,806 --> 00:51:28,506
+the same slideshow.
+
+
+1663
+00:51:30,396 --> 00:51:33,186
+So, that is PhotosPojects
+
+
+1664
+00:51:33,186 --> 00:51:33,766
+Extensions [applause].
+
+
+1665
+00:51:35,656 --> 00:51:41,976
+Thank you.
+
+
+1666
+00:51:42,206 --> 00:51:43,836
+So, we've talked about a lot in
+
+
+1667
+00:51:43,836 --> 00:51:46,426
+the past 55 minutes or so.
+
+
+1668
+00:51:46,766 --> 00:51:49,856
+Talking about the frictionless
+
+
+1669
+00:51:49,856 --> 00:51:51,236
+photo picker in iOS.
+
+
+1670
+00:51:51,386 --> 00:51:52,876
+Really, really nice advancements
+
+
+1671
+00:51:52,876 --> 00:51:54,586
+there, allowing you to get at
+
+
+1672
+00:51:54,586 --> 00:51:55,766
+original URLs.
+
+
+1673
+00:51:55,766 --> 00:51:57,116
+Having the video quality.
+
+
+1674
+00:51:57,496 --> 00:51:58,876
+Some great, great stuff there
+
+
+1675
+00:51:58,876 --> 00:51:59,306
+for you.
+
+
+1676
+00:51:59,796 --> 00:52:01,446
+Andreas took you through the new
+
+
+1677
+00:52:01,446 --> 00:52:03,806
+media presentation types, I
+
+
+1678
+00:52:03,806 --> 00:52:05,336
+can't wait to see how you're
+
+
+1679
+00:52:05,336 --> 00:52:06,716
+going to consume those and the
+
+
+1680
+00:52:06,716 --> 00:52:07,806
+kind of things you do within
+
+
+1681
+00:52:07,806 --> 00:52:08,506
+your apps.
+
+
+1682
+00:52:08,936 --> 00:52:11,046
+Allowing users to see their
+
+
+1683
+00:52:11,046 --> 00:52:12,226
+content played back the way
+
+
+1684
+00:52:12,226 --> 00:52:12,896
+they'd expect.
+
+
+1685
+00:52:13,706 --> 00:52:15,036
+He also talked about testing
+
+
+1686
+00:52:15,036 --> 00:52:16,846
+with large image libraries.
+
+
+1687
+00:52:17,326 --> 00:52:19,366
+And just a reminder there is a
+
+
+1688
+00:52:19,366 --> 00:52:21,156
+sample app now to let you fill
+
+
+1689
+00:52:21,156 --> 00:52:22,876
+out a library with tens of
+
+
+1690
+00:52:22,876 --> 00:52:25,256
+thousands of assets so that you
+
+
+1691
+00:52:25,256 --> 00:52:26,066
+can test that way.
+
+
+1692
+00:52:26,066 --> 00:52:27,866
+And then, finally we talked
+
+
+1693
+00:52:27,866 --> 00:52:29,256
+about the project extensions.
+
+
+1694
+00:52:29,256 --> 00:52:30,636
+And I'm really, really excited
+
+
+1695
+00:52:30,636 --> 00:52:33,596
+to see what your all going to
+
+
+1696
+00:52:33,686 --> 00:52:35,466
+create and have in the App Store
+
+
+1697
+00:52:35,896 --> 00:52:37,706
+when macOS High Sierra ships
+
+
+1698
+00:52:37,706 --> 00:52:38,146
+this fall.
+
+
+1699
+00:52:39,456 --> 00:52:40,666
+So, for more information please
+
+
+1700
+00:52:40,666 --> 00:52:42,076
+check out this link, the
+
+
+1701
+00:52:42,306 --> 00:52:44,096
+developer.apple.com website.
+
+
+1702
+00:52:45,106 --> 00:52:46,236
+And I want to talk about some
+
+
+1703
+00:52:46,236 --> 00:52:47,446
+related sessions.
+
+
+1704
+00:52:47,576 --> 00:52:50,266
+Right after this in this hall is
+
+
+1705
+00:52:50,266 --> 00:52:52,656
+going to be a killer, killer
+
+
+1706
+00:52:52,656 --> 00:52:54,056
+session introducing you to
+
+
+1707
+00:52:54,056 --> 00:52:55,376
+vision framework.
+
+
+1708
+00:52:55,536 --> 00:52:56,766
+I know you want to stick around
+
+
+1709
+00:52:56,766 --> 00:52:57,726
+for that.
+
+
+1710
+00:52:57,726 --> 00:52:59,846
+Later tonight over in the
+
+
+1711
+00:52:59,846 --> 00:53:02,116
+executive ballroom is the first
+
+
+1712
+00:53:02,116 --> 00:53:04,756
+of two sessions covering depth
+
+
+1713
+00:53:04,876 --> 00:53:07,516
+in iPhone photography with some
+
+
+1714
+00:53:07,556 --> 00:53:09,906
+amazing demos and you really,
+
+
+1715
+00:53:09,906 --> 00:53:10,976
+really want to be there for that
+
+
+1716
+00:53:10,976 --> 00:53:11,386
+as well.
+
+
+1717
+00:53:11,386 --> 00:53:13,376
+And finally, tonight we're doing
+
+
+1718
+00:53:13,376 --> 00:53:14,746
+something we've never done that
+
+
+1719
+00:53:14,746 --> 00:53:15,386
+WWDC.
+
+
+1720
+00:53:15,506 --> 00:53:17,786
+We're hosting a photography get
+
+
+1721
+00:53:17,786 --> 00:53:18,306
+together.
+
+
+1722
+00:53:18,406 --> 00:53:19,716
+It's going to be downstairs in
+
+
+1723
+00:53:19,716 --> 00:53:20,896
+technology lab area,
+
+
+1724
+00:53:20,966 --> 00:53:22,626
+specifically lab J.
+
+
+1725
+00:53:23,226 --> 00:53:25,836
+And I'll be there, the other 2
+
+
+1726
+00:53:25,836 --> 00:53:27,076
+speakers in this session will be
+
+
+1727
+00:53:27,076 --> 00:53:27,396
+there.
+
+
+1728
+00:53:27,456 --> 00:53:28,906
+All of the speakers today
+
+
+1729
+00:53:28,906 --> 00:53:30,176
+talking about Cameron Photos
+
+
+1730
+00:53:30,176 --> 00:53:31,406
+will be there as well as a ton
+
+
+1731
+00:53:31,406 --> 00:53:34,726
+of engineers, management, and we
+
+
+1732
+00:53:34,726 --> 00:53:36,166
+hope to see all of you there.
+
+
+1733
+00:53:36,596 --> 00:53:37,716
+Enjoy the rest of your show.
+
+
+1734
+00:53:37,716 --> 00:53:38,466
+Thank you so much.
+
+
+1735
+00:53:39,516 --> 00:53:44,500
+[ Applause ]
+

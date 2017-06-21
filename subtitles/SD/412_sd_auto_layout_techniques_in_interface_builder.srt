@@ -1,0 +1,6059 @@
+1
+00:00:06,516 --> 00:00:16,516
+[ Cheering ]
+
+
+2
+00:00:17,516 --> 00:00:23,166
+[ Applause ]
+
+
+3
+00:00:23,666 --> 00:00:26,806
+>> Good morning and welcome to
+
+
+4
+00:00:26,806 --> 00:00:28,016
+Auto Layout techniques in
+
+
+5
+00:00:28,016 --> 00:00:29,066
+Interface Builder.
+
+
+6
+00:00:29,726 --> 00:00:30,826
+I'm Jonathon Mah.
+
+
+7
+00:00:31,056 --> 00:00:32,516
+I'm an engineer on the Interface
+
+
+8
+00:00:32,516 --> 00:00:34,026
+Builder team, and I'll be joined
+
+
+9
+00:00:34,026 --> 00:00:36,176
+onstage shortly by my colleague
+
+
+10
+00:00:36,176 --> 00:00:36,776
+Jason Yao.
+
+
+11
+00:00:37,506 --> 00:00:39,056
+In this session, we'll be
+
+
+12
+00:00:39,056 --> 00:00:41,576
+starting with a partly built iOS
+
+
+13
+00:00:41,576 --> 00:00:43,496
+app and use that to demonstrate
+
+
+14
+00:00:43,836 --> 00:00:45,626
+a series of layout and
+
+
+15
+00:00:45,626 --> 00:00:46,596
+interaction techniques.
+
+
+16
+00:00:47,166 --> 00:00:51,506
+Now it seems like every few
+
+
+17
+00:00:51,506 --> 00:00:53,726
+months there's a new app to help
+
+
+18
+00:00:53,826 --> 00:00:57,126
+people find dates, and this is
+
+
+19
+00:00:57,126 --> 00:00:58,226
+another one of those months.
+
+
+20
+00:00:58,786 --> 00:01:01,546
+So this is the app we're
+
+
+21
+00:01:01,546 --> 00:01:01,976
+starting with.
+
+
+22
+00:01:02,516 --> 00:01:04,516
+[ Laughter ]
+
+
+23
+00:01:05,516 --> 00:01:08,936
+[ Applause ]
+
+
+24
+00:01:09,436 --> 00:01:12,066
+Like other dating apps using
+
+
+25
+00:01:12,066 --> 00:01:14,086
+Auto Layout is about building
+
+
+26
+00:01:14,086 --> 00:01:16,186
+relationships, relationships
+
+
+27
+00:01:16,186 --> 00:01:16,896
+between views.
+
+
+28
+00:01:18,136 --> 00:01:20,196
+And building relationships does
+
+
+29
+00:01:20,196 --> 00:01:20,626
+take work.
+
+
+30
+00:01:20,626 --> 00:01:24,006
+But it's the kind of work that's
+
+
+31
+00:01:24,006 --> 00:01:26,706
+rewarding because having laid
+
+
+32
+00:01:26,706 --> 00:01:27,786
+out our interface using
+
+
+33
+00:01:27,786 --> 00:01:31,116
+constraints, our app can scale
+
+
+34
+00:01:31,116 --> 00:01:34,086
+across a variety of screen sizes
+
+
+35
+00:01:34,236 --> 00:01:35,796
+and adaptations, including ones
+
+
+36
+00:01:35,796 --> 00:01:37,056
+which might not exist yet.
+
+
+37
+00:01:39,966 --> 00:01:40,946
+Now, if you've never used Auto
+
+
+38
+00:01:40,946 --> 00:01:41,886
+Layout before, there's some
+
+
+39
+00:01:41,886 --> 00:01:44,486
+great resources online and past
+
+
+40
+00:01:45,096 --> 00:01:46,886
+sessions from WWDCs.
+
+
+41
+00:01:47,576 --> 00:01:48,476
+But today we've got a lot of
+
+
+42
+00:01:48,476 --> 00:01:49,616
+content to get through, so we're
+
+
+43
+00:01:49,616 --> 00:01:50,656
+not going to cover the basics.
+
+
+44
+00:01:51,856 --> 00:01:54,566
+In fact, we have six techniques
+
+
+45
+00:01:54,596 --> 00:01:55,606
+that we'll be walking through.
+
+
+46
+00:01:56,746 --> 00:01:58,886
+You can use these in your own
+
+
+47
+00:01:59,566 --> 00:02:00,826
+apps, either as is or combine
+
+
+48
+00:02:00,826 --> 00:02:02,286
+them together to form a larger
+
+
+49
+00:02:02,286 --> 00:02:02,476
+effect.
+
+
+50
+00:02:03,196 --> 00:02:04,566
+And with that, let's just jump
+
+
+51
+00:02:04,566 --> 00:02:06,196
+right into the first one, which
+
+
+52
+00:02:06,196 --> 00:02:08,856
+is changing layout at runtime.
+
+
+53
+00:02:11,536 --> 00:02:13,826
+Now at the top of our app we
+
+
+54
+00:02:13,826 --> 00:02:16,736
+have a slider area where the
+
+
+55
+00:02:16,736 --> 00:02:18,316
+user can set a distance.
+
+
+56
+00:02:18,356 --> 00:02:21,086
+And usually, we expect the user
+
+
+57
+00:02:21,086 --> 00:02:23,426
+to set this once and then not
+
+
+58
+00:02:23,426 --> 00:02:24,506
+need to change it for a while.
+
+
+59
+00:02:24,506 --> 00:02:27,836
+So we'd like for this area to be
+
+
+60
+00:02:27,836 --> 00:02:29,416
+able to collapse away and reduce
+
+
+61
+00:02:29,416 --> 00:02:30,456
+clutter in our interface.
+
+
+62
+00:02:31,086 --> 00:02:35,076
+Now, if we think about this from
+
+
+63
+00:02:35,076 --> 00:02:37,196
+a layout perspective, what we're
+
+
+64
+00:02:37,196 --> 00:02:39,066
+trying to do is collapse the
+
+
+65
+00:02:39,066 --> 00:02:40,866
+height of this area to 0.
+
+
+66
+00:02:40,866 --> 00:02:42,676
+So, if we add a height
+
+
+67
+00:02:42,726 --> 00:02:44,756
+constraint and then set the
+
+
+68
+00:02:44,756 --> 00:02:46,226
+constant to 0.
+
+
+69
+00:02:46,226 --> 00:02:47,156
+If we did this in Interface
+
+
+70
+00:02:47,156 --> 00:02:49,406
+Builder, we'd get something like
+
+
+71
+00:02:50,126 --> 00:02:50,666
+this.
+
+
+72
+00:02:51,076 --> 00:02:53,376
+So what we're seeing here is our
+
+
+73
+00:02:53,376 --> 00:02:55,256
+layout with a bunch of red lines
+
+
+74
+00:02:55,256 --> 00:02:57,486
+indicating that our layout
+
+
+75
+00:02:57,486 --> 00:02:58,766
+doesn't have a solution.
+
+
+76
+00:02:58,766 --> 00:02:59,576
+We have what's called a
+
+
+77
+00:02:59,576 --> 00:02:59,996
+conflict.
+
+
+78
+00:03:00,786 --> 00:03:02,396
+So a conflict means that we've
+
+
+79
+00:03:02,396 --> 00:03:04,716
+asked the layout engine to do
+
+
+80
+00:03:05,206 --> 00:03:07,036
+multiple incompatible things.
+
+
+81
+00:03:07,036 --> 00:03:08,996
+In this case, set the height of
+
+
+82
+00:03:08,996 --> 00:03:10,846
+this area to 0 while also
+
+
+83
+00:03:10,846 --> 00:03:12,016
+keeping the height large enough
+
+
+84
+00:03:12,016 --> 00:03:14,326
+to fit the content inside of it.
+
+
+85
+00:03:14,916 --> 00:03:17,226
+The technique that we'll use to
+
+
+86
+00:03:17,226 --> 00:03:20,886
+solve this is to take the view
+
+
+87
+00:03:20,886 --> 00:03:22,156
+that contains our control, our
+
+
+88
+00:03:22,156 --> 00:03:23,696
+slider, and our labels, and
+
+
+89
+00:03:23,696 --> 00:03:25,576
+we'll wrap it in another view,
+
+
+90
+00:03:26,516 --> 00:03:27,786
+here indicated in orange.
+
+
+91
+00:03:29,326 --> 00:03:30,896
+Now instead of just collapsing
+
+
+92
+00:03:30,896 --> 00:03:32,606
+the view containing our
+
+
+93
+00:03:32,606 --> 00:03:34,956
+controls, we'll collapse this
+
+
+94
+00:03:34,956 --> 00:03:35,536
+outer view.
+
+
+95
+00:03:36,196 --> 00:03:38,506
+The inner view maintains its
+
+
+96
+00:03:38,506 --> 00:03:41,076
+full height and satisfies all
+
+
+97
+00:03:41,076 --> 00:03:41,696
+its constraints.
+
+
+98
+00:03:41,696 --> 00:03:43,446
+But the outer view clips the
+
+
+99
+00:03:43,446 --> 00:03:44,436
+inner view because clips
+
+
+100
+00:03:44,436 --> 00:03:45,526
+ToBounds is enabled.
+
+
+101
+00:03:47,236 --> 00:03:49,466
+And this gets the effect of
+
+
+102
+00:03:49,466 --> 00:03:50,976
+hiding the interface elements.
+
+
+103
+00:03:54,696 --> 00:03:56,556
+Let's see how this looks in
+
+
+104
+00:03:56,556 --> 00:03:56,996
+Xcode.
+
+
+105
+00:03:57,406 --> 00:04:00,296
+So we have the slider area
+
+
+106
+00:04:00,296 --> 00:04:02,116
+designed in Interface Builder
+
+
+107
+00:04:02,116 --> 00:04:03,086
+right here, and we're designing
+
+
+108
+00:04:03,086 --> 00:04:04,526
+it in the expanded state, so we
+
+
+109
+00:04:04,526 --> 00:04:06,166
+can work with it more easily.
+
+
+110
+00:04:06,586 --> 00:04:07,806
+So since it's expanded in
+
+
+111
+00:04:07,806 --> 00:04:09,426
+Interface Builder, we'll be
+
+
+112
+00:04:09,906 --> 00:04:13,256
+collapsing it at runtime.
+
+
+113
+00:04:13,256 --> 00:04:14,366
+So we'll create a constraint at
+
+
+114
+00:04:14,366 --> 00:04:16,486
+runtime to set this, the outer
+
+
+115
+00:04:16,555 --> 00:04:18,136
+wrapping view height to 0.
+
+
+116
+00:04:18,745 --> 00:04:21,505
+And then, at some point, in
+
+
+117
+00:04:21,505 --> 00:04:24,016
+response to the user touching
+
+
+118
+00:04:24,016 --> 00:04:26,506
+the button, we'll activate that
+
+
+119
+00:04:26,506 --> 00:04:26,976
+constraint.
+
+
+120
+00:04:28,096 --> 00:04:29,006
+Now if that were the only thing
+
+
+121
+00:04:29,006 --> 00:04:30,026
+we did we'd still hit the
+
+
+122
+00:04:30,026 --> 00:04:31,416
+conflict situation that we saw
+
+
+123
+00:04:31,416 --> 00:04:34,256
+before, so we'll deactivate a
+
+
+124
+00:04:34,256 --> 00:04:35,476
+different constraint, the bottom
+
+
+125
+00:04:35,476 --> 00:04:38,126
+edge of the control container to
+
+
+126
+00:04:38,126 --> 00:04:38,926
+the wrapping view.
+
+
+127
+00:04:39,526 --> 00:04:41,536
+So this will allow the outer
+
+
+128
+00:04:41,536 --> 00:04:42,286
+view to collapse.
+
+
+129
+00:04:42,286 --> 00:04:45,386
+Let's look at the full code for
+
+
+130
+00:04:45,906 --> 00:04:46,000
+this.
+
+
+131
+00:04:47,076 --> 00:04:48,136
+This is in our view controller
+
+
+132
+00:04:48,136 --> 00:04:50,796
+subclass and so we have three
+
+
+133
+00:04:50,796 --> 00:04:51,236
+properties.
+
+
+134
+00:04:51,236 --> 00:04:52,836
+Two of them are outlets to both
+
+
+135
+00:04:52,836 --> 00:04:54,896
+that wrapping view and the lower
+
+
+136
+00:04:54,896 --> 00:04:56,146
+constraint, and we have a
+
+
+137
+00:04:56,146 --> 00:04:57,816
+property to store our 0 height
+
+
+138
+00:04:58,116 --> 00:04:59,000
+constraint.
+
+
+139
+00:05:01,966 --> 00:05:04,406
+In response to touching the
+
+
+140
+00:05:04,686 --> 00:05:08,026
+button, the first thing we'll do
+
+
+141
+00:05:08,026 --> 00:05:09,096
+is ensure that the 0 height
+
+
+142
+00:05:09,096 --> 00:05:10,176
+constraint is created, if we
+
+
+143
+00:05:10,176 --> 00:05:10,916
+haven't made it already.
+
+
+144
+00:05:12,556 --> 00:05:13,606
+And then because we want the
+
+
+145
+00:05:13,606 --> 00:05:16,126
+behavior to toggle between shown
+
+
+146
+00:05:16,126 --> 00:05:17,876
+and hidden, we'll figure out
+
+
+147
+00:05:17,876 --> 00:05:19,726
+which direction we're going.
+
+
+148
+00:05:24,336 --> 00:05:26,596
+With that done, we'll then
+
+
+149
+00:05:26,906 --> 00:05:28,046
+deactivate and activate the
+
+
+150
+00:05:28,046 --> 00:05:29,696
+constraint that we want to have
+
+
+151
+00:05:30,006 --> 00:05:32,176
+-- that we want to get our
+
+
+152
+00:05:32,176 --> 00:05:33,386
+interface into the final state.
+
+
+153
+00:05:34,896 --> 00:05:38,526
+Now, if you notice carefully,
+
+
+154
+00:05:38,526 --> 00:05:40,156
+we're deactivating one
+
+
+155
+00:05:40,156 --> 00:05:41,506
+constraint before activating
+
+
+156
+00:05:41,506 --> 00:05:42,206
+another constraint.
+
+
+157
+00:05:43,376 --> 00:05:44,706
+We're not simply toggling both.
+
+
+158
+00:05:44,706 --> 00:05:46,386
+And the reason for that is that
+
+
+159
+00:05:46,386 --> 00:05:48,106
+Auto Layout tries to help us
+
+
+160
+00:05:48,106 --> 00:05:49,896
+avoid the conflict situation.
+
+
+161
+00:05:50,926 --> 00:05:52,256
+Because, as soon as we get into
+
+
+162
+00:05:52,256 --> 00:05:54,176
+a conflict, it'll log a message
+
+
+163
+00:05:54,176 --> 00:05:55,786
+to the console saying hey, I've
+
+
+164
+00:05:55,816 --> 00:05:57,846
+detected that these constraints
+
+
+165
+00:05:57,846 --> 00:05:58,856
+are conflicting with each other.
+
+
+166
+00:06:00,176 --> 00:06:01,626
+So if we activated, for example,
+
+
+167
+00:06:01,626 --> 00:06:03,216
+0 height while the bottom
+
+
+168
+00:06:03,216 --> 00:06:04,266
+constraint was still activated,
+
+
+169
+00:06:04,266 --> 00:06:05,076
+we'd get that message.
+
+
+170
+00:06:06,046 --> 00:06:07,486
+By deactivating first, we avoid
+
+
+171
+00:06:07,486 --> 00:06:07,726
+that.
+
+
+172
+00:06:09,166 --> 00:06:11,026
+So this is what we need to get
+
+
+173
+00:06:11,026 --> 00:06:11,976
+our interface in the final
+
+
+174
+00:06:11,976 --> 00:06:13,666
+state, but we also would like to
+
+
+175
+00:06:15,076 --> 00:06:16,776
+animate the results so that the
+
+
+176
+00:06:16,776 --> 00:06:19,786
+user can see -- maintain some
+
+
+177
+00:06:19,786 --> 00:06:21,276
+context in the application as
+
+
+178
+00:06:21,276 --> 00:06:22,336
+the transition happens.
+
+
+179
+00:06:23,256 --> 00:06:24,736
+So to do that we'll use a UIView
+
+
+180
+00:06:24,736 --> 00:06:26,546
+animation block, and we'll wrap
+
+
+181
+00:06:26,546 --> 00:06:27,926
+a call to layout if needed.
+
+
+182
+00:06:28,196 --> 00:06:29,056
+So this evaluates the
+
+
+183
+00:06:29,056 --> 00:06:31,966
+constraints, gets frame values
+
+
+184
+00:06:32,046 --> 00:06:33,106
+and applies to them to a view,
+
+
+185
+00:06:33,316 --> 00:06:35,196
+and then UIView animation will
+
+
+186
+00:06:35,196 --> 00:06:35,796
+capture that and animate the
+
+
+187
+00:06:35,796 --> 00:06:35,976
+result.
+
+
+188
+00:06:41,476 --> 00:06:42,786
+So we're deactivating the bottom
+
+
+189
+00:06:42,786 --> 00:06:43,806
+constraint and that gives us
+
+
+190
+00:06:43,856 --> 00:06:45,166
+this animation effect.
+
+
+191
+00:06:46,236 --> 00:06:48,476
+This isn't quite the effect that
+
+
+192
+00:06:48,476 --> 00:06:50,146
+I want, but I can change that
+
+
+193
+00:06:50,146 --> 00:06:51,056
+simply by keeping the code
+
+
+194
+00:06:51,056 --> 00:06:53,626
+exactly the same and changing
+
+
+195
+00:06:53,626 --> 00:06:56,406
+which constraint our edge
+
+
+196
+00:06:56,496 --> 00:06:57,726
+constraint outlet is connected
+
+
+197
+00:06:57,726 --> 00:06:57,916
+to.
+
+
+198
+00:06:58,846 --> 00:07:00,456
+If I had said connected to the
+
+
+199
+00:07:00,456 --> 00:07:04,676
+top constraint, then the
+
+
+200
+00:07:04,676 --> 00:07:06,486
+animation changes and it gets
+
+
+201
+00:07:06,486 --> 00:07:07,626
+the effect that actually I think
+
+
+202
+00:07:07,626 --> 00:07:07,976
+I prefer.
+
+
+203
+00:07:11,836 --> 00:07:13,456
+So we just saw an example of
+
+
+204
+00:07:13,456 --> 00:07:14,856
+changing the layout in our app
+
+
+205
+00:07:15,246 --> 00:07:17,006
+by changing the constraints.
+
+
+206
+00:07:17,266 --> 00:07:20,436
+Now let's look at another way to
+
+
+207
+00:07:20,436 --> 00:07:21,846
+change the layout, and we'll use
+
+
+208
+00:07:21,846 --> 00:07:22,916
+that to track touch.
+
+
+209
+00:07:23,506 --> 00:07:26,326
+So we have this central card
+
+
+210
+00:07:26,326 --> 00:07:28,106
+area in our app, and we'd like
+
+
+211
+00:07:28,106 --> 00:07:30,316
+it to follow a touch around the
+
+
+212
+00:07:30,316 --> 00:07:33,326
+screen and add a little rotation
+
+
+213
+00:07:33,326 --> 00:07:35,496
+as you get close to the edge and
+
+
+214
+00:07:35,496 --> 00:07:36,676
+snap back once you let it go.
+
+
+215
+00:07:42,116 --> 00:07:44,206
+So the view's position onscreen
+
+
+216
+00:07:44,206 --> 00:07:45,916
+is generally defined by its
+
+
+217
+00:07:45,916 --> 00:07:47,566
+frame and when we're using
+
+
+218
+00:07:47,566 --> 00:07:49,326
+constraints and have constraints
+
+
+219
+00:07:49,326 --> 00:07:50,956
+to this view, the layout engine
+
+
+220
+00:07:51,306 --> 00:07:52,576
+owns the value of this frame.
+
+
+221
+00:07:53,946 --> 00:07:55,706
+So the value itself is computed
+
+
+222
+00:07:55,766 --> 00:07:56,656
+from the constraints.
+
+
+223
+00:07:57,726 --> 00:07:58,636
+But there's another property
+
+
+224
+00:07:58,636 --> 00:07:59,866
+that affects the view's position
+
+
+225
+00:07:59,866 --> 00:08:01,466
+onscreen and that is the
+
+
+226
+00:08:01,466 --> 00:08:03,576
+transform, and this applies an
+
+
+227
+00:08:03,626 --> 00:08:04,786
+offset from the frame.
+
+
+228
+00:08:04,866 --> 00:08:06,056
+So the type of this is a
+
+
+229
+00:08:06,196 --> 00:08:07,316
+CGAffineTransform.
+
+
+230
+00:08:07,666 --> 00:08:08,876
+And this lets us add a
+
+
+231
+00:08:08,876 --> 00:08:10,886
+translation, a rotation, and a
+
+
+232
+00:08:10,956 --> 00:08:13,646
+scale that gets applied after
+
+
+233
+00:08:14,076 --> 00:08:15,496
+the frame has been computed from
+
+
+234
+00:08:15,496 --> 00:08:16,006
+constraints.
+
+
+235
+00:08:17,556 --> 00:08:18,526
+So we can use this to get the
+
+
+236
+00:08:18,526 --> 00:08:20,596
+effect that we're after, and
+
+
+237
+00:08:21,336 --> 00:08:22,446
+I'll jump over to a demo and
+
+
+238
+00:08:22,446 --> 00:08:22,976
+show you how it's done.
+
+
+239
+00:08:29,776 --> 00:08:31,486
+Okay. So here is our app in
+
+
+240
+00:08:31,486 --> 00:08:32,086
+Interface Builder.
+
+
+241
+00:08:33,576 --> 00:08:35,166
+And we'd like to make the
+
+
+242
+00:08:35,285 --> 00:08:36,885
+central card area move around
+
+
+243
+00:08:37,056 --> 00:08:37,846
+with the touch.
+
+
+244
+00:08:38,996 --> 00:08:40,616
+Now I've just added a gesture
+
+
+245
+00:08:40,616 --> 00:08:42,775
+recognizer, a pan gesture
+
+
+246
+00:08:42,775 --> 00:08:43,916
+recognizer, from the object
+
+
+247
+00:08:43,916 --> 00:08:44,936
+library to this area.
+
+
+248
+00:08:45,266 --> 00:08:46,536
+And when I add a gesture
+
+
+249
+00:08:46,536 --> 00:08:48,056
+recognizer, it appears at the
+
+
+250
+00:08:48,056 --> 00:08:50,726
+top level of the scene, so
+
+
+251
+00:08:51,406 --> 00:08:52,566
+[inaudible] and in the outline
+
+
+252
+00:08:54,046 --> 00:08:54,156
+view.
+
+
+253
+00:08:54,356 --> 00:08:56,226
+I'll open the assistant editor,
+
+
+254
+00:08:56,226 --> 00:08:57,556
+so we can see our view
+
+
+255
+00:08:57,556 --> 00:08:57,976
+controller code.
+
+
+256
+00:09:01,426 --> 00:09:03,096
+And I'll control drag from that
+
+
+257
+00:09:03,096 --> 00:09:05,636
+pan gesture recognizer to a spot
+
+
+258
+00:09:05,636 --> 00:09:06,646
+in our source code.
+
+
+259
+00:09:06,646 --> 00:09:08,726
+And this will let me add an
+
+
+260
+00:09:08,726 --> 00:09:09,176
+outlet.
+
+
+261
+00:09:09,356 --> 00:09:10,426
+Or, in this case, I want to
+
+
+262
+00:09:10,426 --> 00:09:12,496
+connect an action, and I'll call
+
+
+263
+00:09:12,496 --> 00:09:13,866
+it panCard.
+
+
+264
+00:09:15,076 --> 00:09:18,056
+I'll switch the type from any to
+
+
+265
+00:09:18,056 --> 00:09:19,176
+pan gesture recognizer.
+
+
+266
+00:09:19,216 --> 00:09:20,456
+This is the type of the
+
+
+267
+00:09:20,456 --> 00:09:20,936
+parameter.
+
+
+268
+00:09:21,596 --> 00:09:23,256
+And specifying pan gesture
+
+
+269
+00:09:23,256 --> 00:09:24,776
+recognizer let's me use
+
+
+270
+00:09:25,216 --> 00:09:26,226
+properties of that gesture
+
+
+271
+00:09:26,226 --> 00:09:27,776
+recognizer within the action
+
+
+272
+00:09:27,776 --> 00:09:27,976
+method.
+
+
+273
+00:09:31,436 --> 00:09:31,956
+All right.
+
+
+274
+00:09:31,956 --> 00:09:34,066
+So we have our method stub here.
+
+
+275
+00:09:34,486 --> 00:09:36,076
+And I also have an outlet that's
+
+
+276
+00:09:36,076 --> 00:09:36,936
+connected to that card view,
+
+
+277
+00:09:36,936 --> 00:09:37,976
+which is what we want to move.
+
+
+278
+00:09:42,426 --> 00:09:45,476
+So, in this method, I'm first
+
+
+279
+00:09:47,156 --> 00:09:49,566
+going to ask the sender, which
+
+
+280
+00:09:49,566 --> 00:09:51,126
+is the gesture recognizer, for
+
+
+281
+00:09:51,126 --> 00:09:52,296
+its translation.
+
+
+282
+00:09:53,076 --> 00:09:56,666
+In effect, how far the user has
+
+
+283
+00:09:56,726 --> 00:09:57,746
+panned or dragged.
+
+
+284
+00:09:58,376 --> 00:10:00,066
+And then I'm going to use the
+
+
+285
+00:10:00,066 --> 00:10:02,566
+result to apply a transform to
+
+
+286
+00:10:02,566 --> 00:10:03,236
+this card view.
+
+
+287
+00:10:03,576 --> 00:10:04,796
+Now the transform's computed by
+
+
+288
+00:10:04,796 --> 00:10:06,166
+this helper method right here,
+
+
+289
+00:10:07,136 --> 00:10:09,166
+which generates both a
+
+
+290
+00:10:09,166 --> 00:10:12,036
+translation and adds a little
+
+
+291
+00:10:12,036 --> 00:10:13,066
+rotation, depending on the
+
+
+292
+00:10:13,066 --> 00:10:14,376
+exposition of the card.
+
+
+293
+00:10:14,376 --> 00:10:17,626
+So I'm going to hit build and
+
+
+294
+00:10:17,626 --> 00:10:18,756
+run, and we'll see how this
+
+
+295
+00:10:18,756 --> 00:10:18,966
+looks.
+
+
+296
+00:10:28,376 --> 00:10:28,956
+All right.
+
+
+297
+00:10:28,956 --> 00:10:29,776
+And so we have our app.
+
+
+298
+00:10:29,986 --> 00:10:31,876
+And now, if I touch and move, we
+
+
+299
+00:10:31,876 --> 00:10:34,866
+get a rotation, and it will
+
+
+300
+00:10:34,936 --> 00:10:35,856
+follow the touch.
+
+
+301
+00:10:35,856 --> 00:10:38,576
+And then if I let go, now the
+
+
+302
+00:10:38,576 --> 00:10:39,946
+card just stays where it is,
+
+
+303
+00:10:39,946 --> 00:10:41,306
+because we're never resetting
+
+
+304
+00:10:41,306 --> 00:10:41,876
+the transform.
+
+
+305
+00:10:41,876 --> 00:10:44,286
+It's just staying the last value
+
+
+306
+00:10:44,286 --> 00:10:46,166
+that we gave it.
+
+
+307
+00:10:46,206 --> 00:10:47,606
+If I touch and move again, we'll
+
+
+308
+00:10:47,606 --> 00:10:49,096
+see that it will snap back to
+
+
+309
+00:10:49,096 --> 00:10:50,776
+the original position.
+
+
+310
+00:10:51,386 --> 00:10:52,836
+That's because the transform
+
+
+311
+00:10:52,836 --> 00:10:53,926
+isn't offset from that.
+
+
+312
+00:10:53,966 --> 00:10:58,726
+So, as soon as we go back with a
+
+
+313
+00:10:58,726 --> 00:11:01,346
+new translation, we're going to
+
+
+314
+00:11:01,616 --> 00:11:03,366
+be relative to the original
+
+
+315
+00:11:03,896 --> 00:11:04,146
+frame.
+
+
+316
+00:11:05,276 --> 00:11:06,866
+So we'd like the card to return
+
+
+317
+00:11:06,866 --> 00:11:08,026
+back to the center once we're
+
+
+318
+00:11:08,026 --> 00:11:08,396
+done with it.
+
+
+319
+00:11:08,556 --> 00:11:11,446
+Once we let go of the touch.
+
+
+320
+00:11:12,316 --> 00:11:13,696
+Now we can do that by looking at
+
+
+321
+00:11:13,966 --> 00:11:15,476
+the state of the gesture
+
+
+322
+00:11:15,476 --> 00:11:15,976
+recognizer.
+
+
+323
+00:11:19,356 --> 00:11:20,696
+So we have the same code here.
+
+
+324
+00:11:20,896 --> 00:11:22,466
+And then, when the state is
+
+
+325
+00:11:22,586 --> 00:11:24,376
+ended, we'll reset the transform
+
+
+326
+00:11:24,866 --> 00:11:26,486
+back to the identity transform.
+
+
+327
+00:11:27,836 --> 00:11:28,776
+Let's build and run again.
+
+
+328
+00:11:34,836 --> 00:11:38,006
+So now when we release the card
+
+
+329
+00:11:38,176 --> 00:11:40,366
+snaps back.
+
+
+330
+00:11:40,896 --> 00:11:42,016
+So, of course, we'd like to
+
+
+331
+00:11:42,016 --> 00:11:43,196
+animate that snapping back, so
+
+
+332
+00:11:43,256 --> 00:11:43,946
+let's just do that.
+
+
+333
+00:11:47,196 --> 00:11:49,206
+So we have the same reset to
+
+
+334
+00:11:49,206 --> 00:11:50,286
+identity code.
+
+
+335
+00:11:51,126 --> 00:11:53,766
+And I'm using the UIView animate
+
+
+336
+00:11:54,216 --> 00:11:56,806
+variant with the spring options.
+
+
+337
+00:11:56,996 --> 00:11:57,936
+So this will give us a different
+
+
+338
+00:11:57,936 --> 00:11:58,086
+effect.
+
+
+339
+00:11:58,796 --> 00:11:59,846
+So I'll build and run again.
+
+
+340
+00:12:05,436 --> 00:12:07,556
+So now, if I release the card,
+
+
+341
+00:12:08,436 --> 00:12:10,196
+it will bounce back to the
+
+
+342
+00:12:10,196 --> 00:12:11,246
+original position, and I kind of
+
+
+343
+00:12:11,246 --> 00:12:11,946
+like this playful behavior.
+
+
+344
+00:12:12,516 --> 00:12:16,176
+[ Applause ]
+
+
+345
+00:12:16,676 --> 00:12:18,786
+Thanks. Yeah, I think people are
+
+
+346
+00:12:18,786 --> 00:12:19,436
+going to show their friends
+
+
+347
+00:12:19,436 --> 00:12:19,596
+this.
+
+
+348
+00:12:19,656 --> 00:12:22,676
+So I think we're in a good spot.
+
+
+349
+00:12:22,676 --> 00:12:22,916
+All right.
+
+
+350
+00:12:30,666 --> 00:12:32,916
+So we just saw that the view
+
+
+351
+00:12:32,916 --> 00:12:34,546
+position is a combination of
+
+
+352
+00:12:34,546 --> 00:12:35,736
+multiple properties.
+
+
+353
+00:12:35,736 --> 00:12:37,256
+Not only the frame, which is
+
+
+354
+00:12:37,256 --> 00:12:38,226
+derived from the constraints,
+
+
+355
+00:12:38,266 --> 00:12:40,286
+but we can also use the
+
+
+356
+00:12:40,286 --> 00:12:41,666
+transform to affect where the
+
+
+357
+00:12:41,666 --> 00:12:42,636
+view is onscreen.
+
+
+358
+00:12:42,636 --> 00:12:45,316
+And that was just a couple lines
+
+
+359
+00:12:45,316 --> 00:12:46,586
+of code to add this fun
+
+
+360
+00:12:46,586 --> 00:12:47,266
+interaction.
+
+
+361
+00:12:47,266 --> 00:12:49,706
+So I hope that you guys will
+
+
+362
+00:12:49,706 --> 00:12:50,576
+play around with that in your
+
+
+363
+00:12:50,576 --> 00:12:52,906
+own apps, because it's a lot of
+
+
+364
+00:12:53,836 --> 00:12:53,956
+fun.
+
+
+365
+00:12:54,066 --> 00:12:55,206
+So transform is great for
+
+
+366
+00:12:55,206 --> 00:12:56,516
+temporary changes, like we saw.
+
+
+367
+00:12:56,516 --> 00:12:58,446
+Like tracking a touch or an
+
+
+368
+00:12:58,446 --> 00:13:00,076
+animation between states in your
+
+
+369
+00:13:00,076 --> 00:13:00,426
+interface.
+
+
+370
+00:13:01,326 --> 00:13:02,726
+And then we reset back to the
+
+
+371
+00:13:02,726 --> 00:13:04,426
+identity transform when we're
+
+
+372
+00:13:04,426 --> 00:13:04,576
+done.
+
+
+373
+00:13:06,606 --> 00:13:08,406
+So now that we have our app
+
+
+374
+00:13:09,126 --> 00:13:11,296
+acting playfully, let's talk
+
+
+375
+00:13:11,296 --> 00:13:13,036
+about making the text look
+
+
+376
+00:13:13,036 --> 00:13:13,256
+great.
+
+
+377
+00:13:14,116 --> 00:13:15,256
+To do that, we'll support
+
+
+378
+00:13:15,256 --> 00:13:15,886
+dynamic type.
+
+
+379
+00:13:18,206 --> 00:13:19,786
+Dynamic type is a technology on
+
+
+380
+00:13:19,926 --> 00:13:22,256
+iOS that provides both a set of
+
+
+381
+00:13:22,896 --> 00:13:23,936
+text styles.
+
+
+382
+00:13:23,936 --> 00:13:25,396
+For example, headline, body,
+
+
+383
+00:13:25,396 --> 00:13:25,906
+caption.
+
+
+384
+00:13:26,586 --> 00:13:28,526
+And user control over the size
+
+
+385
+00:13:28,526 --> 00:13:29,446
+of those styles.
+
+
+386
+00:13:29,936 --> 00:13:34,006
+Here's a few example apps, and
+
+
+387
+00:13:34,006 --> 00:13:35,666
+this is with a default text size
+
+
+388
+00:13:35,826 --> 00:13:36,000
+set.
+
+
+389
+00:13:37,046 --> 00:13:38,286
+Now, if the user preferred a
+
+
+390
+00:13:38,286 --> 00:13:39,836
+larger text size, for example,
+
+
+391
+00:13:40,586 --> 00:13:42,296
+we'd see messages adjust.
+
+
+392
+00:13:42,296 --> 00:13:43,756
+So the text increases, and then
+
+
+393
+00:13:43,756 --> 00:13:45,546
+all the graphic around -- the
+
+
+394
+00:13:45,546 --> 00:13:46,896
+bubbles around the messages
+
+
+395
+00:13:46,896 --> 00:13:47,456
+increase.
+
+
+396
+00:13:47,536 --> 00:13:49,386
+Also the input field gets
+
+
+397
+00:13:49,386 --> 00:13:49,696
+larger.
+
+
+398
+00:13:51,326 --> 00:13:54,186
+Similarly, with calendar, an
+
+
+399
+00:13:54,186 --> 00:13:54,606
+event layer.
+
+
+400
+00:13:55,376 --> 00:13:57,986
+And our app looks like this.
+
+
+401
+00:13:59,266 --> 00:14:00,016
+Yeah, nothing changed.
+
+
+402
+00:14:00,936 --> 00:14:02,856
+Or, depending on how we created
+
+
+403
+00:14:02,856 --> 00:14:04,406
+our app, it might look like
+
+
+404
+00:14:04,406 --> 00:14:04,916
+this.
+
+
+405
+00:14:05,166 --> 00:14:07,336
+Where some text increases but
+
+
+406
+00:14:07,336 --> 00:14:09,916
+our layout is not right, and its
+
+
+407
+00:14:10,006 --> 00:14:10,486
+unreadable.
+
+
+408
+00:14:13,586 --> 00:14:14,646
+Fortunately, Interface Builder
+
+
+409
+00:14:14,646 --> 00:14:16,646
+makes it easy to fix this up for
+
+
+410
+00:14:16,646 --> 00:14:16,876
+us.
+
+
+411
+00:14:17,046 --> 00:14:18,586
+So let's take a look at how to
+
+
+412
+00:14:18,586 --> 00:14:18,976
+do that right now.
+
+
+413
+00:14:25,056 --> 00:14:26,316
+All right.
+
+
+414
+00:14:26,756 --> 00:14:28,706
+Back to our app, and let's take
+
+
+415
+00:14:28,706 --> 00:14:30,116
+a look at making these two
+
+
+416
+00:14:30,116 --> 00:14:32,786
+labels respect the system font
+
+
+417
+00:14:32,786 --> 00:14:33,006
+size.
+
+
+418
+00:14:33,006 --> 00:14:35,186
+Some I'm going to select this
+
+
+419
+00:14:35,186 --> 00:14:35,966
+lower label here.
+
+
+420
+00:14:37,376 --> 00:14:38,946
+And over in the inspector, I'll
+
+
+421
+00:14:38,946 --> 00:14:40,756
+check the automatically adjust
+
+
+422
+00:14:40,756 --> 00:14:42,166
+font checkbox.
+
+
+423
+00:14:42,786 --> 00:14:45,626
+Now, if you've got a keen eye,
+
+
+424
+00:14:45,626 --> 00:14:46,666
+you'll notice as soon as I did
+
+
+425
+00:14:46,666 --> 00:14:48,046
+that, I had this little warning
+
+
+426
+00:14:48,046 --> 00:14:48,826
+icon pop up.
+
+
+427
+00:14:49,166 --> 00:14:50,686
+And this reminds us that for
+
+
+428
+00:14:50,686 --> 00:14:53,056
+this property to take effect, we
+
+
+429
+00:14:53,056 --> 00:14:55,436
+need to specify a text style for
+
+
+430
+00:14:55,436 --> 00:14:55,816
+the label.
+
+
+431
+00:14:57,876 --> 00:14:59,976
+So right now the font for this
+
+
+432
+00:14:59,976 --> 00:15:02,046
+label is a fixed value of system
+
+
+433
+00:15:02,046 --> 00:15:02,326
+12.
+
+
+434
+00:15:02,586 --> 00:15:03,896
+And I'll change it to a text
+
+
+435
+00:15:03,896 --> 00:15:06,536
+style by opening the inspector
+
+
+436
+00:15:06,876 --> 00:15:08,336
+and selecting an appropriate
+
+
+437
+00:15:08,336 --> 00:15:08,796
+style.
+
+
+438
+00:15:08,796 --> 00:15:09,676
+In this case, I'll choose
+
+
+439
+00:15:09,676 --> 00:15:10,366
+caption one.
+
+
+440
+00:15:10,886 --> 00:15:14,746
+So this happened to correspond
+
+
+441
+00:15:14,746 --> 00:15:16,346
+to system 12 at the default text
+
+
+442
+00:15:16,346 --> 00:15:17,416
+style, so our canvas looks the
+
+
+443
+00:15:17,416 --> 00:15:17,706
+same.
+
+
+444
+00:15:19,496 --> 00:15:22,316
+I'll do the same with the upper
+
+
+445
+00:15:22,316 --> 00:15:22,786
+label.
+
+
+446
+00:15:22,856 --> 00:15:24,116
+This already had a text style
+
+
+447
+00:15:24,116 --> 00:15:24,396
+set.
+
+
+448
+00:15:24,996 --> 00:15:27,946
+And I'll build and run again.
+
+
+449
+00:15:36,906 --> 00:15:38,546
+Okay. So this comes up and it
+
+
+450
+00:15:38,546 --> 00:15:40,746
+looks the same because we
+
+
+451
+00:15:40,746 --> 00:15:41,736
+haven't changed the text size
+
+
+452
+00:15:41,736 --> 00:15:41,926
+yet.
+
+
+453
+00:15:42,446 --> 00:15:43,736
+Now we can change the text size
+
+
+454
+00:15:43,966 --> 00:15:46,706
+by using the settings app on the
+
+
+455
+00:15:46,706 --> 00:15:48,396
+simulator, but it's a little
+
+
+456
+00:15:48,396 --> 00:15:49,416
+cumbersome to switch back and
+
+
+457
+00:15:49,416 --> 00:15:51,666
+forth between settings and our
+
+
+458
+00:15:51,666 --> 00:15:51,876
+app.
+
+
+459
+00:15:51,876 --> 00:15:52,916
+So I want to show you another
+
+
+460
+00:15:52,916 --> 00:15:54,626
+way to do that.
+
+
+461
+00:15:54,626 --> 00:15:56,276
+If I jump back to Xcode, I can
+
+
+462
+00:15:56,276 --> 00:15:58,086
+use the application menu to open
+
+
+463
+00:15:58,086 --> 00:16:00,336
+develop a tool accessibility
+
+
+464
+00:16:00,336 --> 00:16:00,786
+inspector.
+
+
+465
+00:16:01,366 --> 00:16:04,356
+So, from here, I can choose to
+
+
+466
+00:16:04,356 --> 00:16:05,926
+target the simulator.
+
+
+467
+00:16:05,926 --> 00:16:09,946
+And on the settings tab I get
+
+
+468
+00:16:09,946 --> 00:16:10,946
+this font size slider.
+
+
+469
+00:16:11,536 --> 00:16:12,876
+So I'll pull up the simulator
+
+
+470
+00:16:12,876 --> 00:16:14,876
+side by side, and now I can
+
+
+471
+00:16:14,876 --> 00:16:16,356
+change this slider and see our
+
+
+472
+00:16:16,356 --> 00:16:17,706
+app react in real time.
+
+
+473
+00:16:17,706 --> 00:16:18,876
+This makes it a lot easier to
+
+
+474
+00:16:18,876 --> 00:16:20,736
+test dynamic type changes.
+
+
+475
+00:16:21,516 --> 00:16:25,796
+[ Applause ]
+
+
+476
+00:16:26,296 --> 00:16:27,516
+By the way, if I had an iPhone
+
+
+477
+00:16:27,586 --> 00:16:29,466
+plugged in or set up for
+
+
+478
+00:16:29,466 --> 00:16:30,546
+development here, I can also
+
+
+479
+00:16:30,826 --> 00:16:32,166
+choose to target that connected
+
+
+480
+00:16:32,166 --> 00:16:32,446
+phone.
+
+
+481
+00:16:33,086 --> 00:16:36,396
+So we see our app adjusting --
+
+
+482
+00:16:36,586 --> 00:16:38,246
+reacting to the font size, but
+
+
+483
+00:16:38,246 --> 00:16:40,546
+if it gets too large then our
+
+
+484
+00:16:40,546 --> 00:16:42,766
+labels are running into each
+
+
+485
+00:16:42,766 --> 00:16:43,696
+other and overlapping.
+
+
+486
+00:16:44,436 --> 00:16:45,876
+So let's go fix that.
+
+
+487
+00:16:50,296 --> 00:16:51,826
+So, in Interface Builder,
+
+
+488
+00:16:52,356 --> 00:16:53,816
+whoops, I'm going to jump back
+
+
+489
+00:16:53,816 --> 00:16:53,986
+here.
+
+
+490
+00:16:54,336 --> 00:16:57,016
+I want to get that out the way.
+
+
+491
+00:16:57,756 --> 00:16:59,596
+The text area, down here, the
+
+
+492
+00:16:59,596 --> 00:17:03,186
+size of that is defined by a
+
+
+493
+00:17:03,236 --> 00:17:04,856
+fixed height constraint
+
+
+494
+00:17:05,126 --> 00:17:06,156
+[inaudible] constant over here.
+
+
+495
+00:17:07,646 --> 00:17:08,756
+Now, instead, we'd like this
+
+
+496
+00:17:08,915 --> 00:17:11,036
+size to vary depending on the
+
+
+497
+00:17:11,036 --> 00:17:12,646
+size of the labels within it.
+
+
+498
+00:17:13,296 --> 00:17:14,215
+So we have the bottom label
+
+
+499
+00:17:14,215 --> 00:17:15,236
+constrained to the bottom and
+
+
+500
+00:17:15,236 --> 00:17:16,366
+the top constrained to the top.
+
+
+501
+00:17:16,366 --> 00:17:18,556
+So, if we added a vertical
+
+
+502
+00:17:18,556 --> 00:17:19,746
+constraint between the two,
+
+
+503
+00:17:20,276 --> 00:17:21,286
+there'd be enough information to
+
+
+504
+00:17:21,366 --> 00:17:24,116
+size this area from the
+
+
+505
+00:17:24,116 --> 00:17:26,016
+constraints of the labels and
+
+
+506
+00:17:26,016 --> 00:17:26,736
+the size of the labels
+
+
+507
+00:17:26,736 --> 00:17:27,126
+themselves.
+
+
+508
+00:17:29,136 --> 00:17:29,896
+So let's do that.
+
+
+509
+00:17:29,896 --> 00:17:31,296
+I'll control drag from label to
+
+
+510
+00:17:31,296 --> 00:17:31,646
+another.
+
+
+511
+00:17:32,646 --> 00:17:33,956
+And I can choose to add a
+
+
+512
+00:17:34,036 --> 00:17:35,456
+vertical spacing constraint, so
+
+
+513
+00:17:35,456 --> 00:17:36,276
+this will keep the labels
+
+
+514
+00:17:36,276 --> 00:17:37,946
+separated by the same distance
+
+
+515
+00:17:37,946 --> 00:17:38,936
+they are in the canvas right
+
+
+516
+00:17:38,936 --> 00:17:39,116
+now.
+
+
+517
+00:17:39,936 --> 00:17:41,316
+I can choose to add a vertical
+
+
+518
+00:17:41,316 --> 00:17:43,006
+baseline standard spacing.
+
+
+519
+00:17:43,806 --> 00:17:45,696
+So this is similar to vertical
+
+
+520
+00:17:45,696 --> 00:17:48,536
+spacing except UIKit will adjust
+
+
+521
+00:17:48,536 --> 00:17:50,056
+the constant of this constraint,
+
+
+522
+00:17:50,056 --> 00:17:53,036
+depending on the text style and
+
+
+523
+00:17:53,036 --> 00:17:54,386
+the current font sizes of the
+
+
+524
+00:17:54,386 --> 00:17:55,286
+labels involved.
+
+
+525
+00:17:56,616 --> 00:17:57,356
+So I'll choose to add one of
+
+
+526
+00:17:57,356 --> 00:17:57,676
+those.
+
+
+527
+00:17:58,816 --> 00:18:00,886
+And now I can select and remove
+
+
+528
+00:18:01,326 --> 00:18:03,106
+the fixed type constraint and
+
+
+529
+00:18:04,176 --> 00:18:04,976
+then build and run again.
+
+
+530
+00:18:14,216 --> 00:18:15,946
+So now things are looking a lot
+
+
+531
+00:18:15,946 --> 00:18:16,336
+better.
+
+
+532
+00:18:16,336 --> 00:18:18,076
+Our content area is adjusting
+
+
+533
+00:18:18,076 --> 00:18:19,936
+for larger sizes and also
+
+
+534
+00:18:19,936 --> 00:18:20,856
+shrinking down for smaller
+
+
+535
+00:18:20,856 --> 00:18:22,596
+sizes, if people want larger
+
+
+536
+00:18:22,816 --> 00:18:24,556
+information density on their
+
+
+537
+00:18:24,556 --> 00:18:24,886
+displays.
+
+
+538
+00:18:34,046 --> 00:18:37,366
+So, using two properties in the
+
+
+539
+00:18:37,366 --> 00:18:39,296
+label inspector, both the font
+
+
+540
+00:18:39,296 --> 00:18:40,456
+and the dynamic type property,
+
+
+541
+00:18:41,056 --> 00:18:43,426
+we can make our labels adjust
+
+
+542
+00:18:43,426 --> 00:18:44,926
+dynamically as the font size
+
+
+543
+00:18:44,926 --> 00:18:45,436
+changes.
+
+
+544
+00:18:45,746 --> 00:18:47,286
+And we saw using accessibility
+
+
+545
+00:18:47,286 --> 00:18:49,626
+inspector to test different
+
+
+546
+00:18:49,626 --> 00:18:49,966
+sizes.
+
+
+547
+00:18:51,046 --> 00:18:52,826
+There's a talk later this
+
+
+548
+00:18:52,826 --> 00:18:54,166
+afternoon, Building Apps With
+
+
+549
+00:18:54,166 --> 00:18:55,336
+Dynamic Type, with a lot more
+
+
+550
+00:18:55,336 --> 00:18:58,666
+information, and after this
+
+
+551
+00:18:58,666 --> 00:18:59,796
+session, if you want to try out
+
+
+552
+00:18:59,796 --> 00:19:01,616
+how your own apps looks, if you
+
+
+553
+00:19:01,616 --> 00:19:03,806
+change the font size, you can
+
+
+554
+00:19:03,806 --> 00:19:05,356
+also get to the setting directly
+
+
+555
+00:19:05,426 --> 00:19:07,126
+on your phone.
+
+
+556
+00:19:07,366 --> 00:19:08,506
+If you go through accessibility,
+
+
+557
+00:19:08,506 --> 00:19:10,156
+you get the larger accessibility
+
+
+558
+00:19:10,156 --> 00:19:12,646
+sizes' option, which gives a
+
+
+559
+00:19:12,646 --> 00:19:14,266
+large range of values for the
+
+
+560
+00:19:14,266 --> 00:19:15,636
+type to vary on.
+
+
+561
+00:19:15,756 --> 00:19:19,806
+So check that out.
+
+
+562
+00:19:20,066 --> 00:19:22,266
+Now it's time to add some more
+
+
+563
+00:19:22,266 --> 00:19:25,466
+views to our app.
+
+
+564
+00:19:25,736 --> 00:19:27,946
+And I'd like to bring up Jason
+
+
+565
+00:19:28,016 --> 00:19:29,906
+to introduce you to this safe
+
+
+566
+00:19:29,906 --> 00:19:30,226
+area.
+
+
+567
+00:19:30,826 --> 00:19:30,976
+Jason.
+
+
+568
+00:19:31,516 --> 00:19:37,806
+[ Applause ]
+
+
+569
+00:19:38,306 --> 00:19:39,016
+>> Hello, everyone.
+
+
+570
+00:19:40,296 --> 00:19:41,336
+My name's Jason Yao.
+
+
+571
+00:19:41,336 --> 00:19:42,226
+I'm an Interface Builder
+
+
+572
+00:19:42,226 --> 00:19:43,526
+engineer, and it's a pleasure to
+
+
+573
+00:19:43,526 --> 00:19:44,586
+be with you here today.
+
+
+574
+00:19:45,076 --> 00:19:46,106
+We're going to continue on with
+
+
+575
+00:19:46,106 --> 00:19:47,116
+our dating app journey and talk
+
+
+576
+00:19:47,116 --> 00:19:48,826
+about three more techniques.
+
+
+577
+00:19:49,896 --> 00:19:51,446
+And so, the first thing I want
+
+
+578
+00:19:51,446 --> 00:19:52,696
+to talk to you about is what do
+
+
+579
+00:19:52,696 --> 00:19:55,616
+you do when you got a view
+
+
+580
+00:19:55,616 --> 00:19:56,636
+controller and you've got a
+
+
+581
+00:19:56,636 --> 00:19:58,806
+navigation bar and a tab bar and
+
+
+582
+00:19:58,806 --> 00:20:01,586
+you want to make sure your views
+
+
+583
+00:20:01,586 --> 00:20:02,876
+are positioned so that they're
+
+
+584
+00:20:02,876 --> 00:20:04,306
+not covered up by those bars?
+
+
+585
+00:20:05,346 --> 00:20:06,876
+As you may have heard, there's a
+
+
+586
+00:20:06,916 --> 00:20:09,166
+new layout guide on iOS 11
+
+
+587
+00:20:09,166 --> 00:20:10,376
+called the Safe Area Layout
+
+
+588
+00:20:10,376 --> 00:20:10,576
+Guide.
+
+
+589
+00:20:10,576 --> 00:20:12,756
+It is a new property on UIView.
+
+
+590
+00:20:13,316 --> 00:20:16,886
+It works with Auto Layout and
+
+
+591
+00:20:16,886 --> 00:20:19,166
+what it is is a rectangle that
+
+
+592
+00:20:19,166 --> 00:20:20,956
+is around the bars and container
+
+
+593
+00:20:20,956 --> 00:20:22,526
+edges and then you can constrain
+
+
+594
+00:20:22,526 --> 00:20:24,006
+your views as you expect.
+
+
+595
+00:20:24,476 --> 00:20:27,676
+If you had to do this thing in
+
+
+596
+00:20:27,676 --> 00:20:30,046
+the past, you may remember the
+
+
+597
+00:20:30,046 --> 00:20:31,286
+Top and Bottom Layer Guide on
+
+
+598
+00:20:31,286 --> 00:20:32,296
+UIViewController.
+
+
+599
+00:20:32,666 --> 00:20:34,016
+Those are deprecated in favor of
+
+
+600
+00:20:34,016 --> 00:20:35,166
+this new safe area.
+
+
+601
+00:20:35,616 --> 00:20:36,706
+The Safe Area Layout Guide is
+
+
+602
+00:20:36,706 --> 00:20:37,696
+easier to use.
+
+
+603
+00:20:37,776 --> 00:20:39,646
+It's more expressive and allows
+
+
+604
+00:20:39,646 --> 00:20:41,516
+you to do a few new things, like
+
+
+605
+00:20:41,516 --> 00:20:43,056
+be able to center vertically
+
+
+606
+00:20:43,056 --> 00:20:43,786
+between your bars.
+
+
+607
+00:20:43,786 --> 00:20:46,256
+And that way as the [inaudible]
+
+
+608
+00:20:46,256 --> 00:20:48,176
+and the size of your height
+
+
+609
+00:20:48,356 --> 00:20:50,026
+changes, say if you rotate in
+
+
+610
+00:20:50,026 --> 00:20:51,666
+landscape, your layout will
+
+
+611
+00:20:51,666 --> 00:20:52,306
+adjust accordingly.
+
+
+612
+00:20:53,696 --> 00:20:55,306
+The Safe Area Layout Guide is
+
+
+613
+00:20:55,306 --> 00:20:57,736
+also something that can apply to
+
+
+614
+00:20:57,736 --> 00:20:57,956
+tvOS.
+
+
+615
+00:20:59,226 --> 00:21:00,606
+When you target your app and
+
+
+616
+00:21:00,606 --> 00:21:01,396
+your content for tvOS, you're
+
+
+617
+00:21:01,396 --> 00:21:04,136
+going to want to fill the big
+
+
+618
+00:21:04,136 --> 00:21:04,786
+screen.
+
+
+619
+00:21:05,036 --> 00:21:06,136
+The thing you have to consider
+
+
+620
+00:21:06,796 --> 00:21:07,916
+is that you're going to be on a
+
+
+621
+00:21:07,916 --> 00:21:09,096
+wide variety of displays from
+
+
+622
+00:21:09,096 --> 00:21:11,366
+small ones to big ones, flat
+
+
+623
+00:21:11,366 --> 00:21:13,246
+screens to projectors, and you
+
+
+624
+00:21:13,826 --> 00:21:15,336
+need to worry, in video terms,
+
+
+625
+00:21:15,336 --> 00:21:16,596
+of something called the overscan
+
+
+626
+00:21:16,596 --> 00:21:16,886
+region.
+
+
+627
+00:21:18,276 --> 00:21:20,046
+On some displays, my title here
+
+
+628
+00:21:20,046 --> 00:21:22,086
+can be cut off because it's too
+
+
+629
+00:21:22,536 --> 00:21:23,346
+close to the top.
+
+
+630
+00:21:23,346 --> 00:21:24,366
+And so you want to adjust your
+
+
+631
+00:21:24,366 --> 00:21:26,176
+content so that it's within the
+
+
+632
+00:21:26,176 --> 00:21:26,686
+safe area.
+
+
+633
+00:21:26,686 --> 00:21:28,336
+And the Safe Area Layout Guide
+
+
+634
+00:21:28,336 --> 00:21:29,406
+is going to represent this
+
+
+635
+00:21:29,406 --> 00:21:33,056
+region in iOS 11 for your tvOS
+
+
+636
+00:21:33,056 --> 00:21:33,686
+storyboards.
+
+
+637
+00:21:34,116 --> 00:21:37,556
+Just constrain your views to the
+
+
+638
+00:21:37,556 --> 00:21:39,496
+content and set it into the safe
+
+
+639
+00:21:39,496 --> 00:21:41,306
+area and then fill the rest of
+
+
+640
+00:21:41,306 --> 00:21:42,716
+your view with the beautiful
+
+
+641
+00:21:42,716 --> 00:21:44,306
+background imagery for your
+
+
+642
+00:21:44,306 --> 00:21:44,676
+users.
+
+
+643
+00:21:45,936 --> 00:21:47,806
+It's really easy to enable Safe
+
+
+644
+00:21:47,806 --> 00:21:50,056
+Area Layout Guide in iOS 11 and
+
+
+645
+00:21:50,056 --> 00:21:50,616
+Interface Builder.
+
+
+646
+00:21:51,426 --> 00:21:52,576
+You can go into your storyboard,
+
+
+647
+00:21:52,576 --> 00:21:55,516
+go to the file inspector, find
+
+
+648
+00:21:55,516 --> 00:21:57,116
+that box that says use Safe Area
+
+
+649
+00:21:57,116 --> 00:21:58,156
+Layout Guides and check it.
+
+
+650
+00:21:58,986 --> 00:22:00,636
+What's going to happen is that
+
+
+651
+00:22:00,636 --> 00:22:01,816
+the top level view of each of
+
+
+652
+00:22:01,816 --> 00:22:03,316
+your scenes is going to have the
+
+
+653
+00:22:03,316 --> 00:22:04,516
+new Safe Area Layout Guide, and
+
+
+654
+00:22:04,636 --> 00:22:06,196
+then you constrain to it just
+
+
+655
+00:22:06,196 --> 00:22:07,286
+like you would to other things
+
+
+656
+00:22:07,286 --> 00:22:07,976
+inside the canvas.
+
+
+657
+00:22:13,076 --> 00:22:14,626
+The Safe Area Layout Guide is a
+
+
+658
+00:22:14,626 --> 00:22:16,266
+new property on UIView for
+
+
+659
+00:22:16,266 --> 00:22:18,186
+keeping your content unobscured
+
+
+660
+00:22:18,186 --> 00:22:20,966
+and title safe, and, if you use
+
+
+661
+00:22:20,966 --> 00:22:24,446
+it on iOS 11 with -- for iOS
+
+
+662
+00:22:24,446 --> 00:22:27,126
+storyboards, will automatically
+
+
+663
+00:22:27,126 --> 00:22:28,336
+upgrade your constraints for you
+
+
+664
+00:22:28,336 --> 00:22:31,196
+when you check that box.
+
+
+665
+00:22:31,376 --> 00:22:33,906
+Thank you [applause] and that is
+
+
+666
+00:22:33,936 --> 00:22:35,516
+because the geometry between the
+
+
+667
+00:22:35,516 --> 00:22:36,986
+old Top and Bottom Layout Guides
+
+
+668
+00:22:37,426 --> 00:22:40,216
+will match the new Safe Area
+
+
+669
+00:22:40,216 --> 00:22:40,656
+Layout Guide.
+
+
+670
+00:22:40,656 --> 00:22:42,376
+And best of all, that also means
+
+
+671
+00:22:42,376 --> 00:22:43,316
+when you use Safe Area Layout
+
+
+672
+00:22:43,316 --> 00:22:46,276
+Guides on storyboards in Xcode 9
+
+
+673
+00:22:47,026 --> 00:22:47,876
+we'll make it sure it's
+
+
+674
+00:22:47,876 --> 00:22:49,116
+backwards deployable to previous
+
+
+675
+00:22:49,116 --> 00:22:49,476
+iOSs.
+
+
+676
+00:22:50,516 --> 00:22:53,500
+[ Applause ]
+
+
+677
+00:22:56,346 --> 00:22:57,446
+Now I want to talk about a
+
+
+678
+00:22:57,446 --> 00:22:58,916
+layout technique for being able
+
+
+679
+00:22:58,916 --> 00:23:00,346
+to position yourself relative to
+
+
+680
+00:23:00,346 --> 00:23:00,966
+your superview.
+
+
+681
+00:23:02,386 --> 00:23:03,466
+This is called proportional
+
+
+682
+00:23:03,466 --> 00:23:03,946
+positioning.
+
+
+683
+00:23:04,266 --> 00:23:05,866
+And the idea is say if I have a
+
+
+684
+00:23:05,866 --> 00:23:07,476
+dates' card in my dating app and
+
+
+685
+00:23:07,476 --> 00:23:08,906
+I want to be able to position it
+
+
+686
+00:23:08,906 --> 00:23:10,316
+about 70% down from the
+
+
+687
+00:23:10,316 --> 00:23:10,826
+superview.
+
+
+688
+00:23:11,446 --> 00:23:12,196
+How do I do this?
+
+
+689
+00:23:12,766 --> 00:23:13,516
+There are a few techniques
+
+
+690
+00:23:13,516 --> 00:23:14,046
+available.
+
+
+691
+00:23:14,096 --> 00:23:15,726
+The one I want to show you today
+
+
+692
+00:23:15,726 --> 00:23:17,006
+is the idea of using a spacer
+
+
+693
+00:23:17,006 --> 00:23:17,216
+view.
+
+
+694
+00:23:18,316 --> 00:23:20,096
+Dragging out a view, just a
+
+
+695
+00:23:20,096 --> 00:23:21,346
+normal UIView from the object
+
+
+696
+00:23:21,346 --> 00:23:21,786
+library.
+
+
+697
+00:23:21,996 --> 00:23:23,276
+Constraining it but not
+
+
+698
+00:23:23,276 --> 00:23:23,966
+rendering it.
+
+
+699
+00:23:24,556 --> 00:23:26,516
+And allowing it to be the
+
+
+700
+00:23:26,576 --> 00:23:28,326
+scaffolding for positioning your
+
+
+701
+00:23:28,326 --> 00:23:29,016
+view in place.
+
+
+702
+00:23:29,436 --> 00:23:31,166
+And this technique also applies
+
+
+703
+00:23:32,076 --> 00:23:33,516
+to other type of layouts that
+
+
+704
+00:23:33,516 --> 00:23:34,406
+are used in proportion.
+
+
+705
+00:23:34,606 --> 00:23:36,096
+Here's another example, where
+
+
+706
+00:23:36,096 --> 00:23:37,186
+I've got a landscape view, with
+
+
+707
+00:23:37,186 --> 00:23:39,836
+a 1/5, 2/5, and 2/5 proportion.
+
+
+708
+00:23:40,126 --> 00:23:41,466
+And then they're centered along
+
+
+709
+00:23:42,076 --> 00:23:42,736
+those proportions.
+
+
+710
+00:23:43,286 --> 00:23:44,146
+So let's go ahead and take a
+
+
+711
+00:23:44,146 --> 00:23:45,296
+look at how to do this inside of
+
+
+712
+00:23:45,296 --> 00:23:45,806
+Interface Builder.
+
+
+713
+00:23:57,956 --> 00:23:59,816
+So I've got a basic layout
+
+
+714
+00:23:59,816 --> 00:24:00,516
+already here.
+
+
+715
+00:24:00,516 --> 00:24:01,826
+And, in this case here, I want
+
+
+716
+00:24:01,826 --> 00:24:03,406
+to be able to position my date
+
+
+717
+00:24:03,406 --> 00:24:03,706
+card.
+
+
+718
+00:24:04,166 --> 00:24:06,576
+And it's being pushed in by a
+
+
+719
+00:24:06,576 --> 00:24:08,046
+form sheet with the modal segue.
+
+
+720
+00:24:08,516 --> 00:24:09,486
+So we're going to zoom in a
+
+
+721
+00:24:09,486 --> 00:24:11,076
+little closer over here, and
+
+
+722
+00:24:11,076 --> 00:24:11,966
+I've got two elements that
+
+
+723
+00:24:11,966 --> 00:24:12,916
+already have some initial
+
+
+724
+00:24:12,916 --> 00:24:13,456
+constraints.
+
+
+725
+00:24:13,456 --> 00:24:15,706
+I've got a label and I've got an
+
+
+726
+00:24:15,706 --> 00:24:16,056
+image.
+
+
+727
+00:24:16,166 --> 00:24:17,536
+And if we select them both, if
+
+
+728
+00:24:17,536 --> 00:24:19,096
+you look really carefully,
+
+
+729
+00:24:19,386 --> 00:24:20,916
+you'll notice that it's blue on
+
+
+730
+00:24:20,916 --> 00:24:22,066
+the left and right edges but the
+
+
+731
+00:24:22,066 --> 00:24:23,326
+top and bottom are red.
+
+
+732
+00:24:23,986 --> 00:24:24,826
+That means there's some work
+
+
+733
+00:24:24,826 --> 00:24:25,436
+that we need to do.
+
+
+734
+00:24:26,026 --> 00:24:27,046
+Whenever you see red in the
+
+
+735
+00:24:27,046 --> 00:24:28,296
+Interface Builder canvas, it can
+
+
+736
+00:24:28,296 --> 00:24:29,316
+be one or two things.
+
+
+737
+00:24:29,496 --> 00:24:30,386
+Either you have too few
+
+
+738
+00:24:30,386 --> 00:24:31,166
+constraints and you're
+
+
+739
+00:24:31,166 --> 00:24:32,646
+ambiguous, or you have too many
+
+
+740
+00:24:32,646 --> 00:24:33,286
+constraints and you're
+
+
+741
+00:24:33,286 --> 00:24:33,746
+conflicting.
+
+
+742
+00:24:34,306 --> 00:24:35,706
+I just set this up so I know I
+
+
+743
+00:24:35,706 --> 00:24:36,736
+haven't positioned myself
+
+
+744
+00:24:36,736 --> 00:24:38,196
+vertically in the superview.
+
+
+745
+00:24:39,206 --> 00:24:40,206
+So let's go ahead and do that.
+
+
+746
+00:24:40,206 --> 00:24:41,846
+And we'll do it by creating the
+
+
+747
+00:24:41,846 --> 00:24:42,366
+spacer view.
+
+
+748
+00:24:42,596 --> 00:24:44,726
+So I'm going to type UIView in
+
+
+749
+00:24:44,726 --> 00:24:45,726
+the object library.
+
+
+750
+00:24:46,036 --> 00:24:47,666
+Just drag out the view and
+
+
+751
+00:24:47,666 --> 00:24:47,976
+position it.
+
+
+752
+00:24:51,196 --> 00:24:53,586
+We'll give it just roughly the
+
+
+753
+00:24:53,586 --> 00:24:55,136
+place that I want to see it in
+
+
+754
+00:24:55,816 --> 00:24:57,216
+the canvas.
+
+
+755
+00:24:57,216 --> 00:24:58,586
+Next, let's do a few setup
+
+
+756
+00:24:58,586 --> 00:24:58,896
+things.
+
+
+757
+00:24:59,116 --> 00:25:00,066
+First I'm going to mark it as
+
+
+758
+00:25:00,066 --> 00:25:00,326
+hidden.
+
+
+759
+00:25:00,326 --> 00:25:01,536
+This is going to [inaudible] a
+
+
+760
+00:25:01,536 --> 00:25:03,666
+layout in runtime but we don't
+
+
+761
+00:25:03,666 --> 00:25:04,356
+want [inaudible] and that way
+
+
+762
+00:25:04,356 --> 00:25:05,356
+you don't incur the cost of
+
+
+763
+00:25:05,356 --> 00:25:05,616
+drawing.
+
+
+764
+00:25:06,366 --> 00:25:07,386
+The other thing I want to do to
+
+
+765
+00:25:07,386 --> 00:25:09,186
+recognize it is, in the object
+
+
+766
+00:25:09,186 --> 00:25:11,106
+library, rename it to spacer
+
+
+767
+00:25:12,116 --> 00:25:12,796
+70%.
+
+
+768
+00:25:13,386 --> 00:25:15,866
+Now we need to add constraints.
+
+
+769
+00:25:17,106 --> 00:25:18,146
+So I'm going to click on the pin
+
+
+770
+00:25:18,146 --> 00:25:18,616
+menu.
+
+
+771
+00:25:19,266 --> 00:25:20,396
+We're going to add a top
+
+
+772
+00:25:20,396 --> 00:25:22,646
+constraint, a leading
+
+
+773
+00:25:22,646 --> 00:25:25,316
+constraint, and then maybe give
+
+
+774
+00:25:25,316 --> 00:25:27,126
+it a width so I can do
+
+
+775
+00:25:27,126 --> 00:25:28,906
+constraint connections to it.
+
+
+776
+00:25:29,936 --> 00:25:32,006
+Add that. And you can see that
+
+
+777
+00:25:32,006 --> 00:25:33,606
+it's already moved horizontally.
+
+
+778
+00:25:33,606 --> 00:25:34,756
+But we still have the top and
+
+
+779
+00:25:34,756 --> 00:25:36,536
+bottom edges that are still red,
+
+
+780
+00:25:36,536 --> 00:25:37,416
+and that's because we haven't
+
+
+781
+00:25:37,416 --> 00:25:38,426
+specified a height yet.
+
+
+782
+00:25:38,806 --> 00:25:39,946
+We want to make this proportion
+
+
+783
+00:25:39,946 --> 00:25:40,886
+of the superview, so let's go
+
+
+784
+00:25:40,886 --> 00:25:41,576
+ahead and do that.
+
+
+785
+00:25:41,926 --> 00:25:43,256
+I'm going to add a equal height
+
+
+786
+00:25:43,256 --> 00:25:45,216
+constraint by dragging out from
+
+
+787
+00:25:45,216 --> 00:25:48,446
+the spacer to the superview and
+
+
+788
+00:25:48,446 --> 00:25:50,066
+choosing equal heights.
+
+
+789
+00:25:50,776 --> 00:25:53,126
+Now it's using equal heights to
+
+
+790
+00:25:53,126 --> 00:25:54,966
+my superview, but I realize I've
+
+
+791
+00:25:54,966 --> 00:25:56,526
+got a navigation bar up there.
+
+
+792
+00:25:57,136 --> 00:25:59,856
+And I actually wanted equal
+
+
+793
+00:25:59,856 --> 00:26:01,646
+heights to -- well, actually,
+
+
+794
+00:26:01,646 --> 00:26:02,366
+let's go ahead and set the
+
+
+795
+00:26:02,366 --> 00:26:02,946
+proportion.
+
+
+796
+00:26:03,946 --> 00:26:08,126
+And the thing is I'm still
+
+
+797
+00:26:08,126 --> 00:26:09,176
+relative to my superview, and I
+
+
+798
+00:26:09,176 --> 00:26:10,936
+want to be relative to my safe
+
+
+799
+00:26:10,936 --> 00:26:11,326
+area.
+
+
+800
+00:26:11,386 --> 00:26:13,576
+And so normally you'd have to
+
+
+801
+00:26:13,576 --> 00:26:14,796
+rebuild the constraint to do
+
+
+802
+00:26:14,796 --> 00:26:15,006
+this.
+
+
+803
+00:26:15,006 --> 00:26:16,136
+But I want to show you something
+
+
+804
+00:26:16,136 --> 00:26:16,346
+new.
+
+
+805
+00:26:16,346 --> 00:26:18,026
+If you go up into the attribute
+
+
+806
+00:26:18,026 --> 00:26:19,326
+inspector, which is a really
+
+
+807
+00:26:19,326 --> 00:26:21,036
+powerful thing, and you click on
+
+
+808
+00:26:21,036 --> 00:26:22,786
+the item, we list now the
+
+
+809
+00:26:22,786 --> 00:26:24,616
+neighbors that you can retarget
+
+
+810
+00:26:24,616 --> 00:26:25,926
+your constraint items --
+
+
+811
+00:26:26,516 --> 00:26:31,506
+[ Applause ]
+
+
+812
+00:26:32,006 --> 00:26:33,586
+And so if I hit safe area, you
+
+
+813
+00:26:33,586 --> 00:26:35,696
+can see it's now 70% to my safe
+
+
+814
+00:26:35,696 --> 00:26:35,896
+area.
+
+
+815
+00:26:36,806 --> 00:26:37,896
+Now let's go ahead and align our
+
+
+816
+00:26:37,896 --> 00:26:38,356
+content.
+
+
+817
+00:26:38,786 --> 00:26:39,946
+And so I'm going to take my
+
+
+818
+00:26:39,946 --> 00:26:41,746
+dates' label, drag it over --
+
+
+819
+00:26:41,746 --> 00:26:43,856
+create a connection using
+
+
+820
+00:26:43,856 --> 00:26:46,896
+control drag and align it to the
+
+
+821
+00:26:46,896 --> 00:26:47,326
+bottom.
+
+
+822
+00:26:48,516 --> 00:26:50,096
+Now I wanted [inaudible] nicely
+
+
+823
+00:26:50,096 --> 00:26:51,916
+along the baseline and so again,
+
+
+824
+00:26:52,086 --> 00:26:53,746
+all I need to do is click on the
+
+
+825
+00:26:53,746 --> 00:26:54,746
+constraint I just added.
+
+
+826
+00:26:55,066 --> 00:26:56,426
+Go to the attributes inspector.
+
+
+827
+00:26:57,226 --> 00:26:59,636
+And go ahead and set this to the
+
+
+828
+00:26:59,636 --> 00:27:00,246
+other attribute.
+
+
+829
+00:27:00,246 --> 00:27:01,456
+The really neat thing about Auto
+
+
+830
+00:27:01,456 --> 00:27:02,506
+Layout is you don't have to do
+
+
+831
+00:27:02,506 --> 00:27:03,416
+just bottom to bottom.
+
+
+832
+00:27:03,606 --> 00:27:04,596
+You can do something like bottom
+
+
+833
+00:27:04,596 --> 00:27:05,066
+to top.
+
+
+834
+00:27:05,306 --> 00:27:06,566
+Or, in this case, since I have a
+
+
+835
+00:27:06,566 --> 00:27:07,536
+single line label, I'll do
+
+
+836
+00:27:07,536 --> 00:27:09,606
+bottom to first baseline and
+
+
+837
+00:27:09,606 --> 00:27:12,796
+that way, now we're 70% sitting
+
+
+838
+00:27:12,796 --> 00:27:13,796
+right along the baseline.
+
+
+839
+00:27:14,126 --> 00:27:15,056
+Let's test it out in a few
+
+
+840
+00:27:15,056 --> 00:27:15,836
+configurations.
+
+
+841
+00:27:15,836 --> 00:27:18,596
+So iPhone seven plus portrait
+
+
+842
+00:27:19,696 --> 00:27:21,066
+using the device bar.
+
+
+843
+00:27:21,426 --> 00:27:22,846
+And let's take a look in
+
+
+844
+00:27:22,846 --> 00:27:25,306
+landscape and we're 70% there.
+
+
+845
+00:27:25,306 --> 00:27:25,976
+And so this is what I want.
+
+
+846
+00:27:34,816 --> 00:27:35,726
+So when you need to do this
+
+
+847
+00:27:35,726 --> 00:27:38,106
+proportional technique in
+
+
+848
+00:27:38,106 --> 00:27:40,926
+Interface Builder, use spacer
+
+
+849
+00:27:40,926 --> 00:27:43,156
+views to be able to get you
+
+
+850
+00:27:43,156 --> 00:27:43,376
+there.
+
+
+851
+00:27:43,776 --> 00:27:46,296
+And you be sure to mark those
+
+
+852
+00:27:46,296 --> 00:27:48,156
+views as hidden so that they're
+
+
+853
+00:27:48,156 --> 00:27:50,186
+not [inaudible] rendering but
+
+
+854
+00:27:50,186 --> 00:27:53,036
+are assisting you at layout to
+
+
+855
+00:27:53,036 --> 00:27:53,956
+be able to position your
+
+
+856
+00:27:53,956 --> 00:27:54,376
+content.
+
+
+857
+00:27:55,346 --> 00:27:56,646
+And if you're doing your layout
+
+
+858
+00:27:56,646 --> 00:27:59,436
+programmatically, the thing you
+
+
+859
+00:27:59,436 --> 00:28:01,586
+can use is the UILayout Guide.
+
+
+860
+00:28:01,586 --> 00:28:03,506
+And so programmatically, you can
+
+
+861
+00:28:03,686 --> 00:28:05,406
+use this as the equivalent to
+
+
+862
+00:28:05,406 --> 00:28:06,746
+the spacer views.
+
+
+863
+00:28:07,316 --> 00:28:10,196
+Next. Let's go ahead and talk
+
+
+864
+00:28:10,196 --> 00:28:11,556
+about another type of view that
+
+
+865
+00:28:11,556 --> 00:28:12,106
+we want to layout.
+
+
+866
+00:28:12,396 --> 00:28:13,386
+In this case, we're going to
+
+
+867
+00:28:13,386 --> 00:28:14,926
+show you an example of adaptive
+
+
+868
+00:28:14,926 --> 00:28:16,416
+layout in our dating app, where
+
+
+869
+00:28:16,416 --> 00:28:19,106
+we've got this view of a 4 x 4
+
+
+870
+00:28:19,106 --> 00:28:20,856
+grid giving me a selection, and
+
+
+871
+00:28:20,856 --> 00:28:21,766
+then it's got a label at the
+
+
+872
+00:28:21,766 --> 00:28:22,056
+bottom.
+
+
+873
+00:28:23,316 --> 00:28:24,816
+But when I rotate my phone, it's
+
+
+874
+00:28:24,816 --> 00:28:26,506
+actually going to give me
+
+
+875
+00:28:26,506 --> 00:28:27,296
+something a little different.
+
+
+876
+00:28:27,296 --> 00:28:28,026
+It's still going to give me the
+
+
+877
+00:28:28,026 --> 00:28:30,256
+4 x 4 grid of my dates, but it's
+
+
+878
+00:28:30,256 --> 00:28:31,516
+going to have a text view over
+
+
+879
+00:28:31,516 --> 00:28:31,996
+on the right.
+
+
+880
+00:28:32,976 --> 00:28:34,386
+So let's go ahead and see how we
+
+
+881
+00:28:34,386 --> 00:28:35,516
+could do adaptive layout using
+
+
+882
+00:28:35,516 --> 00:28:37,366
+stack views in Interface
+
+
+883
+00:28:37,406 --> 00:28:37,636
+Builder.
+
+
+884
+00:28:50,786 --> 00:28:52,446
+Okay. So I've got my dates
+
+
+885
+00:28:52,576 --> 00:28:55,176
+storyboard over here and pretty
+
+
+886
+00:28:55,176 --> 00:28:56,206
+much I've got this grid with an
+
+
+887
+00:28:56,206 --> 00:28:57,156
+initial layout set up.
+
+
+888
+00:28:57,156 --> 00:28:58,286
+I'm going to go ahead and first
+
+
+889
+00:28:58,286 --> 00:29:00,036
+expand the object outline.
+
+
+890
+00:29:00,036 --> 00:29:01,296
+I can hold down option and kind
+
+
+891
+00:29:01,296 --> 00:29:02,476
+of expand everything all at
+
+
+892
+00:29:02,476 --> 00:29:02,756
+once.
+
+
+893
+00:29:03,146 --> 00:29:04,646
+And [inaudible] give you a tour
+
+
+894
+00:29:04,716 --> 00:29:06,636
+of the setup.
+
+
+895
+00:29:06,806 --> 00:29:08,436
+We have a vertical stack view
+
+
+896
+00:29:08,656 --> 00:29:10,206
+and it's tied with four
+
+
+897
+00:29:10,206 --> 00:29:11,416
+constraints to the superview.
+
+
+898
+00:29:11,906 --> 00:29:14,596
+And then it's got three rows,
+
+
+899
+00:29:14,596 --> 00:29:15,086
+essentially.
+
+
+900
+00:29:15,416 --> 00:29:17,226
+The first row is a nested
+
+
+901
+00:29:17,226 --> 00:29:19,066
+horizontal stack view of the two
+
+
+902
+00:29:19,066 --> 00:29:19,536
+images.
+
+
+903
+00:29:20,356 --> 00:29:21,876
+Second row is also a nested
+
+
+904
+00:29:21,876 --> 00:29:23,826
+stack view of the two images.
+
+
+905
+00:29:24,136 --> 00:29:25,326
+And then the third row is a
+
+
+906
+00:29:25,326 --> 00:29:25,686
+label.
+
+
+907
+00:29:25,686 --> 00:29:27,146
+Now you can see that
+
+
+908
+00:29:27,146 --> 00:29:28,086
+everything's kind of equally
+
+
+909
+00:29:28,086 --> 00:29:29,956
+sized and that is because stack
+
+
+910
+00:29:29,956 --> 00:29:31,576
+view has these great properties
+
+
+911
+00:29:31,576 --> 00:29:32,796
+like alignment, distribution,
+
+
+912
+00:29:32,796 --> 00:29:33,466
+and spacing.
+
+
+913
+00:29:33,916 --> 00:29:35,326
+And there are a lot of options
+
+
+914
+00:29:35,326 --> 00:29:37,056
+for being able to configure your
+
+
+915
+00:29:37,056 --> 00:29:38,906
+layout using stack views and
+
+
+916
+00:29:38,906 --> 00:29:39,736
+nests of stack views.
+
+
+917
+00:29:40,546 --> 00:29:41,786
+The great part about stack view
+
+
+918
+00:29:41,786 --> 00:29:42,716
+is that it manages your
+
+
+919
+00:29:42,716 --> 00:29:44,426
+constraints for you so there are
+
+
+920
+00:29:44,426 --> 00:29:45,446
+very few constraints that you
+
+
+921
+00:29:45,446 --> 00:29:45,906
+have to add.
+
+
+922
+00:29:46,416 --> 00:29:47,246
+If you want to find out more
+
+
+923
+00:29:47,246 --> 00:29:50,496
+about the other, distribution
+
+
+924
+00:29:50,496 --> 00:29:52,066
+and alignments options, be sure
+
+
+925
+00:29:52,066 --> 00:29:53,376
+to check out the documentation.
+
+
+926
+00:29:53,756 --> 00:29:54,726
+Right now we're using fill
+
+
+927
+00:29:54,726 --> 00:29:55,456
+equally to make sure
+
+
+928
+00:29:55,456 --> 00:29:56,456
+everything's properly sized.
+
+
+929
+00:29:56,456 --> 00:29:57,776
+And let's go ahead and tune this
+
+
+930
+00:29:57,776 --> 00:29:58,666
+closer to what I want.
+
+
+931
+00:29:59,816 --> 00:30:01,356
+Okay. So let's first adjust for
+
+
+932
+00:30:01,356 --> 00:30:01,796
+spacing.
+
+
+933
+00:30:02,146 --> 00:30:05,116
+So I'm going to select all
+
+
+934
+00:30:05,116 --> 00:30:06,186
+[inaudible] command and select
+
+
+935
+00:30:06,186 --> 00:30:06,996
+all my stack views.
+
+
+936
+00:30:07,686 --> 00:30:08,706
+And then we're going to give it
+
+
+937
+00:30:08,706 --> 00:30:10,096
+a slightly larger spacing here
+
+
+938
+00:30:10,096 --> 00:30:11,096
+in the attribute inspector.
+
+
+939
+00:30:11,526 --> 00:30:12,946
+I'll set it to maybe 30.
+
+
+940
+00:30:13,356 --> 00:30:14,776
+That's a little too big.
+
+
+941
+00:30:14,956 --> 00:30:17,836
+So a new to Xcode 9 and iOS 11,
+
+
+942
+00:30:17,836 --> 00:30:19,676
+we have a standard spacing
+
+
+943
+00:30:19,676 --> 00:30:21,526
+option that allows the system to
+
+
+944
+00:30:21,526 --> 00:30:22,106
+choose for you.
+
+
+945
+00:30:22,106 --> 00:30:24,036
+I'm going to use that.
+
+
+946
+00:30:24,636 --> 00:30:26,256
+Now, if you remember back to
+
+
+947
+00:30:26,256 --> 00:30:27,686
+Jonathon's talk about dynamic
+
+
+948
+00:30:27,686 --> 00:30:29,436
+type, be sure to check out
+
+
+949
+00:30:29,436 --> 00:30:30,726
+standard spacing for vertical
+
+
+950
+00:30:30,726 --> 00:30:32,856
+stack views using content that's
+
+
+951
+00:30:32,856 --> 00:30:34,686
+using text styles and checking
+
+
+952
+00:30:34,686 --> 00:30:35,726
+this baseline relative.
+
+
+953
+00:30:35,856 --> 00:30:37,116
+You'll get the same effect of
+
+
+954
+00:30:37,116 --> 00:30:38,466
+dynamic type that you just saw.
+
+
+955
+00:30:39,816 --> 00:30:40,966
+For us, since we have images and
+
+
+956
+00:30:40,966 --> 00:30:41,986
+labels, we're going to go ahead
+
+
+957
+00:30:41,986 --> 00:30:43,726
+and just leave it unchecked.
+
+
+958
+00:30:43,726 --> 00:30:45,266
+And the next thing I want to do
+
+
+959
+00:30:45,266 --> 00:30:46,766
+is I want to really make sure
+
+
+960
+00:30:46,976 --> 00:30:48,056
+these images are square.
+
+
+961
+00:30:48,856 --> 00:30:49,936
+Now they may look square to you
+
+
+962
+00:30:49,936 --> 00:30:51,166
+but they really aren't, and I'll
+
+
+963
+00:30:51,166 --> 00:30:51,666
+prove it to you.
+
+
+964
+00:30:51,666 --> 00:30:53,206
+I'm going to control drag from
+
+
+965
+00:30:53,206 --> 00:30:56,286
+the image to itself and select
+
+
+966
+00:30:56,286 --> 00:30:57,446
+the aspect ratio constraint.
+
+
+967
+00:30:57,826 --> 00:30:58,866
+And you can see when I pop this
+
+
+968
+00:30:58,866 --> 00:31:00,406
+open it actually says a
+
+
+969
+00:31:00,666 --> 00:31:03,416
+multiplier of 193 to 226.
+
+
+970
+00:31:03,766 --> 00:31:04,976
+Let's go ahead and make it 1:1.
+
+
+971
+00:31:09,136 --> 00:31:11,516
+Okay. But something didn't quite
+
+
+972
+00:31:11,516 --> 00:31:11,886
+happen there.
+
+
+973
+00:31:11,996 --> 00:31:13,486
+Nothing happened in canvas and,
+
+
+974
+00:31:13,486 --> 00:31:15,726
+in fact, my aspect ratio is red.
+
+
+975
+00:31:15,726 --> 00:31:17,376
+And what's worse, if you take a
+
+
+976
+00:31:17,376 --> 00:31:19,126
+look over here, there's a little
+
+
+977
+00:31:19,126 --> 00:31:19,756
+red dot.
+
+
+978
+00:31:19,756 --> 00:31:21,016
+And so, when we click on that,
+
+
+979
+00:31:21,016 --> 00:31:21,756
+we have a whole bunch of
+
+
+980
+00:31:21,756 --> 00:31:22,646
+conflicting constraints.
+
+
+981
+00:31:22,916 --> 00:31:23,366
+What happened?
+
+
+982
+00:31:23,936 --> 00:31:25,356
+Well, let's go ahead and debug
+
+
+983
+00:31:25,356 --> 00:31:25,876
+this together.
+
+
+984
+00:31:25,876 --> 00:31:27,106
+And I'll give you -- we'll show
+
+
+985
+00:31:27,106 --> 00:31:28,406
+you a technique for how to
+
+
+986
+00:31:28,406 --> 00:31:29,376
+approach this type of problem
+
+
+987
+00:31:29,886 --> 00:31:30,616
+within the canvas.
+
+
+988
+00:31:31,066 --> 00:31:33,256
+So I've got the aspect ratio and
+
+
+989
+00:31:33,256 --> 00:31:34,336
+I want to, first of all,
+
+
+990
+00:31:34,336 --> 00:31:35,966
+validate that this is the thing
+
+
+991
+00:31:35,966 --> 00:31:37,136
+that introduced error.
+
+
+992
+00:31:37,926 --> 00:31:39,416
+Some I'm going to go to the
+
+
+993
+00:31:39,416 --> 00:31:41,376
+attribute inspector for the
+
+
+994
+00:31:41,376 --> 00:31:43,436
+constraint and then toggle the
+
+
+995
+00:31:43,436 --> 00:31:45,256
+installed button on and off to
+
+
+996
+00:31:45,256 --> 00:31:45,876
+see what happens.
+
+
+997
+00:31:46,386 --> 00:31:48,836
+And so, when I toggle it off, my
+
+
+998
+00:31:48,966 --> 00:31:49,836
+issues disappear.
+
+
+999
+00:31:49,836 --> 00:31:51,776
+And when I toggle it on, they
+
+
+1000
+00:31:51,776 --> 00:31:52,346
+appear again.
+
+
+1001
+00:31:52,346 --> 00:31:53,476
+But nothing's really happening
+
+
+1002
+00:31:53,476 --> 00:31:55,056
+in the canvas, so the next
+
+
+1003
+00:31:55,056 --> 00:31:56,016
+strategy I'd like to do is I
+
+
+1004
+00:31:56,016 --> 00:31:57,326
+like to poke around in my
+
+
+1005
+00:31:57,326 --> 00:31:57,726
+layout.
+
+
+1006
+00:31:57,726 --> 00:32:00,136
+And the thing I care about is
+
+
+1007
+00:32:00,196 --> 00:32:01,416
+probably the other red
+
+
+1008
+00:32:01,416 --> 00:32:03,136
+constraints that are nearby.
+
+
+1009
+00:32:03,136 --> 00:32:04,566
+Let's go ahead and take a look
+
+
+1010
+00:32:04,566 --> 00:32:05,776
+at the one from the outermost
+
+
+1011
+00:32:05,776 --> 00:32:07,136
+stack view to the top.
+
+
+1012
+00:32:07,646 --> 00:32:10,656
+And when we uninstall that, the
+
+
+1013
+00:32:10,896 --> 00:32:12,876
+issues disappear but we're no
+
+
+1014
+00:32:12,876 --> 00:32:14,216
+longer fitting in the superview.
+
+
+1015
+00:32:14,566 --> 00:32:16,516
+But the images are nice and
+
+
+1016
+00:32:16,516 --> 00:32:17,066
+square.
+
+
+1017
+00:32:17,616 --> 00:32:18,726
+That's kind of an interesting
+
+
+1018
+00:32:18,806 --> 00:32:19,156
+effect.
+
+
+1019
+00:32:19,156 --> 00:32:20,696
+Let's go ahead and do another
+
+
+1020
+00:32:20,696 --> 00:32:20,956
+one.
+
+
+1021
+00:32:20,956 --> 00:32:22,096
+So I'm going to reinstall this
+
+
+1022
+00:32:22,096 --> 00:32:22,276
+one.
+
+
+1023
+00:32:23,026 --> 00:32:24,576
+And I'm going uninstall the
+
+
+1024
+00:32:24,576 --> 00:32:25,836
+trailing constraint.
+
+
+1025
+00:32:26,376 --> 00:32:28,556
+And you can see again we're
+
+
+1026
+00:32:28,556 --> 00:32:29,996
+square but this time we're
+
+
+1027
+00:32:29,996 --> 00:32:31,066
+overflowing our superview.
+
+
+1028
+00:32:31,916 --> 00:32:33,276
+And so what's actually happening
+
+
+1029
+00:32:33,276 --> 00:32:35,186
+is that we can't satisfy both
+
+
+1030
+00:32:35,186 --> 00:32:38,516
+the aspect ratio constraint, the
+
+
+1031
+00:32:38,516 --> 00:32:40,426
+fill equally distribution on the
+
+
+1032
+00:32:40,426 --> 00:32:41,896
+stack views, and then have it
+
+
+1033
+00:32:41,986 --> 00:32:42,926
+fit into the superview.
+
+
+1034
+00:32:43,486 --> 00:32:44,996
+Luckily, for my case, I don't
+
+
+1035
+00:32:44,996 --> 00:32:45,726
+need to fill the entire
+
+
+1036
+00:32:45,726 --> 00:32:46,276
+superview.
+
+
+1037
+00:32:46,506 --> 00:32:47,846
+What I really want is actually
+
+
+1038
+00:32:47,846 --> 00:32:49,226
+to just stick to the top.
+
+
+1039
+00:32:49,226 --> 00:32:50,766
+So if I uninstall this, this is
+
+
+1040
+00:32:50,766 --> 00:32:51,726
+closer to what I want.
+
+
+1041
+00:32:52,266 --> 00:32:53,346
+But supposing we rotate in a
+
+
+1042
+00:32:53,346 --> 00:32:54,416
+landscape and my height gets
+
+
+1043
+00:32:54,416 --> 00:32:55,826
+smaller, I still want this
+
+
+1044
+00:32:55,826 --> 00:32:57,276
+constraint so [inaudible] that
+
+
+1045
+00:32:57,276 --> 00:32:57,556
+either.
+
+
+1046
+00:32:57,856 --> 00:32:58,776
+And so what I'm going to do is
+
+
+1047
+00:32:58,776 --> 00:32:59,716
+I'm going to leave it installed
+
+
+1048
+00:33:00,216 --> 00:33:01,606
+and set it to greater than or
+
+
+1049
+00:33:01,606 --> 00:33:03,836
+equal to, and then this is more
+
+
+1050
+00:33:03,836 --> 00:33:05,296
+of what I want in portrait.
+
+
+1051
+00:33:06,356 --> 00:33:09,096
+Let's go ahead back to the
+
+
+1052
+00:33:09,096 --> 00:33:11,686
+object outline and we're now
+
+
+1053
+00:33:11,686 --> 00:33:12,766
+going to look at landscape.
+
+
+1054
+00:33:13,876 --> 00:33:15,396
+When I click the device bar on
+
+
+1055
+00:33:15,396 --> 00:33:18,416
+landscape, you can see there's
+
+
+1056
+00:33:18,416 --> 00:33:19,716
+some work that we have to do
+
+
+1057
+00:33:19,716 --> 00:33:19,926
+here.
+
+
+1058
+00:33:20,056 --> 00:33:22,436
+The first thing we need to do is
+
+
+1059
+00:33:22,986 --> 00:33:24,536
+we want to get closer to the
+
+
+1060
+00:33:24,536 --> 00:33:26,566
+look that we were wanting.
+
+
+1061
+00:33:26,566 --> 00:33:27,936
+And, if you remember, the top
+
+
+1062
+00:33:27,936 --> 00:33:28,706
+[inaudible] label needs to
+
+
+1063
+00:33:28,706 --> 00:33:29,946
+disappear, and then we're going
+
+
+1064
+00:33:29,946 --> 00:33:31,466
+to eventually put a text view
+
+
+1065
+00:33:31,466 --> 00:33:32,246
+over on the right.
+
+
+1066
+00:33:32,946 --> 00:33:34,366
+So let's first work on the top
+
+
+1067
+00:33:34,426 --> 00:33:34,926
+[inaudible] label.
+
+
+1068
+00:33:35,426 --> 00:33:38,076
+I'm going to click on it and a
+
+
+1069
+00:33:38,076 --> 00:33:40,046
+stack view -- the thing we could
+
+
+1070
+00:33:40,046 --> 00:33:41,056
+do is we could use the hidden
+
+
+1071
+00:33:41,056 --> 00:33:41,406
+property.
+
+
+1072
+00:33:41,556 --> 00:33:43,046
+Stack view is really great with
+
+
+1073
+00:33:43,146 --> 00:33:44,996
+hidden subviews because it will
+
+
+1074
+00:33:44,996 --> 00:33:46,786
+also collapse their layout but
+
+
+1075
+00:33:46,786 --> 00:33:47,796
+keep them in the arranged
+
+
+1076
+00:33:47,796 --> 00:33:48,506
+subviews array.
+
+
+1077
+00:33:49,936 --> 00:33:51,366
+Now, we'll go over to hidden
+
+
+1078
+00:33:51,366 --> 00:33:53,016
+property, and actually new to
+
+
+1079
+00:33:53,016 --> 00:33:55,036
+Xcode 9, we also allow you to
+
+
+1080
+00:33:55,036 --> 00:33:56,236
+vary this by size class.
+
+
+1081
+00:33:56,236 --> 00:33:56,946
+And so you can see --
+
+
+1082
+00:33:57,516 --> 00:34:01,406
+[ Applause ]
+
+
+1083
+00:34:01,906 --> 00:34:02,856
+There's a plus button to make
+
+
+1084
+00:34:02,856 --> 00:34:03,306
+that easier.
+
+
+1085
+00:34:03,306 --> 00:34:04,566
+And so I'm going to pop it up
+
+
+1086
+00:34:05,136 --> 00:34:07,056
+and choose any width.
+
+
+1087
+00:34:07,596 --> 00:34:09,505
+And in this case, because it's
+
+
+1088
+00:34:09,505 --> 00:34:11,656
+landscape, it is compact type.
+
+
+1089
+00:34:11,926 --> 00:34:13,516
+You could also verify that with
+
+
+1090
+00:34:13,516 --> 00:34:14,636
+the device bar on the bottom.
+
+
+1091
+00:34:14,686 --> 00:34:16,416
+Right now we're in landscape
+
+
+1092
+00:34:16,416 --> 00:34:17,585
+iPhone seven plus with regular
+
+
+1093
+00:34:17,585 --> 00:34:18,426
+width and compact type.
+
+
+1094
+00:34:18,466 --> 00:34:20,176
+So for any width compact type,
+
+
+1095
+00:34:20,176 --> 00:34:21,406
+I'm going to add a variation,
+
+
+1096
+00:34:22,096 --> 00:34:23,436
+mark it as hidden, and there we
+
+
+1097
+00:34:23,436 --> 00:34:23,616
+go.
+
+
+1098
+00:34:24,376 --> 00:34:25,545
+And, if we switch over to
+
+
+1099
+00:34:25,545 --> 00:34:26,936
+portrait, it appears.
+
+
+1100
+00:34:28,146 --> 00:34:29,525
+Going back to landscape, it's
+
+
+1101
+00:34:29,525 --> 00:34:29,926
+disappeared.
+
+
+1102
+00:34:30,585 --> 00:34:32,646
+Okay. We need to add our text
+
+
+1103
+00:34:32,686 --> 00:34:33,005
+view now.
+
+
+1104
+00:34:33,186 --> 00:34:34,045
+And, in order to do that, we
+
+
+1105
+00:34:34,045 --> 00:34:36,226
+need a outer horizontal view.
+
+
+1106
+00:34:36,275 --> 00:34:38,005
+We need some sort of horizontal
+
+
+1107
+00:34:38,005 --> 00:34:39,516
+stack view for being able to
+
+
+1108
+00:34:39,516 --> 00:34:40,636
+host the text view.
+
+
+1109
+00:34:40,996 --> 00:34:41,976
+So I'm going to select
+
+
+1110
+00:34:41,976 --> 00:34:42,556
+everything here.
+
+
+1111
+00:34:43,106 --> 00:34:45,226
+And then I'm going to type text
+
+
+1112
+00:34:45,226 --> 00:34:46,946
+view in the object outline
+
+
+1113
+00:34:47,446 --> 00:34:48,706
+because I want to add that in.
+
+
+1114
+00:34:49,076 --> 00:34:50,476
+Let's go ahead and embed the
+
+
+1115
+00:34:50,476 --> 00:34:53,186
+outer view using the embed and
+
+
+1116
+00:34:53,186 --> 00:34:54,485
+stack button.
+
+
+1117
+00:34:54,886 --> 00:34:56,416
+So it created a new stack view,
+
+
+1118
+00:34:56,666 --> 00:34:58,516
+and we need to switch it over to
+
+
+1119
+00:34:58,516 --> 00:34:59,686
+be -- that's vertical.
+
+
+1120
+00:34:59,686 --> 00:35:00,636
+We need to switch it over to be
+
+
+1121
+00:35:00,636 --> 00:35:01,266
+horizontal.
+
+
+1122
+00:35:02,696 --> 00:35:04,216
+Everything shrunk down because
+
+
+1123
+00:35:04,216 --> 00:35:05,606
+also, since I embedded it into
+
+
+1124
+00:35:05,606 --> 00:35:06,906
+new view, it got rid of my
+
+
+1125
+00:35:06,906 --> 00:35:07,886
+constraints to the superview.
+
+
+1126
+00:35:08,516 --> 00:35:10,426
+So we need to make it
+
+
+1127
+00:35:10,426 --> 00:35:11,236
+horizontal.
+
+
+1128
+00:35:11,506 --> 00:35:13,296
+Let's go ahead and give it a
+
+
+1129
+00:35:13,296 --> 00:35:14,376
+standard spacing for the
+
+
+1130
+00:35:14,376 --> 00:35:15,676
+outermost one we just created.
+
+
+1131
+00:35:16,096 --> 00:35:19,896
+And then we can add a new text
+
+
+1132
+00:35:19,896 --> 00:35:20,146
+view.
+
+
+1133
+00:35:20,336 --> 00:35:22,466
+So we'll just go ahead and drag
+
+
+1134
+00:35:23,796 --> 00:35:24,086
+that in.
+
+
+1135
+00:35:24,086 --> 00:35:24,656
+There it is.
+
+
+1136
+00:35:25,136 --> 00:35:26,406
+And then we need to rebuild the
+
+
+1137
+00:35:26,406 --> 00:35:27,906
+constraints to our superview for
+
+
+1138
+00:35:27,906 --> 00:35:29,176
+the outermost one.
+
+
+1139
+00:35:29,546 --> 00:35:30,816
+So I'm going to go back to the
+
+
+1140
+00:35:30,816 --> 00:35:35,266
+pinning menu 10, 10, 10, 10.
+
+
+1141
+00:35:35,856 --> 00:35:38,496
+And then the bottommost
+
+
+1142
+00:35:38,496 --> 00:35:40,006
+constraint, if you remember --
+
+
+1143
+00:35:40,456 --> 00:35:43,106
+I'll zoom in here -- is going to
+
+
+1144
+00:35:43,106 --> 00:35:45,706
+be greater than or equal to.
+
+
+1145
+00:35:45,966 --> 00:35:49,026
+Okay. And so this is what I want
+
+
+1146
+00:35:49,026 --> 00:35:49,606
+for landscape.
+
+
+1147
+00:35:49,606 --> 00:35:51,386
+When we switch back to portrait,
+
+
+1148
+00:35:52,076 --> 00:35:56,086
+we actually have to do a similar
+
+
+1149
+00:35:56,086 --> 00:35:57,886
+thing and hide the text view by
+
+
+1150
+00:35:57,886 --> 00:35:58,466
+a size class.
+
+
+1151
+00:35:58,576 --> 00:36:00,626
+And so we can click on this.
+
+
+1152
+00:36:00,626 --> 00:36:02,326
+Go over to the hidden menu again
+
+
+1153
+00:36:02,326 --> 00:36:02,976
+and add a variation --
+
+
+1154
+00:36:06,576 --> 00:36:09,556
+Of any width, regular height,
+
+
+1155
+00:36:09,556 --> 00:36:11,736
+and then mark it as hidden.
+
+
+1156
+00:36:11,736 --> 00:36:14,606
+And now we have the look that we
+
+
+1157
+00:36:14,816 --> 00:36:14,976
+want.
+
+
+1158
+00:36:15,516 --> 00:36:21,500
+[ Applause ]
+
+
+1159
+00:36:27,006 --> 00:36:28,146
+So use the stack view, when you
+
+
+1160
+00:36:28,146 --> 00:36:29,956
+can, for all your layouts.
+
+
+1161
+00:36:30,316 --> 00:36:32,066
+Alignment, distribution,
+
+
+1162
+00:36:32,316 --> 00:36:32,866
+spacing.
+
+
+1163
+00:36:32,866 --> 00:36:33,716
+Those are properties that will
+
+
+1164
+00:36:33,716 --> 00:36:34,686
+get you there, including
+
+
+1165
+00:36:34,686 --> 00:36:34,976
+nesting.
+
+
+1166
+00:36:38,466 --> 00:36:39,876
+Add just a few constraints.
+
+
+1167
+00:36:39,876 --> 00:36:41,866
+We only noticed it needed aspect
+
+
+1168
+00:36:41,866 --> 00:36:42,856
+ratio constraint to get the
+
+
+1169
+00:36:42,856 --> 00:36:43,466
+proportion.
+
+
+1170
+00:36:43,466 --> 00:36:44,306
+So you only need a few
+
+
+1171
+00:36:44,306 --> 00:36:46,366
+constraints to get you a little
+
+
+1172
+00:36:46,366 --> 00:36:48,766
+bit extra if you have some
+
+
+1173
+00:36:48,766 --> 00:36:49,576
+requirements like the
+
+
+1174
+00:36:49,576 --> 00:36:50,126
+proportion.
+
+
+1175
+00:36:50,676 --> 00:36:55,426
+The hidden property in Xcode 9
+
+
+1176
+00:36:55,426 --> 00:36:57,076
+is size classable, which is
+
+
+1177
+00:36:57,076 --> 00:36:57,386
+great.
+
+
+1178
+00:36:57,386 --> 00:36:59,826
+You can go ahead and use it, and
+
+
+1179
+00:36:59,826 --> 00:37:01,026
+it works great with stack view,
+
+
+1180
+00:37:01,476 --> 00:37:03,006
+because stack view will collapse
+
+
+1181
+00:37:03,296 --> 00:37:04,116
+hidden subviews.
+
+
+1182
+00:37:04,866 --> 00:37:07,276
+And best of all, varying by size
+
+
+1183
+00:37:07,336 --> 00:37:09,326
+class with the hidden property
+
+
+1184
+00:37:09,326 --> 00:37:10,376
+is backwards deployable.
+
+
+1185
+00:37:11,516 --> 00:37:16,896
+[ Applause ]
+
+
+1186
+00:37:17,396 --> 00:37:21,316
+So, in summary, we've looked at
+
+
+1187
+00:37:21,316 --> 00:37:22,776
+six techniques today, and this
+
+
+1188
+00:37:22,776 --> 00:37:24,186
+is going to add to your arsenal
+
+
+1189
+00:37:24,186 --> 00:37:25,306
+for being able to build out your
+
+
+1190
+00:37:25,306 --> 00:37:25,766
+apps.
+
+
+1191
+00:37:26,046 --> 00:37:28,036
+We cannot wait to see what you
+
+
+1192
+00:37:28,036 --> 00:37:28,376
+build.
+
+
+1193
+00:37:28,836 --> 00:37:30,716
+And today we looked at some
+
+
+1194
+00:37:30,806 --> 00:37:32,346
+techniques for being able to do
+
+
+1195
+00:37:32,346 --> 00:37:33,876
+dynamic layout within the
+
+
+1196
+00:37:33,876 --> 00:37:34,356
+runtime.
+
+
+1197
+00:37:34,836 --> 00:37:36,066
+Things like dynamic type, as
+
+
+1198
+00:37:36,296 --> 00:37:37,696
+well as layout techniques, for
+
+
+1199
+00:37:37,696 --> 00:37:38,986
+being able to handle and make
+
+
+1200
+00:37:38,986 --> 00:37:40,826
+your content look great,
+
+
+1201
+00:37:41,106 --> 00:37:43,456
+unobscured, and handle adaptive
+
+
+1202
+00:37:43,456 --> 00:37:43,756
+layout.
+
+
+1203
+00:37:44,526 --> 00:37:45,626
+For more information, you could
+
+
+1204
+00:37:45,626 --> 00:37:46,536
+check out the
+
+
+1205
+00:37:46,596 --> 00:37:48,246
+developerapple.com.
+
+
+1206
+00:37:49,656 --> 00:37:51,116
+If you want to learn more about
+
+
+1207
+00:37:51,116 --> 00:37:52,136
+dynamic type, you could check
+
+
+1208
+00:37:52,136 --> 00:37:54,136
+out the session this afternoon
+
+
+1209
+00:37:54,316 --> 00:37:55,426
+and there are also links to past
+
+
+1210
+00:37:55,426 --> 00:37:55,816
+videos.
+
+
+1211
+00:37:55,816 --> 00:37:57,976
+Have a wonderful WWDC, everyone.
+
+
+1212
+00:37:58,516 --> 00:38:02,500
+[ Applause ]
+

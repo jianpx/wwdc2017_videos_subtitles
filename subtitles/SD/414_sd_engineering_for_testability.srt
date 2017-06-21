@@ -1,0 +1,5719 @@
+1
+00:00:07,516 --> 00:00:15,500
+[ Cheering ]
+
+
+2
+00:00:21,516 --> 00:00:27,500
+[ Applause ]
+
+
+3
+00:00:29,206 --> 00:00:29,956
+>> Hello, everyone.
+
+
+4
+00:00:30,306 --> 00:00:31,546
+Welcome to Engineering for
+
+
+5
+00:00:31,546 --> 00:00:32,246
+Testability.
+
+
+6
+00:00:33,256 --> 00:00:34,546
+My name is Brian Croom, and I
+
+
+7
+00:00:34,546 --> 00:00:36,306
+work on the Xcode Team.
+
+
+8
+00:00:37,356 --> 00:00:38,846
+My colleague Greg and I, want to
+
+
+9
+00:00:38,846 --> 00:00:39,786
+share some things that we've
+
+
+10
+00:00:39,786 --> 00:00:41,896
+been learning about testability
+
+
+11
+00:00:42,046 --> 00:00:42,946
+and what it means for the
+
+
+12
+00:00:42,946 --> 00:00:45,486
+process of developing great
+
+
+13
+00:00:48,826 --> 00:00:48,936
+apps.
+
+
+14
+00:00:49,136 --> 00:00:50,776
+I'll start by talking about what
+
+
+15
+00:00:50,776 --> 00:00:52,296
+it means for an app's code to be
+
+
+16
+00:00:52,346 --> 00:00:52,766
+testable.
+
+
+17
+00:00:53,686 --> 00:00:55,316
+And we'll see some examples of
+
+
+18
+00:00:55,316 --> 00:00:56,476
+techniques that can be applied
+
+
+19
+00:00:56,546 --> 00:00:58,376
+to improving testability of an
+
+
+20
+00:00:58,376 --> 00:00:59,746
+existing code.
+
+
+21
+00:01:01,276 --> 00:01:03,286
+Then Gregg will come up, and
+
+
+22
+00:01:03,286 --> 00:01:04,616
+talk about some ways of working
+
+
+23
+00:01:04,616 --> 00:01:06,196
+with your test suite to help
+
+
+24
+00:01:06,196 --> 00:01:08,146
+ensure that it helps support the
+
+
+25
+00:01:08,146 --> 00:01:09,986
+development of your app, even as
+
+
+26
+00:01:09,986 --> 00:01:11,516
+it grows in size and complexity.
+
+
+27
+00:01:14,256 --> 00:01:15,786
+So, let's dive in, and talk
+
+
+28
+00:01:15,786 --> 00:01:16,896
+about testability.
+
+
+29
+00:01:17,346 --> 00:01:20,616
+I remember a while back, when I
+
+
+30
+00:01:20,616 --> 00:01:21,876
+was first learning about writing
+
+
+31
+00:01:22,386 --> 00:01:22,666
+tests.
+
+
+32
+00:01:23,746 --> 00:01:25,116
+I'd been hearing a lot about how
+
+
+33
+00:01:25,116 --> 00:01:26,806
+a test suite could help during
+
+
+34
+00:01:26,806 --> 00:01:27,766
+the development of my app.
+
+
+35
+00:01:27,966 --> 00:01:30,816
+How it could provide confidence,
+
+
+36
+00:01:31,176 --> 00:01:32,656
+that the code I was writing was
+
+
+37
+00:01:32,656 --> 00:01:33,906
+working the way it was supposed
+
+
+38
+00:01:34,646 --> 00:01:34,716
+to.
+
+
+39
+00:01:35,636 --> 00:01:36,766
+How it could help patch
+
+
+40
+00:01:36,826 --> 00:01:38,916
+regressions in my code as my app
+
+
+41
+00:01:39,066 --> 00:01:40,266
+grew and changed over time.
+
+
+42
+00:01:40,866 --> 00:01:43,626
+And how it could serve as
+
+
+43
+00:01:43,626 --> 00:01:45,206
+executable documentation for my
+
+
+44
+00:01:45,206 --> 00:01:45,506
+code.
+
+
+45
+00:01:46,126 --> 00:01:49,066
+But, I would start writing a
+
+
+46
+00:01:49,066 --> 00:01:51,636
+test, and get stuck before I'd
+
+
+47
+00:01:51,636 --> 00:01:52,496
+gotten very far.
+
+
+48
+00:01:53,136 --> 00:01:56,166
+It felt as if my app's code were
+
+
+49
+00:01:56,166 --> 00:01:57,976
+actively trying to prevent me
+
+
+50
+00:01:57,976 --> 00:01:58,876
+from writing the test.
+
+
+51
+00:01:59,416 --> 00:02:02,946
+It took a while, but eventually
+
+
+52
+00:02:02,946 --> 00:02:04,256
+I discovered that I was
+
+
+53
+00:02:04,256 --> 00:02:06,076
+structuring my code in a way
+
+
+54
+00:02:06,076 --> 00:02:07,236
+that interfered with effective
+
+
+55
+00:02:07,286 --> 00:02:07,500
+testing.
+
+
+56
+00:02:10,895 --> 00:02:12,386
+To explore what this means,
+
+
+57
+00:02:12,896 --> 00:02:14,056
+let's first take a look at a
+
+
+58
+00:02:14,056 --> 00:02:15,936
+unit test for some code that is
+
+
+59
+00:02:15,936 --> 00:02:18,486
+readily testable, sorting an
+
+
+60
+00:02:18,876 --> 00:02:18,946
+array.
+
+
+61
+00:02:21,456 --> 00:02:23,636
+This is a test that exercises
+
+
+62
+00:02:23,636 --> 00:02:25,186
+the Sorted Method from the Swift
+
+
+63
+00:02:25,186 --> 00:02:25,966
+Standard Library.
+
+
+64
+00:02:26,676 --> 00:02:29,796
+It begins by setting up an array
+
+
+65
+00:02:29,796 --> 00:02:30,876
+of unsorted values.
+
+
+66
+00:02:31,556 --> 00:02:35,446
+It calls the sorted method on
+
+
+67
+00:02:35,446 --> 00:02:35,926
+that array.
+
+
+68
+00:02:36,646 --> 00:02:39,556
+And then asserts that the
+
+
+69
+00:02:39,556 --> 00:02:41,606
+returned array has the values in
+
+
+70
+00:02:41,686 --> 00:02:44,996
+the expected order.
+
+
+71
+00:02:45,186 --> 00:02:47,366
+Generalizing this, we can see
+
+
+72
+00:02:47,366 --> 00:02:49,056
+that the test structure consists
+
+
+73
+00:02:49,056 --> 00:02:51,226
+of first, setting up any
+
+
+74
+00:02:51,226 --> 00:02:53,386
+required input state or values,
+
+
+75
+00:02:54,526 --> 00:02:56,136
+then, calling the code being
+
+
+76
+00:02:56,136 --> 00:02:59,386
+tested, and finally, asserting
+
+
+77
+00:02:59,386 --> 00:03:00,556
+that the returned output is
+
+
+78
+00:03:00,556 --> 00:03:01,746
+correct.
+
+
+79
+00:03:02,416 --> 00:03:04,356
+This is sometimes referred to as
+
+
+80
+00:03:04,356 --> 00:03:05,956
+the Arrange Act Assert Pattern.
+
+
+81
+00:03:06,586 --> 00:03:11,426
+So, we've seen that sorted is a
+
+
+82
+00:03:11,426 --> 00:03:13,206
+nicely testable piece of code.
+
+
+83
+00:03:14,266 --> 00:03:15,466
+But I know what you're thinking,
+
+
+84
+00:03:16,176 --> 00:03:17,396
+"My app's code doesn't have a
+
+
+85
+00:03:17,486 --> 00:03:19,426
+single sorting algorithm in it."
+
+
+86
+00:03:20,496 --> 00:03:22,056
+In my experience, most of the
+
+
+87
+00:03:22,056 --> 00:03:23,486
+code in apps, looks pretty
+
+
+88
+00:03:23,486 --> 00:03:24,306
+different than the sorting
+
+
+89
+00:03:24,306 --> 00:03:24,816
+algorithm.
+
+
+90
+00:03:25,276 --> 00:03:27,616
+Still, there are some
+
+
+91
+00:03:27,616 --> 00:03:29,326
+characteristics of the sorted
+
+
+92
+00:03:29,326 --> 00:03:31,116
+method that we can strive to
+
+
+93
+00:03:31,116 --> 00:03:32,426
+achieve in our app's code, and
+
+
+94
+00:03:32,836 --> 00:03:34,016
+to make them more testable.
+
+
+95
+00:03:35,286 --> 00:03:38,206
+Specifically, testable code
+
+
+96
+00:03:38,206 --> 00:03:39,836
+provides a way for its clients
+
+
+97
+00:03:39,836 --> 00:03:41,516
+to have control over all of the
+
+
+98
+00:03:41,516 --> 00:03:42,836
+inputs that it operates on.
+
+
+99
+00:03:43,416 --> 00:03:46,446
+It provides a way for its
+
+
+100
+00:03:46,446 --> 00:03:48,276
+clients to inspect any output
+
+
+101
+00:03:48,276 --> 00:03:49,026
+being generated.
+
+
+102
+00:03:49,656 --> 00:03:52,436
+And it avoids relying on
+
+
+103
+00:03:52,436 --> 00:03:54,166
+internal state that could affect
+
+
+104
+00:03:54,166 --> 00:03:55,346
+the code's behavior later on.
+
+
+105
+00:03:55,346 --> 00:04:02,106
+I want to use code examples to
+
+
+106
+00:04:02,416 --> 00:04:03,306
+demonstrate a couple of
+
+
+107
+00:04:03,306 --> 00:04:05,016
+techniques that can be used to
+
+
+108
+00:04:05,016 --> 00:04:06,616
+help application code take on
+
+
+109
+00:04:06,616 --> 00:04:08,636
+these characteristics, and thus,
+
+
+110
+00:04:08,636 --> 00:04:09,876
+improve its testability.
+
+
+111
+00:04:13,836 --> 00:04:15,656
+The first technique is how to
+
+
+112
+00:04:15,656 --> 00:04:16,916
+introduce protocols and
+
+
+113
+00:04:16,916 --> 00:04:18,336
+parameterization into a piece of
+
+
+114
+00:04:18,336 --> 00:04:18,500
+code.
+
+
+115
+00:04:21,406 --> 00:04:23,456
+For this example, imagine a
+
+
+116
+00:04:23,456 --> 00:04:25,466
+document browser app, that is
+
+
+117
+00:04:25,466 --> 00:04:27,056
+capable of previewing documents
+
+
+118
+00:04:27,056 --> 00:04:29,046
+of various types, and has the
+
+
+119
+00:04:29,046 --> 00:04:30,406
+ability to switch to a different
+
+
+120
+00:04:30,406 --> 00:04:31,776
+app for viewing it in more
+
+
+121
+00:04:31,776 --> 00:04:33,766
+detail or editing it.
+
+
+122
+00:04:34,936 --> 00:04:36,676
+The previous screen we see here,
+
+
+123
+00:04:36,676 --> 00:04:38,086
+includes an open button for
+
+
+124
+00:04:38,086 --> 00:04:39,546
+this, along with a segmented
+
+
+125
+00:04:39,546 --> 00:04:40,896
+control for choosing [inaudible]
+
+
+126
+00:04:41,146 --> 00:04:42,546
+open for viewing or editing.
+
+
+127
+00:04:42,546 --> 00:04:46,776
+So, let's have a look at the
+
+
+128
+00:04:46,776 --> 00:04:48,506
+first try at some code for this
+
+
+129
+00:04:48,856 --> 00:04:49,000
+screen.
+
+
+130
+00:04:51,716 --> 00:04:52,796
+So, the event handler in the
+
+
+131
+00:04:52,796 --> 00:04:54,216
+view controller that gets
+
+
+132
+00:04:54,216 --> 00:04:55,626
+invoked when that Open button is
+
+
+133
+00:04:56,636 --> 00:04:56,766
+tapped.
+
+
+134
+00:04:58,996 --> 00:05:00,216
+It starts with some business
+
+
+135
+00:05:00,216 --> 00:05:02,756
+logic for constructing a URL to
+
+
+136
+00:05:02,756 --> 00:05:04,536
+be used to request that iOS
+
+
+137
+00:05:04,536 --> 00:05:06,186
+switch to the other app.
+
+
+138
+00:05:08,216 --> 00:05:10,586
+Then, it uses the shared UI
+
+
+139
+00:05:10,586 --> 00:05:12,356
+application instance, provided
+
+
+140
+00:05:12,356 --> 00:05:14,576
+by UIKit, to determine whether
+
+
+141
+00:05:14,576 --> 00:05:15,806
+the system is able to handle
+
+
+142
+00:05:15,806 --> 00:05:18,256
+this Open request, and perform
+
+
+143
+00:05:18,256 --> 00:05:19,926
+the open URL action if it is.
+
+
+144
+00:05:20,596 --> 00:05:23,386
+And if not, it calls a helper
+
+
+145
+00:05:23,386 --> 00:05:25,386
+method to show some UI to direct
+
+
+146
+00:05:25,386 --> 00:05:26,526
+the user to install the other
+
+
+147
+00:05:26,526 --> 00:05:27,000
+app.
+
+
+148
+00:05:30,086 --> 00:05:31,536
+Now, I want to write some tests
+
+
+149
+00:05:31,696 --> 00:05:32,996
+to make sure that this Open
+
+
+150
+00:05:32,996 --> 00:05:34,186
+button is working the way it's
+
+
+151
+00:05:34,186 --> 00:05:35,436
+supposed to.
+
+
+152
+00:05:36,916 --> 00:05:38,196
+There are a couple of different
+
+
+153
+00:05:38,196 --> 00:05:39,896
+ways to approach testing this.
+
+
+154
+00:05:41,446 --> 00:05:43,346
+One option would be to write a
+
+
+155
+00:05:43,346 --> 00:05:43,916
+UI test.
+
+
+156
+00:05:45,216 --> 00:05:46,566
+We ask to launch the app,
+
+
+157
+00:05:46,566 --> 00:05:48,886
+navigate to this screen, tap on
+
+
+158
+00:05:48,936 --> 00:05:50,316
+the [inaudible] control, to peck
+
+
+159
+00:05:50,316 --> 00:05:52,256
+and open mode, tap the Open
+
+
+160
+00:05:52,256 --> 00:05:55,196
+button, and then verify that the
+
+
+161
+00:05:55,196 --> 00:05:56,506
+phone switched to show the other
+
+
+162
+00:05:56,506 --> 00:05:57,186
+app.
+
+
+163
+00:05:57,446 --> 00:06:00,196
+While this would work, there are
+
+
+164
+00:06:00,196 --> 00:06:01,446
+some drawbacks to this approach.
+
+
+165
+00:06:01,886 --> 00:06:04,866
+For one, the task would probably
+
+
+166
+00:06:04,866 --> 00:06:07,006
+take a while to run, especially
+
+
+167
+00:06:07,006 --> 00:06:08,836
+if I wanted to expand it to test
+
+
+168
+00:06:08,836 --> 00:06:09,976
+with several different documents
+
+
+169
+00:06:09,976 --> 00:06:11,066
+types for the different open
+
+
+170
+00:06:11,066 --> 00:06:11,466
+modes.
+
+
+171
+00:06:11,996 --> 00:06:15,086
+The bigger problem, however, is
+
+
+172
+00:06:15,086 --> 00:06:17,606
+that a UI test would have no way
+
+
+173
+00:06:17,606 --> 00:06:19,206
+to inspect that URL that was
+
+
+174
+00:06:19,206 --> 00:06:21,366
+being generated, to request that
+
+
+175
+00:06:21,366 --> 00:06:22,236
+iOS switch apps.
+
+
+176
+00:06:23,166 --> 00:06:24,526
+And that URL is really something
+
+
+177
+00:06:24,526 --> 00:06:25,436
+that I want to be able to
+
+
+178
+00:06:25,436 --> 00:06:26,576
+inspect more precisely.
+
+
+179
+00:06:28,176 --> 00:06:29,626
+So, it really feels like a unit
+
+
+180
+00:06:29,626 --> 00:06:30,876
+test is more appropriate for the
+
+
+181
+00:06:30,876 --> 00:06:31,556
+situation.
+
+
+182
+00:06:34,416 --> 00:06:35,586
+So, let's see what it would take
+
+
+183
+00:06:35,586 --> 00:06:36,836
+to write a unit test for this
+
+
+184
+00:06:36,836 --> 00:06:37,000
+code.
+
+
+185
+00:06:40,016 --> 00:06:41,806
+First, you need an instance of
+
+
+186
+00:06:41,806 --> 00:06:42,756
+the view controller to work
+
+
+187
+00:06:42,756 --> 00:06:42,926
+with.
+
+
+188
+00:06:44,346 --> 00:06:45,286
+My view controller uses a
+
+
+189
+00:06:45,286 --> 00:06:47,406
+storyboard for its UI, so I'll
+
+
+190
+00:06:47,406 --> 00:06:48,986
+ask UI Storyboard to give me an
+
+
+191
+00:06:48,986 --> 00:06:50,126
+instance of the view controller.
+
+
+192
+00:06:50,646 --> 00:06:54,616
+Then we need to load the view to
+
+
+193
+00:06:55,976 --> 00:06:57,186
+populate that [inaudible]
+
+
+194
+00:06:57,186 --> 00:06:59,856
+control property, so that we --
+
+
+195
+00:06:59,856 --> 00:07:01,776
+it's populated by the view data.
+
+
+196
+00:07:01,776 --> 00:07:03,786
+We can then configure that for
+
+
+197
+00:07:03,786 --> 00:07:05,096
+our open mode.
+
+
+198
+00:07:05,756 --> 00:07:07,406
+Provide a document to work with.
+
+
+199
+00:07:08,106 --> 00:07:12,136
+And with the setup finally
+
+
+200
+00:07:12,136 --> 00:07:13,566
+complete, we're now ready to
+
+
+201
+00:07:13,566 --> 00:07:15,546
+call the method being tested.
+
+
+202
+00:07:18,116 --> 00:07:19,576
+But what do we do now?
+
+
+203
+00:07:20,836 --> 00:07:22,046
+It's not so clear what kind of
+
+
+204
+00:07:22,046 --> 00:07:23,000
+assertion we could write here.
+
+
+205
+00:07:27,056 --> 00:07:29,176
+Let's go back to the code, and
+
+
+206
+00:07:29,176 --> 00:07:30,346
+look more closely at what makes
+
+
+207
+00:07:30,346 --> 00:07:32,146
+this challenging to test.
+
+
+208
+00:07:34,386 --> 00:07:36,476
+For one thing, just being in a
+
+
+209
+00:07:36,476 --> 00:07:37,806
+view controller, made the
+
+
+210
+00:07:37,806 --> 00:07:39,346
+methods test more complicated.
+
+
+211
+00:07:39,986 --> 00:07:40,806
+You're going to jump through
+
+
+212
+00:07:40,806 --> 00:07:41,436
+some hoops to get the view
+
+
+213
+00:07:41,436 --> 00:07:42,506
+controller instance to work
+
+
+214
+00:07:42,506 --> 00:07:42,656
+with.
+
+
+215
+00:07:43,236 --> 00:07:46,776
+Then here, we're pulling input
+
+
+216
+00:07:46,776 --> 00:07:48,286
+state directly from the view.
+
+
+217
+00:07:48,286 --> 00:07:50,646
+[Inaudible] of the test had to
+
+
+218
+00:07:50,646 --> 00:07:52,536
+force the view to load, and then
+
+
+219
+00:07:52,576 --> 00:07:54,636
+indirectly provide the input by
+
+
+220
+00:07:54,636 --> 00:07:56,066
+setting a property on some
+
+
+221
+00:07:56,776 --> 00:08:00,066
+sub-view.
+
+
+222
+00:08:00,266 --> 00:08:01,966
+The biggest problem though was
+
+
+223
+00:08:01,966 --> 00:08:03,826
+this usage of a UI application
+
+
+224
+00:08:03,826 --> 00:08:04,706
+shared instance.
+
+
+225
+00:08:08,516 --> 00:08:10,286
+The return value from this call
+
+
+226
+00:08:10,286 --> 00:08:12,816
+to can open URL, is effectively
+
+
+227
+00:08:12,816 --> 00:08:14,126
+another input for the method.
+
+
+228
+00:08:15,586 --> 00:08:16,966
+But since this relies on global
+
+
+229
+00:08:16,966 --> 00:08:18,676
+system state, there's no
+
+
+230
+00:08:18,676 --> 00:08:20,356
+programmatic way for the test to
+
+
+231
+00:08:20,356 --> 00:08:21,506
+control the result of this
+
+
+232
+00:08:21,506 --> 00:08:22,000
+query.
+
+
+233
+00:08:25,396 --> 00:08:26,606
+Nor is there a good way for a
+
+
+234
+00:08:26,606 --> 00:08:28,306
+unit test to observe the side
+
+
+235
+00:08:28,306 --> 00:08:29,836
+effects of opening a URL.
+
+
+236
+00:08:30,616 --> 00:08:33,806
+In fact, after calling this, the
+
+
+237
+00:08:33,806 --> 00:08:35,155
+test render app would actually
+
+
+238
+00:08:35,155 --> 00:08:36,635
+be sent to the background, and
+
+
+239
+00:08:36,635 --> 00:08:37,546
+there'd be no way to bring it
+
+
+240
+00:08:37,546 --> 00:08:38,206
+back to the foreground
+
+
+241
+00:08:38,206 --> 00:08:38,765
+afterwards.
+
+
+242
+00:08:38,765 --> 00:08:42,645
+So, let's see what we can do to
+
+
+243
+00:08:42,645 --> 00:08:43,946
+improve the testability of this
+
+
+244
+00:08:43,946 --> 00:08:44,206
+code.
+
+
+245
+00:08:44,856 --> 00:08:48,846
+We can start by getting it out
+
+
+246
+00:08:48,846 --> 00:08:49,586
+of the view controller.
+
+
+247
+00:08:50,046 --> 00:08:53,076
+Let's introduce a new document
+
+
+248
+00:08:53,076 --> 00:08:55,206
+opener class, to encapsulate
+
+
+249
+00:08:55,206 --> 00:08:56,206
+this logic and behavior.
+
+
+250
+00:08:58,756 --> 00:09:00,506
+The open mode and document
+
+
+251
+00:09:00,506 --> 00:09:02,426
+inputs, should now be provided a
+
+
+252
+00:09:02,426 --> 00:09:04,126
+simple method arguments that the
+
+
+253
+00:09:04,126 --> 00:09:05,346
+test can pass indirectly.
+
+
+254
+00:09:05,996 --> 00:09:09,306
+But we still have to fix the
+
+
+255
+00:09:09,306 --> 00:09:11,026
+problems caused by that shared
+
+
+256
+00:09:11,026 --> 00:09:12,496
+UI application incidence.
+
+
+257
+00:09:13,026 --> 00:09:17,246
+What can we do about that?
+
+
+258
+00:09:18,056 --> 00:09:20,086
+Well, to start, we can stop
+
+
+259
+00:09:20,086 --> 00:09:21,336
+using that [inaudible] accessor
+
+
+260
+00:09:21,336 --> 00:09:22,376
+directly into method.
+
+
+261
+00:09:22,966 --> 00:09:25,696
+Let's add an initializer to the
+
+
+262
+00:09:25,696 --> 00:09:27,786
+class that lets us pass in a
+
+
+263
+00:09:27,786 --> 00:09:29,776
+particular application instance.
+
+
+264
+00:09:30,316 --> 00:09:34,126
+We can provide a default value
+
+
+265
+00:09:34,126 --> 00:09:35,986
+for the argument, so the
+
+
+266
+00:09:35,986 --> 00:09:36,336
+[inaudible] in the view
+
+
+267
+00:09:36,336 --> 00:09:37,436
+controller, doesn't have to
+
+
+268
+00:09:37,436 --> 00:09:38,426
+worry about this detail.
+
+
+269
+00:09:38,996 --> 00:09:44,546
+Back in the open method, we then
+
+
+270
+00:09:44,546 --> 00:09:45,556
+switch over to use the
+
+
+271
+00:09:45,556 --> 00:09:47,006
+application instance that was
+
+
+272
+00:09:47,006 --> 00:09:49,416
+passed in.
+
+
+273
+00:09:49,636 --> 00:09:50,366
+Let's see how far this
+
+
+274
+00:09:50,366 --> 00:09:51,356
+refactoring gets us.
+
+
+275
+00:09:55,016 --> 00:09:56,556
+If we try to rewrite our test
+
+
+276
+00:09:56,556 --> 00:09:58,536
+now, with the document open or
+
+
+277
+00:09:58,536 --> 00:10:00,116
+in its current state, we'll
+
+
+278
+00:10:00,116 --> 00:10:01,006
+still find ourselves getting
+
+
+279
+00:10:01,006 --> 00:10:01,606
+stuck.
+
+
+280
+00:10:02,896 --> 00:10:03,786
+You want to pass in an
+
+
+281
+00:10:03,786 --> 00:10:04,836
+application instance that we
+
+
+282
+00:10:04,836 --> 00:10:05,966
+have control over.
+
+
+283
+00:10:06,566 --> 00:10:07,886
+So, you can imagine sub-classing
+
+
+284
+00:10:07,886 --> 00:10:10,156
+UI application, overriding the
+
+
+285
+00:10:10,156 --> 00:10:12,236
+can open URL and open methods,
+
+
+286
+00:10:12,456 --> 00:10:13,896
+to get the control that we need.
+
+
+287
+00:10:14,166 --> 00:10:16,616
+However, it turns out that UI
+
+
+288
+00:10:16,616 --> 00:10:18,486
+application strictly enforces
+
+
+289
+00:10:18,486 --> 00:10:19,446
+its singleton nature.
+
+
+290
+00:10:20,166 --> 00:10:21,476
+And throws an exception to try
+
+
+291
+00:10:21,476 --> 00:10:23,086
+to make a second instance, even
+
+
+292
+00:10:23,086 --> 00:10:24,000
+if it's a subclass.
+
+
+293
+00:10:27,046 --> 00:10:28,006
+So, instead of using
+
+
+294
+00:10:28,066 --> 00:10:29,876
+sub-classing, to get the control
+
+
+295
+00:10:29,876 --> 00:10:32,176
+that we need, let's instead add
+
+
+296
+00:10:32,176 --> 00:10:33,766
+a protocol, URL Opening.
+
+
+297
+00:10:34,316 --> 00:10:38,136
+We go to protocol, two methods,
+
+
+298
+00:10:38,786 --> 00:10:39,756
+with precisely the same
+
+
+299
+00:10:39,756 --> 00:10:41,596
+signatures as the application
+
+
+300
+00:10:41,596 --> 00:10:43,506
+methods that we've been using up
+
+
+301
+00:10:44,166 --> 00:10:47,506
+to this point.
+
+
+302
+00:10:47,506 --> 00:10:49,546
+We still want UI application to
+
+
+303
+00:10:49,546 --> 00:10:50,966
+be the primary implementation of
+
+
+304
+00:10:50,966 --> 00:10:51,596
+this protocol.
+
+
+305
+00:10:52,876 --> 00:10:54,626
+So, we'll throw an extension on
+
+
+306
+00:10:54,626 --> 00:10:56,466
+UI application to give it the
+
+
+307
+00:10:56,466 --> 00:10:57,726
+URL opening conformance.
+
+
+308
+00:10:58,226 --> 00:11:02,066
+Since the method signatures line
+
+
+309
+00:11:02,066 --> 00:11:03,736
+up exactly, you don't have to
+
+
+310
+00:11:03,736 --> 00:11:05,106
+add any additional code in the
+
+
+311
+00:11:05,106 --> 00:11:05,896
+extension to get the
+
+
+312
+00:11:05,896 --> 00:11:06,386
+conformance.
+
+
+313
+00:11:06,426 --> 00:11:12,056
+With a protocol in place, let's
+
+
+314
+00:11:12,056 --> 00:11:13,736
+update the document opener to
+
+
+315
+00:11:13,736 --> 00:11:15,436
+use the protocol instead of
+
+
+316
+00:11:15,436 --> 00:11:17,000
+requiring UI application itself.
+
+
+317
+00:11:20,366 --> 00:11:21,946
+First, we change the property
+
+
+318
+00:11:21,946 --> 00:11:24,306
+and initialize a parameter to
+
+
+319
+00:11:24,306 --> 00:11:25,766
+accept any implementation of the
+
+
+320
+00:11:25,766 --> 00:11:26,856
+URL opening protocol.
+
+
+321
+00:11:27,446 --> 00:11:30,216
+Note that we're still able to
+
+
+322
+00:11:30,216 --> 00:11:31,716
+keep the shared UI application
+
+
+323
+00:11:31,716 --> 00:11:32,846
+instance with the default
+
+
+324
+00:11:32,846 --> 00:11:34,816
+argument as a convenience when
+
+
+325
+00:11:34,816 --> 00:11:35,506
+we use it in the view
+
+
+326
+00:11:35,506 --> 00:11:35,986
+controller.
+
+
+327
+00:11:39,316 --> 00:11:40,856
+A final change requires the
+
+
+328
+00:11:40,856 --> 00:11:43,176
+document opener simply to adopt
+
+
+329
+00:11:43,176 --> 00:11:45,416
+the URL opener property name.
+
+
+330
+00:11:48,576 --> 00:11:49,826
+With that, let's return to the
+
+
+331
+00:11:49,826 --> 00:11:51,546
+test and see how the pieces fit
+
+
+332
+00:11:51,546 --> 00:11:52,000
+together.
+
+
+333
+00:11:57,046 --> 00:11:58,796
+Since UI Application doesn't
+
+
+334
+00:11:58,796 --> 00:12:00,196
+give us the control that we need
+
+
+335
+00:12:00,196 --> 00:12:02,146
+in our test, we want to create a
+
+
+336
+00:12:02,146 --> 00:12:04,076
+secondary mock implementation of
+
+
+337
+00:12:04,076 --> 00:12:06,566
+the protocol, to use in its
+
+
+338
+00:12:08,436 --> 00:12:08,566
+place.
+
+
+339
+00:12:08,746 --> 00:12:10,506
+Here we add a sub-implementation
+
+
+340
+00:12:10,596 --> 00:12:13,866
+of the two methods.
+
+
+341
+00:12:13,866 --> 00:12:16,246
+The can open URL method acts as
+
+
+342
+00:12:16,246 --> 00:12:17,516
+an input from the document
+
+
+343
+00:12:17,516 --> 00:12:17,896
+opener.
+
+
+344
+00:12:18,726 --> 00:12:19,596
+So, the test needs to have
+
+
+345
+00:12:19,596 --> 00:12:20,776
+control over this input.
+
+
+346
+00:12:21,806 --> 00:12:22,816
+We can get that by having the
+
+
+347
+00:12:22,816 --> 00:12:24,716
+implementation return the value
+
+
+348
+00:12:24,716 --> 00:12:26,276
+of a property that the test can
+
+
+349
+00:12:26,276 --> 00:12:27,096
+set beforehand.
+
+
+350
+00:12:30,296 --> 00:12:32,106
+The open method, act as an
+
+
+351
+00:12:32,106 --> 00:12:33,636
+output from the document opener.
+
+
+352
+00:12:34,836 --> 00:12:35,776
+The test wants to be able to
+
+
+353
+00:12:35,776 --> 00:12:37,996
+access any URL that was passed
+
+
+354
+00:12:37,996 --> 00:12:38,696
+into this method.
+
+
+355
+00:12:39,176 --> 00:12:41,916
+We can achieve that by stashing
+
+
+356
+00:12:41,916 --> 00:12:43,916
+the URL into a property for the
+
+
+357
+00:12:43,976 --> 00:12:45,346
+test to -- to read afterwards.
+
+
+358
+00:12:48,956 --> 00:12:50,616
+So, let's go ahead and write the
+
+
+359
+00:12:50,616 --> 00:12:51,000
+test.
+
+
+360
+00:12:53,436 --> 00:12:54,726
+First, we create an instance of
+
+
+361
+00:12:54,726 --> 00:12:56,146
+our mock URL opener that we just
+
+
+362
+00:12:56,146 --> 00:12:58,306
+wrote, and configure the input
+
+
+363
+00:12:58,546 --> 00:12:59,706
+using the can open property.
+
+
+364
+00:13:02,296 --> 00:13:03,446
+And create a document opener.
+
+
+365
+00:13:03,446 --> 00:13:06,046
+And we pass in that mock URL
+
+
+366
+00:13:06,046 --> 00:13:07,106
+opener as the argument.
+
+
+367
+00:13:07,666 --> 00:13:11,756
+With that setup finished, we can
+
+
+368
+00:13:11,756 --> 00:13:14,216
+call the open method, passing in
+
+
+369
+00:13:14,216 --> 00:13:15,696
+document and open mode values,
+
+
+370
+00:13:16,066 --> 00:13:18,186
+to act as the rest of the input.
+
+
+371
+00:13:20,316 --> 00:13:22,296
+And we can then assert that the
+
+
+372
+00:13:22,296 --> 00:13:24,116
+opened URL property of the mock
+
+
+373
+00:13:24,116 --> 00:13:26,216
+URL opener, has been set to the
+
+
+374
+00:13:26,216 --> 00:13:27,036
+expected URL.
+
+
+375
+00:13:27,666 --> 00:13:30,966
+This one assertion, is testing
+
+
+376
+00:13:30,966 --> 00:13:32,446
+both at the open method was
+
+
+377
+00:13:32,446 --> 00:13:34,756
+called at all, as well as the
+
+
+378
+00:13:34,756 --> 00:13:36,436
+URL passed in contains the
+
+
+379
+00:13:36,436 --> 00:13:37,006
+correct data.
+
+
+380
+00:13:40,696 --> 00:13:42,186
+With that test under our belt,
+
+
+381
+00:13:42,546 --> 00:13:43,606
+you could continue to write
+
+
+382
+00:13:43,606 --> 00:13:45,046
+tests for other variations of
+
+
+383
+00:13:45,046 --> 00:13:47,286
+input data, such as when the can
+
+
+384
+00:13:47,286 --> 00:13:48,626
+open property is set to false.
+
+
+385
+00:13:48,626 --> 00:13:50,436
+But we have a lot more to cover,
+
+
+386
+00:13:50,436 --> 00:13:51,806
+so let's just leave it there.
+
+
+387
+00:13:55,646 --> 00:13:57,776
+So, in this example, you
+
+
+388
+00:13:57,776 --> 00:13:59,766
+performed a few refactorings to
+
+
+389
+00:13:59,766 --> 00:14:01,406
+allow us to write unit tests for
+
+
+390
+00:14:01,406 --> 00:14:02,000
+our code.
+
+
+391
+00:14:04,436 --> 00:14:05,506
+We pulled out explicit
+
+
+392
+00:14:05,506 --> 00:14:07,046
+references to a shared singleton
+
+
+393
+00:14:07,046 --> 00:14:09,416
+instance, and replaced them with
+
+
+394
+00:14:09,416 --> 00:14:11,516
+parameterized input to offer
+
+
+395
+00:14:11,516 --> 00:14:12,246
+substitution.
+
+
+396
+00:14:13,666 --> 00:14:15,566
+This is sometimes referred to as
+
+
+397
+00:14:15,566 --> 00:14:17,976
+a penancy injection.
+
+
+398
+00:14:18,196 --> 00:14:20,186
+In this example, we use an
+
+
+399
+00:14:20,186 --> 00:14:22,356
+initializer parameter to achieve
+
+
+400
+00:14:22,356 --> 00:14:22,916
+this.
+
+
+401
+00:14:23,296 --> 00:14:24,466
+We could also have used a
+
+
+402
+00:14:24,466 --> 00:14:26,636
+property setter, or a parameter
+
+
+403
+00:14:26,636 --> 00:14:27,500
+of the method being tested.
+
+
+404
+00:14:31,196 --> 00:14:33,236
+We created a protocol to
+
+
+405
+00:14:33,236 --> 00:14:34,276
+decouple the code from the
+
+
+406
+00:14:34,276 --> 00:14:35,396
+concrete class that it
+
+
+407
+00:14:35,396 --> 00:14:37,000
+previously depended on.
+
+
+408
+00:14:39,096 --> 00:14:40,396
+And we created a test
+
+
+409
+00:14:40,396 --> 00:14:42,756
+implementation to use in its
+
+
+410
+00:14:42,756 --> 00:14:43,176
+place.
+
+
+411
+00:14:43,176 --> 00:14:45,506
+And it gave us the control that
+
+
+412
+00:14:45,506 --> 00:14:46,826
+we needed over the inputs, and
+
+
+413
+00:14:47,426 --> 00:14:49,346
+the visibility into the outputs.
+
+
+414
+00:14:56,276 --> 00:14:58,656
+Next, I want to look at how
+
+
+415
+00:14:58,656 --> 00:15:00,356
+separating out logic from
+
+
+416
+00:15:00,356 --> 00:15:02,176
+effects, can also be used to
+
+
+417
+00:15:02,176 --> 00:15:03,386
+enhance testability.
+
+
+418
+00:15:07,636 --> 00:15:10,226
+The example here is an on-disk
+
+
+419
+00:15:10,316 --> 00:15:12,466
+cache class, which might be used
+
+
+420
+00:15:12,466 --> 00:15:14,526
+by an app for faster retrieval
+
+
+421
+00:15:14,526 --> 00:15:15,806
+of assets that have been
+
+
+422
+00:15:15,806 --> 00:15:17,346
+previously downloaded from a
+
+
+423
+00:15:17,856 --> 00:15:18,000
+server.
+
+
+424
+00:15:20,946 --> 00:15:22,866
+This cache defines a script for
+
+
+425
+00:15:22,866 --> 00:15:24,066
+representing the items that it
+
+
+426
+00:15:24,066 --> 00:15:24,416
+stores.
+
+
+427
+00:15:24,896 --> 00:15:26,926
+It defines the path to the item
+
+
+428
+00:15:26,926 --> 00:15:28,936
+on the file system, how long
+
+
+429
+00:15:28,936 --> 00:15:30,436
+it's been in the cache, and its
+
+
+430
+00:15:30,436 --> 00:15:31,146
+size on disk.
+
+
+431
+00:15:31,656 --> 00:15:34,166
+And it provides a way to get the
+
+
+432
+00:15:34,166 --> 00:15:35,706
+set of all the items currently
+
+
+433
+00:15:35,706 --> 00:15:36,586
+stored in the cache.
+
+
+434
+00:15:40,096 --> 00:15:41,176
+The method that you want to look
+
+
+435
+00:15:41,176 --> 00:15:43,216
+at now, though, is a cleanup
+
+
+436
+00:15:43,216 --> 00:15:43,586
+method.
+
+
+437
+00:15:44,316 --> 00:15:45,096
+It's meant to be called
+
+
+438
+00:15:45,096 --> 00:15:46,816
+periodically, to ensure that the
+
+
+439
+00:15:46,816 --> 00:15:47,976
+cache doesn't grow to take up
+
+
+440
+00:15:47,976 --> 00:15:49,146
+too much space in the file
+
+
+441
+00:15:49,146 --> 00:15:49,486
+system.
+
+
+442
+00:15:49,836 --> 00:15:53,136
+So, let's have a look at the
+
+
+443
+00:15:53,136 --> 00:15:54,716
+starting implementation for this
+
+
+444
+00:15:55,176 --> 00:15:55,326
+method.
+
+
+445
+00:15:57,256 --> 00:15:59,716
+First, it asks for the set of
+
+
+446
+00:15:59,716 --> 00:16:00,916
+all the current items in the
+
+
+447
+00:16:00,916 --> 00:16:02,926
+cache, sorts them from newest to
+
+
+448
+00:16:02,926 --> 00:16:03,456
+oldest.
+
+
+449
+00:16:03,936 --> 00:16:07,646
+But then it [inaudible] over all
+
+
+450
+00:16:07,646 --> 00:16:09,986
+of these items, keeping track of
+
+
+451
+00:16:09,986 --> 00:16:11,406
+the total size of the items
+
+
+452
+00:16:11,406 --> 00:16:12,000
+already seen.
+
+
+453
+00:16:15,086 --> 00:16:16,086
+Once you've seen enough items
+
+
+454
+00:16:16,156 --> 00:16:17,196
+then we reached our maximum
+
+
+455
+00:16:17,196 --> 00:16:19,416
+size, we begin removing the rest
+
+
+456
+00:16:19,416 --> 00:16:23,636
+of them from the file system.
+
+
+457
+00:16:23,896 --> 00:16:24,986
+So, let's think about how to
+
+
+458
+00:16:24,986 --> 00:16:25,646
+test this method.
+
+
+459
+00:16:26,976 --> 00:16:27,846
+What are the inputs?
+
+
+460
+00:16:28,186 --> 00:16:31,566
+What are the outputs?
+
+
+461
+00:16:31,696 --> 00:16:33,896
+Well, one input is the parameter
+
+
+462
+00:16:33,896 --> 00:16:35,116
+specifying how large you want
+
+
+463
+00:16:35,116 --> 00:16:36,346
+the cache to be able to grow.
+
+
+464
+00:16:36,346 --> 00:16:39,076
+This is a simple integer, and a
+
+
+465
+00:16:39,076 --> 00:16:40,996
+method parameter, so the test
+
+
+466
+00:16:40,996 --> 00:16:42,476
+already has full control over
+
+
+467
+00:16:42,606 --> 00:16:42,660
+it.
+
+
+468
+00:16:45,316 --> 00:16:47,506
+The other input, is the list of
+
+
+469
+00:16:47,506 --> 00:16:48,816
+items that are currently stored
+
+
+470
+00:16:48,816 --> 00:16:51,226
+in the cache.
+
+
+471
+00:16:51,436 --> 00:16:52,636
+We didn't take the time to look
+
+
+472
+00:16:52,636 --> 00:16:54,326
+at how this is implemented, but
+
+
+473
+00:16:54,326 --> 00:16:56,236
+the key point is that it uses a
+
+
+474
+00:16:56,236 --> 00:16:57,976
+file manager to retrieve a list
+
+
+475
+00:16:57,976 --> 00:16:59,586
+of files from the disc.
+
+
+476
+00:17:01,736 --> 00:17:03,326
+This means that the input is
+
+
+477
+00:17:03,326 --> 00:17:04,626
+actually derived from the file
+
+
+478
+00:17:04,626 --> 00:17:06,836
+system, which is the dependency
+
+
+479
+00:17:06,836 --> 00:17:07,726
+that the tests would need to
+
+
+480
+00:17:07,726 --> 00:17:08,976
+deal with.
+
+
+481
+00:17:12,296 --> 00:17:14,276
+The clean cache method has no
+
+
+482
+00:17:14,276 --> 00:17:14,965
+return value.
+
+
+483
+00:17:15,576 --> 00:17:18,606
+So, its output can't be data.
+
+
+484
+00:17:18,786 --> 00:17:20,566
+Rather, it's the side effect of
+
+
+485
+00:17:20,566 --> 00:17:22,296
+a certain set of files having
+
+
+486
+00:17:22,296 --> 00:17:23,606
+been removed from the disc.
+
+
+487
+00:17:24,056 --> 00:17:27,195
+Because of this dependency on
+
+
+488
+00:17:27,195 --> 00:17:29,146
+the file system, tests for this
+
+
+489
+00:17:29,146 --> 00:17:31,436
+method would need to deal with a
+
+
+490
+00:17:31,436 --> 00:17:33,126
+file manager in the file system.
+
+
+491
+00:17:34,336 --> 00:17:35,966
+For setup, they might need to
+
+
+492
+00:17:35,966 --> 00:17:37,876
+create a temporary directory and
+
+
+493
+00:17:37,876 --> 00:17:39,716
+populate it with a bunch of
+
+
+494
+00:17:39,716 --> 00:17:41,526
+files of certain sizes and give
+
+
+495
+00:17:41,526 --> 00:17:43,196
+them particular timestamps to
+
+
+496
+00:17:43,196 --> 00:17:43,936
+provide the input.
+
+
+497
+00:17:45,856 --> 00:17:47,466
+To validate the output, you
+
+
+498
+00:17:47,836 --> 00:17:48,876
+would need to then return to the
+
+
+499
+00:17:48,876 --> 00:17:50,936
+file system to see which files
+
+
+500
+00:17:50,936 --> 00:17:52,000
+are still there.
+
+
+501
+00:17:56,176 --> 00:17:57,266
+One way to approach this could
+
+
+502
+00:17:57,266 --> 00:17:59,816
+be to use the protocols and
+
+
+503
+00:17:59,816 --> 00:18:01,116
+parameterization techniques that
+
+
+504
+00:18:01,116 --> 00:18:01,926
+we've already seen.
+
+
+505
+00:18:03,296 --> 00:18:04,636
+You could introduce a file
+
+
+506
+00:18:04,636 --> 00:18:06,676
+manager protocol that has the
+
+
+507
+00:18:06,676 --> 00:18:07,916
+methods that we need for getting
+
+
+508
+00:18:07,916 --> 00:18:09,606
+a list of files, and for
+
+
+509
+00:18:09,606 --> 00:18:10,306
+removing a file.
+
+
+510
+00:18:11,786 --> 00:18:13,026
+And then create a test
+
+
+511
+00:18:13,026 --> 00:18:15,206
+implementation that would allow
+
+
+512
+00:18:15,206 --> 00:18:16,446
+specifying the list of files
+
+
+513
+00:18:16,446 --> 00:18:17,986
+that would be returned, and a
+
+
+514
+00:18:17,986 --> 00:18:19,246
+query of which ones have been
+
+
+515
+00:18:19,746 --> 00:18:19,946
+removed.
+
+
+516
+00:18:21,996 --> 00:18:23,396
+If we do this though, we're
+
+
+517
+00:18:23,396 --> 00:18:25,136
+still interacting indirectly
+
+
+518
+00:18:25,286 --> 00:18:26,276
+with the code that we're trying
+
+
+519
+00:18:26,276 --> 00:18:28,386
+to test mediated by the file
+
+
+520
+00:18:28,386 --> 00:18:28,756
+manager.
+
+
+521
+00:18:32,306 --> 00:18:34,146
+Instead, let's try something a
+
+
+522
+00:18:34,146 --> 00:18:35,156
+little bit different.
+
+
+523
+00:18:35,826 --> 00:18:37,406
+We could take our clean cache
+
+
+524
+00:18:37,406 --> 00:18:40,376
+method and factor out the logic
+
+
+525
+00:18:40,656 --> 00:18:41,896
+responsible for deciding while
+
+
+526
+00:18:41,896 --> 00:18:44,126
+files should be removed, the
+
+
+527
+00:18:44,126 --> 00:18:46,606
+clean-up policy, which you can
+
+
+528
+00:18:46,606 --> 00:18:47,576
+then interact with more
+
+
+529
+00:18:47,576 --> 00:18:48,026
+directly.
+
+
+530
+00:18:48,666 --> 00:18:51,606
+Let's see how that might work.
+
+
+531
+00:18:54,776 --> 00:18:56,136
+To clearly define the APIs we're
+
+
+532
+00:18:56,136 --> 00:18:57,316
+going to work with, let's first
+
+
+533
+00:18:57,586 --> 00:18:59,206
+define clean-up policy as a
+
+
+534
+00:18:59,206 --> 00:18:59,776
+protocol.
+
+
+535
+00:19:00,406 --> 00:19:03,976
+It just needs a single method --
+
+
+536
+00:19:04,326 --> 00:19:05,126
+items to remove.
+
+
+537
+00:19:06,456 --> 00:19:07,876
+Notice how the type signature
+
+
+538
+00:19:07,876 --> 00:19:09,696
+that we've given it, looks a bit
+
+
+539
+00:19:09,696 --> 00:19:11,836
+different than from the clean
+
+
+540
+00:19:11,836 --> 00:19:13,126
+cache method that we started
+
+
+541
+00:19:13,416 --> 00:19:13,500
+with.
+
+
+542
+00:19:16,066 --> 00:19:18,856
+As input, the new method takes a
+
+
+543
+00:19:18,916 --> 00:19:20,276
+set of cache item values.
+
+
+544
+00:19:21,616 --> 00:19:23,316
+And for output, it returns
+
+
+545
+00:19:23,416 --> 00:19:25,506
+another set of them, but that is
+
+
+546
+00:19:25,506 --> 00:19:27,206
+the ones to be removed.
+
+
+547
+00:19:30,596 --> 00:19:32,046
+So, let's see how we can
+
+
+548
+00:19:32,046 --> 00:19:33,696
+implement this protocol using
+
+
+549
+00:19:33,696 --> 00:19:35,166
+the algorithm that we previously
+
+
+550
+00:19:35,166 --> 00:19:37,326
+saw from the cache class.
+
+
+551
+00:19:39,416 --> 00:19:40,546
+Well, first define a property
+
+
+552
+00:19:40,756 --> 00:19:41,966
+for that max size input.
+
+
+553
+00:19:42,896 --> 00:19:44,276
+That'll let us specify this max
+
+
+554
+00:19:44,276 --> 00:19:45,496
+size, and we construct the
+
+
+555
+00:19:45,496 --> 00:19:45,936
+policy.
+
+
+556
+00:19:48,916 --> 00:19:50,646
+Then we add the items to remove
+
+
+557
+00:19:50,646 --> 00:19:52,166
+method that the protocol
+
+
+558
+00:19:52,166 --> 00:19:52,716
+requires.
+
+
+559
+00:19:56,136 --> 00:19:57,686
+We want to inspect each of the
+
+
+560
+00:19:57,686 --> 00:19:59,096
+items passed into the method,
+
+
+561
+00:19:59,786 --> 00:20:01,246
+and build up a set of items to
+
+
+562
+00:20:01,246 --> 00:20:02,906
+remove, and return that to the
+
+
+563
+00:20:02,906 --> 00:20:04,000
+method when we're done.
+
+
+564
+00:20:07,216 --> 00:20:09,166
+To populate the set, we'll loop
+
+
+565
+00:20:09,166 --> 00:20:10,346
+over all of the items from
+
+
+566
+00:20:10,346 --> 00:20:13,416
+newest to oldest, summing up the
+
+
+567
+00:20:13,416 --> 00:20:14,826
+size of all the items we've seen
+
+
+568
+00:20:14,826 --> 00:20:16,006
+so far.
+
+
+569
+00:20:18,336 --> 00:20:19,776
+Once we've reached the maximum
+
+
+570
+00:20:19,776 --> 00:20:22,346
+size, we start adding the rest
+
+
+571
+00:20:22,346 --> 00:20:24,186
+to the set of items to remove.
+
+
+572
+00:20:27,496 --> 00:20:29,826
+Looking at this code, we can see
+
+
+573
+00:20:29,826 --> 00:20:31,086
+that the side effects that were
+
+
+574
+00:20:31,086 --> 00:20:32,556
+prone in the earlier version
+
+
+575
+00:20:32,806 --> 00:20:33,556
+have been removed.
+
+
+576
+00:20:34,166 --> 00:20:36,666
+What remains is the underlying
+
+
+577
+00:20:36,666 --> 00:20:40,096
+algorithm, taking data as input,
+
+
+578
+00:20:40,806 --> 00:20:44,016
+and returning some data as
+
+
+579
+00:20:44,016 --> 00:20:44,416
+output.
+
+
+580
+00:20:45,566 --> 00:20:46,886
+We can also visualize the data
+
+
+581
+00:20:46,886 --> 00:20:47,956
+flow that we've achieved by
+
+
+582
+00:20:47,956 --> 00:20:48,496
+doing this.
+
+
+583
+00:20:49,106 --> 00:20:51,826
+Notice that the code has taken
+
+
+584
+00:20:51,826 --> 00:20:53,206
+on a very functional style.
+
+
+585
+00:20:53,946 --> 00:20:55,376
+Data in; data out.
+
+
+586
+00:20:59,736 --> 00:21:01,336
+With the logic factored out in
+
+
+587
+00:21:01,336 --> 00:21:03,456
+this way, we've enabled
+
+
+588
+00:21:03,456 --> 00:21:04,796
+ourselves to write clear,
+
+
+589
+00:21:04,796 --> 00:21:06,536
+concise tests that put the
+
+
+590
+00:21:06,536 --> 00:21:10,216
+algorithm through its paces.
+
+
+591
+00:21:10,336 --> 00:21:12,046
+All we have to do is define an
+
+
+592
+00:21:12,156 --> 00:21:16,536
+input set with some cache items,
+
+
+593
+00:21:16,536 --> 00:21:17,826
+create an instance of the type,
+
+
+594
+00:21:18,656 --> 00:21:20,296
+calling the method, directly
+
+
+595
+00:21:20,296 --> 00:21:21,486
+passing in the values that it
+
+
+596
+00:21:21,486 --> 00:21:25,246
+needs, and then asserting that
+
+
+597
+00:21:25,246 --> 00:21:27,026
+the returned items match the
+
+
+598
+00:21:27,026 --> 00:21:27,736
+expected result.
+
+
+599
+00:21:28,266 --> 00:21:32,296
+With a code in this form, we now
+
+
+600
+00:21:32,296 --> 00:21:33,326
+have easy control over the
+
+
+601
+00:21:33,326 --> 00:21:35,446
+inputs, visibility into the
+
+
+602
+00:21:35,446 --> 00:21:38,116
+outputs, and there's no hidden
+
+
+603
+00:21:38,116 --> 00:21:39,486
+state to contend with at all.
+
+
+604
+00:21:40,476 --> 00:21:41,656
+It's very reminiscent of the
+
+
+605
+00:21:41,656 --> 00:21:43,606
+test for the sorted method that
+
+
+606
+00:21:43,606 --> 00:21:44,576
+we saw at the beginning.
+
+
+607
+00:21:46,496 --> 00:21:48,406
+This allows the test to be easy
+
+
+608
+00:21:48,406 --> 00:21:50,136
+to read, with minimal
+
+
+609
+00:21:50,136 --> 00:21:51,926
+distraction from the essentials
+
+
+610
+00:21:51,926 --> 00:21:55,506
+of what is being tested to run
+
+
+611
+00:21:55,506 --> 00:21:57,446
+very quickly because it has no
+
+
+612
+00:21:57,446 --> 00:21:59,536
+dependency on slow resources
+
+
+613
+00:21:59,536 --> 00:22:00,436
+like the file system.
+
+
+614
+00:22:00,966 --> 00:22:04,406
+And to be deterministic because
+
+
+615
+00:22:04,576 --> 00:22:06,256
+all of the data in use is fully
+
+
+616
+00:22:06,256 --> 00:22:06,936
+self-contained.
+
+
+617
+00:22:11,756 --> 00:22:13,596
+Taking a peek back at the
+
+
+618
+00:22:13,596 --> 00:22:15,136
+original clean cache method,
+
+
+619
+00:22:15,476 --> 00:22:17,476
+after the extraction, we see
+
+
+620
+00:22:17,476 --> 00:22:19,326
+that there's very little left.
+
+
+621
+00:22:21,476 --> 00:22:22,826
+All we're doing is asking the
+
+
+622
+00:22:22,826 --> 00:22:24,736
+clean-up policy for the list of
+
+
+623
+00:22:24,736 --> 00:22:28,126
+items to remove, and iterating
+
+
+624
+00:22:28,126 --> 00:22:30,076
+over all of them, removing them
+
+
+625
+00:22:30,076 --> 00:22:30,906
+from the file system.
+
+
+626
+00:22:33,236 --> 00:22:36,036
+To test what remains, we could
+
+
+627
+00:22:36,036 --> 00:22:37,496
+decide to introduce that file
+
+
+628
+00:22:37,496 --> 00:22:39,186
+manager protocol and testable
+
+
+629
+00:22:39,186 --> 00:22:41,236
+implementation to allow writing
+
+
+630
+00:22:41,236 --> 00:22:42,836
+a very isolated unit tests for
+
+
+631
+00:22:43,446 --> 00:22:43,500
+it.
+
+
+632
+00:22:44,496 --> 00:22:46,486
+Or we might decide that a couple
+
+
+633
+00:22:46,486 --> 00:22:48,466
+of integration tests are
+
+
+634
+00:22:48,466 --> 00:22:49,506
+sufficient to give the
+
+
+635
+00:22:49,506 --> 00:22:51,496
+confidence that we need that the
+
+
+636
+00:22:51,496 --> 00:22:52,646
+code is doing the right thing.
+
+
+637
+00:22:53,916 --> 00:22:55,176
+This thin layer of [inaudible]
+
+
+638
+00:22:55,296 --> 00:22:56,986
+code that's left.
+
+
+639
+00:23:01,816 --> 00:23:04,186
+So, in this example, we looked
+
+
+640
+00:23:04,736 --> 00:23:08,036
+at how to extract business logic
+
+
+641
+00:23:08,036 --> 00:23:09,606
+and algorithms into separate
+
+
+642
+00:23:09,606 --> 00:23:12,176
+types, away from the code, using
+
+
+643
+00:23:12,206 --> 00:23:13,606
+side effects.
+
+
+644
+00:23:15,636 --> 00:23:17,806
+When doing this, the algorithms
+
+
+645
+00:23:17,806 --> 00:23:19,046
+tend to take on a rather
+
+
+646
+00:23:19,046 --> 00:23:21,026
+functional style, using value
+
+
+647
+00:23:21,026 --> 00:23:22,976
+types to describe the inputs and
+
+
+648
+00:23:23,186 --> 00:23:23,976
+the outputs.
+
+
+649
+00:23:24,466 --> 00:23:26,926
+This allows for straightforward
+
+
+650
+00:23:26,926 --> 00:23:29,216
+unit tests that exercise the
+
+
+651
+00:23:29,216 --> 00:23:30,806
+algorithm in as much detail as
+
+
+652
+00:23:30,806 --> 00:23:31,326
+you require.
+
+
+653
+00:23:34,676 --> 00:23:36,116
+We're left with a small amount
+
+
+654
+00:23:36,116 --> 00:23:37,636
+of code that perform side
+
+
+655
+00:23:37,636 --> 00:23:38,966
+effects based on the computer
+
+
+656
+00:23:38,966 --> 00:23:39,406
+data.
+
+
+657
+00:23:39,906 --> 00:23:42,336
+This bit is often a good
+
+
+658
+00:23:42,336 --> 00:23:43,856
+candidate for testing with
+
+
+659
+00:23:43,856 --> 00:23:46,316
+integration tests in order to
+
+
+660
+00:23:46,316 --> 00:23:47,406
+track that its interaction with
+
+
+661
+00:23:47,406 --> 00:23:48,526
+the rest of the system is
+
+
+662
+00:23:48,526 --> 00:23:49,256
+working properly.
+
+
+663
+00:23:54,176 --> 00:23:57,126
+So, to wrap up, we saw examples
+
+
+664
+00:23:57,126 --> 00:23:59,186
+that allowed us to explore two
+
+
+665
+00:23:59,186 --> 00:24:00,956
+sets of techniques that allow us
+
+
+666
+00:24:00,956 --> 00:24:03,116
+to structure or ask code, so
+
+
+667
+00:24:03,116 --> 00:24:04,956
+that tests have control over the
+
+
+668
+00:24:04,956 --> 00:24:06,996
+code's inputs, and visibility
+
+
+669
+00:24:06,996 --> 00:24:09,126
+into its outputs, thereby
+
+
+670
+00:24:09,126 --> 00:24:10,456
+allowing us to write effective
+
+
+671
+00:24:10,456 --> 00:24:12,026
+unit tests for it.
+
+
+672
+00:24:14,776 --> 00:24:16,296
+And now, I want to call up my
+
+
+673
+00:24:16,296 --> 00:24:18,146
+colleague, Greg Tracy, to talk
+
+
+674
+00:24:18,146 --> 00:24:19,466
+about how to create a test suite
+
+
+675
+00:24:19,816 --> 00:24:21,126
+that scales with your app as it
+
+
+676
+00:24:21,126 --> 00:24:21,556
+grows.
+
+
+677
+00:24:23,516 --> 00:24:27,500
+[ Applause ]
+
+
+678
+00:24:31,636 --> 00:24:32,586
+>> Hi, everyone.
+
+
+679
+00:24:32,796 --> 00:24:33,536
+My name is Greg.
+
+
+680
+00:24:33,536 --> 00:24:35,996
+And I also work on Xcode.
+
+
+681
+00:24:37,316 --> 00:24:38,866
+Earlier, Brian showed you some
+
+
+682
+00:24:38,866 --> 00:24:40,176
+techniques about how to make app
+
+
+683
+00:24:40,176 --> 00:24:41,216
+code more testable.
+
+
+684
+00:24:41,826 --> 00:24:42,926
+Now, I want to show you how to
+
+
+685
+00:24:42,926 --> 00:24:44,336
+make the accompanying test code
+
+
+686
+00:24:44,336 --> 00:24:45,356
+more scalable.
+
+
+687
+00:24:45,356 --> 00:24:47,316
+To do this, we'll look at a few
+
+
+688
+00:24:47,316 --> 00:24:49,376
+methods to make tests faster,
+
+
+689
+00:24:49,376 --> 00:24:51,166
+more readable, and more
+
+
+690
+00:24:51,166 --> 00:24:52,006
+modularized.
+
+
+691
+00:24:52,446 --> 00:24:54,306
+I also want to mention that many
+
+
+692
+00:24:54,306 --> 00:24:55,606
+of the techniques that Brian
+
+
+693
+00:24:55,606 --> 00:24:57,256
+described earlier, can also be
+
+
+694
+00:24:57,256 --> 00:24:58,256
+applied to test code.
+
+
+695
+00:24:58,926 --> 00:25:00,056
+Here, we're going to go through
+
+
+696
+00:25:00,056 --> 00:25:01,766
+some additional tips.
+
+
+697
+00:25:03,196 --> 00:25:05,516
+First, I'll talk about having a
+
+
+698
+00:25:05,606 --> 00:25:07,166
+balance between UI and unit
+
+
+699
+00:25:08,106 --> 00:25:08,330
+tests.
+
+
+700
+00:25:09,376 --> 00:25:11,496
+Then, dive into code that helps
+
+
+701
+00:25:11,496 --> 00:25:13,816
+test scale with the focus on UI
+
+
+702
+00:25:13,816 --> 00:25:14,376
+test code.
+
+
+703
+00:25:15,086 --> 00:25:17,386
+And then, I'll talk about the
+
+
+704
+00:25:17,386 --> 00:25:19,416
+importance of having quality in
+
+
+705
+00:25:19,416 --> 00:25:20,000
+test code.
+
+
+706
+00:25:22,736 --> 00:25:23,716
+Striking the right balance
+
+
+707
+00:25:23,776 --> 00:25:27,436
+between UI and unit tests.
+
+
+708
+00:25:27,436 --> 00:25:28,436
+I sometimes like to view my
+
+
+709
+00:25:28,436 --> 00:25:30,006
+distribution of tests as a
+
+
+710
+00:25:30,006 --> 00:25:30,536
+pyramid.
+
+
+711
+00:25:31,816 --> 00:25:33,216
+At the top, you have your UI
+
+
+712
+00:25:33,216 --> 00:25:36,036
+tests, and at the bottom, you
+
+
+713
+00:25:36,036 --> 00:25:37,906
+have your unit tests.
+
+
+714
+00:25:38,656 --> 00:25:40,026
+These [inaudible] pyramid
+
+
+715
+00:25:40,026 --> 00:25:42,286
+structure we usually have more
+
+
+716
+00:25:42,406 --> 00:25:44,336
+unit tests than we will UI
+
+
+717
+00:25:44,336 --> 00:25:44,826
+tests.
+
+
+718
+00:25:45,336 --> 00:25:46,526
+This is usually because unit
+
+
+719
+00:25:46,526 --> 00:25:48,496
+tests can run much more quickly
+
+
+720
+00:25:48,496 --> 00:25:49,566
+than UI tests.
+
+
+721
+00:25:50,956 --> 00:25:53,296
+Now between UI and unit tests,
+
+
+722
+00:25:53,456 --> 00:25:56,206
+we also have integration tests.
+
+
+723
+00:25:56,986 --> 00:25:58,726
+However, today, we're going to
+
+
+724
+00:25:58,726 --> 00:26:00,156
+focus more on just UI and unit
+
+
+725
+00:26:00,156 --> 00:26:00,330
+tests.
+
+
+726
+00:26:04,396 --> 00:26:06,216
+Aside from the distribution, we
+
+
+727
+00:26:06,216 --> 00:26:07,516
+might also look at the pyramid
+
+
+728
+00:26:07,516 --> 00:26:08,786
+as a way to do maintenance
+
+
+729
+00:26:08,786 --> 00:26:09,246
+costs.
+
+
+730
+00:26:09,986 --> 00:26:11,496
+Generally, UI tests tend to have
+
+
+731
+00:26:11,496 --> 00:26:12,586
+a higher maintenance cost
+
+
+732
+00:26:12,586 --> 00:26:14,036
+because of the number of things
+
+
+733
+00:26:14,036 --> 00:26:14,716
+that can happen.
+
+
+734
+00:26:15,896 --> 00:26:17,106
+Unit tests on the other hand,
+
+
+735
+00:26:17,396 --> 00:26:19,206
+have a lower maintenance cost.
+
+
+736
+00:26:19,476 --> 00:26:21,626
+So, if a unit test fails, it's
+
+
+737
+00:26:21,626 --> 00:26:23,206
+usually immediately obvious
+
+
+738
+00:26:23,346 --> 00:26:24,146
+what's gone wrong.
+
+
+739
+00:26:25,336 --> 00:26:27,066
+With UI tests, it's like casting
+
+
+740
+00:26:27,066 --> 00:26:28,916
+a wide net where you can get
+
+
+741
+00:26:28,916 --> 00:26:30,006
+failures that are difficult to
+
+
+742
+00:26:30,006 --> 00:26:31,996
+understand, or might not be
+
+
+743
+00:26:31,996 --> 00:26:33,286
+relevant to the test at hand.
+
+
+744
+00:26:33,336 --> 00:26:34,946
+So, it can be a bit more tricky.
+
+
+745
+00:26:38,216 --> 00:26:39,556
+While the testing pyramid is a
+
+
+746
+00:26:39,556 --> 00:26:41,216
+great way to represent
+
+
+747
+00:26:41,506 --> 00:26:43,176
+distributions of -- our
+
+
+748
+00:26:43,176 --> 00:26:45,096
+distribution of tests, it
+
+
+749
+00:26:45,096 --> 00:26:46,486
+doesn't represent every
+
+
+750
+00:26:46,536 --> 00:26:47,136
+situation.
+
+
+751
+00:26:47,826 --> 00:26:48,996
+In fact, you might think of
+
+
+752
+00:26:48,996 --> 00:26:50,816
+testing as a spectrum, rather
+
+
+753
+00:26:50,816 --> 00:26:51,726
+than a pyramid.
+
+
+754
+00:26:52,296 --> 00:26:53,886
+It's often the case that some UI
+
+
+755
+00:26:54,376 --> 00:26:55,606
+and unit tests, exist on
+
+
+756
+00:26:55,676 --> 00:26:56,946
+opposite ends of the spectrum,
+
+
+757
+00:26:57,406 --> 00:26:58,726
+or opposite ends of the pyramid.
+
+
+758
+00:26:59,306 --> 00:27:01,056
+Some UI tests might be more like
+
+
+759
+00:27:01,056 --> 00:27:03,626
+unit tests, and a unit test
+
+
+760
+00:27:03,696 --> 00:27:04,936
+might interact with several
+
+
+761
+00:27:04,936 --> 00:27:07,136
+different modules of code and
+
+
+762
+00:27:07,136 --> 00:27:08,886
+not just single, isolated bits.
+
+
+763
+00:27:09,986 --> 00:27:10,916
+The pyramid is just a good
+
+
+764
+00:27:10,916 --> 00:27:11,746
+approximation.
+
+
+765
+00:27:11,746 --> 00:27:15,816
+It's not written in stone.
+
+
+766
+00:27:15,906 --> 00:27:16,896
+When thinking about these two
+
+
+767
+00:27:16,896 --> 00:27:18,146
+kinds of tests, we need to
+
+
+768
+00:27:18,146 --> 00:27:19,036
+consider each of their
+
+
+769
+00:27:19,036 --> 00:27:20,000
+strengths.
+
+
+770
+00:27:21,386 --> 00:27:23,326
+Unit tests are great at testing
+
+
+771
+00:27:23,326 --> 00:27:25,136
+small bits of code that might be
+
+
+772
+00:27:25,136 --> 00:27:26,846
+hard to reach without access to
+
+
+773
+00:27:26,846 --> 00:27:28,026
+all of our app source code.
+
+
+774
+00:27:28,546 --> 00:27:30,896
+UI tests on the other hand, are
+
+
+775
+00:27:30,896 --> 00:27:32,196
+great when you need to test
+
+
+776
+00:27:32,196 --> 00:27:34,106
+large chunks of code, working
+
+
+777
+00:27:34,106 --> 00:27:34,526
+together.
+
+
+778
+00:27:35,686 --> 00:27:36,956
+Of course, we need to keep in
+
+
+779
+00:27:36,956 --> 00:27:38,406
+mind that unit tests do have
+
+
+780
+00:27:38,406 --> 00:27:39,716
+access to all of our app's
+
+
+781
+00:27:39,716 --> 00:27:42,686
+source, whereas UI tests do not.
+
+
+782
+00:27:45,036 --> 00:27:46,826
+Focusing more on UI tests, let's
+
+
+783
+00:27:47,056 --> 00:27:48,096
+look at a few things you could
+
+
+784
+00:27:48,096 --> 00:27:49,306
+to do improve the quality of
+
+
+785
+00:27:49,306 --> 00:27:50,026
+your test code.
+
+
+786
+00:27:51,066 --> 00:27:52,006
+By making some of the changes
+
+
+787
+00:27:52,006 --> 00:27:54,236
+I'm about to suggest, we can
+
+
+788
+00:27:54,236 --> 00:27:56,026
+make it easier to create tests
+
+
+789
+00:27:56,246 --> 00:27:57,766
+that scale alongside our app
+
+
+790
+00:27:57,876 --> 00:27:57,976
+code.
+
+
+791
+00:28:01,046 --> 00:28:03,356
+We'll look at abstracting UI
+
+
+792
+00:28:03,356 --> 00:28:06,196
+element queries, creating
+
+
+793
+00:28:06,246 --> 00:28:07,686
+objects in utility functions,
+
+
+794
+00:28:07,716 --> 00:28:08,736
+which can then be placed in a
+
+
+795
+00:28:08,736 --> 00:28:11,916
+library for later use, and
+
+
+796
+00:28:12,126 --> 00:28:13,586
+utilizing keyboard shortcuts.
+
+
+797
+00:28:17,326 --> 00:28:18,116
+So, first we'll look at
+
+
+798
+00:28:18,116 --> 00:28:19,606
+abstracting UI element queries.
+
+
+799
+00:28:20,976 --> 00:28:22,116
+Say I have an app that has
+
+
+800
+00:28:22,246 --> 00:28:23,186
+several buttons in a view
+
+
+801
+00:28:23,186 --> 00:28:23,696
+controller.
+
+
+802
+00:28:24,496 --> 00:28:25,926
+And each button is at the same
+
+
+803
+00:28:25,926 --> 00:28:27,086
+level in the view hierarchy.
+
+
+804
+00:28:27,086 --> 00:28:29,306
+The only difference is the name
+
+
+805
+00:28:29,406 --> 00:28:31,736
+of each button.
+
+
+806
+00:28:31,896 --> 00:28:32,836
+Instead of writing out this
+
+
+807
+00:28:32,836 --> 00:28:34,706
+query seven times, let's wrap
+
+
+808
+00:28:34,706 --> 00:28:35,416
+this up in a method.
+
+
+809
+00:28:39,116 --> 00:28:40,746
+We can now modify each of our
+
+
+810
+00:28:40,746 --> 00:28:42,416
+queries to use the new method we
+
+
+811
+00:28:42,416 --> 00:28:43,066
+just created.
+
+
+812
+00:28:43,676 --> 00:28:45,556
+However, I might even go
+
+
+813
+00:28:45,556 --> 00:28:45,876
+further.
+
+
+814
+00:28:49,366 --> 00:28:50,656
+Since each method calls the
+
+
+815
+00:28:50,766 --> 00:28:53,026
+same, except for the name, let's
+
+
+816
+00:28:53,026 --> 00:28:54,326
+put all those names in array and
+
+
+817
+00:28:54,326 --> 00:28:56,486
+just loop through them.
+
+
+818
+00:28:56,696 --> 00:28:57,646
+This adds some benefit of
+
+
+819
+00:28:57,646 --> 00:28:59,116
+maintainability for this code.
+
+
+820
+00:28:59,616 --> 00:29:00,756
+If I add an extra button in the
+
+
+821
+00:29:00,806 --> 00:29:02,926
+future, I don't have to add a
+
+
+822
+00:29:02,926 --> 00:29:03,756
+new line of code.
+
+
+823
+00:29:03,886 --> 00:29:04,996
+I just have to add an extra
+
+
+824
+00:29:04,996 --> 00:29:09,206
+button name to the array.
+
+
+825
+00:29:09,376 --> 00:29:11,086
+By nature of what a UI test is,
+
+
+826
+00:29:11,726 --> 00:29:14,116
+we're issuing a lot of these
+
+
+827
+00:29:14,116 --> 00:29:14,576
+queries.
+
+
+828
+00:29:14,576 --> 00:29:16,926
+So, if you're using the same
+
+
+829
+00:29:16,926 --> 00:29:18,946
+query multiple times, store it
+
+
+830
+00:29:18,946 --> 00:29:19,776
+as a variable.
+
+
+831
+00:29:20,076 --> 00:29:21,666
+Even if it's only part of a
+
+
+832
+00:29:21,816 --> 00:29:26,126
+query, store it somewhere.
+
+
+833
+00:29:26,236 --> 00:29:27,826
+Also, if you have queries that
+
+
+834
+00:29:27,826 --> 00:29:29,386
+are very similar, consider
+
+
+835
+00:29:29,386 --> 00:29:30,686
+creating a helper method around
+
+
+836
+00:29:30,686 --> 00:29:31,316
+that query.
+
+
+837
+00:29:32,526 --> 00:29:34,056
+The code will look a lot cleaner
+
+
+838
+00:29:34,056 --> 00:29:35,566
+and become much more readable.
+
+
+839
+00:29:36,416 --> 00:29:38,246
+In terms of scaling our test
+
+
+840
+00:29:38,246 --> 00:29:39,866
+suite, the use of shorter lines
+
+
+841
+00:29:39,966 --> 00:29:42,356
+of code -- of shorter lines of
+
+
+842
+00:29:42,356 --> 00:29:43,476
+test code and thoughtfully named
+
+
+843
+00:29:43,476 --> 00:29:44,996
+helper methods, will make it
+
+
+844
+00:29:45,146 --> 00:29:46,576
+faster and easier to implement
+
+
+845
+00:29:46,576 --> 00:29:51,046
+new tests when the time comes.
+
+
+846
+00:29:51,236 --> 00:29:52,346
+So, that was abstracting UI
+
+
+847
+00:29:52,346 --> 00:29:53,396
+element queries.
+
+
+848
+00:29:54,166 --> 00:29:55,286
+Now, let's move on to creating
+
+
+849
+00:29:55,286 --> 00:29:56,646
+objects in utility functions.
+
+
+850
+00:29:56,996 --> 00:29:59,946
+I have this game I've been
+
+
+851
+00:29:59,946 --> 00:30:01,916
+working on, and for each test, I
+
+
+852
+00:30:01,916 --> 00:30:02,976
+want to change some settings.
+
+
+853
+00:30:04,326 --> 00:30:06,506
+Now, this is not a great example
+
+
+854
+00:30:06,506 --> 00:30:07,176
+of scalable code.
+
+
+855
+00:30:08,166 --> 00:30:09,296
+Because I've been recently
+
+
+856
+00:30:09,296 --> 00:30:10,376
+working with this app, I'm
+
+
+857
+00:30:10,376 --> 00:30:11,686
+familiar with how everything is
+
+
+858
+00:30:11,686 --> 00:30:12,076
+laid out.
+
+
+859
+00:30:13,006 --> 00:30:14,296
+I understand exactly what's
+
+
+860
+00:30:14,296 --> 00:30:14,746
+going on.
+
+
+861
+00:30:15,746 --> 00:30:17,866
+However, later, if I was to come
+
+
+862
+00:30:17,866 --> 00:30:19,106
+back to this code after a few
+
+
+863
+00:30:19,106 --> 00:30:21,546
+weeks, or better yet, somebody
+
+
+864
+00:30:21,546 --> 00:30:23,126
+not familiar with my code has to
+
+
+865
+00:30:23,126 --> 00:30:24,796
+sit down and read what I wrote,
+
+
+866
+00:30:25,026 --> 00:30:26,406
+it might not make all that much
+
+
+867
+00:30:26,486 --> 00:30:27,000
+sense.
+
+
+868
+00:30:28,336 --> 00:30:30,146
+I first have to realize that I
+
+
+869
+00:30:30,376 --> 00:30:32,886
+have a Settings page that I need
+
+
+870
+00:30:32,886 --> 00:30:35,156
+to get in and out of.
+
+
+871
+00:30:35,156 --> 00:30:36,636
+And I then have to realize that
+
+
+872
+00:30:36,636 --> 00:30:38,446
+between those two lines, I'm
+
+
+873
+00:30:38,446 --> 00:30:39,796
+going through a difficulty page,
+
+
+874
+00:30:40,066 --> 00:30:42,796
+setting the difficulty, then I'm
+
+
+875
+00:30:42,796 --> 00:30:43,666
+going through a sound page, and
+
+
+876
+00:30:43,666 --> 00:30:44,726
+setting the sound.
+
+
+877
+00:30:45,946 --> 00:30:47,176
+Coming after an extended period
+
+
+878
+00:30:47,176 --> 00:30:49,066
+of time, I might not understand
+
+
+879
+00:30:49,066 --> 00:30:50,486
+why I have two back tabs at the
+
+
+880
+00:30:50,486 --> 00:30:50,876
+bottom.
+
+
+881
+00:30:50,876 --> 00:30:53,326
+I would have to run through this
+
+
+882
+00:30:53,366 --> 00:30:54,616
+test to actually see this
+
+
+883
+00:30:54,616 --> 00:30:55,026
+happen.
+
+
+884
+00:30:56,666 --> 00:30:58,366
+And if the test were broken
+
+
+885
+00:30:58,366 --> 00:30:59,376
+because of some change in the
+
+
+886
+00:30:59,376 --> 00:31:01,146
+actual UI, I wouldn't be able to
+
+
+887
+00:31:01,146 --> 00:31:02,626
+run my test, and I would be able
+
+
+888
+00:31:02,626 --> 00:31:03,686
+to see what I wanted to see.
+
+
+889
+00:31:04,506 --> 00:31:05,876
+I'd be clueless as to why the
+
+
+890
+00:31:05,876 --> 00:31:07,316
+code was written the way it was.
+
+
+891
+00:31:08,516 --> 00:31:09,926
+To fix this, let's try to
+
+
+892
+00:31:09,926 --> 00:31:11,306
+abstract away some of this logic
+
+
+893
+00:31:11,306 --> 00:31:12,226
+into helper methods.
+
+
+894
+00:31:12,916 --> 00:31:16,666
+We can create a method to set
+
+
+895
+00:31:16,696 --> 00:31:17,396
+the difficulty.
+
+
+896
+00:31:17,396 --> 00:31:19,676
+And then similarly, we can
+
+
+897
+00:31:19,676 --> 00:31:20,586
+create a method to set the
+
+
+898
+00:31:20,676 --> 00:31:21,066
+sound.
+
+
+899
+00:31:21,636 --> 00:31:23,056
+But can we do a little better?
+
+
+900
+00:31:24,046 --> 00:31:26,856
+Sure. We can instead, of instead
+
+
+901
+00:31:26,856 --> 00:31:27,946
+of passing stream typed
+
+
+902
+00:31:28,006 --> 00:31:29,826
+arguments, let's utilize enums.
+
+
+903
+00:31:30,996 --> 00:31:32,406
+That way, Xcode can -- helps
+
+
+904
+00:31:32,406 --> 00:31:34,036
+determine if the arguments we're
+
+
+905
+00:31:34,036 --> 00:31:35,876
+passing are even valid, before
+
+
+906
+00:31:35,876 --> 00:31:36,916
+we even compile.
+
+
+907
+00:31:40,276 --> 00:31:41,456
+Now, looking at the code from
+
+
+908
+00:31:41,456 --> 00:31:43,056
+before, if we replace some of
+
+
+909
+00:31:43,056 --> 00:31:44,126
+the code with our new helper
+
+
+910
+00:31:44,126 --> 00:31:47,386
+methods, we reduce what we had
+
+
+911
+00:31:47,386 --> 00:31:47,826
+before.
+
+
+912
+00:31:47,826 --> 00:31:48,966
+And this is already starting to
+
+
+913
+00:31:48,966 --> 00:31:49,796
+look a lot better.
+
+
+914
+00:31:49,796 --> 00:31:53,116
+What about the initial jump in
+
+
+915
+00:31:53,116 --> 00:31:54,386
+and out of the Settings page?
+
+
+916
+00:31:55,016 --> 00:31:56,726
+Can we improve this as well?
+
+
+917
+00:31:57,086 --> 00:31:57,866
+I think we can.
+
+
+918
+00:31:58,836 --> 00:32:00,556
+Let's make a game app class.
+
+
+919
+00:32:00,556 --> 00:32:03,566
+And in this class, I'll include
+
+
+920
+00:32:03,566 --> 00:32:05,276
+the enums I defined earlier for
+
+
+921
+00:32:05,276 --> 00:32:07,786
+difficulty and sound.
+
+
+922
+00:32:07,826 --> 00:32:09,066
+I'll also include the helper
+
+
+923
+00:32:09,066 --> 00:32:10,826
+methods from before that set
+
+
+924
+00:32:10,826 --> 00:32:12,000
+those settings.
+
+
+925
+00:32:13,396 --> 00:32:14,516
+We'll create another method
+
+
+926
+00:32:14,516 --> 00:32:16,286
+called Configure Settings, that
+
+
+927
+00:32:16,286 --> 00:32:17,326
+takes the two settings as
+
+
+928
+00:32:17,326 --> 00:32:20,496
+inputs, and we'll migrate the
+
+
+929
+00:32:20,546 --> 00:32:22,336
+setup logic from before, into
+
+
+930
+00:32:22,336 --> 00:32:23,206
+the configure method.
+
+
+931
+00:32:23,716 --> 00:32:26,966
+Back to where we were before,
+
+
+932
+00:32:27,206 --> 00:32:28,286
+now that we've created this game
+
+
+933
+00:32:28,286 --> 00:32:30,276
+app class, we can take away all
+
+
+934
+00:32:30,276 --> 00:32:32,266
+the code we wrote before, and
+
+
+935
+00:32:32,266 --> 00:32:33,866
+just use a single call, the
+
+
+936
+00:32:33,866 --> 00:32:34,626
+configure method.
+
+
+937
+00:32:35,476 --> 00:32:36,956
+This looks a lot more readable
+
+
+938
+00:32:36,956 --> 00:32:38,286
+to me than what we had before.
+
+
+939
+00:32:39,276 --> 00:32:41,416
+Now, if I wrote more tests than
+
+
+940
+00:32:41,416 --> 00:32:42,856
+needed to set the settings, I
+
+
+941
+00:32:43,206 --> 00:32:44,156
+would just call our configure
+
+
+942
+00:32:44,156 --> 00:32:44,660
+method.
+
+
+943
+00:32:46,166 --> 00:32:48,276
+And if I needed to -- or if I
+
+
+944
+00:32:48,276 --> 00:32:49,386
+decided that I wanted to add
+
+
+945
+00:32:49,386 --> 00:32:50,836
+more settings to my app, I would
+
+
+946
+00:32:50,836 --> 00:32:51,826
+just have to update our
+
+
+947
+00:32:51,826 --> 00:32:53,026
+configure settings method to
+
+
+948
+00:32:53,026 --> 00:32:53,946
+handle these additional
+
+
+949
+00:32:53,946 --> 00:32:54,306
+settings.
+
+
+950
+00:32:54,996 --> 00:32:58,856
+From the example, one of the
+
+
+951
+00:32:58,856 --> 00:33:00,516
+most important things to do when
+
+
+952
+00:33:00,516 --> 00:33:02,096
+trying to scale your tests, is
+
+
+953
+00:33:02,096 --> 00:33:03,926
+to create abstraction that you
+
+
+954
+00:33:04,056 --> 00:33:05,726
+can later put into a library
+
+
+955
+00:33:05,726 --> 00:33:06,006
+suite.
+
+
+956
+00:33:06,606 --> 00:33:07,796
+By doing this, we're
+
+
+957
+00:33:07,796 --> 00:33:09,476
+encapsulating common workflows
+
+
+958
+00:33:09,806 --> 00:33:10,986
+that can be applied to more than
+
+
+959
+00:33:10,986 --> 00:33:12,266
+one test.
+
+
+960
+00:33:13,816 --> 00:33:15,296
+This also means that we're able
+
+
+961
+00:33:15,296 --> 00:33:16,676
+to share test code across
+
+
+962
+00:33:16,746 --> 00:33:17,716
+different platforms.
+
+
+963
+00:33:18,256 --> 00:33:22,306
+And, of course, by sharing code,
+
+
+964
+00:33:22,306 --> 00:33:23,906
+we improve maintainability.
+
+
+965
+00:33:24,926 --> 00:33:26,006
+If something related to an
+
+
+966
+00:33:26,006 --> 00:33:27,876
+abstracted workflow changes, we
+
+
+967
+00:33:27,876 --> 00:33:29,146
+only have to update our code in
+
+
+968
+00:33:29,146 --> 00:33:32,076
+a single place, as opposed to
+
+
+969
+00:33:34,756 --> 00:33:35,196
+several.
+
+
+970
+00:33:35,246 --> 00:33:36,176
+One other improvement that I
+
+
+971
+00:33:36,176 --> 00:33:37,646
+want to mention, in our
+
+
+972
+00:33:37,646 --> 00:33:39,756
+configure method, and new in
+
+
+973
+00:33:39,916 --> 00:33:42,566
+Xcode this year, we can add an
+
+
+974
+00:33:42,566 --> 00:33:45,036
+XCTContent.runActivity block to
+
+
+975
+00:33:45,666 --> 00:33:46,706
+our code.
+
+
+976
+00:33:46,906 --> 00:33:48,086
+This makes it so that when we
+
+
+977
+00:33:48,086 --> 00:33:49,636
+run our test, instead of having
+
+
+978
+00:33:49,636 --> 00:33:51,006
+a log that contains all the
+
+
+979
+00:33:51,006 --> 00:33:52,426
+actions that we made at the top
+
+
+980
+00:33:52,426 --> 00:33:55,056
+level, we can nest our logging,
+
+
+981
+00:33:55,056 --> 00:33:56,076
+using runActivity.
+
+
+982
+00:33:56,626 --> 00:33:59,406
+This helps organize our logging
+
+
+983
+00:33:59,406 --> 00:34:01,686
+to make things look a little bit
+
+
+984
+00:34:02,556 --> 00:34:02,726
+cleaner.
+
+
+985
+00:34:02,856 --> 00:34:03,986
+For more information regarding
+
+
+986
+00:34:03,986 --> 00:34:05,926
+the test activity feature, check
+
+
+987
+00:34:05,926 --> 00:34:07,516
+out the earlier talk about
+
+
+988
+00:34:07,516 --> 00:34:11,005
+What's New in Testing?
+
+
+989
+00:34:11,545 --> 00:34:13,116
+Now, let's move on to Utilizing
+
+
+990
+00:34:13,116 --> 00:34:14,996
+Keyboard Shortcuts for macOS UI
+
+
+991
+00:34:14,996 --> 00:34:15,330
+Tests.
+
+
+992
+00:34:17,886 --> 00:34:19,166
+Let's say I have an app where
+
+
+993
+00:34:19,166 --> 00:34:20,606
+the user can pick a color for
+
+
+994
+00:34:20,606 --> 00:34:21,876
+their text, using the standard
+
+
+995
+00:34:21,876 --> 00:34:23,275
+macOS color picker.
+
+
+996
+00:34:23,886 --> 00:34:25,335
+And I'm writing a test to verify
+
+
+997
+00:34:25,335 --> 00:34:26,646
+that the color is set correctly.
+
+
+998
+00:34:27,196 --> 00:34:30,186
+The typical way to bring up the
+
+
+999
+00:34:30,186 --> 00:34:32,056
+color picker in my app is by
+
+
+1000
+00:34:32,056 --> 00:34:34,056
+opening the Format menu, and
+
+
+1001
+00:34:34,056 --> 00:34:35,716
+navigating to the Font sub-menu,
+
+
+1002
+00:34:36,085 --> 00:34:37,315
+and finally choosing Show
+
+
+1003
+00:34:37,315 --> 00:34:37,926
+Colors.
+
+
+1004
+00:34:37,985 --> 00:34:40,795
+I can write this in my UI test
+
+
+1005
+00:34:40,795 --> 00:34:41,500
+like this.
+
+
+1006
+00:34:43,976 --> 00:34:45,616
+But there's a faster way to do
+
+
+1007
+00:34:45,616 --> 00:34:47,016
+this that'll scale better as my
+
+
+1008
+00:34:47,016 --> 00:34:47,846
+test [inaudible] grows.
+
+
+1009
+00:34:49,166 --> 00:34:50,815
+Notice that the Show Colors menu
+
+
+1010
+00:34:50,815 --> 00:34:52,576
+item has an associated keyboard
+
+
+1011
+00:34:52,576 --> 00:34:53,235
+shortcut.
+
+
+1012
+00:34:53,846 --> 00:34:57,456
+Rather than using multiple lines
+
+
+1013
+00:34:57,456 --> 00:34:58,516
+of code to bring up the color
+
+
+1014
+00:34:58,516 --> 00:35:01,166
+picker, we can just use one line
+
+
+1015
+00:35:01,166 --> 00:35:02,666
+of code using the shortcut.
+
+
+1016
+00:35:03,236 --> 00:35:06,436
+And for the sake of readability,
+
+
+1017
+00:35:06,616 --> 00:35:07,806
+I might use a wrapper to make
+
+
+1018
+00:35:07,806 --> 00:35:08,576
+this call for me.
+
+
+1019
+00:35:09,646 --> 00:35:11,266
+So, not only is this less code
+
+
+1020
+00:35:11,266 --> 00:35:13,056
+to maintain in my tests, it's
+
+
+1021
+00:35:13,056 --> 00:35:14,306
+less code that has to be run
+
+
+1022
+00:35:14,306 --> 00:35:15,846
+that isn't directly relevant to
+
+
+1023
+00:35:15,846 --> 00:35:17,016
+the actual test I'm trying to
+
+
+1024
+00:35:17,046 --> 00:35:18,000
+perform.
+
+
+1025
+00:35:20,576 --> 00:35:22,326
+So, in an example test method, I
+
+
+1026
+00:35:22,326 --> 00:35:23,446
+was previously going through the
+
+
+1027
+00:35:23,446 --> 00:35:25,006
+menu to get the color picker to
+
+
+1028
+00:35:25,006 --> 00:35:25,316
+show.
+
+
+1029
+00:35:25,826 --> 00:35:29,136
+Using the new wrapper method, we
+
+
+1030
+00:35:29,136 --> 00:35:30,406
+remove all those extra lines and
+
+
+1031
+00:35:30,406 --> 00:35:31,856
+reduce to a single method.
+
+
+1032
+00:35:32,586 --> 00:35:33,906
+Not only does this make my test
+
+
+1033
+00:35:34,036 --> 00:35:35,426
+faster, it makes my code look a
+
+
+1034
+00:35:35,426 --> 00:35:36,876
+lot more readable.
+
+
+1035
+00:35:39,206 --> 00:35:40,886
+Looking at what we just saw, if
+
+
+1036
+00:35:40,886 --> 00:35:42,066
+you're writing a UI test for a
+
+
+1037
+00:35:42,066 --> 00:35:44,076
+macOS application, you can offer
+
+
+1038
+00:35:44,076 --> 00:35:45,416
+a keyboard shortcut instead of
+
+
+1039
+00:35:45,416 --> 00:35:46,416
+going through the menu bar.
+
+
+1040
+00:35:47,056 --> 00:35:49,016
+I'm still going to have at least
+
+
+1041
+00:35:49,016 --> 00:35:50,736
+one test that ensures that
+
+
+1042
+00:35:50,736 --> 00:35:52,046
+bringing up the color picker via
+
+
+1043
+00:35:52,046 --> 00:35:53,686
+the menu bar, works properly,
+
+
+1044
+00:35:54,076 --> 00:35:56,246
+but that doesn't need to be
+
+
+1045
+00:35:56,246 --> 00:35:57,826
+repeated across every single
+
+
+1046
+00:35:57,826 --> 00:35:58,786
+test that involves the color
+
+
+1047
+00:35:58,786 --> 00:35:59,126
+picker.
+
+
+1048
+00:36:02,916 --> 00:36:04,956
+In the process of using keyboard
+
+
+1049
+00:36:04,956 --> 00:36:06,876
+shortcuts, we make our test code
+
+
+1050
+00:36:06,876 --> 00:36:09,196
+more compact by skipping extra
+
+
+1051
+00:36:09,196 --> 00:36:10,496
+steps needed to work through the
+
+
+1052
+00:36:10,496 --> 00:36:12,856
+UI, sometimes reducing multiple
+
+
+1053
+00:36:12,856 --> 00:36:14,206
+lines of code to a single line,
+
+
+1054
+00:36:14,546 --> 00:36:15,746
+which can help for readability.
+
+
+1055
+00:36:18,636 --> 00:36:20,346
+Finally, I want to stress to all
+
+
+1056
+00:36:20,346 --> 00:36:21,966
+of you that writing good tests
+
+
+1057
+00:36:22,096 --> 00:36:23,496
+is about writing good code.
+
+
+1058
+00:36:24,126 --> 00:36:25,886
+It's easy to treat tests as an
+
+
+1059
+00:36:25,886 --> 00:36:26,436
+afterthought.
+
+
+1060
+00:36:27,446 --> 00:36:29,366
+Usually, we focus on trying to
+
+
+1061
+00:36:29,366 --> 00:36:30,466
+make our app the best it can
+
+
+1062
+00:36:30,466 --> 00:36:32,346
+possibly be, by investing all
+
+
+1063
+00:36:32,346 --> 00:36:33,506
+this time in writing beautiful
+
+
+1064
+00:36:33,506 --> 00:36:35,216
+app code that adheres to all
+
+
+1065
+00:36:35,216 --> 00:36:36,696
+these principles of good design.
+
+
+1066
+00:36:36,966 --> 00:36:38,246
+We might have this additional
+
+
+1067
+00:36:38,496 --> 00:36:40,336
+requirement of writing test
+
+
+1068
+00:36:40,396 --> 00:36:40,686
+code.
+
+
+1069
+00:36:40,686 --> 00:36:41,746
+It might be something tacked on
+
+
+1070
+00:36:41,746 --> 00:36:43,196
+at the end or done in a hurry
+
+
+1071
+00:36:43,196 --> 00:36:44,546
+just to check off a checkbox.
+
+
+1072
+00:36:44,606 --> 00:36:46,896
+But we can't allow this to
+
+
+1073
+00:36:47,186 --> 00:36:47,330
+happen.
+
+
+1074
+00:36:48,926 --> 00:36:50,476
+Without the same attention to
+
+
+1075
+00:36:50,476 --> 00:36:52,326
+detail, test code isn't going to
+
+
+1076
+00:36:52,326 --> 00:36:53,896
+scale the same way our app code
+
+
+1077
+00:36:53,896 --> 00:36:54,000
+might.
+
+
+1078
+00:36:56,416 --> 00:36:58,546
+So, to that end, test code is
+
+
+1079
+00:36:58,546 --> 00:37:00,266
+important even though it isn't
+
+
+1080
+00:37:00,266 --> 00:37:00,736
+shipping.
+
+
+1081
+00:37:02,156 --> 00:37:03,496
+Also note that the test suite
+
+
+1082
+00:37:03,496 --> 00:37:04,936
+should support the evolution of
+
+
+1083
+00:37:04,936 --> 00:37:06,686
+your app, and not hinder change.
+
+
+1084
+00:37:07,156 --> 00:37:08,396
+With low quality test code, it
+
+
+1085
+00:37:08,396 --> 00:37:10,006
+becomes a burden to have to
+
+
+1086
+00:37:10,006 --> 00:37:11,056
+update your test whenever you
+
+
+1087
+00:37:11,056 --> 00:37:12,276
+make a change to your app.
+
+
+1088
+00:37:13,156 --> 00:37:14,626
+But by consciously designing
+
+
+1089
+00:37:14,626 --> 00:37:16,416
+test code with quality in mind,
+
+
+1090
+00:37:16,816 --> 00:37:18,736
+our ability to scale won't be
+
+
+1091
+00:37:18,736 --> 00:37:19,856
+inhibited by poorly designed
+
+
+1092
+00:37:19,856 --> 00:37:20,106
+tests.
+
+
+1093
+00:37:20,836 --> 00:37:24,156
+And of course, coding principles
+
+
+1094
+00:37:24,156 --> 00:37:26,056
+that apply to app code, also
+
+
+1095
+00:37:26,056 --> 00:37:27,086
+apply to test code.
+
+
+1096
+00:37:27,686 --> 00:37:28,826
+Test code and app code should be
+
+
+1097
+00:37:28,826 --> 00:37:29,536
+viewed equally.
+
+
+1098
+00:37:30,106 --> 00:37:33,246
+And here's an idea for you.
+
+
+1099
+00:37:33,286 --> 00:37:34,706
+We should have code reviews for
+
+
+1100
+00:37:34,706 --> 00:37:36,646
+test code, not just code reviews
+
+
+1101
+00:37:36,886 --> 00:37:37,986
+with test code.
+
+
+1102
+00:37:38,596 --> 00:37:39,446
+Having code reviews that are
+
+
+1103
+00:37:39,446 --> 00:37:40,976
+exclusively for test code,
+
+
+1104
+00:37:40,976 --> 00:37:42,006
+ensures that somebody else is
+
+
+1105
+00:37:42,006 --> 00:37:42,656
+checking your work, or
+
+
+1106
+00:37:43,016 --> 00:37:44,626
+[inaudible] with a test cover,
+
+
+1107
+00:37:44,946 --> 00:37:46,256
+and it's a chance to further
+
+
+1108
+00:37:46,256 --> 00:37:47,566
+improve the tests themselves.
+
+
+1109
+00:37:47,566 --> 00:37:51,506
+Now, I want to leave you with a
+
+
+1110
+00:37:51,506 --> 00:37:51,726
+thought.
+
+
+1111
+00:37:52,316 --> 00:37:54,016
+App code and the tests that
+
+
+1112
+00:37:54,016 --> 00:37:55,516
+verify it, are really two halves
+
+
+1113
+00:37:55,516 --> 00:37:56,016
+of a whole.
+
+
+1114
+00:37:56,726 --> 00:37:57,896
+When you update your app code,
+
+
+1115
+00:37:57,966 --> 00:37:58,976
+you'll need to update your test
+
+
+1116
+00:37:59,196 --> 00:37:59,716
+code too.
+
+
+1117
+00:37:59,716 --> 00:38:04,026
+We need to think of app code and
+
+
+1118
+00:38:04,026 --> 00:38:05,966
+the test code, as part of the
+
+
+1119
+00:38:05,966 --> 00:38:07,526
+same thing, our code.
+
+
+1120
+00:38:08,476 --> 00:38:09,366
+By making our code more
+
+
+1121
+00:38:09,366 --> 00:38:10,956
+testable, as Brian discussed
+
+
+1122
+00:38:10,956 --> 00:38:12,546
+earlier, and by treating test
+
+
+1123
+00:38:12,546 --> 00:38:13,816
+code with the same care as your
+
+
+1124
+00:38:13,816 --> 00:38:15,286
+app code, you improve the
+
+
+1125
+00:38:15,286 --> 00:38:16,306
+quality of the whole app.
+
+
+1126
+00:38:17,196 --> 00:38:18,236
+We ought to be proud of both
+
+
+1127
+00:38:18,236 --> 00:38:20,166
+halves, and treat each with the
+
+
+1128
+00:38:20,166 --> 00:38:21,496
+care and attention that they
+
+
+1129
+00:38:21,496 --> 00:38:21,926
+deserve.
+
+
+1130
+00:38:25,826 --> 00:38:26,996
+For more information and
+
+
+1131
+00:38:26,996 --> 00:38:27,976
+resources regarding this
+
+
+1132
+00:38:27,976 --> 00:38:29,286
+session, you can visit the link
+
+
+1133
+00:38:29,316 --> 00:38:30,226
+listed on the screen.
+
+
+1134
+00:38:30,226 --> 00:38:33,296
+Here are a few related sessions.
+
+
+1135
+00:38:33,356 --> 00:38:34,596
+One that happened yesterday, and
+
+
+1136
+00:38:34,596 --> 00:38:35,826
+a few that happened in previous
+
+
+1137
+00:38:35,826 --> 00:38:36,196
+years.
+
+
+1138
+00:38:36,226 --> 00:38:37,616
+You can check those out online,
+
+
+1139
+00:38:37,706 --> 00:38:40,156
+or through the WWDC app.
+
+
+1140
+00:38:40,446 --> 00:38:41,476
+And with that, I'd like to thank
+
+
+1141
+00:38:41,476 --> 00:38:42,506
+you for your attention, and I
+
+
+1142
+00:38:42,506 --> 00:38:43,336
+hope you enjoy the rest of the
+
+
+1143
+00:38:43,336 --> 00:38:43,676
+conference.
+
+
+1144
+00:38:44,516 --> 00:38:50,500
+[ Applause ]
+

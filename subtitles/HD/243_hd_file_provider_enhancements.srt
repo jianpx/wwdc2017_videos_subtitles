@@ -1,0 +1,8969 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Crowd Sounds ]
+
+
+2
+00:00:23,041 --> 00:00:25,041
+[ Applause ]
+
+
+3
+00:00:25,066 --> 00:00:26,466
+>> Good morning, and welcome.
+
+
+4
+00:00:27,616 --> 00:00:28,856
+My name is Jean-Gabriel.
+
+
+5
+00:00:28,946 --> 00:00:29,846
+I hope you've been having a
+
+
+6
+00:00:29,846 --> 00:00:30,446
+great week.
+
+
+7
+00:00:30,726 --> 00:00:31,756
+We're here to talk about file
+
+
+8
+00:00:31,756 --> 00:00:33,426
+providers, the technology
+
+
+9
+00:00:33,426 --> 00:00:34,826
+between, behind the new Files
+
+
+10
+00:00:35,676 --> 00:00:35,746
+app.
+
+
+11
+00:00:37,116 --> 00:00:38,636
+We're going to see what file
+
+
+12
+00:00:38,636 --> 00:00:41,046
+providers are and what new APIs
+
+
+13
+00:00:41,046 --> 00:00:43,756
+in iOS 11 allow you to enumerate
+
+
+14
+00:00:44,176 --> 00:00:45,986
+files from the cloud down to the
+
+
+15
+00:00:45,986 --> 00:00:48,026
+device, to modify those files on
+
+
+16
+00:00:48,026 --> 00:00:49,496
+the device and up to the cloud,
+
+
+17
+00:00:49,926 --> 00:00:50,986
+and to customize your file
+
+
+18
+00:00:50,986 --> 00:00:52,706
+provider to expose your
+
+
+19
+00:00:52,706 --> 00:00:53,866
+non-standout features.
+
+
+20
+00:00:56,206 --> 00:00:57,416
+So file providers have been
+
+
+21
+00:00:57,416 --> 00:00:59,836
+around since iOS 8, and at the
+
+
+22
+00:00:59,886 --> 00:01:02,646
+core, they materialize files for
+
+
+23
+00:01:02,646 --> 00:01:03,296
+applications.
+
+
+24
+00:01:03,296 --> 00:01:04,306
+So applications may keep
+
+
+25
+00:01:04,306 --> 00:01:06,846
+preferences to files that are
+
+
+26
+00:01:06,846 --> 00:01:08,256
+provided by file providers, and
+
+
+27
+00:01:08,256 --> 00:01:09,646
+when they need the files, file
+
+
+28
+00:01:09,646 --> 00:01:11,086
+providers fulfill the promises.
+
+
+29
+00:01:12,406 --> 00:01:14,286
+But we are here today to talk
+
+
+30
+00:01:14,286 --> 00:01:16,406
+about the new APIs, the APIs for
+
+
+31
+00:01:16,406 --> 00:01:18,136
+enumerating files from the cloud
+
+
+32
+00:01:18,136 --> 00:01:18,976
+down to the device.
+
+
+33
+00:01:19,626 --> 00:01:22,556
+So the audience for this talk is
+
+
+34
+00:01:22,556 --> 00:01:24,216
+people who have servers out
+
+
+35
+00:01:24,216 --> 00:01:26,486
+there with user documents on
+
+
+36
+00:01:26,486 --> 00:01:27,776
+those servers and want to bring
+
+
+37
+00:01:27,776 --> 00:01:29,486
+those documents to iPad and
+
+
+38
+00:01:29,486 --> 00:01:29,856
+iPhone.
+
+
+39
+00:01:32,316 --> 00:01:34,886
+So let's look at the Files app.
+
+
+40
+00:01:35,436 --> 00:01:37,886
+The Files app is a thin wrapper
+
+
+41
+00:01:37,886 --> 00:01:40,126
+around a new piece of system UI
+
+
+42
+00:01:40,126 --> 00:01:41,296
+called the document browser that
+
+
+43
+00:01:41,296 --> 00:01:42,856
+is pretty ubiquitous in the
+
+
+44
+00:01:42,856 --> 00:01:43,336
+system.
+
+
+45
+00:01:44,266 --> 00:01:45,926
+It is where the user, where
+
+
+46
+00:01:45,926 --> 00:01:48,296
+users find, organize, share,
+
+
+47
+00:01:48,366 --> 00:01:49,376
+open documents.
+
+
+48
+00:01:52,776 --> 00:01:54,896
+File providers appear here under
+
+
+49
+00:01:54,896 --> 00:01:55,906
+Locations.
+
+
+50
+00:01:56,366 --> 00:01:57,746
+These are the entry points to
+
+
+51
+00:01:57,746 --> 00:02:01,126
+your cloud storage, and iCloud
+
+
+52
+00:02:01,126 --> 00:02:02,436
+Drive is one of them.
+
+
+53
+00:02:03,716 --> 00:02:04,186
+That's good.
+
+
+54
+00:02:04,396 --> 00:02:05,956
+That means that the APIs that we
+
+
+55
+00:02:05,956 --> 00:02:07,446
+are going to go through today
+
+
+56
+00:02:07,916 --> 00:02:09,356
+are implemented by iCloud Drive,
+
+
+57
+00:02:09,425 --> 00:02:10,826
+really well tested, and you have
+
+
+58
+00:02:10,826 --> 00:02:11,886
+a reference point if you're
+
+
+59
+00:02:11,886 --> 00:02:13,246
+wondering about the expected
+
+
+60
+00:02:13,246 --> 00:02:15,846
+behavior of, say, renaming your
+
+
+61
+00:02:15,846 --> 00:02:17,106
+file when there's already a file
+
+
+62
+00:02:17,106 --> 00:02:18,106
+with the same name and the same
+
+
+63
+00:02:18,106 --> 00:02:19,196
+folder, or you can just try it
+
+
+64
+00:02:19,196 --> 00:02:20,466
+out in iCloud Drive and see how
+
+
+65
+00:02:20,466 --> 00:02:21,246
+it's supposed to behave.
+
+
+66
+00:02:22,566 --> 00:02:24,736
+It also means that your
+
+
+67
+00:02:24,736 --> 00:02:26,296
+documents, being in a file
+
+
+68
+00:02:26,296 --> 00:02:27,706
+provider just like iCloud Drive,
+
+
+69
+00:02:27,706 --> 00:02:29,186
+are first-class citizens on the
+
+
+70
+00:02:29,186 --> 00:02:29,546
+OS.
+
+
+71
+00:02:29,896 --> 00:02:31,206
+They're available everywhere
+
+
+72
+00:02:31,206 --> 00:02:32,686
+really prominently just as
+
+
+73
+00:02:32,686 --> 00:02:33,706
+iCloud Drive documents.
+
+
+74
+00:02:34,016 --> 00:02:35,466
+Actually, on this shot, iCloud
+
+
+75
+00:02:35,466 --> 00:02:36,466
+Drive is at the top, but the
+
+
+76
+00:02:36,466 --> 00:02:38,056
+user may want to reconfigure
+
+
+77
+00:02:38,056 --> 00:02:39,546
+that however they want to really
+
+
+78
+00:02:39,666 --> 00:02:41,186
+leave on your file provider.
+
+
+79
+00:02:42,616 --> 00:02:44,356
+There's on file provider in
+
+
+80
+00:02:44,356 --> 00:02:45,856
+there that I just want to make a
+
+
+81
+00:02:46,526 --> 00:02:47,356
+passing mention of.
+
+
+82
+00:02:47,616 --> 00:02:49,106
+On My iPad, that is the only
+
+
+83
+00:02:49,106 --> 00:02:50,246
+local file provider.
+
+
+84
+00:02:50,246 --> 00:02:51,436
+That is the only file provider
+
+
+85
+00:02:51,436 --> 00:02:52,796
+that doesn't show files that are
+
+
+86
+00:02:52,796 --> 00:02:54,846
+in the cloud somewhere, and it's
+
+
+87
+00:02:54,846 --> 00:02:57,316
+for apps to expose their
+
+
+88
+00:02:57,946 --> 00:02:59,626
+document, their local document
+
+
+89
+00:02:59,626 --> 00:03:01,406
+storage to other applications.
+
+
+90
+00:03:04,656 --> 00:03:06,146
+So let's see where the document
+
+
+91
+00:03:06,146 --> 00:03:07,676
+browser fits on the platform.
+
+
+92
+00:03:08,556 --> 00:03:09,886
+Well, it sits right below the
+
+
+93
+00:03:09,886 --> 00:03:11,156
+document-based applications --
+
+
+94
+00:03:11,526 --> 00:03:12,926
+the Files app that we just saw;
+
+
+95
+00:03:13,736 --> 00:03:15,276
+all the iWork apps, which
+
+
+96
+00:03:15,276 --> 00:03:17,416
+[inaudible] the document browser
+
+
+97
+00:03:17,416 --> 00:03:19,026
+to be that new piece of system
+
+
+98
+00:03:19,026 --> 00:03:20,786
+UI; and all the third-party
+
+
+99
+00:03:20,786 --> 00:03:22,156
+[inaudible] in iOS 11.
+
+
+100
+00:03:22,706 --> 00:03:25,196
+On the other side of the
+
+
+101
+00:03:25,196 --> 00:03:27,016
+document browser UI are the file
+
+
+102
+00:03:27,016 --> 00:03:28,476
+providers, and the file
+
+
+103
+00:03:28,476 --> 00:03:30,066
+providers will provide files to
+
+
+104
+00:03:30,066 --> 00:03:31,626
+the system UI while the
+
+
+105
+00:03:31,626 --> 00:03:33,146
+document-based applications
+
+
+106
+00:03:34,186 --> 00:03:35,716
+pick, open one of those
+
+
+107
+00:03:35,716 --> 00:03:36,926
+documents from whichever file
+
+
+108
+00:03:36,926 --> 00:03:39,506
+provider, edit, or create new
+
+
+109
+00:03:40,846 --> 00:03:41,296
+documents.
+
+
+110
+00:03:41,506 --> 00:03:43,006
+So the reason why document-based
+
+
+111
+00:03:43,006 --> 00:03:44,376
+applications are going to adapt
+
+
+112
+00:03:44,586 --> 00:03:46,456
+is that this is a single API to
+
+
+113
+00:03:46,696 --> 00:03:49,006
+get access to all the places
+
+
+114
+00:03:49,006 --> 00:03:50,916
+where their users have their
+
+
+115
+00:03:50,916 --> 00:03:51,586
+documents.
+
+
+116
+00:03:52,216 --> 00:03:53,886
+Replaces the multiple SDKs that
+
+
+117
+00:03:53,886 --> 00:03:55,136
+they have had to adapt to until
+
+
+118
+00:03:55,136 --> 00:03:55,376
+now.
+
+
+119
+00:03:56,766 --> 00:03:58,326
+The reasons for file providers
+
+
+120
+00:03:58,326 --> 00:03:59,996
+to adopt is the privacy model,
+
+
+121
+00:03:59,996 --> 00:04:01,246
+which is really awesome here.
+
+
+122
+00:04:01,246 --> 00:04:03,596
+So document-based applications
+
+
+123
+00:04:03,706 --> 00:04:05,246
+open documents one at a time.
+
+
+124
+00:04:06,486 --> 00:04:08,906
+It's totally user-gated access.
+
+
+125
+00:04:09,226 --> 00:04:11,286
+The system UI is out of process.
+
+
+126
+00:04:11,586 --> 00:04:12,726
+Document-based applications
+
+
+127
+00:04:12,726 --> 00:04:14,926
+cannot know which files exist
+
+
+128
+00:04:14,926 --> 00:04:16,046
+next to the file that was picked
+
+
+129
+00:04:16,046 --> 00:04:18,136
+or even which file providers are
+
+
+130
+00:04:18,136 --> 00:04:19,875
+installed until the user picks
+
+
+131
+00:04:19,875 --> 00:04:21,226
+one of the documents.
+
+
+132
+00:04:23,596 --> 00:04:25,666
+There are two key APIs here:
+
+
+133
+00:04:26,326 --> 00:04:27,266
+UIDocumentBrowser
+
+
+134
+00:04:27,266 --> 00:04:29,626
+ViewController, which is in the
+
+
+135
+00:04:29,626 --> 00:04:30,806
+SDK of the document-based
+
+
+136
+00:04:30,806 --> 00:04:31,526
+applications, and
+
+
+137
+00:04:31,526 --> 00:04:33,156
+NSFileProviderExtension.
+
+
+138
+00:04:36,116 --> 00:04:37,166
+We're not here to talk about
+
+
+139
+00:04:37,166 --> 00:04:37,976
+UIDocumentBrowser
+
+
+140
+00:04:37,976 --> 00:04:38,666
+ViewController.
+
+
+141
+00:04:38,906 --> 00:04:40,176
+That was covered in the session
+
+
+142
+00:04:40,546 --> 00:04:42,416
+yesterday that I invite you to
+
+
+143
+00:04:42,416 --> 00:04:43,966
+go watch if you missed it about
+
+
+144
+00:04:43,966 --> 00:04:45,466
+building document-based
+
+
+145
+00:04:45,466 --> 00:04:46,106
+applications.
+
+
+146
+00:04:46,106 --> 00:04:47,776
+We are here to talk about the
+
+
+147
+00:04:47,776 --> 00:04:48,486
+other end of this,
+
+
+148
+00:04:48,536 --> 00:04:49,806
+NSFileProviderExtension.
+
+
+149
+00:04:52,656 --> 00:04:54,886
+So let's look again at the Files
+
+
+150
+00:04:54,886 --> 00:04:55,016
+app.
+
+
+151
+00:04:55,716 --> 00:04:57,486
+There are two main ways for the
+
+
+152
+00:04:57,486 --> 00:05:00,806
+user to go and interact with his
+
+
+153
+00:05:00,806 --> 00:05:02,486
+documents, and those correspond
+
+
+154
+00:05:02,486 --> 00:05:03,686
+to two tabs in the app.
+
+
+155
+00:05:04,036 --> 00:05:05,476
+The first tab is the Browse tab.
+
+
+156
+00:05:06,156 --> 00:05:07,736
+That is where the user goes to
+
+
+157
+00:05:07,736 --> 00:05:11,046
+find content in your cloud and
+
+
+158
+00:05:11,046 --> 00:05:12,326
+bring it down to the device.
+
+
+159
+00:05:13,076 --> 00:05:14,906
+In this mode, your file provider
+
+
+160
+00:05:14,906 --> 00:05:17,136
+extension acts as a pipe between
+
+
+161
+00:05:17,136 --> 00:05:18,866
+the system UI and your servers.
+
+
+162
+00:05:18,866 --> 00:05:20,236
+It's not even expected to work
+
+
+163
+00:05:20,236 --> 00:05:23,186
+offline, really.
+
+
+164
+00:05:23,366 --> 00:05:25,546
+Once the user has selected those
+
+
+165
+00:05:25,546 --> 00:05:26,946
+documents in the Browse tab,
+
+
+166
+00:05:26,946 --> 00:05:28,096
+they become available in the
+
+
+167
+00:05:28,096 --> 00:05:28,806
+Recents tab.
+
+
+168
+00:05:28,806 --> 00:05:31,416
+The Recents tab is the other
+
+
+169
+00:05:31,416 --> 00:05:33,826
+mode, and it is a flat list of
+
+
+170
+00:05:33,826 --> 00:05:34,896
+documents that come from the
+
+
+171
+00:05:34,896 --> 00:05:38,286
+very sources of documents and
+
+
+172
+00:05:38,316 --> 00:05:39,666
+are really relevant to the user.
+
+
+173
+00:05:39,666 --> 00:05:40,886
+That is where the user is going
+
+
+174
+00:05:40,886 --> 00:05:42,186
+to go look for the file he wants
+
+
+175
+00:05:42,186 --> 00:05:42,496
+to open.
+
+
+176
+00:05:42,496 --> 00:05:43,446
+And sure enough, it's going to
+
+
+177
+00:05:43,446 --> 00:05:43,796
+be there.
+
+
+178
+00:05:47,816 --> 00:05:50,666
+So two tabs -- Browse, Recents.
+
+
+179
+00:05:50,666 --> 00:05:52,026
+The Browse tab is for putting
+
+
+180
+00:05:52,026 --> 00:05:53,716
+new content for file providers
+
+
+181
+00:05:53,896 --> 00:05:55,996
+online for, folder, online to
+
+
+182
+00:05:55,996 --> 00:05:57,486
+folders and pick a document.
+
+
+183
+00:05:57,946 --> 00:06:00,016
+The Recents tab shows what we
+
+
+184
+00:06:00,016 --> 00:06:01,276
+call the working set, and we're
+
+
+185
+00:06:01,276 --> 00:06:02,256
+going to talk about the working
+
+
+186
+00:06:02,256 --> 00:06:02,706
+set now.
+
+
+187
+00:06:03,416 --> 00:06:05,256
+So it's not folder based and it
+
+
+188
+00:06:05,256 --> 00:06:07,056
+spans multiple file providers.
+
+
+189
+00:06:07,786 --> 00:06:10,066
+And in a working set, there are
+
+
+190
+00:06:10,676 --> 00:06:12,416
+these documents.
+
+
+191
+00:06:12,546 --> 00:06:14,106
+So recently-opened documents or
+
+
+192
+00:06:14,106 --> 00:06:16,846
+used document, favorites, tag
+
+
+193
+00:06:16,846 --> 00:06:20,326
+documents and folders, documents
+
+
+194
+00:06:20,326 --> 00:06:22,106
+shared through or by the user,
+
+
+195
+00:06:22,386 --> 00:06:23,866
+documents that were previously
+
+
+196
+00:06:23,866 --> 00:06:25,206
+downloaded to the device and are
+
+
+197
+00:06:25,206 --> 00:06:26,226
+available offline, and
+
+
+198
+00:06:26,756 --> 00:06:30,036
+recently-deleted documents.
+
+
+199
+00:06:30,036 --> 00:06:32,326
+For the user experience to be
+
+
+200
+00:06:32,326 --> 00:06:33,646
+consistent across file provider,
+
+
+201
+00:06:33,646 --> 00:06:35,686
+we ask you to put all those
+
+
+202
+00:06:35,686 --> 00:06:36,696
+files in the working set.
+
+
+203
+00:06:37,156 --> 00:06:38,336
+But you have domain-specific
+
+
+204
+00:06:38,336 --> 00:06:38,716
+knowledge.
+
+
+205
+00:06:38,716 --> 00:06:39,756
+You know what's relevant to the
+
+
+206
+00:06:39,756 --> 00:06:40,026
+user.
+
+
+207
+00:06:40,026 --> 00:06:41,976
+So you might choose to add more
+
+
+208
+00:06:41,976 --> 00:06:44,216
+to the working set, if you so
+
+
+209
+00:06:44,216 --> 00:06:44,526
+want.
+
+
+210
+00:06:45,016 --> 00:06:48,656
+However, caveat: We are actually
+
+
+211
+00:06:48,656 --> 00:06:50,646
+Smart Caching the working set on
+
+
+212
+00:06:50,646 --> 00:06:51,126
+the device.
+
+
+213
+00:06:51,126 --> 00:06:52,296
+So once something is in the
+
+
+214
+00:06:52,296 --> 00:06:53,416
+working set, you'll have to keep
+
+
+215
+00:06:53,416 --> 00:06:53,916
+it in sync.
+
+
+216
+00:06:54,956 --> 00:06:58,016
+I'll get back to that.
+
+
+217
+00:06:58,016 --> 00:07:00,106
+So in the document browser in
+
+
+218
+00:07:00,106 --> 00:07:02,446
+the Recents tab, you'll see the
+
+
+219
+00:07:02,446 --> 00:07:03,256
+working set.
+
+
+220
+00:07:03,346 --> 00:07:04,696
+And each file provider may
+
+
+221
+00:07:04,696 --> 00:07:05,976
+contribute different documents
+
+
+222
+00:07:05,976 --> 00:07:06,896
+to the working set.
+
+
+223
+00:07:08,246 --> 00:07:10,916
+We don't do that at display
+
+
+224
+00:07:10,916 --> 00:07:11,266
+time.
+
+
+225
+00:07:11,786 --> 00:07:13,296
+If we had to merge the list of
+
+
+226
+00:07:13,296 --> 00:07:15,826
+documents as they come in from
+
+
+227
+00:07:15,826 --> 00:07:16,886
+the different file provider
+
+
+228
+00:07:16,886 --> 00:07:18,426
+extensions when the UI is
+
+
+229
+00:07:18,426 --> 00:07:19,326
+onscreen, you'd have weird
+
+
+230
+00:07:19,326 --> 00:07:21,246
+animations, visual glitches.
+
+
+231
+00:07:21,246 --> 00:07:22,426
+So we don't do that.
+
+
+232
+00:07:22,426 --> 00:07:24,286
+Instead, what we do is we
+
+
+233
+00:07:24,286 --> 00:07:26,436
+enumerate a working set index
+
+
+234
+00:07:26,436 --> 00:07:28,326
+that is kept by the system when
+
+
+235
+00:07:28,326 --> 00:07:29,266
+the UI comes up.
+
+
+236
+00:07:29,336 --> 00:07:30,216
+And your file provider
+
+
+237
+00:07:30,216 --> 00:07:32,026
+extensions are not even invoked
+
+
+238
+00:07:32,376 --> 00:07:32,756
+at all.
+
+
+239
+00:07:33,836 --> 00:07:34,846
+We're going to talk about how
+
+
+240
+00:07:34,846 --> 00:07:35,716
+that index is built.
+
+
+241
+00:07:36,976 --> 00:07:39,326
+So the index is local and on the
+
+
+242
+00:07:39,326 --> 00:07:39,986
+device.
+
+
+243
+00:07:40,156 --> 00:07:42,056
+It is the aggregation of the
+
+
+244
+00:07:42,056 --> 00:07:43,276
+working set from the different
+
+
+245
+00:07:43,276 --> 00:07:44,186
+file providers.
+
+
+246
+00:07:44,556 --> 00:07:45,866
+Because the index is local, it
+
+
+247
+00:07:45,866 --> 00:07:47,116
+means the index is available
+
+
+248
+00:07:47,216 --> 00:07:47,726
+offline.
+
+
+249
+00:07:47,726 --> 00:07:49,376
+It means that offline, if I
+
+
+250
+00:07:49,376 --> 00:07:50,806
+bring up that UI, the document
+
+
+251
+00:07:50,806 --> 00:07:52,086
+browser, I will see my recent
+
+
+252
+00:07:52,086 --> 00:07:52,556
+documents.
+
+
+253
+00:07:52,906 --> 00:07:53,696
+That doesn't mean that all the
+
+
+254
+00:07:53,696 --> 00:07:54,916
+documents are local on the
+
+
+255
+00:07:54,916 --> 00:07:56,506
+device at all time and offline.
+
+
+256
+00:07:56,876 --> 00:07:57,716
+It means that [inaudible] to
+
+
+257
+00:07:57,886 --> 00:08:01,316
+build the UI is cached to the
+
+
+258
+00:08:01,316 --> 00:08:01,826
+device.
+
+
+259
+00:08:02,176 --> 00:08:06,506
+Because the index is local and
+
+
+260
+00:08:06,506 --> 00:08:09,536
+available offline, it is also in
+
+
+261
+00:08:09,536 --> 00:08:10,106
+Spotlight.
+
+
+262
+00:08:10,106 --> 00:08:11,866
+So the system index is for you,
+
+
+263
+00:08:12,626 --> 00:08:14,296
+the working set in Spotlight,
+
+
+264
+00:08:14,356 --> 00:08:16,266
+and users may pick a document in
+
+
+265
+00:08:16,266 --> 00:08:18,086
+Spotlight, and that will wake
+
+
+266
+00:08:18,086 --> 00:08:19,686
+your file provider extension at
+
+
+267
+00:08:20,266 --> 00:08:22,526
+that time.
+
+
+268
+00:08:22,736 --> 00:08:25,106
+So let's talk about how you
+
+
+269
+00:08:25,326 --> 00:08:27,266
+provide files to the working set
+
+
+270
+00:08:27,266 --> 00:08:28,276
+index, which happens in the
+
+
+271
+00:08:28,276 --> 00:08:29,696
+background before the document
+
+
+272
+00:08:29,696 --> 00:08:30,726
+browser comes up.
+
+
+273
+00:08:32,126 --> 00:08:33,416
+The first thing that you are
+
+
+274
+00:08:33,486 --> 00:08:35,836
+going to have to do is sync your
+
+
+275
+00:08:35,836 --> 00:08:38,186
+working set from your servers
+
+
+276
+00:08:38,186 --> 00:08:39,025
+down to the device.
+
+
+277
+00:08:39,346 --> 00:08:40,596
+So watch those file provider
+
+
+278
+00:08:40,596 --> 00:08:41,626
+extension boxes here.
+
+
+279
+00:08:42,436 --> 00:08:45,046
+The, we're asking you to keep a
+
+
+280
+00:08:45,046 --> 00:08:47,856
+database of the metadata for all
+
+
+281
+00:08:47,856 --> 00:08:49,176
+the files in the working set on
+
+
+282
+00:08:49,176 --> 00:08:49,636
+the device.
+
+
+283
+00:08:49,636 --> 00:08:51,276
+And actually, do sync both ways
+
+
+284
+00:08:51,276 --> 00:08:53,026
+because there are local changes
+
+
+285
+00:08:53,136 --> 00:08:54,066
+and [inaudible] changes.
+
+
+286
+00:08:54,676 --> 00:08:56,676
+The second step is that the
+
+
+287
+00:08:56,676 --> 00:08:59,306
+working set, the system is going
+
+
+288
+00:08:59,306 --> 00:09:00,866
+to drive the enumeration of the
+
+
+289
+00:09:00,866 --> 00:09:02,116
+working set from your file
+
+
+290
+00:09:02,116 --> 00:09:04,536
+providers to build the index.
+
+
+291
+00:09:06,006 --> 00:09:07,306
+Happens in the background.
+
+
+292
+00:09:07,306 --> 00:09:09,086
+And then at a later time, when
+
+
+293
+00:09:09,086 --> 00:09:11,166
+the UI comes up, the system will
+
+
+294
+00:09:11,166 --> 00:09:12,646
+enumerate the working set index
+
+
+295
+00:09:12,646 --> 00:09:13,816
+without waking your file
+
+
+296
+00:09:13,816 --> 00:09:16,036
+provider extension to show the
+
+
+297
+00:09:16,036 --> 00:09:17,346
+Recents in the document browser.
+
+
+298
+00:09:17,346 --> 00:09:20,046
+All right, we're asking you to
+
+
+299
+00:09:20,046 --> 00:09:20,966
+do a lot of things here.
+
+
+300
+00:09:20,966 --> 00:09:22,446
+We're asking you do sync and to
+
+
+301
+00:09:22,446 --> 00:09:23,906
+do sync of a partial set of your
+
+
+302
+00:09:23,906 --> 00:09:24,516
+documents.
+
+
+303
+00:09:25,626 --> 00:09:26,886
+If you can't do partial sync,
+
+
+304
+00:09:26,986 --> 00:09:28,176
+you might want to consider
+
+
+305
+00:09:29,016 --> 00:09:31,036
+syncing all the user's documents
+
+
+306
+00:09:31,036 --> 00:09:32,056
+down to the device.
+
+
+307
+00:09:32,376 --> 00:09:34,216
+You're going to hit scaling
+
+
+308
+00:09:34,216 --> 00:09:36,116
+issues, so think carefully about
+
+
+309
+00:09:36,696 --> 00:09:37,406
+what you do there.
+
+
+310
+00:09:39,956 --> 00:09:42,416
+OK, what we saw to this point is
+
+
+311
+00:09:42,416 --> 00:09:45,406
+that there are two ways to
+
+
+312
+00:09:45,406 --> 00:09:46,366
+browse documents.
+
+
+313
+00:09:46,366 --> 00:09:48,256
+There is a Recents tab that
+
+
+314
+00:09:48,256 --> 00:09:49,866
+shows the working set, which is
+
+
+315
+00:09:49,866 --> 00:09:50,906
+synced in the background to the
+
+
+316
+00:09:50,906 --> 00:09:53,026
+device, and there is a Browse
+
+
+317
+00:09:53,026 --> 00:09:55,166
+tab, which is based on the
+
+
+318
+00:09:55,166 --> 00:09:57,156
+online enumerations of folders.
+
+
+319
+00:09:57,666 --> 00:09:59,206
+And I'm going to call Pierre to
+
+
+320
+00:09:59,206 --> 00:10:00,776
+show you how to create a file
+
+
+321
+00:10:00,776 --> 00:10:01,886
+provider extension now.
+
+
+322
+00:10:02,796 --> 00:10:04,256
+Thank you, Pierre.
+
+
+323
+00:10:04,256 --> 00:10:05,576
+>> Thank you, Jean-Gabriel.
+
+
+324
+00:10:06,386 --> 00:10:09,076
+So let's talk about creating a
+
+
+325
+00:10:09,076 --> 00:10:10,756
+file provider extension.
+
+
+326
+00:10:10,756 --> 00:10:12,966
+First, we're going to see how to
+
+
+327
+00:10:12,966 --> 00:10:14,966
+create the project, then how to
+
+
+328
+00:10:14,966 --> 00:10:16,136
+provide a single item, then
+
+
+329
+00:10:16,496 --> 00:10:18,866
+enumerate a list of items, and
+
+
+330
+00:10:18,866 --> 00:10:19,876
+then I will [inaudible] was
+
+
+331
+00:10:19,946 --> 00:10:22,016
+going to go through you, with
+
+
+332
+00:10:22,016 --> 00:10:26,006
+you an [inaudible] to modify
+
+
+333
+00:10:26,006 --> 00:10:28,576
+item, provide custom action, and
+
+
+334
+00:10:28,576 --> 00:10:29,846
+as well as do something very,
+
+
+335
+00:10:29,846 --> 00:10:31,906
+very powerful, which is provide
+
+
+336
+00:10:31,906 --> 00:10:33,616
+services to third-parties.
+
+
+337
+00:10:33,616 --> 00:10:34,446
+What does that mean?
+
+
+338
+00:10:34,446 --> 00:10:35,876
+It means that your file provider
+
+
+339
+00:10:35,876 --> 00:10:37,626
+extension can provide its own
+
+
+340
+00:10:37,626 --> 00:10:39,916
+API, so you own API to other
+
+
+341
+00:10:39,916 --> 00:10:40,706
+third-party's app.
+
+
+342
+00:10:41,696 --> 00:10:42,756
+This is really cool, so you
+
+
+343
+00:10:42,756 --> 00:10:44,296
+probably want to stay until you
+
+
+344
+00:10:44,296 --> 00:10:47,626
+see this or play it online
+
+
+345
+00:10:48,656 --> 00:10:48,786
+later.
+
+
+346
+00:10:49,896 --> 00:10:50,926
+Creating a file provider
+
+
+347
+00:10:50,926 --> 00:10:52,186
+extension is really simple if
+
+
+348
+00:10:52,186 --> 00:10:53,256
+you start from scratch.
+
+
+349
+00:10:53,256 --> 00:10:55,196
+So there is a Xcode template,
+
+
+350
+00:10:55,656 --> 00:10:56,946
+File Provider Extension.
+
+
+351
+00:10:56,946 --> 00:10:57,596
+Just click on it.
+
+
+352
+00:10:57,596 --> 00:10:58,426
+Boom, it's done.
+
+
+353
+00:10:59,046 --> 00:11:00,366
+And then the real work begin.
+
+
+354
+00:11:00,496 --> 00:11:01,466
+You have to subclass
+
+
+355
+00:11:01,466 --> 00:11:03,016
+NSFileProviderExtension.
+
+
+356
+00:11:03,996 --> 00:11:06,146
+If you already have an existing
+
+
+357
+00:11:06,146 --> 00:11:07,896
+file provider extension, in that
+
+
+358
+00:11:07,896 --> 00:11:10,306
+case, what you should do is add
+
+
+359
+00:11:10,306 --> 00:11:12,746
+the support enumeration key to
+
+
+360
+00:11:12,746 --> 00:11:13,586
+your Info.plist.
+
+
+361
+00:11:13,966 --> 00:11:15,816
+That will tell the system, look,
+
+
+362
+00:11:15,816 --> 00:11:17,676
+you probably want to take this
+
+
+363
+00:11:17,676 --> 00:11:19,736
+file extension and use the new
+
+
+364
+00:11:19,856 --> 00:11:21,976
+UI to render my document.
+
+
+365
+00:11:23,056 --> 00:11:26,626
+So the big picture during this
+
+
+366
+00:11:26,626 --> 00:11:28,296
+file provider extension subclass
+
+
+367
+00:11:28,556 --> 00:11:30,326
+that you should build.
+
+
+368
+00:11:31,056 --> 00:11:32,586
+Your file provider extension
+
+
+369
+00:11:32,586 --> 00:11:34,196
+subclass [inaudible] is to vend
+
+
+370
+00:11:34,196 --> 00:11:35,856
+the item metadata by
+
+
+371
+00:11:35,856 --> 00:11:37,636
+implementing or returning object
+
+
+372
+00:11:37,636 --> 00:11:39,226
+implementing the NSFileProvider
+
+
+373
+00:11:39,226 --> 00:11:42,806
+protocol, NSFileProviderItem
+
+
+374
+00:11:42,806 --> 00:11:43,296
+protocol.
+
+
+375
+00:11:44,116 --> 00:11:46,656
+Those item are identified by a
+
+
+376
+00:11:46,656 --> 00:11:50,056
+string that you provide and are
+
+
+377
+00:11:50,056 --> 00:11:51,726
+materialized on disk through
+
+
+378
+00:11:51,726 --> 00:11:53,306
+file URL.
+
+
+379
+00:11:54,376 --> 00:11:58,716
+The folder contents of your file
+
+
+380
+00:11:58,756 --> 00:12:01,286
+provider is exposed by
+
+
+381
+00:12:01,286 --> 00:12:02,936
+implementing what we call an
+
+
+382
+00:12:02,936 --> 00:12:04,556
+NSFileProviderEnumerator.
+
+
+383
+00:12:05,006 --> 00:12:07,176
+That sounds complicated, but
+
+
+384
+00:12:07,176 --> 00:12:07,666
+it's not.
+
+
+385
+00:12:08,296 --> 00:12:10,936
+So, and before jumping into the
+
+
+386
+00:12:10,936 --> 00:12:12,116
+very detail, let's have a big
+
+
+387
+00:12:12,176 --> 00:12:14,096
+picture of the tasks we've been
+
+
+388
+00:12:14,096 --> 00:12:16,606
+going through and see what the
+
+
+389
+00:12:16,636 --> 00:12:18,526
+anatomy of a file provider
+
+
+390
+00:12:18,526 --> 00:12:20,046
+extension is going to look like
+
+
+391
+00:12:20,246 --> 00:12:21,476
+after we build all this.
+
+
+392
+00:12:22,046 --> 00:12:23,346
+So first task, we need to
+
+
+393
+00:12:23,346 --> 00:12:24,726
+provide the metadata for a given
+
+
+394
+00:12:24,726 --> 00:12:25,666
+item identifier.
+
+
+395
+00:12:26,756 --> 00:12:28,966
+That's straightforward if you
+
+
+396
+00:12:28,966 --> 00:12:30,516
+have a database, so you probably
+
+
+397
+00:12:30,516 --> 00:12:32,156
+want to have a database.
+
+
+398
+00:12:32,296 --> 00:12:35,926
+Then, you need to map URLs to
+
+
+399
+00:12:35,926 --> 00:12:36,876
+item identifiers.
+
+
+400
+00:12:36,876 --> 00:12:39,746
+That's probably a semicolon in
+
+
+401
+00:12:39,746 --> 00:12:40,486
+your database.
+
+
+402
+00:12:40,756 --> 00:12:43,186
+Last, you're in charge of
+
+
+403
+00:12:43,186 --> 00:12:46,046
+managing the disk storage,
+
+
+404
+00:12:46,156 --> 00:12:48,186
+whether the data corresponding
+
+
+405
+00:12:48,186 --> 00:12:50,106
+to a file is local or not.
+
+
+406
+00:12:50,836 --> 00:12:52,786
+That's the second piece of your
+
+
+407
+00:12:52,786 --> 00:12:53,816
+file provider extension.
+
+
+408
+00:12:54,686 --> 00:12:57,076
+And inside the disk storage, of
+
+
+409
+00:12:57,076 --> 00:12:58,266
+course, file can be there or
+
+
+410
+00:12:58,266 --> 00:13:01,396
+not, as [inaudible].
+
+
+411
+00:13:02,306 --> 00:13:04,186
+OK, so we've seen the anatomy.
+
+
+412
+00:13:04,266 --> 00:13:06,296
+Let's jump in and provide an
+
+
+413
+00:13:06,296 --> 00:13:06,786
+item.
+
+
+414
+00:13:06,876 --> 00:13:08,466
+What does it mean to provide an
+
+
+415
+00:13:08,466 --> 00:13:08,866
+item?
+
+
+416
+00:13:09,736 --> 00:13:11,216
+First, you need to provide a
+
+
+417
+00:13:11,216 --> 00:13:11,516
+file URL.
+
+
+418
+00:13:11,866 --> 00:13:15,016
+Then, file contents, metadata,
+
+
+419
+00:13:15,876 --> 00:13:17,306
+and thumbnail for your item.
+
+
+420
+00:13:17,766 --> 00:13:19,236
+That's it.
+
+
+421
+00:13:20,016 --> 00:13:22,116
+Why do you need to provide a
+
+
+422
+00:13:22,116 --> 00:13:23,396
+file URL, you might ask?
+
+
+423
+00:13:24,486 --> 00:13:26,856
+Well, file provider manipulates
+
+
+424
+00:13:27,116 --> 00:13:29,246
+file provider item and file
+
+
+425
+00:13:29,246 --> 00:13:31,006
+provider item identifier, not
+
+
+426
+00:13:31,006 --> 00:13:32,146
+file URLs directly.
+
+
+427
+00:13:32,986 --> 00:13:35,986
+However, document-based apps do
+
+
+428
+00:13:35,986 --> 00:13:40,386
+consume file URLs, so we need to
+
+
+429
+00:13:40,386 --> 00:13:43,076
+bridge between the two, so let's
+
+
+430
+00:13:43,616 --> 00:13:45,856
+take an example.
+
+
+431
+00:13:45,856 --> 00:13:47,156
+When the user taps on the file
+
+
+432
+00:13:47,156 --> 00:13:49,336
+in the File app, the File app
+
+
+433
+00:13:49,566 --> 00:13:50,746
+only has access to your item
+
+
+434
+00:13:50,746 --> 00:13:51,916
+identifier at that point.
+
+
+435
+00:13:52,396 --> 00:13:53,416
+So before calling the
+
+
+436
+00:13:53,416 --> 00:13:55,676
+document-based app, it's
+
+
+437
+00:13:55,676 --> 00:13:57,116
+actually going to call into your
+
+
+438
+00:13:57,116 --> 00:13:58,216
+file provider extension
+
+
+439
+00:13:58,216 --> 00:13:59,006
+subclass.
+
+
+440
+00:14:00,196 --> 00:14:02,156
+The method urlForItem with
+
+
+441
+00:14:02,156 --> 00:14:04,336
+identifier is going to get
+
+
+442
+00:14:04,336 --> 00:14:06,016
+called, and so you will look in
+
+
+443
+00:14:06,016 --> 00:14:08,076
+your database, figure out the
+
+
+444
+00:14:08,076 --> 00:14:09,306
+URL for the given item
+
+
+445
+00:14:09,306 --> 00:14:11,146
+identifier, and, boom, you'll
+
+
+446
+00:14:11,146 --> 00:14:12,736
+return into the document-based
+
+
+447
+00:14:12,736 --> 00:14:12,926
+app.
+
+
+448
+00:14:13,616 --> 00:14:15,176
+Not sure if the system does it
+
+
+449
+00:14:15,176 --> 00:14:16,316
+for you, but you [inaudible] to
+
+
+450
+00:14:16,316 --> 00:14:18,336
+the system which items to the
+
+
+451
+00:14:18,336 --> 00:14:19,826
+document-based app, and you're
+
+
+452
+00:14:19,826 --> 00:14:20,046
+done.
+
+
+453
+00:14:20,936 --> 00:14:22,236
+At that point, the
+
+
+454
+00:14:22,236 --> 00:14:23,606
+document-based app opened a file
+
+
+455
+00:14:23,606 --> 00:14:24,466
+by URL.
+
+
+456
+00:14:24,466 --> 00:14:25,856
+On the other [inaudible], I was
+
+
+457
+00:14:25,856 --> 00:14:27,496
+talking about the database to
+
+
+458
+00:14:27,496 --> 00:14:29,936
+the URL to item identifier
+
+
+459
+00:14:29,936 --> 00:14:30,406
+mapping.
+
+
+460
+00:14:30,406 --> 00:14:31,766
+One thing you might want to do
+
+
+461
+00:14:32,016 --> 00:14:33,616
+is to actually start the item
+
+
+462
+00:14:33,616 --> 00:14:35,406
+identifier inside the file URL.
+
+
+463
+00:14:36,436 --> 00:14:37,966
+It's very convenient because you
+
+
+464
+00:14:37,966 --> 00:14:40,636
+can avoid database lookup if you
+
+
+465
+00:14:40,636 --> 00:14:44,816
+do that and you can tag items
+
+
+466
+00:14:44,816 --> 00:14:45,586
+between renames.
+
+
+467
+00:14:45,586 --> 00:14:47,056
+Last tidbit, you probably want
+
+
+468
+00:14:47,056 --> 00:14:49,396
+to keep a flat list in your disk
+
+
+469
+00:14:49,396 --> 00:14:50,086
+storage.
+
+
+470
+00:14:50,246 --> 00:14:51,326
+You don't need to replicate the
+
+
+471
+00:14:51,326 --> 00:14:53,146
+folder hierarchy because this is
+
+
+472
+00:14:53,146 --> 00:14:54,446
+quite complicated, and so you
+
+
+473
+00:14:54,446 --> 00:14:55,926
+can avoid it, so please do.
+
+
+474
+00:14:56,286 --> 00:14:57,686
+So you might say, hey, Pierre,
+
+
+475
+00:14:57,686 --> 00:14:59,336
+so we have the file URL, but
+
+
+476
+00:14:59,336 --> 00:15:00,456
+what about the file content?
+
+
+477
+00:15:00,456 --> 00:15:02,066
+Because I did not know they're
+
+
+478
+00:15:02,066 --> 00:15:02,956
+missing at that point.
+
+
+479
+00:15:03,656 --> 00:15:05,496
+So of course, we should look
+
+
+480
+00:15:05,496 --> 00:15:05,976
+into that.
+
+
+481
+00:15:05,976 --> 00:15:07,846
+So you can open the file by, so
+
+
+482
+00:15:07,846 --> 00:15:09,116
+when the document-based app
+
+
+483
+00:15:09,586 --> 00:15:11,976
+opened your app, it opened the
+
+
+484
+00:15:11,976 --> 00:15:13,996
+file by URL.
+
+
+485
+00:15:15,266 --> 00:15:18,386
+But it's not doing that state.
+
+
+486
+00:15:18,456 --> 00:15:19,416
+Like, it should use
+
+
+487
+00:15:19,486 --> 00:15:23,106
+NSFileCoordinator and read using
+
+
+488
+00:15:23,106 --> 00:15:24,486
+a file coordination request.
+
+
+489
+00:15:24,936 --> 00:15:27,086
+That is something apps using UI
+
+
+490
+00:15:27,086 --> 00:15:29,766
+documents do for free, so when
+
+
+491
+00:15:29,766 --> 00:15:31,336
+that happens, your file provider
+
+
+492
+00:15:31,336 --> 00:15:32,406
+extension is called.
+
+
+493
+00:15:33,716 --> 00:15:34,756
+Most specifically, in your
+
+
+494
+00:15:34,756 --> 00:15:37,396
+subclass, startProvidingItem at
+
+
+495
+00:15:37,396 --> 00:15:39,306
+URL with completionHandler is
+
+
+496
+00:15:39,306 --> 00:15:40,116
+going to get called.
+
+
+497
+00:15:41,056 --> 00:15:41,736
+When you [inaudible], you look
+
+
+498
+00:15:41,736 --> 00:15:43,596
+into your disk storage.
+
+
+499
+00:15:43,596 --> 00:15:44,946
+You figure out the item is not
+
+
+500
+00:15:44,946 --> 00:15:45,236
+there.
+
+
+501
+00:15:46,116 --> 00:15:48,456
+So you go in your server,
+
+
+502
+00:15:48,456 --> 00:15:50,636
+NSURLSession most likely, and
+
+
+503
+00:15:50,636 --> 00:15:51,406
+you download the file.
+
+
+504
+00:15:52,016 --> 00:15:53,816
+The download completes.
+
+
+505
+00:15:55,086 --> 00:15:58,546
+The file is moved into your disk
+
+
+506
+00:15:58,736 --> 00:15:59,336
+storage.
+
+
+507
+00:16:00,526 --> 00:16:01,606
+Now, you can call the
+
+
+508
+00:16:01,606 --> 00:16:03,876
+completionHandler that is going
+
+
+509
+00:16:03,876 --> 00:16:05,276
+to grant the coordination to the
+
+
+510
+00:16:05,626 --> 00:16:07,016
+document-based app.
+
+
+511
+00:16:07,296 --> 00:16:09,256
+And at that point, the file is
+
+
+512
+00:16:09,256 --> 00:16:09,576
+opened.
+
+
+513
+00:16:10,566 --> 00:16:12,556
+Cool. So what happens if you
+
+
+514
+00:16:12,556 --> 00:16:13,826
+want this a second time?
+
+
+515
+00:16:14,146 --> 00:16:15,726
+Because this time, the file is
+
+
+516
+00:16:15,726 --> 00:16:16,136
+there.
+
+
+517
+00:16:17,206 --> 00:16:20,456
+But there is still going to be a
+
+
+518
+00:16:20,456 --> 00:16:22,586
+file coordinator reader request
+
+
+519
+00:16:22,886 --> 00:16:23,396
+issued.
+
+
+520
+00:16:23,736 --> 00:16:25,396
+And at that point, this is
+
+
+521
+00:16:25,396 --> 00:16:25,956
+pretty cool.
+
+
+522
+00:16:26,286 --> 00:16:27,566
+Your file provider extension
+
+
+523
+00:16:27,566 --> 00:16:28,756
+subclass is going to get called
+
+
+524
+00:16:28,756 --> 00:16:29,056
+again.
+
+
+525
+00:16:29,056 --> 00:16:30,716
+So that's very powerful for you
+
+
+526
+00:16:30,716 --> 00:16:32,966
+to track usage on your files.
+
+
+527
+00:16:33,706 --> 00:16:35,176
+But this time, the file is here,
+
+
+528
+00:16:35,176 --> 00:16:36,186
+so what do you need to do?
+
+
+529
+00:16:36,256 --> 00:16:36,896
+Well, you just
+
+
+530
+00:16:36,896 --> 00:16:38,286
+completionHandler, and you're
+
+
+531
+00:16:38,286 --> 00:16:38,536
+done.
+
+
+532
+00:16:38,726 --> 00:16:40,896
+It's very powerful, but at the
+
+
+533
+00:16:40,896 --> 00:16:42,556
+same time, it means that your
+
+
+534
+00:16:42,556 --> 00:16:44,026
+file provider extension might
+
+
+535
+00:16:44,106 --> 00:16:46,856
+be, might delay file loading.
+
+
+536
+00:16:47,096 --> 00:16:49,606
+So you better be fast when you
+
+
+537
+00:16:50,286 --> 00:16:52,586
+implement startProvidingItem if
+
+
+538
+00:16:52,586 --> 00:16:53,826
+the file is already local.
+
+
+539
+00:16:53,826 --> 00:16:56,466
+OK, so the coordination is
+
+
+540
+00:16:56,466 --> 00:16:58,766
+granted, and you've seen this
+
+
+541
+00:16:58,766 --> 00:16:59,176
+before.
+
+
+542
+00:16:59,176 --> 00:17:00,286
+The file is now opened.
+
+
+543
+00:17:02,076 --> 00:17:02,816
+Second part.
+
+
+544
+00:17:03,126 --> 00:17:06,496
+In the Files app, the metadata
+
+
+545
+00:17:06,496 --> 00:17:07,715
+of your files are prominent.
+
+
+546
+00:17:07,715 --> 00:17:10,526
+And the way it works is that for
+
+
+547
+00:17:10,526 --> 00:17:12,836
+each item that the files have
+
+
+548
+00:17:12,836 --> 00:17:14,756
+displayed, your file provider is
+
+
+549
+00:17:14,756 --> 00:17:16,955
+going to be called, and the
+
+
+550
+00:17:16,955 --> 00:17:18,445
+specific method this time is
+
+
+551
+00:17:18,445 --> 00:17:20,685
+called item for itemIdentifier,
+
+
+552
+00:17:21,215 --> 00:17:22,016
+which returned an
+
+
+553
+00:17:22,016 --> 00:17:23,165
+NSFileProviderItem.
+
+
+554
+00:17:23,246 --> 00:17:25,415
+That item should be [inaudible]
+
+
+555
+00:17:25,415 --> 00:17:26,455
+from your database.
+
+
+556
+00:17:26,455 --> 00:17:30,116
+So you look at your database,
+
+
+557
+00:17:31,216 --> 00:17:32,916
+you get an NSFileProviderItem,
+
+
+558
+00:17:33,146 --> 00:17:35,426
+and you return it.
+
+
+559
+00:17:36,836 --> 00:17:39,706
+OK, that was simple, but I did
+
+
+560
+00:17:39,706 --> 00:17:41,156
+not actually go into the detail
+
+
+561
+00:17:41,156 --> 00:17:42,536
+of what is an
+
+
+562
+00:17:42,536 --> 00:17:43,416
+NSFileProviderItem.
+
+
+563
+00:17:43,416 --> 00:17:45,846
+So as I told you a bit earlier,
+
+
+564
+00:17:45,846 --> 00:17:46,666
+it's a protocol.
+
+
+565
+00:17:46,666 --> 00:17:49,146
+And with most protocol, you have
+
+
+566
+00:17:50,066 --> 00:17:52,276
+required properties as well as
+
+
+567
+00:17:52,396 --> 00:17:53,266
+optional properties.
+
+
+568
+00:17:53,266 --> 00:17:54,706
+So let's go into the detail of
+
+
+569
+00:17:54,706 --> 00:17:56,536
+the required properties that
+
+
+570
+00:17:56,536 --> 00:17:58,746
+your object conforming to
+
+
+571
+00:17:58,746 --> 00:18:00,376
+NSFileProviderItem must
+
+
+572
+00:18:00,376 --> 00:18:00,756
+implement.
+
+
+573
+00:18:01,266 --> 00:18:03,366
+So the first properties are
+
+
+574
+00:18:03,366 --> 00:18:04,726
+usually the itemIdentifier, so
+
+
+575
+00:18:04,806 --> 00:18:05,946
+that's a simple string.
+
+
+576
+00:18:06,726 --> 00:18:07,666
+Then, you have the
+
+
+577
+00:18:07,666 --> 00:18:09,476
+typeIdentifier, and that is the
+
+
+578
+00:18:09,476 --> 00:18:11,596
+UTI, indicating whether the file
+
+
+579
+00:18:11,596 --> 00:18:15,016
+is a PDF, an image, or a folder.
+
+
+580
+00:18:15,016 --> 00:18:19,106
+And last but not least, you have
+
+
+581
+00:18:19,106 --> 00:18:20,926
+the filename, which is pretty
+
+
+582
+00:18:20,926 --> 00:18:22,256
+prominent in [inaudible] UI.
+
+
+583
+00:18:22,256 --> 00:18:27,186
+So now that we've seen the
+
+
+584
+00:18:27,186 --> 00:18:28,586
+required properties, that's all
+
+
+585
+00:18:28,586 --> 00:18:30,236
+you really need to implement, we
+
+
+586
+00:18:30,236 --> 00:18:31,496
+can move on to the optional
+
+
+587
+00:18:31,496 --> 00:18:33,456
+properties that we strongly
+
+
+588
+00:18:33,456 --> 00:18:36,096
+encourage you to also implement.
+
+
+589
+00:18:36,216 --> 00:18:39,676
+For instance, in this particular
+
+
+590
+00:18:39,676 --> 00:18:43,886
+screenshot here, there is the
+
+
+591
+00:18:43,886 --> 00:18:46,906
+shared status that is displayed
+
+
+592
+00:18:46,906 --> 00:18:48,926
+just below the filename.
+
+
+593
+00:18:49,326 --> 00:18:51,296
+That shared status is displayed
+
+
+594
+00:18:51,296 --> 00:18:53,056
+onscreen if you set the isShared
+
+
+595
+00:18:53,056 --> 00:18:53,606
+property.
+
+
+596
+00:18:53,956 --> 00:18:56,036
+And to go along with the shared
+
+
+597
+00:18:56,036 --> 00:18:56,916
+status, you have the
+
+
+598
+00:18:56,916 --> 00:18:58,826
+ownerNameComponents that you can
+
+
+599
+00:18:58,826 --> 00:18:59,416
+specify.
+
+
+600
+00:19:00,076 --> 00:19:01,106
+And now, you can see on my
+
+
+601
+00:19:01,106 --> 00:19:02,316
+document slide, "Shared by
+
+
+602
+00:19:02,316 --> 00:19:05,376
+Amaury," which is pretty good to
+
+
+603
+00:19:05,566 --> 00:19:05,633
+know.
+
+
+604
+00:19:05,633 --> 00:19:06,826
+Then, you have additional states
+
+
+605
+00:19:06,826 --> 00:19:08,526
+such as isDownloaded -- that
+
+
+606
+00:19:08,526 --> 00:19:10,946
+lets, display a small down arrow
+
+
+607
+00:19:11,266 --> 00:19:13,386
+-- isUploading and uploadError.
+
+
+608
+00:19:13,386 --> 00:19:14,066
+So the uploadError is
+
+
+609
+00:19:14,066 --> 00:19:16,106
+interesting because if your user
+
+
+610
+00:19:16,106 --> 00:19:16,856
+doesn't have enough [inaudible]
+
+
+611
+00:19:16,856 --> 00:19:19,086
+to actually upload the file, you
+
+
+612
+00:19:19,086 --> 00:19:20,496
+probably won't position that
+
+
+613
+00:19:20,496 --> 00:19:20,686
+error.
+
+
+614
+00:19:21,196 --> 00:19:22,906
+OK, there are a lot of
+
+
+615
+00:19:22,906 --> 00:19:24,006
+additional properties.
+
+
+616
+00:19:24,076 --> 00:19:25,346
+Unfortunately, we don't have
+
+
+617
+00:19:25,396 --> 00:19:27,036
+time to go through all of them.
+
+
+618
+00:19:27,466 --> 00:19:29,316
+So we're just going to move on,
+
+
+619
+00:19:29,316 --> 00:19:30,886
+but I encourage you to read our
+
+
+620
+00:19:30,886 --> 00:19:32,126
+documentation, which is pretty
+
+
+621
+00:19:32,126 --> 00:19:34,146
+good on the subject, as well as
+
+
+622
+00:19:34,146 --> 00:19:35,396
+our header files.
+
+
+623
+00:19:35,726 --> 00:19:37,216
+Well, so we've seen the
+
+
+624
+00:19:37,216 --> 00:19:38,776
+metadata, but there is one last
+
+
+625
+00:19:38,776 --> 00:19:40,106
+piece of metadata we did not
+
+
+626
+00:19:40,106 --> 00:19:41,246
+talk about, and it's a fairly
+
+
+627
+00:19:41,246 --> 00:19:43,036
+big one, so it used a different
+
+
+628
+00:19:43,036 --> 00:19:43,536
+pipeline.
+
+
+629
+00:19:43,816 --> 00:19:44,746
+It's the thumbnail.
+
+
+630
+00:19:45,626 --> 00:19:46,866
+So when the Files app displays
+
+
+631
+00:19:46,866 --> 00:19:48,436
+your file, especially if the
+
+
+632
+00:19:48,436 --> 00:19:49,796
+file is not local -- in that
+
+
+633
+00:19:49,796 --> 00:19:51,026
+case, there is no way we can
+
+
+634
+00:19:51,026 --> 00:19:52,906
+generate a thumbnail out of that
+
+
+635
+00:19:52,906 --> 00:19:55,126
+file -- what we are going to do
+
+
+636
+00:19:55,126 --> 00:19:56,636
+is to ask your file provider
+
+
+637
+00:19:56,636 --> 00:19:58,156
+extension to fetch the
+
+
+638
+00:19:58,156 --> 00:20:00,076
+thumbnails for a list of files.
+
+
+639
+00:20:00,756 --> 00:20:02,846
+In that case, you can go on your
+
+
+640
+00:20:02,846 --> 00:20:04,346
+server, ask it to download the
+
+
+641
+00:20:04,526 --> 00:20:05,846
+thumbnail associated to the
+
+
+642
+00:20:05,846 --> 00:20:06,366
+file.
+
+
+643
+00:20:07,516 --> 00:20:09,006
+When the download completes, you
+
+
+644
+00:20:09,006 --> 00:20:10,476
+hand back the thumbnail data.
+
+
+645
+00:20:10,526 --> 00:20:13,746
+And at this point, we just
+
+
+646
+00:20:14,026 --> 00:20:17,216
+display the thumbnail.
+
+
+647
+00:20:18,196 --> 00:20:19,896
+So I'm going to go into detail
+
+
+648
+00:20:19,896 --> 00:20:21,606
+of how that fetch thumbnail
+
+
+649
+00:20:21,606 --> 00:20:22,846
+function works because it's a
+
+
+650
+00:20:22,846 --> 00:20:24,146
+bit more involved than the other
+
+
+651
+00:20:24,146 --> 00:20:24,486
+one.
+
+
+652
+00:20:25,706 --> 00:20:27,996
+So first, what you have onscreen
+
+
+653
+00:20:27,996 --> 00:20:29,376
+if your file provider extension
+
+
+654
+00:20:29,376 --> 00:20:29,936
+subclass.
+
+
+655
+00:20:30,626 --> 00:20:32,986
+And so we did, it's a file
+
+
+656
+00:20:32,986 --> 00:20:34,066
+provider extension subclass
+
+
+657
+00:20:34,066 --> 00:20:35,436
+called MyFileProviderExtension.
+
+
+658
+00:20:35,436 --> 00:20:36,876
+And there, you want to override
+
+
+659
+00:20:36,876 --> 00:20:37,986
+the fetchThumbnail function.
+
+
+660
+00:20:38,576 --> 00:20:39,896
+It takes a list of item
+
+
+661
+00:20:39,896 --> 00:20:40,786
+identifiers.
+
+
+662
+00:20:40,786 --> 00:20:41,376
+Why a list?
+
+
+663
+00:20:41,506 --> 00:20:42,696
+Because we want to do batching
+
+
+664
+00:20:42,696 --> 00:20:45,076
+for performance reasons so that
+
+
+665
+00:20:45,076 --> 00:20:46,616
+we don't [inaudible] the server
+
+
+666
+00:20:46,616 --> 00:20:47,406
+for every thumbnail.
+
+
+667
+00:20:48,606 --> 00:20:50,326
+Then, you have a requestedSize,
+
+
+668
+00:20:50,616 --> 00:20:52,396
+a perThumbnailCompletionHandler,
+
+
+669
+00:20:52,396 --> 00:20:53,446
+and then an overall
+
+
+670
+00:20:53,446 --> 00:20:54,376
+completionHandler.
+
+
+671
+00:20:54,376 --> 00:20:57,056
+The first thing you want to do
+
+
+672
+00:20:57,056 --> 00:20:58,876
+is to actually create a progress
+
+
+673
+00:20:58,876 --> 00:20:59,206
+object.
+
+
+674
+00:20:59,426 --> 00:21:01,226
+The reason why is not so much
+
+
+675
+00:21:01,226 --> 00:21:03,146
+for reporting, but more for
+
+
+676
+00:21:03,146 --> 00:21:05,196
+consideration purposes so that
+
+
+677
+00:21:05,356 --> 00:21:07,726
+if the thumbnail request is
+
+
+678
+00:21:07,726 --> 00:21:08,726
+canceled because the user
+
+
+679
+00:21:08,726 --> 00:21:10,556
+dismissed the Files app, then
+
+
+680
+00:21:10,556 --> 00:21:11,726
+you would be aware and you would
+
+
+681
+00:21:11,726 --> 00:21:12,726
+be able -- and you must,
+
+
+682
+00:21:12,726 --> 00:21:13,956
+actually -- cancel your
+
+
+683
+00:21:13,956 --> 00:21:14,836
+thumbnail request.
+
+
+684
+00:21:17,176 --> 00:21:18,426
+So now, imagine you download the
+
+
+685
+00:21:18,426 --> 00:21:20,236
+files from your server using a
+
+
+686
+00:21:20,596 --> 00:21:22,216
+download task.
+
+
+687
+00:21:23,196 --> 00:21:24,976
+For each thumbnail, you get the
+
+
+688
+00:21:24,976 --> 00:21:26,076
+file UI that you would have
+
+
+689
+00:21:26,076 --> 00:21:27,466
+downloaded and you map it.
+
+
+690
+00:21:27,966 --> 00:21:29,216
+So be sure to not allocate
+
+
+691
+00:21:29,216 --> 00:21:29,956
+memory there.
+
+
+692
+00:21:29,956 --> 00:21:31,666
+So I encourage you to use the
+
+
+693
+00:21:31,666 --> 00:21:32,846
+alwaysMapped option.
+
+
+694
+00:21:33,876 --> 00:21:35,466
+Finally, you call your
+
+
+695
+00:21:35,466 --> 00:21:36,846
+perThumbnailCompletionHandler,
+
+
+696
+00:21:37,376 --> 00:21:39,476
+and that's not the real finally,
+
+
+697
+00:21:39,476 --> 00:21:40,846
+the real finally is this one.
+
+
+698
+00:21:41,176 --> 00:21:42,766
+You actually call the overall
+
+
+699
+00:21:42,766 --> 00:21:43,556
+completionHandler.
+
+
+700
+00:21:43,556 --> 00:21:46,286
+So remember one thing: You must
+
+
+701
+00:21:46,286 --> 00:21:48,086
+call it in case of success,
+
+
+702
+00:21:48,086 --> 00:21:50,656
+failure, cancellation always.
+
+
+703
+00:21:51,176 --> 00:21:53,446
+And now, you can return the
+
+
+704
+00:21:53,446 --> 00:21:54,486
+progress object so that the
+
+
+705
+00:21:54,486 --> 00:21:56,366
+system knows how to cancel your
+
+
+706
+00:21:56,366 --> 00:21:57,166
+thumbnail request.
+
+
+707
+00:21:58,346 --> 00:21:59,026
+Boom, well done.
+
+
+708
+00:21:59,026 --> 00:22:00,456
+We provided an item, so we're
+
+
+709
+00:22:00,456 --> 00:22:00,866
+happy.
+
+
+710
+00:22:00,866 --> 00:22:02,106
+But now, let's move on to the
+
+
+711
+00:22:02,106 --> 00:22:04,906
+next topic, which is enumerating
+
+
+712
+00:22:04,906 --> 00:22:05,236
+items.
+
+
+713
+00:22:06,086 --> 00:22:08,476
+So for that, enumerating items
+
+
+714
+00:22:08,476 --> 00:22:10,396
+means actually providing data to
+
+
+715
+00:22:10,396 --> 00:22:12,676
+the screenshots or to the Files
+
+
+716
+00:22:12,676 --> 00:22:14,226
+app that I have on screenshot
+
+
+717
+00:22:14,416 --> 00:22:14,826
+beside me.
+
+
+718
+00:22:14,906 --> 00:22:17,926
+And we are going to see how to
+
+
+719
+00:22:17,926 --> 00:22:19,856
+paginate items, sync changes,
+
+
+720
+00:22:20,536 --> 00:22:22,026
+render push notification, and
+
+
+721
+00:22:22,026 --> 00:22:23,116
+then signal changes.
+
+
+722
+00:22:24,096 --> 00:22:26,896
+So enumerating item works this
+
+
+723
+00:22:26,896 --> 00:22:27,116
+way.
+
+
+724
+00:22:27,646 --> 00:22:29,736
+The Files app starts up,
+
+
+725
+00:22:29,736 --> 00:22:31,076
+requests a page of item.
+
+
+726
+00:22:32,066 --> 00:22:33,136
+Your file provider extension
+
+
+727
+00:22:33,136 --> 00:22:34,196
+return the first page.
+
+
+728
+00:22:36,366 --> 00:22:37,626
+It's all over.
+
+
+729
+00:22:37,626 --> 00:22:38,516
+There's still some room
+
+
+730
+00:22:38,516 --> 00:22:39,946
+onscreen, so it's going to ask
+
+
+731
+00:22:39,946 --> 00:22:40,876
+for another page.
+
+
+732
+00:22:41,486 --> 00:22:44,186
+And so on and so forth until it
+
+
+733
+00:22:44,186 --> 00:22:44,866
+does everything.
+
+
+734
+00:22:45,896 --> 00:22:47,326
+The question you might ask is,
+
+
+735
+00:22:47,326 --> 00:22:48,576
+why do we paginate?
+
+
+736
+00:22:49,076 --> 00:22:50,676
+What's the sense of all this?
+
+
+737
+00:22:51,306 --> 00:22:52,986
+So what you have to know is that
+
+
+738
+00:22:52,986 --> 00:22:54,736
+your extension is granted a tiny
+
+
+739
+00:22:54,736 --> 00:22:57,126
+fraction of the memory your app
+
+
+740
+00:22:57,316 --> 00:22:57,916
+is granted.
+
+
+741
+00:22:58,246 --> 00:23:02,586
+If your app is in blue there,
+
+
+742
+00:23:03,026 --> 00:23:04,176
+your extension is in gray.
+
+
+743
+00:23:04,656 --> 00:23:06,026
+You can't even see it onscreen.
+
+
+744
+00:23:06,746 --> 00:23:08,966
+What you also have to know is
+
+
+745
+00:23:08,966 --> 00:23:11,906
+that above this limit of, if you
+
+
+746
+00:23:11,906 --> 00:23:13,226
+allocate more memory than what
+
+
+747
+00:23:13,226 --> 00:23:15,336
+you have available, your
+
+
+748
+00:23:15,396 --> 00:23:16,656
+extension is terminated.
+
+
+749
+00:23:16,656 --> 00:23:18,156
+So we strongly encourage you --
+
+
+750
+00:23:18,156 --> 00:23:19,826
+and this is what pagination is
+
+
+751
+00:23:19,826 --> 00:23:22,596
+all about -- to avoid peak in
+
+
+752
+00:23:22,596 --> 00:23:23,816
+your memory allocation.
+
+
+753
+00:23:24,646 --> 00:23:27,196
+I just want to go through some
+
+
+754
+00:23:27,196 --> 00:23:29,376
+other tips that we found useful
+
+
+755
+00:23:29,376 --> 00:23:30,686
+and that you might also find
+
+
+756
+00:23:30,686 --> 00:23:31,136
+useful.
+
+
+757
+00:23:31,906 --> 00:23:33,976
+Avoid using all data task.
+
+
+758
+00:23:34,086 --> 00:23:35,746
+Instead, prefer the download and
+
+
+759
+00:23:35,746 --> 00:23:36,756
+upload task because they
+
+
+760
+00:23:36,756 --> 00:23:38,566
+manipulate files, so they don't
+
+
+761
+00:23:38,566 --> 00:23:40,106
+require memory allocation.
+
+
+762
+00:23:41,266 --> 00:23:42,866
+Use dispatch queues with an
+
+
+763
+00:23:42,866 --> 00:23:44,806
+autorelease frequency of always.
+
+
+764
+00:23:44,996 --> 00:23:46,846
+Otherwise, you can get memory
+
+
+765
+00:23:46,846 --> 00:23:49,056
+peak due to too many allocation
+
+
+766
+00:23:49,056 --> 00:23:50,036
+in your autorelease pool.
+
+
+767
+00:23:51,116 --> 00:23:52,876
+And finally, as always, if you
+
+
+768
+00:23:52,876 --> 00:23:55,246
+have a long running while or for
+
+
+769
+00:23:55,246 --> 00:23:56,906
+loop, be sure to [inaudible] to
+
+
+770
+00:23:57,016 --> 00:23:57,666
+autorelease [inaudible].
+
+
+771
+00:23:59,046 --> 00:24:01,006
+So in any case, we don't have
+
+
+772
+00:24:01,046 --> 00:24:02,586
+time to go into more details, so
+
+
+773
+00:24:03,086 --> 00:24:05,236
+check out this super session
+
+
+774
+00:24:05,236 --> 00:24:07,686
+from a while back, and there are
+
+
+775
+00:24:07,686 --> 00:24:08,996
+some other you can probably
+
+
+776
+00:24:08,996 --> 00:24:10,076
+check out online.
+
+
+777
+00:24:10,716 --> 00:24:12,616
+OK, let's go back to enumerating
+
+
+778
+00:24:12,616 --> 00:24:12,986
+items.
+
+
+779
+00:24:13,216 --> 00:24:15,106
+So on your Files app, you've
+
+
+780
+00:24:15,106 --> 00:24:15,726
+opened a folder.
+
+
+781
+00:24:16,396 --> 00:24:18,606
+And it's going to call your file
+
+
+782
+00:24:18,606 --> 00:24:20,856
+provider extension subclass and
+
+
+783
+00:24:20,856 --> 00:24:22,356
+ask you to provide an enumerator
+
+
+784
+00:24:22,356 --> 00:24:24,566
+for a given item identifier.
+
+
+785
+00:24:25,216 --> 00:24:27,626
+On waving [phonetic], you will
+
+
+786
+00:24:27,626 --> 00:24:28,966
+locate your NSFileProvider
+
+
+787
+00:24:28,966 --> 00:24:30,876
+enumerator and return it to us.
+
+
+788
+00:24:31,656 --> 00:24:32,956
+The Files app is going to store
+
+
+789
+00:24:32,956 --> 00:24:33,456
+that enumerator.
+
+
+790
+00:24:33,456 --> 00:24:35,176
+And the next thing it's going to
+
+
+791
+00:24:35,176 --> 00:24:38,096
+do is to ask you to provide the
+
+
+792
+00:24:38,096 --> 00:24:39,726
+initial page of item.
+
+
+793
+00:24:43,806 --> 00:24:45,586
+You get a callback on your
+
+
+794
+00:24:45,586 --> 00:24:47,366
+enumerator this time, which is
+
+
+795
+00:24:47,366 --> 00:24:48,796
+called enumerateItems for
+
+
+796
+00:24:48,796 --> 00:24:50,316
+observer, startingAt page.
+
+
+797
+00:24:51,096 --> 00:24:54,336
+You figure out the items in your
+
+
+798
+00:24:54,336 --> 00:24:56,426
+first page.
+
+
+799
+00:24:56,646 --> 00:24:57,486
+You return them.
+
+
+800
+00:24:58,196 --> 00:24:58,996
+And you say, you're done
+
+
+801
+00:24:58,996 --> 00:24:59,826
+enumerating.
+
+
+802
+00:24:59,826 --> 00:25:01,596
+There is my second page.
+
+
+803
+00:25:03,696 --> 00:25:04,286
+Well done.
+
+
+804
+00:25:04,346 --> 00:25:05,516
+We've enumerated a page.
+
+
+805
+00:25:05,606 --> 00:25:06,946
+If the file is [inaudible] to
+
+
+806
+00:25:06,946 --> 00:25:08,086
+have more items, it will
+
+
+807
+00:25:08,086 --> 00:25:09,866
+continue the, it will ask you
+
+
+808
+00:25:09,866 --> 00:25:11,716
+for more pages using the exact
+
+
+809
+00:25:11,716 --> 00:25:12,546
+same mechanism.
+
+
+810
+00:25:13,566 --> 00:25:16,326
+Let's go through the different
+
+
+811
+00:25:16,326 --> 00:25:17,336
+methods we've seen.
+
+
+812
+00:25:17,586 --> 00:25:19,736
+So first method is in your
+
+
+813
+00:25:19,736 --> 00:25:20,596
+subclass of
+
+
+814
+00:25:20,596 --> 00:25:21,896
+NSFileProviderExtension.
+
+
+815
+00:25:21,896 --> 00:25:23,066
+It's called enumerator
+
+
+816
+00:25:23,066 --> 00:25:24,816
+forContainer itemIdentifier, and
+
+
+817
+00:25:24,886 --> 00:25:26,946
+it returns an object conforming
+
+
+818
+00:25:26,946 --> 00:25:28,466
+to NSFileProviderEnumerator.
+
+
+819
+00:25:28,466 --> 00:25:30,976
+The itemIdentifier can be one of
+
+
+820
+00:25:31,046 --> 00:25:33,506
+workingSet if we're enumerating
+
+
+821
+00:25:33,506 --> 00:25:35,106
+the Recents, as Jean-Gabriel was
+
+
+822
+00:25:35,106 --> 00:25:37,026
+describing earlier, or the
+
+
+823
+00:25:37,026 --> 00:25:37,666
+rootContainer.
+
+
+824
+00:25:39,076 --> 00:25:41,566
+Finally, it can also be any of
+
+
+825
+00:25:41,566 --> 00:25:42,986
+your folder item identifiers
+
+
+826
+00:25:43,096 --> 00:25:45,346
+that you've previously returned.
+
+
+827
+00:25:45,346 --> 00:25:46,576
+The other function that we saw
+
+
+828
+00:25:46,916 --> 00:25:47,916
+is this time on
+
+
+829
+00:25:47,916 --> 00:25:49,546
+NSFileProviderEnumerator.
+
+
+830
+00:25:49,956 --> 00:25:51,776
+It's enumerateItems for
+
+
+831
+00:25:51,776 --> 00:25:53,166
+observer, startingAt page.
+
+
+832
+00:25:54,336 --> 00:25:57,246
+The observer is a system, as we
+
+
+833
+00:25:57,246 --> 00:26:00,386
+saw earlier, is a system object
+
+
+834
+00:26:00,386 --> 00:26:03,086
+presenting, receiving your items
+
+
+835
+00:26:03,276 --> 00:26:04,256
+and the next page.
+
+
+836
+00:26:04,896 --> 00:26:07,456
+The page is a simple data blob.
+
+
+837
+00:26:08,396 --> 00:26:10,286
+It has a type, but it's a simple
+
+
+838
+00:26:10,286 --> 00:26:13,166
+data blob that you're free to
+
+
+839
+00:26:13,166 --> 00:26:15,406
+decide what's, and you're free
+
+
+840
+00:26:15,406 --> 00:26:17,156
+to decide what's inside, as long
+
+
+841
+00:26:17,156 --> 00:26:19,336
+as it doesn't go below 500
+
+
+842
+00:26:19,336 --> 00:26:19,696
+bytes.
+
+
+843
+00:26:19,916 --> 00:26:21,496
+What you generally put there is
+
+
+844
+00:26:21,496 --> 00:26:23,496
+like a page index -- 1, 2, 3, 4,
+
+
+845
+00:26:23,496 --> 00:26:25,366
+5 -- or an item of sets
+
+
+846
+00:26:25,566 --> 00:26:27,916
+[inaudible] et cetera.
+
+
+847
+00:26:28,936 --> 00:26:30,476
+For the first page, it can be
+
+
+848
+00:26:30,476 --> 00:26:32,396
+one of any initial page sorted
+
+
+849
+00:26:32,396 --> 00:26:33,986
+by date or sorted by name,
+
+
+850
+00:26:33,986 --> 00:26:37,006
+depending on what the UI is
+
+
+851
+00:26:38,856 --> 00:26:39,166
+displaying.
+
+
+852
+00:26:39,166 --> 00:26:40,956
+OK, so let's go back to this
+
+
+853
+00:26:40,956 --> 00:26:43,126
+slide that you've seen before.
+
+
+854
+00:26:43,866 --> 00:26:46,116
+One crucial thing we've just
+
+
+855
+00:26:46,116 --> 00:26:47,266
+added is the ability to
+
+
+856
+00:26:47,266 --> 00:26:49,116
+enumerate folders and the
+
+
+857
+00:26:49,116 --> 00:26:49,766
+working set.
+
+
+858
+00:26:50,566 --> 00:26:51,616
+So we have two kinds of
+
+
+859
+00:26:51,616 --> 00:26:54,416
+enumerator, of enumerators, as
+
+
+860
+00:26:54,416 --> 00:26:55,296
+you can see onscreen.
+
+
+861
+00:26:55,756 --> 00:26:58,436
+And I just want to go back -- or
+
+
+862
+00:26:58,436 --> 00:26:59,446
+actually, highlight the
+
+
+863
+00:26:59,446 --> 00:27:01,676
+differences between the two.
+
+
+864
+00:27:02,426 --> 00:27:04,296
+So for folder enumerator, what
+
+
+865
+00:27:04,296 --> 00:27:06,316
+you typically do is enumerate
+
+
+866
+00:27:06,316 --> 00:27:07,626
+the cloud directly.
+
+
+867
+00:27:08,146 --> 00:27:09,646
+That's it.
+
+
+868
+00:27:09,926 --> 00:27:12,556
+You can do caching, however, if
+
+
+869
+00:27:12,556 --> 00:27:12,896
+you want.
+
+
+870
+00:27:12,896 --> 00:27:13,596
+It's up to you.
+
+
+871
+00:27:13,596 --> 00:27:14,206
+You decide.
+
+
+872
+00:27:14,586 --> 00:27:16,686
+However, for the working set,
+
+
+873
+00:27:17,236 --> 00:27:19,666
+it's very different.
+
+
+874
+00:27:20,006 --> 00:27:21,866
+You need to enumerate your own
+
+
+875
+00:27:21,866 --> 00:27:24,046
+local copy of the working set.
+
+
+876
+00:27:24,796 --> 00:27:26,466
+So not the cloud.
+
+
+877
+00:27:27,646 --> 00:27:28,606
+Just your working set.
+
+
+878
+00:27:29,806 --> 00:27:31,896
+The main reason for that is that
+
+
+879
+00:27:31,896 --> 00:27:33,966
+your working set must work
+
+
+880
+00:27:33,966 --> 00:27:34,636
+offline.
+
+
+881
+00:27:34,636 --> 00:27:36,216
+The item is the working set, in
+
+
+882
+00:27:36,216 --> 00:27:37,276
+the working set must be
+
+
+883
+00:27:37,276 --> 00:27:38,376
+available offline and work
+
+
+884
+00:27:38,376 --> 00:27:38,766
+offline.
+
+
+885
+00:27:39,036 --> 00:27:42,826
+I just want to reiterate on this
+
+
+886
+00:27:42,866 --> 00:27:44,136
+because this is something that
+
+
+887
+00:27:44,136 --> 00:27:47,366
+is not obvious.
+
+
+888
+00:27:47,936 --> 00:27:50,656
+So I'll say it again.
+
+
+889
+00:27:51,216 --> 00:27:53,716
+The working set should never
+
+
+890
+00:27:53,796 --> 00:27:54,516
+read the cloud.
+
+
+891
+00:27:54,876 --> 00:27:56,636
+The folder enumerator, it's OK.
+
+
+892
+00:27:57,656 --> 00:27:58,786
+And the working set should
+
+
+893
+00:27:58,826 --> 00:28:00,536
+always read the database, and
+
+
+894
+00:28:00,536 --> 00:28:01,906
+the folders, it's OK if you want
+
+
+895
+00:28:01,906 --> 00:28:02,486
+to cache them.
+
+
+896
+00:28:02,486 --> 00:28:02,946
+It's fine.
+
+
+897
+00:28:03,456 --> 00:28:07,446
+I hope it's clear.
+
+
+898
+00:28:07,446 --> 00:28:08,816
+Now, let's move on to the next
+
+
+899
+00:28:08,816 --> 00:28:10,386
+topic, which is syncing changes.
+
+
+900
+00:28:10,516 --> 00:28:12,626
+So for that, on your cloud
+
+
+901
+00:28:12,626 --> 00:28:14,086
+server, you are probably doing
+
+
+902
+00:28:14,086 --> 00:28:15,536
+it anyway, but you need to
+
+
+903
+00:28:15,536 --> 00:28:16,886
+assign version numbers to your
+
+
+904
+00:28:16,886 --> 00:28:17,286
+items.
+
+
+905
+00:28:17,286 --> 00:28:20,086
+So here are some version numbers
+
+
+906
+00:28:20,086 --> 00:28:20,926
+on my [inaudible] cloud.
+
+
+907
+00:28:22,256 --> 00:28:24,366
+The maximum known version number
+
+
+908
+00:28:24,366 --> 00:28:27,276
+is what we call the sync anchor.
+
+
+909
+00:28:27,276 --> 00:28:30,056
+So here it's 14.
+
+
+910
+00:28:30,186 --> 00:28:32,446
+On changes, you need to bump the
+
+
+911
+00:28:32,446 --> 00:28:33,456
+file version number.
+
+
+912
+00:28:33,886 --> 00:28:36,106
+So here, for instance, 15.
+
+
+913
+00:28:36,656 --> 00:28:39,726
+The count sync anchor -- oh, I
+
+
+914
+00:28:39,726 --> 00:28:41,136
+went a bit fast, but it's OK.
+
+
+915
+00:28:41,576 --> 00:28:44,146
+I did a new file, which is,
+
+
+916
+00:28:44,336 --> 00:28:45,436
+which gave the version number
+
+
+917
+00:28:45,436 --> 00:28:46,006
+16.
+
+
+918
+00:28:46,006 --> 00:28:47,256
+And this time, we bumped the
+
+
+919
+00:28:47,256 --> 00:28:48,586
+sync anchor to 16.
+
+
+920
+00:28:48,586 --> 00:28:49,906
+And remember, it was 13 at the
+
+
+921
+00:28:49,906 --> 00:28:51,116
+beginning, and then I went a bit
+
+
+922
+00:28:51,116 --> 00:28:52,766
+fast, but you can see that now.
+
+
+923
+00:28:53,666 --> 00:28:57,766
+Then, if you, if we go back to
+
+
+924
+00:28:57,766 --> 00:28:58,706
+the Files app in your file
+
+
+925
+00:28:58,706 --> 00:29:02,116
+provider extension enumerator,
+
+
+926
+00:29:02,116 --> 00:29:04,686
+what is going to happen -- and I
+
+
+927
+00:29:04,756 --> 00:29:05,656
+lied to you earlier.
+
+
+928
+00:29:06,196 --> 00:29:07,686
+Before enumerating, what we are
+
+
+929
+00:29:07,686 --> 00:29:09,646
+going to do is to ask your
+
+
+930
+00:29:09,646 --> 00:29:11,096
+enumerator to provide its
+
+
+931
+00:29:11,096 --> 00:29:11,936
+current sync anchor.
+
+
+932
+00:29:11,936 --> 00:29:15,256
+So that's before enumerating the
+
+
+933
+00:29:15,256 --> 00:29:15,816
+pages.
+
+
+934
+00:29:17,026 --> 00:29:18,606
+So this [inaudible] you just
+
+
+935
+00:29:18,726 --> 00:29:19,446
+have your sync anchor.
+
+
+936
+00:29:19,446 --> 00:29:21,836
+You return it back to the Files
+
+
+937
+00:29:21,836 --> 00:29:23,556
+app, and the Files app is going
+
+
+938
+00:29:24,146 --> 00:29:26,176
+to store it.
+
+
+939
+00:29:26,176 --> 00:29:28,796
+After that, we'll just fetch the
+
+
+940
+00:29:28,796 --> 00:29:31,096
+pages as we did before, and
+
+
+941
+00:29:31,096 --> 00:29:31,766
+we're in sync.
+
+
+942
+00:29:37,366 --> 00:29:38,616
+When a new file is added on your
+
+
+943
+00:29:38,616 --> 00:29:42,186
+server, you add a new file here
+
+
+944
+00:29:42,186 --> 00:29:44,806
+in green, you bump your sync
+
+
+945
+00:29:44,806 --> 00:29:49,396
+anchor, it becomes 14, and you
+
+
+946
+00:29:49,396 --> 00:29:50,296
+emit a push.
+
+
+947
+00:29:51,056 --> 00:29:54,266
+The Files app receives the push.
+
+
+948
+00:29:54,486 --> 00:29:55,876
+Your enumerator is called with
+
+
+949
+00:29:56,316 --> 00:29:57,426
+this new function,
+
+
+950
+00:29:57,806 --> 00:29:58,826
+enumerateChanges.
+
+
+951
+00:29:58,826 --> 00:30:00,356
+So before, it was enumerateItem,
+
+
+952
+00:30:00,876 --> 00:30:02,366
+and now, it's enumerateChanges.
+
+
+953
+00:30:02,626 --> 00:30:04,806
+And it's passing you the
+
+
+954
+00:30:04,806 --> 00:30:06,726
+previous sync anchor it has.
+
+
+955
+00:30:06,726 --> 00:30:09,026
+So here it's the current
+
+
+956
+00:30:09,026 --> 00:30:10,816
+version, it's the version 13, so
+
+
+957
+00:30:10,816 --> 00:30:11,956
+it's passing you 13.
+
+
+958
+00:30:13,126 --> 00:30:14,506
+When your enumerator gets that
+
+
+959
+00:30:14,506 --> 00:30:17,916
+callback, it fetches the new
+
+
+960
+00:30:17,916 --> 00:30:20,916
+item, which is here, 14, the
+
+
+961
+00:30:20,916 --> 00:30:22,566
+item with the change number 14.
+
+
+962
+00:30:23,286 --> 00:30:24,726
+It sent it back to the observer,
+
+
+963
+00:30:24,726 --> 00:30:25,926
+and then it called
+
+
+964
+00:30:26,106 --> 00:30:28,836
+finishEnumerating up to the new
+
+
+965
+00:30:28,836 --> 00:30:30,016
+version here.
+
+
+966
+00:30:30,246 --> 00:30:31,596
+This is 14.
+
+
+967
+00:30:32,366 --> 00:30:33,256
+And you don't have anymore
+
+
+968
+00:30:33,256 --> 00:30:34,526
+change coming, so you just say,
+
+
+969
+00:30:34,526 --> 00:30:38,266
+notComing false.
+
+
+970
+00:30:38,446 --> 00:30:39,916
+OK, and now we're ready to
+
+
+971
+00:30:39,916 --> 00:30:40,946
+display the update.
+
+
+972
+00:30:42,036 --> 00:30:43,266
+Oh, we forgot one thing, which
+
+
+973
+00:30:43,266 --> 00:30:47,526
+is the Files app [inaudible] the
+
+
+974
+00:30:48,536 --> 00:30:50,676
+new sync anchor.
+
+
+975
+00:30:50,896 --> 00:30:52,436
+So I went very fast on push
+
+
+976
+00:30:52,436 --> 00:30:55,386
+notification, and it's actually
+
+
+977
+00:30:55,386 --> 00:30:57,136
+interesting because for this
+
+
+978
+00:30:57,196 --> 00:30:58,446
+time, the push notification
+
+
+979
+00:30:58,446 --> 00:30:59,826
+doesn't go to your file provider
+
+
+980
+00:30:59,826 --> 00:31:00,496
+extension.
+
+
+981
+00:31:01,456 --> 00:31:04,166
+It goes to the file provider
+
+
+982
+00:31:04,166 --> 00:31:04,956
+daemon, actually.
+
+
+983
+00:31:05,866 --> 00:31:09,316
+And so when receiving your push,
+
+
+984
+00:31:09,316 --> 00:31:10,386
+the file provider daemon is
+
+
+985
+00:31:10,386 --> 00:31:11,266
+going to initiate the
+
+
+986
+00:31:11,266 --> 00:31:14,286
+enumerateChanges code on your
+
+
+987
+00:31:14,286 --> 00:31:16,336
+enumerator, and at that point,
+
+
+988
+00:31:16,336 --> 00:31:18,146
+you can return the item.
+
+
+989
+00:31:18,146 --> 00:31:18,946
+Another [inaudible] what you
+
+
+990
+00:31:18,946 --> 00:31:20,296
+have to know for push is -- and
+
+
+991
+00:31:20,296 --> 00:31:21,746
+I will go briefly into this --
+
+
+992
+00:31:22,226 --> 00:31:24,526
+your PKPushType must be a
+
+
+993
+00:31:24,526 --> 00:31:25,796
+PKPushType file provider.
+
+
+994
+00:31:25,796 --> 00:31:27,916
+The topic name is your
+
+
+995
+00:31:27,916 --> 00:31:31,136
+bundle-identifier plus a suffix,
+
+
+996
+00:31:31,616 --> 00:31:32,976
+pushkit.fileprovider.
+
+
+997
+00:31:33,406 --> 00:31:35,506
+And your payload must include a
+
+
+998
+00:31:35,506 --> 00:31:36,936
+container identifier, which
+
+
+999
+00:31:36,936 --> 00:31:38,576
+refers to one of the possible
+
+
+1000
+00:31:38,576 --> 00:31:39,056
+enumerator.
+
+
+1001
+00:31:39,996 --> 00:31:42,256
+For more on push notification,
+
+
+1002
+00:31:42,256 --> 00:31:43,736
+check out this session,
+
+
+1003
+00:31:43,736 --> 00:31:45,226
+Introduction to Notification,
+
+
+1004
+00:31:45,496 --> 00:31:46,266
+from last year.
+
+
+1005
+00:31:46,726 --> 00:31:48,346
+So we've seen pushes, but you
+
+
+1006
+00:31:48,346 --> 00:31:49,946
+might ask, what if I have some
+
+
+1007
+00:31:49,946 --> 00:31:51,196
+changes and I want to tell the
+
+
+1008
+00:31:51,196 --> 00:31:52,826
+system about it, but I don't
+
+
+1009
+00:31:52,826 --> 00:31:53,726
+have a push for it?
+
+
+1010
+00:31:54,816 --> 00:31:57,176
+In that case, you would want to
+
+
+1011
+00:31:57,286 --> 00:31:59,106
+code the file provider daemon
+
+
+1012
+00:31:59,106 --> 00:31:59,916
+and just say, oh, I have a
+
+
+1013
+00:31:59,916 --> 00:32:00,326
+change.
+
+
+1014
+00:32:00,406 --> 00:32:01,716
+Well, we have a function just
+
+
+1015
+00:32:01,716 --> 00:32:02,746
+for that, which is called,
+
+
+1016
+00:32:03,286 --> 00:32:05,546
+NSFileProvider signalChanges
+
+
+1017
+00:32:05,906 --> 00:32:06,456
+forContainer.
+
+
+1018
+00:32:07,536 --> 00:32:09,336
+When receiving such a code, the
+
+
+1019
+00:32:09,336 --> 00:32:10,656
+file provider daemon is going to
+
+
+1020
+00:32:10,656 --> 00:32:12,416
+enumerate changes just like it
+
+
+1021
+00:32:12,456 --> 00:32:13,556
+would do for pushes.
+
+
+1022
+00:32:13,876 --> 00:32:15,046
+So let me go back to that
+
+
+1023
+00:32:15,046 --> 00:32:15,526
+method.
+
+
+1024
+00:32:16,476 --> 00:32:19,106
+The signalChanges method, when
+
+
+1025
+00:32:19,106 --> 00:32:20,866
+should you call it?
+
+
+1026
+00:32:20,976 --> 00:32:22,436
+So first, you can tell, you can
+
+
+1027
+00:32:22,436 --> 00:32:23,786
+call it for the initial set of
+
+
+1028
+00:32:23,786 --> 00:32:24,196
+files.
+
+
+1029
+00:32:24,196 --> 00:32:25,826
+Imagine you just installed your
+
+
+1030
+00:32:26,106 --> 00:32:27,476
+app and you already have some
+
+
+1031
+00:32:27,476 --> 00:32:28,566
+files in your file provider
+
+
+1032
+00:32:28,566 --> 00:32:30,276
+extension that you want the
+
+
+1033
+00:32:30,276 --> 00:32:31,326
+system to know about.
+
+
+1034
+00:32:32,456 --> 00:32:34,156
+Then, in case of changing
+
+
+1035
+00:32:34,156 --> 00:32:35,066
+account -- for instance, the
+
+
+1036
+00:32:35,066 --> 00:32:36,676
+user is logging out, logging in
+
+
+1037
+00:32:36,676 --> 00:32:37,936
+to a new account -- you would
+
+
+1038
+00:32:37,936 --> 00:32:39,176
+want to tell the system to
+
+
+1039
+00:32:39,176 --> 00:32:40,636
+reload after this account change
+
+
+1040
+00:32:41,116 --> 00:32:42,846
+because usually there were no
+
+
+1041
+00:32:42,846 --> 00:32:43,296
+pushes.
+
+
+1042
+00:32:43,676 --> 00:32:44,936
+More generally, you would want
+
+
+1043
+00:32:44,936 --> 00:32:46,316
+to call that for any change
+
+
+1044
+00:32:46,316 --> 00:32:48,326
+without a push, including the
+
+
+1045
+00:32:48,326 --> 00:32:49,146
+one made locally.
+
+
+1046
+00:32:49,536 --> 00:32:51,326
+So let me go back to one thing,
+
+
+1047
+00:32:51,326 --> 00:32:53,756
+which is earlier we saw that
+
+
+1048
+00:32:54,546 --> 00:32:56,676
+your file provider needs to
+
+
+1049
+00:32:56,676 --> 00:32:58,556
+implement [inaudible] providing
+
+
+1050
+00:32:58,556 --> 00:32:59,406
+[inaudible].
+
+
+1051
+00:32:59,406 --> 00:33:01,606
+If the file is not local at that
+
+
+1052
+00:33:01,656 --> 00:33:03,726
+point, you need to tell the
+
+
+1053
+00:33:03,726 --> 00:33:05,446
+system that, well, this file is
+
+
+1054
+00:33:05,446 --> 00:33:06,306
+not downloading.
+
+
+1055
+00:33:06,876 --> 00:33:11,516
+If it is, what you should do is
+
+
+1056
+00:33:11,516 --> 00:33:13,676
+you should signal for changes in
+
+
+1057
+00:33:13,676 --> 00:33:15,026
+the working set if the item is
+
+
+1058
+00:33:15,026 --> 00:33:16,816
+in the working set.
+
+
+1059
+00:33:18,206 --> 00:33:19,306
+Same thing if you have an
+
+
+1060
+00:33:19,306 --> 00:33:20,576
+enumerator running for the
+
+
+1061
+00:33:20,576 --> 00:33:22,346
+parent, you should call
+
+
+1062
+00:33:22,346 --> 00:33:23,506
+signalChanges on the
+
+
+1063
+00:33:23,506 --> 00:33:24,766
+parentItemIdentifier.
+
+
+1064
+00:33:25,286 --> 00:33:27,416
+Well, so under the hood, signal
+
+
+1065
+00:33:27,416 --> 00:33:28,786
+changes can be called from both
+
+
+1066
+00:33:29,086 --> 00:33:30,326
+your app and your file provider
+
+
+1067
+00:33:30,326 --> 00:33:31,206
+extension, so it's very
+
+
+1068
+00:33:31,206 --> 00:33:31,696
+convenient.
+
+
+1069
+00:33:33,136 --> 00:33:35,536
+You must call signalChanges even
+
+
+1070
+00:33:35,536 --> 00:33:37,216
+for system-initiated changes.
+
+
+1071
+00:33:37,296 --> 00:33:39,036
+This is exactly what I was
+
+
+1072
+00:33:39,036 --> 00:33:39,756
+describing earlier.
+
+
+1073
+00:33:39,756 --> 00:33:41,216
+You could say the system could
+
+
+1074
+00:33:41,216 --> 00:33:43,246
+infer that the file has changed.
+
+
+1075
+00:33:43,246 --> 00:33:44,206
+No, we don't do that.
+
+
+1076
+00:33:44,256 --> 00:33:46,226
+We let you explicitly tell us
+
+
+1077
+00:33:46,226 --> 00:33:47,486
+that you know about this change.
+
+
+1078
+00:33:48,696 --> 00:33:51,016
+But don't worry about it.
+
+
+1079
+00:33:51,016 --> 00:33:53,006
+signalChanges is very, very
+
+
+1080
+00:33:53,006 --> 00:33:53,236
+cheap.
+
+
+1081
+00:33:53,936 --> 00:33:55,436
+So now, we've seen all these
+
+
+1082
+00:33:55,566 --> 00:33:57,456
+three topics on screen: creating
+
+
+1083
+00:33:57,456 --> 00:33:58,786
+the project, providing an item,
+
+
+1084
+00:33:58,786 --> 00:34:00,096
+and enumerating items.
+
+
+1085
+00:34:00,096 --> 00:34:02,186
+So now, it's time for Johannes
+
+
+1086
+00:34:02,606 --> 00:34:03,816
+to come on stage and cover the
+
+
+1087
+00:34:03,816 --> 00:34:04,686
+last topics.
+
+
+1088
+00:34:05,516 --> 00:34:11,176
+[ Applause ]
+
+
+1089
+00:34:11,676 --> 00:34:12,226
+>> Thank you, Pierre.
+
+
+1090
+00:34:13,186 --> 00:34:15,976
+So we've seen how to get your
+
+
+1091
+00:34:15,976 --> 00:34:18,826
+items into the Files app or into
+
+
+1092
+00:34:18,826 --> 00:34:19,755
+the document browser.
+
+
+1093
+00:34:20,606 --> 00:34:23,005
+But of course, that is only part
+
+
+1094
+00:34:23,005 --> 00:34:24,346
+of what you are interested in
+
+
+1095
+00:34:24,346 --> 00:34:25,516
+doing or what your users are
+
+
+1096
+00:34:25,516 --> 00:34:26,366
+interested in doing.
+
+
+1097
+00:34:26,946 --> 00:34:28,436
+An equally important part is
+
+
+1098
+00:34:28,806 --> 00:34:30,606
+that your users are able to
+
+
+1099
+00:34:30,606 --> 00:34:31,656
+modify files.
+
+
+1100
+00:34:32,426 --> 00:34:35,646
+And to modify files, there are
+
+
+1101
+00:34:35,646 --> 00:34:37,396
+various possibilities how you
+
+
+1102
+00:34:37,396 --> 00:34:39,396
+can modify files in the Files
+
+
+1103
+00:34:39,396 --> 00:34:41,226
+app and using other
+
+
+1104
+00:34:41,226 --> 00:34:42,156
+technologies.
+
+
+1105
+00:34:42,795 --> 00:34:44,626
+So in the Files app, as an
+
+
+1106
+00:34:44,626 --> 00:34:46,596
+example, bring up this menu
+
+
+1107
+00:34:46,596 --> 00:34:48,536
+controller here as a user, and
+
+
+1108
+00:34:48,886 --> 00:34:50,366
+this menu controller gives the
+
+
+1109
+00:34:50,366 --> 00:34:52,466
+users a variety of options to
+
+
+1110
+00:34:52,466 --> 00:34:54,896
+modify files or to perform
+
+
+1111
+00:34:54,896 --> 00:34:56,255
+actions on files.
+
+
+1112
+00:34:56,476 --> 00:34:57,576
+One of these actions, for
+
+
+1113
+00:34:57,576 --> 00:35:00,396
+example, is the Info option
+
+
+1114
+00:35:00,396 --> 00:35:02,776
+here, and that simply brings up
+
+
+1115
+00:35:02,776 --> 00:35:04,216
+a nice Info panel.
+
+
+1116
+00:35:04,616 --> 00:35:05,576
+And that is backed by
+
+
+1117
+00:35:05,576 --> 00:35:07,686
+information that you're already
+
+
+1118
+00:35:07,686 --> 00:35:08,366
+providing.
+
+
+1119
+00:35:08,736 --> 00:35:11,646
+That's the item method that
+
+
+1120
+00:35:11,646 --> 00:35:12,766
+you're already implementing.
+
+
+1121
+00:35:13,686 --> 00:35:15,646
+Other options are, for example,
+
+
+1122
+00:35:15,646 --> 00:35:18,926
+the Share action here, and that
+
+
+1123
+00:35:18,926 --> 00:35:21,536
+is backed by a well-known old
+
+
+1124
+00:35:21,536 --> 00:35:22,156
+friend, the
+
+
+1125
+00:35:22,156 --> 00:35:23,556
+UIActivityViewController.
+
+
+1126
+00:35:23,556 --> 00:35:25,426
+And of course, you're able to
+
+
+1127
+00:35:25,426 --> 00:35:27,636
+simply add activities using
+
+
+1128
+00:35:27,996 --> 00:35:30,026
+activity plug-ins, and that's
+
+
+1129
+00:35:30,026 --> 00:35:31,426
+another way for you to expose
+
+
+1130
+00:35:31,426 --> 00:35:32,686
+actions on these items.
+
+
+1131
+00:35:33,356 --> 00:35:35,036
+But then, there are other
+
+
+1132
+00:35:35,506 --> 00:35:37,216
+possible options that are not
+
+
+1133
+00:35:37,216 --> 00:35:39,886
+backed by any existing system UI
+
+
+1134
+00:35:40,236 --> 00:35:40,786
+so far.
+
+
+1135
+00:35:41,376 --> 00:35:43,276
+For example, renaming items.
+
+
+1136
+00:35:43,816 --> 00:35:45,476
+Renaming items brings up a nice
+
+
+1137
+00:35:45,476 --> 00:35:48,196
+UI in the Files app, but we're
+
+
+1138
+00:35:48,196 --> 00:35:50,826
+not so far exposing a way to
+
+
+1139
+00:35:51,806 --> 00:35:53,026
+actually tell you about the
+
+
+1140
+00:35:53,026 --> 00:35:53,446
+rename.
+
+
+1141
+00:35:53,646 --> 00:35:55,436
+And that is what this part of
+
+
+1142
+00:35:55,496 --> 00:35:56,666
+the session is about.
+
+
+1143
+00:35:57,016 --> 00:35:59,046
+To back a rename or something
+
+
+1144
+00:35:59,046 --> 00:36:01,806
+like that, we expose a wide
+
+
+1145
+00:36:01,806 --> 00:36:03,656
+variety of options, and these
+
+
+1146
+00:36:03,656 --> 00:36:05,556
+options are moving files around,
+
+
+1147
+00:36:06,046 --> 00:36:07,666
+creating files -- for example,
+
+
+1148
+00:36:07,666 --> 00:36:08,826
+if you, if the user hits the
+
+
+1149
+00:36:08,826 --> 00:36:10,426
+little + button, that shows up
+
+
+1150
+00:36:10,426 --> 00:36:11,366
+in the document browser view
+
+
+1151
+00:36:11,366 --> 00:36:13,636
+controller, or if the user drag
+
+
+1152
+00:36:13,636 --> 00:36:15,306
+and drops a file into the Files
+
+
+1153
+00:36:15,306 --> 00:36:17,426
+app or into the document browser
+
+
+1154
+00:36:17,426 --> 00:36:18,546
+in another application.
+
+
+1155
+00:36:18,756 --> 00:36:20,026
+Last but not least, modifying
+
+
+1156
+00:36:20,026 --> 00:36:21,076
+attributes on files.
+
+
+1157
+00:36:21,076 --> 00:36:22,396
+So if the user performs a
+
+
+1158
+00:36:22,396 --> 00:36:25,106
+tagging operation or looks at a
+
+
+1159
+00:36:25,106 --> 00:36:26,936
+file and thus wants to modify
+
+
+1160
+00:36:26,936 --> 00:36:28,476
+the last use date of the file.
+
+
+1161
+00:36:30,006 --> 00:36:32,476
+And all of these are actions
+
+
+1162
+00:36:32,516 --> 00:36:34,916
+that are backed by, that back
+
+
+1163
+00:36:34,966 --> 00:36:35,916
+user operations.
+
+
+1164
+00:36:36,966 --> 00:36:38,576
+And you are, your extension is
+
+
+1165
+00:36:38,576 --> 00:36:39,306
+implementing these.
+
+
+1166
+00:36:40,346 --> 00:36:41,776
+All right, so that is awfully
+
+
+1167
+00:36:41,776 --> 00:36:43,166
+abstract, so let's have a look
+
+
+1168
+00:36:43,166 --> 00:36:45,816
+at one of these actions and how
+
+
+1169
+00:36:45,816 --> 00:36:46,556
+you implement it.
+
+
+1170
+00:36:46,786 --> 00:36:48,606
+All right, and as our example,
+
+
+1171
+00:36:48,606 --> 00:36:49,816
+we're going to use the Import
+
+
+1172
+00:36:49,816 --> 00:36:50,596
+Document action.
+
+
+1173
+00:36:51,216 --> 00:36:52,926
+But all of the actions are
+
+
+1174
+00:36:52,926 --> 00:36:54,816
+actually implemented in a very
+
+
+1175
+00:36:54,816 --> 00:36:55,626
+similar way.
+
+
+1176
+00:36:55,936 --> 00:36:57,476
+The Import Document action is a
+
+
+1177
+00:36:57,476 --> 00:36:59,546
+nice one because it deals with a
+
+
+1178
+00:36:59,546 --> 00:37:02,316
+new file, but most of these
+
+
+1179
+00:37:02,316 --> 00:37:04,306
+actions are kind of similar.
+
+
+1180
+00:37:04,786 --> 00:37:05,746
+They have slightly different
+
+
+1181
+00:37:05,746 --> 00:37:06,856
+parameters and, of course, have
+
+
+1182
+00:37:06,856 --> 00:37:08,036
+slightly different semantics,
+
+
+1183
+00:37:08,486 --> 00:37:09,836
+but everything I'm going to tell
+
+
+1184
+00:37:09,836 --> 00:37:11,036
+you in this session is going to
+
+
+1185
+00:37:11,036 --> 00:37:12,836
+count for pretty much all of the
+
+
+1186
+00:37:12,836 --> 00:37:13,436
+actions.
+
+
+1187
+00:37:14,136 --> 00:37:16,126
+So the Import Document action
+
+
+1188
+00:37:17,346 --> 00:37:17,996
+works this way.
+
+
+1189
+00:37:18,606 --> 00:37:20,076
+The system gives you an existing
+
+
+1190
+00:37:20,076 --> 00:37:22,836
+file URL, so that's a file on
+
+
+1191
+00:37:22,836 --> 00:37:26,396
+disk, and this file is any
+
+
+1192
+00:37:26,396 --> 00:37:27,806
+location that the system gives
+
+
+1193
+00:37:27,806 --> 00:37:29,226
+you, it's possibly in the Temp
+
+
+1194
+00:37:29,226 --> 00:37:31,446
+folder or wherever the
+
+
+1195
+00:37:31,826 --> 00:37:34,006
+application that, for example,
+
+
+1196
+00:37:34,006 --> 00:37:35,496
+performs a create operation
+
+
+1197
+00:37:35,496 --> 00:37:38,966
+stores its templates, but in any
+
+
+1198
+00:37:38,966 --> 00:37:40,666
+case, this file is basically for
+
+
+1199
+00:37:40,666 --> 00:37:41,386
+you to use.
+
+
+1200
+00:37:41,796 --> 00:37:44,046
+You can go and move this file
+
+
+1201
+00:37:44,046 --> 00:37:46,166
+into your file provider storage.
+
+
+1202
+00:37:46,496 --> 00:37:48,286
+So this is, this file is now
+
+
+1203
+00:37:48,286 --> 00:37:49,216
+under your control.
+
+
+1204
+00:37:49,216 --> 00:37:50,266
+It's in your container.
+
+
+1205
+00:37:50,816 --> 00:37:53,056
+At this point, you need to
+
+
+1206
+00:37:53,056 --> 00:37:54,846
+schedule a background upload so
+
+
+1207
+00:37:54,846 --> 00:37:56,186
+that this file from your
+
+
+1208
+00:37:56,186 --> 00:37:58,306
+container actually gets uploaded
+
+
+1209
+00:37:58,306 --> 00:37:59,396
+into your cloud.
+
+
+1210
+00:37:59,396 --> 00:38:02,156
+And last but not least, you call
+
+
+1211
+00:38:02,156 --> 00:38:03,016
+the completion handler.
+
+
+1212
+00:38:03,746 --> 00:38:06,686
+This is very important, and this
+
+
+1213
+00:38:06,686 --> 00:38:08,806
+is a very important part of
+
+
+1214
+00:38:08,806 --> 00:38:09,176
+this.
+
+
+1215
+00:38:09,736 --> 00:38:11,366
+We just scheduled a background
+
+
+1216
+00:38:11,366 --> 00:38:13,666
+upload, but we did not wait for
+
+
+1217
+00:38:13,666 --> 00:38:14,996
+the background upload to finish
+
+
+1218
+00:38:14,996 --> 00:38:16,136
+until we call the completion
+
+
+1219
+00:38:16,136 --> 00:38:16,516
+handler.
+
+
+1220
+00:38:17,446 --> 00:38:18,966
+So the file is actually being
+
+
+1221
+00:38:18,966 --> 00:38:20,186
+uploaded in the background,
+
+
+1222
+00:38:20,946 --> 00:38:22,406
+meaning that the user does not
+
+
+1223
+00:38:22,406 --> 00:38:24,626
+have to wait for this file to be
+
+
+1224
+00:38:24,626 --> 00:38:27,186
+actually fully uploaded until
+
+
+1225
+00:38:27,386 --> 00:38:29,026
+you tell the system, hey, I got
+
+
+1226
+00:38:29,026 --> 00:38:29,376
+this.
+
+
+1227
+00:38:29,446 --> 00:38:30,676
+I've got this file under my
+
+
+1228
+00:38:30,676 --> 00:38:31,096
+control.
+
+
+1229
+00:38:31,096 --> 00:38:32,116
+I'll scheduled the upload.
+
+
+1230
+00:38:32,116 --> 00:38:33,486
+This file will be in the cloud
+
+
+1231
+00:38:33,486 --> 00:38:34,176
+at some point.
+
+
+1232
+00:38:35,096 --> 00:38:36,696
+So the user doesn't have to wait
+
+
+1233
+00:38:36,696 --> 00:38:38,096
+for this upload of the file that
+
+
+1234
+00:38:38,096 --> 00:38:39,276
+can be potentially many
+
+
+1235
+00:38:39,276 --> 00:38:39,916
+megabytes.
+
+
+1236
+00:38:40,266 --> 00:38:42,556
+So that's how the general flow
+
+
+1237
+00:38:42,556 --> 00:38:43,526
+of this looks.
+
+
+1238
+00:38:43,526 --> 00:38:44,846
+Let's have a look at how the
+
+
+1239
+00:38:44,846 --> 00:38:46,776
+data flow of this operation
+
+
+1240
+00:38:46,776 --> 00:38:47,016
+looks.
+
+
+1241
+00:38:47,386 --> 00:38:50,236
+So as I said, the initial
+
+
+1242
+00:38:50,416 --> 00:38:52,506
+impetus for this operation is
+
+
+1243
+00:38:52,536 --> 00:38:54,186
+that the user created, or
+
+
+1244
+00:38:54,186 --> 00:38:55,996
+pasted, or dropped a file into
+
+
+1245
+00:38:56,476 --> 00:38:58,606
+the, into a container in your
+
+
+1246
+00:38:59,186 --> 00:38:59,956
+file provider.
+
+
+1247
+00:39:00,626 --> 00:39:03,026
+And at that point, the Import
+
+
+1248
+00:39:03,026 --> 00:39:05,106
+Document action on your file
+
+
+1249
+00:39:05,106 --> 00:39:06,616
+provider extension subclass gets
+
+
+1250
+00:39:06,656 --> 00:39:07,266
+called.
+
+
+1251
+00:39:07,266 --> 00:39:09,096
+You make a database entry.
+
+
+1252
+00:39:09,096 --> 00:39:10,136
+You make sure that the file is
+
+
+1253
+00:39:10,136 --> 00:39:10,976
+getting uploaded.
+
+
+1254
+00:39:11,916 --> 00:39:13,116
+So you schedule the upload.
+
+
+1255
+00:39:13,446 --> 00:39:14,276
+Now, we're done, right?
+
+
+1256
+00:39:14,526 --> 00:39:15,046
+We can call the
+
+
+1257
+00:39:15,046 --> 00:39:15,806
+completionHandler.
+
+
+1258
+00:39:15,946 --> 00:39:17,886
+But as Pierre has told, the
+
+
+1259
+00:39:17,886 --> 00:39:19,786
+system does not automatically
+
+
+1260
+00:39:19,786 --> 00:39:22,136
+infer that this file basically
+
+
+1261
+00:39:22,396 --> 00:39:23,296
+has changed.
+
+
+1262
+00:39:24,046 --> 00:39:25,876
+So one important bit here is
+
+
+1263
+00:39:25,876 --> 00:39:27,896
+that you at this point signal us
+
+
+1264
+00:39:28,946 --> 00:39:30,686
+to tell us, hey, there are
+
+
+1265
+00:39:30,686 --> 00:39:32,186
+changes on this container.
+
+
+1266
+00:39:32,586 --> 00:39:33,876
+We need to re-enumerate this
+
+
+1267
+00:39:33,876 --> 00:39:34,346
+container.
+
+
+1268
+00:39:35,016 --> 00:39:36,146
+This is important so that the
+
+
+1269
+00:39:36,146 --> 00:39:37,556
+user gets immediate feedback.
+
+
+1270
+00:39:37,996 --> 00:39:39,356
+So the next step is actually
+
+
+1271
+00:39:39,356 --> 00:39:40,866
+that you tell us there are
+
+
+1272
+00:39:40,866 --> 00:39:41,466
+changes here.
+
+
+1273
+00:39:41,466 --> 00:39:43,656
+And at that point, we simply
+
+
+1274
+00:39:43,656 --> 00:39:44,256
+make a note.
+
+
+1275
+00:39:44,306 --> 00:39:46,456
+We say, OK, for this container
+
+
+1276
+00:39:46,456 --> 00:39:48,406
+-- and keep in mind, the user is
+
+
+1277
+00:39:48,406 --> 00:39:49,366
+probably looking at this
+
+
+1278
+00:39:49,366 --> 00:39:50,146
+container, right?
+
+
+1279
+00:39:50,446 --> 00:39:51,516
+They just hit the little +
+
+
+1280
+00:39:51,516 --> 00:39:52,266
+button there.
+
+
+1281
+00:39:52,926 --> 00:39:54,256
+Of course, they hit the + button
+
+
+1282
+00:39:54,256 --> 00:39:55,176
+in the container that they're
+
+
+1283
+00:39:55,176 --> 00:39:57,666
+looking at, so they want to see
+
+
+1284
+00:39:57,666 --> 00:39:58,326
+these changes.
+
+
+1285
+00:39:58,716 --> 00:40:00,516
+So you told the system, changes
+
+
+1286
+00:40:00,516 --> 00:40:01,156
+are pending.
+
+
+1287
+00:40:01,466 --> 00:40:03,826
+Now, you tell the system, call
+
+
+1288
+00:40:03,826 --> 00:40:04,616
+the completionHandler.
+
+
+1289
+00:40:04,776 --> 00:40:06,016
+We're done with this operation.
+
+
+1290
+00:40:06,866 --> 00:40:07,996
+The system gets unblocked.
+
+
+1291
+00:40:08,106 --> 00:40:09,626
+And at this point, the system
+
+
+1292
+00:40:09,626 --> 00:40:11,826
+can go and call, turn around,
+
+
+1293
+00:40:11,826 --> 00:40:13,056
+and enumerate changes.
+
+
+1294
+00:40:13,406 --> 00:40:15,846
+You tell us, sweet, we just
+
+
+1295
+00:40:15,846 --> 00:40:17,636
+added this item, and it's now
+
+
+1296
+00:40:17,636 --> 00:40:18,576
+uploading, probably.
+
+
+1297
+00:40:19,466 --> 00:40:21,696
+And you return the changed item
+
+
+1298
+00:40:21,696 --> 00:40:23,916
+to us as part of a change set.
+
+
+1299
+00:40:25,046 --> 00:40:27,456
+And we can update our UI and
+
+
+1300
+00:40:27,456 --> 00:40:29,436
+show a little uploading error in
+
+
+1301
+00:40:29,436 --> 00:40:30,376
+the corner of the item.
+
+
+1302
+00:40:30,826 --> 00:40:32,606
+So the user gets immediate
+
+
+1303
+00:40:32,606 --> 00:40:34,246
+feedback that their data is safe
+
+
+1304
+00:40:34,246 --> 00:40:37,146
+in your cloud.
+
+
+1305
+00:40:37,286 --> 00:40:38,746
+So let me reiterate that.
+
+
+1306
+00:40:38,776 --> 00:40:40,016
+Operations are expected to
+
+
+1307
+00:40:40,016 --> 00:40:42,276
+finish immediately, and thus,
+
+
+1308
+00:40:42,276 --> 00:40:43,986
+you need to defer long-running
+
+
+1309
+00:40:44,056 --> 00:40:46,916
+tasks, such as uploads, to the
+
+
+1310
+00:40:46,916 --> 00:40:48,996
+background using NSURLSession.
+
+
+1311
+00:40:49,106 --> 00:40:50,306
+So now, we've got this item
+
+
+1312
+00:40:50,306 --> 00:40:51,756
+uploading, and that's great,
+
+
+1313
+00:40:52,406 --> 00:40:53,416
+but, of course, at some point,
+
+
+1314
+00:40:53,416 --> 00:40:54,646
+this upload is going to finish
+
+
+1315
+00:40:54,646 --> 00:40:56,006
+and we want to tell the user
+
+
+1316
+00:40:56,006 --> 00:40:57,066
+about the new status of the
+
+
+1317
+00:40:57,066 --> 00:40:57,456
+file.
+
+
+1318
+00:40:57,986 --> 00:40:58,836
+So let's go into that.
+
+
+1319
+00:40:59,626 --> 00:41:01,256
+The way that works is that
+
+
+1320
+00:41:01,256 --> 00:41:02,916
+NSURLSession at some point will
+
+
+1321
+00:41:02,916 --> 00:41:04,666
+notice, hey, this upload
+
+
+1322
+00:41:04,666 --> 00:41:05,156
+succeeded.
+
+
+1323
+00:41:05,156 --> 00:41:06,656
+Sweet, the item is in the cloud.
+
+
+1324
+00:41:06,996 --> 00:41:09,126
+And the way this, the way
+
+
+1325
+00:41:09,126 --> 00:41:10,456
+NSURLSession tells you about
+
+
+1326
+00:41:10,496 --> 00:41:11,906
+that is that it calls a
+
+
+1327
+00:41:12,026 --> 00:41:14,176
+callback, an NSURLSession
+
+
+1328
+00:41:14,176 --> 00:41:16,156
+background callback, on your
+
+
+1329
+00:41:16,156 --> 00:41:17,096
+parent application.
+
+
+1330
+00:41:17,676 --> 00:41:19,506
+Your parent application at this
+
+
+1331
+00:41:19,506 --> 00:41:20,886
+point can go and update the
+
+
+1332
+00:41:20,886 --> 00:41:21,786
+database entry.
+
+
+1333
+00:41:21,866 --> 00:41:23,496
+It sets a little flag in your
+
+
+1334
+00:41:23,496 --> 00:41:25,156
+database that says, this file is
+
+
+1335
+00:41:25,156 --> 00:41:25,606
+uploaded.
+
+
+1336
+00:41:25,606 --> 00:41:26,966
+It's no longer [inaudible] on
+
+
+1337
+00:41:26,966 --> 00:41:27,226
+disk.
+
+
+1338
+00:41:27,226 --> 00:41:29,316
+Our upload succeeded.
+
+
+1339
+00:41:29,706 --> 00:41:31,716
+We don't have to retry this
+
+
+1340
+00:41:31,716 --> 00:41:32,196
+upload.
+
+
+1341
+00:41:33,016 --> 00:41:34,446
+And we should inform the user
+
+
+1342
+00:41:34,446 --> 00:41:35,716
+that this upload is finished.
+
+
+1343
+00:41:36,476 --> 00:41:38,376
+So as Pierre mentioned, the
+
+
+1344
+00:41:38,376 --> 00:41:39,756
+signalChanges method can be
+
+
+1345
+00:41:39,756 --> 00:41:41,226
+called both by your extension
+
+
+1346
+00:41:41,226 --> 00:41:42,926
+and the parent application, and
+
+
+1347
+00:41:42,926 --> 00:41:43,606
+this is why.
+
+
+1348
+00:41:44,046 --> 00:41:45,766
+Now, you tell us there are
+
+
+1349
+00:41:45,766 --> 00:41:47,346
+changes on this container.
+
+
+1350
+00:41:47,896 --> 00:41:51,466
+And at this point, the same old
+
+
+1351
+00:41:51,466 --> 00:41:52,286
+dance happens.
+
+
+1352
+00:41:52,946 --> 00:41:54,276
+The system notes that changes
+
+
+1353
+00:41:54,276 --> 00:41:56,756
+are pending, it re-enumerates
+
+
+1354
+00:41:56,856 --> 00:42:01,406
+your, the, your working set, and
+
+
+1355
+00:42:01,936 --> 00:42:03,326
+at this point, you can return
+
+
+1356
+00:42:03,486 --> 00:42:04,566
+in, from your file provider
+
+
+1357
+00:42:04,566 --> 00:42:07,156
+extension that this item is
+
+
+1358
+00:42:07,156 --> 00:42:08,866
+properly uploaded using the
+
+
+1359
+00:42:09,076 --> 00:42:11,396
+isUploaded key on the
+
+
+1360
+00:42:11,396 --> 00:42:13,566
+NSFileProviderItem protocol.
+
+
+1361
+00:42:14,456 --> 00:42:17,266
+Now, sometimes uploads fail.
+
+
+1362
+00:42:18,316 --> 00:42:19,666
+For example, your server might
+
+
+1363
+00:42:19,756 --> 00:42:22,566
+tell us, hey, this user is out
+
+
+1364
+00:42:22,566 --> 00:42:22,956
+of quota.
+
+
+1365
+00:42:24,376 --> 00:42:26,246
+And in this situation, the same
+
+
+1366
+00:42:26,246 --> 00:42:27,706
+dance happens, basically.
+
+
+1367
+00:42:28,066 --> 00:42:30,606
+So NSURLSession D is going to
+
+
+1368
+00:42:30,606 --> 00:42:32,406
+tell your parent application,
+
+
+1369
+00:42:32,986 --> 00:42:34,346
+hey, this upload failed.
+
+
+1370
+00:42:34,586 --> 00:42:35,366
+That's too bad.
+
+
+1371
+00:42:35,366 --> 00:42:36,556
+You're going to have to handle
+
+
+1372
+00:42:36,556 --> 00:42:37,186
+this somehow.
+
+
+1373
+00:42:37,776 --> 00:42:39,196
+So again, we make a database
+
+
+1374
+00:42:39,196 --> 00:42:39,716
+entry.
+
+
+1375
+00:42:39,716 --> 00:42:40,926
+We signal the system.
+
+
+1376
+00:42:42,106 --> 00:42:43,276
+The system notes that changes
+
+
+1377
+00:42:43,276 --> 00:42:43,956
+are pending.
+
+
+1378
+00:42:44,526 --> 00:42:45,856
+The system re-enumerates.
+
+
+1379
+00:42:46,296 --> 00:42:48,356
+And we can return the updated
+
+
+1380
+00:42:48,356 --> 00:42:48,766
+item.
+
+
+1381
+00:42:49,386 --> 00:42:50,796
+Now, this updated item should
+
+
+1382
+00:42:50,796 --> 00:42:53,916
+reflect the fact that this item
+
+
+1383
+00:42:53,916 --> 00:42:55,696
+is now in an error state, so to
+
+
+1384
+00:42:55,696 --> 00:42:57,476
+turn an update error, an upload
+
+
+1385
+00:42:57,476 --> 00:42:59,836
+error that is reflecting what
+
+
+1386
+00:42:59,836 --> 00:43:00,716
+actually here.
+
+
+1387
+00:43:00,716 --> 00:43:02,056
+All right, let's get into a bit
+
+
+1388
+00:43:02,056 --> 00:43:02,876
+more detail.
+
+
+1389
+00:43:02,876 --> 00:43:05,966
+As I said, you mark the item as
+
+
+1390
+00:43:05,966 --> 00:43:07,796
+being in an error status by
+
+
+1391
+00:43:07,796 --> 00:43:10,066
+using the upload error property
+
+
+1392
+00:43:10,066 --> 00:43:11,246
+on the item properties.
+
+
+1393
+00:43:12,306 --> 00:43:13,696
+You signal re-enumeration so
+
+
+1394
+00:43:13,696 --> 00:43:15,176
+that the user can see that this
+
+
+1395
+00:43:15,176 --> 00:43:16,406
+item's in an error state.
+
+
+1396
+00:43:17,256 --> 00:43:18,786
+And then, how you actually
+
+
+1397
+00:43:19,266 --> 00:43:21,286
+continue in this error state
+
+
+1398
+00:43:21,286 --> 00:43:23,116
+depends completely on the kind
+
+
+1399
+00:43:23,186 --> 00:43:24,966
+of error that you're looking at.
+
+
+1400
+00:43:25,456 --> 00:43:27,526
+So some, not all errors are the
+
+
+1401
+00:43:27,526 --> 00:43:28,216
+same thing.
+
+
+1402
+00:43:29,016 --> 00:43:30,316
+There's the possibility that
+
+
+1403
+00:43:30,316 --> 00:43:31,076
+you're running into an
+
+
+1404
+00:43:31,076 --> 00:43:32,016
+intermittent error.
+
+
+1405
+00:43:32,016 --> 00:43:34,276
+For example, the user was, I
+
+
+1406
+00:43:34,376 --> 00:43:35,516
+don't know, camping out in the
+
+
+1407
+00:43:35,516 --> 00:43:37,436
+jungle for two weeks, and
+
+
+1408
+00:43:37,436 --> 00:43:38,926
+NSURLSession D just gave up
+
+
+1409
+00:43:38,926 --> 00:43:41,576
+because there was no Wi-Fi, no
+
+
+1410
+00:43:41,576 --> 00:43:42,846
+wireless connection.
+
+
+1411
+00:43:43,286 --> 00:43:44,826
+In this situation, the easiest
+
+
+1412
+00:43:44,826 --> 00:43:46,146
+thing to do is tell the user,
+
+
+1413
+00:43:46,146 --> 00:43:47,976
+hey, your data wasn't uploaded,
+
+
+1414
+00:43:48,076 --> 00:43:49,066
+but we're on it.
+
+
+1415
+00:43:49,136 --> 00:43:51,306
+We re-enqueue the, your
+
+
+1416
+00:43:51,306 --> 00:43:52,416
+NSURLSession task.
+
+
+1417
+00:43:53,236 --> 00:43:55,026
+We still mark this item as being
+
+
+1418
+00:43:55,026 --> 00:43:56,426
+in an error state, as not being
+
+
+1419
+00:43:56,426 --> 00:43:58,906
+up to date in the cloud, but we
+
+
+1420
+00:43:58,906 --> 00:43:59,766
+simply retry.
+
+
+1421
+00:44:00,236 --> 00:44:01,206
+There's nothing that the user
+
+
+1422
+00:44:01,206 --> 00:44:01,846
+has to do.
+
+
+1423
+00:44:02,416 --> 00:44:03,486
+In the error description, you
+
+
+1424
+00:44:03,486 --> 00:44:04,856
+can possibly tell the user, hey,
+
+
+1425
+00:44:05,356 --> 00:44:07,016
+maybe go online or something
+
+
+1426
+00:44:07,016 --> 00:44:09,066
+like that, but that's pretty
+
+
+1427
+00:44:09,066 --> 00:44:10,526
+much it.
+
+
+1428
+00:44:10,736 --> 00:44:12,116
+There's also the possibility
+
+
+1429
+00:44:12,636 --> 00:44:13,356
+that you're running into a
+
+
+1430
+00:44:13,356 --> 00:44:15,126
+persistent error, and that is
+
+
+1431
+00:44:15,126 --> 00:44:15,586
+different.
+
+
+1432
+00:44:16,276 --> 00:44:17,786
+In a persistent error case,
+
+
+1433
+00:44:17,786 --> 00:44:19,016
+like, for example, the user's
+
+
+1434
+00:44:19,016 --> 00:44:20,836
+out of quota, what you need to
+
+
+1435
+00:44:20,836 --> 00:44:23,376
+do is tell the user, hey, you're
+
+
+1436
+00:44:23,466 --> 00:44:24,306
+out of quota.
+
+
+1437
+00:44:24,306 --> 00:44:26,046
+You got to go and buy more quota
+
+
+1438
+00:44:26,046 --> 00:44:27,346
+on our web page.
+
+
+1439
+00:44:27,636 --> 00:44:29,116
+And in that situation, basically
+
+
+1440
+00:44:29,116 --> 00:44:30,766
+what you give us is a, an error
+
+
+1441
+00:44:30,766 --> 00:44:32,686
+that suggests a recovery option.
+
+
+1442
+00:44:34,036 --> 00:44:35,666
+Now, last but not least, there's
+
+
+1443
+00:44:35,666 --> 00:44:36,496
+the possibility for
+
+
+1444
+00:44:36,496 --> 00:44:38,146
+authentication errors, and these
+
+
+1445
+00:44:38,146 --> 00:44:39,026
+are kind of special.
+
+
+1446
+00:44:39,256 --> 00:44:41,576
+The user has to do something
+
+
+1447
+00:44:41,816 --> 00:44:43,606
+specific to your application.
+
+
+1448
+00:44:44,126 --> 00:44:45,476
+For example, re-authenticate.
+
+
+1449
+00:44:46,666 --> 00:44:48,576
+Well, that's actually the only
+
+
+1450
+00:44:48,896 --> 00:44:50,226
+possibility in that situation,
+
+
+1451
+00:44:50,226 --> 00:44:50,616
+probably.
+
+
+1452
+00:44:51,276 --> 00:44:54,786
+And for that possibility, a
+
+
+1453
+00:44:54,786 --> 00:44:56,336
+custom action will be called by
+
+
+1454
+00:44:56,336 --> 00:44:56,866
+the system.
+
+
+1455
+00:44:57,586 --> 00:44:58,686
+So what's a custom action?
+
+
+1456
+00:44:59,306 --> 00:45:00,696
+Well, conveniently, that's our
+
+
+1457
+00:45:00,696 --> 00:45:03,116
+next section, and let's have a
+
+
+1458
+00:45:03,116 --> 00:45:05,176
+look at, back at this menu view
+
+
+1459
+00:45:05,176 --> 00:45:06,746
+controller here, menu controller
+
+
+1460
+00:45:06,746 --> 00:45:06,966
+here.
+
+
+1461
+00:45:07,286 --> 00:45:09,086
+We've seen these system-provided
+
+
+1462
+00:45:09,086 --> 00:45:11,366
+actions here, and the way these
+
+
+1463
+00:45:11,366 --> 00:45:12,696
+work is that the user just taps
+
+
+1464
+00:45:12,696 --> 00:45:15,286
+them and is backed by an action
+
+
+1465
+00:45:15,286 --> 00:45:17,036
+that is internally backed by
+
+
+1466
+00:45:17,036 --> 00:45:17,986
+your provider.
+
+
+1467
+00:45:18,536 --> 00:45:20,706
+But we also offer another
+
+
+1468
+00:45:20,706 --> 00:45:22,696
+opportunity for you to customize
+
+
+1469
+00:45:22,696 --> 00:45:25,856
+this, which is to introduce a
+
+
+1470
+00:45:25,856 --> 00:45:27,496
+custom action in this situation.
+
+
+1471
+00:45:28,016 --> 00:45:31,806
+So that's a action, and this one
+
+
+1472
+00:45:31,806 --> 00:45:32,976
+here is called Custom on the
+
+
+1473
+00:45:32,976 --> 00:45:34,926
+slide, but it can be whatever
+
+
+1474
+00:45:34,926 --> 00:45:36,156
+name you want.
+
+
+1475
+00:45:36,966 --> 00:45:38,276
+And the way this works is that
+
+
+1476
+00:45:39,226 --> 00:45:41,316
+you expose an operation, a UI
+
+
+1477
+00:45:41,316 --> 00:45:43,626
+operation, that is scoped to
+
+
+1478
+00:45:43,626 --> 00:45:44,906
+your file provider extension.
+
+
+1479
+00:45:46,806 --> 00:45:48,326
+You provide an interface for
+
+
+1480
+00:45:48,666 --> 00:45:51,006
+this operation that is backed by
+
+
+1481
+00:45:51,006 --> 00:45:53,866
+a new type of UI extension.
+
+
+1482
+00:45:55,296 --> 00:45:57,886
+And this is a separate process
+
+
+1483
+00:45:57,886 --> 00:46:00,186
+that's running on the system,
+
+
+1484
+00:46:00,636 --> 00:46:02,796
+and it's backed by a subclass of
+
+
+1485
+00:46:02,916 --> 00:46:04,086
+FPUIActionExtension
+
+
+1486
+00:46:04,086 --> 00:46:04,666
+ViewController.
+
+
+1487
+00:46:05,246 --> 00:46:07,206
+So how do we do that?
+
+
+1488
+00:46:07,836 --> 00:46:10,236
+Well, first of all, we list the
+
+
+1489
+00:46:10,236 --> 00:46:12,196
+possible number of actions in
+
+
+1490
+00:46:12,286 --> 00:46:13,886
+the info.plist of our extension,
+
+
+1491
+00:46:13,886 --> 00:46:15,326
+and this is really easy.
+
+
+1492
+00:46:15,596 --> 00:46:17,396
+We have an action name, we have
+
+
+1493
+00:46:17,396 --> 00:46:18,856
+an identifier, and we have an
+
+
+1494
+00:46:18,856 --> 00:46:19,816
+activation rule.
+
+
+1495
+00:46:19,846 --> 00:46:21,996
+And this activation rule is used
+
+
+1496
+00:46:21,996 --> 00:46:23,626
+to figure out which of these
+
+
+1497
+00:46:23,626 --> 00:46:25,316
+actions applies to which items.
+
+
+1498
+00:46:26,256 --> 00:46:27,966
+So in this example on the slide,
+
+
+1499
+00:46:27,966 --> 00:46:29,506
+we're simply using a true
+
+
+1500
+00:46:29,506 --> 00:46:30,806
+predicate, which means that this
+
+
+1501
+00:46:30,806 --> 00:46:34,186
+action is, that every item in
+
+
+1502
+00:46:34,186 --> 00:46:35,416
+your provider's eligible for
+
+
+1503
+00:46:35,416 --> 00:46:36,326
+this specific action.
+
+
+1504
+00:46:36,936 --> 00:46:38,846
+But you can basically go wild on
+
+
+1505
+00:46:38,846 --> 00:46:39,156
+this.
+
+
+1506
+00:46:39,156 --> 00:46:42,966
+You can expose different keys on
+
+
+1507
+00:46:43,066 --> 00:46:44,826
+your items and use these for
+
+
+1508
+00:46:44,826 --> 00:46:46,006
+matching in your activation
+
+
+1509
+00:46:46,006 --> 00:46:46,306
+rule.
+
+
+1510
+00:46:46,816 --> 00:46:47,976
+So how does this work?
+
+
+1511
+00:46:48,506 --> 00:46:50,636
+Well, the user long presses on
+
+
+1512
+00:46:50,636 --> 00:46:52,976
+an item in the Files app or in
+
+
+1513
+00:46:52,976 --> 00:46:53,976
+the document browser, and at
+
+
+1514
+00:46:54,556 --> 00:46:56,326
+this point, we consult the
+
+
+1515
+00:46:56,326 --> 00:46:58,426
+index, not your extension.
+
+
+1516
+00:46:58,676 --> 00:47:00,356
+We don't even bring that up.
+
+
+1517
+00:47:00,356 --> 00:47:02,866
+We consult the index of the item
+
+
+1518
+00:47:02,866 --> 00:47:04,226
+that you previously returned to
+
+
+1519
+00:47:04,226 --> 00:47:04,526
+us.
+
+
+1520
+00:47:04,526 --> 00:47:09,116
+We look at the attributes and we
+
+
+1521
+00:47:09,116 --> 00:47:10,566
+match this predicate against the
+
+
+1522
+00:47:10,566 --> 00:47:11,246
+attributes.
+
+
+1523
+00:47:11,496 --> 00:47:12,616
+At this point, we know whether
+
+
+1524
+00:47:12,616 --> 00:47:14,176
+this predicate returns a yes or
+
+
+1525
+00:47:14,176 --> 00:47:16,676
+a no, and we can simply display
+
+
+1526
+00:47:16,676 --> 00:47:18,066
+the action if it returns a yes.
+
+
+1527
+00:47:18,916 --> 00:47:21,536
+OK, so now, the user sees this
+
+
+1528
+00:47:21,536 --> 00:47:23,396
+action, and probably they tap on
+
+
+1529
+00:47:24,146 --> 00:47:24,213
+it.
+
+
+1530
+00:47:24,486 --> 00:47:26,266
+So the user taps on the action.
+
+
+1531
+00:47:26,266 --> 00:47:27,076
+What happens now?
+
+
+1532
+00:47:27,416 --> 00:47:29,286
+Well, we bring up your UI
+
+
+1533
+00:47:29,286 --> 00:47:31,476
+extension, and your UI extension
+
+
+1534
+00:47:31,476 --> 00:47:33,036
+gets a call to its
+
+
+1535
+00:47:33,036 --> 00:47:34,466
+prepareForAction method.
+
+
+1536
+00:47:34,946 --> 00:47:36,546
+What this gets, what this does
+
+
+1537
+00:47:36,546 --> 00:47:40,126
+is it, we hand it a set of items
+
+
+1538
+00:47:40,456 --> 00:47:41,776
+plus the actionIdentifier that
+
+
+1539
+00:47:41,776 --> 00:47:43,746
+the user actually chose, and you
+
+
+1540
+00:47:43,746 --> 00:47:46,056
+can go and present whatever UI
+
+
+1541
+00:47:46,836 --> 00:47:49,876
+you have for this action.
+
+
+1542
+00:47:50,046 --> 00:47:51,176
+You return from this method.
+
+
+1543
+00:47:51,176 --> 00:47:52,466
+We present your view controller.
+
+
+1544
+00:47:52,466 --> 00:47:54,746
+It slides up nicely in the Files
+
+
+1545
+00:47:54,746 --> 00:47:54,946
+app.
+
+
+1546
+00:47:54,946 --> 00:47:56,586
+And that's it.
+
+
+1547
+00:47:56,586 --> 00:47:58,466
+At this point, you know which
+
+
+1548
+00:47:58,466 --> 00:47:59,626
+items you're performing these
+
+
+1549
+00:47:59,626 --> 00:48:00,246
+actions on.
+
+
+1550
+00:48:00,246 --> 00:48:01,986
+For example, and you can do
+
+
+1551
+00:48:01,986 --> 00:48:03,826
+whatever is necessary to perform
+
+
+1552
+00:48:03,826 --> 00:48:04,376
+these actions.
+
+
+1553
+00:48:04,376 --> 00:48:05,386
+And these actions are completely
+
+
+1554
+00:48:05,386 --> 00:48:07,546
+custom, so, of course, it's
+
+
+1555
+00:48:07,546 --> 00:48:09,036
+completely up to you what is
+
+
+1556
+00:48:09,036 --> 00:48:09,636
+happening here.
+
+
+1557
+00:48:10,486 --> 00:48:12,046
+At some point, the user will be
+
+
+1558
+00:48:12,046 --> 00:48:12,996
+done with this action.
+
+
+1559
+00:48:13,756 --> 00:48:14,896
+Maybe you're implementing a Done
+
+
+1560
+00:48:14,896 --> 00:48:15,236
+button.
+
+
+1561
+00:48:15,236 --> 00:48:16,986
+Maybe this is, there's some
+
+
+1562
+00:48:16,986 --> 00:48:18,436
+natural end to this action.
+
+
+1563
+00:48:18,796 --> 00:48:20,586
+But at any rate, you call the
+
+
+1564
+00:48:20,586 --> 00:48:22,096
+completeRequest method on the
+
+
+1565
+00:48:22,096 --> 00:48:24,096
+extension context, and the
+
+
+1566
+00:48:24,096 --> 00:48:25,856
+system simply dismisses your UI.
+
+
+1567
+00:48:26,036 --> 00:48:27,746
+But that's just custom actions.
+
+
+1568
+00:48:27,746 --> 00:48:30,026
+As I promised earlier, there's a
+
+
+1569
+00:48:30,026 --> 00:48:31,426
+special case for authentication
+
+
+1570
+00:48:31,426 --> 00:48:32,516
+actions, so look at that.
+
+
+1571
+00:48:33,376 --> 00:48:34,536
+Authentication actions are
+
+
+1572
+00:48:34,536 --> 00:48:36,776
+called exactly the same way as
+
+
+1573
+00:48:36,776 --> 00:48:38,576
+custom UI actions are called,
+
+
+1574
+00:48:39,296 --> 00:48:40,256
+except they're called in a
+
+
+1575
+00:48:40,256 --> 00:48:41,446
+special case, and that's when
+
+
+1576
+00:48:41,446 --> 00:48:42,786
+you to us return an
+
+
+1577
+00:48:42,786 --> 00:48:43,596
+authentication error.
+
+
+1578
+00:48:44,126 --> 00:48:45,336
+So if you return an
+
+
+1579
+00:48:45,336 --> 00:48:46,926
+authentication error, what
+
+
+1580
+00:48:46,926 --> 00:48:48,276
+happens is that we call the
+
+
+1581
+00:48:48,276 --> 00:48:49,796
+prepareForAuthentication method
+
+
+1582
+00:48:50,206 --> 00:48:51,886
+on your FPUI extension,
+
+
+1583
+00:48:52,296 --> 00:48:53,706
+ActionExtensionViewController.
+
+
+1584
+00:48:54,416 --> 00:48:55,656
+And everything from there on
+
+
+1585
+00:48:55,656 --> 00:48:57,186
+flows just the same way.
+
+
+1586
+00:48:57,756 --> 00:48:59,176
+You call, you can call, you can
+
+
+1587
+00:48:59,176 --> 00:49:00,676
+display whatever UI is necessary
+
+
+1588
+00:49:00,676 --> 00:49:01,596
+for authenticating.
+
+
+1589
+00:49:01,826 --> 00:49:03,106
+At some point, the user has
+
+
+1590
+00:49:03,106 --> 00:49:03,916
+authenticated.
+
+
+1591
+00:49:03,916 --> 00:49:05,506
+You can call the dismiss method,
+
+
+1592
+00:49:05,626 --> 00:49:07,126
+the view controller dismisses,
+
+
+1593
+00:49:07,126 --> 00:49:08,366
+and you're now authenticated,
+
+
+1594
+00:49:08,366 --> 00:49:09,646
+and we will simply retry.
+
+
+1595
+00:49:10,536 --> 00:49:11,736
+So those are actions, and those
+
+
+1596
+00:49:11,736 --> 00:49:15,916
+are very nice, but all said and
+
+
+1597
+00:49:15,916 --> 00:49:17,686
+done, they are only showing up
+
+
+1598
+00:49:17,686 --> 00:49:20,756
+in the, either the document
+
+
+1599
+00:49:20,756 --> 00:49:22,016
+browser view controller or the
+
+
+1600
+00:49:22,016 --> 00:49:22,536
+Files app.
+
+
+1601
+00:49:22,876 --> 00:49:24,106
+And that is great.
+
+
+1602
+00:49:24,656 --> 00:49:26,526
+That is a great way for you to
+
+
+1603
+00:49:26,526 --> 00:49:28,036
+expose something to your user,
+
+
+1604
+00:49:28,716 --> 00:49:30,336
+but sometimes you need something
+
+
+1605
+00:49:30,336 --> 00:49:31,496
+more, and for that, we have this
+
+
+1606
+00:49:31,496 --> 00:49:32,656
+concept of Services.
+
+
+1607
+00:49:33,876 --> 00:49:35,106
+What's a Service?
+
+
+1608
+00:49:35,586 --> 00:49:37,556
+Well, as I said, there's caveats
+
+
+1609
+00:49:37,556 --> 00:49:38,576
+for the custom actions.
+
+
+1610
+00:49:39,536 --> 00:49:41,716
+But sometimes you need
+
+
+1611
+00:49:41,986 --> 00:49:43,996
+programmatic access to specific
+
+
+1612
+00:49:43,996 --> 00:49:44,466
+files.
+
+
+1613
+00:49:45,016 --> 00:49:45,816
+And if you're currently
+
+
+1614
+00:49:45,816 --> 00:49:47,556
+publishing an SDK, for example,
+
+
+1615
+00:49:47,916 --> 00:49:50,586
+this is where you export,
+
+
+1616
+00:49:50,586 --> 00:49:52,306
+expose, where you can expose the
+
+
+1617
+00:49:52,306 --> 00:49:53,726
+same functionality that your SDK
+
+
+1618
+00:49:53,726 --> 00:49:54,766
+is currently exposing.
+
+
+1619
+00:49:56,216 --> 00:49:58,596
+Services are a way for you to
+
+
+1620
+00:49:58,596 --> 00:50:00,416
+expose functionality directly on
+
+
+1621
+00:50:00,416 --> 00:50:02,196
+an item, so let's have a look at
+
+
+1622
+00:50:02,196 --> 00:50:03,776
+how that goes.
+
+
+1623
+00:50:03,966 --> 00:50:05,136
+First, you need to define what
+
+
+1624
+00:50:05,136 --> 00:50:05,866
+your service is.
+
+
+1625
+00:50:06,336 --> 00:50:08,736
+And at the base level, a service
+
+
+1626
+00:50:08,736 --> 00:50:11,186
+is simply a name that's an
+
+
+1627
+00:50:11,226 --> 00:50:12,516
+identifier that you give the
+
+
+1628
+00:50:12,516 --> 00:50:15,746
+service plus an Objective-C
+
+
+1629
+00:50:15,746 --> 00:50:16,496
+protocol.
+
+
+1630
+00:50:16,606 --> 00:50:18,276
+And this is basically any old
+
+
+1631
+00:50:18,276 --> 00:50:19,346
+Objective-C protocol.
+
+
+1632
+00:50:19,956 --> 00:50:21,306
+There's some caveats here that
+
+
+1633
+00:50:21,306 --> 00:50:22,786
+we'll go into real soon.
+
+
+1634
+00:50:22,996 --> 00:50:25,546
+The protocol must be known to
+
+
+1635
+00:50:25,546 --> 00:50:27,576
+you and to the developer that's
+
+
+1636
+00:50:27,576 --> 00:50:28,056
+using it.
+
+
+1637
+00:50:28,056 --> 00:50:30,286
+So both of you need to determine
+
+
+1638
+00:50:30,286 --> 00:50:31,836
+what the protocol is.
+
+
+1639
+00:50:32,376 --> 00:50:33,746
+And this is because the
+
+
+1640
+00:50:33,746 --> 00:50:35,736
+developer using this is going to
+
+
+1641
+00:50:35,736 --> 00:50:37,146
+perform method calls on an
+
+
+1642
+00:50:37,146 --> 00:50:38,916
+object that is exposed by you,
+
+
+1643
+00:50:38,916 --> 00:50:39,596
+effectively.
+
+
+1644
+00:50:40,116 --> 00:50:41,236
+So if the signatures don't
+
+
+1645
+00:50:41,236 --> 00:50:43,026
+match, nothing will happen.
+
+
+1646
+00:50:43,026 --> 00:50:44,556
+This will just result in an
+
+
+1647
+00:50:44,946 --> 00:50:45,036
+error.
+
+
+1648
+00:50:45,906 --> 00:50:47,596
+And when I say they're
+
+
+1649
+00:50:47,596 --> 00:50:49,076
+performing method calls, the way
+
+
+1650
+00:50:49,076 --> 00:50:51,236
+this works is actually that this
+
+
+1651
+00:50:51,236 --> 00:50:52,876
+is implemented using NSXPC,
+
+
+1652
+00:50:52,936 --> 00:50:55,136
+which is a great technology for
+
+
+1653
+00:50:55,136 --> 00:50:56,306
+interprocess communication.
+
+
+1654
+00:50:56,856 --> 00:50:59,056
+And that means that the usual
+
+
+1655
+00:50:59,056 --> 00:51:00,206
+XPC rules apply.
+
+
+1656
+00:51:01,056 --> 00:51:03,316
+So all the parameters that are
+
+
+1657
+00:51:03,316 --> 00:51:04,446
+passed through this protocol
+
+
+1658
+00:51:04,446 --> 00:51:05,586
+have to be secure codable.
+
+
+1659
+00:51:05,876 --> 00:51:07,236
+And of course, the classes have
+
+
+1660
+00:51:07,236 --> 00:51:09,086
+to be available in both your
+
+
+1661
+00:51:09,086 --> 00:51:11,916
+extension and the app that's
+
+
+1662
+00:51:11,946 --> 00:51:12,636
+calling this.
+
+
+1663
+00:51:13,226 --> 00:51:14,926
+And you cannot directly return
+
+
+1664
+00:51:15,216 --> 00:51:17,346
+any objects from this protocol.
+
+
+1665
+00:51:17,996 --> 00:51:20,236
+So you have to return, if you
+
+
+1666
+00:51:20,306 --> 00:51:21,556
+want to return something, you
+
+
+1667
+00:51:21,556 --> 00:51:22,996
+have to call back via completion
+
+
+1668
+00:51:22,996 --> 00:51:23,266
+block.
+
+
+1669
+00:51:23,866 --> 00:51:25,666
+Now, the rules for this are
+
+
+1670
+00:51:25,666 --> 00:51:28,576
+somewhat interesting, and
+
+
+1671
+00:51:28,606 --> 00:51:30,406
+there's, was a session in 2012
+
+
+1672
+00:51:30,866 --> 00:51:32,206
+that goes into way more detail
+
+
+1673
+00:51:32,206 --> 00:51:33,906
+than I can go, possibly go into
+
+
+1674
+00:51:33,906 --> 00:51:34,536
+here today.
+
+
+1675
+00:51:35,786 --> 00:51:37,546
+So I encourage you to have a
+
+
+1676
+00:51:37,546 --> 00:51:38,306
+look at that session.
+
+
+1677
+00:51:39,336 --> 00:51:40,576
+All right, let's quickly go
+
+
+1678
+00:51:40,786 --> 00:51:41,996
+through the data flow that is
+
+
+1679
+00:51:41,996 --> 00:51:44,036
+happening here because that is,
+
+
+1680
+00:51:44,176 --> 00:51:45,596
+that warrants having a look at.
+
+
+1681
+00:51:46,076 --> 00:51:47,326
+Your third-party application
+
+
+1682
+00:51:47,976 --> 00:51:50,226
+goes and basically inquires on
+
+
+1683
+00:51:50,226 --> 00:51:54,416
+an URL, what are the services
+
+
+1684
+00:51:54,846 --> 00:51:56,686
+that are exposed on this URL?
+
+
+1685
+00:51:56,686 --> 00:51:57,956
+And at this point, your
+
+
+1686
+00:51:57,956 --> 00:52:01,566
+extension gets a call to answer,
+
+
+1687
+00:52:01,676 --> 00:52:02,916
+hey, what are the supported
+
+
+1688
+00:52:02,916 --> 00:52:04,536
+services on this item?
+
+
+1689
+00:52:05,636 --> 00:52:07,956
+It returns an array of service
+
+
+1690
+00:52:07,956 --> 00:52:09,336
+sources, and a service source is
+
+
+1691
+00:52:09,336 --> 00:52:10,326
+not a service itself.
+
+
+1692
+00:52:10,866 --> 00:52:13,326
+It's an object that can create a
+
+
+1693
+00:52:13,326 --> 00:52:14,826
+service, effectively, that can
+
+
+1694
+00:52:14,826 --> 00:52:16,586
+create an XPC listener endpoint.
+
+
+1695
+00:52:17,046 --> 00:52:19,606
+We return these services as
+
+
+1696
+00:52:19,766 --> 00:52:21,676
+services to the application.
+
+
+1697
+00:52:22,136 --> 00:52:23,426
+So on the service object, the
+
+
+1698
+00:52:23,426 --> 00:52:24,826
+application can go and then
+
+
+1699
+00:52:25,136 --> 00:52:26,316
+create a proxy object.
+
+
+1700
+00:52:26,666 --> 00:52:27,916
+Let's have a look at that, how
+
+
+1701
+00:52:27,916 --> 00:52:28,546
+that works.
+
+
+1702
+00:52:29,196 --> 00:52:31,146
+So the third-party application
+
+
+1703
+00:52:31,146 --> 00:52:32,726
+uses that service after it's
+
+
+1704
+00:52:32,726 --> 00:52:34,216
+looked at which services are
+
+
+1705
+00:52:34,216 --> 00:52:34,706
+available.
+
+
+1706
+00:52:34,706 --> 00:52:36,046
+Of course, they can be any
+
+
+1707
+00:52:36,046 --> 00:52:37,186
+number of services, right?
+
+
+1708
+00:52:37,776 --> 00:52:39,156
+So it looks at the identifiers
+
+
+1709
+00:52:39,536 --> 00:52:42,076
+of these services, figures out
+
+
+1710
+00:52:42,076 --> 00:52:43,796
+which one it wants to use, and
+
+
+1711
+00:52:43,796 --> 00:52:44,676
+creates a messenger.
+
+
+1712
+00:52:45,536 --> 00:52:47,696
+At this point, we are asking
+
+
+1713
+00:52:47,696 --> 00:52:50,126
+your extension on the service
+
+
+1714
+00:52:50,126 --> 00:52:51,726
+source to make a listener
+
+
+1715
+00:52:51,726 --> 00:52:52,326
+endpoint.
+
+
+1716
+00:52:53,076 --> 00:52:54,976
+So it returned that.
+
+
+1717
+00:52:54,976 --> 00:52:56,276
+A ListenerEndpoint, that's an
+
+
+1718
+00:52:56,656 --> 00:52:58,436
+existing NSXPC class, although
+
+
+1719
+00:52:58,436 --> 00:52:59,876
+it's currently only exposed on
+
+
+1720
+00:52:59,876 --> 00:53:00,426
+macOS.
+
+
+1721
+00:53:00,866 --> 00:53:02,136
+We're now bringing it to iOS.
+
+
+1722
+00:53:02,576 --> 00:53:03,906
+At this point, the third-party
+
+
+1723
+00:53:03,906 --> 00:53:05,456
+application can grab the remote
+
+
+1724
+00:53:05,456 --> 00:53:07,186
+proxy on this messenger, and
+
+
+1725
+00:53:07,186 --> 00:53:09,266
+that calls on your listener
+
+
+1726
+00:53:09,266 --> 00:53:10,816
+delegate the
+
+
+1727
+00:53:10,816 --> 00:53:13,776
+shouldAcceptConnection callback.
+
+
+1728
+00:53:14,816 --> 00:53:16,396
+At this point, you can call, you
+
+
+1729
+00:53:16,396 --> 00:53:18,306
+can configure this connection
+
+
+1730
+00:53:19,246 --> 00:53:21,996
+and return this connection to
+
+
+1731
+00:53:22,276 --> 00:53:22,896
+the system.
+
+
+1732
+00:53:23,616 --> 00:53:25,236
+So in this case, for example,
+
+
+1733
+00:53:25,236 --> 00:53:27,626
+you provide a proxy object that
+
+
+1734
+00:53:27,626 --> 00:53:28,926
+is being exported by our
+
+
+1735
+00:53:28,926 --> 00:53:29,526
+extension.
+
+
+1736
+00:53:30,006 --> 00:53:33,366
+And from there on out, we can go
+
+
+1737
+00:53:33,366 --> 00:53:35,386
+and call whatever methods are
+
+
+1738
+00:53:35,736 --> 00:53:37,856
+defined in our protocol on this
+
+
+1739
+00:53:37,856 --> 00:53:39,206
+remote proxy object in our
+
+
+1740
+00:53:39,206 --> 00:53:40,206
+third-party application.
+
+
+1741
+00:53:40,686 --> 00:53:42,156
+And all of these calls will be
+
+
+1742
+00:53:42,156 --> 00:53:45,236
+translated into calls in our
+
+
+1743
+00:53:45,236 --> 00:53:45,806
+extension.
+
+
+1744
+00:53:47,216 --> 00:53:49,706
+This is a, an extremely powerful
+
+
+1745
+00:53:50,896 --> 00:53:53,106
+mechanism for you to expose
+
+
+1746
+00:53:54,336 --> 00:53:58,916
+basically any old possible SDK
+
+
+1747
+00:53:58,916 --> 00:54:01,366
+operations on your extension.
+
+
+1748
+00:54:01,886 --> 00:54:04,276
+As a, as an aside, we don't
+
+
+1749
+00:54:04,276 --> 00:54:05,486
+expect everyone to implement
+
+
+1750
+00:54:05,486 --> 00:54:06,876
+this, and it's perfectly fine if
+
+
+1751
+00:54:06,876 --> 00:54:08,956
+your first version does not use
+
+
+1752
+00:54:08,956 --> 00:54:09,916
+this mechanism at all.
+
+
+1753
+00:54:10,246 --> 00:54:11,836
+This is a very advanced topic,
+
+
+1754
+00:54:12,316 --> 00:54:15,636
+so if you only, if all you
+
+
+1755
+00:54:15,636 --> 00:54:18,006
+implement is enumeration and the
+
+
+1756
+00:54:18,006 --> 00:54:19,786
+usual file provider actions,
+
+
+1757
+00:54:20,106 --> 00:54:21,876
+we're already super happy.
+
+
+1758
+00:54:22,996 --> 00:54:23,626
+All right.
+
+
+1759
+00:54:24,076 --> 00:54:25,116
+Let's summarize what we've seen
+
+
+1760
+00:54:25,116 --> 00:54:25,466
+today.
+
+
+1761
+00:54:26,336 --> 00:54:27,586
+We've seen what a file provider
+
+
+1762
+00:54:27,586 --> 00:54:28,996
+is, and how we can use a file
+
+
+1763
+00:54:28,996 --> 00:54:30,926
+provider to back the
+
+
+1764
+00:54:31,476 --> 00:54:32,986
+enumerations in the Files app,
+
+
+1765
+00:54:33,036 --> 00:54:36,846
+and how to use it to show files
+
+
+1766
+00:54:36,846 --> 00:54:37,986
+in the document browser.
+
+
+1767
+00:54:39,206 --> 00:54:40,326
+We've seen how you use
+
+
+1768
+00:54:40,326 --> 00:54:43,606
+enumerations to expose items to
+
+
+1769
+00:54:43,966 --> 00:54:46,096
+both of these controls and how
+
+
+1770
+00:54:46,096 --> 00:54:47,236
+you can enumerate the working
+
+
+1771
+00:54:47,236 --> 00:54:48,196
+set, how you can enumerate
+
+
+1772
+00:54:48,196 --> 00:54:49,846
+changes to the working set, and
+
+
+1773
+00:54:49,846 --> 00:54:51,046
+how you can push changes to the
+
+
+1774
+00:54:51,046 --> 00:54:51,656
+working set.
+
+
+1775
+00:54:52,496 --> 00:54:54,576
+And finally, we've seen how you
+
+
+1776
+00:54:54,576 --> 00:54:57,436
+can implement actions to modify
+
+
+1777
+00:54:57,596 --> 00:54:59,896
+stuff in your hierarchy and how
+
+
+1778
+00:54:59,896 --> 00:55:01,646
+you can then go even further,
+
+
+1779
+00:55:01,646 --> 00:55:03,726
+and customize these actions, and
+
+
+1780
+00:55:03,726 --> 00:55:06,286
+even implement services that are
+
+
+1781
+00:55:06,286 --> 00:55:07,436
+completely custom to your
+
+
+1782
+00:55:07,436 --> 00:55:09,416
+provider, and expose those to
+
+
+1783
+00:55:09,416 --> 00:55:10,166
+third-party apps.
+
+
+1784
+00:55:11,056 --> 00:55:13,116
+For more information, we have a
+
+
+1785
+00:55:13,116 --> 00:55:16,076
+page on the developer.apple.com
+
+
+1786
+00:55:17,196 --> 00:55:18,966
+and we have a list of related
+
+
+1787
+00:55:18,966 --> 00:55:20,916
+sessions that go into way more
+
+
+1788
+00:55:20,916 --> 00:55:22,226
+detail than we can possibly do
+
+
+1789
+00:55:22,226 --> 00:55:25,006
+here on some of the technologies
+
+
+1790
+00:55:25,006 --> 00:55:25,356
+used.
+
+
+1791
+00:55:26,456 --> 00:55:27,856
+And with that, I hope you are
+
+
+1792
+00:55:27,856 --> 00:55:29,016
+having a great conference.
+
+
+1793
+00:55:29,246 --> 00:55:29,946
+Thank you very much.
+
+
+1794
+00:55:31,016 --> 00:55:33,000
+[ Applause ]
+

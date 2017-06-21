@@ -1,0 +1,9769 @@
+1
+00:00:18,046 --> 00:00:18,756
+>> Good afternoon everyone.
+
+
+2
+00:00:19,516 --> 00:00:23,796
+[ Applause ]
+
+
+3
+00:00:24,296 --> 00:00:24,606
+Thank you.
+
+
+4
+00:00:25,186 --> 00:00:26,516
+Welcome to what's new in Swift.
+
+
+5
+00:00:27,256 --> 00:00:28,206
+My name is Doug Gregor.
+
+
+6
+00:00:28,436 --> 00:00:29,296
+I'm here with some of my
+
+
+7
+00:00:29,296 --> 00:00:30,446
+colleagues from the Swift team
+
+
+8
+00:00:30,696 --> 00:00:32,286
+to talk about some of the great
+
+
+9
+00:00:32,286 --> 00:00:33,866
+things we're bringing in Swift
+
+
+10
+00:00:33,866 --> 00:00:34,246
+4.
+
+
+11
+00:00:35,276 --> 00:00:38,866
+Now, if you follow iOS Developer
+
+
+12
+00:00:38,866 --> 00:00:40,576
+and author Ole Begemann, you
+
+
+13
+00:00:40,576 --> 00:00:41,486
+actually know everything that's
+
+
+14
+00:00:41,486 --> 00:00:42,356
+already in Swift 4.
+
+
+15
+00:00:43,606 --> 00:00:45,046
+This is something I absolutely
+
+
+16
+00:00:45,046 --> 00:00:46,896
+love about the Swift community.
+
+
+17
+00:00:47,296 --> 00:00:49,726
+What Ole did here is, he looked
+
+
+18
+00:00:49,726 --> 00:00:50,886
+at all the proposals, what was
+
+
+19
+00:00:50,886 --> 00:00:53,036
+going into Swift 4, and what did
+
+
+20
+00:00:53,036 --> 00:00:53,366
+he do?
+
+
+21
+00:00:53,366 --> 00:00:54,996
+He built a playground to
+
+
+22
+00:00:54,996 --> 00:00:56,346
+demonstrate how these features
+
+
+23
+00:00:56,346 --> 00:00:57,926
+worked, and he shared it with
+
+
+24
+00:00:57,926 --> 00:00:58,996
+the world so we could all learn
+
+
+25
+00:00:58,996 --> 00:00:59,386
+from it.
+
+
+26
+00:01:00,136 --> 00:01:00,996
+This is awesome.
+
+
+27
+00:01:01,896 --> 00:01:03,986
+And it's possible because at any
+
+
+28
+00:01:03,986 --> 00:01:05,426
+point you can go over to
+
+
+29
+00:01:05,426 --> 00:01:07,086
+Swift.org, our home of open
+
+
+30
+00:01:07,086 --> 00:01:09,276
+source, and download a snapshot
+
+
+31
+00:01:09,276 --> 00:01:10,766
+of the latest and greatest Swift
+
+
+32
+00:01:10,766 --> 00:01:11,336
+compiler.
+
+
+33
+00:01:12,046 --> 00:01:13,626
+That snapshot is a toolchain
+
+
+34
+00:01:13,626 --> 00:01:16,016
+that you can install into Xcode.
+
+
+35
+00:01:16,926 --> 00:01:18,576
+Provides new compiler, debugger,
+
+
+36
+00:01:18,576 --> 00:01:19,646
+source kit, everything.
+
+
+37
+00:01:19,646 --> 00:01:20,696
+So, you can build your app
+
+
+38
+00:01:20,696 --> 00:01:21,906
+against the latest tools.
+
+
+39
+00:01:22,126 --> 00:01:23,026
+Try out some of the new
+
+
+40
+00:01:23,026 --> 00:01:24,466
+features, check whether we fixed
+
+
+41
+00:01:24,466 --> 00:01:25,226
+your favorite bug.
+
+
+42
+00:01:25,336 --> 00:01:27,766
+Of course, this is all possible
+
+
+43
+00:01:27,766 --> 00:01:29,286
+because Swift is open source.
+
+
+44
+00:01:29,286 --> 00:01:30,426
+We develop everything in the
+
+
+45
+00:01:30,426 --> 00:01:32,406
+open on GitHub, so you can
+
+
+46
+00:01:32,406 --> 00:01:33,116
+follow along.
+
+
+47
+00:01:33,526 --> 00:01:34,746
+You can participate if you're
+
+
+48
+00:01:34,746 --> 00:01:35,346
+interested.
+
+
+49
+00:01:36,266 --> 00:01:38,706
+And also, the way Swift evolves.
+
+
+50
+00:01:38,706 --> 00:01:40,226
+The standard library, the
+
+
+51
+00:01:40,226 --> 00:01:42,206
+language is through this open
+
+
+52
+00:01:42,206 --> 00:01:43,926
+evolution process where we
+
+
+53
+00:01:44,076 --> 00:01:46,036
+evaluate individual proposals.
+
+
+54
+00:01:46,396 --> 00:01:48,116
+Refine them improve them, to
+
+
+55
+00:01:48,116 --> 00:01:49,846
+make Swift better for all the
+
+
+56
+00:01:49,846 --> 00:01:51,156
+development community.
+
+
+57
+00:01:52,346 --> 00:01:54,036
+Now as you undoubtedly heard by
+
+
+58
+00:01:54,036 --> 00:01:56,256
+now Xcode 9 introduces
+
+
+59
+00:01:56,256 --> 00:01:57,846
+refactoring support for Swift.
+
+
+60
+00:01:58,516 --> 00:02:01,736
+[ Applause ]
+
+
+61
+00:02:02,236 --> 00:02:05,256
+So, all fo the language level
+
+
+62
+00:02:05,256 --> 00:02:07,176
+bits that make refactoring work
+
+
+63
+00:02:07,176 --> 00:02:08,846
+for Swift actually lived down in
+
+
+64
+00:02:08,846 --> 00:02:09,576
+the Swift project.
+
+
+65
+00:02:09,576 --> 00:02:10,716
+So, we'll be open sourcing that
+
+
+66
+00:02:10,716 --> 00:02:11,226
+soon.
+
+
+67
+00:02:11,546 --> 00:02:12,746
+The great thing about this is
+
+
+68
+00:02:12,746 --> 00:02:14,516
+then you can check out and build
+
+
+69
+00:02:14,516 --> 00:02:16,286
+the Swift source code, build
+
+
+70
+00:02:16,286 --> 00:02:17,826
+your own refactorings and then
+
+
+71
+00:02:17,826 --> 00:02:19,226
+through the toolchain mechanism
+
+
+72
+00:02:19,226 --> 00:02:20,626
+I just talked about, try them
+
+
+73
+00:02:20,626 --> 00:02:21,626
+out in Xcode.
+
+
+74
+00:02:22,026 --> 00:02:22,866
+All right, it's a way of really
+
+
+75
+00:02:22,866 --> 00:02:23,896
+working with your development
+
+
+76
+00:02:23,896 --> 00:02:24,356
+tools.
+
+
+77
+00:02:26,186 --> 00:02:27,786
+Now, also part of our open
+
+
+78
+00:02:27,786 --> 00:02:29,266
+source ecosystem is the Swift
+
+
+79
+00:02:29,306 --> 00:02:30,126
+package manager.
+
+
+80
+00:02:30,456 --> 00:02:31,626
+So, this supports a growing
+
+
+81
+00:02:31,626 --> 00:02:33,726
+ecosystem with over 7000
+
+
+82
+00:02:33,726 --> 00:02:34,866
+packages on GitHub.
+
+
+83
+00:02:35,376 --> 00:02:36,996
+This is extremely popular for
+
+
+84
+00:02:36,996 --> 00:02:38,936
+server-side Swift, where Swift
+
+
+85
+00:02:38,936 --> 00:02:41,666
+PM makes it really easy to grab
+
+
+86
+00:02:41,666 --> 00:02:42,706
+the server components you need
+
+
+87
+00:02:42,706 --> 00:02:44,526
+to build a server-side Swift app
+
+
+88
+00:02:44,526 --> 00:02:45,536
+on Linux.
+
+
+89
+00:02:46,056 --> 00:02:47,416
+Now, the Swift Package Manager
+
+
+90
+00:02:47,416 --> 00:02:49,126
+has seen a lot of improvements
+
+
+91
+00:02:49,156 --> 00:02:49,756
+this year.
+
+
+92
+00:02:49,936 --> 00:02:51,366
+In better manifest API, better
+
+
+93
+00:02:51,786 --> 00:02:53,586
+development workflow and so on.
+
+
+94
+00:02:53,586 --> 00:02:55,796
+And also, we've made a lot of
+
+
+95
+00:02:55,796 --> 00:02:57,586
+progress toward our eventual
+
+
+96
+00:02:57,586 --> 00:02:59,316
+goal of first-class support for
+
+
+97
+00:02:59,316 --> 00:03:01,446
+Swift packages within the Xcode
+
+
+98
+00:03:01,446 --> 00:03:01,516
+IDE.
+
+
+99
+00:03:01,516 --> 00:03:03,896
+And we're getting closer to that
+
+
+100
+00:03:03,896 --> 00:03:05,396
+with the use of Swift PM as a
+
+
+101
+00:03:05,396 --> 00:03:07,256
+library, and of course, the new
+
+
+102
+00:03:07,256 --> 00:03:08,926
+Xcode build system, builds
+
+
+103
+00:03:08,926 --> 00:03:11,126
+entirely in Swift.
+
+
+104
+00:03:12,276 --> 00:03:13,516
+So, we've got a lot to cover
+
+
+105
+00:03:13,516 --> 00:03:13,836
+today.
+
+
+106
+00:03:14,616 --> 00:03:16,306
+I'll be talking about a couple
+
+
+107
+00:03:16,306 --> 00:03:17,916
+of small refinements and
+
+
+108
+00:03:17,916 --> 00:03:19,616
+additions to the language itself
+
+
+109
+00:03:20,126 --> 00:03:21,376
+before we dive into the source
+
+
+110
+00:03:21,376 --> 00:03:22,736
+compatibility story, we're going
+
+
+111
+00:03:23,016 --> 00:03:23,866
+to talk about how we can
+
+
+112
+00:03:23,866 --> 00:03:25,256
+leverage all of the code that
+
+
+113
+00:03:25,256 --> 00:03:27,266
+you've built in Swift, with
+
+
+114
+00:03:27,266 --> 00:03:28,736
+Swift 4 and Xcode 9.
+
+
+115
+00:03:29,646 --> 00:03:31,056
+My colleague Bob will talk about
+
+
+116
+00:03:31,056 --> 00:03:32,466
+Swift tools and improvements in
+
+
+117
+00:03:32,466 --> 00:03:34,366
+performance, before Ben dives
+
+
+118
+00:03:34,366 --> 00:03:36,526
+into strings, collections, and
+
+
+119
+00:03:36,526 --> 00:03:37,686
+some of the generic features of
+
+
+120
+00:03:37,686 --> 00:03:38,046
+Swift.
+
+
+121
+00:03:38,676 --> 00:03:40,316
+Finally, John will talk about
+
+
+122
+00:03:40,316 --> 00:03:41,586
+exclusive access to memory.
+
+
+123
+00:03:41,906 --> 00:03:43,306
+Which is a semantic restriction
+
+
+124
+00:03:43,306 --> 00:03:44,576
+we're introducing into the Swift
+
+
+125
+00:03:44,576 --> 00:03:46,316
+language to build for the
+
+
+126
+00:03:46,316 --> 00:03:46,716
+future.
+
+
+127
+00:03:47,606 --> 00:03:50,356
+So, let's start with one small
+
+
+128
+00:03:50,356 --> 00:03:52,016
+little feature.
+
+
+129
+00:03:53,366 --> 00:03:54,646
+Access control.
+
+
+130
+00:03:54,746 --> 00:03:56,206
+So, here are I've defined this
+
+
+131
+00:03:56,206 --> 00:03:57,216
+simple date structure.
+
+
+132
+00:03:57,906 --> 00:03:59,206
+And it's similar to the one in
+
+
+133
+00:03:59,206 --> 00:03:59,876
+foundation.
+
+
+134
+00:03:59,906 --> 00:04:00,666
+It's going to use
+
+
+135
+00:04:00,666 --> 00:04:02,436
+secondsSinceReferenceDate as an
+
+
+136
+00:04:02,436 --> 00:04:03,896
+internal representation, but I'm
+
+
+137
+00:04:03,896 --> 00:04:05,146
+making this private because this
+
+
+138
+00:04:05,146 --> 00:04:07,276
+isn't a good API to expose out
+
+
+139
+00:04:07,276 --> 00:04:07,996
+to my users.
+
+
+140
+00:04:08,516 --> 00:04:09,656
+I want this type to be a good
+
+
+141
+00:04:09,656 --> 00:04:11,706
+value type citizen so its
+
+
+142
+00:04:11,706 --> 00:04:13,066
+equitable and comparable.
+
+
+143
+00:04:13,506 --> 00:04:14,776
+But already this code is feeling
+
+
+144
+00:04:14,776 --> 00:04:15,706
+a little bit cluttered and
+
+
+145
+00:04:15,706 --> 00:04:16,125
+messy.
+
+
+146
+00:04:16,125 --> 00:04:17,776
+I really should break this up
+
+
+147
+00:04:18,216 --> 00:04:20,086
+into separate extensions; one
+
+
+148
+00:04:20,086 --> 00:04:21,305
+for each task, right?
+
+
+149
+00:04:21,305 --> 00:04:23,316
+This is good Swift coding style,
+
+
+150
+00:04:23,716 --> 00:04:25,226
+but Swift 3 didn't support it
+
+
+151
+00:04:25,226 --> 00:04:26,456
+very well, because you would get
+
+
+152
+00:04:26,456 --> 00:04:28,376
+this error that you can't reach
+
+
+153
+00:04:28,376 --> 00:04:30,256
+across to a private declaration
+
+
+154
+00:04:30,256 --> 00:04:31,296
+from another lexical scope.
+
+
+155
+00:04:32,206 --> 00:04:33,196
+You could fix this with
+
+
+156
+00:04:33,196 --> 00:04:34,036
+fileprivate.
+
+
+157
+00:04:34,446 --> 00:04:35,706
+But that meant the whole file
+
+
+158
+00:04:35,706 --> 00:04:38,546
+could see this member and that's
+
+
+159
+00:04:38,546 --> 00:04:39,356
+not quite right.
+
+
+160
+00:04:39,356 --> 00:04:40,326
+It's too broad.
+
+
+161
+00:04:40,786 --> 00:04:43,416
+And so, Swift 4 refines this so
+
+
+162
+00:04:43,416 --> 00:04:45,706
+that we expand the scope of what
+
+
+163
+00:04:45,706 --> 00:04:48,736
+private means to only cover the
+
+
+164
+00:04:48,886 --> 00:04:51,246
+declarations in all extensions
+
+
+165
+00:04:51,246 --> 00:04:52,706
+of a particular type within that
+
+
+166
+00:04:52,706 --> 00:04:53,566
+same source file.
+
+
+167
+00:04:53,936 --> 00:04:55,316
+This fits much better with the
+
+
+168
+00:04:55,316 --> 00:04:57,316
+notion of using extensions to
+
+
+169
+00:04:57,316 --> 00:04:57,976
+organize your code.
+
+
+170
+00:04:58,516 --> 00:05:01,546
+[ Applause ]
+
+
+171
+00:05:02,046 --> 00:05:03,336
+And with this change, let us
+
+
+172
+00:05:03,336 --> 00:05:05,176
+never speak of access control
+
+
+173
+00:05:05,176 --> 00:05:05,626
+again.
+
+
+174
+00:05:06,516 --> 00:05:09,546
+[ Laughter ]
+
+
+175
+00:05:10,046 --> 00:05:11,016
+Second, I want to talk about
+
+
+176
+00:05:11,016 --> 00:05:12,536
+composing classes and protocols.
+
+
+177
+00:05:13,006 --> 00:05:14,676
+So, here I've introduced this
+
+
+178
+00:05:14,786 --> 00:05:16,186
+shakable protocol for a UI
+
+
+179
+00:05:16,186 --> 00:05:17,656
+element that can give a little
+
+
+180
+00:05:17,656 --> 00:05:18,866
+shake effect to draw attention
+
+
+181
+00:05:18,866 --> 00:05:19,486
+to itself.
+
+
+182
+00:05:20,106 --> 00:05:21,826
+And I've gone ahead and extended
+
+
+183
+00:05:21,826 --> 00:05:23,846
+some of the UIKit classes to
+
+
+184
+00:05:24,296 --> 00:05:25,526
+actually provide this shake
+
+
+185
+00:05:25,526 --> 00:05:26,306
+functionality.
+
+
+186
+00:05:26,306 --> 00:05:27,466
+And now I want to write
+
+
+187
+00:05:27,466 --> 00:05:28,756
+something that seems simple.
+
+
+188
+00:05:28,796 --> 00:05:30,336
+I just want to write a function
+
+
+189
+00:05:30,506 --> 00:05:32,046
+that takes a bunch of controls
+
+
+190
+00:05:32,046 --> 00:05:33,556
+that are shakable and shakes the
+
+
+191
+00:05:33,556 --> 00:05:34,926
+ones that are enabled to draw
+
+
+192
+00:05:34,926 --> 00:05:36,186
+attention to them.
+
+
+193
+00:05:36,996 --> 00:05:38,486
+What type can I write here in
+
+
+194
+00:05:38,876 --> 00:05:39,546
+this array?
+
+
+195
+00:05:40,696 --> 00:05:41,866
+It's actually frustrating and
+
+
+196
+00:05:41,866 --> 00:05:42,196
+tricky.
+
+
+197
+00:05:42,616 --> 00:05:44,206
+So, I could try to use a UI
+
+
+198
+00:05:44,206 --> 00:05:44,746
+control.
+
+
+199
+00:05:44,746 --> 00:05:46,146
+But not all UI controls are
+
+
+200
+00:05:46,146 --> 00:05:47,156
+shakable in this game.
+
+
+201
+00:05:48,006 --> 00:05:49,846
+I could try shakable, but not
+
+
+202
+00:05:49,846 --> 00:05:51,536
+all shakables are UI controls.
+
+
+203
+00:05:51,536 --> 00:05:52,496
+And there's actually no good way
+
+
+204
+00:05:52,496 --> 00:05:54,506
+to represent this in Swift 3.
+
+
+205
+00:05:54,916 --> 00:05:56,986
+Swift 4 introduces the notion of
+
+
+206
+00:05:57,386 --> 00:06:00,266
+composing a class with any
+
+
+207
+00:06:00,266 --> 00:06:01,326
+number of protocols.
+
+
+208
+00:06:02,516 --> 00:06:07,696
+[ Applause ]
+
+
+209
+00:06:08,196 --> 00:06:09,716
+It's a small feature, but it
+
+
+210
+00:06:09,716 --> 00:06:11,046
+just fits in nicely with the
+
+
+211
+00:06:11,046 --> 00:06:12,476
+overall set of Swift.
+
+
+212
+00:06:12,526 --> 00:06:13,826
+Now, if you come from
+
+
+213
+00:06:13,826 --> 00:06:15,376
+Objective-C background, you
+
+
+214
+00:06:15,376 --> 00:06:16,196
+already know everything about
+
+
+215
+00:06:16,196 --> 00:06:17,246
+what this does, because
+
+
+216
+00:06:17,246 --> 00:06:18,456
+Objective-C has actually had
+
+
+217
+00:06:18,456 --> 00:06:19,746
+this feature for a very long
+
+
+218
+00:06:19,746 --> 00:06:20,156
+time.
+
+
+219
+00:06:20,616 --> 00:06:22,446
+Here's a Touch Bar API where the
+
+
+220
+00:06:22,446 --> 00:06:24,836
+client is in NSView that is also
+
+
+221
+00:06:24,876 --> 00:06:26,906
+conformed to NSTextInputClient.
+
+
+222
+00:06:27,426 --> 00:06:29,386
+In Swift 3, we actually couldn't
+
+
+223
+00:06:29,386 --> 00:06:30,586
+represent that type, so we'd
+
+
+224
+00:06:30,586 --> 00:06:31,996
+import it as an NSView, which is
+
+
+225
+00:06:32,166 --> 00:06:33,386
+a little bit embarrassing.
+
+
+226
+00:06:34,326 --> 00:06:36,716
+So, Swift 4 corrects this and
+
+
+227
+00:06:36,716 --> 00:06:38,186
+now we can actually import the
+
+
+228
+00:06:38,186 --> 00:06:41,016
+type using an NSView that is an
+
+
+229
+00:06:41,046 --> 00:06:43,346
+NSTextInputClient to map all of
+
+
+230
+00:06:43,346 --> 00:06:44,526
+the APIs and appropriately.
+
+
+231
+00:06:46,516 --> 00:06:49,546
+[ Applause ]
+
+
+232
+00:06:50,046 --> 00:06:51,366
+So, there's a huge number of
+
+
+233
+00:06:51,366 --> 00:06:52,216
+great features we're going to
+
+
+234
+00:06:52,216 --> 00:06:53,046
+talk about today.
+
+
+235
+00:06:53,316 --> 00:06:54,366
+I want to call out a couple of
+
+
+236
+00:06:54,366 --> 00:06:55,566
+features in the realm of
+
+
+237
+00:06:55,566 --> 00:06:57,106
+improving on things we think of
+
+
+238
+00:06:57,106 --> 00:06:58,156
+as Cocoa idioms.
+
+
+239
+00:06:58,196 --> 00:07:00,096
+KeyPaths, Key-Value Coding,
+
+
+240
+00:07:00,476 --> 00:07:02,736
+Archival & Serialization that
+
+
+241
+00:07:02,736 --> 00:07:04,136
+are big new Swift features that
+
+
+242
+00:07:04,216 --> 00:07:05,916
+will be discussed in this other
+
+
+243
+00:07:05,916 --> 00:07:06,896
+session, "What's New in
+
+
+244
+00:07:06,896 --> 00:07:08,576
+Foundation" on Wednesday.
+
+
+245
+00:07:09,856 --> 00:07:12,656
+And these features work
+
+
+246
+00:07:12,756 --> 00:07:14,586
+beautifully with Swift value
+
+
+247
+00:07:14,586 --> 00:07:14,936
+types.
+
+
+248
+00:07:14,936 --> 00:07:16,596
+So, you can use them throughout
+
+
+249
+00:07:16,596 --> 00:07:17,666
+all of your Swift code.
+
+
+250
+00:07:19,056 --> 00:07:20,136
+In this session, they'll also
+
+
+251
+00:07:20,136 --> 00:07:21,706
+answer the aged old question,
+
+
+252
+00:07:22,096 --> 00:07:24,496
+how do I parse JSON in Swift.
+
+
+253
+00:07:26,806 --> 00:07:28,346
+All right, let's talk about
+
+
+254
+00:07:28,346 --> 00:07:29,176
+source compatibility.
+
+
+255
+00:07:30,036 --> 00:07:32,916
+So, by its nature, Swift 4 is
+
+
+256
+00:07:32,916 --> 00:07:34,306
+largely source compatible with
+
+
+257
+00:07:34,306 --> 00:07:35,126
+Swift 3.
+
+
+258
+00:07:35,676 --> 00:07:37,416
+And the reason is the language
+
+
+259
+00:07:37,566 --> 00:07:39,806
+hasn't changed all that much.
+
+
+260
+00:07:39,996 --> 00:07:41,426
+We've made some refinements.
+
+
+261
+00:07:41,426 --> 00:07:42,986
+Like the change to axis control.
+
+
+262
+00:07:43,396 --> 00:07:44,626
+We've made some additions.
+
+
+263
+00:07:44,896 --> 00:07:46,486
+Like the change to class and
+
+
+264
+00:07:46,486 --> 00:07:47,506
+protocol composition.
+
+
+265
+00:07:48,156 --> 00:07:49,436
+There's also been improvements
+
+
+266
+00:07:49,436 --> 00:07:51,906
+into the way that existing APIs
+
+
+267
+00:07:51,936 --> 00:07:53,806
+in the SDK map into Swift.
+
+
+268
+00:07:53,806 --> 00:07:55,566
+They provide better Swift APIs
+
+
+269
+00:07:55,566 --> 00:07:57,086
+than they did previously.
+
+
+270
+00:07:57,426 --> 00:07:59,566
+But the scale of such changes is
+
+
+271
+00:07:59,566 --> 00:08:01,276
+much, much smaller than say from
+
+
+272
+00:08:01,276 --> 00:08:03,126
+Swift 2 to 3, or even Swift 1 to
+
+
+273
+00:08:03,126 --> 00:08:03,556
+2.
+
+
+274
+00:08:04,136 --> 00:08:06,956
+And so, going from Swift 3 to 4
+
+
+275
+00:08:06,956 --> 00:08:08,626
+isn't as big of an upset to a
+
+
+276
+00:08:08,706 --> 00:08:10,026
+code base as it used to be.
+
+
+277
+00:08:10,436 --> 00:08:11,316
+And many of the features we're
+
+
+278
+00:08:11,316 --> 00:08:12,386
+talking about are purely
+
+
+279
+00:08:12,386 --> 00:08:12,866
+additive.
+
+
+280
+00:08:13,116 --> 00:08:14,536
+So, they're in some new
+
+
+281
+00:08:14,536 --> 00:08:15,476
+syntactic space.
+
+
+282
+00:08:15,476 --> 00:08:17,166
+It doesn't break code to
+
+
+283
+00:08:17,166 --> 00:08:18,566
+introduce these new features.
+
+
+284
+00:08:19,586 --> 00:08:21,426
+That said, we want a smooth
+
+
+285
+00:08:21,426 --> 00:08:22,176
+migration path.
+
+
+286
+00:08:22,626 --> 00:08:24,166
+So, we're also introducing Swift
+
+
+287
+00:08:24,366 --> 00:08:25,106
+3.2.
+
+
+288
+00:08:26,146 --> 00:08:27,456
+Most important thing about Swift
+
+
+289
+00:08:27,456 --> 00:08:29,496
+3.2 is it's not a separate
+
+
+290
+00:08:29,496 --> 00:08:30,836
+compiler or a different
+
+
+291
+00:08:30,836 --> 00:08:31,486
+toolchain.
+
+
+292
+00:08:32,246 --> 00:08:34,066
+It's a compilation mode of the
+
+
+293
+00:08:34,066 --> 00:08:36,166
+Swift 4 compiler that emulates
+
+
+294
+00:08:36,216 --> 00:08:37,316
+Swift 3 behavior.
+
+
+295
+00:08:37,926 --> 00:08:39,285
+And so if some syntax or
+
+
+296
+00:08:39,285 --> 00:08:41,256
+semantics change from Swift 3 to
+
+
+297
+00:08:41,256 --> 00:08:43,756
+4, it will provide the Swift 3
+
+
+298
+00:08:43,756 --> 00:08:44,275
+behavior.
+
+
+299
+00:08:45,226 --> 00:08:47,016
+Moreover, it understands the
+
+
+300
+00:08:47,016 --> 00:08:48,736
+changes that have been made in
+
+
+301
+00:08:48,846 --> 00:08:50,006
+the new SDK.
+
+
+302
+00:08:50,006 --> 00:08:51,236
+And so, if an API projects
+
+
+303
+00:08:51,236 --> 00:08:53,156
+differently in Swift 4 than it
+
+
+304
+00:08:53,156 --> 00:08:55,406
+did in Swift 3, it will actually
+
+
+305
+00:08:55,556 --> 00:08:57,176
+roll back those changes to the
+
+
+306
+00:08:57,176 --> 00:08:58,156
+Swift 3 view.
+
+
+307
+00:08:59,446 --> 00:09:01,726
+The end result here is that when
+
+
+308
+00:09:01,726 --> 00:09:03,196
+you open up your Swift 3 project
+
+
+309
+00:09:03,606 --> 00:09:05,096
+in Xcode 9 and build it with
+
+
+310
+00:09:05,096 --> 00:09:07,406
+Swift 3.2, pretty much
+
+
+311
+00:09:07,436 --> 00:09:09,176
+everything should just build and
+
+
+312
+00:09:09,176 --> 00:09:10,586
+work the way it did before.
+
+
+313
+00:09:11,306 --> 00:09:14,026
+And this makes fantastic path to
+
+
+314
+00:09:14,026 --> 00:09:15,906
+adopting the new features of
+
+
+315
+00:09:15,906 --> 00:09:17,886
+Swift 4, because most of them
+
+
+316
+00:09:17,886 --> 00:09:20,176
+are available also in Swift 3.2
+
+
+317
+00:09:20,596 --> 00:09:22,506
+as well as all of the great new
+
+
+318
+00:09:22,506 --> 00:09:25,696
+APIs and frameworks in this
+
+
+319
+00:09:25,736 --> 00:09:28,036
+years' SDKs.
+
+
+320
+00:09:28,266 --> 00:09:29,866
+Now, when you're ready to
+
+
+321
+00:09:29,866 --> 00:09:31,826
+migrate to Swift 4, and then, in
+
+
+322
+00:09:31,826 --> 00:09:33,376
+previous years we've always
+
+
+323
+00:09:33,376 --> 00:09:35,676
+provided a migrator to take your
+
+
+324
+00:09:35,676 --> 00:09:39,186
+code from Swift 3 and move it to
+
+
+325
+00:09:39,186 --> 00:09:39,766
+Swift 4.
+
+
+326
+00:09:40,526 --> 00:09:42,336
+Now, unlike in previous years,
+
+
+327
+00:09:42,596 --> 00:09:45,226
+this migration effort isn't stop
+
+
+328
+00:09:45,226 --> 00:09:46,836
+the world, get nothing else done
+
+
+329
+00:09:46,836 --> 00:09:48,656
+until the entire stack has been
+
+
+330
+00:09:48,656 --> 00:09:49,546
+moved forward.
+
+
+331
+00:09:50,656 --> 00:09:52,636
+The reason is Swift 3.2 and
+
+
+332
+00:09:52,636 --> 00:09:55,466
+Swift 4 can co-exist in the same
+
+
+333
+00:09:55,466 --> 00:09:56,246
+application.
+
+
+334
+00:09:57,606 --> 00:09:58,726
+And so, you can set which
+
+
+335
+00:09:58,726 --> 00:09:59,216
+version.
+
+
+336
+00:10:00,516 --> 00:10:04,226
+[ Applause ]
+
+
+337
+00:10:04,726 --> 00:10:06,506
+You can set which version of the
+
+
+338
+00:10:06,506 --> 00:10:08,006
+language you're going to use on
+
+
+339
+00:10:08,006 --> 00:10:09,426
+a per target basis.
+
+
+340
+00:10:10,046 --> 00:10:10,846
+So, if you want to migrate to
+
+
+341
+00:10:10,846 --> 00:10:12,096
+Swift 4, you can migrate your
+
+
+342
+00:10:12,096 --> 00:10:13,866
+app target, but leave all of
+
+
+343
+00:10:13,866 --> 00:10:14,686
+your frameworks and all of your
+
+
+344
+00:10:14,686 --> 00:10:16,226
+other dependencies in Swift 3.2.
+
+
+345
+00:10:16,466 --> 00:10:16,936
+That's fine.
+
+
+346
+00:10:17,516 --> 00:10:18,766
+As your dependencies update and
+
+
+347
+00:10:18,766 --> 00:10:20,006
+move to Swift 4, that's
+
+
+348
+00:10:20,006 --> 00:10:21,516
+perfectly fine, they can work
+
+
+349
+00:10:21,666 --> 00:10:22,906
+with your app, whether it's in
+
+
+350
+00:10:22,906 --> 00:10:24,426
+Swift 3.2 or Swift 4.
+
+
+351
+00:10:25,196 --> 00:10:26,996
+The Swift Package Manager also
+
+
+352
+00:10:26,996 --> 00:10:27,966
+understands this.
+
+
+353
+00:10:28,456 --> 00:10:29,756
+And so, it will build packages
+
+
+354
+00:10:29,756 --> 00:10:31,246
+with the tools version that was
+
+
+355
+00:10:31,246 --> 00:10:33,536
+used to develop the package and
+
+
+356
+00:10:33,536 --> 00:10:34,946
+if a package supports multiple
+
+
+357
+00:10:34,946 --> 00:10:36,116
+Swift language versions, that
+
+
+358
+00:10:36,116 --> 00:10:37,076
+can be described in the
+
+
+359
+00:10:37,076 --> 00:10:38,696
+manifest, so the Swift Package
+
+
+360
+00:10:38,696 --> 00:10:39,696
+Manager will do the right thing.
+
+
+361
+00:10:40,756 --> 00:10:42,466
+Now, we think that with Swift
+
+
+362
+00:10:42,466 --> 00:10:44,316
+3.2 and Swift 4 co-existence,
+
+
+363
+00:10:44,376 --> 00:10:45,776
+with the smaller amount of
+
+
+364
+00:10:46,046 --> 00:10:48,336
+change from Swift 3 to Swift 4
+
+
+365
+00:10:48,396 --> 00:10:50,766
+that you'll get a nice buttery
+
+
+366
+00:10:50,766 --> 00:10:52,526
+smooth migration path to Swift
+
+
+367
+00:10:52,526 --> 00:10:52,776
+4.
+
+
+368
+00:10:54,086 --> 00:10:55,376
+And with that, I'd like to bring
+
+
+369
+00:10:55,376 --> 00:10:56,166
+up Bob to talk about
+
+
+370
+00:10:56,166 --> 00:10:56,966
+improvements to the build.
+
+
+371
+00:10:57,516 --> 00:11:03,046
+[ Applause ]
+
+
+372
+00:11:03,546 --> 00:11:05,256
+>> As the size and complexity of
+
+
+373
+00:11:05,256 --> 00:11:07,016
+your Swift apps continues to
+
+
+374
+00:11:07,016 --> 00:11:08,996
+grow, we've been investing in
+
+
+375
+00:11:08,996 --> 00:11:10,556
+improvements in the build system
+
+
+376
+00:11:10,556 --> 00:11:12,036
+to keep up with that growth.
+
+
+377
+00:11:13,826 --> 00:11:15,826
+Xcode 9 has a brand-new
+
+
+378
+00:11:15,826 --> 00:11:17,186
+implementation of the build
+
+
+379
+00:11:17,256 --> 00:11:17,636
+system.
+
+
+380
+00:11:18,006 --> 00:11:19,686
+Of course, it's written in Swift
+
+
+381
+00:11:19,976 --> 00:11:21,246
+and it's built on top of the
+
+
+382
+00:11:21,246 --> 00:11:23,606
+open source LLBuild engine.
+
+
+383
+00:11:24,326 --> 00:11:26,476
+It is really fast at calculating
+
+
+384
+00:11:26,476 --> 00:11:28,046
+the dependencies between the
+
+
+385
+00:11:28,046 --> 00:11:29,536
+different steps of your build.
+
+
+386
+00:11:30,246 --> 00:11:31,396
+You're most likely to notice
+
+
+387
+00:11:31,446 --> 00:11:32,896
+that when doing an incremental
+
+
+388
+00:11:32,896 --> 00:11:34,736
+build of a large project.
+
+
+389
+00:11:35,886 --> 00:11:37,866
+This is a technology preview in
+
+
+390
+00:11:37,996 --> 00:11:38,616
+Xcode 9.
+
+
+391
+00:11:38,846 --> 00:11:40,206
+We'd love to have you try it
+
+
+392
+00:11:40,206 --> 00:11:40,636
+out.
+
+
+393
+00:11:40,876 --> 00:11:42,656
+So, go to the project or
+
+
+394
+00:11:42,656 --> 00:11:44,486
+workspace settings in the file
+
+
+395
+00:11:44,486 --> 00:11:46,796
+menu and choose the new build
+
+
+396
+00:11:47,506 --> 00:11:47,686
+system.
+
+
+397
+00:11:48,936 --> 00:11:50,916
+Besides having a faster build
+
+
+398
+00:11:50,976 --> 00:11:53,026
+system, another way we can use
+
+
+399
+00:11:53,026 --> 00:11:54,876
+your system more efficiently is
+
+
+400
+00:11:54,876 --> 00:11:56,656
+to avoid doing redundant work.
+
+
+401
+00:11:57,186 --> 00:11:58,896
+And Xcode 9 does this in a few
+
+
+402
+00:11:58,896 --> 00:12:00,366
+different ways.
+
+
+403
+00:12:01,296 --> 00:12:03,816
+The precompiled bridging header
+
+
+404
+00:12:04,156 --> 00:12:05,956
+speeds up the build of large
+
+
+405
+00:12:06,066 --> 00:12:07,506
+mixed source projects.
+
+
+406
+00:12:08,246 --> 00:12:10,056
+The bridging header describes
+
+
+407
+00:12:10,056 --> 00:12:11,116
+the interfaces in your
+
+
+408
+00:12:11,116 --> 00:12:13,116
+Objective-C code so they can be
+
+
+409
+00:12:13,116 --> 00:12:14,676
+used in your Swift code.
+
+
+410
+00:12:15,516 --> 00:12:16,476
+If you have a lot of
+
+
+411
+00:12:16,476 --> 00:12:18,556
+Objective-C, the bridging header
+
+
+412
+00:12:18,556 --> 00:12:20,496
+can be really large and slow to
+
+
+413
+00:12:20,496 --> 00:12:21,446
+compile.
+
+
+414
+00:12:21,996 --> 00:12:23,656
+And parsing the contents of that
+
+
+415
+00:12:23,656 --> 00:12:25,706
+header repeatedly for every one
+
+
+416
+00:12:25,706 --> 00:12:27,786
+of your Swift files is wasteful.
+
+
+417
+00:12:29,326 --> 00:12:31,256
+The Apple LLVM compiler has a
+
+
+418
+00:12:31,256 --> 00:12:32,506
+great solution for this,
+
+
+419
+00:12:33,196 --> 00:12:34,426
+precompiled headers.
+
+
+420
+00:12:35,916 --> 00:12:38,046
+Xcode 9 will now use a
+
+
+421
+00:12:38,096 --> 00:12:39,886
+precompiled version of the
+
+
+422
+00:12:39,886 --> 00:12:41,846
+bridging header so that it only
+
+
+423
+00:12:41,846 --> 00:12:43,256
+needs to be parsed once.
+
+
+424
+00:12:45,166 --> 00:12:47,416
+Apple's music app is a great
+
+
+425
+00:12:47,416 --> 00:12:49,666
+example where this helps a lot.
+
+
+426
+00:12:49,866 --> 00:12:51,676
+Music is a really large project
+
+
+427
+00:12:51,676 --> 00:12:53,126
+and it's split about evenly
+
+
+428
+00:12:53,186 --> 00:12:54,846
+between Objective-C and Swift.
+
+
+429
+00:12:55,886 --> 00:12:57,446
+Using a precompiled bridging
+
+
+430
+00:12:57,446 --> 00:12:59,156
+header, which is the default in
+
+
+431
+00:12:59,236 --> 00:13:01,396
+Xcode 9, speeds up the debug
+
+
+432
+00:13:01,396 --> 00:13:03,666
+build of music by about 40%.
+
+
+433
+00:13:04,426 --> 00:13:09,326
+Code coverage testing is another
+
+
+434
+00:13:09,326 --> 00:13:11,846
+powerful tool, but in Xcode 8,
+
+
+435
+00:13:11,846 --> 00:13:13,576
+it can also be a source of
+
+
+436
+00:13:13,576 --> 00:13:14,586
+redundant effort.
+
+
+437
+00:13:15,616 --> 00:13:16,996
+Consider the common scenario
+
+
+438
+00:13:16,996 --> 00:13:18,206
+where you make some changes to
+
+
+439
+00:13:18,206 --> 00:13:20,276
+your code, you get it to build
+
+
+440
+00:13:20,276 --> 00:13:21,126
+and then you want to run your
+
+
+441
+00:13:21,196 --> 00:13:22,226
+tests with coverage.
+
+
+442
+00:13:23,356 --> 00:13:24,586
+Here's what that looks like in
+
+
+443
+00:13:24,586 --> 00:13:25,986
+Xcode's report navigator.
+
+
+444
+00:13:27,166 --> 00:13:29,046
+Notice there's an extra build.
+
+
+445
+00:13:29,686 --> 00:13:30,746
+Why is that there?
+
+
+446
+00:13:32,046 --> 00:13:33,796
+Coverage testing is implemented
+
+
+447
+00:13:33,796 --> 00:13:35,556
+in the compiler by admitting
+
+
+448
+00:13:35,556 --> 00:13:37,746
+extra instrumentation code to
+
+
+449
+00:13:37,746 --> 00:13:39,086
+count the number of times each
+
+
+450
+00:13:39,086 --> 00:13:40,226
+fragment of code runs.
+
+
+451
+00:13:41,296 --> 00:13:43,106
+With Xcode 8, the normal build
+
+
+452
+00:13:43,106 --> 00:13:44,356
+does not include that
+
+
+453
+00:13:44,356 --> 00:13:45,176
+instrumentation.
+
+
+454
+00:13:45,176 --> 00:13:46,336
+So, before you can run your
+
+
+455
+00:13:46,426 --> 00:13:48,396
+tests with coverage, the whole
+
+
+456
+00:13:48,396 --> 00:13:49,986
+project needs to be rebuilt.
+
+
+457
+00:13:50,596 --> 00:13:54,896
+In Xcode 9, we're combining
+
+
+458
+00:13:54,896 --> 00:13:55,596
+those builds.
+
+
+459
+00:13:56,016 --> 00:13:57,726
+If you have coverage enabled for
+
+
+460
+00:13:57,726 --> 00:14:00,126
+testing, the normal build will
+
+
+461
+00:14:00,126 --> 00:14:01,456
+include the instrumentation.
+
+
+462
+00:14:02,246 --> 00:14:03,736
+There's a very small cost for
+
+
+463
+00:14:03,736 --> 00:14:03,946
+this.
+
+
+464
+00:14:04,276 --> 00:14:06,246
+Less than 3% for one project
+
+
+465
+00:14:06,246 --> 00:14:06,926
+that we measured.
+
+
+466
+00:14:07,876 --> 00:14:10,076
+But you get a huge benefit,
+
+
+467
+00:14:10,146 --> 00:14:11,226
+because now you only need to
+
+
+468
+00:14:11,226 --> 00:14:12,866
+build your project once in that
+
+
+469
+00:14:12,866 --> 00:14:13,406
+scenario.
+
+
+470
+00:14:15,856 --> 00:14:18,426
+This next change is not actually
+
+
+471
+00:14:18,426 --> 00:14:19,776
+about making your build faster.
+
+
+472
+00:14:20,646 --> 00:14:21,826
+It's about avoiding this.
+
+
+473
+00:14:24,036 --> 00:14:24,306
+So.
+
+
+474
+00:14:25,516 --> 00:14:29,016
+[ Applause ]
+
+
+475
+00:14:29,516 --> 00:14:30,676
+Indexing is great.
+
+
+476
+00:14:30,816 --> 00:14:32,496
+It's a key to some of Xcode's
+
+
+477
+00:14:32,496 --> 00:14:33,956
+most powerful features like the
+
+
+478
+00:14:33,956 --> 00:14:35,746
+new global rename re-factoring,
+
+
+479
+00:14:36,676 --> 00:14:38,236
+but indexing in the background
+
+
+480
+00:14:38,586 --> 00:14:39,446
+wastes effort.
+
+
+481
+00:14:40,886 --> 00:14:42,476
+Whenever you build your project
+
+
+482
+00:14:42,856 --> 00:14:44,226
+the compiler needs to look up
+
+
+483
+00:14:44,226 --> 00:14:45,956
+all the same symbol information
+
+
+484
+00:14:46,216 --> 00:14:47,476
+that's needed for the symbol
+
+
+485
+00:14:47,476 --> 00:14:47,926
+index.
+
+
+486
+00:14:48,306 --> 00:14:50,606
+And so, now in Xcode 9 we will
+
+
+487
+00:14:50,606 --> 00:14:52,456
+automatically update the index
+
+
+488
+00:14:52,506 --> 00:14:54,176
+whenever you build your project.
+
+
+489
+00:14:54,796 --> 00:14:56,486
+There's a very small overhead
+
+
+490
+00:14:56,486 --> 00:14:58,566
+for that at the build time, but
+
+
+491
+00:14:58,566 --> 00:15:00,016
+then there's no need to repeat
+
+
+492
+00:15:00,016 --> 00:15:01,686
+all that work again in the
+
+
+493
+00:15:01,686 --> 00:15:02,306
+background.
+
+
+494
+00:15:02,946 --> 00:15:05,776
+So, we have a new build system
+
+
+495
+00:15:05,866 --> 00:15:07,606
+and several different ways of
+
+
+496
+00:15:07,606 --> 00:15:08,796
+using the system more
+
+
+497
+00:15:08,796 --> 00:15:10,806
+efficiently that especially for
+
+
+498
+00:15:10,806 --> 00:15:12,116
+those of you with large Swift
+
+
+499
+00:15:12,116 --> 00:15:13,906
+projects we think are going to
+
+
+500
+00:15:13,906 --> 00:15:14,836
+be a great improvement.
+
+
+501
+00:15:16,256 --> 00:15:17,656
+Let's turn now and look at
+
+
+502
+00:15:17,656 --> 00:15:18,966
+runtime performance.
+
+
+503
+00:15:20,276 --> 00:15:22,406
+Delivering high performance code
+
+
+504
+00:15:22,406 --> 00:15:24,266
+has always been one of the key
+
+
+505
+00:15:24,266 --> 00:15:25,356
+goals for Swift.
+
+
+506
+00:15:25,446 --> 00:15:26,786
+And with each new release of
+
+
+507
+00:15:26,786 --> 00:15:28,266
+Swift, performance has
+
+
+508
+00:15:28,266 --> 00:15:28,906
+increased.
+
+
+509
+00:15:29,776 --> 00:15:31,806
+The next step is to make that
+
+
+510
+00:15:31,806 --> 00:15:33,306
+performance more predictable,
+
+
+511
+00:15:33,366 --> 00:15:34,066
+more stable.
+
+
+512
+00:15:35,736 --> 00:15:37,146
+Let's look at an example with
+
+
+513
+00:15:37,146 --> 00:15:37,746
+Swift 3.
+
+
+514
+00:15:38,736 --> 00:15:40,956
+Here I have a simple protocol
+
+
+515
+00:15:40,956 --> 00:15:42,266
+ordered with a comparison
+
+
+516
+00:15:42,266 --> 00:15:44,366
+function, and another function
+
+
+517
+00:15:44,706 --> 00:15:46,186
+that's going to test that by
+
+
+518
+00:15:46,306 --> 00:15:47,696
+sorting an array of values,
+
+
+519
+00:15:48,026 --> 00:15:49,146
+using the comparison.
+
+
+520
+00:15:50,006 --> 00:15:51,696
+The code is written in a very
+
+
+521
+00:15:51,696 --> 00:15:52,546
+general way.
+
+
+522
+00:15:52,616 --> 00:15:54,256
+It has to work with any value
+
+
+523
+00:15:54,256 --> 00:15:55,806
+that conforms to the ordered
+
+
+524
+00:15:55,806 --> 00:15:56,606
+protocol.
+
+
+525
+00:15:57,236 --> 00:15:58,476
+Even the different elements
+
+
+526
+00:15:58,476 --> 00:15:59,436
+within the array could be
+
+
+527
+00:15:59,436 --> 00:16:00,366
+different types.
+
+
+528
+00:16:01,546 --> 00:16:02,766
+Let's look at the performance of
+
+
+529
+00:16:02,816 --> 00:16:02,976
+this.
+
+
+530
+00:16:04,756 --> 00:16:06,436
+This graph shows the time in
+
+
+531
+00:16:06,486 --> 00:16:09,236
+seconds to sort 100,000 arrays
+
+
+532
+00:16:09,236 --> 00:16:10,506
+of 100 elements each.
+
+
+533
+00:16:10,936 --> 00:16:12,466
+And it's measuring for different
+
+
+534
+00:16:12,466 --> 00:16:13,966
+sizes of array elements.
+
+
+535
+00:16:14,166 --> 00:16:16,846
+So, for a one-work struct, it
+
+
+536
+00:16:16,846 --> 00:16:18,006
+takes a little less than 2
+
+
+537
+00:16:18,006 --> 00:16:19,576
+seconds to do those sorts.
+
+
+538
+00:16:20,576 --> 00:16:22,286
+If for some reason the size of
+
+
+539
+00:16:22,286 --> 00:16:24,236
+the values increases to 2 words,
+
+
+540
+00:16:24,986 --> 00:16:26,656
+the time increases only very
+
+
+541
+00:16:26,746 --> 00:16:27,176
+slightly.
+
+
+542
+00:16:27,176 --> 00:16:29,626
+And if it grows to three words,
+
+
+543
+00:16:30,136 --> 00:16:31,456
+it continues on that same
+
+
+544
+00:16:31,456 --> 00:16:32,146
+trajectory.
+
+
+545
+00:16:33,506 --> 00:16:34,586
+What about if we have four
+
+
+546
+00:16:34,586 --> 00:16:35,416
+words.
+
+
+547
+00:16:36,846 --> 00:16:38,156
+We hit a performance cliff.
+
+
+548
+00:16:38,566 --> 00:16:40,236
+It's nine times slower.
+
+
+549
+00:16:41,566 --> 00:16:43,326
+What just happened here?
+
+
+550
+00:16:44,756 --> 00:16:46,586
+To understand this performance
+
+
+551
+00:16:46,586 --> 00:16:48,326
+cliff we need to delve into the
+
+
+552
+00:16:48,326 --> 00:16:49,736
+implementation of Swift.
+
+
+553
+00:16:50,106 --> 00:16:51,316
+If you're interested in this, I
+
+
+554
+00:16:51,316 --> 00:16:52,206
+recommend you watch
+
+
+555
+00:16:52,306 --> 00:16:53,866
+Understanding Swift Performance
+
+
+556
+00:16:53,966 --> 00:16:54,726
+from last year.
+
+
+557
+00:16:55,306 --> 00:16:57,606
+For now, I'll just give a quick
+
+
+558
+00:16:57,606 --> 00:16:57,976
+summary.
+
+
+559
+00:16:58,756 --> 00:17:01,246
+To represent a value of unknown
+
+
+560
+00:17:01,246 --> 00:17:03,496
+type, the compiler uses a data
+
+
+561
+00:17:03,496 --> 00:17:04,536
+structure that we call an
+
+
+562
+00:17:04,536 --> 00:17:05,756
+existential container.
+
+
+563
+00:17:06,695 --> 00:17:08,506
+Inside the existential container
+
+
+564
+00:17:08,896 --> 00:17:10,306
+there's an in-line buffer to
+
+
+565
+00:17:10,306 --> 00:17:11,566
+hold small values.
+
+
+566
+00:17:13,215 --> 00:17:14,506
+We're currently reassessing the
+
+
+567
+00:17:14,576 --> 00:17:15,766
+size of that buffer, but for
+
+
+568
+00:17:15,766 --> 00:17:18,086
+Swift 4 it remains the same 3
+
+
+569
+00:17:18,086 --> 00:17:19,195
+words that it's been in the
+
+
+570
+00:17:19,195 --> 00:17:19,566
+past.
+
+
+571
+00:17:21,386 --> 00:17:23,266
+If the value is too big to fit
+
+
+572
+00:17:23,266 --> 00:17:25,226
+in the in-line buffer, then it's
+
+
+573
+00:17:25,226 --> 00:17:26,465
+allocated on the heap.
+
+
+574
+00:17:27,435 --> 00:17:29,556
+And heap storage can be really
+
+
+575
+00:17:29,556 --> 00:17:30,116
+expensive.
+
+
+576
+00:17:31,016 --> 00:17:32,136
+That's what caused the
+
+
+577
+00:17:32,136 --> 00:17:33,486
+performance quit that we just
+
+
+578
+00:17:33,536 --> 00:17:33,906
+saw.
+
+
+579
+00:17:35,216 --> 00:17:36,266
+So, what can we do about it?
+
+
+580
+00:17:37,696 --> 00:17:39,586
+The answer is cow buffers,
+
+
+581
+00:17:40,076 --> 00:17:41,586
+existential cow buffers
+
+
+582
+00:17:41,821 --> 00:17:43,821
+[laughter].
+
+
+583
+00:17:44,056 --> 00:17:45,276
+No not that kind of cow.
+
+
+584
+00:17:45,756 --> 00:17:47,736
+COW is an acronym for copy on
+
+
+585
+00:17:47,736 --> 00:17:48,016
+right.
+
+
+586
+00:17:48,446 --> 00:17:49,646
+You may have heard us talk about
+
+
+587
+00:17:49,646 --> 00:17:51,006
+this before because it's a key
+
+
+588
+00:17:51,006 --> 00:17:52,886
+to high performance with value
+
+
+589
+00:17:52,966 --> 00:17:53,446
+semantics.
+
+
+590
+00:17:55,506 --> 00:17:57,796
+With Swift 4, if a value is too
+
+
+591
+00:17:57,796 --> 00:17:59,836
+big to fit in the inline buffer,
+
+
+592
+00:18:00,286 --> 00:18:02,326
+it's allocated on the heap along
+
+
+593
+00:18:02,326 --> 00:18:03,396
+with a reference count.
+
+
+594
+00:18:04,096 --> 00:18:05,976
+Multiple existential containers
+
+
+595
+00:18:06,026 --> 00:18:07,796
+can share the same buffer as
+
+
+596
+00:18:07,796 --> 00:18:08,936
+long as they're only reading
+
+
+597
+00:18:08,936 --> 00:18:09,246
+from it.
+
+
+598
+00:18:09,636 --> 00:18:11,186
+And that avoids a lot of
+
+
+599
+00:18:11,186 --> 00:18:12,936
+expensive heap allocation.
+
+
+600
+00:18:13,926 --> 00:18:15,326
+The buffer only needs to be
+
+
+601
+00:18:15,326 --> 00:18:16,736
+copied with a separate
+
+
+602
+00:18:16,736 --> 00:18:19,186
+allocation if it's modified
+
+
+603
+00:18:19,406 --> 00:18:20,546
+while there are multiple
+
+
+604
+00:18:20,546 --> 00:18:21,386
+references to it.
+
+
+605
+00:18:22,076 --> 00:18:23,336
+And Swift now manages the
+
+
+606
+00:18:23,336 --> 00:18:24,566
+complexity of that for you
+
+
+607
+00:18:24,566 --> 00:18:25,856
+completely automatically.
+
+
+608
+00:18:27,356 --> 00:18:28,246
+What's the impact on the
+
+
+609
+00:18:28,246 --> 00:18:28,866
+performance?
+
+
+610
+00:18:30,166 --> 00:18:31,436
+It's much more stable.
+
+
+611
+00:18:32,246 --> 00:18:34,256
+Instead of taking over 18
+
+
+612
+00:18:34,326 --> 00:18:35,946
+seconds to sort those forward
+
+
+613
+00:18:35,946 --> 00:18:37,726
+structs it's now only a little
+
+
+614
+00:18:37,726 --> 00:18:38,926
+more than 4 seconds.
+
+
+615
+00:18:39,536 --> 00:18:41,266
+It's a gentle slope instead of
+
+
+616
+00:18:41,266 --> 00:18:42,146
+that steep cliff.
+
+
+617
+00:18:42,806 --> 00:18:45,846
+This improvement applies to the
+
+
+618
+00:18:45,846 --> 00:18:46,946
+case where the compiler is
+
+
+619
+00:18:46,946 --> 00:18:48,216
+dealing with values where it
+
+
+620
+00:18:48,216 --> 00:18:49,536
+doesn't know the type at all.
+
+
+621
+00:18:50,246 --> 00:18:51,616
+But a similar issue comes up
+
+
+622
+00:18:51,616 --> 00:18:53,156
+with generic code, where the
+
+
+623
+00:18:53,156 --> 00:18:54,586
+type is parameterized.
+
+
+624
+00:18:55,266 --> 00:18:56,366
+Let's look at that.
+
+
+625
+00:18:58,316 --> 00:18:59,806
+In many cases, the compiler's
+
+
+626
+00:18:59,806 --> 00:19:01,486
+able to make generic code fast
+
+
+627
+00:19:01,976 --> 00:19:03,696
+by using specialized versions
+
+
+628
+00:19:04,096 --> 00:19:05,206
+for specific types.
+
+
+629
+00:19:05,896 --> 00:19:07,176
+But sometimes the compiler
+
+
+630
+00:19:07,176 --> 00:19:09,026
+cannot see the specific types
+
+
+631
+00:19:09,106 --> 00:19:10,746
+and then it needs to use
+
+
+632
+00:19:10,746 --> 00:19:12,336
+unspecialized generic code.
+
+
+633
+00:19:13,206 --> 00:19:14,896
+That can be much slower.
+
+
+634
+00:19:15,306 --> 00:19:16,526
+It's another form of a
+
+
+635
+00:19:16,526 --> 00:19:17,436
+performance cliff.
+
+
+636
+00:19:18,676 --> 00:19:20,656
+Until now, Swift has used heap
+
+
+637
+00:19:20,656 --> 00:19:22,546
+allocation for generic buffers
+
+
+638
+00:19:22,546 --> 00:19:23,866
+in unspecialized code.
+
+
+639
+00:19:24,156 --> 00:19:25,946
+And as we've just seen, heap
+
+
+640
+00:19:25,946 --> 00:19:27,866
+allocation can be really slow.
+
+
+641
+00:19:28,776 --> 00:19:31,236
+Swift 4 now uses stack allocated
+
+
+642
+00:19:31,236 --> 00:19:32,136
+generic buffers.
+
+
+643
+00:19:32,486 --> 00:19:34,166
+So, we get similar improvement
+
+
+644
+00:19:34,446 --> 00:19:37,906
+for unspecialized generic code.
+
+
+645
+00:19:38,136 --> 00:19:39,886
+Now making Swift performance
+
+
+646
+00:19:39,976 --> 00:19:41,846
+really predictable is an ongoing
+
+
+647
+00:19:41,846 --> 00:19:42,226
+effort.
+
+
+648
+00:19:42,756 --> 00:19:45,056
+But Swift 4 has made big strides
+
+
+649
+00:19:45,346 --> 00:19:46,596
+to fix some of the worst of
+
+
+650
+00:19:46,596 --> 00:19:49,576
+those performance cliffs.
+
+
+651
+00:19:50,176 --> 00:19:51,736
+Another dimension of performance
+
+
+652
+00:19:51,996 --> 00:19:52,576
+is size.
+
+
+653
+00:19:54,196 --> 00:19:56,006
+As your apps grow larger and
+
+
+654
+00:19:56,006 --> 00:19:58,446
+larger, code size is becoming
+
+
+655
+00:19:58,516 --> 00:19:59,786
+increasingly important.
+
+
+656
+00:20:01,096 --> 00:20:02,656
+One way to make code size
+
+
+657
+00:20:02,656 --> 00:20:05,376
+smaller is to avoid unused code.
+
+
+658
+00:20:06,606 --> 00:20:08,166
+Let's return to Doug's example
+
+
+659
+00:20:08,166 --> 00:20:09,566
+of a date struct.
+
+
+660
+00:20:10,126 --> 00:20:11,656
+As with any value type, it's a
+
+
+661
+00:20:11,656 --> 00:20:13,536
+good idea to make it conform to
+
+
+662
+00:20:13,536 --> 00:20:14,956
+the equatable and comparable
+
+
+663
+00:20:14,956 --> 00:20:15,516
+protocols.
+
+
+664
+00:20:16,476 --> 00:20:17,766
+But what if it turns out that
+
+
+665
+00:20:17,766 --> 00:20:19,216
+your app isn't using one of
+
+
+666
+00:20:19,216 --> 00:20:19,466
+those.
+
+
+667
+00:20:20,196 --> 00:20:21,656
+You shouldn't have to pay for
+
+
+668
+00:20:21,686 --> 00:20:25,366
+code that you don't use.
+
+
+669
+00:20:25,556 --> 00:20:27,966
+In Swift 4, compiler will
+
+
+670
+00:20:27,966 --> 00:20:30,536
+automatically optimize away
+
+
+671
+00:20:30,536 --> 00:20:32,146
+conformances that are used so
+
+
+672
+00:20:32,146 --> 00:20:33,336
+you don't pay the price for
+
+
+673
+00:20:33,336 --> 00:20:33,616
+that.
+
+
+674
+00:20:34,296 --> 00:20:35,686
+And note that this interacts
+
+
+675
+00:20:35,686 --> 00:20:37,336
+with other optimizations such as
+
+
+676
+00:20:37,336 --> 00:20:39,186
+de-virtualization and in-lining
+
+
+677
+00:20:39,496 --> 00:20:41,616
+that exposes other opportunities
+
+
+678
+00:20:41,616 --> 00:20:42,946
+for the compiler to remove
+
+
+679
+00:20:42,946 --> 00:20:44,086
+unused conformances.
+
+
+680
+00:20:44,746 --> 00:20:47,326
+So, this is optimization the
+
+
+681
+00:20:47,326 --> 00:20:48,876
+compiler can do completely
+
+
+682
+00:20:48,876 --> 00:20:49,596
+automatically.
+
+
+683
+00:20:50,436 --> 00:20:51,816
+That isn't always possible.
+
+
+684
+00:20:52,646 --> 00:20:54,466
+Let's look at another one.
+
+
+685
+00:20:55,456 --> 00:20:57,956
+Here, I have a very simple class
+
+
+686
+00:20:57,956 --> 00:20:58,776
+with two functions.
+
+
+687
+00:20:59,816 --> 00:21:01,156
+The compiler will generate those
+
+
+688
+00:21:01,156 --> 00:21:05,126
+functions and because in Swift 3
+
+
+689
+00:21:05,126 --> 00:21:07,316
+this is a subclass of NSObject,
+
+
+690
+00:21:08,106 --> 00:21:10,536
+the language will automatically
+
+
+691
+00:21:10,536 --> 00:21:12,716
+infer, the compiler will infer
+
+
+692
+00:21:12,716 --> 00:21:14,036
+the objc attribute.
+
+
+693
+00:21:15,416 --> 00:21:16,806
+What that means is these
+
+
+694
+00:21:16,806 --> 00:21:18,226
+functions should be accessible
+
+
+695
+00:21:18,226 --> 00:21:19,366
+from Objective-C.
+
+
+696
+00:21:20,376 --> 00:21:22,066
+And so, the compiler will
+
+
+697
+00:21:22,066 --> 00:21:24,506
+generate thunk functions that
+
+
+698
+00:21:24,506 --> 00:21:25,566
+are compatible with the
+
+
+699
+00:21:25,566 --> 00:21:27,146
+Objective-C conventions and that
+
+
+700
+00:21:27,196 --> 00:21:29,056
+forward to the Swift functions.
+
+
+701
+00:21:30,756 --> 00:21:32,756
+Now, functions within Swift are
+
+
+702
+00:21:32,756 --> 00:21:33,846
+still called directly.
+
+
+703
+00:21:34,176 --> 00:21:36,016
+In my example, show calls print.
+
+
+704
+00:21:36,766 --> 00:21:37,996
+And what that means is that the
+
+
+705
+00:21:37,996 --> 00:21:39,576
+thunk functions often end up
+
+
+706
+00:21:39,576 --> 00:21:40,426
+being unused.
+
+
+707
+00:21:41,026 --> 00:21:44,646
+But because they are exposed to
+
+
+708
+00:21:44,646 --> 00:21:45,956
+the Objective-C runtime the
+
+
+709
+00:21:45,956 --> 00:21:47,846
+compiler has no way to tell that
+
+
+710
+00:21:47,846 --> 00:21:48,416
+they're unused.
+
+
+711
+00:21:49,036 --> 00:21:51,196
+Fixing this requires changing
+
+
+712
+00:21:51,196 --> 00:21:52,126
+the language model.
+
+
+713
+00:21:53,256 --> 00:21:55,806
+And so, in Swift 4, the objc
+
+
+714
+00:21:55,806 --> 00:21:57,846
+attribute is only inferred in
+
+
+715
+00:21:57,906 --> 00:21:59,306
+situations where it's clearly
+
+
+716
+00:21:59,306 --> 00:21:59,626
+needed.
+
+
+717
+00:21:59,686 --> 00:22:00,936
+Such as when you're overriding
+
+
+718
+00:22:00,936 --> 00:22:02,426
+an Objective-C method or
+
+
+719
+00:22:02,426 --> 00:22:03,966
+conforming to an Objective-C
+
+
+720
+00:22:04,016 --> 00:22:04,776
+protocol.
+
+
+721
+00:22:05,656 --> 00:22:08,036
+This change avoids a lot of
+
+
+722
+00:22:08,036 --> 00:22:09,286
+those unused thunks.
+
+
+723
+00:22:10,796 --> 00:22:12,536
+When we adopted this in Apple's
+
+
+724
+00:22:12,536 --> 00:22:14,026
+Music App, it reduced the code
+
+
+725
+00:22:14,076 --> 00:22:14,976
+size by almost 6%.
+
+
+726
+00:22:19,566 --> 00:22:21,266
+When you have a set of functions
+
+
+727
+00:22:21,616 --> 00:22:23,106
+that you want to make accessible
+
+
+728
+00:22:23,106 --> 00:22:25,136
+and Objective-C, we recommend
+
+
+729
+00:22:25,196 --> 00:22:26,126
+that you put them in an
+
+
+730
+00:22:26,126 --> 00:22:28,336
+extension and mark the extension
+
+
+731
+00:22:28,336 --> 00:22:29,546
+with the objc attribute.
+
+
+732
+00:22:30,026 --> 00:22:31,436
+This guarantees that all those
+
+
+733
+00:22:31,436 --> 00:22:32,696
+functions will be available to
+
+
+734
+00:22:32,696 --> 00:22:33,866
+your Objective-C code.
+
+
+735
+00:22:34,416 --> 00:22:35,846
+And if that's not possible for
+
+
+736
+00:22:35,846 --> 00:22:38,436
+some reason, the compiler will
+
+
+737
+00:22:38,436 --> 00:22:38,976
+report an error to you.
+
+
+738
+00:22:41,556 --> 00:22:43,316
+So, what does it take to adopt
+
+
+739
+00:22:43,316 --> 00:22:43,976
+this change?
+
+
+740
+00:22:44,476 --> 00:22:45,906
+Doug mentioned the migrator tool
+
+
+741
+00:22:45,906 --> 00:22:47,186
+to help you move your code into
+
+
+742
+00:22:47,186 --> 00:22:47,886
+Swift 4.
+
+
+743
+00:22:48,506 --> 00:22:50,486
+With objc inference the migrator
+
+
+744
+00:22:50,486 --> 00:22:51,416
+offers you a choice.
+
+
+745
+00:22:52,046 --> 00:22:53,336
+If you don't care that much
+
+
+746
+00:22:53,336 --> 00:22:55,246
+about code size, the migrator
+
+
+747
+00:22:55,246 --> 00:22:57,056
+can easily match the Swift 3
+
+
+748
+00:22:57,056 --> 00:22:59,056
+behavior by simply inserting the
+
+
+749
+00:22:59,056 --> 00:23:00,816
+objc attribute wherever it would
+
+
+750
+00:23:00,816 --> 00:23:02,276
+previously have been inferred.
+
+
+751
+00:23:03,156 --> 00:23:04,496
+But with just a little more
+
+
+752
+00:23:04,496 --> 00:23:06,206
+effort, you can take advantage
+
+
+753
+00:23:06,206 --> 00:23:08,226
+of the code size improvements by
+
+
+754
+00:23:08,226 --> 00:23:09,766
+using minimal inference.
+
+
+755
+00:23:10,316 --> 00:23:13,206
+If you go with that option for
+
+
+756
+00:23:13,206 --> 00:23:15,256
+minimal inference, the migrator
+
+
+757
+00:23:15,256 --> 00:23:17,456
+will start by finding all the
+
+
+758
+00:23:17,456 --> 00:23:18,956
+places where it can determine
+
+
+759
+00:23:18,956 --> 00:23:20,786
+the objc attribute is definitely
+
+
+760
+00:23:20,786 --> 00:23:21,216
+needed.
+
+
+761
+00:23:21,216 --> 00:23:22,646
+And it will do that, it will
+
+
+762
+00:23:22,646 --> 00:23:23,886
+insert that automatically.
+
+
+763
+00:23:24,966 --> 00:23:26,386
+That may not be sufficient
+
+
+764
+00:23:26,816 --> 00:23:28,416
+because the migrator is unable
+
+
+765
+00:23:28,416 --> 00:23:30,626
+to detect issues across separate
+
+
+766
+00:23:30,626 --> 00:23:32,226
+Swift modules or in your
+
+
+767
+00:23:32,226 --> 00:23:33,246
+Objective-C code.
+
+
+768
+00:23:34,106 --> 00:23:35,496
+So, to help you find those
+
+
+769
+00:23:35,496 --> 00:23:38,736
+places, the migrator will mark
+
+
+770
+00:23:38,736 --> 00:23:39,776
+the thunk functions that are
+
+
+771
+00:23:39,776 --> 00:23:42,046
+inferred as deprecated.
+
+
+772
+00:23:42,766 --> 00:23:44,166
+And you can then build your code
+
+
+773
+00:23:44,166 --> 00:23:45,466
+and run your code and look for
+
+
+774
+00:23:45,466 --> 00:23:46,516
+deprecation warnings.
+
+
+775
+00:23:47,806 --> 00:23:49,306
+Let's look at that more closely.
+
+
+776
+00:23:50,336 --> 00:23:51,936
+Here's an example of a build
+
+
+777
+00:23:51,936 --> 00:23:52,236
+warning.
+
+
+778
+00:23:53,246 --> 00:23:55,266
+I've got a Swift function to
+
+
+779
+00:23:55,266 --> 00:23:56,596
+show the status of my view
+
+
+780
+00:23:56,596 --> 00:23:57,116
+controller.
+
+
+781
+00:23:57,576 --> 00:23:58,786
+And I'm calling that from my
+
+
+782
+00:23:58,786 --> 00:23:59,806
+Objective-C code.
+
+
+783
+00:24:00,226 --> 00:24:01,706
+But because I'm still relying on
+
+
+784
+00:24:01,706 --> 00:24:03,236
+the objc inference, I get this
+
+
+785
+00:24:03,236 --> 00:24:04,666
+warning about it being
+
+
+786
+00:24:04,666 --> 00:24:05,356
+deprecated.
+
+
+787
+00:24:05,906 --> 00:24:08,216
+To fix this, I need to go and
+
+
+788
+00:24:08,306 --> 00:24:09,976
+find the place in my Swift code
+
+
+789
+00:24:09,976 --> 00:24:11,356
+where the function is defined
+
+
+790
+00:24:11,986 --> 00:24:13,756
+and add the objc attribute.
+
+
+791
+00:24:14,256 --> 00:24:19,076
+Some of the issues may not be
+
+
+792
+00:24:19,076 --> 00:24:20,326
+visible at build time.
+
+
+793
+00:24:20,366 --> 00:24:22,026
+In Objective-C, it's possible to
+
+
+794
+00:24:22,026 --> 00:24:24,156
+refer to a function in ways that
+
+
+795
+00:24:24,156 --> 00:24:26,136
+can't be detected until runtime.
+
+
+796
+00:24:26,876 --> 00:24:28,466
+And so, for that reason, it's
+
+
+797
+00:24:28,466 --> 00:24:30,756
+also important to run your code,
+
+
+798
+00:24:30,956 --> 00:24:32,626
+run all of your tests, exercise
+
+
+799
+00:24:32,626 --> 00:24:34,176
+as much of the code as you can,
+
+
+800
+00:24:34,726 --> 00:24:36,336
+and look on the console in
+
+
+801
+00:24:36,526 --> 00:24:38,486
+Xcode's debug area for messages
+
+
+802
+00:24:38,486 --> 00:24:39,246
+like this one.
+
+
+803
+00:24:39,336 --> 00:24:40,556
+Telling you that you need to add
+
+
+804
+00:24:40,556 --> 00:24:41,626
+an objc attribute.
+
+
+805
+00:24:42,506 --> 00:24:45,586
+Notice, that the message there
+
+
+806
+00:24:45,586 --> 00:24:46,886
+shows you the exact source
+
+
+807
+00:24:46,886 --> 00:24:48,546
+location where the function is
+
+
+808
+00:24:48,596 --> 00:24:49,056
+defined.
+
+
+809
+00:24:49,056 --> 00:24:50,366
+So, you can just go to that
+
+
+810
+00:24:50,366 --> 00:24:53,826
+location and add the attribute.
+
+
+811
+00:24:53,926 --> 00:24:55,336
+Once you've fixed all the build
+
+
+812
+00:24:55,336 --> 00:24:57,736
+and runtime warnings, go to the
+
+
+813
+00:24:57,736 --> 00:24:59,226
+build settings for your project.
+
+
+814
+00:24:59,566 --> 00:25:01,276
+Change the Swift 3 objc
+
+
+815
+00:25:01,276 --> 00:25:03,286
+inference setting to default.
+
+
+816
+00:25:03,286 --> 00:25:05,146
+And with that the migration is
+
+
+817
+00:25:05,216 --> 00:25:05,516
+done.
+
+
+818
+00:25:06,166 --> 00:25:07,486
+It's really not that hard.
+
+
+819
+00:25:08,086 --> 00:25:09,486
+We did this for Apple's Music
+
+
+820
+00:25:09,686 --> 00:25:11,886
+App, there were only a total of
+
+
+821
+00:25:11,886 --> 00:25:13,706
+about 40 places where an objc
+
+
+822
+00:25:13,706 --> 00:25:15,696
+attribute needed to be added in
+
+
+823
+00:25:15,696 --> 00:25:16,946
+a really large project.
+
+
+824
+00:25:17,476 --> 00:25:19,446
+And more than 30 of those could
+
+
+825
+00:25:19,446 --> 00:25:20,566
+be handled completely
+
+
+826
+00:25:20,566 --> 00:25:22,316
+automatically by the migrator.
+
+
+827
+00:25:22,806 --> 00:25:26,136
+This change to limit objc
+
+
+828
+00:25:26,136 --> 00:25:27,796
+inference as well as the
+
+
+829
+00:25:27,796 --> 00:25:30,066
+optimization of removing unused
+
+
+830
+00:25:30,066 --> 00:25:32,316
+protocol conformances both help
+
+
+831
+00:25:32,316 --> 00:25:33,436
+to reduce your code size.
+
+
+832
+00:25:33,436 --> 00:25:36,016
+I'm going to tell you now about
+
+
+833
+00:25:36,016 --> 00:25:37,686
+another change that has an even
+
+
+834
+00:25:37,686 --> 00:25:39,406
+bigger impact on the overall
+
+
+835
+00:25:39,406 --> 00:25:41,106
+size of your app.
+
+
+836
+00:25:42,076 --> 00:25:44,486
+Besides the instructions and
+
+
+837
+00:25:44,486 --> 00:25:45,846
+data that make up a compile
+
+
+838
+00:25:45,936 --> 00:25:48,176
+Swift app, the symbol tables in
+
+
+839
+00:25:48,176 --> 00:25:50,816
+Swift frameworks occupy a lot of
+
+
+840
+00:25:50,886 --> 00:25:51,266
+space.
+
+
+841
+00:25:52,366 --> 00:25:54,726
+Swift uses a lot of symbols and
+
+
+842
+00:25:54,726 --> 00:25:58,016
+the names are often quite long.
+
+
+843
+00:25:58,206 --> 00:26:01,376
+For example, in Swift 3.1 almost
+
+
+844
+00:26:01,456 --> 00:26:03,476
+half of the standard library is
+
+
+845
+00:26:03,516 --> 00:26:04,866
+taken up by symbols.
+
+
+846
+00:26:05,186 --> 00:26:06,736
+As shown by the darker blue bar
+
+
+847
+00:26:06,736 --> 00:26:06,966
+here.
+
+
+848
+00:26:08,016 --> 00:26:10,776
+In Swift 4, much less space is
+
+
+849
+00:26:10,776 --> 00:26:11,676
+needed for symbols.
+
+
+850
+00:26:11,676 --> 00:26:12,996
+So, even though there's a lot
+
+
+851
+00:26:12,996 --> 00:26:14,306
+more content in the standard
+
+
+852
+00:26:14,306 --> 00:26:14,836
+library.
+
+
+853
+00:26:15,346 --> 00:26:17,166
+The total size has actually
+
+
+854
+00:26:17,166 --> 00:26:17,626
+decreased.
+
+
+855
+00:26:19,146 --> 00:26:20,496
+We've accomplished this by
+
+
+856
+00:26:20,496 --> 00:26:22,956
+making the name shorter and also
+
+
+857
+00:26:22,956 --> 00:26:24,576
+by stripping out the symbols.
+
+
+858
+00:26:25,286 --> 00:26:28,526
+Both the static linker and the
+
+
+859
+00:26:28,526 --> 00:26:30,316
+dynamic linker use a separate
+
+
+860
+00:26:30,316 --> 00:26:32,096
+try data structure to quickly
+
+
+861
+00:26:32,096 --> 00:26:32,946
+look up symbols.
+
+
+862
+00:26:33,956 --> 00:26:35,286
+And so, what that means is that
+
+
+863
+00:26:35,286 --> 00:26:37,156
+the Swift symbols are rarely
+
+
+864
+00:26:37,156 --> 00:26:38,616
+needed in the symbol table.
+
+
+865
+00:26:39,706 --> 00:26:41,596
+Xcode 9 has a new build setting,
+
+
+866
+00:26:41,796 --> 00:26:44,156
+Strip Swift Symbols that's
+
+
+867
+00:26:44,156 --> 00:26:45,366
+enabled by default.
+
+
+868
+00:26:46,646 --> 00:26:47,986
+You can turn this off, if it
+
+
+869
+00:26:47,986 --> 00:26:49,176
+causes problems for your
+
+
+870
+00:26:49,176 --> 00:26:49,736
+workflow.
+
+
+871
+00:26:50,676 --> 00:26:52,926
+But Xcode normally runs the
+
+
+872
+00:26:52,926 --> 00:26:55,726
+symbol stripping as part of
+
+
+873
+00:26:55,726 --> 00:26:57,266
+archiving your project.
+
+
+874
+00:26:57,566 --> 00:26:59,336
+So, this feature has no impact
+
+
+875
+00:26:59,336 --> 00:27:00,746
+on earlier stages of
+
+
+876
+00:27:00,746 --> 00:27:01,306
+development.
+
+
+877
+00:27:01,306 --> 00:27:02,896
+And in particular, it should not
+
+
+878
+00:27:02,896 --> 00:27:04,516
+interfere with normal debugging
+
+
+879
+00:27:04,516 --> 00:27:05,266
+or profiling.
+
+
+880
+00:27:05,856 --> 00:27:09,176
+If for some reason you want to
+
+
+881
+00:27:09,176 --> 00:27:10,466
+examine the symbols that are
+
+
+882
+00:27:10,506 --> 00:27:12,196
+present in a binary, after it's
+
+
+883
+00:27:12,236 --> 00:27:12,796
+been stripped.
+
+
+884
+00:27:13,296 --> 00:27:15,616
+You can use the DYLD info tool
+
+
+885
+00:27:15,906 --> 00:27:17,836
+with the export option to look
+
+
+886
+00:27:17,836 --> 00:27:18,936
+at the exported symbols.
+
+
+887
+00:27:19,586 --> 00:27:22,776
+This build setting applies to
+
+
+888
+00:27:22,776 --> 00:27:24,486
+the code that you build in your
+
+
+889
+00:27:24,486 --> 00:27:25,076
+project.
+
+
+890
+00:27:26,186 --> 00:27:27,786
+The Swift standard libraries are
+
+
+891
+00:27:27,786 --> 00:27:28,706
+handled separately.
+
+
+892
+00:27:29,426 --> 00:27:31,086
+They're stripped as part of App
+
+
+893
+00:27:31,206 --> 00:27:31,486
+Thinning.
+
+
+894
+00:27:32,716 --> 00:27:33,896
+It's important to understand
+
+
+895
+00:27:33,896 --> 00:27:34,876
+this because if you want to
+
+
+896
+00:27:34,876 --> 00:27:36,216
+measure the size of your app,
+
+
+897
+00:27:36,806 --> 00:27:37,926
+you really need to go through
+
+
+898
+00:27:37,926 --> 00:27:39,956
+Xcode's distribution workflow
+
+
+899
+00:27:40,356 --> 00:27:41,586
+and export your app.
+
+
+900
+00:27:42,086 --> 00:27:43,796
+And when you do that, you'll see
+
+
+901
+00:27:43,796 --> 00:27:45,056
+there's a new setting that you
+
+
+902
+00:27:45,056 --> 00:27:46,646
+can use to control whether or
+
+
+903
+00:27:46,646 --> 00:27:48,866
+not to strip the symbols from
+
+
+904
+00:27:48,866 --> 00:27:49,836
+the standard libraries.
+
+
+905
+00:27:51,126 --> 00:27:52,966
+You can turn it off, but we
+
+
+906
+00:27:52,966 --> 00:27:54,816
+recommend that in most cases you
+
+
+907
+00:27:54,816 --> 00:27:55,976
+leave this enabled, because it
+
+
+908
+00:27:56,056 --> 00:27:57,726
+will provide a significant
+
+
+909
+00:27:57,726 --> 00:27:59,276
+reduction in the size of your
+
+
+910
+00:28:00,026 --> 00:28:00,106
+app.
+
+
+911
+00:28:00,716 --> 00:28:02,836
+Next, Ben's going to come up and
+
+
+912
+00:28:02,956 --> 00:28:04,026
+talk about what's new in
+
+
+913
+00:28:04,026 --> 00:28:05,126
+strings, collections and
+
+
+914
+00:28:05,126 --> 00:28:05,676
+generics.
+
+
+915
+00:28:06,516 --> 00:28:11,236
+[ Applause ]
+
+
+916
+00:28:11,736 --> 00:28:12,106
+>> Thanks, Bob.
+
+
+917
+00:28:13,066 --> 00:28:14,356
+So, we've got some really great
+
+
+918
+00:28:14,356 --> 00:28:15,646
+features in the standard library
+
+
+919
+00:28:15,646 --> 00:28:16,816
+and generics in this release.
+
+
+920
+00:28:16,816 --> 00:28:18,316
+And I'm going to start with
+
+
+921
+00:28:18,376 --> 00:28:18,746
+strings.
+
+
+922
+00:28:19,946 --> 00:28:21,506
+Strings in Swift 4 make
+
+
+923
+00:28:21,546 --> 00:28:23,446
+processing characters faster and
+
+
+924
+00:28:23,446 --> 00:28:25,326
+easier, while still having the
+
+
+925
+00:28:25,326 --> 00:28:27,226
+same goal they've always had of
+
+
+926
+00:28:27,226 --> 00:28:28,786
+helping you write Unicode
+
+
+927
+00:28:28,786 --> 00:28:29,386
+correct code.
+
+
+928
+00:28:29,386 --> 00:28:32,506
+So what do we mean by Unicode
+
+
+929
+00:28:32,506 --> 00:28:32,826
+correct?
+
+
+930
+00:28:33,986 --> 00:28:34,896
+Well, a lot of it comes down to
+
+
+931
+00:28:34,896 --> 00:28:36,246
+what we mean when we talk about
+
+
+932
+00:28:36,246 --> 00:28:36,886
+the character.
+
+
+933
+00:28:38,186 --> 00:28:39,476
+In most programming languages a
+
+
+934
+00:28:39,476 --> 00:28:42,276
+character is just a number, and
+
+
+935
+00:28:42,276 --> 00:28:42,916
+some encoding.
+
+
+936
+00:28:43,716 --> 00:28:44,866
+In older systems that might
+
+
+937
+00:28:44,996 --> 00:28:45,236
+ASCII.
+
+
+938
+00:28:45,756 --> 00:28:46,746
+These days, it's probably one of
+
+
+939
+00:28:46,746 --> 00:28:47,856
+the Unicode encodings.
+
+
+940
+00:28:48,916 --> 00:28:50,816
+So why does that matter.
+
+
+941
+00:28:50,816 --> 00:28:53,896
+Let's look at an example.
+
+
+942
+00:28:54,496 --> 00:28:58,456
+So, the single letter é, with
+
+
+943
+00:28:58,456 --> 00:29:01,286
+an acute accent in Unicode can
+
+
+944
+00:29:01,286 --> 00:29:02,426
+be encoded in two different
+
+
+945
+00:29:02,426 --> 00:29:02,716
+ways.
+
+
+946
+00:29:04,076 --> 00:29:06,766
+One way is with a single Unicode
+
+
+947
+00:29:06,766 --> 00:29:08,356
+scaler, E9.
+
+
+948
+00:29:09,576 --> 00:29:11,236
+The other way is by following
+
+
+949
+00:29:11,236 --> 00:29:13,426
+the plain letter E with the
+
+
+950
+00:29:13,426 --> 00:29:15,106
+combining acute accent modifier.
+
+
+951
+00:29:16,346 --> 00:29:17,456
+These two ways of encoding the
+
+
+952
+00:29:17,456 --> 00:29:18,976
+same letter are what Unicode
+
+
+953
+00:29:18,976 --> 00:29:20,366
+calls canonically equivalent.
+
+
+954
+00:29:21,196 --> 00:29:22,006
+You ought to be able to use
+
+
+955
+00:29:22,126 --> 00:29:23,926
+either one without it making any
+
+
+956
+00:29:23,926 --> 00:29:24,486
+difference.
+
+
+957
+00:29:25,706 --> 00:29:27,746
+So, what can that mean in code.
+
+
+958
+00:29:28,656 --> 00:29:30,076
+Well, when the default way of a
+
+
+959
+00:29:30,076 --> 00:29:31,736
+language of looking at strings
+
+
+960
+00:29:32,026 --> 00:29:33,106
+is to look at the individual
+
+
+961
+00:29:33,106 --> 00:29:34,256
+code units in the string.
+
+
+962
+00:29:34,256 --> 00:29:35,386
+You can get some very odd
+
+
+963
+00:29:35,446 --> 00:29:35,916
+behavior.
+
+
+964
+00:29:36,876 --> 00:29:38,216
+This example is in Ruby, but we
+
+
+965
+00:29:38,216 --> 00:29:39,806
+see similar behavior in otherer
+
+
+966
+00:29:39,806 --> 00:29:41,146
+languages like Java or C.
+
+
+967
+00:29:42,016 --> 00:29:43,676
+We can create two strings in two
+
+
+968
+00:29:43,676 --> 00:29:45,306
+different ways that ought to be
+
+
+969
+00:29:45,346 --> 00:29:46,376
+exactly equivalent.
+
+
+970
+00:29:46,866 --> 00:29:48,556
+To a user, they look identical.
+
+
+971
+00:29:50,026 --> 00:29:51,256
+But if we do things like count
+
+
+972
+00:29:51,586 --> 00:29:53,646
+the number of characters, we get
+
+
+973
+00:29:53,646 --> 00:29:54,276
+different results.
+
+
+974
+00:29:55,026 --> 00:29:56,926
+And if we use the default
+
+
+975
+00:29:56,926 --> 00:29:58,636
+comparison operation, they're
+
+
+976
+00:29:58,636 --> 00:29:59,236
+not equal.
+
+
+977
+00:30:00,416 --> 00:30:01,636
+This can cause some really hard
+
+
+978
+00:30:01,636 --> 00:30:02,806
+to understand and diagnose
+
+
+979
+00:30:02,806 --> 00:30:03,256
+issues.
+
+
+980
+00:30:03,986 --> 00:30:05,296
+And that's why strict Swift
+
+
+981
+00:30:05,406 --> 00:30:06,426
+takes a slightly different
+
+
+982
+00:30:06,426 --> 00:30:06,866
+approach.
+
+
+983
+00:30:08,136 --> 00:30:10,516
+In Swift, a character is what
+
+
+984
+00:30:10,516 --> 00:30:12,036
+Unicode cools a grapheme.
+
+
+985
+00:30:13,046 --> 00:30:14,486
+A grapheme is what most users
+
+
+986
+00:30:14,486 --> 00:30:15,456
+would think of as a single
+
+
+987
+00:30:15,456 --> 00:30:16,866
+character when they see one on
+
+
+988
+00:30:16,866 --> 00:30:17,376
+the screen.
+
+
+989
+00:30:18,576 --> 00:30:20,256
+And in Swift, no matter how you
+
+
+990
+00:30:20,256 --> 00:30:21,636
+compose a particular grapheme,
+
+
+991
+00:30:22,096 --> 00:30:24,266
+it's one character, and two
+
+
+992
+00:30:24,266 --> 00:30:25,556
+differently composed equivalent
+
+
+993
+00:30:25,556 --> 00:30:26,986
+graphemes compare as equal.
+
+
+994
+00:30:27,586 --> 00:30:30,866
+Now, the logic for breaking up a
+
+
+995
+00:30:30,866 --> 00:30:32,426
+string into graphemes can get
+
+
+996
+00:30:32,476 --> 00:30:33,366
+quite complicated.
+
+
+997
+00:30:34,156 --> 00:30:36,146
+For example, the family emoji is
+
+
+998
+00:30:36,146 --> 00:30:38,036
+made up by combining adult emoji
+
+
+999
+00:30:38,246 --> 00:30:39,026
+with child emoji.
+
+
+1000
+00:30:40,426 --> 00:30:41,846
+And in Swift 4 because we're
+
+
+1001
+00:30:41,846 --> 00:30:43,256
+using Unicode 9 graphing
+
+
+1002
+00:30:43,256 --> 00:30:44,296
+breaking that's built into the
+
+
+1003
+00:30:44,296 --> 00:30:45,906
+operating system, this counts as
+
+
+1004
+00:30:45,906 --> 00:30:46,606
+one character.
+
+
+1005
+00:30:47,226 --> 00:30:50,406
+But this complicated logic has a
+
+
+1006
+00:30:50,406 --> 00:30:50,906
+cost.
+
+
+1007
+00:30:51,206 --> 00:30:52,266
+And in previous versions of
+
+
+1008
+00:30:52,266 --> 00:30:53,526
+Swift, you were paying for this
+
+
+1009
+00:30:53,556 --> 00:30:55,346
+cost for every character you
+
+
+1010
+00:30:55,346 --> 00:30:55,826
+processed.
+
+
+1011
+00:30:55,986 --> 00:30:56,886
+Even simpler ones.
+
+
+1012
+00:30:57,926 --> 00:30:59,296
+In this release, we've added
+
+
+1013
+00:30:59,296 --> 00:31:00,866
+fast path for those simpler
+
+
+1014
+00:31:00,866 --> 00:31:02,446
+characters in many different
+
+
+1015
+00:31:02,446 --> 00:31:02,886
+languages.
+
+
+1016
+00:31:04,216 --> 00:31:05,826
+That means that processing these
+
+
+1017
+00:31:05,826 --> 00:31:07,266
+simpler characters in a string
+
+
+1018
+00:31:07,266 --> 00:31:08,656
+as you go through it should take
+
+
+1019
+00:31:08,656 --> 00:31:10,156
+about a third of the time it did
+
+
+1020
+00:31:10,216 --> 00:31:11,316
+in previous versions.
+
+
+1021
+00:31:11,806 --> 00:31:14,206
+These fast paths are robust to
+
+
+1022
+00:31:14,206 --> 00:31:16,636
+the presence of more complicated
+
+
+1023
+00:31:16,636 --> 00:31:17,146
+characters.
+
+
+1024
+00:31:17,506 --> 00:31:18,676
+So, for example if you were
+
+
+1025
+00:31:18,676 --> 00:31:19,866
+processing messages on social
+
+
+1026
+00:31:19,866 --> 00:31:22,326
+media, that was mostly simple
+
+
+1027
+00:31:22,326 --> 00:31:24,266
+plain text, but with some emoji
+
+
+1028
+00:31:24,266 --> 00:31:25,776
+mixed in, we only take the
+
+
+1029
+00:31:25,776 --> 00:31:26,996
+slower more complex path to
+
+
+1030
+00:31:26,996 --> 00:31:28,226
+process the emoji.
+
+
+1031
+00:31:28,226 --> 00:31:31,466
+Now, let's look at that emoji
+
+
+1032
+00:31:31,466 --> 00:31:33,476
+example again.
+
+
+1033
+00:31:33,776 --> 00:31:34,956
+There's two things to notice
+
+
+1034
+00:31:34,956 --> 00:31:35,316
+about this.
+
+
+1035
+00:31:36,636 --> 00:31:38,996
+One is that graphemes can be of
+
+
+1036
+00:31:38,996 --> 00:31:39,826
+variable width.
+
+
+1037
+00:31:40,186 --> 00:31:41,616
+So, we clearly can't have random
+
+
+1038
+00:31:41,616 --> 00:31:43,196
+access to a particular grapheme
+
+
+1039
+00:31:43,196 --> 00:31:43,696
+in a string.
+
+
+1040
+00:31:44,416 --> 00:31:45,716
+We can have random access to a
+
+
+1041
+00:31:45,716 --> 00:31:47,026
+particular code unit, and you
+
+
+1042
+00:31:47,026 --> 00:31:48,306
+can still get at those in Swift
+
+
+1043
+00:31:48,306 --> 00:31:48,676
+strings.
+
+
+1044
+00:31:50,336 --> 00:31:51,346
+But what does that mean, it
+
+
+1045
+00:31:51,346 --> 00:31:52,376
+doesn't mean anything in this
+
+
+1046
+00:31:52,376 --> 00:31:54,096
+example to access the fifth code
+
+
+1047
+00:31:54,096 --> 00:31:54,416
+unit.
+
+
+1048
+00:31:54,766 --> 00:31:55,676
+It's certainly not the fifth
+
+
+1049
+00:31:55,676 --> 00:31:56,096
+character.
+
+
+1050
+00:31:57,566 --> 00:31:58,826
+The other thing to notice is
+
+
+1051
+00:31:58,826 --> 00:32:00,296
+that there's a bit of an unusual
+
+
+1052
+00:32:00,296 --> 00:32:00,746
+behavior.
+
+
+1053
+00:32:00,746 --> 00:32:03,566
+And we've appended six items to
+
+
+1054
+00:32:03,566 --> 00:32:04,866
+a string, but when we were done,
+
+
+1055
+00:32:05,126 --> 00:32:06,206
+the count hadn't gone up.
+
+
+1056
+00:32:06,206 --> 00:32:07,926
+And that's not normally what
+
+
+1057
+00:32:07,926 --> 00:32:09,816
+you'd expect from other
+
+
+1058
+00:32:09,816 --> 00:32:11,056
+collections like arrays.
+
+
+1059
+00:32:11,056 --> 00:32:13,696
+And it was because of edge cases
+
+
+1060
+00:32:13,696 --> 00:32:15,106
+like this that it was felt that
+
+
+1061
+00:32:15,106 --> 00:32:16,536
+strings shouldn't be collections
+
+
+1062
+00:32:16,536 --> 00:32:19,296
+in previous versions of Swift.
+
+
+1063
+00:32:19,456 --> 00:32:21,116
+Instead, you used to have to
+
+
+1064
+00:32:21,116 --> 00:32:24,366
+access the characters as a
+
+
+1065
+00:32:24,366 --> 00:32:25,816
+collection for the character's
+
+
+1066
+00:32:25,816 --> 00:32:26,886
+property on the string.
+
+
+1067
+00:32:28,856 --> 00:32:30,676
+But this actually really wasn't
+
+
+1068
+00:32:30,676 --> 00:32:32,046
+helping anyone understand the
+
+
+1069
+00:32:32,046 --> 00:32:33,556
+issues it was trying to avoid.
+
+
+1070
+00:32:33,906 --> 00:32:35,176
+All it was doing was cluttering
+
+
+1071
+00:32:35,176 --> 00:32:35,576
+up code.
+
+
+1072
+00:32:35,576 --> 00:32:37,366
+It was dissuading people from
+
+
+1073
+00:32:37,366 --> 00:32:38,786
+thinking in terms of characters
+
+
+1074
+00:32:39,096 --> 00:32:40,306
+and from using the standard
+
+
+1075
+00:32:40,306 --> 00:32:41,496
+library to do their string
+
+
+1076
+00:32:41,496 --> 00:32:41,986
+processing.
+
+
+1077
+00:32:42,986 --> 00:32:45,006
+So, in Swift 4, strings are a
+
+
+1078
+00:32:45,006 --> 00:32:45,946
+collection of characters.
+
+
+1079
+00:32:45,946 --> 00:32:47,116
+And that helps clean up code
+
+
+1080
+00:32:47,116 --> 00:32:48,346
+like this, a lot.
+
+
+1081
+00:32:49,516 --> 00:32:54,696
+[ Applause ]
+
+
+1082
+00:32:55,196 --> 00:32:56,076
+Now, there's one other thing we
+
+
+1083
+00:32:56,076 --> 00:32:56,966
+can simplify here.
+
+
+1084
+00:32:57,126 --> 00:32:58,166
+In string processing it's very
+
+
+1085
+00:32:58,206 --> 00:32:59,806
+common to want to slice from an
+
+
+1086
+00:32:59,806 --> 00:33:01,666
+index to the end of a string.
+
+
+1087
+00:33:03,026 --> 00:33:04,276
+There's a shorthand in Swift 4
+
+
+1088
+00:33:04,276 --> 00:33:04,936
+for that.
+
+
+1089
+00:33:05,036 --> 00:33:06,156
+You can leave off the end of a
+
+
+1090
+00:33:06,156 --> 00:33:07,306
+range whenever you're slicing a
+
+
+1091
+00:33:07,306 --> 00:33:08,956
+collection and that means from
+
+
+1092
+00:33:08,956 --> 00:33:10,146
+the index, to the end of the
+
+
+1093
+00:33:10,146 --> 00:33:10,656
+collection.
+
+
+1094
+00:33:10,656 --> 00:33:12,526
+And there's a similar syntax for
+
+
+1095
+00:33:12,526 --> 00:33:15,976
+going from the start up to an
+
+
+1096
+00:33:16,336 --> 00:33:16,546
+index.
+
+
+1097
+00:33:16,546 --> 00:33:18,096
+Making strings collections means
+
+
+1098
+00:33:18,096 --> 00:33:19,146
+they have all of the properties
+
+
+1099
+00:33:19,146 --> 00:33:19,916
+you're use to in other
+
+
+1100
+00:33:19,916 --> 00:33:21,286
+collections, so you can zip
+
+
+1101
+00:33:21,286 --> 00:33:23,106
+them, map them, search or filter
+
+
+1102
+00:33:23,106 --> 00:33:23,256
+them.
+
+
+1103
+00:33:24,196 --> 00:33:25,396
+This makes building up string
+
+
+1104
+00:33:25,396 --> 00:33:26,606
+processing a lot simpler.
+
+
+1105
+00:33:27,626 --> 00:33:28,496
+We'll look at an example.
+
+
+1106
+00:33:30,016 --> 00:33:31,266
+Supposing you want to detect
+
+
+1107
+00:33:31,506 --> 00:33:33,486
+whether there was a country flag
+
+
+1108
+00:33:33,746 --> 00:33:34,976
+in a message in your app in
+
+
+1109
+00:33:34,976 --> 00:33:37,086
+order to trigger some logic.
+
+
+1110
+00:33:38,436 --> 00:33:40,506
+Country flags in Unicode are
+
+
+1111
+00:33:40,506 --> 00:33:41,926
+made up of pairs of special
+
+
+1112
+00:33:41,926 --> 00:33:43,296
+regional indicators that spell
+
+
+1113
+00:33:43,296 --> 00:33:44,656
+out the ISO country code of the
+
+
+1114
+00:33:44,746 --> 00:33:45,066
+flag.
+
+
+1115
+00:33:45,356 --> 00:33:46,376
+So, the Japanese flag for
+
+
+1116
+00:33:46,376 --> 00:33:47,316
+example is JNP.
+
+
+1117
+00:33:47,316 --> 00:33:49,626
+We can add an extension to
+
+
+1118
+00:33:49,626 --> 00:33:51,066
+Unicode scaler to be able to
+
+
+1119
+00:33:51,066 --> 00:33:52,256
+detect whether it's one of these
+
+
+1120
+00:33:52,256 --> 00:33:53,586
+special regional indicators.
+
+
+1121
+00:33:54,266 --> 00:33:58,276
+Next, we can extend character in
+
+
+1122
+00:33:58,276 --> 00:34:00,116
+order to detect whether the
+
+
+1123
+00:34:00,116 --> 00:34:01,306
+character is a flag.
+
+
+1124
+00:34:02,276 --> 00:34:03,426
+This is using a new property
+
+
+1125
+00:34:03,426 --> 00:34:04,746
+that's available in Swift 4 that
+
+
+1126
+00:34:04,746 --> 00:34:06,146
+lets you access the underlying
+
+
+1127
+00:34:06,146 --> 00:34:07,736
+Unicode scalers that make up the
+
+
+1128
+00:34:07,736 --> 00:34:08,156
+graphic.
+
+
+1129
+00:34:08,726 --> 00:34:10,686
+This is actually a really useful
+
+
+1130
+00:34:10,686 --> 00:34:11,976
+thing to play around with, if
+
+
+1131
+00:34:11,976 --> 00:34:13,065
+you want to learn more about how
+
+
+1132
+00:34:13,065 --> 00:34:14,606
+Unicode works, especially in a
+
+
+1133
+00:34:14,606 --> 00:34:15,406
+Swift playground.
+
+
+1134
+00:34:18,295 --> 00:34:19,335
+Now that we have this, we can
+
+
+1135
+00:34:19,335 --> 00:34:20,545
+use it with all of the familiar
+
+
+1136
+00:34:20,886 --> 00:34:21,795
+collection API's.
+
+
+1137
+00:34:21,996 --> 00:34:23,656
+So, we can search if the string
+
+
+1138
+00:34:23,656 --> 00:34:24,516
+contains a flag.
+
+
+1139
+00:34:25,376 --> 00:34:27,226
+Or, we can filter out just the
+
+
+1140
+00:34:27,226 --> 00:34:28,676
+flags into a new string.
+
+
+1141
+00:34:28,835 --> 00:34:32,726
+So, now that strings are
+
+
+1142
+00:34:32,726 --> 00:34:34,136
+collections, you might notice
+
+
+1143
+00:34:34,136 --> 00:34:35,295
+that they have a new method,
+
+
+1144
+00:34:35,536 --> 00:34:35,916
+split.
+
+
+1145
+00:34:36,136 --> 00:34:37,275
+Which is an existing method on
+
+
+1146
+00:34:37,275 --> 00:34:37,735
+collection.
+
+
+1147
+00:34:38,976 --> 00:34:41,106
+It breaks up a string into an
+
+
+1148
+00:34:41,106 --> 00:34:42,116
+array of slices.
+
+
+1149
+00:34:42,966 --> 00:34:44,775
+But if you run it on Swift, in
+
+
+1150
+00:34:44,835 --> 00:34:46,166
+Swift 4, you'll notice it
+
+
+1151
+00:34:46,166 --> 00:34:47,516
+doesn't return an array of
+
+
+1152
+00:34:47,516 --> 00:34:47,956
+strings.
+
+
+1153
+00:34:49,556 --> 00:34:50,996
+The slice type in Swift 4 for
+
+
+1154
+00:34:50,996 --> 00:34:52,726
+strings is a substring.
+
+
+1155
+00:34:53,946 --> 00:34:54,815
+So, why did we give it a
+
+
+1156
+00:34:54,815 --> 00:34:55,536
+different type?
+
+
+1157
+00:34:56,786 --> 00:34:58,346
+Well, there's some fundamental
+
+
+1158
+00:34:58,346 --> 00:34:59,446
+engineering trade-offs to be
+
+
+1159
+00:34:59,446 --> 00:35:01,526
+made when deciding how slicing
+
+
+1160
+00:35:01,526 --> 00:35:02,726
+on collections ought to work.
+
+
+1161
+00:35:04,536 --> 00:35:05,306
+When you're slicing a
+
+
+1162
+00:35:05,306 --> 00:35:06,586
+collection, should it make a
+
+
+1163
+00:35:06,636 --> 00:35:08,126
+copy of the elements that you're
+
+
+1164
+00:35:08,126 --> 00:35:10,896
+slicing out, or should it return
+
+
+1165
+00:35:11,136 --> 00:35:13,316
+a view into the internal storage
+
+
+1166
+00:35:13,426 --> 00:35:14,586
+of the original collection.
+
+
+1167
+00:35:14,586 --> 00:35:17,556
+From a performance point of
+
+
+1168
+00:35:17,556 --> 00:35:19,616
+view, sharing storage is clearly
+
+
+1169
+00:35:19,616 --> 00:35:20,396
+going to be faster.
+
+
+1170
+00:35:21,326 --> 00:35:22,366
+As Bob mentioned earlier,
+
+
+1171
+00:35:22,426 --> 00:35:24,686
+allocating and tracking heap
+
+
+1172
+00:35:24,686 --> 00:35:26,196
+memory can be very expensive.
+
+
+1173
+00:35:26,516 --> 00:35:27,926
+You could easily spend at least
+
+
+1174
+00:35:27,926 --> 00:35:29,326
+half of the time in an operation
+
+
+1175
+00:35:29,326 --> 00:35:31,116
+like Split, making copies.
+
+
+1176
+00:35:32,116 --> 00:35:34,456
+What's more, if slicing takes
+
+
+1177
+00:35:34,456 --> 00:35:35,866
+linear time, because we're
+
+
+1178
+00:35:35,866 --> 00:35:37,166
+making copies of the elements,
+
+
+1179
+00:35:37,816 --> 00:35:39,786
+then a loop that was performing
+
+
+1180
+00:35:39,786 --> 00:35:40,926
+slicing operations might
+
+
+1181
+00:35:40,926 --> 00:35:42,226
+accidentally be quadratic,
+
+
+1182
+00:35:42,496 --> 00:35:43,786
+instead of running in the linear
+
+
+1183
+00:35:43,866 --> 00:35:44,986
+time you might be expecting.
+
+
+1184
+00:35:46,526 --> 00:35:47,756
+So, that's was slicing of any
+
+
+1185
+00:35:47,756 --> 00:35:49,426
+collection in Swift needs to
+
+
+1186
+00:35:49,426 --> 00:35:50,596
+happen in constant time.
+
+
+1187
+00:35:52,476 --> 00:35:53,906
+But that shared storage approach
+
+
+1188
+00:35:53,906 --> 00:35:55,636
+that we use instead also has a
+
+
+1189
+00:35:55,636 --> 00:35:56,116
+downside.
+
+
+1190
+00:35:56,246 --> 00:35:57,516
+And to understand what that is,
+
+
+1191
+00:35:58,056 --> 00:35:59,056
+let's look at the internal
+
+
+1192
+00:35:59,056 --> 00:36:00,406
+implementation of string.
+
+
+1193
+00:36:01,876 --> 00:36:04,856
+So, currently in Swift strings
+
+
+1194
+00:36:04,856 --> 00:36:06,026
+internally are made up of three
+
+
+1195
+00:36:06,026 --> 00:36:06,506
+properties.
+
+
+1196
+00:36:07,646 --> 00:36:08,766
+They have a pointer to the start
+
+
+1197
+00:36:08,766 --> 00:36:09,196
+of the buffer.
+
+
+1198
+00:36:10,076 --> 00:36:11,066
+They have a count of the number
+
+
+1199
+00:36:11,066 --> 00:36:12,476
+of code units in the buffer, and
+
+
+1200
+00:36:12,606 --> 00:36:14,086
+they have a reference to an
+
+
+1201
+00:36:14,086 --> 00:36:14,836
+owner object.
+
+
+1202
+00:36:15,696 --> 00:36:17,196
+The owner object is responsible
+
+
+1203
+00:36:17,196 --> 00:36:18,526
+for tracking and managing the
+
+
+1204
+00:36:18,526 --> 00:36:18,846
+buffer.
+
+
+1205
+00:36:18,966 --> 00:36:20,216
+And this is a familiar pattern
+
+
+1206
+00:36:20,216 --> 00:36:21,316
+if you know on copy on write
+
+
+1207
+00:36:21,316 --> 00:36:22,376
+works in other collections.
+
+
+1208
+00:36:24,306 --> 00:36:25,826
+When the original string struct
+
+
+1209
+00:36:25,826 --> 00:36:28,946
+is destroyed, the reference
+
+
+1210
+00:36:28,946 --> 00:36:30,116
+count and the owner object drops
+
+
+1211
+00:36:30,166 --> 00:36:31,896
+to zero, and the [inaudible] on
+
+
+1212
+00:36:31,896 --> 00:36:33,696
+the class frees the buffer.
+
+
+1213
+00:36:35,276 --> 00:36:36,626
+Now, let's have a look at what
+
+
+1214
+00:36:36,626 --> 00:36:37,816
+happens when we create a
+
+
+1215
+00:36:37,926 --> 00:36:38,396
+substring.
+
+
+1216
+00:36:39,066 --> 00:36:42,066
+So, supposing we sliced off just
+
+
+1217
+00:36:42,066 --> 00:36:43,456
+the word well from the original
+
+
+1218
+00:36:43,456 --> 00:36:43,736
+string.
+
+
+1219
+00:36:45,176 --> 00:36:47,546
+The substring now has a start
+
+
+1220
+00:36:47,546 --> 00:36:49,446
+that points to the W, has a
+
+
+1221
+00:36:49,446 --> 00:36:51,656
+count of five, and the owner is
+
+
+1222
+00:36:51,656 --> 00:36:53,136
+a shared reference to the
+
+
+1223
+00:36:53,136 --> 00:36:54,146
+original strings owner.
+
+
+1224
+00:36:55,506 --> 00:36:56,486
+Now what happens when that
+
+
+1225
+00:36:56,486 --> 00:36:58,576
+original string goes out of
+
+
+1226
+00:36:59,496 --> 00:36:59,706
+scope.
+
+
+1227
+00:37:00,526 --> 00:37:01,796
+The owner's reference count is
+
+
+1228
+00:37:01,796 --> 00:37:03,636
+decremented, but it's not
+
+
+1229
+00:37:03,636 --> 00:37:04,546
+destroyed because it's being
+
+
+1230
+00:37:04,546 --> 00:37:05,526
+shared by the substring.
+
+
+1231
+00:37:05,526 --> 00:37:06,806
+So, the buffer isn't freed.
+
+
+1232
+00:37:07,156 --> 00:37:08,496
+And that's good because the
+
+
+1233
+00:37:08,496 --> 00:37:09,556
+substring is relying on the
+
+
+1234
+00:37:09,556 --> 00:37:09,756
+buffer.
+
+
+1235
+00:37:09,756 --> 00:37:12,236
+But the entire of the buffer
+
+
+1236
+00:37:12,236 --> 00:37:12,606
+remains.
+
+
+1237
+00:37:12,816 --> 00:37:14,296
+Not just the part, the substring
+
+
+1238
+00:37:14,296 --> 00:37:14,946
+it's relying on.
+
+
+1239
+00:37:16,436 --> 00:37:17,496
+Now in this case, it's no big
+
+
+1240
+00:37:17,496 --> 00:37:18,516
+deal, it's just a few
+
+
+1241
+00:37:18,516 --> 00:37:19,006
+characters.
+
+
+1242
+00:37:19,696 --> 00:37:20,846
+But it can be a real problem.
+
+
+1243
+00:37:22,886 --> 00:37:24,626
+Supposing you downloaded a giant
+
+
+1244
+00:37:24,626 --> 00:37:25,816
+blob of text from the internet,
+
+
+1245
+00:37:26,596 --> 00:37:28,046
+then you sliced out just a small
+
+
+1246
+00:37:28,046 --> 00:37:29,636
+part of that text and assigned
+
+
+1247
+00:37:29,636 --> 00:37:31,796
+it to some long-lived variable
+
+
+1248
+00:37:32,126 --> 00:37:33,116
+like a UI label.
+
+
+1249
+00:37:34,216 --> 00:37:35,496
+This ends up looking like a
+
+
+1250
+00:37:35,496 --> 00:37:36,116
+memory leak.
+
+
+1251
+00:37:36,716 --> 00:37:38,046
+Because the original giant blob
+
+
+1252
+00:37:38,046 --> 00:37:39,686
+of text's buffer never gets
+
+
+1253
+00:37:39,686 --> 00:37:40,066
+freed.
+
+
+1254
+00:37:41,166 --> 00:37:42,206
+This was actually such a big
+
+
+1255
+00:37:42,206 --> 00:37:43,456
+problem in Java that they
+
+
+1256
+00:37:43,456 --> 00:37:45,036
+changed the behavior of slicing
+
+
+1257
+00:37:45,036 --> 00:37:47,346
+on strings a few years ago to
+
+
+1258
+00:37:47,346 --> 00:37:48,236
+make it make copies.
+
+
+1259
+00:37:49,566 --> 00:37:50,676
+But as we've seen, that has a
+
+
+1260
+00:37:50,676 --> 00:37:51,806
+performance downside, and we
+
+
+1261
+00:37:51,806 --> 00:37:52,916
+don't necessarily want to make
+
+
+1262
+00:37:53,006 --> 00:37:53,706
+that tradeoff.
+
+
+1263
+00:37:54,646 --> 00:37:55,896
+The natural solution for a
+
+
+1264
+00:37:55,896 --> 00:37:57,686
+problem like this in Swift is to
+
+
+1265
+00:37:57,776 --> 00:37:58,446
+use a type.
+
+
+1266
+00:37:59,166 --> 00:38:00,746
+And that's why substrings are a
+
+
+1267
+00:38:00,746 --> 00:38:01,856
+different type to strings.
+
+
+1268
+00:38:02,866 --> 00:38:04,486
+Now, when you're performing your
+
+
+1269
+00:38:04,486 --> 00:38:06,086
+slicing operation on the
+
+
+1270
+00:38:06,086 --> 00:38:07,896
+original large string, you'll
+
+
+1271
+00:38:07,896 --> 00:38:09,316
+end up wanting to assign a
+
+
+1272
+00:38:09,356 --> 00:38:10,986
+substring to a string and the
+
+
+1273
+00:38:10,986 --> 00:38:12,186
+compiler will tell you about it.
+
+
+1274
+00:38:13,456 --> 00:38:14,686
+If you apply the fix it, it's
+
+
+1275
+00:38:14,686 --> 00:38:16,736
+going to suggest then you'll
+
+
+1276
+00:38:16,736 --> 00:38:18,836
+create a new string, and that
+
+
+1277
+00:38:18,836 --> 00:38:20,216
+will copy just the part of the
+
+
+1278
+00:38:20,216 --> 00:38:21,246
+buffer that you sliced.
+
+
+1279
+00:38:22,286 --> 00:38:23,556
+And that allows the original
+
+
+1280
+00:38:23,556 --> 00:38:25,916
+buffer to go out of scope and be
+
+
+1281
+00:38:26,896 --> 00:38:27,666
+freed up.
+
+
+1282
+00:38:28,516 --> 00:38:33,286
+[ Applause ]
+
+
+1283
+00:38:33,786 --> 00:38:35,706
+So, now we've got two different
+
+
+1284
+00:38:35,706 --> 00:38:36,056
+types.
+
+
+1285
+00:38:36,056 --> 00:38:37,056
+You might ask the question when
+
+
+1286
+00:38:37,056 --> 00:38:38,606
+should I use substring in my
+
+
+1287
+00:38:38,606 --> 00:38:38,736
+code.
+
+
+1288
+00:38:38,736 --> 00:38:40,856
+And the answer is, you probably
+
+
+1289
+00:38:40,856 --> 00:38:42,756
+shouldn't very often explicitly.
+
+
+1290
+00:38:43,306 --> 00:38:45,596
+When defining interfaces, like
+
+
+1291
+00:38:45,596 --> 00:38:47,216
+methods on types or properties,
+
+
+1292
+00:38:47,686 --> 00:38:49,096
+you should prefer to use string,
+
+
+1293
+00:38:49,856 --> 00:38:51,126
+both to avoid the memory leak
+
+
+1294
+00:38:51,126 --> 00:38:52,696
+issues we just talked about, but
+
+
+1295
+00:38:52,696 --> 00:38:54,336
+also because string is what we
+
+
+1296
+00:38:54,336 --> 00:38:55,796
+call the common currency type.
+
+
+1297
+00:38:56,036 --> 00:38:56,916
+It's the type that everybody
+
+
+1298
+00:38:56,916 --> 00:38:58,446
+expects to see in APIs.
+
+
+1299
+00:39:00,076 --> 00:39:01,386
+Most of the time, the only time
+
+
+1300
+00:39:01,386 --> 00:39:03,176
+you will encounter a substring
+
+
+1301
+00:39:03,176 --> 00:39:04,676
+type is when you're performing a
+
+
+1302
+00:39:04,676 --> 00:39:05,566
+slicing operation.
+
+
+1303
+00:39:06,076 --> 00:39:07,726
+And because Swift uses type
+
+
+1304
+00:39:07,786 --> 00:39:09,186
+inference, you won't actually
+
+
+1305
+00:39:09,186 --> 00:39:10,596
+name the substring type at all.
+
+
+1306
+00:39:12,196 --> 00:39:13,706
+Substrings have many of the same
+
+
+1307
+00:39:13,706 --> 00:39:14,856
+methods and properties as
+
+
+1308
+00:39:14,856 --> 00:39:15,586
+regular strings.
+
+
+1309
+00:39:15,936 --> 00:39:17,666
+So even though you're not naming
+
+
+1310
+00:39:17,666 --> 00:39:19,606
+the type as a substring, much of
+
+
+1311
+00:39:19,686 --> 00:39:20,806
+the code will operate just the
+
+
+1312
+00:39:20,896 --> 00:39:22,686
+same as if it was operating on a
+
+
+1313
+00:39:22,686 --> 00:39:23,056
+string.
+
+
+1314
+00:39:24,066 --> 00:39:25,196
+And if you don't actually need
+
+
+1315
+00:39:25,196 --> 00:39:26,036
+to create a string because
+
+
+1316
+00:39:26,036 --> 00:39:26,836
+you're only doing local
+
+
+1317
+00:39:26,836 --> 00:39:28,336
+operations, then that can be
+
+
+1318
+00:39:28,336 --> 00:39:29,296
+avoided altogether.
+
+
+1319
+00:39:31,866 --> 00:39:32,656
+So, that's almost it for
+
+
+1320
+00:39:32,656 --> 00:39:33,026
+strings.
+
+
+1321
+00:39:33,386 --> 00:39:34,526
+There's one last feature we want
+
+
+1322
+00:39:34,526 --> 00:39:34,976
+to talk about.
+
+
+1323
+00:39:34,976 --> 00:39:36,266
+And that's multiline string
+
+
+1324
+00:39:36,266 --> 00:39:36,656
+literals.
+
+
+1325
+00:39:37,616 --> 00:39:38,916
+Previously, these were a real
+
+
+1326
+00:39:38,916 --> 00:39:39,586
+pain to write.
+
+
+1327
+00:39:39,726 --> 00:39:41,256
+You had to write one big long
+
+
+1328
+00:39:41,256 --> 00:39:42,776
+string literal with embedded
+
+
+1329
+00:39:42,846 --> 00:39:43,516
+slash ends in it.
+
+
+1330
+00:39:44,606 --> 00:39:46,606
+Swift 4 introduces the triple
+
+
+1331
+00:39:46,606 --> 00:39:47,426
+quoting syntax.
+
+
+1332
+00:39:48,676 --> 00:39:49,876
+You start your multiline string
+
+
+1333
+00:39:49,876 --> 00:39:50,556
+with a triple quote.
+
+
+1334
+00:39:51,516 --> 00:39:56,906
+[ Applause ]
+
+
+1335
+00:39:57,406 --> 00:39:58,416
+And then you end it with a
+
+
+1336
+00:39:58,416 --> 00:39:58,946
+triple quote.
+
+
+1337
+00:39:59,606 --> 00:40:01,316
+The indentation of the closing
+
+
+1338
+00:40:01,316 --> 00:40:02,966
+triple quote is what determines
+
+
+1339
+00:40:03,446 --> 00:40:04,936
+the indentation for every line
+
+
+1340
+00:40:04,936 --> 00:40:05,976
+of the multiline string.
+
+
+1341
+00:40:06,546 --> 00:40:08,856
+You can see here, because we've
+
+
+1342
+00:40:08,856 --> 00:40:09,996
+put our literal inside a
+
+
+1343
+00:40:09,996 --> 00:40:10,866
+function, we want it to be
+
+
+1344
+00:40:10,866 --> 00:40:12,086
+nicely indented to match the
+
+
+1345
+00:40:12,086 --> 00:40:13,596
+formatting of the rest of our
+
+
+1346
+00:40:13,596 --> 00:40:13,716
+code.
+
+
+1347
+00:40:14,586 --> 00:40:15,706
+The rule is, whatever
+
+
+1348
+00:40:15,706 --> 00:40:16,956
+indentation you use on the
+
+
+1349
+00:40:16,996 --> 00:40:18,576
+closing quote, you need to
+
+
+1350
+00:40:18,576 --> 00:40:20,136
+include at least that much
+
+
+1351
+00:40:20,136 --> 00:40:21,936
+indentation on every line of the
+
+
+1352
+00:40:21,936 --> 00:40:22,266
+string.
+
+
+1353
+00:40:23,076 --> 00:40:24,596
+Then, when the code is compiled,
+
+
+1354
+00:40:25,546 --> 00:40:27,356
+that indentation is stripped
+
+
+1355
+00:40:28,236 --> 00:40:28,326
+off.
+
+
+1356
+00:40:29,436 --> 00:40:30,806
+This is a really nice feature.
+
+
+1357
+00:40:30,806 --> 00:40:31,636
+And one of the cool things to
+
+
+1358
+00:40:31,636 --> 00:40:33,006
+mention about it is it's being
+
+
+1359
+00:40:33,006 --> 00:40:35,696
+both proposed and implemented by
+
+
+1360
+00:40:35,696 --> 00:40:36,896
+external members of the Swift
+
+
+1361
+00:40:36,896 --> 00:40:38,036
+open source community.
+
+
+1362
+00:40:39,516 --> 00:40:45,106
+[ Applause ]
+
+
+1363
+00:40:45,606 --> 00:40:46,396
+So, that's it for string.
+
+
+1364
+00:40:46,396 --> 00:40:47,326
+Now, let's talk about some of
+
+
+1365
+00:40:47,326 --> 00:40:48,366
+the new generics features.
+
+
+1366
+00:40:49,516 --> 00:40:50,756
+With each version of Swift,
+
+
+1367
+00:40:50,756 --> 00:40:52,506
+we've been refining the generic
+
+
+1368
+00:40:52,576 --> 00:40:52,916
+system.
+
+
+1369
+00:40:53,136 --> 00:40:54,406
+Both to make it more powerful,
+
+
+1370
+00:40:55,116 --> 00:40:56,766
+but also to make it more usable
+
+
+1371
+00:40:56,936 --> 00:40:57,606
+and approachable.
+
+
+1372
+00:40:57,986 --> 00:40:59,396
+Such as with protocol extensions
+
+
+1373
+00:40:59,396 --> 00:41:00,356
+that came in Swift 2.
+
+
+1374
+00:41:01,576 --> 00:41:03,616
+In this release, we are
+
+
+1375
+00:41:03,616 --> 00:41:04,866
+introducing two features.
+
+
+1376
+00:41:05,556 --> 00:41:06,846
+Where clauses on associated
+
+
+1377
+00:41:06,846 --> 00:41:09,466
+types, and generic subscripts.
+
+
+1378
+00:41:10,016 --> 00:41:10,806
+And I'm going to show you a
+
+
+1379
+00:41:10,806 --> 00:41:12,176
+couple of examples of how we've
+
+
+1380
+00:41:12,176 --> 00:41:13,016
+used them in the standard
+
+
+1381
+00:41:13,016 --> 00:41:14,356
+library to give you an idea of
+
+
+1382
+00:41:14,356 --> 00:41:15,376
+how you might be able to use
+
+
+1383
+00:41:15,406 --> 00:41:17,006
+them in your code.
+
+
+1384
+00:41:18,256 --> 00:41:20,386
+So, supposing you wanted to
+
+
+1385
+00:41:20,386 --> 00:41:22,176
+detect whether every element of
+
+
+1386
+00:41:22,176 --> 00:41:24,276
+a sequence was equal to a
+
+
+1387
+00:41:24,276 --> 00:41:25,106
+particular value.
+
+
+1388
+00:41:26,166 --> 00:41:27,806
+You can do this with a contains
+
+
+1389
+00:41:27,806 --> 00:41:28,946
+method that already exists on
+
+
+1390
+00:41:28,946 --> 00:41:29,366
+sequence.
+
+
+1391
+00:41:29,716 --> 00:41:31,486
+But, that code is a bit clunky.
+
+
+1392
+00:41:31,876 --> 00:41:33,546
+You have to write the sequence
+
+
+1393
+00:41:33,726 --> 00:41:35,766
+doesn't contain any element not
+
+
+1394
+00:41:35,766 --> 00:41:36,536
+equal to the value.
+
+
+1395
+00:41:37,656 --> 00:41:38,676
+If you are writing this over and
+
+
+1396
+00:41:38,676 --> 00:41:39,506
+over again, that might get
+
+
+1397
+00:41:39,506 --> 00:41:41,036
+pretty annoying and protocol
+
+
+1398
+00:41:41,036 --> 00:41:42,526
+extensions give you a really
+
+
+1399
+00:41:42,526 --> 00:41:44,146
+nice way to wrap up code like
+
+
+1400
+00:41:44,146 --> 00:41:46,046
+this into helper methods that
+
+
+1401
+00:41:46,046 --> 00:41:46,846
+neaten up your code.
+
+
+1402
+00:41:47,996 --> 00:41:49,786
+So, we can wrap this code inside
+
+
+1403
+00:41:49,786 --> 00:41:51,686
+an extension on sequence that
+
+
+1404
+00:41:51,686 --> 00:41:52,706
+gives us something much more
+
+
+1405
+00:41:52,706 --> 00:41:53,566
+readable to call.
+
+
+1406
+00:41:55,026 --> 00:41:56,796
+Now, when you're extending
+
+
+1407
+00:41:56,796 --> 00:41:58,326
+sequence like this, there's one
+
+
+1408
+00:41:58,326 --> 00:41:59,536
+thing that's slightly annoying.
+
+
+1409
+00:41:59,536 --> 00:42:01,056
+And that's that you used to have
+
+
+1410
+00:42:01,086 --> 00:42:03,146
+to write Iterator.Element to
+
+
+1411
+00:42:03,146 --> 00:42:04,266
+refer to the type of the
+
+
+1412
+00:42:04,266 --> 00:42:05,256
+elements of the sequence.
+
+
+1413
+00:42:06,306 --> 00:42:08,116
+In Swift 4, you can drop the
+
+
+1414
+00:42:08,116 --> 00:42:08,506
+Iterator.
+
+
+1415
+00:42:08,506 --> 00:42:10,796
+because sequence has an element
+
+
+1416
+00:42:10,856 --> 00:42:11,706
+type of its own.
+
+
+1417
+00:42:13,006 --> 00:42:13,786
+Now, this might seem like a
+
+
+1418
+00:42:13,786 --> 00:42:15,356
+really easy features we have
+
+
+1419
+00:42:15,356 --> 00:42:15,486
+added.
+
+
+1420
+00:42:15,486 --> 00:42:16,706
+But we actually couldn't do it
+
+
+1421
+00:42:17,016 --> 00:42:18,506
+without the ability to constrain
+
+
+1422
+00:42:18,506 --> 00:42:19,466
+associated types.
+
+
+1423
+00:42:19,516 --> 00:42:20,396
+And I'll show you how.
+
+
+1424
+00:42:22,026 --> 00:42:23,626
+So, in Swift 3, we had a
+
+
+1425
+00:42:23,626 --> 00:42:25,576
+protocol sequence, it had an
+
+
+1426
+00:42:25,576 --> 00:42:26,916
+associated type iterator.
+
+
+1427
+00:42:27,526 --> 00:42:28,756
+And the iterator had an
+
+
+1428
+00:42:28,756 --> 00:42:30,136
+associated type for the element.
+
+
+1429
+00:42:30,816 --> 00:42:33,856
+In Swift 4, we added the
+
+
+1430
+00:42:33,856 --> 00:42:36,736
+associated type Element and then
+
+
+1431
+00:42:37,246 --> 00:42:38,856
+we add a where clause to the
+
+
+1432
+00:42:38,856 --> 00:42:40,916
+Iterator associated type to
+
+
+1433
+00:42:40,916 --> 00:42:43,026
+require that its element is the
+
+
+1434
+00:42:43,106 --> 00:42:44,536
+same as sequence's element.
+
+
+1435
+00:42:45,366 --> 00:42:46,336
+Otherwise they could get out of
+
+
+1436
+00:42:46,336 --> 00:42:47,426
+sync and that would cause
+
+
+1437
+00:42:47,426 --> 00:42:47,976
+difficulties.
+
+
+1438
+00:42:49,276 --> 00:42:50,326
+We've used this in several
+
+
+1439
+00:42:50,326 --> 00:42:51,656
+places in the standard library.
+
+
+1440
+00:42:52,396 --> 00:42:54,366
+So, for example, previously
+
+
+1441
+00:42:54,366 --> 00:42:55,996
+there was no guarantee the
+
+
+1442
+00:42:55,996 --> 00:42:58,006
+elements of a subsequence were
+
+
+1443
+00:42:58,006 --> 00:42:59,266
+the same type as the elements of
+
+
+1444
+00:42:59,266 --> 00:42:59,736
+a sequence.
+
+
+1445
+00:43:00,646 --> 00:43:01,896
+No one would ever want to write
+
+
+1446
+00:43:01,896 --> 00:43:03,006
+a sequence where that wasn't the
+
+
+1447
+00:43:03,006 --> 00:43:03,336
+case.
+
+
+1448
+00:43:03,666 --> 00:43:05,026
+It would be impossible to use.
+
+
+1449
+00:43:05,286 --> 00:43:06,746
+But, still it wasn't guaranteed
+
+
+1450
+00:43:06,746 --> 00:43:08,356
+by the compiler, because we have
+
+
+1451
+00:43:08,356 --> 00:43:09,846
+no way of expressing it in the
+
+
+1452
+00:43:09,846 --> 00:43:10,376
+language.
+
+
+1453
+00:43:11,146 --> 00:43:12,806
+Now, with where clauses on
+
+
+1454
+00:43:12,806 --> 00:43:14,596
+associated types we can make
+
+
+1455
+00:43:14,596 --> 00:43:15,276
+that guarantee.
+
+
+1456
+00:43:16,826 --> 00:43:18,016
+So, what does this mean for your
+
+
+1457
+00:43:18,016 --> 00:43:18,256
+code?
+
+
+1458
+00:43:19,866 --> 00:43:21,056
+Well, if you've even extended
+
+
+1459
+00:43:21,086 --> 00:43:22,436
+sequence or collection yourself,
+
+
+1460
+00:43:22,436 --> 00:43:23,936
+you've probably found that you
+
+
+1461
+00:43:23,936 --> 00:43:25,016
+had to add all of these
+
+
+1462
+00:43:25,016 --> 00:43:26,736
+seemingly unnecessary where
+
+
+1463
+00:43:26,736 --> 00:43:29,156
+clauses to your extension in
+
+
+1464
+00:43:29,156 --> 00:43:30,196
+order to guarantee that it would
+
+
+1465
+00:43:30,196 --> 00:43:31,696
+compile because the body was
+
+
+1466
+00:43:31,696 --> 00:43:33,736
+relying on things the protocol
+
+
+1467
+00:43:33,846 --> 00:43:34,606
+didn't guarantee.
+
+
+1468
+00:43:35,966 --> 00:43:37,966
+Now, because we've done the
+
+
+1469
+00:43:37,966 --> 00:43:38,686
+things you've seen in the
+
+
+1470
+00:43:38,686 --> 00:43:40,546
+previous slides, it can
+
+
+1471
+00:43:40,546 --> 00:43:41,206
+guarantee that.
+
+
+1472
+00:43:41,206 --> 00:43:43,496
+And so, you'll get warnings
+
+
+1473
+00:43:43,796 --> 00:43:44,816
+telling you that you now have
+
+
+1474
+00:43:44,876 --> 00:43:45,986
+redundant constraints.
+
+
+1475
+00:43:47,096 --> 00:43:48,726
+These are just warnings in both
+
+
+1476
+00:43:48,726 --> 00:43:50,276
+Swift 3 and Swift 4 mode, and
+
+
+1477
+00:43:50,276 --> 00:43:51,616
+all they're telling you is that
+
+
+1478
+00:43:51,616 --> 00:43:53,176
+they're unnecessary and you can
+
+
+1479
+00:43:53,676 --> 00:43:55,126
+neaten up your code, which you
+
+
+1480
+00:43:55,126 --> 00:43:56,926
+can do at your own pace.
+
+
+1481
+00:43:58,056 --> 00:43:59,326
+Now, there's one more thing to
+
+
+1482
+00:43:59,326 --> 00:44:00,666
+know about these new constraints
+
+
+1483
+00:44:00,666 --> 00:44:01,186
+that we've added.
+
+
+1484
+00:44:01,276 --> 00:44:02,746
+And that's that this is one of
+
+
+1485
+00:44:02,746 --> 00:44:04,476
+the few things that is not
+
+
+1486
+00:44:04,476 --> 00:44:05,896
+backwardly compatible in Swift
+
+
+1487
+00:44:05,896 --> 00:44:06,796
+3.2 mode.
+
+
+1488
+00:44:07,436 --> 00:44:09,036
+Because protocol performance has
+
+
+1489
+00:44:09,116 --> 00:44:10,186
+to be consistent across the
+
+
+1490
+00:44:10,186 --> 00:44:11,186
+entire program.
+
+
+1491
+00:44:12,546 --> 00:44:13,566
+So, if you written your own
+
+
+1492
+00:44:13,566 --> 00:44:15,216
+custom collection types, that
+
+
+1493
+00:44:15,546 --> 00:44:17,186
+might happen to violate some of
+
+
+1494
+00:44:17,186 --> 00:44:18,786
+these constraints, you'll have
+
+
+1495
+00:44:18,846 --> 00:44:20,266
+to resolve those issues before
+
+
+1496
+00:44:20,266 --> 00:44:21,236
+you can compile with the new
+
+
+1497
+00:44:21,236 --> 00:44:21,746
+compiler.
+
+
+1498
+00:44:22,686 --> 00:44:24,076
+We think this is a pretty rare
+
+
+1499
+00:44:24,146 --> 00:44:24,846
+thing to happen.
+
+
+1500
+00:44:25,086 --> 00:44:26,666
+It's usually an oversight and
+
+
+1501
+00:44:26,666 --> 00:44:28,136
+it's usually easily resolved.
+
+
+1502
+00:44:28,166 --> 00:44:29,346
+But it's something to be aware
+
+
+1503
+00:44:29,346 --> 00:44:31,006
+of if you have done this.
+
+
+1504
+00:44:32,716 --> 00:44:34,296
+So, finally, let's talk about
+
+
+1505
+00:44:34,296 --> 00:44:35,166
+generic subscripts.
+
+
+1506
+00:44:36,076 --> 00:44:37,516
+Earlier, we saw an example of a
+
+
+1507
+00:44:37,516 --> 00:44:38,876
+one-sided range syntax.
+
+
+1508
+00:44:39,666 --> 00:44:40,536
+So, how did we actually
+
+
+1509
+00:44:40,536 --> 00:44:41,896
+implement this internally within
+
+
+1510
+00:44:41,896 --> 00:44:42,676
+the standard library?
+
+
+1511
+00:44:42,676 --> 00:44:47,376
+Well, first, there's a new type
+
+
+1512
+00:44:47,566 --> 00:44:48,596
+partial range from.
+
+
+1513
+00:44:49,116 --> 00:44:50,106
+It looks a lot like a regular
+
+
+1514
+00:44:50,106 --> 00:44:51,696
+range, but it only has a lower
+
+
+1515
+00:44:51,696 --> 00:44:51,996
+bound.
+
+
+1516
+00:44:52,646 --> 00:44:55,956
+Next, there's a protocol range
+
+
+1517
+00:44:55,956 --> 00:44:57,636
+expression, which we've used to
+
+
+1518
+00:44:57,636 --> 00:44:59,206
+unify all of the different kinds
+
+
+1519
+00:44:59,206 --> 00:45:00,036
+of range types.
+
+
+1520
+00:45:00,776 --> 00:45:01,856
+It has a method that takes a
+
+
+1521
+00:45:01,856 --> 00:45:03,996
+collection and uses that to turn
+
+
+1522
+00:45:03,996 --> 00:45:05,586
+any range expression into a
+
+
+1523
+00:45:05,586 --> 00:45:07,176
+concrete range type that can be
+
+
+1524
+00:45:07,176 --> 00:45:08,006
+used for slicing.
+
+
+1525
+00:45:08,626 --> 00:45:11,936
+For example, partial range from
+
+
+1526
+00:45:12,096 --> 00:45:13,776
+uses the collections end index
+
+
+1527
+00:45:14,006 --> 00:45:15,376
+to fill in the missing upper
+
+
+1528
+00:45:15,376 --> 00:45:15,716
+bound.
+
+
+1529
+00:45:16,426 --> 00:45:19,586
+Now that we have that protocol,
+
+
+1530
+00:45:19,776 --> 00:45:21,566
+we can extend string with a
+
+
+1531
+00:45:21,566 --> 00:45:23,876
+generic subscript that will take
+
+
+1532
+00:45:23,956 --> 00:45:25,656
+any kind of range expression and
+
+
+1533
+00:45:25,656 --> 00:45:27,406
+use that range expression to
+
+
+1534
+00:45:27,406 --> 00:45:28,526
+slice a substring.
+
+
+1535
+00:45:30,346 --> 00:45:31,316
+But because strings now
+
+
+1536
+00:45:31,316 --> 00:45:33,176
+collections, we're actually able
+
+
+1537
+00:45:33,176 --> 00:45:34,776
+to put this feature directly on
+
+
+1538
+00:45:34,776 --> 00:45:35,276
+collection.
+
+
+1539
+00:45:35,276 --> 00:45:37,026
+And that includes any custom
+
+
+1540
+00:45:37,026 --> 00:45:38,066
+collections that you might have
+
+
+1541
+00:45:38,066 --> 00:45:39,456
+written, which get this feature,
+
+
+1542
+00:45:39,686 --> 00:45:41,386
+automatically via the protocol.
+
+
+1543
+00:45:43,006 --> 00:45:44,016
+We were actually able to clean
+
+
+1544
+00:45:44,016 --> 00:45:45,366
+up a lot of code in the standard
+
+
+1545
+00:45:45,366 --> 00:45:46,696
+library this way because we
+
+
+1546
+00:45:46,696 --> 00:45:47,636
+could remove all of the
+
+
+1547
+00:45:47,636 --> 00:45:49,446
+duplicated slicing operations we
+
+
+1548
+00:45:49,446 --> 00:45:50,806
+had to hard code for each
+
+
+1549
+00:45:50,806 --> 00:45:51,906
+different range type we wanted
+
+
+1550
+00:45:51,906 --> 00:45:53,426
+to support and replace them with
+
+
+1551
+00:45:53,426 --> 00:45:54,926
+a single generic subscript.
+
+
+1552
+00:45:55,496 --> 00:45:56,746
+And we hope that you can find
+
+
+1553
+00:45:56,746 --> 00:45:58,356
+similar ways to use generics to
+
+
+1554
+00:45:58,356 --> 00:46:01,176
+clean up your code as well.
+
+
+1555
+00:46:01,676 --> 00:46:02,396
+So, there are loads of new
+
+
+1556
+00:46:02,396 --> 00:46:03,506
+features I didn't get a chance
+
+
+1557
+00:46:03,506 --> 00:46:04,866
+to cover today, like some new
+
+
+1558
+00:46:04,866 --> 00:46:05,796
+numeric protocols.
+
+
+1559
+00:46:06,156 --> 00:46:06,956
+And some really cool
+
+
+1560
+00:46:06,956 --> 00:46:08,116
+enhancements to the dictionary
+
+
+1561
+00:46:08,186 --> 00:46:08,386
+type.
+
+
+1562
+00:46:09,506 --> 00:46:11,086
+One of the things we've added is
+
+
+1563
+00:46:11,086 --> 00:46:12,866
+a new method on collections that
+
+
+1564
+00:46:12,866 --> 00:46:14,206
+allows you to swap two elements
+
+
+1565
+00:46:14,386 --> 00:46:16,006
+in the collection, given two
+
+
+1566
+00:46:16,006 --> 00:46:17,296
+indices instead of using the
+
+
+1567
+00:46:17,296 --> 00:46:18,966
+global function that takes two
+
+
+1568
+00:46:18,966 --> 00:46:19,736
+arguments in out.
+
+
+1569
+00:46:21,046 --> 00:46:22,376
+And this was to support a new
+
+
+1570
+00:46:22,376 --> 00:46:24,206
+feature of exclusive access to
+
+
+1571
+00:46:24,206 --> 00:46:25,526
+memory that John's going to talk
+
+
+1572
+00:46:25,526 --> 00:46:26,276
+to you more about now.
+
+
+1573
+00:46:27,516 --> 00:46:34,266
+[ Applause ]
+
+
+1574
+00:46:34,766 --> 00:46:35,486
+>> Thanks, Ben.
+
+
+1575
+00:46:36,026 --> 00:46:37,316
+Thanks, Ben.
+
+
+1576
+00:46:38,616 --> 00:46:40,556
+Exclusive access to memory is a
+
+
+1577
+00:46:40,556 --> 00:46:42,126
+new rule that we're adding in
+
+
+1578
+00:46:42,126 --> 00:46:42,966
+Swift 4.
+
+
+1579
+00:46:43,636 --> 00:46:46,896
+It's really the first part of a
+
+
+1580
+00:46:46,896 --> 00:46:48,556
+much larger feature that we call
+
+
+1581
+00:46:48,716 --> 00:46:49,236
+ownership.
+
+
+1582
+00:46:49,946 --> 00:46:51,666
+Ownership is all about making it
+
+
+1583
+00:46:51,666 --> 00:46:53,196
+easier to understand the
+
+
+1584
+00:46:53,196 --> 00:46:54,986
+performance of your program.
+
+
+1585
+00:46:55,826 --> 00:46:57,296
+It's going to make it easier for
+
+
+1586
+00:46:57,296 --> 00:46:59,106
+you to optimize your program by
+
+
+1587
+00:46:59,106 --> 00:47:01,206
+eliminating unnecessary copies
+
+
+1588
+00:47:01,206 --> 00:47:03,066
+and retains when you need to.
+
+
+1589
+00:47:03,216 --> 00:47:04,966
+But it's also going to enable us
+
+
+1590
+00:47:05,126 --> 00:47:07,336
+to make Swift, faster by default
+
+
+1591
+00:47:07,636 --> 00:47:08,836
+in a number of cases.
+
+
+1592
+00:47:09,726 --> 00:47:11,426
+And ultimately, it's going to
+
+
+1593
+00:47:11,426 --> 00:47:13,936
+enable some really powerful new
+
+
+1594
+00:47:13,936 --> 00:47:15,986
+language features for creating
+
+
+1595
+00:47:16,126 --> 00:47:18,156
+safe and optimally efficient
+
+
+1596
+00:47:18,156 --> 00:47:20,356
+abstractions, before we can do
+
+
+1597
+00:47:20,356 --> 00:47:22,396
+any of that we have to make it
+
+
+1598
+00:47:22,476 --> 00:47:23,976
+easier to reason about memory.
+
+
+1599
+00:47:24,326 --> 00:47:26,116
+And that means enforcing
+
+
+1600
+00:47:26,146 --> 00:47:27,916
+exclusive access to memory.
+
+
+1601
+00:47:28,976 --> 00:47:30,186
+So, what do I mean by that.
+
+
+1602
+00:47:31,486 --> 00:47:32,576
+Let's walk through an example.
+
+
+1603
+00:47:33,606 --> 00:47:35,086
+Often it happens that I'm
+
+
+1604
+00:47:35,246 --> 00:47:37,046
+iterating over a collection like
+
+
+1605
+00:47:37,126 --> 00:47:38,766
+this and I want to modify each
+
+
+1606
+00:47:38,766 --> 00:47:39,776
+element as I go.
+
+
+1607
+00:47:40,616 --> 00:47:42,166
+This is a pretty common pattern.
+
+
+1608
+00:47:42,166 --> 00:47:43,856
+So, I'm going to go ahead and
+
+
+1609
+00:47:43,856 --> 00:47:45,746
+extract that into a method.
+
+
+1610
+00:47:46,486 --> 00:47:49,096
+Now that I've got this method
+
+
+1611
+00:47:49,666 --> 00:47:51,376
+I've got a generic operation
+
+
+1612
+00:47:51,546 --> 00:47:53,346
+that I can use to modify any
+
+
+1613
+00:47:53,346 --> 00:47:54,466
+mutable collection.
+
+
+1614
+00:47:54,976 --> 00:47:58,956
+Each element at a time.
+
+
+1615
+00:47:59,156 --> 00:48:01,966
+This operation is iterating over
+
+
+1616
+00:48:01,966 --> 00:48:03,676
+a set of indices that it
+
+
+1617
+00:48:03,726 --> 00:48:07,386
+captures at the start of the
+
+
+1618
+00:48:07,386 --> 00:48:08,176
+iteration.
+
+
+1619
+00:48:09,226 --> 00:48:11,256
+So, this only really works if
+
+
+1620
+00:48:11,256 --> 00:48:13,286
+nothing within this operation
+
+
+1621
+00:48:13,636 --> 00:48:15,186
+actually modifies the set of
+
+
+1622
+00:48:15,186 --> 00:48:16,976
+indices by adding or removing
+
+
+1623
+00:48:16,976 --> 00:48:18,186
+elements from the collection.
+
+
+1624
+00:48:19,356 --> 00:48:21,456
+But I can pretty clearly see
+
+
+1625
+00:48:21,556 --> 00:48:22,816
+nothing in this method is
+
+
+1626
+00:48:22,816 --> 00:48:23,786
+actually modifying the
+
+
+1627
+00:48:23,786 --> 00:48:24,286
+collection.
+
+
+1628
+00:48:24,416 --> 00:48:28,186
+Right? Well, okay I do call this
+
+
+1629
+00:48:28,186 --> 00:48:30,056
+closure that was passed in.
+
+
+1630
+00:48:30,056 --> 00:48:31,726
+And a closure is arbitrary code.
+
+
+1631
+00:48:32,386 --> 00:48:34,406
+But again, I look at this
+
+
+1632
+00:48:34,406 --> 00:48:37,726
+method, and I think to myself OK
+
+
+1633
+00:48:37,856 --> 00:48:39,646
+I'm only giving this closure
+
+
+1634
+00:48:39,646 --> 00:48:41,816
+access to a specific element of
+
+
+1635
+00:48:41,816 --> 00:48:43,196
+the collection, not to the
+
+
+1636
+00:48:43,196 --> 00:48:44,216
+entire collection.
+
+
+1637
+00:48:44,616 --> 00:48:47,126
+So, I should know that nothing
+
+
+1638
+00:48:47,126 --> 00:48:48,406
+is allowed to modify the
+
+
+1639
+00:48:48,406 --> 00:48:50,336
+collection while this operation
+
+
+1640
+00:48:50,336 --> 00:48:50,986
+is underway.
+
+
+1641
+00:48:52,376 --> 00:48:54,526
+Unfortunately, in Swift 3,
+
+
+1642
+00:48:54,626 --> 00:48:55,586
+that's not really how the
+
+
+1643
+00:48:55,586 --> 00:48:56,196
+language works.
+
+
+1644
+00:48:57,546 --> 00:48:59,086
+Let's go back to that code that
+
+
+1645
+00:48:59,086 --> 00:49:01,026
+I had where I was calling my
+
+
+1646
+00:49:01,026 --> 00:49:01,486
+method.
+
+
+1647
+00:49:02,236 --> 00:49:03,106
+What if instead of just
+
+
+1648
+00:49:03,106 --> 00:49:06,026
+multiplying the element by 2, I
+
+
+1649
+00:49:06,476 --> 00:49:08,296
+try to access the numbers
+
+
+1650
+00:49:08,296 --> 00:49:08,976
+variable.
+
+
+1651
+00:49:09,976 --> 00:49:11,276
+There's nothing stopping me from
+
+
+1652
+00:49:11,276 --> 00:49:11,766
+doing that.
+
+
+1653
+00:49:12,076 --> 00:49:14,756
+I can just, at any point in this
+
+
+1654
+00:49:14,756 --> 00:49:17,336
+closure, remove something or add
+
+
+1655
+00:49:17,336 --> 00:49:20,106
+something to the variable, to
+
+
+1656
+00:49:20,106 --> 00:49:21,756
+the array while I'm iterating
+
+
+1657
+00:49:21,756 --> 00:49:23,176
+over it in another method.
+
+
+1658
+00:49:23,796 --> 00:49:26,466
+As soon as I do this, one thing
+
+
+1659
+00:49:26,466 --> 00:49:27,866
+immediately stands out to me.
+
+
+1660
+00:49:28,326 --> 00:49:30,216
+It's a lot harder to reason
+
+
+1661
+00:49:30,256 --> 00:49:32,376
+about what's going on with this
+
+
+1662
+00:49:32,376 --> 00:49:33,106
+numbers array.
+
+
+1663
+00:49:33,106 --> 00:49:36,456
+It used to be the case before
+
+
+1664
+00:49:36,826 --> 00:49:38,456
+that I could just look at each
+
+
+1665
+00:49:38,456 --> 00:49:39,996
+individual function in my
+
+
+1666
+00:49:39,996 --> 00:49:41,786
+program and think about what it
+
+
+1667
+00:49:41,986 --> 00:49:44,186
+individually is doing to each
+
+
+1668
+00:49:44,306 --> 00:49:46,106
+variable that it has access to.
+
+
+1669
+00:49:46,736 --> 00:49:47,596
+And that's great.
+
+
+1670
+00:49:47,896 --> 00:49:49,086
+That's one of the best
+
+
+1671
+00:49:49,156 --> 00:49:50,976
+properties of what we call value
+
+
+1672
+00:49:50,976 --> 00:49:51,416
+semantics.
+
+
+1673
+00:49:51,416 --> 00:49:52,836
+That you get this kind of
+
+
+1674
+00:49:52,896 --> 00:49:55,226
+isolation in each program, each
+
+
+1675
+00:49:55,266 --> 00:49:56,286
+part of your program.
+
+
+1676
+00:49:56,786 --> 00:49:58,706
+Everything composes together and
+
+
+1677
+00:49:58,866 --> 00:50:00,206
+you don't have to reason about
+
+
+1678
+00:50:00,256 --> 00:50:01,836
+everything all at once.
+
+
+1679
+00:50:03,136 --> 00:50:05,586
+But unfortunately, because we
+
+
+1680
+00:50:05,586 --> 00:50:07,476
+can do things like this we get a
+
+
+1681
+00:50:07,556 --> 00:50:09,966
+sort of reference semantics like
+
+
+1682
+00:50:09,966 --> 00:50:11,936
+affect, where you all the sudden
+
+
+1683
+00:50:11,936 --> 00:50:13,556
+have to reason about your entire
+
+
+1684
+00:50:13,636 --> 00:50:15,336
+program together in order to
+
+
+1685
+00:50:15,336 --> 00:50:16,676
+understand what's going on.
+
+
+1686
+00:50:17,646 --> 00:50:19,076
+Here, when I do this sort of
+
+
+1687
+00:50:19,176 --> 00:50:21,056
+thing, I'm going to run past the
+
+
+1688
+00:50:21,116 --> 00:50:21,876
+end of the array.
+
+
+1689
+00:50:22,686 --> 00:50:24,836
+Now, it's pretty easy for me to
+
+
+1690
+00:50:24,836 --> 00:50:26,876
+go ahead and try to fix that in
+
+
+1691
+00:50:26,876 --> 00:50:29,566
+my method, by instead of
+
+
+1692
+00:50:29,856 --> 00:50:31,006
+iterating over the set of
+
+
+1693
+00:50:31,006 --> 00:50:32,356
+indices at the start of the
+
+
+1694
+00:50:32,416 --> 00:50:34,636
+collection, I'm going to reload
+
+
+1695
+00:50:34,636 --> 00:50:37,066
+the index each time through, and
+
+
+1696
+00:50:37,066 --> 00:50:38,986
+compare that and that way, if I
+
+
+1697
+00:50:38,986 --> 00:50:40,486
+move something from the end,
+
+
+1698
+00:50:40,486 --> 00:50:41,416
+everything is going to work.
+
+
+1699
+00:50:41,936 --> 00:50:46,266
+But, oh, there has to be another
+
+
+1700
+00:50:46,296 --> 00:50:46,456
+way.
+
+
+1701
+00:50:46,656 --> 00:50:47,336
+A better way.
+
+
+1702
+00:50:47,966 --> 00:50:50,076
+Because I've made my code so
+
+
+1703
+00:50:50,076 --> 00:50:51,946
+much uglier, and a little bit
+
+
+1704
+00:50:51,946 --> 00:50:52,556
+slower.
+
+
+1705
+00:50:52,856 --> 00:50:54,376
+And you know if that were good
+
+
+1706
+00:50:54,376 --> 00:50:55,896
+enough, that would be a
+
+
+1707
+00:50:55,956 --> 00:50:57,226
+reasonable tradeoff, right.
+
+
+1708
+00:50:57,846 --> 00:50:59,486
+You know, lose a little bit of
+
+
+1709
+00:50:59,486 --> 00:51:00,886
+performance, and making your
+
+
+1710
+00:51:00,886 --> 00:51:03,826
+code a little bit uglier is OK,
+
+
+1711
+00:51:04,036 --> 00:51:06,376
+if it leads it to it being more
+
+
+1712
+00:51:06,376 --> 00:51:06,806
+correct.
+
+
+1713
+00:51:08,336 --> 00:51:09,466
+But that's not really good
+
+
+1714
+00:51:09,466 --> 00:51:09,986
+enough here.
+
+
+1715
+00:51:10,686 --> 00:51:11,986
+Let's go back to this closure
+
+
+1716
+00:51:11,986 --> 00:51:12,306
+again.
+
+
+1717
+00:51:12,856 --> 00:51:14,966
+What if instead of removing one
+
+
+1718
+00:51:15,016 --> 00:51:19,126
+thing at the end of the loop, I
+
+
+1719
+00:51:19,126 --> 00:51:20,796
+actually just wipe the entire
+
+
+1720
+00:51:20,846 --> 00:51:22,576
+array out before I even access
+
+
+1721
+00:51:22,666 --> 00:51:23,216
+the element.
+
+
+1722
+00:51:23,826 --> 00:51:26,436
+What is this even accessing at
+
+
+1723
+00:51:26,496 --> 00:51:27,036
+this point?
+
+
+1724
+00:51:27,466 --> 00:51:28,686
+Where is this going?
+
+
+1725
+00:51:29,516 --> 00:51:31,276
+I'm assigning to something that
+
+
+1726
+00:51:31,276 --> 00:51:32,856
+doesn't really exist anymore
+
+
+1727
+00:51:33,076 --> 00:51:34,246
+because the array doesn't have
+
+
+1728
+00:51:34,246 --> 00:51:35,706
+any elements in it.
+
+
+1729
+00:51:37,016 --> 00:51:38,806
+That's a really good question
+
+
+1730
+00:51:38,836 --> 00:51:40,116
+and in order to answer it we
+
+
+1731
+00:51:40,116 --> 00:51:41,076
+need to dig into the
+
+
+1732
+00:51:41,076 --> 00:51:42,756
+implementation of array a little
+
+
+1733
+00:51:43,336 --> 00:51:43,576
+bit.
+
+
+1734
+00:51:43,576 --> 00:51:45,846
+Array is a copy on write value
+
+
+1735
+00:51:45,846 --> 00:51:47,156
+type, implemented with a
+
+
+1736
+00:51:47,266 --> 00:51:49,166
+reference counted buffer.
+
+
+1737
+00:51:49,916 --> 00:51:52,626
+At the beginning of the loop,
+
+
+1738
+00:51:53,956 --> 00:51:57,026
+numbers is pointing to exactly
+
+
+1739
+00:51:57,076 --> 00:51:58,846
+to that buffer.
+
+
+1740
+00:51:59,036 --> 00:52:00,866
+For performance, Swift really
+
+
+1741
+00:52:00,866 --> 00:52:02,836
+wants to bind the element
+
+
+1742
+00:52:03,066 --> 00:52:05,816
+variable that's passed into the
+
+
+1743
+00:52:05,816 --> 00:52:08,316
+closure directly to the memory
+
+
+1744
+00:52:08,316 --> 00:52:09,296
+within that buffer.
+
+
+1745
+00:52:10,106 --> 00:52:11,706
+But that creates a problem
+
+
+1746
+00:52:11,966 --> 00:52:12,886
+because when we do this
+
+
+1747
+00:52:12,886 --> 00:52:16,056
+assignment, numbers is no longer
+
+
+1748
+00:52:16,056 --> 00:52:17,746
+pointing to that buffer, which
+
+
+1749
+00:52:17,746 --> 00:52:19,026
+means it's no longer keeping it
+
+
+1750
+00:52:19,026 --> 00:52:19,536
+alive.
+
+
+1751
+00:52:20,736 --> 00:52:23,026
+Swift has to be a safe language.
+
+
+1752
+00:52:23,266 --> 00:52:24,826
+We don't want to just leave this
+
+
+1753
+00:52:24,826 --> 00:52:26,236
+as a dangling reference.
+
+
+1754
+00:52:26,646 --> 00:52:28,256
+So, something has to be keeping
+
+
+1755
+00:52:28,256 --> 00:52:30,226
+this buffer alive in order for
+
+
+1756
+00:52:30,226 --> 00:52:31,646
+this to not end up crashing the
+
+
+1757
+00:52:31,646 --> 00:52:32,216
+program.
+
+
+1758
+00:52:32,986 --> 00:52:33,786
+How can that work?
+
+
+1759
+00:52:34,616 --> 00:52:37,006
+Well the way it works is that
+
+
+1760
+00:52:37,096 --> 00:52:39,556
+Swift actually implicitly
+
+
+1761
+00:52:39,556 --> 00:52:41,986
+creates a reference to the
+
+
+1762
+00:52:41,986 --> 00:52:43,976
+buffer for the duration of the
+
+
+1763
+00:52:43,976 --> 00:52:45,206
+subscript operation.
+
+
+1764
+00:52:46,226 --> 00:52:48,886
+And that makes things not crash.
+
+
+1765
+00:52:49,386 --> 00:52:50,926
+But it creates this extra
+
+
+1766
+00:52:50,926 --> 00:52:53,266
+performance penalty that we're
+
+
+1767
+00:52:53,266 --> 00:52:55,096
+hoping with the optimizer will
+
+
+1768
+00:52:55,146 --> 00:52:57,486
+clean up on every single time
+
+
+1769
+00:52:57,706 --> 00:52:59,136
+that we subscript into the
+
+
+1770
+00:52:59,136 --> 00:52:59,346
+array.
+
+
+1771
+00:52:59,946 --> 00:53:03,906
+So, this kind of nonexclusive
+
+
+1772
+00:53:03,906 --> 00:53:05,456
+access to memory creates
+
+
+1773
+00:53:05,456 --> 00:53:07,446
+problems at multiple levels.
+
+
+1774
+00:53:07,676 --> 00:53:09,166
+Cascading problems in your
+
+
+1775
+00:53:09,206 --> 00:53:09,716
+program.
+
+
+1776
+00:53:10,166 --> 00:53:11,766
+It makes things harder to reason
+
+
+1777
+00:53:11,766 --> 00:53:12,136
+about.
+
+
+1778
+00:53:12,516 --> 00:53:14,356
+It makes your code less general
+
+
+1779
+00:53:14,676 --> 00:53:16,236
+and harder to prove correct.
+
+
+1780
+00:53:17,206 --> 00:53:18,566
+And it creates performance
+
+
+1781
+00:53:18,566 --> 00:53:20,486
+problems both in your part of
+
+
+1782
+00:53:20,486 --> 00:53:22,946
+the program and for Swift, when
+
+
+1783
+00:53:22,946 --> 00:53:24,756
+it's trying to optimize these
+
+
+1784
+00:53:24,756 --> 00:53:26,086
+general data structures.
+
+
+1785
+00:53:27,156 --> 00:53:28,826
+The solution is that we have to
+
+
+1786
+00:53:28,826 --> 00:53:31,276
+have exclusive access to memory.
+
+
+1787
+00:53:31,806 --> 00:53:35,336
+What do I mean by exclusive?
+
+
+1788
+00:53:35,496 --> 00:53:39,016
+Well it's OK to have two
+
+
+1789
+00:53:39,016 --> 00:53:40,086
+different parts of the program
+
+
+1790
+00:53:40,086 --> 00:53:41,356
+that are reading from the same
+
+
+1791
+00:53:41,356 --> 00:53:42,656
+variable at the same time.
+
+
+1792
+00:53:44,286 --> 00:53:45,326
+But, when I have something
+
+
+1793
+00:53:45,326 --> 00:53:46,926
+that's writing to the variable,
+
+
+1794
+00:53:47,266 --> 00:53:48,946
+it's very important that nothing
+
+
+1795
+00:53:48,946 --> 00:53:50,476
+else be accessing at all.
+
+
+1796
+00:53:50,946 --> 00:53:52,166
+The thing that's writing to the
+
+
+1797
+00:53:52,166 --> 00:53:53,866
+variable should be exclusive.
+
+
+1798
+00:53:54,736 --> 00:53:55,246
+And that's it.
+
+
+1799
+00:53:55,726 --> 00:53:56,616
+That's the rule.
+
+
+1800
+00:53:56,616 --> 00:53:58,006
+That's the new rule that we're
+
+
+1801
+00:53:58,066 --> 00:53:59,526
+adding in Swift 4.
+
+
+1802
+00:54:00,186 --> 00:54:04,166
+So, how do we enforce it?
+
+
+1803
+00:54:04,796 --> 00:54:08,896
+Well, in most cases, like in our
+
+
+1804
+00:54:08,896 --> 00:54:10,896
+original example, Swift is
+
+
+1805
+00:54:10,896 --> 00:54:12,676
+actually capable of enforcing
+
+
+1806
+00:54:12,676 --> 00:54:15,846
+this at compile time.
+
+
+1807
+00:54:16,056 --> 00:54:18,136
+Here I'm calling a mutating
+
+
+1808
+00:54:18,136 --> 00:54:19,736
+method on numbers.
+
+
+1809
+00:54:19,986 --> 00:54:22,046
+That initiates a right to it for
+
+
+1810
+00:54:22,046 --> 00:54:23,166
+the duration of the call.
+
+
+1811
+00:54:23,166 --> 00:54:27,306
+When I come along later within
+
+
+1812
+00:54:27,306 --> 00:54:29,576
+that call, and call another
+
+
+1813
+00:54:29,576 --> 00:54:30,876
+mutating method on it.
+
+
+1814
+00:54:31,496 --> 00:54:33,226
+I've got a conflicting right
+
+
+1815
+00:54:33,636 --> 00:54:34,856
+that violates the rule.
+
+
+1816
+00:54:35,346 --> 00:54:36,596
+And Swift can just see that
+
+
+1817
+00:54:36,596 --> 00:54:38,486
+that's happening at compile time
+
+
+1818
+00:54:38,796 --> 00:54:39,806
+and tell you about it
+
+
+1819
+00:54:39,856 --> 00:54:40,576
+immediately.
+
+
+1820
+00:54:41,166 --> 00:54:44,036
+Now, that's generally going to
+
+
+1821
+00:54:44,036 --> 00:54:46,726
+be true in most common value
+
+
+1822
+00:54:46,796 --> 00:54:48,336
+semantics sorts of situations.
+
+
+1823
+00:54:49,346 --> 00:54:50,906
+But there are some situations
+
+
+1824
+00:54:51,966 --> 00:54:54,236
+where that's not possible,
+
+
+1825
+00:54:54,816 --> 00:54:56,176
+generally because of some sort
+
+
+1826
+00:54:56,176 --> 00:54:57,276
+of reference semantics.
+
+
+1827
+00:54:57,446 --> 00:54:59,106
+Either a global variable, or
+
+
+1828
+00:54:59,106 --> 00:55:01,116
+some sort of shared memory like
+
+
+1829
+00:55:01,116 --> 00:55:02,126
+a class property.
+
+
+1830
+00:55:03,486 --> 00:55:04,526
+So, let's go back to our
+
+
+1831
+00:55:04,526 --> 00:55:05,446
+original example.
+
+
+1832
+00:55:05,976 --> 00:55:08,206
+Here, numbers was a local
+
+
+1833
+00:55:08,206 --> 00:55:08,776
+variable.
+
+
+1834
+00:55:09,266 --> 00:55:12,396
+But what if instead it were a
+
+
+1835
+00:55:13,616 --> 00:55:15,726
+class property?
+
+
+1836
+00:55:15,816 --> 00:55:17,486
+Well, the situation is still
+
+
+1837
+00:55:17,486 --> 00:55:20,186
+basically the same.
+
+
+1838
+00:55:20,386 --> 00:55:22,106
+Here, I'm calling a mutating
+
+
+1839
+00:55:22,106 --> 00:55:23,936
+method on a class property.
+
+
+1840
+00:55:25,076 --> 00:55:27,326
+And within the closure, I'm
+
+
+1841
+00:55:27,326 --> 00:55:29,616
+calling a mutating method on the
+
+
+1842
+00:55:30,166 --> 00:55:31,366
+same class property.
+
+
+1843
+00:55:32,266 --> 00:55:34,336
+But they are on objects that the
+
+
+1844
+00:55:34,336 --> 00:55:36,816
+compiler can't reason whether
+
+
+1845
+00:55:36,816 --> 00:55:38,446
+they're the same object or not.
+
+
+1846
+00:55:39,596 --> 00:55:42,036
+In general, the point of class
+
+
+1847
+00:55:42,286 --> 00:55:44,486
+types is that you can move them,
+
+
+1848
+00:55:44,486 --> 00:55:46,496
+copy them around, share them
+
+
+1849
+00:55:46,496 --> 00:55:47,666
+throughout your program.
+
+
+1850
+00:55:48,306 --> 00:55:51,186
+And use them wherever you like.
+
+
+1851
+00:55:51,736 --> 00:55:54,116
+But, that means that the
+
+
+1852
+00:55:54,116 --> 00:55:55,746
+compiler can no longer really
+
+
+1853
+00:55:55,856 --> 00:55:58,136
+tell you conclusively whether or
+
+
+1854
+00:55:58,136 --> 00:56:00,456
+not any particular function all
+
+
+1855
+00:56:00,456 --> 00:56:02,936
+or access like this is actually
+
+
+1856
+00:56:02,936 --> 00:56:04,396
+accessing the same object.
+
+
+1857
+00:56:05,116 --> 00:56:06,226
+So, the compiler has to be
+
+
+1858
+00:56:06,226 --> 00:56:06,976
+conservative.
+
+
+1859
+00:56:07,536 --> 00:56:09,556
+Now, it would be prohibitive if
+
+
+1860
+00:56:09,556 --> 00:56:11,606
+we just banned all this sort of
+
+
+1861
+00:56:11,676 --> 00:56:12,816
+thing all the time.
+
+
+1862
+00:56:12,816 --> 00:56:14,486
+So, instead we do the check
+
+
+1863
+00:56:14,586 --> 00:56:15,486
+dynamically.
+
+
+1864
+00:56:16,256 --> 00:56:17,366
+Which means that we'll get an
+
+
+1865
+00:56:17,366 --> 00:56:20,286
+error like this at run time.
+
+
+1866
+00:56:20,896 --> 00:56:22,986
+But only if they're actually the
+
+
+1867
+00:56:22,986 --> 00:56:23,696
+same object.
+
+
+1868
+00:56:23,846 --> 00:56:24,806
+Of course, if they're different
+
+
+1869
+00:56:24,806 --> 00:56:27,116
+objects, they're considered the
+
+
+1870
+00:56:27,256 --> 00:56:29,076
+two class properties on them are
+
+
+1871
+00:56:29,076 --> 00:56:30,776
+considered different memory.
+
+
+1872
+00:56:31,346 --> 00:56:32,316
+And there's no conflict.
+
+
+1873
+00:56:32,846 --> 00:56:37,726
+Now this enforcement that we do
+
+
+1874
+00:56:38,776 --> 00:56:40,936
+is for performance reasons only
+
+
+1875
+00:56:40,936 --> 00:56:42,486
+done within a single thread.
+
+
+1876
+00:56:43,116 --> 00:56:45,476
+However, the thread sanitizer
+
+
+1877
+00:56:45,476 --> 00:56:47,406
+tool that we make available in
+
+
+1878
+00:56:47,486 --> 00:56:49,226
+Xcode will catch this sort of
+
+
+1879
+00:56:49,266 --> 00:56:50,906
+problem even across threads.
+
+
+1880
+00:56:51,716 --> 00:56:53,016
+There's a great session later
+
+
+1881
+00:56:53,016 --> 00:56:53,546
+this week.
+
+
+1882
+00:56:53,866 --> 00:56:55,486
+I strongly encourage any of you
+
+
+1883
+00:56:55,486 --> 00:56:57,706
+to go to about finding bugs like
+
+
+1884
+00:56:57,776 --> 00:56:59,326
+this with Xcode.
+
+
+1885
+00:57:03,216 --> 00:57:05,226
+This is a Swift 4 rule.
+
+
+1886
+00:57:06,636 --> 00:57:08,066
+Like we said yesterday in the
+
+
+1887
+00:57:08,306 --> 00:57:12,596
+State of Union, Swift 3.2 is all
+
+
+1888
+00:57:12,596 --> 00:57:15,466
+about allowing your existing
+
+
+1889
+00:57:15,466 --> 00:57:16,896
+code to continue to work.
+
+
+1890
+00:57:17,606 --> 00:57:19,526
+So, in Swift 3.2, this is just a
+
+
+1891
+00:57:19,586 --> 00:57:19,886
+warning.
+
+
+1892
+00:57:20,716 --> 00:57:23,436
+However, because Swift 4 and
+
+
+1893
+00:57:23,436 --> 00:57:27,356
+Swift 3 need to interoperate in
+
+
+1894
+00:57:27,356 --> 00:57:30,066
+a future version of Xcode we are
+
+
+1895
+00:57:30,066 --> 00:57:31,676
+going to have to make this an
+
+
+1896
+00:57:31,726 --> 00:57:33,496
+error even in Swift 3 mode.
+
+
+1897
+00:57:34,236 --> 00:57:36,066
+So, we strongly encourage you to
+
+
+1898
+00:57:36,216 --> 00:57:37,846
+pay attention to these warnings
+
+
+1899
+00:57:38,316 --> 00:57:39,086
+and fix them.
+
+
+1900
+00:57:39,456 --> 00:57:40,496
+Because they're just warnings
+
+
+1901
+00:57:40,536 --> 00:57:41,776
+you can fix them in your own
+
+
+1902
+00:57:41,856 --> 00:57:42,226
+time.
+
+
+1903
+00:57:42,226 --> 00:57:44,116
+And at your own pace, but you
+
+
+1904
+00:57:44,116 --> 00:57:45,486
+should take them seriously.
+
+
+1905
+00:57:52,076 --> 00:57:53,966
+We're really looking forward to
+
+
+1906
+00:57:54,006 --> 00:57:55,196
+the power this is going to
+
+
+1907
+00:57:55,196 --> 00:57:55,576
+bring.
+
+
+1908
+00:57:55,866 --> 00:57:57,066
+It's going to make it so much
+
+
+1909
+00:57:57,136 --> 00:58:00,126
+easier to reason about code.
+
+
+1910
+00:58:00,126 --> 00:58:03,716
+It's going to enable a lot of
+
+
+1911
+00:58:03,716 --> 00:58:05,376
+really amazing optimizations,
+
+
+1912
+00:58:05,616 --> 00:58:07,416
+both in the library and in the
+
+
+1913
+00:58:07,416 --> 00:58:08,106
+compiler.
+
+
+1914
+00:58:08,416 --> 00:58:09,776
+And it's also going to make it
+
+
+1915
+00:58:10,386 --> 00:58:12,076
+you know a lot easier for us to
+
+
+1916
+00:58:12,076 --> 00:58:14,666
+deliver tools that you can use
+
+
+1917
+00:58:15,016 --> 00:58:18,496
+to take advantage of to optimize
+
+
+1918
+00:58:18,496 --> 00:58:20,256
+your own code in ways that are
+
+
+1919
+00:58:20,256 --> 00:58:21,236
+going to be really great.
+
+
+1920
+00:58:22,386 --> 00:58:23,626
+If you're interested in reading
+
+
+1921
+00:58:23,626 --> 00:58:25,116
+more about what we're planning
+
+
+1922
+00:58:25,116 --> 00:58:26,796
+on doing with this, there's an
+
+
+1923
+00:58:26,946 --> 00:58:28,736
+ownership manifesto on the Swift
+
+
+1924
+00:58:28,736 --> 00:58:30,476
+website that I would encourage
+
+
+1925
+00:58:30,476 --> 00:58:32,946
+you to check out.
+
+
+1926
+00:58:33,216 --> 00:58:34,546
+Now, one caveat.
+
+
+1927
+00:58:34,706 --> 00:58:36,276
+The developer preview that we've
+
+
+1928
+00:58:36,276 --> 00:58:38,186
+given you this week, some of
+
+
+1929
+00:58:38,186 --> 00:58:39,826
+this stuff is still in progress.
+
+
+1930
+00:58:40,226 --> 00:58:41,396
+There's a lot of information in
+
+
+1931
+00:58:41,396 --> 00:58:42,296
+the release notes.
+
+
+1932
+00:58:42,556 --> 00:58:43,766
+I really encourage you to check
+
+
+1933
+00:58:43,816 --> 00:58:44,256
+those out.
+
+
+1934
+00:58:44,846 --> 00:58:46,406
+We really would like you to go
+
+
+1935
+00:58:46,406 --> 00:58:48,496
+ahead and make sure that all of
+
+
+1936
+00:58:48,496 --> 00:58:49,426
+this stuff is enabled.
+
+
+1937
+00:58:49,486 --> 00:58:50,646
+And let us know if you run into
+
+
+1938
+00:58:50,646 --> 00:58:50,976
+any problems.
+
+
+1939
+00:58:54,086 --> 00:58:55,676
+And that's it for what's new in
+
+
+1940
+00:58:55,746 --> 00:58:56,076
+Swift.
+
+
+1941
+00:58:56,836 --> 00:58:58,306
+There are a lot of great new
+
+
+1942
+00:58:58,306 --> 00:59:00,506
+refinements in addition to the
+
+
+1943
+00:59:00,506 --> 00:59:03,416
+library, and to the language.
+
+
+1944
+00:59:04,036 --> 00:59:05,676
+We've got a great new Swift type
+
+
+1945
+00:59:06,146 --> 00:59:07,436
+and we've optimized a lot of
+
+
+1946
+00:59:07,436 --> 00:59:07,896
+stuff.
+
+
+1947
+00:59:08,606 --> 00:59:10,186
+And we've really done a ton of
+
+
+1948
+00:59:10,186 --> 00:59:12,306
+work on the tools and improving
+
+
+1949
+00:59:12,306 --> 00:59:13,526
+the performance and the code
+
+
+1950
+00:59:13,526 --> 00:59:14,276
+size of your code.
+
+
+1951
+00:59:14,366 --> 00:59:17,496
+I hope you have a great WWDC,
+
+
+1952
+00:59:17,586 --> 00:59:18,626
+and thank you very much for
+
+
+1953
+00:59:18,626 --> 00:59:18,816
+coming.
+
+
+1954
+00:59:19,516 --> 00:59:23,500
+[ Applause ]
+

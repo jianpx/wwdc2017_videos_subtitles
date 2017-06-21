@@ -1,0 +1,7904 @@
+1
+00:00:07,516 --> 00:00:16,500
+[ Cheering ]
+
+
+2
+00:00:21,176 --> 00:00:23,500
+[ Applause ]
+
+
+3
+00:00:24,766 --> 00:00:25,426
+>> Okay, thank you.
+
+
+4
+00:00:25,956 --> 00:00:26,366
+Thank you.
+
+
+5
+00:00:26,826 --> 00:00:27,696
+Good morning, everybody.
+
+
+6
+00:00:28,246 --> 00:00:29,096
+My name is Kasia.
+
+
+7
+00:00:29,286 --> 00:00:30,366
+I'm here with my colleagues,
+
+
+8
+00:00:30,366 --> 00:00:31,246
+Shuchen and James.
+
+
+9
+00:00:31,556 --> 00:00:32,555
+And we are here to hand you the
+
+
+10
+00:00:32,555 --> 00:00:33,986
+keys to a better text input
+
+
+11
+00:00:33,986 --> 00:00:35,156
+experience in your app.
+
+
+12
+00:00:35,246 --> 00:00:36,516
+So, let's see what we're going
+
+
+13
+00:00:36,516 --> 00:00:37,236
+to talk about today.
+
+
+14
+00:00:37,506 --> 00:00:39,246
+We're going to start with
+
+
+15
+00:00:39,436 --> 00:00:40,686
+integrating the keyboard into
+
+
+16
+00:00:40,686 --> 00:00:41,186
+your layout.
+
+
+17
+00:00:41,596 --> 00:00:42,786
+And we're also going to talk
+
+
+18
+00:00:42,786 --> 00:00:44,266
+about creating dynamic and more
+
+
+19
+00:00:44,266 --> 00:00:45,556
+interesting input accessory
+
+
+20
+00:00:45,556 --> 00:00:45,856
+views.
+
+
+21
+00:00:46,446 --> 00:00:47,876
+We'll talk about making your app
+
+
+22
+00:00:48,316 --> 00:00:49,816
+reach multilingual audiences,
+
+
+23
+00:00:50,586 --> 00:00:52,056
+using traits to make predictive
+
+
+24
+00:00:52,056 --> 00:00:54,796
+quick type smarter in your app.
+
+
+25
+00:00:54,796 --> 00:00:56,026
+Supporting hardware keyboards.
+
+
+26
+00:00:56,666 --> 00:00:58,166
+Creating custom input views.
+
+
+27
+00:00:58,686 --> 00:01:00,076
+And finally, tips and best
+
+
+28
+00:01:00,076 --> 00:01:01,146
+practices for keyboard
+
+
+29
+00:01:01,146 --> 00:01:01,736
+extensions.
+
+
+30
+00:01:02,346 --> 00:01:03,526
+So, I'm going to start with
+
+
+31
+00:01:03,526 --> 00:01:04,666
+integrating the keyboard into
+
+
+32
+00:01:04,666 --> 00:01:04,965
+your app.
+
+
+33
+00:01:05,846 --> 00:01:06,816
+And for that, I'm going to show
+
+
+34
+00:01:06,816 --> 00:01:08,286
+you a screenshot of the app
+
+
+35
+00:01:08,286 --> 00:01:10,296
+we've created for this talk.
+
+
+36
+00:01:10,296 --> 00:01:11,496
+It's called CatChat.
+
+
+37
+00:01:11,496 --> 00:01:12,496
+It's for talking with your pets.
+
+
+38
+00:01:13,416 --> 00:01:14,926
+Not just cats, but in my case,
+
+
+39
+00:01:15,046 --> 00:01:16,446
+just cats.
+
+
+40
+00:01:16,446 --> 00:01:18,436
+And we do have this available as
+
+
+41
+00:01:18,436 --> 00:01:19,616
+sample code so you can grab it
+
+
+42
+00:01:19,616 --> 00:01:20,146
+from the site.
+
+
+43
+00:01:20,476 --> 00:01:21,726
+Cat pictures not included.
+
+
+44
+00:01:22,696 --> 00:01:25,026
+So, let's get started with that.
+
+
+45
+00:01:25,026 --> 00:01:25,636
+You're going to see a lot of
+
+
+46
+00:01:25,636 --> 00:01:26,246
+this in the talk.
+
+
+47
+00:01:26,246 --> 00:01:27,786
+And we're going to start with
+
+
+48
+00:01:27,786 --> 00:01:29,346
+accounting for changing keyboard
+
+
+49
+00:01:29,346 --> 00:01:29,576
+heights.
+
+
+50
+00:01:30,976 --> 00:01:32,706
+So, keyboards come in different
+
+
+51
+00:01:32,706 --> 00:01:33,166
+sizes.
+
+
+52
+00:01:34,216 --> 00:01:35,976
+Depending on the language that
+
+
+53
+00:01:35,976 --> 00:01:37,326
+the user is using and the
+
+
+54
+00:01:37,326 --> 00:01:38,446
+settings that they've enabled,
+
+
+55
+00:01:39,026 --> 00:01:40,076
+you might see different heights
+
+
+56
+00:01:40,606 --> 00:01:41,916
+of the keyboards that are used
+
+
+57
+00:01:41,916 --> 00:01:42,296
+in your app.
+
+
+58
+00:01:42,816 --> 00:01:44,626
+The English keyboard, with the
+
+
+59
+00:01:44,626 --> 00:01:46,716
+predictive bar, is one height,
+
+
+60
+00:01:47,266 --> 00:01:48,876
+whereas the Polish keyboard is
+
+
+61
+00:01:48,876 --> 00:01:51,246
+shorter, and the Chinese 10-key
+
+
+62
+00:01:51,246 --> 00:01:53,126
+pinyin keyboard, is taller than
+
+
+63
+00:01:53,126 --> 00:01:53,726
+both of those.
+
+
+64
+00:01:54,716 --> 00:01:56,066
+And there are third party
+
+
+65
+00:01:56,066 --> 00:01:57,356
+keyboards, which some of you may
+
+
+66
+00:01:57,356 --> 00:01:58,946
+have even written, and those do
+
+
+67
+00:01:58,946 --> 00:02:00,246
+not have a specific height
+
+
+68
+00:02:00,246 --> 00:02:00,846
+requirement.
+
+
+69
+00:02:01,496 --> 00:02:03,066
+So, you're not ever guaranteed
+
+
+70
+00:02:03,066 --> 00:02:04,526
+to get a specific height for a
+
+
+71
+00:02:04,526 --> 00:02:05,876
+keyboard that a user is using in
+
+
+72
+00:02:05,876 --> 00:02:06,846
+your app.
+
+
+73
+00:02:07,136 --> 00:02:08,216
+So, how do you account for this?
+
+
+74
+00:02:09,256 --> 00:02:09,916
+Well, we have a set of
+
+
+75
+00:02:09,916 --> 00:02:10,686
+notifications.
+
+
+76
+00:02:11,586 --> 00:02:13,436
+We tell you when the keyboard
+
+
+77
+00:02:13,436 --> 00:02:15,776
+shows, when it hides, and when
+
+
+78
+00:02:15,776 --> 00:02:16,596
+the frame changes.
+
+
+79
+00:02:17,136 --> 00:02:17,756
+And for each of these
+
+
+80
+00:02:17,756 --> 00:02:18,896
+notifications, we'll give you
+
+
+81
+00:02:18,896 --> 00:02:20,206
+the beginning and ending frame
+
+
+82
+00:02:20,656 --> 00:02:21,916
+that you get from the keyboard.
+
+
+83
+00:02:22,876 --> 00:02:24,756
+Now before we go into how to
+
+
+84
+00:02:24,756 --> 00:02:25,546
+work with that frame we're
+
+
+85
+00:02:25,546 --> 00:02:26,846
+giving you, let's talk about a
+
+
+86
+00:02:26,846 --> 00:02:28,386
+bit of a special case, and
+
+
+87
+00:02:28,386 --> 00:02:29,676
+that's the undocked keyboard.
+
+
+88
+00:02:30,306 --> 00:02:33,106
+In iPads, the user can actually
+
+
+89
+00:02:33,586 --> 00:02:34,786
+lift the keyboard off the bottom
+
+
+90
+00:02:34,786 --> 00:02:36,216
+of the screen, and move it
+
+
+91
+00:02:36,216 --> 00:02:37,586
+around, as well as split it
+
+
+92
+00:02:37,586 --> 00:02:37,946
+apart.
+
+
+93
+00:02:38,996 --> 00:02:41,126
+In that instance, you generally
+
+
+94
+00:02:41,126 --> 00:02:42,736
+don't want your app to be trying
+
+
+95
+00:02:42,736 --> 00:02:43,986
+to stay on top of the keyboard,
+
+
+96
+00:02:43,986 --> 00:02:44,736
+because they might move it all
+
+
+97
+00:02:44,736 --> 00:02:45,476
+the way to the top of the
+
+
+98
+00:02:45,526 --> 00:02:46,766
+screen, and then all your
+
+
+99
+00:02:46,766 --> 00:02:47,846
+content is gone and that's no
+
+
+100
+00:02:47,846 --> 00:02:48,146
+fun.
+
+
+101
+00:02:48,706 --> 00:02:50,266
+So, when the keyboard gets
+
+
+102
+00:02:50,266 --> 00:02:51,596
+undocked, we will send you a
+
+
+103
+00:02:51,596 --> 00:02:53,316
+"Hide" notification, just like
+
+
+104
+00:02:53,316 --> 00:02:54,816
+we would if the keyboard was
+
+
+105
+00:02:54,816 --> 00:02:55,396
+dismissed.
+
+
+106
+00:02:56,236 --> 00:02:58,066
+In most cases, that's how you're
+
+
+107
+00:02:58,066 --> 00:02:58,986
+going to handle it, as though
+
+
+108
+00:02:58,986 --> 00:03:00,086
+the keyboard was dismissed.
+
+
+109
+00:03:00,906 --> 00:03:01,956
+If you do want to do something
+
+
+110
+00:03:01,956 --> 00:03:03,436
+clever, we will continue sending
+
+
+111
+00:03:03,436 --> 00:03:05,016
+you frame change notifications,
+
+
+112
+00:03:05,776 --> 00:03:07,736
+but for most people, what you're
+
+
+113
+00:03:07,736 --> 00:03:09,286
+going to want to do is track the
+
+
+114
+00:03:09,286 --> 00:03:10,756
+most recent hide or show event,
+
+
+115
+00:03:11,576 --> 00:03:13,036
+and then deal with the keyboard
+
+
+116
+00:03:13,036 --> 00:03:14,896
+accordingly before you deal with
+
+
+117
+00:03:14,896 --> 00:03:15,636
+any frame changes.
+
+
+118
+00:03:16,896 --> 00:03:18,206
+So, the undocked keyboard is
+
+
+119
+00:03:18,206 --> 00:03:19,066
+something like this.
+
+
+120
+00:03:19,066 --> 00:03:20,176
+We have this nice scroll view.
+
+
+121
+00:03:20,886 --> 00:03:22,306
+And when the keyboard comes up,
+
+
+122
+00:03:22,486 --> 00:03:23,606
+the scroll view compensates.
+
+
+123
+00:03:23,726 --> 00:03:25,296
+When it's undocked, it takes up
+
+
+124
+00:03:25,296 --> 00:03:26,226
+the full screen again.
+
+
+125
+00:03:26,806 --> 00:03:27,856
+And when the user docks it
+
+
+126
+00:03:27,856 --> 00:03:29,726
+again, it comes back up so that
+
+
+127
+00:03:29,726 --> 00:03:30,626
+you can see the entire
+
+
+128
+00:03:30,626 --> 00:03:32,376
+transcript of your delightful
+
+
+129
+00:03:32,376 --> 00:03:33,856
+chat with your cat, which is
+
+
+130
+00:03:33,856 --> 00:03:34,256
+important.
+
+
+131
+00:03:35,166 --> 00:03:37,426
+So, that's the kind of special
+
+
+132
+00:03:37,426 --> 00:03:37,846
+case.
+
+
+133
+00:03:38,586 --> 00:03:40,086
+So, let's move on to actually
+
+
+134
+00:03:40,116 --> 00:03:41,256
+working with that frame
+
+
+135
+00:03:41,256 --> 00:03:42,456
+notification that we give you.
+
+
+136
+00:03:43,666 --> 00:03:44,306
+First things first.
+
+
+137
+00:03:44,306 --> 00:03:45,616
+The keyboard is always full
+
+
+138
+00:03:45,616 --> 00:03:45,976
+screen.
+
+
+139
+00:03:46,226 --> 00:03:47,626
+It's always in the full screen
+
+
+140
+00:03:47,626 --> 00:03:48,486
+coordinate space.
+
+
+141
+00:03:49,186 --> 00:03:51,146
+So, the first thing you do when
+
+
+142
+00:03:51,146 --> 00:03:52,306
+you get a keyboard frame from
+
+
+143
+00:03:52,306 --> 00:03:53,856
+one of our notifications, is
+
+
+144
+00:03:53,856 --> 00:03:55,096
+convert it from the frame -- the
+
+
+145
+00:03:55,096 --> 00:03:56,196
+screen coordinates, to your
+
+
+146
+00:03:56,196 --> 00:03:57,656
+local coordinates before you
+
+
+147
+00:03:57,656 --> 00:03:58,576
+start working with anything
+
+
+148
+00:03:59,536 --> 00:03:59,636
+else.
+
+
+149
+00:03:59,756 --> 00:04:01,636
+Because the keyboard can be full
+
+
+150
+00:04:01,636 --> 00:04:03,476
+screen when you are not, and
+
+
+151
+00:04:03,476 --> 00:04:04,686
+because you can you know --
+
+
+152
+00:04:04,686 --> 00:04:05,516
+there are all sorts of fun
+
+
+153
+00:04:05,516 --> 00:04:06,626
+situations where keyboards come
+
+
+154
+00:04:06,626 --> 00:04:07,186
+up and down.
+
+
+155
+00:04:07,506 --> 00:04:08,416
+You always want to make sure to
+
+
+156
+00:04:08,416 --> 00:04:09,236
+do this first.
+
+
+157
+00:04:09,236 --> 00:04:11,126
+You can't count on the frame
+
+
+158
+00:04:11,126 --> 00:04:12,836
+that you get being local to the
+
+
+159
+00:04:12,836 --> 00:04:13,476
+frame of your app.
+
+
+160
+00:04:13,846 --> 00:04:15,076
+Think about multitasking, for
+
+
+161
+00:04:15,076 --> 00:04:15,436
+instance.
+
+
+162
+00:04:16,736 --> 00:04:17,935
+Then, if you do use the
+
+
+163
+00:04:17,935 --> 00:04:19,086
+intersection of the frame that
+
+
+164
+00:04:19,086 --> 00:04:19,836
+we give you once you've
+
+
+165
+00:04:19,836 --> 00:04:21,406
+converted it, and the view you
+
+
+166
+00:04:21,406 --> 00:04:24,056
+want to use, you can then get
+
+
+167
+00:04:24,056 --> 00:04:25,106
+the difference in height between
+
+
+168
+00:04:25,106 --> 00:04:26,386
+the two of those -- or the
+
+
+169
+00:04:26,386 --> 00:04:27,806
+height of the keyboard as it
+
+
+170
+00:04:27,806 --> 00:04:29,746
+will overlap your view, and use
+
+
+171
+00:04:29,746 --> 00:04:31,586
+that to adjust for the keyboard.
+
+
+172
+00:04:32,456 --> 00:04:33,446
+So, let's talk about a couple
+
+
+173
+00:04:33,446 --> 00:04:34,646
+different kinds of layouts.
+
+
+174
+00:04:35,276 --> 00:04:36,576
+Let's start with layouts that do
+
+
+175
+00:04:36,576 --> 00:04:37,206
+not scroll.
+
+
+176
+00:04:38,126 --> 00:04:40,496
+So, static layouts are generally
+
+
+177
+00:04:40,496 --> 00:04:41,726
+a couple of text views, maybe a
+
+
+178
+00:04:41,726 --> 00:04:43,536
+button, where the user doesn't
+
+
+179
+00:04:43,536 --> 00:04:45,206
+have to move around a lot in
+
+
+180
+00:04:45,206 --> 00:04:46,866
+order to see everything in your
+
+
+181
+00:04:46,866 --> 00:04:47,136
+view.
+
+
+182
+00:04:47,636 --> 00:04:48,616
+But you still want it to look
+
+
+183
+00:04:48,616 --> 00:04:49,956
+nice with all keyboards.
+
+
+184
+00:04:50,836 --> 00:04:52,226
+In this instance, as an example,
+
+
+185
+00:04:52,446 --> 00:04:54,716
+we have five text fields and
+
+
+186
+00:04:54,716 --> 00:04:56,046
+they are tied together with UI
+
+
+187
+00:04:56,046 --> 00:04:57,576
+Layout Guides acting as spacers.
+
+
+188
+00:04:58,236 --> 00:04:59,246
+AT the top of the view, they're
+
+
+189
+00:04:59,246 --> 00:05:01,116
+using The Safe Area Edge Insets,
+
+
+190
+00:05:01,596 --> 00:05:03,206
+and at the bottom -- well, we'll
+
+
+191
+00:05:03,206 --> 00:05:04,776
+talk about that in a second, but
+
+
+192
+00:05:05,056 --> 00:05:06,446
+the spacers change size
+
+
+193
+00:05:06,476 --> 00:05:08,156
+depending on what keyboard
+
+
+194
+00:05:08,156 --> 00:05:10,446
+appears, so that it always shows
+
+
+195
+00:05:10,446 --> 00:05:11,816
+all five of the text views to
+
+
+196
+00:05:12,146 --> 00:05:12,706
+the user.
+
+
+197
+00:05:13,876 --> 00:05:15,286
+So, how did we do that?
+
+
+198
+00:05:15,676 --> 00:05:17,046
+Well, we created a custom UI
+
+
+199
+00:05:17,046 --> 00:05:18,676
+Layout Guide with a height
+
+
+200
+00:05:18,676 --> 00:05:20,446
+constraint that we hold onto so
+
+
+201
+00:05:20,446 --> 00:05:21,546
+that we can adjust it later.
+
+
+202
+00:05:22,036 --> 00:05:25,676
+The Layout Guide gets tied to
+
+
+203
+00:05:25,676 --> 00:05:27,576
+the bottom Safe Area Layout
+
+
+204
+00:05:27,576 --> 00:05:28,446
+Guide of your view.
+
+
+205
+00:05:29,166 --> 00:05:31,026
+And the top of the Layout Guide
+
+
+206
+00:05:31,176 --> 00:05:32,556
+should be tied to the bottom of
+
+
+207
+00:05:32,556 --> 00:05:34,316
+the view or spacer that you want
+
+
+208
+00:05:34,316 --> 00:05:35,636
+to appear directly on top of the
+
+
+209
+00:05:35,636 --> 00:05:37,256
+keyboard, when the keyboard has
+
+
+210
+00:05:37,256 --> 00:05:37,696
+appeared.
+
+
+211
+00:05:38,926 --> 00:05:40,176
+Once you do that, you can do
+
+
+212
+00:05:40,176 --> 00:05:41,746
+your height conversion after
+
+
+213
+00:05:41,746 --> 00:05:42,656
+checking that the keyboard is
+
+
+214
+00:05:42,656 --> 00:05:44,626
+visible, and simply set that
+
+
+215
+00:05:44,626 --> 00:05:46,036
+height constraint you held onto,
+
+
+216
+00:05:46,366 --> 00:05:47,406
+to the height of the keyboard.
+
+
+217
+00:05:48,266 --> 00:05:49,426
+If you pop that into a view
+
+
+218
+00:05:49,426 --> 00:05:51,256
+animation block with N call
+
+
+219
+00:05:51,256 --> 00:05:52,266
+layout if needed, you'll get the
+
+
+220
+00:05:52,266 --> 00:05:53,626
+cool little animation between
+
+
+221
+00:05:53,626 --> 00:05:55,226
+the keyboards that you saw, just
+
+
+222
+00:05:55,226 --> 00:05:55,746
+a moment ago.
+
+
+223
+00:05:56,706 --> 00:05:58,516
+The more common case however,
+
+
+224
+00:05:58,606 --> 00:05:59,626
+are scrolling layouts.
+
+
+225
+00:06:00,356 --> 00:06:01,666
+Layouts embedded in the scroll
+
+
+226
+00:06:01,666 --> 00:06:02,956
+view so that the user can move
+
+
+227
+00:06:02,956 --> 00:06:04,556
+between your views, and see
+
+
+228
+00:06:04,556 --> 00:06:05,336
+everything that they need to
+
+
+229
+00:06:05,336 --> 00:06:05,646
+see.
+
+
+230
+00:06:06,536 --> 00:06:07,446
+In our case, we had this
+
+
+231
+00:06:07,526 --> 00:06:08,746
+conversation View Controller in
+
+
+232
+00:06:08,746 --> 00:06:09,616
+our Cat Chat app.
+
+
+233
+00:06:10,206 --> 00:06:11,076
+And we want to make sure that
+
+
+234
+00:06:11,076 --> 00:06:11,936
+you can scroll through the
+
+
+235
+00:06:11,936 --> 00:06:13,746
+entire conversation at any time.
+
+
+236
+00:06:14,536 --> 00:06:16,156
+So, we need to make sure that
+
+
+237
+00:06:16,156 --> 00:06:18,086
+the bottom of the table view is
+
+
+238
+00:06:18,086 --> 00:06:21,056
+adjusted to how the entirety of
+
+
+239
+00:06:21,056 --> 00:06:22,296
+your chat transcript.
+
+
+240
+00:06:23,246 --> 00:06:24,226
+So, how do you do this?
+
+
+241
+00:06:24,906 --> 00:06:26,276
+Very similar to before but a
+
+
+242
+00:06:26,276 --> 00:06:27,316
+little less complicated.
+
+
+243
+00:06:27,616 --> 00:06:28,326
+You simply make sure the
+
+
+244
+00:06:28,326 --> 00:06:30,356
+keyboard's visible gain, do your
+
+
+245
+00:06:30,356 --> 00:06:31,666
+frame conversion, get your
+
+
+246
+00:06:31,666 --> 00:06:33,646
+height, and set the content
+
+
+247
+00:06:33,646 --> 00:06:34,976
+inset of the scroll view.
+
+
+248
+00:06:35,206 --> 00:06:36,666
+This is where that intersection
+
+
+249
+00:06:36,666 --> 00:06:38,096
+bit is helpful because if you
+
+
+250
+00:06:38,096 --> 00:06:39,356
+have a scroll view that does not
+
+
+251
+00:06:39,356 --> 00:06:40,976
+take up the full screen, you
+
+
+252
+00:06:40,976 --> 00:06:42,256
+only want to offset it by the
+
+
+253
+00:06:42,256 --> 00:06:43,266
+bit that's covered by the
+
+
+254
+00:06:43,266 --> 00:06:43,716
+keyboard.
+
+
+255
+00:06:44,766 --> 00:06:46,436
+Finally, you do need to handle
+
+
+256
+00:06:46,536 --> 00:06:48,246
+scrolling the content, once
+
+
+257
+00:06:48,246 --> 00:06:49,296
+you've adjusted your scroll
+
+
+258
+00:06:49,296 --> 00:06:49,716
+insets.
+
+
+259
+00:06:50,766 --> 00:06:52,076
+In the previous example, we were
+
+
+260
+00:06:52,076 --> 00:06:53,646
+actually using a UI Table View
+
+
+261
+00:06:53,646 --> 00:06:55,806
+Controller, which is even easier
+
+
+262
+00:06:56,436 --> 00:06:58,026
+because it sets the insets for
+
+
+263
+00:06:58,026 --> 00:06:59,886
+you, and all you have to do is
+
+
+264
+00:06:59,886 --> 00:07:01,426
+scroll the content, which is
+
+
+265
+00:07:01,426 --> 00:07:01,766
+nice.
+
+
+266
+00:07:01,766 --> 00:07:03,076
+In this case, we have a table
+
+
+267
+00:07:03,076 --> 00:07:05,256
+view and we want the most recent
+
+
+268
+00:07:05,256 --> 00:07:06,346
+item to show right above the
+
+
+269
+00:07:06,346 --> 00:07:06,866
+keyboard.
+
+
+270
+00:07:07,236 --> 00:07:08,416
+So, we scroll the bottom cell,
+
+
+271
+00:07:08,796 --> 00:07:10,426
+to the bottom of our inset table
+
+
+272
+00:07:10,426 --> 00:07:10,636
+view.
+
+
+273
+00:07:11,576 --> 00:07:13,396
+So, that is adjusting for the
+
+
+274
+00:07:13,396 --> 00:07:14,326
+keyboard in your layout.
+
+
+275
+00:07:14,806 --> 00:07:16,056
+Now, let's talk about extending
+
+
+276
+00:07:16,056 --> 00:07:17,486
+the keyboard with an input
+
+
+277
+00:07:17,486 --> 00:07:18,196
+accessory view.
+
+
+278
+00:07:19,016 --> 00:07:21,216
+The input accessory view, is a
+
+
+279
+00:07:21,216 --> 00:07:22,386
+view right above the keyboard.
+
+
+280
+00:07:22,446 --> 00:07:24,086
+Here, it's a text view, and a
+
+
+281
+00:07:24,086 --> 00:07:24,436
+button.
+
+
+282
+00:07:25,126 --> 00:07:26,356
+IT can also be a tool bar with
+
+
+283
+00:07:26,356 --> 00:07:27,356
+some navigation buttons.
+
+
+284
+00:07:27,486 --> 00:07:28,976
+It can be a row of buttons.
+
+
+285
+00:07:29,116 --> 00:07:31,046
+If can a couple of cool little,
+
+
+286
+00:07:31,286 --> 00:07:32,346
+you know, photos or something.
+
+
+287
+00:07:32,346 --> 00:07:33,526
+Anything you want to put on
+
+
+288
+00:07:33,526 --> 00:07:35,056
+there, you can because it's just
+
+
+289
+00:07:35,056 --> 00:07:35,486
+a view.
+
+
+290
+00:07:36,346 --> 00:07:37,576
+How do you add this to the
+
+
+291
+00:07:37,576 --> 00:07:38,066
+keyboard?
+
+
+292
+00:07:38,276 --> 00:07:39,506
+Well, here we have the -- an
+
+
+293
+00:07:39,506 --> 00:07:41,296
+input accessory view in our chat
+
+
+294
+00:07:41,346 --> 00:07:42,846
+conversation view controller.
+
+
+295
+00:07:43,646 --> 00:07:45,306
+And so, it's the host view
+
+
+296
+00:07:45,306 --> 00:07:46,726
+controller that wants to display
+
+
+297
+00:07:46,726 --> 00:07:47,576
+the keyboard with the input
+
+
+298
+00:07:47,576 --> 00:07:48,396
+accessory view.
+
+
+299
+00:07:49,226 --> 00:07:50,146
+So, we make it part of the
+
+
+300
+00:07:50,146 --> 00:07:51,836
+responder chain by returning
+
+
+301
+00:07:51,836 --> 00:07:53,116
+True for, "Can become first
+
+
+302
+00:07:53,116 --> 00:07:54,896
+responder," on our conversation
+
+
+303
+00:07:54,896 --> 00:07:55,526
+view controller.
+
+
+304
+00:07:56,446 --> 00:07:58,566
+Then, using either a custom view
+
+
+305
+00:07:58,566 --> 00:08:00,116
+or a custom view controller,
+
+
+306
+00:08:00,116 --> 00:08:01,376
+depending on what exactly you
+
+
+307
+00:08:01,376 --> 00:08:03,276
+want to do with that view, you
+
+
+308
+00:08:03,276 --> 00:08:04,506
+override the applicable method.
+
+
+309
+00:08:04,506 --> 00:08:06,006
+Input accessory view, if you're
+
+
+310
+00:08:06,006 --> 00:08:06,676
+using a view.
+
+
+311
+00:08:07,106 --> 00:08:08,536
+Input accessory view controller,
+
+
+312
+00:08:08,686 --> 00:08:09,226
+if you're using a view
+
+
+313
+00:08:09,226 --> 00:08:09,666
+controller.
+
+
+314
+00:08:10,346 --> 00:08:12,926
+So, the input accessory view
+
+
+315
+00:08:12,926 --> 00:08:15,416
+that you add, is accounted for
+
+
+316
+00:08:15,416 --> 00:08:16,886
+in frame change notifications,
+
+
+317
+00:08:17,306 --> 00:08:18,886
+and if the height of that input
+
+
+318
+00:08:18,886 --> 00:08:20,846
+accessory view changes, it will
+
+
+319
+00:08:20,846 --> 00:08:22,086
+send a frame change
+
+
+320
+00:08:22,086 --> 00:08:23,056
+notification.
+
+
+321
+00:08:23,416 --> 00:08:24,716
+So, you can take care of that in
+
+
+322
+00:08:24,716 --> 00:08:27,566
+the app that the keyboard is in.
+
+
+323
+00:08:27,956 --> 00:08:29,026
+Let's talk about making a
+
+
+324
+00:08:29,026 --> 00:08:30,586
+dynamic height changing input
+
+
+325
+00:08:30,586 --> 00:08:31,716
+accessory view, because this is
+
+
+326
+00:08:31,716 --> 00:08:32,566
+something that a lot of people
+
+
+327
+00:08:32,566 --> 00:08:33,905
+want to be able to do.
+
+
+328
+00:08:34,446 --> 00:08:35,996
+So, when you're doing this, this
+
+
+329
+00:08:35,996 --> 00:08:37,275
+acts a lot like a self-sizing
+
+
+330
+00:08:37,275 --> 00:08:38,546
+table view in that you want to
+
+
+331
+00:08:38,546 --> 00:08:39,635
+take whatever view is going to
+
+
+332
+00:08:39,635 --> 00:08:41,456
+be changing size, and use it to
+
+
+333
+00:08:41,456 --> 00:08:43,186
+define the height of the view.
+
+
+334
+00:08:43,236 --> 00:08:44,526
+And you can do this with more
+
+
+335
+00:08:44,526 --> 00:08:45,706
+than one, but in this example,
+
+
+336
+00:08:45,706 --> 00:08:48,856
+we'll use a UI text view to show
+
+
+337
+00:08:48,856 --> 00:08:50,186
+how this might be done.
+
+
+338
+00:08:50,646 --> 00:08:52,226
+If you pin -- you can pin it to
+
+
+339
+00:08:52,226 --> 00:08:54,246
+the top and bottom of the
+
+
+340
+00:08:55,316 --> 00:08:57,226
+content view with spacing if
+
+
+341
+00:08:57,226 --> 00:08:57,736
+applicable.
+
+
+342
+00:08:58,296 --> 00:08:59,116
+And if there are views in
+
+
+343
+00:08:59,116 --> 00:09:00,446
+between it, that's fine as long
+
+
+344
+00:09:00,446 --> 00:09:01,596
+as the height is fully defined.
+
+
+345
+00:09:01,596 --> 00:09:02,616
+Again, it's very similar to
+
+
+346
+00:09:02,616 --> 00:09:04,036
+self-sizing table view cells.
+
+
+347
+00:09:04,666 --> 00:09:07,716
+At that point, you need to use
+
+
+348
+00:09:07,716 --> 00:09:09,216
+or define the intrinsic content
+
+
+349
+00:09:09,216 --> 00:09:10,826
+size of your growing view, so
+
+
+350
+00:09:10,916 --> 00:09:12,296
+that the input accessory view
+
+
+351
+00:09:12,296 --> 00:09:14,776
+knows how talk it needs to be.
+
+
+352
+00:09:14,996 --> 00:09:16,486
+With a text view specifically,
+
+
+353
+00:09:16,876 --> 00:09:18,016
+in order for it to have its own
+
+
+354
+00:09:18,016 --> 00:09:19,466
+intrinsic content size so that
+
+
+355
+00:09:19,466 --> 00:09:21,366
+you don't have to define it, you
+
+
+356
+00:09:21,366 --> 00:09:22,696
+need to tell its text container
+
+
+357
+00:09:22,696 --> 00:09:23,976
+to have its height track the
+
+
+358
+00:09:23,976 --> 00:09:24,546
+text view.
+
+
+359
+00:09:25,316 --> 00:09:26,976
+And you also need to disable
+
+
+360
+00:09:26,976 --> 00:09:27,586
+scrolling.
+
+
+361
+00:09:28,146 --> 00:09:29,646
+At that point, the text view
+
+
+362
+00:09:29,646 --> 00:09:30,516
+defines its internal --
+
+
+363
+00:09:30,516 --> 00:09:32,966
+intrinsic content size, based on
+
+
+364
+00:09:32,966 --> 00:09:34,486
+the amount of text in the view.
+
+
+365
+00:09:34,486 --> 00:09:36,266
+And you can get something like
+
+
+366
+00:09:37,556 --> 00:09:37,796
+this.
+
+
+367
+00:09:37,796 --> 00:09:39,546
+So, this is one of the few cases
+
+
+368
+00:09:39,546 --> 00:09:40,616
+where you may need to actually
+
+
+369
+00:09:40,616 --> 00:09:42,396
+override intrinsic content size
+
+
+370
+00:09:42,396 --> 00:09:43,686
+in the input accessory view.
+
+
+371
+00:09:44,406 --> 00:09:45,826
+And to do that, you don't want
+
+
+372
+00:09:45,826 --> 00:09:47,056
+to spend, you know -- don't want
+
+
+373
+00:09:47,056 --> 00:09:48,026
+to make it too complicated.
+
+
+374
+00:09:48,026 --> 00:09:50,036
+It's actually not too bad.
+
+
+375
+00:09:50,036 --> 00:09:51,636
+Grab the bounds as they come in.
+
+
+376
+00:09:51,636 --> 00:09:52,556
+That's going to be your original
+
+
+377
+00:09:52,556 --> 00:09:53,526
+bounds, and we'll make sure that
+
+
+378
+00:09:53,526 --> 00:09:54,526
+you have the correct width,
+
+
+379
+00:09:55,156 --> 00:09:56,086
+which is already given to you by
+
+
+380
+00:09:56,086 --> 00:09:56,626
+the system.
+
+
+381
+00:09:57,466 --> 00:09:58,886
+In my case, I always like to
+
+
+382
+00:09:58,886 --> 00:10:00,086
+make sure that the view has a
+
+
+383
+00:10:00,086 --> 00:10:02,276
+minimum height, so I set it to
+
+
+384
+00:10:02,276 --> 00:10:03,376
+minimum height first, just in
+
+
+385
+00:10:03,376 --> 00:10:05,126
+case everything else -- all my
+
+
+386
+00:10:05,126 --> 00:10:06,686
+other ifs are elses.
+
+
+387
+00:10:07,236 --> 00:10:09,676
+And then, if my expanding view
+
+
+388
+00:10:09,676 --> 00:10:11,096
+is the correct height, I use
+
+
+389
+00:10:11,096 --> 00:10:12,496
+that plus some vertical padding
+
+
+390
+00:10:12,496 --> 00:10:14,126
+I've previously defined to
+
+
+391
+00:10:14,126 --> 00:10:15,126
+define the new height of the
+
+
+392
+00:10:15,126 --> 00:10:15,416
+view.
+
+
+393
+00:10:16,216 --> 00:10:17,496
+I also have a maximum height
+
+
+394
+00:10:17,496 --> 00:10:18,606
+because there's only so much I
+
+
+395
+00:10:18,606 --> 00:10:19,886
+actually should type to my cats
+
+
+396
+00:10:19,886 --> 00:10:20,376
+at once.
+
+
+397
+00:10:20,886 --> 00:10:22,066
+They don't have great attention
+
+
+398
+00:10:22,066 --> 00:10:22,526
+spans.
+
+
+399
+00:10:23,206 --> 00:10:26,126
+So, at a point, it stops.
+
+
+400
+00:10:26,126 --> 00:10:27,556
+At that point, you simply return
+
+
+401
+00:10:27,866 --> 00:10:29,346
+your new intrinsic content size,
+
+
+402
+00:10:29,576 --> 00:10:31,136
+and your input accessory view
+
+
+403
+00:10:31,136 --> 00:10:31,576
+will grow.
+
+
+404
+00:10:33,086 --> 00:10:35,646
+Okay, so we have now talked
+
+
+405
+00:10:35,646 --> 00:10:36,786
+about integrating the keyboard
+
+
+406
+00:10:36,786 --> 00:10:38,326
+into your layout, and adding a
+
+
+407
+00:10:38,326 --> 00:10:39,836
+dynamic input accessory view.
+
+
+408
+00:10:40,576 --> 00:10:41,976
+Now, we have an app where I can
+
+
+409
+00:10:41,976 --> 00:10:44,076
+talk to my cats, and I can say
+
+
+410
+00:10:44,076 --> 00:10:45,226
+more than a couple of words at
+
+
+411
+00:10:45,226 --> 00:10:46,216
+once, which is nice.
+
+
+412
+00:10:46,866 --> 00:10:47,996
+He doesn't need very many words.
+
+
+413
+00:10:47,996 --> 00:10:50,216
+He's very specific in what he
+
+
+414
+00:10:50,216 --> 00:10:50,836
+needs from me.
+
+
+415
+00:10:51,436 --> 00:10:52,756
+But there's more cool things
+
+
+416
+00:10:52,756 --> 00:10:54,546
+that we can do with this app to
+
+
+417
+00:10:54,546 --> 00:10:56,216
+make it a lot more interesting.
+
+
+418
+00:10:56,736 --> 00:10:57,696
+So, I'm going to hand this over
+
+
+419
+00:10:57,696 --> 00:10:58,666
+to Shuchen, and she's going to
+
+
+420
+00:10:58,666 --> 00:10:59,846
+tell you all about how to make
+
+
+421
+00:10:59,846 --> 00:11:00,976
+your app feel more magical.
+
+
+422
+00:11:01,516 --> 00:11:09,676
+[ Applause ]
+
+
+423
+00:11:10,176 --> 00:11:12,276
+>> Hello, everyone.
+
+
+424
+00:11:12,276 --> 00:11:14,676
+So, in iOS, we provide a lot of
+
+
+425
+00:11:14,756 --> 00:11:17,146
+sweet features so that you can
+
+
+426
+00:11:17,146 --> 00:11:18,776
+improve our user text input
+
+
+427
+00:11:18,776 --> 00:11:19,356
+experience.
+
+
+428
+00:11:19,926 --> 00:11:20,916
+My name is Shuchen Li.
+
+
+429
+00:11:21,536 --> 00:11:23,256
+I'm going to talk a few of them.
+
+
+430
+00:11:23,726 --> 00:11:26,056
+So, I hope after my talk you can
+
+
+431
+00:11:26,326 --> 00:11:28,526
+utilize these tricks and make
+
+
+432
+00:11:28,526 --> 00:11:29,666
+your app feel magical.
+
+
+433
+00:11:30,226 --> 00:11:31,766
+So, let's get started.
+
+
+434
+00:11:33,496 --> 00:11:35,106
+So, first of all, let me ask a
+
+
+435
+00:11:35,106 --> 00:11:35,576
+question.
+
+
+436
+00:11:35,636 --> 00:11:37,766
+Who are multilingual people
+
+
+437
+00:11:37,766 --> 00:11:37,956
+here?
+
+
+438
+00:11:38,566 --> 00:11:39,356
+Oh, I see quite a few.
+
+
+439
+00:11:40,246 --> 00:11:43,666
+So, am I. Do you face the
+
+
+440
+00:11:43,666 --> 00:11:45,816
+situation that you have to keep
+
+
+441
+00:11:45,816 --> 00:11:46,536
+switch keyboard?
+
+
+442
+00:11:48,136 --> 00:11:49,276
+Oh, I see one there.
+
+
+443
+00:11:49,276 --> 00:11:50,786
+Oh, I see a few of you there.
+
+
+444
+00:11:51,656 --> 00:11:53,696
+Good. I suffer that problem too.
+
+
+445
+00:11:53,696 --> 00:11:56,446
+And I have to talk to my boss
+
+
+446
+00:11:56,566 --> 00:11:57,236
+with one keyboard.
+
+
+447
+00:11:57,666 --> 00:11:58,846
+I talk to my mom with another
+
+
+448
+00:11:58,846 --> 00:11:59,256
+keyboard.
+
+
+449
+00:11:59,336 --> 00:12:00,776
+I have to keep switch between
+
+
+450
+00:12:00,776 --> 00:12:00,996
+these.
+
+
+451
+00:12:01,636 --> 00:12:04,226
+What if your app just know what
+
+
+452
+00:12:04,226 --> 00:12:04,996
+keyboard you use?
+
+
+453
+00:12:05,706 --> 00:12:07,176
+What if when keyboard brings up,
+
+
+454
+00:12:07,356 --> 00:12:08,706
+it's just the right keyboard for
+
+
+455
+00:12:09,236 --> 00:12:09,306
+you?
+
+
+456
+00:12:10,036 --> 00:12:12,546
+Actually, you may know this.
+
+
+457
+00:12:12,976 --> 00:12:14,626
+In our Message app, it does that
+
+
+458
+00:12:14,626 --> 00:12:14,866
+for you.
+
+
+459
+00:12:14,866 --> 00:12:17,786
+I talk to John with English
+
+
+460
+00:12:17,786 --> 00:12:18,156
+keyboard.
+
+
+461
+00:12:19,196 --> 00:12:21,346
+I talk to my [inaudible] with
+
+
+462
+00:12:21,346 --> 00:12:22,076
+Chinese keyboard.
+
+
+463
+00:12:23,066 --> 00:12:24,216
+And Magic knows what keyboard
+
+
+464
+00:12:24,216 --> 00:12:24,646
+I'm using.
+
+
+465
+00:12:25,616 --> 00:12:27,816
+How does that work?
+
+
+466
+00:12:28,026 --> 00:12:32,676
+In iOS, we can associate a
+
+
+467
+00:12:32,676 --> 00:12:34,626
+unique identifier called Text
+
+
+468
+00:12:34,626 --> 00:12:37,086
+Input Context Identifier, with
+
+
+469
+00:12:37,086 --> 00:12:38,216
+your text view.
+
+
+470
+00:12:38,406 --> 00:12:40,106
+Actually, we can associate that
+
+
+471
+00:12:40,316 --> 00:12:41,846
+with all your UI Responder.
+
+
+472
+00:12:42,196 --> 00:12:43,816
+That is, you can also do that
+
+
+473
+00:12:43,816 --> 00:12:47,216
+with your view controllers.
+
+
+474
+00:12:48,736 --> 00:12:50,576
+So, when we see you have a
+
+
+475
+00:12:50,576 --> 00:12:52,906
+unique identifier set up,
+
+
+476
+00:12:53,146 --> 00:12:54,816
+whether you're a responder, we
+
+
+477
+00:12:54,816 --> 00:12:56,116
+will associate that
+
+
+478
+00:12:56,116 --> 00:12:58,076
+automatically with the user
+
+
+479
+00:12:58,076 --> 00:13:00,406
+selected keyboard, and then save
+
+
+480
+00:13:00,406 --> 00:13:01,926
+that into user default.
+
+
+481
+00:13:02,466 --> 00:13:04,306
+Next time, when you are a
+
+
+482
+00:13:04,306 --> 00:13:05,606
+responder, becomes a first
+
+
+483
+00:13:05,606 --> 00:13:07,566
+responder, the keyboard will be
+
+
+484
+00:13:07,566 --> 00:13:08,606
+retrieved automatically.
+
+
+485
+00:13:09,366 --> 00:13:10,966
+Sounds complicated.
+
+
+486
+00:13:11,736 --> 00:13:13,336
+The only thing you need to worry
+
+
+487
+00:13:13,336 --> 00:13:15,046
+about is to find a good unique
+
+
+488
+00:13:15,046 --> 00:13:15,596
+identifier.
+
+
+489
+00:13:16,456 --> 00:13:17,196
+What are good unique
+
+
+490
+00:13:17,196 --> 00:13:17,846
+identifiers?
+
+
+491
+00:13:18,116 --> 00:13:21,076
+For example, your user ID, your
+
+
+492
+00:13:21,076 --> 00:13:23,116
+conversation ID, the group IDs,
+
+
+493
+00:13:23,716 --> 00:13:28,776
+these are all good examples.
+
+
+494
+00:13:28,826 --> 00:13:31,726
+So, you may ask, "Where should I
+
+
+495
+00:13:31,826 --> 00:13:33,626
+put this unique identifier?
+
+
+496
+00:13:33,916 --> 00:13:35,476
+You mentioned, yes, I can define
+
+
+497
+00:13:35,476 --> 00:13:36,606
+it in all the UI responder.
+
+
+498
+00:13:36,606 --> 00:13:37,926
+Do I define it everywhere?"
+
+
+499
+00:13:37,926 --> 00:13:38,636
+Of course not.
+
+
+500
+00:13:39,426 --> 00:13:40,626
+So, let's see how we put it.
+
+
+501
+00:13:41,406 --> 00:13:43,976
+Let's recall our CatChat app.
+
+
+502
+00:13:44,196 --> 00:13:45,516
+When we bring out the keyboard,
+
+
+503
+00:13:46,236 --> 00:13:48,036
+the text view becomes the first
+
+
+504
+00:13:48,036 --> 00:13:48,486
+responder.
+
+
+505
+00:13:49,176 --> 00:13:50,546
+And then what's next, in the
+
+
+506
+00:13:50,546 --> 00:13:52,576
+responder chain, is our
+
+
+507
+00:13:52,576 --> 00:13:53,926
+conversation view controller.
+
+
+508
+00:13:54,726 --> 00:13:56,086
+And then, it's navigation
+
+
+509
+00:13:56,086 --> 00:13:56,486
+controller.
+
+
+510
+00:13:57,036 --> 00:14:02,806
+And then, in iOS, when we look
+
+
+511
+00:14:02,806 --> 00:14:05,106
+for the unique identifier for
+
+
+512
+00:14:05,106 --> 00:14:07,186
+your responder, we will search
+
+
+513
+00:14:07,186 --> 00:14:08,956
+and look up the responder chain
+
+
+514
+00:14:08,956 --> 00:14:10,546
+to look for the first one.
+
+
+515
+00:14:10,946 --> 00:14:13,466
+So, in our app, we handle all
+
+
+516
+00:14:13,466 --> 00:14:14,546
+our conversation in our
+
+
+517
+00:14:14,546 --> 00:14:15,606
+conversation view controller.
+
+
+518
+00:14:16,186 --> 00:14:16,896
+So, we put it there.
+
+
+519
+00:14:17,816 --> 00:14:19,966
+In such way, you don't have to
+
+
+520
+00:14:20,146 --> 00:14:22,206
+find a way you pass down your
+
+
+521
+00:14:22,206 --> 00:14:24,646
+unique identifier to your
+
+
+522
+00:14:24,646 --> 00:14:25,956
+[inaudible] or other places that
+
+
+523
+00:14:25,956 --> 00:14:26,636
+it want to pass in.
+
+
+524
+00:14:27,136 --> 00:14:28,296
+So, you just put in where you
+
+
+525
+00:14:28,296 --> 00:14:29,526
+handle all your conversations.
+
+
+526
+00:14:30,646 --> 00:14:31,666
+Let's see how we transfer all
+
+
+527
+00:14:31,666 --> 00:14:32,376
+these into code.
+
+
+528
+00:14:32,886 --> 00:14:35,916
+In our conversation view
+
+
+529
+00:14:35,916 --> 00:14:37,856
+controller, we override the
+
+
+530
+00:14:37,856 --> 00:14:39,446
+[inaudible] for Text Input
+
+
+531
+00:14:39,446 --> 00:14:40,456
+Context Identifier.
+
+
+532
+00:14:41,016 --> 00:14:41,966
+You can see this method.
+
+
+533
+00:14:41,966 --> 00:14:42,586
+It's very simple.
+
+
+534
+00:14:42,916 --> 00:14:44,116
+It's just return a unique
+
+
+535
+00:14:44,116 --> 00:14:44,676
+identifier.
+
+
+536
+00:14:45,386 --> 00:14:48,076
+In our case, we return our
+
+
+537
+00:14:48,076 --> 00:14:49,606
+recipient's ID.
+
+
+538
+00:14:51,016 --> 00:14:53,716
+Now, Kasia is going to show you
+
+
+539
+00:14:53,716 --> 00:14:55,786
+a demo to see how we give our
+
+
+540
+00:14:55,886 --> 00:14:56,796
+app a memory.
+
+
+541
+00:14:57,366 --> 00:14:57,706
+Kasia?
+
+
+542
+00:14:58,516 --> 00:15:03,306
+[ Applause ]
+
+
+543
+00:15:03,806 --> 00:15:04,686
+>> You may not remember me.
+
+
+544
+00:15:04,836 --> 00:15:05,646
+It's been a while since I've
+
+
+545
+00:15:05,696 --> 00:15:06,196
+seen you all.
+
+
+546
+00:15:06,726 --> 00:15:09,246
+But Kasia's still on keyboards.
+
+
+547
+00:15:09,726 --> 00:15:13,896
+Okay, so first -- here we have
+
+
+548
+00:15:13,896 --> 00:15:15,006
+our CatChat app that we've been
+
+
+549
+00:15:15,006 --> 00:15:15,746
+looking at today.
+
+
+550
+00:15:16,416 --> 00:15:18,006
+And I've got a couple of pets
+
+
+551
+00:15:18,006 --> 00:15:19,116
+that speak different languages.
+
+
+552
+00:15:19,416 --> 00:15:20,786
+I have my Misiu here.
+
+
+553
+00:15:21,236 --> 00:15:22,316
+He speaks Polish.
+
+
+554
+00:15:22,316 --> 00:15:23,186
+And actually, I learned as a
+
+
+555
+00:15:23,186 --> 00:15:24,336
+child that all cats speak
+
+
+556
+00:15:24,336 --> 00:15:24,796
+Polish.
+
+
+557
+00:15:24,796 --> 00:15:25,876
+So, it's important to speak
+
+
+558
+00:15:25,876 --> 00:15:26,736
+Polish to all of them.
+
+
+559
+00:15:27,556 --> 00:15:29,256
+But, my default keyboard as an
+
+
+560
+00:15:29,256 --> 00:15:30,666
+English speaker is English.
+
+
+561
+00:15:31,196 --> 00:15:32,116
+So, if I go ahead and change it
+
+
+562
+00:15:32,116 --> 00:15:34,486
+to Polish, and say "Hello,"
+
+
+563
+00:15:35,186 --> 00:15:36,306
+let's see.
+
+
+564
+00:15:36,536 --> 00:15:42,666
+And see, you know, how he's
+
+
+565
+00:15:42,666 --> 00:15:43,106
+doing today.
+
+
+566
+00:15:43,106 --> 00:15:44,876
+This is me saying, "Hey, how are
+
+
+567
+00:15:44,876 --> 00:15:45,256
+you doing?"
+
+
+568
+00:15:45,566 --> 00:15:46,796
+And he wants food.
+
+
+569
+00:15:47,516 --> 00:15:48,466
+This is so surprising.
+
+
+570
+00:15:49,476 --> 00:15:51,226
+Well, let's check in on
+
+
+571
+00:15:51,486 --> 00:15:53,106
+Shuchen's dog, Jiwang.
+
+
+572
+00:15:54,546 --> 00:15:56,166
+And Jiwang would like to go out
+
+
+573
+00:15:56,166 --> 00:15:57,496
+for a walk, but I don't
+
+
+574
+00:15:57,496 --> 00:15:58,366
+currently have time.
+
+
+575
+00:15:58,816 --> 00:16:01,056
+However, he speaks Chinese, so
+
+
+576
+00:16:01,056 --> 00:16:01,966
+I'm going to switch keyboards
+
+
+577
+00:16:01,966 --> 00:16:03,206
+again to the Chinese pinyin
+
+
+578
+00:16:03,206 --> 00:16:05,426
+keyboard, and say, "I don't have
+
+
+579
+00:16:05,426 --> 00:16:05,976
+time right now.
+
+
+580
+00:16:06,676 --> 00:16:07,346
+Please be patient."
+
+
+581
+00:16:08,326 --> 00:16:10,146
+And dogs are a little bit
+
+
+582
+00:16:10,506 --> 00:16:11,946
+friendlier sometimes with their
+
+
+583
+00:16:11,946 --> 00:16:12,826
+responses than cats.
+
+
+584
+00:16:13,236 --> 00:16:14,916
+So, now, this is the first time
+
+
+585
+00:16:14,916 --> 00:16:16,086
+I've used this to talk to both
+
+
+586
+00:16:16,086 --> 00:16:16,426
+of them.
+
+
+587
+00:16:16,926 --> 00:16:18,106
+So, if I go back into Misiu's
+
+
+588
+00:16:18,106 --> 00:16:19,686
+conversation, the Polish
+
+
+589
+00:16:19,686 --> 00:16:20,586
+keyboard is still there.
+
+
+590
+00:16:20,966 --> 00:16:23,156
+And if I go back here, I still
+
+
+591
+00:16:23,156 --> 00:16:24,996
+have the Chinese keyboard.
+
+
+592
+00:16:25,326 --> 00:16:26,076
+So, I don't have to keep
+
+
+593
+00:16:26,136 --> 00:16:27,726
+switching keyboards, depending
+
+
+594
+00:16:27,726 --> 00:16:28,886
+on the conversation I'm in.
+
+
+595
+00:16:29,306 --> 00:16:30,516
+And all that needed to happen
+
+
+596
+00:16:30,516 --> 00:16:32,356
+for that to happen, was to set
+
+
+597
+00:16:32,566 --> 00:16:35,526
+that text input context
+
+
+598
+00:16:35,526 --> 00:16:37,316
+identifier, as Shuchen showed
+
+
+599
+00:16:37,316 --> 00:16:39,336
+you, with the unique ID of each
+
+
+600
+00:16:39,336 --> 00:16:40,116
+individual chat.
+
+
+601
+00:16:40,516 --> 00:16:42,546
+If I change languages now, my
+
+
+602
+00:16:42,546 --> 00:16:43,416
+app doesn't need to know what
+
+
+603
+00:16:43,416 --> 00:16:44,156
+language I'm in.
+
+
+604
+00:16:44,476 --> 00:16:45,426
+It just needs to know that it's
+
+
+605
+00:16:45,426 --> 00:16:47,166
+in a specific conversation and
+
+
+606
+00:16:47,166 --> 00:16:49,146
+we will take care of setting the
+
+
+607
+00:16:49,146 --> 00:16:50,226
+proper keyboard for you.
+
+
+608
+00:16:50,586 --> 00:16:50,653
+So.
+
+
+609
+00:16:51,016 --> 00:16:53,000
+[ Applause ]
+
+
+610
+00:16:59,426 --> 00:17:02,336
+Okay, back to Shuchen.
+
+
+611
+00:17:03,776 --> 00:17:05,185
+>> Thanks, Kasia.
+
+
+612
+00:17:06,116 --> 00:17:07,205
+A quite neat feature, right?
+
+
+613
+00:17:07,376 --> 00:17:08,915
+It'll save quite a bit of wear
+
+
+614
+00:17:08,915 --> 00:17:09,736
+and tear on your [inaudible] I
+
+
+615
+00:17:09,736 --> 00:17:10,205
+believe.
+
+
+616
+00:17:10,205 --> 00:17:14,046
+So, in this whole process, you
+
+
+617
+00:17:14,046 --> 00:17:16,136
+may notice, you don't really
+
+
+618
+00:17:16,136 --> 00:17:17,736
+need to care what keyboard the
+
+
+619
+00:17:17,736 --> 00:17:18,546
+user selected.
+
+
+620
+00:17:18,945 --> 00:17:19,675
+You don't need to know.
+
+
+621
+00:17:20,116 --> 00:17:21,266
+The only thing you need to worry
+
+
+622
+00:17:21,266 --> 00:17:23,116
+about is the unique identifier
+
+
+623
+00:17:23,175 --> 00:17:24,616
+that was set up.
+
+
+624
+00:17:24,616 --> 00:17:26,516
+Now you may ask, what if you
+
+
+625
+00:17:26,516 --> 00:17:28,316
+want to know what's the language
+
+
+626
+00:17:28,386 --> 00:17:29,216
+the user used?
+
+
+627
+00:17:30,106 --> 00:17:31,836
+What if you want to develop a
+
+
+628
+00:17:31,836 --> 00:17:33,986
+specific feature for a certain
+
+
+629
+00:17:33,986 --> 00:17:34,466
+language?
+
+
+630
+00:17:35,536 --> 00:17:37,616
+Now you may want to look up UI
+
+
+631
+00:17:37,616 --> 00:17:38,496
+text input mode.
+
+
+632
+00:17:39,136 --> 00:17:40,896
+In UI text input mode, you can
+
+
+633
+00:17:40,896 --> 00:17:42,726
+easily access the primary
+
+
+634
+00:17:42,726 --> 00:17:43,756
+language for the user.
+
+
+635
+00:17:44,956 --> 00:17:47,156
+In such way, you can for
+
+
+636
+00:17:47,156 --> 00:17:48,516
+example, develop your own spell
+
+
+637
+00:17:48,516 --> 00:17:52,456
+checker for your own language or
+
+
+638
+00:17:52,456 --> 00:17:54,136
+you can develop other specific
+
+
+639
+00:17:54,136 --> 00:17:55,236
+feature for the specific
+
+
+640
+00:17:55,236 --> 00:17:56,846
+language that you want that
+
+
+641
+00:17:56,846 --> 00:17:57,886
+probably [inaudible] support
+
+
+642
+00:17:57,886 --> 00:17:59,536
+where -- we will support maybe
+
+
+643
+00:17:59,706 --> 00:18:01,316
+in future.
+
+
+644
+00:18:02,146 --> 00:18:05,936
+Now, next, we've been working
+
+
+645
+00:18:05,936 --> 00:18:08,916
+really hard on how to accurately
+
+
+646
+00:18:09,376 --> 00:18:10,726
+and quickly input text.
+
+
+647
+00:18:11,646 --> 00:18:13,286
+We made it further through a
+
+
+648
+00:18:13,286 --> 00:18:14,786
+context scroll predictions.
+
+
+649
+00:18:16,516 --> 00:18:19,516
+Also, we take user personalized
+
+
+650
+00:18:19,666 --> 00:18:21,506
+information into account.
+
+
+651
+00:18:23,016 --> 00:18:25,806
+Back in iOS 4, we introduced
+
+
+652
+00:18:26,046 --> 00:18:26,626
+keyboard types.
+
+
+653
+00:18:27,566 --> 00:18:29,626
+There's different keyboard types
+
+
+654
+00:18:29,626 --> 00:18:31,786
+like email keyboards, URL
+
+
+655
+00:18:31,786 --> 00:18:32,216
+keyboards.
+
+
+656
+00:18:32,216 --> 00:18:33,436
+If you're typing an email
+
+
+657
+00:18:33,646 --> 00:18:36,116
+address, the @ and the .com keys
+
+
+658
+00:18:36,116 --> 00:18:38,186
+are there for easy typing.
+
+
+659
+00:18:39,536 --> 00:18:42,586
+Last year, we introduced UI text
+
+
+660
+00:18:43,306 --> 00:18:43,956
+content type.
+
+
+661
+00:18:44,416 --> 00:18:48,136
+UI text content type, it's a tag
+
+
+662
+00:18:48,336 --> 00:18:49,706
+that you can set to your text
+
+
+663
+00:18:49,706 --> 00:18:49,926
+view.
+
+
+664
+00:18:50,516 --> 00:18:55,056
+It will provide all the context
+
+
+665
+00:18:55,056 --> 00:18:58,906
+predictions through the tags.
+
+
+666
+00:18:58,906 --> 00:19:02,166
+Let's see an example.
+
+
+667
+00:19:02,166 --> 00:19:04,986
+So, now, John wants to add his
+
+
+668
+00:19:04,986 --> 00:19:07,606
+cat, Penny, into our CatChat
+
+
+669
+00:19:07,606 --> 00:19:07,806
+app.
+
+
+670
+00:19:08,246 --> 00:19:09,906
+This is John Appleseed's cat.
+
+
+671
+00:19:10,636 --> 00:19:12,996
+From the video, you can see
+
+
+672
+00:19:13,056 --> 00:19:14,736
+actually John didn't even type
+
+
+673
+00:19:14,736 --> 00:19:15,766
+on any of the letter keys.
+
+
+674
+00:19:16,456 --> 00:19:18,426
+He was just typing on the Quick
+
+
+675
+00:19:18,426 --> 00:19:18,816
+Type bar.
+
+
+676
+00:19:19,616 --> 00:19:21,986
+All the informations are input.
+
+
+677
+00:19:23,316 --> 00:19:24,926
+Now, John wants to type the
+
+
+678
+00:19:24,926 --> 00:19:26,056
+address for the cat.
+
+
+679
+00:19:27,026 --> 00:19:28,556
+So, that's John Appleseed's cat.
+
+
+680
+00:19:28,806 --> 00:19:30,416
+So, it lives in -- must be
+
+
+681
+00:19:30,416 --> 00:19:31,686
+living in an Apple store.
+
+
+682
+00:19:32,486 --> 00:19:33,046
+Which one?
+
+
+683
+00:19:33,776 --> 00:19:35,056
+The one is Los Gatos.
+
+
+684
+00:19:41,696 --> 00:19:42,926
+For someone if we don't know,
+
+
+685
+00:19:42,926 --> 00:19:44,256
+Los Gatos means "cat" in
+
+
+686
+00:19:44,256 --> 00:19:44,726
+Spanish.
+
+
+687
+00:19:46,436 --> 00:19:48,006
+So, we can see, John went to the
+
+
+688
+00:19:49,136 --> 00:19:50,806
+map and browsed the Apple store
+
+
+689
+00:19:52,036 --> 00:19:53,246
+and see what's the address.
+
+
+690
+00:19:54,056 --> 00:19:55,216
+And then come back to our
+
+
+691
+00:19:55,216 --> 00:19:55,856
+CatChat app.
+
+
+692
+00:19:57,176 --> 00:19:59,186
+And then you will see, ta-da,
+
+
+693
+00:19:59,646 --> 00:20:00,356
+the address are there,
+
+
+694
+00:20:01,206 --> 00:20:01,786
+magically.
+
+
+695
+00:20:01,786 --> 00:20:03,836
+And by typing on the Quick Type
+
+
+696
+00:20:03,836 --> 00:20:06,866
+bar, you can -- thank you.
+
+
+697
+00:20:07,796 --> 00:20:08,806
+If I type on the Quick Type bar,
+
+
+698
+00:20:09,226 --> 00:20:11,196
+you can directly input the whole
+
+
+699
+00:20:11,336 --> 00:20:11,816
+address.
+
+
+700
+00:20:12,626 --> 00:20:15,856
+If you look closely, you can see
+
+
+701
+00:20:16,226 --> 00:20:16,836
+its source.
+
+
+702
+00:20:17,276 --> 00:20:18,716
+It's from Map, in our case.
+
+
+703
+00:20:21,276 --> 00:20:24,886
+So, in iOS, we've been pulling
+
+
+704
+00:20:24,986 --> 00:20:27,226
+all user information and user
+
+
+705
+00:20:27,226 --> 00:20:29,796
+activities as a whole, to come
+
+
+706
+00:20:29,796 --> 00:20:32,036
+with the data source, to improve
+
+
+707
+00:20:32,036 --> 00:20:33,286
+user's experience.
+
+
+708
+00:20:34,436 --> 00:20:36,436
+For example, our keyboard
+
+
+709
+00:20:36,436 --> 00:20:38,966
+personalization also can extract
+
+
+710
+00:20:38,966 --> 00:20:41,106
+names to form keyboard
+
+
+711
+00:20:41,106 --> 00:20:42,766
+personalization lexicon.
+
+
+712
+00:20:44,956 --> 00:20:47,966
+Also, one more thing I want to
+
+
+713
+00:20:47,966 --> 00:20:48,446
+mention.
+
+
+714
+00:20:48,996 --> 00:20:52,046
+In this whole process, your app
+
+
+715
+00:20:52,046 --> 00:20:54,086
+is not only a passive receiver.
+
+
+716
+00:20:54,986 --> 00:20:57,146
+Your app can be a contributor.
+
+
+717
+00:20:58,326 --> 00:20:59,826
+Your app can contribute your
+
+
+718
+00:20:59,826 --> 00:21:02,426
+app's activity through NS User
+
+
+719
+00:21:02,426 --> 00:21:04,366
+Activity APIs.
+
+
+720
+00:21:05,176 --> 00:21:08,316
+So, for example, if your browse
+
+
+721
+00:21:08,396 --> 00:21:09,406
+your favorite restaurant in
+
+
+722
+00:21:09,406 --> 00:21:12,946
+Yelp, the address can be
+
+
+723
+00:21:13,146 --> 00:21:14,626
+displayed on the Quick Type bar,
+
+
+724
+00:21:14,906 --> 00:21:16,746
+if you set the tag properly.
+
+
+725
+00:21:17,286 --> 00:21:19,316
+So, sounds interested?
+
+
+726
+00:21:20,366 --> 00:21:22,606
+If you want to learn more, don't
+
+
+727
+00:21:22,606 --> 00:21:24,686
+forget to look at the session
+
+
+728
+00:21:24,776 --> 00:21:27,066
+from last year called "Increase
+
+
+729
+00:21:27,066 --> 00:21:29,516
+Usage of Your App Through
+
+
+730
+00:21:29,796 --> 00:21:31,836
+Proactive Suggestion."
+
+
+731
+00:21:33,586 --> 00:21:35,856
+So, this year, we made it
+
+
+732
+00:21:36,456 --> 00:21:36,596
+further.
+
+
+733
+00:21:37,166 --> 00:21:38,726
+We add some new tags for user
+
+
+734
+00:21:38,726 --> 00:21:39,896
+name and password.
+
+
+735
+00:21:40,366 --> 00:21:43,726
+When you label your log-in field
+
+
+736
+00:21:43,726 --> 00:21:45,696
+properly, we will automatically
+
+
+737
+00:21:45,696 --> 00:21:48,306
+suggest user name and password
+
+
+738
+00:21:48,576 --> 00:21:49,956
+for your app.
+
+
+739
+00:21:49,956 --> 00:21:52,136
+And also, fill that for you.
+
+
+740
+00:21:54,536 --> 00:21:56,186
+The only thing you need to do,
+
+
+741
+00:21:56,396 --> 00:21:58,286
+if you set your tags properly,
+
+
+742
+00:21:58,786 --> 00:22:01,366
+this is a one line API super
+
+
+743
+00:22:01,366 --> 00:22:03,546
+simple, and it will guarantee
+
+
+744
+00:22:03,546 --> 00:22:05,376
+that some of the Quick Type
+
+
+745
+00:22:05,376 --> 00:22:06,596
+suggestion will display.
+
+
+746
+00:22:07,616 --> 00:22:10,186
+However, this is not the full
+
+
+747
+00:22:10,186 --> 00:22:10,496
+story.
+
+
+748
+00:22:10,966 --> 00:22:12,776
+If you want to make sure all
+
+
+749
+00:22:12,776 --> 00:22:15,026
+your credentials displayed
+
+
+750
+00:22:15,026 --> 00:22:17,746
+properly with your app, because
+
+
+751
+00:22:17,746 --> 00:22:18,916
+you may have a website to
+
+
+752
+00:22:18,916 --> 00:22:21,186
+associate with your app, you'd
+
+
+753
+00:22:21,186 --> 00:22:22,616
+want to check out "Introducing
+
+
+754
+00:22:22,616 --> 00:22:23,836
+Password Auto Fill for App"
+
+
+755
+00:22:24,126 --> 00:22:24,496
+session.
+
+
+756
+00:22:24,916 --> 00:22:29,446
+So, next up, we talk about some
+
+
+757
+00:22:29,446 --> 00:22:30,206
+new smartness.
+
+
+758
+00:22:30,256 --> 00:22:33,856
+This year, we introduced some
+
+
+759
+00:22:33,856 --> 00:22:37,996
+smartness into our text view.
+
+
+760
+00:22:38,236 --> 00:22:40,126
+First one is Smart Quote.
+
+
+761
+00:22:41,176 --> 00:22:43,426
+Here are typewriter quotes.
+
+
+762
+00:22:44,516 --> 00:22:47,146
+They are straight and some
+
+
+763
+00:22:48,406 --> 00:22:49,846
+people don't like it.
+
+
+764
+00:22:49,846 --> 00:22:51,776
+I don't like it.
+
+
+765
+00:22:53,436 --> 00:22:55,186
+These are typographic quotes.
+
+
+766
+00:22:55,666 --> 00:22:56,136
+I like it.
+
+
+767
+00:22:56,206 --> 00:22:57,736
+They are curly.
+
+
+768
+00:22:58,326 --> 00:22:59,136
+They're more legible.
+
+
+769
+00:22:59,866 --> 00:23:01,096
+And actually, they're more
+
+
+770
+00:23:01,096 --> 00:23:02,746
+grammatically correct in the
+
+
+771
+00:23:02,746 --> 00:23:03,556
+language perspective.
+
+
+772
+00:23:04,076 --> 00:23:06,246
+And this year, iOS will
+
+
+773
+00:23:06,386 --> 00:23:09,386
+automatically convert your
+
+
+774
+00:23:09,386 --> 00:23:11,456
+typewriter quote into
+
+
+775
+00:23:11,766 --> 00:23:12,976
+typographic quote.
+
+
+776
+00:23:13,516 --> 00:23:19,986
+[ Applause ]
+
+
+777
+00:23:20,486 --> 00:23:21,846
+What's next?
+
+
+778
+00:23:22,396 --> 00:23:23,936
+When you type on the middle bar
+
+
+779
+00:23:23,936 --> 00:23:26,956
+line, sometimes you just think
+
+
+780
+00:23:26,956 --> 00:23:28,876
+about, "Okay, a hyphen, an end
+
+
+781
+00:23:28,876 --> 00:23:30,286
+dash, and add dash," how to do
+
+
+782
+00:23:30,286 --> 00:23:30,466
+that.
+
+
+783
+00:23:31,266 --> 00:23:33,336
+From this year, we can input a
+
+
+784
+00:23:33,336 --> 00:23:34,386
+hyphen with one dash.
+
+
+785
+00:23:35,026 --> 00:23:36,476
+We will automatically convert
+
+
+786
+00:23:36,476 --> 00:23:38,246
+two dashes into an end dash.
+
+
+787
+00:23:39,566 --> 00:23:41,336
+And then, add dash with three
+
+
+788
+00:23:41,336 --> 00:23:41,976
+dashes of course.
+
+
+789
+00:23:42,516 --> 00:23:46,606
+[ Applause ]
+
+
+790
+00:23:47,106 --> 00:23:49,916
+Also, we introduce Smart
+
+
+791
+00:23:49,916 --> 00:23:51,036
+Insertion and Smart Deletion.
+
+
+792
+00:23:51,576 --> 00:23:53,886
+If you work with tags before,
+
+
+793
+00:23:54,826 --> 00:23:57,036
+you have to insert and delete a
+
+
+794
+00:23:57,036 --> 00:23:59,206
+paragraph or a phrase, you know
+
+
+795
+00:23:59,206 --> 00:23:59,946
+what I'm talking about.
+
+
+796
+00:24:00,366 --> 00:24:01,846
+And not even mention the trouble
+
+
+797
+00:24:01,846 --> 00:24:02,826
+caused by punctuation.
+
+
+798
+00:24:03,206 --> 00:24:06,196
+So, for example, in our example,
+
+
+799
+00:24:06,536 --> 00:24:08,136
+Vivian wants to bring Jiwang
+
+
+800
+00:24:08,136 --> 00:24:10,946
+also to the party, but then
+
+
+801
+00:24:11,066 --> 00:24:12,206
+Jiwang was sick.
+
+
+802
+00:24:12,536 --> 00:24:14,836
+So, we have to remove him.
+
+
+803
+00:24:15,316 --> 00:24:18,006
+Now, in this whole process, you
+
+
+804
+00:24:18,046 --> 00:24:19,636
+have to deal with a space.
+
+
+805
+00:24:19,856 --> 00:24:20,506
+That's the trouble.
+
+
+806
+00:24:21,346 --> 00:24:22,086
+Troublemaker.
+
+
+807
+00:24:23,596 --> 00:24:26,446
+So, from today, we will take
+
+
+808
+00:24:26,446 --> 00:24:27,546
+care of all of that for you.
+
+
+809
+00:24:28,166 --> 00:24:29,246
+With Smart Insertion and
+
+
+810
+00:24:29,246 --> 00:24:30,866
+Deletion, we'll take care of all
+
+
+811
+00:24:30,866 --> 00:24:32,826
+the leading and trailing spaces
+
+
+812
+00:24:32,826 --> 00:24:33,660
+for you.
+
+
+813
+00:24:35,516 --> 00:24:38,206
+[ Applause ]
+
+
+814
+00:24:38,706 --> 00:24:40,836
+Also, I want to mention, all the
+
+
+815
+00:24:40,886 --> 00:24:41,976
+smartness that we introduced
+
+
+816
+00:24:41,976 --> 00:24:43,106
+that I have talked about today,
+
+
+817
+00:24:43,326 --> 00:24:44,426
+they are all by default.
+
+
+818
+00:24:45,496 --> 00:24:47,786
+But I want you note, for these
+
+
+819
+00:24:47,786 --> 00:24:50,836
+smart text input traits, they
+
+
+820
+00:24:51,216 --> 00:24:52,426
+have three values.
+
+
+821
+00:24:52,736 --> 00:24:54,316
+They have yes, no, and the
+
+
+822
+00:24:54,316 --> 00:24:54,986
+default value.
+
+
+823
+00:24:55,866 --> 00:24:57,246
+We set the default value for
+
+
+824
+00:24:57,246 --> 00:24:58,916
+default for all of you.
+
+
+825
+00:25:00,236 --> 00:25:01,936
+We will automatically do the
+
+
+826
+00:25:01,936 --> 00:25:02,866
+right thing for you.
+
+
+827
+00:25:03,156 --> 00:25:07,256
+For example, if you have a text
+
+
+828
+00:25:07,336 --> 00:25:09,086
+field, you set the Secured Text
+
+
+829
+00:25:09,086 --> 00:25:10,066
+Entry to Yes.
+
+
+830
+00:25:10,736 --> 00:25:12,076
+Probably it's the password
+
+
+831
+00:25:12,076 --> 00:25:12,386
+field.
+
+
+832
+00:25:12,626 --> 00:25:14,956
+In that case, if you set your
+
+
+833
+00:25:14,956 --> 00:25:17,756
+smart traits to default, we will
+
+
+834
+00:25:17,756 --> 00:25:20,326
+automatically disable the smart
+
+
+835
+00:25:20,326 --> 00:25:21,346
+quote conversion for you,
+
+
+836
+00:25:21,456 --> 00:25:22,876
+because we think probably that's
+
+
+837
+00:25:22,876 --> 00:25:23,906
+the user password.
+
+
+838
+00:25:24,046 --> 00:25:26,046
+We don't want to switch user
+
+
+839
+00:25:26,096 --> 00:25:27,976
+typing for a password field.
+
+
+840
+00:25:29,046 --> 00:25:31,796
+If you recall, actually we can
+
+
+841
+00:25:31,796 --> 00:25:33,546
+config auto correction types.
+
+
+842
+00:25:33,816 --> 00:25:34,776
+We can config auto
+
+
+843
+00:25:34,776 --> 00:25:35,796
+capitalization types.
+
+
+844
+00:25:36,286 --> 00:25:39,006
+There are a lot of sweet traits
+
+
+845
+00:25:39,006 --> 00:25:40,106
+that we have in Text Input
+
+
+846
+00:25:40,106 --> 00:25:40,466
+traits.
+
+
+847
+00:25:41,436 --> 00:25:43,276
+All of them have this default
+
+
+848
+00:25:43,276 --> 00:25:43,566
+value.
+
+
+849
+00:25:44,526 --> 00:25:46,076
+What I want to emphasize here
+
+
+850
+00:25:46,076 --> 00:25:48,616
+is, before you play with any of
+
+
+851
+00:25:48,616 --> 00:25:51,466
+these traits, always understand
+
+
+852
+00:25:51,716 --> 00:25:53,036
+what your tags is going to be.
+
+
+853
+00:25:54,136 --> 00:25:56,256
+Always understand what the tags
+
+
+854
+00:25:56,556 --> 00:25:57,786
+you're expecting the user to
+
+
+855
+00:25:57,786 --> 00:25:58,166
+type.
+
+
+856
+00:25:58,806 --> 00:26:00,876
+So, let me ask another question.
+
+
+857
+00:26:00,876 --> 00:26:04,096
+Who flew to San Jose for WWDC?
+
+
+858
+00:26:04,096 --> 00:26:05,306
+Well, welcome.
+
+
+859
+00:26:06,456 --> 00:26:10,166
+So, am I. Kidding this time.
+
+
+860
+00:26:10,376 --> 00:26:12,986
+If you have a text entry, only
+
+
+861
+00:26:12,986 --> 00:26:17,366
+take flight code as an input, in
+
+
+862
+00:26:17,366 --> 00:26:18,776
+such case, probably you want to
+
+
+863
+00:26:18,946 --> 00:26:21,916
+disable auto correction type and
+
+
+864
+00:26:21,916 --> 00:26:24,706
+auto capitalization type setting
+
+
+865
+00:26:24,706 --> 00:26:25,096
+to No.
+
+
+866
+00:26:25,566 --> 00:26:27,416
+Right? Because that makes sense.
+
+
+867
+00:26:28,156 --> 00:26:29,806
+So, you always want to fully
+
+
+868
+00:26:29,806 --> 00:26:34,396
+understand your text before set
+
+
+869
+00:26:34,396 --> 00:26:35,126
+all these traits.
+
+
+870
+00:26:35,126 --> 00:26:36,796
+Not just, okay, type on the tab
+
+
+871
+00:26:36,796 --> 00:26:38,086
+and just say, "Okay, yes," or
+
+
+872
+00:26:38,086 --> 00:26:39,496
+"No," just by thing.
+
+
+873
+00:26:39,926 --> 00:26:41,746
+Always fully understand it.
+
+
+874
+00:26:43,556 --> 00:26:44,636
+This is my point.
+
+
+875
+00:26:45,056 --> 00:26:50,336
+Next, while work with text, you
+
+
+876
+00:26:50,336 --> 00:26:52,116
+can now ignore marked texts.
+
+
+877
+00:26:53,006 --> 00:26:54,696
+Two big names, Chinese and
+
+
+878
+00:26:54,696 --> 00:26:55,016
+Japanese.
+
+
+879
+00:26:55,136 --> 00:26:57,316
+They all use marked texts.
+
+
+880
+00:26:57,316 --> 00:26:58,676
+So, marked text language call
+
+
+881
+00:26:58,676 --> 00:27:00,526
+word, the marked text into final
+
+
+882
+00:27:00,526 --> 00:27:01,996
+text by select candidates.
+
+
+883
+00:27:02,546 --> 00:27:05,796
+In iOS, actually you can easily
+
+
+884
+00:27:05,796 --> 00:27:07,826
+access marked text from UI Text
+
+
+885
+00:27:07,826 --> 00:27:08,216
+Input.
+
+
+886
+00:27:08,906 --> 00:27:10,876
+You can directly use the marked
+
+
+887
+00:27:11,676 --> 00:27:11,886
+text.
+
+
+888
+00:27:12,536 --> 00:27:14,466
+We have an example in our system
+
+
+889
+00:27:14,896 --> 00:27:15,786
+is the Spotlight.
+
+
+890
+00:27:16,806 --> 00:27:20,076
+In Spotlight, when user type in
+
+
+891
+00:27:20,076 --> 00:27:22,506
+Chinese for example, before
+
+
+892
+00:27:22,506 --> 00:27:24,036
+users select the candidate,
+
+
+893
+00:27:25,406 --> 00:27:27,096
+Spotlight engine already start
+
+
+894
+00:27:27,096 --> 00:27:28,566
+to show you all the results.
+
+
+895
+00:27:29,216 --> 00:27:30,756
+You can also do that in your app
+
+
+896
+00:27:31,156 --> 00:27:33,296
+through the marked text by
+
+
+897
+00:27:33,296 --> 00:27:34,546
+retrieving it from UI Text
+
+
+898
+00:27:34,546 --> 00:27:34,896
+Input.
+
+
+899
+00:27:36,106 --> 00:27:37,576
+In such way, user won't be
+
+
+900
+00:27:37,576 --> 00:27:39,136
+interrupted by selecting
+
+
+901
+00:27:39,136 --> 00:27:39,616
+candidate.
+
+
+902
+00:27:39,856 --> 00:27:41,506
+The user can spend more time to
+
+
+903
+00:27:41,506 --> 00:27:43,466
+enjoy your app.
+
+
+904
+00:27:43,866 --> 00:27:46,156
+I won't dive into too much about
+
+
+905
+00:27:46,156 --> 00:27:48,106
+internationalization stuff, but
+
+
+906
+00:27:48,106 --> 00:27:49,956
+if you're interested, please
+
+
+907
+00:27:49,956 --> 00:27:51,806
+watch Internationalization Best
+
+
+908
+00:27:51,806 --> 00:27:52,886
+Practices from last year.
+
+
+909
+00:27:53,366 --> 00:27:57,286
+Last but not least, hardware
+
+
+910
+00:27:57,286 --> 00:27:57,706
+keyboard.
+
+
+911
+00:27:58,726 --> 00:28:00,156
+I think everyone use hardware
+
+
+912
+00:28:00,156 --> 00:28:02,016
+keyboard and I believe you all
+
+
+913
+00:28:02,016 --> 00:28:03,736
+love the keyboard shortcuts,
+
+
+914
+00:28:03,876 --> 00:28:05,326
+like Command C, Command V,
+
+
+915
+00:28:05,696 --> 00:28:06,616
+probably your favorite is
+
+
+916
+00:28:06,616 --> 00:28:07,256
+Command Z.
+
+
+917
+00:28:07,416 --> 00:28:11,306
+We brought that to iOS with
+
+
+918
+00:28:11,306 --> 00:28:11,876
+Smart Keyboard.
+
+
+919
+00:28:12,396 --> 00:28:17,206
+So, in iOS, you can define your
+
+
+920
+00:28:17,206 --> 00:28:21,066
+own shortcut for your user if I
+
+
+921
+00:28:21,066 --> 00:28:23,646
+have iPad app.
+
+
+922
+00:28:23,906 --> 00:28:25,286
+So, let's see, how we do that.
+
+
+923
+00:28:25,286 --> 00:28:27,676
+Let's dive right into the code.
+
+
+924
+00:28:28,096 --> 00:28:29,256
+It's very straightforward and
+
+
+925
+00:28:29,256 --> 00:28:29,666
+easy.
+
+
+926
+00:28:30,796 --> 00:28:32,876
+Again, in UI Responder, you can
+
+
+927
+00:28:32,876 --> 00:28:34,086
+override the key commands.
+
+
+928
+00:28:34,646 --> 00:28:38,116
+Key commands return an array of
+
+
+929
+00:28:38,116 --> 00:28:38,636
+key commands.
+
+
+930
+00:28:38,636 --> 00:28:39,966
+That means you can define a
+
+
+931
+00:28:40,096 --> 00:28:42,746
+couple shortcuts for your app at
+
+
+932
+00:28:42,746 --> 00:28:43,976
+the same time.
+
+
+933
+00:28:44,736 --> 00:28:46,736
+To define a key command is very
+
+
+934
+00:28:46,736 --> 00:28:47,576
+straightforward.
+
+
+935
+00:28:48,506 --> 00:28:49,386
+You give it inputs.
+
+
+936
+00:28:50,156 --> 00:28:51,156
+You give a modifier.
+
+
+937
+00:28:52,166 --> 00:28:53,326
+You put your selector there.
+
+
+938
+00:28:54,036 --> 00:28:55,236
+And then also give it a name.
+
+
+939
+00:28:56,006 --> 00:28:57,266
+Also, don't forget to localize
+
+
+940
+00:28:57,266 --> 00:28:58,316
+your name.
+
+
+941
+00:28:59,276 --> 00:29:01,736
+This is our second shortcut.
+
+
+942
+00:29:02,286 --> 00:29:06,946
+Now, press on the Command key,
+
+
+943
+00:29:07,236 --> 00:29:10,316
+it will display the keyboard
+
+
+944
+00:29:10,316 --> 00:29:12,066
+shortcut for you and then you
+
+
+945
+00:29:12,066 --> 00:29:14,196
+can see in our CatChat app, we
+
+
+946
+00:29:14,196 --> 00:29:16,516
+have Command Up and Command Down
+
+
+947
+00:29:16,516 --> 00:29:18,886
+to switch between the
+
+
+948
+00:29:20,716 --> 00:29:21,066
+conversations.
+
+
+949
+00:29:21,066 --> 00:29:21,826
+So, let's recap.
+
+
+950
+00:29:22,386 --> 00:29:23,216
+I've talked about the
+
+
+951
+00:29:23,216 --> 00:29:24,716
+multilingual problem to how to
+
+
+952
+00:29:24,716 --> 00:29:25,836
+give your app a memory.
+
+
+953
+00:29:26,346 --> 00:29:29,336
+I've talked about how to take
+
+
+954
+00:29:29,606 --> 00:29:31,356
+most advantages out of the
+
+
+955
+00:29:31,356 --> 00:29:33,766
+context for predictions by
+
+
+956
+00:29:33,766 --> 00:29:35,376
+giving your text field a tag
+
+
+957
+00:29:35,906 --> 00:29:36,976
+through text content type.
+
+
+958
+00:29:37,836 --> 00:29:39,556
+I talked about the new smartness
+
+
+959
+00:29:40,156 --> 00:29:41,506
+for text input fields.
+
+
+960
+00:29:42,426 --> 00:29:44,156
+I also talked about the mark
+
+
+961
+00:29:44,486 --> 00:29:45,026
+text.
+
+
+962
+00:29:45,846 --> 00:29:47,836
+Last but not least, there's
+
+
+963
+00:29:47,836 --> 00:29:48,996
+keyboard shortcuts you'll want
+
+
+964
+00:29:48,996 --> 00:29:49,446
+to try out.
+
+
+965
+00:29:50,656 --> 00:29:51,276
+Try them all.
+
+
+966
+00:29:51,896 --> 00:29:55,506
+Next, James is going to talk
+
+
+967
+00:29:55,506 --> 00:29:57,856
+about how to create a custom
+
+
+968
+00:29:57,926 --> 00:29:58,576
+input views.
+
+
+969
+00:29:58,996 --> 00:29:59,306
+James?
+
+
+970
+00:30:00,516 --> 00:30:05,566
+[ Applause ]
+
+
+971
+00:30:06,066 --> 00:30:06,806
+>> Thanks, Shuchen.
+
+
+972
+00:30:07,266 --> 00:30:08,376
+I'm very nervous -- I mean,
+
+
+973
+00:30:08,446 --> 00:30:09,876
+excited to tell you about
+
+
+974
+00:30:09,876 --> 00:30:11,676
+creating custom input views.
+
+
+975
+00:30:12,426 --> 00:30:14,946
+So, Shuchen briefly mentioned a
+
+
+976
+00:30:14,946 --> 00:30:16,726
+UI Responder property called
+
+
+977
+00:30:16,726 --> 00:30:18,266
+Keyboard Type, which allows you
+
+
+978
+00:30:18,266 --> 00:30:20,586
+to access a lot of the built-in
+
+
+979
+00:30:20,586 --> 00:30:22,156
+iOS system keyboards for
+
+
+980
+00:30:22,156 --> 00:30:24,506
+specialized input, such as the
+
+
+981
+00:30:24,506 --> 00:30:25,956
+decimal pad for entering decimal
+
+
+982
+00:30:25,956 --> 00:30:27,676
+numbers, and we also have a
+
+
+983
+00:30:27,676 --> 00:30:29,006
+phone pad for entering phone
+
+
+984
+00:30:29,006 --> 00:30:30,916
+numbers, and a special keyboard
+
+
+985
+00:30:30,916 --> 00:30:32,366
+just for URLs and email
+
+
+986
+00:30:32,366 --> 00:30:32,936
+addresses.
+
+
+987
+00:30:33,566 --> 00:30:34,766
+Sometimes though, this may not
+
+
+988
+00:30:34,766 --> 00:30:36,286
+be enough for your application.
+
+
+989
+00:30:36,646 --> 00:30:38,066
+You may want to go beyond what
+
+
+990
+00:30:38,066 --> 00:30:39,136
+the system keyboard provides
+
+
+991
+00:30:39,136 --> 00:30:39,376
+you.
+
+
+992
+00:30:40,026 --> 00:30:41,166
+Let's take a look at a couple of
+
+
+993
+00:30:41,166 --> 00:30:42,000
+examples.
+
+
+994
+00:30:43,066 --> 00:30:44,266
+So, mathematics is a pretty good
+
+
+995
+00:30:44,266 --> 00:30:44,786
+example.
+
+
+996
+00:30:45,156 --> 00:30:46,306
+In math, there's a lot of custom
+
+
+997
+00:30:46,306 --> 00:30:48,076
+symbols like Greek letters,
+
+
+998
+00:30:48,406 --> 00:30:50,106
+superscript operators, and
+
+
+999
+00:30:50,106 --> 00:30:51,176
+subscript operators.
+
+
+1000
+00:30:51,436 --> 00:30:52,706
+It could be pretty difficult to
+
+
+1001
+00:30:52,706 --> 00:30:54,406
+type something like this with
+
+
+1002
+00:30:54,406 --> 00:30:55,936
+the built-in system keyboard.
+
+
+1003
+00:30:56,386 --> 00:30:59,216
+Swift Playgrounds is another
+
+
+1004
+00:30:59,216 --> 00:30:59,866
+good example.
+
+
+1005
+00:31:00,426 --> 00:31:01,396
+This is the Swift Playgrounds
+
+
+1006
+00:31:01,396 --> 00:31:01,556
+app.
+
+
+1007
+00:31:01,556 --> 00:31:02,866
+They have the standard QWERTY
+
+
+1008
+00:31:02,866 --> 00:31:04,276
+layout, but they provide a lot
+
+
+1009
+00:31:04,276 --> 00:31:05,626
+of additional functionality for
+
+
+1010
+00:31:05,626 --> 00:31:06,766
+frequently used symbols in the
+
+
+1011
+00:31:06,766 --> 00:31:07,816
+Swift programming language.
+
+
+1012
+00:31:08,806 --> 00:31:10,006
+And they also have a really nice
+
+
+1013
+00:31:10,006 --> 00:31:11,426
+accessory bar in the top here,
+
+
+1014
+00:31:11,926 --> 00:31:13,186
+for quickly inputting relevant
+
+
+1015
+00:31:13,186 --> 00:31:14,376
+functions and symbols.
+
+
+1016
+00:31:14,916 --> 00:31:19,126
+And then lastly, Apple numbers,
+
+
+1017
+00:31:19,216 --> 00:31:20,316
+spreadsheets, is another good
+
+
+1018
+00:31:20,316 --> 00:31:20,786
+example.
+
+
+1019
+00:31:21,206 --> 00:31:22,966
+So, there's a formula entry bar
+
+
+1020
+00:31:22,966 --> 00:31:24,316
+here, which also requires a lot
+
+
+1021
+00:31:24,316 --> 00:31:26,326
+of custom symbols, and they also
+
+
+1022
+00:31:26,326 --> 00:31:27,286
+have a nice, dark gray
+
+
+1023
+00:31:27,286 --> 00:31:28,656
+background here, so it blends in
+
+
+1024
+00:31:28,656 --> 00:31:29,836
+really nicely with the system
+
+
+1025
+00:31:29,836 --> 00:31:30,266
+keyboard.
+
+
+1026
+00:31:32,856 --> 00:31:34,566
+So, going back to our CatChat
+
+
+1027
+00:31:34,566 --> 00:31:35,816
+app, it's another pretty good
+
+
+1028
+00:31:35,816 --> 00:31:37,366
+example for something that needs
+
+
+1029
+00:31:37,366 --> 00:31:38,266
+a custom input view.
+
+
+1030
+00:31:38,556 --> 00:31:41,186
+Why? Well, right now, we have a
+
+
+1031
+00:31:41,186 --> 00:31:42,586
+way to talk to our pets, but our
+
+
+1032
+00:31:42,586 --> 00:31:43,436
+pets don't have a way to talk
+
+
+1033
+00:31:43,436 --> 00:31:44,066
+back to us.
+
+
+1034
+00:31:45,046 --> 00:31:46,466
+And that's because, they have a
+
+
+1035
+00:31:46,466 --> 00:31:47,476
+lot of trouble using the QWERTY
+
+
+1036
+00:31:47,476 --> 00:31:47,946
+keyboard.
+
+
+1037
+00:31:48,016 --> 00:31:49,376
+Their paws are quite large.
+
+
+1038
+00:31:49,686 --> 00:31:50,826
+The keys are really small.
+
+
+1039
+00:31:51,306 --> 00:31:52,886
+And so, they have a lot of
+
+
+1040
+00:31:52,886 --> 00:31:54,476
+difficulty hitting those keys.
+
+
+1041
+00:31:54,886 --> 00:31:56,416
+Plus, they have a really limited
+
+
+1042
+00:31:56,416 --> 00:31:57,366
+vocabulary too.
+
+
+1043
+00:31:57,706 --> 00:31:58,366
+So, they don't really need to
+
+
+1044
+00:31:58,366 --> 00:31:59,076
+say a whole lot.
+
+
+1045
+00:32:00,146 --> 00:32:01,666
+So, let's say we want to make a
+
+
+1046
+00:32:01,666 --> 00:32:02,656
+keyboard just for them,
+
+
+1047
+00:32:02,656 --> 00:32:03,966
+accessible to cats and dogs.
+
+
+1048
+00:32:04,966 --> 00:32:06,456
+So, maybe we want just large
+
+
+1049
+00:32:06,456 --> 00:32:08,516
+graphical buttons to represent
+
+
+1050
+00:32:08,516 --> 00:32:09,926
+their entire small vocabulary.
+
+
+1051
+00:32:10,446 --> 00:32:12,216
+So, here's what that might look
+
+
+1052
+00:32:12,216 --> 00:32:12,446
+like.
+
+
+1053
+00:32:13,016 --> 00:32:16,746
+This is our PetChat app, again.
+
+
+1054
+00:32:16,996 --> 00:32:18,506
+It's the -- it's got the cool,
+
+
+1055
+00:32:18,506 --> 00:32:20,316
+expanding text view that Kasia
+
+
+1056
+00:32:20,316 --> 00:32:21,346
+built for us earlier.
+
+
+1057
+00:32:21,756 --> 00:32:24,476
+And now, on the pet side, we
+
+
+1058
+00:32:24,476 --> 00:32:25,676
+have three, large graphical
+
+
+1059
+00:32:25,676 --> 00:32:27,426
+buttons with -- representing
+
+
+1060
+00:32:27,426 --> 00:32:28,476
+their entire vocabulary of
+
+
+1061
+00:32:28,476 --> 00:32:29,396
+things they might want to say
+
+
+1062
+00:32:29,396 --> 00:32:30,566
+like, "I need food," "I want to
+
+
+1063
+00:32:30,566 --> 00:32:31,596
+go outside," and "Stop petting
+
+
+1064
+00:32:31,596 --> 00:32:31,696
+me."
+
+
+1065
+00:32:31,936 --> 00:32:33,106
+Something like that.
+
+
+1066
+00:32:34,436 --> 00:32:37,016
+The other cool thing too is that
+
+
+1067
+00:32:37,016 --> 00:32:38,056
+this behaves just like the
+
+
+1068
+00:32:38,056 --> 00:32:39,796
+system keyboard does.
+
+
+1069
+00:32:39,796 --> 00:32:40,636
+It sits at the bottom of the
+
+
+1070
+00:32:40,636 --> 00:32:41,226
+screen.
+
+
+1071
+00:32:41,516 --> 00:32:42,696
+There's an accessory bar at the
+
+
+1072
+00:32:42,696 --> 00:32:44,046
+top that's laid out, right at
+
+
+1073
+00:32:44,046 --> 00:32:44,656
+the top of the -- where the
+
+
+1074
+00:32:44,656 --> 00:32:46,036
+keyboard would go.
+
+
+1075
+00:32:46,306 --> 00:32:47,596
+And then also the scroll view in
+
+
+1076
+00:32:47,596 --> 00:32:48,836
+the background, automatically
+
+
+1077
+00:32:48,836 --> 00:32:51,286
+adapts its content insets to the
+
+
+1078
+00:32:51,326 --> 00:32:52,916
+size of your custom input view.
+
+
+1079
+00:32:53,476 --> 00:32:55,526
+So, let's go into a little bit
+
+
+1080
+00:32:55,526 --> 00:32:57,266
+more detail, about how to build
+
+
+1081
+00:32:57,266 --> 00:32:58,196
+something like this.
+
+
+1082
+00:32:59,086 --> 00:33:01,886
+So, for our PetChat app, to
+
+
+1083
+00:33:01,886 --> 00:33:02,816
+create something like this, all
+
+
+1084
+00:33:02,816 --> 00:33:04,826
+we need to do is subclass UI
+
+
+1085
+00:33:04,826 --> 00:33:05,826
+Input View Controller.
+
+
+1086
+00:33:06,296 --> 00:33:07,726
+And by doing that, we get a lot
+
+
+1087
+00:33:07,726 --> 00:33:09,436
+of stuff for free, such as the
+
+
+1088
+00:33:09,436 --> 00:33:10,936
+blurry gray background that
+
+
+1089
+00:33:10,936 --> 00:33:12,436
+mimics the system keyboard's
+
+
+1090
+00:33:12,436 --> 00:33:12,876
+appearance.
+
+
+1091
+00:33:13,566 --> 00:33:15,836
+But most importantly, we provide
+
+
+1092
+00:33:15,836 --> 00:33:17,216
+you a way to access the
+
+
+1093
+00:33:17,216 --> 00:33:18,926
+currently interactive text field
+
+
+1094
+00:33:18,926 --> 00:33:19,956
+that the user has selected.
+
+
+1095
+00:33:20,586 --> 00:33:21,716
+And we do this via a special
+
+
+1096
+00:33:21,716 --> 00:33:23,546
+property, called Text Document
+
+
+1097
+00:33:23,546 --> 00:33:24,036
+Proxy.
+
+
+1098
+00:33:24,786 --> 00:33:26,026
+Now the Text Document Proxy
+
+
+1099
+00:33:26,026 --> 00:33:27,766
+allows you to access things like
+
+
+1100
+00:33:27,766 --> 00:33:29,096
+the text input traits for the
+
+
+1101
+00:33:29,096 --> 00:33:30,336
+currently selected text field.
+
+
+1102
+00:33:30,686 --> 00:33:31,656
+So, that would be stuff like
+
+
+1103
+00:33:31,656 --> 00:33:33,096
+whether or not it's a password
+
+
+1104
+00:33:33,096 --> 00:33:34,736
+field, what kind of content type
+
+
+1105
+00:33:34,736 --> 00:33:36,726
+it prefers, and even what kind
+
+
+1106
+00:33:36,726 --> 00:33:37,736
+of keyboard type it prefers.
+
+
+1107
+00:33:37,736 --> 00:33:39,186
+So, you can adapt as necessary.
+
+
+1108
+00:33:39,996 --> 00:33:41,496
+But most importantly, the Text
+
+
+1109
+00:33:41,496 --> 00:33:43,286
+Document Proxy also allows you
+
+
+1110
+00:33:43,286 --> 00:33:45,036
+to insert text into the text
+
+
+1111
+00:33:45,036 --> 00:33:47,336
+field, via a simple method
+
+
+1112
+00:33:47,336 --> 00:33:48,506
+called Insert Text, which just
+
+
+1113
+00:33:48,506 --> 00:33:49,046
+takes a string.
+
+
+1114
+00:33:49,816 --> 00:33:50,716
+Oh, and one more thing that you
+
+
+1115
+00:33:50,716 --> 00:33:51,846
+can do with the Text Document
+
+
+1116
+00:33:51,846 --> 00:33:52,526
+Proxy too.
+
+
+1117
+00:33:52,786 --> 00:33:53,786
+You can access where the
+
+
+1118
+00:33:53,786 --> 00:33:55,756
+insertion point position is, and
+
+
+1119
+00:33:55,756 --> 00:33:57,526
+the text before and after the
+
+
+1120
+00:33:57,526 --> 00:33:58,186
+insertion point.
+
+
+1121
+00:33:59,156 --> 00:33:59,576
+Pretty cool.
+
+
+1122
+00:34:00,196 --> 00:34:01,726
+So, let's talk about how we can
+
+
+1123
+00:34:01,726 --> 00:34:03,406
+actually get this inside of our
+
+
+1124
+00:34:03,406 --> 00:34:03,946
+PetChat app.
+
+
+1125
+00:34:04,026 --> 00:34:04,956
+Well, let's go back to our old
+
+
+1126
+00:34:04,956 --> 00:34:06,556
+friend here, the conversation
+
+
+1127
+00:34:06,556 --> 00:34:07,226
+view controller.
+
+
+1128
+00:34:08,466 --> 00:34:09,476
+So, to get it to show up in our
+
+
+1129
+00:34:09,476 --> 00:34:10,906
+conversation view controller, we
+
+
+1130
+00:34:10,906 --> 00:34:13,116
+simply need to instantiate our
+
+
+1131
+00:34:13,116 --> 00:34:14,485
+custom input view as a member
+
+
+1132
+00:34:14,485 --> 00:34:14,996
+variable.
+
+
+1133
+00:34:15,686 --> 00:34:17,076
+And then, override a UI
+
+
+1134
+00:34:17,076 --> 00:34:18,226
+Responder method called Can
+
+
+1135
+00:34:18,226 --> 00:34:19,646
+Become First Responder, to
+
+
+1136
+00:34:19,646 --> 00:34:21,485
+return True, so that it becomes
+
+
+1137
+00:34:21,485 --> 00:34:22,426
+a part of the responder chain.
+
+
+1138
+00:34:22,876 --> 00:34:25,246
+And then lastly, all we need to
+
+
+1139
+00:34:25,246 --> 00:34:26,556
+do, is override this other UI
+
+
+1140
+00:34:26,556 --> 00:34:27,806
+Responder method called Input
+
+
+1141
+00:34:27,806 --> 00:34:28,076
+View.
+
+
+1142
+00:34:28,076 --> 00:34:30,056
+And then just return our custom
+
+
+1143
+00:34:30,056 --> 00:34:30,936
+input view instance.
+
+
+1144
+00:34:31,886 --> 00:34:33,106
+Now, if you're using things like
+
+
+1145
+00:34:33,106 --> 00:34:35,306
+UI Text View or UI Text Field,
+
+
+1146
+00:34:35,565 --> 00:34:36,565
+you actually don't need to do
+
+
+1147
+00:34:36,565 --> 00:34:37,386
+most of this.
+
+
+1148
+00:34:37,775 --> 00:34:39,406
+UI Text View and UI Text Field,
+
+
+1149
+00:34:39,406 --> 00:34:41,696
+the input view property is a
+
+
+1150
+00:34:41,696 --> 00:34:42,626
+writable property.
+
+
+1151
+00:34:42,946 --> 00:34:44,085
+So, all you really need to do is
+
+
+1152
+00:34:44,085 --> 00:34:45,946
+actually just assign your custom
+
+
+1153
+00:34:45,946 --> 00:34:49,016
+input view instance to the input
+
+
+1154
+00:34:49,016 --> 00:34:49,505
+view property.
+
+
+1155
+00:34:50,076 --> 00:34:52,686
+So, now, our pets have a way of
+
+
+1156
+00:34:52,686 --> 00:34:54,456
+talking back to us in the
+
+
+1157
+00:34:54,456 --> 00:34:56,726
+PetChat app, but let's say they
+
+
+1158
+00:34:56,726 --> 00:34:57,596
+actually do kind of want to
+
+
+1159
+00:34:57,596 --> 00:34:59,026
+break out a little bit and start
+
+
+1160
+00:34:59,026 --> 00:35:00,126
+Tweeting or maybe writing a
+
+
+1161
+00:35:00,126 --> 00:35:00,526
+blog.
+
+
+1162
+00:35:00,916 --> 00:35:01,716
+I'm sure they have a lot of
+
+
+1163
+00:35:01,716 --> 00:35:02,776
+interesting things to say with
+
+
+1164
+00:35:02,776 --> 00:35:06,176
+that small vocabulary of theirs.
+
+
+1165
+00:35:06,346 --> 00:35:07,866
+So, in iOS 8, we actually added
+
+
+1166
+00:35:07,866 --> 00:35:09,426
+the ability to create custom
+
+
+1167
+00:35:09,426 --> 00:35:10,866
+keyboard extensions, so that it
+
+
+1168
+00:35:10,866 --> 00:35:12,126
+runs anywhere in the system.
+
+
+1169
+00:35:12,126 --> 00:35:13,076
+This is actually our first time
+
+
+1170
+00:35:13,076 --> 00:35:14,486
+talking about it at WWDC.
+
+
+1171
+00:35:15,796 --> 00:35:18,086
+So, here's what our custom
+
+
+1172
+00:35:18,086 --> 00:35:19,216
+keyboard extension might look
+
+
+1173
+00:35:19,216 --> 00:35:20,366
+like, running inside of
+
+
+1174
+00:35:20,366 --> 00:35:20,896
+messages.
+
+
+1175
+00:35:21,406 --> 00:35:23,486
+So, you can -- your pets can
+
+
+1176
+00:35:23,486 --> 00:35:25,456
+chat anywhere, or type into
+
+
+1177
+00:35:25,456 --> 00:35:26,476
+Twitter or keep a blog or
+
+
+1178
+00:35:26,476 --> 00:35:26,856
+something.
+
+
+1179
+00:35:27,636 --> 00:35:29,456
+So, it's actually really easy to
+
+
+1180
+00:35:29,456 --> 00:35:31,216
+go from an input view into a
+
+
+1181
+00:35:31,216 --> 00:35:32,216
+custom keyboard extension.
+
+
+1182
+00:35:32,216 --> 00:35:33,536
+And so, I'm going to give you a
+
+
+1183
+00:35:33,536 --> 00:35:34,756
+quick demo and show you how to
+
+
+1184
+00:35:34,756 --> 00:35:35,126
+do that.
+
+
+1185
+00:35:35,626 --> 00:35:36,456
+So, let's switch over to the
+
+
+1186
+00:35:36,456 --> 00:35:39,316
+computer here.
+
+
+1187
+00:35:39,526 --> 00:35:41,556
+Okay, so this is our custom
+
+
+1188
+00:35:42,866 --> 00:35:44,396
+input view controller here.
+
+
+1189
+00:35:44,446 --> 00:35:45,476
+I'm not going to go into too
+
+
+1190
+00:35:45,476 --> 00:35:46,506
+much detail about how it was
+
+
+1191
+00:35:46,506 --> 00:35:47,946
+built, but our sample code is
+
+
+1192
+00:35:47,946 --> 00:35:48,936
+uploaded online.
+
+
+1193
+00:35:49,106 --> 00:35:50,186
+So, you can download all this
+
+
+1194
+00:35:50,186 --> 00:35:51,196
+yourself if you want to take a
+
+
+1195
+00:35:51,196 --> 00:35:51,636
+look at it.
+
+
+1196
+00:35:52,916 --> 00:35:54,666
+But to take -- let's go ahead
+
+
+1197
+00:35:54,666 --> 00:35:55,796
+and build and run this first to
+
+
+1198
+00:35:55,796 --> 00:35:57,006
+see what it looks like inside of
+
+
+1199
+00:35:57,526 --> 00:36:00,446
+our app.
+
+
+1200
+00:36:00,716 --> 00:36:01,896
+Build and run.
+
+
+1201
+00:36:15,116 --> 00:36:16,476
+Alright, so here's our custom
+
+
+1202
+00:36:16,476 --> 00:36:17,656
+input view running inside of our
+
+
+1203
+00:36:17,656 --> 00:36:17,746
+app.
+
+
+1204
+00:36:17,746 --> 00:36:18,996
+And so, I'm going to pretend
+
+
+1205
+00:36:18,996 --> 00:36:20,596
+like I'm a pet and just start
+
+
+1206
+00:36:20,596 --> 00:36:21,356
+saying what I'm feeling.
+
+
+1207
+00:36:21,356 --> 00:36:22,186
+I didn't have breakfast this
+
+
+1208
+00:36:22,186 --> 00:36:24,466
+morning, so I'll do something
+
+
+1209
+00:36:24,466 --> 00:36:24,836
+like that.
+
+
+1210
+00:36:25,676 --> 00:36:27,166
+So, now, if we actually want to
+
+
+1211
+00:36:27,166 --> 00:36:28,586
+take this custom input view and
+
+
+1212
+00:36:28,586 --> 00:36:29,516
+convert it into a third-party
+
+
+1213
+00:36:29,516 --> 00:36:30,736
+keyboard extension, it's quite
+
+
+1214
+00:36:30,736 --> 00:36:31,126
+easy.
+
+
+1215
+00:36:31,316 --> 00:36:32,306
+So, let's switch back over to
+
+
+1216
+00:36:32,306 --> 00:36:33,366
+Xcode here and I'll show you how
+
+
+1217
+00:36:33,366 --> 00:36:33,836
+to do that.
+
+
+1218
+00:36:33,836 --> 00:36:36,296
+So, first, I'm going to go over
+
+
+1219
+00:36:36,296 --> 00:36:37,816
+here to the top left, to the
+
+
+1220
+00:36:37,816 --> 00:36:38,586
+Project Settings.
+
+
+1221
+00:36:39,206 --> 00:36:40,386
+And I'm going to create a new
+
+
+1222
+00:36:40,386 --> 00:36:42,096
+target by clicking this plus
+
+
+1223
+00:36:42,096 --> 00:36:43,066
+button at the bottom here.
+
+
+1224
+00:36:43,606 --> 00:36:45,676
+And so, I'm going to go ahead
+
+
+1225
+00:36:45,676 --> 00:36:47,846
+and choose the custom keyboard
+
+
+1226
+00:36:47,846 --> 00:36:49,676
+extension template, and click
+
+
+1227
+00:36:49,676 --> 00:36:50,066
+Next.
+
+
+1228
+00:36:50,816 --> 00:36:51,516
+And give it a name.
+
+
+1229
+00:36:52,636 --> 00:36:53,326
+I'll just call it Animal
+
+
+1230
+00:36:53,326 --> 00:36:53,806
+Keyboard.
+
+
+1231
+00:36:55,376 --> 00:36:57,006
+So, now, by doing this, Xcode
+
+
+1232
+00:36:57,006 --> 00:36:58,136
+actually already gives us a
+
+
+1233
+00:36:58,136 --> 00:36:59,586
+bunch of stuff for free.
+
+
+1234
+00:37:00,306 --> 00:37:01,986
+For instance, it sets it up so
+
+
+1235
+00:37:01,986 --> 00:37:02,726
+that this extension is
+
+
+1236
+00:37:02,726 --> 00:37:04,106
+automatically embedded inside of
+
+
+1237
+00:37:04,106 --> 00:37:04,746
+your app bundle.
+
+
+1238
+00:37:04,746 --> 00:37:05,666
+So, you don't need to mess with
+
+
+1239
+00:37:05,666 --> 00:37:07,056
+build settings or build phases
+
+
+1240
+00:37:07,056 --> 00:37:07,716
+or anything like that.
+
+
+1241
+00:37:08,746 --> 00:37:11,406
+And it also gives us a template,
+
+
+1242
+00:37:12,076 --> 00:37:13,806
+UI Input View Controller, here.
+
+
+1243
+00:37:14,296 --> 00:37:15,156
+But we actually don't need to
+
+
+1244
+00:37:15,156 --> 00:37:16,226
+use this because we already
+
+
+1245
+00:37:16,226 --> 00:37:16,706
+wrote one.
+
+
+1246
+00:37:17,036 --> 00:37:18,026
+So, I'm just going to tweak
+
+
+1247
+00:37:18,026 --> 00:37:18,976
+around with a couple of settings
+
+
+1248
+00:37:18,976 --> 00:37:20,606
+here, so that our extension
+
+
+1249
+00:37:20,606 --> 00:37:22,416
+loads are already built, Custom
+
+
+1250
+00:37:22,416 --> 00:37:23,506
+Input View Controller, instead
+
+
+1251
+00:37:23,506 --> 00:37:24,326
+of the one that the template
+
+
+1252
+00:37:24,326 --> 00:37:24,886
+gives us.
+
+
+1253
+00:37:25,316 --> 00:37:27,646
+So, I'm going to go over here to
+
+
+1254
+00:37:27,646 --> 00:37:28,516
+our Custom Input View
+
+
+1255
+00:37:28,516 --> 00:37:29,716
+Controller, and I'm going to
+
+
+1256
+00:37:29,716 --> 00:37:31,796
+check the box over here for our
+
+
+1257
+00:37:31,796 --> 00:37:33,096
+keyboard extension so that it's
+
+
+1258
+00:37:33,096 --> 00:37:34,216
+a member of that target.
+
+
+1259
+00:37:34,816 --> 00:37:37,756
+And then, our keyboard uses a
+
+
+1260
+00:37:37,756 --> 00:37:38,966
+couple of other resources.
+
+
+1261
+00:37:39,216 --> 00:37:40,386
+It has a couple of localized
+
+
+1262
+00:37:40,386 --> 00:37:40,966
+strings.
+
+
+1263
+00:37:40,966 --> 00:37:41,976
+So, I'm also going to go ahead
+
+
+1264
+00:37:41,976 --> 00:37:43,636
+and switch to localized strings
+
+
+1265
+00:37:43,636 --> 00:37:45,246
+and check this checkbox to make
+
+
+1266
+00:37:45,246 --> 00:37:46,136
+sure it's part of that target.
+
+
+1267
+00:37:46,616 --> 00:37:47,896
+And then lastly, it also has a
+
+
+1268
+00:37:47,896 --> 00:37:50,406
+couple of assets that it uses
+
+
+1269
+00:37:50,736 --> 00:37:51,566
+for images.
+
+
+1270
+00:37:51,566 --> 00:37:52,736
+So, I'm going to check this box.
+
+
+1271
+00:37:53,276 --> 00:37:55,376
+And then, one more thing I have
+
+
+1272
+00:37:55,376 --> 00:37:55,536
+to do.
+
+
+1273
+00:37:55,536 --> 00:37:56,616
+I'm going to go over to the info
+
+
+1274
+00:37:56,616 --> 00:37:58,716
+P-list here, that it generated
+
+
+1275
+00:37:58,716 --> 00:38:00,246
+for our custom keyboard
+
+
+1276
+00:38:00,246 --> 00:38:01,716
+extension, and change its
+
+
+1277
+00:38:01,716 --> 00:38:03,016
+principle class to the one that
+
+
+1278
+00:38:03,016 --> 00:38:04,696
+we already made, from the one
+
+
+1279
+00:38:04,696 --> 00:38:05,656
+that the template gave us.
+
+
+1280
+00:38:11,026 --> 00:38:12,046
+And that's pretty much it.
+
+
+1281
+00:38:12,046 --> 00:38:14,486
+So, I'm going to switch back to
+
+
+1282
+00:38:14,486 --> 00:38:16,576
+the app target here and build
+
+
+1283
+00:38:16,576 --> 00:38:16,976
+and run.
+
+
+1284
+00:38:22,956 --> 00:38:24,086
+So, now that the app is
+
+
+1285
+00:38:24,086 --> 00:38:25,316
+installed on the system, the
+
+
+1286
+00:38:25,316 --> 00:38:26,986
+extension came along with it.
+
+
+1287
+00:38:27,656 --> 00:38:30,186
+And there used to be -- now we
+
+
+1288
+00:38:30,186 --> 00:38:31,816
+have to enable the custom
+
+
+1289
+00:38:31,816 --> 00:38:33,426
+keyboard extension in the System
+
+
+1290
+00:38:33,426 --> 00:38:34,726
+Settings, and there used to be a
+
+
+1291
+00:38:34,726 --> 00:38:35,926
+really convoluted way to do
+
+
+1292
+00:38:35,926 --> 00:38:36,256
+that.
+
+
+1293
+00:38:36,446 --> 00:38:38,276
+But in new, in iOS 11, we
+
+
+1294
+00:38:38,276 --> 00:38:39,586
+actually made it much simpler
+
+
+1295
+00:38:39,586 --> 00:38:40,856
+for your users to enable your
+
+
+1296
+00:38:40,856 --> 00:38:41,916
+custom keyboard extension.
+
+
+1297
+00:38:42,106 --> 00:38:42,826
+So, I'm going to show you how
+
+
+1298
+00:38:42,826 --> 00:38:43,616
+that works right now.
+
+
+1299
+00:38:43,616 --> 00:38:46,086
+So, I'm going to go back to
+
+
+1300
+00:38:46,086 --> 00:38:46,896
+Settings.
+
+
+1301
+00:38:48,426 --> 00:38:50,166
+So, all you need to do, to
+
+
+1302
+00:38:50,166 --> 00:38:51,826
+enable your -- to allow your
+
+
+1303
+00:38:51,826 --> 00:38:52,976
+users to enable your custom
+
+
+1304
+00:38:52,976 --> 00:38:54,966
+keyboard, is provide your app
+
+
+1305
+00:38:54,966 --> 00:38:56,076
+with a Settings Bundle.
+
+
+1306
+00:38:56,396 --> 00:38:57,396
+It can be empty or it can
+
+
+1307
+00:38:57,396 --> 00:38:58,586
+contain some of your settings.
+
+
+1308
+00:38:59,116 --> 00:39:01,666
+And we have this new option,
+
+
+1309
+00:39:01,736 --> 00:39:02,856
+right underneath there, under
+
+
+1310
+00:39:02,856 --> 00:39:04,036
+Siri and search that just says,
+
+
+1311
+00:39:04,036 --> 00:39:04,676
+"keyboards."
+
+
+1312
+00:39:05,096 --> 00:39:06,836
+And by clicking this, the user
+
+
+1313
+00:39:06,836 --> 00:39:08,146
+-- all the user has to do is
+
+
+1314
+00:39:08,146 --> 00:39:09,546
+check this one switch.
+
+
+1315
+00:39:09,546 --> 00:39:10,626
+And now the keyboard's enabled.
+
+
+1316
+00:39:11,516 --> 00:39:15,446
+[ Applause ]
+
+
+1317
+00:39:15,946 --> 00:39:17,346
+I'm sure you third-party
+
+
+1318
+00:39:17,346 --> 00:39:18,276
+keyboard developers are going to
+
+
+1319
+00:39:18,276 --> 00:39:18,986
+love that.
+
+
+1320
+00:39:19,046 --> 00:39:20,416
+So, now, I'm just going to go
+
+
+1321
+00:39:20,416 --> 00:39:21,356
+over to messages here.
+
+
+1322
+00:39:21,906 --> 00:39:26,106
+And then, I'm going to switch to
+
+
+1323
+00:39:26,106 --> 00:39:27,406
+our custom keyboard extension.
+
+
+1324
+00:39:28,226 --> 00:39:28,796
+And there we go.
+
+
+1325
+00:39:28,856 --> 00:39:30,026
+Now we have it running, all over
+
+
+1326
+00:39:30,026 --> 00:39:30,516
+the system.
+
+
+1327
+00:39:31,116 --> 00:39:32,176
+And so, I'm just going to
+
+
+1328
+00:39:32,176 --> 00:39:33,906
+express how I'm feeling about
+
+
+1329
+00:39:33,906 --> 00:39:34,656
+the demo right now.
+
+
+1330
+00:39:35,076 --> 00:39:38,056
+And that's all it takes.
+
+
+1331
+00:39:38,936 --> 00:39:39,696
+So, let's go back over to the
+
+
+1332
+00:39:39,696 --> 00:39:39,976
+slides.
+
+
+1333
+00:39:40,516 --> 00:39:44,756
+[ Applause ]
+
+
+1334
+00:39:45,256 --> 00:39:48,146
+Thanks. So, this is actually my
+
+
+1335
+00:39:48,146 --> 00:39:49,616
+personally recommended way for
+
+
+1336
+00:39:49,616 --> 00:39:51,136
+you to develop third-party
+
+
+1337
+00:39:51,136 --> 00:39:51,726
+keyboards.
+
+
+1338
+00:39:51,796 --> 00:39:53,516
+It's really easy to test it
+
+
+1339
+00:39:53,516 --> 00:39:55,116
+inside of your app first, just
+
+
+1340
+00:39:55,116 --> 00:39:56,286
+as a custom input view.
+
+
+1341
+00:39:56,526 --> 00:39:58,126
+And then, as you saw, going from
+
+
+1342
+00:39:58,126 --> 00:39:59,476
+a custom input view to a custom
+
+
+1343
+00:39:59,476 --> 00:40:00,576
+keyboard extension is really
+
+
+1344
+00:40:00,576 --> 00:40:00,916
+easy.
+
+
+1345
+00:40:01,066 --> 00:40:06,286
+So, that's really the way to go.
+
+
+1346
+00:40:06,526 --> 00:40:08,136
+So, just a quick recap of how to
+
+
+1347
+00:40:08,136 --> 00:40:09,516
+convert from a custom input view
+
+
+1348
+00:40:09,516 --> 00:40:10,776
+to a keyboard extension.
+
+
+1349
+00:40:11,136 --> 00:40:12,616
+We just made a new target and we
+
+
+1350
+00:40:12,686 --> 00:40:14,406
+used the Custom Keyboard
+
+
+1351
+00:40:14,406 --> 00:40:15,506
+Extension Template.
+
+
+1352
+00:40:16,706 --> 00:40:17,886
+You can either fill in the
+
+
+1353
+00:40:17,886 --> 00:40:19,116
+provided UI Input View
+
+
+1354
+00:40:19,116 --> 00:40:21,166
+Controller Subclass, or change
+
+
+1355
+00:40:21,166 --> 00:40:23,036
+it so that it works with your
+
+
+1356
+00:40:23,036 --> 00:40:23,316
+own.
+
+
+1357
+00:40:24,146 --> 00:40:25,206
+And then lastly, I showed you a
+
+
+1358
+00:40:25,206 --> 00:40:27,396
+cool, new user acceleration or a
+
+
+1359
+00:40:27,396 --> 00:40:28,526
+cool new acceleration for your
+
+
+1360
+00:40:28,526 --> 00:40:29,736
+users to enable your keyboard
+
+
+1361
+00:40:29,736 --> 00:40:30,566
+from within your Settings
+
+
+1362
+00:40:30,566 --> 00:40:30,906
+Bundle.
+
+
+1363
+00:40:31,456 --> 00:40:33,506
+But that's not all.
+
+
+1364
+00:40:33,776 --> 00:40:35,036
+We have a couple of new APIs in
+
+
+1365
+00:40:35,036 --> 00:40:37,636
+iOS 11 that I want to share with
+
+
+1366
+00:40:37,636 --> 00:40:41,236
+you tonight -- or today.
+
+
+1367
+00:40:41,416 --> 00:40:42,816
+So, you can now access the
+
+
+1368
+00:40:42,816 --> 00:40:44,446
+currently selected text that the
+
+
+1369
+00:40:44,446 --> 00:40:46,066
+user has selected, which is
+
+
+1370
+00:40:46,066 --> 00:40:47,416
+pretty useful if you want to do
+
+
+1371
+00:40:47,416 --> 00:40:49,386
+retro correction with your Auto
+
+
+1372
+00:40:49,386 --> 00:40:51,016
+Complete Engine, for instance.
+
+
+1373
+00:40:51,326 --> 00:40:52,486
+Or provide some kind of cool
+
+
+1374
+00:40:52,486 --> 00:40:54,346
+context around the text that the
+
+
+1375
+00:40:54,406 --> 00:40:56,506
+user had selected.
+
+
+1376
+00:40:56,506 --> 00:40:57,576
+We also provide you this new
+
+
+1377
+00:40:57,576 --> 00:40:58,906
+thing called the Document
+
+
+1378
+00:40:58,906 --> 00:41:00,546
+Identifier Handle, which is just
+
+
+1379
+00:41:00,546 --> 00:41:03,156
+a UUID, that uniquely identifies
+
+
+1380
+00:41:03,196 --> 00:41:04,446
+one text field from the next.
+
+
+1381
+00:41:05,356 --> 00:41:06,846
+Now, this is real useful for a
+
+
+1382
+00:41:06,846 --> 00:41:08,076
+lot of things, but one of the
+
+
+1383
+00:41:08,076 --> 00:41:09,626
+things that it's useful for is
+
+
+1384
+00:41:09,626 --> 00:41:11,306
+for resetting your keyboard
+
+
+1385
+00:41:11,306 --> 00:41:12,876
+state when the user switches
+
+
+1386
+00:41:12,876 --> 00:41:14,676
+text fields, so you can clear
+
+
+1387
+00:41:14,676 --> 00:41:15,836
+your predictions if you have
+
+
+1388
+00:41:15,836 --> 00:41:17,806
+predictions displayed, or switch
+
+
+1389
+00:41:17,806 --> 00:41:19,486
+back to the alphabetic plane if
+
+
+1390
+00:41:19,486 --> 00:41:20,496
+the user had switched to your
+
+
+1391
+00:41:20,496 --> 00:41:21,656
+numeric plane, or something like
+
+
+1392
+00:41:21,656 --> 00:41:22,000
+that.
+
+
+1393
+00:41:24,176 --> 00:41:25,416
+And lastly, we also added the
+
+
+1394
+00:41:25,416 --> 00:41:26,596
+ability for you to query whether
+
+
+1395
+00:41:26,596 --> 00:41:27,816
+or not the user has granted your
+
+
+1396
+00:41:27,816 --> 00:41:29,126
+extension full access.
+
+
+1397
+00:41:29,296 --> 00:41:30,416
+And I'll go over what full
+
+
+1398
+00:41:30,416 --> 00:41:31,446
+access means in just a moment,
+
+
+1399
+00:41:31,446 --> 00:41:32,316
+in case you're not familiar.
+
+
+1400
+00:41:33,496 --> 00:41:34,476
+But first, I want to talk about
+
+
+1401
+00:41:34,476 --> 00:41:35,756
+some other lesser known,
+
+
+1402
+00:41:35,756 --> 00:41:37,036
+third-party keyboard APIs that
+
+
+1403
+00:41:37,036 --> 00:41:37,836
+maybe you didn't know about.
+
+
+1404
+00:41:39,216 --> 00:41:40,986
+So, in iOS 10, we actually added
+
+
+1405
+00:41:40,986 --> 00:41:41,886
+the ability for you to
+
+
+1406
+00:41:41,886 --> 00:41:43,446
+incorporate the System Globe
+
+
+1407
+00:41:43,776 --> 00:41:45,536
+Menu inside of your keyboard,
+
+
+1408
+00:41:45,916 --> 00:41:47,146
+which is really nice so that
+
+
+1409
+00:41:47,146 --> 00:41:48,466
+your user can quickly switch
+
+
+1410
+00:41:48,466 --> 00:41:49,896
+between all of the keyboards
+
+
+1411
+00:41:49,896 --> 00:41:50,646
+that they have selected.
+
+
+1412
+00:41:50,646 --> 00:41:51,856
+It's a lot better than that next
+
+
+1413
+00:41:51,856 --> 00:41:52,726
+keyboard thing that we had
+
+
+1414
+00:41:52,726 --> 00:41:53,156
+before.
+
+
+1415
+00:41:54,246 --> 00:41:54,786
+Oh, thanks.
+
+
+1416
+00:41:55,516 --> 00:41:58,516
+[ Applause ]
+
+
+1417
+00:41:59,016 --> 00:42:00,326
+You can also personalize your
+
+
+1418
+00:42:00,326 --> 00:42:01,276
+auto complete results with
+
+
+1419
+00:42:01,276 --> 00:42:02,066
+something that we call the
+
+
+1420
+00:42:02,066 --> 00:42:03,356
+Supplementary Lexicon.
+
+
+1421
+00:42:03,666 --> 00:42:05,066
+The Supplementary Lexicon is
+
+
+1422
+00:42:05,066 --> 00:42:06,646
+basically just a list of words
+
+
+1423
+00:42:06,646 --> 00:42:07,836
+containing the portion of the
+
+
+1424
+00:42:07,836 --> 00:42:09,606
+user's address book, so you can
+
+
+1425
+00:42:09,606 --> 00:42:11,446
+auto complete various names and
+
+
+1426
+00:42:11,446 --> 00:42:13,546
+stuff, that the user might be
+
+
+1427
+00:42:13,546 --> 00:42:15,156
+referencing in the text that
+
+
+1428
+00:42:15,156 --> 00:42:15,496
+they type.
+
+
+1429
+00:42:16,546 --> 00:42:17,836
+And finally, tying back to some
+
+
+1430
+00:42:17,836 --> 00:42:19,136
+of the multilingual support that
+
+
+1431
+00:42:19,136 --> 00:42:21,386
+we added in iOS 11, that Shuchen
+
+
+1432
+00:42:21,386 --> 00:42:22,766
+was talking about earlier, your
+
+
+1433
+00:42:22,766 --> 00:42:24,166
+keyboard can use those document
+
+
+1434
+00:42:24,166 --> 00:42:25,486
+identifier handle things that I
+
+
+1435
+00:42:25,486 --> 00:42:26,856
+was mentioning before, as a
+
+
+1436
+00:42:26,856 --> 00:42:27,706
+multilingual hint.
+
+
+1437
+00:42:27,706 --> 00:42:29,516
+So, if your keyboard supports
+
+
+1438
+00:42:29,516 --> 00:42:31,416
+multiple languages, you too can
+
+
+1439
+00:42:32,076 --> 00:42:33,306
+behave like the system keyboard
+
+
+1440
+00:42:33,306 --> 00:42:34,536
+does, and change when
+
+
+1441
+00:42:34,536 --> 00:42:34,966
+appropriate.
+
+
+1442
+00:42:35,526 --> 00:42:39,046
+So, lastly, we can't talk about
+
+
+1443
+00:42:39,046 --> 00:42:40,466
+third-party keyboard extensions
+
+
+1444
+00:42:40,466 --> 00:42:41,746
+without talking about privacy
+
+
+1445
+00:42:41,746 --> 00:42:42,556
+and user trust.
+
+
+1446
+00:42:43,186 --> 00:42:45,936
+So, privacy is very much a
+
+
+1447
+00:42:45,936 --> 00:42:48,416
+standard iOS feature that users
+
+
+1448
+00:42:48,416 --> 00:42:48,846
+expect.
+
+
+1449
+00:42:49,966 --> 00:42:51,846
+And users are made aware that
+
+
+1450
+00:42:51,846 --> 00:42:52,926
+all of their keystrokes are
+
+
+1451
+00:42:52,926 --> 00:42:54,046
+handled by your extension.
+
+
+1452
+00:42:54,546 --> 00:42:55,426
+So, if you're doing something
+
+
+1453
+00:42:55,426 --> 00:42:56,786
+with those keystrokes, such as
+
+
+1454
+00:42:56,886 --> 00:42:58,286
+sending them offsite or
+
+
+1455
+00:42:58,536 --> 00:43:00,056
+analyzing them in some way, you
+
+
+1456
+00:43:00,056 --> 00:43:01,066
+should make sure to inform the
+
+
+1457
+00:43:01,066 --> 00:43:02,716
+user about this, and anonymize
+
+
+1458
+00:43:02,716 --> 00:43:03,866
+the data that's coming in, if
+
+
+1459
+00:43:03,866 --> 00:43:04,836
+you are sending it offsite.
+
+
+1460
+00:43:05,856 --> 00:43:07,826
+And lastly, most applications
+
+
+1461
+00:43:07,976 --> 00:43:09,836
+shouldn't actually need it, but
+
+
+1462
+00:43:10,346 --> 00:43:12,226
+you can ask the user to provide
+
+
+1463
+00:43:12,226 --> 00:43:14,046
+your extension with full access,
+
+
+1464
+00:43:14,276 --> 00:43:15,666
+which means access to some lower
+
+
+1465
+00:43:15,666 --> 00:43:16,786
+level parts of the system.
+
+
+1466
+00:43:17,266 --> 00:43:18,826
+Let's talk a little bit about
+
+
+1467
+00:43:18,826 --> 00:43:20,106
+what full access really means.
+
+
+1468
+00:43:20,646 --> 00:43:23,076
+So, first of all, there's
+
+
+1469
+00:43:23,076 --> 00:43:24,576
+actually quite a bit of value in
+
+
+1470
+00:43:24,576 --> 00:43:26,076
+not asking for full access.
+
+
+1471
+00:43:26,356 --> 00:43:27,626
+This is why we built the full
+
+
+1472
+00:43:27,626 --> 00:43:28,636
+access switch to begin with.
+
+
+1473
+00:43:28,716 --> 00:43:30,126
+It's not a speed bump for you
+
+
+1474
+00:43:30,126 --> 00:43:30,666
+guys.
+
+
+1475
+00:43:30,906 --> 00:43:32,586
+Instead, our Apple customers are
+
+
+1476
+00:43:32,586 --> 00:43:33,816
+very privacy conscious.
+
+
+1477
+00:43:34,606 --> 00:43:35,946
+Plus, your keyboards already
+
+
+1478
+00:43:35,946 --> 00:43:36,896
+provide a lot of awesome
+
+
+1479
+00:43:36,896 --> 00:43:37,806
+functionality right out of the
+
+
+1480
+00:43:37,806 --> 00:43:39,676
+box, without full access.
+
+
+1481
+00:43:39,826 --> 00:43:40,776
+So, granting this should really
+
+
+1482
+00:43:40,776 --> 00:43:42,146
+only supplement your existing
+
+
+1483
+00:43:42,146 --> 00:43:42,696
+feature set.
+
+
+1484
+00:43:43,066 --> 00:43:44,396
+So, some examples of things that
+
+
+1485
+00:43:44,396 --> 00:43:46,476
+you might need full access for,
+
+
+1486
+00:43:46,636 --> 00:43:47,826
+is communicating with your main
+
+
+1487
+00:43:47,826 --> 00:43:48,086
+app.
+
+
+1488
+00:43:48,866 --> 00:43:49,646
+So, if you need to build a
+
+
+1489
+00:43:49,646 --> 00:43:51,376
+bridge from your main app bundle
+
+
+1490
+00:43:51,376 --> 00:43:52,346
+to your custom keyboard
+
+
+1491
+00:43:52,346 --> 00:43:53,736
+extension, if you want to access
+
+
+1492
+00:43:53,736 --> 00:43:54,796
+like a database or something
+
+
+1493
+00:43:54,796 --> 00:43:55,786
+that you have stored there,
+
+
+1494
+00:43:56,046 --> 00:43:57,256
+you'll need to request for full
+
+
+1495
+00:43:57,256 --> 00:43:57,906
+access for that.
+
+
+1496
+00:43:59,046 --> 00:44:00,296
+If you want to access a -- if
+
+
+1497
+00:44:00,666 --> 00:44:02,236
+you want to provide your user
+
+
+1498
+00:44:02,236 --> 00:44:03,776
+with a repository of gif images
+
+
+1499
+00:44:03,776 --> 00:44:05,636
+for instance, then you'll need
+
+
+1500
+00:44:05,636 --> 00:44:07,936
+to ask for full access to grant
+
+
+1501
+00:44:07,936 --> 00:44:09,596
+access to the networking stack
+
+
+1502
+00:44:09,596 --> 00:44:10,336
+on iOS.
+
+
+1503
+00:44:12,016 --> 00:44:14,026
+So, for current location, in
+
+
+1504
+00:44:14,026 --> 00:44:15,456
+case you want to enrich your
+
+
+1505
+00:44:15,456 --> 00:44:17,266
+auto complete results with
+
+
+1506
+00:44:17,266 --> 00:44:18,836
+references to locations that the
+
+
+1507
+00:44:18,836 --> 00:44:20,776
+user might be referencing to in
+
+
+1508
+00:44:20,776 --> 00:44:22,486
+the text that they type, you'll
+
+
+1509
+00:44:22,486 --> 00:44:24,006
+need to request for full access
+
+
+1510
+00:44:24,006 --> 00:44:24,926
+for the current location.
+
+
+1511
+00:44:25,106 --> 00:44:26,346
+And you'll also have to have the
+
+
+1512
+00:44:26,346 --> 00:44:29,096
+user grant your main app access
+
+
+1513
+00:44:29,096 --> 00:44:30,176
+to your current location too.
+
+
+1514
+00:44:30,326 --> 00:44:31,136
+So, keep that in mind.
+
+
+1515
+00:44:31,706 --> 00:44:34,576
+And for the address book, most
+
+
+1516
+00:44:34,576 --> 00:44:35,906
+applications don't actually need
+
+
+1517
+00:44:35,906 --> 00:44:37,206
+this because of what I said
+
+
+1518
+00:44:37,206 --> 00:44:39,046
+about the supplementary lexicon.
+
+
+1519
+00:44:39,276 --> 00:44:40,766
+So, you actually don't need full
+
+
+1520
+00:44:40,766 --> 00:44:41,746
+access to get to the address
+
+
+1521
+00:44:41,746 --> 00:44:41,986
+book.
+
+
+1522
+00:44:42,366 --> 00:44:43,446
+But, if you want to access some
+
+
+1523
+00:44:43,446 --> 00:44:44,666
+more of the address book, like
+
+
+1524
+00:44:44,666 --> 00:44:46,516
+the notes fields, or nickname,
+
+
+1525
+00:44:46,516 --> 00:44:47,246
+or something like that.
+
+
+1526
+00:44:47,496 --> 00:44:48,446
+Then you will need full access
+
+
+1527
+00:44:48,446 --> 00:44:49,886
+for that.
+
+
+1528
+00:44:50,066 --> 00:44:51,326
+And lastly, make sure that your
+
+
+1529
+00:44:51,326 --> 00:44:52,726
+keyboard works without
+
+
+1530
+00:44:52,726 --> 00:44:53,996
+requesting for full access.
+
+
+1531
+00:44:54,386 --> 00:44:55,676
+Like I said, there's a lot of
+
+
+1532
+00:44:55,676 --> 00:44:57,416
+value in not asking for full
+
+
+1533
+00:44:58,746 --> 00:44:59,996
+access, and plus, your app will
+
+
+1534
+00:44:59,996 --> 00:45:01,406
+actually get rejected if it
+
+
+1535
+00:45:01,406 --> 00:45:01,756
+doesn't.
+
+
+1536
+00:45:02,096 --> 00:45:03,036
+Take a look at the App Store
+
+
+1537
+00:45:03,036 --> 00:45:04,266
+Guidelines for more information
+
+
+1538
+00:45:04,266 --> 00:45:05,226
+about that.
+
+
+1539
+00:45:06,256 --> 00:45:07,876
+So, just a quick summary before
+
+
+1540
+00:45:07,876 --> 00:45:09,376
+I leave you tonight, or today,
+
+
+1541
+00:45:09,376 --> 00:45:09,756
+sorry.
+
+
+1542
+00:45:09,756 --> 00:45:11,886
+I did that again.
+
+
+1543
+00:45:12,246 --> 00:45:13,606
+Kasia showed you how to design
+
+
+1544
+00:45:13,606 --> 00:45:14,476
+your app with the keyboard in
+
+
+1545
+00:45:14,476 --> 00:45:15,756
+mind and about keyboard
+
+
+1546
+00:45:15,756 --> 00:45:16,266
+avoidance.
+
+
+1547
+00:45:17,066 --> 00:45:18,086
+Actually, we don't say
+
+
+1548
+00:45:18,086 --> 00:45:18,556
+"avoidance."
+
+
+1549
+00:45:18,556 --> 00:45:19,906
+We say, "embrace the keyboard."
+
+
+1550
+00:45:20,266 --> 00:45:21,426
+Don't avoid it.
+
+
+1551
+00:45:22,076 --> 00:45:23,316
+And Shuchen mentioned some
+
+
+1552
+00:45:23,316 --> 00:45:24,686
+advanced traits to enhance the
+
+
+1553
+00:45:24,686 --> 00:45:26,126
+user's experience with some of
+
+
+1554
+00:45:26,126 --> 00:45:27,506
+the built-in system keyboards
+
+
+1555
+00:45:27,556 --> 00:45:28,406
+that you can pick from.
+
+
+1556
+00:45:28,926 --> 00:45:31,446
+And if that wasn't enough, we
+
+
+1557
+00:45:31,446 --> 00:45:32,636
+showed you how to build custom
+
+
+1558
+00:45:32,636 --> 00:45:33,936
+keyboard extensions and custom
+
+
+1559
+00:45:33,936 --> 00:45:35,576
+input views, and how going from
+
+
+1560
+00:45:35,576 --> 00:45:36,426
+a custom input view to a
+
+
+1561
+00:45:36,426 --> 00:45:37,506
+keyboard extension, is actually
+
+
+1562
+00:45:37,506 --> 00:45:38,426
+quite a lot easier than you
+
+
+1563
+00:45:38,426 --> 00:45:38,646
+think.
+
+
+1564
+00:45:40,156 --> 00:45:41,606
+So, make sure to like, comment,
+
+
+1565
+00:45:41,606 --> 00:45:43,406
+and subscribe, or check out our
+
+
+1566
+00:45:43,706 --> 00:45:46,096
+sample page or sample app, here
+
+
+1567
+00:45:46,216 --> 00:45:48,816
+at WWDC 17, Session 242.
+
+
+1568
+00:45:49,116 --> 00:45:50,936
+All the code that you saw today,
+
+
+1569
+00:45:51,166 --> 00:45:52,366
+is right there.
+
+
+1570
+00:45:52,726 --> 00:45:54,306
+So, all the sample code that you
+
+
+1571
+00:45:54,306 --> 00:45:55,216
+saw today is right there.
+
+
+1572
+00:45:55,506 --> 00:45:56,226
+So, go check it out.
+
+
+1573
+00:45:56,516 --> 00:45:59,006
+Here's some related sessions.
+
+
+1574
+00:45:59,006 --> 00:46:00,566
+The Password Autofill for Apps
+
+
+1575
+00:46:00,566 --> 00:46:01,366
+is definitely a good one to
+
+
+1576
+00:46:01,366 --> 00:46:01,906
+check out.
+
+
+1577
+00:46:02,266 --> 00:46:03,406
+Mysteries of Auto Layout is
+
+
+1578
+00:46:03,406 --> 00:46:05,476
+great too for keyboard avoidance
+
+
+1579
+00:46:05,476 --> 00:46:06,836
+and -- or keyboard embracing.
+
+
+1580
+00:46:07,666 --> 00:46:07,976
+Thank you.
+
+
+1581
+00:46:08,516 --> 00:46:12,500
+[ Applause ]
+

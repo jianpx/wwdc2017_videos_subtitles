@@ -1,0 +1,6344 @@
+1
+00:00:23,516 --> 00:00:26,866
+[ Applause ]
+
+
+2
+00:00:27,366 --> 00:00:29,126
+>> Thank you and good morning.
+
+
+3
+00:00:30,016 --> 00:00:31,776
+This is Session 712, What's New
+
+
+4
+00:00:31,776 --> 00:00:32,735
+In Core Bluetooth.
+
+
+5
+00:00:33,326 --> 00:00:34,266
+My name is Craig Dooley.
+
+
+6
+00:00:34,266 --> 00:00:36,056
+I'm a Bluetooth Engineer here at
+
+
+7
+00:00:36,056 --> 00:00:36,356
+Apple.
+
+
+8
+00:00:36,926 --> 00:00:39,416
+I think we have some really good
+
+
+9
+00:00:39,416 --> 00:00:40,286
+stuff to talk to you about
+
+
+10
+00:00:40,286 --> 00:00:42,656
+today, so we'll start with a
+
+
+11
+00:00:42,846 --> 00:00:44,776
+brief introduction of where Core
+
+
+12
+00:00:44,776 --> 00:00:45,726
+Bluetooth is right now.
+
+
+13
+00:00:46,336 --> 00:00:47,306
+We'll talk about some of the
+
+
+14
+00:00:47,306 --> 00:00:48,906
+enhanced reliability features
+
+
+15
+00:00:48,906 --> 00:00:50,066
+that we built for this year.
+
+
+16
+00:00:50,516 --> 00:00:52,146
+Talk about platform support.
+
+
+17
+00:00:52,146 --> 00:00:53,916
+We announced watchOS support
+
+
+18
+00:00:53,916 --> 00:00:54,686
+this year and we're really
+
+
+19
+00:00:54,686 --> 00:00:56,446
+excited about that.
+
+
+20
+00:00:56,446 --> 00:00:57,806
+A new feature for this year is
+
+
+21
+00:00:57,806 --> 00:00:58,906
+L2CAP channels.
+
+
+22
+00:00:59,226 --> 00:01:00,146
+Then we'll go over some of the
+
+
+23
+00:01:00,146 --> 00:01:01,336
+best practices we've learned
+
+
+24
+00:01:01,336 --> 00:01:03,076
+over the years, and finally
+
+
+25
+00:01:03,076 --> 00:01:05,256
+we'll do a real world example of
+
+
+26
+00:01:05,256 --> 00:01:06,336
+how to get the most out of Core
+
+
+27
+00:01:06,336 --> 00:01:06,776
+Bluetooth.
+
+
+28
+00:01:07,256 --> 00:01:09,996
+So I'd like to start with a
+
+
+29
+00:01:09,996 --> 00:01:11,036
+brief introduction.
+
+
+30
+00:01:11,256 --> 00:01:13,746
+Hopefully everybody knows but,
+
+
+31
+00:01:14,106 --> 00:01:15,396
+if you don't, Core Bluetooth is
+
+
+32
+00:01:15,396 --> 00:01:16,676
+our framework that we released
+
+
+33
+00:01:16,676 --> 00:01:19,116
+in 2011 to interact with
+
+
+34
+00:01:19,116 --> 00:01:20,956
+Bluetooth low energy peripherals
+
+
+35
+00:01:20,956 --> 00:01:21,796
+and accessories.
+
+
+36
+00:01:22,196 --> 00:01:25,226
+And since we initially shipped
+
+
+37
+00:01:25,226 --> 00:01:27,166
+the framework, we've just seen
+
+
+38
+00:01:27,166 --> 00:01:28,816
+amazing creativity come out of
+
+
+39
+00:01:28,816 --> 00:01:30,226
+accessory manufacturers and app
+
+
+40
+00:01:30,226 --> 00:01:30,836
+developers.
+
+
+41
+00:01:30,836 --> 00:01:32,066
+We're so pleased to see what
+
+
+42
+00:01:32,066 --> 00:01:34,836
+you've done with it.
+
+
+43
+00:01:35,026 --> 00:01:36,276
+So when we started off, we knew
+
+
+44
+00:01:36,276 --> 00:01:37,356
+that health and fitness and were
+
+
+45
+00:01:37,356 --> 00:01:38,576
+going to be big areas.
+
+
+46
+00:01:39,166 --> 00:01:40,256
+We've seen lots of things like
+
+
+47
+00:01:40,326 --> 00:01:42,946
+smart scales, running sensors,
+
+
+48
+00:01:43,526 --> 00:01:44,806
+fitness devices that you can
+
+
+49
+00:01:44,806 --> 00:01:45,456
+wear all day.
+
+
+50
+00:01:45,806 --> 00:01:47,976
+But the creativity has been
+
+
+51
+00:01:47,976 --> 00:01:48,666
+awesome to watch.
+
+
+52
+00:01:48,666 --> 00:01:50,146
+So things like toys and
+
+
+53
+00:01:50,146 --> 00:01:51,646
+connected accessories for kids.
+
+
+54
+00:01:52,016 --> 00:01:53,626
+We were really excited to see
+
+
+55
+00:01:53,626 --> 00:01:54,466
+the Swift Playground's
+
+
+56
+00:01:54,466 --> 00:01:56,096
+announcements this year, and
+
+
+57
+00:01:56,296 --> 00:01:57,396
+really making things more
+
+
+58
+00:01:57,396 --> 00:01:58,666
+interactive for children and
+
+
+59
+00:01:58,666 --> 00:02:00,796
+people who are first learning to
+
+
+60
+00:02:01,376 --> 00:02:01,476
+code.
+
+
+61
+00:02:01,686 --> 00:02:04,456
+And we love seeing how easy it
+
+
+62
+00:02:04,456 --> 00:02:06,036
+is for people to take things
+
+
+63
+00:02:06,036 --> 00:02:07,706
+like sensors or buttons or
+
+
+64
+00:02:07,706 --> 00:02:09,726
+switches and enable those
+
+
+65
+00:02:09,726 --> 00:02:11,146
+through their apps and enable
+
+
+66
+00:02:11,146 --> 00:02:11,976
+them wirelessly.
+
+
+67
+00:02:12,956 --> 00:02:14,516
+And then things have gone in
+
+
+68
+00:02:14,516 --> 00:02:16,646
+directions that we couldn't have
+
+
+69
+00:02:16,646 --> 00:02:17,806
+even imagined.
+
+
+70
+00:02:18,806 --> 00:02:21,026
+Things like connected goggles
+
+
+71
+00:02:21,026 --> 00:02:22,836
+with head-mounted displays, just
+
+
+72
+00:02:23,026 --> 00:02:24,346
+awesome creativity that's come
+
+
+73
+00:02:24,346 --> 00:02:25,166
+out of this community.
+
+
+74
+00:02:25,556 --> 00:02:26,936
+So I want to start this talk
+
+
+75
+00:02:26,936 --> 00:02:28,856
+just by saying thank you.
+
+
+76
+00:02:30,516 --> 00:02:32,546
+[ Applause ]
+
+
+77
+00:02:33,046 --> 00:02:34,746
+It's awesome for us to see what
+
+
+78
+00:02:34,746 --> 00:02:35,706
+you've been able to build with
+
+
+79
+00:02:35,706 --> 00:02:36,866
+this technology, and we can't
+
+
+80
+00:02:36,866 --> 00:02:39,176
+wait to see how you build even
+
+
+81
+00:02:39,176 --> 00:02:40,736
+better accessories going forward
+
+
+82
+00:02:40,736 --> 00:02:42,076
+with these enhancements we want
+
+
+83
+00:02:42,076 --> 00:02:45,766
+to talk to you about today.
+
+
+84
+00:02:45,886 --> 00:02:48,036
+And before we start, I just want
+
+
+85
+00:02:48,036 --> 00:02:49,246
+to mention there's a lot of
+
+
+86
+00:02:49,246 --> 00:02:50,336
+types of accessories that you
+
+
+87
+00:02:50,336 --> 00:02:51,466
+don't have to write any software
+
+
+88
+00:02:51,466 --> 00:02:51,766
+for.
+
+
+89
+00:02:52,226 --> 00:02:53,436
+So if you want to see things
+
+
+90
+00:02:53,436 --> 00:02:54,596
+like what the currently playing
+
+
+91
+00:02:54,596 --> 00:02:56,676
+music is on your device, you can
+
+
+92
+00:02:56,676 --> 00:02:57,676
+implement the Apple Media
+
+
+93
+00:02:57,676 --> 00:02:59,866
+Service and the device will take
+
+
+94
+00:02:59,866 --> 00:03:00,966
+care of all of that for you.
+
+
+95
+00:03:01,376 --> 00:03:03,756
+Things like iBeacon or HID
+
+
+96
+00:03:03,756 --> 00:03:05,326
+devices, you don't have to write
+
+
+97
+00:03:05,326 --> 00:03:06,486
+any software for those.
+
+
+98
+00:03:06,486 --> 00:03:07,166
+And we've seen really good
+
+
+99
+00:03:07,166 --> 00:03:07,976
+adoption for those as well.
+
+
+100
+00:03:10,976 --> 00:03:12,576
+But today is going to be about
+
+
+101
+00:03:12,726 --> 00:03:14,536
+Core Bluetooth and how your
+
+
+102
+00:03:14,536 --> 00:03:15,666
+device can talk to your
+
+
+103
+00:03:15,666 --> 00:03:16,176
+accessory.
+
+
+104
+00:03:16,696 --> 00:03:19,136
+So stepping back to stage 1,
+
+
+105
+00:03:19,316 --> 00:03:21,416
+Bluetooth Low Energy has two
+
+
+106
+00:03:21,416 --> 00:03:21,866
+roles.
+
+
+107
+00:03:22,036 --> 00:03:23,446
+There's a central that can look
+
+
+108
+00:03:23,446 --> 00:03:25,166
+for devices that are around your
+
+
+109
+00:03:25,166 --> 00:03:27,396
+environment, and there are
+
+
+110
+00:03:27,396 --> 00:03:28,726
+peripherals that can beacon to
+
+
+111
+00:03:28,726 --> 00:03:30,236
+the world that they're there.
+
+
+112
+00:03:30,236 --> 00:03:31,946
+They can either send out data or
+
+
+113
+00:03:31,946 --> 00:03:32,926
+just let their presence be
+
+
+114
+00:03:32,926 --> 00:03:33,286
+known.
+
+
+115
+00:03:34,056 --> 00:03:35,166
+So if you have simple things
+
+
+116
+00:03:35,166 --> 00:03:36,106
+that you want to send out like
+
+
+117
+00:03:36,106 --> 00:03:37,616
+the current temperature or the
+
+
+118
+00:03:37,616 --> 00:03:42,286
+time, you can do that and you
+
+
+119
+00:03:42,286 --> 00:03:43,596
+can actually connect device to
+
+
+120
+00:03:43,596 --> 00:03:44,406
+device as well.
+
+
+121
+00:03:44,916 --> 00:03:46,716
+iOS and Mac devices are allowed
+
+
+122
+00:03:46,716 --> 00:03:47,936
+to be both the central and the
+
+
+123
+00:03:48,046 --> 00:03:48,676
+peripheral side of the
+
+
+124
+00:03:48,676 --> 00:03:48,976
+connection.
+
+
+125
+00:03:52,306 --> 00:03:53,706
+After you find this device
+
+
+126
+00:03:53,706 --> 00:03:54,696
+that's around you, you can
+
+
+127
+00:03:54,696 --> 00:03:56,296
+connect to your device and then
+
+
+128
+00:03:56,296 --> 00:03:57,186
+you have bidirectional
+
+
+129
+00:03:57,186 --> 00:03:59,156
+communication through what's
+
+
+130
+00:03:59,156 --> 00:04:00,236
+called the GATT Protocol.
+
+
+131
+00:04:00,806 --> 00:04:02,226
+The GATT Protocol takes all of
+
+
+132
+00:04:02,226 --> 00:04:04,996
+your data and it exposes them in
+
+
+133
+00:04:04,996 --> 00:04:06,556
+a hierarchy called services and
+
+
+134
+00:04:06,556 --> 00:04:07,376
+characteristics.
+
+
+135
+00:04:08,176 --> 00:04:09,376
+We represent these in Core
+
+
+136
+00:04:09,376 --> 00:04:11,386
+Bluetooth as a CB service.
+
+
+137
+00:04:11,956 --> 00:04:13,956
+And a CB service can contain
+
+
+138
+00:04:13,956 --> 00:04:16,495
+characteristics inside of it.
+
+
+139
+00:04:16,745 --> 00:04:19,055
+Most of the time, your Apple
+
+
+140
+00:04:19,055 --> 00:04:19,926
+device is going to be the
+
+
+141
+00:04:19,926 --> 00:04:21,236
+central side of this connection
+
+
+142
+00:04:21,745 --> 00:04:22,456
+and you connect to your
+
+
+143
+00:04:22,456 --> 00:04:22,996
+peripheral.
+
+
+144
+00:04:24,436 --> 00:04:25,836
+But you can also do this in
+
+
+145
+00:04:25,836 --> 00:04:26,206
+reverse.
+
+
+146
+00:04:26,206 --> 00:04:27,666
+So one example of this is your
+
+
+147
+00:04:27,666 --> 00:04:30,116
+phone has its own GATT database
+
+
+148
+00:04:30,166 --> 00:04:31,426
+that exposes something like the
+
+
+149
+00:04:31,426 --> 00:04:32,436
+current time service.
+
+
+150
+00:04:32,836 --> 00:04:34,536
+So if it's useful for your
+
+
+151
+00:04:34,536 --> 00:04:35,816
+accessory to get the current
+
+
+152
+00:04:35,816 --> 00:04:38,356
+time, you can actually read that
+
+
+153
+00:04:38,586 --> 00:04:39,416
+off of your phone.
+
+
+154
+00:04:40,476 --> 00:04:41,556
+If you're looking to build these
+
+
+155
+00:04:41,556 --> 00:04:43,186
+type of iDirectional
+
+
+156
+00:04:43,186 --> 00:04:47,126
+communications on CB Central
+
+
+157
+00:04:47,126 --> 00:04:49,456
+manager, you can either retrieve
+
+
+158
+00:04:49,456 --> 00:04:50,746
+the connected peripherals if you
+
+
+159
+00:04:50,746 --> 00:04:52,336
+know that your device is already
+
+
+160
+00:04:52,336 --> 00:04:53,356
+connected by calling
+
+
+161
+00:04:53,356 --> 00:04:55,916
+retrieveConnectedPeripherals or
+
+
+162
+00:04:55,916 --> 00:04:57,486
+if you have an identifier for an
+
+
+163
+00:04:57,486 --> 00:04:58,406
+accessory you can call
+
+
+164
+00:04:58,406 --> 00:04:59,386
+retrievePeripherals
+
+
+165
+00:04:59,386 --> 00:05:01,376
+(withidentifiers) and get
+
+
+166
+00:05:01,376 --> 00:05:02,776
+handled back to your accessory.
+
+
+167
+00:05:09,246 --> 00:05:10,406
+So let's move onto something new
+
+
+168
+00:05:10,406 --> 00:05:10,956
+for this year.
+
+
+169
+00:05:11,366 --> 00:05:14,066
+As I mentioned, the health and
+
+
+170
+00:05:14,066 --> 00:05:15,416
+fitness space has really popped
+
+
+171
+00:05:15,416 --> 00:05:16,996
+up since Core Bluetooth was
+
+
+172
+00:05:16,996 --> 00:05:17,786
+first announced.
+
+
+173
+00:05:18,246 --> 00:05:19,346
+And we find there's a whole
+
+
+174
+00:05:19,346 --> 00:05:20,736
+class of devices that want to be
+
+
+175
+00:05:20,736 --> 00:05:21,566
+connected all day.
+
+
+176
+00:05:22,526 --> 00:05:24,556
+Users want access to their data
+
+
+177
+00:05:25,006 --> 00:05:26,276
+as they're wearing it or
+
+
+178
+00:05:26,276 --> 00:05:28,336
+throughout the night, and you
+
+
+179
+00:05:28,336 --> 00:05:29,496
+want to make sure that your
+
+
+180
+00:05:29,496 --> 00:05:30,646
+connection to your Accessories
+
+
+181
+00:05:30,646 --> 00:05:31,296
+is reliable.
+
+
+182
+00:05:33,436 --> 00:05:35,156
+So on iOS we allow you to be a
+
+
+183
+00:05:35,156 --> 00:05:36,336
+background application.
+
+
+184
+00:05:36,736 --> 00:05:38,086
+You can continue connecting out
+
+
+185
+00:05:38,086 --> 00:05:39,546
+to your accessory or you can
+
+
+186
+00:05:39,546 --> 00:05:41,796
+continue beaconing to the world
+
+
+187
+00:05:41,796 --> 00:05:42,736
+that you have data that's
+
+
+188
+00:05:42,736 --> 00:05:44,716
+available by using these two
+
+
+189
+00:05:44,876 --> 00:05:45,856
+options in Xcode.
+
+
+190
+00:05:45,856 --> 00:05:48,076
+In you can either choose to use
+
+
+191
+00:05:48,076 --> 00:05:49,856
+your Bluetooth LE accessories or
+
+
+192
+00:05:49,856 --> 00:05:51,496
+act as a Bluetooth LE accessory
+
+
+193
+00:05:51,496 --> 00:05:52,466
+if a peripheral is the role that
+
+
+194
+00:05:52,466 --> 00:05:52,976
+you want to implement.
+
+
+195
+00:05:57,156 --> 00:05:58,346
+But we allow you to go even
+
+
+196
+00:05:58,346 --> 00:06:00,616
+further than that, so if you're
+
+
+197
+00:06:00,616 --> 00:06:02,436
+acting as a central, you can do
+
+
+198
+00:06:02,436 --> 00:06:04,086
+things like Scan for new devices
+
+
+199
+00:06:04,086 --> 00:06:06,046
+by specifying a service or
+
+
+200
+00:06:06,046 --> 00:06:07,096
+Connect to an accessory you
+
+
+201
+00:06:07,096 --> 00:06:08,946
+already known about and even if
+
+
+202
+00:06:08,946 --> 00:06:10,596
+your application is Jetson from
+
+
+203
+00:06:10,596 --> 00:06:11,866
+the system from memory reasons,
+
+
+204
+00:06:12,326 --> 00:06:13,706
+Core Bluetooth will continue to
+
+
+205
+00:06:13,706 --> 00:06:15,166
+look for those devices for you.
+
+
+206
+00:06:17,216 --> 00:06:18,866
+If we were to do this in code,
+
+
+207
+00:06:19,226 --> 00:06:20,796
+at the time that you initialize
+
+
+208
+00:06:20,796 --> 00:06:22,566
+a CBCentralManager, you pass
+
+
+209
+00:06:22,566 --> 00:06:23,896
+this RestoreIdentifier.
+
+
+210
+00:06:24,286 --> 00:06:25,486
+This is just a string that
+
+
+211
+00:06:25,486 --> 00:06:26,856
+identifies your session that you
+
+
+212
+00:06:26,856 --> 00:06:28,076
+want to continue going.
+
+
+213
+00:06:29,536 --> 00:06:31,896
+And if we can complete those
+
+
+214
+00:06:31,896 --> 00:06:33,366
+actions on your behalf, like
+
+
+215
+00:06:33,366 --> 00:06:34,506
+connecting to your accessory,
+
+
+216
+00:06:34,506 --> 00:06:35,636
+even if it's a week after your
+
+
+217
+00:06:35,636 --> 00:06:37,516
+application was launched, we'll
+
+
+218
+00:06:37,516 --> 00:06:38,896
+relaunch your application and
+
+
+219
+00:06:38,896 --> 00:06:39,856
+give you this callback.
+
+
+220
+00:06:39,856 --> 00:06:41,506
+CentralManager will restore
+
+
+221
+00:06:41,506 --> 00:06:41,986
+state.
+
+
+222
+00:06:42,716 --> 00:06:44,326
+This is when we'll tell you what
+
+
+223
+00:06:44,326 --> 00:06:45,586
+the current state of the system
+
+
+224
+00:06:45,586 --> 00:06:47,056
+is so you can reconcile where we
+
+
+225
+00:06:47,056 --> 00:06:48,796
+are now versus the time that
+
+
+226
+00:06:48,796 --> 00:06:50,046
+your application was killed.
+
+
+227
+00:06:50,586 --> 00:06:52,066
+We'll tell you about the
+
+
+228
+00:06:52,066 --> 00:06:53,736
+currently connected peripherals
+
+
+229
+00:06:53,966 --> 00:06:55,296
+and we'll also tell you what we
+
+
+230
+00:06:55,296 --> 00:06:56,846
+are scanning for at the time
+
+
+231
+00:06:56,846 --> 00:06:58,386
+that you're relaunched.
+
+
+232
+00:06:59,356 --> 00:07:00,456
+Now there will be times where
+
+
+233
+00:07:00,456 --> 00:07:02,046
+these can be null as well, so
+
+
+234
+00:07:02,376 --> 00:07:03,996
+you have to be able to be
+
+
+235
+00:07:03,996 --> 00:07:06,456
+flexible with this and know that
+
+
+236
+00:07:06,456 --> 00:07:08,376
+you can rebuild your state after
+
+
+237
+00:07:08,376 --> 00:07:09,106
+you're relaunched.
+
+
+238
+00:07:11,596 --> 00:07:13,356
+Similarly, if you're acting as a
+
+
+239
+00:07:13,356 --> 00:07:16,236
+peripheral we can keep doing
+
+
+240
+00:07:16,236 --> 00:07:17,556
+things on your behalf even after
+
+
+241
+00:07:17,556 --> 00:07:18,926
+your application is no longer
+
+
+242
+00:07:18,926 --> 00:07:21,666
+and we'll relaunch you when
+
+
+243
+00:07:21,666 --> 00:07:22,606
+that's interesting for your
+
+
+244
+00:07:22,606 --> 00:07:23,186
+application.
+
+
+245
+00:07:23,966 --> 00:07:25,336
+So if you had a local service
+
+
+246
+00:07:25,336 --> 00:07:26,686
+published in the GATT database
+
+
+247
+00:07:27,026 --> 00:07:28,676
+or you're advertising a service,
+
+
+248
+00:07:28,676 --> 00:07:30,076
+we can keep those things going
+
+
+249
+00:07:30,076 --> 00:07:31,136
+and let you know when something
+
+
+250
+00:07:31,136 --> 00:07:34,336
+interesting happens.
+
+
+251
+00:07:34,446 --> 00:07:35,756
+Again, you have to start with a
+
+
+252
+00:07:35,756 --> 00:07:38,476
+restoration identifier, which
+
+
+253
+00:07:38,476 --> 00:07:39,906
+needs to be unique on the system
+
+
+254
+00:07:40,586 --> 00:07:41,986
+and we'll tell you the current
+
+
+255
+00:07:41,986 --> 00:07:43,166
+state of the system after you
+
+
+256
+00:07:43,166 --> 00:07:43,536
+come back.
+
+
+257
+00:07:44,146 --> 00:07:45,886
+We'll tell you either through
+
+
+258
+00:07:45,886 --> 00:07:47,566
+the restored state services key
+
+
+259
+00:07:48,866 --> 00:07:51,166
+what services are still
+
+
+260
+00:07:51,766 --> 00:07:53,286
+published on the system for you
+
+
+261
+00:07:54,106 --> 00:07:56,726
+and through the state
+
+
+262
+00:07:56,726 --> 00:07:59,006
+advertising data key we'll tell
+
+
+263
+00:07:59,006 --> 00:08:00,406
+you what we're advertising on
+
+
+264
+00:08:00,406 --> 00:08:00,996
+your behalf.
+
+
+265
+00:08:04,006 --> 00:08:05,356
+So state preservation and
+
+
+266
+00:08:05,356 --> 00:08:06,576
+restoration that has actually
+
+
+267
+00:08:06,576 --> 00:08:07,606
+been in the system for a couple
+
+
+268
+00:08:07,606 --> 00:08:09,796
+of years, but this year we've
+
+
+269
+00:08:09,796 --> 00:08:11,456
+enhanced it to be even more
+
+
+270
+00:08:11,456 --> 00:08:12,726
+reliable for your application.
+
+
+271
+00:08:13,246 --> 00:08:15,506
+So we're excited to tell you,
+
+
+272
+00:08:15,906 --> 00:08:17,156
+even if there are Bluetooth
+
+
+273
+00:08:17,156 --> 00:08:19,386
+system level events that
+
+
+274
+00:08:19,386 --> 00:08:20,566
+previously would have stopped
+
+
+275
+00:08:20,566 --> 00:08:22,046
+these things from occurring on
+
+
+276
+00:08:22,046 --> 00:08:24,366
+your behalf, we'll keep doing
+
+
+277
+00:08:24,366 --> 00:08:25,046
+them for you now.
+
+
+278
+00:08:25,366 --> 00:08:26,796
+And even if a user reboots the
+
+
+279
+00:08:26,796 --> 00:08:28,576
+device, we can keep connecting
+
+
+280
+00:08:28,576 --> 00:08:29,256
+to your accessory.
+
+
+281
+00:08:30,516 --> 00:08:33,576
+[ Applause ]
+
+
+282
+00:08:34,076 --> 00:08:36,405
+Thank you.
+
+
+283
+00:08:36,606 --> 00:08:39,196
+And one thing we just want to
+
+
+284
+00:08:39,196 --> 00:08:41,746
+mention is that in order to keep
+
+
+285
+00:08:41,866 --> 00:08:43,155
+the power profile of these
+
+
+286
+00:08:43,155 --> 00:08:45,026
+features low, we actually do
+
+
+287
+00:08:45,026 --> 00:08:46,096
+have to do a lot of things in
+
+
+288
+00:08:46,096 --> 00:08:46,616
+Hardware.
+
+
+289
+00:08:47,266 --> 00:08:49,606
+So, we are limited in the number
+
+
+290
+00:08:49,606 --> 00:08:50,676
+of things we can look for at a
+
+
+291
+00:08:50,676 --> 00:08:52,286
+time, especially the number of
+
+
+292
+00:08:52,556 --> 00:08:54,006
+services we can scan for.
+
+
+293
+00:08:54,476 --> 00:08:55,876
+So the less things you ask for,
+
+
+294
+00:08:55,876 --> 00:08:57,926
+the better the chances that we
+
+
+295
+00:08:58,346 --> 00:08:59,716
+can keep your actions running
+
+
+296
+00:08:59,716 --> 00:09:00,436
+all the time.
+
+
+297
+00:09:03,866 --> 00:09:05,566
+The other thing about this is
+
+
+298
+00:09:05,566 --> 00:09:08,276
+there's no UI to control what
+
+
+299
+00:09:08,276 --> 00:09:09,686
+applications are allowed to do
+
+
+300
+00:09:09,686 --> 00:09:11,696
+what in the background, so we
+
+
+301
+00:09:11,696 --> 00:09:12,956
+will stop doing things on your
+
+
+302
+00:09:12,956 --> 00:09:14,666
+app's behalf if the user either
+
+
+303
+00:09:14,906 --> 00:09:16,146
+force quits the app through the
+
+
+304
+00:09:16,146 --> 00:09:18,846
+task switcher or if the user
+
+
+305
+00:09:18,846 --> 00:09:20,266
+turns off Bluetooth manually
+
+
+306
+00:09:20,266 --> 00:09:22,336
+through Bluetooth settings we'll
+
+
+307
+00:09:22,336 --> 00:09:23,816
+stop doing background activities
+
+
+308
+00:09:23,816 --> 00:09:27,616
+on your behalf.
+
+
+309
+00:09:27,616 --> 00:09:28,696
+Another thing we've enhanced for
+
+
+310
+00:09:28,696 --> 00:09:29,846
+this year is Write Without
+
+
+311
+00:09:29,846 --> 00:09:30,406
+Response.
+
+
+312
+00:09:31,086 --> 00:09:32,206
+So previously you could call
+
+
+313
+00:09:32,206 --> 00:09:33,976
+Write Without Response, and as
+
+
+314
+00:09:33,976 --> 00:09:36,156
+the name implies you don't hear
+
+
+315
+00:09:36,156 --> 00:09:37,146
+anything back from that.
+
+
+316
+00:09:37,146 --> 00:09:39,736
+And there are times when your
+
+
+317
+00:09:39,736 --> 00:09:40,906
+writes would be dropped if you
+
+
+318
+00:09:40,906 --> 00:09:42,576
+pushed too many into the system.
+
+
+319
+00:09:43,036 --> 00:09:44,226
+And we had no way to tell you
+
+
+320
+00:09:44,226 --> 00:09:45,356
+that those packets were dropped
+
+
+321
+00:09:45,356 --> 00:09:46,446
+so if you were trying to send a
+
+
+322
+00:09:46,446 --> 00:09:48,036
+large amount of data you had to
+
+
+323
+00:09:48,036 --> 00:09:49,296
+come up with schemes to try to
+
+
+324
+00:09:49,296 --> 00:09:50,276
+make sure that that data was
+
+
+325
+00:09:50,276 --> 00:09:50,766
+reliable.
+
+
+326
+00:09:51,266 --> 00:09:53,516
+For this year, we've enhanced
+
+
+327
+00:09:53,516 --> 00:09:55,916
+CBPeripheral with a new property
+
+
+328
+00:09:55,916 --> 00:09:56,186
+called
+
+
+329
+00:09:56,186 --> 00:09:57,796
+canSendWriteWithoutResponse.
+
+
+330
+00:09:57,896 --> 00:09:59,666
+So if you call this before you
+
+
+331
+00:09:59,666 --> 00:10:00,926
+do a write and it and it returns
+
+
+332
+00:10:00,926 --> 00:10:02,776
+yes, that's our promise to you
+
+
+333
+00:10:02,776 --> 00:10:04,286
+that your data will not be
+
+
+334
+00:10:04,286 --> 00:10:05,796
+dropped in software before we
+
+
+335
+00:10:05,796 --> 00:10:06,826
+get a chance to send it to the
+
+
+336
+00:10:06,826 --> 00:10:07,576
+remote peripheral.
+
+
+337
+00:10:08,136 --> 00:10:10,906
+If that returns no, you'll also
+
+
+338
+00:10:10,906 --> 00:10:12,026
+get a delegate callback when
+
+
+339
+00:10:12,026 --> 00:10:14,126
+we're ready and we'll call back
+
+
+340
+00:10:14,126 --> 00:10:15,156
+peripheralIsReady
+
+
+341
+00:10:15,156 --> 00:10:16,466
+(toSendWritewithoutResponse.
+
+
+342
+00:10:18,516 --> 00:10:23,016
+[ Applause ]
+
+
+343
+00:10:23,516 --> 00:10:25,406
+Thank you.
+
+
+344
+00:10:25,586 --> 00:10:29,376
+Okay. So when we first launched
+
+
+345
+00:10:29,376 --> 00:10:32,106
+in 2011 we support macOS 10.7
+
+
+346
+00:10:32,106 --> 00:10:33,006
+and iOS 5.
+
+
+347
+00:10:34,076 --> 00:10:35,216
+We supported those this whole
+
+
+348
+00:10:35,216 --> 00:10:38,366
+time, and on tvOS 9 we added
+
+
+349
+00:10:38,366 --> 00:10:39,586
+support for tvOS.
+
+
+350
+00:10:39,896 --> 00:10:41,166
+This is actually the first time
+
+
+351
+00:10:41,166 --> 00:10:42,216
+we've been on stage to talk to
+
+
+352
+00:10:42,216 --> 00:10:45,126
+you about that so we'd like to
+
+
+353
+00:10:45,126 --> 00:10:46,366
+go over that as well.
+
+
+354
+00:10:46,776 --> 00:10:47,896
+And new for this year, we're
+
+
+355
+00:10:47,896 --> 00:10:49,106
+supporting watchOS.
+
+
+356
+00:10:49,426 --> 00:10:50,896
+We think this opens a lot of
+
+
+357
+00:10:50,896 --> 00:10:52,706
+cool opportunities, especially
+
+
+358
+00:10:52,706 --> 00:10:53,916
+in the health and fitness space
+
+
+359
+00:10:53,916 --> 00:10:55,476
+for places where it was
+
+
+360
+00:10:55,476 --> 00:10:56,926
+unpractical to bring your phone
+
+
+361
+00:10:56,926 --> 00:10:57,506
+previously.
+
+
+362
+00:11:00,516 --> 00:11:02,426
+So iOS and macOS were the first
+
+
+363
+00:11:02,426 --> 00:11:03,576
+platforms that we supported.
+
+
+364
+00:11:04,426 --> 00:11:05,926
+They support both foreground and
+
+
+365
+00:11:05,926 --> 00:11:07,616
+background applications, and
+
+
+366
+00:11:07,616 --> 00:11:08,896
+both central and peripheral mode
+
+
+367
+00:11:08,896 --> 00:11:09,456
+operation.
+
+
+368
+00:11:13,366 --> 00:11:15,736
+We allow you to go down to 15 ms
+
+
+369
+00:11:15,736 --> 00:11:16,866
+starting this year for your
+
+
+370
+00:11:16,866 --> 00:11:17,606
+connection interval.
+
+
+371
+00:11:17,836 --> 00:11:18,686
+So if you're trying to get the
+
+
+372
+00:11:18,686 --> 00:11:19,716
+most throughput to your
+
+
+373
+00:11:19,716 --> 00:11:21,316
+accessories or the lowest
+
+
+374
+00:11:21,316 --> 00:11:23,166
+latency, these are the platforms
+
+
+375
+00:11:23,166 --> 00:11:24,556
+that provide you the most
+
+
+376
+00:11:24,556 --> 00:11:25,556
+opportunities there.
+
+
+377
+00:11:26,126 --> 00:11:28,516
+And as I mentioned, state
+
+
+378
+00:11:28,516 --> 00:11:30,236
+preservation and restoration are
+
+
+379
+00:11:30,236 --> 00:11:32,296
+supported on iOS so you can try
+
+
+380
+00:11:32,616 --> 00:11:33,786
+-- maintain connections to your
+
+
+381
+00:11:33,786 --> 00:11:35,136
+accessories throughout the day
+
+
+382
+00:11:35,346 --> 00:11:36,686
+and even across major device
+
+
+383
+00:11:36,726 --> 00:11:38,156
+events like a system reboot.
+
+
+384
+00:11:41,636 --> 00:11:44,166
+tvOS was supported as of tvOS 9,
+
+
+385
+00:11:44,166 --> 00:11:46,126
+and it was interesting for us
+
+
+386
+00:11:46,126 --> 00:11:47,516
+because it was the first that we
+
+
+387
+00:11:47,516 --> 00:11:49,556
+wanted to support third party
+
+
+388
+00:11:49,556 --> 00:11:51,346
+accessories on a platform that
+
+
+389
+00:11:51,346 --> 00:11:52,776
+relies on Bluetooth as the main
+
+
+390
+00:11:52,776 --> 00:11:53,466
+system input.
+
+
+391
+00:11:53,466 --> 00:11:54,746
+So we have to coexist between
+
+
+392
+00:11:54,746 --> 00:11:56,346
+those two opportunities or those
+
+
+393
+00:11:56,346 --> 00:11:57,106
+two activities.
+
+
+394
+00:11:58,296 --> 00:11:59,856
+So in this case we had to put
+
+
+395
+00:12:00,066 --> 00:12:01,826
+some restrictions into the
+
+
+396
+00:12:01,826 --> 00:12:02,836
+system to make sure that we
+
+
+397
+00:12:02,836 --> 00:12:04,836
+don't interfere with core
+
+
+398
+00:12:04,836 --> 00:12:05,936
+operating things like the Apple
+
+
+399
+00:12:05,936 --> 00:12:06,556
+Siri Remote.
+
+
+400
+00:12:07,066 --> 00:12:09,926
+So we decided for accessory or
+
+
+401
+00:12:09,926 --> 00:12:12,936
+for tvOS, you can only act as a
+
+
+402
+00:12:12,936 --> 00:12:16,106
+Central device, and you can only
+
+
+403
+00:12:16,106 --> 00:12:18,686
+connect to two simultaneous
+
+
+404
+00:12:18,686 --> 00:12:19,226
+devices.
+
+
+405
+00:12:20,356 --> 00:12:21,266
+You can be paired with an
+
+
+406
+00:12:21,266 --> 00:12:22,906
+unlimited amount but you can
+
+
+407
+00:12:22,906 --> 00:12:24,006
+only use two at a time.
+
+
+408
+00:12:24,556 --> 00:12:28,986
+And we don't allow 15 ms
+
+
+409
+00:12:28,986 --> 00:12:30,646
+connection intervals on tvOS, we
+
+
+410
+00:12:30,646 --> 00:12:32,746
+set the minimum at 30 ms. So
+
+
+411
+00:12:33,256 --> 00:12:34,936
+this still allows you to get low
+
+
+412
+00:12:35,266 --> 00:12:37,376
+latency for your accessories and
+
+
+413
+00:12:37,376 --> 00:12:39,286
+good user interaction but it
+
+
+414
+00:12:39,286 --> 00:12:40,696
+leaves more system resources
+
+
+415
+00:12:40,696 --> 00:12:40,976
+available.
+
+
+416
+00:12:44,376 --> 00:12:45,736
+And when your application is
+
+
+417
+00:12:46,056 --> 00:12:47,676
+suspended or moved to the
+
+
+418
+00:12:47,676 --> 00:12:48,956
+background, we're going to
+
+
+419
+00:12:48,956 --> 00:12:50,206
+automatically disconnect those
+
+
+420
+00:12:50,206 --> 00:12:50,826
+accessories.
+
+
+421
+00:12:54,576 --> 00:12:56,756
+And similarly, to watch OS, tvOS
+
+
+422
+00:12:56,756 --> 00:12:58,586
+is a platform that relies on
+
+
+423
+00:12:58,586 --> 00:13:00,216
+Bluetooth for its core system
+
+
+424
+00:13:00,216 --> 00:13:00,916
+functionality.
+
+
+425
+00:13:02,436 --> 00:13:03,966
+So we are allowing access to
+
+
+426
+00:13:03,966 --> 00:13:06,036
+Core Bluetooth whenever the
+
+
+427
+00:13:06,036 --> 00:13:07,596
+system allows your application
+
+
+428
+00:13:07,596 --> 00:13:08,086
+to be run.
+
+
+429
+00:13:08,556 --> 00:13:09,646
+So if a user is in your
+
+
+430
+00:13:09,646 --> 00:13:11,536
+application and directly
+
+
+431
+00:13:11,536 --> 00:13:12,966
+interacting with it, you can use
+
+
+432
+00:13:12,966 --> 00:13:13,576
+Core Bluetooth.
+
+
+433
+00:13:13,626 --> 00:13:14,286
+You can connect your
+
+
+434
+00:13:14,286 --> 00:13:16,046
+accessories, you can interact
+
+
+435
+00:13:16,046 --> 00:13:17,976
+with them, but this also means
+
+
+436
+00:13:17,976 --> 00:13:18,886
+that if you're allowed to run
+
+
+437
+00:13:18,886 --> 00:13:19,956
+for other reasons, like
+
+
+438
+00:13:19,956 --> 00:13:21,706
+complication updates or a
+
+
+439
+00:13:21,706 --> 00:13:24,076
+workout session, you can stay
+
+
+440
+00:13:24,076 --> 00:13:25,166
+connected to your accessories
+
+
+441
+00:13:25,166 --> 00:13:26,426
+and continue getting that data.
+
+
+442
+00:13:28,666 --> 00:13:31,326
+Similarly, if the tvOS -- you
+
+
+443
+00:13:31,326 --> 00:13:32,636
+can only act as a Central,
+
+
+444
+00:13:32,696 --> 00:13:33,906
+meaning that you can connect out
+
+
+445
+00:13:33,906 --> 00:13:35,986
+tier accessories but you can't
+
+
+446
+00:13:35,986 --> 00:13:38,016
+act as a peripheral to other
+
+
+447
+00:13:38,016 --> 00:13:38,596
+devices.
+
+
+448
+00:13:41,716 --> 00:13:45,076
+And the same two simultaneous
+
+
+449
+00:13:45,076 --> 00:13:47,246
+connection limitation is in
+
+
+450
+00:13:47,246 --> 00:13:50,626
+place on watchOS as on tvOS, and
+
+
+451
+00:13:50,666 --> 00:13:52,086
+the same connection interval
+
+
+452
+00:13:52,086 --> 00:13:52,736
+limitation.
+
+
+453
+00:13:56,456 --> 00:13:58,376
+Also, when the system decides
+
+
+454
+00:13:58,376 --> 00:13:59,656
+that your application needs to
+
+
+455
+00:13:59,656 --> 00:14:01,196
+be suspended, that's the
+
+
+456
+00:14:01,196 --> 00:14:02,406
+indication to Core Bluetooth
+
+
+457
+00:14:02,676 --> 00:14:05,496
+that the accessories connected
+
+
+458
+00:14:05,496 --> 00:14:06,936
+on that application's behalf
+
+
+459
+00:14:07,996 --> 00:14:08,986
+should be disconnected.
+
+
+460
+00:14:12,596 --> 00:14:13,946
+And this is supported on Apple
+
+
+461
+00:14:13,946 --> 00:14:14,886
+Watch Series 2.
+
+
+462
+00:14:15,986 --> 00:14:18,286
+As I mentioned, we think this is
+
+
+463
+00:14:18,286 --> 00:14:20,386
+a really cool opportunity to see
+
+
+464
+00:14:20,386 --> 00:14:21,726
+accessories connected to Apple
+
+
+465
+00:14:21,726 --> 00:14:24,096
+Watch and can be used all day.
+
+
+466
+00:14:24,816 --> 00:14:26,806
+You can be in places where you
+
+
+467
+00:14:26,806 --> 00:14:27,996
+don't want to bring your phone
+
+
+468
+00:14:28,246 --> 00:14:31,336
+or places where it's just more
+
+
+469
+00:14:31,336 --> 00:14:32,496
+convenient to have data
+
+
+470
+00:14:32,496 --> 00:14:33,526
+available on your wrist.
+
+
+471
+00:14:33,526 --> 00:14:34,856
+So if you want things like
+
+
+472
+00:14:34,856 --> 00:14:35,896
+battery updates throughout the
+
+
+473
+00:14:35,896 --> 00:14:37,516
+day, your complication can
+
+
+474
+00:14:37,516 --> 00:14:38,976
+connect your accessory, get a
+
+
+475
+00:14:38,976 --> 00:14:40,616
+quick bit of data, and always be
+
+
+476
+00:14:40,616 --> 00:14:41,726
+up to date on the home screen.
+
+
+477
+00:14:46,216 --> 00:14:47,466
+New for this year, we're
+
+
+478
+00:14:47,466 --> 00:14:48,946
+allowing access to L2CAP
+
+
+479
+00:14:49,056 --> 00:14:49,486
+Channels.
+
+
+480
+00:14:51,536 --> 00:14:54,396
+So, an L2CAP channel at the
+
+
+481
+00:14:54,396 --> 00:14:56,596
+lowest level is just this stream
+
+
+482
+00:14:56,596 --> 00:14:59,466
+of data between two devices, and
+
+
+483
+00:14:59,466 --> 00:15:01,476
+it's actually the protocol that
+
+
+484
+00:15:01,476 --> 00:15:03,266
+we use under the covers for all
+
+
+485
+00:15:03,266 --> 00:15:04,346
+communication between these
+
+
+486
+00:15:04,346 --> 00:15:04,836
+devices.
+
+
+487
+00:15:05,266 --> 00:15:06,706
+So L2CAP Channels have been used
+
+
+488
+00:15:06,706 --> 00:15:08,106
+on the platform.
+
+
+489
+00:15:08,206 --> 00:15:09,896
+Since day one of Bluetooth this
+
+
+490
+00:15:09,896 --> 00:15:10,786
+is the first time that we're
+
+
+491
+00:15:10,786 --> 00:15:12,696
+opening up for your applications
+
+
+492
+00:15:12,696 --> 00:15:14,016
+to directly talk over these
+
+
+493
+00:15:14,016 --> 00:15:14,516
+channels.
+
+
+494
+00:15:17,576 --> 00:15:18,936
+It actually stands for the
+
+
+495
+00:15:18,936 --> 00:15:20,386
+Logical Link Control and
+
+
+496
+00:15:20,386 --> 00:15:23,856
+Adaptation Protocol, and the
+
+
+497
+00:15:23,856 --> 00:15:25,226
+support for dynamically
+
+
+498
+00:15:25,226 --> 00:15:26,986
+allocated connection or into
+
+
+499
+00:15:26,986 --> 00:15:28,866
+channels is new for Bluetooth
+
+
+500
+00:15:28,866 --> 00:15:30,636
+Core Spec 4.1.
+
+
+501
+00:15:34,426 --> 00:15:35,946
+So unlike all the other
+
+
+502
+00:15:35,946 --> 00:15:36,786
+interactions that you've done
+
+
+503
+00:15:36,786 --> 00:15:37,886
+with your accessories before
+
+
+504
+00:15:37,886 --> 00:15:39,546
+where you have to work through
+
+
+505
+00:15:39,546 --> 00:15:41,746
+the GATT Database to get your
+
+
+506
+00:15:42,526 --> 00:15:43,946
+data, L2CAP Channels allow you
+
+
+507
+00:15:43,946 --> 00:15:45,506
+to open a side channel and
+
+
+508
+00:15:45,506 --> 00:15:48,226
+directly read and write without
+
+
+509
+00:15:48,586 --> 00:15:50,736
+any framing limitations, packet
+
+
+510
+00:15:50,736 --> 00:15:51,826
+size limitations.
+
+
+511
+00:15:52,166 --> 00:15:53,376
+It's a direct way to talk
+
+
+512
+00:15:53,376 --> 00:15:55,956
+between your device and your
+
+
+513
+00:15:55,956 --> 00:15:56,546
+accessory.
+
+
+514
+00:16:00,236 --> 00:16:02,226
+So we think this API is very
+
+
+515
+00:16:02,546 --> 00:16:03,536
+simple to use.
+
+
+516
+00:16:04,026 --> 00:16:05,646
+If you have already connected to
+
+
+517
+00:16:05,646 --> 00:16:07,236
+a peripheral, all you have to do
+
+
+518
+00:16:07,236 --> 00:16:08,866
+is call openL2CAPChannel and
+
+
+519
+00:16:08,866 --> 00:16:11,076
+specify as the PSM, and you'll
+
+
+520
+00:16:11,556 --> 00:16:12,836
+get a callback data
+
+
+521
+00:16:12,836 --> 00:16:14,666
+openL2CAPChannel will hand you
+
+
+522
+00:16:14,666 --> 00:16:15,976
+back the object that represents
+
+
+523
+00:16:15,976 --> 00:16:16,436
+this channel.
+
+
+524
+00:16:19,086 --> 00:16:21,976
+So the PSM is a -- it's the
+
+
+525
+00:16:22,036 --> 00:16:24,946
+Protocol Service Multiplexer but
+
+
+526
+00:16:25,326 --> 00:16:26,636
+you should think of it as
+
+
+527
+00:16:26,636 --> 00:16:28,506
+analogous to say TCP port.
+
+
+528
+00:16:28,886 --> 00:16:30,116
+It's just a number that you give
+
+
+529
+00:16:30,116 --> 00:16:32,246
+to us that uniquely identifies
+
+
+530
+00:16:32,246 --> 00:16:34,096
+the service you want to open on
+
+
+531
+00:16:34,096 --> 00:16:35,126
+the peripheral side of the
+
+
+532
+00:16:35,126 --> 00:16:35,616
+connection.
+
+
+533
+00:16:37,926 --> 00:16:39,226
+And what's interesting about
+
+
+534
+00:16:39,226 --> 00:16:41,196
+this is that there are some
+
+
+535
+00:16:41,196 --> 00:16:43,026
+profiles that are published by
+
+
+536
+00:16:43,026 --> 00:16:44,686
+the Bluetooth SIG that have a
+
+
+537
+00:16:44,686 --> 00:16:45,926
+hard coded PSM.
+
+
+538
+00:16:46,136 --> 00:16:47,996
+So if you're trying to do things
+
+
+539
+00:16:47,996 --> 00:16:49,066
+like the Object Transfer
+
+
+540
+00:16:49,066 --> 00:16:51,286
+Protocol, the PSM will be known
+
+
+541
+00:16:51,286 --> 00:16:52,576
+to you even before you connect
+
+
+542
+00:16:52,576 --> 00:16:53,246
+to the device.
+
+
+543
+00:16:53,616 --> 00:16:56,676
+But in every other case, the PSM
+
+
+544
+00:16:56,806 --> 00:16:58,156
+is unique to the device you're
+
+
+545
+00:16:58,156 --> 00:16:59,786
+talking to, which means it's
+
+
+546
+00:16:59,786 --> 00:17:01,456
+locally assigned and can even be
+
+
+547
+00:17:01,456 --> 00:17:03,226
+reused by other applications.
+
+
+548
+00:17:04,296 --> 00:17:05,276
+So it's important that you
+
+
+549
+00:17:05,276 --> 00:17:07,195
+discover what PSM to connect to
+
+
+550
+00:17:07,415 --> 00:17:09,146
+before you try to open it.
+
+
+551
+00:17:10,486 --> 00:17:12,126
+What we've done to make this a
+
+
+552
+00:17:12,126 --> 00:17:13,935
+little bit simpler is we're
+
+
+553
+00:17:13,935 --> 00:17:15,465
+publishing a UUID that you can
+
+
+554
+00:17:15,465 --> 00:17:16,986
+use and put within your service
+
+
+555
+00:17:18,036 --> 00:17:20,026
+to help you specify what PSM to
+
+
+556
+00:17:20,026 --> 00:17:23,486
+open that's associated with your
+
+
+557
+00:17:23,486 --> 00:17:24,356
+CB service.
+
+
+558
+00:17:27,736 --> 00:17:29,346
+We're also opening L2CAP
+
+
+559
+00:17:29,346 --> 00:17:30,726
+Channels if you're acting as a
+
+
+560
+00:17:30,726 --> 00:17:31,246
+peripheral.
+
+
+561
+00:17:31,726 --> 00:17:34,286
+So if you want to have a L2CAP
+
+
+562
+00:17:34,396 --> 00:17:35,536
+Channel that's associated with
+
+
+563
+00:17:35,536 --> 00:17:37,286
+your service, you can call
+
+
+564
+00:17:37,286 --> 00:17:39,306
+publishL2CAPChannel and we will
+
+
+565
+00:17:39,306 --> 00:17:41,766
+return you what PSM was assigned
+
+
+566
+00:17:41,766 --> 00:17:43,516
+by the system in the callback
+
+
+567
+00:17:43,516 --> 00:17:44,466
+peripheralManger
+
+
+568
+00:17:44,466 --> 00:17:46,716
+didPublishL2CAPChannel.
+
+
+569
+00:17:48,456 --> 00:17:50,836
+Another thing we've allowed is
+
+
+570
+00:17:50,836 --> 00:17:52,546
+we allow you to specify whether
+
+
+571
+00:17:52,546 --> 00:17:54,516
+your L2CAP Channel requires
+
+
+572
+00:17:54,516 --> 00:17:56,246
+encryption or not.
+
+
+573
+00:17:56,386 --> 00:17:58,546
+So most of the time, the safe
+
+
+574
+00:17:58,546 --> 00:18:00,036
+bet is to say yes, I want
+
+
+575
+00:18:00,036 --> 00:18:00,546
+encryption.
+
+
+576
+00:18:00,616 --> 00:18:01,766
+It protects you from things like
+
+
+577
+00:18:01,766 --> 00:18:03,276
+man-in-the-middle attacks, it
+
+
+578
+00:18:03,276 --> 00:18:04,586
+protects you from things like
+
+
+579
+00:18:04,586 --> 00:18:05,696
+people eavesdropping on the
+
+
+580
+00:18:05,696 --> 00:18:06,536
+packets that you're sending
+
+
+581
+00:18:06,536 --> 00:18:07,646
+between your two devices.
+
+
+582
+00:18:08,126 --> 00:18:09,996
+But there are time when you
+
+
+583
+00:18:09,996 --> 00:18:11,676
+might want to build more
+
+
+584
+00:18:11,676 --> 00:18:12,616
+advanced types of
+
+
+585
+00:18:12,616 --> 00:18:14,156
+authentication, like using
+
+
+586
+00:18:14,426 --> 00:18:16,486
+public key cryptography you
+
+
+587
+00:18:16,486 --> 00:18:17,866
+could build your own account
+
+
+588
+00:18:17,866 --> 00:18:20,706
+system and protect your data
+
+
+589
+00:18:20,706 --> 00:18:21,076
+that way.
+
+
+590
+00:18:24,056 --> 00:18:25,426
+So let's go through an example
+
+
+591
+00:18:25,426 --> 00:18:26,486
+of how you would actually
+
+
+592
+00:18:26,676 --> 00:18:27,936
+negotiate an L2CAP Channel
+
+
+593
+00:18:27,936 --> 00:18:29,026
+between two devices.
+
+
+594
+00:18:29,866 --> 00:18:31,096
+If you're acting as a
+
+
+595
+00:18:31,096 --> 00:18:34,076
+peripheral, you would ask the
+
+
+596
+00:18:34,076 --> 00:18:36,786
+system to publish an L2CAP
+
+
+597
+00:18:36,876 --> 00:18:37,196
+Channel.
+
+
+598
+00:18:38,256 --> 00:18:39,746
+Again you get to specify whether
+
+
+599
+00:18:39,746 --> 00:18:41,066
+this channel requires encryption
+
+
+600
+00:18:41,066 --> 00:18:41,536
+or not.
+
+
+601
+00:18:41,846 --> 00:18:42,836
+In this case we're going to say
+
+
+602
+00:18:42,836 --> 00:18:43,126
+true.
+
+
+603
+00:18:43,516 --> 00:18:44,836
+And when that's successful,
+
+
+604
+00:18:45,596 --> 00:18:46,386
+you'll get a callback
+
+
+605
+00:18:46,386 --> 00:18:47,116
+peripheralManager
+
+
+606
+00:18:47,116 --> 00:18:48,746
+didPublishL2CAPChannel.
+
+
+607
+00:18:48,746 --> 00:18:50,676
+And as I mentioned, we'll tell
+
+
+608
+00:18:50,676 --> 00:18:52,046
+you what PSM has been locally
+
+
+609
+00:18:52,046 --> 00:18:53,106
+assigned for your service.
+
+
+610
+00:18:54,216 --> 00:18:57,276
+So this is your opportunity to
+
+
+611
+00:18:57,276 --> 00:18:59,126
+make the PSM known to incoming
+
+
+612
+00:18:59,126 --> 00:19:01,486
+connections so that they can
+
+
+613
+00:19:01,486 --> 00:19:03,956
+discover what channel to open
+
+
+614
+00:19:03,956 --> 00:19:04,836
+that's associated with your
+
+
+615
+00:19:04,836 --> 00:19:05,346
+service.
+
+
+616
+00:19:09,696 --> 00:19:11,516
+As a Central, you can read the
+
+
+617
+00:19:11,516 --> 00:19:12,956
+PSM and that's all the
+
+
+618
+00:19:12,956 --> 00:19:14,176
+information you need to actually
+
+
+619
+00:19:14,176 --> 00:19:14,816
+open that channel.
+
+
+620
+00:19:14,816 --> 00:19:15,796
+So now you can call
+
+
+621
+00:19:15,796 --> 00:19:17,866
+openL2CAPChannel with the PSM
+
+
+622
+00:19:17,866 --> 00:19:19,136
+that you read from the remote
+
+
+623
+00:19:19,136 --> 00:19:22,916
+device and you'll get the
+
+
+624
+00:19:22,916 --> 00:19:25,106
+callback didOpenL2CAPChannel.
+
+
+625
+00:19:28,726 --> 00:19:31,946
+So CB L2CAP Channel encapsulates
+
+
+626
+00:19:31,946 --> 00:19:33,816
+all the information you need to
+
+
+627
+00:19:33,816 --> 00:19:35,786
+know who you're talking to and
+
+
+628
+00:19:35,786 --> 00:19:37,286
+how you can talk to it.
+
+
+629
+00:19:37,486 --> 00:19:38,466
+In this case we tell you the
+
+
+630
+00:19:38,466 --> 00:19:39,536
+peer, which is either the
+
+
+631
+00:19:39,536 --> 00:19:40,786
+central or the peripheral on the
+
+
+632
+00:19:40,786 --> 00:19:41,876
+remote side of the connection.
+
+
+633
+00:19:42,446 --> 00:19:43,836
+We tell you what PSM was
+
+
+634
+00:19:43,836 --> 00:19:45,066
+connected in case you have
+
+
+635
+00:19:45,066 --> 00:19:47,356
+multiple services that you've
+
+
+636
+00:19:47,356 --> 00:19:47,846
+published.
+
+
+637
+00:19:47,846 --> 00:19:49,876
+And then we just give you an
+
+
+638
+00:19:49,876 --> 00:19:51,156
+InputStream and OutputStream.
+
+
+639
+00:19:52,186 --> 00:19:53,626
+We didn't want to build our own
+
+
+640
+00:19:53,626 --> 00:19:55,456
+API and make you have to learn
+
+
+641
+00:19:55,456 --> 00:19:57,466
+how to use a new Read Write API.
+
+
+642
+00:19:58,056 --> 00:19:59,476
+We didn't want you to have to
+
+
+643
+00:19:59,606 --> 00:20:00,876
+adapt your code to deal
+
+
+644
+00:20:00,876 --> 00:20:02,016
+specifically with Bluetooth
+
+
+645
+00:20:02,016 --> 00:20:02,626
+connections.
+
+
+646
+00:20:02,956 --> 00:20:04,026
+If you already know how to deal
+
+
+647
+00:20:04,026 --> 00:20:05,066
+with the socket and an
+
+
+648
+00:20:05,066 --> 00:20:06,236
+InputStream and OutputStream,
+
+
+649
+00:20:06,236 --> 00:20:08,276
+you can deal with an L2CAP
+
+
+650
+00:20:08,356 --> 00:20:08,626
+Channel.
+
+
+651
+00:20:11,126 --> 00:20:13,066
+So we use all the same stream
+
+
+652
+00:20:13,066 --> 00:20:14,126
+events that you would get off
+
+
+653
+00:20:14,126 --> 00:20:16,146
+of, say, a socket after you're
+
+
+654
+00:20:16,146 --> 00:20:18,036
+connected, and there's bytes
+
+
+655
+00:20:18,036 --> 00:20:19,066
+available to be read.
+
+
+656
+00:20:19,366 --> 00:20:20,246
+You'll get the callback
+
+
+657
+00:20:20,246 --> 00:20:21,356
+hasBytesAvailable.
+
+
+658
+00:20:22,376 --> 00:20:23,976
+If you're writing data and you
+
+
+659
+00:20:23,976 --> 00:20:25,126
+fill all those queues, you get
+
+
+660
+00:20:25,126 --> 00:20:26,346
+the same callback you would on a
+
+
+661
+00:20:26,346 --> 00:20:28,016
+socket of hasSpaceAvailable.
+
+
+662
+00:20:29,236 --> 00:20:30,486
+We think this is really powerful
+
+
+663
+00:20:30,486 --> 00:20:31,966
+because if you already have code
+
+
+664
+00:20:31,966 --> 00:20:33,156
+that knows how to talk over
+
+
+665
+00:20:33,376 --> 00:20:34,916
+other network interfaces like
+
+
+666
+00:20:34,916 --> 00:20:35,906
+Ethernet or Wi-Fi.
+
+
+667
+00:20:36,356 --> 00:20:37,436
+That code can be directly
+
+
+668
+00:20:37,436 --> 00:20:39,046
+adapted to run on top of L2CAP
+
+
+669
+00:20:39,166 --> 00:20:39,646
+Channels.
+
+
+670
+00:20:41,136 --> 00:20:42,376
+And when the channel has been
+
+
+671
+00:20:42,376 --> 00:20:43,636
+closed, you get the same
+
+
+672
+00:20:43,636 --> 00:20:44,796
+endEncountered.Event that you
+
+
+673
+00:20:44,796 --> 00:20:44,976
+would get.
+
+
+674
+00:20:48,306 --> 00:20:49,296
+So after you've opened your
+
+
+675
+00:20:49,296 --> 00:20:51,376
+connection, you can read data to
+
+
+676
+00:20:51,376 --> 00:20:52,746
+that connection, you can write
+
+
+677
+00:20:52,746 --> 00:20:53,146
+to it.
+
+
+678
+00:20:53,346 --> 00:20:55,146
+Eventually when it's closed you
+
+
+679
+00:20:55,146 --> 00:20:57,806
+get the endEncounterd.Event, and
+
+
+680
+00:20:57,896 --> 00:20:59,036
+it can be closed for a couple of
+
+
+681
+00:20:59,036 --> 00:20:59,446
+reasons.
+
+
+682
+00:20:59,586 --> 00:21:01,586
+So if the overall Bluetooth link
+
+
+683
+00:21:01,586 --> 00:21:04,066
+is lost we'll tell you that the
+
+
+684
+00:21:04,066 --> 00:21:05,426
+L2CAP Channel has been closed.
+
+
+685
+00:21:06,136 --> 00:21:08,146
+As the Central side, you can
+
+
+686
+00:21:08,146 --> 00:21:09,646
+manually ask to close that
+
+
+687
+00:21:09,646 --> 00:21:10,156
+connection.
+
+
+688
+00:21:11,256 --> 00:21:12,576
+Now on the peripheral side, you
+
+
+689
+00:21:12,576 --> 00:21:13,696
+can either un-publish the
+
+
+690
+00:21:13,696 --> 00:21:18,126
+service or if you drop the
+
+
+691
+00:21:18,126 --> 00:21:19,506
+object and allow it to be
+
+
+692
+00:21:20,006 --> 00:21:22,356
+deallocated that's an implicit
+
+
+693
+00:21:22,356 --> 00:21:23,116
+sign to us through Core
+
+
+694
+00:21:23,116 --> 00:21:24,156
+Bluetooth that you're no longer
+
+
+695
+00:21:24,156 --> 00:21:24,716
+interested.
+
+
+696
+00:21:24,716 --> 00:21:26,326
+That will also close the L2CAP
+
+
+697
+00:21:26,326 --> 00:21:26,626
+Channel.
+
+
+698
+00:21:33,046 --> 00:21:34,366
+So when should you use L2CAP
+
+
+699
+00:21:34,366 --> 00:21:34,716
+Channels?
+
+
+700
+00:21:36,336 --> 00:21:38,176
+In general, if you're already
+
+
+701
+00:21:38,176 --> 00:21:39,746
+doing well with GATT and your
+
+
+702
+00:21:39,746 --> 00:21:41,706
+data model fits well into a GATT
+
+
+703
+00:21:41,706 --> 00:21:43,446
+database, you should continue
+
+
+704
+00:21:43,446 --> 00:21:44,016
+using that.
+
+
+705
+00:21:44,496 --> 00:21:46,046
+GATT makes it very simple to
+
+
+706
+00:21:46,046 --> 00:21:47,956
+discover your data, to get quick
+
+
+707
+00:21:47,956 --> 00:21:48,576
+updates.
+
+
+708
+00:21:48,576 --> 00:21:50,976
+You don't have to frame any of
+
+
+709
+00:21:50,976 --> 00:21:51,606
+your data.
+
+
+710
+00:21:52,146 --> 00:21:53,506
+So keep using that if that
+
+
+711
+00:21:53,506 --> 00:21:54,006
+worked for you.
+
+
+712
+00:21:54,986 --> 00:21:56,656
+But if there are times where it
+
+
+713
+00:21:56,656 --> 00:21:57,996
+was previously hard to make your
+
+
+714
+00:21:57,996 --> 00:22:00,526
+data fit into the GATT database,
+
+
+715
+00:22:00,636 --> 00:22:01,976
+either because you had more data
+
+
+716
+00:22:01,976 --> 00:22:02,806
+that you could fit into a
+
+
+717
+00:22:02,806 --> 00:22:05,266
+characteristic, or you're
+
+
+718
+00:22:05,266 --> 00:22:06,396
+finding that GATT is kind of
+
+
+719
+00:22:06,396 --> 00:22:07,836
+getting in the way, L2CAP
+
+
+720
+00:22:07,936 --> 00:22:09,226
+Channels are a great opportunity
+
+
+721
+00:22:09,226 --> 00:22:10,906
+to get the lowest overhead best
+
+
+722
+00:22:10,906 --> 00:22:12,546
+performance when talking between
+
+
+723
+00:22:12,546 --> 00:22:13,206
+your accessories.
+
+
+724
+00:22:14,386 --> 00:22:15,546
+And if you're doing large data
+
+
+725
+00:22:15,546 --> 00:22:17,326
+transfers, say like a firmware
+
+
+726
+00:22:17,326 --> 00:22:19,226
+update, L2CAP Channels are a
+
+
+727
+00:22:19,226 --> 00:22:20,616
+good opportunity to help you get
+
+
+728
+00:22:20,616 --> 00:22:21,366
+it there faster.
+
+
+729
+00:22:22,616 --> 00:22:24,146
+And if you have a streaming
+
+
+730
+00:22:24,146 --> 00:22:25,606
+protocol that's already defined
+
+
+731
+00:22:25,606 --> 00:22:26,676
+somewhere that you want to run
+
+
+732
+00:22:26,676 --> 00:22:28,516
+between your two devices, L2CAP
+
+
+733
+00:22:28,596 --> 00:22:29,536
+Channels make that a really
+
+
+734
+00:22:29,536 --> 00:22:29,976
+natural fit.
+
+
+735
+00:22:33,546 --> 00:22:34,796
+I'd like to talk to you about
+
+
+736
+00:22:34,796 --> 00:22:36,286
+some of the best practices that
+
+
+737
+00:22:36,286 --> 00:22:37,386
+we've learned over the years.
+
+
+738
+00:22:37,906 --> 00:22:41,256
+So the first one I have, please
+
+
+739
+00:22:41,256 --> 00:22:42,516
+follow the Bluetooth Accessory
+
+
+740
+00:22:42,516 --> 00:22:43,566
+Design Guidelines.
+
+
+741
+00:22:44,256 --> 00:22:45,716
+We have a great set of
+
+
+742
+00:22:46,096 --> 00:22:47,796
+guidelines that are published
+
+
+743
+00:22:47,796 --> 00:22:50,266
+that give you lots of data to
+
+
+744
+00:22:50,266 --> 00:22:51,556
+help you build the best
+
+
+745
+00:22:51,556 --> 00:22:52,176
+accessories.
+
+
+746
+00:22:52,566 --> 00:22:55,796
+They're not mandatory but they
+
+
+747
+00:22:55,796 --> 00:22:56,666
+are things we've learned over
+
+
+748
+00:22:56,666 --> 00:22:57,796
+the year that help you build
+
+
+749
+00:22:58,076 --> 00:23:00,166
+accessories without running into
+
+
+750
+00:23:00,336 --> 00:23:01,946
+the same pitfalls and problems
+
+
+751
+00:23:01,946 --> 00:23:03,076
+that we've seen across the
+
+
+752
+00:23:03,076 --> 00:23:03,466
+years.
+
+
+753
+00:23:06,096 --> 00:23:07,716
+And if possible, use existing
+
+
+754
+00:23:07,716 --> 00:23:08,836
+profiles and services.
+
+
+755
+00:23:09,516 --> 00:23:11,976
+We've defined our own protocols
+
+
+756
+00:23:11,976 --> 00:23:13,226
+for things like Notification
+
+
+757
+00:23:13,226 --> 00:23:15,976
+Center and Apple Media, and the
+
+
+758
+00:23:15,976 --> 00:23:17,186
+Bluetooth site has a bunch of
+
+
+759
+00:23:17,186 --> 00:23:18,466
+really good profiles for things
+
+
+760
+00:23:18,466 --> 00:23:20,346
+like batter updates and device
+
+
+761
+00:23:20,346 --> 00:23:20,956
+information.
+
+
+762
+00:23:21,496 --> 00:23:23,126
+So if there's already a profile
+
+
+763
+00:23:23,126 --> 00:23:23,976
+that does what you need,
+
+
+764
+00:23:24,506 --> 00:23:25,766
+implement that and it will help
+
+
+765
+00:23:25,766 --> 00:23:27,486
+you get a head start on getting
+
+
+766
+00:23:27,486 --> 00:23:28,346
+the data you want.
+
+
+767
+00:23:31,726 --> 00:23:33,096
+A common question we get is,
+
+
+768
+00:23:33,096 --> 00:23:34,216
+"Why does it take so long to
+
+
+769
+00:23:34,216 --> 00:23:35,496
+connect to my accessory?"
+
+
+770
+00:23:37,626 --> 00:23:39,446
+So before your two devices are
+
+
+771
+00:23:39,446 --> 00:23:41,596
+connected, they're each running
+
+
+772
+00:23:41,596 --> 00:23:42,606
+on their own timelines.
+
+
+773
+00:23:42,856 --> 00:23:43,916
+Your peripheral is going to be
+
+
+774
+00:23:43,916 --> 00:23:45,336
+advertising things to the world,
+
+
+775
+00:23:46,186 --> 00:23:47,296
+and your Central is going to be
+
+
+776
+00:23:47,296 --> 00:23:48,606
+looking for devices that are
+
+
+777
+00:23:48,606 --> 00:23:49,106
+around.
+
+
+778
+00:23:49,496 --> 00:23:51,596
+But each one of these uses small
+
+
+779
+00:23:51,596 --> 00:23:52,886
+windows, and until those two
+
+
+780
+00:23:52,886 --> 00:23:54,486
+events line up you can't
+
+
+781
+00:23:54,486 --> 00:23:55,546
+discover your accessory.
+
+
+782
+00:23:56,086 --> 00:23:58,546
+So the easiest way you can get a
+
+
+783
+00:23:58,546 --> 00:23:59,586
+quick connection between your
+
+
+784
+00:23:59,586 --> 00:24:01,396
+two devices or a quick discovery
+
+
+785
+00:24:01,396 --> 00:24:03,646
+when you're scanning is to use
+
+
+786
+00:24:03,646 --> 00:24:04,726
+the shortest advertising
+
+
+787
+00:24:04,726 --> 00:24:05,566
+interval possible.
+
+
+788
+00:24:06,516 --> 00:24:08,036
+That ensures that no matter what
+
+
+789
+00:24:08,036 --> 00:24:09,546
+state your central is in,
+
+
+790
+00:24:09,626 --> 00:24:11,376
+whether it's screen on, screen
+
+
+791
+00:24:11,376 --> 00:24:12,966
+off, directly in the app, in the
+
+
+792
+00:24:12,966 --> 00:24:14,736
+background, it will get you the
+
+
+793
+00:24:14,736 --> 00:24:18,646
+shortest time to find.
+
+
+794
+00:24:18,646 --> 00:24:19,936
+Now using a short advertising
+
+
+795
+00:24:19,936 --> 00:24:22,296
+interval takes extra battery for
+
+
+796
+00:24:22,296 --> 00:24:24,426
+your accessory, so you can't do
+
+
+797
+00:24:24,426 --> 00:24:26,556
+that all the time but what we
+
+
+798
+00:24:26,556 --> 00:24:27,936
+strongly recommend is if you
+
+
+799
+00:24:27,936 --> 00:24:30,276
+know through any means
+
+
+800
+00:24:30,276 --> 00:24:32,326
+necessary, through the user
+
+
+801
+00:24:32,326 --> 00:24:34,026
+touching the accessory, user
+
+
+802
+00:24:34,026 --> 00:24:36,106
+picking it up, accelerometer,
+
+
+803
+00:24:36,356 --> 00:24:37,586
+buttons, use that as an
+
+
+804
+00:24:37,586 --> 00:24:38,746
+indication to start doing
+
+
+805
+00:24:38,746 --> 00:24:40,356
+aggressive advertising and then
+
+
+806
+00:24:40,356 --> 00:24:41,316
+you can go into a lower
+
+
+807
+00:24:41,316 --> 00:24:43,686
+advertising interval later when
+
+
+808
+00:24:43,686 --> 00:24:44,686
+you're trying to save battery.
+
+
+809
+00:24:47,536 --> 00:24:48,586
+If you're trying to save
+
+
+810
+00:24:48,586 --> 00:24:49,706
+battery, you can go to the
+
+
+811
+00:24:49,706 --> 00:24:50,916
+Bluetooth Accessory Design
+
+
+812
+00:24:50,916 --> 00:24:51,516
+Guidelines.
+
+
+813
+00:24:51,516 --> 00:24:55,096
+We have a whole bunch of power
+
+
+814
+00:24:55,096 --> 00:24:56,696
+optimized but also discovery
+
+
+815
+00:24:56,696 --> 00:24:58,016
+time optimize advertising
+
+
+816
+00:24:58,016 --> 00:24:59,036
+intervals you can use.
+
+
+817
+00:25:06,056 --> 00:25:07,116
+Another thing that we see is
+
+
+818
+00:25:07,116 --> 00:25:09,386
+that if you've previously used
+
+
+819
+00:25:09,386 --> 00:25:11,156
+an accessory and you want to
+
+
+820
+00:25:11,156 --> 00:25:13,146
+reconnect to that accessory you
+
+
+821
+00:25:13,146 --> 00:25:14,526
+don't have to scan every time.
+
+
+822
+00:25:14,876 --> 00:25:16,676
+If you know that the device is
+
+
+823
+00:25:16,676 --> 00:25:18,306
+advertising or you just want to
+
+
+824
+00:25:18,306 --> 00:25:19,586
+connect as quickly as possible,
+
+
+825
+00:25:20,106 --> 00:25:21,036
+connect directly to the
+
+
+826
+00:25:21,036 --> 00:25:21,586
+accessory.
+
+
+827
+00:25:22,956 --> 00:25:24,676
+If you have the identifier, you
+
+
+828
+00:25:24,676 --> 00:25:26,446
+can call retrievePeripherals
+
+
+829
+00:25:26,446 --> 00:25:28,316
+(WithIdentifiers) and directly
+
+
+830
+00:25:28,316 --> 00:25:30,246
+get a CBPeripheral object that
+
+
+831
+00:25:30,246 --> 00:25:31,966
+you can connect to.
+
+
+832
+00:25:31,966 --> 00:25:33,526
+If you were to scan for your
+
+
+833
+00:25:33,526 --> 00:25:35,026
+accessory and then connect to it
+
+
+834
+00:25:35,476 --> 00:25:36,526
+it's actually going to take us
+
+
+835
+00:25:36,526 --> 00:25:38,236
+twice as long to do that
+
+
+836
+00:25:38,236 --> 00:25:39,916
+operation as if we could have
+
+
+837
+00:25:39,916 --> 00:25:40,936
+connected the first time we
+
+
+838
+00:25:40,936 --> 00:25:41,946
+found it.
+
+
+839
+00:25:47,546 --> 00:25:48,796
+Something we get asked a lot is
+
+
+840
+00:25:48,796 --> 00:25:50,386
+why does it take so long to
+
+
+841
+00:25:50,386 --> 00:25:51,846
+discover the GATT database after
+
+
+842
+00:25:51,846 --> 00:25:53,126
+I've connected to my accessory?
+
+
+843
+00:25:54,226 --> 00:25:55,136
+And in this case there's a
+
+
+844
+00:25:55,136 --> 00:25:56,696
+couple of things you can do to
+
+
+845
+00:25:56,696 --> 00:25:58,046
+speed that up.
+
+
+846
+00:25:58,996 --> 00:26:00,546
+The first recommendation we have
+
+
+847
+00:26:00,876 --> 00:26:02,226
+is use as few services or
+
+
+848
+00:26:02,226 --> 00:26:03,736
+characteristics as possible.
+
+
+849
+00:26:04,226 --> 00:26:05,506
+Every time you add a service to
+
+
+850
+00:26:05,506 --> 00:26:07,146
+your GATT Database, that takes
+
+
+851
+00:26:07,146 --> 00:26:08,606
+extra time over the air that we
+
+
+852
+00:26:08,606 --> 00:26:10,086
+have to ask for those services
+
+
+853
+00:26:10,356 --> 00:26:11,206
+and discover those.
+
+
+854
+00:26:11,506 --> 00:26:13,476
+So by getting rid of services
+
+
+855
+00:26:13,476 --> 00:26:15,726
+that you don't need, or packing
+
+
+856
+00:26:15,726 --> 00:26:16,976
+multiple characteristics into
+
+
+857
+00:26:16,976 --> 00:26:18,856
+one service, that speeds up your
+
+
+858
+00:26:18,856 --> 00:26:20,126
+service discovery every time
+
+
+859
+00:26:20,126 --> 00:26:20,976
+your user connects to your
+
+
+860
+00:26:20,976 --> 00:26:21,456
+accessory.
+
+
+861
+00:26:25,056 --> 00:26:26,986
+Another one that's a really
+
+
+862
+00:26:26,986 --> 00:26:28,336
+simple thing you can do but that
+
+
+863
+00:26:28,386 --> 00:26:31,046
+helps is group your services by
+
+
+864
+00:26:31,046 --> 00:26:32,026
+the UUID size.
+
+
+865
+00:26:33,376 --> 00:26:34,906
+So if you have multiple 16 bit
+
+
+866
+00:26:34,906 --> 00:26:37,226
+UUIDs and then a service with
+
+
+867
+00:26:37,226 --> 00:26:40,056
+128 bit UUID we can discover all
+
+
+868
+00:26:40,056 --> 00:26:42,106
+the 16 bit services in one
+
+
+869
+00:26:42,106 --> 00:26:44,836
+roundtrip instead of having to
+
+
+870
+00:26:44,836 --> 00:26:45,906
+go back and forth for every
+
+
+871
+00:26:45,906 --> 00:26:46,366
+service.
+
+
+872
+00:26:50,316 --> 00:26:51,886
+And then finally to speed up
+
+
+873
+00:26:51,886 --> 00:26:54,036
+your service discovery, if we
+
+
+874
+00:26:54,036 --> 00:26:55,456
+can cash your GATT database we
+
+
+875
+00:26:55,456 --> 00:26:56,356
+actually will, so that on
+
+
+876
+00:26:56,356 --> 00:26:57,356
+reconnect we don't have to
+
+
+877
+00:26:57,356 --> 00:26:58,226
+discover anything.
+
+
+878
+00:26:59,116 --> 00:27:00,376
+If you're in an Accessory that
+
+
+879
+00:27:00,606 --> 00:27:02,246
+requires pairing or bonding,
+
+
+880
+00:27:02,896 --> 00:27:04,266
+that means that you have to have
+
+
+881
+00:27:04,266 --> 00:27:05,086
+the service change
+
+
+882
+00:27:05,086 --> 00:27:06,696
+characteristic in your GATT
+
+
+883
+00:27:06,696 --> 00:27:07,166
+database.
+
+
+884
+00:27:07,926 --> 00:27:08,606
+The Service Change
+
+
+885
+00:27:08,606 --> 00:27:09,556
+Characteristic is part of the
+
+
+886
+00:27:09,556 --> 00:27:11,816
+Bluetooth Spec that allows you
+
+
+887
+00:27:11,816 --> 00:27:15,046
+to tell us when the services and
+
+
+888
+00:27:15,046 --> 00:27:16,136
+characteristics on your device
+
+
+889
+00:27:16,136 --> 00:27:17,546
+have changed and when it's safe
+
+
+890
+00:27:17,796 --> 00:27:19,536
+for us to reuse the last known
+
+
+891
+00:27:19,536 --> 00:27:20,716
+version of the GATT Database.
+
+
+892
+00:27:22,176 --> 00:27:23,746
+And if you're an Accessory that
+
+
+893
+00:27:23,746 --> 00:27:25,456
+does not allow pairing or
+
+
+894
+00:27:25,456 --> 00:27:27,716
+bonding, this means that if you
+
+
+895
+00:27:27,716 --> 00:27:28,706
+have the Service Changed
+
+
+896
+00:27:28,706 --> 00:27:30,546
+characteristic we can't cache
+
+
+897
+00:27:30,546 --> 00:27:31,456
+your database anymore.
+
+
+898
+00:27:32,536 --> 00:27:35,166
+So in those cases, if you do not
+
+
+899
+00:27:35,166 --> 00:27:37,046
+have a Serviced Changed
+
+
+900
+00:27:37,046 --> 00:27:39,446
+characteristic, we will cache
+
+
+901
+00:27:39,826 --> 00:27:41,336
+your entire service database
+
+
+902
+00:27:41,336 --> 00:27:42,076
+which gives you quick
+
+
+903
+00:27:42,076 --> 00:27:43,226
+reconnections to your device.
+
+
+904
+00:27:43,806 --> 00:27:44,996
+But you have to be careful if
+
+
+905
+00:27:44,996 --> 00:27:47,006
+you do not support pairing and
+
+
+906
+00:27:47,006 --> 00:27:47,796
+you want to do things like
+
+
+907
+00:27:47,796 --> 00:27:48,596
+firmware update.
+
+
+908
+00:27:48,596 --> 00:27:50,406
+Even if it's a rare event,
+
+
+909
+00:27:50,976 --> 00:27:52,306
+there's no way for you tell us
+
+
+910
+00:27:52,306 --> 00:27:54,906
+that the services have changed
+
+
+911
+00:27:54,906 --> 00:27:55,706
+on your peripheral.
+
+
+912
+00:28:01,246 --> 00:28:02,856
+And then, finally, if you are
+
+
+913
+00:28:02,856 --> 00:28:05,386
+building a new accessory we
+
+
+914
+00:28:05,386 --> 00:28:06,656
+recommend that you always look
+
+
+915
+00:28:06,656 --> 00:28:08,566
+and see the newest chipsets that
+
+
+916
+00:28:08,566 --> 00:28:10,236
+are available to you.
+
+
+917
+00:28:10,336 --> 00:28:11,586
+Since we came out with Core
+
+
+918
+00:28:11,586 --> 00:28:13,986
+Bluetooth, Bluetooth 4.2 and now
+
+
+919
+00:28:13,986 --> 00:28:15,336
+5.0 have been released.
+
+
+920
+00:28:15,826 --> 00:28:17,496
+All the features in those
+
+
+921
+00:28:17,496 --> 00:28:18,486
+releases are backwards
+
+
+922
+00:28:18,486 --> 00:28:19,056
+compatible.
+
+
+923
+00:28:19,056 --> 00:28:20,306
+So even if you build an
+
+
+924
+00:28:20,306 --> 00:28:21,926
+accessory that's Bluetooth 5.0,
+
+
+925
+00:28:22,126 --> 00:28:23,736
+it will work with all the Apple
+
+
+926
+00:28:23,736 --> 00:28:26,286
+devices that you want to connect
+
+
+927
+00:28:26,286 --> 00:28:27,956
+to that are 4.0 only.
+
+
+928
+00:28:28,486 --> 00:28:31,926
+And then, like I said, follow
+
+
+929
+00:28:31,926 --> 00:28:33,416
+the Accessory Design Guidelines.
+
+
+930
+00:28:33,826 --> 00:28:35,106
+If you read through those
+
+
+931
+00:28:35,106 --> 00:28:36,926
+upfront it can save you a lot of
+
+
+932
+00:28:36,926 --> 00:28:38,376
+hassle later in your project.
+
+
+933
+00:28:42,676 --> 00:28:44,036
+Now I'd like to hand it to Duy,
+
+
+934
+00:28:44,036 --> 00:28:45,666
+who's going to walk through how
+
+
+935
+00:28:45,666 --> 00:28:46,756
+to get the most out of Core
+
+
+936
+00:28:46,756 --> 00:28:47,166
+Bluetooth.
+
+
+937
+00:28:47,466 --> 00:28:48,546
+>> Thank you, Craig.
+
+
+938
+00:28:49,516 --> 00:28:54,666
+[ Applause ]
+
+
+939
+00:28:55,166 --> 00:28:56,066
+>> I am Duy.
+
+
+940
+00:28:56,066 --> 00:28:57,156
+Today I'll talk about getting
+
+
+941
+00:28:57,156 --> 00:28:58,176
+the most out of Core Bluetooth.
+
+
+942
+00:28:59,296 --> 00:29:00,576
+Let's walk through a scenario
+
+
+943
+00:29:00,576 --> 00:29:02,106
+where we have a lot of data to
+
+
+944
+00:29:02,106 --> 00:29:03,776
+send from where updating a
+
+
+945
+00:29:03,776 --> 00:29:04,336
+device.
+
+
+946
+00:29:04,746 --> 00:29:06,426
+Today it takes about 3,000
+
+
+947
+00:29:06,426 --> 00:29:08,546
+seconds to transfer 1MB of data
+
+
+948
+00:29:08,656 --> 00:29:12,706
+at about 2.5kbps if we use Write
+
+
+949
+00:29:12,766 --> 00:29:15,286
+With Response and all defaults.
+
+
+950
+00:29:15,566 --> 00:29:17,506
+So this is obviously very slow.
+
+
+951
+00:29:17,776 --> 00:29:20,046
+What are the problems?
+
+
+952
+00:29:20,046 --> 00:29:21,096
+There's two main problems.
+
+
+953
+00:29:21,096 --> 00:29:22,576
+The first is all of the protocol
+
+
+954
+00:29:22,576 --> 00:29:23,426
+overhead in LE.
+
+
+955
+00:29:23,996 --> 00:29:25,486
+The Bluetooth Specification
+
+
+956
+00:29:25,486 --> 00:29:26,816
+defines the LE maximum
+
+
+957
+00:29:26,816 --> 00:29:28,786
+application datalink to be 27
+
+
+958
+00:29:28,786 --> 00:29:31,346
+Bytes, but we lose 7 of that
+
+
+959
+00:29:31,476 --> 00:29:33,326
+because your data has to
+
+
+960
+00:29:33,326 --> 00:29:34,676
+traverse from the application
+
+
+961
+00:29:34,676 --> 00:29:35,996
+through GATT, through ATT and
+
+
+962
+00:29:35,996 --> 00:29:38,286
+through L2CAP, so you lose about
+
+
+963
+00:29:38,286 --> 00:29:40,726
+25% of the packet, and in the
+
+
+964
+00:29:40,726 --> 00:29:42,276
+end the useable data length is
+
+
+965
+00:29:42,276 --> 00:29:43,116
+only 20 Bytes.
+
+
+966
+00:29:43,766 --> 00:29:46,536
+And in addition, once your data
+
+
+967
+00:29:46,536 --> 00:29:48,266
+gets through the controller the
+
+
+968
+00:29:48,676 --> 00:29:50,906
+hardware also adds link layer
+
+
+969
+00:29:50,906 --> 00:29:53,216
+security and CRC which adds even
+
+
+970
+00:29:53,216 --> 00:29:55,566
+more time to transmit a packet.
+
+
+971
+00:29:56,206 --> 00:29:59,406
+So in order to improve
+
+
+972
+00:29:59,406 --> 00:30:00,336
+performance, we'll have to
+
+
+973
+00:30:00,336 --> 00:30:01,506
+reduce both the software and
+
+
+974
+00:30:01,506 --> 00:30:02,786
+hardware overhead.
+
+
+975
+00:30:03,556 --> 00:30:05,696
+The second problem is previously
+
+
+976
+00:30:05,696 --> 00:30:08,446
+in GATT the only way to reliably
+
+
+977
+00:30:08,446 --> 00:30:10,006
+write is to use Write With
+
+
+978
+00:30:10,006 --> 00:30:11,916
+Response which take two
+
+
+979
+00:30:11,916 --> 00:30:14,106
+intervals to complete, one to
+
+
+980
+00:30:14,106 --> 00:30:15,346
+write and one to wait for the
+
+
+981
+00:30:15,346 --> 00:30:15,966
+response.
+
+
+982
+00:30:16,316 --> 00:30:17,826
+So your writes are actually very
+
+
+983
+00:30:17,826 --> 00:30:18,386
+sparse.
+
+
+984
+00:30:18,386 --> 00:30:19,906
+You're not fully utilizing the
+
+
+985
+00:30:19,906 --> 00:30:22,916
+available bandwidth because, as
+
+
+986
+00:30:22,916 --> 00:30:24,376
+you know, there's multiple
+
+
+987
+00:30:24,376 --> 00:30:26,156
+opportunities to transmit per
+
+
+988
+00:30:26,156 --> 00:30:28,136
+interval and we want to pack as
+
+
+989
+00:30:28,136 --> 00:30:30,626
+many writes as we can into all
+
+
+990
+00:30:30,626 --> 00:30:31,696
+of the connection events.
+
+
+991
+00:30:32,076 --> 00:30:33,126
+So how do we do this?
+
+
+992
+00:30:33,706 --> 00:30:36,446
+As Craig mentioned, we've
+
+
+993
+00:30:36,446 --> 00:30:37,956
+improved Write Without Response.
+
+
+994
+00:30:38,286 --> 00:30:39,766
+You can now write and continue
+
+
+995
+00:30:39,766 --> 00:30:41,186
+to write into Core Bluetooth
+
+
+996
+00:30:41,186 --> 00:30:42,486
+sets can send holds write
+
+
+997
+00:30:43,226 --> 00:30:45,846
+without response to false, in
+
+
+998
+00:30:45,846 --> 00:30:47,446
+which case then your application
+
+
+999
+00:30:47,446 --> 00:30:48,886
+can wait for a delegate to
+
+
+1000
+00:30:48,886 --> 00:30:50,216
+signal when it's safe to resume
+
+
+1001
+00:30:50,216 --> 00:30:50,566
+writing.
+
+
+1002
+00:30:51,076 --> 00:30:52,376
+And when you follow the APIs the
+
+
+1003
+00:30:52,376 --> 00:30:53,646
+write will be reliable.
+
+
+1004
+00:30:54,356 --> 00:30:55,946
+And you can use the Write
+
+
+1005
+00:30:55,946 --> 00:30:57,766
+Without Response to make sure
+
+
+1006
+00:30:57,766 --> 00:30:58,806
+that Core Bluetooth is
+
+
+1007
+00:30:58,806 --> 00:31:01,256
+sufficiently buffered so we can
+
+
+1008
+00:31:01,256 --> 00:31:02,296
+use all of the available
+
+
+1009
+00:31:02,296 --> 00:31:03,786
+connection events to send all of
+
+
+1010
+00:31:03,786 --> 00:31:04,816
+your application data.
+
+
+1011
+00:31:06,016 --> 00:31:09,796
+And in iOS 10, we also enlarged
+
+
+1012
+00:31:09,796 --> 00:31:11,716
+the Connection Event Length so
+
+
+1013
+00:31:11,716 --> 00:31:13,206
+now you have even more room to
+
+
+1014
+00:31:13,206 --> 00:31:14,726
+write using Write For That
+
+
+1015
+00:31:14,726 --> 00:31:15,206
+Response.
+
+
+1016
+00:31:17,096 --> 00:31:18,626
+And when you pack all of the
+
+
+1017
+00:31:18,626 --> 00:31:19,786
+connection events in all of the
+
+
+1018
+00:31:19,786 --> 00:31:21,616
+interval, your throughput will
+
+
+1019
+00:31:21,616 --> 00:31:24,116
+improve from 2.5 to 37 kbps.
+
+
+1020
+00:31:24,656 --> 00:31:27,406
+And coming back to reducing
+
+
+1021
+00:31:27,406 --> 00:31:31,506
+software protocol overhead, all
+
+
+1022
+00:31:31,506 --> 00:31:32,716
+of the discussion thus far
+
+
+1023
+00:31:32,716 --> 00:31:34,976
+assumes an ATT MTU of 23 Bytes,
+
+
+1024
+00:31:35,326 --> 00:31:37,276
+this is why there are red
+
+
+1025
+00:31:37,276 --> 00:31:38,956
+portion overhead in each viewer
+
+
+1026
+00:31:38,956 --> 00:31:41,926
+packets but we can enlarge the
+
+
+1027
+00:31:41,926 --> 00:31:44,146
+MTU and enlarge the writes to
+
+
+1028
+00:31:44,146 --> 00:31:45,346
+align to the MTU.
+
+
+1029
+00:31:45,936 --> 00:31:47,426
+This will improve your
+
+
+1030
+00:31:47,426 --> 00:31:49,016
+throughput because L2CAP will
+
+
+1031
+00:31:49,016 --> 00:31:50,396
+now fragment your data for you.
+
+
+1032
+00:31:50,896 --> 00:31:53,106
+You only have to pay in overhead
+
+
+1033
+00:31:53,146 --> 00:31:54,396
+on the first fragment of your
+
+
+1034
+00:31:54,426 --> 00:31:54,846
+MTU.
+
+
+1035
+00:31:55,266 --> 00:31:58,306
+The rest of the fragments can be
+
+
+1036
+00:31:58,306 --> 00:32:00,936
+as the full 27 Bytes, so when
+
+
+1037
+00:32:00,936 --> 00:32:02,266
+you do this your throughput
+
+
+1038
+00:32:02,266 --> 00:32:04,316
+should improve to 48 kbps.
+
+
+1039
+00:32:05,086 --> 00:32:08,936
+And so how do you configure MTU
+
+
+1040
+00:32:09,736 --> 00:32:12,446
+in Core Bluetooth?
+
+
+1041
+00:32:12,446 --> 00:32:13,836
+If you're running Core Bluetooth
+
+
+1042
+00:32:13,836 --> 00:32:15,196
+to Core Bluetooth, there's
+
+
+1043
+00:32:15,196 --> 00:32:16,166
+nothing much you have to do.
+
+
+1044
+00:32:16,166 --> 00:32:18,566
+We will calculate the MTU for
+
+
+1045
+00:32:18,566 --> 00:32:19,886
+you based on the connection
+
+
+1046
+00:32:19,886 --> 00:32:21,286
+event length and other system
+
+
+1047
+00:32:21,286 --> 00:32:23,856
+configurations but in this
+
+
+1048
+00:32:23,856 --> 00:32:25,666
+example we're from we're
+
+
+1049
+00:32:25,666 --> 00:32:26,776
+updating an accessory.
+
+
+1050
+00:32:27,256 --> 00:32:29,996
+So if you recall the ATT MTU
+
+
+1051
+00:32:29,996 --> 00:32:31,456
+exchange as a transaction
+
+
+1052
+00:32:31,456 --> 00:32:32,726
+between the client and the
+
+
+1053
+00:32:32,726 --> 00:32:35,916
+server, so the two minimum of
+
+
+1054
+00:32:35,916 --> 00:32:37,256
+the -- the minimum of the two
+
+
+1055
+00:32:37,256 --> 00:32:38,666
+proposed value is actually the
+
+
+1056
+00:32:38,666 --> 00:32:40,756
+ATT MTU, so your accessory
+
+
+1057
+00:32:40,756 --> 00:32:42,816
+should also use a large MTU to
+
+
+1058
+00:32:42,816 --> 00:32:44,676
+take advantage of this more
+
+
+1059
+00:32:44,676 --> 00:32:47,326
+optimized behavior.
+
+
+1060
+00:32:47,556 --> 00:32:49,576
+And to use a large MTU that's
+
+
+1061
+00:32:49,576 --> 00:32:51,506
+aligned to the -- to use a
+
+
+1062
+00:32:51,506 --> 00:32:53,186
+larger attribute write that is
+
+
+1063
+00:32:53,186 --> 00:32:55,456
+aligned to the MTU, you can use
+
+
+1064
+00:32:55,456 --> 00:32:58,746
+the below interfaces to look at
+
+
+1065
+00:32:58,746 --> 00:33:00,896
+what is the maximum write length
+
+
+1066
+00:33:01,046 --> 00:33:01,976
+aligned to the MTU.
+
+
+1067
+00:33:05,896 --> 00:33:08,366
+So thus far we've talked about
+
+
+1068
+00:33:08,366 --> 00:33:11,516
+how to pack as much writes as we
+
+
+1069
+00:33:11,516 --> 00:33:13,306
+can into the intervals and how
+
+
+1070
+00:33:13,306 --> 00:33:16,226
+to utilize -- fully utilize all
+
+
+1071
+00:33:16,226 --> 00:33:17,426
+of the bandwidth available.
+
+
+1072
+00:33:17,716 --> 00:33:20,356
+We talked about how to reduce
+
+
+1073
+00:33:20,356 --> 00:33:21,796
+overhead, software overhead.
+
+
+1074
+00:33:22,336 --> 00:33:27,466
+But the fact that LE is 27 Bytes
+
+
+1075
+00:33:27,536 --> 00:33:29,746
+per packet and we have to pay
+
+
+1076
+00:33:29,746 --> 00:33:30,876
+the hardware overhead per
+
+
+1077
+00:33:30,876 --> 00:33:33,216
+packet, this really limits how
+
+
+1078
+00:33:33,216 --> 00:33:35,306
+much further we can improve LE
+
+
+1079
+00:33:35,306 --> 00:33:37,826
+performance using just software.
+
+
+1080
+00:33:39,076 --> 00:33:40,816
+So we've added extended data
+
+
+1081
+00:33:40,816 --> 00:33:41,406
+length support.
+
+
+1082
+00:33:42,246 --> 00:33:44,336
+Extended data length is a 4.2
+
+
+1083
+00:33:44,336 --> 00:33:46,106
+feature that increases the
+
+
+1084
+00:33:46,106 --> 00:33:48,956
+maximum application data length
+
+
+1085
+00:33:48,956 --> 00:33:50,886
+from 27 to 251.
+
+
+1086
+00:33:52,496 --> 00:33:55,046
+This means that per packet now
+
+
+1087
+00:33:55,046 --> 00:33:56,416
+you can send 10 times the amount
+
+
+1088
+00:33:56,416 --> 00:33:58,536
+of data so you've eliminated all
+
+
+1089
+00:33:58,536 --> 00:33:59,596
+of the hardware overhead and
+
+
+1090
+00:33:59,596 --> 00:34:02,816
+software overhead previously and
+
+
+1091
+00:34:03,846 --> 00:34:05,546
+we can now use more of the
+
+
+1092
+00:34:05,546 --> 00:34:07,236
+available time to transmit your
+
+
+1093
+00:34:07,236 --> 00:34:07,956
+application data.
+
+
+1094
+00:34:09,106 --> 00:34:12,696
+And in fact, we can send a full
+
+
+1095
+00:34:12,696 --> 00:34:16,436
+-- an entire maximum GATTs write
+
+
+1096
+00:34:16,436 --> 00:34:18,096
+of 512 Bytes in a single
+
+
+1097
+00:34:18,096 --> 00:34:20,606
+interval using Extended Data
+
+
+1098
+00:34:20,606 --> 00:34:22,396
+Length, and this should be about
+
+
+1099
+00:34:22,396 --> 00:34:23,876
+3 times the throughput of your
+
+
+1100
+00:34:23,876 --> 00:34:24,926
+normal performance.
+
+
+1101
+00:34:26,516 --> 00:34:32,036
+[ Applause ]
+
+
+1102
+00:34:32,536 --> 00:34:33,985
+Extended Data Length is the new
+
+
+1103
+00:34:33,985 --> 00:34:35,446
+feature in Bluetooth 4.2.
+
+
+1104
+00:34:35,866 --> 00:34:36,996
+It extends the maximum
+
+
+1105
+00:34:36,996 --> 00:34:38,766
+application data length from 27
+
+
+1106
+00:34:38,766 --> 00:34:40,446
+to 251.
+
+
+1107
+00:34:40,446 --> 00:34:42,116
+It's completely transparent to
+
+
+1108
+00:34:42,116 --> 00:34:42,846
+your application.
+
+
+1109
+00:34:42,966 --> 00:34:44,396
+If you're running Core Bluetooth
+
+
+1110
+00:34:44,396 --> 00:34:46,416
+to Core Bluetooth we've done
+
+
+1111
+00:34:46,416 --> 00:34:47,065
+everything for you.
+
+
+1112
+00:34:47,065 --> 00:34:48,676
+We'll negotiate the write data
+
+
+1113
+00:34:48,676 --> 00:34:50,496
+length and MTU appropriate to
+
+
+1114
+00:34:50,496 --> 00:34:52,585
+your hardware configuration, but
+
+
+1115
+00:34:52,585 --> 00:34:54,306
+in this example again we're
+
+
+1116
+00:34:54,306 --> 00:34:57,186
+updating a firmware device so
+
+
+1117
+00:34:57,186 --> 00:34:58,646
+remember you have to also add
+
+
+1118
+00:34:58,646 --> 00:35:00,706
+support for extended data length
+
+
+1119
+00:35:00,706 --> 00:35:02,056
+in the accessory for this to
+
+
+1120
+00:35:02,056 --> 00:35:02,346
+work.
+
+
+1121
+00:35:03,226 --> 00:35:05,786
+And it has four times the
+
+
+1122
+00:35:05,786 --> 00:35:07,126
+throughput in the same amount of
+
+
+1123
+00:35:07,126 --> 00:35:08,856
+radio time so it's also very
+
+
+1124
+00:35:08,856 --> 00:35:09,626
+power efficient.
+
+
+1125
+00:35:09,966 --> 00:35:12,446
+It's now available on iPhone 7
+
+
+1126
+00:35:12,446 --> 00:35:14,266
+and Apple Watch Series 2, and
+
+
+1127
+00:35:14,266 --> 00:35:16,616
+the newly announced iPad Pro.
+
+
+1128
+00:35:17,006 --> 00:35:19,346
+So please try it out and use
+
+
+1129
+00:35:19,346 --> 00:35:20,826
+this as a reference to develop
+
+
+1130
+00:35:20,826 --> 00:35:22,606
+your new Extended Data Length
+
+
+1131
+00:35:22,606 --> 00:35:23,276
+Accessory.
+
+
+1132
+00:35:24,516 --> 00:35:29,816
+[ Applause ]
+
+
+1133
+00:35:30,316 --> 00:35:34,016
+And because we're -- the example
+
+
+1134
+00:35:34,016 --> 00:35:35,406
+is from we're updating a device,
+
+
+1135
+00:35:35,756 --> 00:35:38,246
+this is a good example of where
+
+
+1136
+00:35:38,246 --> 00:35:39,626
+you should use L2CAP Connection
+
+
+1137
+00:35:39,626 --> 00:35:40,456
+Oriented Channel.
+
+
+1138
+00:35:40,986 --> 00:35:42,576
+This will eliminate all of the
+
+
+1139
+00:35:42,576 --> 00:35:45,046
+overhead previously in GATT and
+
+
+1140
+00:35:45,046 --> 00:35:47,036
+ATTs, but more importantly it
+
+
+1141
+00:35:47,036 --> 00:35:49,496
+eliminates limitations and
+
+
+1142
+00:35:49,496 --> 00:35:50,736
+restriction in GATT like the
+
+
+1143
+00:35:50,736 --> 00:35:53,696
+maximum attribute size of 512,
+
+
+1144
+00:35:54,136 --> 00:35:57,106
+so we can now write much larger
+
+
+1145
+00:35:57,106 --> 00:35:58,986
+values and use much larger MTU.
+
+
+1146
+00:35:59,636 --> 00:36:01,146
+When we do that the throughput
+
+
+1147
+00:36:01,146 --> 00:36:03,516
+will increase to almost 200
+
+
+1148
+00:36:04,366 --> 00:36:04,826
+kbps.
+
+
+1149
+00:36:05,646 --> 00:36:08,416
+This really shows how powerful
+
+
+1150
+00:36:08,486 --> 00:36:10,456
+Extended Data Length can be if
+
+
+1151
+00:36:10,456 --> 00:36:12,056
+it is not limited by software
+
+
+1152
+00:36:12,056 --> 00:36:12,536
+protocol.
+
+
+1153
+00:36:15,616 --> 00:36:17,086
+As you know, another way to
+
+
+1154
+00:36:17,086 --> 00:36:19,536
+improve performance is to ask
+
+
+1155
+00:36:19,536 --> 00:36:20,476
+for a faster connection
+
+
+1156
+00:36:20,476 --> 00:36:21,046
+interval.
+
+
+1157
+00:36:21,396 --> 00:36:23,936
+All of the discussion thus far
+
+
+1158
+00:36:23,936 --> 00:36:26,626
+assumes a connection interval of
+
+
+1159
+00:36:26,626 --> 00:36:28,986
+30 ms, but in Core Bluetooth we
+
+
+1160
+00:36:28,986 --> 00:36:30,406
+made a change to lower the
+
+
+1161
+00:36:30,406 --> 00:36:32,026
+connection interval minimum for
+
+
+1162
+00:36:32,026 --> 00:36:35,626
+iOS to 15 ms, so when your
+
+
+1163
+00:36:35,626 --> 00:36:36,826
+firmware is updating your device
+
+
+1164
+00:36:36,826 --> 00:36:38,396
+you can ask for a parameter
+
+
+1165
+00:36:38,676 --> 00:36:40,816
+update request and set the
+
+
+1166
+00:36:40,816 --> 00:36:43,536
+interval min and max to 15 ms in
+
+
+1167
+00:36:43,846 --> 00:36:44,726
+which we will honor.
+
+
+1168
+00:36:45,616 --> 00:36:47,046
+And when you do that, your
+
+
+1169
+00:36:47,046 --> 00:36:50,476
+throughput can double to 394,
+
+
+1170
+00:36:50,476 --> 00:36:52,906
+almost 400 kbps.
+
+
+1171
+00:36:53,516 --> 00:36:57,736
+[ Applause ]
+
+
+1172
+00:36:58,236 --> 00:37:00,306
+So this is a summary of where we
+
+
+1173
+00:37:00,306 --> 00:37:01,746
+were and where we are now.
+
+
+1174
+00:37:02,116 --> 00:37:04,356
+We started with Write With
+
+
+1175
+00:37:04,356 --> 00:37:06,476
+Response at 2.5 kbps.
+
+
+1176
+00:37:07,706 --> 00:37:09,676
+Then we did Write Without
+
+
+1177
+00:37:09,676 --> 00:37:11,646
+Response but writing only once
+
+
+1178
+00:37:11,686 --> 00:37:14,596
+per interval, which only doubles
+
+
+1179
+00:37:14,596 --> 00:37:15,276
+the performance.
+
+
+1180
+00:37:16,006 --> 00:37:17,986
+But if you packed all of the
+
+
+1181
+00:37:17,986 --> 00:37:19,786
+opportunities to transmit with
+
+
+1182
+00:37:20,526 --> 00:37:21,756
+writes your throughput can
+
+
+1183
+00:37:21,756 --> 00:37:22,996
+improve to 37.
+
+
+1184
+00:37:22,996 --> 00:37:25,496
+And if you reduce overhead using
+
+
+1185
+00:37:25,496 --> 00:37:28,236
+larger MTU, your performance can
+
+
+1186
+00:37:28,236 --> 00:37:29,726
+go up to 48 kbps.
+
+
+1187
+00:37:30,386 --> 00:37:31,986
+And we made a major leap forward
+
+
+1188
+00:37:31,986 --> 00:37:33,336
+with Extended Data Length and
+
+
+1189
+00:37:33,596 --> 00:37:36,906
+tripled that which will yield
+
+
+1190
+00:37:36,906 --> 00:37:38,446
+135 kbps.
+
+
+1191
+00:37:39,196 --> 00:37:40,966
+And if we eliminate the software
+
+
+1192
+00:37:41,016 --> 00:37:43,076
+limitations using L2CAP plus
+
+
+1193
+00:37:43,076 --> 00:37:44,936
+Extended Data Length, it can
+
+
+1194
+00:37:44,936 --> 00:37:47,436
+improve to almost 200 kbps.
+
+
+1195
+00:37:48,716 --> 00:37:51,806
+And we increase the -- made the
+
+
+1196
+00:37:51,806 --> 00:37:53,766
+connection interval faster which
+
+
+1197
+00:37:53,766 --> 00:37:55,356
+allows you to transmit more
+
+
+1198
+00:37:55,356 --> 00:37:57,816
+often, then the throughput will
+
+
+1199
+00:37:57,816 --> 00:37:59,586
+improve to 400 kbps.
+
+
+1200
+00:37:59,956 --> 00:38:02,396
+So we started with about 3,000
+
+
+1201
+00:38:02,506 --> 00:38:04,206
+seconds to download 1 MB of data
+
+
+1202
+00:38:04,206 --> 00:38:06,576
+and we end it with 20 seconds to
+
+
+1203
+00:38:06,576 --> 00:38:07,666
+download 1 MB of data.
+
+
+1204
+00:38:08,516 --> 00:38:12,796
+[ Applause ]
+
+
+1205
+00:38:13,296 --> 00:38:14,946
+So in summary, please request a
+
+
+1206
+00:38:14,946 --> 00:38:16,616
+shorter connection interval.
+
+
+1207
+00:38:16,886 --> 00:38:20,226
+The new minimum is 15 MS on iOS
+
+
+1208
+00:38:20,226 --> 00:38:20,756
+if you need it.
+
+
+1209
+00:38:21,346 --> 00:38:23,066
+Take advantage of all the GATT
+
+
+1210
+00:38:23,066 --> 00:38:24,686
+optimizations we have like Write
+
+
+1211
+00:38:24,686 --> 00:38:26,226
+Without Response.
+
+
+1212
+00:38:26,226 --> 00:38:27,706
+Use L2CAP Channel for larger
+
+
+1213
+00:38:27,706 --> 00:38:28,286
+transfer.
+
+
+1214
+00:38:28,936 --> 00:38:30,826
+All of this is free and all in
+
+
+1215
+00:38:30,826 --> 00:38:33,806
+software, and also update your
+
+
+1216
+00:38:33,806 --> 00:38:34,836
+hardware with the latest
+
+
+1217
+00:38:34,836 --> 00:38:36,746
+specification of Bluetooth
+
+
+1218
+00:38:36,746 --> 00:38:38,746
+Specification and Hardware for
+
+
+1219
+00:38:38,746 --> 00:38:40,206
+best performance and best
+
+
+1220
+00:38:40,206 --> 00:38:40,816
+battery life.
+
+
+1221
+00:38:41,646 --> 00:38:41,976
+Thank you.
+
+
+1222
+00:38:42,516 --> 00:38:49,456
+[ Applause ]
+
+
+1223
+00:38:49,956 --> 00:38:52,936
+>> Thank you, Duy.
+
+
+1224
+00:38:53,066 --> 00:38:54,066
+So we've talked about a lot of
+
+
+1225
+00:38:54,066 --> 00:38:55,116
+really exciting stuff here.
+
+
+1226
+00:38:55,506 --> 00:38:59,006
+There's a lot to go over, but if
+
+
+1227
+00:38:59,006 --> 00:39:00,156
+you're the type of Application
+
+
+1228
+00:39:00,156 --> 00:39:01,216
+that wants to be connected
+
+
+1229
+00:39:01,216 --> 00:39:02,806
+throughout the day, look into
+
+
+1230
+00:39:02,806 --> 00:39:04,426
+the new optimizations we've put
+
+
+1231
+00:39:04,426 --> 00:39:05,516
+in for State Restoration.
+
+
+1232
+00:39:05,616 --> 00:39:07,006
+Try to build more reliable
+
+
+1233
+00:39:07,006 --> 00:39:08,466
+experiences for your customers.
+
+
+1234
+00:39:09,386 --> 00:39:11,056
+If it makes sense, you can now
+
+
+1235
+00:39:11,056 --> 00:39:12,586
+take your existing applications
+
+
+1236
+00:39:12,936 --> 00:39:13,906
+and make them available to
+
+
+1237
+00:39:13,906 --> 00:39:15,736
+people on tvOS and watchOS.
+
+
+1238
+00:39:17,166 --> 00:39:19,036
+If you're trying to do things
+
+
+1239
+00:39:19,036 --> 00:39:20,636
+like streaming protocols or
+
+
+1240
+00:39:20,636 --> 00:39:22,676
+transfer a large amount of data,
+
+
+1241
+00:39:22,676 --> 00:39:24,036
+L2CAP Channels are a great fit
+
+
+1242
+00:39:24,036 --> 00:39:25,186
+for that and we think that's a
+
+
+1243
+00:39:25,186 --> 00:39:26,386
+really powerful feature that's
+
+
+1244
+00:39:26,386 --> 00:39:27,356
+going to help you build even
+
+
+1245
+00:39:27,356 --> 00:39:28,276
+better accessories.
+
+
+1246
+00:39:28,776 --> 00:39:30,856
+And then if you're building new
+
+
+1247
+00:39:30,856 --> 00:39:32,856
+accessories, always look for the
+
+
+1248
+00:39:32,856 --> 00:39:34,576
+newest Bluetooth specifications
+
+
+1249
+00:39:34,576 --> 00:39:36,236
+and chipsets available and
+
+
+1250
+00:39:36,236 --> 00:39:37,386
+follow the Accessory Design
+
+
+1251
+00:39:37,386 --> 00:39:37,996
+Guidelines.
+
+
+1252
+00:39:40,616 --> 00:39:42,806
+For more information, we have a
+
+
+1253
+00:39:42,806 --> 00:39:43,976
+website up here that will have
+
+
+1254
+00:39:43,976 --> 00:39:45,106
+links to the Core Bluetooth
+
+
+1255
+00:39:45,106 --> 00:39:47,476
+Developer Documentation Sample
+
+
+1256
+00:39:47,476 --> 00:39:49,216
+Code and other great resources
+
+
+1257
+00:39:49,216 --> 00:39:50,176
+to help you get started.
+
+
+1258
+00:39:51,916 --> 00:39:53,546
+We also have two historical
+
+
+1259
+00:39:53,546 --> 00:39:54,656
+sessions that we've done at WWDC
+
+
+1260
+00:39:54,656 --> 00:39:56,406
+that are available online, so
+
+
+1261
+00:39:56,406 --> 00:39:57,256
+you can go back and watch the
+
+
+1262
+00:39:57,256 --> 00:39:59,156
+videos and get a bunch of great
+
+
+1263
+00:39:59,156 --> 00:40:01,456
+information about Core Bluetooth
+
+
+1264
+00:40:01,496 --> 00:40:02,536
+both as a Central and a
+
+
+1265
+00:40:02,536 --> 00:40:02,986
+Peripheral.
+
+
+1266
+00:40:03,826 --> 00:40:04,346
+Thank you.
+
+
+1267
+00:40:04,656 --> 00:40:06,166
+We can't wait to see build with
+
+
+1268
+00:40:06,166 --> 00:40:07,246
+all these new enhancements.
+
+
+1269
+00:40:08,516 --> 00:40:14,500
+[ Applause ]
+

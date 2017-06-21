@@ -1,0 +1,7994 @@
+1
+00:00:00,506 --> 00:00:06,516
+[ Silence ]
+
+
+2
+00:00:07,516 --> 00:00:18,500
+[ Audience Applause ]
+
+
+3
+00:00:20,276 --> 00:00:20,966
+>> Good morning.
+
+
+4
+00:00:21,016 --> 00:00:22,226
+[ Audience Applause ]
+
+
+5
+00:00:22,226 --> 00:00:22,826
+Perfect.
+
+
+6
+00:00:23,126 --> 00:00:24,216
+Thank you very much.
+
+
+7
+00:00:25,256 --> 00:00:27,136
+So, welcome to today's session,
+
+
+8
+00:00:27,346 --> 00:00:29,226
+Introduction to PDFKit on iOS.
+
+
+9
+00:00:29,886 --> 00:00:31,206
+So much has changed in the last
+
+
+10
+00:00:31,206 --> 00:00:32,566
+twelve months, and we are super
+
+
+11
+00:00:32,566 --> 00:00:34,126
+excited to show you all of those
+
+
+12
+00:00:34,126 --> 00:00:35,186
+changes and all of the big
+
+
+13
+00:00:35,186 --> 00:00:35,906
+improvements.
+
+
+14
+00:00:36,546 --> 00:00:37,886
+But before we begin, we should
+
+
+15
+00:00:37,886 --> 00:00:38,726
+introduce ourselves.
+
+
+16
+00:00:38,756 --> 00:00:39,786
+My name is Jeremy Bridon.
+
+
+17
+00:00:39,786 --> 00:00:40,926
+I'm a Software Engineer here at
+
+
+18
+00:00:40,926 --> 00:00:42,326
+Apple working on Core Graphics,
+
+
+19
+00:00:42,366 --> 00:00:42,696
+and --
+
+
+20
+00:00:42,926 --> 00:00:44,256
+>> I'm Nicki Brower, also a
+
+
+21
+00:00:44,256 --> 00:00:45,616
+Software Engineer here at Apple.
+
+
+22
+00:00:45,876 --> 00:00:46,276
+>> Perfect.
+
+
+23
+00:00:47,606 --> 00:00:47,926
+All right.
+
+
+24
+00:00:48,346 --> 00:00:49,456
+So, we've got a lot to talk
+
+
+25
+00:00:49,456 --> 00:00:50,566
+about today, but the very first
+
+
+26
+00:00:50,566 --> 00:00:51,326
+thing we're going to be talking
+
+
+27
+00:00:51,326 --> 00:00:52,956
+about is the PDF file format
+
+
+28
+00:00:52,956 --> 00:00:53,516
+itself.
+
+
+29
+00:00:54,006 --> 00:00:55,396
+We're then going to give a nice
+
+
+30
+00:00:55,396 --> 00:00:56,826
+little discussion over the
+
+
+31
+00:00:57,116 --> 00:00:59,216
+framework itself, followed by a
+
+
+32
+00:00:59,216 --> 00:01:00,526
+discussion on the document, page
+
+
+33
+00:01:00,526 --> 00:01:02,256
+and annotations model of that
+
+
+34
+00:01:02,256 --> 00:01:02,626
+framework.
+
+
+35
+00:01:03,146 --> 00:01:04,556
+We're finally going to do a deep
+
+
+36
+00:01:04,556 --> 00:01:06,016
+dive into annotations.
+
+
+37
+00:01:06,406 --> 00:01:07,666
+So, annotations are something
+
+
+38
+00:01:07,666 --> 00:01:09,016
+that we changed a lot this year
+
+
+39
+00:01:09,016 --> 00:01:10,016
+based on feedback from
+
+
+40
+00:01:10,016 --> 00:01:10,986
+developers like you.
+
+
+41
+00:01:11,256 --> 00:01:12,396
+So, we want to put some extra
+
+
+42
+00:01:12,396 --> 00:01:13,766
+effort into explaining all of
+
+
+43
+00:01:13,766 --> 00:01:14,386
+that this year.
+
+
+44
+00:01:15,196 --> 00:01:17,196
+Finally, for developers, old and
+
+
+45
+00:01:17,196 --> 00:01:18,326
+new, we're going to do a
+
+
+46
+00:01:18,326 --> 00:01:19,886
+discussion on best practices,
+
+
+47
+00:01:19,926 --> 00:01:21,276
+things that we recommend you do.
+
+
+48
+00:01:22,126 --> 00:01:22,496
+All right.
+
+
+49
+00:01:23,526 --> 00:01:24,976
+But first, let's talk about the
+
+
+50
+00:01:24,976 --> 00:01:27,896
+PDF file format spec being 1300
+
+
+51
+00:01:28,136 --> 00:01:30,446
+pages, a totally unacceptable
+
+
+52
+00:01:30,446 --> 00:01:32,516
+number to try and understand how
+
+
+53
+00:01:32,516 --> 00:01:33,786
+the PDF file format works.
+
+
+54
+00:01:33,786 --> 00:01:35,436
+Right? You are app developers.
+
+
+55
+00:01:35,436 --> 00:01:36,266
+We want you to create these
+
+
+56
+00:01:36,346 --> 00:01:37,906
+awesome applications without
+
+
+57
+00:01:37,906 --> 00:01:39,486
+worrying about the details of
+
+
+58
+00:01:39,566 --> 00:01:40,476
+the specification.
+
+
+59
+00:01:41,036 --> 00:01:42,236
+So, we've created an awesome
+
+
+60
+00:01:42,236 --> 00:01:43,526
+framework that gives you the
+
+
+61
+00:01:43,526 --> 00:01:45,606
+power of PDF without you having
+
+
+62
+00:01:45,606 --> 00:01:46,686
+to read all those details.
+
+
+63
+00:01:47,136 --> 00:01:48,376
+We read it, so you don't have
+
+
+64
+00:01:48,376 --> 00:01:50,026
+to, all right.
+
+
+65
+00:01:50,446 --> 00:01:51,706
+So, why use PDFs in the first
+
+
+66
+00:01:51,706 --> 00:01:52,096
+place?
+
+
+67
+00:01:52,176 --> 00:01:53,946
+Well, they're this kind of
+
+
+68
+00:01:53,946 --> 00:01:55,226
+universal business format.
+
+
+69
+00:01:55,416 --> 00:01:57,106
+They're universal and used in
+
+
+70
+00:01:57,106 --> 00:01:58,666
+medical, financial, government,
+
+
+71
+00:01:58,766 --> 00:02:01,086
+and business applications, and
+
+
+72
+00:02:01,086 --> 00:02:02,136
+they're done so because they've
+
+
+73
+00:02:02,136 --> 00:02:04,076
+got these wonderful features,
+
+
+74
+00:02:04,076 --> 00:02:05,906
+features like strong encryption
+
+
+75
+00:02:06,006 --> 00:02:07,656
+or a variable permission model.
+
+
+76
+00:02:07,956 --> 00:02:09,036
+So, some really, really nice
+
+
+77
+00:02:09,036 --> 00:02:10,205
+things directly applicable to
+
+
+78
+00:02:10,205 --> 00:02:12,076
+you as developers, and then also
+
+
+79
+00:02:12,076 --> 00:02:13,396
+for business needs.
+
+
+80
+00:02:14,166 --> 00:02:15,626
+What is also really cool about
+
+
+81
+00:02:15,626 --> 00:02:17,176
+PDF is it's this interactive
+
+
+82
+00:02:17,176 --> 00:02:17,536
+model.
+
+
+83
+00:02:17,616 --> 00:02:19,056
+Right? It's not just a static
+
+
+84
+00:02:19,096 --> 00:02:20,466
+document that you print and you
+
+
+85
+00:02:20,466 --> 00:02:21,106
+forget about it.
+
+
+86
+00:02:21,106 --> 00:02:22,826
+No, it's this document that's
+
+
+87
+00:02:22,826 --> 00:02:24,606
+fully interactive in the digital
+
+
+88
+00:02:24,606 --> 00:02:25,886
+world, so I'm going to give you
+
+
+89
+00:02:25,886 --> 00:02:26,906
+the tools that allow you to
+
+
+90
+00:02:26,906 --> 00:02:28,346
+interact with those documents on
+
+
+91
+00:02:28,346 --> 00:02:29,016
+our platform.
+
+
+92
+00:02:29,826 --> 00:02:31,706
+So, of course, if you do
+
+
+93
+00:02:31,706 --> 00:02:32,766
+interact with the document,
+
+
+94
+00:02:32,876 --> 00:02:34,326
+what's great is what you see in
+
+
+95
+00:02:34,326 --> 00:02:35,506
+the digital world is what you
+
+
+96
+00:02:35,506 --> 00:02:37,006
+eventually see printed out in
+
+
+97
+00:02:37,006 --> 00:02:37,726
+the physical world.
+
+
+98
+00:02:38,186 --> 00:02:39,926
+But it's this really complicated
+
+
+99
+00:02:39,926 --> 00:02:41,416
+spec, and there's so many
+
+
+100
+00:02:41,416 --> 00:02:42,506
+details to worry about.
+
+
+101
+00:02:42,766 --> 00:02:44,356
+How can we kind of handle those
+
+
+102
+00:02:44,356 --> 00:02:45,056
+issues today?
+
+
+103
+00:02:45,446 --> 00:02:45,776
+Nicki?
+
+
+104
+00:02:46,566 --> 00:02:48,266
+>> Yeah. Okay.
+
+
+105
+00:02:48,516 --> 00:02:49,636
+So, we're excited about PDFs,
+
+
+106
+00:02:49,636 --> 00:02:51,226
+and we want to include them in
+
+
+107
+00:02:51,226 --> 00:02:51,996
+our application.
+
+
+108
+00:02:52,336 --> 00:02:52,936
+How do we do that?
+
+
+109
+00:02:53,596 --> 00:02:54,886
+Well, we already have a solution
+
+
+110
+00:02:54,886 --> 00:02:56,356
+for you, and it's a lower level
+
+
+111
+00:02:56,356 --> 00:02:57,496
+solution, and it's using the
+
+
+112
+00:02:57,496 --> 00:02:58,996
+CoreGraphics PDF Framework.
+
+
+113
+00:02:59,586 --> 00:03:00,756
+This framework is great because
+
+
+114
+00:03:00,756 --> 00:03:02,016
+it has a one-to-one drawing
+
+
+115
+00:03:02,016 --> 00:03:03,366
+model with the PDF Spec. It
+
+
+116
+00:03:03,856 --> 00:03:05,556
+allows you to read and write and
+
+
+117
+00:03:05,556 --> 00:03:07,736
+modify your documents, and it
+
+
+118
+00:03:07,736 --> 00:03:09,146
+has a PDF presser and a PDF
+
+
+119
+00:03:09,146 --> 00:03:10,156
+renderer, so you don't have to
+
+
+120
+00:03:10,156 --> 00:03:10,736
+create one.
+
+
+121
+00:03:11,476 --> 00:03:12,486
+There are some limitations
+
+
+122
+00:03:12,486 --> 00:03:12,716
+though.
+
+
+123
+00:03:13,186 --> 00:03:14,406
+Because it doesn't have any
+
+
+124
+00:03:14,406 --> 00:03:15,926
+AppKit primitives, that means
+
+
+125
+00:03:15,926 --> 00:03:17,076
+you don't get any live
+
+
+126
+00:03:17,076 --> 00:03:18,176
+interaction with the document.
+
+
+127
+00:03:18,676 --> 00:03:20,116
+That means no text selection, no
+
+
+128
+00:03:20,316 --> 00:03:22,346
+highlighting search results, no
+
+
+129
+00:03:22,346 --> 00:03:23,586
+interaction with annotations,
+
+
+130
+00:03:23,586 --> 00:03:24,886
+and it doesn't have any
+
+
+131
+00:03:24,886 --> 00:03:25,856
+accessibility support.
+
+
+132
+00:03:26,216 --> 00:03:27,946
+Well, this is where PDFKit comes
+
+
+133
+00:03:27,946 --> 00:03:28,166
+in.
+
+
+134
+00:03:28,616 --> 00:03:30,516
+So, PDFKit is based on the
+
+
+135
+00:03:30,516 --> 00:03:32,006
+CoreGraphics Framework, but it
+
+
+136
+00:03:32,006 --> 00:03:33,936
+also includes AppKit, so you get
+
+
+137
+00:03:33,936 --> 00:03:35,106
+that live interaction with the
+
+
+138
+00:03:35,106 --> 00:03:35,596
+document.
+
+
+139
+00:03:36,086 --> 00:03:37,926
+And now, as of this year, we are
+
+
+140
+00:03:37,926 --> 00:03:40,166
+now on iOS; so not just AppKit
+
+
+141
+00:03:40,296 --> 00:03:41,356
+but UIKit as well.
+
+
+142
+00:03:41,756 --> 00:03:43,326
+So, it's now even easier to
+
+
+143
+00:03:43,326 --> 00:03:45,456
+open, modify, and draw your
+
+
+144
+00:03:45,456 --> 00:03:46,576
+PDFs, but now you do get that
+
+
+145
+00:03:46,576 --> 00:03:47,226
+interaction.
+
+
+146
+00:03:47,226 --> 00:03:48,806
+You can select text; you can
+
+
+147
+00:03:48,806 --> 00:03:49,906
+interact with the annotations,
+
+
+148
+00:03:50,016 --> 00:03:51,776
+and I want to point out that
+
+
+149
+00:03:51,776 --> 00:03:53,836
+this year we have made a great
+
+
+150
+00:03:53,836 --> 00:03:54,836
+effort to improve our
+
+
+151
+00:03:54,836 --> 00:03:55,836
+accessibility support.
+
+
+152
+00:03:56,426 --> 00:03:58,346
+So, by just using PDFKit, you
+
+
+153
+00:03:58,346 --> 00:04:00,516
+get voiceover, text extraction,
+
+
+154
+00:04:00,786 --> 00:04:01,956
+being able to fill out forms,
+
+
+155
+00:04:01,956 --> 00:04:03,336
+all for free.
+
+
+156
+00:04:04,696 --> 00:04:05,236
+All right.
+
+
+157
+00:04:05,236 --> 00:04:06,016
+Let's take a look at where
+
+
+158
+00:04:06,016 --> 00:04:06,976
+PDFKit is today.
+
+
+159
+00:04:09,876 --> 00:04:11,496
+On the Mac, you can see it's
+
+
+160
+00:04:11,496 --> 00:04:13,246
+used by Preview and Safari,
+
+
+161
+00:04:13,246 --> 00:04:14,846
+which are our main clients, but
+
+
+162
+00:04:14,846 --> 00:04:16,166
+we're all over the platform as
+
+
+163
+00:04:16,166 --> 00:04:16,406
+well.
+
+
+164
+00:04:16,836 --> 00:04:18,946
+I just mentioned one, iOS, so
+
+
+165
+00:04:18,995 --> 00:04:20,326
+you can see it's being used by
+
+
+166
+00:04:20,326 --> 00:04:22,125
+iBooks, Mail, and QuickLooks,
+
+
+167
+00:04:22,125 --> 00:04:23,446
+and hopefully we'll be able to
+
+
+168
+00:04:23,446 --> 00:04:24,546
+add a few of your apps to this
+
+
+169
+00:04:24,546 --> 00:04:25,686
+list as well.
+
+
+170
+00:04:26,676 --> 00:04:27,856
+Let's take a look at our
+
+
+171
+00:04:27,886 --> 00:04:28,836
+framework overview.
+
+
+172
+00:04:29,396 --> 00:04:30,706
+So, all of the classes in PDFKit
+
+
+173
+00:04:30,706 --> 00:04:32,286
+can be put into one of three
+
+
+174
+00:04:32,286 --> 00:04:32,856
+categories.
+
+
+175
+00:04:33,256 --> 00:04:34,716
+These are our View, Document,
+
+
+176
+00:04:34,716 --> 00:04:36,766
+and Support categories, and each
+
+
+177
+00:04:36,766 --> 00:04:38,596
+of these have their own list of
+
+
+178
+00:04:38,596 --> 00:04:39,306
+classes as well.
+
+
+179
+00:04:39,446 --> 00:04:41,536
+So, we have our View, which has
+
+
+180
+00:04:41,536 --> 00:04:43,606
+a PDFView and PDFThumbnailView.
+
+
+181
+00:04:43,906 --> 00:04:45,646
+Since we're cross platform, this
+
+
+182
+00:04:45,646 --> 00:04:47,446
+means on Mac OS, it's going to
+
+
+183
+00:04:47,446 --> 00:04:48,656
+be an NSView, and on iOS, a
+
+
+184
+00:04:48,746 --> 00:04:49,276
+UIView.
+
+
+185
+00:04:49,756 --> 00:04:51,216
+For Document, we have
+
+
+186
+00:04:51,216 --> 00:04:52,436
+PDFDocument, Page, and
+
+
+187
+00:04:52,436 --> 00:04:54,086
+Annotation, which we'll go into
+
+
+188
+00:04:54,086 --> 00:04:54,676
+further later.
+
+
+189
+00:04:55,476 --> 00:04:56,626
+But we also have our Support
+
+
+190
+00:04:56,626 --> 00:04:57,116
+classes.
+
+
+191
+00:04:57,456 --> 00:04:58,326
+These are things like
+
+
+192
+00:04:58,326 --> 00:05:00,646
+PDFSelection to PDFTextSelection
+
+
+193
+00:05:00,646 --> 00:05:02,486
+I mentioned, PDFOutline to
+
+
+194
+00:05:02,486 --> 00:05:03,706
+create a table of contents,
+
+
+195
+00:05:04,166 --> 00:05:06,906
+PDFAction to jump to a URL, and
+
+
+196
+00:05:06,906 --> 00:05:07,246
+a few more.
+
+
+197
+00:05:08,066 --> 00:05:09,706
+But when it comes down to it,
+
+
+198
+00:05:09,706 --> 00:05:10,906
+there are really just four core
+
+
+199
+00:05:10,906 --> 00:05:12,636
+classes that do the majority of
+
+
+200
+00:05:12,866 --> 00:05:13,796
+what you might want to do with a
+
+
+201
+00:05:13,796 --> 00:05:15,326
+PDF, and these are PDFView,
+
+
+202
+00:05:15,326 --> 00:05:16,486
+PDFDocument, Page, and
+
+
+203
+00:05:16,486 --> 00:05:17,000
+Annotation.
+
+
+204
+00:05:18,606 --> 00:05:21,946
+But to simplify it even more, to
+
+
+205
+00:05:21,946 --> 00:05:23,646
+create a bare bones application
+
+
+206
+00:05:23,646 --> 00:05:25,426
+to display PDF and interact with
+
+
+207
+00:05:25,426 --> 00:05:26,746
+it, all you really need to know
+
+
+208
+00:05:26,746 --> 00:05:28,596
+about is PDFView, and Jeremy's
+
+
+209
+00:05:28,596 --> 00:05:29,326
+going to show you how to do
+
+
+210
+00:05:29,326 --> 00:05:29,660
+that.
+
+
+211
+00:05:32,516 --> 00:05:40,016
+[ Audience Applause ]
+
+
+212
+00:05:40,516 --> 00:05:41,056
+>> Awesome!
+
+
+213
+00:05:41,486 --> 00:05:42,386
+Thank you very much, Nicki.
+
+
+214
+00:05:42,936 --> 00:05:43,396
+All right.
+
+
+215
+00:05:43,396 --> 00:05:44,826
+So, we really want to emphasize,
+
+
+216
+00:05:44,966 --> 00:05:47,226
+you get the power of PDF really
+
+
+217
+00:05:47,226 --> 00:05:48,786
+straightforward with a lot of
+
+
+218
+00:05:49,076 --> 00:05:51,166
+simple easy use of PDFKit.
+
+
+219
+00:05:51,566 --> 00:05:53,176
+What that means is got the demo
+
+
+220
+00:05:53,176 --> 00:05:53,686
+application.
+
+
+221
+00:05:53,686 --> 00:05:54,916
+It's a desktop application.
+
+
+222
+00:05:55,196 --> 00:05:56,296
+It's really straightforward.
+
+
+223
+00:05:56,296 --> 00:05:57,626
+It's got a View Controller and a
+
+
+224
+00:05:57,626 --> 00:05:58,866
+View; nothing else.
+
+
+225
+00:05:59,476 --> 00:06:00,506
+And in the View Controller
+
+
+226
+00:06:00,506 --> 00:06:01,606
+source code, and we could
+
+
+227
+00:06:01,606 --> 00:06:01,896
+review.
+
+
+228
+00:06:01,896 --> 00:06:03,366
+There's only three bits of code
+
+
+229
+00:06:03,366 --> 00:06:03,966
+that we care about.
+
+
+230
+00:06:04,586 --> 00:06:06,126
+The first is we instantiate a
+
+
+231
+00:06:06,126 --> 00:06:08,256
+PDFView with the parent bounds,
+
+
+232
+00:06:08,256 --> 00:06:09,176
+and we know that it's filling
+
+
+233
+00:06:09,176 --> 00:06:10,146
+that window in Startup.
+
+
+234
+00:06:10,726 --> 00:06:12,176
+We then use Auto Resize to make
+
+
+235
+00:06:12,176 --> 00:06:13,786
+sure that that view always fills
+
+
+236
+00:06:13,946 --> 00:06:15,566
+that window, so even if we
+
+
+237
+00:06:15,566 --> 00:06:16,796
+resize the window, it'll always
+
+
+238
+00:06:16,796 --> 00:06:17,326
+be fitted.
+
+
+239
+00:06:17,856 --> 00:06:19,446
+And finally, the only actual
+
+
+240
+00:06:19,446 --> 00:06:21,686
+true bit of PDFKit code is we
+
+
+241
+00:06:21,686 --> 00:06:22,846
+allow Dragging.
+
+
+242
+00:06:23,246 --> 00:06:24,906
+What that means is if I launch
+
+
+243
+00:06:24,906 --> 00:06:26,786
+the application, I can drag and
+
+
+244
+00:06:26,786 --> 00:06:29,086
+drop a PDF file that I have, in
+
+
+245
+00:06:29,086 --> 00:06:31,476
+this case from Desktop, and it's
+
+
+246
+00:06:31,476 --> 00:06:32,896
+a fully interactive view that
+
+
+247
+00:06:32,896 --> 00:06:35,076
+has all of the same look, feel,
+
+
+248
+00:06:35,136 --> 00:06:37,326
+and features as Preview, Safari,
+
+
+249
+00:06:37,326 --> 00:06:38,786
+and all of these other first
+
+
+250
+00:06:38,786 --> 00:06:39,606
+party applications.
+
+
+251
+00:06:40,136 --> 00:06:41,356
+And what I mean by that is
+
+
+252
+00:06:41,466 --> 00:06:42,746
+there's text selection for free.
+
+
+253
+00:06:42,866 --> 00:06:44,166
+There's the viewer, of course.
+
+
+254
+00:06:44,166 --> 00:06:45,476
+If we go to the Table of
+
+
+255
+00:06:45,476 --> 00:06:46,286
+Contents, it's fully
+
+
+256
+00:06:46,286 --> 00:06:46,776
+interactive.
+
+
+257
+00:06:46,916 --> 00:06:47,816
+I could click and jump
+
+
+258
+00:06:47,816 --> 00:06:48,216
+somewhere.
+
+
+259
+00:06:48,536 --> 00:06:49,676
+I could also right-click and
+
+
+260
+00:06:49,676 --> 00:06:51,556
+maybe change my display layout,
+
+
+261
+00:06:51,556 --> 00:06:52,866
+change a lot of other options.
+
+
+262
+00:06:52,866 --> 00:06:54,396
+I could copy and search text.
+
+
+263
+00:06:55,336 --> 00:06:56,636
+What's really cool about this is
+
+
+264
+00:06:56,636 --> 00:06:57,816
+all of these features are also
+
+
+265
+00:06:57,816 --> 00:06:59,446
+available to you as a developer
+
+
+266
+00:06:59,596 --> 00:07:00,756
+where you could programmatically
+
+
+267
+00:07:00,756 --> 00:07:01,996
+drive these kinds of changes.
+
+
+268
+00:07:03,286 --> 00:07:05,766
+All right.
+
+
+269
+00:07:06,326 --> 00:07:07,666
+So, I've introduced PDFView kind
+
+
+270
+00:07:07,666 --> 00:07:08,806
+of casually, but let me give you
+
+
+271
+00:07:08,866 --> 00:07:10,166
+some more details.
+
+
+272
+00:07:10,566 --> 00:07:12,596
+It's this fully customizable but
+
+
+273
+00:07:12,596 --> 00:07:14,186
+easy to use PDFViewer.
+
+
+274
+00:07:14,756 --> 00:07:15,546
+And when I say fully
+
+
+275
+00:07:15,546 --> 00:07:16,756
+customizable, what I mean is
+
+
+276
+00:07:16,756 --> 00:07:17,636
+this, how you could change the
+
+
+277
+00:07:17,636 --> 00:07:19,636
+layout, direction, page padding;
+
+
+278
+00:07:19,916 --> 00:07:21,076
+you could also change so many
+
+
+279
+00:07:21,076 --> 00:07:22,536
+more like zoom factors and zoom
+
+
+280
+00:07:22,536 --> 00:07:23,106
+behavior.
+
+
+281
+00:07:23,666 --> 00:07:25,006
+This is also the appropriate
+
+
+282
+00:07:25,006 --> 00:07:26,916
+place to do view-to-content and
+
+
+283
+00:07:26,916 --> 00:07:28,186
+content-to-view coordinate
+
+
+284
+00:07:28,186 --> 00:07:28,696
+transforms.
+
+
+285
+00:07:29,086 --> 00:07:30,606
+What that means is if you use
+
+
+286
+00:07:30,606 --> 00:07:31,866
+your finger on iOS, and you tap
+
+
+287
+00:07:32,006 --> 00:07:33,716
+that PDFView, we actually can
+
+
+288
+00:07:33,716 --> 00:07:35,026
+transform that tap and figure
+
+
+289
+00:07:35,026 --> 00:07:35,846
+out where exactly in the
+
+
+290
+00:07:35,976 --> 00:07:37,606
+document and in that page you
+
+
+291
+00:07:37,606 --> 00:07:38,116
+are touching.
+
+
+292
+00:07:39,746 --> 00:07:41,496
+Now, I've mentioned there's a,
+
+
+293
+00:07:41,816 --> 00:07:43,346
+that they're easy to use, so I
+
+
+294
+00:07:43,346 --> 00:07:44,156
+want to give you kind of a
+
+
+295
+00:07:44,156 --> 00:07:45,306
+simple straightforward example
+
+
+296
+00:07:45,306 --> 00:07:46,606
+of setting that document to a
+
+
+297
+00:07:46,606 --> 00:07:47,276
+PDFView.
+
+
+298
+00:07:47,596 --> 00:07:49,216
+Here in SWF, we're initializing
+
+
+299
+00:07:49,216 --> 00:07:51,546
+a document with a URL, and then
+
+
+300
+00:07:51,546 --> 00:07:52,746
+we assign that document to the
+
+
+301
+00:07:52,746 --> 00:07:53,436
+View itself.
+
+
+302
+00:07:53,796 --> 00:07:55,506
+We take care of everything else.
+
+
+303
+00:07:55,956 --> 00:07:57,136
+No matter what content is in
+
+
+304
+00:07:57,136 --> 00:07:58,486
+that document, we will show it
+
+
+305
+00:07:58,486 --> 00:07:59,296
+in PDFView.
+
+
+306
+00:08:00,856 --> 00:08:02,596
+So, I mentioned more of these
+
+
+307
+00:08:02,596 --> 00:08:03,416
+display settings.
+
+
+308
+00:08:03,416 --> 00:08:04,506
+I want to show you a couple of
+
+
+309
+00:08:04,506 --> 00:08:05,566
+the enumerations.
+
+
+310
+00:08:05,926 --> 00:08:07,856
+PDFDisplay mode is really cool
+
+
+311
+00:08:07,856 --> 00:08:09,016
+because you can actually change
+
+
+312
+00:08:09,286 --> 00:08:11,006
+that setup of the document in
+
+
+313
+00:08:11,006 --> 00:08:11,756
+your PDFView.
+
+
+314
+00:08:12,326 --> 00:08:13,636
+So, the first denom is single
+
+
+315
+00:08:13,636 --> 00:08:14,976
+page and, of course, you see one
+
+
+316
+00:08:14,976 --> 00:08:15,796
+page at a time.
+
+
+317
+00:08:16,206 --> 00:08:17,446
+There's also single page
+
+
+318
+00:08:17,446 --> 00:08:19,156
+continuous, and what that means
+
+
+319
+00:08:19,156 --> 00:08:20,826
+is it's the series of pages laid
+
+
+320
+00:08:20,826 --> 00:08:21,986
+out on the vertical column.
+
+
+321
+00:08:22,556 --> 00:08:24,046
+There's also two up modes, so
+
+
+322
+00:08:24,046 --> 00:08:24,946
+you could kind of get this
+
+
+323
+00:08:24,996 --> 00:08:26,706
+iBooks look and feel, and
+
+
+324
+00:08:26,706 --> 00:08:27,936
+there's, of course, two up
+
+
+325
+00:08:27,936 --> 00:08:29,496
+continuous; so, a lot of
+
+
+326
+00:08:29,496 --> 00:08:29,976
+options.
+
+
+327
+00:08:30,986 --> 00:08:33,366
+Next up, new to 2017 is going to
+
+
+328
+00:08:33,366 --> 00:08:34,546
+be Display Direction.
+
+
+329
+00:08:34,546 --> 00:08:35,546
+So, if you look at the
+
+
+330
+00:08:35,546 --> 00:08:36,746
+continuous modes, you don't have
+
+
+331
+00:08:36,785 --> 00:08:37,876
+to do vertical; you could also
+
+
+332
+00:08:37,876 --> 00:08:39,706
+do horizontal; and of course,
+
+
+333
+00:08:39,706 --> 00:08:40,876
+this is available on both
+
+
+334
+00:08:40,916 --> 00:08:41,765
+platforms today.
+
+
+335
+00:08:42,706 --> 00:08:44,746
+There's also, unique to iOS this
+
+
+336
+00:08:44,746 --> 00:08:46,356
+year, the View Pagification.
+
+
+337
+00:08:46,696 --> 00:08:47,876
+What that means is we want to
+
+
+338
+00:08:47,876 --> 00:08:49,226
+give you the same look and feel
+
+
+339
+00:08:49,226 --> 00:08:50,866
+as iBooks in your application;
+
+
+340
+00:08:50,866 --> 00:08:52,426
+so, you could do so by turning
+
+
+341
+00:08:52,426 --> 00:08:53,086
+on that feature.
+
+
+342
+00:08:53,596 --> 00:08:54,516
+So, here, you could put your
+
+
+343
+00:08:54,516 --> 00:08:55,666
+finger on the device, you could
+
+
+344
+00:08:55,666 --> 00:08:56,846
+swipe, and it will go ahead and
+
+
+345
+00:08:56,846 --> 00:08:58,296
+change between pages for you.
+
+
+346
+00:08:58,736 --> 00:08:59,756
+And what's cool is on this
+
+
+347
+00:08:59,816 --> 00:09:00,306
+bottom.
+
+
+348
+00:09:00,526 --> 00:09:01,406
+Take a closer look.
+
+
+349
+00:09:02,206 --> 00:09:04,226
+We've got PDFThumbnailView, so
+
+
+350
+00:09:04,346 --> 00:09:06,036
+Feature Rich Scrubber for the
+
+
+351
+00:09:06,036 --> 00:09:07,036
+document itself.
+
+
+352
+00:09:07,166 --> 00:09:08,596
+As you move your finger across
+
+
+353
+00:09:08,656 --> 00:09:10,306
+that scrubber, it'll activate
+
+
+354
+00:09:10,306 --> 00:09:11,416
+the appropriate page that your
+
+
+355
+00:09:11,416 --> 00:09:13,106
+finger is on, and it'll update
+
+
+356
+00:09:13,106 --> 00:09:14,726
+PDFView with that active page.
+
+
+357
+00:09:14,996 --> 00:09:16,606
+But of course, if you drive that
+
+
+358
+00:09:16,606 --> 00:09:18,496
+page change with PDFView, it'll
+
+
+359
+00:09:18,496 --> 00:09:19,236
+go ahead and update
+
+
+360
+00:09:19,236 --> 00:09:20,046
+ThumbnailView as well.
+
+
+361
+00:09:21,296 --> 00:09:23,316
+ThumbnailView isn't limited just
+
+
+362
+00:09:23,316 --> 00:09:24,486
+to the horizontal access.
+
+
+363
+00:09:24,696 --> 00:09:26,106
+Of course, you can set it to the
+
+
+364
+00:09:26,106 --> 00:09:26,996
+vertical axis.
+
+
+365
+00:09:27,566 --> 00:09:30,416
+So, we've talked a lot about
+
+
+366
+00:09:30,416 --> 00:09:31,646
+PDFView, but let's talk about
+
+
+367
+00:09:31,646 --> 00:09:32,856
+the core data structures
+
+
+368
+00:09:32,856 --> 00:09:34,736
+themselves, the Document, Page,
+
+
+369
+00:09:34,736 --> 00:09:36,026
+and Annotations Model.
+
+
+370
+00:09:36,206 --> 00:09:38,996
+So, PDFDocument really is a
+
+
+371
+00:09:38,996 --> 00:09:40,126
+document; no surprise.
+
+
+372
+00:09:40,126 --> 00:09:41,766
+And the document is going to be
+
+
+373
+00:09:41,766 --> 00:09:43,916
+a collection of PDFPages, and
+
+
+374
+00:09:43,916 --> 00:09:45,376
+PDFPages are pretty cool because
+
+
+375
+00:09:45,376 --> 00:09:46,796
+they actually own that content
+
+
+376
+00:09:47,096 --> 00:09:47,756
+from your file.
+
+
+377
+00:09:48,026 --> 00:09:49,506
+What you see on screen is owned
+
+
+378
+00:09:49,536 --> 00:09:50,716
+by PDFPage.
+
+
+379
+00:09:51,066 --> 00:09:52,526
+The PDFPage does so much more
+
+
+380
+00:09:52,526 --> 00:09:53,846
+because it's also an owner of
+
+
+381
+00:09:54,016 --> 00:09:55,546
+all the annotations that you see
+
+
+382
+00:09:55,546 --> 00:09:56,216
+on screen.
+
+
+383
+00:09:57,416 --> 00:09:59,376
+So, Document has pages, Pages
+
+
+384
+00:09:59,376 --> 00:10:01,566
+has content and annotations, and
+
+
+385
+00:10:01,566 --> 00:10:03,216
+to actually create a document,
+
+
+386
+00:10:03,216 --> 00:10:04,326
+you could either initialize it
+
+
+387
+00:10:04,326 --> 00:10:05,746
+by itself, and author one from
+
+
+388
+00:10:05,746 --> 00:10:07,386
+scratch, or you could initialize
+
+
+389
+00:10:07,386 --> 00:10:07,976
+it with a URL.
+
+
+390
+00:10:08,046 --> 00:10:10,086
+But once you have that document,
+
+
+391
+00:10:10,086 --> 00:10:11,296
+you could modify the collection
+
+
+392
+00:10:11,296 --> 00:10:11,766
+of pages.
+
+
+393
+00:10:12,056 --> 00:10:13,746
+You could add, swap, insert, and
+
+
+394
+00:10:13,746 --> 00:10:14,516
+remove pages.
+
+
+395
+00:10:15,406 --> 00:10:16,696
+PDFDocument is also really
+
+
+396
+00:10:16,696 --> 00:10:17,976
+powerful because this is where
+
+
+397
+00:10:17,976 --> 00:10:19,496
+you could decrypt the document
+
+
+398
+00:10:19,496 --> 00:10:20,746
+and also save it with
+
+
+399
+00:10:20,746 --> 00:10:21,356
+encryption.
+
+
+400
+00:10:21,606 --> 00:10:22,546
+So, we give you that full
+
+
+401
+00:10:22,546 --> 00:10:24,036
+feature of encryption both on
+
+
+402
+00:10:24,036 --> 00:10:25,276
+opening and saving.
+
+
+403
+00:10:25,766 --> 00:10:26,966
+It also gives you access to
+
+
+404
+00:10:26,966 --> 00:10:28,256
+check what permissions you have
+
+
+405
+00:10:28,256 --> 00:10:28,836
+on the document.
+
+
+406
+00:10:29,026 --> 00:10:30,166
+So, as you unlock it, it's
+
+
+407
+00:10:30,206 --> 00:10:31,326
+really important that you check
+
+
+408
+00:10:31,396 --> 00:10:32,686
+what could you actually do with
+
+
+409
+00:10:32,686 --> 00:10:33,316
+that document.
+
+
+410
+00:10:34,016 --> 00:10:35,156
+This is also where you could get
+
+
+411
+00:10:35,156 --> 00:10:36,366
+the attributes of a document, so
+
+
+412
+00:10:36,366 --> 00:10:37,386
+you could figure out who
+
+
+413
+00:10:37,386 --> 00:10:38,676
+authored it, when it was
+
+
+414
+00:10:38,676 --> 00:10:39,886
+authored, what tools did they
+
+
+415
+00:10:39,886 --> 00:10:40,606
+use to author it.
+
+
+416
+00:10:41,136 --> 00:10:42,666
+And finally, a really nice
+
+
+417
+00:10:42,666 --> 00:10:43,726
+feature, if you want to ever
+
+
+418
+00:10:43,726 --> 00:10:45,086
+search the document, and the
+
+
+419
+00:10:45,086 --> 00:10:46,466
+document strings, you could do
+
+
+420
+00:10:46,466 --> 00:10:46,696
+so.
+
+
+421
+00:10:46,896 --> 00:10:48,656
+PDFDocument has a series of APIs
+
+
+422
+00:10:48,656 --> 00:10:49,886
+to do exactly that.
+
+
+423
+00:10:50,346 --> 00:10:52,416
+Let me give you a full, an
+
+
+424
+00:10:52,536 --> 00:10:53,896
+example, something you kind of
+
+
+425
+00:10:53,896 --> 00:10:55,306
+saw earlier, which is we're
+
+
+426
+00:10:55,306 --> 00:10:56,706
+going to set a Document on a
+
+
+427
+00:10:56,706 --> 00:10:58,296
+view, but I wanted to show you
+
+
+428
+00:10:58,296 --> 00:10:59,626
+the explicit path of, we're
+
+
+429
+00:10:59,626 --> 00:11:00,926
+going to initialize the document
+
+
+430
+00:11:01,026 --> 00:11:01,986
+by checking your bundle.
+
+
+431
+00:11:01,986 --> 00:11:03,296
+Does it have the PDF file in
+
+
+432
+00:11:03,296 --> 00:11:03,666
+question?
+
+
+433
+00:11:03,666 --> 00:11:05,536
+If it does, then go ahead and
+
+
+434
+00:11:05,536 --> 00:11:06,776
+try to initialize that PDF
+
+
+435
+00:11:06,776 --> 00:11:08,816
+document, and on success, just
+
+
+436
+00:11:08,816 --> 00:11:09,566
+assign it to the View.
+
+
+437
+00:11:09,796 --> 00:11:11,106
+We take care of everything else
+
+
+438
+00:11:11,146 --> 00:11:11,456
+for you.
+
+
+439
+00:11:11,776 --> 00:11:13,716
+A couple of more examples, if
+
+
+440
+00:11:13,716 --> 00:11:15,186
+you want to save the file, it's
+
+
+441
+00:11:15,186 --> 00:11:16,076
+really straightforward.
+
+
+442
+00:11:16,076 --> 00:11:17,736
+Just do write method call with
+
+
+443
+00:11:17,766 --> 00:11:18,816
+that new file path.
+
+
+444
+00:11:19,486 --> 00:11:20,766
+Let's say you want to save width
+
+
+445
+00:11:20,766 --> 00:11:22,316
+encryption; it's really
+
+
+446
+00:11:22,316 --> 00:11:23,156
+straightforward too.
+
+
+447
+00:11:23,276 --> 00:11:25,706
+Do a writeto with options, and
+
+
+448
+00:11:25,706 --> 00:11:26,496
+then the options is the
+
+
+449
+00:11:26,496 --> 00:11:28,006
+dictionary where we map special
+
+
+450
+00:11:28,006 --> 00:11:29,346
+enumerations in the header file
+
+
+451
+00:11:29,776 --> 00:11:31,046
+with a password that you care
+
+
+452
+00:11:31,046 --> 00:11:31,266
+about.
+
+
+453
+00:11:31,666 --> 00:11:32,576
+So, here, I'm saving the
+
+
+454
+00:11:32,576 --> 00:11:33,696
+document with full honor
+
+
+455
+00:11:33,696 --> 00:11:34,916
+permissions, and you could only
+
+
+456
+00:11:34,916 --> 00:11:36,576
+open it using my password Apple.
+
+
+457
+00:11:36,576 --> 00:11:39,116
+A couple of more examples, if
+
+
+458
+00:11:39,116 --> 00:11:40,746
+you want to retrieve a page, we
+
+
+459
+00:11:40,746 --> 00:11:43,286
+use a base 0 index system.
+
+
+460
+00:11:43,536 --> 00:11:44,676
+What that means is the first
+
+
+461
+00:11:44,676 --> 00:11:46,346
+page is an index 0; second page
+
+
+462
+00:11:46,346 --> 00:11:47,646
+is an index 1, etcetera.
+
+
+463
+00:11:47,826 --> 00:11:49,506
+So, retrieving the first page is
+
+
+464
+00:11:49,506 --> 00:11:51,676
+as simple as doing .page at and
+
+
+465
+00:11:51,676 --> 00:11:52,576
+give us that index.
+
+
+466
+00:11:53,266 --> 00:11:54,516
+The second one is if you want to
+
+
+467
+00:11:54,516 --> 00:11:55,976
+insert a page, you could do so
+
+
+468
+00:11:55,976 --> 00:11:57,556
+with a page and an index.
+
+
+469
+00:11:58,276 --> 00:11:59,756
+If you want to exchange pages,
+
+
+470
+00:11:59,756 --> 00:12:01,096
+just give us two indices.
+
+
+471
+00:12:01,876 --> 00:12:03,196
+Finally, if you want to remove a
+
+
+472
+00:12:03,196 --> 00:12:04,986
+page, again, just pass us an
+
+
+473
+00:12:04,986 --> 00:12:05,376
+index.
+
+
+474
+00:12:05,376 --> 00:12:06,896
+We will take care of the full
+
+
+475
+00:12:06,896 --> 00:12:07,976
+document construction when you
+
+
+476
+00:12:07,976 --> 00:12:09,756
+mutate it and save it out to
+
+
+477
+00:12:09,756 --> 00:12:10,000
+disc.
+
+
+478
+00:12:11,866 --> 00:12:13,296
+Now, I've mentioned encryption
+
+
+479
+00:12:13,296 --> 00:12:14,486
+when you save, but let me show
+
+
+480
+00:12:14,486 --> 00:12:15,886
+you an [inaudible] example when
+
+
+481
+00:12:15,886 --> 00:12:16,916
+you open the file.
+
+
+482
+00:12:17,266 --> 00:12:18,916
+So, here, I'm initializing a PDF
+
+
+483
+00:12:18,946 --> 00:12:20,736
+document from a given URL, and
+
+
+484
+00:12:20,736 --> 00:12:22,096
+the very first thing I need to
+
+
+485
+00:12:22,096 --> 00:12:23,976
+do is I need to check, is this
+
+
+486
+00:12:23,976 --> 00:12:25,236
+document actually encrypted?
+
+
+487
+00:12:25,526 --> 00:12:26,916
+If it is, no problem.
+
+
+488
+00:12:26,916 --> 00:12:28,266
+I'm going to try to decrypt it.
+
+
+489
+00:12:28,266 --> 00:12:29,476
+I'm going to decrypt it by using
+
+
+490
+00:12:29,476 --> 00:12:31,406
+the method unlockwithPassword.
+
+
+491
+00:12:31,896 --> 00:12:32,906
+And unsuccess.
+
+
+492
+00:12:32,906 --> 00:12:33,806
+That's great.
+
+
+493
+00:12:34,286 --> 00:12:35,196
+I just need to do one more
+
+
+494
+00:12:35,196 --> 00:12:36,016
+thing, which is I need to
+
+
+495
+00:12:36,016 --> 00:12:37,746
+actually check what my role and
+
+
+496
+00:12:37,746 --> 00:12:38,656
+my permissions are.
+
+
+497
+00:12:39,586 --> 00:12:41,186
+What I mean by role is that the
+
+
+498
+00:12:41,186 --> 00:12:42,686
+PDF document file format has
+
+
+499
+00:12:42,726 --> 00:12:44,036
+this really cool idea that you
+
+
+500
+00:12:44,036 --> 00:12:45,006
+could unlock a document with
+
+
+501
+00:12:45,006 --> 00:12:46,486
+actually two passwords, right.
+
+
+502
+00:12:46,696 --> 00:12:48,006
+You've got your owner password,
+
+
+503
+00:12:48,006 --> 00:12:49,276
+which has full permissions over
+
+
+504
+00:12:49,276 --> 00:12:49,826
+the document.
+
+
+505
+00:12:49,826 --> 00:12:51,386
+You could copy, paste, share it,
+
+
+506
+00:12:51,616 --> 00:12:53,566
+print it out, or you could have
+
+
+507
+00:12:53,566 --> 00:12:54,886
+a limited role, like maybe the
+
+
+508
+00:12:54,886 --> 00:12:55,626
+user role.
+
+
+509
+00:12:55,926 --> 00:12:57,256
+And with this limited role, you
+
+
+510
+00:12:57,256 --> 00:12:58,526
+might have variable permissions.
+
+
+511
+00:12:58,886 --> 00:13:01,426
+Maybe you can copy, maybe you
+
+
+512
+00:13:01,426 --> 00:13:02,736
+can print, but it's not
+
+
+513
+00:13:02,736 --> 00:13:04,166
+guaranteed, and as app
+
+
+514
+00:13:04,266 --> 00:13:05,736
+developers, it's critical that
+
+
+515
+00:13:05,736 --> 00:13:07,036
+when you do unlock a document,
+
+
+516
+00:13:07,376 --> 00:13:08,486
+check these privileges.
+
+
+517
+00:13:08,776 --> 00:13:10,506
+The reason why is PDFKit will
+
+
+518
+00:13:10,506 --> 00:13:11,986
+enforce these privileges for
+
+
+519
+00:13:11,986 --> 00:13:12,176
+you.
+
+
+520
+00:13:12,586 --> 00:13:13,796
+So, if you open a document, and
+
+
+521
+00:13:13,836 --> 00:13:15,236
+you can't copy it, right, it's
+
+
+522
+00:13:15,236 --> 00:13:16,826
+really a bad user experience not
+
+
+523
+00:13:16,826 --> 00:13:18,256
+to understand why you can't copy
+
+
+524
+00:13:18,256 --> 00:13:18,346
+it.
+
+
+525
+00:13:18,676 --> 00:13:19,726
+So, you could check this and
+
+
+526
+00:13:19,726 --> 00:13:21,026
+maybe communicate to the user,
+
+
+527
+00:13:21,026 --> 00:13:22,716
+hey, this document is unlocked,
+
+
+528
+00:13:22,906 --> 00:13:24,276
+but with the user password.
+
+
+529
+00:13:24,416 --> 00:13:25,276
+That means you don't have full
+
+
+530
+00:13:25,276 --> 00:13:26,396
+permission, and if you do want
+
+
+531
+00:13:26,396 --> 00:13:27,436
+to give us the older password,
+
+
+532
+00:13:27,726 --> 00:13:28,966
+we could try to unlock it again,
+
+
+533
+00:13:28,966 --> 00:13:30,216
+and you'll be able to copy it
+
+
+534
+00:13:30,216 --> 00:13:30,586
+after all.
+
+
+535
+00:13:32,136 --> 00:13:33,726
+So, when you unlock the
+
+
+536
+00:13:33,726 --> 00:13:35,136
+document, it returns a Boolean,
+
+
+537
+00:13:35,366 --> 00:13:36,826
+but some of these events on a
+
+
+538
+00:13:36,826 --> 00:13:38,396
+document and other classes will
+
+
+539
+00:13:38,396 --> 00:13:40,606
+post notifications and will call
+
+
+540
+00:13:40,606 --> 00:13:41,596
+optional delegates.
+
+
+541
+00:13:42,026 --> 00:13:43,426
+A couple of examples is, again,
+
+
+542
+00:13:43,646 --> 00:13:44,686
+when you unlock a document,
+
+
+543
+00:13:44,686 --> 00:13:45,846
+we'll post the document did
+
+
+544
+00:13:45,846 --> 00:13:47,066
+unlock notification.
+
+
+545
+00:13:47,446 --> 00:13:48,446
+This could have been driven by
+
+
+546
+00:13:48,446 --> 00:13:49,426
+the user because we have a
+
+
+547
+00:13:49,426 --> 00:13:51,316
+default password unlock a view.
+
+
+548
+00:13:51,946 --> 00:13:53,236
+But also, if you start saving
+
+
+549
+00:13:53,236 --> 00:13:54,426
+the document, maybe you want to
+
+
+550
+00:13:54,426 --> 00:13:55,536
+catch that in some other
+
+
+551
+00:13:55,536 --> 00:13:56,546
+observers in code.
+
+
+552
+00:13:56,816 --> 00:13:58,206
+You could do so with the
+
+
+553
+00:13:58,206 --> 00:13:59,026
+notifications.
+
+
+554
+00:13:59,126 --> 00:14:00,646
+You could also implement any of
+
+
+555
+00:14:00,646 --> 00:14:01,656
+these delegates, and they
+
+
+556
+00:14:01,756 --> 00:14:02,956
+typically match one-to-one.
+
+
+557
+00:14:03,016 --> 00:14:04,376
+They have very similar function
+
+
+558
+00:14:04,376 --> 00:14:04,666
+calls.
+
+
+559
+00:14:05,816 --> 00:14:06,176
+All right.
+
+
+560
+00:14:07,046 --> 00:14:08,306
+So, we talked a lot about pages,
+
+
+561
+00:14:08,486 --> 00:14:09,546
+or excuse me, a lot about
+
+
+562
+00:14:09,546 --> 00:14:10,836
+document; let's talk about
+
+
+563
+00:14:10,876 --> 00:14:11,406
+Pages.
+
+
+564
+00:14:12,056 --> 00:14:13,666
+So, pages can be retrieved from
+
+
+565
+00:14:13,666 --> 00:14:14,796
+a document, or they can be
+
+
+566
+00:14:14,796 --> 00:14:15,986
+initialized empty; maybe you're
+
+
+567
+00:14:15,986 --> 00:14:17,516
+offering a new document, or they
+
+
+568
+00:14:17,516 --> 00:14:18,796
+could even be initialized with
+
+
+569
+00:14:18,796 --> 00:14:19,536
+an image.
+
+
+570
+00:14:19,536 --> 00:14:20,746
+That's a really helpful feature
+
+
+571
+00:14:20,746 --> 00:14:22,106
+if you're trying to translate a
+
+
+572
+00:14:22,106 --> 00:14:23,806
+collection of images into a PDF
+
+
+573
+00:14:23,806 --> 00:14:24,266
+document.
+
+
+574
+00:14:24,516 --> 00:14:25,826
+I'll show you an example later.
+
+
+575
+00:14:26,296 --> 00:14:28,076
+But also, what's powerful about
+
+
+576
+00:14:28,076 --> 00:14:29,496
+PDFPages is that it's that
+
+
+577
+00:14:29,496 --> 00:14:30,646
+Annotations container.
+
+
+578
+00:14:30,646 --> 00:14:31,766
+So, if you interact with
+
+
+579
+00:14:31,826 --> 00:14:32,906
+Annotations, or if you want to
+
+
+580
+00:14:32,906 --> 00:14:35,366
+mutate Annotations, PDFPage is
+
+
+581
+00:14:35,366 --> 00:14:35,986
+where to do that.
+
+
+582
+00:14:36,726 --> 00:14:38,166
+Finally, PDFPage has a lot of
+
+
+583
+00:14:38,166 --> 00:14:39,426
+custom graphics, so if you want
+
+
+584
+00:14:39,426 --> 00:14:40,466
+to change its size, its
+
+
+585
+00:14:40,516 --> 00:14:42,306
+orientation, or if you want to
+
+
+586
+00:14:42,306 --> 00:14:43,716
+do custom graphics in that
+
+
+587
+00:14:43,716 --> 00:14:45,196
+content, you could do so with
+
+
+588
+00:14:45,196 --> 00:14:46,156
+the PDFPage class.
+
+
+589
+00:14:46,886 --> 00:14:48,796
+It also has a series of a really
+
+
+590
+00:14:48,796 --> 00:14:50,606
+powerful text selection at API.
+
+
+591
+00:14:51,186 --> 00:14:52,216
+I'll give you an example.
+
+
+592
+00:14:54,266 --> 00:14:55,746
+So, first and foremost, let's
+
+
+593
+00:14:55,746 --> 00:14:57,576
+create a PDFPage with an image.
+
+
+594
+00:14:57,576 --> 00:14:59,596
+So, I'm going to use UIImage to
+
+
+595
+00:14:59,596 --> 00:15:01,116
+go ahead and initialize an image
+
+
+596
+00:15:01,156 --> 00:15:02,466
+asset, and now I'm going to
+
+
+597
+00:15:02,466 --> 00:15:03,986
+instantiate PDFPage with an
+
+
+598
+00:15:03,986 --> 00:15:04,356
+image.
+
+
+599
+00:15:04,826 --> 00:15:06,406
+What's really cool about this is
+
+
+600
+00:15:06,456 --> 00:15:08,056
+if the image has special
+
+
+601
+00:15:08,056 --> 00:15:09,876
+content, like it's a P3 wide
+
+
+602
+00:15:09,876 --> 00:15:11,436
+gamic color space, we will
+
+
+603
+00:15:11,516 --> 00:15:13,006
+author that page, and eventually
+
+
+604
+00:15:13,006 --> 00:15:14,746
+the document, with that P3 color
+
+
+605
+00:15:14,746 --> 00:15:15,206
+space.
+
+
+606
+00:15:15,676 --> 00:15:17,376
+What's also nice is we default
+
+
+607
+00:15:17,376 --> 00:15:19,286
+the PDFPage to US letter, but
+
+
+608
+00:15:19,286 --> 00:15:20,266
+you could set that size to
+
+
+609
+00:15:20,266 --> 00:15:21,876
+whatever you want, but if you
+
+
+610
+00:15:21,876 --> 00:15:22,856
+initialize it with an image,
+
+
+611
+00:15:22,856 --> 00:15:24,146
+we'll always try to maintain
+
+
+612
+00:15:24,146 --> 00:15:25,586
+that image's aspect ratio in the
+
+
+613
+00:15:25,586 --> 00:15:26,966
+size in the document.
+
+
+614
+00:15:29,186 --> 00:15:30,736
+If you want to extract string
+
+
+615
+00:15:30,736 --> 00:15:31,736
+content from a PDFPage, you
+
+
+616
+00:15:31,736 --> 00:15:33,236
+could do so by just calling the
+
+
+617
+00:15:33,236 --> 00:15:34,016
+string method.
+
+
+618
+00:15:34,396 --> 00:15:36,036
+But if you want to get rich text
+
+
+619
+00:15:36,106 --> 00:15:37,196
+out of that document, you could
+
+
+620
+00:15:37,196 --> 00:15:38,826
+do so with the Attributed
+
+
+621
+00:15:38,826 --> 00:15:40,096
+string, and this has been
+
+
+622
+00:15:40,096 --> 00:15:41,356
+really, really powerful with our
+
+
+623
+00:15:41,356 --> 00:15:42,826
+improvements in accessibility.
+
+
+624
+00:15:44,256 --> 00:15:45,636
+There's also, like I mentioned
+
+
+625
+00:15:45,636 --> 00:15:47,216
+before, these really powerful
+
+
+626
+00:15:47,246 --> 00:15:48,166
+text selection APIs.
+
+
+627
+00:15:48,226 --> 00:15:49,636
+I'll give you two examples.
+
+
+628
+00:15:50,096 --> 00:15:51,406
+The first one is let's say you
+
+
+629
+00:15:51,406 --> 00:15:52,836
+want to select text at a
+
+
+630
+00:15:52,836 --> 00:15:54,136
+specific character range.
+
+
+631
+00:15:54,456 --> 00:15:56,316
+You could do so by a method on
+
+
+632
+00:15:56,316 --> 00:15:57,956
+the PDFPage called Selection for
+
+
+633
+00:15:57,956 --> 00:15:58,366
+Range.
+
+
+634
+00:15:58,656 --> 00:16:00,506
+So, here, we'll select character
+
+
+635
+00:16:00,506 --> 00:16:01,816
+10 and for a span of 5
+
+
+636
+00:16:01,876 --> 00:16:02,286
+characters.
+
+
+637
+00:16:02,616 --> 00:16:03,736
+We'll extract that, and you
+
+
+638
+00:16:03,736 --> 00:16:04,746
+could do a lot of geometry
+
+
+639
+00:16:04,746 --> 00:16:05,936
+conversions with the PDF
+
+
+640
+00:16:05,936 --> 00:16:07,036
+selection class to figure out
+
+
+641
+00:16:07,306 --> 00:16:09,096
+where visually that is on Page.
+
+
+642
+00:16:09,716 --> 00:16:11,456
+But there's also the means of
+
+
+643
+00:16:11,456 --> 00:16:12,796
+pulling out text based on
+
+
+644
+00:16:12,796 --> 00:16:13,476
+geometry.
+
+
+645
+00:16:13,766 --> 00:16:15,146
+So, if you give us a rectangle
+
+
+646
+00:16:15,146 --> 00:16:16,626
+rather than just a span of text,
+
+
+647
+00:16:16,906 --> 00:16:18,086
+we could pull out that PDF
+
+
+648
+00:16:18,086 --> 00:16:19,386
+selection for you, and there's a
+
+
+649
+00:16:19,386 --> 00:16:20,316
+lot you could do with that.
+
+
+650
+00:16:21,236 --> 00:16:22,356
+But I want to go back to
+
+
+651
+00:16:22,406 --> 00:16:23,366
+Attributed string.
+
+
+652
+00:16:24,016 --> 00:16:25,536
+I wrote a really simple desktop
+
+
+653
+00:16:25,536 --> 00:16:27,326
+application where on the left,
+
+
+654
+00:16:27,326 --> 00:16:28,466
+just like in our previous demo,
+
+
+655
+00:16:28,466 --> 00:16:30,046
+we have a drag and drop PDFView,
+
+
+656
+00:16:30,406 --> 00:16:31,376
+and on the right, we've got a
+
+
+657
+00:16:31,376 --> 00:16:32,226
+Rich Text field.
+
+
+658
+00:16:33,006 --> 00:16:34,166
+And here, I'm going to drag and
+
+
+659
+00:16:34,166 --> 00:16:36,526
+drop a little user manual, and
+
+
+660
+00:16:36,526 --> 00:16:37,916
+then on the left, I'm pulling
+
+
+661
+00:16:37,916 --> 00:16:39,146
+out and publishing the
+
+
+662
+00:16:39,146 --> 00:16:39,856
+Attributed string.
+
+
+663
+00:16:40,496 --> 00:16:41,886
+And this is what's really cool
+
+
+664
+00:16:41,886 --> 00:16:43,706
+is we maintain the full content
+
+
+665
+00:16:43,706 --> 00:16:45,176
+as best as possible for text
+
+
+666
+00:16:45,176 --> 00:16:47,786
+positioning, text order, fonts,
+
+
+667
+00:16:47,876 --> 00:16:49,766
+color, bolds, and all of these
+
+
+668
+00:16:49,766 --> 00:16:50,646
+other attributes.
+
+
+669
+00:16:51,006 --> 00:16:52,226
+And it's critically important
+
+
+670
+00:16:52,226 --> 00:16:54,026
+because this gets exposed to the
+
+
+671
+00:16:54,026 --> 00:16:55,676
+accessibility system, which is
+
+
+672
+00:16:55,676 --> 00:16:57,406
+available on both Mac OS and
+
+
+673
+00:16:57,406 --> 00:16:57,626
+iOS.
+
+
+674
+00:16:58,066 --> 00:17:00,226
+That means just by adopting
+
+
+675
+00:17:00,226 --> 00:17:01,876
+PDFView, you get all of these
+
+
+676
+00:17:01,876 --> 00:17:03,526
+accessibility improvements for
+
+
+677
+00:17:03,526 --> 00:17:05,036
+free on both platforms.
+
+
+678
+00:17:06,796 --> 00:17:07,096
+All right.
+
+
+679
+00:17:07,766 --> 00:17:08,925
+So, there's another cool feature
+
+
+680
+00:17:08,925 --> 00:17:11,406
+new to 2017, which is PDFPages
+
+
+681
+00:17:11,406 --> 00:17:13,626
+Method Thumbnail of size for a
+
+
+682
+00:17:13,626 --> 00:17:14,496
+display box.
+
+
+683
+00:17:14,935 --> 00:17:15,925
+Oftentimes, you might be in a
+
+
+684
+00:17:15,925 --> 00:17:17,776
+situation where you have a PDF
+
+
+685
+00:17:17,776 --> 00:17:19,346
+document and all you want to do,
+
+
+686
+00:17:19,415 --> 00:17:20,586
+nothing more complicated, all
+
+
+687
+00:17:20,586 --> 00:17:22,006
+you want to do is just show a
+
+
+688
+00:17:22,006 --> 00:17:22,856
+preview of a page.
+
+
+689
+00:17:23,656 --> 00:17:25,406
+With this new method, we do all
+
+
+690
+00:17:25,406 --> 00:17:26,806
+of that work for you and, again,
+
+
+691
+00:17:26,806 --> 00:17:28,246
+we'll respect the P3 color
+
+
+692
+00:17:28,246 --> 00:17:28,566
+space.
+
+
+693
+00:17:28,566 --> 00:17:29,856
+So, if your document has any
+
+
+694
+00:17:29,856 --> 00:17:31,466
+sort of complicated asset that
+
+
+695
+00:17:31,466 --> 00:17:32,836
+has a wide gamut color, we'll
+
+
+696
+00:17:32,836 --> 00:17:34,596
+make sure that the UI image or
+
+
+697
+00:17:34,596 --> 00:17:36,066
+the NS image like gets authored
+
+
+698
+00:17:36,066 --> 00:17:38,116
+from this is P3 compliance.
+
+
+699
+00:17:38,596 --> 00:17:39,456
+What's also nice, this will
+
+
+700
+00:17:39,456 --> 00:17:40,886
+track size to fit the document
+
+
+701
+00:17:40,886 --> 00:17:42,006
+in the given bounds while
+
+
+702
+00:17:42,006 --> 00:17:43,426
+maintaining aspect ratio.
+
+
+703
+00:17:44,496 --> 00:17:46,146
+But that last argument display
+
+
+704
+00:17:46,146 --> 00:17:47,166
+box, what is that?
+
+
+705
+00:17:47,536 --> 00:17:49,696
+So, to explain that enumeration,
+
+
+706
+00:17:49,746 --> 00:17:51,016
+I have to kind of explain how
+
+
+707
+00:17:51,176 --> 00:17:53,256
+PDF content works in terms of
+
+
+708
+00:17:53,356 --> 00:17:53,846
+graphics.
+
+
+709
+00:17:54,996 --> 00:17:56,576
+So, we're going to start with
+
+
+710
+00:17:56,576 --> 00:17:57,766
+the Cartesian Coordinate Space.
+
+
+711
+00:17:57,836 --> 00:17:59,486
+This is the content coordinate
+
+
+712
+00:17:59,486 --> 00:18:01,256
+space that all PDFPages draw
+
+
+713
+00:18:01,256 --> 00:18:01,676
+into.
+
+
+714
+00:18:01,676 --> 00:18:03,406
+So, you've got origin at 00.
+
+
+715
+00:18:03,406 --> 00:18:04,956
+X positive grows to the right.
+
+
+716
+00:18:05,196 --> 00:18:07,346
+Y positive grows up, and I'm
+
+
+717
+00:18:07,346 --> 00:18:08,346
+going to put a little string,
+
+
+718
+00:18:08,346 --> 00:18:09,646
+I'm going to say "Hello, San
+
+
+719
+00:18:09,646 --> 00:18:10,006
+Jose."
+
+
+720
+00:18:10,836 --> 00:18:12,246
+And with this string, I want to
+
+
+721
+00:18:12,246 --> 00:18:13,956
+put it on a page, so it's got a
+
+
+722
+00:18:13,956 --> 00:18:14,606
+location.
+
+
+723
+00:18:14,606 --> 00:18:15,426
+I'm going to put that on the
+
+
+724
+00:18:15,426 --> 00:18:16,656
+page, and the page itself, of
+
+
+725
+00:18:16,656 --> 00:18:17,556
+course, has a size.
+
+
+726
+00:18:17,816 --> 00:18:18,986
+So, we've got all of these
+
+
+727
+00:18:18,986 --> 00:18:20,346
+geometric properties, but
+
+
+728
+00:18:21,116 --> 00:18:22,836
+something really bothers me, and
+
+
+729
+00:18:22,836 --> 00:18:23,966
+what bothers me is it's not
+
+
+730
+00:18:24,096 --> 00:18:24,476
+centered.
+
+
+731
+00:18:24,696 --> 00:18:27,356
+Right? So, we could redraw this
+
+
+732
+00:18:27,356 --> 00:18:28,666
+entire content, but that's
+
+
+733
+00:18:28,666 --> 00:18:29,876
+really unacceptable and
+
+
+734
+00:18:29,876 --> 00:18:30,366
+expensive.
+
+
+735
+00:18:30,366 --> 00:18:32,056
+No one wants to re-author a PDF
+
+
+736
+00:18:32,056 --> 00:18:34,236
+document by re-issuing and
+
+
+737
+00:18:34,236 --> 00:18:35,866
+redrawing all of these draw
+
+
+738
+00:18:35,866 --> 00:18:36,346
+commands.
+
+
+739
+00:18:36,876 --> 00:18:37,876
+So, instead, we're going to take
+
+
+740
+00:18:37,876 --> 00:18:39,326
+advantage of the power of PDF
+
+
+741
+00:18:39,326 --> 00:18:40,376
+and take advantage of the
+
+
+742
+00:18:40,376 --> 00:18:41,866
+enumeration I was talking about.
+
+
+743
+00:18:42,396 --> 00:18:43,326
+We're going to take this
+
+
+744
+00:18:43,326 --> 00:18:45,246
+PDFPage, and we're going to set
+
+
+745
+00:18:45,506 --> 00:18:46,926
+the frame for that specific
+
+
+746
+00:18:46,926 --> 00:18:48,496
+display box to be slightly
+
+
+747
+00:18:48,496 --> 00:18:48,976
+offset.
+
+
+748
+00:18:49,276 --> 00:18:50,376
+It's offset because we want to
+
+
+749
+00:18:50,376 --> 00:18:51,916
+keep San Jose dead center.
+
+
+750
+00:18:52,446 --> 00:18:54,766
+And I don't really like
+
+
+751
+00:18:54,766 --> 00:18:55,906
+Landscapes; I want to turn it
+
+
+752
+00:18:55,906 --> 00:18:57,106
+into Portrait, and I could do so
+
+
+753
+00:18:57,106 --> 00:18:58,496
+again without reissuing any of
+
+
+754
+00:18:58,496 --> 00:18:59,616
+my draw commands, I could just
+
+
+755
+00:18:59,616 --> 00:19:00,906
+set that frame property.
+
+
+756
+00:19:02,436 --> 00:19:04,656
+Now, why is it that I could
+
+
+757
+00:19:04,656 --> 00:19:06,666
+change to use PDFPage Geometric
+
+
+758
+00:19:06,666 --> 00:19:07,856
+Properties without changing the
+
+
+759
+00:19:07,856 --> 00:19:08,296
+content?
+
+
+760
+00:19:08,296 --> 00:19:09,426
+What's the real benefit other
+
+
+761
+00:19:09,426 --> 00:19:10,676
+than we're just saving some time
+
+
+762
+00:19:10,676 --> 00:19:11,716
+when saving the file?
+
+
+763
+00:19:12,196 --> 00:19:14,236
+The real benefit is PDF comes
+
+
+764
+00:19:14,236 --> 00:19:15,816
+from the physical printing
+
+
+765
+00:19:15,816 --> 00:19:16,106
+world.
+
+
+766
+00:19:16,456 --> 00:19:17,646
+That means that there are cases
+
+
+767
+00:19:17,646 --> 00:19:18,766
+where you actually want to have
+
+
+768
+00:19:18,806 --> 00:19:20,616
+multiple PDFPages for the same
+
+
+769
+00:19:20,616 --> 00:19:21,126
+content.
+
+
+770
+00:19:21,956 --> 00:19:23,596
+You should think about PDFPages
+
+
+771
+00:19:23,596 --> 00:19:25,486
+at least when it comes to this
+
+
+772
+00:19:25,486 --> 00:19:26,126
+content.
+
+
+773
+00:19:26,126 --> 00:19:27,036
+When you're drawing it out, you
+
+
+774
+00:19:27,036 --> 00:19:28,546
+should see them as View portals
+
+
+775
+00:19:28,546 --> 00:19:29,356
+into your content.
+
+
+776
+00:19:29,686 --> 00:19:32,186
+There's one box of content, but
+
+
+777
+00:19:32,186 --> 00:19:33,246
+then there could be several view
+
+
+778
+00:19:33,246 --> 00:19:34,936
+portals or pages into that
+
+
+779
+00:19:34,936 --> 00:19:35,406
+content.
+
+
+780
+00:19:35,766 --> 00:19:37,126
+And the reason why we do that
+
+
+781
+00:19:37,126 --> 00:19:38,826
+is, take a look at the corners,
+
+
+782
+00:19:39,526 --> 00:19:39,806
+right.
+
+
+783
+00:19:39,946 --> 00:19:41,396
+In the physical printing world,
+
+
+784
+00:19:41,466 --> 00:19:42,276
+when you're trying to print this
+
+
+785
+00:19:42,276 --> 00:19:43,576
+professionally, oftentimes,
+
+
+786
+00:19:43,576 --> 00:19:44,686
+they're going to print this
+
+
+787
+00:19:44,846 --> 00:19:46,616
+through several passes, and each
+
+
+788
+00:19:46,616 --> 00:19:47,576
+pass is going to lay on a
+
+
+789
+00:19:47,616 --> 00:19:48,646
+separate layer of ink.
+
+
+790
+00:19:48,646 --> 00:19:50,516
+And to do that perfectly, there
+
+
+791
+00:19:50,516 --> 00:19:51,426
+needs to be some sort of
+
+
+792
+00:19:51,426 --> 00:19:51,776
+alignment.
+
+
+793
+00:19:52,216 --> 00:19:53,316
+So, here, we've authored the
+
+
+794
+00:19:53,316 --> 00:19:54,756
+page with optical alignment
+
+
+795
+00:19:54,756 --> 00:19:56,426
+characters at each corner so the
+
+
+796
+00:19:56,526 --> 00:19:57,856
+physical process can put that
+
+
+797
+00:19:57,856 --> 00:19:58,886
+ink perfectly.
+
+
+798
+00:20:00,226 --> 00:20:01,616
+And that's why we have these
+
+
+799
+00:20:01,616 --> 00:20:01,976
+enumerations.
+
+
+800
+00:20:02,616 --> 00:20:03,846
+In this case, I'm showing the
+
+
+801
+00:20:03,846 --> 00:20:05,026
+digital version, which is the
+
+
+802
+00:20:05,026 --> 00:20:05,616
+Prop Box.
+
+
+803
+00:20:05,686 --> 00:20:07,196
+That's what PDFKit defaults to,
+
+
+804
+00:20:07,556 --> 00:20:08,626
+and then we're also showing the
+
+
+805
+00:20:08,766 --> 00:20:09,846
+physical version, which is what
+
+
+806
+00:20:09,846 --> 00:20:11,696
+we'll physically print, via the
+
+
+807
+00:20:11,696 --> 00:20:12,476
+media box.
+
+
+808
+00:20:12,826 --> 00:20:14,106
+There's three more that you
+
+
+809
+00:20:14,106 --> 00:20:15,676
+could play with, and then also
+
+
+810
+00:20:15,676 --> 00:20:16,746
+don't forget what's really
+
+
+811
+00:20:16,746 --> 00:20:18,586
+powerful about this is any
+
+
+812
+00:20:18,586 --> 00:20:19,776
+modifications you make to one
+
+
+813
+00:20:19,776 --> 00:20:20,736
+box, because you're modifying
+
+
+814
+00:20:20,736 --> 00:20:22,036
+that content, is going to appear
+
+
+815
+00:20:22,036 --> 00:20:22,866
+in both Pages.
+
+
+816
+00:20:23,576 --> 00:20:25,026
+All right.
+
+
+817
+00:20:25,466 --> 00:20:27,416
+So, let's now talk about Custom
+
+
+818
+00:20:27,416 --> 00:20:28,686
+PDFPage Drawing.
+
+
+819
+00:20:28,686 --> 00:20:29,556
+We've talked about changing
+
+
+820
+00:20:29,556 --> 00:20:30,606
+everything else, but what about
+
+
+821
+00:20:30,606 --> 00:20:31,846
+actually drawing content?
+
+
+822
+00:20:32,616 --> 00:20:33,936
+There are three simple steps.
+
+
+823
+00:20:34,236 --> 00:20:35,936
+The first is given a PDF
+
+
+824
+00:20:35,936 --> 00:20:37,276
+document; we're going to set a
+
+
+825
+00:20:37,276 --> 00:20:38,726
+PDFDocument delegate.
+
+
+826
+00:20:39,046 --> 00:20:39,856
+The reason why we set that
+
+
+827
+00:20:39,856 --> 00:20:42,096
+delegate is Step 2, that
+
+
+828
+00:20:42,096 --> 00:20:43,396
+delegate should implement
+
+
+829
+00:20:43,396 --> 00:20:44,386
+classForPage.
+
+
+830
+00:20:44,386 --> 00:20:46,306
+We're going to return a subclass
+
+
+831
+00:20:46,366 --> 00:20:48,016
+that we've implemented that's
+
+
+832
+00:20:48,016 --> 00:20:49,476
+going to define how do we want
+
+
+833
+00:20:49,476 --> 00:20:50,666
+to draw this PDFPage.
+
+
+834
+00:20:51,166 --> 00:20:52,046
+So, in this case, I'm going to
+
+
+835
+00:20:52,046 --> 00:20:53,956
+say please draw with my custom
+
+
+836
+00:20:53,956 --> 00:20:55,756
+subclass called WatermarkPage.
+
+
+837
+00:20:56,576 --> 00:20:58,516
+Third step, third and final, is
+
+
+838
+00:20:58,516 --> 00:20:59,846
+we need to actually override
+
+
+839
+00:20:59,846 --> 00:21:01,766
+that PDFPage subclass' draw
+
+
+840
+00:21:01,766 --> 00:21:02,136
+method.
+
+
+841
+00:21:02,406 --> 00:21:03,426
+So, we're going to do draw with
+
+
+842
+00:21:03,466 --> 00:21:05,136
+box to context.
+
+
+843
+00:21:05,496 --> 00:21:07,276
+Let me show you a full example
+
+
+844
+00:21:07,376 --> 00:21:08,330
+and end.
+
+
+845
+00:21:15,456 --> 00:21:16,000
+Perfect.
+
+
+846
+00:21:18,796 --> 00:21:18,946
+All right.
+
+
+847
+00:21:19,126 --> 00:21:21,746
+So, here I've got iOS simulator
+
+
+848
+00:21:21,746 --> 00:21:23,076
+running a sample application
+
+
+849
+00:21:23,076 --> 00:21:24,526
+that implements my three rules,
+
+
+850
+00:21:25,106 --> 00:21:26,636
+and in this application, I just
+
+
+851
+00:21:26,636 --> 00:21:27,676
+get to scroll around just like a
+
+
+852
+00:21:27,676 --> 00:21:30,236
+normal PDFView, but I want
+
+
+853
+00:21:30,236 --> 00:21:31,076
+something different in this
+
+
+854
+00:21:31,076 --> 00:21:31,646
+application.
+
+
+855
+00:21:31,776 --> 00:21:33,106
+I want to say that we're
+
+
+856
+00:21:33,106 --> 00:21:34,186
+handling really sensitive
+
+
+857
+00:21:34,186 --> 00:21:35,816
+documents, and every time one of
+
+
+858
+00:21:35,816 --> 00:21:37,506
+my users opens these documents,
+
+
+859
+00:21:37,926 --> 00:21:38,746
+we have to track them.
+
+
+860
+00:21:38,776 --> 00:21:40,926
+We have to know that user X has
+
+
+861
+00:21:40,926 --> 00:21:43,106
+seen this content, and if user X
+
+
+862
+00:21:43,106 --> 00:21:44,776
+leaks this content, right, we'll
+
+
+863
+00:21:44,776 --> 00:21:45,776
+know exactly who did it.
+
+
+864
+00:21:46,086 --> 00:21:47,596
+So, our goal is to draw some
+
+
+865
+00:21:47,596 --> 00:21:49,426
+custom identifier atop every
+
+
+866
+00:21:49,426 --> 00:21:51,316
+single page, and we could do so
+
+
+867
+00:21:51,316 --> 00:21:52,386
+with those three steps.
+
+
+868
+00:21:52,456 --> 00:21:54,406
+So, the very first step, if we
+
+
+869
+00:21:54,406 --> 00:21:55,806
+go to our ViewController,
+
+
+870
+00:21:56,386 --> 00:21:57,266
+there's a little bit of overhead
+
+
+871
+00:21:57,266 --> 00:21:58,686
+to set up the PDFView, but
+
+
+872
+00:21:58,806 --> 00:21:59,836
+here's the core step.
+
+
+873
+00:22:00,276 --> 00:22:01,446
+We are setting the delegate to
+
+
+874
+00:22:01,446 --> 00:22:02,016
+ourselves.
+
+
+875
+00:22:02,016 --> 00:22:03,156
+We are setting the delegate to
+
+
+876
+00:22:03,156 --> 00:22:03,946
+the ViewController.
+
+
+877
+00:22:04,366 --> 00:22:05,736
+The reason why we do that, Step
+
+
+878
+00:22:05,736 --> 00:22:07,496
+2, we're going to declare, like
+
+
+879
+00:22:07,496 --> 00:22:08,776
+you saw previously in the sides,
+
+
+880
+00:22:08,776 --> 00:22:09,666
+we're going to declare that
+
+
+881
+00:22:09,666 --> 00:22:11,256
+watermarkPage as this PDFPage
+
+
+882
+00:22:11,306 --> 00:22:13,026
+subclass, and we want to return
+
+
+883
+00:22:13,026 --> 00:22:14,196
+that as our customDrawer.
+
+
+884
+00:22:15,096 --> 00:22:18,006
+The final step, Step 3, is we're
+
+
+885
+00:22:18,006 --> 00:22:20,076
+now overriding the Draw
+
+
+886
+00:22:20,076 --> 00:22:21,326
+Function, draw with Box 2
+
+
+887
+00:22:21,326 --> 00:22:22,836
+context, and we're putting all
+
+
+888
+00:22:22,836 --> 00:22:24,166
+of our custom graphics inside.
+
+
+889
+00:22:24,996 --> 00:22:26,496
+So, before coming to stage
+
+
+890
+00:22:26,496 --> 00:22:27,666
+today, I commented out
+
+
+891
+00:22:27,666 --> 00:22:28,586
+everything just to see what it
+
+
+892
+00:22:28,586 --> 00:22:30,456
+would look like before.
+
+
+893
+00:22:30,456 --> 00:22:31,636
+And well, let me show you what
+
+
+894
+00:22:31,636 --> 00:22:32,406
+it looks like after.
+
+
+895
+00:22:33,196 --> 00:22:34,656
+So, in the code, I first call
+
+
+896
+00:22:34,656 --> 00:22:36,506
+Draw super, and then I draw my
+
+
+897
+00:22:36,506 --> 00:22:37,836
+custom graphics, and there's a
+
+
+898
+00:22:37,836 --> 00:22:38,626
+reason why I do that.
+
+
+899
+00:22:39,446 --> 00:22:40,736
+So, when I execute the code with
+
+
+900
+00:22:40,736 --> 00:22:42,376
+that modification, all pages
+
+
+901
+00:22:42,376 --> 00:22:44,136
+have this graphical content
+
+
+902
+00:22:44,136 --> 00:22:44,476
+added.
+
+
+903
+00:22:44,736 --> 00:22:45,836
+And what's really nice about
+
+
+904
+00:22:45,836 --> 00:22:47,386
+this is if I attempt to save the
+
+
+905
+00:22:47,386 --> 00:22:48,896
+document or print it, it's
+
+
+906
+00:22:48,896 --> 00:22:50,156
+guaranteed to have that custom
+
+
+907
+00:22:50,156 --> 00:22:51,626
+graphics that I've just put in.
+
+
+908
+00:22:52,386 --> 00:22:53,306
+But I wanted to mention again,
+
+
+909
+00:22:53,436 --> 00:22:55,636
+order is critical because we
+
+
+910
+00:22:55,636 --> 00:22:57,136
+respect the painter's algorithm.
+
+
+911
+00:22:57,136 --> 00:22:58,836
+What that means is whatever you
+
+
+912
+00:22:58,836 --> 00:22:59,906
+draw first, if you draw the
+
+
+913
+00:22:59,906 --> 00:23:01,506
+original content, followed by
+
+
+914
+00:23:01,506 --> 00:23:02,836
+drawing your custom content,
+
+
+915
+00:23:03,096 --> 00:23:04,336
+your custom content will appear
+
+
+916
+00:23:04,336 --> 00:23:04,696
+above.
+
+
+917
+00:23:05,296 --> 00:23:06,596
+If you flip that, if you draw
+
+
+918
+00:23:06,596 --> 00:23:08,116
+your custom content and then you
+
+
+919
+00:23:08,116 --> 00:23:09,906
+draw super, right, the original
+
+
+920
+00:23:09,906 --> 00:23:11,146
+content will be above.
+
+
+921
+00:23:11,606 --> 00:23:12,846
+So, just keep that in mind when
+
+
+922
+00:23:12,846 --> 00:23:13,766
+you're vieing custom drawing.
+
+
+923
+00:23:13,766 --> 00:23:13,976
+All right.
+
+
+924
+00:23:17,316 --> 00:23:19,596
+So, we have talked a lot about
+
+
+925
+00:23:19,596 --> 00:23:22,596
+PDFView, PDFDocument, PDFPage; I
+
+
+926
+00:23:22,596 --> 00:23:23,646
+think it's time we talk about
+
+
+927
+00:23:23,806 --> 00:23:24,486
+Annotations.
+
+
+928
+00:23:24,736 --> 00:23:25,076
+Nicki.
+
+
+929
+00:23:25,706 --> 00:23:26,500
+>> All right, perfect.
+
+
+930
+00:23:27,516 --> 00:23:31,396
+[ Audience Applause ]
+
+
+931
+00:23:31,896 --> 00:23:32,316
+>> All right.
+
+
+932
+00:23:32,316 --> 00:23:33,736
+Let's talk about my favorite
+
+
+933
+00:23:33,776 --> 00:23:35,086
+thing, Annotations.
+
+
+934
+00:23:35,156 --> 00:23:36,996
+First off, we keep saying this
+
+
+935
+00:23:36,996 --> 00:23:38,096
+word Annotations a lot.
+
+
+936
+00:23:38,096 --> 00:23:38,736
+What are these?
+
+
+937
+00:23:39,226 --> 00:23:40,456
+Well, these are interactive
+
+
+938
+00:23:40,456 --> 00:23:41,776
+graphical elements that we can
+
+
+939
+00:23:41,876 --> 00:23:42,966
+add to a PDF document.
+
+
+940
+00:23:43,806 --> 00:23:45,216
+These are things as simple as a
+
+
+941
+00:23:45,216 --> 00:23:47,676
+line or a square, but there's a
+
+
+942
+00:23:47,676 --> 00:23:48,906
+handful of other annotations as
+
+
+943
+00:23:48,906 --> 00:23:51,036
+well, like highlight, underline,
+
+
+944
+00:23:51,436 --> 00:23:53,346
+circles, links, and even
+
+
+945
+00:23:53,346 --> 00:23:54,656
+widgets, which are interactive
+
+
+946
+00:23:54,656 --> 00:23:55,386
+form elements.
+
+
+947
+00:23:56,076 --> 00:23:58,386
+We mentioned earlier that
+
+
+948
+00:23:58,386 --> 00:23:59,616
+Annotations are owned by
+
+
+949
+00:23:59,616 --> 00:24:00,396
+PDFPage.
+
+
+950
+00:24:00,876 --> 00:24:01,936
+So, whenever you create an
+
+
+951
+00:24:01,936 --> 00:24:03,816
+Annotation, you add or remove it
+
+
+952
+00:24:03,816 --> 00:24:05,146
+to and from a PDFPage.
+
+
+953
+00:24:05,456 --> 00:24:06,846
+And then, if your page is in a
+
+
+954
+00:24:06,846 --> 00:24:08,696
+PDFView, whenever you update
+
+
+955
+00:24:08,696 --> 00:24:10,006
+properties on that Annotation,
+
+
+956
+00:24:10,236 --> 00:24:11,696
+we will update it for you in
+
+
+957
+00:24:11,696 --> 00:24:12,856
+real time in the View.
+
+
+958
+00:24:14,086 --> 00:24:15,726
+What's fairly new to PDFKit is
+
+
+959
+00:24:15,726 --> 00:24:16,986
+our universal Annotation
+
+
+960
+00:24:16,986 --> 00:24:17,366
+support.
+
+
+961
+00:24:17,546 --> 00:24:18,616
+Okay. What is this?
+
+
+962
+00:24:19,226 --> 00:24:20,446
+Well, all those annotations that
+
+
+963
+00:24:20,446 --> 00:24:22,126
+I just showed you, those are the
+
+
+964
+00:24:22,126 --> 00:24:24,256
+ones that PDFKit supports, and
+
+
+965
+00:24:24,256 --> 00:24:25,486
+when I say that, I mean, we have
+
+
+966
+00:24:25,486 --> 00:24:26,946
+our own native rendering for
+
+
+967
+00:24:26,946 --> 00:24:27,956
+those annotation types.
+
+
+968
+00:24:28,046 --> 00:24:29,276
+But that doesn't mean you're
+
+
+969
+00:24:29,276 --> 00:24:31,006
+limited to only creating those
+
+
+970
+00:24:31,006 --> 00:24:32,006
+types of annotations.
+
+
+971
+00:24:32,536 --> 00:24:33,716
+With our universal support, you
+
+
+972
+00:24:33,716 --> 00:24:34,926
+can create whatever you want
+
+
+973
+00:24:35,256 --> 00:24:36,966
+because, well, the PDF spec
+
+
+974
+00:24:37,466 --> 00:24:39,366
+defines an annotation as just a
+
+
+975
+00:24:39,366 --> 00:24:40,766
+dictionary of keys and values.
+
+
+976
+00:24:40,826 --> 00:24:42,256
+So, we've gone ahead and
+
+
+977
+00:24:42,256 --> 00:24:44,006
+mimicked that within PDFKit.
+
+
+978
+00:24:44,396 --> 00:24:46,466
+For example, the PDF spec can
+
+
+979
+00:24:46,466 --> 00:24:47,746
+have extensions to it that
+
+
+980
+00:24:47,746 --> 00:24:49,336
+defines all sorts of annotations
+
+
+981
+00:24:49,336 --> 00:24:50,196
+we've never seen before.
+
+
+982
+00:24:50,896 --> 00:24:52,256
+Take the GPS Annotation.
+
+
+983
+00:24:52,516 --> 00:24:53,766
+This can have certain
+
+
+984
+00:24:53,766 --> 00:24:54,936
+properties, coordinates,
+
+
+985
+00:24:54,936 --> 00:24:56,806
+latitude, longitude, and with
+
+
+986
+00:24:56,806 --> 00:24:58,196
+their universal support, we can
+
+
+987
+00:24:58,196 --> 00:24:59,976
+go ahead and set those values on
+
+
+988
+00:24:59,976 --> 00:25:01,786
+our dictionary, and then what
+
+
+989
+00:25:01,786 --> 00:25:02,656
+you see is what you get.
+
+
+990
+00:25:03,266 --> 00:25:04,546
+Whatever you set, we'll go ahead
+
+
+991
+00:25:04,546 --> 00:25:05,886
+and author that into the file
+
+
+992
+00:25:05,886 --> 00:25:06,756
+whenever you write it out.
+
+
+993
+00:25:06,866 --> 00:25:08,906
+Even though the PDFKit might be
+
+
+994
+00:25:08,906 --> 00:25:10,436
+undefined, you'll still be able
+
+
+995
+00:25:10,436 --> 00:25:11,356
+to save it as part of the
+
+
+996
+00:25:11,356 --> 00:25:12,106
+PDFDocument.
+
+
+997
+00:25:12,516 --> 00:25:14,926
+What's new this year is we've
+
+
+998
+00:25:14,926 --> 00:25:16,426
+added an extension to this
+
+
+999
+00:25:16,426 --> 00:25:18,206
+class, which is PDFAnnotation
+
+
+1000
+00:25:18,206 --> 00:25:18,766
+utilities.
+
+
+1001
+00:25:19,346 --> 00:25:20,866
+This has a handful of category
+
+
+1002
+00:25:20,866 --> 00:25:22,176
+methods that make it just that
+
+
+1003
+00:25:22,176 --> 00:25:24,056
+much easier to be able to set
+
+
+1004
+00:25:24,056 --> 00:25:25,856
+and get the properties for
+
+
+1005
+00:25:25,856 --> 00:25:27,496
+annotations that we do support
+
+
+1006
+00:25:27,626 --> 00:25:28,856
+or just properties that are
+
+
+1007
+00:25:28,856 --> 00:25:30,086
+common amongst the annotations
+
+
+1008
+00:25:30,086 --> 00:25:32,006
+in general, like a color or a
+
+
+1009
+00:25:32,006 --> 00:25:32,376
+border.
+
+
+1010
+00:25:32,866 --> 00:25:34,636
+We'll take a look at our
+
+
+1011
+00:25:34,636 --> 00:25:35,966
+annotations again, but let's
+
+
+1012
+00:25:35,966 --> 00:25:37,816
+just focus in on one, a line
+
+
+1013
+00:25:37,816 --> 00:25:38,426
+annotation.
+
+
+1014
+00:25:39,456 --> 00:25:40,916
+We all know that annotations are
+
+
+1015
+00:25:40,916 --> 00:25:42,456
+just a bunch of properties, so
+
+
+1016
+00:25:42,456 --> 00:25:43,196
+whenever I change the
+
+
+1017
+00:25:43,196 --> 00:25:45,136
+properties, here all I've done
+
+
+1018
+00:25:45,136 --> 00:25:46,576
+are change my line ending styles
+
+
+1019
+00:25:46,576 --> 00:25:47,506
+and my border.
+
+
+1020
+00:25:47,806 --> 00:25:48,816
+We can make a simple line
+
+
+1021
+00:25:48,816 --> 00:25:50,086
+annotation look different six
+
+
+1022
+00:25:50,086 --> 00:25:50,336
+ways.
+
+
+1023
+00:25:51,326 --> 00:25:52,306
+So, let's take a look at how we
+
+
+1024
+00:25:52,306 --> 00:25:53,456
+actually set those properties.
+
+
+1025
+00:25:54,416 --> 00:25:55,686
+So, a line, it needs a start and
+
+
+1026
+00:25:55,686 --> 00:25:57,296
+end point, so we'll set that on
+
+
+1027
+00:25:57,296 --> 00:25:58,686
+our dictionary using SetValue
+
+
+1028
+00:25:58,686 --> 00:26:00,606
+forAnnotationKey with our
+
+
+1029
+00:26:00,606 --> 00:26:01,356
+linePointsKey.
+
+
+1030
+00:26:02,566 --> 00:26:03,826
+We'll set the line ending styles
+
+
+1031
+00:26:03,826 --> 00:26:05,306
+and want a closed arrow on one
+
+
+1032
+00:26:05,306 --> 00:26:06,316
+end and an open arrow on the
+
+
+1033
+00:26:06,316 --> 00:26:08,176
+other, and then we'll change the
+
+
+1034
+00:26:08,176 --> 00:26:08,526
+color.
+
+
+1035
+00:26:08,886 --> 00:26:09,936
+We'll change it to red.
+
+
+1036
+00:26:10,546 --> 00:26:12,036
+But remember those category
+
+
+1037
+00:26:12,036 --> 00:26:13,386
+methods I just talked about,
+
+
+1038
+00:26:13,386 --> 00:26:14,426
+let's go ahead and use those to
+
+
+1039
+00:26:14,426 --> 00:26:15,606
+do the same exact thing.
+
+
+1040
+00:26:16,766 --> 00:26:17,116
+Here we go.
+
+
+1041
+00:26:17,116 --> 00:26:18,416
+We're still setting the start
+
+
+1042
+00:26:18,416 --> 00:26:19,486
+and end point, the line ending
+
+
+1043
+00:26:19,536 --> 00:26:20,466
+styles, and the color.
+
+
+1044
+00:26:20,466 --> 00:26:22,486
+And when we compare the two,
+
+
+1045
+00:26:22,806 --> 00:26:24,186
+sure, the category methods might
+
+
+1046
+00:26:24,186 --> 00:26:25,416
+be a few extra lines of code,
+
+
+1047
+00:26:25,416 --> 00:26:26,746
+but it's very clear as to what
+
+
+1048
+00:26:26,746 --> 00:26:27,246
+we're doing.
+
+
+1049
+00:26:27,296 --> 00:26:28,836
+When we're setting values on the
+
+
+1050
+00:26:28,836 --> 00:26:30,606
+dictionary, we're mimicking the
+
+
+1051
+00:26:30,606 --> 00:26:31,906
+spec, and the spec can be a
+
+
+1052
+00:26:31,906 --> 00:26:32,746
+little confusing.
+
+
+1053
+00:26:32,746 --> 00:26:34,836
+To set an array of numbers or
+
+
+1054
+00:26:34,836 --> 00:26:36,236
+array of strings for our line
+
+
+1055
+00:26:36,236 --> 00:26:37,386
+points and line ending styles,
+
+
+1056
+00:26:38,286 --> 00:26:39,996
+that's just, again, confusing.
+
+
+1057
+00:26:40,456 --> 00:26:41,606
+With the category methods, it's
+
+
+1058
+00:26:41,606 --> 00:26:42,806
+explicit that you're setting the
+
+
+1059
+00:26:42,806 --> 00:26:44,526
+start point, the end point, the
+
+
+1060
+00:26:44,526 --> 00:26:45,806
+start and line style, and the
+
+
+1061
+00:26:45,806 --> 00:26:46,066
+color.
+
+
+1062
+00:26:46,596 --> 00:26:48,606
+Just makes life a little bit
+
+
+1063
+00:26:49,356 --> 00:26:49,506
+easier.
+
+
+1064
+00:26:49,616 --> 00:26:50,756
+Okay. Let's create an
+
+
+1065
+00:26:50,756 --> 00:26:51,386
+Annotation.
+
+
+1066
+00:26:51,516 --> 00:26:53,156
+Our [inaudible] method takes
+
+
+1067
+00:26:53,186 --> 00:26:55,086
+three properties, bounds, type,
+
+
+1068
+00:26:55,086 --> 00:26:56,156
+and the dictionary properties.
+
+
+1069
+00:26:56,636 --> 00:26:58,256
+Only two of these are required;
+
+
+1070
+00:26:58,556 --> 00:26:59,746
+abounds, we need to know where
+
+
+1071
+00:26:59,746 --> 00:27:00,746
+it's supposed to be in the page,
+
+
+1072
+00:27:01,136 --> 00:27:01,936
+and then a type.
+
+
+1073
+00:27:02,276 --> 00:27:03,426
+For here, we're going to create
+
+
+1074
+00:27:03,426 --> 00:27:04,306
+a square annotation.
+
+
+1075
+00:27:05,026 --> 00:27:06,346
+The properties parameter, we're
+
+
+1076
+00:27:06,346 --> 00:27:07,396
+going to leave no for now, but
+
+
+1077
+00:27:07,396 --> 00:27:10,176
+I'll get to that in a second.
+
+
+1078
+00:27:10,286 --> 00:27:11,886
+Okay. Let's set some properties.
+
+
+1079
+00:27:11,886 --> 00:27:12,906
+We'll set the color on it.
+
+
+1080
+00:27:12,906 --> 00:27:13,936
+We already know how to do that.
+
+
+1081
+00:27:14,376 --> 00:27:15,476
+But we'll set the border as
+
+
+1082
+00:27:15,476 --> 00:27:17,016
+well, and I want to touch on
+
+
+1083
+00:27:17,016 --> 00:27:19,356
+this PDFBorder object for just a
+
+
+1084
+00:27:19,486 --> 00:27:19,706
+second.
+
+
+1085
+00:27:19,926 --> 00:27:21,486
+The annotation dictionary is
+
+
+1086
+00:27:21,486 --> 00:27:23,316
+just a dictionary of keys and
+
+
+1087
+00:27:23,316 --> 00:27:24,916
+values, but some of its values
+
+
+1088
+00:27:24,946 --> 00:27:26,696
+can also be dictionaries, and so
+
+
+1089
+00:27:26,696 --> 00:27:28,036
+you don't have to go and pull up
+
+
+1090
+00:27:28,036 --> 00:27:29,146
+the spec and figure out how
+
+
+1091
+00:27:29,146 --> 00:27:30,086
+you're supposed to construct
+
+
+1092
+00:27:30,086 --> 00:27:31,446
+this border dictionary value.
+
+
+1093
+00:27:31,706 --> 00:27:32,866
+We've already created a support
+
+
+1094
+00:27:32,866 --> 00:27:34,036
+class for you, and that's
+
+
+1095
+00:27:34,086 --> 00:27:34,746
+PDFBorder.
+
+
+1096
+00:27:35,576 --> 00:27:37,556
+We'll set the line width, set to
+
+
+1097
+00:27:37,556 --> 00:27:39,056
+our annotation border property,
+
+
+1098
+00:27:39,146 --> 00:27:40,536
+and then when we add it to the
+
+
+1099
+00:27:40,536 --> 00:27:41,316
+page, it looks a little
+
+
+1100
+00:27:41,316 --> 00:27:42,006
+something like this.
+
+
+1101
+00:27:42,346 --> 00:27:43,386
+Just have a simple square,
+
+
+1102
+00:27:43,736 --> 00:27:45,126
+bottom left corner of our page,
+
+
+1103
+00:27:45,126 --> 00:27:45,756
+and it's red.
+
+
+1104
+00:27:46,316 --> 00:27:48,806
+Let's take a look at that
+
+
+1105
+00:27:48,806 --> 00:27:50,266
+properties parameter though.
+
+
+1106
+00:27:50,266 --> 00:27:51,466
+So, what we can do is we can
+
+
+1107
+00:27:51,466 --> 00:27:53,156
+kind of prebake a dictionary to
+
+
+1108
+00:27:53,156 --> 00:27:53,706
+properties.
+
+
+1109
+00:27:54,216 --> 00:27:55,046
+We're going to create a line
+
+
+1110
+00:27:55,046 --> 00:27:56,556
+annotation again, and we already
+
+
+1111
+00:27:56,556 --> 00:27:57,856
+know it takes line points, line
+
+
+1112
+00:27:57,856 --> 00:27:59,626
+ending styles, color, and now
+
+
+1113
+00:27:59,626 --> 00:28:00,036
+border.
+
+
+1114
+00:28:00,656 --> 00:28:01,546
+So, then, when we [inaudible]
+
+
+1115
+00:28:01,546 --> 00:28:03,786
+our annotation, we will, instead
+
+
+1116
+00:28:03,786 --> 00:28:05,216
+of using nil for our properties
+
+
+1117
+00:28:05,216 --> 00:28:06,406
+parameter use our line
+
+
+1118
+00:28:06,406 --> 00:28:07,316
+attributes dictionary.
+
+
+1119
+00:28:08,036 --> 00:28:09,136
+So, when we add it to the page,
+
+
+1120
+00:28:09,136 --> 00:28:09,926
+it looks a little something like
+
+
+1121
+00:28:09,926 --> 00:28:10,196
+this.
+
+
+1122
+00:28:10,806 --> 00:28:12,286
+It has a line starting at the
+
+
+1123
+00:28:12,286 --> 00:28:14,046
+origin, going up, and to the
+
+
+1124
+00:28:14,046 --> 00:28:15,986
+right, has a closed arrow on one
+
+
+1125
+00:28:15,986 --> 00:28:17,296
+end, and the color is red.
+
+
+1126
+00:28:17,426 --> 00:28:21,026
+I want to touch on this one
+
+
+1127
+00:28:21,026 --> 00:28:22,276
+property that annotations has
+
+
+1128
+00:28:22,276 --> 00:28:23,266
+which is really powerful.
+
+
+1129
+00:28:23,516 --> 00:28:24,486
+It's Action property.
+
+
+1130
+00:28:24,736 --> 00:28:26,496
+Just like PDFBorder was a
+
+
+1131
+00:28:26,496 --> 00:28:28,246
+wrapper for a dictionary, so is
+
+
+1132
+00:28:28,246 --> 00:28:30,366
+PDFAction, so you can do things
+
+
+1133
+00:28:30,366 --> 00:28:32,416
+such as jumping to a URL, and
+
+
+1134
+00:28:32,416 --> 00:28:34,306
+here we create URL, use that to
+
+
+1135
+00:28:34,306 --> 00:28:36,026
+create a PDFAction URL object,
+
+
+1136
+00:28:36,146 --> 00:28:37,256
+and then set it on our
+
+
+1137
+00:28:37,256 --> 00:28:37,956
+Annotation.
+
+
+1138
+00:28:38,156 --> 00:28:39,196
+For here, it's going to be a
+
+
+1139
+00:28:39,196 --> 00:28:40,036
+Link Annotation.
+
+
+1140
+00:28:40,596 --> 00:28:42,116
+But we can also do things such
+
+
+1141
+00:28:42,116 --> 00:28:43,426
+as jumping to a specific point
+
+
+1142
+00:28:43,426 --> 00:28:43,986
+in a document.
+
+
+1143
+00:28:44,596 --> 00:28:46,116
+We can do that by creating a
+
+
+1144
+00:28:46,116 --> 00:28:47,276
+PDFDestination object with the
+
+
+1145
+00:28:47,276 --> 00:28:49,196
+page and a point, using that to
+
+
+1146
+00:28:49,196 --> 00:28:50,926
+create our PDFAction go to
+
+
+1147
+00:28:50,926 --> 00:28:53,076
+action, and then, again, set our
+
+
+1148
+00:28:53,076 --> 00:28:53,746
+Action property.
+
+
+1149
+00:28:54,456 --> 00:28:57,176
+Okay. Let's talk about widgets.
+
+
+1150
+00:28:57,936 --> 00:28:59,206
+Widgets are, again, our
+
+
+1151
+00:28:59,206 --> 00:29:00,806
+interactive form elements, but
+
+
+1152
+00:29:00,806 --> 00:29:02,006
+these are a little confusing how
+
+
+1153
+00:29:02,006 --> 00:29:03,236
+to create, so I want to break it
+
+
+1154
+00:29:03,236 --> 00:29:03,936
+down for you guys.
+
+
+1155
+00:29:04,026 --> 00:29:05,886
+We have very different flavors
+
+
+1156
+00:29:05,886 --> 00:29:06,346
+of widgets.
+
+
+1157
+00:29:06,426 --> 00:29:08,696
+These are text widgets, buttons,
+
+
+1158
+00:29:08,696 --> 00:29:09,496
+and choice widgets.
+
+
+1159
+00:29:09,966 --> 00:29:11,776
+And so PDFKit knows what type of
+
+
+1160
+00:29:11,776 --> 00:29:13,036
+widget and interactive element
+
+
+1161
+00:29:13,036 --> 00:29:14,276
+to add to your PDFDocument.
+
+
+1162
+00:29:14,616 --> 00:29:15,476
+You need to let us know.
+
+
+1163
+00:29:15,846 --> 00:29:17,056
+And this is driven by our widget
+
+
+1164
+00:29:17,056 --> 00:29:18,616
+field type property to be either
+
+
+1165
+00:29:18,616 --> 00:29:19,766
+a text button or choice.
+
+
+1166
+00:29:21,536 --> 00:29:22,626
+Even further, some of our
+
+
+1167
+00:29:22,626 --> 00:29:24,036
+subtypes have more flavors.
+
+
+1168
+00:29:24,526 --> 00:29:25,816
+Like a button, we can have a
+
+
+1169
+00:29:25,816 --> 00:29:27,616
+radio button, a check box, or a
+
+
+1170
+00:29:27,616 --> 00:29:29,116
+push button, and this is driven
+
+
+1171
+00:29:29,116 --> 00:29:30,346
+by our widget control type
+
+
+1172
+00:29:30,346 --> 00:29:30,776
+property.
+
+
+1173
+00:29:32,196 --> 00:29:33,666
+And same with width or choice
+
+
+1174
+00:29:33,666 --> 00:29:34,066
+widgets.
+
+
+1175
+00:29:34,556 --> 00:29:36,176
+We have a list box, which is
+
+
+1176
+00:29:36,176 --> 00:29:38,176
+like a TableView, or a combo
+
+
+1177
+00:29:38,176 --> 00:29:39,386
+box, which is like a dropdown,
+
+
+1178
+00:29:39,526 --> 00:29:40,966
+and this is driven by our
+
+
+1179
+00:29:40,966 --> 00:29:42,026
+isListChoice property.
+
+
+1180
+00:29:42,486 --> 00:29:44,036
+By default, it's going to be a
+
+
+1181
+00:29:44,306 --> 00:29:45,886
+list box, but I want to let you
+
+
+1182
+00:29:45,886 --> 00:29:46,656
+know that there are two
+
+
+1183
+00:29:46,656 --> 00:29:47,216
+different types.
+
+
+1184
+00:29:47,886 --> 00:29:50,176
+Let's go ahead and create a
+
+
+1185
+00:29:50,176 --> 00:29:50,416
+widget.
+
+
+1186
+00:29:50,416 --> 00:29:51,686
+We're going to create a text
+
+
+1187
+00:29:51,686 --> 00:29:52,016
+widget.
+
+
+1188
+00:29:52,686 --> 00:29:54,236
+So, our subtype is going to be
+
+
+1189
+00:29:54,576 --> 00:29:56,326
+widget, but then when we start
+
+
+1190
+00:29:56,326 --> 00:29:57,366
+our properties, we know that we
+
+
+1191
+00:29:57,366 --> 00:29:58,286
+have to set the widget field
+
+
+1192
+00:29:58,286 --> 00:29:59,156
+type, and we're going to set it
+
+
+1193
+00:29:59,156 --> 00:29:59,646
+to be text.
+
+
+1194
+00:29:59,746 --> 00:30:00,636
+Then, we'll set a few other
+
+
+1195
+00:30:00,636 --> 00:30:00,976
+properties.
+
+
+1196
+00:30:01,376 --> 00:30:03,146
+We have our background color,
+
+
+1197
+00:30:03,376 --> 00:30:05,246
+font, and a string value, and
+
+
+1198
+00:30:05,246 --> 00:30:06,606
+then when we add it to a page,
+
+
+1199
+00:30:06,606 --> 00:30:07,736
+it'll look a little something
+
+
+1200
+00:30:07,736 --> 00:30:08,026
+like this.
+
+
+1201
+00:30:08,026 --> 00:30:10,076
+We have our text widget about
+
+
+1202
+00:30:10,076 --> 00:30:11,366
+the middle of the page, the blue
+
+
+1203
+00:30:11,366 --> 00:30:13,136
+background, and our string,
+
+
+1204
+00:30:13,176 --> 00:30:15,016
+WWDC2017.
+
+
+1205
+00:30:15,656 --> 00:30:16,746
+And if this was in a View,
+
+
+1206
+00:30:16,746 --> 00:30:17,796
+whenever I tapped on it or
+
+
+1207
+00:30:17,796 --> 00:30:19,056
+clicked on it, it would be fully
+
+
+1208
+00:30:19,056 --> 00:30:19,596
+interactive.
+
+
+1209
+00:30:22,066 --> 00:30:23,836
+Okay. Let's take a look at a
+
+
+1210
+00:30:23,876 --> 00:30:26,016
+real world example using
+
+
+1211
+00:30:26,016 --> 00:30:26,416
+widgets.
+
+
+1212
+00:30:27,226 --> 00:30:28,656
+So, I've already gone ahead and
+
+
+1213
+00:30:28,766 --> 00:30:30,966
+taken a PDF, which is going to
+
+
+1214
+00:30:30,966 --> 00:30:32,266
+be a survey, and I've added some
+
+
+1215
+00:30:32,266 --> 00:30:33,626
+interactive form elements to it.
+
+
+1216
+00:30:34,156 --> 00:30:35,786
+Let's take a look at what this
+
+
+1217
+00:30:35,786 --> 00:30:36,186
+looks like.
+
+
+1218
+00:30:36,976 --> 00:30:37,686
+So, here it is.
+
+
+1219
+00:30:37,686 --> 00:30:39,856
+I have text fields, which have
+
+
+1220
+00:30:39,916 --> 00:30:41,876
+the blue backgrounds, and then
+
+
+1221
+00:30:42,106 --> 00:30:43,476
+buttons, which have my gray
+
+
+1222
+00:30:43,476 --> 00:30:45,146
+backgrounds, and since we're all
+
+
+1223
+00:30:45,146 --> 00:30:46,796
+widget wizards, we all know that
+
+
+1224
+00:30:46,796 --> 00:30:48,346
+our text fields will have widget
+
+
+1225
+00:30:48,346 --> 00:30:50,146
+field type text; buttons will
+
+
+1226
+00:30:50,146 --> 00:30:51,266
+have widget field type button,
+
+
+1227
+00:30:51,526 --> 00:30:53,176
+and then even further, our
+
+
+1228
+00:30:53,176 --> 00:30:54,416
+buttons will have the proper
+
+
+1229
+00:30:54,416 --> 00:30:56,826
+widget control type set.
+
+
+1230
+00:30:57,376 --> 00:30:58,446
+So, we have our radio buttons,
+
+
+1231
+00:30:58,746 --> 00:31:00,976
+our check boxes, and then a push
+
+
+1232
+00:31:00,976 --> 00:31:01,896
+button down here, which is
+
+
+1233
+00:31:01,896 --> 00:31:03,426
+supposed to reset my entire
+
+
+1234
+00:31:03,426 --> 00:31:03,726
+form.
+
+
+1235
+00:31:04,206 --> 00:31:05,546
+There are some things though
+
+
+1236
+00:31:05,546 --> 00:31:06,776
+that aren't really working right
+
+
+1237
+00:31:06,876 --> 00:31:07,496
+with this PDF.
+
+
+1238
+00:31:07,646 --> 00:31:09,426
+For example, when I go to enter
+
+
+1239
+00:31:09,426 --> 00:31:12,686
+my date, which is June 9, you
+
+
+1240
+00:31:12,686 --> 00:31:13,456
+can see, it doesn't have the
+
+
+1241
+00:31:13,456 --> 00:31:14,726
+spacing as I would expect.
+
+
+1242
+00:31:15,186 --> 00:31:16,256
+And also, I can enter more
+
+
+1243
+00:31:16,256 --> 00:31:18,066
+characters than what the PDF
+
+
+1244
+00:31:18,116 --> 00:31:19,236
+says that I should be able to
+
+
+1245
+00:31:19,236 --> 00:31:19,526
+enter.
+
+
+1246
+00:31:19,906 --> 00:31:20,996
+That's not right.
+
+
+1247
+00:31:21,546 --> 00:31:22,596
+Also, when I select my radio
+
+
+1248
+00:31:22,596 --> 00:31:24,396
+buttons, I can select both at
+
+
+1249
+00:31:24,396 --> 00:31:25,056
+the same time.
+
+
+1250
+00:31:25,056 --> 00:31:26,126
+That's not really how radio
+
+
+1251
+00:31:26,126 --> 00:31:27,146
+buttons are supposed to behave.
+
+
+1252
+00:31:28,186 --> 00:31:29,546
+And finally, my button at the
+
+
+1253
+00:31:29,546 --> 00:31:31,366
+very bottom, when I click it, it
+
+
+1254
+00:31:31,366 --> 00:31:32,436
+does nothing.
+
+
+1255
+00:31:32,886 --> 00:31:33,936
+Well, let's go ahead and change
+
+
+1256
+00:31:33,936 --> 00:31:35,896
+all of that.
+
+
+1257
+00:31:36,066 --> 00:31:37,466
+Let's go to our date field.
+
+
+1258
+00:31:37,506 --> 00:31:38,766
+So, remember the things that
+
+
+1259
+00:31:38,766 --> 00:31:39,186
+were wrong.
+
+
+1260
+00:31:39,186 --> 00:31:40,346
+It was the spacing and the
+
+
+1261
+00:31:40,346 --> 00:31:41,496
+number of characters that we can
+
+
+1262
+00:31:41,496 --> 00:31:41,786
+enter.
+
+
+1263
+00:31:42,026 --> 00:31:43,276
+Well, we'll start with the easy
+
+
+1264
+00:31:43,276 --> 00:31:44,416
+one, and that's the number of
+
+
+1265
+00:31:44,416 --> 00:31:44,966
+characters.
+
+
+1266
+00:31:45,586 --> 00:31:47,246
+This is driven by our maximum
+
+
+1267
+00:31:47,246 --> 00:31:47,876
+length property.
+
+
+1268
+00:31:48,046 --> 00:31:49,936
+So, we'll set it to 5, 2 for the
+
+
+1269
+00:31:49,936 --> 00:31:51,696
+month, 1 for the slash and 1 for
+
+
+1270
+00:31:51,696 --> 00:31:51,976
+the day.
+
+
+1271
+00:31:51,976 --> 00:31:53,526
+So, now, the spacing.
+
+
+1272
+00:31:53,526 --> 00:31:55,116
+That seems a little hard to do.
+
+
+1273
+00:31:55,646 --> 00:31:56,916
+But actually, with PDFKit, it
+
+
+1274
+00:31:56,916 --> 00:31:57,516
+really isn't.
+
+
+1275
+00:31:57,886 --> 00:31:58,946
+All it is is a property that we
+
+
+1276
+00:31:58,946 --> 00:32:00,366
+have to set, which is our
+
+
+1277
+00:32:00,366 --> 00:32:01,566
+hasComb property.
+
+
+1278
+00:32:02,436 --> 00:32:04,136
+So, this property, what it does
+
+
+1279
+00:32:04,136 --> 00:32:06,096
+is if it's set, it will divide
+
+
+1280
+00:32:06,096 --> 00:32:07,656
+our text widget into an equal
+
+
+1281
+00:32:07,656 --> 00:32:10,076
+number of partitions or combs to
+
+
+1282
+00:32:10,206 --> 00:32:11,426
+the number that is set on our
+
+
+1283
+00:32:11,426 --> 00:32:12,346
+maximum length field.
+
+
+1284
+00:32:12,576 --> 00:32:14,906
+So, this property only works in
+
+
+1285
+00:32:14,996 --> 00:32:16,676
+conjunction with maximum length.
+
+
+1286
+00:32:17,116 --> 00:32:17,446
+All right.
+
+
+1287
+00:32:17,536 --> 00:32:18,216
+That's one's done.
+
+
+1288
+00:32:18,286 --> 00:32:19,416
+On to our radio buttons.
+
+
+1289
+00:32:20,746 --> 00:32:22,206
+The issue here is that they
+
+
+1290
+00:32:22,206 --> 00:32:23,336
+weren't behaving like radio
+
+
+1291
+00:32:23,336 --> 00:32:23,706
+buttons.
+
+
+1292
+00:32:25,056 --> 00:32:26,806
+So, all our widgets, they
+
+
+1293
+00:32:26,806 --> 00:32:27,916
+already have their own
+
+
+1294
+00:32:27,916 --> 00:32:29,296
+identifier, and this is driven
+
+
+1295
+00:32:29,296 --> 00:32:30,756
+by our field name property.
+
+
+1296
+00:32:31,246 --> 00:32:32,426
+So, if you want to group widgets
+
+
+1297
+00:32:32,426 --> 00:32:33,786
+together, they need to have the
+
+
+1298
+00:32:33,786 --> 00:32:34,596
+same field name.
+
+
+1299
+00:32:35,046 --> 00:32:37,266
+Let's do that.
+
+
+1300
+00:32:37,336 --> 00:32:38,636
+We'll have our yes button be
+
+
+1301
+00:32:38,636 --> 00:32:39,266
+Question 1.
+
+
+1302
+00:32:39,846 --> 00:32:41,616
+And then, our no button also be
+
+
+1303
+00:32:41,616 --> 00:32:42,206
+Question 1.
+
+
+1304
+00:32:43,456 --> 00:32:44,296
+I'm going to point out that it
+
+
+1305
+00:32:44,296 --> 00:32:45,206
+doesn't matter what these
+
+
+1306
+00:32:45,206 --> 00:32:46,676
+strings are; all that matters is
+
+
+1307
+00:32:46,676 --> 00:32:47,596
+that the two are the same.
+
+
+1308
+00:32:48,036 --> 00:32:49,506
+But if I were to run this code
+
+
+1309
+00:32:49,506 --> 00:32:50,916
+and select a radio button, all
+
+
+1310
+00:32:50,916 --> 00:32:52,156
+of them would turn on or all of
+
+
+1311
+00:32:52,156 --> 00:32:53,486
+them would turn off.
+
+
+1312
+00:32:53,486 --> 00:32:55,116
+That's because we don't know, we
+
+
+1313
+00:32:55,116 --> 00:32:55,676
+don't have a way to
+
+
+1314
+00:32:55,676 --> 00:32:57,246
+differentiate the yes button
+
+
+1315
+00:32:57,246 --> 00:32:58,016
+from the no button.
+
+
+1316
+00:32:58,066 --> 00:32:59,856
+They're each going to have their
+
+
+1317
+00:32:59,856 --> 00:33:01,406
+own unique kind of sub
+
+
+1318
+00:33:01,406 --> 00:33:02,036
+identifier.
+
+
+1319
+00:33:02,646 --> 00:33:04,186
+We can do that by setting the
+
+
+1320
+00:33:04,186 --> 00:33:05,126
+button widget state string
+
+
+1321
+00:33:05,126 --> 00:33:05,556
+property.
+
+
+1322
+00:33:06,406 --> 00:33:08,186
+Let's do that now.
+
+
+1323
+00:33:08,186 --> 00:33:09,526
+We'll set our yes button to yes
+
+
+1324
+00:33:09,656 --> 00:33:12,046
+and our no button to no.
+
+
+1325
+00:33:12,616 --> 00:33:13,696
+But again, it doesn't matter
+
+
+1326
+00:33:13,696 --> 00:33:14,566
+what these strings are.
+
+
+1327
+00:33:15,006 --> 00:33:17,646
+I can have this one be Nicki and
+
+
+1328
+00:33:17,736 --> 00:33:18,616
+this one be Brower.
+
+
+1329
+00:33:19,676 --> 00:33:20,756
+All that matters is that they're
+
+
+1330
+00:33:20,756 --> 00:33:21,106
+different.
+
+
+1331
+00:33:21,656 --> 00:33:22,916
+So, now, we've grouped them
+
+
+1332
+00:33:22,916 --> 00:33:24,516
+together with our field name
+
+
+1333
+00:33:24,516 --> 00:33:25,906
+property, but we've also set
+
+
+1334
+00:33:25,906 --> 00:33:27,356
+them apart with our button
+
+
+1335
+00:33:27,356 --> 00:33:28,136
+widget state string.
+
+
+1336
+00:33:28,636 --> 00:33:32,146
+Last but not least, we have our
+
+
+1337
+00:33:32,146 --> 00:33:32,886
+reset button.
+
+
+1338
+00:33:33,526 --> 00:33:35,636
+But again, we want to reset our
+
+
+1339
+00:33:35,636 --> 00:33:37,086
+entire form back to its original
+
+
+1340
+00:33:37,086 --> 00:33:37,426
+state.
+
+
+1341
+00:33:38,086 --> 00:33:40,016
+And just like PDFAction URL and
+
+
+1342
+00:33:40,016 --> 00:33:41,866
+PDFAction go to, we have
+
+
+1343
+00:33:41,866 --> 00:33:43,366
+PDFActionResetForm.
+
+
+1344
+00:33:44,016 --> 00:33:45,916
+Go ahead and create that now.
+
+
+1345
+00:33:47,416 --> 00:33:49,966
+Well, how this action works is
+
+
+1346
+00:33:49,966 --> 00:33:51,476
+it takes an array of strings,
+
+
+1347
+00:33:52,196 --> 00:33:53,396
+strings that represent field
+
+
+1348
+00:33:53,396 --> 00:33:54,896
+names like the ones we just set
+
+
+1349
+00:33:54,896 --> 00:33:56,856
+on the radio button, and the
+
+
+1350
+00:33:56,856 --> 00:33:58,046
+default behavior is when this
+
+
+1351
+00:33:58,046 --> 00:33:59,376
+action is performed, it will
+
+
+1352
+00:33:59,376 --> 00:34:00,986
+reset all of the widgets that
+
+
+1353
+00:34:00,986 --> 00:34:03,016
+are associated with my array of
+
+
+1354
+00:34:03,016 --> 00:34:03,886
+string field names.
+
+
+1355
+00:34:04,346 --> 00:34:05,486
+But I don't want to have to go
+
+
+1356
+00:34:05,486 --> 00:34:06,586
+through and figure out the field
+
+
+1357
+00:34:06,586 --> 00:34:07,616
+names of all my widgets.
+
+
+1358
+00:34:07,616 --> 00:34:08,856
+That just is too much work for
+
+
+1359
+00:34:08,856 --> 00:34:09,005
+me.
+
+
+1360
+00:34:09,005 --> 00:34:10,466
+So, I'm going to kind of change
+
+
+1361
+00:34:10,466 --> 00:34:12,326
+the behavior of this action, and
+
+
+1362
+00:34:12,326 --> 00:34:13,366
+I'm going to do that by setting
+
+
+1363
+00:34:13,366 --> 00:34:14,795
+our fields included are clear
+
+
+1364
+00:34:14,795 --> 00:34:15,766
+property to false.
+
+
+1365
+00:34:16,246 --> 00:34:18,136
+So, with just one line of code,
+
+
+1366
+00:34:18,136 --> 00:34:19,346
+I've kind of done two different
+
+
+1367
+00:34:19,346 --> 00:34:19,676
+things.
+
+
+1368
+00:34:20,426 --> 00:34:21,826
+I've now changed the behavior to
+
+
+1369
+00:34:21,826 --> 00:34:23,196
+where when I press -- when I
+
+
+1370
+00:34:23,196 --> 00:34:25,126
+perform this action, all of the
+
+
+1371
+00:34:25,126 --> 00:34:27,036
+widgets not included in my list
+
+
+1372
+00:34:27,036 --> 00:34:28,266
+are going to be cleared, and
+
+
+1373
+00:34:28,266 --> 00:34:29,966
+also, I haven't set any on my
+
+
+1374
+00:34:29,966 --> 00:34:30,346
+list.
+
+
+1375
+00:34:30,906 --> 00:34:31,946
+So, now, when I perform this,
+
+
+1376
+00:34:32,266 --> 00:34:33,576
+every widget in my document will
+
+
+1377
+00:34:33,576 --> 00:34:34,716
+be cleared, which is exactly
+
+
+1378
+00:34:34,716 --> 00:34:35,266
+what I wanted.
+
+
+1379
+00:34:35,516 --> 00:34:37,366
+And then, of course, we have to
+
+
+1380
+00:34:37,366 --> 00:34:38,456
+set the action property on our
+
+
+1381
+00:34:38,456 --> 00:34:40,255
+button, and that's it, just
+
+
+1382
+00:34:40,255 --> 00:34:40,985
+three lines of code.
+
+
+1383
+00:34:41,436 --> 00:34:43,516
+So, let's rerun this and fill
+
+
+1384
+00:34:43,516 --> 00:34:44,706
+out our survey from the very
+
+
+1385
+00:34:44,706 --> 00:34:45,726
+beginning with everything
+
+
+1386
+00:34:45,726 --> 00:34:46,416
+working properly.
+
+
+1387
+00:34:47,056 --> 00:34:49,326
+Here we go; we have our name,
+
+
+1388
+00:34:49,966 --> 00:34:52,505
+which is Nicki Brower; our date,
+
+
+1389
+00:34:52,505 --> 00:34:53,926
+which is June 9.
+
+
+1390
+00:34:54,406 --> 00:34:55,606
+We have the spacing that we
+
+
+1391
+00:34:55,606 --> 00:34:57,426
+wanted, and I don't know if you
+
+
+1392
+00:34:57,426 --> 00:34:58,386
+can hear, but I'm pressing a
+
+
+1393
+00:34:58,386 --> 00:34:59,496
+button and I can't enter more
+
+
+1394
+00:34:59,496 --> 00:35:01,496
+characters than what is desired,
+
+
+1395
+00:35:01,496 --> 00:35:02,586
+which is what we wanted.
+
+
+1396
+00:35:03,356 --> 00:35:04,096
+Have you been to a music
+
+
+1397
+00:35:04,096 --> 00:35:04,856
+festival before?
+
+
+1398
+00:35:04,986 --> 00:35:06,516
+No. Wait, yes, I have.
+
+
+1399
+00:35:07,346 --> 00:35:08,176
+Which of the following music
+
+
+1400
+00:35:08,176 --> 00:35:09,296
+festivals have you attended?
+
+
+1401
+00:35:09,436 --> 00:35:10,776
+I've been to iFestival,
+
+
+1402
+00:35:10,776 --> 00:35:12,946
+Swiftopia, but not Applepalooza.
+
+
+1403
+00:35:14,016 --> 00:35:15,436
+Give one recommendation to
+
+
+1404
+00:35:15,436 --> 00:35:17,046
+improve a music festival.
+
+
+1405
+00:35:17,916 --> 00:35:21,026
+All music festivals should be
+
+
+1406
+00:35:21,026 --> 00:35:21,366
+free.
+
+
+1407
+00:35:21,366 --> 00:35:23,816
+And I want to point out that our
+
+
+1408
+00:35:23,816 --> 00:35:25,346
+text widgets by default are
+
+
+1409
+00:35:25,346 --> 00:35:26,926
+single line, but if you want
+
+
+1410
+00:35:26,926 --> 00:35:28,116
+them to be multiline and have
+
+
+1411
+00:35:28,116 --> 00:35:29,186
+this word wrapping that I have
+
+
+1412
+00:35:29,186 --> 00:35:30,736
+here, all it is, is a simple
+
+
+1413
+00:35:30,736 --> 00:35:31,906
+category method that you have to
+
+
+1414
+00:35:31,906 --> 00:35:32,216
+set.
+
+
+1415
+00:35:32,856 --> 00:35:34,436
+And so now, with this PDF, I
+
+
+1416
+00:35:34,436 --> 00:35:35,696
+could save it, and it'll have
+
+
+1417
+00:35:35,696 --> 00:35:36,806
+all the values that I want, and
+
+
+1418
+00:35:36,806 --> 00:35:38,176
+I could send it to people, and
+
+
+1419
+00:35:38,176 --> 00:35:39,186
+they can see my values.
+
+
+1420
+00:35:39,666 --> 00:35:41,886
+Or if I want, I can still go
+
+
+1421
+00:35:41,886 --> 00:35:43,336
+ahead and clear my entire PDF
+
+
+1422
+00:35:43,576 --> 00:35:45,326
+with my Obliviate button at the
+
+
+1423
+00:35:45,326 --> 00:35:45,916
+very bottom.
+
+
+1424
+00:35:46,346 --> 00:35:47,716
+So, I'll press it, and we're
+
+
+1425
+00:35:47,716 --> 00:35:48,856
+back to the very beginning,
+
+
+1426
+00:35:49,896 --> 00:35:51,226
+which is the behavior that we
+
+
+1427
+00:35:51,226 --> 00:35:51,636
+wanted.
+
+
+1428
+00:35:52,346 --> 00:35:53,586
+So, I showed you with PDFKit, it
+
+
+1429
+00:35:53,586 --> 00:35:54,996
+really isn't that hard to take a
+
+
+1430
+00:35:55,036 --> 00:35:57,126
+simple PDF, add some widgets,
+
+
+1431
+00:35:57,126 --> 00:35:58,276
+and now you have a fully
+
+
+1432
+00:35:58,276 --> 00:35:59,366
+interactive one that you can
+
+
+1433
+00:35:59,366 --> 00:36:00,396
+share with whoever you want.
+
+
+1434
+00:36:00,496 --> 00:36:02,126
+And I don't know about you guys,
+
+
+1435
+00:36:02,126 --> 00:36:03,666
+but I think that's pretty cool.
+
+
+1436
+00:36:03,666 --> 00:36:04,976
+So, we're going to go ahead, oh!
+
+
+1437
+00:36:05,516 --> 00:36:08,436
+[ Audience Applause ]
+
+
+1438
+00:36:08,936 --> 00:36:09,726
+So, we're going to go back to
+
+
+1439
+00:36:09,726 --> 00:36:10,686
+Jeremy, and he's going to talk
+
+
+1440
+00:36:10,686 --> 00:36:11,976
+about a few best practices.
+
+
+1441
+00:36:16,416 --> 00:36:16,856
+>> Perfect.
+
+
+1442
+00:36:17,316 --> 00:36:18,476
+Thank you very much, Nicki.
+
+
+1443
+00:36:19,276 --> 00:36:21,116
+So, this year, Annotations have
+
+
+1444
+00:36:21,116 --> 00:36:22,596
+greatly improved, and we've also
+
+
+1445
+00:36:23,006 --> 00:36:24,956
+fixed a lot of issues in PDFKit
+
+
+1446
+00:36:24,956 --> 00:36:26,376
+and greatly improved other
+
+
+1447
+00:36:26,376 --> 00:36:27,276
+functionality too.
+
+
+1448
+00:36:27,696 --> 00:36:29,096
+And with our experience, we
+
+
+1449
+00:36:29,096 --> 00:36:30,076
+really want to give you a couple
+
+
+1450
+00:36:30,076 --> 00:36:30,936
+of recommendations that you
+
+
+1451
+00:36:30,936 --> 00:36:32,326
+could take away and improve on
+
+
+1452
+00:36:32,326 --> 00:36:33,196
+your code today.
+
+
+1453
+00:36:33,786 --> 00:36:35,346
+So, a couple of recommendations
+
+
+1454
+00:36:35,346 --> 00:36:35,816
+straight away.
+
+
+1455
+00:36:36,216 --> 00:36:38,076
+Use annotations for any sort of
+
+
+1456
+00:36:38,076 --> 00:36:40,396
+interactive elements or complex
+
+
+1457
+00:36:40,396 --> 00:36:41,786
+graphics that you want to do at
+
+
+1458
+00:36:41,786 --> 00:36:42,346
+run time.
+
+
+1459
+00:36:42,686 --> 00:36:44,256
+We've greatly put effort into
+
+
+1460
+00:36:44,256 --> 00:36:45,576
+optimizing these graphics, so
+
+
+1461
+00:36:45,576 --> 00:36:46,696
+it's a great option to take
+
+
+1462
+00:36:46,696 --> 00:36:47,276
+advantage of.
+
+
+1463
+00:36:47,656 --> 00:36:48,746
+And of course, if you are going
+
+
+1464
+00:36:48,746 --> 00:36:50,516
+to be mutating PDFAnnotations,
+
+
+1465
+00:36:50,986 --> 00:36:51,956
+take advantage of that
+
+
+1466
+00:36:51,956 --> 00:36:53,786
+PDFAnnotationUtilities category
+
+
+1467
+00:36:53,786 --> 00:36:54,866
+class extension.
+
+
+1468
+00:36:55,266 --> 00:36:56,536
+The reason why, as Nicki said,
+
+
+1469
+00:36:56,536 --> 00:36:57,736
+is that these are statically
+
+
+1470
+00:36:57,736 --> 00:36:58,536
+typed functions.
+
+
+1471
+00:36:58,816 --> 00:37:00,046
+You don't have to worry that a
+
+
+1472
+00:37:00,046 --> 00:37:01,196
+line point is an array of
+
+
+1473
+00:37:01,236 --> 00:37:01,696
+points.
+
+
+1474
+00:37:01,696 --> 00:37:03,046
+Actually, a line point is just a
+
+
+1475
+00:37:03,146 --> 00:37:05,186
+CG point, a pair of CG points.
+
+
+1476
+00:37:05,516 --> 00:37:06,396
+It's really straightforward.
+
+
+1477
+00:37:07,026 --> 00:37:08,546
+Finally, if you want to do a
+
+
+1478
+00:37:08,546 --> 00:37:10,506
+custom PDFPage drawing, it is
+
+
+1479
+00:37:10,506 --> 00:37:12,186
+required that your code be
+
+
+1480
+00:37:12,376 --> 00:37:13,246
+thread-safe.
+
+
+1481
+00:37:13,566 --> 00:37:14,786
+The reason why is, again, we've
+
+
+1482
+00:37:14,786 --> 00:37:15,976
+put so much effort into
+
+
+1483
+00:37:15,976 --> 00:37:17,576
+optimizing PDFKit to draw as
+
+
+1484
+00:37:17,576 --> 00:37:19,086
+fast as possible, we want to
+
+
+1485
+00:37:19,086 --> 00:37:20,256
+take advantage of all the cores
+
+
+1486
+00:37:20,256 --> 00:37:21,236
+that our different platforms
+
+
+1487
+00:37:21,236 --> 00:37:21,486
+have.
+
+
+1488
+00:37:21,926 --> 00:37:23,216
+And since many of our platforms
+
+
+1489
+00:37:23,216 --> 00:37:25,146
+are multi-core, it's absolutely
+
+
+1490
+00:37:25,146 --> 00:37:26,766
+possible that two threads might
+
+
+1491
+00:37:26,766 --> 00:37:28,316
+be drawing your PDFPage maybe in
+
+
+1492
+00:37:28,316 --> 00:37:30,396
+the main view and PDFPage as a
+
+
+1493
+00:37:30,396 --> 00:37:31,766
+thumbnail at the same time.
+
+
+1494
+00:37:32,186 --> 00:37:33,276
+So, make sure that your code is
+
+
+1495
+00:37:33,276 --> 00:37:33,846
+thread-safe.
+
+
+1496
+00:37:34,296 --> 00:37:35,636
+And along these lines, if you
+
+
+1497
+00:37:35,636 --> 00:37:37,386
+are doing custom PDFPage
+
+
+1498
+00:37:37,386 --> 00:37:39,116
+drawing, make sure that you call
+
+
+1499
+00:37:39,116 --> 00:37:40,556
+super at the appropriate time.
+
+
+1500
+00:37:40,686 --> 00:37:41,796
+If you want to put your graphics
+
+
+1501
+00:37:41,796 --> 00:37:43,236
+on top of the existing content,
+
+
+1502
+00:37:43,536 --> 00:37:44,896
+call super, and then execute
+
+
+1503
+00:37:44,896 --> 00:37:45,896
+your custom drawing code.
+
+
+1504
+00:37:46,236 --> 00:37:47,216
+Or if you want to put your
+
+
+1505
+00:37:47,216 --> 00:37:48,396
+custom graphics behind that
+
+
+1506
+00:37:48,426 --> 00:37:50,306
+content, do your custom code
+
+
+1507
+00:37:50,306 --> 00:37:51,966
+first, and then execute super
+
+
+1508
+00:37:51,966 --> 00:37:52,456
+last.
+
+
+1509
+00:37:53,146 --> 00:37:54,706
+Now, what we don't recommend,
+
+
+1510
+00:37:54,816 --> 00:37:57,056
+moving forward, is because
+
+
+1511
+00:37:57,136 --> 00:37:58,976
+PDFView derives from UIView and
+
+
+1512
+00:37:58,976 --> 00:38:00,166
+NSView on each platform
+
+
+1513
+00:38:00,166 --> 00:38:02,426
+respectively, those view classes
+
+
+1514
+00:38:02,426 --> 00:38:04,166
+give you the ability to call a
+
+
+1515
+00:38:04,166 --> 00:38:06,006
+method, call set needs display
+
+
+1516
+00:38:06,006 --> 00:38:07,386
+or some mutation of that method.
+
+
+1517
+00:38:07,666 --> 00:38:08,536
+And that method is really
+
+
+1518
+00:38:08,536 --> 00:38:10,096
+expensive because refreshing all
+
+
+1519
+00:38:10,096 --> 00:38:11,936
+of the content at once is just
+
+
+1520
+00:38:12,036 --> 00:38:12,576
+expensive.
+
+
+1521
+00:38:12,926 --> 00:38:13,816
+So, try to avoid it.
+
+
+1522
+00:38:13,816 --> 00:38:14,876
+Again, if you want to do custom
+
+
+1523
+00:38:14,876 --> 00:38:15,956
+graphics, take a look at
+
+
+1524
+00:38:15,956 --> 00:38:16,576
+Annotations.
+
+
+1525
+00:38:17,276 --> 00:38:19,266
+Finally, don't mutate PDFPage
+
+
+1526
+00:38:19,266 --> 00:38:20,866
+properties at the same time from
+
+
+1527
+00:38:20,866 --> 00:38:21,446
+different threads.
+
+
+1528
+00:38:21,736 --> 00:38:23,806
+A good example is don't rotate
+
+
+1529
+00:38:23,806 --> 00:38:25,356
+the PDFPage while you're drawing
+
+
+1530
+00:38:25,356 --> 00:38:26,676
+a thumbnail at the same time.
+
+
+1531
+00:38:27,016 --> 00:38:28,406
+There might be some undefined
+
+
+1532
+00:38:28,526 --> 00:38:30,406
+visual effects that might happen
+
+
+1533
+00:38:30,546 --> 00:38:31,446
+during those cases.
+
+
+1534
+00:38:32,116 --> 00:38:33,596
+And finally, this is specific to
+
+
+1535
+00:38:33,596 --> 00:38:35,266
+Mac OS only, but try to stay
+
+
+1536
+00:38:35,266 --> 00:38:36,936
+away from the deprecated drawing
+
+
+1537
+00:38:36,936 --> 00:38:37,346
+methods.
+
+
+1538
+00:38:37,786 --> 00:38:39,076
+The reason why goes all the way
+
+
+1539
+00:38:39,076 --> 00:38:40,586
+back to multi-threaded drawing.
+
+
+1540
+00:38:40,966 --> 00:38:42,236
+So, we build these really
+
+
+1541
+00:38:42,236 --> 00:38:43,456
+complicated contexts so you
+
+
+1542
+00:38:43,456 --> 00:38:44,286
+could draw your beautiful
+
+
+1543
+00:38:44,286 --> 00:38:45,916
+graphics into, and we want to
+
+
+1544
+00:38:45,916 --> 00:38:46,816
+give you these contexts
+
+
+1545
+00:38:46,896 --> 00:38:47,746
+explicitly.
+
+
+1546
+00:38:47,746 --> 00:38:48,976
+That's what the new signatures
+
+
+1547
+00:38:48,976 --> 00:38:49,326
+are for.
+
+
+1548
+00:38:49,636 --> 00:38:50,836
+The old signatures had an
+
+
+1549
+00:38:50,886 --> 00:38:52,316
+implicit context, and we want
+
+
+1550
+00:38:52,316 --> 00:38:53,366
+you to avoid that as much as
+
+
+1551
+00:38:53,366 --> 00:38:53,806
+possible.
+
+
+1552
+00:38:54,516 --> 00:38:56,096
+So, these are bits and pieces
+
+
+1553
+00:38:56,096 --> 00:38:56,836
+that we recommend.
+
+
+1554
+00:38:57,866 --> 00:38:59,366
+But looking at PDFKit again, we
+
+
+1555
+00:38:59,366 --> 00:39:01,076
+want to emphasize it's really
+
+
+1556
+00:39:01,226 --> 00:39:02,626
+easy for app developers to get
+
+
+1557
+00:39:02,626 --> 00:39:04,186
+started with PDFHandling today.
+
+
+1558
+00:39:04,186 --> 00:39:05,956
+They could use PDFView just to
+
+
+1559
+00:39:05,956 --> 00:39:07,226
+look at a document, or you could
+
+
+1560
+00:39:07,226 --> 00:39:08,906
+totally author a brand new one,
+
+
+1561
+00:39:09,156 --> 00:39:10,216
+or you could take an existing
+
+
+1562
+00:39:10,216 --> 00:39:11,266
+document, add a bunch of new
+
+
+1563
+00:39:11,266 --> 00:39:12,226
+content inside.
+
+
+1564
+00:39:12,866 --> 00:39:15,176
+It's also really easy to read,
+
+
+1565
+00:39:15,306 --> 00:39:16,886
+modify, and write these files,
+
+
+1566
+00:39:16,886 --> 00:39:17,796
+and you could write it with the
+
+
+1567
+00:39:17,796 --> 00:39:19,596
+latest encryption supported by
+
+
+1568
+00:39:19,596 --> 00:39:20,886
+the PDF specification.
+
+
+1569
+00:39:21,706 --> 00:39:22,966
+Of course, when you do write
+
+
+1570
+00:39:22,966 --> 00:39:24,416
+these files with that latest PDF
+
+
+1571
+00:39:24,416 --> 00:39:26,026
+specification, you could author
+
+
+1572
+00:39:26,026 --> 00:39:27,236
+these files with these really
+
+
+1573
+00:39:27,236 --> 00:39:28,746
+awesome form field widgets.
+
+
+1574
+00:39:28,746 --> 00:39:30,046
+So, that means fully interactive
+
+
+1575
+00:39:30,046 --> 00:39:31,266
+forms that you could fill out
+
+
+1576
+00:39:31,266 --> 00:39:32,866
+for your business needs or
+
+
+1577
+00:39:32,986 --> 00:39:34,406
+whatever other needs you have.
+
+
+1578
+00:39:35,346 --> 00:39:37,106
+Finally, just by adopting
+
+
+1579
+00:39:37,106 --> 00:39:38,626
+PDFView, don't forget, you get
+
+
+1580
+00:39:38,686 --> 00:39:40,186
+rich accessibility improvements
+
+
+1581
+00:39:40,186 --> 00:39:41,396
+that we've worked really hard on
+
+
+1582
+00:39:41,396 --> 00:39:43,136
+this year for both platforms.
+
+
+1583
+00:39:43,496 --> 00:39:44,916
+So, your users will really take
+
+
+1584
+00:39:44,916 --> 00:39:46,646
+advantage of that if they have
+
+
+1585
+00:39:46,646 --> 00:39:48,136
+any accessibility needs, and you
+
+
+1586
+00:39:48,136 --> 00:39:49,106
+don't have to worry about any
+
+
+1587
+00:39:49,106 --> 00:39:50,226
+sort of custom programming.
+
+
+1588
+00:39:50,906 --> 00:39:51,906
+Nicki and I want to thank you
+
+
+1589
+00:39:51,906 --> 00:39:53,216
+very, very much for coming to
+
+
+1590
+00:39:53,216 --> 00:39:53,956
+today's session.
+
+
+1591
+00:39:54,016 --> 00:39:55,166
+If you have any questions at
+
+
+1592
+00:39:55,166 --> 00:39:56,216
+all, [applause] thank you.
+
+
+1593
+00:39:56,436 --> 00:39:57,776
+Please visit our website, or
+
+
+1594
+00:39:57,776 --> 00:39:58,786
+come down to the podium.
+
+
+1595
+00:39:58,786 --> 00:39:59,796
+We'll gladly answer any
+
+
+1596
+00:39:59,796 --> 00:40:00,306
+questions.
+
+
+1597
+00:40:00,616 --> 00:40:02,336
+Have a fantastic rest of WWDC.
+
+
+1598
+00:40:02,336 --> 00:40:02,926
+Thank you again.
+
+
+1599
+00:40:03,056 --> 00:40:03,346
+>> Thank you.
+

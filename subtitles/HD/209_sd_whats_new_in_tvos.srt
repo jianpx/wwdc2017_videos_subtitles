@@ -1,0 +1,6024 @@
+1
+00:00:20,316 --> 00:00:21,676
+>> Good morning.
+
+
+2
+00:00:22,516 --> 00:00:25,166
+[ Applause ]
+
+
+3
+00:00:25,666 --> 00:00:27,306
+Welcome to What's New In tvOS?
+
+
+4
+00:00:27,886 --> 00:00:29,356
+I'm Hans, and I'm an engineer on
+
+
+5
+00:00:29,356 --> 00:00:30,156
+the tvOS Team.
+
+
+6
+00:00:30,796 --> 00:00:32,316
+This morning, with my colleague
+
+
+7
+00:00:32,316 --> 00:00:33,766
+Marshall, I'd like to talk to
+
+
+8
+00:00:33,766 --> 00:00:34,436
+you about some of the
+
+
+9
+00:00:34,436 --> 00:00:35,986
+enhancements and new APIs in
+
+
+10
+00:00:35,986 --> 00:00:36,316
+tvOS.
+
+
+11
+00:00:36,316 --> 00:00:38,476
+We're going to do this in two
+
+
+12
+00:00:38,476 --> 00:00:41,786
+parts, beginning with updates on
+
+
+13
+00:00:41,786 --> 00:00:42,986
+the overall SDK.
+
+
+14
+00:00:42,986 --> 00:00:44,666
+We're going to take a look at
+
+
+15
+00:00:44,666 --> 00:00:46,306
+system-wide improvements, and
+
+
+16
+00:00:46,306 --> 00:00:47,746
+then narrow down to individual
+
+
+17
+00:00:47,746 --> 00:00:48,176
+widgets.
+
+
+18
+00:00:48,896 --> 00:00:50,656
+Then, Marshall will talk to you
+
+
+19
+00:00:50,656 --> 00:00:52,256
+about some of the new APIs
+
+
+20
+00:00:52,256 --> 00:00:53,486
+around view controllers.
+
+
+21
+00:00:54,526 --> 00:00:55,386
+We have a lot of ground to
+
+
+22
+00:00:55,386 --> 00:00:56,696
+cover, so let's get started.
+
+
+23
+00:00:58,076 --> 00:01:00,256
+First, is ODR or On Demand
+
+
+24
+00:01:00,256 --> 00:01:00,876
+Resources.
+
+
+25
+00:01:01,076 --> 00:01:03,406
+For those of you, new to ODR, it
+
+
+26
+00:01:03,406 --> 00:01:04,666
+allows your app to keep its
+
+
+27
+00:01:04,666 --> 00:01:05,966
+resources in the App Store,
+
+
+28
+00:01:05,966 --> 00:01:07,166
+instead of including in the App
+
+
+29
+00:01:07,166 --> 00:01:07,496
+Bundle.
+
+
+30
+00:01:08,266 --> 00:01:09,686
+And then, your app can download
+
+
+31
+00:01:09,686 --> 00:01:10,776
+them as they become needed.
+
+
+32
+00:01:11,746 --> 00:01:13,506
+This helps your app to download
+
+
+33
+00:01:13,506 --> 00:01:16,336
+fast, launch quickly, while
+
+
+34
+00:01:16,336 --> 00:01:17,306
+still providing very
+
+
+35
+00:01:17,306 --> 00:01:18,346
+high-quality content to the
+
+
+36
+00:01:18,346 --> 00:01:18,866
+users.
+
+
+37
+00:01:19,276 --> 00:01:20,876
+And all of this, without taking
+
+
+38
+00:01:20,876 --> 00:01:22,356
+up a lot of local storage on the
+
+
+39
+00:01:22,356 --> 00:01:24,676
+customer's device at any given
+
+
+40
+00:01:25,996 --> 00:01:26,106
+time.
+
+
+41
+00:01:26,456 --> 00:01:28,186
+Last year, there was an upper
+
+
+42
+00:01:28,186 --> 00:01:30,986
+bound to your app bundle at 200
+
+
+43
+00:01:30,986 --> 00:01:31,556
+megabytes.
+
+
+44
+00:01:32,486 --> 00:01:33,766
+This helped your app to be very
+
+
+45
+00:01:33,766 --> 00:01:35,396
+lean, and ultimately, your
+
+
+46
+00:01:35,396 --> 00:01:36,726
+customers were able to start
+
+
+47
+00:01:36,726 --> 00:01:38,116
+using your app that much sooner.
+
+
+48
+00:01:39,456 --> 00:01:40,666
+But since then, we have received
+
+
+49
+00:01:40,666 --> 00:01:42,776
+many requests that this limit be
+
+
+50
+00:01:42,776 --> 00:01:43,276
+increased.
+
+
+51
+00:01:43,976 --> 00:01:46,396
+So, in tvOS 10.2, we increased
+
+
+52
+00:01:46,396 --> 00:01:48,576
+this to over 20 times at 4
+
+
+53
+00:01:48,576 --> 00:01:49,146
+gigabytes.
+
+
+54
+00:01:49,806 --> 00:01:52,256
+So, if you have an existing
+
+
+55
+00:01:52,256 --> 00:01:53,446
+project that conformed to the
+
+
+56
+00:01:53,446 --> 00:01:55,666
+old limit, and you have some
+
+
+57
+00:01:55,666 --> 00:01:56,816
+resources that you wish you
+
+
+58
+00:01:56,816 --> 00:01:57,986
+could have included in the app
+
+
+59
+00:01:57,986 --> 00:01:59,516
+bundle, the new limit will
+
+
+60
+00:01:59,516 --> 00:02:00,526
+enable you to do that.
+
+
+61
+00:02:01,656 --> 00:02:03,946
+First, go to the Asset Catalog,
+
+
+62
+00:02:05,226 --> 00:02:06,316
+and select the resource that you
+
+
+63
+00:02:06,316 --> 00:02:07,556
+want to move back into the app
+
+
+64
+00:02:07,556 --> 00:02:07,866
+bundle.
+
+
+65
+00:02:08,866 --> 00:02:10,406
+And at the bottom of attributes
+
+
+66
+00:02:10,406 --> 00:02:12,146
+inspector, simply delete the
+
+
+67
+00:02:12,146 --> 00:02:12,636
+tags.
+
+
+68
+00:02:13,676 --> 00:02:15,216
+Now, this resource is bundled,
+
+
+69
+00:02:15,846 --> 00:02:17,266
+so at runtime, you can directly
+
+
+70
+00:02:17,266 --> 00:02:18,896
+access it without first having
+
+
+71
+00:02:18,896 --> 00:02:20,086
+to make the bundle resource
+
+
+72
+00:02:20,086 --> 00:02:21,346
+request for it.
+
+
+73
+00:02:22,216 --> 00:02:24,036
+And of course, this increase
+
+
+74
+00:02:24,036 --> 00:02:25,546
+does not come at the cost of
+
+
+75
+00:02:25,996 --> 00:02:27,336
+counting towards the rest of
+
+
+76
+00:02:27,336 --> 00:02:29,576
+your asset pack allowance, which
+
+
+77
+00:02:29,926 --> 00:02:30,966
+remains the same at 20
+
+
+78
+00:02:30,966 --> 00:02:31,596
+gigabytes.
+
+
+79
+00:02:31,756 --> 00:02:33,546
+So, now, the combined size of
+
+
+80
+00:02:33,546 --> 00:02:35,456
+your app bundle and content can
+
+
+81
+00:02:35,456 --> 00:02:36,936
+be up to 24 gigabytes.
+
+
+82
+00:02:36,936 --> 00:02:39,226
+And this is a lot of content.
+
+
+83
+00:02:39,886 --> 00:02:41,276
+And we believe it will help you
+
+
+84
+00:02:41,586 --> 00:02:43,106
+make your app's user experience
+
+
+85
+00:02:43,106 --> 00:02:44,176
+even richer than before.
+
+
+86
+00:02:45,246 --> 00:02:47,396
+So, that's ODR in tvOS.
+
+
+87
+00:02:48,986 --> 00:02:50,956
+Next, we're thrilled to report
+
+
+88
+00:02:50,956 --> 00:02:53,726
+that beginning tvOS 11, RTL or
+
+
+89
+00:02:53,726 --> 00:02:54,766
+right to left languages, are
+
+
+90
+00:02:54,766 --> 00:02:55,566
+fully supported.
+
+
+91
+00:02:57,086 --> 00:02:58,886
+So, if your app looked like this
+
+
+92
+00:02:58,886 --> 00:03:00,966
+in English, it will look like
+
+
+93
+00:03:00,966 --> 00:03:04,036
+this in Arabic, and like this in
+
+
+94
+00:03:04,036 --> 00:03:04,416
+Hebrew.
+
+
+95
+00:03:05,056 --> 00:03:07,016
+In other words, your text will
+
+
+96
+00:03:07,016 --> 00:03:09,946
+flow right to left, and most of
+
+
+97
+00:03:09,946 --> 00:03:11,726
+your user interface will appear
+
+
+98
+00:03:11,726 --> 00:03:12,686
+automatically mirrored.
+
+
+99
+00:03:13,596 --> 00:03:15,626
+And if you're used to supporting
+
+
+100
+00:03:15,626 --> 00:03:18,016
+RTL in iOS or macOS, you'll be
+
+
+101
+00:03:18,016 --> 00:03:19,516
+pleased to know that everything
+
+
+102
+00:03:19,516 --> 00:03:21,256
+works the exact same way on tvOS
+
+
+103
+00:03:21,256 --> 00:03:21,786
+as well.
+
+
+104
+00:03:22,386 --> 00:03:24,426
+But if you're not, we have a few
+
+
+105
+00:03:24,426 --> 00:03:25,196
+recommendations.
+
+
+106
+00:03:26,356 --> 00:03:28,246
+First, is to use based
+
+
+107
+00:03:28,246 --> 00:03:29,196
+internationalization.
+
+
+108
+00:03:30,416 --> 00:03:31,956
+Base internationalization
+
+
+109
+00:03:32,296 --> 00:03:33,636
+separates string localization
+
+
+110
+00:03:33,636 --> 00:03:35,366
+from UI layout, so while you're
+
+
+111
+00:03:35,366 --> 00:03:36,376
+working on the UI, your
+
+
+112
+00:03:36,796 --> 00:03:38,416
+localization expert can continue
+
+
+113
+00:03:38,416 --> 00:03:39,906
+to translate the strings without
+
+
+114
+00:03:39,906 --> 00:03:41,676
+worrying about interfering with
+
+
+115
+00:03:41,676 --> 00:03:42,116
+the layout.
+
+
+116
+00:03:42,116 --> 00:03:45,006
+And all new projects are created
+
+
+117
+00:03:45,266 --> 00:03:47,256
+with base internationalization
+
+
+118
+00:03:47,256 --> 00:03:48,256
+turned on by default.
+
+
+119
+00:03:48,676 --> 00:03:49,736
+So, if you're starting anew,
+
+
+120
+00:03:50,146 --> 00:03:51,086
+you're already there.
+
+
+121
+00:03:51,406 --> 00:03:53,506
+But if you have an existing
+
+
+122
+00:03:53,506 --> 00:03:54,606
+project that has yet to take
+
+
+123
+00:03:54,606 --> 00:03:56,246
+advantage of this, you can go to
+
+
+124
+00:03:56,246 --> 00:03:57,916
+the Project Info, and check the
+
+
+125
+00:03:57,916 --> 00:03:59,286
+Use Base Internationalization
+
+
+126
+00:03:59,286 --> 00:04:02,086
+checkbox to start using it.
+
+
+127
+00:04:03,016 --> 00:04:04,926
+Next, is to use Auto Layout.
+
+
+128
+00:04:05,536 --> 00:04:07,136
+In particular, leading and
+
+
+129
+00:04:07,136 --> 00:04:09,616
+trailing attributes instead of
+
+
+130
+00:04:09,616 --> 00:04:11,046
+left or right when creating the
+
+
+131
+00:04:11,046 --> 00:04:11,526
+constraint.
+
+
+132
+00:04:11,866 --> 00:04:13,926
+This is so that when the system
+
+
+133
+00:04:13,926 --> 00:04:16,046
+lays out the UI, it can infer
+
+
+134
+00:04:16,046 --> 00:04:17,505
+the appropriate left or right
+
+
+135
+00:04:17,505 --> 00:04:18,866
+directions based on the current
+
+
+136
+00:04:18,866 --> 00:04:19,676
+language direction.
+
+
+137
+00:04:20,206 --> 00:04:24,166
+And finally, constantly test
+
+
+138
+00:04:24,166 --> 00:04:25,406
+your layout during development.
+
+
+139
+00:04:26,296 --> 00:04:27,346
+And to help you with this,
+
+
+140
+00:04:27,696 --> 00:04:28,786
+there's an option in Scheme
+
+
+141
+00:04:28,786 --> 00:04:29,986
+Settings where you can
+
+
+142
+00:04:29,986 --> 00:04:31,416
+temporarily set the application
+
+
+143
+00:04:31,416 --> 00:04:31,886
+language.
+
+
+144
+00:04:33,236 --> 00:04:34,326
+So, you can set it to Arabic,
+
+
+145
+00:04:35,226 --> 00:04:37,666
+Hebrew, or even right to left
+
+
+146
+00:04:37,666 --> 00:04:39,036
+pseudo language, which simply
+
+
+147
+00:04:39,036 --> 00:04:40,216
+flips the direction without
+
+
+148
+00:04:40,216 --> 00:04:41,376
+changing the actual language.
+
+
+149
+00:04:42,766 --> 00:04:44,666
+Now, RTL support is new in tvOS
+
+
+150
+00:04:44,666 --> 00:04:46,636
+this year, but it has been
+
+
+151
+00:04:46,636 --> 00:04:48,826
+around for iOS and macOS for a
+
+
+152
+00:04:48,826 --> 00:04:49,546
+number of years.
+
+
+153
+00:04:50,376 --> 00:04:51,616
+And previous years' sessions
+
+
+154
+00:04:51,616 --> 00:04:52,866
+have great guidelines and best
+
+
+155
+00:04:52,866 --> 00:04:54,466
+practices that now apply to
+
+
+156
+00:04:54,466 --> 00:04:54,776
+tvOS.
+
+
+157
+00:04:55,336 --> 00:04:56,416
+So, we highly recommend that you
+
+
+158
+00:04:56,416 --> 00:04:56,966
+check them out.
+
+
+159
+00:04:57,416 --> 00:05:00,536
+And of course, RTL support is
+
+
+160
+00:05:00,536 --> 00:05:01,766
+built into TVML.
+
+
+161
+00:05:01,766 --> 00:05:03,036
+So, if you're using TVML
+
+
+162
+00:05:03,036 --> 00:05:04,386
+templates in your app, you'll
+
+
+163
+00:05:04,386 --> 00:05:05,516
+get all the right behaviors for
+
+
+164
+00:05:05,516 --> 00:05:05,766
+free.
+
+
+165
+00:05:06,316 --> 00:05:11,376
+So, that's RTL support in tvOS.
+
+
+166
+00:05:11,466 --> 00:05:13,106
+Next, is Safe Area.
+
+
+167
+00:05:14,636 --> 00:05:17,076
+Many TVs use Overscan in some
+
+
+168
+00:05:17,076 --> 00:05:18,566
+shape or form, creating a
+
+
+169
+00:05:18,566 --> 00:05:20,256
+situation where not all the
+
+
+170
+00:05:20,256 --> 00:05:21,316
+pixels are displayed to the
+
+
+171
+00:05:21,316 --> 00:05:21,726
+user.
+
+
+172
+00:05:22,926 --> 00:05:24,316
+So, in the past, we have
+
+
+173
+00:05:24,316 --> 00:05:25,606
+recommended that you manually
+
+
+174
+00:05:25,606 --> 00:05:28,926
+compensate for this by insetting
+
+
+175
+00:05:29,046 --> 00:05:30,166
+your view's content.
+
+
+176
+00:05:31,276 --> 00:05:33,386
+And the API to assist you was
+
+
+177
+00:05:33,786 --> 00:05:34,436
+UIScrollView.
+
+
+178
+00:05:34,536 --> 00:05:36,176
+overscanCompensationInsets.
+
+
+179
+00:05:36,856 --> 00:05:37,866
+This provided you with the
+
+
+180
+00:05:37,866 --> 00:05:39,836
+values that you can then plug
+
+
+181
+00:05:39,836 --> 00:05:40,756
+into your view or view
+
+
+182
+00:05:40,756 --> 00:05:42,846
+controller's configuration code.
+
+
+183
+00:05:44,496 --> 00:05:46,946
+TVOS 11 introduces a more,
+
+
+184
+00:05:46,946 --> 00:05:49,786
+robust framework for you to make
+
+
+185
+00:05:49,786 --> 00:05:51,336
+sure your content is within the
+
+
+186
+00:05:51,336 --> 00:05:53,126
+Safe Area, with much less work.
+
+
+187
+00:05:54,116 --> 00:05:56,086
+So, for example, some properties
+
+
+188
+00:05:56,086 --> 00:05:57,356
+are automatically updated for
+
+
+189
+00:05:57,356 --> 00:05:57,516
+you.
+
+
+190
+00:05:58,006 --> 00:06:00,976
+Your view's safeAreaInsets is
+
+
+191
+00:06:00,976 --> 00:06:02,936
+updated as it moves in and out
+
+
+192
+00:06:02,936 --> 00:06:03,776
+of the view hierarchy.
+
+
+193
+00:06:04,886 --> 00:06:09,126
+And your view's safeLayoutGuide
+
+
+194
+00:06:09,736 --> 00:06:11,316
+is also updated as the Safe Area
+
+
+195
+00:06:11,316 --> 00:06:12,116
+Inset changes.
+
+
+196
+00:06:13,396 --> 00:06:15,306
+But you can also customize your
+
+
+197
+00:06:15,306 --> 00:06:18,236
+own things, by using UIView
+
+
+198
+00:06:18,236 --> 00:06:18,816
+Controller's
+
+
+199
+00:06:18,816 --> 00:06:20,376
+additionalSafeAreaInsets.
+
+
+200
+00:06:21,106 --> 00:06:22,866
+And the values you specify here,
+
+
+201
+00:06:23,006 --> 00:06:24,816
+will be added when calculating
+
+
+202
+00:06:24,816 --> 00:06:26,256
+the Safe Area Insets of the View
+
+
+203
+00:06:26,256 --> 00:06:27,016
+Controller's view.
+
+
+204
+00:06:28,956 --> 00:06:31,076
+Now when you link your app
+
+
+205
+00:06:31,076 --> 00:06:33,116
+against tvOS 11, your app will
+
+
+206
+00:06:33,116 --> 00:06:34,486
+be subject to the new behavior.
+
+
+207
+00:06:34,576 --> 00:06:36,556
+And we highly recommend that you
+
+
+208
+00:06:36,556 --> 00:06:39,216
+take opportunity to audit your
+
+
+209
+00:06:39,216 --> 00:06:41,106
+app, and adjust the layout in
+
+
+210
+00:06:41,106 --> 00:06:42,326
+the context of these new APIs.
+
+
+211
+00:06:42,326 --> 00:06:45,246
+There was a session yesterday,
+
+
+212
+00:06:45,736 --> 00:06:47,596
+Updating Your App for iOS 11,
+
+
+213
+00:06:47,936 --> 00:06:49,376
+that goes into this very topic
+
+
+214
+00:06:49,376 --> 00:06:49,706
+in depth.
+
+
+215
+00:06:49,706 --> 00:06:52,286
+So, we recommend you check it
+
+
+216
+00:06:53,966 --> 00:06:54,046
+out.
+
+
+217
+00:06:54,286 --> 00:06:56,416
+But if you have a view or view
+
+
+218
+00:06:56,416 --> 00:06:57,446
+controller that manually
+
+
+219
+00:06:57,446 --> 00:06:59,106
+compensates for Overscan, and it
+
+
+220
+00:06:59,106 --> 00:07:01,366
+does so in a rather delicate
+
+
+221
+00:07:01,366 --> 00:07:02,666
+way, and you're hesitant to
+
+
+222
+00:07:02,666 --> 00:07:05,256
+touch it just yet, you can opt
+
+
+223
+00:07:05,256 --> 00:07:06,646
+out of the new behavior on the
+
+
+224
+00:07:06,646 --> 00:07:08,256
+view or view controller basis.
+
+
+225
+00:07:09,556 --> 00:07:13,036
+And to do this, there are Insets
+
+
+226
+00:07:13,036 --> 00:07:14,536
+Layout Margins from Safe Area
+
+
+227
+00:07:14,536 --> 00:07:18,356
+for your view, and view respects
+
+
+228
+00:07:18,356 --> 00:07:19,816
+system minimum layout margins
+
+
+229
+00:07:19,816 --> 00:07:20,726
+for your view controller.
+
+
+230
+00:07:21,326 --> 00:07:24,336
+And our own experience suggests
+
+
+231
+00:07:24,336 --> 00:07:25,816
+that oftentimes, it's your
+
+
+232
+00:07:25,816 --> 00:07:27,846
+scroll view that requires some
+
+
+233
+00:07:27,846 --> 00:07:28,476
+of your attention.
+
+
+234
+00:07:29,256 --> 00:07:31,696
+So, for scroll views, there is
+
+
+235
+00:07:32,146 --> 00:07:33,306
+Content Inset Adjustment
+
+
+236
+00:07:33,306 --> 00:07:33,786
+Behavior.
+
+
+237
+00:07:34,966 --> 00:07:36,596
+And by setting this to Never,
+
+
+238
+00:07:36,596 --> 00:07:38,096
+you're effectively opting out
+
+
+239
+00:07:38,096 --> 00:07:39,146
+your scroll view to the new
+
+
+240
+00:07:39,146 --> 00:07:39,586
+behavior.
+
+
+241
+00:07:40,206 --> 00:07:42,246
+So, that's Safe Area.
+
+
+242
+00:07:44,296 --> 00:07:47,236
+Next, is updating your app's
+
+
+243
+00:07:47,266 --> 00:07:49,846
+data in the background.
+
+
+244
+00:07:49,846 --> 00:07:51,526
+Last year, we brought user
+
+
+245
+00:07:51,526 --> 00:07:52,896
+notification framework to the
+
+
+246
+00:07:52,896 --> 00:07:55,716
+tvOS, so you can send remote or
+
+
+247
+00:07:55,716 --> 00:07:57,026
+push notifications to your app.
+
+
+248
+00:07:57,026 --> 00:07:58,946
+But there was one notable
+
+
+249
+00:07:58,946 --> 00:07:59,476
+aspect.
+
+
+250
+00:08:00,456 --> 00:08:01,436
+When the system received
+
+
+251
+00:08:01,436 --> 00:08:02,676
+multiple notifications while
+
+
+252
+00:08:02,676 --> 00:08:04,896
+your app is not running, it only
+
+
+253
+00:08:04,896 --> 00:08:06,606
+delivered the very last one and
+
+
+254
+00:08:06,606 --> 00:08:08,736
+that, when the app is explicitly
+
+
+255
+00:08:08,736 --> 00:08:09,656
+launched by the user.
+
+
+256
+00:08:10,876 --> 00:08:11,936
+And this is improving.
+
+
+257
+00:08:12,866 --> 00:08:15,776
+In tvOS 11, when a notification
+
+
+258
+00:08:15,776 --> 00:08:17,766
+is received by the system, the
+
+
+259
+00:08:17,766 --> 00:08:19,436
+system wakes your app in the
+
+
+260
+00:08:19,436 --> 00:08:21,496
+background, and delivers it.
+
+
+261
+00:08:22,566 --> 00:08:23,786
+And this provides an effective
+
+
+262
+00:08:23,786 --> 00:08:25,776
+means for what's called a silent
+
+
+263
+00:08:25,776 --> 00:08:26,426
+notification.
+
+
+264
+00:08:27,026 --> 00:08:30,046
+A silent notification is a
+
+
+265
+00:08:30,046 --> 00:08:32,336
+notification that wakes up your
+
+
+266
+00:08:32,336 --> 00:08:33,956
+app in the background, so it can
+
+
+267
+00:08:33,956 --> 00:08:35,306
+do some work transparently for
+
+
+268
+00:08:35,306 --> 00:08:35,775
+the user.
+
+
+269
+00:08:36,246 --> 00:08:37,376
+That's where the word "silent"
+
+
+270
+00:08:37,376 --> 00:08:37,816
+comes from.
+
+
+271
+00:08:39,265 --> 00:08:40,246
+And by using silent
+
+
+272
+00:08:40,246 --> 00:08:42,596
+notification, you can
+
+
+273
+00:08:42,596 --> 00:08:43,866
+periodically download new
+
+
+274
+00:08:43,866 --> 00:08:46,006
+content, refresh your app's
+
+
+275
+00:08:46,006 --> 00:08:48,086
+data, or even set up to alert
+
+
+276
+00:08:48,086 --> 00:08:49,336
+the user in the app, when the
+
+
+277
+00:08:49,336 --> 00:08:50,406
+app enters foreground.
+
+
+278
+00:08:51,556 --> 00:08:53,266
+So, to configure your app to
+
+
+279
+00:08:53,266 --> 00:08:54,636
+process silent notification,
+
+
+280
+00:08:55,046 --> 00:08:57,566
+first, add remote notifications
+
+
+281
+00:08:57,566 --> 00:08:58,276
+background mode.
+
+
+282
+00:08:59,576 --> 00:09:01,276
+And then, make your app
+
+
+283
+00:09:01,276 --> 00:09:02,866
+delegate, the user notification
+
+
+284
+00:09:02,866 --> 00:09:03,506
+center delegate.
+
+
+285
+00:09:05,616 --> 00:09:07,156
+And register to receive remote
+
+
+286
+00:09:07,156 --> 00:09:07,856
+notifications.
+
+
+287
+00:09:08,376 --> 00:09:10,966
+And then user notification
+
+
+288
+00:09:10,966 --> 00:09:11,936
+center did receive with
+
+
+289
+00:09:11,936 --> 00:09:14,216
+completion handler, do the work.
+
+
+290
+00:09:14,886 --> 00:09:17,496
+So, that's silent notifications.
+
+
+291
+00:09:17,816 --> 00:09:20,846
+The second way of updating your
+
+
+292
+00:09:20,846 --> 00:09:22,396
+app's data in the background is
+
+
+293
+00:09:22,396 --> 00:09:23,776
+through a mechanism called
+
+
+294
+00:09:23,896 --> 00:09:24,686
+Background Fetch.
+
+
+295
+00:09:26,196 --> 00:09:28,736
+So, if your app needs to for
+
+
+296
+00:09:28,736 --> 00:09:30,756
+example, periodically check for
+
+
+297
+00:09:30,756 --> 00:09:33,386
+new content, it can register for
+
+
+298
+00:09:33,386 --> 00:09:34,146
+Background Fetch.
+
+
+299
+00:09:35,016 --> 00:09:36,756
+Then the system, when it deems
+
+
+300
+00:09:36,756 --> 00:09:38,316
+an opportunity arises for you,
+
+
+301
+00:09:39,556 --> 00:09:40,726
+wakes it up in the background.
+
+
+302
+00:09:41,846 --> 00:09:43,486
+Your app can then initiate a
+
+
+303
+00:09:43,486 --> 00:09:44,836
+fetch operation and do the work.
+
+
+304
+00:09:45,296 --> 00:09:48,136
+To configure your app to do a
+
+
+305
+00:09:48,136 --> 00:09:50,716
+Background Fetch, first add
+
+
+306
+00:09:50,716 --> 00:09:51,816
+Background Fetch Background
+
+
+307
+00:09:51,816 --> 00:09:54,406
+Mode, and then, in your app
+
+
+308
+00:09:54,406 --> 00:09:55,856
+delegate, register for
+
+
+309
+00:09:55,856 --> 00:09:56,646
+Background Fetch.
+
+
+310
+00:09:57,206 --> 00:10:00,426
+And finally, in your application
+
+
+311
+00:10:00,426 --> 00:10:01,646
+perform Fetch with Completion
+
+
+312
+00:10:01,646 --> 00:10:03,866
+Handler, implement the work, and
+
+
+313
+00:10:03,866 --> 00:10:05,096
+don't forget to call the
+
+
+314
+00:10:05,096 --> 00:10:06,016
+Completion Handler with the
+
+
+315
+00:10:06,016 --> 00:10:06,566
+fetch result.
+
+
+316
+00:10:07,816 --> 00:10:09,196
+So, that's Background Fetch.
+
+
+317
+00:10:10,136 --> 00:10:12,166
+And as you can see, tvOS11
+
+
+318
+00:10:12,166 --> 00:10:13,426
+provides two new ways of
+
+
+319
+00:10:13,426 --> 00:10:14,736
+updating your app's data.
+
+
+320
+00:10:15,856 --> 00:10:17,866
+Often, you know exactly when new
+
+
+321
+00:10:17,866 --> 00:10:19,336
+data is available for your app,
+
+
+322
+00:10:19,596 --> 00:10:21,626
+and that's when you call silent
+
+
+323
+00:10:21,626 --> 00:10:22,206
+notification.
+
+
+324
+00:10:23,596 --> 00:10:25,136
+On the other hand, it's the
+
+
+325
+00:10:25,136 --> 00:10:26,846
+system that knows, "When is the
+
+
+326
+00:10:26,846 --> 00:10:28,166
+best time to check for updates
+
+
+327
+00:10:28,166 --> 00:10:28,686
+for your app?"
+
+
+328
+00:10:28,686 --> 00:10:30,896
+And this is because it not only
+
+
+329
+00:10:30,896 --> 00:10:32,086
+looks into its own resource
+
+
+330
+00:10:32,086 --> 00:10:34,136
+availability, but also takes
+
+
+331
+00:10:34,136 --> 00:10:35,936
+into account user behaviors such
+
+
+332
+00:10:35,936 --> 00:10:38,086
+as which apps the user has been
+
+
+333
+00:10:38,086 --> 00:10:39,116
+using most frequently.
+
+
+334
+00:10:40,446 --> 00:10:41,756
+So, to take advantage of that,
+
+
+335
+00:10:42,666 --> 00:10:43,976
+register for Background Fetch.
+
+
+336
+00:10:45,396 --> 00:10:46,956
+And we hope you take advantage
+
+
+337
+00:10:46,956 --> 00:10:48,346
+of these new ways to make sure
+
+
+338
+00:10:48,346 --> 00:10:50,296
+your app is up to date, even
+
+
+339
+00:10:50,296 --> 00:10:51,616
+before it enters the foreground.
+
+
+340
+00:10:52,066 --> 00:10:54,976
+So, that's Background Update.
+
+
+341
+00:10:56,516 --> 00:10:59,376
+[ Applause ]
+
+
+342
+00:10:59,876 --> 00:11:01,716
+Next, is scrolling.
+
+
+343
+00:11:02,956 --> 00:11:04,356
+When a scroll view has a large
+
+
+344
+00:11:04,356 --> 00:11:05,966
+amount of content, it is often
+
+
+345
+00:11:05,966 --> 00:11:07,446
+tedious, if not frustrating, to
+
+
+346
+00:11:07,446 --> 00:11:08,986
+scroll through them all, to get
+
+
+347
+00:11:08,986 --> 00:11:10,376
+to the exact item you want.
+
+
+348
+00:11:11,326 --> 00:11:14,016
+So, in tvOS 10.2, we introduced
+
+
+349
+00:11:14,016 --> 00:11:15,456
+Accelerated Scrolling to help
+
+
+350
+00:11:15,456 --> 00:11:16,906
+users scroll more efficiently.
+
+
+351
+00:11:17,536 --> 00:11:21,796
+To enter the accelerated
+
+
+352
+00:11:21,796 --> 00:11:24,196
+scrolling mode, all it takes is
+
+
+353
+00:11:24,196 --> 00:11:25,546
+a few large swipes in the same
+
+
+354
+00:11:25,546 --> 00:11:27,846
+direction on the touch pad.
+
+
+355
+00:11:31,056 --> 00:11:33,496
+Additionally, the user can swipe
+
+
+356
+00:11:33,496 --> 00:11:34,696
+on the far-right edge of the
+
+
+357
+00:11:34,696 --> 00:11:36,366
+touch pad, to browse through the
+
+
+358
+00:11:36,366 --> 00:11:37,026
+indices.
+
+
+359
+00:11:37,586 --> 00:11:40,746
+And the good news for us
+
+
+360
+00:11:40,746 --> 00:11:42,126
+developers, is that we don't
+
+
+361
+00:11:42,126 --> 00:11:43,386
+have to do any additional work
+
+
+362
+00:11:43,386 --> 00:11:44,496
+to get this new behavior.
+
+
+363
+00:11:44,946 --> 00:11:47,386
+In fact, it's built into any
+
+
+364
+00:11:47,386 --> 00:11:49,376
+scroll views, including table
+
+
+365
+00:11:49,376 --> 00:11:51,476
+views, or even collection views.
+
+
+366
+00:11:51,936 --> 00:11:55,016
+And this behavior is always on,
+
+
+367
+00:11:55,016 --> 00:11:56,346
+and you can't turn it off.
+
+
+368
+00:11:57,086 --> 00:11:58,116
+But there are some things you
+
+
+369
+00:11:58,116 --> 00:11:59,576
+can customize to make sure that
+
+
+370
+00:11:59,576 --> 00:12:01,046
+your scroll view works well
+
+
+371
+00:12:01,046 --> 00:12:01,806
+within your design.
+
+
+372
+00:12:04,256 --> 00:12:07,066
+So, by default, the index bar
+
+
+373
+00:12:07,066 --> 00:12:08,686
+appears as you enter the
+
+
+374
+00:12:08,946 --> 00:12:10,236
+accelerated scrolling mode.
+
+
+375
+00:12:10,766 --> 00:12:12,196
+But you can completely hide this
+
+
+376
+00:12:12,666 --> 00:12:14,296
+by overriding the Index Display
+
+
+377
+00:12:14,296 --> 00:12:18,136
+Mode to Hidden.
+
+
+378
+00:12:18,136 --> 00:12:19,566
+Also, the default scroll
+
+
+379
+00:12:19,566 --> 00:12:21,026
+indicator style works really
+
+
+380
+00:12:21,026 --> 00:12:22,496
+well because it adapts to the
+
+
+381
+00:12:22,496 --> 00:12:24,606
+view controllers light or dark
+
+
+382
+00:12:24,746 --> 00:12:26,036
+user interface style.
+
+
+383
+00:12:26,036 --> 00:12:29,776
+But if your design requires you
+
+
+384
+00:12:29,776 --> 00:12:31,186
+to have an explicit style, you
+
+
+385
+00:12:31,186 --> 00:12:32,696
+can override this to black or
+
+
+386
+00:12:32,696 --> 00:12:35,626
+white, and then do that.
+
+
+387
+00:12:36,936 --> 00:12:39,356
+Additionally, you can customize
+
+
+388
+00:12:39,356 --> 00:12:40,776
+the index titles for your table
+
+
+389
+00:12:40,776 --> 00:12:42,266
+views by using the two data
+
+
+390
+00:12:42,306 --> 00:12:42,716
+[inaudible] methods.
+
+
+391
+00:12:43,436 --> 00:12:45,126
+First, to get the array of index
+
+
+392
+00:12:45,126 --> 00:12:48,886
+titles, and to get the index for
+
+
+393
+00:12:48,886 --> 00:12:51,436
+a given index title.
+
+
+394
+00:12:51,566 --> 00:12:53,086
+Similarly, for collection view,
+
+
+395
+00:12:54,296 --> 00:12:55,636
+you can get the array of index
+
+
+396
+00:12:55,636 --> 00:12:57,846
+titles and get the index path
+
+
+397
+00:12:58,046 --> 00:12:58,996
+for a given index title.
+
+
+398
+00:12:59,606 --> 00:13:02,096
+So, that's updates in Scroll
+
+
+399
+00:13:02,096 --> 00:13:02,416
+View.
+
+
+400
+00:13:02,796 --> 00:13:06,546
+Next, is a new button type,
+
+
+401
+00:13:07,026 --> 00:13:08,056
+UIButtonTypePlain.
+
+
+402
+00:13:08,846 --> 00:13:10,236
+But before that, let's take a
+
+
+403
+00:13:10,236 --> 00:13:11,216
+look at the system button.
+
+
+404
+00:13:12,516 --> 00:13:14,536
+UIButtonTypeSystem provides
+
+
+405
+00:13:14,786 --> 00:13:16,606
+interactive focus effect when
+
+
+406
+00:13:16,606 --> 00:13:18,546
+the button is in focus, and
+
+
+407
+00:13:18,686 --> 00:13:19,956
+background blur when it isn't.
+
+
+408
+00:13:20,646 --> 00:13:22,836
+The background blur, provides
+
+
+409
+00:13:22,996 --> 00:13:24,616
+the affordance of a button and
+
+
+410
+00:13:24,616 --> 00:13:26,516
+also, enhances the legibility of
+
+
+411
+00:13:26,516 --> 00:13:26,936
+the title.
+
+
+412
+00:13:28,456 --> 00:13:29,896
+It is one of the most widely
+
+
+413
+00:13:29,896 --> 00:13:31,866
+used controls in tvOS, which is
+
+
+414
+00:13:31,866 --> 00:13:33,466
+perhaps why we have heard from
+
+
+415
+00:13:33,466 --> 00:13:34,576
+many of you that you'd like to
+
+
+416
+00:13:34,576 --> 00:13:35,576
+customize this a little bit
+
+
+417
+00:13:35,576 --> 00:13:37,796
+more, to add a background color,
+
+
+418
+00:13:37,796 --> 00:13:38,396
+for example.
+
+
+419
+00:13:39,466 --> 00:13:41,516
+So, in tvOS 11, we're making a
+
+
+420
+00:13:41,516 --> 00:13:42,246
+new button type,
+
+
+421
+00:13:42,556 --> 00:13:43,586
+UIButtonTypePlain.
+
+
+422
+00:13:44,166 --> 00:13:47,666
+A plain type button has all of
+
+
+423
+00:13:47,666 --> 00:13:49,036
+the interactive focus effect of
+
+
+424
+00:13:49,036 --> 00:13:51,116
+a system button, but without the
+
+
+425
+00:13:51,116 --> 00:13:52,876
+background blur, which lends
+
+
+426
+00:13:52,876 --> 00:13:54,466
+itself to full customization.
+
+
+427
+00:13:55,026 --> 00:13:57,866
+And using a plain type button is
+
+
+428
+00:13:57,866 --> 00:13:58,666
+straightforward.
+
+
+429
+00:13:59,196 --> 00:14:02,986
+First, create the button with
+
+
+430
+00:14:02,986 --> 00:14:05,266
+UIButtonTypePlain, and continue
+
+
+431
+00:14:05,266 --> 00:14:06,486
+customizing it.
+
+
+432
+00:14:07,296 --> 00:14:09,466
+So, that's the plain type
+
+
+433
+00:14:10,716 --> 00:14:10,906
+button.
+
+
+434
+00:14:11,316 --> 00:14:11,876
+Thank you.
+
+
+435
+00:14:12,516 --> 00:14:14,546
+[ Applause ]
+
+
+436
+00:14:15,046 --> 00:14:16,826
+The last set of enhancements in
+
+
+437
+00:14:16,826 --> 00:14:18,796
+this first part, is around
+
+
+438
+00:14:19,006 --> 00:14:19,826
+UIImageView.
+
+
+439
+00:14:21,656 --> 00:14:24,256
+On tvOS, interactive focus
+
+
+440
+00:14:24,256 --> 00:14:25,156
+effect is an important
+
+
+441
+00:14:25,156 --> 00:14:25,606
+technique.
+
+
+442
+00:14:26,246 --> 00:14:28,206
+It gives your users a sense that
+
+
+443
+00:14:28,206 --> 00:14:28,886
+they're connected with the
+
+
+444
+00:14:28,886 --> 00:14:30,706
+screen, and also tells them
+
+
+445
+00:14:30,706 --> 00:14:32,126
+exactly where their focus is.
+
+
+446
+00:14:32,676 --> 00:14:34,766
+And most often, we use floating,
+
+
+447
+00:14:34,766 --> 00:14:36,156
+layered images to maximize the
+
+
+448
+00:14:36,156 --> 00:14:36,516
+effect.
+
+
+449
+00:14:38,216 --> 00:14:39,666
+Since it was first introduced,
+
+
+450
+00:14:40,186 --> 00:14:41,696
+many of you have asked for a way
+
+
+451
+00:14:41,696 --> 00:14:43,726
+to customize this further, by
+
+
+452
+00:14:43,726 --> 00:14:45,426
+adding your own content at
+
+
+453
+00:14:45,426 --> 00:14:46,976
+runtime, so they can participate
+
+
+454
+00:14:46,976 --> 00:14:47,826
+in the focus effect.
+
+
+455
+00:14:49,216 --> 00:14:51,236
+In tvOS 11, we're introducing an
+
+
+456
+00:14:51,236 --> 00:14:52,436
+easy and safe way to do that,
+
+
+457
+00:14:52,436 --> 00:14:53,586
+and that's Image Overlay.
+
+
+458
+00:14:55,216 --> 00:14:57,196
+Image Overlay uses a new
+
+
+459
+00:14:57,196 --> 00:14:58,866
+property, Overlay Content View,
+
+
+460
+00:14:59,686 --> 00:15:00,956
+which is similar in concept to
+
+
+461
+00:15:00,956 --> 00:15:02,706
+the content view in table view
+
+
+462
+00:15:02,706 --> 00:15:04,076
+or collection view cells, in
+
+
+463
+00:15:04,076 --> 00:15:05,516
+that that's where you add your
+
+
+464
+00:15:05,516 --> 00:15:06,576
+content as sub-views.
+
+
+465
+00:15:07,136 --> 00:15:10,586
+By default, overlay content view
+
+
+466
+00:15:10,586 --> 00:15:12,116
+clips its child views to the
+
+
+467
+00:15:12,116 --> 00:15:15,026
+image views bounds, but you can
+
+
+468
+00:15:15,026 --> 00:15:16,446
+override this and draw outside
+
+
+469
+00:15:16,446 --> 00:15:17,966
+of it, by setting the clips to
+
+
+470
+00:15:17,966 --> 00:15:19,706
+bounds of the overlay content
+
+
+471
+00:15:19,706 --> 00:15:20,796
+view to false.
+
+
+472
+00:15:22,836 --> 00:15:24,136
+The next improvement in
+
+
+473
+00:15:24,136 --> 00:15:25,846
+UIImageView is in Alpha Channel
+
+
+474
+00:15:25,846 --> 00:15:26,186
+Support.
+
+
+475
+00:15:27,436 --> 00:15:30,936
+As you know, layered image are
+
+
+476
+00:15:30,936 --> 00:15:32,356
+required to have an opaque
+
+
+477
+00:15:32,356 --> 00:15:32,896
+background.
+
+
+478
+00:15:34,196 --> 00:15:36,266
+And even floating -- flat single
+
+
+479
+00:15:36,266 --> 00:15:37,816
+layered images, for floating
+
+
+480
+00:15:37,816 --> 00:15:39,796
+effect, they are also required
+
+
+481
+00:15:39,796 --> 00:15:40,976
+to have an opaque background.
+
+
+482
+00:15:41,566 --> 00:15:45,036
+In tvOS 11, that is no longer
+
+
+483
+00:15:45,036 --> 00:15:45,506
+the case.
+
+
+484
+00:15:46,336 --> 00:15:48,206
+So, you can now have arbitrary
+
+
+485
+00:15:48,206 --> 00:15:50,096
+shape alpha-channel, and for
+
+
+486
+00:15:50,096 --> 00:15:51,366
+some of you, this might scream
+
+
+487
+00:15:52,226 --> 00:15:53,586
+non-rectangular shadows.
+
+
+488
+00:15:54,296 --> 00:15:55,216
+So, instead of just talking
+
+
+489
+00:15:55,216 --> 00:15:56,966
+about this, I'd like to ask my
+
+
+490
+00:15:56,966 --> 00:15:58,146
+colleague Paul to show us in a
+
+
+491
+00:15:58,146 --> 00:15:58,436
+demo.
+
+
+492
+00:15:58,776 --> 00:15:59,256
+Paul?
+
+
+493
+00:16:00,516 --> 00:16:03,836
+[ Applause ]
+
+
+494
+00:16:04,336 --> 00:16:07,756
+>> So, yes, I'd like to demo
+
+
+495
+00:16:09,006 --> 00:16:11,886
+some of the new features of
+
+
+496
+00:16:11,886 --> 00:16:13,656
+UIImageView in tvOS 11.
+
+
+497
+00:16:14,356 --> 00:16:15,716
+I've been working on this simple
+
+
+498
+00:16:15,716 --> 00:16:16,976
+video playing app here.
+
+
+499
+00:16:16,976 --> 00:16:18,196
+I liked they had a couple of new
+
+
+500
+00:16:18,196 --> 00:16:18,696
+features.
+
+
+501
+00:16:19,396 --> 00:16:21,086
+The first thing I like to do, is
+
+
+502
+00:16:21,086 --> 00:16:22,496
+add an icon to the poster to
+
+
+503
+00:16:22,496 --> 00:16:23,476
+make it obvious that when you
+
+
+504
+00:16:23,476 --> 00:16:24,926
+select the poster, the video
+
+
+505
+00:16:24,926 --> 00:16:25,636
+will start playing.
+
+
+506
+00:16:26,216 --> 00:16:26,936
+And I also like to add a
+
+
+507
+00:16:26,936 --> 00:16:29,106
+progress bar, to the posters of
+
+
+508
+00:16:29,106 --> 00:16:29,956
+the videos that I've started
+
+
+509
+00:16:29,956 --> 00:16:30,296
+watching.
+
+
+510
+00:16:30,296 --> 00:16:31,976
+And that way, I can quickly see
+
+
+511
+00:16:32,086 --> 00:16:33,446
+how far through the videos I am.
+
+
+512
+00:16:33,546 --> 00:16:35,416
+So, I'm just going to add some
+
+
+513
+00:16:35,416 --> 00:16:37,346
+views to the image view of the
+
+
+514
+00:16:37,346 --> 00:16:39,766
+poster to implement that UI.
+
+
+515
+00:16:41,036 --> 00:16:43,256
+And you can see that the UI
+
+
+516
+00:16:43,256 --> 00:16:44,536
+shows up, but it feels pretty
+
+
+517
+00:16:44,536 --> 00:16:45,946
+disconnected from the image
+
+
+518
+00:16:45,946 --> 00:16:46,816
+that's moving behind it.
+
+
+519
+00:16:47,496 --> 00:16:49,506
+And I'd really like for that UI
+
+
+520
+00:16:49,506 --> 00:16:52,236
+to move along with the image.
+
+
+521
+00:16:52,466 --> 00:16:54,106
+Luckily, that's easy to do in
+
+
+522
+00:16:54,106 --> 00:16:54,886
+tvOS 11.
+
+
+523
+00:16:55,846 --> 00:16:57,456
+Instead of adding those views to
+
+
+524
+00:16:57,456 --> 00:16:58,856
+my image view, I'm just going to
+
+
+525
+00:16:58,856 --> 00:16:59,806
+add them to the image view's
+
+
+526
+00:16:59,866 --> 00:17:00,756
+overlay content view.
+
+
+527
+00:17:01,376 --> 00:17:03,556
+Build and run and see how that
+
+
+528
+00:17:04,236 --> 00:17:04,356
+looks.
+
+
+529
+00:17:06,336 --> 00:17:07,616
+That's more like the effect I
+
+
+530
+00:17:07,616 --> 00:17:08,306
+was going for.
+
+
+531
+00:17:09,516 --> 00:17:13,925
+[ Applause ]
+
+
+532
+00:17:14,425 --> 00:17:16,246
+Yes, the UI moves along with the
+
+
+533
+00:17:16,246 --> 00:17:17,656
+image, as if it was another
+
+
+534
+00:17:17,656 --> 00:17:18,945
+layer in the layered image.
+
+
+535
+00:17:19,756 --> 00:17:21,286
+And the next thing I'd like to
+
+
+536
+00:17:21,286 --> 00:17:22,606
+do is add some gadgets to these
+
+
+537
+00:17:22,606 --> 00:17:24,396
+posters, and that way I can mark
+
+
+538
+00:17:24,396 --> 00:17:25,796
+videos that might be new or
+
+
+539
+00:17:25,796 --> 00:17:26,826
+otherwise interesting to the
+
+
+540
+00:17:26,826 --> 00:17:27,185
+user.
+
+
+541
+00:17:27,996 --> 00:17:29,086
+And I'm just going to add a
+
+
+542
+00:17:29,086 --> 00:17:30,136
+touch button to the app that
+
+
+543
+00:17:30,136 --> 00:17:31,306
+will let me toggle those badges
+
+
+544
+00:17:31,306 --> 00:17:33,576
+on and off so they can make sure
+
+
+545
+00:17:33,576 --> 00:17:35,346
+the UI's working the way I want.
+
+
+546
+00:17:36,396 --> 00:17:38,066
+To make that touch button, I'm
+
+
+547
+00:17:38,066 --> 00:17:40,016
+going to make a button of type
+
+
+548
+00:17:40,146 --> 00:17:41,836
+custom, so that I don't get
+
+
+549
+00:17:41,836 --> 00:17:42,786
+system chrome that you
+
+
+550
+00:17:42,786 --> 00:17:43,886
+ordinarily get with a button.
+
+
+551
+00:17:44,726 --> 00:17:45,596
+And I'm going to set the
+
+
+552
+00:17:45,596 --> 00:17:48,176
+button's image view to adjust
+
+
+553
+00:17:48,176 --> 00:17:49,996
+image when ancestor focused, and
+
+
+554
+00:17:49,996 --> 00:17:50,976
+that way it'll get the nice,
+
+
+555
+00:17:50,976 --> 00:17:52,196
+floating effect when the button
+
+
+556
+00:17:52,196 --> 00:17:53,026
+becomes focused.
+
+
+557
+00:17:53,556 --> 00:17:54,556
+And I'm going to use the same
+
+
+558
+00:17:54,556 --> 00:17:55,796
+image for the button that I'll
+
+
+559
+00:17:55,796 --> 00:17:57,976
+use for the actual badges
+
+
+560
+00:17:57,976 --> 00:17:58,476
+themselves.
+
+
+561
+00:17:58,836 --> 00:18:00,916
+And the badge image, has a
+
+
+562
+00:18:00,916 --> 00:18:02,016
+circular alpha channel.
+
+
+563
+00:18:02,726 --> 00:18:05,216
+And in tvOS 11, that works well
+
+
+564
+00:18:05,216 --> 00:18:06,576
+with the floating effect of the
+
+
+565
+00:18:06,576 --> 00:18:07,726
+shadow and the spotlight and
+
+
+566
+00:18:08,306 --> 00:18:09,046
+work the way that you would
+
+
+567
+00:18:09,046 --> 00:18:09,416
+expect.
+
+
+568
+00:18:09,416 --> 00:18:11,496
+When I tap the button, I'm going
+
+
+569
+00:18:12,086 --> 00:18:13,656
+to add the badge image to the
+
+
+570
+00:18:13,656 --> 00:18:14,816
+overlay content view of these
+
+
+571
+00:18:14,816 --> 00:18:15,286
+posters.
+
+
+572
+00:18:15,696 --> 00:18:16,496
+We'll see how that looks.
+
+
+573
+00:18:17,116 --> 00:18:19,006
+We can see that there's a
+
+
+574
+00:18:19,006 --> 00:18:19,736
+problem.
+
+
+575
+00:18:19,736 --> 00:18:20,696
+The badge is there in the upper
+
+
+576
+00:18:20,696 --> 00:18:22,386
+left corner, but it's being
+
+
+577
+00:18:22,386 --> 00:18:24,156
+clipped to the transformed frame
+
+
+578
+00:18:24,286 --> 00:18:24,956
+of the image view.
+
+
+579
+00:18:25,646 --> 00:18:26,726
+And often, that's exactly what
+
+
+580
+00:18:26,726 --> 00:18:27,846
+you want for your overlays.
+
+
+581
+00:18:28,276 --> 00:18:29,366
+In this case, it's not what I
+
+
+582
+00:18:29,366 --> 00:18:29,656
+want.
+
+
+583
+00:18:30,306 --> 00:18:31,296
+Luckily, I was listening to
+
+
+584
+00:18:31,336 --> 00:18:32,636
+Hans' talk, and he let me know
+
+
+585
+00:18:32,636 --> 00:18:33,356
+how to fix this.
+
+
+586
+00:18:34,356 --> 00:18:35,436
+I'm just going to set clips to
+
+
+587
+00:18:35,436 --> 00:18:36,976
+bounce to false on the overlay
+
+
+588
+00:18:36,976 --> 00:18:37,636
+content view.
+
+
+589
+00:18:37,636 --> 00:18:40,286
+Let's try that one more time.
+
+
+590
+00:18:42,536 --> 00:18:44,146
+So, I'll toggle the badges on.
+
+
+591
+00:18:44,146 --> 00:18:45,526
+That's what I was I hoping to
+
+
+592
+00:18:45,526 --> 00:18:45,826
+see.
+
+
+593
+00:18:46,306 --> 00:18:47,356
+So, now the badges draw the way
+
+
+594
+00:18:47,356 --> 00:18:48,046
+I want them to.
+
+
+595
+00:18:48,416 --> 00:18:49,556
+And then continue to move with
+
+
+596
+00:18:49,556 --> 00:18:50,816
+the image along with the rest of
+
+
+597
+00:18:50,816 --> 00:18:50,976
+the UI.
+
+
+598
+00:18:51,516 --> 00:18:56,586
+[ Applause ]
+
+
+599
+00:18:57,086 --> 00:18:58,486
+So, that's just a quick look at
+
+
+600
+00:18:58,486 --> 00:18:59,636
+some of the new features of
+
+
+601
+00:18:59,636 --> 00:19:01,616
+UIImageView in tvOS 11.
+
+
+602
+00:19:01,786 --> 00:19:03,036
+Back to you, Hans.
+
+
+603
+00:19:04,031 --> 00:19:06,031
+[ Applause ]
+
+
+604
+00:19:06,046 --> 00:19:06,496
+>> Thanks, Paul.
+
+
+605
+00:19:07,586 --> 00:19:08,736
+That was a great demo.
+
+
+606
+00:19:09,256 --> 00:19:10,926
+And that was enhancements in
+
+
+607
+00:19:10,926 --> 00:19:11,596
+UIImageView.
+
+
+608
+00:19:13,066 --> 00:19:16,466
+We have just looked at seven new
+
+
+609
+00:19:16,536 --> 00:19:17,606
+enhancements in tvOS.
+
+
+610
+00:19:17,606 --> 00:19:19,466
+But there are many more
+
+
+611
+00:19:19,466 --> 00:19:21,286
+enhancements in iOS that also
+
+
+612
+00:19:21,286 --> 00:19:22,666
+apply to tvOS.
+
+
+613
+00:19:23,516 --> 00:19:25,546
+Among them, we think one
+
+
+614
+00:19:25,546 --> 00:19:26,966
+deserves a special attention.
+
+
+615
+00:19:27,086 --> 00:19:28,726
+And for that, I'd like to invite
+
+
+616
+00:19:28,726 --> 00:19:30,046
+Dan from the Media Framework's
+
+
+617
+00:19:30,046 --> 00:19:32,096
+Team to tell us all about it.
+
+
+618
+00:19:33,516 --> 00:19:36,736
+[ Applause ]
+
+
+619
+00:19:37,236 --> 00:19:38,646
+>> Thanks, Hans.
+
+
+620
+00:19:39,696 --> 00:19:43,426
+Alright, I'm going to take a few
+
+
+621
+00:19:43,426 --> 00:19:45,016
+minutes to talk about what's new
+
+
+622
+00:19:45,106 --> 00:19:50,216
+in AVKit in tvOS 11.
+
+
+623
+00:19:50,216 --> 00:19:52,696
+AVKit provides standard,
+
+
+624
+00:19:52,696 --> 00:19:55,236
+interactive video playback for
+
+
+625
+00:19:55,566 --> 00:19:58,386
+all apps on tvOS.
+
+
+626
+00:19:58,916 --> 00:20:00,746
+Includes, scrubbing, skipping,
+
+
+627
+00:20:01,486 --> 00:20:04,116
+scanning, and a variety of
+
+
+628
+00:20:04,116 --> 00:20:05,006
+advanced features like
+
+
+629
+00:20:05,206 --> 00:20:06,456
+interstitials, and content
+
+
+630
+00:20:06,456 --> 00:20:07,166
+proposals.
+
+
+631
+00:20:08,396 --> 00:20:09,556
+Now, we talked about the basics
+
+
+632
+00:20:09,556 --> 00:20:10,916
+last year, so if you need to
+
+
+633
+00:20:10,916 --> 00:20:12,406
+catch up, you can watch the
+
+
+634
+00:20:12,406 --> 00:20:15,236
+AVKit on tvOS session from last
+
+
+635
+00:20:15,236 --> 00:20:15,396
+year.
+
+
+636
+00:20:16,386 --> 00:20:17,616
+And here we have
+
+
+637
+00:20:17,966 --> 00:20:21,866
+AVPlayerViewController providing
+
+
+638
+00:20:21,906 --> 00:20:23,196
+the standard video playback, in
+
+
+639
+00:20:23,196 --> 00:20:24,156
+this case, showing scrubbing.
+
+
+640
+00:20:24,796 --> 00:20:29,416
+And advanced features include
+
+
+641
+00:20:29,686 --> 00:20:31,056
+custom content proposals, which
+
+
+642
+00:20:31,056 --> 00:20:32,236
+we introduced last year.
+
+
+643
+00:20:32,726 --> 00:20:35,796
+Now, let's talk about what's new
+
+
+644
+00:20:35,976 --> 00:20:36,986
+in tvOS 11.
+
+
+645
+00:20:37,666 --> 00:20:40,826
+When you want to play static
+
+
+646
+00:20:40,826 --> 00:20:42,996
+images, such as a logo or a hint
+
+
+647
+00:20:42,996 --> 00:20:45,326
+or other information on top of
+
+
+648
+00:20:45,326 --> 00:20:46,436
+your video but below the
+
+
+649
+00:20:46,436 --> 00:20:48,876
+playback controls, you use the
+
+
+650
+00:20:48,876 --> 00:20:50,326
+overlay view.
+
+
+651
+00:20:50,746 --> 00:20:54,596
+In tvOS 11, we're introducing a
+
+
+652
+00:20:54,596 --> 00:20:57,376
+new layout guide, the Unobscured
+
+
+653
+00:20:57,376 --> 00:21:00,556
+Content Guide, which indicates
+
+
+654
+00:21:00,556 --> 00:21:01,776
+what portion of the screen you
+
+
+655
+00:21:01,776 --> 00:21:04,426
+can use for your static content,
+
+
+656
+00:21:04,426 --> 00:21:06,986
+without overlaying the playback
+
+
+657
+00:21:06,986 --> 00:21:08,486
+controls or hints.
+
+
+658
+00:21:10,726 --> 00:21:12,856
+Here we see where the unobscured
+
+
+659
+00:21:12,856 --> 00:21:14,326
+content guide lays.
+
+
+660
+00:21:14,326 --> 00:21:15,996
+As you can see, the hint -- the
+
+
+661
+00:21:15,996 --> 00:21:17,136
+swipe down for info hint is
+
+
+662
+00:21:17,136 --> 00:21:18,466
+above it.
+
+
+663
+00:21:18,466 --> 00:21:20,056
+The bottom edge of the layout
+
+
+664
+00:21:20,056 --> 00:21:21,886
+guide goes right against the
+
+
+665
+00:21:21,886 --> 00:21:23,046
+transfer bar.
+
+
+666
+00:21:23,816 --> 00:21:25,846
+But you do notice that the
+
+
+667
+00:21:25,846 --> 00:21:27,726
+scrubbing thumbnail however is
+
+
+668
+00:21:27,726 --> 00:21:29,906
+not included in that excluded
+
+
+669
+00:21:29,906 --> 00:21:30,346
+region.
+
+
+670
+00:21:31,156 --> 00:21:34,226
+If your content is in the
+
+
+671
+00:21:34,226 --> 00:21:35,266
+overlay view, it'll be
+
+
+672
+00:21:35,266 --> 00:21:36,906
+underneath that scrubbing
+
+
+673
+00:21:36,906 --> 00:21:37,206
+thumbnail.
+
+
+674
+00:21:37,206 --> 00:21:42,726
+Now, let's talk about the
+
+
+675
+00:21:42,726 --> 00:21:43,516
+transfer bar.
+
+
+676
+00:21:44,756 --> 00:21:46,536
+Many of you have content, logos,
+
+
+677
+00:21:46,536 --> 00:21:48,316
+or what have you, that you want
+
+
+678
+00:21:48,316 --> 00:21:49,876
+to show at the same time that
+
+
+679
+00:21:49,876 --> 00:21:51,236
+the transfer bar is visible.
+
+
+680
+00:21:52,616 --> 00:21:54,016
+Or perhaps you have something
+
+
+681
+00:21:54,016 --> 00:21:55,216
+like a channel logo that you
+
+
+682
+00:21:55,216 --> 00:21:56,536
+want to hide or get out of the
+
+
+683
+00:21:56,536 --> 00:21:57,836
+way when the playback controls
+
+
+684
+00:21:57,836 --> 00:21:58,386
+are visible.
+
+
+685
+00:21:58,536 --> 00:22:01,556
+You can do both of these things
+
+
+686
+00:22:01,556 --> 00:22:02,776
+with the transfer bar animation
+
+
+687
+00:22:02,776 --> 00:22:03,336
+coordinator.
+
+
+688
+00:22:03,556 --> 00:22:05,156
+To use it, you simply implement
+
+
+689
+00:22:05,716 --> 00:22:06,596
+the delegate method.
+
+
+690
+00:22:06,626 --> 00:22:07,776
+Player View Controller will
+
+
+691
+00:22:07,776 --> 00:22:09,096
+transition to visibility of
+
+
+692
+00:22:09,096 --> 00:22:10,536
+transfer bar with coordinator.
+
+
+693
+00:22:11,606 --> 00:22:13,286
+And you add your animations.
+
+
+694
+00:22:13,666 --> 00:22:18,886
+Now, in this example, we are --
+
+
+695
+00:22:18,886 --> 00:22:20,156
+we have a logo image view and
+
+
+696
+00:22:20,156 --> 00:22:21,596
+we're going to hide it or show
+
+
+697
+00:22:21,926 --> 00:22:23,876
+it with the transfer bar.
+
+
+698
+00:22:25,776 --> 00:22:27,756
+Now, by no means are you limited
+
+
+699
+00:22:27,756 --> 00:22:28,286
+to this.
+
+
+700
+00:22:28,286 --> 00:22:29,246
+You could reverse that
+
+
+701
+00:22:29,246 --> 00:22:30,516
+visibility and hide it instead
+
+
+702
+00:22:30,516 --> 00:22:31,246
+of showing it.
+
+
+703
+00:22:31,716 --> 00:22:33,316
+You could have an additional
+
+
+704
+00:22:33,316 --> 00:22:35,846
+animation where your view slides
+
+
+705
+00:22:35,846 --> 00:22:37,126
+in from the side, for example,
+
+
+706
+00:22:37,326 --> 00:22:38,996
+or whatever you can -- you want.
+
+
+707
+00:22:40,026 --> 00:22:42,106
+Next, we're giving you greater
+
+
+708
+00:22:42,106 --> 00:22:43,616
+control over controlling
+
+
+709
+00:22:44,146 --> 00:22:47,296
+dismissal with three new
+
+
+710
+00:22:47,296 --> 00:22:48,266
+delegate methods.
+
+
+711
+00:22:49,136 --> 00:22:51,646
+And these are Player View
+
+
+712
+00:22:51,646 --> 00:22:54,976
+Controller should dismiss, will
+
+
+713
+00:22:54,976 --> 00:22:57,426
+begin dismissal transition, and
+
+
+714
+00:22:57,496 --> 00:22:59,766
+did end dismissal transition.
+
+
+715
+00:23:01,076 --> 00:23:03,376
+In many instances, Player View
+
+
+716
+00:23:03,376 --> 00:23:04,776
+Controller can provide an
+
+
+717
+00:23:04,776 --> 00:23:06,346
+automatic transition when it's
+
+
+718
+00:23:06,346 --> 00:23:08,016
+presented or dismissed.
+
+
+719
+00:23:08,156 --> 00:23:10,746
+If you simply present or dismiss
+
+
+720
+00:23:10,746 --> 00:23:12,786
+it, it can fade in and fade out.
+
+
+721
+00:23:13,246 --> 00:23:15,536
+If you embed the view in your
+
+
+722
+00:23:15,536 --> 00:23:17,486
+own view as a thumbnail for
+
+
+723
+00:23:17,486 --> 00:23:19,766
+example, it can automatically
+
+
+724
+00:23:19,766 --> 00:23:21,286
+zoom out and automatically zoom
+
+
+725
+00:23:21,286 --> 00:23:22,806
+it back when it's dismissed.
+
+
+726
+00:23:23,726 --> 00:23:25,666
+However, in some cases, you may
+
+
+727
+00:23:25,666 --> 00:23:26,886
+have some sort of custom
+
+
+728
+00:23:26,886 --> 00:23:29,966
+presentation where AVKit isn't
+
+
+729
+00:23:29,966 --> 00:23:31,186
+going to be able to provide a
+
+
+730
+00:23:31,186 --> 00:23:32,946
+reasonable transition and you
+
+
+731
+00:23:32,946 --> 00:23:34,056
+need to do it yourself.
+
+
+732
+00:23:34,056 --> 00:23:35,576
+Well, the way you can do that
+
+
+733
+00:23:35,576 --> 00:23:37,136
+now is, by implementing the
+
+
+734
+00:23:37,136 --> 00:23:40,076
+Should Dismiss method, and here
+
+
+735
+00:23:40,076 --> 00:23:41,886
+you would implement your
+
+
+736
+00:23:41,886 --> 00:23:45,686
+transition and return False to
+
+
+737
+00:23:45,686 --> 00:23:47,536
+indicate that AVKit should not
+
+
+738
+00:23:47,536 --> 00:23:49,466
+provide the standard transition.
+
+
+739
+00:23:51,196 --> 00:23:53,186
+When AVKit does provide the
+
+
+740
+00:23:53,186 --> 00:23:55,146
+transition, it will also call
+
+
+741
+00:23:55,146 --> 00:23:57,526
+the Will Begin Dismissal and Did
+
+
+742
+00:23:57,526 --> 00:23:58,686
+End Dismissal transition
+
+
+743
+00:23:58,686 --> 00:23:59,166
+methods.
+
+
+744
+00:23:59,566 --> 00:24:01,266
+So, at the beginning and at the
+
+
+745
+00:24:01,266 --> 00:24:02,366
+end of animation.
+
+
+746
+00:24:02,366 --> 00:24:03,356
+So, you can perform whatever
+
+
+747
+00:24:03,356 --> 00:24:04,786
+operations you want to do there,
+
+
+748
+00:24:05,406 --> 00:24:07,446
+such as controlling the playback
+
+
+749
+00:24:07,446 --> 00:24:08,116
+rate for example.
+
+
+750
+00:24:09,056 --> 00:24:11,956
+The info views, are shown when
+
+
+751
+00:24:11,956 --> 00:24:13,696
+the user swipes down during
+
+
+752
+00:24:13,696 --> 00:24:14,466
+video playback.
+
+
+753
+00:24:15,436 --> 00:24:16,796
+And the standard info views
+
+
+754
+00:24:16,796 --> 00:24:20,016
+provide a variety of interesting
+
+
+755
+00:24:20,016 --> 00:24:22,166
+things, including metadata,
+
+
+756
+00:24:22,166 --> 00:24:24,426
+navigation markers, subtitle
+
+
+757
+00:24:24,426 --> 00:24:26,216
+controls, and audio options, as
+
+
+758
+00:24:26,216 --> 00:24:26,946
+you can see here.
+
+
+759
+00:24:27,966 --> 00:24:30,296
+Now, a lot of you would like to
+
+
+760
+00:24:30,296 --> 00:24:32,176
+have your own controls here.
+
+
+761
+00:24:32,176 --> 00:24:33,466
+And so, I'm pleased to announce
+
+
+762
+00:24:33,466 --> 00:24:35,426
+that we are introducing custom
+
+
+763
+00:24:35,426 --> 00:24:36,206
+info views.
+
+
+764
+00:24:36,466 --> 00:24:38,036
+In tvOS 11, you can provide a
+
+
+765
+00:24:38,036 --> 00:24:39,256
+custom info view as you can see
+
+
+766
+00:24:39,256 --> 00:24:39,976
+in this example.
+
+
+767
+00:24:40,516 --> 00:24:44,806
+[ Applause ]
+
+
+768
+00:24:45,306 --> 00:24:47,206
+So, all you need to do is create
+
+
+769
+00:24:47,206 --> 00:24:48,826
+your own UIView Controller.
+
+
+770
+00:24:49,536 --> 00:24:50,606
+You need determine the contents
+
+
+771
+00:24:50,606 --> 00:24:50,896
+of it.
+
+
+772
+00:24:52,366 --> 00:24:53,516
+Set the custom Info View
+
+
+773
+00:24:53,516 --> 00:24:54,656
+Controller Property of your
+
+
+774
+00:24:54,656 --> 00:24:56,946
+Player View Controller, and
+
+
+775
+00:24:57,706 --> 00:24:58,786
+that's it.
+
+
+776
+00:24:58,786 --> 00:25:01,306
+Now, we ask that you keep your
+
+
+777
+00:25:01,306 --> 00:25:02,686
+style consistent with the other
+
+
+778
+00:25:02,846 --> 00:25:04,166
+info views so that the user
+
+
+779
+00:25:04,166 --> 00:25:07,216
+won't feel out of place or
+
+
+780
+00:25:07,216 --> 00:25:07,886
+confused.
+
+
+781
+00:25:07,886 --> 00:25:08,916
+And to that end, we have some
+
+
+782
+00:25:08,916 --> 00:25:09,536
+guidelines.
+
+
+783
+00:25:10,806 --> 00:25:13,426
+So, first, use the standard font
+
+
+784
+00:25:13,426 --> 00:25:14,096
+styles.
+
+
+785
+00:25:14,726 --> 00:25:17,246
+Second, keep your view
+
+
+786
+00:25:17,246 --> 00:25:19,306
+background transparent so that
+
+
+787
+00:25:19,306 --> 00:25:20,276
+the effect's view will show
+
+
+788
+00:25:20,276 --> 00:25:20,616
+through.
+
+
+789
+00:25:21,846 --> 00:25:23,016
+You can indicate the desired
+
+
+790
+00:25:23,016 --> 00:25:24,676
+height of your info view, using
+
+
+791
+00:25:24,676 --> 00:25:26,166
+auto layout, which is the best
+
+
+792
+00:25:26,166 --> 00:25:26,676
+way to do it.
+
+
+793
+00:25:26,676 --> 00:25:27,966
+But if you prefer, you can
+
+
+794
+00:25:27,966 --> 00:25:29,606
+override Preferred Content Size
+
+
+795
+00:25:29,606 --> 00:25:31,546
+on your View Controller instead.
+
+
+796
+00:25:33,506 --> 00:25:34,696
+And regardless of which of those
+
+
+797
+00:25:34,696 --> 00:25:37,196
+you use, keep your content to no
+
+
+798
+00:25:37,436 --> 00:25:39,106
+more than half of the height of
+
+
+799
+00:25:39,106 --> 00:25:41,286
+the screen because you don't get
+
+
+800
+00:25:41,286 --> 00:25:42,276
+to use the entire screen.
+
+
+801
+00:25:43,106 --> 00:25:44,746
+And as for controls, while, you
+
+
+802
+00:25:44,746 --> 00:25:46,446
+can use whatever you want, we
+
+
+803
+00:25:46,446 --> 00:25:47,986
+would recommend that you avoid
+
+
+804
+00:25:47,986 --> 00:25:49,166
+things like text fields and
+
+
+805
+00:25:49,166 --> 00:25:50,466
+buttons, which feel out of
+
+
+806
+00:25:50,596 --> 00:25:53,056
+place, and instead prefer things
+
+
+807
+00:25:53,056 --> 00:25:54,566
+like collection and table views.
+
+
+808
+00:25:56,106 --> 00:25:58,016
+Alright, finally, I'd like to
+
+
+809
+00:25:58,016 --> 00:25:59,766
+talk about Live Streams.
+
+
+810
+00:26:00,456 --> 00:26:04,966
+We're adding four new metadata
+
+
+811
+00:26:04,966 --> 00:26:07,296
+identifiers in tvOS 11 that lets
+
+
+812
+00:26:07,296 --> 00:26:09,626
+you specify the starting date
+
+
+813
+00:26:09,706 --> 00:26:11,306
+and ending date of your live
+
+
+814
+00:26:11,306 --> 00:26:12,686
+stream or your event stream.
+
+
+815
+00:26:14,896 --> 00:26:19,576
+Now, as an example, one example
+
+
+816
+00:26:19,576 --> 00:26:20,926
+where you want to use the exact
+
+
+817
+00:26:20,926 --> 00:26:23,166
+end date, would be something
+
+
+818
+00:26:23,326 --> 00:26:25,096
+like a traditional broadcast
+
+
+819
+00:26:25,096 --> 00:26:26,366
+stream, where you have a
+
+
+820
+00:26:26,366 --> 00:26:27,876
+continuous live stream that's
+
+
+821
+00:26:27,876 --> 00:26:29,886
+broken up into scheduled blocks
+
+
+822
+00:26:29,886 --> 00:26:31,736
+of 30 minutes or 60 minutes.
+
+
+823
+00:26:32,616 --> 00:26:34,166
+And in that case, you can use
+
+
+824
+00:26:34,166 --> 00:26:35,686
+the exact start and exact end
+
+
+825
+00:26:35,686 --> 00:26:37,886
+dates to indicate what part of
+
+
+826
+00:26:37,886 --> 00:26:39,146
+that program you're watching
+
+
+827
+00:26:39,146 --> 00:26:39,606
+right now.
+
+
+828
+00:26:39,606 --> 00:26:43,526
+How about the approximate end
+
+
+829
+00:26:43,526 --> 00:26:43,806
+date?
+
+
+830
+00:26:43,896 --> 00:26:45,586
+Well, the easiest example there
+
+
+831
+00:26:45,586 --> 00:26:46,876
+would something like a sporting
+
+
+832
+00:26:46,876 --> 00:26:49,906
+event where you know for example
+
+
+833
+00:26:49,906 --> 00:26:51,276
+that the game will probably last
+
+
+834
+00:26:51,276 --> 00:26:52,636
+about three hours, but you
+
+
+835
+00:26:52,636 --> 00:26:54,526
+really have no idea up front how
+
+
+836
+00:26:54,526 --> 00:26:56,346
+long it's going to go.
+
+
+837
+00:26:56,346 --> 00:26:57,096
+It could end sooner.
+
+
+838
+00:26:57,096 --> 00:26:57,816
+It could end later.
+
+
+839
+00:26:57,816 --> 00:26:59,916
+And in that case, you use an
+
+
+840
+00:26:59,916 --> 00:27:00,896
+approximate end date.
+
+
+841
+00:27:00,896 --> 00:27:03,416
+In either case, the transfer of
+
+
+842
+00:27:03,416 --> 00:27:05,336
+our timescale will reflect these
+
+
+843
+00:27:05,336 --> 00:27:05,906
+dates.
+
+
+844
+00:27:06,216 --> 00:27:08,076
+So, it will either reflect more
+
+
+845
+00:27:08,076 --> 00:27:08,936
+time or less time.
+
+
+846
+00:27:10,146 --> 00:27:12,276
+When you provide exact values,
+
+
+847
+00:27:12,346 --> 00:27:13,286
+those are displayed on the
+
+
+848
+00:27:13,286 --> 00:27:14,936
+transfer bar with a clock time
+
+
+849
+00:27:15,206 --> 00:27:16,876
+and approximate values are not
+
+
+850
+00:27:16,876 --> 00:27:17,846
+shown, so that these are --
+
+
+851
+00:27:17,846 --> 00:27:19,416
+isn't misled into thinking it's
+
+
+852
+00:27:19,416 --> 00:27:20,976
+going to end precisely at the
+
+
+853
+00:27:20,976 --> 00:27:22,926
+end time.
+
+
+854
+00:27:23,766 --> 00:27:25,006
+And this helps to orient the
+
+
+855
+00:27:25,006 --> 00:27:26,256
+user to where they are in your
+
+
+856
+00:27:26,256 --> 00:27:26,626
+program.
+
+
+857
+00:27:26,626 --> 00:27:27,846
+How much they've missed, how
+
+
+858
+00:27:27,846 --> 00:27:31,096
+much they should expect to have
+
+
+859
+00:27:31,876 --> 00:27:33,736
+before the program is over.
+
+
+860
+00:27:34,406 --> 00:27:38,576
+So, let's just to visualize
+
+
+861
+00:27:38,576 --> 00:27:41,426
+that, this -- in the case where
+
+
+862
+00:27:41,426 --> 00:27:42,726
+you have a live stream, and you
+
+
+863
+00:27:42,726 --> 00:27:44,656
+haven't specified either a start
+
+
+864
+00:27:44,656 --> 00:27:45,726
+or an end date, you get the
+
+
+865
+00:27:45,726 --> 00:27:47,286
+default or legacy behavior.
+
+
+866
+00:27:47,426 --> 00:27:50,676
+Now in the past, this differs a
+
+
+867
+00:27:50,676 --> 00:27:52,036
+little bit from what we did in
+
+
+868
+00:27:52,036 --> 00:27:53,356
+tvOS 10, because in the past, we
+
+
+869
+00:27:53,356 --> 00:27:55,286
+showed the start and the end
+
+
+870
+00:27:55,386 --> 00:27:56,096
+times.
+
+
+871
+00:27:56,706 --> 00:27:57,696
+We no longer do that because
+
+
+872
+00:27:57,696 --> 00:27:58,686
+they're both approximate.
+
+
+873
+00:27:59,646 --> 00:28:00,866
+But you would have a 30-minute
+
+
+874
+00:28:00,866 --> 00:28:01,326
+window.
+
+
+875
+00:28:01,516 --> 00:28:03,396
+So, in this example, it would
+
+
+876
+00:28:03,396 --> 00:28:05,896
+run from 11 to 11:30, and so the
+
+
+877
+00:28:05,896 --> 00:28:08,246
+11:28 mark is near the end.
+
+
+878
+00:28:09,536 --> 00:28:11,316
+However, now that's fine if your
+
+
+879
+00:28:11,316 --> 00:28:12,646
+program actually from 11 to
+
+
+880
+00:28:12,646 --> 00:28:14,066
+11:30, but what if it doesn't?
+
+
+881
+00:28:14,066 --> 00:28:14,986
+What if it's -- you're in the
+
+
+882
+00:28:14,986 --> 00:28:16,656
+middle of a three-hour baseball
+
+
+883
+00:28:16,656 --> 00:28:17,326
+game or something?
+
+
+884
+00:28:18,086 --> 00:28:20,346
+Well, here's an example with
+
+
+885
+00:28:20,346 --> 00:28:22,236
+exact start and end dates, in
+
+
+886
+00:28:22,236 --> 00:28:23,706
+this case, 10 o'clock to 1
+
+
+887
+00:28:23,706 --> 00:28:25,926
+o'clock, 11:28 you see is now
+
+
+888
+00:28:25,926 --> 00:28:28,376
+roughly in the middle, and the
+
+
+889
+00:28:28,376 --> 00:28:29,526
+scale has been adjusted.
+
+
+890
+00:28:30,086 --> 00:28:31,556
+And of course, we can set an
+
+
+891
+00:28:31,556 --> 00:28:33,426
+approximate end date instead and
+
+
+892
+00:28:33,426 --> 00:28:35,106
+that just makes the end time
+
+
+893
+00:28:35,106 --> 00:28:35,546
+disappear.
+
+
+894
+00:28:36,016 --> 00:28:40,466
+But the scale remains the same.
+
+
+895
+00:28:40,656 --> 00:28:42,106
+So, let's look briefly at the
+
+
+896
+00:28:42,106 --> 00:28:43,046
+code for this.
+
+
+897
+00:28:43,146 --> 00:28:44,376
+If you've seen last year's
+
+
+898
+00:28:44,376 --> 00:28:47,706
+session, the new metadata item
+
+
+899
+00:28:47,706 --> 00:28:48,606
+helper function will look
+
+
+900
+00:28:48,606 --> 00:28:49,096
+familiar.
+
+
+901
+00:28:50,106 --> 00:28:50,896
+All we're going to do is we're
+
+
+902
+00:28:50,896 --> 00:28:52,686
+going to create our start dates.
+
+
+903
+00:28:53,416 --> 00:28:54,816
+We're going to create a metadata
+
+
+904
+00:28:54,816 --> 00:28:56,466
+item for it.
+
+
+905
+00:28:57,036 --> 00:28:58,596
+We're going to do the same thing
+
+
+906
+00:28:58,596 --> 00:28:59,636
+for our end date.
+
+
+907
+00:29:00,476 --> 00:29:02,936
+And finally, we're going to add
+
+
+908
+00:29:02,936 --> 00:29:04,826
+our two metadata items to our
+
+
+909
+00:29:04,826 --> 00:29:06,696
+player item, to the external
+
+
+910
+00:29:06,696 --> 00:29:07,626
+metadata property.
+
+
+911
+00:29:08,226 --> 00:29:12,276
+Alright, now we're going to try
+
+
+912
+00:29:12,596 --> 00:29:13,296
+a brief demo.
+
+
+913
+00:29:13,986 --> 00:29:15,366
+I've got a few things I can show
+
+
+914
+00:29:15,366 --> 00:29:15,646
+here.
+
+
+915
+00:29:16,816 --> 00:29:21,746
+First, here's our Unobscured
+
+
+916
+00:29:21,746 --> 00:29:22,446
+Content Guide.
+
+
+917
+00:29:24,326 --> 00:29:28,146
+And, if we let it fade out, it
+
+
+918
+00:29:28,146 --> 00:29:29,586
+fades with it, because I'm using
+
+
+919
+00:29:29,586 --> 00:29:30,526
+the transfer bar animation
+
+
+920
+00:29:30,526 --> 00:29:30,976
+coordinator.
+
+
+921
+00:29:31,996 --> 00:29:32,976
+So, it fades out quickly.
+
+
+922
+00:29:33,836 --> 00:29:36,976
+I feel like I should wave at
+
+
+923
+00:29:36,976 --> 00:29:37,566
+myself.
+
+
+924
+00:29:40,256 --> 00:29:42,446
+And here we have a custom info
+
+
+925
+00:29:42,446 --> 00:29:42,736
+view.
+
+
+926
+00:29:43,436 --> 00:29:47,756
+As we saw earlier, and we can
+
+
+927
+00:29:47,756 --> 00:29:49,716
+switch it from -- to -- let's
+
+
+928
+00:29:49,776 --> 00:29:51,576
+put it on exact dates.
+
+
+929
+00:29:52,366 --> 00:29:52,946
+And there we go.
+
+
+930
+00:29:54,876 --> 00:29:56,786
+Now, the good news -- alright.
+
+
+931
+00:29:57,516 --> 00:29:59,846
+[ Applause ]
+
+
+932
+00:30:00,346 --> 00:30:01,286
+The good news is that the
+
+
+933
+00:30:01,286 --> 00:30:02,516
+session is not in fact going
+
+
+934
+00:30:02,516 --> 00:30:03,136
+three hours.
+
+
+935
+00:30:03,766 --> 00:30:07,146
+I just did that because if I set
+
+
+936
+00:30:07,146 --> 00:30:09,536
+the actual end time, the current
+
+
+937
+00:30:09,536 --> 00:30:10,566
+time would be too close to the
+
+
+938
+00:30:10,566 --> 00:30:12,636
+end time and they would -- the
+
+
+939
+00:30:12,636 --> 00:30:13,606
+event time would be hidden
+
+
+940
+00:30:13,606 --> 00:30:14,756
+because they'd be overlapping
+
+
+941
+00:30:14,756 --> 00:30:15,186
+otherwise.
+
+
+942
+00:30:15,186 --> 00:30:17,636
+But, here's another look at that
+
+
+943
+00:30:17,636 --> 00:30:17,846
+code.
+
+
+944
+00:30:17,846 --> 00:30:19,256
+People viewing this at home
+
+
+945
+00:30:19,256 --> 00:30:20,056
+later are going to be very
+
+
+946
+00:30:20,056 --> 00:30:21,226
+confused that you just dropped
+
+
+947
+00:30:21,226 --> 00:30:22,916
+in right now, because the audio
+
+
+948
+00:30:22,916 --> 00:30:26,026
+track seems a little bit off.
+
+
+949
+00:30:26,176 --> 00:30:28,846
+Alright, and that's our demo.
+
+
+950
+00:30:29,236 --> 00:30:31,236
+[ Applause ]
+
+
+951
+00:30:31,456 --> 00:30:36,476
+Back to the slides.
+
+
+952
+00:30:36,896 --> 00:30:37,696
+Alright, so that's -- we've
+
+
+953
+00:30:37,696 --> 00:30:38,586
+talked about several new
+
+
+954
+00:30:38,586 --> 00:30:39,936
+features in AVKit, and there are
+
+
+955
+00:30:39,936 --> 00:30:40,816
+a couple more that I haven't
+
+
+956
+00:30:40,816 --> 00:30:43,426
+talked about, but these are the
+
+
+957
+00:30:43,426 --> 00:30:44,396
+most important ones.
+
+
+958
+00:30:45,186 --> 00:30:47,236
+For more information about using
+
+
+959
+00:30:47,236 --> 00:30:49,546
+AVKit on tvOS, see last year's
+
+
+960
+00:30:49,546 --> 00:30:50,056
+session.
+
+
+961
+00:30:50,726 --> 00:30:52,536
+And you can also join us in the
+
+
+962
+00:30:52,536 --> 00:30:54,436
+AVKit lab, shortly after this
+
+
+963
+00:30:54,436 --> 00:30:57,206
+session at 11, until 1, in Tech
+
+
+964
+00:30:57,206 --> 00:30:57,856
+Lab F.
+
+
+965
+00:30:58,576 --> 00:30:59,726
+And bring us your questions.
+
+
+966
+00:31:00,586 --> 00:31:02,046
+And now, I'd like to introduce
+
+
+967
+00:31:02,046 --> 00:31:03,596
+Marshall to the stage to talk
+
+
+968
+00:31:03,596 --> 00:31:04,336
+about View Controller
+
+
+969
+00:31:04,336 --> 00:31:04,946
+enhancements.
+
+
+970
+00:31:06,516 --> 00:31:10,126
+[ Applause ]
+
+
+971
+00:31:10,626 --> 00:31:12,736
+>> Thank you, Dan.
+
+
+972
+00:31:13,166 --> 00:31:14,546
+My name is Marshall, and today
+
+
+973
+00:31:14,546 --> 00:31:15,826
+I'm going to talk about View
+
+
+974
+00:31:15,826 --> 00:31:17,256
+Controller Enhancements in tvOS
+
+
+975
+00:31:17,256 --> 00:31:17,566
+11.
+
+
+976
+00:31:17,566 --> 00:31:18,366
+Let's dive right in.
+
+
+977
+00:31:18,616 --> 00:31:20,696
+First, we're going to take a
+
+
+978
+00:31:20,696 --> 00:31:22,176
+look at mobile presentations.
+
+
+979
+00:31:22,406 --> 00:31:24,206
+If you've ever used the UI Alert
+
+
+980
+00:31:24,206 --> 00:31:25,696
+Controller or put your Apple TV
+
+
+981
+00:31:25,696 --> 00:31:27,566
+to sleep, you might recognize
+
+
+982
+00:31:27,566 --> 00:31:28,776
+this transition where we
+
+
+983
+00:31:28,776 --> 00:31:30,246
+progressively blur the content
+
+
+984
+00:31:30,596 --> 00:31:31,526
+and animate in the View
+
+
+985
+00:31:31,526 --> 00:31:32,006
+Controller.
+
+
+986
+00:31:32,446 --> 00:31:35,026
+Well, starting in tvOS 11, you
+
+
+987
+00:31:35,026 --> 00:31:36,056
+can now do that in your own
+
+
+988
+00:31:36,056 --> 00:31:37,816
+applications, using the new UI
+
+
+989
+00:31:37,816 --> 00:31:39,346
+Multi-Presentation Style called,
+
+
+990
+00:31:39,346 --> 00:31:40,756
+.blurOverFullScreen.
+
+
+991
+00:31:42,086 --> 00:31:43,356
+This will progressively blur the
+
+
+992
+00:31:43,356 --> 00:31:44,626
+content of the presenting view
+
+
+993
+00:31:44,626 --> 00:31:46,796
+controller, and it uses the same
+
+
+994
+00:31:46,796 --> 00:31:48,186
+timings in the animations that
+
+
+995
+00:31:48,186 --> 00:31:49,496
+UI Alert Controller does.
+
+
+996
+00:31:50,696 --> 00:31:51,906
+Implementing this is easy.
+
+
+997
+00:31:52,696 --> 00:31:54,096
+You set the mobile presentation
+
+
+998
+00:31:54,096 --> 00:31:55,826
+style to blur over full screen,
+
+
+999
+00:31:55,826 --> 00:31:56,546
+and present your view
+
+
+1000
+00:31:56,546 --> 00:31:57,736
+controller, like you normally
+
+
+1001
+00:31:57,736 --> 00:31:57,966
+would.
+
+
+1002
+00:31:58,546 --> 00:32:02,486
+Next, we're going to talk about
+
+
+1003
+00:32:02,486 --> 00:32:03,986
+some enhancements, the UI Split
+
+
+1004
+00:32:03,986 --> 00:32:04,636
+View Controller.
+
+
+1005
+00:32:05,146 --> 00:32:06,636
+If you've used a split view
+
+
+1006
+00:32:06,636 --> 00:32:08,076
+controller in your application
+
+
+1007
+00:32:08,076 --> 00:32:11,706
+before, then you know that the
+
+
+1008
+00:32:11,706 --> 00:32:12,986
+master view controller's on the
+
+
+1009
+00:32:12,986 --> 00:32:13,956
+left, and the detailed view
+
+
+1010
+00:32:13,956 --> 00:32:14,756
+controller's on the right.
+
+
+1011
+00:32:15,696 --> 00:32:17,176
+Well, starting in tvOS 11, we
+
+
+1012
+00:32:17,176 --> 00:32:18,256
+now have a new property that
+
+
+1013
+00:32:18,256 --> 00:32:19,126
+will allow you to swap the
+
+
+1014
+00:32:19,126 --> 00:32:19,546
+layout.
+
+
+1015
+00:32:19,886 --> 00:32:22,806
+In order to support this, we
+
+
+1016
+00:32:22,806 --> 00:32:24,666
+have a new enum called UI Split
+
+
+1017
+00:32:24,666 --> 00:32:26,076
+View Controller Primary Edge
+
+
+1018
+00:32:26,076 --> 00:32:27,886
+with two values, leading and
+
+
+1019
+00:32:27,886 --> 00:32:28,396
+trailing.
+
+
+1020
+00:32:29,216 --> 00:32:30,856
+And then, a property that you
+
+
+1021
+00:32:30,856 --> 00:32:32,186
+can set the primary edge.
+
+
+1022
+00:32:32,956 --> 00:32:34,136
+Now, these names are important
+
+
+1023
+00:32:34,176 --> 00:32:35,516
+because as we heard, tvOS now
+
+
+1024
+00:32:35,516 --> 00:32:37,346
+supports RTL languages.
+
+
+1025
+00:32:37,826 --> 00:32:38,966
+So, in this case, if you have a
+
+
+1026
+00:32:38,966 --> 00:32:40,336
+left to right language and use
+
+
+1027
+00:32:40,336 --> 00:32:41,146
+leading, the master view
+
+
+1028
+00:32:41,146 --> 00:32:42,336
+controller will be on the left,
+
+
+1029
+00:32:42,606 --> 00:32:44,106
+and trailing the master view
+
+
+1030
+00:32:44,106 --> 00:32:44,926
+controller, would on the right.
+
+
+1031
+00:32:45,686 --> 00:32:47,706
+But in RTL languages, those will
+
+
+1032
+00:32:47,706 --> 00:32:48,996
+be mirrored, so the master would
+
+
+1033
+00:32:48,996 --> 00:32:49,906
+be on the right, and for
+
+
+1034
+00:32:49,906 --> 00:32:57,576
+trailing, it will be on the
+
+
+1035
+00:32:57,716 --> 00:32:57,836
+left.
+
+
+1036
+00:32:57,836 --> 00:32:59,326
+Last year, we announced a new
+
+
+1037
+00:32:59,326 --> 00:33:01,736
+use facing feature where users
+
+
+1038
+00:33:01,736 --> 00:33:02,676
+can change their system
+
+
+1039
+00:33:02,676 --> 00:33:03,616
+appearance to dark.
+
+
+1040
+00:33:03,756 --> 00:33:05,676
+And this allows a great
+
+
+1041
+00:33:05,676 --> 00:33:07,526
+experience when their Apple TV's
+
+
+1042
+00:33:07,526 --> 00:33:09,186
+in a movie room or perhaps for
+
+
+1043
+00:33:09,186 --> 00:33:09,786
+use at night.
+
+
+1044
+00:33:10,336 --> 00:33:11,516
+Well, starting this year, we
+
+
+1045
+00:33:11,516 --> 00:33:13,436
+have another mode which we call
+
+
+1046
+00:33:13,436 --> 00:33:13,936
+automatic.
+
+
+1047
+00:33:14,206 --> 00:33:15,866
+And what this will do, is it
+
+
+1048
+00:33:15,866 --> 00:33:17,346
+will automatically change the
+
+
+1049
+00:33:17,346 --> 00:33:20,356
+user's system appearance to dark
+
+
+1050
+00:33:20,356 --> 00:33:22,016
+at night, and light during the
+
+
+1051
+00:33:22,016 --> 00:33:23,366
+day, based on their current
+
+
+1052
+00:33:23,366 --> 00:33:23,906
+location.
+
+
+1053
+00:33:24,746 --> 00:33:25,776
+Now, it's more important than
+
+
+1054
+00:33:25,776 --> 00:33:27,226
+ever to make sure apps adopt the
+
+
+1055
+00:33:27,226 --> 00:33:28,176
+light and dark appearance to
+
+
+1056
+00:33:28,176 --> 00:33:29,686
+offer the best user experience.
+
+
+1057
+00:33:30,516 --> 00:33:31,546
+In order to support this, we've
+
+
+1058
+00:33:31,546 --> 00:33:32,746
+added some new APIs.
+
+
+1059
+00:33:33,166 --> 00:33:34,296
+First, let's take a look at Top
+
+
+1060
+00:33:34,296 --> 00:33:34,776
+Shelf.
+
+
+1061
+00:33:36,836 --> 00:33:38,846
+If you've provided a Top Shelf
+
+
+1062
+00:33:38,846 --> 00:33:39,796
+extension, you know you can
+
+
+1063
+00:33:39,796 --> 00:33:42,036
+provide an image URL to provide
+
+
+1064
+00:33:42,226 --> 00:33:43,726
+images up in the Top Shelf.
+
+
+1065
+00:33:44,666 --> 00:33:46,546
+Now, we are allowing a new API
+
+
+1066
+00:33:46,656 --> 00:33:48,436
+to provide a dark image asset as
+
+
+1067
+00:33:48,436 --> 00:33:49,436
+well, and the system will
+
+
+1068
+00:33:49,436 --> 00:33:50,716
+automatically choose the correct
+
+
+1069
+00:33:50,716 --> 00:33:51,696
+asset to show, based on the
+
+
+1070
+00:33:51,696 --> 00:33:52,536
+system appearance.
+
+
+1071
+00:33:53,816 --> 00:33:55,116
+So, if you've looked into this
+
+
+1072
+00:33:55,116 --> 00:33:56,506
+before, you have then a TV
+
+
+1073
+00:33:56,506 --> 00:33:58,316
+content item and then set the
+
+
+1074
+00:33:58,316 --> 00:33:59,016
+image URL.
+
+
+1075
+00:33:59,766 --> 00:34:02,356
+Starting in tvOS 11, you can now
+
+
+1076
+00:34:02,356 --> 00:34:05,056
+call Set Image URL for traits
+
+
+1077
+00:34:05,056 --> 00:34:06,436
+and provide a light and dark
+
+
+1078
+00:34:06,436 --> 00:34:07,536
+trait to provide those image
+
+
+1079
+00:34:07,536 --> 00:34:08,056
+assets.
+
+
+1080
+00:34:08,616 --> 00:34:09,746
+If you'd like to still use the
+
+
+1081
+00:34:09,746 --> 00:34:11,536
+same image, then you can just
+
+
+1082
+00:34:11,536 --> 00:34:12,826
+provide the same image URL to
+
+
+1083
+00:34:12,826 --> 00:34:13,926
+both these method calls.
+
+
+1084
+00:34:16,516 --> 00:34:17,746
+Finally, today, we're going to
+
+
+1085
+00:34:17,746 --> 00:34:18,985
+talk about how you can adapt
+
+
+1086
+00:34:18,985 --> 00:34:20,096
+your app's appearance to your
+
+
+1087
+00:34:20,096 --> 00:34:20,585
+content.
+
+
+1088
+00:34:21,436 --> 00:34:22,866
+We do this in our apps, such as
+
+
+1089
+00:34:22,866 --> 00:34:25,235
+our movies where if a movie has
+
+
+1090
+00:34:25,235 --> 00:34:26,956
+artwork that's light, we'll show
+
+
+1091
+00:34:26,956 --> 00:34:28,716
+appropriate controls, and if
+
+
+1092
+00:34:28,716 --> 00:34:30,126
+it's dark, we'll also show
+
+
+1093
+00:34:30,126 --> 00:34:31,926
+controls that look best on that.
+
+
+1094
+00:34:32,706 --> 00:34:33,476
+Well, in order to make this
+
+
+1095
+00:34:33,476 --> 00:34:35,235
+easier for developers, we have a
+
+
+1096
+00:34:35,235 --> 00:34:36,896
+new property on UI View
+
+
+1097
+00:34:36,896 --> 00:34:38,056
+Controller, called Preferred
+
+
+1098
+00:34:38,056 --> 00:34:38,956
+User Interface Style.
+
+
+1099
+00:34:39,356 --> 00:34:40,536
+If you've ever used preferred
+
+
+1100
+00:34:40,536 --> 00:34:42,176
+status bar style, then this
+
+
+1101
+00:34:42,176 --> 00:34:43,456
+might look familiar to you.
+
+
+1102
+00:34:44,096 --> 00:34:45,795
+What it lets you do is specify a
+
+
+1103
+00:34:45,795 --> 00:34:47,166
+specific UI User Interface
+
+
+1104
+00:34:47,166 --> 00:34:48,466
+Style, on your view controller,
+
+
+1105
+00:34:49,076 --> 00:34:50,146
+which will customize the
+
+
+1106
+00:34:50,146 --> 00:34:51,686
+appearance by updating the trait
+
+
+1107
+00:34:51,686 --> 00:34:53,466
+collection, and update the
+
+
+1108
+00:34:53,466 --> 00:34:54,346
+system wallpaper.
+
+
+1109
+00:34:54,996 --> 00:34:56,196
+Let's take a look at what this
+
+
+1110
+00:34:56,196 --> 00:34:56,616
+looks like.
+
+
+1111
+00:34:57,276 --> 00:34:59,106
+Here, I've got a Tab-R
+
+
+1112
+00:34:59,106 --> 00:35:00,266
+controller, where the first view
+
+
+1113
+00:35:00,266 --> 00:35:01,926
+controller specifies a preferred
+
+
+1114
+00:35:01,926 --> 00:35:03,406
+style of light, and the second
+
+
+1115
+00:35:03,556 --> 00:35:05,266
+view controller specifies a
+
+
+1116
+00:35:05,266 --> 00:35:06,216
+preferred style dark.
+
+
+1117
+00:35:06,586 --> 00:35:07,996
+When we switch tabs, we see that
+
+
+1118
+00:35:07,996 --> 00:35:08,876
+the application's trait
+
+
+1119
+00:35:08,876 --> 00:35:09,906
+collection automatically get
+
+
+1120
+00:35:09,906 --> 00:35:11,636
+updated, as does the system
+
+
+1121
+00:35:11,636 --> 00:35:12,166
+wallpaper.
+
+
+1122
+00:35:14,076 --> 00:35:15,656
+So, we've added three new API
+
+
+1123
+00:35:15,656 --> 00:35:16,836
+method for you to implement this
+
+
+1124
+00:35:16,836 --> 00:35:17,586
+in your own apps.
+
+
+1125
+00:35:17,946 --> 00:35:19,736
+First, we have a read only
+
+
+1126
+00:35:19,736 --> 00:35:21,446
+property, called Preferred User
+
+
+1127
+00:35:21,446 --> 00:35:22,426
+Interface Style that you
+
+
+1128
+00:35:22,526 --> 00:35:23,436
+override in your View
+
+
+1129
+00:35:23,436 --> 00:35:23,916
+Controller.
+
+
+1130
+00:35:24,216 --> 00:35:25,746
+Here you can provide UI User
+
+
+1131
+00:35:25,746 --> 00:35:28,066
+Interfaced Style, light, dark,
+
+
+1132
+00:35:28,206 --> 00:35:29,586
+or unspecified, which means
+
+
+1133
+00:35:29,586 --> 00:35:30,766
+follow the system style.
+
+
+1134
+00:35:31,566 --> 00:35:33,056
+For most people, this is
+
+
+1135
+00:35:33,056 --> 00:35:34,736
+probably enough to handle what
+
+
+1136
+00:35:34,736 --> 00:35:35,066
+you want.
+
+
+1137
+00:35:35,526 --> 00:35:36,966
+But if you're using custom view
+
+
+1138
+00:35:36,966 --> 00:35:38,316
+controllers, and using Child
+
+
+1139
+00:35:38,316 --> 00:35:39,306
+View Controller Containment,
+
+
+1140
+00:35:39,586 --> 00:35:40,606
+there's two more methods that
+
+
+1141
+00:35:40,606 --> 00:35:41,556
+you're going to want to use.
+
+
+1142
+00:35:41,616 --> 00:35:43,406
+First, the Child View Controller
+
+
+1143
+00:35:43,406 --> 00:35:44,546
+For User Interface Style, let's
+
+
+1144
+00:35:44,546 --> 00:35:45,896
+you delegate that decision to
+
+
+1145
+00:35:45,896 --> 00:35:46,626
+review controller.
+
+
+1146
+00:35:47,006 --> 00:35:48,516
+In the case of tab bar
+
+
+1147
+00:35:48,516 --> 00:35:50,456
+controller, the current selected
+
+
+1148
+00:35:50,456 --> 00:35:51,806
+tab bar view controller -- or
+
+
+1149
+00:35:51,806 --> 00:35:52,566
+the current selected View
+
+
+1150
+00:35:52,566 --> 00:35:54,136
+Controller, gets returned here.
+
+
+1151
+00:35:55,156 --> 00:35:56,476
+And then, when that change
+
+
+1152
+00:35:56,476 --> 00:35:58,126
+occurs, you need to call Set
+
+
+1153
+00:35:58,126 --> 00:35:59,766
+Needs User Interface Appearance
+
+
+1154
+00:35:59,766 --> 00:36:00,166
+Update.
+
+
+1155
+00:36:00,526 --> 00:36:01,736
+This lets the system know that a
+
+
+1156
+00:36:01,736 --> 00:36:03,026
+change occurred and we can
+
+
+1157
+00:36:03,026 --> 00:36:04,326
+refigure out what the preferred
+
+
+1158
+00:36:04,326 --> 00:36:05,376
+style's going to be for your
+
+
+1159
+00:36:05,376 --> 00:36:05,976
+application.
+
+
+1160
+00:36:09,296 --> 00:36:11,086
+So, those are our View
+
+
+1161
+00:36:11,086 --> 00:36:12,336
+Controller Enhancements today.
+
+
+1162
+00:36:12,906 --> 00:36:14,456
+Let's take a look and see what
+
+
+1163
+00:36:14,456 --> 00:36:14,876
+we covered.
+
+
+1164
+00:36:15,416 --> 00:36:17,106
+First, we learned that on-demand
+
+
+1165
+00:36:17,106 --> 00:36:18,486
+resources bundle size have been
+
+
+1166
+00:36:18,486 --> 00:36:19,896
+increased from 200 megabytes to
+
+
+1167
+00:36:19,896 --> 00:36:21,266
+4 gigabytes that allow you to
+
+
+1168
+00:36:21,266 --> 00:36:22,526
+package more content on the
+
+
+1169
+00:36:22,526 --> 00:36:23,866
+application install.
+
+
+1170
+00:36:24,816 --> 00:36:26,696
+We learned that tvOS now
+
+
+1171
+00:36:26,696 --> 00:36:28,346
+supports RTL languages, so make
+
+
+1172
+00:36:28,346 --> 00:36:29,586
+sure to use the tools we provide
+
+
+1173
+00:36:29,586 --> 00:36:31,896
+to test your layouts for those
+
+
+1174
+00:36:31,896 --> 00:36:32,396
+languages.
+
+
+1175
+00:36:32,966 --> 00:36:35,406
+We learned about new ways to do
+
+
+1176
+00:36:35,406 --> 00:36:36,536
+work in the background to make
+
+
+1177
+00:36:36,536 --> 00:36:37,866
+sure that your content's always
+
+
+1178
+00:36:37,866 --> 00:36:39,226
+updated and ready for the user
+
+
+1179
+00:36:39,226 --> 00:36:39,766
+when they launch your
+
+
+1180
+00:36:39,766 --> 00:36:40,386
+application.
+
+
+1181
+00:36:41,916 --> 00:36:43,486
+We talked about new AVKit
+
+
+1182
+00:36:43,486 --> 00:36:44,576
+enhancements including, the
+
+
+1183
+00:36:44,576 --> 00:36:45,796
+custom info views.
+
+
+1184
+00:36:47,336 --> 00:36:49,046
+We also saw a new API on Image
+
+
+1185
+00:36:49,046 --> 00:36:50,566
+Views, so you can make your
+
+
+1186
+00:36:50,566 --> 00:36:52,686
+content more interactive for the
+
+
+1187
+00:36:52,686 --> 00:36:53,016
+user.
+
+
+1188
+00:36:54,896 --> 00:36:56,446
+And finally, we talked about how
+
+
+1189
+00:36:56,446 --> 00:36:58,286
+to adapt your content, your
+
+
+1190
+00:36:58,286 --> 00:36:59,506
+application's appearance to your
+
+
+1191
+00:36:59,506 --> 00:37:00,986
+content, using preferred user
+
+
+1192
+00:37:00,986 --> 00:37:01,676
+interface style.
+
+
+1193
+00:37:02,236 --> 00:37:04,186
+If you'd like any more
+
+
+1194
+00:37:04,186 --> 00:37:05,846
+information, please develop --
+
+
+1195
+00:37:05,846 --> 00:37:06,546
+please visit
+
+
+1196
+00:37:06,546 --> 00:37:08,036
+developer.apple.com.
+
+
+1197
+00:37:08,996 --> 00:37:10,276
+If you want to expand on any of
+
+
+1198
+00:37:10,276 --> 00:37:11,246
+the topics we have, we have a
+
+
+1199
+00:37:11,246 --> 00:37:12,426
+lot of related sessions,
+
+
+1200
+00:37:12,426 --> 00:37:13,796
+including a few videos this
+
+
+1201
+00:37:13,796 --> 00:37:13,986
+year.
+
+
+1202
+00:37:14,936 --> 00:37:16,066
+Thank you for coming and I hope
+
+
+1203
+00:37:16,066 --> 00:37:16,716
+you enjoy the rest of the
+
+
+1204
+00:37:16,716 --> 00:37:16,976
+conference.
+
+
+1205
+00:37:17,508 --> 00:37:19,508
+[ Applause ]
+

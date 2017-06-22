@@ -1,0 +1,5619 @@
+1
+00:00:07,516 --> 00:00:15,500
+[ Crowd Sounds ]
+
+
+2
+00:00:18,346 --> 00:00:19,436
+>> Good morning, everyone.
+
+
+3
+00:00:19,916 --> 00:00:22,256
+And welcome to session 237 this
+
+
+4
+00:00:22,256 --> 00:00:23,386
+early Friday morning.
+
+
+5
+00:00:23,716 --> 00:00:25,086
+My name is Fredrik Olsson and
+
+
+6
+00:00:25,136 --> 00:00:26,396
+I'm an engineer on the MapKit
+
+
+7
+00:00:26,446 --> 00:00:26,726
+team.
+
+
+8
+00:00:26,996 --> 00:00:28,916
+And today I'm here to talk about
+
+
+9
+00:00:28,916 --> 00:00:30,286
+what's new in MapKit.
+
+
+10
+00:00:31,496 --> 00:00:33,376
+The generic map, the standard
+
+
+11
+00:00:33,376 --> 00:00:35,476
+map that has been with us for a
+
+
+12
+00:00:35,476 --> 00:00:37,566
+couple of iterations all the
+
+
+13
+00:00:37,566 --> 00:00:39,476
+time, is a good map.
+
+
+14
+00:00:39,736 --> 00:00:41,566
+It has a road network for easy
+
+
+15
+00:00:41,566 --> 00:00:42,346
+navigation.
+
+
+16
+00:00:42,346 --> 00:00:43,896
+You have your points of interest
+
+
+17
+00:00:43,896 --> 00:00:44,886
+for reference.
+
+
+18
+00:00:45,376 --> 00:00:48,226
+But sometimes your application
+
+
+19
+00:00:48,606 --> 00:00:51,446
+has a little bit more specific
+
+
+20
+00:00:51,486 --> 00:00:52,916
+kind of data that you want to
+
+
+21
+00:00:52,916 --> 00:00:53,636
+stand out.
+
+
+22
+00:00:54,006 --> 00:00:56,896
+Like we had in AppleMaps when we
+
+
+23
+00:00:56,896 --> 00:00:58,996
+added the transit mode when we
+
+
+24
+00:00:58,996 --> 00:01:01,046
+want the transit line to stand
+
+
+25
+00:01:01,046 --> 00:01:03,046
+up and the map to take a little
+
+
+26
+00:01:03,046 --> 00:01:05,495
+bit of a step back, mute down
+
+
+27
+00:01:05,495 --> 00:01:07,856
+and let the data pop so the user
+
+
+28
+00:01:07,856 --> 00:01:09,246
+can see what is important at the
+
+
+29
+00:01:09,246 --> 00:01:09,686
+moment.
+
+
+30
+00:01:10,316 --> 00:01:14,246
+In new iOS 11, we give you muted
+
+
+31
+00:01:14,316 --> 00:01:16,626
+standard map type but do the
+
+
+32
+00:01:16,626 --> 00:01:18,706
+same for your applications so
+
+
+33
+00:01:18,706 --> 00:01:20,746
+that your data can stand out on
+
+
+34
+00:01:20,746 --> 00:01:22,796
+your map and your applications.
+
+
+35
+00:01:25,276 --> 00:01:28,756
+The map is not only the map.
+
+
+36
+00:01:29,456 --> 00:01:30,816
+There are also a couple of
+
+
+37
+00:01:30,816 --> 00:01:32,966
+system controls that we provide
+
+
+38
+00:01:32,966 --> 00:01:34,696
+for free on top of the map.
+
+
+39
+00:01:35,596 --> 00:01:37,536
+You have up in the left corner
+
+
+40
+00:01:37,536 --> 00:01:39,616
+here you can see the scale view.
+
+
+41
+00:01:39,616 --> 00:01:42,186
+You have the complex view up in
+
+
+42
+00:01:42,186 --> 00:01:43,016
+the right corner.
+
+
+43
+00:01:43,376 --> 00:01:46,376
+And down in the bottom right you
+
+
+44
+00:01:46,376 --> 00:01:48,006
+have a friend that has been
+
+
+45
+00:01:48,006 --> 00:01:50,796
+available as API for your use,
+
+
+46
+00:01:51,036 --> 00:01:52,996
+the user tracking bar bottom
+
+
+47
+00:01:52,996 --> 00:01:53,406
+item.
+
+
+48
+00:01:54,766 --> 00:01:57,546
+Now, it is a bar bottom item
+
+
+49
+00:01:57,546 --> 00:01:58,736
+which means that you can only
+
+
+50
+00:01:58,736 --> 00:02:01,496
+use it within the context of a
+
+
+51
+00:02:01,496 --> 00:02:04,296
+bar, such as navigation bars or
+
+
+52
+00:02:04,296 --> 00:02:04,916
+tool bars.
+
+
+53
+00:02:05,396 --> 00:02:07,326
+And if you want to display it
+
+
+54
+00:02:07,566 --> 00:02:10,126
+anywhere else, you have to
+
+
+55
+00:02:10,366 --> 00:02:11,886
+unfortunately roll your own.
+
+
+56
+00:02:12,216 --> 00:02:17,206
+And in iOS 11 we fixed that and
+
+
+57
+00:02:17,206 --> 00:02:18,836
+we give you a proper user
+
+
+58
+00:02:18,836 --> 00:02:20,616
+tracking button that is the
+
+
+59
+00:02:20,616 --> 00:02:22,996
+UIView subclass so that you can
+
+
+60
+00:02:22,996 --> 00:02:26,516
+use it wherever and whenever it,
+
+
+61
+00:02:27,766 --> 00:02:29,866
+well is good for the context of
+
+
+62
+00:02:29,866 --> 00:02:30,856
+your application.
+
+
+63
+00:02:32,256 --> 00:02:33,916
+When we give you the user
+
+
+64
+00:02:33,916 --> 00:02:36,436
+tracking button, we thought why
+
+
+65
+00:02:36,436 --> 00:02:37,756
+not give you more?
+
+
+66
+00:02:37,756 --> 00:02:40,676
+So, yes we will now also give
+
+
+67
+00:02:40,676 --> 00:02:42,256
+you the compass button.
+
+
+68
+00:02:43,706 --> 00:02:46,076
+The compass button is by
+
+
+69
+00:02:46,076 --> 00:02:48,546
+standard app in the upper right
+
+
+70
+00:02:48,546 --> 00:02:48,986
+corner.
+
+
+71
+00:02:49,506 --> 00:02:52,456
+By having it as a UIView button
+
+
+72
+00:02:52,456 --> 00:02:54,056
+you can position it wherever you
+
+
+73
+00:02:54,056 --> 00:02:54,496
+want.
+
+
+74
+00:02:54,926 --> 00:02:56,966
+You can even put it in one of
+
+
+75
+00:02:56,966 --> 00:02:58,476
+the navigation bars if you want
+
+
+76
+00:02:58,476 --> 00:02:58,686
+to.
+
+
+77
+00:02:59,386 --> 00:03:02,326
+The compass button has one more
+
+
+78
+00:03:02,326 --> 00:03:04,506
+property than the user tracking
+
+
+79
+00:03:04,506 --> 00:03:05,126
+button do.
+
+
+80
+00:03:05,446 --> 00:03:07,756
+It's the compass visibility.
+
+
+81
+00:03:08,276 --> 00:03:10,716
+It's on purpose that the compass
+
+
+82
+00:03:10,716 --> 00:03:12,946
+visibility is not just
+
+
+83
+00:03:12,946 --> 00:03:15,596
+repurposing the hidden property
+
+
+84
+00:03:15,996 --> 00:03:19,386
+or some equal simple bool yes
+
+
+85
+00:03:19,386 --> 00:03:21,096
+show it or don't show it.
+
+
+86
+00:03:21,766 --> 00:03:23,476
+We already could show the
+
+
+87
+00:03:23,476 --> 00:03:25,846
+compass on the map view by using
+
+
+88
+00:03:25,846 --> 00:03:28,776
+the shows compass on the map
+
+
+89
+00:03:28,776 --> 00:03:29,556
+view itself.
+
+
+90
+00:03:29,656 --> 00:03:31,456
+Which is a Boolean yes no.
+
+
+91
+00:03:31,776 --> 00:03:34,596
+But it's a bit limited and
+
+
+92
+00:03:34,996 --> 00:03:36,876
+doesn't encompass all the
+
+
+93
+00:03:37,116 --> 00:03:38,626
+features that we want to expose.
+
+
+94
+00:03:38,906 --> 00:03:41,326
+So, feature visibility is a new
+
+
+95
+00:03:41,326 --> 00:03:41,816
+enum.
+
+
+96
+00:03:43,066 --> 00:03:44,546
+It has three states.
+
+
+97
+00:03:44,786 --> 00:03:46,346
+The adaptive mode which is the
+
+
+98
+00:03:46,346 --> 00:03:48,386
+default, hidden and visible.
+
+
+99
+00:03:49,226 --> 00:03:51,646
+And if you look at them, hidden
+
+
+100
+00:03:52,426 --> 00:03:53,336
+is obvious.
+
+
+101
+00:03:53,336 --> 00:03:54,726
+It does what it says.
+
+
+102
+00:03:55,076 --> 00:03:57,526
+Visible also does what it says,
+
+
+103
+00:03:57,526 --> 00:04:00,676
+so no reason to talk much more
+
+
+104
+00:04:00,676 --> 00:04:01,166
+about it.
+
+
+105
+00:04:01,246 --> 00:04:04,376
+But the adaptive default mode do
+
+
+106
+00:04:04,486 --> 00:04:05,646
+require a little bit of
+
+
+107
+00:04:05,646 --> 00:04:06,316
+explanation.
+
+
+108
+00:04:07,246 --> 00:04:08,896
+What the adaptive mode do is
+
+
+109
+00:04:08,896 --> 00:04:11,006
+that if the user has rotated the
+
+
+110
+00:04:11,006 --> 00:04:13,056
+map a little bit away from pure
+
+
+111
+00:04:13,056 --> 00:04:14,566
+north, we display it.
+
+
+112
+00:04:15,186 --> 00:04:16,875
+And if the user rotates back to
+
+
+113
+00:04:16,875 --> 00:04:19,536
+pure north, we fade it away.
+
+
+114
+00:04:20,546 --> 00:04:22,386
+And being a button, if you tap
+
+
+115
+00:04:22,386 --> 00:04:24,986
+on it we will rotate back to
+
+
+116
+00:04:24,986 --> 00:04:26,826
+pure north and fade it away as
+
+
+117
+00:04:26,826 --> 00:04:27,106
+well.
+
+
+118
+00:04:28,216 --> 00:04:29,876
+It is tapable in all the
+
+
+119
+00:04:29,876 --> 00:04:32,186
+different visibility states, so
+
+
+120
+00:04:33,056 --> 00:04:34,126
+you can always tap it.
+
+
+121
+00:04:34,326 --> 00:04:35,536
+It will always be a button.
+
+
+122
+00:04:35,536 --> 00:04:37,386
+But it's a nice catch.
+
+
+123
+00:04:37,786 --> 00:04:39,426
+And if the user rotates away
+
+
+124
+00:04:39,426 --> 00:04:41,636
+from pure north past the little
+
+
+125
+00:04:41,636 --> 00:04:43,826
+threshold, we fade it in again.
+
+
+126
+00:04:44,596 --> 00:04:46,386
+And that is the compass button.
+
+
+127
+00:04:47,506 --> 00:04:49,836
+The last sibling, the scale
+
+
+128
+00:04:49,836 --> 00:04:50,116
+view.
+
+
+129
+00:04:52,386 --> 00:04:54,736
+Also have the visibility
+
+
+130
+00:04:54,906 --> 00:04:57,356
+property which is the same three
+
+
+131
+00:04:57,356 --> 00:04:59,026
+states in enumeration.
+
+
+132
+00:04:59,626 --> 00:05:01,636
+Hidden, self-explanatory.
+
+
+133
+00:05:01,636 --> 00:05:04,426
+Visible, also self-explanatory.
+
+
+134
+00:05:04,926 --> 00:05:07,936
+And adaptive is a new behavior
+
+
+135
+00:05:08,056 --> 00:05:10,636
+where when your user is zooming
+
+
+136
+00:05:10,676 --> 00:05:14,226
+in and out, then we display the
+
+
+137
+00:05:14,226 --> 00:05:14,836
+scale view.
+
+
+138
+00:05:14,946 --> 00:05:16,206
+Otherwise, we hide it.
+
+
+139
+00:05:17,426 --> 00:05:19,016
+The scale view has also been
+
+
+140
+00:05:19,016 --> 00:05:20,856
+available on map view previously
+
+
+141
+00:05:20,946 --> 00:05:23,956
+with the show scale property on
+
+
+142
+00:05:23,996 --> 00:05:24,476
+map view.
+
+
+143
+00:05:25,896 --> 00:05:28,076
+The default behavior for show
+
+
+144
+00:05:28,076 --> 00:05:30,146
+scale and show compass has
+
+
+145
+00:05:30,146 --> 00:05:31,706
+unfortunately been a little bit
+
+
+146
+00:05:31,796 --> 00:05:32,366
+different.
+
+
+147
+00:05:32,776 --> 00:05:33,956
+So, where the default for
+
+
+148
+00:05:33,956 --> 00:05:36,596
+showing the compass has been the
+
+
+149
+00:05:36,596 --> 00:05:38,446
+adaptive mode where we hide it,
+
+
+150
+00:05:39,166 --> 00:05:41,566
+the default for scale has been
+
+
+151
+00:05:41,566 --> 00:05:42,706
+to always show it.
+
+
+152
+00:05:43,126 --> 00:05:45,186
+And now with the scale view
+
+
+153
+00:05:45,506 --> 00:05:47,296
+being exposed to you, you have
+
+
+154
+00:05:47,296 --> 00:05:49,786
+all three options available to
+
+
+155
+00:05:49,786 --> 00:05:50,996
+use as it fits in your
+
+
+156
+00:05:50,996 --> 00:05:51,746
+applications.
+
+
+157
+00:05:53,086 --> 00:05:56,926
+There is one more property on
+
+
+158
+00:05:56,926 --> 00:05:57,516
+the scale view.
+
+
+159
+00:05:58,326 --> 00:05:59,916
+The legend alignment.
+
+
+160
+00:06:00,336 --> 00:06:02,636
+The legend alignment is related
+
+
+161
+00:06:02,636 --> 00:06:04,646
+to the also new and improved
+
+
+162
+00:06:05,356 --> 00:06:07,306
+localization support for map
+
+
+163
+00:06:07,306 --> 00:06:07,586
+view.
+
+
+164
+00:06:08,896 --> 00:06:11,656
+Previously, the compass has
+
+
+165
+00:06:11,656 --> 00:06:13,226
+always been in the upper right.
+
+
+166
+00:06:13,756 --> 00:06:15,666
+The scale has always been in the
+
+
+167
+00:06:15,856 --> 00:06:16,526
+upper left.
+
+
+168
+00:06:17,666 --> 00:06:19,866
+These are the defaults you get.
+
+
+169
+00:06:20,426 --> 00:06:23,976
+But new in iOS 11, if you
+
+
+170
+00:06:23,976 --> 00:06:26,306
+recompile against iOS 11 SDK, we
+
+
+171
+00:06:26,746 --> 00:06:29,606
+will instead fix the compass
+
+
+172
+00:06:29,716 --> 00:06:31,736
+against the trailing edge and
+
+
+173
+00:06:31,736 --> 00:06:33,176
+the scale view against the
+
+
+174
+00:06:33,176 --> 00:06:35,916
+leading edge to get that natural
+
+
+175
+00:06:36,336 --> 00:06:38,226
+look and feel for our
+
+
+176
+00:06:38,336 --> 00:06:39,636
+right-to-left users.
+
+
+177
+00:06:40,756 --> 00:06:42,986
+This, however, has one little
+
+
+178
+00:06:43,396 --> 00:06:46,546
+complication that leads us into
+
+
+179
+00:06:46,546 --> 00:06:48,816
+legend alignment property and
+
+
+180
+00:06:48,816 --> 00:06:49,586
+why we need it.
+
+
+181
+00:06:50,656 --> 00:06:53,836
+The default is leading, which
+
+
+182
+00:06:53,836 --> 00:06:56,876
+means that we will fit the
+
+
+183
+00:06:56,876 --> 00:07:00,796
+serial point of the legend to
+
+
+184
+00:07:00,796 --> 00:07:02,946
+the edge, the leading edge.
+
+
+185
+00:07:03,586 --> 00:07:05,086
+And the upper bound of the
+
+
+186
+00:07:05,086 --> 00:07:07,866
+legend is flexible and will move
+
+
+187
+00:07:07,866 --> 00:07:09,746
+as the users zoom in and out.
+
+
+188
+00:07:10,456 --> 00:07:12,516
+And the leading edge for in this
+
+
+189
+00:07:12,516 --> 00:07:14,376
+example British English would be
+
+
+190
+00:07:14,376 --> 00:07:15,316
+the left-hand side.
+
+
+191
+00:07:15,816 --> 00:07:18,006
+And for Arabic in this example
+
+
+192
+00:07:18,006 --> 00:07:20,076
+is always the right-hand side.
+
+
+193
+00:07:20,706 --> 00:07:22,256
+If you instead want to align
+
+
+194
+00:07:22,596 --> 00:07:25,036
+your scale view to the opposite
+
+
+195
+00:07:25,156 --> 00:07:27,516
+side of the screen, you need to
+
+
+196
+00:07:27,516 --> 00:07:29,176
+set the legend alignment
+
+
+197
+00:07:29,176 --> 00:07:32,146
+property to trailing and we will
+
+
+198
+00:07:32,236 --> 00:07:34,536
+flip the zero point that is
+
+
+199
+00:07:34,536 --> 00:07:38,626
+fixed and to dynamically adapt
+
+
+200
+00:07:39,286 --> 00:07:41,476
+to the localization that is
+
+
+201
+00:07:41,476 --> 00:07:42,206
+currently being used.
+
+
+202
+00:07:42,416 --> 00:07:43,476
+This makes a little bit more
+
+
+203
+00:07:43,476 --> 00:07:45,776
+sense if we look at it as the
+
+
+204
+00:07:45,966 --> 00:07:47,526
+user actually interacts with the
+
+
+205
+00:07:47,526 --> 00:07:47,786
+map.
+
+
+206
+00:07:47,846 --> 00:07:50,466
+The zero point, the zero points
+
+
+207
+00:07:50,966 --> 00:07:53,446
+are fixed but as the user starts
+
+
+208
+00:07:53,446 --> 00:07:55,806
+zooming and this animates, the
+
+
+209
+00:07:55,806 --> 00:07:57,856
+upper edge is moving.
+
+
+210
+00:07:58,536 --> 00:08:00,946
+And if that upper edge is the
+
+
+211
+00:08:00,946 --> 00:08:03,636
+closer edge to the screen, it
+
+
+212
+00:08:03,636 --> 00:08:05,476
+looks kind of silly as the zero
+
+
+213
+00:08:05,476 --> 00:08:06,746
+point in the middle of the
+
+
+214
+00:08:06,746 --> 00:08:08,376
+screen is fixed but the other
+
+
+215
+00:08:08,376 --> 00:08:09,166
+one is moving.
+
+
+216
+00:08:09,436 --> 00:08:13,096
+So, you need to change it if you
+
+
+217
+00:08:13,166 --> 00:08:14,986
+align the scale view to another
+
+
+218
+00:08:14,986 --> 00:08:15,466
+page.
+
+
+219
+00:08:17,396 --> 00:08:20,896
+In using this simple APIs, the
+
+
+220
+00:08:21,806 --> 00:08:25,056
+muted standard map and exposed
+
+
+221
+00:08:25,216 --> 00:08:27,776
+map controls, we can take this
+
+
+222
+00:08:28,326 --> 00:08:29,846
+fictional bike sharing
+
+
+223
+00:08:29,846 --> 00:08:32,186
+application that we look at
+
+
+224
+00:08:32,186 --> 00:08:32,566
+today.
+
+
+225
+00:08:33,116 --> 00:08:35,416
+It is an application that allows
+
+
+226
+00:08:35,416 --> 00:08:38,025
+us to share unicycles and
+
+
+227
+00:08:38,025 --> 00:08:39,765
+tricycles in the San Francisco
+
+
+228
+00:08:39,765 --> 00:08:40,166
+area.
+
+
+229
+00:08:40,976 --> 00:08:42,535
+We can take this application
+
+
+230
+00:08:42,905 --> 00:08:46,256
+that is a little bit dated and
+
+
+231
+00:08:46,256 --> 00:08:48,556
+making it slightly more modern.
+
+
+232
+00:08:49,566 --> 00:08:52,466
+Now, let's look at that one more
+
+
+233
+00:08:52,466 --> 00:08:52,766
+time.
+
+
+234
+00:08:53,176 --> 00:08:55,426
+It was a little bit small of a
+
+
+235
+00:08:55,426 --> 00:08:56,086
+difference maybe.
+
+
+236
+00:08:56,086 --> 00:08:58,396
+We can take the slightly dated
+
+
+237
+00:08:58,396 --> 00:09:01,146
+application and bring it to the
+
+
+238
+00:09:01,146 --> 00:09:01,546
+future.
+
+
+239
+00:09:03,146 --> 00:09:04,756
+As we see here, the big
+
+
+240
+00:09:04,756 --> 00:09:06,536
+difference might not necessarily
+
+
+241
+00:09:06,536 --> 00:09:08,746
+have been the map mode and the
+
+
+242
+00:09:08,746 --> 00:09:09,506
+controls.
+
+
+243
+00:09:09,716 --> 00:09:12,816
+The important part on your maps
+
+
+244
+00:09:12,936 --> 00:09:15,166
+in your application is your
+
+
+245
+00:09:15,336 --> 00:09:17,366
+data, your annotations,
+
+
+246
+00:09:17,436 --> 00:09:19,916
+overlays, etc. And this is what
+
+
+247
+00:09:19,916 --> 00:09:21,786
+we are going to focus on next.
+
+
+248
+00:09:23,136 --> 00:09:24,806
+The standard way to display our
+
+
+249
+00:09:24,806 --> 00:09:26,786
+annotations has been the pin
+
+
+250
+00:09:26,786 --> 00:09:29,136
+annotation view since I was two
+
+
+251
+00:09:29,136 --> 00:09:29,556
+days.
+
+
+252
+00:09:30,206 --> 00:09:32,146
+The pin annotation view comes in
+
+
+253
+00:09:32,266 --> 00:09:33,656
+two different states.
+
+
+254
+00:09:34,016 --> 00:09:35,746
+We have the normal state when we
+
+
+255
+00:09:35,836 --> 00:09:37,716
+show it on a map and it's a pin.
+
+
+256
+00:09:38,276 --> 00:09:40,366
+And the user can tap on it or we
+
+
+257
+00:09:40,366 --> 00:09:42,386
+can programmatically select it
+
+
+258
+00:09:42,466 --> 00:09:43,816
+and it becomes the selected
+
+
+259
+00:09:43,816 --> 00:09:46,066
+state with a callout and show
+
+
+260
+00:09:46,066 --> 00:09:47,726
+the title and subtitle.
+
+
+261
+00:09:48,936 --> 00:09:50,656
+There is a little drawback here
+
+
+262
+00:09:50,656 --> 00:09:53,236
+and that is we only display the
+
+
+263
+00:09:53,316 --> 00:09:56,646
+title and subtitle if the pin is
+
+
+264
+00:09:56,646 --> 00:09:57,286
+selected.
+
+
+265
+00:09:57,946 --> 00:10:01,476
+So, as a user, you have to tap
+
+
+266
+00:10:01,476 --> 00:10:02,756
+on everything to see what they
+
+
+267
+00:10:02,756 --> 00:10:04,856
+actually are, which is a little
+
+
+268
+00:10:04,856 --> 00:10:05,736
+bit cumbersome.
+
+
+269
+00:10:06,086 --> 00:10:08,496
+So, as you saw in Maps app from
+
+
+270
+00:10:08,566 --> 00:10:12,536
+iOS 10, we use something that
+
+
+271
+00:10:12,536 --> 00:10:14,006
+looks a little bit like this
+
+
+272
+00:10:14,006 --> 00:10:14,526
+instead.
+
+
+273
+00:10:15,016 --> 00:10:17,356
+And with iOS 11, it's available
+
+
+274
+00:10:17,356 --> 00:10:18,136
+also to you.
+
+
+275
+00:10:18,356 --> 00:10:18,806
+We call it the
+
+
+276
+00:10:18,806 --> 00:10:20,046
+MarkerAnnotationView.
+
+
+277
+00:10:21,046 --> 00:10:23,686
+It is a AnnotationView subclass,
+
+
+278
+00:10:23,806 --> 00:10:25,556
+so it's a sibling to the pin
+
+
+279
+00:10:25,556 --> 00:10:26,346
+annotation view.
+
+
+280
+00:10:27,176 --> 00:10:28,626
+And we think you're going to
+
+
+281
+00:10:28,626 --> 00:10:30,726
+like it so much that it's the
+
+
+282
+00:10:30,726 --> 00:10:33,536
+new default for iOS and tvOS.
+
+
+283
+00:10:34,146 --> 00:10:36,046
+So, if you don't implement the
+
+
+284
+00:10:36,046 --> 00:10:37,576
+delegate callbacks for creating
+
+
+285
+00:10:37,576 --> 00:10:40,216
+them yourself, we will give you
+
+
+286
+00:10:40,216 --> 00:10:41,886
+a MarkerAnnotationView as
+
+
+287
+00:10:41,886 --> 00:10:44,036
+default if you recompile against
+
+
+288
+00:10:44,466 --> 00:10:45,266
+iOS 11.
+
+
+289
+00:10:46,596 --> 00:10:49,006
+The MarkerAnnotationView also
+
+
+290
+00:10:49,096 --> 00:10:50,546
+have two states.
+
+
+291
+00:10:50,766 --> 00:10:52,886
+We have the normal state which
+
+
+292
+00:10:52,886 --> 00:10:55,166
+will try to display the title as
+
+
+293
+00:10:55,166 --> 00:10:58,246
+well below the marker if there
+
+
+294
+00:10:58,246 --> 00:10:59,076
+is room on the map.
+
+
+295
+00:10:59,726 --> 00:11:01,496
+We have the selected state.
+
+
+296
+00:11:01,736 --> 00:11:02,816
+And in the selected state, we
+
+
+297
+00:11:02,816 --> 00:11:05,766
+also show the subtitle if there
+
+
+298
+00:11:05,766 --> 00:11:06,556
+is room for it.
+
+
+299
+00:11:07,026 --> 00:11:09,986
+And that way the user will at
+
+
+300
+00:11:09,986 --> 00:11:11,596
+the glance at the map, see what
+
+
+301
+00:11:11,596 --> 00:11:13,746
+are all of these data points
+
+
+302
+00:11:14,006 --> 00:11:15,576
+without having to tap on them
+
+
+303
+00:11:15,776 --> 00:11:16,866
+one at a time.
+
+
+304
+00:11:17,626 --> 00:11:21,636
+Now, there is one more thing.
+
+
+305
+00:11:21,636 --> 00:11:23,066
+We have to go back to the pin
+
+
+306
+00:11:23,416 --> 00:11:25,106
+one more time.
+
+
+307
+00:11:25,646 --> 00:11:27,586
+If we look at this pin and the
+
+
+308
+00:11:27,586 --> 00:11:30,226
+callout, there is one small
+
+
+309
+00:11:30,226 --> 00:11:32,306
+little thing in the callout.
+
+
+310
+00:11:32,716 --> 00:11:34,706
+You can add accessory views to
+
+
+311
+00:11:34,706 --> 00:11:34,976
+them.
+
+
+312
+00:11:35,196 --> 00:11:36,736
+You can add detail views to
+
+
+313
+00:11:36,736 --> 00:11:36,936
+them.
+
+
+314
+00:11:36,936 --> 00:11:37,926
+You can configure them.
+
+
+315
+00:11:38,736 --> 00:11:41,596
+And MarkerAnnotationView is an
+
+
+316
+00:11:41,596 --> 00:11:42,386
+annotation view.
+
+
+317
+00:11:42,386 --> 00:11:44,996
+So, all the API from annotation
+
+
+318
+00:11:44,996 --> 00:11:47,006
+views are supported for
+
+
+319
+00:11:47,006 --> 00:11:48,926
+MarkerAnnotationViews as well.
+
+
+320
+00:11:49,706 --> 00:11:53,566
+And if you add a in this case a
+
+
+321
+00:11:53,566 --> 00:11:55,366
+right accessory view to the
+
+
+322
+00:11:55,366 --> 00:11:58,216
+callout, then there is no
+
+
+323
+00:11:58,216 --> 00:12:01,306
+natural location within the big
+
+
+324
+00:12:01,306 --> 00:12:03,266
+marker where you can display
+
+
+325
+00:12:03,266 --> 00:12:03,866
+that data.
+
+
+326
+00:12:04,256 --> 00:12:06,116
+And it's even more obvious if we
+
+
+327
+00:12:06,116 --> 00:12:07,566
+think about the detail view
+
+
+328
+00:12:07,806 --> 00:12:10,726
+where you can put endless amount
+
+
+329
+00:12:10,726 --> 00:12:12,906
+of data, a lot of data, a full
+
+
+330
+00:12:13,076 --> 00:12:15,446
+placecard of your item if you
+
+
+331
+00:12:15,446 --> 00:12:15,796
+want.
+
+
+332
+00:12:16,216 --> 00:12:18,806
+So, what do we do in that case?
+
+
+333
+00:12:19,806 --> 00:12:23,456
+We have to use a third state of
+
+
+334
+00:12:23,456 --> 00:12:24,926
+the MarkerAnnotationView.
+
+
+335
+00:12:25,426 --> 00:12:27,166
+So, in practice, your
+
+
+336
+00:12:27,166 --> 00:12:28,966
+MarkerAnnotationViews have three
+
+
+337
+00:12:28,966 --> 00:12:29,526
+states.
+
+
+338
+00:12:29,996 --> 00:12:31,886
+We have the normal state when
+
+
+339
+00:12:31,886 --> 00:12:32,786
+it's unselected.
+
+
+340
+00:12:33,276 --> 00:12:34,426
+We have the selected state.
+
+
+341
+00:12:34,866 --> 00:12:36,436
+And the selected with callout
+
+
+342
+00:12:36,436 --> 00:12:38,346
+state which we will use if you
+
+
+343
+00:12:38,346 --> 00:12:40,116
+configure the marker annotation
+
+
+344
+00:12:40,456 --> 00:12:42,356
+with views that cannot be
+
+
+345
+00:12:42,386 --> 00:12:44,506
+displayed in the marker alone.
+
+
+346
+00:12:45,736 --> 00:12:47,726
+And with that, let's look at the
+
+
+347
+00:12:47,726 --> 00:12:48,096
+code.
+
+
+348
+00:12:48,496 --> 00:12:49,716
+This is the
+
+
+349
+00:12:49,716 --> 00:12:51,446
+MarkerAnnotationView.
+
+
+350
+00:12:52,786 --> 00:12:54,886
+The MarkerAnnotationView first
+
+
+351
+00:12:54,886 --> 00:12:56,936
+and foremost you have the titles
+
+
+352
+00:12:57,316 --> 00:12:59,066
+and you can configure the titles
+
+
+353
+00:12:59,066 --> 00:13:00,786
+that are displayed below it.
+
+
+354
+00:13:01,206 --> 00:13:02,976
+And notice that we yet again see
+
+
+355
+00:13:02,976 --> 00:13:04,756
+this three-state enumeration,
+
+
+356
+00:13:04,846 --> 00:13:06,346
+the feature visibility.
+
+
+357
+00:13:06,986 --> 00:13:10,736
+Because you can configure it in
+
+
+358
+00:13:10,736 --> 00:13:12,216
+many different ways, not only
+
+
+359
+00:13:12,216 --> 00:13:13,286
+visible and hidden.
+
+
+360
+00:13:13,666 --> 00:13:14,946
+The hidden obvious.
+
+
+361
+00:13:14,946 --> 00:13:16,146
+We don't show it.
+
+
+362
+00:13:16,826 --> 00:13:19,386
+The visible is also obvious.
+
+
+363
+00:13:19,436 --> 00:13:21,256
+We will always try to display
+
+
+364
+00:13:21,576 --> 00:13:23,126
+the title and the subtitle if
+
+
+365
+00:13:23,126 --> 00:13:24,156
+you configure them to be
+
+
+366
+00:13:24,156 --> 00:13:24,646
+visible.
+
+
+367
+00:13:25,256 --> 00:13:27,376
+Do note, I say we will try.
+
+
+368
+00:13:28,526 --> 00:13:31,446
+If the map is dense with data,
+
+
+369
+00:13:31,866 --> 00:13:35,166
+we will opt to hide the titles
+
+
+370
+00:13:35,686 --> 00:13:37,726
+to unclutter the map and display
+
+
+371
+00:13:37,726 --> 00:13:39,366
+more information as needed.
+
+
+372
+00:13:39,456 --> 00:13:41,366
+So, we will display them most of
+
+
+373
+00:13:41,366 --> 00:13:43,396
+the time but they can be hidden.
+
+
+374
+00:13:43,956 --> 00:13:46,686
+And in the last visibility we
+
+
+375
+00:13:46,686 --> 00:13:48,226
+have is the adaptive mode.
+
+
+376
+00:13:48,556 --> 00:13:49,976
+The adaptive mode is also the
+
+
+377
+00:13:49,976 --> 00:13:52,716
+default mode which gives you
+
+
+378
+00:13:53,906 --> 00:13:56,376
+that for free option for the
+
+
+379
+00:13:56,376 --> 00:13:58,786
+subtitle, especially where we
+
+
+380
+00:13:58,786 --> 00:14:01,206
+will hide it when it's in normal
+
+
+381
+00:14:01,206 --> 00:14:03,476
+state and display it when you're
+
+
+382
+00:14:03,476 --> 00:14:04,516
+in selected state.
+
+
+383
+00:14:05,986 --> 00:14:08,216
+So, that is the title below the
+
+
+384
+00:14:08,216 --> 00:14:08,786
+marker.
+
+
+385
+00:14:09,006 --> 00:14:10,226
+Next up we have the markers
+
+
+386
+00:14:10,226 --> 00:14:11,846
+themselves that you can also
+
+
+387
+00:14:11,846 --> 00:14:12,476
+configure.
+
+
+388
+00:14:13,416 --> 00:14:14,696
+First with the color.
+
+
+389
+00:14:15,116 --> 00:14:16,656
+So, there's the marker tint
+
+
+390
+00:14:16,656 --> 00:14:18,616
+color and the glyph tint color.
+
+
+391
+00:14:19,126 --> 00:14:22,816
+The marker color is the color of
+
+
+392
+00:14:22,816 --> 00:14:24,086
+the marker itself.
+
+
+393
+00:14:24,556 --> 00:14:26,536
+It is a normal UI color.
+
+
+394
+00:14:26,986 --> 00:14:28,806
+The default value is a nil value
+
+
+395
+00:14:28,806 --> 00:14:30,216
+which will pick a system
+
+
+396
+00:14:30,216 --> 00:14:32,766
+default, which is currently a
+
+
+397
+00:14:33,056 --> 00:14:34,136
+slightly reddish color.
+
+
+398
+00:14:34,686 --> 00:14:35,836
+You can set it to any other
+
+
+399
+00:14:35,836 --> 00:14:37,866
+color you want, for example why
+
+
+400
+00:14:37,866 --> 00:14:38,606
+not orange.
+
+
+401
+00:14:39,196 --> 00:14:41,126
+Do note that we call it marker
+
+
+402
+00:14:41,476 --> 00:14:43,576
+tint color, not just color.
+
+
+403
+00:14:43,906 --> 00:14:45,906
+And that is because the color
+
+
+404
+00:14:45,906 --> 00:14:47,956
+you provide might not be the
+
+
+405
+00:14:47,956 --> 00:14:50,666
+color, the exact color that we
+
+
+406
+00:14:50,816 --> 00:14:51,696
+use in the end.
+
+
+407
+00:14:51,696 --> 00:14:54,056
+We may apply some visual effects
+
+
+408
+00:14:54,366 --> 00:14:55,876
+on the color to make it look
+
+
+409
+00:14:55,876 --> 00:14:56,426
+nicer.
+
+
+410
+00:14:56,816 --> 00:14:59,896
+So, it's a tint that you're
+
+
+411
+00:14:59,896 --> 00:15:00,376
+applying.
+
+
+412
+00:15:00,746 --> 00:15:02,386
+And you can even use the new in
+
+
+413
+00:15:02,476 --> 00:15:05,666
+iOS asset catalog name colors of
+
+
+414
+00:15:05,666 --> 00:15:06,126
+course.
+
+
+415
+00:15:06,566 --> 00:15:09,666
+And the same thing for the glyph
+
+
+416
+00:15:10,086 --> 00:15:12,206
+tint color which is instead the
+
+
+417
+00:15:12,246 --> 00:15:15,066
+color of the glyph within the
+
+
+418
+00:15:15,066 --> 00:15:18,316
+marker which is defaulting to
+
+
+419
+00:15:18,316 --> 00:15:19,986
+white pin in this case.
+
+
+420
+00:15:22,876 --> 00:15:25,156
+Speaking of the glyph.
+
+
+421
+00:15:25,336 --> 00:15:27,116
+You want to configure also what
+
+
+422
+00:15:27,116 --> 00:15:29,266
+is inside of the marker, the
+
+
+423
+00:15:29,266 --> 00:15:30,586
+little glyph in it.
+
+
+424
+00:15:30,936 --> 00:15:32,886
+And the easiest way to do it is
+
+
+425
+00:15:33,366 --> 00:15:35,276
+by using the glyph text
+
+
+426
+00:15:35,406 --> 00:15:35,856
+property.
+
+
+427
+00:15:36,586 --> 00:15:37,686
+It's a simple string.
+
+
+428
+00:15:38,486 --> 00:15:39,656
+We see a pattern here.
+
+
+429
+00:15:39,656 --> 00:15:40,906
+It defaults to nil.
+
+
+430
+00:15:41,466 --> 00:15:42,956
+And when it defaults to nil, we
+
+
+431
+00:15:42,956 --> 00:15:44,956
+pick a system default which is a
+
+
+432
+00:15:44,956 --> 00:15:45,406
+pin.
+
+
+433
+00:15:46,366 --> 00:15:47,606
+It's a pin in a balloon.
+
+
+434
+00:15:47,606 --> 00:15:48,886
+It might be dangerous, but it
+
+
+435
+00:15:48,886 --> 00:15:49,366
+works.
+
+
+436
+00:15:50,236 --> 00:15:52,376
+And you can set it to any text
+
+
+437
+00:15:52,376 --> 00:15:52,796
+you want.
+
+
+438
+00:15:52,796 --> 00:15:54,706
+You might want to grade your
+
+
+439
+00:15:54,706 --> 00:15:55,546
+annotations.
+
+
+440
+00:15:55,906 --> 00:15:58,116
+You can even use the characters
+
+
+441
+00:15:58,116 --> 00:15:59,996
+or the Unicode standard to get
+
+
+442
+00:15:59,996 --> 00:16:01,526
+vector graphics for free.
+
+
+443
+00:16:02,496 --> 00:16:05,296
+Now, glyph text is a string.
+
+
+444
+00:16:05,296 --> 00:16:07,466
+So, you can set it to any text
+
+
+445
+00:16:07,466 --> 00:16:07,906
+you want.
+
+
+446
+00:16:07,906 --> 00:16:09,386
+If you want, you can put the old
+
+
+447
+00:16:09,926 --> 00:16:12,766
+iliad into it and we will try to
+
+
+448
+00:16:12,766 --> 00:16:13,306
+render it.
+
+
+449
+00:16:13,716 --> 00:16:16,236
+But it will look silly.
+
+
+450
+00:16:16,426 --> 00:16:18,066
+We will try to shrink down the
+
+
+451
+00:16:18,066 --> 00:16:21,206
+text as much as possible but the
+
+
+452
+00:16:21,206 --> 00:16:23,136
+user will not really be able to
+
+
+453
+00:16:23,136 --> 00:16:24,576
+read what is on screen.
+
+
+454
+00:16:24,816 --> 00:16:26,916
+So, as a rule of thumb, please
+
+
+455
+00:16:26,976 --> 00:16:29,436
+try to limit yourself to around
+
+
+456
+00:16:29,966 --> 00:16:31,376
+two to three characters.
+
+
+457
+00:16:32,676 --> 00:16:36,026
+And not everything though his
+
+
+458
+00:16:36,026 --> 00:16:39,186
+representable by characters or
+
+
+459
+00:16:39,256 --> 00:16:39,786
+text.
+
+
+460
+00:16:39,996 --> 00:16:41,816
+Not even with the full Unicode
+
+
+461
+00:16:41,816 --> 00:16:43,736
+standard being expanded every
+
+
+462
+00:16:43,736 --> 00:16:44,106
+year.
+
+
+463
+00:16:44,346 --> 00:16:46,256
+So, you might want to use your
+
+
+464
+00:16:46,256 --> 00:16:47,946
+own image graphics.
+
+
+465
+00:16:48,126 --> 00:16:49,896
+And for that we have glyph image
+
+
+466
+00:16:50,206 --> 00:16:51,606
+and the selected glyph image
+
+
+467
+00:16:51,706 --> 00:16:52,296
+properties.
+
+
+468
+00:16:53,096 --> 00:16:55,976
+The glyph image property is the
+
+
+469
+00:16:55,976 --> 00:16:58,146
+only property that you probably
+
+
+470
+00:16:58,146 --> 00:17:00,006
+will want to use most of the
+
+
+471
+00:17:00,006 --> 00:17:00,426
+time.
+
+
+472
+00:17:00,766 --> 00:17:03,576
+And you just give it an image
+
+
+473
+00:17:03,856 --> 00:17:05,736
+that is 40 x 40 points.
+
+
+474
+00:17:06,266 --> 00:17:08,766
+And when, which is used in the
+
+
+475
+00:17:08,766 --> 00:17:09,546
+selected state.
+
+
+476
+00:17:10,195 --> 00:17:11,955
+And then for the normal state,
+
+
+477
+00:17:11,955 --> 00:17:13,766
+we will shrink it down to 20 x
+
+
+478
+00:17:13,766 --> 00:17:14,156
+20.
+
+
+479
+00:17:15,016 --> 00:17:16,546
+Which works most of the time,
+
+
+480
+00:17:16,925 --> 00:17:18,915
+unless the graphics you have is
+
+
+481
+00:17:18,915 --> 00:17:21,156
+quite detailed, since then you
+
+
+482
+00:17:21,415 --> 00:17:23,396
+can get graphical scaling
+
+
+483
+00:17:23,396 --> 00:17:25,266
+artifacts as we scale it down.
+
+
+484
+00:17:25,536 --> 00:17:27,776
+And if that is the case, you
+
+
+485
+00:17:27,776 --> 00:17:29,096
+need to use both of the
+
+
+486
+00:17:29,096 --> 00:17:29,716
+properties.
+
+
+487
+00:17:29,896 --> 00:17:31,906
+So, for the small glyph image,
+
+
+488
+00:17:31,906 --> 00:17:33,406
+you can provide the smaller 20 x
+
+
+489
+00:17:33,406 --> 00:17:33,826
+20.
+
+
+490
+00:17:34,386 --> 00:17:35,876
+And for the larger one you give
+
+
+491
+00:17:35,876 --> 00:17:38,086
+it the bigger 40 x 40.
+
+
+492
+00:17:38,426 --> 00:17:39,836
+We will cross fade between the
+
+
+493
+00:17:39,836 --> 00:17:42,016
+two and you get that crispiness,
+
+
+494
+00:17:42,266 --> 00:17:44,416
+both in the normal and selective
+
+
+495
+00:17:45,616 --> 00:17:45,776
+states.
+
+
+496
+00:17:45,946 --> 00:17:49,606
+And using that, we can get this
+
+
+497
+00:17:49,736 --> 00:17:51,676
+much, much more modern-looking
+
+
+498
+00:17:51,676 --> 00:17:52,456
+application.
+
+
+499
+00:17:53,056 --> 00:17:55,846
+Now, this application though is,
+
+
+500
+00:17:56,626 --> 00:17:58,206
+if I have to say so, a little
+
+
+501
+00:17:58,206 --> 00:17:58,886
+bit cluttered.
+
+
+502
+00:17:59,386 --> 00:18:00,766
+You might want to clean it up
+
+
+503
+00:18:00,766 --> 00:18:02,846
+and have it easier to look at
+
+
+504
+00:18:02,846 --> 00:18:04,696
+and find what you actually want.
+
+
+505
+00:18:05,016 --> 00:18:06,216
+You want it to look a little bit
+
+
+506
+00:18:06,216 --> 00:18:07,166
+more like this.
+
+
+507
+00:18:07,546 --> 00:18:10,416
+And there is one single property
+
+
+508
+00:18:11,276 --> 00:18:13,076
+that we add in iOS 11 to do
+
+
+509
+00:18:13,076 --> 00:18:13,346
+this.
+
+
+510
+00:18:13,656 --> 00:18:15,786
+We call it the display priority
+
+
+511
+00:18:16,526 --> 00:18:19,566
+where we can tell annotation
+
+
+512
+00:18:19,566 --> 00:18:22,776
+views what priority are you in
+
+
+513
+00:18:22,776 --> 00:18:24,166
+order to display on the screen.
+
+
+514
+00:18:24,866 --> 00:18:27,136
+The feature display priority is
+
+
+515
+00:18:27,666 --> 00:18:29,296
+modeled after the layout
+
+
+516
+00:18:29,526 --> 00:18:31,886
+constraint priorities from UIKit
+
+
+517
+00:18:32,176 --> 00:18:32,796
+and MapKit.
+
+
+518
+00:18:33,866 --> 00:18:35,286
+Which means it's a floating
+
+
+519
+00:18:35,286 --> 00:18:37,886
+point range between a 0 and 1000
+
+
+520
+00:18:38,356 --> 00:18:39,996
+where 1000 is the required
+
+
+521
+00:18:39,996 --> 00:18:40,506
+value.
+
+
+522
+00:18:40,826 --> 00:18:42,856
+And if we look at what they do,
+
+
+523
+00:18:43,556 --> 00:18:45,496
+required means opt out.
+
+
+524
+00:18:46,006 --> 00:18:48,306
+Do not occlude or hide anything
+
+
+525
+00:18:48,306 --> 00:18:50,166
+as the annotation views overlap.
+
+
+526
+00:18:50,526 --> 00:18:51,236
+Do nothing.
+
+
+527
+00:18:51,596 --> 00:18:52,876
+But if you set the display
+
+
+528
+00:18:52,876 --> 00:18:54,546
+priority property to anything
+
+
+529
+00:18:54,546 --> 00:18:56,136
+else, like the provider
+
+
+530
+00:18:56,136 --> 00:18:56,886
+defaults.
+
+
+531
+00:18:57,226 --> 00:19:00,826
+Default high which is 750 and
+
+
+532
+00:19:00,826 --> 00:19:03,436
+default low 250, yes, that's the
+
+
+533
+00:19:03,436 --> 00:19:04,376
+layout constraints.
+
+
+534
+00:19:05,196 --> 00:19:07,876
+Then, you get these annotations
+
+
+535
+00:19:08,206 --> 00:19:08,576
+hiding.
+
+
+536
+00:19:09,136 --> 00:19:14,106
+And you can get from the, oops.
+
+
+537
+00:19:14,986 --> 00:19:16,256
+That is not what I meant.
+
+
+538
+00:19:16,756 --> 00:19:18,646
+So, being a floating point value
+
+
+539
+00:19:18,976 --> 00:19:21,146
+from 0 to 1000 means that you
+
+
+540
+00:19:21,146 --> 00:19:23,436
+can use it for nice things.
+
+
+541
+00:19:24,456 --> 00:19:26,356
+If you for example map your
+
+
+542
+00:19:26,356 --> 00:19:27,866
+display priority to the
+
+
+543
+00:19:27,966 --> 00:19:29,716
+popularity of your items.
+
+
+544
+00:19:29,716 --> 00:19:31,916
+So, you have a high, a very
+
+
+545
+00:19:31,916 --> 00:19:33,496
+popular item get the high
+
+
+546
+00:19:33,496 --> 00:19:35,616
+display priority and a less
+
+
+547
+00:19:35,616 --> 00:19:37,806
+popular item get a lower display
+
+
+548
+00:19:37,806 --> 00:19:39,666
+priority, that would mean as the
+
+
+549
+00:19:39,666 --> 00:19:41,236
+user is zoomed out on a high
+
+
+550
+00:19:41,236 --> 00:19:42,456
+level and looking at the whole
+
+
+551
+00:19:42,456 --> 00:19:44,996
+city, the most popular items are
+
+
+552
+00:19:44,996 --> 00:19:46,686
+the one that is remaining on
+
+
+553
+00:19:46,686 --> 00:19:47,636
+screen and visible.
+
+
+554
+00:19:48,016 --> 00:19:50,606
+And as the user zooms in, you
+
+
+555
+00:19:50,606 --> 00:19:52,516
+see also all the other data.
+
+
+556
+00:19:53,166 --> 00:19:55,426
+Which allows you to go from this
+
+
+557
+00:19:55,866 --> 00:19:58,076
+very cluttered map to something
+
+
+558
+00:19:58,076 --> 00:19:59,346
+that is a lot cleaner.
+
+
+559
+00:20:00,696 --> 00:20:03,006
+Now, if you do the popularity
+
+
+560
+00:20:03,006 --> 00:20:04,966
+thing and hide all the data,
+
+
+561
+00:20:04,966 --> 00:20:07,766
+then yes all the data is hidden.
+
+
+562
+00:20:07,986 --> 00:20:09,736
+So, the user will have to zoom
+
+
+563
+00:20:09,736 --> 00:20:11,436
+in a bit to actually find it and
+
+
+564
+00:20:11,436 --> 00:20:13,956
+then zoom out again to see the
+
+
+565
+00:20:13,956 --> 00:20:14,536
+rest of it.
+
+
+566
+00:20:14,956 --> 00:20:17,756
+And there is a better way to do
+
+
+567
+00:20:17,756 --> 00:20:17,896
+it.
+
+
+568
+00:20:17,896 --> 00:20:20,736
+What we could do is just cluster
+
+
+569
+00:20:20,826 --> 00:20:23,906
+the annotations and say that
+
+
+570
+00:20:23,906 --> 00:20:25,946
+yes, here we have 11 more and
+
+
+571
+00:20:25,946 --> 00:20:27,036
+here is 8 more.
+
+
+572
+00:20:27,276 --> 00:20:28,576
+You don't have to zoom in.
+
+
+573
+00:20:28,836 --> 00:20:29,556
+Well show you.
+
+
+574
+00:20:30,286 --> 00:20:32,986
+And the API for this is just as
+
+
+575
+00:20:32,986 --> 00:20:35,846
+simple as the API for display
+
+
+576
+00:20:35,846 --> 00:20:36,346
+priority.
+
+
+577
+00:20:36,636 --> 00:20:38,046
+We call it a clustering
+
+
+578
+00:20:38,046 --> 00:20:38,986
+identifier.
+
+
+579
+00:20:39,556 --> 00:20:41,296
+It is a string, so you can set
+
+
+580
+00:20:41,296 --> 00:20:42,316
+it to anything you want.
+
+
+581
+00:20:42,936 --> 00:20:44,896
+It is modeled after the reuse
+
+
+582
+00:20:44,976 --> 00:20:45,726
+identifier.
+
+
+583
+00:20:45,726 --> 00:20:47,626
+Both annotations views, your
+
+
+584
+00:20:47,626 --> 00:20:49,396
+table view cells and collection
+
+
+585
+00:20:49,396 --> 00:20:49,996
+view cells.
+
+
+586
+00:20:50,396 --> 00:20:52,256
+So, that you can have groups.
+
+
+587
+00:20:52,756 --> 00:20:54,766
+In the case of our application,
+
+
+588
+00:20:55,066 --> 00:20:57,246
+the bike sharing application, it
+
+
+589
+00:20:57,276 --> 00:20:59,286
+might be that we want to cluster
+
+
+590
+00:20:59,476 --> 00:21:02,836
+unicycles with unicycles and
+
+
+591
+00:21:02,836 --> 00:21:05,036
+tricycles with tricycles, but we
+
+
+592
+00:21:05,036 --> 00:21:06,356
+don't want to mix them together.
+
+
+593
+00:21:06,786 --> 00:21:09,176
+And if you can achieve that but
+
+
+594
+00:21:09,176 --> 00:21:11,186
+give them those annotation views
+
+
+595
+00:21:11,396 --> 00:21:12,946
+different but distinct
+
+
+596
+00:21:13,196 --> 00:21:14,716
+clustering identifiers.
+
+
+597
+00:21:15,276 --> 00:21:17,476
+So, as you use it, the default
+
+
+598
+00:21:17,476 --> 00:21:18,006
+tis nil.
+
+
+599
+00:21:18,646 --> 00:21:20,236
+If you set it to nil, you opt
+
+
+600
+00:21:20,236 --> 00:21:21,456
+out and nothing happens.
+
+
+601
+00:21:22,206 --> 00:21:23,386
+And if you set it to any other
+
+
+602
+00:21:23,386 --> 00:21:26,196
+string, all annotations sharing
+
+
+603
+00:21:26,196 --> 00:21:27,916
+the same annotation view are
+
+
+604
+00:21:27,916 --> 00:21:29,716
+illegible for being clustered
+
+
+605
+00:21:30,066 --> 00:21:34,286
+into a group as they overlap.
+
+
+606
+00:21:34,286 --> 00:21:36,866
+This is a very powerful and
+
+
+607
+00:21:36,866 --> 00:21:38,816
+beautiful feature but a little
+
+
+608
+00:21:38,816 --> 00:21:40,376
+bit hard to explain.
+
+
+609
+00:21:40,536 --> 00:21:43,036
+So, let me switch over to the
+
+
+610
+00:21:43,036 --> 00:21:45,466
+demo machine and show it to you
+
+
+611
+00:21:45,466 --> 00:21:45,796
+instead.
+
+
+612
+00:21:48,456 --> 00:21:49,856
+There is the demo machine.
+
+
+613
+00:21:50,956 --> 00:21:53,726
+So, in this little sample app, I
+
+
+614
+00:21:53,726 --> 00:21:55,246
+have four annotations.
+
+
+615
+00:21:55,996 --> 00:21:58,236
+I have a unicycle and a second
+
+
+616
+00:21:58,236 --> 00:21:59,876
+unicycle that share one
+
+
+617
+00:22:00,196 --> 00:22:01,716
+clustering identifier.
+
+
+618
+00:22:02,306 --> 00:22:04,496
+And I have another tricycle and
+
+
+619
+00:22:04,496 --> 00:22:06,196
+a tricycle sharing a second
+
+
+620
+00:22:06,196 --> 00:22:06,886
+identifier.
+
+
+621
+00:22:07,366 --> 00:22:09,166
+If I move them together, we'll
+
+
+622
+00:22:09,166 --> 00:22:09,946
+see their cluster.
+
+
+623
+00:22:11,136 --> 00:22:12,856
+And if I drag them apart, they
+
+
+624
+00:22:12,856 --> 00:22:13,816
+decluster again.
+
+
+625
+00:22:14,756 --> 00:22:17,386
+Now, all four of these have the
+
+
+626
+00:22:17,386 --> 00:22:19,166
+same display priority.
+
+
+627
+00:22:19,586 --> 00:22:20,736
+So, all four have the same
+
+
+628
+00:22:20,736 --> 00:22:21,636
+display priority.
+
+
+629
+00:22:22,666 --> 00:22:25,396
+When I group them together, the
+
+
+630
+00:22:25,396 --> 00:22:27,486
+cluster will get the display
+
+
+631
+00:22:27,486 --> 00:22:30,376
+priority of the highest display
+
+
+632
+00:22:30,376 --> 00:22:32,296
+priority within the group.
+
+
+633
+00:22:33,296 --> 00:22:35,526
+So, in practice, this means that
+
+
+634
+00:22:35,526 --> 00:22:37,096
+in this example, both of them
+
+
+635
+00:22:37,096 --> 00:22:38,576
+still have the same display
+
+
+636
+00:22:38,576 --> 00:22:39,136
+priority.
+
+
+637
+00:22:39,816 --> 00:22:40,836
+And when I move them even
+
+
+638
+00:22:40,836 --> 00:22:43,246
+further together, they collide
+
+
+639
+00:22:43,546 --> 00:22:44,596
+and they hide each other.
+
+
+640
+00:22:45,216 --> 00:22:46,456
+Move them out again and they
+
+
+641
+00:22:46,456 --> 00:22:47,276
+hide each other.
+
+
+642
+00:22:47,956 --> 00:22:50,116
+Now, if two annotation views
+
+
+643
+00:22:50,166 --> 00:22:52,056
+have the same display priority,
+
+
+644
+00:22:52,336 --> 00:22:53,776
+which one should we hide?
+
+
+645
+00:22:55,006 --> 00:22:57,476
+And there is logic to it.
+
+
+646
+00:22:58,066 --> 00:22:59,616
+If we rotate the map a little
+
+
+647
+00:22:59,616 --> 00:23:01,786
+bit and move them together, we
+
+
+648
+00:23:01,786 --> 00:23:03,356
+see we are still hiding the
+
+
+649
+00:23:03,356 --> 00:23:03,946
+green one.
+
+
+650
+00:23:04,936 --> 00:23:08,596
+If we rotate 180 degrees and
+
+
+651
+00:23:08,596 --> 00:23:10,866
+move them together, we notice
+
+
+652
+00:23:11,066 --> 00:23:12,466
+the orange one is the one
+
+
+653
+00:23:12,466 --> 00:23:13,056
+getting hidden.
+
+
+654
+00:23:13,686 --> 00:23:16,426
+So, the logic here is if they
+
+
+655
+00:23:16,426 --> 00:23:18,296
+have the same display priority,
+
+
+656
+00:23:18,376 --> 00:23:20,806
+we hide the one that is closest
+
+
+657
+00:23:20,806 --> 00:23:21,906
+to the top of the screen.
+
+
+658
+00:23:22,936 --> 00:23:25,696
+Which is good for developers and
+
+
+659
+00:23:25,696 --> 00:23:28,196
+users because you can see,
+
+
+660
+00:23:28,196 --> 00:23:29,626
+expect what is going to happen
+
+
+661
+00:23:29,626 --> 00:23:30,026
+next.
+
+
+662
+00:23:30,506 --> 00:23:32,816
+But one of the many reasons this
+
+
+663
+00:23:32,816 --> 00:23:34,546
+was done, I have to say if we
+
+
+664
+00:23:34,576 --> 00:23:37,196
+tilt the map into 3D mode, it
+
+
+665
+00:23:37,196 --> 00:23:39,196
+looks kind of cool as you rotate
+
+
+666
+00:23:39,196 --> 00:23:41,146
+in the annotation behind the
+
+
+667
+00:23:41,146 --> 00:23:41,766
+other one.
+
+
+668
+00:23:43,696 --> 00:23:47,866
+Now, let's zoom out a bit and
+
+
+669
+00:23:47,866 --> 00:23:49,796
+drop another annotation on the
+
+
+670
+00:23:49,796 --> 00:23:50,066
+map.
+
+
+671
+00:23:50,906 --> 00:23:52,486
+Being in annotation view, you
+
+
+672
+00:23:52,486 --> 00:23:54,736
+inherit all the APIs from
+
+
+673
+00:23:54,736 --> 00:23:57,046
+annotation view including
+
+
+674
+00:23:57,166 --> 00:23:57,676
+dragging.
+
+
+675
+00:23:57,726 --> 00:23:59,756
+So, I can pick it up and drop it
+
+
+676
+00:23:59,756 --> 00:24:00,246
+down again.
+
+
+677
+00:24:01,016 --> 00:24:03,436
+I can pick it up, drag it around
+
+
+678
+00:24:04,046 --> 00:24:06,326
+and drop it down again.
+
+
+679
+00:24:09,016 --> 00:24:10,236
+[ Applause ]
+
+
+680
+00:24:10,236 --> 00:24:11,356
+Did you notice something
+
+
+681
+00:24:11,356 --> 00:24:12,976
+happening there as I dropped it
+
+
+682
+00:24:12,976 --> 00:24:14,606
+down close to beach street?
+
+
+683
+00:24:15,426 --> 00:24:17,316
+So, look closely as I pick it up
+
+
+684
+00:24:17,966 --> 00:24:19,906
+and drop it down on Dollar
+
+
+685
+00:24:19,906 --> 00:24:22,046
+Rent-A-Car.
+
+
+686
+00:24:22,246 --> 00:24:23,106
+It gets hidden.
+
+
+687
+00:24:23,706 --> 00:24:25,626
+If you set the display priority
+
+
+688
+00:24:25,716 --> 00:24:27,756
+on annotation views, you will
+
+
+689
+00:24:27,756 --> 00:24:29,716
+also, we will also try to
+
+
+690
+00:24:29,716 --> 00:24:32,156
+collide out items and labels on
+
+
+691
+00:24:32,156 --> 00:24:34,126
+the base map for you to keep the
+
+
+692
+00:24:34,126 --> 00:24:36,296
+map even more uncluttered.
+
+
+693
+00:24:36,736 --> 00:24:39,056
+So, I can pick it up and why not
+
+
+694
+00:24:39,056 --> 00:24:40,956
+drag it down, drop it down on
+
+
+695
+00:24:40,956 --> 00:24:42,756
+another annotation and they
+
+
+696
+00:24:42,906 --> 00:24:45,096
+merge in one smooth animation.
+
+
+697
+00:24:45,746 --> 00:24:47,016
+All of these are actually
+
+
+698
+00:24:47,616 --> 00:24:48,126
+draggable.
+
+
+699
+00:24:48,706 --> 00:24:51,196
+So, I can pick them up and pick
+
+
+700
+00:24:51,396 --> 00:24:54,236
+them up, which is not true.
+
+
+701
+00:24:54,386 --> 00:24:58,746
+Because the cluster itself is
+
+
+702
+00:24:58,746 --> 00:24:59,666
+not draggable.
+
+
+703
+00:25:00,256 --> 00:25:02,506
+In order to be a draggable
+
+
+704
+00:25:02,506 --> 00:25:04,196
+annotation, you need to have a
+
+
+705
+00:25:04,256 --> 00:25:04,806
+coordinate.
+
+
+706
+00:25:05,886 --> 00:25:08,636
+And a cluster doesn't have a
+
+
+707
+00:25:08,636 --> 00:25:10,006
+coordinate on its own.
+
+
+708
+00:25:10,386 --> 00:25:12,706
+The geographical coordinate for
+
+
+709
+00:25:12,706 --> 00:25:14,716
+the cluster is the average of
+
+
+710
+00:25:14,716 --> 00:25:17,016
+all the member annotations that
+
+
+711
+00:25:17,016 --> 00:25:18,496
+is currently encompassing.
+
+
+712
+00:25:18,566 --> 00:25:20,086
+And that is why you can't drag
+
+
+713
+00:25:20,086 --> 00:25:20,216
+it.
+
+
+714
+00:25:20,816 --> 00:25:22,356
+But back to the slides.
+
+
+715
+00:25:23,216 --> 00:25:24,776
+It's a simple and powerful API
+
+
+716
+00:25:25,426 --> 00:25:27,116
+that allows you to go from this
+
+
+717
+00:25:28,006 --> 00:25:29,906
+cluttered mess to something a
+
+
+718
+00:25:29,906 --> 00:25:31,276
+little bit more clutter
+
+
+719
+00:25:31,826 --> 00:25:32,646
+cleanliness.
+
+
+720
+00:25:33,196 --> 00:25:37,166
+And this is good, since now we
+
+
+721
+00:25:37,166 --> 00:25:39,136
+see there are 11 annotations up
+
+
+722
+00:25:39,136 --> 00:25:41,086
+there and we have two more up
+
+
+723
+00:25:41,086 --> 00:25:41,626
+there.
+
+
+724
+00:25:41,626 --> 00:25:44,236
+And, but we don't really see
+
+
+725
+00:25:44,236 --> 00:25:46,216
+what kind of annotations are
+
+
+726
+00:25:46,216 --> 00:25:46,516
+there.
+
+
+727
+00:25:47,036 --> 00:25:48,556
+So, being unicycles and
+
+
+728
+00:25:48,556 --> 00:25:50,886
+tricycles, I really don't want
+
+
+729
+00:25:50,886 --> 00:25:52,416
+to go to a location where there
+
+
+730
+00:25:52,416 --> 00:25:53,756
+is only unicycles.
+
+
+731
+00:25:53,756 --> 00:25:55,526
+Because I haven't bothered to
+
+
+732
+00:25:55,526 --> 00:25:57,066
+learn to ride one yet so I want
+
+
+733
+00:25:57,066 --> 00:25:58,366
+to make sure I go to a place
+
+
+734
+00:25:58,866 --> 00:26:00,396
+with tricycles only.
+
+
+735
+00:26:00,846 --> 00:26:03,426
+So, we want to have the clusters
+
+
+736
+00:26:03,426 --> 00:26:06,026
+display at the glance what kind
+
+
+737
+00:26:06,026 --> 00:26:07,936
+of data do they contain at this
+
+
+738
+00:26:07,936 --> 00:26:08,566
+location.
+
+
+739
+00:26:08,906 --> 00:26:11,116
+And that we can do by doing our
+
+
+740
+00:26:11,116 --> 00:26:13,086
+own custom annotation views.
+
+
+741
+00:26:13,396 --> 00:26:14,616
+So, we can display it as a
+
+
+742
+00:26:14,616 --> 00:26:15,676
+little pie chart.
+
+
+743
+00:26:16,856 --> 00:26:19,136
+And I can see, yeah, there are
+
+
+744
+00:26:19,136 --> 00:26:21,526
+at least two tricycles there.
+
+
+745
+00:26:21,526 --> 00:26:22,736
+It's safe, I can go there.
+
+
+746
+00:26:23,276 --> 00:26:24,286
+How do we do this?
+
+
+747
+00:26:24,766 --> 00:26:26,606
+We have to go to our good old
+
+
+748
+00:26:26,606 --> 00:26:28,806
+friend the map view for
+
+
+749
+00:26:28,806 --> 00:26:30,576
+annotation delegate callback.
+
+
+750
+00:26:31,726 --> 00:26:33,336
+This delegate callbacks has
+
+
+751
+00:26:33,476 --> 00:26:36,196
+always provided a system
+
+
+752
+00:26:36,406 --> 00:26:37,406
+annotation for you.
+
+
+753
+00:26:37,476 --> 00:26:39,196
+The user location annotation
+
+
+754
+00:26:39,196 --> 00:26:41,016
+which is the representation of
+
+
+755
+00:26:41,016 --> 00:26:43,616
+where is the user currently in
+
+
+756
+00:26:43,616 --> 00:26:44,076
+the world.
+
+
+757
+00:26:44,796 --> 00:26:46,646
+And you can either return nil
+
+
+758
+00:26:46,646 --> 00:26:48,206
+value and you get the default
+
+
+759
+00:26:48,206 --> 00:26:48,696
+pack.
+
+
+760
+00:26:49,156 --> 00:26:50,836
+Or you could return your own
+
+
+761
+00:26:50,836 --> 00:26:52,526
+custom annotation and display
+
+
+762
+00:26:52,526 --> 00:26:53,836
+the user location in a
+
+
+763
+00:26:54,186 --> 00:26:55,456
+completely different way that
+
+
+764
+00:26:55,456 --> 00:26:56,816
+fits your application needs.
+
+
+765
+00:26:57,206 --> 00:27:00,696
+And for everything else you DQ
+
+
+766
+00:27:00,696 --> 00:27:02,776
+create your annotation view and
+
+
+767
+00:27:02,836 --> 00:27:03,926
+return it.
+
+
+768
+00:27:04,526 --> 00:27:06,456
+If you return nil, you get the
+
+
+769
+00:27:06,456 --> 00:27:09,466
+system default which, in iOS 11,
+
+
+770
+00:27:09,656 --> 00:27:11,116
+is the MarkerAnnotationView.
+
+
+771
+00:27:11,826 --> 00:27:15,826
+Now, in iOS 11, you will also
+
+
+772
+00:27:15,826 --> 00:27:18,676
+get one more different kind of
+
+
+773
+00:27:18,876 --> 00:27:21,416
+annotation, system annotation in
+
+
+774
+00:27:21,416 --> 00:27:22,246
+your callbacks.
+
+
+775
+00:27:22,606 --> 00:27:23,656
+You might get this
+
+
+776
+00:27:23,846 --> 00:27:25,076
+ClusterAnnotation.
+
+
+777
+00:27:25,496 --> 00:27:27,366
+So, if you opt into clustering
+
+
+778
+00:27:28,086 --> 00:27:30,406
+and they collide, there is not a
+
+
+779
+00:27:30,406 --> 00:27:31,616
+new delegate callback.
+
+
+780
+00:27:31,616 --> 00:27:33,636
+We reuse the existing callback,
+
+
+781
+00:27:33,966 --> 00:27:36,006
+give you a ClusterAnnotation
+
+
+782
+00:27:36,086 --> 00:27:37,906
+that represents the cluster, and
+
+
+783
+00:27:37,906 --> 00:27:38,916
+you can return the
+
+
+784
+00:27:38,916 --> 00:27:40,776
+AnnotationView that you want.
+
+
+785
+00:27:41,116 --> 00:27:43,336
+The ClusterAnnotation is a
+
+
+786
+00:27:43,336 --> 00:27:45,836
+simple concrete class of the
+
+
+787
+00:27:45,836 --> 00:27:47,416
+annotation protocol.
+
+
+788
+00:27:48,076 --> 00:27:49,746
+It provides you an array of all
+
+
+789
+00:27:49,746 --> 00:27:51,056
+the member annotations.
+
+
+790
+00:27:51,606 --> 00:27:53,426
+It's a flat array, so we
+
+
+791
+00:27:53,426 --> 00:27:54,986
+guarantee that there will be no
+
+
+792
+00:27:54,986 --> 00:27:56,636
+clusters within clusters within
+
+
+793
+00:27:56,636 --> 00:27:57,096
+clusters.
+
+
+794
+00:27:57,096 --> 00:27:58,626
+It's a flat array of all the
+
+
+795
+00:27:58,626 --> 00:28:00,546
+annotations that is currently
+
+
+796
+00:28:00,546 --> 00:28:02,066
+representing and only those.
+
+
+797
+00:28:02,586 --> 00:28:04,536
+We order it so the one with the
+
+
+798
+00:28:04,666 --> 00:28:06,686
+highest display priority is
+
+
+799
+00:28:06,686 --> 00:28:07,136
+first.
+
+
+800
+00:28:08,146 --> 00:28:09,806
+So, if you, as I said
+
+
+801
+00:28:09,806 --> 00:28:11,666
+previously, using display
+
+
+802
+00:28:11,666 --> 00:28:12,846
+priority and mapping it with
+
+
+803
+00:28:12,876 --> 00:28:14,186
+popularity, you will get the
+
+
+804
+00:28:14,186 --> 00:28:16,916
+most popular one at the start.
+
+
+805
+00:28:17,556 --> 00:28:19,216
+The MarkerAnnotationView placed
+
+
+806
+00:28:19,216 --> 00:28:21,876
+well with the ClusterAnnotation.
+
+
+807
+00:28:22,076 --> 00:28:24,046
+So, we will display the count
+
+
+808
+00:28:24,046 --> 00:28:26,266
+there as the glyph.
+
+
+809
+00:28:26,446 --> 00:28:27,676
+So, you can see at a glance how
+
+
+810
+00:28:27,676 --> 00:28:28,356
+many there are.
+
+
+811
+00:28:29,056 --> 00:28:31,466
+We will also, for the title and
+
+
+812
+00:28:31,466 --> 00:28:34,016
+subtitle, provide good default.
+
+
+813
+00:28:34,366 --> 00:28:36,726
+So, the title will be the title
+
+
+814
+00:28:36,726 --> 00:28:38,646
+of the most popular one or the
+
+
+815
+00:28:38,646 --> 00:28:40,256
+first member annotation.
+
+
+816
+00:28:40,686 --> 00:28:42,836
+And the subtitle is a localized
+
+
+817
+00:28:43,156 --> 00:28:45,276
+plus X number or more how many
+
+
+818
+00:28:45,276 --> 00:28:46,876
+annotations you want to have.
+
+
+819
+00:28:48,296 --> 00:28:49,406
+Both of these properties are
+
+
+820
+00:28:49,406 --> 00:28:51,046
+mutable, so you can change them
+
+
+821
+00:28:51,156 --> 00:28:52,786
+anytime you want and provide
+
+
+822
+00:28:52,786 --> 00:28:53,456
+something else.
+
+
+823
+00:28:53,936 --> 00:28:55,546
+We might want to change it and
+
+
+824
+00:28:55,546 --> 00:28:59,066
+have, say, three unicycles and
+
+
+825
+00:28:59,066 --> 00:29:00,686
+two tricycles and then you can
+
+
+826
+00:29:00,686 --> 00:29:02,796
+see at the subtitle what it is
+
+
+827
+00:29:03,036 --> 00:29:04,956
+without doing a custom
+
+
+828
+00:29:04,956 --> 00:29:05,706
+AnnotationView.
+
+
+829
+00:29:06,236 --> 00:29:08,746
+But you might want to do that
+
+
+830
+00:29:08,746 --> 00:29:09,756
+custom AnnotationView.
+
+
+831
+00:29:10,866 --> 00:29:13,376
+So, custom AnnotationViews.
+
+
+832
+00:29:14,686 --> 00:29:16,016
+Let's look at this little pie
+
+
+833
+00:29:16,016 --> 00:29:16,356
+chart.
+
+
+834
+00:29:16,816 --> 00:29:19,646
+A AnnotationVview is a view.
+
+
+835
+00:29:20,126 --> 00:29:21,906
+A view has a frame.
+
+
+836
+00:29:22,946 --> 00:29:25,646
+And the underlying thing that
+
+
+837
+00:29:25,716 --> 00:29:27,746
+drives both display priority to
+
+
+838
+00:29:27,746 --> 00:29:30,016
+hiding things and clustering is
+
+
+839
+00:29:30,016 --> 00:29:31,976
+that annotations must be able to
+
+
+840
+00:29:31,976 --> 00:29:33,716
+detect if they are overlapping.
+
+
+841
+00:29:34,956 --> 00:29:36,426
+And since we are views and we
+
+
+842
+00:29:36,426 --> 00:29:38,756
+have a frame, we can just use
+
+
+843
+00:29:38,756 --> 00:29:39,986
+that frame and detect a
+
+
+844
+00:29:39,986 --> 00:29:40,396
+collision.
+
+
+845
+00:29:41,856 --> 00:29:43,546
+Now this doesn't look good.
+
+
+846
+00:29:44,236 --> 00:29:46,216
+I mean, they're circles, yes.
+
+
+847
+00:29:46,216 --> 00:29:48,356
+The frames are colliding but
+
+
+848
+00:29:48,356 --> 00:29:50,316
+visually they are not really
+
+
+849
+00:29:50,316 --> 00:29:50,996
+colliding yet.
+
+
+850
+00:29:51,066 --> 00:29:52,926
+So, this is not quite what we
+
+
+851
+00:29:52,926 --> 00:29:53,316
+want.
+
+
+852
+00:29:53,686 --> 00:29:56,036
+So, we add one more property on
+
+
+853
+00:29:56,116 --> 00:29:56,836
+AnnotationView.
+
+
+854
+00:29:56,936 --> 00:29:58,056
+We call it collisionMode.
+
+
+855
+00:29:58,776 --> 00:30:00,846
+The default value is rectangle.
+
+
+856
+00:30:01,486 --> 00:30:03,546
+So, we have to use the frame.
+
+
+857
+00:30:04,196 --> 00:30:06,046
+The other option we have is
+
+
+858
+00:30:06,046 --> 00:30:06,596
+circle.
+
+
+859
+00:30:07,516 --> 00:30:09,016
+Where we use the inscribed
+
+
+860
+00:30:09,016 --> 00:30:11,956
+circle of the frame for the
+
+
+861
+00:30:11,956 --> 00:30:13,156
+annotation.
+
+
+862
+00:30:13,226 --> 00:30:14,446
+And now when we move them
+
+
+863
+00:30:14,446 --> 00:30:17,236
+together, they collide and
+
+
+864
+00:30:17,236 --> 00:30:18,806
+detect a collision when they are
+
+
+865
+00:30:18,806 --> 00:30:19,896
+visually colliding.
+
+
+866
+00:30:20,646 --> 00:30:23,796
+Now, not all AnnotationViews are
+
+
+867
+00:30:23,796 --> 00:30:25,996
+perfect boxes.
+
+
+868
+00:30:26,216 --> 00:30:27,406
+Some of them are actually
+
+
+869
+00:30:27,406 --> 00:30:28,146
+rectangles.
+
+
+870
+00:30:28,636 --> 00:30:30,406
+And for collisionMode rectangle,
+
+
+871
+00:30:30,976 --> 00:30:32,926
+yes, the collision is with the
+
+
+872
+00:30:32,926 --> 00:30:33,566
+rectangle.
+
+
+873
+00:30:33,816 --> 00:30:35,546
+But if you change it to the
+
+
+874
+00:30:35,546 --> 00:30:37,746
+circle, it is a circle.
+
+
+875
+00:30:37,956 --> 00:30:40,256
+So, we use the inscribed circle
+
+
+876
+00:30:40,336 --> 00:30:41,836
+in the rectangle, not the
+
+
+877
+00:30:41,836 --> 00:30:43,376
+inscribed ellipses.
+
+
+878
+00:30:44,646 --> 00:30:45,916
+It's important to take a little
+
+
+879
+00:30:45,916 --> 00:30:46,736
+bit of note there.
+
+
+880
+00:30:47,106 --> 00:30:49,936
+So, not everything is rectangles
+
+
+881
+00:30:49,936 --> 00:30:50,996
+or circles either.
+
+
+882
+00:30:50,996 --> 00:30:51,996
+We might have something a little
+
+
+883
+00:30:51,996 --> 00:30:52,966
+bit more fancy, like
+
+
+884
+00:30:53,446 --> 00:30:55,776
+nice-looking 3D rendered golf
+
+
+885
+00:30:55,776 --> 00:30:58,256
+clubs for our golf application
+
+
+886
+00:30:58,606 --> 00:31:00,566
+that is displayed in flyover.
+
+
+887
+00:31:00,726 --> 00:31:02,626
+And as we tilt the map in 3D and
+
+
+888
+00:31:02,626 --> 00:31:04,236
+we move them together, we want
+
+
+889
+00:31:04,236 --> 00:31:05,196
+them to actually overlap a
+
+
+890
+00:31:05,196 --> 00:31:06,716
+little bit because it looks
+
+
+891
+00:31:06,716 --> 00:31:07,016
+cool.
+
+
+892
+00:31:07,796 --> 00:31:09,056
+It looks really nice, actually.
+
+
+893
+00:31:09,476 --> 00:31:10,806
+So, if we use just the
+
+
+894
+00:31:10,806 --> 00:31:13,306
+rectangles, they are way past
+
+
+895
+00:31:13,306 --> 00:31:16,226
+when we want them to detect
+
+
+896
+00:31:16,266 --> 00:31:16,716
+collision.
+
+
+897
+00:31:17,196 --> 00:31:19,436
+If we use the circles, no.
+
+
+898
+00:31:19,596 --> 00:31:21,056
+it doesn't really fit either.
+
+
+899
+00:31:21,056 --> 00:31:22,486
+I mean, what we really want is
+
+
+900
+00:31:22,486 --> 00:31:23,536
+something a little bit more
+
+
+901
+00:31:23,536 --> 00:31:25,566
+close to this which would be the
+
+
+902
+00:31:25,566 --> 00:31:26,666
+circle in the bottom with the
+
+
+903
+00:31:26,666 --> 00:31:30,076
+five-point outset option that we
+
+
+904
+00:31:30,076 --> 00:31:31,056
+did not give you [laughter].
+
+
+905
+00:31:32,916 --> 00:31:34,126
+You don't have that option,
+
+
+906
+00:31:34,236 --> 00:31:34,536
+sorry.
+
+
+907
+00:31:35,556 --> 00:31:38,256
+Instead, we went back to all the
+
+
+908
+00:31:38,256 --> 00:31:39,716
+way when outer layout was
+
+
+909
+00:31:39,716 --> 00:31:42,446
+introduced to both iOS and macOS
+
+
+910
+00:31:42,446 --> 00:31:43,596
+in the year before.
+
+
+911
+00:31:43,976 --> 00:31:45,096
+And you have the alignment
+
+
+912
+00:31:45,096 --> 00:31:46,996
+rectangle insets which are the
+
+
+913
+00:31:46,996 --> 00:31:49,126
+options that say that you can
+
+
+914
+00:31:49,126 --> 00:31:51,546
+configure if two views re to be
+
+
+915
+00:31:51,546 --> 00:31:53,686
+aligned next to each other, what
+
+
+916
+00:31:53,686 --> 00:31:56,246
+kind of insets would they use to
+
+
+917
+00:31:56,246 --> 00:31:57,526
+look visually pleasing?
+
+
+918
+00:31:58,196 --> 00:31:59,626
+Which is just what we're doing
+
+
+919
+00:31:59,626 --> 00:32:00,776
+here with the AnnotationViews,
+
+
+920
+00:32:00,776 --> 00:32:01,006
+right?
+
+
+921
+00:32:01,656 --> 00:32:03,396
+What is the visually pleasing
+
+
+922
+00:32:04,166 --> 00:32:05,476
+collision rectangle.
+
+
+923
+00:32:05,776 --> 00:32:07,016
+So, all you need to do.
+
+
+924
+00:32:07,386 --> 00:32:09,726
+Override it and you provide
+
+
+925
+00:32:09,726 --> 00:32:10,176
+offset.
+
+
+926
+00:32:10,356 --> 00:32:11,946
+So, for the top we can set it to
+
+
+927
+00:32:11,946 --> 00:32:13,836
+50 points and we move the
+
+
+928
+00:32:14,056 --> 00:32:15,156
+collision area down.
+
+
+929
+00:32:15,676 --> 00:32:17,596
+The left edge, 0, we don't need
+
+
+930
+00:32:17,706 --> 00:32:19,026
+to change it at all.
+
+
+931
+00:32:19,406 --> 00:32:21,176
+The bottom edge we move out by
+
+
+932
+00:32:21,176 --> 00:32:23,326
+negative 5, because we want an
+
+
+933
+00:32:23,426 --> 00:32:24,746
+outset, not an inset.
+
+
+934
+00:32:25,206 --> 00:32:26,966
+And then we do the right edge as
+
+
+935
+00:32:26,966 --> 00:32:27,256
+well.
+
+
+936
+00:32:27,726 --> 00:32:30,756
+And what we have is that little
+
+
+937
+00:32:31,056 --> 00:32:32,966
+circle in the bottom left outset
+
+
+938
+00:32:32,966 --> 00:32:34,876
+by 5 points, just as we wanted.
+
+
+939
+00:32:35,426 --> 00:32:38,356
+And when we now collide them, it
+
+
+940
+00:32:38,356 --> 00:32:40,366
+looks very visually pleasing.
+
+
+941
+00:32:41,256 --> 00:32:42,946
+Let's look at the code to
+
+
+942
+00:32:42,946 --> 00:32:44,166
+configure our custom
+
+
+943
+00:32:44,166 --> 00:32:45,156
+AnnotationViews.
+
+
+944
+00:32:45,516 --> 00:32:48,816
+And a few tips and tricks to
+
+
+945
+00:32:48,816 --> 00:32:50,516
+make our code base a little bit
+
+
+946
+00:32:50,516 --> 00:32:53,186
+more modern and nice.
+
+
+947
+00:32:54,046 --> 00:32:55,466
+There we go.
+
+
+948
+00:32:57,256 --> 00:32:59,876
+So, let's run the application
+
+
+949
+00:32:59,876 --> 00:33:01,816
+first so we see that it works.
+
+
+950
+00:33:04,196 --> 00:33:05,366
+Build succeeded.
+
+
+951
+00:33:05,806 --> 00:33:06,506
+Compiling.
+
+
+952
+00:33:07,106 --> 00:33:07,806
+It is running.
+
+
+953
+00:33:08,796 --> 00:33:12,426
+And we have the collision when
+
+
+954
+00:33:12,426 --> 00:33:13,476
+we move them together.
+
+
+955
+00:33:14,286 --> 00:33:15,116
+They collide out.
+
+
+956
+00:33:16,156 --> 00:33:16,806
+So, it works.
+
+
+957
+00:33:18,196 --> 00:33:20,646
+Now, looking at the code, we
+
+
+958
+00:33:20,646 --> 00:33:23,056
+have our mapView, viewFor
+
+
+959
+00:33:23,056 --> 00:33:23,686
+annotation.
+
+
+960
+00:33:25,016 --> 00:33:26,346
+The first thing we do is we
+
+
+961
+00:33:26,346 --> 00:33:28,386
+check if that is one of our own
+
+
+962
+00:33:28,386 --> 00:33:29,226
+annotations.
+
+
+963
+00:33:29,486 --> 00:33:34,606
+And if it is, we configure it a
+
+
+964
+00:33:34,606 --> 00:33:36,346
+lot to set it up.
+
+
+965
+00:33:37,266 --> 00:33:39,856
+And otherwise we check if it's
+
+
+966
+00:33:39,856 --> 00:33:41,206
+the system-provided
+
+
+967
+00:33:41,616 --> 00:33:42,706
+ClusterAnnotation.
+
+
+968
+00:33:43,396 --> 00:33:46,246
+And if it is, we configure it
+
+
+969
+00:33:46,246 --> 00:33:46,986
+differently.
+
+
+970
+00:33:48,016 --> 00:33:50,286
+And for the else case, we just
+
+
+971
+00:33:50,286 --> 00:33:51,846
+return nil to get the system
+
+
+972
+00:33:51,846 --> 00:33:52,406
+default.
+
+
+973
+00:33:52,886 --> 00:33:54,526
+Currently that would be called
+
+
+974
+00:33:54,526 --> 00:33:57,156
+for all the user locations, but
+
+
+975
+00:33:57,156 --> 00:33:58,836
+it might be that we add more
+
+
+976
+00:33:58,996 --> 00:34:00,226
+system annotations in the
+
+
+977
+00:34:00,226 --> 00:34:00,696
+future.
+
+
+978
+00:34:00,696 --> 00:34:02,106
+So, good take.
+
+
+979
+00:34:02,776 --> 00:34:05,006
+Don't check for user location by
+
+
+980
+00:34:05,006 --> 00:34:05,486
+default.
+
+
+981
+00:34:05,986 --> 00:34:07,616
+Do the else case, return nil,
+
+
+982
+00:34:07,616 --> 00:34:08,795
+and let the system do the right
+
+
+983
+00:34:08,826 --> 00:34:11,386
+thing for all the other cases.
+
+
+984
+00:34:12,376 --> 00:34:15,795
+Now, this is a lot of code, in
+
+
+985
+00:34:15,795 --> 00:34:18,436
+our view controller nonetheless,
+
+
+986
+00:34:18,755 --> 00:34:19,946
+and it doesn't really have
+
+
+987
+00:34:19,946 --> 00:34:21,856
+anything to do with how it's
+
+
+988
+00:34:21,856 --> 00:34:24,606
+going to be displayed or rather
+
+
+989
+00:34:24,606 --> 00:34:26,096
+it is all how it's going to be
+
+
+990
+00:34:26,096 --> 00:34:26,565
+displayed.
+
+
+991
+00:34:26,856 --> 00:34:29,005
+So, I don't think this should be
+
+
+992
+00:34:29,005 --> 00:34:30,136
+in the view controller.
+
+
+993
+00:34:30,746 --> 00:34:35,906
+So, if I grab here and drag in a
+
+
+994
+00:34:35,976 --> 00:34:39,416
+couple of views to my project, I
+
+
+995
+00:34:39,416 --> 00:34:43,045
+think that first of all I know I
+
+
+996
+00:34:43,045 --> 00:34:44,996
+need to add these files to the
+
+
+997
+00:34:45,126 --> 00:34:47,085
+target or it won't compile.
+
+
+998
+00:34:47,606 --> 00:34:48,045
+There we go.
+
+
+999
+00:34:48,946 --> 00:34:51,966
+Another good tip is in your
+
+
+1000
+00:34:51,966 --> 00:34:54,505
+AnnotationViews, you can
+
+
+1001
+00:34:54,505 --> 00:34:56,126
+override the set annotation
+
+
+1002
+00:34:56,126 --> 00:34:58,186
+method and do the configuration
+
+
+1003
+00:34:58,186 --> 00:34:58,516
+there.
+
+
+1004
+00:34:58,886 --> 00:35:00,416
+So, here I have the same thing.
+
+
+1005
+00:35:00,416 --> 00:35:02,036
+I know I will get a bike.
+
+
+1006
+00:35:02,326 --> 00:35:04,746
+And if I get a bike, I configure
+
+
+1007
+00:35:04,746 --> 00:35:07,066
+it, set it up, and be done with
+
+
+1008
+00:35:08,486 --> 00:35:08,876
+it.
+
+
+1009
+00:35:08,876 --> 00:35:11,426
+The, this will allow me to go
+
+
+1010
+00:35:11,746 --> 00:35:20,276
+back here and delete all of
+
+
+1011
+00:35:20,276 --> 00:35:20,726
+this.
+
+
+1012
+00:35:21,086 --> 00:35:23,846
+No, actually, not that one.
+
+
+1013
+00:35:23,996 --> 00:35:25,776
+And delete all of this, because
+
+
+1014
+00:35:25,776 --> 00:35:27,816
+it's really not fitting there in
+
+
+1015
+00:35:27,816 --> 00:35:28,656
+the view controller.
+
+
+1016
+00:35:28,656 --> 00:35:30,116
+It gets a lot, lot smaller.
+
+
+1017
+00:35:31,546 --> 00:35:33,716
+Another thing that might annoy
+
+
+1018
+00:35:33,906 --> 00:35:38,276
+SWF developers is that this view
+
+
+1019
+00:35:38,276 --> 00:35:40,376
+here is an optional.
+
+
+1020
+00:35:40,986 --> 00:35:42,926
+We really don't want optionals.
+
+
+1021
+00:35:43,986 --> 00:35:47,416
+So, we want it to be normal
+
+
+1022
+00:35:47,416 --> 00:35:48,536
+required variable.
+
+
+1023
+00:35:49,146 --> 00:35:52,326
+Now, the DQ reusable annotation
+
+
+1024
+00:35:52,416 --> 00:35:56,416
+with view do return an optional.
+
+
+1025
+00:35:57,366 --> 00:36:00,296
+But we fixed that and give you a
+
+
+1026
+00:36:00,296 --> 00:36:00,876
+sibling.
+
+
+1027
+00:36:01,546 --> 00:36:04,506
+The DQ reusable annotation with
+
+
+1028
+00:36:04,506 --> 00:36:07,116
+identifier for annotation.
+
+
+1029
+00:36:07,976 --> 00:36:09,556
+It is modeled after the DQ
+
+
+1030
+00:36:09,556 --> 00:36:11,676
+methods on UITableView and
+
+
+1031
+00:36:11,676 --> 00:36:12,706
+UICollectionView.
+
+
+1032
+00:36:13,366 --> 00:36:15,016
+So, it will always return an
+
+
+1033
+00:36:15,016 --> 00:36:15,636
+instance.
+
+
+1034
+00:36:15,886 --> 00:36:21,066
+Let's give it a, oops.
+
+
+1035
+00:36:21,546 --> 00:36:27,446
+Yeah. That's how you type.
+
+
+1036
+00:36:27,446 --> 00:36:30,356
+And the annotation.
+
+
+1037
+00:36:30,896 --> 00:36:32,546
+You might notice I did not have
+
+
+1038
+00:36:32,546 --> 00:36:33,326
+US keyboard here.
+
+
+1039
+00:36:34,176 --> 00:36:36,976
+And by doing that, we no longer
+
+
+1040
+00:36:37,566 --> 00:36:40,206
+have to do the if check for did
+
+
+1041
+00:36:40,206 --> 00:36:42,886
+we actually do it and create it
+
+
+1042
+00:36:42,886 --> 00:36:43,296
+instead.
+
+
+1043
+00:36:43,916 --> 00:36:45,346
+We don't have to set the
+
+
+1044
+00:36:45,346 --> 00:36:46,866
+annotation, because we give it
+
+
+1045
+00:36:46,946 --> 00:36:48,256
+to the initializer.
+
+
+1046
+00:36:48,786 --> 00:36:49,936
+And we can just delete this.
+
+
+1047
+00:36:50,916 --> 00:36:52,656
+Actually, let's go one further.
+
+
+1048
+00:36:53,866 --> 00:36:56,566
+We can delete all of this.
+
+
+1049
+00:36:56,606 --> 00:36:57,726
+We don't need that.
+
+
+1050
+00:36:58,556 --> 00:37:00,586
+Because we can register our
+
+
+1051
+00:37:00,586 --> 00:37:04,576
+AnnotationViews to use for reuse
+
+
+1052
+00:37:04,576 --> 00:37:05,606
+identifiers.
+
+
+1053
+00:37:06,456 --> 00:37:08,666
+So, just as with the TableViews
+
+
+1054
+00:37:09,196 --> 00:37:10,816
+and CollectionViews, we have
+
+
+1055
+00:37:10,996 --> 00:37:13,406
+tell the map view here, I want
+
+
+1056
+00:37:13,406 --> 00:37:14,086
+to register.
+
+
+1057
+00:37:14,476 --> 00:37:17,596
+And use the bike view class for
+
+
+1058
+00:37:17,596 --> 00:37:20,516
+any view with the reuse
+
+
+1059
+00:37:20,516 --> 00:37:22,746
+identifier that could be of your
+
+
+1060
+00:37:22,746 --> 00:37:24,666
+choosing or one of the two
+
+
+1061
+00:37:25,066 --> 00:37:26,566
+constants that we provide for
+
+
+1062
+00:37:26,566 --> 00:37:26,776
+you.
+
+
+1063
+00:37:27,146 --> 00:37:29,746
+The default annotation view
+
+
+1064
+00:37:29,986 --> 00:37:31,496
+which we use for any single
+
+
+1065
+00:37:31,496 --> 00:37:33,006
+annotation view created by the
+
+
+1066
+00:37:33,006 --> 00:37:35,606
+system and the default
+
+
+1067
+00:37:35,796 --> 00:37:37,526
+ClusterAnnotation view that we
+
+
+1068
+00:37:37,526 --> 00:37:39,826
+use for any system annotation
+
+
+1069
+00:37:39,826 --> 00:37:40,006
+view.
+
+
+1070
+00:37:40,876 --> 00:37:49,226
+And now when we run it, it
+
+
+1071
+00:37:49,496 --> 00:37:50,186
+compiles.
+
+
+1072
+00:37:50,626 --> 00:37:52,496
+It runs. It launches.
+
+
+1073
+00:37:53,066 --> 00:37:55,236
+And as we move them together
+
+
+1074
+00:37:55,866 --> 00:37:57,636
+with no code, they merge.
+
+
+1075
+00:37:58,996 --> 00:38:01,136
+And when we group them, we get
+
+
+1076
+00:38:01,136 --> 00:38:02,626
+the nice little pie chart.
+
+
+1077
+00:38:03,506 --> 00:38:05,416
+And that is a few tips and
+
+
+1078
+00:38:05,416 --> 00:38:06,586
+tricks for how to make
+
+
+1079
+00:38:06,586 --> 00:38:08,686
+AnnotationViews a lot easier.
+
+
+1080
+00:38:09,456 --> 00:38:10,406
+Let's go back to the slides.
+
+
+1081
+00:38:11,516 --> 00:38:14,516
+[ Applause ]
+
+
+1082
+00:38:15,016 --> 00:38:19,216
+So, thank you for being here.
+
+
+1083
+00:38:19,846 --> 00:38:21,036
+Today we covered a lot of
+
+
+1084
+00:38:21,036 --> 00:38:21,376
+things.
+
+
+1085
+00:38:21,826 --> 00:38:25,286
+First we have the new map type,
+
+
+1086
+00:38:25,286 --> 00:38:28,566
+the muted standard, that allows
+
+
+1087
+00:38:28,566 --> 00:38:30,786
+your data to stand out on your
+
+
+1088
+00:38:30,786 --> 00:38:32,326
+map in your application.
+
+
+1089
+00:38:33,146 --> 00:38:35,446
+We give you all of the map
+
+
+1090
+00:38:35,516 --> 00:38:37,936
+controls as proper views so you
+
+
+1091
+00:38:37,936 --> 00:38:40,266
+can configure in to display them
+
+
+1092
+00:38:40,266 --> 00:38:42,576
+where and when it makes sense
+
+
+1093
+00:38:42,576 --> 00:38:43,666
+with the context of your
+
+
+1094
+00:38:43,666 --> 00:38:44,516
+applications.
+
+
+1095
+00:38:45,066 --> 00:38:45,686
+We have the new
+
+
+1096
+00:38:45,686 --> 00:38:47,506
+MarkerAnnotationView that
+
+
+1097
+00:38:47,506 --> 00:38:49,736
+displays a lot more information
+
+
+1098
+00:38:49,736 --> 00:38:51,486
+about your data at a glance
+
+
+1099
+00:38:51,486 --> 00:38:53,176
+without having to dig in and out
+
+
+1100
+00:38:53,176 --> 00:38:54,296
+of the data all the time.
+
+
+1101
+00:38:54,976 --> 00:38:57,006
+And the MarkerAnnotationView
+
+
+1102
+00:38:57,006 --> 00:38:59,386
+works beautiful with the new
+
+
+1103
+00:38:59,416 --> 00:39:03,206
+APIs for display priority and
+
+
+1104
+00:39:03,236 --> 00:39:06,276
+clustering to get your data a
+
+
+1105
+00:39:06,276 --> 00:39:08,906
+lot more nicer looking and less
+
+
+1106
+00:39:09,426 --> 00:39:10,236
+cluttered map.
+
+
+1107
+00:39:10,946 --> 00:39:13,556
+For more information, go to this
+
+
+1108
+00:39:13,556 --> 00:39:14,036
+website.
+
+
+1109
+00:39:14,776 --> 00:39:17,666
+There is also the sample code
+
+
+1110
+00:39:17,766 --> 00:39:19,146
+for the application I've been
+
+
+1111
+00:39:19,446 --> 00:39:20,326
+showing you today.
+
+
+1112
+00:39:20,906 --> 00:39:22,466
+Please play around with it and
+
+
+1113
+00:39:22,466 --> 00:39:24,106
+see what great things can be
+
+
+1114
+00:39:24,106 --> 00:39:24,446
+done.
+
+
+1115
+00:39:24,796 --> 00:39:26,376
+I'm very excited to see what you
+
+
+1116
+00:39:26,376 --> 00:39:28,646
+will do with this.
+
+
+1117
+00:39:29,186 --> 00:39:30,456
+Also, go back and watch the
+
+
+1118
+00:39:30,456 --> 00:39:32,486
+videos for What's New in
+
+
+1119
+00:39:32,706 --> 00:39:34,116
+Location Technologies from
+
+
+1120
+00:39:34,116 --> 00:39:34,666
+yesterday.
+
+
+1121
+00:39:34,966 --> 00:39:36,956
+And What's New in MapKit from
+
+
+1122
+00:39:36,956 --> 00:39:38,136
+2015.
+
+
+1123
+00:39:38,636 --> 00:39:39,416
+Thank you very much.
+
+
+1124
+00:39:40,508 --> 00:39:42,508
+[ Applause ]
+
